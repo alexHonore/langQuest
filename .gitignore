@@ -1,0 +1,25 @@
+# secrets
+.env
+.env.*
+!.env.example
+*.pem
+.dev.vars
+.dev.vars.*
+# deps/build
+node_modules/
+dist/
+build/
+.next/
+.expo/
+.turbo/
+.wrangler/
+coverage/
+*.tsbuildinfo
+# data
+data/raw/
+data/tmp/
+# os
+.DS_Store
+# local supabase
+supabase/.temp/
+supabase/.branches/

@@ -1,0 +1,5930 @@
+{
+ "transcription": [
+  {
+   "id": "assemblyai/universal-3-6-pro",
+   "name": "AssemblyAI: Universal-3.6 Pro",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.0000833333",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "elevenlabs/scribe-v2",
+   "name": "ElevenLabs: Scribe v2",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.00003055555555555",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "elevenlabs/scribe-v2-medical",
+   "name": "ElevenLabs: Scribe v2 Medical",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.00003055555555555",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "google/gemini-3.5-transcribe",
+   "name": "Google: Gemini 3.5 Transcribe",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0.000012"
+   },
+   "context": 98304,
+   "supported_parameters": []
+  },
+  {
+   "id": "fish-audio/transcribe-1-pro",
+   "name": "Fish Audio: Transcribe 1 Pro",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.0001",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "assemblyai/universal-3-5-pro",
+   "name": "AssemblyAI: Universal-3.5 Pro",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.0000833333",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "meta/muse-voice-transcribe-1.0",
+   "name": "Meta: Muse Voice Transcribe 1.0",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.00005",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "microsoft/mai-transcribe-2",
+   "name": "Microsoft AI: MAI-Transcribe 2",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.1",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "nvidia/nemotron-3.5-asr-streaming-multilingual-0.6b",
+   "name": "NVIDIA: Nemotron 3.5 ASR Streaming Multilingual 0.6B",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.00000333",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "mistralai/voxtral-small-24b-2507-stt",
+   "name": "Mistral: Voxtral Small 24B 2507 STT",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.00005",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "mistralai/voxtral-mini-3b-2507",
+   "name": "Mistral: Voxtral Mini 3B 2507",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.0000166667",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "qwen/qwen3-asr-1.7b",
+   "name": "Qwen: Qwen3 ASR 1.7B",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.0000075",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "qwen/qwen3-asr-0.6b",
+   "name": "Qwen: Qwen3 ASR 0.6B",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.00000333",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "openai/gpt-transcribe",
+   "name": "OpenAI: GPT Transcribe",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.000075",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "fish-audio/transcribe-1",
+   "name": "Fish Audio: Transcribe 1",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.0001",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "x-ai/grok-stt-1.0",
+   "name": "SpaceXAI: Grok STT 1.0",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.0000277777777778",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "deepgram/nova-3",
+   "name": "Deepgram: Nova-3",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.0000716666666667",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "microsoft/mai-transcribe-1.5",
+   "name": "Microsoft AI: MAI-Transcribe 1.5",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.36",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "nvidia/parakeet-tdt-0.6b-v3",
+   "name": "NVIDIA: Parakeet TDT 0.6B v3",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.000025",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "mistralai/voxtral-mini-transcribe",
+   "name": "Mistral: Voxtral Mini Transcribe",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.00005",
+    "completion": "0"
+   },
+   "context": 16384,
+   "supported_parameters": []
+  },
+  {
+   "id": "google/chirp-3",
+   "name": "Google: Chirp 3",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.000266666666667",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "openai/gpt-4o-mini-transcribe",
+   "name": "OpenAI: GPT-4o Mini Transcribe",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.00000125",
+    "completion": "0.000005"
+   },
+   "context": 128000,
+   "supported_parameters": []
+  },
+  {
+   "id": "openai/whisper-large-v3",
+   "name": "OpenAI: Whisper Large V3",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.0000075",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "openai/whisper-large-v3-turbo",
+   "name": "OpenAI: Whisper Large V3 Turbo",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.00000333",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "openai/whisper-1",
+   "name": "OpenAI: Whisper 1",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.0001",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "openai/gpt-4o-transcribe",
+   "name": "OpenAI: GPT-4o Transcribe",
+   "input": [
+    "audio"
+   ],
+   "output": [
+    "transcription"
+   ],
+   "pricing": {
+    "prompt": "0.0000025",
+    "completion": "0.00001"
+   },
+   "context": 128000,
+   "supported_parameters": []
+  }
+ ],
+ "speech": [
+  {
+   "id": "heygen/heygen-voice-1",
+   "name": "HeyGen: HeyGen Voice",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.000015",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "heygen/heygen-voice-1-turbo",
+   "name": "HeyGen: HeyGen Voice Turbo",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.0000075",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "fish-audio/drama-3",
+   "name": "Fish Audio: Drama 3",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.000002",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "elevenlabs/eleven-v4",
+   "name": "ElevenLabs: Eleven v4",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.00004",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "elevenlabs/eleven-v4-turbo",
+   "name": "ElevenLabs: Eleven v4 Turbo",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.00002",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "elevenlabs/eleven-v3",
+   "name": "ElevenLabs: Eleven v3",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.00004",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "elevenlabs/eleven-v3-conversational",
+   "name": "ElevenLabs: Eleven v3 Conversational",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.00002",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "elevenlabs/eleven-flash-v2.5",
+   "name": "ElevenLabs: Eleven Flash v2.5",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.00002",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "elevenlabs/eleven-turbo-v2",
+   "name": "ElevenLabs: Eleven Turbo v2",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.00002",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "elevenlabs/eleven-multilingual-v2",
+   "name": "ElevenLabs: Eleven Multilingual v2",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.00004",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "elevenlabs/eleven-turbo-v2.5",
+   "name": "ElevenLabs: Eleven Turbo v2.5",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.00002",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "elevenlabs/eleven-flash-v2",
+   "name": "ElevenLabs: Eleven Flash v2",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.00002",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "microsoft/mai-voice-2.1-flash",
+   "name": "Microsoft AI: MAI-Voice-2.1-Flash",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.000015",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "microsoft/mai-voice-2.1",
+   "name": "Microsoft AI: MAI-Voice-2.1",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.000022",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "bytedance-seed/seed-audio-1-0",
+   "name": "ByteDance Seed: Seed Audio 1.0",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0",
+    "completion": "0.0025"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "google/gemini-3.8-flash-lite-tts",
+   "name": "Google: Gemini 3.8 Flash Lite TTS",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.0000005",
+    "completion": "0.000006"
+   },
+   "context": 32768,
+   "supported_parameters": []
+  },
+  {
+   "id": "google/gemini-3.8-flash-tts",
+   "name": "Google: Gemini 3.8 Flash TTS",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.0000005",
+    "completion": "0.000009"
+   },
+   "context": 32768,
+   "supported_parameters": []
+  },
+  {
+   "id": "deepgram/flux-tts",
+   "name": "Deepgram: Flux TTS",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.000045",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "fish-audio/s1",
+   "name": "Fish Audio: S1",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.000015",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "fish-audio/s2-pro",
+   "name": "Fish Audio: S2 Pro",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.000015",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "fish-audio/s2.1-pro-free:free",
+   "name": "Fish Audio: S2.1 Pro Free (free)",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "fish-audio/s2.1-pro",
+   "name": "Fish Audio: S2.1 Pro",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.000015",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "microsoft/mai-voice-2-flash",
+   "name": "Microsoft AI: MAI-Voice-2-Flash",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.000015",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "qwen/qwen-audio-3.0-tts-flash",
+   "name": "Qwen: Qwen-Audio-3.0-TTS Flash",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.000015",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "qwen/qwen-audio-3.0-tts-plus",
+   "name": "Qwen: Qwen-Audio-3.0-TTS Plus",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.00002",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "deepgram/aura-2",
+   "name": "Deepgram: Aura-2",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.00003",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "minimax/speech-2.8-hd",
+   "name": "MiniMax: Speech 2.8 HD",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.0001",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "minimax/speech-2.8-turbo",
+   "name": "MiniMax: Speech 2.8 Turbo",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.00006",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "microsoft/mai-voice-2",
+   "name": "Microsoft AI: MAI-Voice-2",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.000022",
+    "completion": "0"
+   },
+   "context": 0,
+   "supported_parameters": []
+  },
+  {
+   "id": "x-ai/grok-voice-tts-1.0",
+   "name": "SpaceXAI: Grok Voice TTS 1.0",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.000015",
+    "completion": "0"
+   },
+   "context": 15000,
+   "supported_parameters": []
+  },
+  {
+   "id": "google/gemini-3.1-flash-tts-preview",
+   "name": "Google: Gemini 3.1 Flash TTS Preview",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.000001",
+    "completion": "0.00002"
+   },
+   "context": 32768,
+   "supported_parameters": []
+  },
+  {
+   "id": "canopylabs/orpheus-3b-0.1-ft",
+   "name": "Canopy Labs: Orpheus 3B",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.000007",
+    "completion": "0"
+   },
+   "context": 4096,
+   "supported_parameters": []
+  },
+  {
+   "id": "sesame/csm-1b",
+   "name": "Sesame: CSM 1B",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.000007",
+    "completion": "0"
+   },
+   "context": 4096,
+   "supported_parameters": []
+  },
+  {
+   "id": "hexgrad/kokoro-82m",
+   "name": "hexgrad: Kokoro 82M",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.00000062",
+    "completion": "0"
+   },
+   "context": 4096,
+   "supported_parameters": []
+  },
+  {
+   "id": "mistralai/voxtral-mini-tts-2603",
+   "name": "Mistral: Voxtral Mini TTS",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "speech"
+   ],
+   "pricing": {
+    "prompt": "0.000016",
+    "completion": "0"
+   },
+   "context": 4096,
+   "supported_parameters": []
+  }
+ ],
+ "chat_candidates": [
+  {
+   "id": "anthropic/claude-haiku-5.5",
+   "name": "Anthropic: Claude Haiku 5.5",
+   "ctx": 1000000,
+   "prompt": "0.0000001",
+   "completion": "0.0000005",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-haiku-5.5:batch",
+   "name": "Anthropic: Claude Haiku 5.5 (batch)",
+   "ctx": 1000000,
+   "prompt": "0.00000005",
+   "completion": "0.00000025",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-sonnet-5.5",
+   "name": "Anthropic: Claude Sonnet 5.5",
+   "ctx": 1000000,
+   "prompt": "0.000002",
+   "completion": "0.00001",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-sonnet-5.5:batch",
+   "name": "Anthropic: Claude Sonnet 5.5 (batch)",
+   "ctx": 1000000,
+   "prompt": "0.000001",
+   "completion": "0.000005",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.8-max-prime",
+   "name": "Qwen: Qwen3.8 Max Prime",
+   "ctx": 1000000,
+   "prompt": "0.000004",
+   "completion": "0.000012",
+   "input": [
+    "text",
+    "image",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "anthropic/claude-opus-5.5",
+   "name": "Anthropic: Claude Opus 5.5",
+   "ctx": 1000000,
+   "prompt": "0.000004",
+   "completion": "0.00002",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-opus-5.5:batch",
+   "name": "Anthropic: Claude Opus 5.5 (batch)",
+   "ctx": 1000000,
+   "prompt": "0.000002",
+   "completion": "0.00001",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.8-omni-flash",
+   "name": "Qwen: Qwen3.8 Omni Flash",
+   "ctx": 1000000,
+   "prompt": "0.00000015",
+   "completion": "0.00000047",
+   "input": [
+    "text",
+    "image",
+    "audio",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "deepseek/deepseek-v4.1-flash",
+   "name": "DeepSeek: DeepSeek V4.1 Flash",
+   "ctx": 1048576,
+   "prompt": "0.00000001584",
+   "completion": "0.000000891",
+   "input": [
+    "text",
+    "image"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "deepseek/deepseek-v4.1-flash:batch",
+   "name": "DeepSeek: DeepSeek V4.1 Flash (batch)",
+   "ctx": 1048576,
+   "prompt": "0.000000112",
+   "completion": "0.000000336",
+   "input": [
+    "text",
+    "image"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.8-max-0902",
+   "name": "Qwen: Qwen3.8 Max (0902)",
+   "ctx": 1000000,
+   "prompt": "0.000002",
+   "completion": "0.000006",
+   "input": [
+    "text",
+    "image",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "google/gemini-3.8-flash",
+   "name": "Google: Gemini 3.8 Flash",
+   "ctx": 1048576,
+   "prompt": "0.00000075",
+   "completion": "0.00000375",
+   "input": [
+    "text",
+    "image",
+    "video",
+    "file",
+    "audio"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "google/gemini-3.8-flash:batch",
+   "name": "Google: Gemini 3.8 Flash (batch)",
+   "ctx": 1048576,
+   "prompt": "0.000000375",
+   "completion": "0.000001875",
+   "input": [
+    "text",
+    "image",
+    "video",
+    "file",
+    "audio"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools"
+   ]
+  },
+  {
+   "id": "anthropic/claude-fable-5.1",
+   "name": "Anthropic: Claude Fable 5.1",
+   "ctx": 1000000,
+   "prompt": "0.00001",
+   "completion": "0.00005",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-fable-5.1:batch",
+   "name": "Anthropic: Claude Fable 5.1 (batch)",
+   "ctx": 1000000,
+   "prompt": "0.000005",
+   "completion": "0.000025",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.8-flash",
+   "name": "Qwen: Qwen3.8 Flash",
+   "ctx": 1000000,
+   "prompt": "0.00000015",
+   "completion": "0.00000047",
+   "input": [
+    "text",
+    "image",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "deepseek/deepseek-v4-flash-vision-exp",
+   "name": "DeepSeek: DeepSeek V4 Flash Vision Exp",
+   "ctx": 1048576,
+   "prompt": "0.0000002156",
+   "completion": "0.0000006468",
+   "input": [
+    "text",
+    "image"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.8-27b",
+   "name": "Qwen: Qwen3.8 27B",
+   "ctx": 1000000,
+   "prompt": "0.00000004",
+   "completion": "0.0000023",
+   "input": [
+    "text",
+    "image",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_a",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "google/gemini-3.7-flash",
+   "name": "Google: Gemini 3.7 Flash",
+   "ctx": 1048576,
+   "prompt": "0.00000075",
+   "completion": "0.00000375",
+   "input": [
+    "text",
+    "image",
+    "video",
+    "file",
+    "audio"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "google/gemini-3.7-flash:batch",
+   "name": "Google: Gemini 3.7 Flash (batch)",
+   "ctx": 1048576,
+   "prompt": "0.000000375",
+   "completion": "0.000001875",
+   "input": [
+    "text",
+    "image",
+    "video",
+    "file",
+    "audio"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.8-2.4t-a95b",
+   "name": "Qwen: Qwen3.8 2.4T A95B",
+   "ctx": 1048576,
+   "prompt": "0.000002",
+   "completion": "0.000006",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "deepseek/deepseek-v4-pro-0813",
+   "name": "DeepSeek: DeepSeek V4 Pro 0813",
+   "ctx": 1048576,
+   "prompt": "0.00000066",
+   "completion": "0.00000198",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "~deepseek/deepseek-v4-flash-latest",
+   "name": "DeepSeek: DeepSeek V4 Flash Latest",
+   "ctx": 1048576,
+   "prompt": "0.0000000144",
+   "completion": "0.000000576",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "parallel_tool_calls",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_a",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "deepseek/deepseek-v4-flash-0731",
+   "name": "DeepSeek: DeepSeek V4 Flash 0731",
+   "ctx": 1048576,
+   "prompt": "0.000000016",
+   "completion": "0.00000064",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "parallel_tool_calls",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_a",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.7-flash",
+   "name": "Qwen: Qwen3.7 Flash",
+   "ctx": 1000000,
+   "prompt": "0.00000003",
+   "completion": "0.00000013",
+   "input": [
+    "text",
+    "image",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "response_format",
+    "seed",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "anthropic/claude-opus-5",
+   "name": "Anthropic: Claude Opus 5",
+   "ctx": 1000000,
+   "prompt": "0.000005",
+   "completion": "0.000025",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-opus-5:batch",
+   "name": "Anthropic: Claude Opus 5 (batch)",
+   "ctx": 1000000,
+   "prompt": "0.0000025",
+   "completion": "0.0000125",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "google/gemini-3.6-flash",
+   "name": "Google: Gemini 3.6 Flash",
+   "ctx": 1048576,
+   "prompt": "0.00000075",
+   "completion": "0.00000375",
+   "input": [
+    "text",
+    "image",
+    "video",
+    "file",
+    "audio"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "google/gemini-3.6-flash:batch",
+   "name": "Google: Gemini 3.6 Flash (batch)",
+   "ctx": 1048576,
+   "prompt": "0.000000375",
+   "completion": "0.000001875",
+   "input": [
+    "text",
+    "image",
+    "video",
+    "file",
+    "audio"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools"
+   ]
+  },
+  {
+   "id": "google/gemini-3.5-flash-lite",
+   "name": "Google: Gemini 3.5 Flash Lite",
+   "ctx": 1048576,
+   "prompt": "0.0000003",
+   "completion": "0.0000025",
+   "input": [
+    "text",
+    "image",
+    "video",
+    "file",
+    "audio"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "google/gemini-3.5-flash-lite:batch",
+   "name": "Google: Gemini 3.5 Flash Lite (batch)",
+   "ctx": 1048576,
+   "prompt": "0.00000015",
+   "completion": "0.00000125",
+   "input": [
+    "text",
+    "image",
+    "video",
+    "file",
+    "audio"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.6-luna-pro",
+   "name": "OpenAI: GPT-5.6 Luna Pro",
+   "ctx": 1050000,
+   "prompt": "0.0000002",
+   "completion": "0.0000012",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.6-luna-pro:batch",
+   "name": "OpenAI: GPT-5.6 Luna Pro (batch)",
+   "ctx": 1050000,
+   "prompt": "0.0000001",
+   "completion": "0.0000006",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.6-luna",
+   "name": "OpenAI: GPT-5.6 Luna",
+   "ctx": 1050000,
+   "prompt": "0.0000002",
+   "completion": "0.0000012",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.6-luna:batch",
+   "name": "OpenAI: GPT-5.6 Luna (batch)",
+   "ctx": 1050000,
+   "prompt": "0.0000001",
+   "completion": "0.0000006",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.6-terra-pro",
+   "name": "OpenAI: GPT-5.6 Terra Pro",
+   "ctx": 1050000,
+   "prompt": "0.000002",
+   "completion": "0.000012",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.6-terra-pro:batch",
+   "name": "OpenAI: GPT-5.6 Terra Pro (batch)",
+   "ctx": 1050000,
+   "prompt": "0.000001",
+   "completion": "0.000006",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.6-terra",
+   "name": "OpenAI: GPT-5.6 Terra",
+   "ctx": 1050000,
+   "prompt": "0.000002",
+   "completion": "0.000012",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.6-terra:batch",
+   "name": "OpenAI: GPT-5.6 Terra (batch)",
+   "ctx": 1050000,
+   "prompt": "0.000001",
+   "completion": "0.000006",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.6-sol-pro",
+   "name": "OpenAI: GPT-5.6 Sol Pro",
+   "ctx": 1050000,
+   "prompt": "0.000004",
+   "completion": "0.00002",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.6-sol-pro:batch",
+   "name": "OpenAI: GPT-5.6 Sol Pro (batch)",
+   "ctx": 1050000,
+   "prompt": "0.000002",
+   "completion": "0.00001",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.6-sol",
+   "name": "OpenAI: GPT-5.6 Sol",
+   "ctx": 1050000,
+   "prompt": "0.000004",
+   "completion": "0.00002",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.6-sol:batch",
+   "name": "OpenAI: GPT-5.6 Sol (batch)",
+   "ctx": 1050000,
+   "prompt": "0.000002",
+   "completion": "0.00001",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-sonnet-5",
+   "name": "Anthropic: Claude Sonnet 5",
+   "ctx": 1000000,
+   "prompt": "0.000002",
+   "completion": "0.00001",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-sonnet-5:batch",
+   "name": "Anthropic: Claude Sonnet 5 (batch)",
+   "ctx": 1000000,
+   "prompt": "0.000001",
+   "completion": "0.000005",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "google/gemini-3.1-flash-lite-image",
+   "name": "Google: Nano Banana 2 Lite (Gemini 3.1 Flash Lite Image)",
+   "ctx": 65536,
+   "prompt": "0.00000025",
+   "completion": "0.0000015",
+   "input": [
+    "image",
+    "text"
+   ],
+   "output": [
+    "image",
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "temperature",
+    "top_p"
+   ]
+  },
+  {
+   "id": "google/gemini-3.1-flash-image",
+   "name": "Google: Nano Banana 2 (Gemini 3.1 Flash Image)",
+   "ctx": 131072,
+   "prompt": "0.0000005",
+   "completion": "0.000003",
+   "input": [
+    "image",
+    "text"
+   ],
+   "output": [
+    "image",
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "temperature",
+    "top_p"
+   ]
+  },
+  {
+   "id": "google/gemini-3-pro-image",
+   "name": "Google: Nano Banana Pro (Gemini 3 Pro Image)",
+   "ctx": 131072,
+   "prompt": "0.000002",
+   "completion": "0.000012",
+   "input": [
+    "image",
+    "text"
+   ],
+   "output": [
+    "image",
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "~anthropic/claude-fable-latest",
+   "name": "Anthropic: Claude Fable Latest",
+   "ctx": 1000000,
+   "prompt": "0.00001",
+   "completion": "0.00005",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-fable-5",
+   "name": "Anthropic: Claude Fable 5",
+   "ctx": 1000000,
+   "prompt": "0.00001",
+   "completion": "0.00005",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-fable-5:batch",
+   "name": "Anthropic: Claude Fable 5 (batch)",
+   "ctx": 1000000,
+   "prompt": "0.000005",
+   "completion": "0.000025",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.7-plus",
+   "name": "Qwen: Qwen3.7 Plus",
+   "ctx": 1000000,
+   "prompt": "0.00000032",
+   "completion": "0.00000128",
+   "input": [
+    "text",
+    "image"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "anthropic/claude-opus-4.8",
+   "name": "Anthropic: Claude Opus 4.8",
+   "ctx": 1000000,
+   "prompt": "0.000005",
+   "completion": "0.000025",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-opus-4.8:batch",
+   "name": "Anthropic: Claude Opus 4.8 (batch)",
+   "ctx": 1000000,
+   "prompt": "0.0000025",
+   "completion": "0.0000125",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.7-max",
+   "name": "Qwen: Qwen3.7 Max",
+   "ctx": 1000000,
+   "prompt": "0.000001475",
+   "completion": "0.000004425",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "google/gemini-3.5-flash",
+   "name": "Google: Gemini 3.5 Flash",
+   "ctx": 1048576,
+   "prompt": "0.0000015",
+   "completion": "0.000009",
+   "input": [
+    "text",
+    "image",
+    "video",
+    "file",
+    "audio"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "google/gemini-3.5-flash:batch",
+   "name": "Google: Gemini 3.5 Flash (batch)",
+   "ctx": 1048576,
+   "prompt": "0.00000075",
+   "completion": "0.0000045",
+   "input": [
+    "text",
+    "image",
+    "video",
+    "file",
+    "audio"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "google/gemini-3.1-flash-lite",
+   "name": "Google: Gemini 3.1 Flash Lite",
+   "ctx": 1048576,
+   "prompt": "0.00000025",
+   "completion": "0.0000015",
+   "input": [
+    "text",
+    "image",
+    "video",
+    "file",
+    "audio"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "google/gemini-3.1-flash-lite:batch",
+   "name": "Google: Gemini 3.1 Flash Lite (batch)",
+   "ctx": 1048576,
+   "prompt": "0.000000125",
+   "completion": "0.00000075",
+   "input": [
+    "text",
+    "image",
+    "video",
+    "file",
+    "audio"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "mistralai/mistral-medium-3-5",
+   "name": "Mistral: Mistral Medium 3.5",
+   "ctx": 262144,
+   "prompt": "0.0000015",
+   "completion": "0.0000075",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "mistralai/mistral-medium-3-5:batch",
+   "name": "Mistral: Mistral Medium 3.5 (batch)",
+   "ctx": 262144,
+   "prompt": "0.00000075",
+   "completion": "0.00000375",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "~anthropic/claude-haiku-latest",
+   "name": "Anthropic: Claude Haiku Latest",
+   "ctx": 1000000,
+   "prompt": "0.0000001",
+   "completion": "0.0000005",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "~anthropic/claude-sonnet-latest",
+   "name": "Anthropic: Claude Sonnet Latest",
+   "ctx": 1000000,
+   "prompt": "0.000002",
+   "completion": "0.00001",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.5-plus-20260420",
+   "name": "Qwen: Qwen3.5 Plus 2026-04-20",
+   "ctx": 1000000,
+   "prompt": "0.0000003",
+   "completion": "0.0000018",
+   "input": [
+    "text",
+    "image",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.6-flash",
+   "name": "Qwen: Qwen3.6 Flash",
+   "ctx": 1000000,
+   "prompt": "0.0000001875",
+   "completion": "0.000001125",
+   "input": [
+    "text",
+    "image",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.6-35b-a3b",
+   "name": "Qwen: Qwen3.6 35B A3B",
+   "ctx": 262144,
+   "prompt": "0.00000015",
+   "completion": "0.000001",
+   "input": [
+    "text",
+    "image",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.6-27b",
+   "name": "Qwen: Qwen3.6 27B",
+   "ctx": 262144,
+   "prompt": "0.00000032",
+   "completion": "0.0000032",
+   "input": [
+    "text",
+    "image",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.5-pro",
+   "name": "OpenAI: GPT-5.5 Pro",
+   "ctx": 1050000,
+   "prompt": "0.00003",
+   "completion": "0.00018",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.5-pro:batch",
+   "name": "OpenAI: GPT-5.5 Pro (batch)",
+   "ctx": 1050000,
+   "prompt": "0.000015",
+   "completion": "0.00009",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.5",
+   "name": "OpenAI: GPT-5.5",
+   "ctx": 1050000,
+   "prompt": "0.000005",
+   "completion": "0.00003",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.5:batch",
+   "name": "OpenAI: GPT-5.5 (batch)",
+   "ctx": 1050000,
+   "prompt": "0.0000025",
+   "completion": "0.000015",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "deepseek/deepseek-v4-pro",
+   "name": "DeepSeek: DeepSeek V4 Pro 0423",
+   "ctx": 1048576,
+   "prompt": "0.000000358266",
+   "completion": "0.000000716532",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_completion_tokens",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "deepseek/deepseek-v4-flash",
+   "name": "DeepSeek: DeepSeek V4 Flash 0423",
+   "ctx": 1048576,
+   "prompt": "0.000000091",
+   "completion": "0.000000182",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_completion_tokens",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_a",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.4-image-2",
+   "name": "OpenAI: GPT-5.4 Image 2",
+   "ctx": 272000,
+   "prompt": "0.000008",
+   "completion": "0.000015",
+   "input": [
+    "image",
+    "text",
+    "file"
+   ],
+   "output": [
+    "image",
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "logprobs",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "top_logprobs",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "~anthropic/claude-opus-latest",
+   "name": "Anthropic: Claude Opus Latest",
+   "ctx": 1000000,
+   "prompt": "0.000004",
+   "completion": "0.00002",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-opus-4.7",
+   "name": "Anthropic: Claude Opus 4.7",
+   "ctx": 1000000,
+   "prompt": "0.000005",
+   "completion": "0.000025",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-opus-4.7:batch",
+   "name": "Anthropic: Claude Opus 4.7 (batch)",
+   "ctx": 1000000,
+   "prompt": "0.0000025",
+   "completion": "0.0000125",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.6-plus",
+   "name": "Qwen: Qwen3.6 Plus",
+   "ctx": 1000000,
+   "prompt": "0.000000325",
+   "completion": "0.00000195",
+   "input": [
+    "text",
+    "image",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.4-nano",
+   "name": "OpenAI: GPT-5.4 Nano",
+   "ctx": 400000,
+   "prompt": "0.0000002",
+   "completion": "0.00000125",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.4-nano:batch",
+   "name": "OpenAI: GPT-5.4 Nano (batch)",
+   "ctx": 400000,
+   "prompt": "0.0000001",
+   "completion": "0.000000625",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.4-mini",
+   "name": "OpenAI: GPT-5.4 Mini",
+   "ctx": 400000,
+   "prompt": "0.00000075",
+   "completion": "0.0000045",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.4-mini:batch",
+   "name": "OpenAI: GPT-5.4 Mini (batch)",
+   "ctx": 400000,
+   "prompt": "0.000000375",
+   "completion": "0.00000225",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "mistralai/mistral-small-2603",
+   "name": "Mistral: Mistral Small 4",
+   "ctx": 262144,
+   "prompt": "0.00000015",
+   "completion": "0.0000006",
+   "input": [
+    "text",
+    "image"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "mistralai/mistral-small-2603:batch",
+   "name": "Mistral: Mistral Small 4 (batch)",
+   "ctx": 262144,
+   "prompt": "0.000000075",
+   "completion": "0.0000003",
+   "input": [
+    "text",
+    "image"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.5-9b",
+   "name": "Qwen: Qwen3.5-9B",
+   "ctx": 262144,
+   "prompt": "0.0000001",
+   "completion": "0.00000015",
+   "input": [
+    "text",
+    "image",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.4-pro",
+   "name": "OpenAI: GPT-5.4 Pro",
+   "ctx": 1050000,
+   "prompt": "0.00003",
+   "completion": "0.00018",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.4-pro:batch",
+   "name": "OpenAI: GPT-5.4 Pro (batch)",
+   "ctx": 1050000,
+   "prompt": "0.000015",
+   "completion": "0.00009",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.4",
+   "name": "OpenAI: GPT-5.4",
+   "ctx": 1050000,
+   "prompt": "0.0000025",
+   "completion": "0.000015",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.4:batch",
+   "name": "OpenAI: GPT-5.4 (batch)",
+   "ctx": 1050000,
+   "prompt": "0.00000125",
+   "completion": "0.0000075",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "google/gemini-3.1-flash-lite-preview",
+   "name": "Google: Gemini 3.1 Flash Lite Preview",
+   "ctx": 1048576,
+   "prompt": "0.00000025",
+   "completion": "0.0000015",
+   "input": [
+    "text",
+    "image",
+    "video",
+    "file",
+    "audio"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "google/gemini-3.1-flash-image-preview",
+   "name": "Google: Nano Banana 2 (Gemini 3.1 Flash Image Preview)",
+   "ctx": 65536,
+   "prompt": "0.0000005",
+   "completion": "0.000003",
+   "input": [
+    "image",
+    "text"
+   ],
+   "output": [
+    "image",
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "temperature",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.5-35b-a3b",
+   "name": "Qwen: Qwen3.5-35B-A3B",
+   "ctx": 262144,
+   "prompt": "0.00000015",
+   "completion": "0.000001",
+   "input": [
+    "text",
+    "image",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.5-27b",
+   "name": "Qwen: Qwen3.5-27B",
+   "ctx": 262144,
+   "prompt": "0.00000026",
+   "completion": "0.0000026",
+   "input": [
+    "text",
+    "image",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.5-122b-a10b",
+   "name": "Qwen: Qwen3.5-122B-A10B",
+   "ctx": 262144,
+   "prompt": "0.00000026",
+   "completion": "0.00000208",
+   "input": [
+    "text",
+    "image",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.5-flash-02-23",
+   "name": "Qwen: Qwen3.5-Flash",
+   "ctx": 1000000,
+   "prompt": "0.000000065",
+   "completion": "0.00000026",
+   "input": [
+    "text",
+    "image",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_p"
+   ]
+  },
+  {
+   "id": "google/gemini-3.1-pro-preview-customtools",
+   "name": "Google: Gemini 3.1 Pro Preview Custom Tools",
+   "ctx": 1048576,
+   "prompt": "0.000002",
+   "completion": "0.000012",
+   "input": [
+    "text",
+    "audio",
+    "image",
+    "video",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.3-codex",
+   "name": "OpenAI: GPT-5.3-Codex",
+   "ctx": 400000,
+   "prompt": "0.00000175",
+   "completion": "0.000014",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "google/gemini-3.1-pro-preview",
+   "name": "Google: Gemini 3.1 Pro Preview",
+   "ctx": 1048576,
+   "prompt": "0.000002",
+   "completion": "0.000012",
+   "input": [
+    "audio",
+    "file",
+    "image",
+    "text",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "google/gemini-3.1-pro-preview:batch",
+   "name": "Google: Gemini 3.1 Pro Preview (batch)",
+   "ctx": 1048576,
+   "prompt": "0.000001",
+   "completion": "0.000006",
+   "input": [
+    "audio",
+    "file",
+    "image",
+    "text",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "anthropic/claude-sonnet-4.6",
+   "name": "Anthropic: Claude Sonnet 4.6",
+   "ctx": 1000000,
+   "prompt": "0.000003",
+   "completion": "0.000015",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_p",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-sonnet-4.6:batch",
+   "name": "Anthropic: Claude Sonnet 4.6 (batch)",
+   "ctx": 1000000,
+   "prompt": "0.0000015",
+   "completion": "0.0000075",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.5-plus-02-15",
+   "name": "Qwen: Qwen3.5 Plus 2026-02-15",
+   "ctx": 1000000,
+   "prompt": "0.00000026",
+   "completion": "0.00000156",
+   "input": [
+    "text",
+    "image",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3.5-397b-a17b",
+   "name": "Qwen: Qwen3.5 397B A17B",
+   "ctx": 262144,
+   "prompt": "0.0000005",
+   "completion": "0.0000036",
+   "input": [
+    "text",
+    "image",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "anthropic/claude-opus-4.6",
+   "name": "Anthropic: Claude Opus 4.6",
+   "ctx": 1000000,
+   "prompt": "0.000005",
+   "completion": "0.000025",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_p",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-opus-4.6:batch",
+   "name": "Anthropic: Claude Opus 4.6 (batch)",
+   "ctx": 1000000,
+   "prompt": "0.0000025",
+   "completion": "0.0000125",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "qwen/qwen3-coder-next",
+   "name": "Qwen: Qwen3 Coder Next",
+   "ctx": 262144,
+   "prompt": "0.00000012",
+   "completion": "0.0000008",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "openai/gpt-audio",
+   "name": "OpenAI: GPT Audio",
+   "ctx": 128000,
+   "prompt": "0.0000025",
+   "completion": "0.00001",
+   "input": [
+    "text",
+    "audio"
+   ],
+   "output": [
+    "text",
+    "audio"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "openai/gpt-audio-mini",
+   "name": "OpenAI: GPT Audio Mini",
+   "ctx": 128000,
+   "prompt": "0.0000006",
+   "completion": "0.0000024",
+   "input": [
+    "text",
+    "audio"
+   ],
+   "output": [
+    "text",
+    "audio"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.2-codex",
+   "name": "OpenAI: GPT-5.2-Codex",
+   "ctx": 400000,
+   "prompt": "0.00000175",
+   "completion": "0.000014",
+   "input": [
+    "text",
+    "image"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "google/gemini-3-flash-preview",
+   "name": "Google: Gemini 3 Flash Preview",
+   "ctx": 1048576,
+   "prompt": "0.0000005",
+   "completion": "0.000003",
+   "input": [
+    "text",
+    "image",
+    "file",
+    "audio",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "google/gemini-3-flash-preview:batch",
+   "name": "Google: Gemini 3 Flash Preview (batch)",
+   "ctx": 1048576,
+   "prompt": "0.00000025",
+   "completion": "0.0000015",
+   "input": [
+    "text",
+    "image",
+    "file",
+    "audio",
+    "video"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.2-chat",
+   "name": "OpenAI: GPT-5.2 Chat",
+   "ctx": 128000,
+   "prompt": "0.00000175",
+   "completion": "0.000014",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "max_completion_tokens",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.2-pro",
+   "name": "OpenAI: GPT-5.2 Pro",
+   "ctx": 400000,
+   "prompt": "0.000021",
+   "completion": "0.000168",
+   "input": [
+    "image",
+    "text",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.2-pro:batch",
+   "name": "OpenAI: GPT-5.2 Pro (batch)",
+   "ctx": 400000,
+   "prompt": "0.0000105",
+   "completion": "0.000084",
+   "input": [
+    "image",
+    "text",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.2",
+   "name": "OpenAI: GPT-5.2",
+   "ctx": 400000,
+   "prompt": "0.00000175",
+   "completion": "0.000014",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.2:batch",
+   "name": "OpenAI: GPT-5.2 (batch)",
+   "ctx": 400000,
+   "prompt": "0.000000875",
+   "completion": "0.000007",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.1-codex-max",
+   "name": "OpenAI: GPT-5.1-Codex-Max",
+   "ctx": 400000,
+   "prompt": "0.00000125",
+   "completion": "0.00001",
+   "input": [
+    "text",
+    "image"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "deepseek/deepseek-v3.2",
+   "name": "DeepSeek: DeepSeek V3.2",
+   "ctx": 163840,
+   "prompt": "0.000000259",
+   "completion": "0.0000008",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "anthropic/claude-opus-4.5",
+   "name": "Anthropic: Claude Opus 4.5",
+   "ctx": 200000,
+   "prompt": "0.000005",
+   "completion": "0.000025",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-opus-4.5:batch",
+   "name": "Anthropic: Claude Opus 4.5 (batch)",
+   "ctx": 200000,
+   "prompt": "0.0000025",
+   "completion": "0.0000125",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "google/gemini-3-pro-image-preview",
+   "name": "Google: Nano Banana Pro (Gemini 3 Pro Image Preview)",
+   "ctx": 65536,
+   "prompt": "0.000002",
+   "completion": "0.000012",
+   "input": [
+    "image",
+    "text"
+   ],
+   "output": [
+    "image",
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "top_p"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.1",
+   "name": "OpenAI: GPT-5.1",
+   "ctx": 400000,
+   "prompt": "0.00000125",
+   "completion": "0.00001",
+   "input": [
+    "image",
+    "text",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.1:batch",
+   "name": "OpenAI: GPT-5.1 (batch)",
+   "ctx": 400000,
+   "prompt": "0.000000625",
+   "completion": "0.000005",
+   "input": [
+    "image",
+    "text",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.1-codex",
+   "name": "OpenAI: GPT-5.1-Codex",
+   "ctx": 400000,
+   "prompt": "0.00000125",
+   "completion": "0.00001",
+   "input": [
+    "text",
+    "image"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5.1-codex-mini",
+   "name": "OpenAI: GPT-5.1-Codex-Mini",
+   "ctx": 400000,
+   "prompt": "0.00000025",
+   "completion": "0.000002",
+   "input": [
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5-image-mini",
+   "name": "OpenAI: GPT-5 Image Mini",
+   "ctx": 400000,
+   "prompt": "0.0000025",
+   "completion": "0.000002",
+   "input": [
+    "file",
+    "image",
+    "text"
+   ],
+   "output": [
+    "image",
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "logprobs",
+    "max_tokens",
+    "reasoning",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "temperature",
+    "top_logprobs",
+    "top_p",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-haiku-4.5",
+   "name": "Anthropic: Claude Haiku 4.5",
+   "ctx": 200000,
+   "prompt": "0.000001",
+   "completion": "0.000005",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_p"
+   ]
+  },
+  {
+   "id": "anthropic/claude-haiku-4.5:batch",
+   "name": "Anthropic: Claude Haiku 4.5 (batch)",
+   "ctx": 200000,
+   "prompt": "0.0000005",
+   "completion": "0.0000025",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3-vl-8b-instruct",
+   "name": "Qwen: Qwen3 VL 8B Instruct",
+   "ctx": 262144,
+   "prompt": "0.00000025",
+   "completion": "0.00000075",
+   "input": [
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "openai/gpt-5-image",
+   "name": "OpenAI: GPT-5 Image",
+   "ctx": 400000,
+   "prompt": "0.00001",
+   "completion": "0.00001",
+   "input": [
+    "image",
+    "text",
+    "file"
+   ],
+   "output": [
+    "image",
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "logprobs",
+    "max_tokens",
+    "reasoning",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "temperature",
+    "top_logprobs",
+    "top_p",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "qwen/qwen3-vl-30b-a3b-thinking",
+   "name": "Qwen: Qwen3 VL 30B A3B Thinking",
+   "ctx": 262144,
+   "prompt": "0.00000029",
+   "completion": "0.000001",
+   "input": [
+    "text",
+    "image"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "response_format",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3-vl-30b-a3b-instruct",
+   "name": "Qwen: Qwen3 VL 30B A3B Instruct",
+   "ctx": 262144,
+   "prompt": "0.00000015",
+   "completion": "0.0000006",
+   "input": [
+    "text",
+    "image"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "openai/gpt-5-pro",
+   "name": "OpenAI: GPT-5 Pro",
+   "ctx": 400000,
+   "prompt": "0.000015",
+   "completion": "0.00012",
+   "input": [
+    "image",
+    "text",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5-pro:batch",
+   "name": "OpenAI: GPT-5 Pro (batch)",
+   "ctx": 400000,
+   "prompt": "0.0000075",
+   "completion": "0.00006",
+   "input": [
+    "image",
+    "text",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-sonnet-4.5",
+   "name": "Anthropic: Claude Sonnet 4.5",
+   "ctx": 1000000,
+   "prompt": "0.000003",
+   "completion": "0.000015",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_p"
+   ]
+  },
+  {
+   "id": "anthropic/claude-sonnet-4.5:batch",
+   "name": "Anthropic: Claude Sonnet 4.5 (batch)",
+   "ctx": 1000000,
+   "prompt": "0.0000015",
+   "completion": "0.0000075",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_p"
+   ]
+  },
+  {
+   "id": "deepseek/deepseek-v3.2-exp",
+   "name": "DeepSeek: DeepSeek V3.2 Exp",
+   "ctx": 163840,
+   "prompt": "0.00000027",
+   "completion": "0.00000041",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "response_format",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3-vl-235b-a22b-instruct",
+   "name": "Qwen: Qwen3 VL 235B A22B Instruct",
+   "ctx": 262144,
+   "prompt": "0.00000021",
+   "completion": "0.0000019",
+   "input": [
+    "text",
+    "image"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "deepseek/deepseek-v3.1-terminus",
+   "name": "DeepSeek: DeepSeek V3.1 Terminus",
+   "ctx": 163840,
+   "prompt": "0.00000027",
+   "completion": "0.000001",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3-coder-flash",
+   "name": "Qwen: Qwen3 Coder Flash",
+   "ctx": 1000000,
+   "prompt": "0.000000195",
+   "completion": "0.000000975",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3-next-80b-a3b-thinking",
+   "name": "Qwen: Qwen3 Next 80B A3B Thinking",
+   "ctx": 262144,
+   "prompt": "0.00000015",
+   "completion": "0.0000012",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3-next-80b-a3b-instruct",
+   "name": "Qwen: Qwen3 Next 80B A3B Instruct",
+   "ctx": 262144,
+   "prompt": "0.0000001",
+   "completion": "0.0000011",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "mistralai/mistral-medium-3.1",
+   "name": "Mistral: Mistral Medium 3.1",
+   "ctx": 131072,
+   "prompt": "0.0000004",
+   "completion": "0.000002",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "max_tokens",
+    "presence_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "mistralai/mistral-medium-3.1:batch",
+   "name": "Mistral: Mistral Medium 3.1 (batch)",
+   "ctx": 131072,
+   "prompt": "0.0000002",
+   "completion": "0.000001",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "max_tokens",
+    "presence_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "openai/gpt-5",
+   "name": "OpenAI: GPT-5",
+   "ctx": 400000,
+   "prompt": "0.00000125",
+   "completion": "0.00001",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5:batch",
+   "name": "OpenAI: GPT-5 (batch)",
+   "ctx": 400000,
+   "prompt": "0.000000625",
+   "completion": "0.000005",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5-mini",
+   "name": "OpenAI: GPT-5 Mini",
+   "ctx": 400000,
+   "prompt": "0.00000025",
+   "completion": "0.000002",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5-mini:batch",
+   "name": "OpenAI: GPT-5 Mini (batch)",
+   "ctx": 400000,
+   "prompt": "0.000000125",
+   "completion": "0.000001",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5-nano",
+   "name": "OpenAI: GPT-5 Nano",
+   "ctx": 400000,
+   "prompt": "0.00000005",
+   "completion": "0.0000004",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_completion_tokens",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "openai/gpt-5-nano:batch",
+   "name": "OpenAI: GPT-5 Nano (batch)",
+   "ctx": 400000,
+   "prompt": "0.000000025",
+   "completion": "0.0000002",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "reasoning_effort",
+    "response_format",
+    "seed",
+    "structured_outputs",
+    "tool_choice",
+    "tools",
+    "verbosity"
+   ]
+  },
+  {
+   "id": "anthropic/claude-opus-4.1",
+   "name": "Anthropic: Claude Opus 4.1",
+   "ctx": 200000,
+   "prompt": "0.000015",
+   "completion": "0.000075",
+   "input": [
+    "image",
+    "text",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "stop",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_p"
+   ]
+  },
+  {
+   "id": "anthropic/claude-opus-4.1:batch",
+   "name": "Anthropic: Claude Opus 4.1 (batch)",
+   "ctx": 200000,
+   "prompt": "0.0000075",
+   "completion": "0.0000375",
+   "input": [
+    "image",
+    "text",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "response_format",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools"
+   ]
+  },
+  {
+   "id": "qwen/qwen3-coder-30b-a3b-instruct",
+   "name": "Qwen: Qwen3 Coder 30B A3B Instruct",
+   "ctx": 262144,
+   "prompt": "0.00000007",
+   "completion": "0.00000028",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "max_tokens",
+    "response_format",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3-30b-a3b-instruct-2507",
+   "name": "Qwen: Qwen3 30B A3B Instruct 2507",
+   "ctx": 262144,
+   "prompt": "0.0000001",
+   "completion": "0.0000003",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3-235b-a22b-thinking-2507",
+   "name": "Qwen: Qwen3 235B A22B Thinking 2507",
+   "ctx": 128000,
+   "prompt": "0.00000045",
+   "completion": "0.0000035",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "max_tokens",
+    "presence_penalty",
+    "reasoning",
+    "stop",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3-coder",
+   "name": "Qwen: Qwen3 Coder 480B A35B",
+   "ctx": 262144,
+   "prompt": "0.0000003",
+   "completion": "0.000001",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3-235b-a22b-2507",
+   "name": "Qwen: Qwen3 235B A22B Instruct 2507",
+   "ctx": 262144,
+   "prompt": "0.00000009",
+   "completion": "0.00000055",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "mistralai/mistral-small-3.2-24b-instruct",
+   "name": "Mistral: Mistral Small 3.2 24B",
+   "ctx": 256000,
+   "prompt": "0.000000075",
+   "completion": "0.0000002",
+   "input": [
+    "image",
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "anthropic/claude-sonnet-4",
+   "name": "Anthropic: Claude Sonnet 4",
+   "ctx": 200000,
+   "prompt": "0.000003",
+   "completion": "0.000015",
+   "input": [
+    "image",
+    "text",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "include_reasoning",
+    "max_tokens",
+    "reasoning",
+    "stop",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_p"
+   ]
+  },
+  {
+   "id": "mistralai/mistral-medium-3",
+   "name": "Mistral: Mistral Medium 3",
+   "ctx": 131072,
+   "prompt": "0.0000004",
+   "completion": "0.000002",
+   "input": [
+    "text",
+    "image",
+    "file"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "max_tokens",
+    "presence_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3-30b-a3b",
+   "name": "Qwen: Qwen3 30B A3B",
+   "ctx": 40960,
+   "prompt": "0.00000012",
+   "completion": "0.0000005",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3-14b",
+   "name": "Qwen: Qwen3 14B",
+   "ctx": 40960,
+   "prompt": "0.00000012",
+   "completion": "0.00000024",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "qwen/qwen3-32b",
+   "name": "Qwen: Qwen3 32B",
+   "ctx": 131072,
+   "prompt": "0.00000008",
+   "completion": "0.00000028",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "include_reasoning",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "reasoning",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_a",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "meta-llama/llama-4-maverick",
+   "name": "Meta: Llama 4 Maverick",
+   "ctx": 1048576,
+   "prompt": "0.0000001875",
+   "completion": "0.0000006525",
+   "input": [
+    "text",
+    "image"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "presence_penalty",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "meta-llama/llama-4-scout",
+   "name": "Meta: Llama 4 Scout",
+   "ctx": 1310720,
+   "prompt": "0.00000018",
+   "completion": "0.00000059",
+   "input": [
+    "text",
+    "image"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "logit_bias",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_p"
+   ]
+  },
+  {
+   "id": "mistralai/mistral-small-3.1-24b-instruct",
+   "name": "Mistral: Mistral Small 3.1 24B",
+   "ctx": 128000,
+   "prompt": "0.000000351",
+   "completion": "0.000000555",
+   "input": [
+    "text",
+    "image"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "logit_bias",
+    "logprobs",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "repetition_penalty",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "tool_choice",
+    "tools",
+    "top_k",
+    "top_logprobs",
+    "top_p"
+   ]
+  },
+  {
+   "id": "mistralai/mistral-small-24b-instruct-2501",
+   "name": "Mistral: Mistral Small 3",
+   "ctx": 32768,
+   "prompt": "0.00000005",
+   "completion": "0.00000008",
+   "input": [
+    "text"
+   ],
+   "output": [
+    "text"
+   ],
+   "supported_parameters": [
+    "frequency_penalty",
+    "logit_bias",
+    "max_tokens",
+    "min_p",
+    "presence_penalty",
+    "repetition_penalty",
+    "response_format",
+    "seed",
+    "stop",
+    "structured_outputs",
+    "temperature",
+    "top_k",
+    "top_p"
+   ]
+  }
+ ]
+}

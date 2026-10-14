@@ -1,0 +1,24 @@
+{
+  "name": "@langquest/scripts",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run --passWithNoTests",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "zod": "^4.6.0",
+    "dotenv": "^18.0.0",
+    "csv-parse": "^7.0.0",
+    "csv-stringify": "^6.5.0",
+    "@supabase/supabase-js": "^2.117.0",
+    "@langquest/contracts": "workspace:*",
+    "@langquest/db": "workspace:*",
+    "@langquest/curriculum": "workspace:*",
+    "@langquest/media": "workspace:*",
+    "@langquest/locales": "workspace:*"
+  },
+  "devDependencies": {}
+}

@@ -1,0 +1,33 @@
+{
+  "name": "@langquest/api",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run --passWithNoTests",
+    "lint": "eslint src"
+  },
+  "dependencies": {
+    "hono": "^4.13.0",
+    "@hono/zod-validator": "^0.9.0",
+    "zod": "^4.6.0",
+    "@supabase/supabase-js": "^2.117.0",
+    "aws4fetch": "^1.0.20",
+    "jose": "^6.0.0",
+    "@langquest/contracts": "workspace:*",
+    "@langquest/db": "workspace:*",
+    "@langquest/ai": "workspace:*",
+    "@langquest/curriculum": "workspace:*",
+    "@langquest/media": "workspace:*",
+    "@langquest/telemetry": "workspace:*",
+    "@langquest/locales": "workspace:*"
+  },
+  "devDependencies": {
+    "wrangler": "^4.151.0",
+    "@cloudflare/workers-types": "^5.20261014.0",
+    "@cloudflare/vitest-pool-workers": "^0.23.0"
+  }
+}

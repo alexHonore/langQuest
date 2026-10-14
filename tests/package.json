@@ -1,0 +1,28 @@
+{
+  "name": "@langquest/tests",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "typecheck": "tsc --noEmit -p tsconfig.json",
+    "test": "vitest run --passWithNoTests",
+    "test:integration": "vitest run integration",
+    "test:security": "vitest run security",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "zod": "^4.6.0",
+    "dotenv": "^18.0.0",
+    "@supabase/supabase-js": "^2.117.0",
+    "@langquest/contracts": "workspace:*",
+    "@langquest/db": "workspace:*",
+    "@langquest/curriculum": "workspace:*",
+    "@langquest/ai": "workspace:*",
+    "@langquest/media": "workspace:*",
+    "@langquest/locales": "workspace:*",
+    "@langquest/telemetry": "workspace:*"
+  },
+  "devDependencies": {
+    "@playwright/test": "^1.64.0"
+  }
+}
