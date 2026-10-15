@@ -1,0 +1,77 @@
+{
+  "baseLocale": "en",
+  "namespaces": [
+    "common",
+    "onboarding",
+    "home",
+    "catalog",
+    "missions",
+    "lesson",
+    "speak",
+    "pronunciation",
+    "audio",
+    "progress",
+    "account",
+    "enrollment",
+    "errors",
+    "mascot",
+    "admin",
+    "legal"
+  ],
+  "locales": {
+    "en": {
+      "status": "complete",
+      "namespaces": [
+        "common",
+        "onboarding",
+        "home",
+        "catalog",
+        "missions",
+        "lesson",
+        "speak",
+        "pronunciation",
+        "audio",
+        "progress",
+        "account",
+        "enrollment",
+        "errors",
+        "mascot",
+        "admin",
+        "legal"
+      ],
+      "usable": true
+    },
+    "fr": {
+      "status": "complete",
+      "namespaces": [
+        "common",
+        "onboarding",
+        "home",
+        "catalog",
+        "missions",
+        "lesson",
+        "speak",
+        "pronunciation",
+        "audio",
+        "progress",
+        "account",
+        "enrollment",
+        "errors",
+        "mascot",
+        "admin",
+        "legal"
+      ],
+      "usable": true
+    },
+    "es": {
+      "status": "partial",
+      "namespaces": ["common", "onboarding", "enrollment"],
+      "usable": true
+    },
+    "ru": {
+      "status": "partial",
+      "namespaces": ["common", "onboarding", "enrollment"],
+      "usable": true
+    }
+  }
+}

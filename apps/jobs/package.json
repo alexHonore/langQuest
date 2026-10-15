@@ -4,8 +4,11 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "tsx watch src/main.ts",
-    "start": "tsx src/main.ts",
+    "dev": "tsx watch src/main.ts start",
+    "start": "tsx src/main.ts start",
+    "run-once": "tsx src/main.ts run-once",
+    "enqueue": "tsx src/main.ts enqueue",
+    "requeue": "tsx src/main.ts requeue",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "vitest run --passWithNoTests",
     "lint": "eslint src"
@@ -22,7 +25,8 @@
     "@langquest/ai": "workspace:*",
     "@langquest/media": "workspace:*",
     "@langquest/telemetry": "workspace:*",
-    "@langquest/curriculum": "workspace:*"
+    "@langquest/curriculum": "workspace:*",
+    "@langquest/ui": "workspace:*"
   },
   "devDependencies": {}
 }

@@ -8,7 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "test": "vitest run --passWithNoTests"
+    "test": "vitest run --passWithNoTests",
+    "test:e2e": "playwright test"
   },
   "dependencies": {
     "next": "16.4.1",
@@ -26,9 +27,12 @@
     "@langquest/ui": "workspace:*",
     "@langquest/locales": "workspace:*",
     "@langquest/curriculum": "workspace:*",
-    "@langquest/media": "workspace:*"
+    "@langquest/media": "workspace:*",
+    "@langquest/db": "workspace:*",
+    "@langquest/ai": "workspace:*"
   },
   "devDependencies": {
+    "@playwright/test": "^1.64.0",
     "@tailwindcss/turbopack": "^4",
     "@types/node": "^20",
     "@types/react": "^19",

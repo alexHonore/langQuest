@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  verify:
+    name: Typecheck · lint · unit tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 10 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 24, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm typecheck
+      - run: pnpm lint
+      - run: pnpm test
+        env:
+          LANGQUEST_LIVE_TESTS: '0'
+
+  database:
+    name: Migrations + RLS (local Supabase)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    needs: verify
+    steps:
+      - uses: actions/checkout@v4
+      - uses: pnpm/action-setup@v4
+        with: { version: 10 }
+      - uses: actions/setup-node@v4
+        with: { node-version: 24, cache: pnpm }
+      - run: pnpm install --frozen-lockfile
+      - run: pnpm supabase start -x studio,imgproxy,inbucket,edge-runtime,logflare,vector
+      - run: pnpm supabase db reset --local
+      - run: pnpm --filter @langquest/db test
+        env:
+          SUPABASE_LOCAL: '1'
+      - if: always()
+        run: pnpm supabase stop --no-backup
+
+  security:
+    name: Secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with: { fetch-depth: 0 }
+      - name: Fail if a known secret pattern is committed
+        run: |
+          ! git grep -nE "(sk-or-v1-[A-Za-z0-9]{20,}|sbp_[a-f0-9]{30,}|AKIA[0-9A-Z]{16}|re_[A-Za-z0-9]{20,})" -- ':!docs/runbooks/provisioning.md' ':!.github/workflows/ci.yml' || (echo "secret-like token found" && exit 1)
