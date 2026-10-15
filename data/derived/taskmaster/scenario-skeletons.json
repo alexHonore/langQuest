@@ -1,0 +1,1172 @@
+{
+  "formatVersion": 1,
+  "attribution": {
+    "dataset": "Taskmaster-1 (TM-1-2019)",
+    "publisher": "Google LLC (google-research-datasets/Taskmaster)",
+    "authors": [
+      "Bill Byrne",
+      "Karthik Krishnamoorthi",
+      "Chinnadhurai Sankar",
+      "Arvind Neelakantan",
+      "Amit Dubey",
+      "Kyu-Young Kim",
+      "Andy Cedilnik"
+    ],
+    "licenseId": "CC-BY",
+    "licenseVersion": "4.0",
+    "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+    "sourceUrl": "https://github.com/google-research-datasets/Taskmaster",
+    "citation": "Byrne et al., \"Taskmaster-1: Toward a Realistic and Diverse Dialog Dataset\", EMNLP-IJCNLP 2019, Hong Kong.",
+    "usage": "Dialogue structure patterns only (turn counts, slot order, abstract dialogue acts). No utterance text is redistributed. Attribution must accompany any derived scenario skeleton.",
+    "commercialRedistribution": true,
+    "attributionRequired": true,
+    "attributionText": "Dialogue structure patterns derived from Taskmaster-1 (Byrne et al., 2019), Google LLC, CC BY 4.0.",
+    "snapshotId": "d92cb6af3005f1dc09c39e75e7daf4a04905e00b",
+    "inputs": [
+      {
+        "file": "TM-1-2019/self-dialogs.json",
+        "sha256": "1e590ed0ccee279e40c2fb9e083d3b9417477c6bfe35ce5b2277167698dd858d",
+        "byteLength": 65748638
+      },
+      {
+        "file": "TM-1-2019/woz-dialogs.json",
+        "sha256": "cd3bc4e968487315d412c044d30af2bf0a4b33c3ef8b74c589f1e1fa832bf72f",
+        "byteLength": 37204053
+      }
+    ],
+    "extractedAt": "2026-10-15T01:42:00Z",
+    "dialogsRead": 13202,
+    "dialogsUnmappedDomain": 54
+  },
+  "skeletons": [
+    {
+      "domain": "coffee-ordering",
+      "blueprintKey": "cafe_order_drink",
+      "situation": "cafe",
+      "intentKeys": [
+        "greet_hello",
+        "request_drink",
+        "offer_options",
+        "choose_option",
+        "specify_quantity",
+        "confirm_order",
+        "state_price",
+        "pay",
+        "thank"
+      ],
+      "note": "Drink + size + customisation slots; staff offer options the learner must answer.",
+      "sampleSize": 2140,
+      "turnCount": {
+        "min": 2,
+        "p50": 21,
+        "mean": 21.5,
+        "p90": 27,
+        "max": 96
+      },
+      "slots": {
+        "required": [
+          "location.store",
+          "name.drink",
+          "size.drink"
+        ],
+        "optional": [
+          "num.drink",
+          "type.milk",
+          "preference"
+        ],
+        "mentionRatePct": {
+          "name.drink": 98.7,
+          "size.drink": 94.2,
+          "location.store": 89.5,
+          "preference": 83.3,
+          "type.milk": 80,
+          "num.drink": 20.3,
+          "coffee_order": 19.4,
+          "coffee_ordering": 6.6,
+          "name.restaurant": 0.1,
+          "num.guests": 0.1,
+          "type.topping": 0.1,
+          "location.theater": 0,
+          "reason.appt": 0,
+          "date.appt": 0,
+          "time.appt": 0,
+          "time.reservation": 0,
+          "type.seating": 0,
+          "location.restaurant": 0
+        }
+      },
+      "slotOrderPatterns": [
+        {
+          "order": [
+            "location.store",
+            "name.drink",
+            "size.drink",
+            "type.milk",
+            "preference"
+          ],
+          "count": 233
+        },
+        {
+          "order": [
+            "name.drink",
+            "size.drink",
+            "type.milk",
+            "preference",
+            "location.store"
+          ],
+          "count": 90
+        },
+        {
+          "order": [
+            "location.store",
+            "size.drink",
+            "name.drink",
+            "type.milk",
+            "preference"
+          ],
+          "count": 82
+        },
+        {
+          "order": [
+            "location.store",
+            "name.drink",
+            "size.drink",
+            "preference",
+            "type.milk"
+          ],
+          "count": 73
+        },
+        {
+          "order": [
+            "name.drink",
+            "location.store",
+            "size.drink",
+            "type.milk",
+            "preference"
+          ],
+          "count": 58
+        },
+        {
+          "order": [
+            "size.drink",
+            "name.drink",
+            "type.milk",
+            "preference",
+            "location.store"
+          ],
+          "count": 52
+        },
+        {
+          "order": [
+            "location.store",
+            "name.drink",
+            "preference",
+            "size.drink",
+            "type.milk"
+          ],
+          "count": 41
+        },
+        {
+          "order": [
+            "location.store",
+            "size.drink",
+            "name.drink",
+            "preference",
+            "type.milk"
+          ],
+          "count": 41
+        }
+      ],
+      "actSequencePatterns": [
+        {
+          "sequence": "user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask",
+          "count": 6
+        },
+        {
+          "sequence": "user.ask > assistant.ask > user.say > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask",
+          "count": 6
+        },
+        {
+          "sequence": "user.say > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask",
+          "count": 5
+        },
+        {
+          "sequence": "user.ask > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.say > assistant.ask",
+          "count": 4
+        },
+        {
+          "sequence": "user.say > assistant.ask > user.provide_slot > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask",
+          "count": 4
+        },
+        {
+          "sequence": "user.say > assistant.ask > user.provide_slot > assistant.ask > user.ack > assistant.ask > user.provide_slot > assistant.ask > user.provide_slot > assistant.ask > user.provide_slot > assistant.ask",
+          "count": 3
+        },
+        {
+          "sequence": "user.ask > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask",
+          "count": 3
+        },
+        {
+          "sequence": "user.ask > assistant.say > user.provide_slot > assistant.say > user.request > assistant.ask > user.say > assistant.ask > user.say > assistant.say > user.say > assistant.ask",
+          "count": 3
+        }
+      ],
+      "rates": {
+        "revisionPct": 15.4,
+        "unavailablePct": 21.3,
+        "clarificationPct": 33.7,
+        "userQuestionPct": 9.9
+      },
+      "brief": [
+        "Write 11–14 exchanges; real coffee ordering dialogues run 21 turns at the median.",
+        "Fill slots in a natural order (most common: location.store → name.drink → size.drink → type.milk → preference); the staff character asks for missing ones.",
+        "21.3% of dialogues hit something unavailable → the character must offer an alternative, the learner must choose or decline.",
+        "15.4% contain a learner revision (\"actually…\"); include at least one twist where the learner changes a slot.",
+        "33.7% contain a clarification question after an offer; keep the character's offers short enough to answer.",
+        "LangQuest blueprint cafe_order_drink: objectives greet, request_drink, choose_option, pay, thank; learner role \"customer at a café\", character role \"café server\".",
+        "Do not translate Taskmaster turns. Generate or commission native-language turns from this structure and have a native reviewer judge naturalness (§9.3)."
+      ]
+    },
+    {
+      "domain": "restaurant-table",
+      "blueprintKey": "restaurant_order_meal",
+      "situation": "restaurant",
+      "intentKeys": [
+        "greet_hello",
+        "make_reservation",
+        "request_table",
+        "ask_availability",
+        "make_plan_time",
+        "suggest_other_time",
+        "confirm_plan",
+        "thank"
+      ],
+      "note": "Reservation flow: party size, time, unavailability → alternative time.",
+      "sampleSize": 2331,
+      "turnCount": {
+        "min": 0,
+        "p50": 22,
+        "mean": 24.4,
+        "p90": 32,
+        "max": 148
+      },
+      "slots": {
+        "required": [
+          "name.restaurant",
+          "name.reservation",
+          "num.guests",
+          "time.reservation"
+        ],
+        "optional": [
+          "type.seating",
+          "location.restaurant"
+        ],
+        "mentionRatePct": {
+          "name.restaurant": 95.9,
+          "time.reservation": 80.6,
+          "num.guests": 79.1,
+          "location.restaurant": 75.7,
+          "type.seating": 65.4,
+          "name.reservation": 13.9,
+          "reservation": 13.8,
+          "restaurant_reservation": 4.5,
+          "location.store": 0.3,
+          "name.store": 0.3,
+          "name.pizza": 0.2,
+          "num.people": 0.2,
+          "location.from": 0.2,
+          "location.to": 0.2,
+          "size.pizza": 0.2,
+          "time.pickup": 0.1,
+          "name.movie": 0.1,
+          "preference": 0.1,
+          "type.topping": 0.1,
+          "name.drink": 0,
+          "reason.appt": 0,
+          "date.appt": 0,
+          "time.appt": 0,
+          "pizza_order": 0,
+          "type.screening": 0,
+          "num.tickets": 0
+        }
+      },
+      "slotOrderPatterns": [
+        {
+          "order": [
+            "location.restaurant",
+            "name.restaurant"
+          ],
+          "count": 233
+        },
+        {
+          "order": [
+            "location.restaurant",
+            "name.restaurant",
+            "time.reservation",
+            "num.guests"
+          ],
+          "count": 107
+        },
+        {
+          "order": [
+            "location.restaurant",
+            "name.restaurant",
+            "time.reservation",
+            "num.guests",
+            "type.seating"
+          ],
+          "count": 104
+        },
+        {
+          "order": [
+            "name.restaurant",
+            "time.reservation",
+            "num.guests",
+            "type.seating"
+          ],
+          "count": 88
+        },
+        {
+          "order": [
+            "location.restaurant",
+            "type.seating",
+            "name.restaurant",
+            "time.reservation",
+            "num.guests"
+          ],
+          "count": 80
+        },
+        {
+          "order": [
+            "location.restaurant",
+            "name.restaurant",
+            "num.guests",
+            "time.reservation"
+          ],
+          "count": 78
+        },
+        {
+          "order": [
+            "location.restaurant",
+            "name.restaurant",
+            "type.seating",
+            "time.reservation",
+            "num.guests"
+          ],
+          "count": 76
+        },
+        {
+          "order": [
+            "location.restaurant",
+            "name.restaurant",
+            "num.guests",
+            "time.reservation",
+            "type.seating"
+          ],
+          "count": 69
+        }
+      ],
+      "actSequencePatterns": [
+        {
+          "sequence": "assistant.greet > user.accept > assistant.ask > user.say > assistant.ask > user.say > assistant.say > assistant.offer > assistant.ask > user.ask > assistant.offer > user.ask",
+          "count": 5
+        },
+        {
+          "sequence": "user.say > assistant.say > user.say > assistant.say > user.say > assistant.say > user.say > assistant.say > user.say > assistant.say > user.say > assistant.say",
+          "count": 4
+        },
+        {
+          "sequence": "assistant.greet > user.accept > assistant.ask > user.say > assistant.ask > user.say > assistant.say > assistant.offer > user.ask > assistant.say > user.ask > assistant.say",
+          "count": 4
+        },
+        {
+          "sequence": "assistant.greet > user.accept > assistant.ask > user.say > assistant.ask > user.say > assistant.say > assistant.ask > user.ask > assistant.offer > user.ask > assistant.say",
+          "count": 3
+        },
+        {
+          "sequence": "assistant.greet",
+          "count": 3
+        },
+        {
+          "sequence": "assistant.greet > user.provide_slot > assistant.ask > user.say > assistant.ask > user.say > assistant.say > assistant.offer > user.ask > assistant.offer > user.ask > assistant.offer",
+          "count": 3
+        },
+        {
+          "sequence": "user.say > assistant.ask > user.say > assistant.ask > user.provide_slot > assistant.say > user.thank > assistant.offer > user.ask > assistant.offer > user.accept > assistant.offer",
+          "count": 2
+        },
+        {
+          "sequence": "user.request > assistant.ask > user.ask > assistant.say > user.ask > assistant.ask > user.say > assistant.ask > user.ask > assistant.offer > user.ask > assistant.say",
+          "count": 2
+        }
+      ],
+      "rates": {
+        "revisionPct": 13.7,
+        "unavailablePct": 44.3,
+        "clarificationPct": 66.1,
+        "userQuestionPct": 21.1
+      },
+      "brief": [
+        "Write 11–16 exchanges; real restaurant table dialogues run 22 turns at the median.",
+        "Fill slots in a natural order (most common: location.restaurant → name.restaurant); the staff character asks for missing ones.",
+        "44.3% of dialogues hit something unavailable → the character must offer an alternative, the learner must choose or decline.",
+        "13.7% contain a learner revision (\"actually…\"); include at least one twist where the learner changes a slot.",
+        "66.1% contain a clarification question after an offer; keep the character's offers short enough to answer.",
+        "LangQuest blueprint restaurant_order_meal: objectives table, recommend, order, ingredients, bill; learner role \"diner\", character role \"waiter\".",
+        "Do not translate Taskmaster turns. Generate or commission native-language turns from this structure and have a native reviewer judge naturalness (§9.3)."
+      ]
+    },
+    {
+      "domain": "pizza-ordering",
+      "blueprintKey": "restaurant_order_meal",
+      "situation": "restaurant",
+      "intentKeys": [
+        "request_food",
+        "choose_option",
+        "specify_quantity",
+        "ask_price",
+        "ask_ingredients",
+        "confirm_order",
+        "say_unavailable",
+        "ask_alternative"
+      ],
+      "note": "Multi-item order with sizes/toppings; unavailable item → alternative.",
+      "sampleSize": 2438,
+      "turnCount": {
+        "min": 1,
+        "p50": 21,
+        "mean": 21.2,
+        "p90": 28,
+        "max": 144
+      },
+      "slots": {
+        "required": [
+          "name.store",
+          "name.pizza",
+          "size.pizza"
+        ],
+        "optional": [
+          "type.topping",
+          "type.crust",
+          "preference",
+          "location.store"
+        ],
+        "mentionRatePct": {
+          "size.pizza": 93.7,
+          "name.store": 86,
+          "type.topping": 79.4,
+          "name.pizza": 77.7,
+          "type.crust": 55.7,
+          "preference": 45.6,
+          "location.store": 24.2,
+          "pizza_order": 22,
+          "pizza_ordering": 5.9,
+          "name.drink": 0.2,
+          "type.milk": 0.2,
+          "size.drink": 0.2,
+          "num.drink": 0.1,
+          "reason.appt": 0,
+          "date.appt": 0,
+          "time.appt": 0,
+          "name.movie": 0
+        }
+      },
+      "slotOrderPatterns": [
+        {
+          "order": [
+            "name.store",
+            "size.pizza",
+            "name.pizza",
+            "type.crust"
+          ],
+          "count": 66
+        },
+        {
+          "order": [
+            "name.store",
+            "location.store",
+            "size.pizza",
+            "name.pizza",
+            "type.topping"
+          ],
+          "count": 54
+        },
+        {
+          "order": [
+            "name.store",
+            "size.pizza",
+            "type.topping",
+            "type.crust"
+          ],
+          "count": 54
+        },
+        {
+          "order": [
+            "name.store",
+            "size.pizza",
+            "name.pizza",
+            "type.topping",
+            "preference"
+          ],
+          "count": 42
+        },
+        {
+          "order": [
+            "name.store",
+            "size.pizza",
+            "name.pizza",
+            "type.topping",
+            "type.crust"
+          ],
+          "count": 41
+        },
+        {
+          "order": [
+            "name.store",
+            "size.pizza",
+            "type.topping",
+            "name.pizza",
+            "type.crust"
+          ],
+          "count": 39
+        },
+        {
+          "order": [
+            "name.store",
+            "size.pizza",
+            "type.crust",
+            "name.pizza"
+          ],
+          "count": 37
+        },
+        {
+          "order": [
+            "name.store",
+            "size.pizza",
+            "type.crust",
+            "type.topping"
+          ],
+          "count": 35
+        }
+      ],
+      "actSequencePatterns": [
+        {
+          "sequence": "user.say > assistant.ask > user.accept > assistant.ask > user.accept > assistant.say > user.say > assistant.ask > user.say > assistant.ask > user.ack > assistant.say",
+          "count": 3
+        },
+        {
+          "sequence": "assistant.greet",
+          "count": 3
+        },
+        {
+          "sequence": "user.ask > assistant.say > user.provide_slot > assistant.say > user.ack > assistant.ask > user.say > assistant.ask > user.reject > assistant.ask > user.accept > assistant.say",
+          "count": 2
+        },
+        {
+          "sequence": "user.request > assistant.unavailable > user.revise > assistant.offer > user.accept > assistant.offer > user.revise > assistant.say > user.revise > assistant.say > user.say > assistant.ask",
+          "count": 2
+        },
+        {
+          "sequence": "user.ask > assistant.say > user.accept > assistant.ask > user.ask > assistant.ask > user.say > assistant.ask > user.accept > assistant.ask > user.say > assistant.say",
+          "count": 2
+        },
+        {
+          "sequence": "user.request > assistant.ask > user.provide_slot > assistant.unavailable > user.provide_slot > assistant.ask > user.say > assistant.ask > user.say > assistant.ask > user.say > assistant.ask",
+          "count": 2
+        },
+        {
+          "sequence": "user.say > assistant.ask > user.accept > assistant.ask > user.say > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask",
+          "count": 2
+        },
+        {
+          "sequence": "user.ask > assistant.ask > user.accept > assistant.ask > user.request > assistant.say > user.say > assistant.unavailable > user.ask > assistant.offer > user.request > assistant.confirm",
+          "count": 2
+        }
+      ],
+      "rates": {
+        "revisionPct": 20,
+        "unavailablePct": 26.1,
+        "clarificationPct": 34.7,
+        "userQuestionPct": 10.5
+      },
+      "brief": [
+        "Write 11–14 exchanges; real pizza ordering dialogues run 21 turns at the median.",
+        "Fill slots in a natural order (most common: name.store → size.pizza → name.pizza → type.crust); the staff character asks for missing ones.",
+        "26.1% of dialogues hit something unavailable → the character must offer an alternative, the learner must choose or decline.",
+        "20% contain a learner revision (\"actually…\"); include at least one twist where the learner changes a slot.",
+        "34.7% contain a clarification question after an offer; keep the character's offers short enough to answer.",
+        "LangQuest blueprint restaurant_order_meal: objectives table, recommend, order, ingredients, bill; learner role \"diner\", character role \"waiter\".",
+        "Do not translate Taskmaster turns. Generate or commission native-language turns from this structure and have a native reviewer judge naturalness (§9.3)."
+      ]
+    },
+    {
+      "domain": "uber-lyft",
+      "blueprintKey": "take_taxi",
+      "situation": "transport",
+      "intentKeys": [
+        "hail_taxi",
+        "state_destination",
+        "ask_fare",
+        "ask_is_it_far",
+        "make_plan_time",
+        "confirm_plan",
+        "thank"
+      ],
+      "note": "Pickup/destination/ride type; price and duration estimates offered by the service.",
+      "sampleSize": 2097,
+      "turnCount": {
+        "min": 0,
+        "p50": 20,
+        "mean": 21.8,
+        "p90": 29,
+        "max": 108
+      },
+      "slots": {
+        "required": [
+          "location.from",
+          "location.to",
+          "type.ride",
+          "num.people"
+        ],
+        "optional": [
+          "price.estimate",
+          "duration.estimate",
+          "time.pickup",
+          "time.dropoff"
+        ],
+        "mentionRatePct": {
+          "location.to": 96,
+          "location.from": 95.7,
+          "type.ride": 94.8,
+          "price.estimate": 89.9,
+          "time.pickup": 84.1,
+          "num.people": 63.2,
+          "duration.estimate": 40.8,
+          "ride_booking": 12.9,
+          "uber_lyft": 6,
+          "time.dropoff": 3.1,
+          "reason.appt": 0.1,
+          "date.appt": 0.1,
+          "time.appt": 0.1,
+          "name.restaurant": 0.1,
+          "type.screening": 0,
+          "time.reservation": 0,
+          "auto_repair": 0,
+          "name.store": 0,
+          "location.store": 0,
+          "year.vehicle": 0,
+          "name.vehicle": 0,
+          "name.customer": 0,
+          "price.ticket": 0,
+          "location.theater": 0,
+          "name.movie": 0,
+          "location.restaurant": 0
+        }
+      },
+      "slotOrderPatterns": [
+        {
+          "order": [
+            "location.from",
+            "location.to",
+            "num.people",
+            "type.ride",
+            "price.estimate"
+          ],
+          "count": 348
+        },
+        {
+          "order": [
+            "location.from",
+            "location.to",
+            "type.ride",
+            "price.estimate",
+            "time.pickup"
+          ],
+          "count": 141
+        },
+        {
+          "order": [
+            "location.to",
+            "location.from",
+            "num.people",
+            "type.ride",
+            "price.estimate"
+          ],
+          "count": 112
+        },
+        {
+          "order": [
+            "location.from",
+            "location.to",
+            "type.ride",
+            "num.people",
+            "price.estimate"
+          ],
+          "count": 81
+        },
+        {
+          "order": [
+            "location.from",
+            "location.to",
+            "num.people",
+            "type.ride",
+            "time.pickup"
+          ],
+          "count": 69
+        },
+        {
+          "order": [
+            "location.from",
+            "location.to",
+            "type.ride",
+            "price.estimate"
+          ],
+          "count": 54
+        },
+        {
+          "order": [
+            "location.from",
+            "location.to",
+            "type.ride",
+            "price.estimate",
+            "num.people"
+          ],
+          "count": 40
+        },
+        {
+          "order": [
+            "type.ride",
+            "location.from",
+            "location.to",
+            "num.people",
+            "price.estimate"
+          ],
+          "count": 40
+        }
+      ],
+      "actSequencePatterns": [
+        {
+          "sequence": "assistant.greet",
+          "count": 4
+        },
+        {
+          "sequence": "user.say > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.ask > assistant.offer > user.ask > assistant.offer > user.ask > assistant.offer",
+          "count": 3
+        },
+        {
+          "sequence": "user.greet > assistant.ask > user.accept > assistant.ask > user.provide_slot > assistant.ask > user.request > assistant.ask > user.accept > assistant.offer > user.say > assistant.say",
+          "count": 3
+        },
+        {
+          "sequence": "user.greet > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.say > assistant.ask > user.accept > assistant.offer > user.say > assistant.ask",
+          "count": 2
+        },
+        {
+          "sequence": "user.greet > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.provide_slot > assistant.ask > user.ask > assistant.offer > user.ask > assistant.offer",
+          "count": 2
+        },
+        {
+          "sequence": "user.greet > assistant.ask > user.provide_slot > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.say > assistant.ask > user.say > assistant.ask",
+          "count": 2
+        },
+        {
+          "sequence": "user.say > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.say > assistant.ask > user.say > assistant.offer",
+          "count": 2
+        },
+        {
+          "sequence": "user.ask > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.ask > assistant.offer > user.ask > assistant.offer > user.ask > assistant.offer",
+          "count": 2
+        }
+      ],
+      "rates": {
+        "revisionPct": 13,
+        "unavailablePct": 21.6,
+        "clarificationPct": 53.5,
+        "userQuestionPct": 14.7
+      },
+      "brief": [
+        "Write 10–15 exchanges; real uber lyft dialogues run 20 turns at the median.",
+        "Fill slots in a natural order (most common: location.from → location.to → num.people → type.ride → price.estimate); the staff character asks for missing ones.",
+        "21.6% of dialogues hit something unavailable → the character must offer an alternative, the learner must choose or decline.",
+        "13% contain a learner revision (\"actually…\"); include at least one twist where the learner changes a slot.",
+        "53.5% contain a clarification question after an offer; keep the character's offers short enough to answer.",
+        "LangQuest blueprint take_taxi: objectives hail, destination, fare, stop, pay; learner role \"passenger\", character role \"taxi driver\".",
+        "Do not translate Taskmaster turns. Generate or commission native-language turns from this structure and have a native reviewer judge naturalness (§9.3)."
+      ]
+    },
+    {
+      "domain": "movie-tickets",
+      "blueprintKey": "buy_train_ticket",
+      "situation": "travel",
+      "intentKeys": [
+        "buy_ticket",
+        "specify_quantity",
+        "ask_time",
+        "tell_time",
+        "choose_option",
+        "ask_price",
+        "confirm_order",
+        "say_unavailable"
+      ],
+      "note": "Ticket purchase: title/venue/time/quantity; closest LangQuest blueprint is the ticket-counter mission.",
+      "sampleSize": 2283,
+      "turnCount": {
+        "min": 0,
+        "p50": 22,
+        "mean": 23.5,
+        "p90": 30,
+        "max": 88
+      },
+      "slots": {
+        "required": [
+          "name.movie",
+          "name.theater",
+          "num.tickets",
+          "time.start",
+          "location.theater",
+          "price.ticket"
+        ],
+        "optional": [
+          "type.screening",
+          "time.end",
+          "time.duration"
+        ],
+        "mentionRatePct": {
+          "name.movie": 98.6,
+          "time.start": 97.2,
+          "num.tickets": 94.3,
+          "name.theater": 91.2,
+          "location.theater": 90,
+          "price.ticket": 58.4,
+          "type.screening": 34.6,
+          "ticket_booking": 10.9,
+          "time.duration": 9.1,
+          "movie_ticket": 2.1,
+          "time.end": 0.3,
+          "name.restaurant": 0.1,
+          "price.estimate": 0,
+          "time.reservation": 0,
+          "time.appt": 0,
+          "num.guests": 0,
+          "name.drink": 0,
+          "preference": 0,
+          "type.milk": 0,
+          "size.drink": 0,
+          "location.store": 0,
+          "type.seating": 0
+        }
+      },
+      "slotOrderPatterns": [
+        {
+          "order": [
+            "name.movie",
+            "location.theater",
+            "name.theater",
+            "time.start",
+            "num.tickets"
+          ],
+          "count": 261
+        },
+        {
+          "order": [
+            "name.movie",
+            "location.theater",
+            "time.start",
+            "name.theater",
+            "num.tickets"
+          ],
+          "count": 98
+        },
+        {
+          "order": [
+            "name.movie",
+            "location.theater",
+            "name.theater",
+            "num.tickets",
+            "time.start"
+          ],
+          "count": 92
+        },
+        {
+          "order": [
+            "num.tickets",
+            "name.movie",
+            "location.theater",
+            "name.theater",
+            "time.start"
+          ],
+          "count": 88
+        },
+        {
+          "order": [
+            "name.movie",
+            "location.theater",
+            "num.tickets",
+            "name.theater",
+            "time.start"
+          ],
+          "count": 83
+        },
+        {
+          "order": [
+            "name.movie",
+            "name.theater",
+            "location.theater",
+            "time.start",
+            "num.tickets"
+          ],
+          "count": 66
+        },
+        {
+          "order": [
+            "location.theater",
+            "name.theater",
+            "name.movie",
+            "time.start",
+            "num.tickets"
+          ],
+          "count": 63
+        },
+        {
+          "order": [
+            "name.movie",
+            "location.theater",
+            "num.tickets",
+            "time.start",
+            "name.theater"
+          ],
+          "count": 57
+        }
+      ],
+      "actSequencePatterns": [
+        {
+          "sequence": "user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.say > assistant.ask",
+          "count": 4
+        },
+        {
+          "sequence": "user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask",
+          "count": 3
+        },
+        {
+          "sequence": "assistant.greet",
+          "count": 3
+        },
+        {
+          "sequence": "user.request > assistant.ask > user.accept > assistant.offer > user.say > assistant.ask > user.provide_slot > assistant.ask > user.say > assistant.offer > user.provide_slot > assistant.ask",
+          "count": 2
+        },
+        {
+          "sequence": "user.accept > assistant.ask > user.accept > assistant.ask > user.say > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.say > assistant.ask",
+          "count": 2
+        },
+        {
+          "sequence": "user.reject > assistant.ask > user.provide_slot > assistant.ask > user.provide_slot > assistant.ask > user.reject > assistant.unavailable > user.say > assistant.ask > user.reject > assistant.ask",
+          "count": 2
+        },
+        {
+          "sequence": "user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.accept > assistant.ask > user.say > assistant.say > user.ask > assistant.say",
+          "count": 2
+        },
+        {
+          "sequence": "user.request > assistant.ask > user.provide_slot > assistant.ask > user.say > assistant.ask > user.provide_slot > assistant.ask > user.provide_slot > assistant.ask > user.say > assistant.unavailable",
+          "count": 2
+        }
+      ],
+      "rates": {
+        "revisionPct": 9.2,
+        "unavailablePct": 44.3,
+        "clarificationPct": 51.6,
+        "userQuestionPct": 13.3
+      },
+      "brief": [
+        "Write 11–15 exchanges; real movie tickets dialogues run 22 turns at the median.",
+        "Fill slots in a natural order (most common: name.movie → location.theater → name.theater → time.start → num.tickets); the staff character asks for missing ones.",
+        "44.3% of dialogues hit something unavailable → the character must offer an alternative, the learner must choose or decline.",
+        "9.2% contain a learner revision (\"actually…\"); include at least one twist where the learner changes a slot.",
+        "51.6% contain a clarification question after an offer; keep the character's offers short enough to answer.",
+        "LangQuest blueprint buy_train_ticket: objectives ticket, time, quantity, stop, pay; learner role \"traveller at a ticket counter\", character role \"ticket clerk\".",
+        "Do not translate Taskmaster turns. Generate or commission native-language turns from this structure and have a native reviewer judge naturalness (§9.3)."
+      ]
+    },
+    {
+      "domain": "auto-repair-appt",
+      "blueprintKey": null,
+      "situation": "daily_life",
+      "intentKeys": [
+        "report_broken",
+        "make_reservation",
+        "ask_availability",
+        "make_plan_time",
+        "suggest_other_time",
+        "confirm_plan",
+        "ask_price"
+      ],
+      "note": "Service appointment: problem description + scheduling; no chapter-1 blueprint yet (chapter-3 candidate).",
+      "sampleSize": 1859,
+      "turnCount": {
+        "min": 1,
+        "p50": 23,
+        "mean": 25.6,
+        "p90": 36,
+        "max": 116
+      },
+      "slots": {
+        "required": [
+          "name.store",
+          "name.customer",
+          "date.appt",
+          "time.appt"
+        ],
+        "optional": [
+          "reason.appt",
+          "name.vehicle",
+          "year.vehicle",
+          "location.store"
+        ],
+        "mentionRatePct": {
+          "reason.appt": 97.7,
+          "time.appt": 96.6,
+          "name.vehicle": 94.1,
+          "date.appt": 91.5,
+          "year.vehicle": 91.2,
+          "name.store": 87.9,
+          "name.customer": 81.5,
+          "location.store": 21.6,
+          "appointment": 15.4,
+          "auto_repair": 5.3
+        }
+      },
+      "slotOrderPatterns": [
+        {
+          "order": [
+            "name.store",
+            "name.customer",
+            "year.vehicle",
+            "name.vehicle",
+            "reason.appt"
+          ],
+          "count": 232
+        },
+        {
+          "order": [
+            "name.store",
+            "name.customer",
+            "reason.appt",
+            "year.vehicle",
+            "name.vehicle"
+          ],
+          "count": 94
+        },
+        {
+          "order": [
+            "name.store",
+            "year.vehicle",
+            "name.vehicle",
+            "name.customer",
+            "reason.appt"
+          ],
+          "count": 80
+        },
+        {
+          "order": [
+            "name.store",
+            "year.vehicle",
+            "name.vehicle",
+            "reason.appt",
+            "date.appt"
+          ],
+          "count": 47
+        },
+        {
+          "order": [
+            "name.store",
+            "reason.appt",
+            "year.vehicle",
+            "name.vehicle",
+            "date.appt"
+          ],
+          "count": 40
+        },
+        {
+          "order": [
+            "name.store",
+            "name.customer",
+            "reason.appt",
+            "date.appt",
+            "time.appt"
+          ],
+          "count": 37
+        },
+        {
+          "order": [
+            "name.store",
+            "reason.appt",
+            "year.vehicle",
+            "name.vehicle",
+            "name.customer"
+          ],
+          "count": 33
+        },
+        {
+          "order": [
+            "name.store",
+            "year.vehicle",
+            "name.vehicle",
+            "reason.appt",
+            "name.customer"
+          ],
+          "count": 25
+        }
+      ],
+      "actSequencePatterns": [
+        {
+          "sequence": "assistant.greet > user.accept > assistant.ask > user.provide_slot > assistant.ask > user.provide_slot > assistant.ask > user.say > assistant.ask > user.say > assistant.ask > user.provide_slot",
+          "count": 14
+        },
+        {
+          "sequence": "assistant.greet > user.accept > assistant.ask > user.provide_slot > assistant.ask > user.provide_slot > assistant.ask > user.say > assistant.ask > user.ack > assistant.ask > user.provide_slot",
+          "count": 12
+        },
+        {
+          "sequence": "assistant.greet > user.accept > assistant.ask > user.provide_slot > assistant.ask > user.provide_slot > assistant.ask > user.say > assistant.say > assistant.ask > user.say > assistant.ask",
+          "count": 11
+        },
+        {
+          "sequence": "assistant.greet > user.accept > assistant.ask > user.provide_slot > assistant.ask > user.provide_slot > assistant.ask > user.say > assistant.say > assistant.ask > user.ack > assistant.ask",
+          "count": 8
+        },
+        {
+          "sequence": "assistant.greet > user.accept > assistant.ask > user.provide_slot > assistant.ask > user.say > assistant.ask > user.say > assistant.ask > user.provide_slot > assistant.ask > user.provide_slot",
+          "count": 7
+        },
+        {
+          "sequence": "assistant.greet > user.accept > assistant.ask > user.provide_slot > assistant.ask > user.say > assistant.say > assistant.ask > user.say > assistant.ask > user.provide_slot > assistant.ask",
+          "count": 6
+        },
+        {
+          "sequence": "assistant.greet > user.accept > assistant.ask > user.provide_slot > assistant.ask > user.say > assistant.ask > user.ack > assistant.ask > user.provide_slot > assistant.ask > user.provide_slot",
+          "count": 5
+        },
+        {
+          "sequence": "user.say > assistant.ask > user.provide_slot > assistant.ask > user.provide_slot > assistant.ask > user.provide_slot > assistant.ask > user.provide_slot > assistant.ask > user.provide_slot > assistant.ask",
+          "count": 4
+        }
+      ],
+      "rates": {
+        "revisionPct": 9.8,
+        "unavailablePct": 24.3,
+        "clarificationPct": 37.1,
+        "userQuestionPct": 7.4
+      },
+      "brief": [
+        "Write 12–18 exchanges; real auto repair appt dialogues run 23 turns at the median.",
+        "Fill slots in a natural order (most common: name.store → name.customer → year.vehicle → name.vehicle → reason.appt); the staff character asks for missing ones.",
+        "24.3% of dialogues hit something unavailable → the character must offer an alternative, the learner must choose or decline.",
+        "9.8% contain a learner revision (\"actually…\"); include at least one twist where the learner changes a slot.",
+        "37.1% contain a clarification question after an offer; keep the character's offers short enough to answer.",
+        "No chapter-1 blueprint mapped; use as a chapter-3 scenario brief.",
+        "Do not translate Taskmaster turns. Generate or commission native-language turns from this structure and have a native reviewer judge naturalness (§9.3)."
+      ]
+    }
+  ]
+}

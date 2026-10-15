@@ -1,0 +1,60 @@
+# LangQuest API — Cloudflare Worker (Hono). See infra/cloudflare/README.md for secrets and bindings.
+name = "langquest-api"
+main = "src/index.ts"
+compatibility_date = "2026-10-01"
+compatibility_flags = ["nodejs_compat"]
+workers_dev = true
+
+# Bundle the workspace packages (TypeScript sources) with the Worker.
+rules = [{ type = "ESModule", globs = ["**/*.ts"], fallthrough = true }]
+
+[observability]
+enabled = true
+
+# Non-secret configuration. Secrets are set with `wrangler secret put <NAME>` (list in infra/cloudflare/README.md)
+# and, for local dev, in apps/api/.dev.vars (copy .dev.vars.example).
+[vars]
+API_ENV = "development"
+LOG_LEVEL = "info"
+JOBS_BACKEND = "postgres"
+CORS_ALLOWED_ORIGINS = "http://localhost:3000,http://localhost:8081"
+R2_BUCKET = "langquest-media"
+R2_PUBLIC_BUCKET = "langquest-public"
+
+# --- Optional bindings ---------------------------------------------------------------------
+# R2 is NOT enabled on the account yet (docs/runbooks/provisioning.md). Once it is:
+#   1. Dashboard → R2 → Enable (needs a payment method), create buckets `langquest-media` (private) and
+#      `langquest-public`, and an R2 API token (Object Read & Write).
+#   2. `wrangler secret put R2_ACCOUNT_ID`, `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` (S3 presigning + multipart).
+#   3. Uncomment the binding below so the Worker can also read/write objects directly (worker proxy, TTS cache).
+# [[r2_buckets]]
+# binding = "MEDIA"
+# bucket_name = "langquest-media"
+
+# Abuse-control buckets and idempotency replay cache shared across isolates (memory fallback when absent):
+# `wrangler kv namespace create RATE_LIMIT` / `wrangler kv namespace create IDEMPOTENCY`, then:
+# [[kv_namespaces]]
+# binding = "RATE_LIMIT"
+# id = "<namespace id>"
+# [[kv_namespaces]]
+# binding = "IDEMPOTENCY"
+# id = "<namespace id>"
+
+# Cloudflare Queues (Workers Paid plan only). Set JOBS_BACKEND = "cloudflare_queues" and:
+# [[queues.producers]]
+# binding = "JOBS_QUEUE"
+# queue = "langquest-jobs"
+# [[queues.consumers]]
+# queue = "langquest-jobs"
+# max_batch_size = 10
+
+[env.production]
+name = "langquest-api"
+workers_dev = true
+[env.production.vars]
+API_ENV = "production"
+LOG_LEVEL = "info"
+JOBS_BACKEND = "postgres"
+CORS_ALLOWED_ORIGINS = "https://admin.langquest.app,https://app.langquest.app"
+R2_BUCKET = "langquest-media"
+R2_PUBLIC_BUCKET = "langquest-public"

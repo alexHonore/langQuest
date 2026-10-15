@@ -1,56 +1,62 @@
-# Welcome to your Expo app 👋
+# @langquest/mobile — learner app (Expo SDK 57, Expo Router)
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+Conversation-first learner app for iOS, Android and web. Everything is free to learners: there are no
+paywalls, credits, tiers or usage meters anywhere in this app.
 
-## Get started
-
-1. Install dependencies
-
-   ```bash
-   npm install
-   ```
-
-2. Start the app
-
-   ```bash
-   npx expo start
-   ```
-
-In the output, you'll find options to open the app in a
-
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
-
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
-
-## Get a fresh project
-
-When you're ready, run:
+## Run
 
 ```bash
-npm run reset-project
+# from the repo root
+pnpm dev:mobile                 # expo start (press i / a / w)
+pnpm --filter @langquest/mobile typecheck
+pnpm --filter @langquest/mobile lint       # expo lint (eslint-config-expo + React Compiler rules)
+pnpm --filter @langquest/mobile test       # vitest (stores, outbox sync, lesson + conversation machines, API client)
+pnpm --filter @langquest/mobile export:web # expo export --platform web
 ```
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+Microphone, SQLite and secure store are native modules: use a development build (`npx expo run:ios|android`
+or `eas build --profile development`) rather than Expo Go.
 
-### Other setup steps
+### Environment (public values only)
 
-- To set up ESLint for linting, run `npx expo lint`, or follow our guide on ["Using ESLint and Prettier"](https://docs.expo.dev/guides/using-eslint/)
-- If you'd like to set up unit testing, follow our guide on ["Unit Testing with Jest"](https://docs.expo.dev/develop/unit-testing/)
-- Learn more about the TypeScript setup in this template in our guide on ["Using TypeScript"](https://docs.expo.dev/guides/typescript/)
+| Variable | Purpose |
+|---|---|
+| `EXPO_PUBLIC_SUPABASE_URL` | Supabase project URL (auth only; RLS protects learner rows). |
+| `EXPO_PUBLIC_SUPABASE_ANON_KEY` | Supabase anon/publishable key. |
+| `EXPO_PUBLIC_API_BASE_URL` | LangQuest API base (`https://…/`, routes under `/v1`). |
+| `EXPO_PUBLIC_OAUTH_PROVIDERS` | Optional, e.g. `google,apple`; OAuth buttons appear only when set. |
 
-## Learn more
+Server secrets (OpenRouter, service role, R2) never reach this bundle. When a value is missing the app
+shows an explicit "not configured" state instead of failing silently.
 
-To learn more about developing your project with Expo, look at the following resources:
+## Architecture
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+```
+src/app/                 Expo Router routes (onboarding, auth, (tabs): Home/Missions/Audio/Speak/Progress,
+                         catalog + enrollment wizard, enrollment editor, course switcher, mission player,
+                         live conversation, pronunciation coach, characters, review session, account/*)
+src/components/          Screen (AppShell + course/source-language header on every learner screen), state views
+src/features/            pure feature logic + hooks
+  lesson/machine.ts        listen → anticipate → record → compare state machine (A16 reveal rule)
+  conversation/            §8.3 controller on top of @langquest/ai's reducer; VAD from recorder metering
+  missions/story.ts        manifest → pathway (never locks free content)
+  session/queries.ts       react-query + offline cache (network first, cached fallback flagged `fromCache`)
+src/lib/                 api client (ROUTES, Zod-validated envelope, retry/backoff), supabase, i18n,
+                         recorder/clip player (expo-audio), telemetry, haptics, network
+src/store/               offline-first document store (expo-sqlite native / localStorage web), typed cache,
+                         outbox (client UUIDs + monotonic revisions, idempotent replay) and sync engine
+src/state/               zustand: auth, device prefs (persisted)
+src/features/audio/placeholder.ts  replaced by the audio-library agent (src/audio/**, src/app/(tabs)/audio/**)
+```
 
-## Join the community
+Key rules implemented here:
 
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+- Every enrollment carries its own `sourceLanguageCode`; the header shows the active course and its instruction
+  language with an edit affordance; changing it calls `PATCH /v1/me/enrollments/:id` and invalidates only that
+  pair's cached manifests/missions (progress is untouched).
+- Pronunciation numeric scores render only when `assessmentMode` is acoustic (the shared `PronunciationFeedback`
+  enforces it); otherwise the honest "no numeric score for this language yet" line.
+- No fake waveforms: hands-free mode shows the real recorder metering level only while the mic is on.
+- Offline: cached enrollments/manifests/missions/reviews, local mission progress, outbox events
+  (`step_completed`, `review_result`, `activity_minutes`, `mission_abandoned`, `enrollment_opened`) synced on
+  reconnect/foreground with the same client ids (server dedupes).

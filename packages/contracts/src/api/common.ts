@@ -140,6 +140,10 @@ export const ROUTES = {
   authSessionRefresh: route('POST', '/v1/auth/session/refresh', 'learner'),
   me: route('GET', '/v1/me', 'learner'),
   meSettingsPatch: route('PATCH', '/v1/me/settings', 'learner'),
+  /** §0.2 / §11 / A28: learner-initiated data export (JSON bundle of profile, enrollments, progress, summaries). */
+  meExport: route('GET', '/v1/me/export', 'learner'),
+  /** §0.2 / §11 / A28: account deletion per disclosed policy (cascades/anonymises recordings, summaries, analytics). */
+  meDelete: route('DELETE', '/v1/me', 'learner'),
   languages: route('GET', '/v1/languages', 'public'),
   courses: route('GET', '/v1/courses', 'public'),
   courseCoverage: route('GET', '/v1/courses/:trackId/coverage', 'public'),

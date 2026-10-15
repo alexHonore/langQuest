@@ -1,0 +1,223 @@
+# License and attribution report
+
+Generated 2026-10-15T01:49:28.843Z. Items: 1220 · verified: 0 · redistributable now: 0 · flagged: 1220.
+
+## By license
+
+| License | Items | Redistributable | Flagged |
+|---|---:|---:|---:|
+| CC-BY | 1220 | 0 | 1220 |
+
+## Flags
+
+- unverified: 1220
+- audio_license_missing: 23
+- audio_not_redistributable: 338
+
+## Items missing redistribution rights (first 50)
+
+- none
+
+## Attribution texts (1100)
+
+- Sentence #11030 from Tatoeba (https://tatoeba.org/sentences/show/11030), CC BY 2.0 FR
+- Sentence #127380 from Tatoeba (https://tatoeba.org/sentences/show/127380), CC BY 2.0 FR
+- Sentence #1279 from Tatoeba (https://tatoeba.org/sentences/show/1279), CC BY 2.0 FR
+- Sentence #13955 from Tatoeba (https://tatoeba.org/sentences/show/13955), CC BY 2.0 FR
+- Sentence #180324 from Tatoeba (https://tatoeba.org/sentences/show/180324), CC BY 2.0 FR
+- Sentence #180519 from Tatoeba (https://tatoeba.org/sentences/show/180519), CC BY 2.0 FR
+- Sentence #180565 from Tatoeba (https://tatoeba.org/sentences/show/180565), CC BY 2.0 FR
+- Sentence #180701 from Tatoeba (https://tatoeba.org/sentences/show/180701), CC BY 2.0 FR
+- Sentence #180721 from Tatoeba (https://tatoeba.org/sentences/show/180721), CC BY 2.0 FR
+- Sentence #181007 from Tatoeba (https://tatoeba.org/sentences/show/181007), CC BY 2.0 FR
+- Sentence #181221 from Tatoeba (https://tatoeba.org/sentences/show/181221), CC BY 2.0 FR
+- Sentence #2513 from Tatoeba (https://tatoeba.org/sentences/show/2513), CC BY 2.0 FR
+- Sentence #2521 from Tatoeba (https://tatoeba.org/sentences/show/2521), CC BY 2.0 FR
+- Sentence #2555 from Tatoeba (https://tatoeba.org/sentences/show/2555), CC BY 2.0 FR
+- Sentence #2556 from Tatoeba (https://tatoeba.org/sentences/show/2556), CC BY 2.0 FR
+- Sentence #2559 from Tatoeba (https://tatoeba.org/sentences/show/2559), CC BY 2.0 FR
+- Sentence #2563 from Tatoeba (https://tatoeba.org/sentences/show/2563), CC BY 2.0 FR
+- Sentence #2574 from Tatoeba (https://tatoeba.org/sentences/show/2574), CC BY 2.0 FR
+- Sentence #2576 from Tatoeba (https://tatoeba.org/sentences/show/2576), CC BY 2.0 FR
+- Sentence #2578 from Tatoeba (https://tatoeba.org/sentences/show/2578), CC BY 2.0 FR
+- Sentence #2584 from Tatoeba (https://tatoeba.org/sentences/show/2584), CC BY 2.0 FR
+- Sentence #2590 from Tatoeba (https://tatoeba.org/sentences/show/2590), CC BY 2.0 FR
+- Sentence #2619 from Tatoeba (https://tatoeba.org/sentences/show/2619), CC BY 2.0 FR
+- Sentence #2622 from Tatoeba (https://tatoeba.org/sentences/show/2622), CC BY 2.0 FR
+- Sentence #2630 from Tatoeba (https://tatoeba.org/sentences/show/2630), CC BY 2.0 FR
+- Sentence #2636 from Tatoeba (https://tatoeba.org/sentences/show/2636), CC BY 2.0 FR
+- Sentence #2639 from Tatoeba (https://tatoeba.org/sentences/show/2639), CC BY 2.0 FR
+- Sentence #2641 from Tatoeba (https://tatoeba.org/sentences/show/2641), CC BY 2.0 FR
+- Sentence #2644 from Tatoeba (https://tatoeba.org/sentences/show/2644), CC BY 2.0 FR
+- Sentence #2650 from Tatoeba (https://tatoeba.org/sentences/show/2650), CC BY 2.0 FR
+- Sentence #2665 from Tatoeba (https://tatoeba.org/sentences/show/2665), CC BY 2.0 FR
+- Sentence #2673 from Tatoeba (https://tatoeba.org/sentences/show/2673), CC BY 2.0 FR
+- Sentence #2699 from Tatoeba (https://tatoeba.org/sentences/show/2699), CC BY 2.0 FR
+- Sentence #2700 from Tatoeba (https://tatoeba.org/sentences/show/2700), CC BY 2.0 FR
+- Sentence #2732 from Tatoeba (https://tatoeba.org/sentences/show/2732), CC BY 2.0 FR
+- Sentence #2733 from Tatoeba (https://tatoeba.org/sentences/show/2733), CC BY 2.0 FR
+- Sentence #2735 from Tatoeba (https://tatoeba.org/sentences/show/2735), CC BY 2.0 FR
+- Sentence #2755 from Tatoeba (https://tatoeba.org/sentences/show/2755), CC BY 2.0 FR
+- Sentence #2756 from Tatoeba (https://tatoeba.org/sentences/show/2756), CC BY 2.0 FR
+- Sentence #2776 from Tatoeba (https://tatoeba.org/sentences/show/2776), CC BY 2.0 FR
+- Sentence #2778 from Tatoeba (https://tatoeba.org/sentences/show/2778), CC BY 2.0 FR
+- Sentence #2787 from Tatoeba (https://tatoeba.org/sentences/show/2787), CC BY 2.0 FR
+- Sentence #2792 from Tatoeba (https://tatoeba.org/sentences/show/2792), CC BY 2.0 FR
+- Sentence #2806 from Tatoeba (https://tatoeba.org/sentences/show/2806), CC BY 2.0 FR
+- Sentence #2818 from Tatoeba (https://tatoeba.org/sentences/show/2818), CC BY 2.0 FR
+- Sentence #2820 from Tatoeba (https://tatoeba.org/sentences/show/2820), CC BY 2.0 FR
+- Sentence #2822 from Tatoeba (https://tatoeba.org/sentences/show/2822), CC BY 2.0 FR
+- Sentence #2823 from Tatoeba (https://tatoeba.org/sentences/show/2823), CC BY 2.0 FR
+- Sentence #2825 from Tatoeba (https://tatoeba.org/sentences/show/2825), CC BY 2.0 FR
+- Sentence #2826 from Tatoeba (https://tatoeba.org/sentences/show/2826), CC BY 2.0 FR
+- Sentence #2828 from Tatoeba (https://tatoeba.org/sentences/show/2828), CC BY 2.0 FR
+- Sentence #2830 from Tatoeba (https://tatoeba.org/sentences/show/2830), CC BY 2.0 FR
+- Sentence #2831 from Tatoeba (https://tatoeba.org/sentences/show/2831), CC BY 2.0 FR
+- Sentence #2835 from Tatoeba (https://tatoeba.org/sentences/show/2835), CC BY 2.0 FR
+- Sentence #2838 from Tatoeba (https://tatoeba.org/sentences/show/2838), CC BY 2.0 FR
+- Sentence #2842 from Tatoeba (https://tatoeba.org/sentences/show/2842), CC BY 2.0 FR
+- Sentence #2854 from Tatoeba (https://tatoeba.org/sentences/show/2854), CC BY 2.0 FR
+- Sentence #2863 from Tatoeba (https://tatoeba.org/sentences/show/2863), CC BY 2.0 FR
+- Sentence #2873 from Tatoeba (https://tatoeba.org/sentences/show/2873), CC BY 2.0 FR
+- Sentence #2874 from Tatoeba (https://tatoeba.org/sentences/show/2874), CC BY 2.0 FR
+- Sentence #2875 from Tatoeba (https://tatoeba.org/sentences/show/2875), CC BY 2.0 FR
+- Sentence #2876 from Tatoeba (https://tatoeba.org/sentences/show/2876), CC BY 2.0 FR
+- Sentence #2877 from Tatoeba (https://tatoeba.org/sentences/show/2877), CC BY 2.0 FR
+- Sentence #2881 from Tatoeba (https://tatoeba.org/sentences/show/2881), CC BY 2.0 FR
+- Sentence #2882 from Tatoeba (https://tatoeba.org/sentences/show/2882), CC BY 2.0 FR
+- Sentence #2884 from Tatoeba (https://tatoeba.org/sentences/show/2884), CC BY 2.0 FR
+- Sentence #2885 from Tatoeba (https://tatoeba.org/sentences/show/2885), CC BY 2.0 FR
+- Sentence #2887 from Tatoeba (https://tatoeba.org/sentences/show/2887), CC BY 2.0 FR
+- Sentence #2899 from Tatoeba (https://tatoeba.org/sentences/show/2899), CC BY 2.0 FR
+- Sentence #2900 from Tatoeba (https://tatoeba.org/sentences/show/2900), CC BY 2.0 FR
+- Sentence #2906 from Tatoeba (https://tatoeba.org/sentences/show/2906), CC BY 2.0 FR
+- Sentence #2908 from Tatoeba (https://tatoeba.org/sentences/show/2908), CC BY 2.0 FR
+- Sentence #2909 from Tatoeba (https://tatoeba.org/sentences/show/2909), CC BY 2.0 FR
+- Sentence #2910 from Tatoeba (https://tatoeba.org/sentences/show/2910), CC BY 2.0 FR
+- Sentence #2913 from Tatoeba (https://tatoeba.org/sentences/show/2913), CC BY 2.0 FR
+- Sentence #2921 from Tatoeba (https://tatoeba.org/sentences/show/2921), CC BY 2.0 FR
+- Sentence #2926 from Tatoeba (https://tatoeba.org/sentences/show/2926), CC BY 2.0 FR
+- Sentence #2928 from Tatoeba (https://tatoeba.org/sentences/show/2928), CC BY 2.0 FR
+- Sentence #2937 from Tatoeba (https://tatoeba.org/sentences/show/2937), CC BY 2.0 FR
+- Sentence #2938 from Tatoeba (https://tatoeba.org/sentences/show/2938), CC BY 2.0 FR
+- Sentence #2950 from Tatoeba (https://tatoeba.org/sentences/show/2950), CC BY 2.0 FR
+- Sentence #2968 from Tatoeba (https://tatoeba.org/sentences/show/2968), CC BY 2.0 FR
+- Sentence #2974 from Tatoeba (https://tatoeba.org/sentences/show/2974), CC BY 2.0 FR
+- Sentence #2986 from Tatoeba (https://tatoeba.org/sentences/show/2986), CC BY 2.0 FR
+- Sentence #2999 from Tatoeba (https://tatoeba.org/sentences/show/2999), CC BY 2.0 FR
+- Sentence #3017 from Tatoeba (https://tatoeba.org/sentences/show/3017), CC BY 2.0 FR
+- Sentence #3036 from Tatoeba (https://tatoeba.org/sentences/show/3036), CC BY 2.0 FR
+- Sentence #3039 from Tatoeba (https://tatoeba.org/sentences/show/3039), CC BY 2.0 FR
+- Sentence #3040 from Tatoeba (https://tatoeba.org/sentences/show/3040), CC BY 2.0 FR
+- Sentence #3050 from Tatoeba (https://tatoeba.org/sentences/show/3050), CC BY 2.0 FR
+- Sentence #3054 from Tatoeba (https://tatoeba.org/sentences/show/3054), CC BY 2.0 FR
+- Sentence #3059 from Tatoeba (https://tatoeba.org/sentences/show/3059), CC BY 2.0 FR
+- Sentence #3071 from Tatoeba (https://tatoeba.org/sentences/show/3071), CC BY 2.0 FR
+- Sentence #3100 from Tatoeba (https://tatoeba.org/sentences/show/3100), CC BY 2.0 FR
+- Sentence #3123 from Tatoeba (https://tatoeba.org/sentences/show/3123), CC BY 2.0 FR
+- Sentence #3131 from Tatoeba (https://tatoeba.org/sentences/show/3131), CC BY 2.0 FR
+- Sentence #3165 from Tatoeba (https://tatoeba.org/sentences/show/3165), CC BY 2.0 FR
+- Sentence #3173 from Tatoeba (https://tatoeba.org/sentences/show/3173), CC BY 2.0 FR
+- Sentence #3176 from Tatoeba (https://tatoeba.org/sentences/show/3176), CC BY 2.0 FR
+- Sentence #3184 from Tatoeba (https://tatoeba.org/sentences/show/3184), CC BY 2.0 FR
+- Sentence #3186 from Tatoeba (https://tatoeba.org/sentences/show/3186), CC BY 2.0 FR
+- Sentence #3188 from Tatoeba (https://tatoeba.org/sentences/show/3188), CC BY 2.0 FR
+- Sentence #3194 from Tatoeba (https://tatoeba.org/sentences/show/3194), CC BY 2.0 FR
+- Sentence #3210 from Tatoeba (https://tatoeba.org/sentences/show/3210), CC BY 2.0 FR
+- Sentence #3230 from Tatoeba (https://tatoeba.org/sentences/show/3230), CC BY 2.0 FR
+- Sentence #3241 from Tatoeba (https://tatoeba.org/sentences/show/3241), CC BY 2.0 FR
+- Sentence #3247 from Tatoeba (https://tatoeba.org/sentences/show/3247), CC BY 2.0 FR
+- Sentence #3250 from Tatoeba (https://tatoeba.org/sentences/show/3250), CC BY 2.0 FR
+- Sentence #3251 from Tatoeba (https://tatoeba.org/sentences/show/3251), CC BY 2.0 FR
+- Sentence #3252 from Tatoeba (https://tatoeba.org/sentences/show/3252), CC BY 2.0 FR
+- Sentence #3255 from Tatoeba (https://tatoeba.org/sentences/show/3255), CC BY 2.0 FR
+- Sentence #3261 from Tatoeba (https://tatoeba.org/sentences/show/3261), CC BY 2.0 FR
+- Sentence #3268 from Tatoeba (https://tatoeba.org/sentences/show/3268), CC BY 2.0 FR
+- Sentence #3276 from Tatoeba (https://tatoeba.org/sentences/show/3276), CC BY 2.0 FR
+- Sentence #3285 from Tatoeba (https://tatoeba.org/sentences/show/3285), CC BY 2.0 FR
+- Sentence #3286 from Tatoeba (https://tatoeba.org/sentences/show/3286), CC BY 2.0 FR
+- Sentence #329734 from Tatoeba (https://tatoeba.org/sentences/show/329734), CC BY 2.0 FR
+- Sentence #329814 from Tatoeba (https://tatoeba.org/sentences/show/329814), CC BY 2.0 FR
+- Sentence #329816 from Tatoeba (https://tatoeba.org/sentences/show/329816), CC BY 2.0 FR
+- Sentence #329821 from Tatoeba (https://tatoeba.org/sentences/show/329821), CC BY 2.0 FR
+- Sentence #329831 from Tatoeba (https://tatoeba.org/sentences/show/329831), CC BY 2.0 FR
+- Sentence #329833 from Tatoeba (https://tatoeba.org/sentences/show/329833), CC BY 2.0 FR
+- Sentence #329855 from Tatoeba (https://tatoeba.org/sentences/show/329855), CC BY 2.0 FR
+- Sentence #329856 from Tatoeba (https://tatoeba.org/sentences/show/329856), CC BY 2.0 FR
+- Sentence #329871 from Tatoeba (https://tatoeba.org/sentences/show/329871), CC BY 2.0 FR
+- Sentence #329894 from Tatoeba (https://tatoeba.org/sentences/show/329894), CC BY 2.0 FR
+- Sentence #329972 from Tatoeba (https://tatoeba.org/sentences/show/329972), CC BY 2.0 FR
+- Sentence #329976 from Tatoeba (https://tatoeba.org/sentences/show/329976), CC BY 2.0 FR
+- Sentence #329980 from Tatoeba (https://tatoeba.org/sentences/show/329980), CC BY 2.0 FR
+- Sentence #329994 from Tatoeba (https://tatoeba.org/sentences/show/329994), CC BY 2.0 FR
+- Sentence #329996 from Tatoeba (https://tatoeba.org/sentences/show/329996), CC BY 2.0 FR
+- Sentence #330004 from Tatoeba (https://tatoeba.org/sentences/show/330004), CC BY 2.0 FR
+- Sentence #330011 from Tatoeba (https://tatoeba.org/sentences/show/330011), CC BY 2.0 FR
+- Sentence #330029 from Tatoeba (https://tatoeba.org/sentences/show/330029), CC BY 2.0 FR
+- Sentence #330035 from Tatoeba (https://tatoeba.org/sentences/show/330035), CC BY 2.0 FR
+- Sentence #330039 from Tatoeba (https://tatoeba.org/sentences/show/330039), CC BY 2.0 FR
+- Sentence #330066 from Tatoeba (https://tatoeba.org/sentences/show/330066), CC BY 2.0 FR
+- Sentence #330109 from Tatoeba (https://tatoeba.org/sentences/show/330109), CC BY 2.0 FR
+- Sentence #330111 from Tatoeba (https://tatoeba.org/sentences/show/330111), CC BY 2.0 FR
+- Sentence #330124 from Tatoeba (https://tatoeba.org/sentences/show/330124), CC BY 2.0 FR
+- Sentence #330127 from Tatoeba (https://tatoeba.org/sentences/show/330127), CC BY 2.0 FR
+- Sentence #330142 from Tatoeba (https://tatoeba.org/sentences/show/330142), CC BY 2.0 FR
+- Sentence #330157 from Tatoeba (https://tatoeba.org/sentences/show/330157), CC BY 2.0 FR
+- Sentence #330158 from Tatoeba (https://tatoeba.org/sentences/show/330158), CC BY 2.0 FR
+- Sentence #330574 from Tatoeba (https://tatoeba.org/sentences/show/330574), CC BY 2.0 FR
+- Sentence #330626 from Tatoeba (https://tatoeba.org/sentences/show/330626), CC BY 2.0 FR
+- Sentence #330634 from Tatoeba (https://tatoeba.org/sentences/show/330634), CC BY 2.0 FR
+- Sentence #330635 from Tatoeba (https://tatoeba.org/sentences/show/330635), CC BY 2.0 FR
+- Sentence #330647 from Tatoeba (https://tatoeba.org/sentences/show/330647), CC BY 2.0 FR
+- Sentence #330650 from Tatoeba (https://tatoeba.org/sentences/show/330650), CC BY 2.0 FR
+- Sentence #330651 from Tatoeba (https://tatoeba.org/sentences/show/330651), CC BY 2.0 FR
+- Sentence #330654 from Tatoeba (https://tatoeba.org/sentences/show/330654), CC BY 2.0 FR
+- Sentence #330658 from Tatoeba (https://tatoeba.org/sentences/show/330658), CC BY 2.0 FR
+- Sentence #330661 from Tatoeba (https://tatoeba.org/sentences/show/330661), CC BY 2.0 FR
+- Sentence #330686 from Tatoeba (https://tatoeba.org/sentences/show/330686), CC BY 2.0 FR
+- Sentence #330690 from Tatoeba (https://tatoeba.org/sentences/show/330690), CC BY 2.0 FR
+- Sentence #330941 from Tatoeba (https://tatoeba.org/sentences/show/330941), CC BY 2.0 FR
+- Sentence #330978 from Tatoeba (https://tatoeba.org/sentences/show/330978), CC BY 2.0 FR
+- Sentence #330981 from Tatoeba (https://tatoeba.org/sentences/show/330981), CC BY 2.0 FR
+- Sentence #330982 from Tatoeba (https://tatoeba.org/sentences/show/330982), CC BY 2.0 FR
+- Sentence #331275 from Tatoeba (https://tatoeba.org/sentences/show/331275), CC BY 2.0 FR
+- Sentence #331278 from Tatoeba (https://tatoeba.org/sentences/show/331278), CC BY 2.0 FR
+- Sentence #331279 from Tatoeba (https://tatoeba.org/sentences/show/331279), CC BY 2.0 FR
+- Sentence #331339 from Tatoeba (https://tatoeba.org/sentences/show/331339), CC BY 2.0 FR
+- Sentence #331340 from Tatoeba (https://tatoeba.org/sentences/show/331340), CC BY 2.0 FR
+- Sentence #331347 from Tatoeba (https://tatoeba.org/sentences/show/331347), CC BY 2.0 FR
+- Sentence #331442 from Tatoeba (https://tatoeba.org/sentences/show/331442), CC BY 2.0 FR
+- Sentence #331592 from Tatoeba (https://tatoeba.org/sentences/show/331592), CC BY 2.0 FR
+- Sentence #331599 from Tatoeba (https://tatoeba.org/sentences/show/331599), CC BY 2.0 FR
+- Sentence #331673 from Tatoeba (https://tatoeba.org/sentences/show/331673), CC BY 2.0 FR
+- Sentence #331677 from Tatoeba (https://tatoeba.org/sentences/show/331677), CC BY 2.0 FR
+- Sentence #332223 from Tatoeba (https://tatoeba.org/sentences/show/332223), CC BY 2.0 FR
+- Sentence #332224 from Tatoeba (https://tatoeba.org/sentences/show/332224), CC BY 2.0 FR
+- Sentence #332226 from Tatoeba (https://tatoeba.org/sentences/show/332226), CC BY 2.0 FR
+- Sentence #332227 from Tatoeba (https://tatoeba.org/sentences/show/332227), CC BY 2.0 FR
+- Sentence #332228 from Tatoeba (https://tatoeba.org/sentences/show/332228), CC BY 2.0 FR
+- Sentence #333162 from Tatoeba (https://tatoeba.org/sentences/show/333162), CC BY 2.0 FR
+- Sentence #333163 from Tatoeba (https://tatoeba.org/sentences/show/333163), CC BY 2.0 FR
+- Sentence #333164 from Tatoeba (https://tatoeba.org/sentences/show/333164), CC BY 2.0 FR
+- Sentence #333165 from Tatoeba (https://tatoeba.org/sentences/show/333165), CC BY 2.0 FR
+- Sentence #334218 from Tatoeba (https://tatoeba.org/sentences/show/334218), CC BY 2.0 FR
+- Sentence #3356 from Tatoeba (https://tatoeba.org/sentences/show/3356), CC BY 2.0 FR
+- Sentence #3357 from Tatoeba (https://tatoeba.org/sentences/show/3357), CC BY 2.0 FR
+- Sentence #336161 from Tatoeba (https://tatoeba.org/sentences/show/336161), CC BY 2.0 FR
+- Sentence #336163 from Tatoeba (https://tatoeba.org/sentences/show/336163), CC BY 2.0 FR
+- Sentence #336164 from Tatoeba (https://tatoeba.org/sentences/show/336164), CC BY 2.0 FR
+- Sentence #336333 from Tatoeba (https://tatoeba.org/sentences/show/336333), CC BY 2.0 FR
+- Sentence #336334 from Tatoeba (https://tatoeba.org/sentences/show/336334), CC BY 2.0 FR
+- Sentence #336370 from Tatoeba (https://tatoeba.org/sentences/show/336370), CC BY 2.0 FR
+- Sentence #336390 from Tatoeba (https://tatoeba.org/sentences/show/336390), CC BY 2.0 FR
+- Sentence #336391 from Tatoeba (https://tatoeba.org/sentences/show/336391), CC BY 2.0 FR
+- Sentence #336405 from Tatoeba (https://tatoeba.org/sentences/show/336405), CC BY 2.0 FR
+- Sentence #336528 from Tatoeba (https://tatoeba.org/sentences/show/336528), CC BY 2.0 FR
+- Sentence #336559 from Tatoeba (https://tatoeba.org/sentences/show/336559), CC BY 2.0 FR
+- Sentence #336563 from Tatoeba (https://tatoeba.org/sentences/show/336563), CC BY 2.0 FR
+- Sentence #336567 from Tatoeba (https://tatoeba.org/sentences/show/336567), CC BY 2.0 FR
+- Sentence #336778 from Tatoeba (https://tatoeba.org/sentences/show/336778), CC BY 2.0 FR
+- Sentence #336779 from Tatoeba (https://tatoeba.org/sentences/show/336779), CC BY 2.0 FR
+- Sentence #336785 from Tatoeba (https://tatoeba.org/sentences/show/336785), CC BY 2.0 FR
+- Sentence #336793 from Tatoeba (https://tatoeba.org/sentences/show/336793), CC BY 2.0 FR
+- … 900 more

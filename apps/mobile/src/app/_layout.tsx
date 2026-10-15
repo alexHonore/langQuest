@@ -1,18 +1,39 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from 'expo-router';
+import { useTheme } from '@langquest/ui';
+import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
-import { useColorScheme } from 'react-native';
+import { StatusBar } from 'expo-status-bar';
+import React, { useEffect } from 'react';
+import { Providers } from '@/components/Providers';
+import { usePrefs } from '@/state/prefs';
 
-import { AnimatedSplashOverlay } from '@/components/animated-icon';
-import AppTabs from '@/components/app-tabs';
+void SplashScreen.preventAutoHideAsync().catch(() => undefined);
 
-SplashScreen.preventAutoHideAsync();
-
-export default function TabLayout() {
-  const colorScheme = useColorScheme();
+function RootStack(): React.JSX.Element {
+  const theme = useTheme();
+  const hydrated = usePrefs((s) => s.hydrated);
+  useEffect(() => {
+    if (hydrated) void SplashScreen.hideAsync().catch(() => undefined);
+  }, [hydrated]);
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <AnimatedSplashOverlay />
-      <AppTabs />
-    </ThemeProvider>
+    <>
+      <StatusBar style={theme.scheme === 'dark' ? 'light' : 'dark'} />
+      <Stack screenOptions={{ headerShown: false, contentStyle: { backgroundColor: theme.colors.background }, animation: theme.reducedMotion ? 'none' : 'default' }}>
+        <Stack.Screen name="index" />
+        <Stack.Screen name="(tabs)" />
+        <Stack.Screen name="onboarding" />
+        <Stack.Screen name="auth" />
+        <Stack.Screen name="course-switcher" options={{ presentation: 'modal' }} />
+        <Stack.Screen name="mission/[id]" options={{ presentation: 'fullScreenModal', gestureEnabled: false }} />
+        <Stack.Screen name="conversation" options={{ presentation: 'fullScreenModal', gestureEnabled: false }} />
+      </Stack>
+    </>
+  );
+}
+
+export default function RootLayout(): React.JSX.Element {
+  return (
+    <Providers>
+      <RootStack />
+    </Providers>
   );
 }

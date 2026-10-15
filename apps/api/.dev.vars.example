@@ -1,0 +1,23 @@
+# Copy to apps/api/.dev.vars for `pnpm --filter @langquest/api dev` (wrangler dev). Never commit .dev.vars.
+# Local Supabase stack: `pnpm supabase status -o json` prints API_URL / ANON_KEY / SERVICE_ROLE_KEY / JWT_SECRET.
+SUPABASE_URL=http://127.0.0.1:54321
+SUPABASE_ANON_KEY=<ANON_KEY from supabase status>
+SUPABASE_SERVICE_ROLE_KEY=<SERVICE_ROLE_KEY from supabase status>
+# Legacy HS256 verification (local stack default). Omit on hosted projects that sign with ES256 (JWKS is used).
+SUPABASE_JWT_SECRET=super-secret-jwt-token-with-at-least-32-characters-long
+# AI (server-only). Keep spend low in dev.
+OPENROUTER_API_KEY=<from .env at the repo root>
+AI_SESSION_TICKET_SECRET=<random 32+ characters>
+# Optional acoustic pronunciation assessor
+# AZURE_SPEECH_KEY=
+# AZURE_SPEECH_REGION=
+# R2 S3 credentials (only once R2 is enabled on the Cloudflare account; see infra/cloudflare/README.md)
+# R2_ACCOUNT_ID=
+# R2_ACCESS_KEY_ID=
+# R2_SECRET_ACCESS_KEY=
+# R2_BUCKET=langquest-media
+# R2_PUBLIC_BUCKET=langquest-public
+CORS_ALLOWED_ORIGINS=http://localhost:3000,http://localhost:8081
+JOBS_BACKEND=postgres
+LOG_LEVEL=debug
+API_ENV=development

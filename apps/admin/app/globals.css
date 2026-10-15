@@ -1,26 +1,136 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
+/*
+ * LangQuest Studio theme. Token values follow @langquest/ui light/dark palettes
+ * (accent, surfaces, semantic colours) expressed as CSS variables so Tailwind v4
+ * utilities (`bg-surface`, `text-fg-muted`, …) stay theme-aware.
+ */
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --bg: #f6f4ef;
+  --surface: #ffffff;
+  --elevated: #ffffff;
+  --surface-muted: #efece5;
+  --fg: #1d1b16;
+  --fg-secondary: #4a463d;
+  --fg-muted: #76715f;
+  --on-accent: #ffffff;
+  --accent: #2f6bff;
+  --accent-strong: #1f4fd1;
+  --accent-soft: #e4ecff;
+  --success: #1f8a4c;
+  --success-soft: #dff5e7;
+  --warning: #b76a00;
+  --warning-soft: #fff1d6;
+  --error: #c92f2f;
+  --error-soft: #fde3e3;
+  --info: #0b7a8f;
+  --info-soft: #dcf3f7;
+  --border: #dcd7cb;
+  --border-strong: #b9b3a3;
+  --focus: #2f6bff;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --bg: #15140f;
+    --surface: #1e1c16;
+    --elevated: #26231c;
+    --surface-muted: #2a2720;
+    --fg: #f3efe6;
+    --fg-secondary: #cfc9bb;
+    --fg-muted: #9b9484;
+    --on-accent: #0b1020;
+    --accent: #8db0ff;
+    --accent-strong: #b7cdff;
+    --accent-soft: #233254;
+    --success: #6fd09a;
+    --success-soft: #1f3a2b;
+    --warning: #f0b35a;
+    --warning-soft: #40301a;
+    --error: #ff8080;
+    --error-soft: #4a2222;
+    --info: #67c8d9;
+    --info-soft: #173a40;
+    --border: #3a3629;
+    --border-strong: #5a5543;
+    --focus: #8db0ff;
   }
 }
 
+@theme inline {
+  --color-bg: var(--bg);
+  --color-surface: var(--surface);
+  --color-elevated: var(--elevated);
+  --color-surface-muted: var(--surface-muted);
+  --color-fg: var(--fg);
+  --color-fg-secondary: var(--fg-secondary);
+  --color-fg-muted: var(--fg-muted);
+  --color-on-accent: var(--on-accent);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-accent-soft: var(--accent-soft);
+  --color-success: var(--success);
+  --color-success-soft: var(--success-soft);
+  --color-warning: var(--warning);
+  --color-warning-soft: var(--warning-soft);
+  --color-error: var(--error);
+  --color-error-soft: var(--error-soft);
+  --color-info: var(--info);
+  --color-info-soft: var(--info-soft);
+  --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
+  --color-focus: var(--focus);
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
+html,
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--fg);
+}
+
+body {
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+*:focus-visible {
+  outline: 2px solid var(--focus);
+  outline-offset: 2px;
+}
+
+/* Native dialog */
+dialog::backdrop {
+  background: rgb(0 0 0 / 0.45);
+}
+
+/* Script-aware text fields: tall scripts need more line height (see @langquest/locales SCRIPT_METADATA). */
+[data-script='Arab'],
+[data-script='Deva'] {
+  line-height: 1.75;
+}
+[data-script='Jpan'] {
+  line-height: 1.7;
+}
+[data-script='Hans'],
+[data-script='Hant'] {
+  line-height: 1.65;
+}
+[data-script='Hebr'] {
+  line-height: 1.55;
+}
+
+.svg-preview svg {
+  width: 100%;
+  height: auto;
+  display: block;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
 }

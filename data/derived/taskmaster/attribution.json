@@ -1,0 +1,38 @@
+{
+  "dataset": "Taskmaster-1 (TM-1-2019)",
+  "publisher": "Google LLC (google-research-datasets/Taskmaster)",
+  "authors": [
+    "Bill Byrne",
+    "Karthik Krishnamoorthi",
+    "Chinnadhurai Sankar",
+    "Arvind Neelakantan",
+    "Amit Dubey",
+    "Kyu-Young Kim",
+    "Andy Cedilnik"
+  ],
+  "licenseId": "CC-BY",
+  "licenseVersion": "4.0",
+  "licenseUrl": "https://creativecommons.org/licenses/by/4.0/",
+  "sourceUrl": "https://github.com/google-research-datasets/Taskmaster",
+  "citation": "Byrne et al., \"Taskmaster-1: Toward a Realistic and Diverse Dialog Dataset\", EMNLP-IJCNLP 2019, Hong Kong.",
+  "usage": "Dialogue structure patterns only (turn counts, slot order, abstract dialogue acts). No utterance text is redistributed. Attribution must accompany any derived scenario skeleton.",
+  "commercialRedistribution": true,
+  "attributionRequired": true,
+  "attributionText": "Dialogue structure patterns derived from Taskmaster-1 (Byrne et al., 2019), Google LLC, CC BY 4.0.",
+  "snapshotId": "d92cb6af3005f1dc09c39e75e7daf4a04905e00b",
+  "inputs": [
+    {
+      "file": "TM-1-2019/self-dialogs.json",
+      "sha256": "1e590ed0ccee279e40c2fb9e083d3b9417477c6bfe35ce5b2277167698dd858d",
+      "byteLength": 65748638
+    },
+    {
+      "file": "TM-1-2019/woz-dialogs.json",
+      "sha256": "cd3bc4e968487315d412c044d30af2bf0a4b33c3ef8b74c589f1e1fa832bf72f",
+      "byteLength": 37204053
+    }
+  ],
+  "extractedAt": "2026-10-15T01:42:00Z",
+  "dialogsRead": 13202,
+  "dialogsUnmappedDomain": 54
+}

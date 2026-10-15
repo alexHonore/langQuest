@@ -8,6 +8,7 @@
     "deploy": "wrangler deploy",
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "vitest run --passWithNoTests",
+    "test:live": "LANGQUEST_LIVE_TESTS=1 vitest run --passWithNoTests",
     "lint": "eslint src"
   },
   "dependencies": {

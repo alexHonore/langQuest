@@ -391,3 +391,28 @@ export const ProgressResponseSchema = z.object({
   achievements: z.array(z.object({ key: KeySchema, unlockedAt: TimestamptzSchema, enrollmentId: UuidSchema.nullable() })),
 });
 export type ProgressResponse = z.infer<typeof ProgressResponseSchema>;
+
+/** GET /v1/me/export — portable learner data bundle (§11 export). */
+export const MeExportResponseSchema = z.object({
+  exportedAt: TimestamptzSchema,
+  profile: MeResponseSchema,
+  enrollments: z.array(EnrollmentDtoSchema),
+  progress: z.record(z.string(), z.unknown()),
+  conversationSummaries: z.array(z.record(z.string(), z.unknown())),
+  audioProgress: z.array(z.record(z.string(), z.unknown())),
+  notes: z.array(z.string()),
+});
+export type MeExportResponse = z.infer<typeof MeExportResponseSchema>;
+
+/** DELETE /v1/me — requires explicit confirmation text; deletion follows the disclosed policy. */
+export const MeDeleteRequestSchema = z.object({
+  confirmation: z.literal('DELETE'),
+  deleteOptInRecordings: z.boolean().default(true),
+});
+export type MeDeleteRequest = z.infer<typeof MeDeleteRequestSchema>;
+export const MeDeleteResponseSchema = z.object({
+  status: z.enum(['deleted', 'scheduled']),
+  anonymisedTables: z.array(z.string()),
+  retainedForLegalReasons: z.array(z.string()),
+});
+export type MeDeleteResponse = z.infer<typeof MeDeleteResponseSchema>;
