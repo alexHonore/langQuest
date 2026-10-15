@@ -176,12 +176,14 @@ export interface CourseCoverSvgProps {
   trackId: string;
   width?: number;
   height?: number;
+  /** Localized alt text (`t(coverAltTextKey(trackId))`); English catalog name by default. */
+  altText?: string;
 }
 
 /** Abstract 3:2 course cover; the UI renders the track name on top. */
 export function CourseCoverSvg(props: CourseCoverSvgProps): React.JSX.Element {
-  const { trackId, width = 300, height } = props;
-  return renderSvgDocument(buildCoverDocument(trackId, { width, height }));
+  const { trackId, width = 300, height, altText } = props;
+  return renderSvgDocument(buildCoverDocument(trackId, { width, height, altText }));
 }
 
 /* ---------------------------------------------------------------- Icons --- */

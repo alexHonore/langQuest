@@ -334,3 +334,163 @@ export function parseAstatsPeaks(output: string, peaksPerSecond = 10): WaveformP
 export function formatCommandForLog(cmd: FfCommand): string {
   return [cmd.bin, ...cmd.args].map((a) => (/^[A-Za-z0-9_./:+=,-]+$/.test(a) ? a : `'${a.replace(/'/g, `'\\''`)}'`)).join(' ');
 }
+
+// --- segmentation (chunking for transcription) --------------------------------------
+
+/** One planned chunk of a long recording: `[startMs, endMs)` of the source, written to `output`. */
+export interface SegmentPlanEntry {
+  /** 0-based chunk index (also the `%03d` value in the output pattern). */
+  index: number;
+  startMs: number;
+  endMs: number;
+  /** Milliseconds of audio shared with the previous chunk (0 for the first chunk). */
+  overlapMs: number;
+}
+
+export interface SegmentPlanOptions {
+  durationMs: number;
+  /** Nominal chunk length (without overlap). Integer ≥ 10. */
+  segmentSeconds: number;
+  /** Seconds each chunk extends past its nominal end (so word boundaries survive the cut). Default 0; must be < segmentSeconds. */
+  overlapSeconds?: number;
+  /** Fold a trailing chunk shorter than this many seconds into the previous one. Default 0 (never). */
+  minTailSeconds?: number;
+}
+
+/** Interpolate a `%03d`-style index placeholder (`%d`, `%02d`, `%03d`, …) in an output pattern. */
+export function formatSegmentPath(pattern: string, index: number): string {
+  const m = /%0?(\d*)d/.exec(pattern);
+  if (!m) throw new Error('outputPattern must contain a %d / %03d placeholder');
+  const width = m[1] ? Number.parseInt(m[1], 10) : 0;
+  return pattern.replace(m[0], String(index).padStart(width, '0'));
+}
+
+/**
+ * Plan fixed-length chunks over a known duration, with optional overlap. Chunk `i` covers
+ * `[i·seg, (i+1)·seg + overlap)` clamped to the duration, so consecutive chunks share `overlap`
+ * seconds and a transcript stitcher can drop duplicated words at the seams.
+ */
+export function planSegments(opts: SegmentPlanOptions): SegmentPlanEntry[] {
+  const { durationMs, segmentSeconds } = opts;
+  if (!Number.isFinite(durationMs) || durationMs < 0) throw new Error('durationMs must be a non-negative number');
+  if (!Number.isInteger(segmentSeconds) || segmentSeconds < 10) throw new Error('segmentSeconds must be an integer ≥ 10');
+  const overlapSeconds = opts.overlapSeconds ?? 0;
+  if (!Number.isFinite(overlapSeconds) || overlapSeconds < 0 || overlapSeconds >= segmentSeconds) throw new Error('overlapSeconds must be ≥ 0 and smaller than segmentSeconds');
+  const minTailMs = Math.round((opts.minTailSeconds ?? 0) * 1000);
+  const segMs = segmentSeconds * 1000;
+  const overlapMs = Math.round(overlapSeconds * 1000);
+  const plan: SegmentPlanEntry[] = [];
+  if (durationMs === 0) return plan;
+  for (let start = 0, index = 0; start < durationMs; start += segMs, index++) {
+    const nominalEnd = Math.min(start + segMs, durationMs);
+    const remainingAfter = durationMs - nominalEnd;
+    const foldTail = remainingAfter > 0 && remainingAfter < minTailMs;
+    const end = foldTail ? durationMs : Math.min(start + segMs + overlapMs, durationMs);
+    plan.push({ index, startMs: start, endMs: end, overlapMs: index === 0 ? 0 : Math.min(overlapMs, start) });
+    if (foldTail) break;
+  }
+  return plan;
+}
+
+export interface SegmentCommandOptions {
+  input: string;
+  /** Output path pattern containing `%03d` (e.g. `/tmp/x/chunk-%03d.m4a`). */
+  outputPattern: string;
+  /** Nominal chunk length in seconds (integer ≥ 10). */
+  segmentSeconds: number;
+  profile: RenditionProfile;
+}
+
+function segmentEncodeArgs(profile: RenditionProfile): string[] {
+  const args = ['-vn', '-map_metadata', '-1', '-ac', String(profile.channels), '-ar', String(profile.sampleRateHz)];
+  if (profile.codec === 'aac') args.push('-c:a', 'aac', '-b:a', `${profile.bitrateKbps}k`);
+  else args.push('-c:a', 'libopus', '-b:a', `${profile.bitrateKbps}k`);
+  return args;
+}
+
+/**
+ * Split audio into fixed-length, non-overlapping chunks in one ffmpeg pass (the `segment` muxer):
+ * the cheapest way to keep every chunk under an STT provider's upload cap. Chunks are re-encoded
+ * with the given speech profile; the master is never modified. For overlapping chunks use
+ * {@link buildOverlappingSegmentCommands}. Shape matches `apps/jobs/src/ffmpeg.ts`.
+ */
+export function buildSegmentCommand(opts: SegmentCommandOptions): FfCommand {
+  if (!Number.isInteger(opts.segmentSeconds) || opts.segmentSeconds < 10) throw new Error('segmentSeconds must be an integer ≥ 10');
+  if (!opts.outputPattern.includes('%03d')) throw new Error('outputPattern must contain %03d');
+  const { profile } = opts;
+  const args: string[] = [...COMMON_FFMPEG_FLAGS, '-i', assertSafePath(opts.input, 'input'), ...segmentEncodeArgs(profile)];
+  args.push('-f', 'segment', '-segment_time', String(opts.segmentSeconds), '-reset_timestamps', '1');
+  if (profile.codec === 'aac') args.push('-segment_format', 'mp4', '-segment_format_options', 'movflags=+faststart');
+  else args.push('-segment_format', 'ogg');
+  args.push(assertSafePath(opts.outputPattern, 'outputPattern'));
+  return { bin: 'ffmpeg', args };
+}
+
+export interface OverlappingSegmentCommandOptions extends SegmentCommandOptions, Pick<SegmentPlanOptions, 'overlapSeconds' | 'minTailSeconds'> {
+  /** Source duration (from `parseProbeOutput(...).durationMs`). */
+  durationMs: number;
+}
+
+/**
+ * One ffmpeg command per chunk of {@link planSegments} (ffmpeg's `segment` muxer cannot overlap,
+ * so each chunk is cut independently with a sample-accurate seek). Commands are independent and
+ * may run in parallel; `output` is `outputPattern` with the chunk index interpolated.
+ */
+export function buildOverlappingSegmentCommands(opts: OverlappingSegmentCommandOptions): Array<{ segment: SegmentPlanEntry; output: string; command: FfCommand }> {
+  assertSafePath(opts.outputPattern, 'outputPattern');
+  const plan = planSegments({ durationMs: opts.durationMs, segmentSeconds: opts.segmentSeconds, overlapSeconds: opts.overlapSeconds, minTailSeconds: opts.minTailSeconds });
+  const { profile } = opts;
+  return plan.map((segment) => {
+    const output = formatSegmentPath(opts.outputPattern, segment.index);
+    const args: string[] = [...COMMON_FFMPEG_FLAGS, '-i', assertSafePath(opts.input, 'input'), '-ss', msToTimestamp(segment.startMs), '-to', msToTimestamp(segment.endMs), ...segmentEncodeArgs(profile)];
+    if (profile.codec === 'aac') args.push('-movflags', '+faststart', '-f', 'mp4');
+    else args.push('-f', 'ogg');
+    args.push(assertSafePath(output, 'output'));
+    return { segment, output, command: { bin: 'ffmpeg', args } };
+  });
+}
+
+// --- test fixtures ---------------------------------------------------------------------
+
+export interface ToneCommandOptions {
+  output: string;
+  /** Duration in seconds (> 0). */
+  seconds: number;
+  /** Sine frequency; ignored for `kind: 'silence'`. Default 440. */
+  frequencyHz?: number;
+  sampleRateHz?: number;
+  channels?: 1 | 2;
+  /** Container/codec of the fixture. Default `wav` (PCM s16le). */
+  format?: 'wav' | 'mp3' | 'm4a' | 'flac';
+  /** `sine` (default) or digital `silence` (`anullsrc`). */
+  kind?: 'sine' | 'silence';
+}
+
+/** Synthesize a test tone / silence file with `lavfi` (fixtures and smoke tests). Shape matches `apps/jobs/src/ffmpeg.ts`. */
+export function buildToneCommand(opts: ToneCommandOptions): FfCommand {
+  if (!Number.isFinite(opts.seconds) || opts.seconds <= 0) throw new Error('seconds must be a positive number');
+  const rate = opts.sampleRateHz ?? 44100;
+  if (!Number.isInteger(rate) || rate <= 0) throw new Error('sampleRateHz must be a positive integer');
+  const ch = opts.channels ?? 1;
+  const freq = opts.frequencyHz ?? 440;
+  if (!Number.isFinite(freq) || freq <= 0) throw new Error('frequencyHz must be a positive number');
+  const expr = opts.kind === 'silence' ? `anullsrc=r=${rate}:cl=${ch === 2 ? 'stereo' : 'mono'}` : `sine=frequency=${freq}:sample_rate=${rate}:duration=${opts.seconds}`;
+  const args: string[] = [...COMMON_FFMPEG_FLAGS, '-f', 'lavfi', '-i', expr];
+  if (opts.kind === 'silence') args.push('-t', String(opts.seconds));
+  args.push('-ac', String(ch));
+  switch (opts.format ?? 'wav') {
+    case 'mp3':
+      args.push('-c:a', 'libmp3lame', '-b:a', '64k');
+      break;
+    case 'm4a':
+      args.push('-c:a', 'aac', '-b:a', '64k', '-movflags', '+faststart');
+      break;
+    case 'flac':
+      args.push('-c:a', 'flac');
+      break;
+    default:
+      args.push('-c:a', 'pcm_s16le');
+  }
+  args.push(assertSafePath(opts.output, 'output'));
+  return { bin: 'ffmpeg', args };
+}

@@ -352,6 +352,87 @@ export type Database = {
           },
         ];
       };
+      asset_suggestions: {
+        Row: {
+          confidence: number | null;
+          created_at: string;
+          decided_at: string | null;
+          decision_note: string | null;
+          id: string;
+          job_id: string | null;
+          kind: string;
+          lesson_id: string | null;
+          media_asset_id: string;
+          provenance: NonNullable<Json>;
+          review_status: string;
+          reviewer_id: string | null;
+          suggestion: NonNullable<Json>;
+          updated_at: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          confidence?: number | null;
+          created_at?: string;
+          decided_at?: string | null;
+          decision_note?: string | null;
+          id?: string;
+          job_id?: string | null;
+          kind: string;
+          lesson_id?: string | null;
+          media_asset_id: string;
+          provenance?: NonNullable<Json>;
+          review_status?: string;
+          reviewer_id?: string | null;
+          suggestion?: NonNullable<Json>;
+          updated_at?: string;
+        };
+        Update: {
+          confidence?: number | null;
+          created_at?: string;
+          decided_at?: string | null;
+          decision_note?: string | null;
+          id?: string;
+          job_id?: string | null;
+          kind?: string;
+          lesson_id?: string | null;
+          media_asset_id?: string;
+          provenance?: NonNullable<Json>;
+          review_status?: string;
+          reviewer_id?: string | null;
+          suggestion?: NonNullable<Json>;
+          updated_at?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'asset_suggestions_job_id_fkey';
+            columns: ['job_id'];
+            isOneToOne: false;
+            referencedRelation: 'processing_jobs';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'asset_suggestions_lesson_id_fkey';
+            columns: ['lesson_id'];
+            isOneToOne: false;
+            referencedRelation: 'audio_lessons';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'asset_suggestions_media_asset_id_fkey';
+            columns: ['media_asset_id'];
+            isOneToOne: false;
+            referencedRelation: 'media_assets';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'asset_suggestions_media_asset_id_fkey';
+            columns: ['media_asset_id'];
+            isOneToOne: false;
+            referencedRelation: 'media_assets_staff';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       audio_chapters: {
         Row: {
           collection_id: string;
@@ -400,6 +481,61 @@ export type Database = {
             columns: ['cover_visual_asset_id'];
             isOneToOne: false;
             referencedRelation: 'visual_assets';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
+      audio_collection_manifests: {
+        Row: {
+          checksum: string;
+          collection_id: string;
+          created_at: string;
+          generated_by_job_id: string | null;
+          id: string;
+          instruction_language_code: string;
+          manifest: NonNullable<Json>;
+          published_at: string | null;
+          updated_at: string;
+          version: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          checksum: string;
+          collection_id: string;
+          created_at?: string;
+          generated_by_job_id?: string | null;
+          id?: string;
+          instruction_language_code?: string;
+          manifest: NonNullable<Json>;
+          published_at?: string | null;
+          updated_at?: string;
+          version: number;
+        };
+        Update: {
+          checksum?: string;
+          collection_id?: string;
+          created_at?: string;
+          generated_by_job_id?: string | null;
+          id?: string;
+          instruction_language_code?: string;
+          manifest?: NonNullable<Json>;
+          published_at?: string | null;
+          updated_at?: string;
+          version?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'audio_collection_manifests_collection_id_fkey';
+            columns: ['collection_id'];
+            isOneToOne: false;
+            referencedRelation: 'audio_course_collections';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'audio_collection_manifests_generated_by_job_id_fkey';
+            columns: ['generated_by_job_id'];
+            isOneToOne: false;
+            referencedRelation: 'processing_jobs';
             referencedColumns: ['id'];
           },
         ];
@@ -1455,6 +1591,68 @@ export type Database = {
             isOneToOne: false;
             referencedRelation: 'conversation_sessions';
             referencedColumns: ['id'];
+          },
+        ];
+      };
+      course_manifests: {
+        Row: {
+          checksum: string;
+          course_track_id: string;
+          created_at: string;
+          generated_by_job_id: string | null;
+          id: string;
+          manifest: NonNullable<Json>;
+          published_at: string | null;
+          source_language_code: string;
+          updated_at: string;
+          version: number;
+        };
+        ComputedFields: never;
+        Insert: {
+          checksum: string;
+          course_track_id: string;
+          created_at?: string;
+          generated_by_job_id?: string | null;
+          id?: string;
+          manifest: NonNullable<Json>;
+          published_at?: string | null;
+          source_language_code: string;
+          updated_at?: string;
+          version: number;
+        };
+        Update: {
+          checksum?: string;
+          course_track_id?: string;
+          created_at?: string;
+          generated_by_job_id?: string | null;
+          id?: string;
+          manifest?: NonNullable<Json>;
+          published_at?: string | null;
+          source_language_code?: string;
+          updated_at?: string;
+          version?: number;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'course_manifests_course_track_id_fkey';
+            columns: ['course_track_id'];
+            isOneToOne: false;
+            referencedRelation: 'course_tracks';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'course_manifests_generated_by_job_id_fkey';
+            columns: ['generated_by_job_id'];
+            isOneToOne: false;
+            referencedRelation: 'processing_jobs';
+            referencedColumns: ['id'];
+          },
+          {
+            foreignKeyName: 'course_manifests_source_language_code_fkey';
+            columns: ['source_language_code'];
+            isOneToOne: false;
+            referencedRelation: 'languages';
+            referencedColumns: ['code'];
           },
         ];
       };
@@ -4916,6 +5114,7 @@ export type Database = {
       };
     };
     Functions: {
+      account_deletion_in_progress: { Args: Record<PropertyKey, never>; Returns: boolean };
       apply_sync_events: {
         Args: { p_client_sent_at?: string; p_events: Json[]; p_user_id?: string };
         Returns: {
@@ -5025,6 +5224,10 @@ export type Database = {
           isOneToOne: true;
           isSetofReturn: false;
         };
+      };
+      delete_account: {
+        Args: { p_delete_opt_in_recordings?: boolean; p_user_id: string };
+        Returns: Json;
       };
       enqueue_processing_job: {
         Args: {
@@ -5173,6 +5376,7 @@ export type Database = {
       normalize_source_language_code: { Args: { p_value: string }; Returns: string };
       object_key_scope: { Args: { p_key: string }; Returns: string };
       owns_media_asset: { Args: { p_asset_id: string }; Returns: boolean };
+      purge_test_user: { Args: { p_user_id: string }; Returns: Json };
       requeue_expired_jobs: {
         Args: { p_limit?: number };
         Returns: {

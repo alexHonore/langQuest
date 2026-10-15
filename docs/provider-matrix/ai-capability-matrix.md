@@ -102,6 +102,30 @@ inferred, not measured, and the adapter advertises `features.tone=true` only for
 Prices are seeded from `openrouter-models-snapshot-2026-10-14.json` and refreshed at runtime via `client.models.refreshPricing()`;
 the provider-reported `usage.cost` always wins for the `ai_requests` ledger.
 
+### Profile overlay semantics (`ModelProfileRegistry.refresh`)
+
+The registry keeps two layers per `task × variety × source` scope: the package default above and an optional DB overlay.
+`refresh()` applies **only `enabled: true`** rows from `ai_model_profiles`; a disabled row is skipped (and, if an earlier
+refresh had overlaid that scope, the scope reverts to the package default). The catalog seed ships every row disabled
+until an admin smoke-tests it, so a disabled row can never switch a task off. Every resolved profile carries a
+`resolvedSource` marker (`'db'` | `'package-default'`); `ledgerProfileId()` returns the id only for `'db'` profiles, because
+package-default ids are deterministic hashes, not `ai_model_profiles.id` values.
+
+### Behaviour notes (adapters)
+
+- **Text-only sessions.** `PipelineRealtimeProvider.createSession` returns pipeline `text_only` whenever the session mode is
+  `text_only`, even when STT + TTS are available for the variety: the learner's choice wins. Text-only still requires the
+  locale to resolve to a single variety (`es`, `pt`, `zh` are refused, never guessed). Voice modes require full STT + TTS.
+- **STT language hint policy.** `OpenRouterSpeechRecognizer` sends the matrix hint by default (`languageHint: 'matrix'`).
+  Pass `languageHint: 'auto'` (adapter option or per `transcribe()` call) to omit the hint for **code-switched audio** —
+  the model then detects the language itself; the detected code is reported in `detectedLanguage` and `languageMismatch`
+  is set honestly when it differs from the target variety. Any other string is sent verbatim as an ISO-639-1 hint. The
+  `supports()` notes name the effective hint and policy (`languageHint=ar (policy=matrix)`) and the code-switch guidance.
+- **Ledger attribution.** Every adapter (`OpenRouterTextReasoner`, STT, TTS, Azure pronunciation) accepts an
+  `attribution` context `{ userId, profileId, enrollmentId }` (static or a per-request resolver; `createAiServices` passes
+  `deps.attribution` to all of them). The default stays pseudonymous (`userId: null`); `profileId` must be a DB uuid —
+  the reasoner fills it from `resolvedSource === 'db'` and otherwise writes `null`.
+
 ## Open items before any "native quality" claim (§14.2)
 
 1. Native review of every prompt pack (`PROMPT_PACKS[*].nativeReviewed` is `false` everywhere).

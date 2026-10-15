@@ -8,7 +8,7 @@ import { jsonResponse, mockFetch, pcmFixture } from '../test-support/fakes';
 import { base64ToBytes, bytesToBase64, pcm16ToWav } from '../util';
 import { resolveAudioBytes } from './audio-input';
 import { AzurePronunciationAssessor, CompositeAssessor, ReferenceComparisonAssessor, azureLocaleForVariety, mapAzureResponse, type AzureDetailedResponse } from './pronunciation';
-import { OpenRouterSpeechRecognizer, toTranscriptResult } from './stt';
+import { OpenRouterSpeechRecognizer, effectiveLanguageHint, toTranscriptResult } from './stt';
 import { OpenRouterSpeechSynthesizer, ttsCacheKey } from './tts';
 import { VOICE_REGISTRY, defaultVoiceFor, findVoice, voicesForVariety } from './voices';
 
@@ -55,6 +55,46 @@ describe('OpenRouterSpeechRecognizer', () => {
     expect(res.segments[0]?.words).toHaveLength(4);
     expect(res.confidence).toBeCloseTo(Math.exp(-0.1), 3);
     expect(sink.records[0]).toMatchObject({ task: 'speech_recognition', success: true, audioSeconds: 2.5, traceId: 't1' });
+  });
+
+  it('omits the language hint with languageHint "auto" (code-switched audio) and sends explicit hints verbatim', async () => {
+    const { client, calls } = makeClient([{ match: (u) => u.endsWith('/audio/transcriptions'), respond: () => jsonResponse(whisperBody('je veux un café s\'il vous plaît', 'fr')) }]);
+    const sink = new MemoryAiRequestSink();
+    const stt = new OpenRouterSpeechRecognizer({ client, sink });
+    const res = await stt.transcribe(inline(pcm16ToWav(pcmFixture(200), 16_000)), 'ar-MA', { traceId: 't-auto', languageHint: 'auto' });
+    expect(calls[0]?.body).not.toHaveProperty('language');
+    expect(res.detectedLanguage?.code).toBe('fr');
+    expect(res.languageMismatch).toBe(true); // honest: detected language differs from the requested variety
+    expect(sink.records[0]?.redactedLog).toMatchObject({ languageHint: null });
+    await stt.transcribe(inline(pcm16ToWav(pcmFixture(200), 16_000)), 'ar-MA', { languageHint: 'fr' });
+    expect(calls[1]?.body).toMatchObject({ language: 'fr' });
+    await stt.transcribe(inline(pcm16ToWav(pcmFixture(200), 16_000)), 'ar-MA');
+    expect(calls[2]?.body).toMatchObject({ language: 'ar' });
+    // Adapter-level default policy, overridable per call.
+    const autoStt = new OpenRouterSpeechRecognizer({ client, languageHint: 'auto' });
+    await autoStt.transcribe(inline(pcm16ToWav(pcmFixture(200), 16_000)), 'ar-MA');
+    expect(calls[3]?.body).not.toHaveProperty('language');
+    await autoStt.transcribe(inline(pcm16ToWav(pcmFixture(200), 16_000)), 'ar-MA', { languageHint: 'matrix' });
+    expect(calls[4]?.body).toMatchObject({ language: 'ar' });
+    expect(effectiveLanguageHint('yue', undefined)).toBe('yue');
+    expect(effectiveLanguageHint('yue', 'auto')).toBeNull();
+    const notes = (await autoStt.supports('ar-MA')).notes.join('\n');
+    expect(notes).toMatch(/languageHint=auto \(policy=auto\)/);
+    expect(notes).toMatch(/codeSwitch: pass languageHint "auto"/);
+    expect((await stt.supports('ar-MA')).notes.join('\n')).toMatch(/languageHint=ar \(policy=matrix\)/);
+  });
+
+  it('writes injected attribution (learner id, DB profile id) to ai_requests and stays pseudonymous by default', async () => {
+    const { client } = makeClient([{ match: (u) => u.endsWith('/audio/transcriptions'), respond: () => jsonResponse(whisperBody('salut', 'fr')) }]);
+    const sink = new MemoryAiRequestSink();
+    const anonymous = new OpenRouterSpeechRecognizer({ client, sink });
+    await anonymous.transcribe(inline(pcm16ToWav(pcmFixture(200), 16_000)), 'fr-FR', { enrollmentId: 'enr-1' });
+    expect(sink.records[0]).toMatchObject({ userId: null, profileId: null, enrollmentId: 'enr-1' });
+    const attributed = new OpenRouterSpeechRecognizer({ client, sink, attribution: () => ({ userId: 'user-1', profileId: '99999999-9999-4999-8999-999999999999', enrollmentId: 'enr-2' }) });
+    await attributed.transcribe(inline(pcm16ToWav(pcmFixture(200), 16_000)), 'fr-FR');
+    expect(sink.records[1]).toMatchObject({ userId: 'user-1', profileId: '99999999-9999-4999-8999-999999999999', enrollmentId: 'enr-2' });
+    await attributed.transcribe(inline(pcm16ToWav(pcmFixture(200), 16_000)), 'fr-FR', { attribution: { profileId: null }, enrollmentId: 'enr-3' });
+    expect(sink.records[2]).toMatchObject({ userId: 'user-1', profileId: null, enrollmentId: 'enr-3' });
   });
 
   it('falls through the model chain when a model is rejected, and retries plain json on verbose_json rejection', async () => {
@@ -162,7 +202,11 @@ describe('voice registry + synthesizer', () => {
     expect(String((calls[0]?.body as Record<string, unknown>).instructions)).toMatch(/slowly/);
     expect((calls[0]?.body as Record<string, unknown>).speed).toBeUndefined();
     expect(out).toMatchObject({ encoding: 'pcm16', sampleRateHz: 24_000, durationMs: 1000, synthetic: true, cached: false, voiceId: 'ary-f-1', provider: 'openrouter' });
-    expect(sink.records[0]).toMatchObject({ task: 'speech_synthesis', success: true, inputTokens: 10 });
+    expect(sink.records[0]).toMatchObject({ task: 'speech_synthesis', success: true, inputTokens: 10, userId: null, profileId: null });
+    const attributedTts = new OpenRouterSpeechSynthesizer({ client, sink, attribution: { userId: 'user-9', enrollmentId: 'enr-9' } });
+    await attributedTts.synthesize('مرحبا', 'ar-MA', 'ary-f-1', { attribution: { profileId: '12121212-1212-4121-8121-121212121212' } });
+    expect(sink.records[1]).toMatchObject({ task: 'speech_synthesis', userId: 'user-9', enrollmentId: 'enr-9', profileId: '12121212-1212-4121-8121-121212121212' });
+    n = 1;
     const again = await tts.synthesize('صباح الخير', 'ar-MA', 'ary-f-1', { cacheScope: 'shared_approved', rate: 0.75 });
     expect(again.cached).toBe(true);
     expect(n).toBe(1);

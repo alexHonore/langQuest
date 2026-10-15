@@ -1,6 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import { AI_TASK_NAME_VALUES, ModelProfileSchema } from '@langquest/contracts';
-import { AI_ROLE_VALUES, DEFAULT_PROFILES, ModelProfileRegistry, ProfileNotFoundError, ROLE_TO_TASK, defaultProfileId } from './profiles';
+import { AI_ROLE_VALUES, DEFAULT_PROFILES, ModelProfileRegistry, ProfileNotFoundError, ROLE_TO_TASK, defaultProfileId, ledgerProfileId } from './profiles';
 
 describe('DEFAULT_PROFILES', () => {
   it('covers every AiTaskName with a global default and validates against the contract schema', () => {
@@ -50,5 +50,54 @@ describe('ModelProfileRegistry resolution', () => {
     expect(await r.refresh({ load: async () => [row] })).toBe(1);
     expect(r.resolve({ task: 'meaning_assessment', targetVariety: 'yue', sourceLanguage: 'en' }).primaryModel).toBe('db/model');
     expect(r.list('meaning_assessment')[0]?.targetVariety).toBe('yue');
+  });
+
+  it('marks resolved profiles with their source: package-default vs db', async () => {
+    const r = new ModelProfileRegistry();
+    const before = r.resolve({ task: 'meaning_assessment', targetVariety: 'yue', sourceLanguage: 'en' });
+    expect(before.resolvedSource).toBe('package-default');
+    expect(ledgerProfileId(before)).toBeNull();
+    const row = ModelProfileSchema.parse({ ...DEFAULT_PROFILES[0], id: '44444444-4444-4444-8444-444444444444', task: 'meaning_assessment', targetVariety: 'yue', sourceLanguage: null, primaryModel: 'db/model', fallbackModels: [], version: 3 });
+    await r.refresh({ load: async () => [row] });
+    const after = r.resolve({ task: 'meaning_assessment', targetVariety: 'yue', sourceLanguage: 'en' });
+    expect(after.resolvedSource).toBe('db');
+    expect(ledgerProfileId(after)).toBe('44444444-4444-4444-8444-444444444444');
+    expect(r.sourceOf('meaning_assessment', 'yue', null)).toBe('db');
+    expect(r.sourceOf('meaning_assessment', null, null)).toBe('package-default');
+    expect(r.list('meaning_assessment').find((p) => p.targetVariety === 'yue')?.resolvedSource).toBe('db');
+  });
+
+  it('refresh ignores disabled DB rows so the package default for the same scope stays in force', async () => {
+    const r = new ModelProfileRegistry();
+    const packageDefault = r.resolve({ task: 'character_dialogue', targetVariety: 'fr', sourceLanguage: 'en' });
+    const disabledGlobal = ModelProfileSchema.parse({ ...packageDefault, resolvedSource: undefined, id: '55555555-5555-4555-8555-555555555555', primaryModel: 'db/disabled', enabled: false });
+    const disabledVariety = ModelProfileSchema.parse({ ...disabledGlobal, id: '66666666-6666-4666-8666-666666666666', targetVariety: 'ary' });
+    const result = await r.refreshDetailed({ load: async () => [disabledGlobal, disabledVariety] });
+    expect(result).toEqual({ applied: 0, skippedDisabled: 2, reverted: 0 });
+    const resolved = r.resolve({ task: 'character_dialogue', targetVariety: 'fr', sourceLanguage: 'en' });
+    expect(resolved.primaryModel).toBe(packageDefault.primaryModel);
+    expect(resolved.resolvedSource).toBe('package-default');
+    expect(r.resolve({ task: 'character_dialogue', targetVariety: 'ary', sourceLanguage: 'en' })).toMatchObject({ targetVariety: 'ary', resolvedSource: 'package-default' });
+    // Seed scenario: every row disabled → nothing is turned off, all tasks still resolve.
+    const allDisabled = DEFAULT_PROFILES.map((p, i) => ModelProfileSchema.parse({ ...p, id: `77777777-7777-4777-8777-${String(i).padStart(12, '0')}`, enabled: false }));
+    expect(await r.refresh({ load: async () => allDisabled })).toBe(0);
+    for (const task of AI_TASK_NAME_VALUES) expect(r.find({ task, targetVariety: 'fr', sourceLanguage: 'en' })).not.toBeNull();
+  });
+
+  it('refresh reverts a previously overlaid scope when its row is disabled later', async () => {
+    const r = new ModelProfileRegistry();
+    const enabled = ModelProfileSchema.parse({ ...DEFAULT_PROFILES[0], id: '88888888-8888-4888-8888-888888888888', task: 'scene_planning', targetVariety: null, sourceLanguage: null, primaryModel: 'db/enabled' });
+    expect(await r.refresh({ load: async () => [enabled] })).toBe(1);
+    expect(r.resolve({ task: 'scene_planning', targetVariety: 'fr', sourceLanguage: 'en' })).toMatchObject({ primaryModel: 'db/enabled', resolvedSource: 'db' });
+    const result = await r.refreshDetailed({ load: async () => [{ ...enabled, enabled: false }] });
+    expect(result).toEqual({ applied: 0, skippedDisabled: 1, reverted: 1 });
+    const back = r.resolve({ task: 'scene_planning', targetVariety: 'fr', sourceLanguage: 'en' });
+    expect(back.resolvedSource).toBe('package-default');
+    expect(back.primaryModel).toBe('anthropic/claude-haiku-5.5');
+    // upsert() of a DB row defaults to the db layer; a disabled one never lands.
+    r.upsert({ ...enabled, enabled: false });
+    expect(r.resolve({ task: 'scene_planning', targetVariety: 'fr', sourceLanguage: 'en' }).resolvedSource).toBe('package-default');
+    r.upsert(enabled);
+    expect(r.resolve({ task: 'scene_planning', targetVariety: 'fr', sourceLanguage: 'en' }).resolvedSource).toBe('db');
   });
 });

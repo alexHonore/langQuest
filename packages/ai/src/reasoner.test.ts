@@ -3,7 +3,8 @@ import { z } from 'zod';
 import { AiProviderUnavailableError } from './errors';
 import { OpenRouterClient } from './openrouter/client';
 import { MemoryAiRequestSink, OpenRouterTextReasoner, StructuredOutputError, extractJson, isStrictCompatible, toResponseFormat } from './reasoner';
-import { ModelProfileRegistry } from './profiles';
+import { ModelProfileRegistry, defaultProfileId } from './profiles';
+import { ModelProfileSchema } from '@langquest/contracts';
 import { chatResponse, ctxFor, jsonResponse, mockFetch } from './test-support/fakes';
 
 const prompt = { system: 'sys', user: 'say hi', templateId: 'test.prompt', templateVersion: '1' };
@@ -32,6 +33,29 @@ describe('OpenRouterTextReasoner', () => {
     expect(sink.records).toHaveLength(1);
     expect(sink.records[0]).toMatchObject({ task: 'character_dialogue', provider: 'openrouter', model: 'anthropic/claude-haiku-5.5', success: true, traceId: 'trace-1', enrollmentId: ctxFor('arabic-moroccan').enrollmentId, inputTokens: 100, outputTokens: 20 });
     expect(JSON.stringify(sink.records[0]?.redactedLog)).not.toContain('say hi');
+  });
+
+  it('ledger rows stay pseudonymous by default and never carry package-default profile ids', async () => {
+    const { reasoner, sink } = setup(() => chatResponse('{"reply":"x","variety":"arb"}'));
+    await reasoner.generateStructured('scene_planning', ctxFor('arabic-msa', 'en'), prompt, Schema);
+    expect(sink.records[0]).toMatchObject({ userId: null, profileId: null });
+    expect(sink.records[0]?.redactedLog).toMatchObject({ profileSource: 'package-default' });
+    expect(defaultProfileId('scene_planning', null, null)).not.toBe(sink.records[0]?.profileId);
+  });
+
+  it('writes injected attribution and the DB profile id when the profile came from ai_model_profiles', async () => {
+    const { fetchImpl } = mockFetch([{ match: (u) => u.endsWith('/chat/completions'), respond: () => chatResponse('{"reply":"x","variety":"arb"}') }]);
+    const client = new OpenRouterClient({ apiKey: 'k', fetch: fetchImpl, sleep: async () => {}, requestIdFactory: () => 'req' });
+    const profiles = new ModelProfileRegistry();
+    const dbRow = ModelProfileSchema.parse({ ...profiles.resolve({ task: 'scene_planning', targetVariety: 'arb', sourceLanguage: 'en' }), resolvedSource: undefined, id: 'abababab-abab-4bab-8bab-abababababab' });
+    await profiles.refresh({ load: async () => [dbRow] });
+    const sink = new MemoryAiRequestSink();
+    const reasoner = new OpenRouterTextReasoner({ client, profiles, sink, attribution: { userId: 'user-1' } });
+    await reasoner.generateStructured('scene_planning', ctxFor('arabic-msa', 'en'), prompt, Schema);
+    expect(sink.records[0]).toMatchObject({ userId: 'user-1', profileId: 'abababab-abab-4bab-8bab-abababababab', enrollmentId: ctxFor('arabic-msa', 'en').enrollmentId });
+    expect(sink.records[0]?.redactedLog).toMatchObject({ profileSource: 'db' });
+    await reasoner.generateStructured('scene_planning', ctxFor('arabic-msa', 'en'), prompt, Schema, { attribution: { userId: null, enrollmentId: 'enr-override' } });
+    expect(sink.records[1]).toMatchObject({ userId: null, profileId: 'abababab-abab-4bab-8bab-abababababab', enrollmentId: 'enr-override' });
   });
 
   it('retries once with a repair instruction when the output fails the schema, then succeeds', async () => {

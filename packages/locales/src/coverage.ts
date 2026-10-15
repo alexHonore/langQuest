@@ -23,6 +23,7 @@ import {
   BASE_LOCALE,
   CATALOGS,
   CATALOG_NAMESPACES,
+  CATALOG_SECTIONS,
   REQUIRED_PARTIAL_NAMESPACES,
   flattenCatalog,
   namespaceOfKey,
@@ -60,6 +61,14 @@ export interface LocaleCoverage {
   emptyKeys: string[];
   /** Namespaces that are 100% translated. */
   completeNamespaces: string[];
+  /**
+   * Coverage of the app-facing sub-namespaces listed in `CATALOG_SECTIONS` (`admin.ui`,
+   * `catalog.cover`, `audio.listen`), so an app can tell whether the copy it switched to
+   * `t()` for is translated in a locale before enabling it.
+   */
+  sections: NamespaceCoverage[];
+  /** Sections (from `CATALOG_SECTIONS`) that are 100% translated. */
+  completeSections: string[];
   /** True when every `REQUIRED_PARTIAL_NAMESPACES` namespace is complete (locale is usable for onboarding). */
   usable: boolean;
 }
@@ -94,6 +103,12 @@ export function computeLocaleCoverage(locale: string, catalog: FlatCatalog, base
     .filter(([, v]) => v === '')
     .map(([k]) => k);
   const completeNamespaces = namespaces.filter((ns) => ns.present === ns.expected).map((ns) => ns.namespace);
+  const sections: NamespaceCoverage[] = CATALOG_SECTIONS.map((section) => {
+    const expected = Object.keys(base).filter((k) => k.startsWith(`${section}.`));
+    const missing = expected.filter((k) => !(typeof catalog[k] === 'string' && catalog[k] !== ''));
+    return { namespace: section, expected: expected.length, present: expected.length - missing.length, missing, pct: pct(expected.length - missing.length, expected.length) };
+  });
+  const completeSections = sections.filter((s) => s.expected > 0 && s.present === s.expected).map((s) => s.namespace);
   const status: LocaleCoverageStatus = totalPresent === 0 ? 'missing' : totalPresent === totalExpected ? 'complete' : 'partial';
   return {
     locale,
@@ -105,6 +120,8 @@ export function computeLocaleCoverage(locale: string, catalog: FlatCatalog, base
     extraKeys,
     emptyKeys,
     completeNamespaces,
+    sections,
+    completeSections,
     usable: REQUIRED_PARTIAL_NAMESPACES.every((ns) => completeNamespaces.includes(ns)),
   };
 }
@@ -128,6 +145,10 @@ export function computeCatalogCoverage(
 export interface CoverageMetadata {
   baseLocale: string;
   namespaces: readonly string[];
+  /** App-facing sub-namespaces tracked separately (`CATALOG_SECTIONS`). */
+  sections?: readonly string[];
+  /** Number of leaf keys in the base catalog. */
+  keyCount?: number;
   locales: Readonly<
     Record<
       string,
@@ -137,6 +158,12 @@ export interface CoverageMetadata {
         namespaces: readonly string[];
         /** Fit for onboarding + enrollment management (all required namespaces complete). */
         usable: boolean;
+        /** Sections (`CATALOG_SECTIONS`) that are fully translated. */
+        sections?: readonly string[];
+        /** Leaf keys present (non-empty) in this locale. */
+        keyCount?: number;
+        /** 0..100, rounded to two decimals. */
+        pct?: number;
       }
     >
   >;
@@ -149,9 +176,9 @@ export function buildCoverageMetadata(): CoverageMetadata {
   const coverage = computeCatalogCoverage();
   const locales: Record<string, CoverageMetadata['locales'][string]> = {};
   for (const [locale, c] of Object.entries(coverage)) {
-    locales[locale] = { status: c.status, namespaces: c.completeNamespaces, usable: c.usable };
+    locales[locale] = { status: c.status, namespaces: c.completeNamespaces, usable: c.usable, sections: c.completeSections, keyCount: c.totalPresent, pct: c.pct };
   }
-  return { baseLocale: BASE_LOCALE, namespaces: [...CATALOG_NAMESPACES], locales };
+  return { baseLocale: BASE_LOCALE, namespaces: [...CATALOG_NAMESPACES], sections: [...CATALOG_SECTIONS], keyCount: coverage[BASE_LOCALE]?.totalExpected ?? 0, locales };
 }
 
 /** UI percentage per locale (0..100) for `course_source_localizations.metrics.ui_pct`. */

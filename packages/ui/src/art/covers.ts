@@ -319,24 +319,40 @@ export function buildCoverNodes(trackId: string): SvgNode[] {
 }
 
 /** Full document for a cover. */
-export function buildCoverDocument(
-  trackId: string,
-  opts: { width?: number; height?: number } = {},
-): SvgDocument {
+export interface CoverRenderOptions {
+  width?: number;
+  height?: number;
+  /**
+   * Localized accessible description (`t(coverAltTextKey(trackId))`). Falls
+   * back to the English catalog display name. Never rendered as visible text.
+   */
+  altText?: string;
+}
+
+/**
+ * Locale catalog key for a cover's alt text: `catalog.cover.<trackId>` (the
+ * track slug as-is, e.g. `catalog.cover.arabic-moroccan`). Also exposed per
+ * cover as `ART_MANIFEST.coverAltTextKeys[trackId]`.
+ */
+export function coverAltTextKey(trackId: string): string {
+  return `catalog.cover.${trackId}`;
+}
+
+/** Default (English) alt text when no localized `altText` is supplied. */
+export function defaultCoverAltText(trackId: string): string {
+  const track = isCourseTrackId(trackId) ? getCourseTrack(trackId) : undefined;
+  return track ? `Course cover art for ${track.displayName}` : `Course cover art for ${trackId}`;
+}
+
+export function buildCoverDocument(trackId: string, opts: CoverRenderOptions = {}): SvgDocument {
   const width = opts.width ?? 300;
   const height = opts.height ?? Math.round((width * 2) / 3);
-  const track = isCourseTrackId(trackId) ? getCourseTrack(trackId) : undefined;
-  const label = track
-    ? `Course cover art for ${track.displayName}`
-    : `Course cover art for ${trackId}`;
+  const label = opts.altText?.trim() ? opts.altText.trim() : defaultCoverAltText(trackId);
   return { viewBox: COVER_VIEWBOX, width, height, label, children: buildCoverNodes(trackId) };
 }
 
 /** Standalone `<svg>` markup for a course cover. */
-export function courseCoverSvgString(
-  trackId: string,
-  opts: { width?: number; height?: number } = {},
-): string {
+export function courseCoverSvgString(trackId: string, opts: CoverRenderOptions = {}): string {
   return toSvgString(buildCoverDocument(trackId, opts));
 }
 

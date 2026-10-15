@@ -143,6 +143,18 @@ export interface CurriculumRepository {
   upsertExpressionTranslation(
     tr: Insert<'expression_translations'>,
   ): Promise<Row<'expression_translations'>>;
+  // --- content-factory / importer helpers (migration 100, cross-package gaps from scripts + jobs) ---
+  getIntentByKey(intentKey: string): Promise<Row<'communicative_intents'> | null>;
+  listIntents(): Promise<Row<'communicative_intents'>[]>;
+  insertExpressionForm(form: Insert<'expression_forms'>): Promise<Row<'expression_forms'>>;
+  listExpressionForms(expressionId: string): Promise<Row<'expression_forms'>[]>;
+  /**
+   * Idempotent lookup of a generated expression by the draft id its provenance recorded
+   * (`script_annotations -> provenance -> draftId`, JSONB containment).
+   */
+  findExpressionByDraftId(draftId: string): Promise<Row<'expressions'> | null>;
+  /** Missions whose scoring rubric records a content-factory draft id (`scoring_rubric -> provenance -> draftId`). */
+  findMissionByDraftId(draftId: string): Promise<Row<'missions'> | null>;
 }
 
 const sha256 = (value: string): string => createHash('sha256').update(value).digest('hex');
@@ -509,6 +521,54 @@ export function curriculumRepository(db: DbClient): CurriculumRepository {
         await db.from('expressions').insert(expr).select('*').single(),
         'curriculum.insertExpression',
       );
+    },
+    async getIntentByKey(intentKey) {
+      return unwrapMaybe(
+        await db.from('communicative_intents').select('*').eq('intent_key', intentKey).maybeSingle(),
+        'curriculum.getIntentByKey',
+      );
+    },
+    async listIntents() {
+      return unwrap(
+        await db.from('communicative_intents').select('*').order('intent_key'),
+        'curriculum.listIntents',
+      );
+    },
+    async insertExpressionForm(form) {
+      return unwrap(
+        await db.from('expression_forms').insert(form).select('*').single(),
+        'curriculum.insertExpressionForm',
+      );
+    },
+    async listExpressionForms(expressionId) {
+      return unwrap(
+        await db.from('expression_forms').select('*').eq('expression_id', expressionId),
+        'curriculum.listExpressionForms',
+      );
+    },
+    async findExpressionByDraftId(draftId) {
+      const rows = unwrap(
+        await db
+          .from('expressions')
+          .select('*')
+          .contains('script_annotations', { provenance: { draftId } })
+          .order('created_at')
+          .limit(1),
+        'curriculum.findExpressionByDraftId',
+      );
+      return rows[0] ?? null;
+    },
+    async findMissionByDraftId(draftId) {
+      const rows = unwrap(
+        await db
+          .from('missions')
+          .select('*')
+          .contains('scoring_rubric', { provenance: { draftId } })
+          .order('created_at')
+          .limit(1),
+        'curriculum.findMissionByDraftId',
+      );
+      return rows[0] ?? null;
     },
     async upsertExpressionTranslation(tr) {
       return unwrap(

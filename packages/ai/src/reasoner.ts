@@ -38,6 +38,29 @@ export interface AiRequestSink {
   record(entry: AiRequestRecord): void | Promise<void>;
 }
 
+/**
+ * Who an `ai_requests` row is attributed to. Every field is optional: the default stays pseudonymous
+ * (`userId: null`). `profileId` must be the `ai_model_profiles.id` of a DB row (never a package-default id);
+ * the reasoner fills it from the resolved profile's `resolvedSource` when the context leaves it undefined.
+ */
+export interface AiAttribution {
+  /** `auth.users.id` of the learner the request was made for; `null` keeps the row pseudonymous. */
+  userId?: string | null;
+  /** `ai_model_profiles.id` (DB uuid) or `null`; package-default profile ids are never written. */
+  profileId?: string | null;
+  enrollmentId?: string | null;
+}
+
+/** Static context or a per-request resolver (e.g. read from the API request scope). */
+export type AiAttributionSource = AiAttribution | (() => AiAttribution | null | undefined);
+
+/** Normalise an attribution source; call-level values override adapter-level ones. */
+export function resolveAttribution(source: AiAttributionSource | null | undefined, override?: AiAttribution | null): Required<AiAttribution> {
+  const base = (typeof source === 'function' ? source() : source) ?? {};
+  const pick = <K extends keyof AiAttribution>(key: K): string | null => override?.[key] !== undefined ? (override[key] ?? null) : (base[key] ?? null);
+  return { userId: pick('userId'), profileId: pick('profileId'), enrollmentId: pick('enrollmentId') };
+}
+
 /** Collects records in memory (tests, local dev). */
 export class MemoryAiRequestSink implements AiRequestSink {
   readonly records: AiRequestRecord[] = [];
@@ -65,6 +88,14 @@ export interface OpenRouterTextReasonerOptions {
   repairRetries?: number;
   /** Pseudonymous user id for provider abuse monitoring; never an e-mail. */
   userHash?: string | null;
+  /** Attribution for `ai_requests` rows (learner id, DB profile id). Default: pseudonymous. */
+  attribution?: AiAttributionSource | null;
+}
+
+/** Per-call options accepted by `OpenRouterTextReasoner` (a superset of the contract `TextReasonerOptions`). */
+export interface OpenRouterTextReasonerCallOptions extends TextReasonerOptions {
+  /** Overrides the adapter-level attribution for this call only. */
+  attribution?: AiAttribution | null;
 }
 
 /** Convert a Zod schema to the JSON schema OpenRouter expects and decide whether `strict` can be enabled. */
@@ -106,6 +137,7 @@ export class OpenRouterTextReasoner implements TextReasoner {
   private readonly sink: AiRequestSink | null;
   private readonly repairRetries: number;
   private readonly userHash: string | null;
+  private readonly attribution: AiAttributionSource | null;
 
   constructor(options: OpenRouterTextReasonerOptions) {
     this.client = options.client;
@@ -113,10 +145,14 @@ export class OpenRouterTextReasoner implements TextReasoner {
     this.sink = options.sink ?? null;
     this.repairRetries = options.repairRetries ?? 1;
     this.userHash = options.userHash ?? null;
+    this.attribution = options.attribution ?? null;
   }
 
-  async generateStructured<T>(task: AiTaskName, locale: LanguageContext, prompt: Prompt, schema: z.ZodType<T>, options: TextReasonerOptions = {}): Promise<T> {
+  async generateStructured<T>(task: AiTaskName, locale: LanguageContext, prompt: Prompt, schema: z.ZodType<T>, options: OpenRouterTextReasonerCallOptions = {}): Promise<T> {
     const profile = this.profiles.resolve({ task, targetVariety: locale.targetVariety, sourceLanguage: locale.sourceLanguage });
+    // Only DB rows have ledger-valid profile ids; package defaults are deterministic hashes, not `ai_model_profiles.id`.
+    const attribution = resolveAttribution(this.attribution, options.attribution);
+    const ledgerProfileId = attribution.profileId ?? (profile.resolvedSource === 'db' ? profile.id : null);
     const models = ModelProfileRegistry.modelChain(profile, options.modelOverride);
     const traceId = options.traceId ?? newId();
     const responseFormat = toResponseFormat(`${task}_${prompt.templateId}`.replace(/[^a-zA-Z0-9_-]/g, '_').slice(0, 60), schema);
@@ -149,7 +185,8 @@ export class OpenRouterTextReasoner implements TextReasoner {
         await this.emit({
           task,
           locale,
-          profileId: profile.id,
+          attribution,
+          profileId: ledgerProfileId,
           model: models[0] ?? profile.primaryModel,
           fallbackIndex: 0,
           latencyMs: Date.now() - startedAt,
@@ -158,7 +195,7 @@ export class OpenRouterTextReasoner implements TextReasoner {
           traceId,
           usage: null,
           cost: null,
-          log: { attempt, templateId: prompt.templateId, templateVersion: prompt.templateVersion, messages: redactMessages(messages) },
+          log: { attempt, templateId: prompt.templateId, templateVersion: prompt.templateVersion, profileSource: profile.resolvedSource, messages: redactMessages(messages) },
         });
         throw wrapOperatorError(error, 'Text generation', 'openrouter');
       }
@@ -167,7 +204,8 @@ export class OpenRouterTextReasoner implements TextReasoner {
       await this.emit({
         task,
         locale,
-        profileId: profile.id,
+        attribution,
+        profileId: ledgerProfileId,
         model: result.model,
         fallbackIndex: result.fallbackIndex,
         latencyMs: result.latencyMs,
@@ -176,7 +214,7 @@ export class OpenRouterTextReasoner implements TextReasoner {
         traceId,
         usage: result.usage,
         cost: result.estimatedCostUsd,
-        log: { attempt, templateId: prompt.templateId, templateVersion: prompt.templateVersion, requestId: result.requestId, generationId: result.generationId, provider: result.provider, finishReason: result.finishReason, messages: redactMessages(messages), strict: responseFormat.json_schema.strict ?? false },
+        log: { attempt, templateId: prompt.templateId, templateVersion: prompt.templateVersion, requestId: result.requestId, generationId: result.generationId, provider: result.provider, finishReason: result.finishReason, messages: redactMessages(messages), strict: responseFormat.json_schema.strict ?? false, profileSource: profile.resolvedSource },
       });
       if (parsed.success) return parsed.data;
 
@@ -197,7 +235,8 @@ export class OpenRouterTextReasoner implements TextReasoner {
   private async emit(input: {
     task: AiTaskName;
     locale: LanguageContext;
-    profileId: string;
+    attribution: Required<AiAttribution>;
+    profileId: string | null;
     model: string;
     fallbackIndex: number;
     latencyMs: number;
@@ -211,8 +250,8 @@ export class OpenRouterTextReasoner implements TextReasoner {
     if (!this.sink) return;
     await this.sink.record({
       occurredAt: nowIso(),
-      userId: null,
-      enrollmentId: input.locale.enrollmentId,
+      userId: input.attribution.userId,
+      enrollmentId: input.attribution.enrollmentId ?? input.locale.enrollmentId,
       task: input.task,
       provider: 'openrouter',
       model: input.model,

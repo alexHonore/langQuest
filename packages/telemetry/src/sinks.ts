@@ -5,7 +5,9 @@
  * - {@link BufferedSink} — batching + retry with backoff in front of any other sink.
  * - {@link FanoutSink} — write to several sinks; one failure never blocks the others.
  * - {@link SupabaseTableSink} — persists `ai_requests` ledger rows and aggregates learning-outcome
- *   events into `daily_learning_metrics` through an injected (service-role) client.
+ *   events into `daily_learning_metrics` through an injected (service-role) client. With
+ *   `dailyMetricsShape: 'per_enrollment'` it writes the real per-enrollment counter rows
+ *   ({@link DailyLearningCounterRow}); the legacy day × track × metric aggregate stays the default.
  * - {@link PostHogSink} — product analytics; a no-op when no API key is configured.
  *
  * Every sink applies {@link applyPrivacyLevel} with its own ceiling before export, so a sink can
@@ -14,12 +16,14 @@
  * Operator alerts travel on a separate path ({@link AlertSink}): they are not telemetry events,
  * never carry learner identifiers, and {@link projectForSink} refuses them outright so a
  * learner-level sink can never see one. Implementations: {@link ConsoleAlertSink},
- * {@link WebhookAlertSink}, {@link FanoutAlertSink}, {@link InMemoryAlertSink};
+ * {@link WebhookAlertSink}, {@link EmailAlertSink} (with a Resend-ready {@link AlertEmailTransport}),
+ * {@link FanoutAlertSink}, {@link InMemoryAlertSink}, and {@link SupabaseTableSink.deliver};
+ * every network-backed one is a documented no-op without configuration.
  * {@link toAnalyticsAlert} maps an alert onto the admin `/v1/admin/analytics/errors` `alerts` row.
  */
 import { z } from 'zod';
-import { IsoDateSchema, masteryRank, type Insert, type PrivacyLevel, type TelemetryEvent } from '@langquest/contracts';
-import type { OperatorAlert, OperatorAlertSeverity } from './cost';
+import { IsoDateSchema, UuidSchema, masteryRank, type Insert, type PrivacyLevel, type TelemetryEvent } from '@langquest/contracts';
+import type { OperatorAlert, OperatorAlertCategory, OperatorAlertSeverity } from './cost';
 import { recallBucket } from './events';
 import { applyPrivacyLevel } from './privacy';
 
@@ -269,8 +273,9 @@ export class BufferedSink implements Sink {
  * metric). `value` is the numerator (e.g. recalled reviews, seconds) and `sample_count` the
  * denominator (e.g. reviews observed) so rates are recomputed, not stored.
  *
- * NOTE: `@langquest/contracts` has no table definition for this yet; the schema lives here until
- * the contracts/db packages add one (unique key: `metric_date, track_id, source_language_code, metric_key`).
+ * NOTE: this is **not** the shape of the real `daily_learning_metrics` table (per enrollment × day
+ * counters, see {@link DailyLearningCounterRowSchema}); it is kept for existing callers and for
+ * learner-free reporting tables keyed by `metric_date, track_id, source_language_code, metric_key`.
  */
 export const DailyLearningMetricRowSchema = z.object({
   metric_date: IsoDateSchema,
@@ -338,47 +343,234 @@ export function aggregateDailyLearningMetrics(events: readonly TelemetryEvent[])
   return [...rows.values()].map((r) => DailyLearningMetricRowSchema.parse(r));
 }
 
-/** Minimal slice of `SupabaseClient` used by the sink (so tests inject a fake). */
+/**
+ * Row of the real `daily_learning_metrics` table (`packages/db/src/database.types.ts`): one row per
+ * enrollment × day holding per-learner counters (unique key `enrollment_id, metric_date`). Shape is
+ * `Insert<'daily_learning_metrics'>` minus `id` / timestamps.
+ */
+export const DailyLearningCounterRowSchema = z.object({
+  user_id: UuidSchema,
+  enrollment_id: UuidSchema,
+  metric_date: IsoDateSchema,
+  minutes_active: z.number().int().min(0),
+  speaking_seconds: z.number().int().min(0),
+  missions_completed: z.number().int().min(0),
+  missions_completed_without_hints: z.number().int().min(0),
+  reviews_due: z.number().int().min(0),
+  reviews_completed: z.number().int().min(0),
+  /** Recall rate over `reviews_completed` (0–100), null until a review was observed. */
+  review_recall_pct: z.number().min(0).max(100).nullable(),
+  conversation_turns: z.number().int().min(0),
+  xp_earned: z.number().int().min(0),
+});
+export type DailyLearningCounterRow = z.infer<typeof DailyLearningCounterRowSchema>;
+
+/** Unique key of `daily_learning_metrics` (per enrollment and day). */
+export const DAILY_LEARNING_COUNTERS_CONFLICT_KEY = 'enrollment_id,metric_date';
+
+/**
+ * Resolves the owning `user_id` of an enrollment. Telemetry events only carry a pseudonymous
+ * `userHash`, so the API / job runner injects a lookup backed by `user_course_enrollments`.
+ * Return `null` for unknown enrollments; their events are skipped (never attributed to a guess).
+ */
+export type UserIdForEnrollment = (enrollmentId: string) => string | null | Promise<string | null>;
+
+export interface DailyLearningCounterAggregate {
+  rows: DailyLearningCounterRow[];
+  /** Learning-outcome events that could not be attributed (no `enrollmentId` after projection, or unknown enrollment). */
+  skipped: { noEnrollment: number; unknownEnrollment: number };
+}
+
+const emptyCounters = (user_id: string, enrollment_id: string, metric_date: string): DailyLearningCounterRow => ({
+  user_id,
+  enrollment_id,
+  metric_date,
+  minutes_active: 0,
+  speaking_seconds: 0,
+  missions_completed: 0,
+  missions_completed_without_hints: 0,
+  reviews_due: 0,
+  reviews_completed: 0,
+  review_recall_pct: null,
+  conversation_turns: 0,
+  xp_earned: 0,
+});
+
+/** Recalled-review count implied by a stored rate (inverse of {@link recallPct}). */
+function recalledFromPct(pct: number | null, completed: number): number {
+  return pct === null || completed === 0 ? 0 : Math.round((pct / 100) * completed);
+}
+function recallPct(recalled: number, completed: number): number | null {
+  return completed === 0 ? null : Math.round((recalled / completed) * 1000) / 10;
+}
+
+/**
+ * Fold learning-outcome events into per-enrollment daily counters matching the real table.
+ * Events must still carry `enrollmentId` (i.e. be projected at the `personal` level); anything
+ * else is counted in `skipped`. Mapping:
+ *  - `mission_completed` → `missions_completed`, `missions_completed_without_hints`, `minutes_active` (from `durationMs`)
+ *  - `review_recall` → `reviews_due`, `reviews_completed`, `review_recall_pct`
+ *  - `speaking_time` → `speaking_seconds`
+ *  - `conversation_funnel` (`ended`, with `turnCount`) → `conversation_turns`
+ *  - `xp_earned` is **not** derived from telemetry (the `xp_ledger` is authoritative) and stays 0.
+ */
+export async function aggregateDailyLearningCounters(events: readonly TelemetryEvent[], userIdForEnrollment: UserIdForEnrollment): Promise<DailyLearningCounterAggregate> {
+  const rows = new Map<string, DailyLearningCounterRow & { activeMs: number; recalled: number }>();
+  const users = new Map<string, string | null>();
+  const skipped = { noEnrollment: 0, unknownEnrollment: 0 };
+  const relevant = (e: TelemetryEvent) => e.name === 'mission_completed' || e.name === 'review_recall' || e.name === 'speaking_time' || (e.name === 'conversation_funnel' && e.props.step === 'ended' && e.props.turnCount !== null);
+  for (const e of events) {
+    if (!relevant(e)) continue;
+    if (!e.enrollmentId) {
+      skipped.noEnrollment++;
+      continue;
+    }
+    let userId = users.get(e.enrollmentId);
+    if (userId === undefined) {
+      userId = await userIdForEnrollment(e.enrollmentId);
+      users.set(e.enrollmentId, userId);
+    }
+    if (!userId) {
+      skipped.unknownEnrollment++;
+      continue;
+    }
+    const metric_date = e.occurredAt.slice(0, 10);
+    const id = `${e.enrollmentId}|${metric_date}`;
+    const row = rows.get(id) ?? { ...emptyCounters(userId, e.enrollmentId, metric_date), activeMs: 0, recalled: 0 };
+    switch (e.name) {
+      case 'mission_completed':
+        row.missions_completed++;
+        if (e.props.withoutHints) row.missions_completed_without_hints++;
+        row.activeMs += e.props.durationMs;
+        break;
+      case 'review_recall':
+        row.reviews_due++;
+        row.reviews_completed++;
+        if (e.props.recalled) row.recalled++;
+        break;
+      case 'speaking_time':
+        row.speaking_seconds += e.props.seconds;
+        break;
+      case 'conversation_funnel':
+        row.conversation_turns += e.props.turnCount ?? 0;
+        break;
+      default:
+        break;
+    }
+    rows.set(id, row);
+  }
+  const out = [...rows.values()].map(({ activeMs, recalled, ...row }) => DailyLearningCounterRowSchema.parse({ ...row, minutes_active: Math.round(activeMs / 60_000), review_recall_pct: recallPct(recalled, row.reviews_completed) }));
+  return { rows: out, skipped };
+}
+
+/** Add two counter rows for the same (enrollment, day); the recall rate is re-derived from the merged counts. */
+export function mergeDailyLearningCounters(existing: DailyLearningCounterRow, delta: DailyLearningCounterRow): DailyLearningCounterRow {
+  if (existing.enrollment_id !== delta.enrollment_id || existing.metric_date !== delta.metric_date) throw new Error('mergeDailyLearningCounters: rows belong to different enrollment/day');
+  const completed = existing.reviews_completed + delta.reviews_completed;
+  const recalled = recalledFromPct(existing.review_recall_pct, existing.reviews_completed) + recalledFromPct(delta.review_recall_pct, delta.reviews_completed);
+  return {
+    ...existing,
+    minutes_active: existing.minutes_active + delta.minutes_active,
+    speaking_seconds: existing.speaking_seconds + delta.speaking_seconds,
+    missions_completed: existing.missions_completed + delta.missions_completed,
+    missions_completed_without_hints: existing.missions_completed_without_hints + delta.missions_completed_without_hints,
+    reviews_due: existing.reviews_due + delta.reviews_due,
+    reviews_completed: completed,
+    review_recall_pct: recallPct(recalled, completed),
+    conversation_turns: existing.conversation_turns + delta.conversation_turns,
+    xp_earned: existing.xp_earned + delta.xp_earned,
+  };
+}
+
+/** Thenable filter builder slice (`supabase-js` `PostgrestFilterBuilder` satisfies it). */
+export interface SupabaseLikeSelect extends PromiseLike<{ data: Record<string, unknown>[] | null; error: { message: string } | null }> {
+  in(column: string, values: readonly string[]): SupabaseLikeSelect;
+}
+
+/** Minimal slice of `SupabaseClient` used by the sink (so tests inject a fake). `select` is only needed for `dailyMetricsMode: 'read_add_upsert'`. */
 export interface SupabaseLikeClient {
   from(table: string): {
     insert(rows: readonly Record<string, unknown>[]): PromiseLike<{ error: { message: string } | null }>;
     upsert(rows: readonly Record<string, unknown>[], options?: { onConflict?: string; ignoreDuplicates?: boolean }): PromiseLike<{ error: { message: string } | null }>;
+    select?(columns: string): SupabaseLikeSelect;
   };
 }
 
+export type DailyMetricsShape = 'legacy_aggregate' | 'per_enrollment';
+export type DailyMetricsMode = 'upsert_replace' | 'insert' | 'read_add_upsert';
+
 export interface SupabaseTableSinkOptions extends SinkOptions {
-  tables?: { aiRequests?: string; dailyLearningMetrics?: string; /** Optional raw event table; when unset, non-learning events are not persisted. */ rawEvents?: string | null };
-  /** Called with the daily rows before upsert; the current day's rows are merged server-side by the RPC/trigger or replaced — pick via `dailyMetricsMode`. */
-  dailyMetricsMode?: 'upsert_replace' | 'insert';
+  tables?: {
+    aiRequests?: string;
+    dailyLearningMetrics?: string;
+    /** Optional raw event table; when unset, non-learning events are not persisted. */
+    rawEvents?: string | null;
+    /** Optional operator-alert table; when unset, {@link SupabaseTableSink.deliver} is a documented no-op. */
+    operatorAlerts?: string | null;
+  };
+  /**
+   * `legacy_aggregate` (default, kept for compatibility) writes the day × track × source × metric
+   * rows of {@link aggregateDailyLearningMetrics}. `per_enrollment` writes the real table shape
+   * ({@link DailyLearningCounterRow}); it requires `userIdForEnrollment` and `privacyCeiling: 'personal'`.
+   */
+  dailyMetricsShape?: DailyMetricsShape;
+  /** Required for `per_enrollment`: resolves `user_id` from `enrollment_id`. */
+  userIdForEnrollment?: UserIdForEnrollment;
+  /**
+   * How daily rows reach the table. `upsert_replace` overwrites the keyed row with the batch's counters
+   * (only correct when a batch holds a whole day, e.g. a nightly aggregation); `insert` appends;
+   * `read_add_upsert` reads the current rows, adds the batch, and upserts (incremental; needs `select`).
+   */
+  dailyMetricsMode?: DailyMetricsMode;
+  /** Called with per-batch skip counts (events that could not be attributed to a learner). */
+  onSkipped?: (skipped: DailyLearningCounterAggregate['skipped']) => void;
 }
 
 /**
  * Persists telemetry to Supabase with the service-role client injected by the API/job runner.
  * Learning-outcome events are folded into `daily_learning_metrics`; AI request rows come from the
- * cost ledger via {@link SupabaseTableSink.writeAiRequests}.
+ * cost ledger via {@link SupabaseTableSink.writeAiRequests}. Also an {@link AlertSink} when an
+ * `operatorAlerts` table is configured.
  */
-export class SupabaseTableSink implements Sink {
+export class SupabaseTableSink implements Sink, AlertSink {
   readonly name = 'supabase';
   readonly #client: SupabaseLikeClient;
-  readonly #tables: { aiRequests: string; dailyLearningMetrics: string; rawEvents: string | null };
+  readonly #tables: { aiRequests: string; dailyLearningMetrics: string; rawEvents: string | null; operatorAlerts: string | null };
   readonly #ceiling: PrivacyLevel;
-  readonly #mode: 'upsert_replace' | 'insert';
+  readonly #mode: DailyMetricsMode;
+  readonly #shape: DailyMetricsShape;
+  readonly #userIdFor: UserIdForEnrollment | null;
+  readonly #onSkipped: ((skipped: DailyLearningCounterAggregate['skipped']) => void) | null;
 
   constructor(client: SupabaseLikeClient, options: SupabaseTableSinkOptions = {}) {
     this.#client = client;
-    this.#tables = { aiRequests: options.tables?.aiRequests ?? 'ai_requests', dailyLearningMetrics: options.tables?.dailyLearningMetrics ?? 'daily_learning_metrics', rawEvents: options.tables?.rawEvents ?? null };
+    this.#tables = {
+      aiRequests: options.tables?.aiRequests ?? 'ai_requests',
+      dailyLearningMetrics: options.tables?.dailyLearningMetrics ?? 'daily_learning_metrics',
+      rawEvents: options.tables?.rawEvents ?? null,
+      operatorAlerts: options.tables?.operatorAlerts ?? null,
+    };
     this.#ceiling = options.privacyCeiling ?? 'pseudonymous';
     this.#mode = options.dailyMetricsMode ?? 'upsert_replace';
+    this.#shape = options.dailyMetricsShape ?? 'legacy_aggregate';
+    this.#userIdFor = options.userIdForEnrollment ?? null;
+    this.#onSkipped = options.onSkipped ?? null;
+    if (this.#shape === 'per_enrollment') {
+      if (!this.#userIdFor) throw new Error("SupabaseTableSink: dailyMetricsShape 'per_enrollment' requires userIdForEnrollment");
+      if (this.#ceiling !== 'personal') throw new Error("SupabaseTableSink: dailyMetricsShape 'per_enrollment' needs privacyCeiling 'personal' (enrollment ids are stripped below it)");
+    }
+    if (this.#mode === 'read_add_upsert' && this.#shape !== 'per_enrollment') throw new Error("SupabaseTableSink: dailyMetricsMode 'read_add_upsert' is only defined for the 'per_enrollment' shape");
+  }
+
+  /** Whether {@link deliver} persists alerts (an `operatorAlerts` table is configured). */
+  get alertsEnabled(): boolean {
+    return this.#tables.operatorAlerts !== null;
   }
 
   async write(events: readonly TelemetryEvent[]): Promise<void> {
     const projected = projectForSink(events, this.#ceiling);
-    const rows = aggregateDailyLearningMetrics(projected);
-    if (rows.length > 0) {
-      const table = this.#client.from(this.#tables.dailyLearningMetrics);
-      const res = this.#mode === 'insert' ? await table.insert(rows) : await table.upsert(rows, { onConflict: 'metric_date,track_id,source_language_code,metric_key' });
-      if (res.error) throw new Error(`SupabaseTableSink(${this.#tables.dailyLearningMetrics}): ${res.error.message}`);
-    }
+    if (this.#shape === 'per_enrollment') await this.#writeCounters(projected);
+    else await this.#writeLegacy(projected);
     if (this.#tables.rawEvents) {
       const raw = projected.map((e) => ({ event_id: e.eventId, occurred_at: e.occurredAt, name: e.name, category: e.category, platform: e.platform, app_version: e.appVersion, user_hash: e.userHash, enrollment_id: e.enrollmentId, track_id: e.trackId, source_language_code: e.sourceLanguageCode, privacy_level: e.privacyLevel, props: e.props }));
       const res = await this.#client.from(this.#tables.rawEvents).upsert(raw, { onConflict: 'event_id', ignoreDuplicates: true });
@@ -386,11 +578,57 @@ export class SupabaseTableSink implements Sink {
     }
   }
 
+  async #writeLegacy(projected: readonly TelemetryEvent[]): Promise<void> {
+    const rows = aggregateDailyLearningMetrics(projected);
+    if (rows.length === 0) return;
+    const table = this.#client.from(this.#tables.dailyLearningMetrics);
+    const res = this.#mode === 'insert' ? await table.insert(rows) : await table.upsert(rows, { onConflict: 'metric_date,track_id,source_language_code,metric_key' });
+    if (res.error) throw new Error(`SupabaseTableSink(${this.#tables.dailyLearningMetrics}): ${res.error.message}`);
+  }
+
+  async #writeCounters(projected: readonly TelemetryEvent[]): Promise<void> {
+    const { rows, skipped } = await aggregateDailyLearningCounters(projected, this.#userIdFor!);
+    if (skipped.noEnrollment + skipped.unknownEnrollment > 0) this.#onSkipped?.(skipped);
+    if (rows.length === 0) return;
+    const tableName = this.#tables.dailyLearningMetrics;
+    const table = this.#client.from(tableName);
+    let toWrite: DailyLearningCounterRow[] = rows;
+    if (this.#mode === 'read_add_upsert') {
+      if (typeof table.select !== 'function') throw new Error(`SupabaseTableSink(${tableName}): 'read_add_upsert' needs a client with select()`);
+      const enrollmentIds = [...new Set(rows.map((r) => r.enrollment_id))];
+      const dates = [...new Set(rows.map((r) => r.metric_date))];
+      const existing = await table.select('*').in('enrollment_id', enrollmentIds).in('metric_date', dates);
+      if (existing.error) throw new Error(`SupabaseTableSink(${tableName}): ${existing.error.message}`);
+      const current = new Map<string, DailyLearningCounterRow>();
+      for (const raw of existing.data ?? []) {
+        const parsed = DailyLearningCounterRowSchema.safeParse(raw);
+        if (parsed.success) current.set(`${parsed.data.enrollment_id}|${parsed.data.metric_date}`, parsed.data);
+      }
+      toWrite = rows.map((r) => {
+        const prev = current.get(`${r.enrollment_id}|${r.metric_date}`);
+        return prev ? mergeDailyLearningCounters(prev, r) : r;
+      });
+    }
+    const res = this.#mode === 'insert' ? await table.insert(toWrite) : await table.upsert(toWrite, { onConflict: DAILY_LEARNING_COUNTERS_CONFLICT_KEY });
+    if (res.error) throw new Error(`SupabaseTableSink(${tableName}): ${res.error.message}`);
+  }
+
   /** Insert `ai_requests` ledger rows (from `CostLedger.recordAiRequest(...).insert`). */
   async writeAiRequests(rows: readonly Insert<'ai_requests'>[]): Promise<void> {
     if (rows.length === 0) return;
     const res = await this.#client.from(this.#tables.aiRequests).insert(rows as readonly Record<string, unknown>[]);
     if (res.error) throw new Error(`SupabaseTableSink(${this.#tables.aiRequests}): ${res.error.message}`);
+  }
+
+  /**
+   * Persist an operator alert as one row (`{ kind, category, severity, series, bucket, detected_at, message, payload }`)
+   * in the configured `operatorAlerts` table. **No-op when no table is configured.**
+   */
+  async deliver(alert: OperatorAlert): Promise<void> {
+    if (!this.#tables.operatorAlerts) return;
+    const row = { kind: alert.kind, category: alert.category ?? 'cost_anomaly', severity: alert.severity, series: alert.series, bucket: alert.bucket, detected_at: alert.detectedAt, message: alert.message, payload: alert };
+    const res = await this.#client.from(this.#tables.operatorAlerts).insert([row]);
+    if (res.error) throw new Error(`SupabaseTableSink(${this.#tables.operatorAlerts}): ${res.error.message}`);
   }
 }
 
@@ -542,6 +780,131 @@ export class WebhookAlertSink implements AlertSink {
   }
 }
 
+/** A rendered alert email; `text` is always present, `html` optional. */
+export interface AlertEmailMessage {
+  from: string;
+  to: readonly string[];
+  subject: string;
+  text: string;
+  html?: string;
+  /** Stable key so a provider can de-duplicate retries (`series|bucket|severity`). */
+  idempotencyKey: string;
+}
+
+/**
+ * Transport that actually sends an {@link AlertEmailMessage}. Implement it over any provider; a
+ * `send` that resolves without doing anything is the "disabled" state (see `enabled`).
+ */
+export interface AlertEmailTransport {
+  readonly name: string;
+  /** False when the transport lacks configuration (no API key); {@link EmailAlertSink} then skips sending. */
+  readonly enabled: boolean;
+  send(message: AlertEmailMessage): Promise<void>;
+}
+
+/** Subject and bodies for an alert email (plain text first; HTML is a minimal escaped wrapper). */
+export function formatAlertEmail(alert: OperatorAlert, options: { subjectPrefix?: string } = {}): Pick<AlertEmailMessage, 'subject' | 'text' | 'html'> {
+  const category = alert.category ?? 'cost_anomaly';
+  const subject = `${options.subjectPrefix ?? '[LangQuest ops]'} ${alert.severity.toUpperCase()} ${category}: ${alert.series} (${alert.bucket})`;
+  const lines = [alert.message, '', `Severity: ${alert.severity}`, `Category: ${category}`, `Series: ${alert.series}`, `Bucket: ${alert.bucket}`, `Detected at: ${alert.detectedAt}`];
+  if (category === 'cost_anomaly') lines.push(`Observed: ${alert.observedUsd.toFixed(4)} USD`, `Baseline mean: ${alert.baselineMeanUsd.toFixed(4)} USD (±${alert.baselineStdUsd.toFixed(4)}, ${alert.baselinePoints} buckets)`, `Threshold: ${alert.thresholdUsd.toFixed(4)} USD`, `Ratio: ${Number.isFinite(alert.ratio) ? alert.ratio.toFixed(2) : '∞'}`);
+  lines.push('', 'Operator review only — learners are never limited or charged.');
+  const text = lines.join('\n');
+  const esc = (v: string) => v.replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c] ?? c);
+  const html = `<pre style="font-family:ui-monospace,monospace;white-space:pre-wrap">${esc(text)}</pre>`;
+  return { subject, text, html };
+}
+
+export interface EmailAlertSinkOptions {
+  transport: AlertEmailTransport;
+  /** Recipients. Empty → the sink is a documented no-op (`enabled === false`). */
+  to?: readonly string[];
+  /** Sender address, e.g. `ops@langquest.example`. Required to be enabled. */
+  from?: string;
+  subjectPrefix?: string;
+  /** Only deliver alerts at or above this severity. Default `warning` (everything). */
+  minSeverity?: OperatorAlertSeverity;
+}
+
+/**
+ * Emails each alert through an {@link AlertEmailTransport}. **A no-op** (`enabled === false`) when
+ * the transport is disabled or no `to` / `from` is configured, so environments without an
+ * email provider still boot.
+ */
+export class EmailAlertSink implements AlertSink {
+  readonly name = 'email-alert';
+  readonly enabled: boolean;
+  readonly #transport: AlertEmailTransport;
+  readonly #to: readonly string[];
+  readonly #from: string;
+  readonly #prefix: string | undefined;
+  readonly #minRank: number;
+
+  constructor(options: EmailAlertSinkOptions) {
+    this.#transport = options.transport;
+    this.#to = options.to ?? [];
+    this.#from = options.from ?? '';
+    this.#prefix = options.subjectPrefix;
+    this.#minRank = SEVERITY_RANK[options.minSeverity ?? 'warning'];
+    this.enabled = this.#transport.enabled && this.#to.length > 0 && this.#from.length > 0;
+  }
+
+  /** Build the message without sending (tests, previews). */
+  toMessage(alert: OperatorAlert): AlertEmailMessage {
+    const body = formatAlertEmail(alert, this.#prefix === undefined ? {} : { subjectPrefix: this.#prefix });
+    return { from: this.#from, to: this.#to, ...body, idempotencyKey: `${alert.series}|${alert.bucket}|${alert.severity}` };
+  }
+
+  async deliver(alert: OperatorAlert): Promise<void> {
+    if (!this.enabled || SEVERITY_RANK[alert.severity] < this.#minRank) return;
+    await this.#transport.send(this.toMessage(alert));
+  }
+}
+
+export interface ResendTransportOptions {
+  /** Resend API key. **Missing or empty → disabled transport** (`enabled === false`, `send` resolves without a request). */
+  apiKey?: string | null;
+  /** API base. Default `https://api.resend.com`. */
+  baseUrl?: string;
+  fetch?: typeof fetch;
+}
+
+/**
+ * {@link AlertEmailTransport} over Resend's `POST /emails` API (`Authorization: Bearer`, JSON body,
+ * `Idempotency-Key` header). The key is read from configuration, never hard-coded.
+ */
+export function createResendAlertTransport(options: ResendTransportOptions = {}): AlertEmailTransport {
+  const apiKey = options.apiKey ?? '';
+  const base = (options.baseUrl ?? 'https://api.resend.com').replace(/\/+$/, '');
+  const fetchImpl = options.fetch ?? (typeof fetch === 'function' ? fetch : null);
+  const enabled = apiKey.length > 0;
+  return {
+    name: 'resend',
+    enabled,
+    async send(message) {
+      if (!enabled) return;
+      if (!fetchImpl) throw new Error('ResendAlertTransport: no fetch implementation available');
+      const body: Record<string, unknown> = { from: message.from, to: [...message.to], subject: message.subject, text: message.text };
+      if (message.html) body.html = message.html;
+      const res = await fetchImpl(`${base}/emails`, { method: 'POST', headers: { authorization: `Bearer ${apiKey}`, 'content-type': 'application/json', 'idempotency-key': message.idempotencyKey }, body: JSON.stringify(body) });
+      if (!res.ok) throw new Error(`ResendAlertTransport: HTTP ${res.status}`);
+    },
+  };
+}
+
+/** In-memory transport for tests and previews: records every message. */
+export function createMemoryAlertTransport(): AlertEmailTransport & { readonly sent: AlertEmailMessage[] } {
+  const sent: AlertEmailMessage[] = [];
+  return {
+    name: 'memory',
+    enabled: true,
+    sent,
+    async send(message) {
+      sent.push(message);
+    },
+  };
+}
+
 /** Delivers to every alert sink; rejects with an AggregateError only after all were attempted. */
 export class FanoutAlertSink implements AlertSink {
   readonly name = 'fanout-alert';
@@ -565,9 +928,11 @@ export interface AnalyticsAlert {
   detail: string;
 }
 
-/** Map an operator alert onto the admin analytics `alerts` row (kind `runaway_cost`). */
+const ANALYTICS_KIND: Record<OperatorAlertCategory, AnalyticsAlert['kind']> = { cost_anomaly: 'runaway_cost', provider_outage: 'provider_outage', attack: 'attack', rights_expiry: 'rights_expiry' };
+
+/** Map an operator alert onto the admin analytics `alerts` row (`cost_anomaly` / no category → `runaway_cost`). */
 export function toAnalyticsAlert(alert: OperatorAlert): AnalyticsAlert {
-  return { kind: 'runaway_cost', since: alert.detectedAt, detail: alert.message };
+  return { kind: ANALYTICS_KIND[alert.category ?? 'cost_anomaly'], since: alert.detectedAt, detail: alert.message };
 }
 
 /**

@@ -46,6 +46,29 @@ export const CATALOG_NAMESPACES = [
 ] as const;
 export type CatalogNamespace = (typeof CATALOG_NAMESPACES)[number];
 
+/**
+ * App-facing sub-namespaces that the coverage report tracks on their own (they were once
+ * local catalogs in an app and are now shipped here):
+ * - `admin.ui`: the admin studio editor copy (formerly apps/admin extra.ts).
+ * - `catalog.cover`: alt text for the 30 in-code course covers, keyed by `coverAltTextKey`.
+ * - `audio.listen`: the mobile audio library / long-form player copy (formerly apps/mobile audio labels).
+ */
+export const CATALOG_SECTIONS = ['admin.ui', 'catalog.cover', 'audio.listen'] as const;
+export type CatalogSection = (typeof CATALOG_SECTIONS)[number];
+
+export const ADMIN_UI_NAMESPACE = 'admin.ui' as const;
+export const AUDIO_LISTEN_NAMESPACE = 'audio.listen' as const;
+/** Prefix of the course-cover alt-text keys. */
+export const COVER_ALT_TEXT_PREFIX = 'catalog.cover' as const;
+
+/**
+ * Catalog key of the alt text for a course track's generated cover
+ * (`catalog.cover.arabic_eastern` for `arabic-eastern`). Hyphens become underscores so the key
+ * matches what the render_cover job stores in `visual_assets.alt_text_key`.
+ */
+export const coverAltTextKey = (courseTrackId: string): `${typeof COVER_ALT_TEXT_PREFIX}.${string}` =>
+  `${COVER_ALT_TEXT_PREFIX}.${courseTrackId.replace(/-/g, '_')}`;
+
 /** Namespaces that a partially translated locale must still provide to be usable. */
 export const REQUIRED_PARTIAL_NAMESPACES = ['common', 'onboarding', 'enrollment'] as const satisfies readonly CatalogNamespace[];
 

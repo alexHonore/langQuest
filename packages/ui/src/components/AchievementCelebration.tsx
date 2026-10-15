@@ -8,7 +8,7 @@ import type { MascotState } from '@langquest/contracts';
 import React, { useEffect, useRef } from 'react';
 import { Animated, Modal, type StyleProp, View, type ViewStyle } from 'react-native';
 import { useTheme } from '../theme/ThemeProvider';
-import { CELEBRATION_LABELS } from './labels';
+import { CELEBRATION_LABELS, mergeLabels, type LocalizedLabels } from './labels';
 import { Mascot } from './Mascot';
 import { Button, Row, Surface, ThemedText } from './primitives';
 
@@ -27,7 +27,8 @@ export interface AchievementCelebrationProps {
   onSkip?: () => void;
   /** Optional haptic hook (only called when haptics are enabled). */
   onHaptic?: () => void;
-  labels?: Partial<typeof CELEBRATION_LABELS>;
+  /** Localized overrides (`t(...)` strings; nested groups may be partial). */
+  labels?: LocalizedLabels<typeof CELEBRATION_LABELS>;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 }
@@ -48,7 +49,7 @@ export function AchievementCelebration(props: AchievementCelebrationProps): Reac
     testID,
   } = props;
   const theme = useTheme();
-  const L = { ...CELEBRATION_LABELS, ...labels };
+  const L = mergeLabels(CELEBRATION_LABELS, labels);
   const progress = useRef(new Animated.Value(theme.reducedMotion ? 1 : 0)).current;
 
   useEffect(() => {

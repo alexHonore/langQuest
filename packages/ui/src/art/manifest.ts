@@ -6,7 +6,7 @@
  */
 import { type CharacterExpression, type MascotState } from '@langquest/contracts';
 import { CHARACTER_EXPRESSIONS, CHARACTER_ROSTER, characterPortraitSvgString } from './characters';
-import { COVER_RECIPES, courseCoverSvgString } from './covers';
+import { COVER_RECIPES, courseCoverSvgString, coverAltTextKey } from './covers';
 import { ICON_NAMES, type IconName, iconSvgString } from './icons';
 import { MASCOT_STATES, mascotSvgString } from './mascot';
 import { SCENES, type SceneId, sceneArtSvgString } from './scenes';
@@ -19,6 +19,11 @@ export interface ArtManifest {
   characters: Record<string, Record<CharacterExpression, string>>;
   scenes: Record<SceneId, string>;
   covers: Record<string, string>;
+  /**
+   * Locale catalog key of each cover's alt text (`catalog.cover.<trackId>`),
+   * keyed by track id. Apps pass `t(key)` as the cover's `altText`.
+   */
+  coverAltTextKeys: Record<string, string>;
   /** Extra: icon files (consumers that only read the four required keys are unaffected). */
   icons: Record<IconName, string>;
 }
@@ -56,11 +61,14 @@ function buildManifest(): ArtManifest {
   const covers: Record<string, string> = Object.fromEntries(
     COVER_RECIPES.map((r) => [r.trackId, coverAssetPath(r.trackId)]),
   );
+  const coverAltTextKeys: Record<string, string> = Object.fromEntries(
+    COVER_RECIPES.map((r) => [r.trackId, coverAltTextKey(r.trackId)]),
+  );
   const icons = Object.fromEntries(ICON_NAMES.map((n) => [n, iconAssetPath(n)])) as Record<
     IconName,
     string
   >;
-  return { mascot, characters, scenes, covers, icons };
+  return { mascot, characters, scenes, covers, coverAltTextKeys, icons };
 }
 
 /** Relative paths of the exported static SVG files under `/assets`. */

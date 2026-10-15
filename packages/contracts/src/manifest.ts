@@ -28,6 +28,15 @@ export type AssetRef = z.infer<typeof AssetRefSchema>;
 export const VisualRefSchema = AssetRefSchema.extend({ visualType: VisualAssetTypeSchema });
 export type VisualRef = z.infer<typeof VisualRefSchema>;
 
+/**
+ * Stable scene identifier shared by missions, chapters and scene artwork (lowercase key such as
+ * `cafe`, `street`, `airport`, `market`, `home`, `office`, `transit`, `restaurant`, `gathering`,
+ * `station`, `park`, `clinic`). Kept as an open key so new scenes never require a contracts release;
+ * renderers fall back when a key has no artwork.
+ */
+export const SceneIdSchema = KeySchema.max(64);
+export type SceneId = z.infer<typeof SceneIdSchema>;
+
 export const ManifestStepSchema = z.object({
   id: UuidSchema,
   order: NonNegativeIntSchema,
@@ -67,6 +76,12 @@ export const ManifestMissionSchema = z.object({
    * silent substitution (§2.1). Optional for manifests produced before this field existed.
    */
   titleLanguageCode: z.string().nullable().optional(),
+  /**
+   * Editorial scene identifier for the mission's artwork/location (e.g. `cafe`, `market`, `station`;
+   * the renderable set is `SCENE_IDS` in `@langquest/ui`). Optional so manifests produced before this
+   * field existed still validate; `null` when the mission has no scene assigned yet.
+   */
+  sceneId: SceneIdSchema.nullable().optional(),
 });
 export type ManifestMission = z.infer<typeof ManifestMissionSchema>;
 

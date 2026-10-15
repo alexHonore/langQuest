@@ -9,6 +9,9 @@
  * - 30 course covers from a palette + motif system.
  * - 37 stroke icons on a 24 grid.
  * - `ART_MANIFEST` with the relative paths of the exported static SVGs under `/assets`.
+ *
+ * Web / Node consumers that must not load react-native: import `@langquest/ui/art/web`
+ * (string renderers + manifests only).
  */
 export type { SvgNode, SvgDocument, SvgTag } from './svg-node';
 export { toSvgString, nodeToString, countNodes } from './svg-node';
@@ -90,8 +93,10 @@ export {
   buildCoverNodes,
   buildCoverDocument,
   courseCoverSvgString,
+  coverAltTextKey,
+  defaultCoverAltText,
 } from './covers';
-export type { CoverMotif, CoverRecipe } from './covers';
+export type { CoverMotif, CoverRecipe, CoverRenderOptions } from './covers';
 
 export {
   ICON_NAMES,

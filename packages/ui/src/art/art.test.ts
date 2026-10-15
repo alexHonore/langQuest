@@ -12,7 +12,7 @@ import {
   charactersForVariety,
   findCharacter,
 } from './characters';
-import { COVER_RECIPES, courseCoverSvgString } from './covers';
+import { COVER_RECIPES, buildCoverDocument, courseCoverSvgString, coverAltTextKey } from './covers';
 import { ICON_NAMES, iconSvgString } from './icons';
 import { ART_MANIFEST, listArtExports } from './manifest';
 import {
@@ -62,7 +62,12 @@ describe('mascot i18n keys', () => {
     readFileSync(resolve(here, '../../../locales/src/catalogs/en.json'), 'utf8'),
   ) as Catalog;
   const lookup = (key: string): unknown =>
-    key.split('.').reduce<unknown>((acc, k) => (acc && typeof acc === 'object' ? (acc as Catalog)[k] : undefined), en);
+    key
+      .split('.')
+      .reduce<unknown>(
+        (acc, k) => (acc && typeof acc === 'object' ? (acc as Catalog)[k] : undefined),
+        en,
+      );
 
   it('mascotLabelKey points at the accessibility label namespace, mascotSpeechKey at the speech copy', () => {
     for (const state of MASCOT_STATE_VALUES) {
@@ -210,6 +215,33 @@ describe('covers', () => {
     }
     expect(out.size).toBe(30);
     expect(() => courseCoverSvgString('klingon')).toThrow(/No cover recipe/);
+  });
+  it('uses the localized altText as the accessible label, English catalog name by default', () => {
+    expect(buildCoverDocument('french').label).toBe('Course cover art for French');
+    const svg = courseCoverSvgString('french', {
+      width: 300,
+      altText: 'Couverture du cours de <français>',
+    });
+    expect(svg).toContain('aria-label="Couverture du cours de &lt;français&gt;"');
+    expect(svg).toContain('<title>Couverture du cours de &lt;français&gt;</title>');
+    expect(svg).not.toContain('Course cover art for French');
+    // Blank alt text falls back instead of producing an empty label.
+    expect(buildCoverDocument('french', { altText: '   ' }).label).toBe(
+      'Course cover art for French',
+    );
+    // The art itself is identical whatever the label (no text baked in).
+    const strip = (s: string): string =>
+      s.replace(/<title>.*?<\/title>/, '').replace(/aria-label="[^"]*"/, '');
+    expect(strip(svg)).toBe(strip(courseCoverSvgString('french', { width: 300 })));
+  });
+  it('derives the alt-text catalog key per cover', () => {
+    expect(coverAltTextKey('arabic-moroccan')).toBe('catalog.cover.arabic-moroccan');
+    expect(ART_MANIFEST.coverAltTextKeys['arabic-moroccan']).toBe('catalog.cover.arabic-moroccan');
+    expect(Object.keys(ART_MANIFEST.coverAltTextKeys).sort()).toEqual(
+      Object.keys(ART_MANIFEST.covers).sort(),
+    );
+    for (const [trackId, key] of Object.entries(ART_MANIFEST.coverAltTextKeys))
+      expect(key).toBe(`catalog.cover.${trackId}`);
   });
 });
 

@@ -18,7 +18,7 @@ import {
 } from 'react-native';
 import type { IconName } from '../art';
 import { useTheme } from '../theme/ThemeProvider';
-import { ASSET_PICKER_LABELS } from './labels';
+import { ASSET_PICKER_LABELS, mergeLabels, type LocalizedLabels } from './labels';
 import { formatDurationMs } from './logic';
 import { Button, Chip, InlineIcon, Row, Surface, ThemedText } from './primitives';
 import { Skeleton } from './Skeleton';
@@ -54,7 +54,8 @@ export interface AssetPickerProps {
   /** Localized empty text. */
   emptyText?: string;
   columns?: 2 | 3;
-  labels?: Partial<typeof ASSET_PICKER_LABELS>;
+  /** Localized overrides (`t(...)` strings; nested groups may be partial). */
+  labels?: LocalizedLabels<typeof ASSET_PICKER_LABELS>;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 }
@@ -95,7 +96,7 @@ export function AssetPicker(props: AssetPickerProps): React.JSX.Element {
     testID,
   } = props;
   const theme = useTheme();
-  const L = { ...ASSET_PICKER_LABELS, ...labels };
+  const L = mergeLabels(ASSET_PICKER_LABELS, labels);
   const width = columns === 3 ? '31%' : '48%';
   return (
     <View

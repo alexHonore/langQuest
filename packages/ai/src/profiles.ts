@@ -135,9 +135,31 @@ export const DEFAULT_PROFILES: readonly ModelProfile[] = [
   ]),
 ];
 
-/** Loader hook: the API implements this over `ai_model_profiles` (rows returned override defaults). */
+/**
+ * Loader hook: the API implements this over `ai_model_profiles`. Only rows with `enabled: true` overlay the
+ * package defaults (see `ModelProfileRegistry.refresh`); a disabled row never turns a task off.
+ */
 export interface ProfileLoader {
   load(): Promise<readonly ModelProfile[]>;
+}
+
+/** Where a resolved profile came from: an `ai_model_profiles` row or the package `DEFAULT_PROFILES`. */
+export const PROFILE_SOURCE_VALUES = ['db', 'package-default'] as const;
+export type ProfileSource = (typeof PROFILE_SOURCE_VALUES)[number];
+
+/** A profile plus its provenance. `id` is an `ai_model_profiles.id` only when `resolvedSource === 'db'`. */
+export type ResolvedModelProfile = ModelProfile & { readonly resolvedSource: ProfileSource };
+
+/** `ai_requests.profile_id` must reference a DB row: package-default ids are deterministic hashes, not DB uuids. */
+export const ledgerProfileId = (profile: ResolvedModelProfile): string | null => (profile.resolvedSource === 'db' ? profile.id : null);
+
+export interface RefreshResult {
+  /** Enabled rows overlaid (same as the number `refresh()` returns). */
+  applied: number;
+  /** Disabled rows that were ignored; a previously overlaid DB row for that scope is removed again. */
+  skippedDisabled: number;
+  /** Scopes that reverted from a DB row to the package default (or were removed) because the row is now disabled. */
+  reverted: number;
 }
 
 export interface ProfileLookup {
@@ -155,20 +177,42 @@ export class ProfileNotFoundError extends Error {
 
 const keyOf = (task: AiTaskName, variety: VarietyId | null, source: SourceLanguageCode | null): string => `${task}|${variety ?? '*'}|${source ?? '*'}`;
 
-/** In-memory registry with exact → variety → source language → global resolution. */
+/**
+ * In-memory registry with exact → variety → source language → global resolution.
+ *
+ * Two layers are kept per scope: the package default (from the constructor seed) and an optional DB overlay.
+ * The DB layer only ever holds enabled rows, so a disabled `ai_model_profiles` row — the catalog seed ships every
+ * row disabled until an admin smoke-tests it — can never switch a task off; it simply leaves the default in place.
+ */
 export class ModelProfileRegistry {
-  private readonly profiles = new Map<string, ModelProfile>();
+  private readonly defaults = new Map<string, ModelProfile>();
+  private readonly overlay = new Map<string, ModelProfile>();
 
   constructor(seed: readonly ModelProfile[] = DEFAULT_PROFILES) {
-    for (const p of seed) this.upsert(p);
+    for (const p of seed) this.upsert(p, 'package-default');
   }
 
-  upsert(profile: ModelProfile): void {
-    this.profiles.set(keyOf(profile.task, profile.targetVariety, profile.sourceLanguage), ModelProfileSchema.parse(profile));
+  /**
+   * Insert or replace a profile in one layer. `source` defaults to `'db'` (the shape the API hands over from
+   * `ai_model_profiles`); pass `'package-default'` for in-process defaults. A disabled DB row is stored nowhere and
+   * removes any earlier DB overlay for the scope (see `refresh`).
+   */
+  upsert(profile: ModelProfile, source: ProfileSource = 'db'): void {
+    const parsed = ModelProfileSchema.parse(profile);
+    const key = keyOf(parsed.task, parsed.targetVariety, parsed.sourceLanguage);
+    if (source === 'package-default') {
+      this.defaults.set(key, parsed);
+      return;
+    }
+    if (parsed.enabled) this.overlay.set(key, parsed);
+    else this.overlay.delete(key);
   }
 
-  /** Convenience for admin input shapes (id/version assigned deterministically; DB rows should pass full profiles). */
-  upsertInput(input: ModelProfileInput, overrides: Partial<Pick<ModelProfile, 'id' | 'version' | 'benchmarkStatus' | 'updatedAt'>> = {}): ModelProfile {
+  /**
+   * Convenience for admin input shapes. Without an explicit `id` the profile gets a deterministic package-style id and
+   * is stored as a package default (it is not a DB row); with `overrides.id` it is treated as a DB row.
+   */
+  upsertInput(input: ModelProfileInput, overrides: Partial<Pick<ModelProfile, 'id' | 'version' | 'benchmarkStatus' | 'updatedAt'>> = {}, source?: ProfileSource): ModelProfile {
     const profile = ModelProfileSchema.parse({
       ...input,
       id: overrides.id ?? defaultProfileId(input.task, input.targetVariety, input.sourceLanguage),
@@ -176,28 +220,58 @@ export class ModelProfileRegistry {
       benchmarkStatus: overrides.benchmarkStatus ?? 'unbenchmarked',
       updatedAt: overrides.updatedAt ?? new Date().toISOString(),
     });
-    this.upsert(profile);
+    this.upsert(profile, source ?? (overrides.id ? 'db' : 'package-default'));
     return profile;
   }
 
+  /** Remove the scope from both layers. Returns whether anything was removed. */
   remove(task: AiTaskName, variety: VarietyId | null, source: SourceLanguageCode | null): boolean {
-    return this.profiles.delete(keyOf(task, variety, source));
+    const key = keyOf(task, variety, source);
+    const a = this.overlay.delete(key);
+    const b = this.defaults.delete(key);
+    return a || b;
   }
 
-  list(task?: AiTaskName): ModelProfile[] {
-    const all = [...this.profiles.values()];
+  /** Effective profiles (DB overlay wins over the package default for the same scope), most specific first. */
+  list(task?: AiTaskName): ResolvedModelProfile[] {
+    const all = [...this.effective().values()];
     return (task ? all.filter((p) => p.task === task) : all).sort((a, b) => modelProfileSpecificity(b) - modelProfileSpecificity(a) || a.task.localeCompare(b.task));
   }
 
-  /** Overlay rows from the loader (e.g. the `ai_model_profiles` table). Returns how many were applied. */
-  async refresh(loader: ProfileLoader): Promise<number> {
-    const rows = await loader.load();
-    for (const row of rows) this.upsert(row);
-    return rows.length;
+  /** Package defaults only (ignores the DB overlay). */
+  listDefaults(task?: AiTaskName): ModelProfile[] {
+    const all = [...this.defaults.values()];
+    return task ? all.filter((p) => p.task === task) : all;
   }
 
-  /** Resolve the most specific enabled profile, or `null`. */
-  find(lookup: ProfileLookup): ModelProfile | null {
+  /**
+   * Overlay rows from the loader (the `ai_model_profiles` table). Only enabled rows are applied; a disabled row is
+   * skipped and, if an earlier refresh had overlaid that scope, the scope reverts to the package default. Returns how
+   * many enabled rows were applied (see `refreshDetailed` for the full breakdown).
+   */
+  async refresh(loader: ProfileLoader): Promise<number> {
+    return (await this.refreshDetailed(loader)).applied;
+  }
+
+  async refreshDetailed(loader: ProfileLoader): Promise<RefreshResult> {
+    const rows = await loader.load();
+    const result: RefreshResult = { applied: 0, skippedDisabled: 0, reverted: 0 };
+    for (const row of rows) {
+      const parsed = ModelProfileSchema.parse(row);
+      const key = keyOf(parsed.task, parsed.targetVariety, parsed.sourceLanguage);
+      if (parsed.enabled) {
+        this.overlay.set(key, parsed);
+        result.applied += 1;
+      } else {
+        result.skippedDisabled += 1;
+        if (this.overlay.delete(key)) result.reverted += 1;
+      }
+    }
+    return result;
+  }
+
+  /** Resolve the most specific enabled profile (DB overlay before package default per scope), or `null`. */
+  find(lookup: ProfileLookup): ResolvedModelProfile | null {
     const candidates: Array<[VarietyId | null, SourceLanguageCode | null]> = [
       [lookup.targetVariety, lookup.sourceLanguage],
       [lookup.targetVariety, null],
@@ -205,16 +279,35 @@ export class ModelProfileRegistry {
       [null, null],
     ];
     for (const [variety, source] of candidates) {
-      const p = this.profiles.get(keyOf(lookup.task, variety, source));
+      const p = this.get(keyOf(lookup.task, variety, source));
       if (p && p.enabled) return p;
     }
     return null;
   }
 
-  resolve(lookup: ProfileLookup): ModelProfile {
+  resolve(lookup: ProfileLookup): ResolvedModelProfile {
     const p = this.find(lookup);
     if (!p) throw new ProfileNotFoundError(lookup);
     return p;
+  }
+
+  /** Provenance of the effective profile for an exact scope (`null` when the scope has no profile at all). */
+  sourceOf(task: AiTaskName, variety: VarietyId | null, source: SourceLanguageCode | null): ProfileSource | null {
+    return this.get(keyOf(task, variety, source))?.resolvedSource ?? null;
+  }
+
+  private get(key: string): ResolvedModelProfile | null {
+    const db = this.overlay.get(key);
+    if (db) return { ...db, resolvedSource: 'db' };
+    const def = this.defaults.get(key);
+    return def ? { ...def, resolvedSource: 'package-default' } : null;
+  }
+
+  private effective(): Map<string, ResolvedModelProfile> {
+    const out = new Map<string, ResolvedModelProfile>();
+    for (const [key, p] of this.defaults) out.set(key, { ...p, resolvedSource: 'package-default' });
+    for (const [key, p] of this.overlay) out.set(key, { ...p, resolvedSource: 'db' });
+    return out;
   }
 
   /** Ordered model list for a call: `[primary, ...fallbacks]`, de-duplicated. */

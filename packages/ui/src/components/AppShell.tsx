@@ -9,7 +9,7 @@ import { findCourseTrack } from '@langquest/contracts';
 import React from 'react';
 import { type StyleProp, View, type ViewStyle } from 'react-native';
 import { useTheme } from '../theme/ThemeProvider';
-import { SHELL_LABELS } from './labels';
+import { SHELL_LABELS, mergeLabels, type LocalizedLabels } from './labels';
 import { languageName } from './logic';
 import { Chip, IconButton, Row, ThemedText } from './primitives';
 
@@ -47,7 +47,8 @@ export interface AppShellProps {
   footer?: React.ReactNode;
   /** Remove the horizontal gutter for full-bleed screens. */
   fullBleed?: boolean;
-  labels?: Partial<typeof SHELL_LABELS>;
+  /** Localized overrides (`t(...)` strings; nested groups may be partial). */
+  labels?: LocalizedLabels<typeof SHELL_LABELS>;
   children?: React.ReactNode;
   style?: StyleProp<ViewStyle>;
   testID?: string;
@@ -70,7 +71,7 @@ export function AppShell(props: AppShellProps): React.JSX.Element {
     testID,
   } = props;
   const theme = useTheme();
-  const L = { ...SHELL_LABELS, ...labels };
+  const L = mergeLabels(SHELL_LABELS, labels);
   const pad = {
     top: insets?.top ?? 0,
     bottom: insets?.bottom ?? 0,

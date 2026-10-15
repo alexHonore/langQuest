@@ -1,5 +1,7 @@
 import {
   CONVERSATION_MODE_VALUES,
+  COURSE_TRACKS,
+  LEARNER_LEVEL_VALUES,
   CONVERSATION_STATE_VALUES,
   MASCOT_STATE_VALUES,
   MASTERY_STATE_VALUES,
@@ -16,7 +18,20 @@ import {
 } from '@langquest/contracts';
 import { describe, expect, it } from 'vitest';
 import { findInvalidIcuMessages } from '../i18n';
-import { CATALOGS, CATALOG_NAMESPACES, REQUIRED_PARTIAL_NAMESPACES, SUPPORTED_UI_LOCALES, flattenCatalog, getFlatCatalog, type MessageCatalog } from './index';
+import {
+  ADMIN_UI_NAMESPACE,
+  AUDIO_LISTEN_NAMESPACE,
+  CATALOGS,
+  CATALOG_NAMESPACES,
+  CATALOG_SECTIONS,
+  COVER_ALT_TEXT_PREFIX,
+  REQUIRED_PARTIAL_NAMESPACES,
+  SUPPORTED_UI_LOCALES,
+  coverAltTextKey,
+  flattenCatalog,
+  getFlatCatalog,
+  type MessageCatalog,
+} from './index';
 
 const en = getFlatCatalog('en');
 const fr = getFlatCatalog('fr');
@@ -127,6 +142,7 @@ describe('spec-mandated copy', () => {
     { path: 'admin.roles', values: ROLE_VALUES },
     { path: 'pronunciation.feedback.errorType', values: WORD_SCORE_ERROR_TYPES },
     { path: 'pronunciation.feedback.feature', values: PRONUNCIATION_FEATURES },
+    { path: 'audio.listen.level', values: LEARNER_LEVEL_VALUES },
   ];
 
   it.each(ENUM_KEYED_NAMESPACES)('$path is keyed exactly by its contract enum (en and fr)', ({ path, values, extra = [] }) => {
@@ -251,6 +267,66 @@ describe('spec-mandated copy', () => {
     for (const [key, msg] of Object.entries(en)) {
       if (key.startsWith('mascot.')) expect(guilt.test(msg), key).toBe(false);
     }
+  });
+});
+
+describe('app-facing sections (cross-package gaps 2026-10-15)', () => {
+  const keysUnder = (flat: Record<string, string>, prefix: string) => Object.keys(flat).filter((k) => k.startsWith(`${prefix}.`));
+
+  it('every section is a nested namespace in en and fr with the same key set', () => {
+    for (const section of CATALOG_SECTIONS) {
+      const enKeys = keysUnder(en, section).sort();
+      expect(enKeys.length, section).toBeGreaterThan(0);
+      expect(keysUnder(fr, section).sort(), section).toEqual(enKeys);
+      nestedAt(CATALOGS.en, section);
+      nestedAt(CATALOGS.fr, section);
+    }
+  });
+
+  it('admin.ui carries the admin studio editor copy (formerly apps/admin extra.ts)', () => {
+    const keys = keysUnder(en, ADMIN_UI_NAMESPACE);
+    expect(keys.length).toBeGreaterThanOrEqual(330);
+    for (const k of ['signIn', 'signOut', 'denied', 'rowsSelected', 'upState.queued', 'upState.failed', 'rtGateHint', 'jbRetryHint', 'anNeedsApi', 'usSelfRevoke', 'auNoAccess']) {
+      expect(en[`admin.ui.${k}`], k).toBeTruthy();
+      expect(fr[`admin.ui.${k}`], k).toBeTruthy();
+    }
+    expect(en['admin.ui.denied']).toBe('Your role cannot open {section}.');
+    expect(fr['admin.ui.denied']).toMatch(/\{section\}/);
+  });
+
+  it('catalog.cover has an alt text for every course track, addressed by coverAltTextKey', () => {
+    expect(coverAltTextKey('arabic-eastern')).toBe('catalog.cover.arabic_eastern');
+    expect(coverAltTextKey('japanese')).toBe('catalog.cover.japanese');
+    const coverKeys = Object.keys(nestedAt(CATALOGS.en, COVER_ALT_TEXT_PREFIX)).sort();
+    expect(coverKeys).toEqual(COURSE_TRACKS.map((t) => t.id.replace(/-/g, '_')).sort());
+    for (const track of COURSE_TRACKS) {
+      const key = coverAltTextKey(track.id);
+      expect(en[key], key).toMatch(/^Course cover for /);
+      expect(en[key], key).toContain(track.displayName);
+      expect(fr[key], key).toMatch(/^Couverture du cours /);
+      // Alt text describes the abstract artwork honestly: no flags or cultural clichés (covers.ts contract).
+      expect(en[key], key).toMatch(/abstract/);
+      expect(fr[key], key).toMatch(/abstrait/);
+    }
+  });
+
+  it('audio.listen carries the mobile audio library copy (formerly apps/mobile audio labels)', () => {
+    const keys = keysUnder(en, AUDIO_LISTEN_NAMESPACE);
+    expect(keys.length).toBeGreaterThanOrEqual(80);
+    for (const k of ['continueListening', 'loopRange', 'saveExpression', 'storageNotEnabled', 'rightsBlocked', 'verifiedSha256', 'verifiedLength', 'rate', 'minutesLeft', 'deviceFree']) {
+      expect(en[`audio.listen.${k}`], k).toBeTruthy();
+      expect(fr[`audio.listen.${k}`], k).toBeTruthy();
+    }
+    // download failure codes used by apps/mobile download-manager
+    expect(Object.keys(nestedAt(CATALOGS.en, 'audio.listen.failure')).sort()).toEqual(
+      ['offline', 'wifi_required', 'rights_blocked', 'media_unavailable', 'checksum_mismatch', 'disk_full', 'http', 'unknown'].sort(),
+    );
+    // function labels became ICU arguments
+    expect(en['audio.listen.lessonsCount']).toContain('plural');
+    expect(en['audio.listen.translationUnavailable']).toContain('{language}');
+    // honest media states: no claim that the audio is altered or scored
+    expect(en['audio.listen.transcriptMachine']).toMatch(/not yet reviewed/);
+    expect(en['audio.listen.originalAudio']).toMatch(/unaltered/);
   });
 });
 

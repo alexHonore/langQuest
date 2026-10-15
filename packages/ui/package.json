@@ -8,6 +8,7 @@
   "exports": {
     ".": "./src/index.ts",
     "./art": "./src/art/index.ts",
+    "./art/web": "./src/art/web.ts",
     "./tokens": "./src/tokens/index.ts",
     "./theme": "./src/theme/index.ts",
     "./components": "./src/components/index.ts"
@@ -16,7 +17,8 @@
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "vitest run --passWithNoTests",
     "lint": "eslint src",
-    "export-art": "tsx scripts/export-art.ts"
+    "export-art": "tsx scripts/export-art.ts",
+    "verify-web-entry": "tsx scripts/verify-web-entry.ts"
   },
   "dependencies": {
     "@langquest/contracts": "workspace:*"

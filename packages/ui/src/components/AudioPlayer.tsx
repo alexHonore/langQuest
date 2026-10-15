@@ -16,7 +16,7 @@ import {
   type ViewStyle,
 } from 'react-native';
 import { useTheme } from '../theme/ThemeProvider';
-import { AUDIO_LABELS } from './labels';
+import { AUDIO_LABELS, mergeLabels, type LocalizedLabels } from './labels';
 import {
   type ChapterMarker,
   PLAYBACK_RATES,
@@ -74,7 +74,8 @@ export interface AudioPlayerProps {
   /** Shown when the file is synthetic/attributed (e.g. CC-BY line). */
   attributionText?: string | null;
   compact?: boolean;
-  labels?: Partial<typeof AUDIO_LABELS>;
+  /** Localized overrides (`t(...)` strings; nested groups may be partial). */
+  labels?: LocalizedLabels<typeof AUDIO_LABELS>;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 }
@@ -188,7 +189,7 @@ export function AudioPlayer(props: AudioPlayerProps): React.JSX.Element {
     testID,
   } = props;
   const theme = useTheme();
-  const L = { ...AUDIO_LABELS, ...labels };
+  const L = mergeLabels(AUDIO_LABELS, labels);
   const [showChapters, setShowChapters] = useState(false);
   const [showSleep, setShowSleep] = useState(false);
   const skipMs = skipSeconds * 1000;

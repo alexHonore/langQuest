@@ -36,10 +36,31 @@ export const ConversationSessionCreateResponseSchema = z.object({
 });
 export type ConversationSessionCreateResponse = z.infer<typeof ConversationSessionCreateResponseSchema>;
 
+/**
+ * Short inline audio clip sent with a turn (no prior upload). `mime` is the container type
+ * (e.g. `audio/webm;codecs=opus`, `audio/mp4`); `durationMs` is the client-measured length.
+ */
+export const InlineAudioClipSchema = z.object({
+  base64: z.string().min(1).max(8_000_000),
+  mime: z.string().min(1).max(120),
+  durationMs: MillisSchema,
+});
+export type InlineAudioClip = z.infer<typeof InlineAudioClipSchema>;
+
+/** Audio accepted inline on a conversation turn: the generic `AudioInput` (asset/url/inline) or a bare clip. */
+export const ConversationTurnAudioSchema = z.union([AudioInputSchema, InlineAudioClipSchema]);
+export type ConversationTurnAudio = z.infer<typeof ConversationTurnAudioSchema>;
+
 export const ConversationTurnRequestSchema = z.object({
   /** Client-generated; a replay returns the original character turn (never a duplicate LLM response). */
   clientTurnId: UuidSchema,
   input: LearnerTurnInputSchema,
+  /**
+   * Optional inline audio for an `input.kind === 'audio'` turn whose clip was not uploaded first
+   * (`input.assetId` may then be a client placeholder). The server stores it under the session's
+   * retention preference and transcribes it; omitted when the clip is referenced by `assetId` only.
+   */
+  audio: ConversationTurnAudioSchema.optional(),
   /** Short client state so the server can recover after a disconnect. */
   clientState: z.object({ state: ConversationStateSchema, lastSeq: NonNegativeIntSchema, lastCharacterTurnId: UuidSchema.nullable() }),
   /** True when the learner interrupted the character mid-utterance (barge-in). */
@@ -64,6 +85,7 @@ export const ConversationEndRequestSchema = z.object({
   /** Client event id for the XP award. */
   clientEventId: UuidSchema,
 });
+export type ConversationEndRequest = z.infer<typeof ConversationEndRequestSchema>;
 export const ConversationEndResponseSchema = z.object({
   session: ConversationSessionStateSchema,
   evaluation: EvaluatorOutputSchema,
@@ -92,6 +114,7 @@ export const TranscribeResponseSchema = z.object({
   /** Stored only under the learner's retention preference. */
   recordingAssetId: UuidSchema.nullable(),
 });
+export type TranscribeResponse = z.infer<typeof TranscribeResponseSchema>;
 
 // --- pronunciation ----------------------------------------------------------
 
@@ -129,16 +152,19 @@ export const SynthesizeRequestSchema = z.object({
 }).refine((v) => v.expressionId !== undefined || v.text !== undefined, { message: 'expressionId or text is required', path: ['text'] });
 export type SynthesizeRequest = z.infer<typeof SynthesizeRequestSchema>;
 export const SynthesizeResponseSchema = z.object({ audio: AudioOutputSchema, capability: CapabilitySchema });
+export type SynthesizeResponse = z.infer<typeof SynthesizeResponseSchema>;
 
 // --- capabilities -----------------------------------------------------------
 
 export const ModelCapabilitiesQuerySchema = z.object({ trackId: CourseTrackIdSchema, regionalOption: z.string().optional() });
+export type ModelCapabilitiesQuery = z.infer<typeof ModelCapabilitiesQuerySchema>;
 export const TaskCapabilitySchema = z.object({
   task: AiTaskNameSchema,
   capability: CapabilitySchema,
   /** Profile version (never model ids leaked beyond what admin exposes as public). */
   profileVersion: NonNegativeIntSchema.nullable(),
 });
+export type TaskCapability = z.infer<typeof TaskCapabilitySchema>;
 export const ModelCapabilitiesResponseSchema = z.object({
   trackId: CourseTrackIdSchema,
   targetVarietyId: VarietyIdSchema,

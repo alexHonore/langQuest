@@ -36,6 +36,30 @@ export interface AudioLibraryRepository {
   attachLessonAsset(row: Insert<'audio_lesson_assets'>): Promise<Row<'audio_lesson_assets'>>;
   upsertTranscript(row: Insert<'transcripts'>): Promise<Row<'transcripts'>>;
   replaceTranscriptSegments(transcriptId: string, segments: Omit<Insert<'transcript_segments'>, 'transcript_id'>[]): Promise<Row<'transcript_segments'>[]>;
+  // --- explicit-column lookups/writes the jobs runner and admin needed (migration 100, cross-package gaps) ---
+  getTranscriptById(id: string): Promise<Row<'transcripts'> | null>;
+  /** Every transcript revision of a lesson, oldest revision first. */
+  listTranscriptsForLesson(lessonId: string): Promise<Row<'transcripts'>[]>;
+  /** Transcripts produced from the given source assets, newest first. */
+  listTranscriptsForAssets(assetIds: string[]): Promise<Row<'transcripts'>[]>;
+  updateTranscript(id: string, patch: Update<'transcripts'>): Promise<Row<'transcripts'>>;
+  listTranscriptSegments(transcriptId: string): Promise<Row<'transcript_segments'>[]>;
+  updateTranscriptSegment(id: string, patch: Update<'transcript_segments'>): Promise<Row<'transcript_segments'>>;
+  /** Upsert on (segment_id, language_code); returns the number of rows written. */
+  upsertTranscriptTranslations(rows: Insert<'transcript_translations'>[]): Promise<number>;
+  listTranscriptTranslations(segmentIds: string[], languageCode?: string): Promise<Row<'transcript_translations'>[]>;
+  /** Replaces the word alignments of one segment; returns the number of rows written. */
+  replaceWordAlignments(segmentId: string, rows: Omit<Insert<'transcript_word_alignments'>, 'segment_id'>[]): Promise<number>;
+  listWordAlignments(segmentId: string): Promise<Row<'transcript_word_alignments'>[]>;
+  /** Upsert on (lesson_id, topic_key). */
+  upsertLessonTopics(rows: Insert<'lesson_topics'>[]): Promise<Row<'lesson_topics'>[]>;
+  listLessonTopics(lessonId: string): Promise<Row<'lesson_topics'>[]>;
+  /** Lessons an asset is attached to (distinct ids). */
+  findLessonIdsForAsset(assetId: string): Promise<string[]>;
+  /** Distinct `primary_language_code`s of a lesson's usable transcripts (not `none`/`failed`). */
+  listTranscriptLanguagesForLesson(lessonId: string): Promise<string[]>;
+  findCollectionByTitle(title: string, languageCode: string): Promise<Row<'audio_course_collections'> | null>;
+  findChapterByTitle(collectionId: string, title: string, languageCode: string): Promise<Row<'audio_chapters'> | null>;
 }
 
 export function audioLibraryRepository(db: DbClient): AudioLibraryRepository {
@@ -145,6 +169,68 @@ export function audioLibraryRepository(db: DbClient): AudioLibraryRepository {
       if (segments.length === 0) return [];
       const rows = segments.map((s, i) => ({ ...s, transcript_id: transcriptId, sort_index: s.sort_index ?? i }));
       return unwrap(await db.from('transcript_segments').insert(rows).select('*').order('sort_index'), 'audio.replaceTranscriptSegments.insert');
+    },
+    async getTranscriptById(id) {
+      return unwrapMaybe(await db.from('transcripts').select('*').eq('id', id).maybeSingle(), 'audio.getTranscriptById');
+    },
+    async listTranscriptsForLesson(lessonId) {
+      return unwrap(await db.from('transcripts').select('*').eq('lesson_id', lessonId).order('revision'), 'audio.listTranscriptsForLesson');
+    },
+    async listTranscriptsForAssets(assetIds) {
+      if (assetIds.length === 0) return [];
+      return unwrap(await db.from('transcripts').select('*').in('source_asset_id', assetIds).order('created_at', { ascending: false }), 'audio.listTranscriptsForAssets');
+    },
+    async updateTranscript(id, patch) {
+      return unwrap(await db.from('transcripts').update(patch).eq('id', id).select('*').single(), 'audio.updateTranscript');
+    },
+    async listTranscriptSegments(transcriptId) {
+      return unwrap(await db.from('transcript_segments').select('*').eq('transcript_id', transcriptId).order('sort_index'), 'audio.listTranscriptSegments');
+    },
+    async updateTranscriptSegment(id, patch) {
+      return unwrap(await db.from('transcript_segments').update(patch).eq('id', id).select('*').single(), 'audio.updateTranscriptSegment');
+    },
+    async upsertTranscriptTranslations(rows) {
+      if (rows.length === 0) return 0;
+      unwrap(await db.from('transcript_translations').upsert(rows, { onConflict: 'segment_id,language_code' }), 'audio.upsertTranscriptTranslations');
+      return rows.length;
+    },
+    async listTranscriptTranslations(segmentIds, languageCode) {
+      if (segmentIds.length === 0) return [];
+      let q = db.from('transcript_translations').select('*').in('segment_id', segmentIds);
+      if (languageCode) q = q.eq('language_code', languageCode);
+      return unwrap(await q, 'audio.listTranscriptTranslations');
+    },
+    async replaceWordAlignments(segmentId, rows) {
+      unwrap(await db.from('transcript_word_alignments').delete().eq('segment_id', segmentId), 'audio.replaceWordAlignments.delete');
+      if (rows.length === 0) return 0;
+      unwrap(await db.from('transcript_word_alignments').insert(rows.map((r) => ({ ...r, segment_id: segmentId }))), 'audio.replaceWordAlignments.insert');
+      return rows.length;
+    },
+    async listWordAlignments(segmentId) {
+      return unwrap(await db.from('transcript_word_alignments').select('*').eq('segment_id', segmentId).order('start_ms'), 'audio.listWordAlignments');
+    },
+    async upsertLessonTopics(rows) {
+      if (rows.length === 0) return [];
+      return unwrap(await db.from('lesson_topics').upsert(rows, { onConflict: 'lesson_id,topic_key' }).select('*'), 'audio.upsertLessonTopics');
+    },
+    async listLessonTopics(lessonId) {
+      return unwrap(await db.from('lesson_topics').select('*').eq('lesson_id', lessonId).order('topic_key'), 'audio.listLessonTopics');
+    },
+    async findLessonIdsForAsset(assetId) {
+      const rows = unwrap(await db.from('audio_lesson_assets').select('lesson_id').eq('asset_id', assetId), 'audio.findLessonIdsForAsset');
+      return [...new Set(rows.map((r) => r.lesson_id))];
+    },
+    async listTranscriptLanguagesForLesson(lessonId) {
+      const rows = unwrap(await db.from('transcripts').select('primary_language_code, status').eq('lesson_id', lessonId), 'audio.listTranscriptLanguagesForLesson');
+      return [...new Set(rows.filter((t) => t.status !== 'failed' && t.status !== 'none').map((t) => t.primary_language_code))];
+    },
+    async findCollectionByTitle(title, languageCode) {
+      const rows = unwrap(await db.from('audio_course_collections').select('*').eq(`title_translations->>${languageCode}`, title).limit(1), 'audio.findCollectionByTitle');
+      return rows[0] ?? null;
+    },
+    async findChapterByTitle(collectionId, title, languageCode) {
+      const rows = unwrap(await db.from('audio_chapters').select('*').eq('collection_id', collectionId).eq(`title_translations->>${languageCode}`, title).limit(1), 'audio.findChapterByTitle');
+      return rows[0] ?? null;
     },
   };
 }

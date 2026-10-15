@@ -125,6 +125,17 @@ describe('PipelineRealtimeProvider', () => {
     expect((await p.createSession(config('rw-RW', 'text_only'))).pipeline).toBe('text_only');
   });
 
+  it('createSession honours text_only even when speech is supported for the variety', async () => {
+    const p = new PipelineRealtimeProvider({ recognizer: recognizer('x'), synthesizer: synthesizer([]), characterAgent: agent('y'), ticketSecret: SECRET });
+    expect((await p.supports('ar-MA', true)).supported).toBe(true);
+    const s = await p.createSession(config('ar-MA', 'text_only'), { userId: 'u1' });
+    expect(() => ShortLivedSessionSchema.parse(s)).not.toThrow();
+    expect(s).toMatchObject({ pipeline: 'text_only', vad: null });
+    expect(await verifySessionTicket(s.clientToken, SECRET)).toMatchObject({ ok: true, payload: { pipeline: 'text_only', userId: 'u1' } });
+    // Unknown / ambiguous locales are refused in text-only mode too (no silent variety guess).
+    await expect(p.createSession(config('es', 'text_only'))).rejects.toThrow(/unavailable/);
+  });
+
   it('runs STT → LLM → TTS with latency hooks', async () => {
     const tts: string[] = [];
     const p = new PipelineRealtimeProvider({ recognizer: recognizer('بغيت قهوة'), synthesizer: synthesizer(tts), characterAgent: agent('واخا، قهوة وحدة!'), ticketSecret: SECRET });

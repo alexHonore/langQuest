@@ -9,7 +9,7 @@ import { capabilityForVariety } from '../capability/matrix';
 import { capabilityFromStatus, resolveVariety, varietyBoundaryViolation } from '../capability/registry';
 import { AiCapabilityError, wrapOperatorError } from '../errors';
 import type { OpenRouterClient } from '../openrouter/client';
-import type { AiRequestSink } from '../reasoner';
+import { resolveAttribution, type AiAttribution, type AiAttributionSource, type AiRequestSink } from '../reasoner';
 import { bytesToBase64, mp3DurationMs, newId, nowIso, pcm16DurationMs, sha256Hex } from '../util';
 import { defaultVoiceFor, findVoice, voicesForVariety, type VoiceEntry } from './voices';
 
@@ -26,12 +26,16 @@ export interface SynthesizeOptions {
   instructions?: string;
   traceId?: string;
   enrollmentId?: string | null;
+  /** Overrides the adapter-level attribution for this call only. */
+  attribution?: AiAttribution | null;
 }
 
 export interface OpenRouterSpeechSynthesizerOptions {
   client: OpenRouterClient;
   sink?: AiRequestSink;
   cache?: TtsCache;
+  /** Attribution for `ai_requests` rows (learner id, DB profile id). Default: pseudonymous. */
+  attribution?: AiAttributionSource | null;
 }
 
 export const TTS_CACHE_KEY_VERSION = 'v1';
@@ -53,11 +57,13 @@ export class OpenRouterSpeechSynthesizer implements SpeechSynthesizer {
   private readonly client: OpenRouterClient;
   private readonly sink: AiRequestSink | null;
   private readonly cache: TtsCache | null;
+  private readonly attribution: AiAttributionSource | null;
 
   constructor(options: OpenRouterSpeechSynthesizerOptions) {
     this.client = options.client;
     this.sink = options.sink ?? null;
     this.cache = options.cache ?? null;
+    this.attribution = options.attribution ?? null;
   }
 
   /** Resolve the voice to use for a locale (+ optional voice id), enforcing the variety boundary. */
@@ -110,6 +116,7 @@ export class OpenRouterSpeechSynthesizer implements SpeechSynthesizer {
     }
 
     const traceId = options.traceId ?? newId();
+    const attribution = resolveAttribution(this.attribution, { ...(options.attribution ?? {}), ...(options.enrollmentId !== undefined ? { enrollmentId: options.enrollmentId } : {}) });
     const instructions = [voice.instructions, options.instructions, rate < 0.95 && !SPEED_CAPABLE.has(voice.model) ? 'Speak slowly and clearly, with short pauses between phrases.' : null].filter(Boolean).join(' ') || undefined;
     const startedAt = Date.now();
     let res;
@@ -126,12 +133,12 @@ export class OpenRouterSpeechSynthesizer implements SpeechSynthesizer {
         { tags: { task: 'speech_synthesis', traceId } },
       );
     } catch (error) {
-      await this.record({ model: voice.model, traceId, enrollmentId: options.enrollmentId ?? null, latencyMs: Date.now() - startedAt, success: false, errorCode: (error as { kind?: string }).kind ?? 'unknown', cost: null, characters: text.length });
+      await this.record({ model: voice.model, traceId, attribution, latencyMs: Date.now() - startedAt, success: false, errorCode: (error as { kind?: string }).kind ?? 'unknown', cost: null, characters: text.length });
       throw wrapOperatorError(error, 'Speech synthesis', this.provider);
     }
     const sampleRateHz = res.sampleRateHz ?? voice.sampleRateHz;
     const durationMs = voice.responseFormat === 'pcm' ? pcm16DurationMs(res.bytes.byteLength, sampleRateHz, res.channels ?? 1) : (mp3DurationMs(res.bytes) ?? estimateDurationMs(text));
-    await this.record({ model: voice.model, traceId, enrollmentId: options.enrollmentId ?? null, latencyMs: res.latencyMs, success: true, errorCode: null, cost: res.estimatedCostUsd, characters: text.length });
+    await this.record({ model: voice.model, traceId, attribution, latencyMs: res.latencyMs, success: true, errorCode: null, cost: res.estimatedCostUsd, characters: text.length });
     const output: AudioOutput = {
       encoding: voice.encoding,
       sampleRateHz,
@@ -148,16 +155,16 @@ export class OpenRouterSpeechSynthesizer implements SpeechSynthesizer {
     return output;
   }
 
-  private async record(input: { model: string; traceId: string; enrollmentId: string | null; latencyMs: number; success: boolean; errorCode: string | null; cost: number | null; characters: number }): Promise<void> {
+  private async record(input: { model: string; traceId: string; attribution: Required<AiAttribution>; latencyMs: number; success: boolean; errorCode: string | null; cost: number | null; characters: number }): Promise<void> {
     if (!this.sink) return;
     await this.sink.record({
       occurredAt: nowIso(),
-      userId: null,
-      enrollmentId: input.enrollmentId,
+      userId: input.attribution.userId,
+      enrollmentId: input.attribution.enrollmentId,
       task: 'speech_synthesis',
       provider: this.provider,
       model: input.model,
-      profileId: null,
+      profileId: input.attribution.profileId,
       fallbackIndex: 0,
       latencyMs: input.latencyMs,
       inputTokens: input.characters,

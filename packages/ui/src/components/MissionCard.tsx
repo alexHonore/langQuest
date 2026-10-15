@@ -8,7 +8,7 @@ import React from 'react';
 import { Pressable, type StyleProp, View, type ViewStyle } from 'react-native';
 import type { IconName, SceneId } from '../art';
 import { useTheme } from '../theme/ThemeProvider';
-import { MISSION_LABELS, type MissionFocus } from './labels';
+import { MISSION_LABELS, type MissionFocus, mergeLabels, type LocalizedLabels } from './labels';
 import type { StoryNodeStatus } from './logic';
 import { Chip, InlineIcon, Row, Surface, ThemedText } from './primitives';
 import { SceneArtwork } from './SceneArtwork';
@@ -39,7 +39,8 @@ export interface MissionCardProps {
   /** Large hero layout (home screen CTA) vs compact list row. */
   layout?: 'hero' | 'compact';
   onPress?: () => void;
-  labels?: Partial<typeof MISSION_LABELS>;
+  /** Localized overrides (`t(...)` strings; nested groups may be partial). */
+  labels?: LocalizedLabels<typeof MISSION_LABELS>;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 }
@@ -77,7 +78,7 @@ export function MissionCard(props: MissionCardProps): React.JSX.Element {
     testID,
   } = props;
   const theme = useTheme();
-  const L = { ...MISSION_LABELS, ...labels };
+  const L = mergeLabels(MISSION_LABELS, labels);
   const statusLabel = L.status[status];
   const cta = status === 'completed' ? L.replay : status === 'in_progress' ? L.continue : L.start;
   const statusTone =

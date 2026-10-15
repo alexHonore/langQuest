@@ -154,3 +154,18 @@ export const AudioBookmarkResponseSchema = z.object({
 
 export const DownloadPackQuerySchema = z.object({ includeTranscript: z.coerce.boolean().default(true), deviceId: z.string().min(1).max(128) });
 export const DownloadPackResponseSchema = z.object({ manifest: DownloadPackManifestSchema });
+
+// --- inferred types (additive; every request/response schema has a matching type) ---
+
+export type AudioCollectionSummary = z.infer<typeof AudioCollectionSummarySchema>;
+export type AudioCollectionsResponse = z.infer<typeof AudioCollectionsResponseSchema>;
+export type AudioChaptersResponse = z.infer<typeof AudioChaptersResponseSchema>;
+export type PlaybackUrlRequest = z.infer<typeof PlaybackUrlRequestSchema>;
+export type TranscriptQuery = z.infer<typeof TranscriptQuerySchema>;
+export type TranscriptSegmentDto = z.infer<typeof TranscriptSegmentDtoSchema>;
+export type AudioProgressPutRequest = z.infer<typeof AudioProgressPutRequestSchema>;
+export type AudioProgressPutResponse = z.infer<typeof AudioProgressPutResponseSchema>;
+export type AudioBookmarkCreateRequest = z.infer<typeof AudioBookmarkCreateRequestSchema>;
+export type AudioBookmarkResponse = z.infer<typeof AudioBookmarkResponseSchema>;
+export type DownloadPackQuery = z.infer<typeof DownloadPackQuerySchema>;
+export type DownloadPackResponse = z.infer<typeof DownloadPackResponseSchema>;

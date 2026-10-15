@@ -18,6 +18,12 @@
     "admin",
     "legal"
   ],
+  "sections": [
+    "admin.ui",
+    "catalog.cover",
+    "audio.listen"
+  ],
+  "keyCount": 1424,
   "locales": {
     "en": {
       "status": "complete",
@@ -39,7 +45,14 @@
         "admin",
         "legal"
       ],
-      "usable": true
+      "usable": true,
+      "sections": [
+        "admin.ui",
+        "catalog.cover",
+        "audio.listen"
+      ],
+      "keyCount": 1424,
+      "pct": 100
     },
     "fr": {
       "status": "complete",
@@ -61,17 +74,38 @@
         "admin",
         "legal"
       ],
-      "usable": true
+      "usable": true,
+      "sections": [
+        "admin.ui",
+        "catalog.cover",
+        "audio.listen"
+      ],
+      "keyCount": 1424,
+      "pct": 100
     },
     "es": {
       "status": "partial",
-      "namespaces": ["common", "onboarding", "enrollment"],
-      "usable": true
+      "namespaces": [
+        "common",
+        "onboarding",
+        "enrollment"
+      ],
+      "usable": true,
+      "sections": [],
+      "keyCount": 137,
+      "pct": 9.62
     },
     "ru": {
       "status": "partial",
-      "namespaces": ["common", "onboarding", "enrollment"],
-      "usable": true
+      "namespaces": [
+        "common",
+        "onboarding",
+        "enrollment"
+      ],
+      "usable": true,
+      "sections": [],
+      "keyCount": 137,
+      "pct": 9.62
     }
   }
 }

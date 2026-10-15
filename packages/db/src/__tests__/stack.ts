@@ -65,7 +65,8 @@ export async function createTestUser(
   label: string,
   opts: { role?: StaffRole; defaultSourceLanguageCode?: string | null; uiLocale?: string } = {},
 ): Promise<TestUser> {
-  const email = `rls-${label}-${randomUUID()}@test.local`;
+  // `@langquest.test` so `purge_test_user` (migration 100) accepts the account at cleanup time.
+  const email = `rls-${label}-${randomUUID()}@langquest.test`;
   const password = `pw-${randomUUID()}`;
   const user_metadata: Record<string, string> = { ui_locale: opts.uiLocale ?? 'fr-CA' };
   if (opts.defaultSourceLanguageCode !== null)
@@ -97,9 +98,17 @@ export async function createTestUser(
   };
 }
 
-/** Deletes auth users (cascades every user-owned row). Errors are ignored so cleanup never masks a failure. */
+/**
+ * Purges test users: `purge_test_user` (service-only RPC, `@langquest.test` accounts) deletes the
+ * user-owned rows AND the append-only evidence ledgers the plain auth cascade cannot touch, then the
+ * auth.users row; `auth.admin.deleteUser` remains as a fallback. Errors are ignored so cleanup never
+ * masks a failure.
+ */
 export async function deleteTestUsers(service: DbClient, ids: string[]): Promise<void> {
-  for (const id of ids) await service.auth.admin.deleteUser(id).catch(() => undefined);
+  for (const id of ids) {
+    const purged = await service.rpc('purge_test_user', { p_user_id: id }).then((r) => !r.error, () => false);
+    if (!purged) await service.auth.admin.deleteUser(id).catch(() => undefined);
+  }
 }
 
 /** A key that satisfies the `^[a-z0-9]+(?:[._][a-z0-9]+)*$` check used by content keys. */

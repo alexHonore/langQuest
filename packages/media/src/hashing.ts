@@ -354,3 +354,119 @@ export function verifyMultipartChecksum(checksum: MultipartChecksum): { ok: true
   if (!/^[a-f0-9]{64}$/.test(checksum.wholeFileSha256)) return { ok: false, reason: 'whole-file hash is not sha256 hex' };
   return { ok: true };
 }
+
+// --- chunked Blob hashing (browser uploads) ----------------------------------------------
+
+/** Structural `Blob`/`File`: size plus range slicing. In-memory `Uint8Array`s are accepted too. */
+export type BlobLike = { readonly size: number; slice(start: number, end: number): { arrayBuffer(): Promise<ArrayBuffer> } };
+
+export interface ChunkedHashOptions {
+  /** Multipart part size; one digest is produced per part. */
+  partSizeBytes: number;
+  /** Read granularity (bounds memory). Default 4 MiB; smaller keeps a main thread responsive. Clamped to `partSizeBytes`. */
+  chunkBytes?: number;
+  /** Called after every chunk with the cumulative number of bytes hashed (last call equals `size`). */
+  onProgress?: (hashedBytes: number) => void;
+  /** Abort between chunks; rejects with {@link HashAbortedError}. */
+  signal?: AbortSignal;
+  /** Yield to the event loop between chunks (main-thread mode). Default false. */
+  yieldBetweenChunks?: boolean;
+  /**
+   * Per-part digest engine. `auto` (default) uses Web Crypto `subtle.digest` when available and the
+   * part was read in a single chunk, else the pure incremental hasher; outputs are identical.
+   */
+  engine?: 'auto' | 'pure';
+}
+
+export interface ChunkedHashResult {
+  /** Whole-file SHA-256 hex (dedupe key / object key). */
+  sha256: string;
+  byteLength: number;
+  partSizeBytes: number;
+  /** Part number (1-based) → SHA-256 hex of that part. An empty blob yields a single empty part. */
+  partHashes: Record<number, string>;
+}
+
+/** Thrown when {@link hashBlobChunked} is cancelled through its `AbortSignal`. */
+export class HashAbortedError extends Error {
+  constructor() {
+    super('Hashing aborted');
+    this.name = 'HashAbortedError';
+  }
+}
+
+const yieldToLoop = () => new Promise<void>((resolve) => setTimeout(resolve, 0));
+
+function webCryptoDigest(): ((data: Uint8Array) => Promise<ArrayBuffer>) | null {
+  const subtle = globalThis.crypto?.subtle;
+  if (!subtle || typeof subtle.digest !== 'function') return null;
+  return (data) => subtle.digest('SHA-256', data as BufferSource);
+}
+
+/**
+ * Chunked SHA-256 over a `File`/`Blob` (or bytes): one pass yields the whole-file digest and one
+ * digest per multipart part, with progress callbacks and cancellation. Memory stays bounded by
+ * `chunkBytes`. Runs identically in a Web Worker, on the main thread and in Node.
+ */
+export async function hashBlobChunked(blob: BlobLike | Uint8Array, options: ChunkedHashOptions): Promise<ChunkedHashResult> {
+  const { partSizeBytes } = options;
+  if (!Number.isInteger(partSizeBytes) || partSizeBytes <= 0) throw new Error('partSizeBytes must be a positive integer');
+  const requestedChunk = options.chunkBytes ?? 4 * 1024 * 1024;
+  if (!Number.isInteger(requestedChunk) || requestedChunk <= 0) throw new Error('chunkBytes must be a positive integer');
+  const chunkBytes = Math.min(requestedChunk, partSizeBytes);
+  const source: BlobLike = blob instanceof Uint8Array ? { size: blob.byteLength, slice: (s, e) => ({ arrayBuffer: async () => blob.slice(s, e).buffer as ArrayBuffer }) } : blob;
+  const size = source.size;
+  const digest = options.engine === 'pure' ? null : webCryptoDigest();
+  const whole = createSha256();
+  const partHashes: Record<number, string> = {};
+  let offset = 0;
+  let partNumber = 1;
+  let partHasher = createSha256();
+  let partStart = 0;
+  let partChunks = 0;
+
+  const throwIfAborted = () => {
+    if (options.signal?.aborted) throw new HashAbortedError();
+  };
+  throwIfAborted();
+
+  while (offset < size) {
+    const partEnd = Math.min(partStart + partSizeBytes, size);
+    const end = Math.min(offset + chunkBytes, partEnd);
+    const bytes = new Uint8Array(await source.slice(offset, end).arrayBuffer());
+    throwIfAborted();
+    whole.update(bytes);
+    offset = end;
+    partChunks++;
+    if (offset >= partEnd && partChunks === 1 && digest) {
+      partHashes[partNumber] = bytesToHex(new Uint8Array(await digest(bytes)));
+    } else {
+      partHasher.update(bytes);
+      if (offset >= partEnd) partHashes[partNumber] = partHasher.hex();
+    }
+    options.onProgress?.(offset);
+    if (offset >= partEnd) {
+      partNumber += 1;
+      partStart = partEnd;
+      partHasher = createSha256();
+      partChunks = 0;
+    }
+    if (options.yieldBetweenChunks) await yieldToLoop();
+    throwIfAborted();
+  }
+  if (size === 0) {
+    partHashes[1] = partHasher.hex();
+    options.onProgress?.(0);
+  }
+  return { sha256: whole.hex(), byteLength: size, partSizeBytes, partHashes };
+}
+
+/** Convert a {@link ChunkedHashResult} into the {@link MultipartChecksum} manifest sent at `complete`. */
+export function chunkedHashToMultipartChecksum(result: ChunkedHashResult): MultipartChecksum {
+  const numbers = Object.keys(result.partHashes).map(Number).sort((a, b) => a - b);
+  const parts: PartHash[] = numbers.map((partNumber) => {
+    const offset = (partNumber - 1) * result.partSizeBytes;
+    return { partNumber, offset, byteLength: Math.max(0, Math.min(result.partSizeBytes, result.byteLength - offset)), sha256: result.partHashes[partNumber]! };
+  });
+  return { wholeFileSha256: result.sha256, byteLength: result.byteLength, partSizeBytes: result.partSizeBytes, parts, compositeSha256: composePartHashes(parts) };
+}

@@ -3,7 +3,7 @@ import { z } from 'zod';
 import { CourseTrackIdSchema, SourceLanguageCodeSchema, VarietyIdSchema } from '../catalog';
 import { CapabilitySchema } from '../ai/capability';
 import { AiTaskNameSchema, ModelProfileInputSchema, ModelProfileSchema } from '../ai/model-profile';
-import { AssetKindSchema, ContentStateSchema, JobStateSchema, LearnerLevelSchema, ProcessingJobTypeSchema, ReviewStatusSchema, UploadStatusSchema } from '../enums';
+import { AssetKindSchema, ContentStateSchema, JobStateSchema, LearnerLevelSchema, ProcessingJobTypeAllSchema, ReviewStatusSchema, UploadStatusSchema } from '../enums';
 import { BytesSchema, IsoDateSchema, JsonObjectSchema, KeySchema, MillisSchema, NonNegativeIntSchema, PercentSchema, Sha256Schema, TimestamptzSchema, UnitIntervalSchema, UrlSchema, UuidSchema } from '../primitives';
 import { pageOf, PaginationQuerySchema } from './common';
 
@@ -82,12 +82,28 @@ export const ImportR2PrefixRequestSchema = z.object({
   defaultCollectionId: UuidSchema.optional(),
   idempotencyKey: z.string().min(8).max(128),
 });
-export const ImportR2PrefixResponseSchema = z.object({
+export type ImportR2PrefixRequest = z.infer<typeof ImportR2PrefixRequestSchema>;
+/**
+ * Shared dry-run fields for import responses. On `dryRun: true` nothing is enqueued: `jobId` carries the
+ * deterministic plan id (uuid derived from the caller + idempotency key, so re-planning with the same key
+ * yields the same id) and `planId` repeats it explicitly; `enqueued` is `false`. On a real run `jobId` is
+ * the processing job and `enqueued` is `true`. `jobId` stays required so older clients keep working.
+ */
+export const ImportDryRunFieldsSchema = z.object({
   jobId: UuidSchema,
   dryRun: z.boolean(),
+  /** Present on dry runs: the deterministic plan id (equals `jobId`). */
+  planId: UuidSchema.optional(),
+  /** Whether a processing job was actually enqueued (`false` on dry runs). Optional for older servers. */
+  enqueued: z.boolean().optional(),
+});
+export type ImportDryRunFields = z.infer<typeof ImportDryRunFieldsSchema>;
+
+export const ImportR2PrefixResponseSchema = ImportDryRunFieldsSchema.extend({
   discovered: z.object({ objects: NonNegativeIntSchema, audio: NonNegativeIntSchema, sidecars: NonNegativeIntSchema, alreadyImported: NonNegativeIntSchema, unsupported: NonNegativeIntSchema }),
   sample: z.array(z.object({ key: z.string(), byteLength: BytesSchema, inferred: JsonObjectSchema })).max(50),
 });
+export type ImportR2PrefixResponse = z.infer<typeof ImportR2PrefixResponseSchema>;
 
 export const ImportManifestRowSchema = z.object({
   /** Matches by storage key, legacy path or asset id — at least one required. */
@@ -124,14 +140,14 @@ export const ImportManifestRequestSchema = z.object({
   dryRun: z.boolean().default(true),
   idempotencyKey: z.string().min(8).max(128),
 }).refine((v) => v.uploadId !== undefined || v.rows !== undefined, { message: 'uploadId or rows is required', path: ['rows'] });
-export const ImportManifestResponseSchema = z.object({
-  jobId: UuidSchema,
-  dryRun: z.boolean(),
+export type ImportManifestRequest = z.infer<typeof ImportManifestRequestSchema>;
+export const ImportManifestResponseSchema = ImportDryRunFieldsSchema.extend({
   rowCount: NonNegativeIntSchema,
   matched: NonNegativeIntSchema,
   unmatched: z.array(z.object({ row: NonNegativeIntSchema, reason: z.string() })).max(200),
   validationErrors: z.array(z.object({ row: NonNegativeIntSchema, field: z.string(), message: z.string() })).max(200),
 });
+export type ImportManifestResponse = z.infer<typeof ImportManifestResponseSchema>;
 
 // --- bulk label / assets ----------------------------------------------------
 
@@ -194,11 +210,27 @@ export const BulkLabelRequestSchema = z
     idempotencyKey: z.string().min(8).max(128),
   })
   .refine((v) => v.assetIds || v.lessonIds || v.filter, { message: 'assetIds, lessonIds or filter is required', path: ['assetIds'] });
+export type BulkLabelRequest = z.infer<typeof BulkLabelRequestSchema>;
+
+/** A `content_revisions` row is identified by (entityTable, entityId, revision), not by a uuid. */
+export const ContentRevisionRefSchema = z.object({
+  entityTable: z.string().min(1),
+  entityId: UuidSchema,
+  revision: NonNegativeIntSchema,
+});
+export type ContentRevisionRef = z.infer<typeof ContentRevisionRefSchema>;
+
 export const BulkLabelResponseSchema = z.object({
   affected: NonNegativeIntSchema,
-  revisionIds: z.array(UuidSchema),
+  /**
+   * Ids of the touched entities (lesson/asset uuids) — kept for older clients. Prefer `revisions`,
+   * which carries the full (table, id, revision) tuple written to `content_revisions`.
+   */
+  revisionIds: z.array(UuidSchema).optional(),
+  revisions: z.array(ContentRevisionRefSchema).optional(),
   skipped: z.array(z.object({ id: UuidSchema, reason: z.string() })).max(200),
 });
+export type BulkLabelResponse = z.infer<typeof BulkLabelResponseSchema>;
 
 export const AdminAssetSummarySchema = z.object({
   id: UuidSchema,
@@ -218,7 +250,7 @@ export const AdminAssetSummarySchema = z.object({
   instructionLanguageCode: SourceLanguageCodeSchema.nullable(),
   speakerIds: z.array(UuidSchema),
   transcriptStatus: z.string(),
-  latestJob: z.object({ id: UuidSchema, type: ProcessingJobTypeSchema, state: JobStateSchema, progressPct: PercentSchema }).nullable(),
+  latestJob: z.object({ id: UuidSchema, type: ProcessingJobTypeAllSchema, state: JobStateSchema, progressPct: PercentSchema }).nullable(),
   createdAt: TimestamptzSchema,
   updatedAt: TimestamptzSchema,
 });
@@ -255,7 +287,7 @@ export const AudioLessonPatchResponseSchema = z.object({ lessonId: UuidSchema, r
 // --- processing -------------------------------------------------------------
 
 export const AssetProcessRequestSchema = z.object({
-  operations: z.array(ProcessingJobTypeSchema).min(1).max(10),
+  operations: z.array(ProcessingJobTypeAllSchema).min(1).max(10),
   priority: z.number().int().min(0).max(10).default(5),
   params: JsonObjectSchema.optional(),
   /** Reuse prior results by content hash unless forced. */
@@ -264,7 +296,7 @@ export const AssetProcessRequestSchema = z.object({
 });
 export const ProcessingJobDtoSchema = z.object({
   id: UuidSchema,
-  type: ProcessingJobTypeSchema,
+  type: ProcessingJobTypeAllSchema,
   state: JobStateSchema,
   parentAssetId: UuidSchema.nullable(),
   progressPct: PercentSchema,
@@ -460,3 +492,37 @@ export const AnalyticsErrorsResponseSchema = z.object({
   sttConfidenceByTrack: z.array(z.object({ trackId: CourseTrackIdSchema, meanConfidence: UnitIntervalSchema.nullable(), languageMismatchRate: UnitIntervalSchema.nullable() })),
   alerts: z.array(z.object({ kind: z.enum(['runaway_cost', 'attack', 'provider_outage', 'rights_expiry']), since: TimestamptzSchema, detail: z.string() })),
 });
+
+// --- inferred types (additive; every request/response schema has a matching type) ---
+
+export type UploadMimeType = z.infer<typeof UploadMimeTypeSchema>;
+export type UploadPartsSignRequest = z.infer<typeof UploadPartsSignRequestSchema>;
+export type UploadPartsSignResponse = z.infer<typeof UploadPartsSignResponseSchema>;
+export type UploadCompleteRequest = z.infer<typeof UploadCompleteRequestSchema>;
+export type UploadAbortRequest = z.infer<typeof UploadAbortRequestSchema>;
+export type UploadAbortResponse = z.infer<typeof UploadAbortResponseSchema>;
+export type AdminAssetSummary = z.infer<typeof AdminAssetSummarySchema>;
+export type AssetsListResponse = z.infer<typeof AssetsListResponseSchema>;
+export type AudioLessonPatchResponse = z.infer<typeof AudioLessonPatchResponseSchema>;
+export type AssetProcessRequest = z.infer<typeof AssetProcessRequestSchema>;
+export type AssetProcessResponse = z.infer<typeof AssetProcessResponseSchema>;
+export type ProcessingJobResponse = z.infer<typeof ProcessingJobResponseSchema>;
+export type ContentGenerateResponse = z.infer<typeof ContentGenerateResponseSchema>;
+export type ContentRequestReviewRequest = z.infer<typeof ContentRequestReviewRequestSchema>;
+export type ContentRequestReviewResponse = z.infer<typeof ContentRequestReviewResponseSchema>;
+export type ContentPublishRequest = z.infer<typeof ContentPublishRequestSchema>;
+export type ContentUnpublishRequest = z.infer<typeof ContentUnpublishRequestSchema>;
+export type ContentUnpublishResponse = z.infer<typeof ContentUnpublishResponseSchema>;
+export type LicensesAttributionsQuery = z.infer<typeof LicensesAttributionsQuerySchema>;
+export type AttributionItem = z.infer<typeof AttributionItemSchema>;
+export type LicensesAttributionsResponse = z.infer<typeof LicensesAttributionsResponseSchema>;
+export type ModelsListQuery = z.infer<typeof ModelsListQuerySchema>;
+export type ModelsListResponse = z.infer<typeof ModelsListResponseSchema>;
+export type ModelConfigPutRequest = z.infer<typeof ModelConfigPutRequestSchema>;
+export type ModelConfigPutResponse = z.infer<typeof ModelConfigPutResponseSchema>;
+export type ModelBenchmarkRequest = z.infer<typeof ModelBenchmarkRequestSchema>;
+export type ModelBenchmarkResponse = z.infer<typeof ModelBenchmarkResponseSchema>;
+export type AnalyticsQualityResponse = z.infer<typeof AnalyticsQualityResponseSchema>;
+export type AnalyticsCostResponse = z.infer<typeof AnalyticsCostResponseSchema>;
+export type AnalyticsUsageResponse = z.infer<typeof AnalyticsUsageResponseSchema>;
+export type AnalyticsErrorsResponse = z.infer<typeof AnalyticsErrorsResponseSchema>;

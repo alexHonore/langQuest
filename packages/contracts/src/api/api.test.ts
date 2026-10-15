@@ -1,9 +1,11 @@
 import { describe, expect, it } from 'vitest';
 import { PronunciationAssessmentSchema, SpeechEvaluationResultSchema, referenceComparisonAssessment } from '../ai/io';
 import { API_ERROR_HTTP_STATUS, ApiProblem, ROUTES, apiEnvelope, buildPath, err, isOk, ok } from './common';
-import { EnrollmentCreateRequestSchema, EnrollmentPatchRequestSchema, ProgressSyncRequestSchema } from './learner';
-import { PronunciationAssessRequestSchema, SynthesizeRequestSchema } from './speech';
-import { UploadInitiateRequestSchema, BulkLabelRequestSchema } from './admin';
+import { EnrollmentCreateRequestSchema, EnrollmentPatchRequestSchema, MeResponseSchema, MissionDetailResponseSchema, PatchSettingsRequestSchema, ProgressSyncRequestSchema, type CoursesResponse } from './learner';
+import { ManifestMissionSchema } from '../manifest';
+import { type PlaybackUrlRequest } from './audio';
+import { ConversationTurnRequestSchema, PronunciationAssessRequestSchema, SynthesizeRequestSchema, type ConversationEndRequest, type TranscribeResponse } from './speech';
+import { BulkLabelRequestSchema, BulkLabelResponseSchema, ImportManifestResponseSchema, ImportR2PrefixResponseSchema, UploadInitiateRequestSchema } from './admin';
 
 const uuid = '8f4b6c1e-1f3a-4c0b-9a7d-5e6f7a8b9c0d';
 const sha = 'a'.repeat(64);
@@ -163,5 +165,56 @@ describe('admin schemas', () => {
     expect(BulkLabelRequestSchema.safeParse({ patch: { topic: 'cafe' }, idempotencyKey: 'bulk-0001' }).success).toBe(false);
     expect(BulkLabelRequestSchema.safeParse({ assetIds: [uuid], patch: {}, idempotencyKey: 'bulk-0001' }).success).toBe(false);
     expect(BulkLabelRequestSchema.safeParse({ assetIds: [uuid], patch: { topic: 'cafe', instructionLanguage: 'fr' }, idempotencyKey: 'bulk-0001' }).success).toBe(true);
+  });
+});
+
+describe('integration-gap closures (cross-package-gaps 2026-10-15)', () => {
+  const inlineClip = { base64: 'AAAA', mime: 'audio/webm;codecs=opus', durationMs: 1200 };
+  const turnBase = { clientTurnId: uuid, input: { kind: 'audio', assetId: uuid, durationMs: 1200, transcriptHint: null }, clientState: { state: 'listening', lastSeq: 3, lastCharacterTurnId: null } };
+
+  it('conversation turn accepts inline audio (bare clip or AudioInput) and still works without it', () => {
+    expect(ConversationTurnRequestSchema.safeParse(turnBase).success).toBe(true);
+    expect(ConversationTurnRequestSchema.safeParse({ ...turnBase, audio: inlineClip }).success).toBe(true);
+    expect(ConversationTurnRequestSchema.safeParse({ ...turnBase, audio: { source: 'inline', base64: 'AAAA', encoding: 'opus', sampleRateHz: null } }).success).toBe(true);
+    expect(ConversationTurnRequestSchema.safeParse({ ...turnBase, audio: { base64: '', mime: 'audio/webm', durationMs: 10 } }).success).toBe(false);
+  });
+
+  it('settings patch accepts null to clear the default source language (mirrors nullable MeResponse)', () => {
+    expect(PatchSettingsRequestSchema.safeParse({ defaultSourceLanguageCode: null }).success).toBe(true);
+    expect(PatchSettingsRequestSchema.safeParse({ defaultSourceLanguageCode: 'fr' }).success).toBe(true);
+    expect(MeResponseSchema.shape.defaultSourceLanguageCode.safeParse(null).success).toBe(true);
+  });
+
+  it('missions carry an optional sceneId in manifests and mission detail', () => {
+    const mission = { id: uuid, order: 0, type: 'standard', titleKey: null, title: 'Au café', level: 'beginner', difficulty: 0.2, recommendedMinutes: 5, prerequisiteSkillKeys: [], skillKeys: [], characterIds: [], sceneArt: null, publishedRevision: 1, steps: [], localizationComplete: true };
+    expect(ManifestMissionSchema.safeParse(mission).success).toBe(true);
+    expect(ManifestMissionSchema.parse({ ...mission, sceneId: 'cafe' }).sceneId).toBe('cafe');
+    expect(ManifestMissionSchema.safeParse({ ...mission, sceneId: null }).success).toBe(true);
+    expect(ManifestMissionSchema.safeParse({ ...mission, sceneId: 'Not A Key' }).success).toBe(false);
+    expect(MissionDetailResponseSchema.shape.sceneId.safeParse('market').success).toBe(true);
+    expect(MissionDetailResponseSchema.shape.sceneId.safeParse(undefined).success).toBe(true);
+  });
+
+  it('bulk label response accepts (table,id,revision) tuples and keeps revisionIds optional', () => {
+    expect(BulkLabelResponseSchema.safeParse({ affected: 2, revisionIds: [uuid], skipped: [] }).success).toBe(true);
+    expect(BulkLabelResponseSchema.safeParse({ affected: 2, revisions: [{ entityTable: 'audio_lessons', entityId: uuid, revision: 4 }], skipped: [] }).success).toBe(true);
+    expect(BulkLabelResponseSchema.safeParse({ affected: 0, skipped: [] }).success).toBe(true);
+    expect(BulkLabelResponseSchema.safeParse({ affected: 1, revisions: [{ entityTable: 'audio_lessons', entityId: 'nope', revision: 1 }], skipped: [] }).success).toBe(false);
+  });
+
+  it('import responses expose planId/enqueued for dry runs while jobId stays present', () => {
+    const base = { jobId: uuid, dryRun: true, planId: uuid, enqueued: false };
+    expect(ImportManifestResponseSchema.safeParse({ ...base, rowCount: 3, matched: 2, unmatched: [{ row: 2, reason: 'no key' }], validationErrors: [] }).success).toBe(true);
+    expect(ImportR2PrefixResponseSchema.safeParse({ ...base, discovered: { objects: 1, audio: 1, sidecars: 0, alreadyImported: 0, unsupported: 0 }, sample: [] }).success).toBe(true);
+    expect(ImportR2PrefixResponseSchema.safeParse({ jobId: uuid, dryRun: false, discovered: { objects: 1, audio: 1, sidecars: 0, alreadyImported: 0, unsupported: 0 }, sample: [] }).success).toBe(true);
+    expect(ImportR2PrefixResponseSchema.safeParse({ dryRun: true, planId: uuid, discovered: { objects: 1, audio: 1, sidecars: 0, alreadyImported: 0, unsupported: 0 }, sample: [] }).success).toBe(false);
+  });
+
+  it('inferred types exist for the schemas the apps had to infer locally', () => {
+    const end: ConversationEndRequest = { reason: 'completed', clientState: { lastSeq: 1, turnCount: 1 }, clientEventId: uuid };
+    const playback: PlaybackUrlRequest = { renewal: false };
+    const courses: CoursesResponse = { courses: [] };
+    const recording: TranscribeResponse['recordingAssetId'] = null;
+    expect([end, playback, courses, recording].length).toBe(4);
   });
 });

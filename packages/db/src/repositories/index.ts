@@ -1,23 +1,29 @@
 /** Repository factories bundled per client. */
 import type { DbClient } from '../client';
+import { accountLifecycleRepository } from './account-lifecycle';
 import { aiProfilesRepository } from './ai-profiles';
+import { assetSuggestionsRepository } from './asset-suggestions';
 import { auditLogRepository } from './audit-log';
 import { audioLibraryRepository } from './audio-library';
 import { catalogRepository } from './catalog';
 import { curriculumRepository } from './curriculum';
 import { enrollmentsRepository } from './enrollments';
+import { manifestsRepository } from './manifests';
 import { profilesRepository } from './profiles';
 import { progressRepository } from './progress';
 import { rightsRepository } from './rights';
 import { processingJobsRepository, uploadsRepository } from './uploads-jobs';
 import { visualAssetsRepository } from './visual-assets';
 
+export * from './account-lifecycle';
 export * from './ai-profiles';
+export * from './asset-suggestions';
 export * from './audit-log';
 export * from './audio-library';
 export * from './catalog';
 export * from './curriculum';
 export * from './enrollments';
+export * from './manifests';
 export * from './profiles';
 export * from './progress';
 export * from './rights';
@@ -39,6 +45,10 @@ export function createRepositories(db: DbClient) {
     rights: rightsRepository(db),
     visualAssets: visualAssetsRepository(db),
     auditLog: auditLogRepository(db),
+    // added 2026-10-15 (migration 100)
+    manifests: manifestsRepository(db),
+    assetSuggestions: assetSuggestionsRepository(db),
+    accountLifecycle: accountLifecycleRepository(db),
   };
 }
 export type Repositories = ReturnType<typeof createRepositories>;

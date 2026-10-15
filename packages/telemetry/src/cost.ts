@@ -679,10 +679,21 @@ export type OperatorAlertSeverity = (typeof OPERATOR_ALERT_SEVERITY_VALUES)[numb
  * An alert for the operations dashboard / on-call channel. `audience` is a literal so a sink can
  * never route it to a learner surface by accident; LangQuest has no learner-facing limits.
  */
+export const OPERATOR_ALERT_KIND = 'operator_alert' as const;
+
+/**
+ * What an alert is about. Maps 1:1 onto the admin analytics `alerts[].kind` row:
+ * `cost_anomaly` → `runaway_cost`, the others keep their name.
+ */
+export const OPERATOR_ALERT_CATEGORY_VALUES = ['cost_anomaly', 'provider_outage', 'attack', 'rights_expiry'] as const;
+export type OperatorAlertCategory = (typeof OPERATOR_ALERT_CATEGORY_VALUES)[number];
+
 export interface OperatorAlert {
   kind: 'operator_alert';
   audience: 'operators';
   learnerFacing: false;
+  /** Optional topic; absent means `cost_anomaly` (the cost detector's alerts). */
+  category?: OperatorAlertCategory;
   severity: OperatorAlertSeverity;
   /** Series name, e.g. `ai_cost:total`, `ai_cost:track:arabic-moroccan`, `r2_ops`. */
   series: string;
@@ -697,6 +708,70 @@ export interface OperatorAlert {
   thresholdUsd: number;
   detectedAt: string;
   message: string;
+}
+
+/** Runtime schema for {@link OperatorAlert} (validate alerts crossing a process boundary, e.g. a webhook or queue). */
+export const OperatorAlertSchema: z.ZodType<OperatorAlert> = z.object({
+  kind: z.literal(OPERATOR_ALERT_KIND),
+  audience: z.literal('operators'),
+  learnerFacing: z.literal(false),
+  category: z.enum(OPERATOR_ALERT_CATEGORY_VALUES).optional(),
+  severity: z.enum(OPERATOR_ALERT_SEVERITY_VALUES),
+  series: z.string().min(1),
+  bucket: z.string(),
+  observedUsd: z.number().min(0),
+  baselineMeanUsd: z.number().min(0),
+  baselineStdUsd: z.number().min(0),
+  baselinePoints: NonNegativeIntSchema,
+  ratio: z.custom<number>((v) => typeof v === 'number' && !Number.isNaN(v) && v >= 0, 'ratio must be a non-negative number (Infinity allowed)'),
+  thresholdUsd: z.number().min(0),
+  detectedAt: z.string().min(1),
+  message: z.string().min(1),
+}) as z.ZodType<OperatorAlert>;
+
+export interface CreateOperatorAlertInput {
+  category: OperatorAlertCategory;
+  severity: OperatorAlertSeverity;
+  /** Series name, e.g. `provider:openrouter`, `api:auth_bruteforce`, `rights:asset:<id>`. */
+  series: string;
+  message: string;
+  /** Bucket key; default the UTC day of `detectedAt`. */
+  bucket?: string;
+  detectedAt?: string;
+  /** Cost fields are optional for non-cost alerts and default to 0. */
+  observedUsd?: number;
+  baselineMeanUsd?: number;
+  baselineStdUsd?: number;
+  baselinePoints?: number;
+  thresholdUsd?: number;
+}
+
+/**
+ * Build a non-cost {@link OperatorAlert} (provider outage, attack pattern, rights expiry) so every
+ * alert travels the same {@link AlertSink} path as cost anomalies. Learner-facing flags are fixed:
+ * alerts are operator-only and never limit learners.
+ */
+export function createOperatorAlert(input: CreateOperatorAlertInput): OperatorAlert {
+  const detectedAt = input.detectedAt ?? new Date().toISOString();
+  const observedUsd = input.observedUsd ?? 0;
+  const baselineMeanUsd = input.baselineMeanUsd ?? 0;
+  return OperatorAlertSchema.parse({
+    kind: OPERATOR_ALERT_KIND,
+    audience: 'operators',
+    learnerFacing: false,
+    category: input.category,
+    severity: input.severity,
+    series: input.series,
+    bucket: input.bucket ?? detectedAt.slice(0, 10),
+    observedUsd,
+    baselineMeanUsd,
+    baselineStdUsd: input.baselineStdUsd ?? 0,
+    baselinePoints: input.baselinePoints ?? 0,
+    ratio: baselineMeanUsd > 0 ? observedUsd / baselineMeanUsd : observedUsd > 0 ? Number.POSITIVE_INFINITY : 0,
+    thresholdUsd: input.thresholdUsd ?? 0,
+    detectedAt,
+    message: input.message,
+  });
 }
 
 export interface CostAnomalyDetectorOptions {
@@ -802,6 +877,7 @@ export class CostAnomalyDetector {
         kind: 'operator_alert',
         audience: 'operators',
         learnerFacing: false,
+        category: 'cost_anomaly',
         severity,
         series,
         bucket,

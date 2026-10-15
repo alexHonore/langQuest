@@ -69,6 +69,10 @@ export const DB_TABLES = {
   uploads: audio.UploadsTable,
   processing_jobs: audio.ProcessingJobsTable,
   asset_provenance_events: audio.AssetProvenanceEventsTable,
+  // ADR-004 stored manifests + §7.4 AI suggestions (migration 100, 2026-10-15)
+  course_manifests: audio.CourseManifestsTable,
+  audio_collection_manifests: audio.AudioCollectionManifestsTable,
+  asset_suggestions: audio.AssetSuggestionsTable,
   // §5.4
   ai_model_profiles: tracking.AiModelProfilesTable,
   ai_model_benchmarks: tracking.AiModelBenchmarksTable,
@@ -140,3 +144,7 @@ export type LearningObservationRow = Row<'learning_observations'>;
 export type XpLedgerRow = Row<'xp_ledger'>;
 export type DeviceSyncEventRow = Row<'device_sync_events'>;
 export type VisualAssetRow = Row<'visual_assets'>;
+export type CourseManifestRow = Row<'course_manifests'>;
+export type AudioCollectionManifestRow = Row<'audio_collection_manifests'>;
+export type AssetSuggestionRow = Row<'asset_suggestions'>;
+export type AssetSuggestionInsert = Insert<'asset_suggestions'>;

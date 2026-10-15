@@ -16,7 +16,7 @@ import { Pressable, type StyleProp, TextInput, View, type ViewStyle } from 'reac
 import { CourseCoverSvg } from '../art';
 import { useTheme } from '../theme/ThemeProvider';
 import { CoverageBadge } from './CoverageBadge';
-import { PICKER_LABELS } from './labels';
+import { PICKER_LABELS, mergeLabels, type LocalizedLabels } from './labels';
 import {
   NATIVE_SAMPLES,
   ORDERED_TRACKS,
@@ -43,7 +43,8 @@ export interface LanguagePairPickerProps {
   excludeTrackIds?: readonly CourseTrackId[];
   onConfirm: (selection: LanguagePairSelection) => void;
   onSelectionChange?: (selection: Partial<LanguagePairSelection>) => void;
-  labels?: Partial<typeof PICKER_LABELS>;
+  /** Localized overrides (`t(...)` strings; nested groups may be partial). */
+  labels?: LocalizedLabels<typeof PICKER_LABELS>;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 }
@@ -63,7 +64,7 @@ export function LanguagePairPicker(props: LanguagePairPickerProps): React.JSX.El
     testID,
   } = props;
   const theme = useTheme();
-  const L = { ...PICKER_LABELS, ...labels };
+  const L = mergeLabels(PICKER_LABELS, labels);
   const [source, setSource] = useState<SourceLanguageCode | undefined>(initialSourceLanguageCode);
   const [track, setTrack] = useState<CourseTrackId | undefined>(initialCourseTrackId);
   const [query, setQuery] = useState('');

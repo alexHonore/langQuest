@@ -18,12 +18,26 @@ export interface CourseCoverProps {
   width?: number;
   /** Hide the overlaid title (e.g. when the parent renders it). */
   hideTitle?: boolean;
+  /**
+   * Localized alt text for the artwork (`t(coverAltTextKey(trackId))`, see
+   * `ART_MANIFEST.coverAltTextKeys`). Defaults to the display name.
+   */
+  altText?: string;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 }
 
 export function CourseCover(props: CourseCoverProps): React.JSX.Element {
-  const { trackId, title, imageUri, width: fixedWidth, hideTitle = false, style, testID } = props;
+  const {
+    trackId,
+    title,
+    imageUri,
+    width: fixedWidth,
+    hideTitle = false,
+    altText,
+    style,
+    testID,
+  } = props;
   const theme = useTheme();
   const [measured, setMeasured] = useState(0);
   const [failed, setFailed] = useState(false);
@@ -39,7 +53,7 @@ export function CourseCover(props: CourseCoverProps): React.JSX.Element {
       onLayout={onLayout}
       accessible
       accessibilityRole="image"
-      accessibilityLabel={name}
+      accessibilityLabel={altText ?? name}
       style={[
         {
           width: fixedWidth ?? '100%',
@@ -61,7 +75,12 @@ export function CourseCover(props: CourseCoverProps): React.JSX.Element {
             resizeMode="cover"
           />
         ) : (
-          <CourseCoverSvg trackId={trackId} width={width} height={height} />
+          <CourseCoverSvg
+            trackId={trackId}
+            width={width}
+            height={height}
+            altText={altText ?? name}
+          />
         )
       ) : null}
       {!hideTitle && width > 0 ? (

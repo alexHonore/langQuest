@@ -326,7 +326,15 @@ export const UPLOAD_STATUS_VALUES = ['initiated', 'uploading', 'completed', 'ver
 export const UploadStatusSchema = makeEnum(UPLOAD_STATUS_VALUES);
 export type UploadStatus = z.infer<typeof UploadStatusSchema>;
 
-/** §5.3 — processing job types. */
+/**
+ * §5.3 — processing job types: the **base** set every job runner must map (stable key set; runners key
+ * `Record<ProcessingJobType, …>` maps on it, so it is never widened in place).
+ *
+ * Migration 100 (2026-10-15) widened the `processing_job_type` DB domain with dedicated values for the
+ * apps/jobs handlers that previously ran under the `describe` carrier type + `params.handler`. Those live in
+ * `PROCESSING_JOB_TYPE_EXTENSION_VALUES`; the union the DB actually accepts (and that DB rows / admin API
+ * payloads carry) is `PROCESSING_JOB_TYPE_VALUES_ALL` / `ProcessingJobTypeAllSchema` / `ProcessingJobTypeAll`.
+ */
 export const PROCESSING_JOB_TYPE_VALUES = [
   'verify',
   'extract_metadata',
@@ -345,6 +353,35 @@ export const PROCESSING_JOB_TYPE_VALUES = [
 ] as const;
 export const ProcessingJobTypeSchema = makeEnum(PROCESSING_JOB_TYPE_VALUES);
 export type ProcessingJobType = z.infer<typeof ProcessingJobTypeSchema>;
+
+/**
+ * Job types added in migration 100 (2026-10-15): dedicated values for apps/jobs handlers that used to ride on the
+ * `describe` carrier, plus the handler-name aliases of existing base types (render_cover ≙ generate_cover,
+ * infer_metadata ≙ describe, generate_content ≙ content_generate, import_r2_prefix ≙ import_prefix).
+ * The DB domain accepts all of them; base values stay valid. Runners can key a `Record<ProcessingJobTypeExtension, …>`
+ * on this set additively, next to their base map.
+ */
+export const PROCESSING_JOB_TYPE_EXTENSION_VALUES = [
+  'translate_transcript',
+  'regenerate_manifest',
+  'cleanup_orphan_uploads',
+  'render_cover',
+  'infer_metadata',
+  'generate_content',
+  'import_r2_prefix',
+] as const;
+export const ProcessingJobTypeExtensionSchema = makeEnum(PROCESSING_JOB_TYPE_EXTENSION_VALUES);
+export type ProcessingJobTypeExtension = z.infer<typeof ProcessingJobTypeExtensionSchema>;
+/** Alias kept for callers that picked the dated name up earlier on 2026-10-15; same tuple as the extension set. */
+export const PROCESSING_JOB_TYPE_VALUES_ADDED_2026_10_15 = PROCESSING_JOB_TYPE_EXTENSION_VALUES;
+
+/** Every value the `processing_job_type` DB domain accepts after migration 100 (base ∪ extension). */
+export const PROCESSING_JOB_TYPE_VALUES_ALL = [...PROCESSING_JOB_TYPE_VALUES, ...PROCESSING_JOB_TYPE_EXTENSION_VALUES] as const;
+export const ProcessingJobTypeAllSchema = makeEnum(PROCESSING_JOB_TYPE_VALUES_ALL);
+export type ProcessingJobTypeAll = z.infer<typeof ProcessingJobTypeAllSchema>;
+export const isProcessingJobTypeAll = (v: unknown): v is ProcessingJobTypeAll => typeof v === 'string' && (PROCESSING_JOB_TYPE_VALUES_ALL as readonly string[]).includes(v);
+export const isProcessingJobTypeExtension = (v: unknown): v is ProcessingJobTypeExtension =>
+  typeof v === 'string' && (PROCESSING_JOB_TYPE_EXTENSION_VALUES as readonly string[]).includes(v);
 
 /** §5.2 — audio speaker consent/rights state. */
 export const SPEAKER_CONSENT_STATE_VALUES = ['unknown', 'pending', 'granted', 'revoked'] as const;

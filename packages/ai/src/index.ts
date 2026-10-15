@@ -8,7 +8,7 @@ import { type AiEnv, readAiEnv } from './env';
 import { OpenRouterClient, type AiLogger, silentLogger } from './openrouter/client';
 import { PricingTable } from './openrouter/pricing';
 import { ModelProfileRegistry, type ProfileLoader } from './profiles';
-import { OpenRouterTextReasoner, type AiRequestSink } from './reasoner';
+import { OpenRouterTextReasoner, type AiAttributionSource, type AiRequestSink } from './reasoner';
 import { DefaultCapabilityRegistry } from './capability/registry';
 import { OpenRouterSpeechRecognizer } from './speech/stt';
 import { OpenRouterSpeechSynthesizer, type TtsCache } from './speech/tts';
@@ -67,6 +67,11 @@ export interface AiServiceDeps {
   pricing?: PricingTable;
   /** Pseudonymous user hash for provider abuse monitoring (never an e-mail). */
   userHash?: string | null;
+  /**
+   * Attribution written to `ai_requests` rows by every adapter (learner `userId`, DB `profileId`, `enrollmentId`).
+   * Omit to keep rows pseudonymous (`userId: null`).
+   */
+  attribution?: AiAttributionSource | null;
 }
 
 export interface AiServices {
@@ -98,11 +103,12 @@ export async function createAiServices(envSource: AiEnv | Record<string, string 
   const client = new OpenRouterClient({ apiKey: env.OPENROUTER_API_KEY, baseUrl: env.OPENROUTER_BASE_URL, fetch: deps.fetch, logger, pricing, appName: env.AI_APP_NAME, referer: env.AI_APP_REFERER });
   const profiles = new ModelProfileRegistry();
   if (deps.profileLoader) await profiles.refresh(deps.profileLoader);
-  const reasoner = new OpenRouterTextReasoner({ client, profiles, sink: deps.requestSink, userHash: deps.userHash ?? null });
+  const attribution = deps.attribution ?? null;
+  const reasoner = new OpenRouterTextReasoner({ client, profiles, sink: deps.requestSink, userHash: deps.userHash ?? null, attribution });
   const guard = new LanguageGuard({ reasoner, incidents: deps.incidentSink ?? null });
-  const recognizer = new OpenRouterSpeechRecognizer({ client, sink: deps.requestSink, assetResolver: deps.assetResolver, fetch: deps.fetch });
-  const synthesizer = new OpenRouterSpeechSynthesizer({ client, sink: deps.requestSink, cache: deps.ttsCache });
-  const azureAssessor = new AzurePronunciationAssessor({ key: env.AZURE_SPEECH_KEY, region: env.AZURE_SPEECH_REGION, fetch: deps.fetch, assetResolver: deps.assetResolver, sink: deps.requestSink });
+  const recognizer = new OpenRouterSpeechRecognizer({ client, sink: deps.requestSink, assetResolver: deps.assetResolver, fetch: deps.fetch, attribution });
+  const synthesizer = new OpenRouterSpeechSynthesizer({ client, sink: deps.requestSink, cache: deps.ttsCache, attribution });
+  const azureAssessor = new AzurePronunciationAssessor({ key: env.AZURE_SPEECH_KEY, region: env.AZURE_SPEECH_REGION, fetch: deps.fetch, assetResolver: deps.assetResolver, sink: deps.requestSink, attribution });
   const referenceAssessor = new ReferenceComparisonAssessor({ recognizer, referenceAudio: deps.referenceAudio });
   const assessor = new CompositeAssessor([azureAssessor], referenceAssessor);
   const characterAgent = new CharacterAgent({ reasoner, guard });

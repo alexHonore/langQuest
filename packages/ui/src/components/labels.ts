@@ -9,6 +9,66 @@
  */
 import type { CoverageStatus, Intelligibility, SpeechState } from '@langquest/contracts';
 
+/* ------------------------------------------------------------------------ */
+/* Localized overrides                                                      */
+/* ------------------------------------------------------------------------ */
+
+/**
+ * The shape a component's `labels` prop accepts: every key of the default
+ * label set, optional, with literal strings widened to `string` (so localized
+ * text from `@langquest/locales` needs no cast), formatter functions kept, and
+ * nested groups (`status`, `focus`, `rights`, …) accepted as partial records.
+ *
+ * Example: `labels?: LocalizedLabels<typeof MISSION_LABELS>` accepts
+ * `{ start: t('missions.start'), focus: { tone: t('missions.focus.tone') } }`.
+ */
+export type LocalizedLabels<T> = {
+  [K in keyof T]?: T[K] extends string
+    ? string
+    : T[K] extends (...args: infer A) => string
+      ? (...args: A) => string
+      : T[K] extends object
+        ? LocalizedLabels<T[K]>
+        : T[K];
+};
+
+/** A fully resolved label set (defaults merged with overrides): same keys, widened strings. */
+export type ResolvedLabels<T> = {
+  readonly [K in keyof T]-?: T[K] extends string
+    ? string
+    : T[K] extends (...args: infer A) => string
+      ? (...args: A) => string
+      : T[K] extends object
+        ? ResolvedLabels<T[K]>
+        : T[K];
+};
+
+function isPlainObject(value: unknown): value is Record<string, unknown> {
+  return typeof value === 'object' && value !== null && !Array.isArray(value);
+}
+
+/**
+ * Merge localized overrides onto a default label set. Nested groups are merged
+ * key by key, so a partial `status` override keeps the untouched defaults;
+ * `undefined` values never shadow a default.
+ */
+export function mergeLabels<T extends object>(
+  defaults: T,
+  overrides?: LocalizedLabels<T> | null,
+): ResolvedLabels<T> {
+  if (!overrides) return defaults as unknown as ResolvedLabels<T>;
+  const out: Record<string, unknown> = { ...(defaults as Record<string, unknown>) };
+  for (const [key, value] of Object.entries(overrides as Record<string, unknown>)) {
+    if (value === undefined) continue;
+    const base = out[key];
+    out[key] =
+      isPlainObject(value) && isPlainObject(base)
+        ? mergeLabels(base, value as LocalizedLabels<Record<string, unknown>>)
+        : value;
+  }
+  return out as unknown as ResolvedLabels<T>;
+}
+
 /**
  * Mission focus vocabulary. Mirrors the `missions.focus.*` keys of the
  * `@langquest/locales` catalogs so an app can localize with

@@ -45,7 +45,25 @@ export interface RightsRepository {
     ownerId?: string;
     limit?: number;
   }): Promise<Row<'media_assets'>[]>;
+  // --- staff/service lookups added for the jobs runner and admin (migration 100, cross-package gaps) ---
+  /**
+   * Every LOGICAL asset that points at one physical blob (`storage_key` is no longer unique, §7.2):
+   * oldest first. Full rows via `media_assets_staff`; empty for non-staff JWTs.
+   */
+  listAssetsStaffByStorageKey(storageKey: string): Promise<Row<'media_assets'>[]>;
+  /** Oldest logical asset for a blob, or null. */
+  findAssetStaffByStorageKey(storageKey: string): Promise<Row<'media_assets'> | null>;
+  findAssetStaffByLegacyPath(legacyPath: string): Promise<Row<'media_assets'> | null>;
+  /** All assets sharing a content hash (dedupe candidates), oldest first. */
+  listAssetsStaffByChecksum(checksum: string): Promise<Row<'media_assets'>[]>;
+  /** Assets whose `legacy_path` or `storage_key` starts with `prefix` (explicit columns only). */
+  listAssetsStaffByPrefix(prefix: string, limit?: number): Promise<Pick<Row<'media_assets'>, 'id' | 'legacy_path' | 'storage_key' | 'checksum_sha256' | 'disposition'>[]>;
+  /** Derivatives of a master (`source_asset_id = id`), active only unless `includeInactive`. */
+  listDerivedAssetsStaff(sourceAssetId: string, opts?: { includeInactive?: boolean }): Promise<Row<'media_assets'>[]>;
 }
+
+/** Escapes `%` and `_` for a PostgREST `like` prefix match. */
+export const escapeLikePrefix = (prefix: string): string => prefix.replace(/[\\%_]/g, (m) => `\\${m}`);
 
 /** Pure publishability rule shared with tests and the API publish checklist. */
 export function rightsAllowPublishing(
@@ -164,6 +182,49 @@ export function rightsRepository(db: DbClient): RightsRepository {
       if (filter?.kind) q = q.eq('kind', filter.kind);
       if (filter?.ownerId) q = q.eq('owner_id', filter.ownerId);
       return unwrap(await q, 'rights.listAssetsStaff') as Row<'media_assets'>[];
+    },
+    async listAssetsStaffByStorageKey(storageKey) {
+      return unwrap(
+        await db.from('media_assets_staff').select('*').eq('storage_key', storageKey).order('created_at'),
+        'rights.listAssetsStaffByStorageKey',
+      ) as Row<'media_assets'>[];
+    },
+    async findAssetStaffByStorageKey(storageKey) {
+      const rows = unwrap(
+        await db.from('media_assets_staff').select('*').eq('storage_key', storageKey).order('created_at').limit(1),
+        'rights.findAssetStaffByStorageKey',
+      ) as Row<'media_assets'>[];
+      return rows[0] ?? null;
+    },
+    async findAssetStaffByLegacyPath(legacyPath) {
+      const rows = unwrap(
+        await db.from('media_assets_staff').select('*').eq('legacy_path', legacyPath).order('created_at').limit(1),
+        'rights.findAssetStaffByLegacyPath',
+      ) as Row<'media_assets'>[];
+      return rows[0] ?? null;
+    },
+    async listAssetsStaffByChecksum(checksum) {
+      return unwrap(
+        await db.from('media_assets_staff').select('*').eq('checksum_sha256', checksum).order('created_at'),
+        'rights.listAssetsStaffByChecksum',
+      ) as Row<'media_assets'>[];
+    },
+    async listAssetsStaffByPrefix(prefix, limit = 50_000) {
+      const escaped = escapeLikePrefix(prefix);
+      const columns = 'id, legacy_path, storage_key, checksum_sha256, disposition';
+      type Picked = Pick<Row<'media_assets'>, 'id' | 'legacy_path' | 'storage_key' | 'checksum_sha256' | 'disposition'>;
+      const [byPath, byKey] = await Promise.all([
+        db.from('media_assets_staff').select(columns).like('legacy_path', `${escaped}%`).limit(limit),
+        db.from('media_assets_staff').select(columns).like('storage_key', `${escaped}%`).limit(limit),
+      ]);
+      const seen = new Map<string, Picked>();
+      for (const r of [...(unwrap(byPath, 'rights.listAssetsStaffByPrefix.path') as Picked[]), ...(unwrap(byKey, 'rights.listAssetsStaffByPrefix.key') as Picked[])]) seen.set(r.id, r);
+      return [...seen.values()];
+    },
+    async listDerivedAssetsStaff(sourceAssetId, opts) {
+      let q = db.from('media_assets_staff').select('*').eq('source_asset_id', sourceAssetId).order('created_at');
+      if (!opts?.includeInactive) q = q.eq('disposition', 'active');
+      return unwrap(await q, 'rights.listDerivedAssetsStaff') as Row<'media_assets'>[];
     },
   };
 }

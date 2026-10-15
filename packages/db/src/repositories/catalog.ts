@@ -29,6 +29,8 @@ export interface CatalogRepository {
    * staff JWTs and the service role see every row, everyone else gets an empty list.
    */
   listCoverageStaff(courseTrackId?: string): Promise<Row<'course_source_localizations'>[]>;
+  /** One full coverage row (incl. `reviewer_id`) via the staff view; null for non-staff JWTs or unknown pairs. */
+  getCoverageStaff(courseTrackId: string, sourceLanguageCode: string): Promise<Row<'course_source_localizations'> | null>;
   /** Editors/reviewers: update the honest status of a (track, source) pair. */
   updateCoverage(
     courseTrackId: string,
@@ -88,6 +90,17 @@ export function catalogRepository(db: DbClient): CatalogRepository {
       if (courseTrackId) q = q.eq('course_track_id', courseTrackId);
       // The view is `select *` over the table; generated view types lose NOT NULL, hence the cast.
       return unwrap(await q, 'catalog.listCoverageStaff') as Row<'course_source_localizations'>[];
+    },
+    async getCoverageStaff(courseTrackId, sourceLanguageCode) {
+      return unwrapMaybe(
+        await db
+          .from('course_source_localizations_staff')
+          .select('*')
+          .eq('course_track_id', courseTrackId)
+          .eq('source_language_code', sourceLanguageCode)
+          .maybeSingle(),
+        'catalog.getCoverageStaff',
+      ) as Row<'course_source_localizations'> | null;
     },
     async updateCoverage(courseTrackId, sourceLanguageCode, patch) {
       return unwrap(

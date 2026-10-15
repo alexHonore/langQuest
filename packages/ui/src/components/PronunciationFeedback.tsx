@@ -10,7 +10,12 @@ import type { ScriptId, SpeechEvaluationResult } from '@langquest/contracts';
 import React from 'react';
 import { type StyleProp, View, type ViewStyle } from 'react-native';
 import { useTheme } from '../theme/ThemeProvider';
-import { INTELLIGIBILITY_LABELS, PRONUNCIATION_LABELS } from './labels';
+import {
+  INTELLIGIBILITY_LABELS,
+  PRONUNCIATION_LABELS,
+  mergeLabels,
+  type LocalizedLabels,
+} from './labels';
 import { pronunciationDisplay } from './logic';
 import { Button, Chip, ProgressBar, Row, StatusLine, Surface, ThemedText } from './primitives';
 
@@ -23,7 +28,8 @@ export interface PronunciationFeedbackProps {
   onReplaySlow?: () => void;
   /** Called with the highlighted segment when the learner taps "try this part". */
   onRetrySegment?: (segment: { startMs: number; endMs: number; text: string }) => void;
-  labels?: Partial<typeof PRONUNCIATION_LABELS>;
+  /** Localized overrides (`t(...)` strings; nested groups may be partial). */
+  labels?: LocalizedLabels<typeof PRONUNCIATION_LABELS>;
   intelligibilityLabels?: Partial<typeof INTELLIGIBILITY_LABELS>;
   /** Show the transcript the meaning judgement used (learner may hide it). */
   showTranscript?: boolean;
@@ -46,7 +52,7 @@ export function PronunciationFeedback(props: PronunciationFeedbackProps): React.
     testID,
   } = props;
   const theme = useTheme();
-  const L = { ...PRONUNCIATION_LABELS, ...labels };
+  const L = mergeLabels(PRONUNCIATION_LABELS, labels);
   const IL = { ...INTELLIGIBILITY_LABELS, ...intelligibilityLabels };
   const d = pronunciationDisplay(result);
   const segment = result.pronunciation.highlightedSegment;

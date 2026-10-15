@@ -9,7 +9,7 @@ import React, { useState } from 'react';
 import { Modal, Pressable, ScrollView, type StyleProp, View, type ViewStyle } from 'react-native';
 import type { IconName } from '../art';
 import { useTheme } from '../theme/ThemeProvider';
-import { HINT_LABELS } from './labels';
+import { HINT_LABELS, mergeLabels, type LocalizedLabels } from './labels';
 import { Button, IconButton, Row, Surface, ThemedText } from './primitives';
 
 export interface HintLevel {
@@ -37,7 +37,8 @@ export interface HintSheetProps {
   onRevealModelAnswer?: () => void;
   /** Reported so the evaluator can count hints used (§3.4). */
   onHintShown?: (level: number) => void;
-  labels?: Partial<typeof HINT_LABELS>;
+  /** Localized overrides (`t(...)` strings; nested groups may be partial). */
+  labels?: LocalizedLabels<typeof HINT_LABELS>;
   /** Script of target-language text. */
   targetScript?: Parameters<typeof ThemedText>[0]['script'];
   style?: StyleProp<ViewStyle>;
@@ -82,7 +83,7 @@ export function HintSheet(props: HintSheetProps): React.JSX.Element {
     testID,
   } = props;
   const theme = useTheme();
-  const L = { ...HINT_LABELS, ...labels };
+  const L = mergeLabels(HINT_LABELS, labels);
   const [level, setLevel] = useState(0);
   const [showTranslation, setShowTranslation] = useState(false);
   const [showExample, setShowExample] = useState(false);

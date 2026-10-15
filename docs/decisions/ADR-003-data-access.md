@@ -98,3 +98,53 @@ Workers (Hono) and verifies Supabase JWTs; the job runner is a Node process; raw
 - Catalog seed SQL is **generated** from `@langquest/contracts` (`seed:catalog-sql`) and committed as a
   migration; a unit test fails when the committed file drifts from the constants.
 - Changing a function's signature requires regenerating `database.types.ts`; CI should diff it.
+
+## Addendum 2026-10-15 — migration 100 (cross-package gaps)
+
+7. **Account deletion (A28) and the append-only bypass.** `public.delete_account(p_user_id, p_delete_opt_in_recordings)`
+   is SECURITY DEFINER, executable by `service_role` only (a JWT caller gets `42501`). It sets the
+   transaction-local GUC `langquest.account_deletion`, which `raise_append_only()` / `guard_sync_event_update()`
+   honour **only** when the current role is the function owner (`account_deletion_in_progress()` is false for
+   `anon`/`authenticated`/`service_role` even if they set the GUC, and no RPC exposes `set_config`). Inside the
+   function, per the disclosure learners see in `DELETE /v1/me`:
+   - **deleted**: every user-owned row (profile, settings, enrollments and what they key, audio state, uploads,
+     sessions + turns, mastery/reviews/attempts/progress, achievements, streaks, daily metrics, notification
+     settings/deliveries, roles) and the evidence ledgers that are the learner's own data (`xp_ledger`,
+     `device_sync_events`, `learning_observations`, `conversation_turns`);
+   - **anonymised** (kept for cost accounting / audit / safety): `ai_requests.user_id`/`enrollment_id`,
+     `audit_logs.actor_id`/`ip_hash`, `asset_provenance_events.actor_id`, `moderation_incidents.user_id`,
+     `feedback_reports.user_id`/`enrollment_id`, `processing_jobs.requested_by`;
+   - **recordings**: `media_assets` owned by the learner get `disposition = 'deleted'`, `owner_id = null` and an
+     `asset_provenance_events` row (`removed`, `details.action = 'account_deletion'`) when the learner opted in;
+     otherwise only `owner_id` is cleared. The API removes the objects from storage (it holds the keys).
+   - **retained**: `content_revisions` / `publication_events` keep their NOT NULL editor attribution; a staff
+     account with such rows is reported `authUserDeletable: false` and must be offboarded by revoking roles.
+   The function returns `{ userId, deletedTables, anonymisedTables, retainedForLegalReasons, recordingsDeleted,
+   authUserDeletable, counts, deletedAt }` and audits itself (`account.delete_account`, no actor). **It does not
+   delete `auth.users`**: the API Worker calls `delete_account` first, then `auth.admin.deleteUser(userId)` — the
+   cascade is then trivial — and returns the summary (`@langquest/db` `accountLifecycle.deleteAccount`).
+8. **Test-user purge.** `public.purge_test_user(p_user_id)` (service role only) refuses any e-mail that does not end
+   in `@langquest.test` (`42501`; `P0002` for unknown ids), runs `delete_account(…, true)`, drops the test
+   account's editorial rows and deletes the `auth.users` row itself. The `@langquest/db` harness creates test users
+   as `…@langquest.test` and cleans up through it (`accountLifecycle.purgeTestUser`).
+9. **Physical blob vs logical asset (§7.2).** `media_assets.storage_key` is **no longer UNIQUE** (plain index).
+   A row is a *logical* asset (rights, state, visibility, lesson links, provenance); the *physical* blob is
+   identified by `(bucket, storage_key)` and its content by `checksum_sha256`. Dedupe rule for importers
+   (`import_r2_prefix`, `import_manifest`, uploads): a blob already known by key or checksum is **never
+   re-uploaded** and the existing row is **never re-linked** to the new lesson/course — a new logical row is
+   inserted pointing at the same `storage_key` (`rights.listAssetsStaffByStorageKey` /
+   `listAssetsStaffByChecksum` find the siblings; the first row's id in the key is opaque). Derivatives still
+   hang off one master via `source_asset_id`; deleting a blob is only legal when no active logical asset
+   references its key.
+10. **Stored manifests (ADR-004).** `course_manifests (course_track_id, source_language_code, version)` and
+   `audio_collection_manifests (collection_id, instruction_language_code | 'any', version)` hold the exact JSON
+   the API serves plus `checksum`, `published_at` and `generated_by_job_id`. Learners read published versions
+   (RLS), editors/jobs write; `manifests.getLatestManifest(ref)` / `putManifest(ref, …)` / `setPublished` in
+   `@langquest/db`. The regenerate_manifest job should store here (object-store copies become a cache).
+11. **AI suggestions (§7.4).** `asset_suggestions (media_asset_id, lesson_id?, job_id?, kind, suggestion, confidence,
+   provenance, review_status, reviewer_id, decided_at, decision_note)` — staff-only RLS (editors insert,
+   reviewers decide, learners never read); a trigger stamps `reviewer_id`/`decided_at` on approve/reject.
+   Suggestions are never auto-applied; `provenance` records task/model/prompt version/trace id.
+12. **processing_job_type** now also accepts `translate_transcript`, `regenerate_manifest`, `cleanup_orphan_uploads`,
+   `render_cover`, `infer_metadata`, `generate_content`, `import_r2_prefix` (contracts
+   `PROCESSING_JOB_TYPE_VALUES_ALL` / `ProcessingJobTypeAll` mirror it; `PROCESSING_JOB_TYPE_EXTENSION_VALUES` lists the additions, while the base `PROCESSING_JOB_TYPE_VALUES` / `ProcessingJobType` keep the original 14 so runner `Record<ProcessingJobType, …>` maps stay stable).

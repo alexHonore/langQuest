@@ -8,7 +8,7 @@ import { capabilityForVariety } from '../capability/matrix';
 import { capabilityFromStatus, providerLocaleFor, resolveVariety } from '../capability/registry';
 import { AiCapabilityError, AiProviderUnavailableError, wrapOperatorError } from '../errors';
 import { OpenRouterError, type OpenRouterClient, type TranscriptionResponse } from '../openrouter/client';
-import type { AiRequestSink } from '../reasoner';
+import { resolveAttribution, type AiAttribution, type AiAttributionSource, type AiRequestSink } from '../reasoner';
 import { clamp, newId, nowIso } from '../util';
 import { resolveAudioBytes, type AudioAssetResolver } from './audio-input';
 
@@ -21,6 +21,34 @@ export interface OpenRouterSpeechRecognizerOptions {
   modelOverrides?: Partial<Record<VarietyId, readonly string[]>>;
   /** Above this size the JSON base64 transport is used (OpenAI/Groq offload large bodies). */
   multipartMaxBytes?: number;
+  /**
+   * Default language-hint policy (overridable per call). `'matrix'` (default) sends the capability-matrix hint for
+   * the variety; `'auto'` omits the hint so the model detects the language itself — use it for code-switched audio
+   * (learner mixing source and target language) where a fixed hint forces every segment into one language; any other
+   * string is sent verbatim as an ISO-639-1 hint.
+   */
+  languageHint?: SttLanguageHint;
+  /** Attribution for `ai_requests` rows (learner id, DB profile id). Default: pseudonymous. */
+  attribution?: AiAttributionSource | null;
+}
+
+/** `'matrix'` = capability-matrix hint for the variety; `'auto'` = no hint (provider detection); else an ISO-639-1 code. */
+export type SttLanguageHint = 'matrix' | 'auto' | (string & {});
+
+export interface TranscribeOptions {
+  traceId?: string;
+  enrollmentId?: string | null;
+  /** See `OpenRouterSpeechRecognizerOptions.languageHint`; `'auto'` for mixed-language recordings. */
+  languageHint?: SttLanguageHint;
+  /** Overrides the adapter-level attribution for this call only. */
+  attribution?: AiAttribution | null;
+}
+
+/** Resolve the hint actually sent for a variety under a policy (`null` = omitted). Exported for tests. */
+export function effectiveLanguageHint(variety: VarietyId, policy: SttLanguageHint | undefined): string | null {
+  if (policy === undefined || policy === 'matrix') return capabilityForVariety(variety).stt.languageHint;
+  if (policy === 'auto') return null;
+  return policy;
 }
 
 /** Whisper reports `yue` for Cantonese and `zh` for Mandarin; other varieties share their language code. */
@@ -37,6 +65,8 @@ export class OpenRouterSpeechRecognizer implements SpeechRecognizer {
   private readonly fetchImpl: typeof fetch | undefined;
   private readonly modelOverrides: Partial<Record<VarietyId, readonly string[]>>;
   private readonly multipartMaxBytes: number;
+  private readonly languageHint: SttLanguageHint;
+  private readonly attribution: AiAttributionSource | null;
 
   constructor(options: OpenRouterSpeechRecognizerOptions) {
     this.client = options.client;
@@ -45,6 +75,8 @@ export class OpenRouterSpeechRecognizer implements SpeechRecognizer {
     this.fetchImpl = options.fetch;
     this.modelOverrides = options.modelOverrides ?? {};
     this.multipartMaxBytes = options.multipartMaxBytes ?? 20 * 1024 * 1024;
+    this.languageHint = options.languageHint ?? 'matrix';
+    this.attribution = options.attribution ?? null;
   }
 
   modelsFor(variety: VarietyId): readonly string[] {
@@ -62,7 +94,13 @@ export class OpenRouterSpeechRecognizer implements SpeechRecognizer {
       latencyClass: 'interactive',
       features: { codeSwitch: entry.status !== 'unavailable', multiSpeaker: false, streaming: false },
       evidence: entry.evidence,
-      notes: [`models=${this.modelsFor(variety).join(',')}`, `languageHint=${entry.languageHint ?? 'auto'}`],
+      notes: [
+        `models=${this.modelsFor(variety).join(',')}`,
+        `languageHint=${effectiveLanguageHint(variety, this.languageHint) ?? 'auto'} (policy=${this.languageHint})`,
+        entry.status !== 'unavailable'
+          ? 'codeSwitch: pass languageHint "auto" to omit the hint for mixed-language audio; the detected language is then reported per transcript and may differ from the target variety (languageMismatch).'
+          : 'codeSwitch: unavailable',
+      ],
     });
     if (audioType && !/^(audio\/)?(wav|x-wav|mpeg|mp3|flac|ogg|opus|webm|mp4|m4a|aac|pcm|pcm16)$/i.test(audioType)) {
       return { ...cap, supported: false, reasons: [...cap.reasons, 'audio_format_unsupported'], notes: [...cap.notes, `audioType ${audioType} not accepted`] };
@@ -70,26 +108,27 @@ export class OpenRouterSpeechRecognizer implements SpeechRecognizer {
     return cap;
   }
 
-  async transcribe(audio: AudioInput, locale: string, options: { traceId?: string; enrollmentId?: string | null } = {}): Promise<TranscriptResult> {
+  async transcribe(audio: AudioInput, locale: string, options: TranscribeOptions = {}): Promise<TranscriptResult> {
     const variety = resolveVariety(locale);
     const capability = await this.supports(locale);
     if (!variety || !capability.supported) throw new AiCapabilityError(`Speech recognition is not available for ${locale}`, capability, locale);
-    const entry = capabilityForVariety(variety).stt;
+    const languageHint = effectiveLanguageHint(variety, options.languageHint ?? this.languageHint);
     const resolved = await resolveAudioBytes(audio, { assetResolver: this.assetResolver, fetch: this.fetchImpl });
     const traceId = options.traceId ?? newId();
     const models = this.modelsFor(variety);
+    const attribution = resolveAttribution(this.attribution, { ...(options.attribution ?? {}), ...(options.enrollmentId !== undefined ? { enrollmentId: options.enrollmentId } : {}) });
     let lastError: unknown = null;
 
     for (const model of models) {
       const startedAt = Date.now();
       try {
-        const res = await this.transcribeWith(model, resolved.bytes, resolved.format, resolved.mimeType, entry.languageHint, traceId);
-        await this.record({ model, traceId, enrollmentId: options.enrollmentId ?? null, latencyMs: Date.now() - startedAt, res, success: true, errorCode: null });
+        const res = await this.transcribeWith(model, resolved.bytes, resolved.format, resolved.mimeType, languageHint, traceId);
+        await this.record({ model, traceId, attribution, languageHint, latencyMs: Date.now() - startedAt, res, success: true, errorCode: null });
         return toTranscriptResult(res, variety, providerLocaleFor(variety), this.provider);
       } catch (error) {
         lastError = error;
         const code = error instanceof OpenRouterError ? error.kind : 'unknown';
-        await this.record({ model, traceId, enrollmentId: options.enrollmentId ?? null, latencyMs: Date.now() - startedAt, res: null, success: false, errorCode: code });
+        await this.record({ model, traceId, attribution, languageHint, latencyMs: Date.now() - startedAt, res: null, success: false, errorCode: code });
         // Account-level failures (revoked key, exhausted operator balance) affect every model: stop and surface
         // `provider_unavailable` with LangQuest's own wording. An oversized payload is a request problem: rethrow as is.
         if (error instanceof OpenRouterError && (error.kind === 'auth' || error.kind === 'insufficient_credits')) throw wrapOperatorError(error, 'Speech recognition', this.provider);
@@ -114,16 +153,16 @@ export class OpenRouterSpeechRecognizer implements SpeechRecognizer {
     }
   }
 
-  private async record(input: { model: string; traceId: string; enrollmentId: string | null; latencyMs: number; res: TranscriptionResponse | null; success: boolean; errorCode: string | null }): Promise<void> {
+  private async record(input: { model: string; traceId: string; attribution: Required<AiAttribution>; languageHint: string | null; latencyMs: number; res: TranscriptionResponse | null; success: boolean; errorCode: string | null }): Promise<void> {
     if (!this.sink) return;
     await this.sink.record({
       occurredAt: nowIso(),
-      userId: null,
-      enrollmentId: input.enrollmentId,
+      userId: input.attribution.userId,
+      enrollmentId: input.attribution.enrollmentId,
       task: 'speech_recognition',
       provider: this.provider,
       model: input.model,
-      profileId: null,
+      profileId: input.attribution.profileId,
       fallbackIndex: 0,
       latencyMs: input.latencyMs,
       inputTokens: input.res?.usage.inputTokens ?? null,
@@ -133,7 +172,7 @@ export class OpenRouterSpeechRecognizer implements SpeechRecognizer {
       success: input.success,
       errorCode: input.errorCode,
       traceId: input.traceId,
-      redactedLog: input.res ? { requestId: input.res.requestId, chars: input.res.text.length, language: input.res.language } : null,
+      redactedLog: input.res ? { requestId: input.res.requestId, chars: input.res.text.length, language: input.res.language, languageHint: input.languageHint } : { languageHint: input.languageHint },
     });
   }
 }

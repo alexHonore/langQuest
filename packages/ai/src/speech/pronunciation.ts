@@ -25,7 +25,7 @@ import { findAzurePronunciationLocale } from '../capability/azure-locales';
 import { capabilityForVariety } from '../capability/matrix';
 import { providerLocaleFor, resolveVariety, varietyBoundaryViolation } from '../capability/registry';
 import { AiCapabilityError, AiProviderUnavailableError } from '../errors';
-import type { AiRequestSink } from '../reasoner';
+import { resolveAttribution, type AiAttributionSource, type AiRequestSink } from '../reasoner';
 import { scoreAgainstReference, tokenize, normalizeForMeaning } from '../semantic/meaning';
 import { bytesToBase64, clamp, newId, nowIso } from '../util';
 import { resolveAudioBytes, type AudioAssetResolver } from './audio-input';
@@ -43,6 +43,8 @@ export interface AzurePronunciationAssessorOptions {
   timeoutMs?: number;
   /** Override the endpoint (tests / sovereign clouds). */
   endpointBase?: string;
+  /** Attribution for `ai_requests` rows (learner id, DB profile id). Default: pseudonymous. */
+  attribution?: AiAttributionSource | null;
 }
 
 /** Subset of Azure's `format=detailed` JSON with pronunciation assessment enabled. Exported for fixtures. */
@@ -88,8 +90,10 @@ export class AzurePronunciationAssessor implements PronunciationAssessor {
   private readonly sink: AiRequestSink | null;
   private readonly timeoutMs: number;
   private readonly endpointBase: string | null;
+  private readonly attribution: AiAttributionSource | null;
 
   constructor(options: AzurePronunciationAssessorOptions) {
+    this.attribution = options.attribution ?? null;
     this.key = options.key || null;
     this.region = options.region || null;
     this.fetchImpl = options.fetch ?? globalThis.fetch.bind(globalThis);
@@ -187,14 +191,15 @@ export class AzurePronunciationAssessor implements PronunciationAssessor {
 
   private async record(traceId: string, locale: string, latencyMs: number, success: boolean, errorCode: string | null, input: PronunciationInput): Promise<void> {
     if (!this.sink) return;
+    const attribution = resolveAttribution(this.attribution);
     await this.sink.record({
       occurredAt: nowIso(),
-      userId: null,
-      enrollmentId: null,
+      userId: attribution.userId,
+      enrollmentId: attribution.enrollmentId,
       task: 'pronunciation_assessment',
       provider: this.provider,
       model: `azure:scripted:${locale}`,
-      profileId: null,
+      profileId: attribution.profileId,
       fallbackIndex: 0,
       latencyMs,
       inputTokens: null,

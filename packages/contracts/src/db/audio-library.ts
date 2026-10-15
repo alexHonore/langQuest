@@ -1,7 +1,7 @@
 /** §5.3 — audio library and CMS tables. */
 import { z } from 'zod';
 import { CourseTrackIdSchema, ScriptIdSchema, SourceLanguageCodeSchema, VarietyIdSchema } from '../catalog';
-import { AudioAssetTypeSchema, ContentStateSchema, JobStateSchema, LearnerLevelSchema, ProcessingJobTypeSchema, SpeakerConsentStateSchema, TranscriptStatusSchema, TranslationQaStateSchema, UploadStatusSchema } from '../enums';
+import { AudioAssetTypeSchema, ContentStateSchema, JobStateSchema, LearnerLevelSchema, ProcessingJobTypeAllSchema, ReviewStatusSchema, SpeakerConsentStateSchema, TranscriptStatusSchema, TranslationQaStateSchema, UploadStatusSchema } from '../enums';
 import { BytesSchema, JsonObjectSchema, LocalizedTextSchema, MillisSchema, NonNegativeIntSchema, PercentSchema, Sha256Schema, TimestamptzSchema, UnitIntervalSchema, UuidSchema } from '../primitives';
 import { defineLedgerTable, defineTable } from './table';
 
@@ -195,7 +195,7 @@ export const UploadsTable = defineTable('uploads', {
 });
 
 export const ProcessingJobsTable = defineTable('processing_jobs', {
-  job_type: ProcessingJobTypeSchema,
+  job_type: ProcessingJobTypeAllSchema,
   parent_asset_id: UuidSchema.nullable(),
   parent_entity_table: z.string().nullable(),
   parent_entity_id: UuidSchema.nullable(),
@@ -227,4 +227,71 @@ export const AssetProvenanceEventsTable = defineLedgerTable('asset_provenance_ev
   actor_id: UuidSchema.nullable(),
   job_id: UuidSchema.nullable(),
   details: JsonObjectSchema,
+});
+
+/**
+ * Stored course manifests (ADR-004, migration 100): one row per (track, source, version). `manifest`
+ * is the exact `CourseManifest` JSON the API serves and `checksum` its content hash; learners read
+ * rows with `published_at` set, editors/jobs write. Validate `manifest` with `CourseManifestSchema`
+ * at the boundary that needs the typed shape.
+ */
+export const CourseManifestsTable = defineTable('course_manifests', {
+  course_track_id: CourseTrackIdSchema,
+  source_language_code: SourceLanguageCodeSchema,
+  version: NonNegativeIntSchema,
+  checksum: Sha256Schema,
+  manifest: JsonObjectSchema,
+  published_at: TimestamptzSchema.nullable(),
+  generated_by_job_id: UuidSchema.nullable(),
+});
+
+/** Instruction language a stored audio manifest was built for, or `'any'` (collection-wide). */
+export const AudioManifestInstructionLanguageSchema = z.union([z.literal('any'), SourceLanguageCodeSchema]);
+
+/** Stored audio-collection manifests (ADR-004, migration 100): one row per (collection, instruction language, version). */
+export const AudioCollectionManifestsTable = defineTable('audio_collection_manifests', {
+  collection_id: UuidSchema,
+  instruction_language_code: AudioManifestInstructionLanguageSchema,
+  version: NonNegativeIntSchema,
+  checksum: Sha256Schema,
+  manifest: JsonObjectSchema,
+  published_at: TimestamptzSchema.nullable(),
+  generated_by_job_id: UuidSchema.nullable(),
+});
+
+/** §7.4 — what an AI suggestion is about. */
+export const ASSET_SUGGESTION_KIND_VALUES = ['metadata', 'language', 'variety', 'lesson_structure', 'description', 'tags', 'topics', 'level', 'cover', 'transcript_quality', 'other'] as const;
+export const AssetSuggestionKindSchema = z.enum(ASSET_SUGGESTION_KIND_VALUES);
+export type AssetSuggestionKind = z.infer<typeof AssetSuggestionKindSchema>;
+
+/** Provenance recorded with every AI suggestion (never prompts with learner data). */
+export const AssetSuggestionProvenanceSchema = z.object({
+  task: z.string(),
+  provider: z.string().nullish(),
+  model: z.string().nullish(),
+  promptVersion: z.string().nullish(),
+  traceId: z.string().nullish(),
+  jobId: UuidSchema.nullish(),
+  evidenceSource: z.string().nullish(),
+  generatedAt: TimestamptzSchema.nullish(),
+}).loose();
+export type AssetSuggestionProvenance = z.infer<typeof AssetSuggestionProvenanceSchema>;
+
+/**
+ * §7.4 — AI metadata / organisation suggestions (migration 100). Never auto-applied: an editor approves
+ * or rejects each row (`review_status`); `reviewer_id` / `decided_at` are stamped by a trigger.
+ * Staff-only (RLS); learners never see suggestions.
+ */
+export const AssetSuggestionsTable = defineTable('asset_suggestions', {
+  media_asset_id: UuidSchema,
+  lesson_id: UuidSchema.nullable(),
+  job_id: UuidSchema.nullable(),
+  kind: AssetSuggestionKindSchema,
+  suggestion: JsonObjectSchema,
+  confidence: UnitIntervalSchema.nullable(),
+  provenance: JsonObjectSchema,
+  review_status: ReviewStatusSchema,
+  reviewer_id: UuidSchema.nullable(),
+  decided_at: TimestamptzSchema.nullable(),
+  decision_note: z.string().max(2000).nullable(),
 });

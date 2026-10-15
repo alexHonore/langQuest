@@ -1,6 +1,6 @@
 import { COURSE_TRACKS, LANGUAGE_CODES, db } from '@langquest/contracts';
 import { describe, expect, it } from 'vitest';
-import { CATALOG_NAMESPACES, REQUIRED_PARTIAL_NAMESPACES } from './catalogs';
+import { CATALOG_NAMESPACES, CATALOG_SECTIONS, REQUIRED_PARTIAL_NAMESPACES } from './catalogs';
 import {
   COVERAGE_METADATA,
   buildCoverageMetadata,
@@ -43,6 +43,37 @@ describe('catalog coverage', () => {
 
   it('checked-in coverage.json matches the catalogs', () => {
     expect(COVERAGE_METADATA).toEqual(buildCoverageMetadata());
+  });
+
+  it('reports the app-facing sections (admin.ui, catalog.cover, audio.listen) per locale', () => {
+    const coverage = computeCatalogCoverage();
+    for (const locale of ['en', 'fr'] as const) {
+      const c = coverage[locale]!;
+      expect(c.sections.map((s) => s.namespace)).toEqual([...CATALOG_SECTIONS]);
+      expect(c.sections.every((s) => s.expected > 0 && s.pct === 100 && s.missing.length === 0), locale).toBe(true);
+      expect(c.completeSections).toEqual([...CATALOG_SECTIONS]);
+    }
+    for (const locale of ['es', 'ru'] as const) {
+      const c = coverage[locale]!;
+      expect(c.completeSections).toEqual([]);
+      expect(c.sections.every((s) => s.present === 0)).toBe(true);
+    }
+    const meta = buildCoverageMetadata();
+    expect(meta.sections).toEqual([...CATALOG_SECTIONS]);
+    expect(meta.keyCount).toBe(coverage.en!.totalExpected);
+    expect(meta.locales.fr).toMatchObject({ sections: [...CATALOG_SECTIONS], keyCount: meta.keyCount, pct: 100 });
+    expect(meta.locales.es!.pct).toBeLessThan(100);
+  });
+
+  it('section coverage ignores keys that merely share a prefix string', () => {
+    const base = { 'admin.ui.a': '1', 'admin.uix.b': '2', 'catalog.cover.x': '3', 'audio.listen.y': '4' };
+    const c = computeLocaleCoverage('xx', { 'admin.ui.a': 'a', 'admin.uix.b': 'b' }, base);
+    expect(c.sections).toEqual([
+      { namespace: 'admin.ui', expected: 1, present: 1, missing: [], pct: 100 },
+      { namespace: 'catalog.cover', expected: 1, present: 0, missing: ['catalog.cover.x'], pct: 0 },
+      { namespace: 'audio.listen', expected: 1, present: 0, missing: ['audio.listen.y'], pct: 0 },
+    ]);
+    expect(c.completeSections).toEqual(['admin.ui']);
   });
 
   it('exposes ui percentages per language', () => {

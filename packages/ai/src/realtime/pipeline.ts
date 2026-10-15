@@ -193,10 +193,21 @@ export class PipelineRealtimeProvider implements RealtimeConversationProvider {
     };
   }
 
+  /**
+   * Issue a session ticket. A `text_only` session always gets the `text_only` pipeline — the learner's choice is
+   * honoured even when speech is available for the variety — and only needs the locale to resolve to a variety;
+   * voice modes require the full STT + TTS capability.
+   */
   async createSession(config: VoiceSessionConfig, options: { userId?: string } = {}): Promise<ShortLivedSession> {
-    const cap = await this.supports(config.locale, config.interruptible);
-    const pipeline = cap.supported ? 'stt_llm_tts' : config.mode === 'text_only' ? 'text_only' : null;
-    if (!pipeline) throw new Error(`Pipeline unavailable for ${config.locale}: ${cap.notes.join('; ')}`);
+    let pipeline: ShortLivedSession['pipeline'];
+    if (config.mode === 'text_only') {
+      if (!resolveVariety(config.locale)) throw new Error(`Pipeline unavailable for ${config.locale}: unknown or ambiguous locale`);
+      pipeline = 'text_only';
+    } else {
+      const cap = await this.supports(config.locale, config.interruptible);
+      if (!cap.supported) throw new Error(`Pipeline unavailable for ${config.locale}: ${cap.notes.join('; ')}`);
+      pipeline = 'stt_llm_tts';
+    }
     const ticket = await signSessionTicket(
       { sessionId: config.sessionId, userId: options.userId ?? config.context.language.enrollmentId, enrollmentId: config.context.language.enrollmentId, pipeline, ttlSeconds: this.ticketTtlSeconds, now: this.clock() },
       this.ticketSecret,

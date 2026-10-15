@@ -5,7 +5,7 @@ import { EvaluatorOutputSchema } from '../ai/conversation';
 import { AccessibilityOptionsSchema, NotificationPreferencesSchema, PrivacyOptionsSchema } from '../db/identity';
 import { CoverageMetricsSchema } from '../db/identity';
 import { CoverageStatusSchema, EnrollmentStatusSchema, LearnerLevelSchema, LearningSpeedSchema, LessonTypeSchema, MasteryStateSchema, MissionStepTypeSchema, MissionTypeSchema, ObservationOutcomeSchema, RegisterSchema, RoleSchema, ScriptModeSchema, XpReasonSchema } from '../enums';
-import { CourseManifestSchema, VisualRefSchema, AssetRefSchema } from '../manifest';
+import { CourseManifestSchema, SceneIdSchema, VisualRefSchema, AssetRefSchema } from '../manifest';
 import { Bcp47Schema, JsonObjectSchema, KeySchema, MillisSchema, NonNegativeIntSchema, TimestamptzSchema, UnitIntervalSchema, UuidSchema } from '../primitives';
 import { ReviewCardSchema, ReviewRatingSchema, SkillMasterySnapshotSchema, SkillObservationInputSchema } from '../srs';
 import { pageOf, PaginationQuerySchema } from './common';
@@ -61,8 +61,8 @@ export const PatchSettingsRequestSchema = z
   .object({
     displayName: z.string().max(80).nullable(),
     uiLocale: Bcp47Schema,
-    /** Changes the prefill for NEW enrollments only. Existing enrollments are untouched. */
-    defaultSourceLanguageCode: SourceLanguageCodeSchema,
+    /** Changes the prefill for NEW enrollments only. Existing enrollments are untouched. `null` clears the prefill. */
+    defaultSourceLanguageCode: SourceLanguageCodeSchema.nullable(),
     timeZone: z.string(),
     privacyOptions: PrivacyOptionsSchema.partial(),
     accessibilityOptions: AccessibilityOptionsSchema.partial(),
@@ -222,6 +222,8 @@ export const MissionDetailResponseSchema = z.object({
   goals: z.array(z.object({ id: z.string(), description: z.string(), skillKeys: z.array(KeySchema) })),
   recommendedMinutes: z.number(),
   sceneArt: VisualRefSchema.nullable(),
+  /** Editorial scene id (see `ManifestMissionSchema.sceneId`); optional for responses produced before it existed. */
+  sceneId: SceneIdSchema.nullable().optional(),
   characters: z.array(z.object({ id: UuidSchema, name: z.string(), role: z.string(), portrait: VisualRefSchema.nullable(), syntheticVoice: z.boolean() })),
   steps: z.array(MissionStepDetailSchema),
   narrative: JsonObjectSchema.nullable(),
@@ -416,3 +418,26 @@ export const MeDeleteResponseSchema = z.object({
   retainedForLegalReasons: z.array(z.string()),
 });
 export type MeDeleteResponse = z.infer<typeof MeDeleteResponseSchema>;
+
+// --- inferred types (additive; every request/response schema has a matching type) ---
+
+export type SessionRefreshRequest = z.infer<typeof SessionRefreshRequestSchema>;
+export type SessionRefreshResponse = z.infer<typeof SessionRefreshResponseSchema>;
+export type PatchSettingsResponse = z.infer<typeof PatchSettingsResponseSchema>;
+export type CoursesResponse = z.infer<typeof CoursesResponseSchema>;
+export type CoverageQuery = z.infer<typeof CoverageQuerySchema>;
+export type EnrollmentCreateResponse = z.infer<typeof EnrollmentCreateResponseSchema>;
+export type EnrollmentPatchResponse = z.infer<typeof EnrollmentPatchResponseSchema>;
+export type EnrollmentsListResponse = z.infer<typeof EnrollmentsListResponseSchema>;
+export type ManifestQuery = z.infer<typeof ManifestQuerySchema>;
+export type ManifestResponse = z.infer<typeof ManifestResponseSchema>;
+export type MissionStepDetail = z.infer<typeof MissionStepDetailSchema>;
+export type MissionDetailQuery = z.infer<typeof MissionDetailQuerySchema>;
+export type MissionAttemptCreateRequest = z.infer<typeof MissionAttemptCreateRequestSchema>;
+export type MissionAttemptCreateResponse = z.infer<typeof MissionAttemptCreateResponseSchema>;
+export type ReviewsDueQuery = z.infer<typeof ReviewsDueQuerySchema>;
+export type ReviewItem = z.infer<typeof ReviewItemSchema>;
+export type ProgressSyncResult = z.infer<typeof ProgressSyncResultSchema>;
+export type SkillsQuery = z.infer<typeof SkillsQuerySchema>;
+export type SkillProgressItem = z.infer<typeof SkillProgressItemSchema>;
+export type SkillsResponse = z.infer<typeof SkillsResponseSchema>;

@@ -9,7 +9,7 @@ import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { Animated, Pressable, type StyleProp, View, type ViewStyle } from 'react-native';
 import { ICONS } from '../art';
 import { useTheme } from '../theme/ThemeProvider';
-import { SPEAK_BUTTON_LABELS } from './labels';
+import { SPEAK_BUTTON_LABELS, mergeLabels, type LocalizedLabels } from './labels';
 import { type SpeakButtonMode, type SpeakButtonState, nextSpeakState } from './logic';
 import { Button, ThemedText } from './primitives';
 
@@ -31,7 +31,8 @@ export interface SpeakButtonProps {
   showModeSwitch?: boolean;
   /** Elapsed recording time text (caller owns the clock; no limit is implied). */
   elapsedText?: string | null;
-  labels?: Partial<typeof SPEAK_BUTTON_LABELS>;
+  /** Localized overrides (`t(...)` strings; nested groups may be partial). */
+  labels?: LocalizedLabels<typeof SPEAK_BUTTON_LABELS>;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 }
@@ -53,7 +54,7 @@ export function SpeakButton(props: SpeakButtonProps): React.JSX.Element {
     testID,
   } = props;
   const theme = useTheme();
-  const L = { ...SPEAK_BUTTON_LABELS, ...labels };
+  const L = mergeLabels(SPEAK_BUTTON_LABELS, labels);
   const [internalMode, setInternalMode] = useState<SpeakButtonMode>('hold');
   const mode = modeProp ?? internalMode;
   const [internalState, setInternalState] = useState<SpeakButtonState>('idle');

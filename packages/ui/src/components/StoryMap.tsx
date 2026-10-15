@@ -8,7 +8,7 @@ import React, { useMemo, useState } from 'react';
 import { Pressable, type StyleProp, View, type ViewStyle } from 'react-native';
 import { type IconName, SceneArtSvg, type SceneId, findScene } from '../art';
 import { useTheme } from '../theme/ThemeProvider';
-import { STORY_MAP_LABELS } from './labels';
+import { STORY_MAP_LABELS, mergeLabels, type LocalizedLabels, type ResolvedLabels } from './labels';
 import {
   type StoryMapLayoutNode,
   type StoryMapNode,
@@ -25,7 +25,8 @@ export interface StoryMapProps {
   initialView?: 'map' | 'list';
   /** Force a view (hides the toggle). */
   view?: 'map' | 'list';
-  labels?: Partial<typeof STORY_MAP_LABELS>;
+  /** Localized overrides (`t(...)` strings; nested groups may be partial). */
+  labels?: LocalizedLabels<typeof STORY_MAP_LABELS>;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 }
@@ -46,7 +47,7 @@ const STATUS_TONE: Record<StoryNodeStatus, 'neutral' | 'accent' | 'info' | 'succ
 function NodeCard(props: {
   node: StoryMapLayoutNode;
   onPress: () => void;
-  labels: typeof STORY_MAP_LABELS;
+  labels: ResolvedLabels<typeof STORY_MAP_LABELS>;
   compact: boolean;
 }): React.JSX.Element {
   const { node, onPress, labels: L, compact } = props;
@@ -114,7 +115,7 @@ function NodeCard(props: {
 export function StoryMap(props: StoryMapProps): React.JSX.Element {
   const { nodes, onSelect, initialView = 'map', view: forcedView, labels, style, testID } = props;
   const theme = useTheme();
-  const L = { ...STORY_MAP_LABELS, ...labels };
+  const L = mergeLabels(STORY_MAP_LABELS, labels);
   const [view, setView] = useState<'map' | 'list'>(initialView);
   const activeView = forcedView ?? view;
   const laid = useMemo(() => layoutStoryMap(nodes), [nodes]);
