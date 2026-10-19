@@ -1,15 +1,14 @@
 import { type CourseTrackId, type SourceLanguageCode } from '@langquest/contracts';
-import { Chip, CourseCover, CoverageBadge, NATIVE_SAMPLES, ORDERED_TRACKS, Row, Surface, ThemedText, dialectClarification, useTheme } from '@langquest/ui';
+import { Chip, CourseCover, NATIVE_SAMPLES, ORDERED_TRACKS, Row, Surface, ThemedText, dialectClarification, useTheme } from '@langquest/ui';
 import { useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
 import { Screen } from '@/components/Screen';
+import { CoverageStatus } from '@/components/CoverageStatus';
 import { CacheNotice } from '@/components/StateViews';
-import { coverageDescriptions } from '@/features/session/coverage-copy';
 import { useActiveEnrollment, useCourses } from '@/features/session/queries';
 import { useExtraLabels } from '@/lib/extra-labels';
 import { useLanguageNames, useT } from '@/lib/i18n';
-import { useUiLabels } from '@/lib/labels';
 
 /**
  * Catalog: all 30 tracks with search, script/region filters and honest
@@ -22,7 +21,6 @@ export default function Catalog(): React.JSX.Element {
   const t = useT();
   const names = useLanguageNames();
   const X = useExtraLabels();
-  const labels = useUiLabels();
   const { me, enrollments } = useActiveEnrollment();
   const source = (me?.defaultSourceLanguageCode ?? null) as SourceLanguageCode | null;
   const courses = useCourses(source);
@@ -74,7 +72,7 @@ export default function Catalog(): React.JSX.Element {
                     <ThemedText variant="caption" tone="secondary">
                       {clar.varietyName} · {tr.defaultLocale}
                     </ThemedText>
-                    {source ? <CoverageBadge status={cov?.status ?? 'planned'} sourceLanguageCode={source} nativeReviewed={cov?.nativeReviewed} fallbackSourceLanguageCode={cov?.fallbackSourceLanguageCode ?? null} labels={labels.coverage} descriptions={coverageDescriptions(t, X, names(source), cov?.fallbackSourceLanguageCode ? names(cov.fallbackSourceLanguageCode) : null)} languageNames={{ [source]: names(source), ...(cov?.fallbackSourceLanguageCode ? { [cov.fallbackSourceLanguageCode]: names(cov.fallbackSourceLanguageCode) } : {}) }} /> : null}
+                    {source ? <CoverageStatus status={cov?.status ?? 'planned'} sourceLanguageCode={source} nativeReviewed={cov?.nativeReviewed} fallbackSourceLanguageCode={cov?.fallbackSourceLanguageCode ?? null} /> : null}
                     {c ? (
                       <Row gap={theme.spacing.xs} wrap>
                         {c.publicationState !== 'published' ? <Chip label={X.publicationState[c.publicationState] ?? c.publicationState} tone="warning" icon="info" /> : null}

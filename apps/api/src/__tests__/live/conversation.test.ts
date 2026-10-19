@@ -9,7 +9,7 @@ import { LanguageGuard } from '@langquest/ai/prompts/language-guard';
 import { config as loadDotenv } from 'dotenv';
 import { resolve } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { call, createStackUser, deleteStackUsers, describeWithStack, REPO_ROOT, stackApp, type StackHarness, type TestUser } from '../harness';
+import { call, createStackUser, deleteStackRows, deleteStackUsers, describeWithStack, REPO_ROOT, stackApp, type StackHarness, type TestUser } from '../harness';
 
 loadDotenv({ path: resolve(REPO_ROOT, '.env'), quiet: true });
 const live = process.env.LANGQUEST_LIVE_TESTS === '1' && Boolean(process.env.OPENROUTER_API_KEY);
@@ -37,8 +37,9 @@ describeLive('live Darija-from-French conversation turn', () => {
 
   afterAll(async () => {
     await h.app.flush();
-    if (characterId) await h.service.from('characters').delete().eq('id', characterId);
+    // Learner first: the session references the character (ON DELETE RESTRICT).
     await deleteStackUsers(h, [learner.id]);
+    if (characterId) await deleteStackRows(h, 'characters', [characterId]);
   });
 
   it('speaks Darija to the learner and coaches in French', async () => {

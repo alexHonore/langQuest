@@ -17,7 +17,6 @@ import {
   EnrollmentPatchResponseSchema,
   EnrollmentsListResponseSchema,
   LanguagesResponseSchema,
-  ManifestResponseSchema,
   MeDeleteResponseSchema,
   MeExportResponseSchema,
   MissionAttemptCreateResponseSchema,
@@ -50,6 +49,7 @@ import {
 } from '@langquest/contracts';
 import { z } from 'zod';
 import type { ApiClient } from './client';
+import { LearnerManifestSchema } from './manifest-schema';
 import { MeResponseSchemaLenient } from './me-schema';
 import { retryWhileTurnInProgress } from './turn-retry';
 
@@ -94,7 +94,8 @@ export function createEndpoints(client: ApiClient) {
     exportData: () => client.call('meExport', { schema: MeExportResponseSchema, timeoutMs: 60_000 }),
     /** DELETE /v1/me — server-side account deletion; requires the literal confirmation text (§11, A28). */
     deleteAccount: (body: MeDeleteRequest, idempotencyKey: string) => client.call('meDelete', { body, idempotencyKey, schema: MeDeleteResponseSchema, timeoutMs: 60_000 }),
-    courseManifest: (trackId: string, source: string) => client.call('courseManifest', { params: { trackId }, query: { source }, schema: ManifestResponseSchema }),
+    /** Parsed with the learner superset so the cast's portrait/regional fields are kept (see `manifest-schema.ts`). */
+    courseManifest: (trackId: string, source: string) => client.call('courseManifest', { params: { trackId }, query: { source }, schema: LearnerManifestSchema }),
     missionDetail: (id: string, source: string, enrollmentId?: string) =>
       client.call('missionDetail', { params: { id }, query: { source, enrollmentId }, schema: MissionDetailResponseSchema }),
     missionAttemptCreate: (id: string, body: MissionAttemptCreateRequest) =>

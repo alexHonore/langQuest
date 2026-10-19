@@ -189,8 +189,8 @@ describeStack('prompt injection — API keeps XP/mastery server-decided whatever
 
   afterAll(async () => {
     await h.app.flush();
-    await seeder.cleanup();
     await deleteTestUsers(h, [learner]);
+    await seeder.cleanup();
   });
 
   it('evaluate with injected step strings and a poisoned session still awards the canonical XP once and a valid envelope', async () => {

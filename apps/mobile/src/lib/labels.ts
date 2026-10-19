@@ -34,11 +34,13 @@ export function useUiLabels() {
       not_understood: t('pronunciation.feedback.not_understood'),
       no_speech_detected: t('pronunciation.feedback.no_speech_detected'),
     };
+    // Chip labels: `CoverageBadge` prefixes the language name itself, so these are the source-less
+    // short forms (the `{source}` sentences would read as truncated, e.g. "Prévu à partir du").
     const coverage: Record<CoverageStatus, string> = {
-      complete: t('enrollment.coverage.complete', { source: '' }).trim(),
-      partial: t('enrollment.coverage.partial', { source: '' }).trim(),
-      planned: t('enrollment.coverage.planned', { source: '' }).trim(),
-      unavailable: t('enrollment.coverage.unavailable', { source: '' }).trim(),
+      complete: t('enrollment.coverage.short.complete'),
+      partial: t('enrollment.coverage.short.partial'),
+      planned: t('enrollment.coverage.short.planned'),
+      unavailable: t('enrollment.coverage.short.unavailable'),
     };
     const mastery: Record<MasteryState, string> = {
       not_attempted: t('progress.mastery.not_attempted'),

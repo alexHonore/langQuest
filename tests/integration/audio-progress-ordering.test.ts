@@ -71,8 +71,8 @@ describeStack('audio progress PUT: clientSentAt-corrected ordering across device
 
   afterAll(async () => {
     await h.app.flush();
-    await seeder.cleanup();
     await deleteTestUsers(h, [learner]);
+    await seeder.cleanup();
   });
 
   it('orders devices by skew-corrected wall-clock: a fast clock cannot win with a stale listen, and does not lose a newer one', async () => {

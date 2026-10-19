@@ -34,8 +34,8 @@ describeStack('reviews due (A17) with the FSRS-like scheduler', () => {
 
   afterAll(async () => {
     await h.app.flush();
-    await seeder.cleanup();
     await deleteTestUsers(h, [learner]);
+    await seeder.cleanup();
   });
 
   it('returns only due cards, with a varied scenario and the meaning in the enrollment source language', async () => {

@@ -108,7 +108,13 @@
     },
     "noPaywall": "Tout LangQuest est gratuit. Il n'y a rien à débloquer ni à acheter.",
     "privacyNote": "Vos enregistrements ne servent qu'à vous aider. C'est vous qui décidez ce qui est conservé.",
-    "finish": "Lancer ma première mission"
+    "finish": "Lancer ma première mission",
+    "replay": {
+      "pending": "Préparation de votre cours…",
+      "failed": "Votre cours n’a pas encore pu être préparé.",
+      "retry": "Réessayer",
+      "scriptModeHint": "Vous pourrez modifier ce choix plus tard pour ce cours."
+    }
   },
   "home": {
     "welcomeBack": "Bon retour, {name} !",
@@ -194,7 +200,8 @@
       "lingala": "Couverture du cours de lingala : chevrons abstraits en ambre et bleu",
       "ukrainian": "Couverture du cours d’ukrainien : orbites abstraites en bleu et or",
       "vietnamese": "Couverture du cours de vietnamien : grille de points abstraite en vert et orange"
-    }
+    },
+    "notNativeReviewed": "Pas encore relu par des locuteurs natifs"
   },
   "missions": {
     "title": "Missions",
@@ -371,7 +378,17 @@
     "providerFallbackAccept": "Utiliser le mode guidé",
     "sourceLanguageNote": "Les indices et consignes sont en {source}. {name} parle {target}.",
     "noFakeWaveform": "Niveau sonore",
-    "micLevel": "Niveau du micro {level, number, percent}"
+    "micLevel": "Niveau du micro {level, number, percent}",
+    "syntheticVoice": {
+      "badge": "Voix synthétique",
+      "detail": "{name} parle avec une voix synthétique générée par LangQuest, pas avec une voix humaine enregistrée."
+    },
+    "characters": {
+      "title": "Personnages",
+      "empty": "Aucun personnage n’est encore publié pour ce cours.",
+      "regionalFit": "Parle la variété {region} que vous avez choisie",
+      "talkWith": "Parler avec {name}"
+    }
   },
   "pronunciation": {
     "title": "Coach de prononciation",
@@ -779,7 +796,13 @@
       },
       "optInFallback": "Utiliser le {fallback} pour les parties manquantes",
       "optInFallbackHint": "Une étiquette s'affichera chaque fois qu'un indice vient du {fallback} plutôt que du {source}.",
-      "fallbackLabel": "Affiché en {fallback} (pas encore disponible en {source})"
+      "fallbackLabel": "Affiché en {fallback} (pas encore disponible en {source})",
+      "short": {
+        "complete": "Entièrement disponible",
+        "partial": "Partiellement disponible",
+        "planned": "Prévu",
+        "unavailable": "Non disponible"
+      }
     },
     "remove": "Retirer le cours",
     "removeTitle": "Retirer {target} ?",

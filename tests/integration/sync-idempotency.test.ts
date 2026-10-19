@@ -36,8 +36,8 @@ describeStack('progress sync idempotency (A27)', () => {
 
   afterAll(async () => {
     await h.app.flush();
-    await seeder.cleanup();
     await deleteTestUsers(h, [alice, bob]);
+    await seeder.cleanup();
   });
 
   it('pays the same XP claim once when two devices race, then answers duplicate forever', async () => {

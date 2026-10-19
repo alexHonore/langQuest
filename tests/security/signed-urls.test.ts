@@ -90,8 +90,8 @@ describeStack('playback-url and media proxy misuse (API)', () => {
 
   afterAll(async () => {
     await h.app.flush();
-    await seeder.cleanup();
     await deleteTestUsers(h, [learner]);
+    await seeder.cleanup();
   });
 
   it('playback URLs are never minted for drafts, revoked assets, strangers or unauthenticated callers', async () => {

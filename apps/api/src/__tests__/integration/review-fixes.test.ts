@@ -12,7 +12,7 @@ import { ContentRequestReviewResponseSchema, MissionDetailResponseSchema } from 
 import { afterAll, beforeAll, expect, it } from 'vitest';
 import { MissionEvaluateApiResponseSchema } from '../../routes/learner/missions';
 import { TURN_RETRY_WAIT_MS } from '../../routes/speech/conversation';
-import { call, createStackUser, deleteStackUsers, describeWithStack, stackApp, type StackHarness, type TestUser } from '../harness';
+import { call, createStackUser, deleteStackRows, deleteStackUsers, describeWithStack, stackApp, type StackHarness, type TestUser } from '../harness';
 
 const describeStack = describeWithStack('api.review-fixes');
 
@@ -68,10 +68,12 @@ describeStack('review fixes against the local stack', () => {
 
   afterAll(async () => {
     await h.app.flush();
-    if (sessionIds.length) await h.service.from('conversation_sessions').delete().in('id', sessionIds);
-    if (characterId) await h.service.from('characters').delete().eq('id', characterId);
-    if (missionIds.length) await h.service.from('missions').delete().in('id', missionIds);
+    // Users first: purging them removes every session they own (including ones not tracked in `sessionIds`),
+    // which is what the RESTRICT FKs on characters/missions wait for.
     await deleteStackUsers(h, [alice.id, admin.id]);
+    await deleteStackRows(h, 'conversation_sessions', sessionIds);
+    if (characterId) await deleteStackRows(h, 'characters', [characterId]);
+    await deleteStackRows(h, 'missions', missionIds);
   });
 
   it('mission detail: authored source-language instructions/hints win and the language-less scaffold never leaks', async () => {

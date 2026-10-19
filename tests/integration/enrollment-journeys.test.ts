@@ -30,8 +30,8 @@ describeStack('enrollment and source-language journeys (A01–A07)', () => {
 
   afterAll(async () => {
     await h.app.flush();
-    await seeder.cleanup();
     await deleteTestUsers(h, users);
+    await seeder.cleanup();
   });
 
   it('A01 — English-source learner enrols in Spanish (Spain): target es-ES, source en, honest coverage', async () => {

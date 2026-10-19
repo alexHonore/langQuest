@@ -71,6 +71,30 @@ describe('OpenRouterTextReasoner', () => {
     expect(sink.records[0]?.errorCode).toBe('schema_validation_failed');
   });
 
+  it('retries a reply cut off by max_tokens with a larger output budget and a truncation note (never the same cap twice)', async () => {
+    // Live failure 2026-10-19: Darija text + transliteration + French gloss did not fit the 400-token dialogue cap;
+    // the model answered with finish_reason "length" twice and the learner saw a 503.
+    const { reasoner, sink, calls } = setup((n) => (n === 1 ? chatResponse('{"reply":"صباح', 'anthropic/claude-sonnet-5.5', { choices: [{ message: { role: 'assistant', content: '{"reply":"صباح' }, finish_reason: 'length' }], usage: { prompt_tokens: 100, completion_tokens: 1000 } }) : chatResponse('{"reply":"صباح الخير","variety":"ary"}')));
+    const out = await reasoner.generateStructured('character_dialogue', ctxFor('arabic-moroccan'), prompt, Schema);
+    expect(out.variety).toBe('ary');
+    expect(calls).toHaveLength(2);
+    const first = calls[0]?.body as { max_tokens: number };
+    const second = calls[1]?.body as { max_tokens: number; messages: Array<{ role: string; content: string }> };
+    expect(first.max_tokens).toBe(1000);
+    expect(second.max_tokens).toBeGreaterThan(first.max_tokens);
+    expect(second.messages.at(-1)?.content).toMatch(/cut off by the output limit/);
+    expect(sink.records[0]).toMatchObject({ success: false, errorCode: 'output_truncated' });
+    expect(sink.records[0]?.redactedLog).toMatchObject({ finishReason: 'length', maxTokens: 1000 });
+    expect(sink.records[1]).toMatchObject({ success: true });
+  });
+
+  it('names the output limit when both attempts are truncated', async () => {
+    const { reasoner } = setup(() => chatResponse('{"reply":"', 'anthropic/claude-haiku-5.5', { choices: [{ message: { role: 'assistant', content: '{"reply":"' }, finish_reason: 'length' }] }));
+    const err = await reasoner.generateStructured('scene_planning', ctxFor('french', 'en'), prompt, Schema).catch((e: unknown) => e);
+    expect(err).toBeInstanceOf(StructuredOutputError);
+    expect((err as Error).message).toMatch(/cut off by the output limit/);
+  });
+
   it('throws StructuredOutputError after the repair retry also fails', async () => {
     const { reasoner } = setup(() => chatResponse('not json at all'));
     await expect(reasoner.generateStructured('scene_planning', ctxFor('french', 'en'), prompt, Schema)).rejects.toBeInstanceOf(StructuredOutputError);

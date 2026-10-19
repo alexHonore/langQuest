@@ -47,8 +47,8 @@ describeStack('audio library — published-only reads, bookmarks, progress', () 
 
   afterAll(async () => {
     await h.app.flush();
-    await seeder.cleanup();
     await deleteTestUsers(h, [alice, bob]);
+    await seeder.cleanup();
   });
 
   it('lists only published collections, localized to the requested instruction language, with honest counts', async () => {

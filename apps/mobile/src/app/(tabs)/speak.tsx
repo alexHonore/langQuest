@@ -1,23 +1,30 @@
 import { getCourseTrack } from '@langquest/contracts';
-import { Button, CharacterPortrait, EmptyState, Row, StatusLine, Surface, ThemedText, charactersForVariety, useTheme } from '@langquest/ui';
+import { Button, CharacterPortrait, EmptyState, Row, StatusLine, Surface, ThemedText, useTheme } from '@langquest/ui';
 import { useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
 import { Screen } from '@/components/Screen';
+import { LoadingView } from '@/components/StateViews';
+import { SyntheticVoiceBadge } from '@/components/SyntheticVoiceBadge';
+import { useCast } from '@/features/characters/use-cast';
 import { useActiveEnrollment } from '@/features/session/queries';
-import { useExtraLabels } from '@/lib/extra-labels';
+import { headingLevel } from '@/lib/a11y';
 import { useLanguageNames, useT } from '@/lib/i18n';
 import { track } from '@/lib/telemetry';
 import { usePrefs } from '@/state/prefs';
 
-/** Speak hub: free conversation, pronunciation coach, character gallery, mic mode. */
+/**
+ * Speak hub: free conversation, pronunciation coach, the course cast and the mic mode. The cast comes
+ * from the course manifest (`characters[]` published for this track), so every id offered here is one
+ * `POST /v1/ai/conversation/session` can start; the in-code portrait is picked by the roster key.
+ */
 export default function Speak(): React.JSX.Element {
   const theme = useTheme();
   const router = useRouter();
   const t = useT();
-  const X = useExtraLabels();
   const names = useLanguageNames();
   const { enrollment } = useActiveEnrollment();
+  const { cast, query: manifest } = useCast(enrollment);
   const speakMode = usePrefs((s) => s.speakMode);
   useEffect(() => track.screenView('speak', theme.direction.rtl, enrollment?.scriptMode ?? null), [theme.direction.rtl, enrollment?.scriptMode]);
   if (!enrollment) {
@@ -28,7 +35,7 @@ export default function Speak(): React.JSX.Element {
     );
   }
   const track_ = getCourseTrack(enrollment.courseTrackId);
-  const cast = charactersForVariety(track_.targetVarietyId);
+  const castLoading = manifest.isLoading && cast.length === 0;
   return (
     <Screen insideTabs title={t('speak.title')}>
       <StatusLine icon="info" tone="secondary" text={t('speak.sourceLanguageNote', { source: names(enrollment.sourceLanguageCode), name: cast[0]?.name ?? track_.displayName, target: track_.displayName })} />
@@ -41,24 +48,27 @@ export default function Speak(): React.JSX.Element {
           {t('speak.modeSwitchHint')}
         </ThemedText>
       </Surface>
-      <Row gap={theme.spacing.sm} justify="space-between">
-        <ThemedText variant="heading" accessibilityRole="header">
-          {X.charactersHeading}
-        </ThemedText>
-        <Button label={t('common.showMore')} variant="ghost" size="sm" icon="characters" onPress={() => router.push('/characters')} accessibilityLabel={t('common.showMore')} />
-      </Row>
-      {cast.length === 0 ? (
-        <ThemedText tone="muted">{t('common.notAvailable')}</ThemedText>
-      ) : (
-        <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: theme.spacing.md }}>
-          {cast.map((c) => (
-            <View key={c.id} style={{ width: 140 }}>
-              <CharacterPortrait characterId={c.id} name={c.name} subtitle={`${c.role} · ${c.city}`} size={96} />
-              <Button label={t('speak.title')} variant="ghost" size="sm" onPress={() => router.push({ pathname: '/conversation', params: { enrollmentId: enrollment.id, characterId: c.characterId } })} accessibilityLabel={`${t('speak.title')} ${c.name}`} />
-            </View>
-          ))}
-        </ScrollView>
-      )}
+      {castLoading ? <LoadingView rows={1} /> : null}
+      {/* §8 "visible means usable": a course without a published cast simply has no character section. */}
+      {cast.length > 0 ? (
+        <>
+          <Row gap={theme.spacing.sm} justify="space-between">
+            <ThemedText variant="heading" accessibilityRole="header" {...headingLevel(2)}>
+              {t('speak.characters.title')}
+            </ThemedText>
+            <Button label={t('common.showMore')} variant="ghost" size="sm" icon="characters" onPress={() => router.push('/characters')} accessibilityLabel={t('common.showMore')} />
+          </Row>
+          <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={{ gap: theme.spacing.md }}>
+            {cast.map((c) => (
+              <View key={c.id} testID={`speak-character-${c.portraitKey}`} style={{ width: 150, gap: theme.spacing.xs, alignItems: 'center' }}>
+                <CharacterPortrait characterId={c.portraitKey} name={c.name} subtitle={c.region ? `${c.role} · ${c.region}` : c.role} size={96} />
+                {c.syntheticVoice ? <SyntheticVoiceBadge name={c.name} /> : null}
+                <Button label={t('speak.title')} variant="ghost" size="sm" onPress={() => router.push({ pathname: '/conversation', params: { enrollmentId: enrollment.id, characterId: c.id } })} accessibilityLabel={t('speak.characters.talkWith', { name: c.name })} />
+              </View>
+            ))}
+          </ScrollView>
+        </>
+      ) : null}
     </Screen>
   );
 }

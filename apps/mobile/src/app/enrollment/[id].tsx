@@ -1,18 +1,17 @@
 import { SOURCE_LANGUAGES, getCourseTrack, type EnrollmentPatchRequest, type LearnerLevel, type SourceLanguageCode } from '@langquest/contracts';
-import { Button, Chip, CoverageBadge, Row, StatusLine, Surface, ThemedText, orderedSourceLanguages, useTheme } from '@langquest/ui';
+import { Button, Chip, Row, StatusLine, Surface, ThemedText, orderedSourceLanguages, useTheme } from '@langquest/ui';
 import { useMutation } from '@tanstack/react-query';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, View } from 'react-native';
 import { Screen } from '@/components/Screen';
+import { CoverageStatus } from '@/components/CoverageStatus';
 import { ErrorView } from '@/components/StateViews';
-import { coverageDescriptions } from '@/features/session/coverage-copy';
 import { useFallbackOptIn } from '@/features/session/fallback';
 import { useActiveEnrollment, useCourses, useInvalidateLearner } from '@/features/session/queries';
 import { ApiClientError } from '@/lib/api/client';
 import { useExtraLabels } from '@/lib/extra-labels';
 import { useLanguageNames, useT } from '@/lib/i18n';
-import { useUiLabels } from '@/lib/labels';
 import { useServices } from '@/lib/services';
 import { track } from '@/lib/telemetry';
 import { usePrefs } from '@/state/prefs';
@@ -34,7 +33,6 @@ export default function EnrollmentEditor(): React.JSX.Element {
   const t = useT();
   const X = useExtraLabels();
   const names = useLanguageNames();
-  const labels = useUiLabels();
   const { api } = useServices();
   const { id } = useLocalSearchParams<{ id: string }>();
   const { enrollments, me } = useActiveEnrollment();
@@ -143,16 +141,13 @@ export default function EnrollmentEditor(): React.JSX.Element {
           ))}
         </Row>
         {source ? (
-          <CoverageBadge
+          <CoverageStatus
             testID="enrollment-coverage"
             status={coverage?.status ?? (source === enrollment.sourceLanguageCode ? enrollment.coverage.status : 'planned')}
             sourceLanguageCode={source}
             nativeReviewed={coverage?.nativeReviewed ?? (source === enrollment.sourceLanguageCode ? enrollment.coverage.nativeReviewed : undefined)}
             fallbackSourceLanguageCode={coverage?.fallbackSourceLanguageCode ?? (source === enrollment.sourceLanguageCode ? enrollment.coverage.fallbackSourceLanguageCode : null)}
             verbose
-            labels={labels.coverage}
-            descriptions={coverageDescriptions(t, X, names(source), (coverage?.fallbackSourceLanguageCode ?? (source === enrollment.sourceLanguageCode ? enrollment.coverage.fallbackSourceLanguageCode : null)) ? names((coverage?.fallbackSourceLanguageCode ?? enrollment.coverage.fallbackSourceLanguageCode) as string) : null)}
-            languageNames={{ [source]: names(source), ...(coverage?.fallbackSourceLanguageCode ? { [coverage.fallbackSourceLanguageCode]: names(coverage.fallbackSourceLanguageCode) } : {}) }}
           />
         ) : null}
         {source === enrollment.sourceLanguageCode && enrollment.coverage.status !== 'complete' && fallback.offered ? (

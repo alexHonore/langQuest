@@ -43,8 +43,8 @@ describeStack('conversation turn: 409 turn_in_progress → retry the same client
 
   afterAll(async () => {
     await h.app.flush();
-    await seeder.cleanup();
     await deleteTestUsers(h, [learner, stranger]);
+    await seeder.cleanup();
   });
 
   it('a retry while the original is still in flight answers 409 turn_in_progress with Retry-After, and never runs the pipeline again', async () => {

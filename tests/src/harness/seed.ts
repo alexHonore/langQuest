@@ -33,7 +33,9 @@ export class Seeder {
 
   async cleanup(): Promise<void> {
     for (const { table, id } of [...this.rows].reverse()) {
-      await this.service.from(table).delete().eq('id' as never, id as never);
+      const res = await this.service.from(table).delete().eq('id' as never, id as never);
+      // A refused delete (typically a RESTRICT FK from a session a suite forgot to purge first) must not leak silently.
+      if (res.error) console.warn(`[seed] cleanup of ${table} ${id} failed: ${res.error.message}`);
     }
     this.rows.length = 0;
   }

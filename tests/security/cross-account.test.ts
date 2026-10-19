@@ -48,8 +48,8 @@ describeStack('cross-account access is denied at API and DB layers (A29)', () =>
 
   afterAll(async () => {
     await h.app.flush();
-    await seeder.cleanup();
     await deleteTestUsers(h, [victim, attacker]);
+    await seeder.cleanup();
   });
 
   it('API: enrollments, skills, reviews, progress and sessions of another learner are 404/rejected, never 200', async () => {

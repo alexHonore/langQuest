@@ -78,8 +78,8 @@ describeStack('account export and deletion (A28) with ledger rows present', () =
 
   afterAll(async () => {
     await h.app.flush();
-    await seeder.cleanup();
     await deleteTestUsers(h, [learner, bystander]);
+    await seeder.cleanup();
   });
 
   it('the ledgers really exist before export/deletion (sanity: the test is not vacuous)', async () => {

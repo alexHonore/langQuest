@@ -3,12 +3,13 @@
  * the offline cache as a fallback (§4.5). Every hook returns `fromCache` so a
  * screen can say "last updated …" instead of pretending data is live.
  */
-import type { CourseManifest, EnrollmentDto, LanguageContext, MissionDetailResponse, ModelCapabilitiesResponse, ProgressResponse, ReviewsDueResponse } from '@langquest/contracts';
+import type { EnrollmentDto, LanguageContext, MissionDetailResponse, ModelCapabilitiesResponse, ProgressResponse, ReviewsDueResponse } from '@langquest/contracts';
 import { buildLanguageContext } from '@langquest/contracts';
 import { useQuery, useQueryClient, type UseQueryResult } from '@tanstack/react-query';
 import { useCallback, useEffect, useMemo } from 'react';
 import { ApiClientError } from '@/lib/api/client';
 import type { CoursesResponse } from '@/lib/api/endpoints';
+import type { LearnerManifest } from '@/lib/api/manifest-schema';
 import type { MeProfile } from '@/lib/api/me-schema';
 import { useI18n } from '@/lib/i18n';
 import { useServices } from '@/lib/services';
@@ -117,9 +118,10 @@ export function useLanguageContext(enrollment: EnrollmentDto | null): LanguageCo
   return ctx;
 }
 
-export function useManifest(enrollment: EnrollmentDto | null): UseQueryResult<CachedResult<CourseManifest>, Error> {
+/** Course manifest (chapters, missions and the published cast) for the enrollment's track × source. */
+export function useManifest(enrollment: EnrollmentDto | null): UseQueryResult<CachedResult<LearnerManifest>, Error> {
   const { api } = useServices();
-  return useCachedQuery<CourseManifest>({
+  return useCachedQuery<LearnerManifest>({
     key: ['manifest', enrollment?.courseTrackId, enrollment?.sourceLanguageCode],
     enabled: Boolean(enrollment),
     staleTime: 5 * 60_000,

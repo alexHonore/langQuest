@@ -49,7 +49,7 @@ export const ROLE_TO_TASK: Readonly<Record<AiRole, AiTaskName>> = {
 
 /** Per-role sampling defaults layered over the resolved profile params. */
 export const ROLE_PARAMS: Readonly<Record<AiRole, ModelParams>> = {
-  dialogue_character: { temperature: 0.7, maxOutputTokens: 400, timeoutMs: 12_000 },
+  dialogue_character: { temperature: 0.7, maxOutputTokens: 1000, timeoutMs: 12_000 },
   evaluator: { temperature: 0.1, maxOutputTokens: 1200, timeoutMs: 30_000 },
   content_factory: { temperature: 0.8, maxOutputTokens: 4000, timeoutMs: 90_000 },
   translation_overlay: { temperature: 0.2, maxOutputTokens: 300, timeoutMs: 10_000 },
@@ -118,7 +118,7 @@ const CHEAP_FAST = ['google/gemini-3.8-flash', 'deepseek/deepseek-v4.1-flash'] a
 export const DEFAULT_PROFILES: readonly ModelProfile[] = [
   mk({ task: 'content_generation', provider: 'openrouter', primary: 'anthropic/claude-sonnet-5.5', fallbacks: ['google/gemini-3.8-flash'], latency: 'batch', params: { temperature: 0.8, maxOutputTokens: 4000, timeoutMs: 90_000, maxRetries: 2 } }),
   mk({ task: 'scene_planning', provider: 'openrouter', primary: 'anthropic/claude-haiku-5.5', fallbacks: CHEAP_FAST, latency: 'interactive', params: { temperature: 0.5, maxOutputTokens: 1200, timeoutMs: 20_000 } }),
-  mk({ task: 'character_dialogue', provider: 'openrouter', primary: 'anthropic/claude-haiku-5.5', fallbacks: CHEAP_FAST, latency: 'realtime', params: { temperature: 0.7, maxOutputTokens: 400, timeoutMs: 12_000, maxRetries: 1, contextBudgetTokens: 6000 } }),
+  mk({ task: 'character_dialogue', provider: 'openrouter', primary: 'anthropic/claude-haiku-5.5', fallbacks: CHEAP_FAST, latency: 'realtime', params: { temperature: 0.7, maxOutputTokens: 1000, timeoutMs: 12_000, maxRetries: 1, contextBudgetTokens: 6000 } }),
   mk({ task: 'meaning_assessment', provider: 'openrouter', primary: 'google/gemini-3.8-flash', fallbacks: ['anthropic/claude-haiku-5.5', 'deepseek/deepseek-v4.1-flash'], latency: 'interactive', params: { temperature: 0, maxOutputTokens: 300, timeoutMs: 8_000 } }),
   mk({ task: 'source_explanation', provider: 'openrouter', primary: 'anthropic/claude-haiku-5.5', fallbacks: CHEAP_FAST, latency: 'interactive', params: { temperature: 0.2, maxOutputTokens: 300, timeoutMs: 10_000 } }),
   mk({ task: 'learner_evaluation', provider: 'openrouter', primary: 'google/gemini-3.8-flash', fallbacks: ['anthropic/claude-haiku-5.5', 'deepseek/deepseek-v4.1-flash'], latency: 'batch', params: { temperature: 0.1, maxOutputTokens: 1200, timeoutMs: 30_000 } }),
@@ -130,7 +130,7 @@ export const DEFAULT_PROFILES: readonly ModelProfile[] = [
   mk({ task: 'language_quality_check', provider: 'openrouter', primary: 'google/gemini-3.5-flash-lite', fallbacks: ['anthropic/claude-haiku-5.5'], latency: 'interactive', params: { temperature: 0, maxOutputTokens: 200, timeoutMs: 8_000 } }),
   // Variety-scoped: dialects and low-resource targets get a stronger dialogue/evaluation model by default.
   ...(['ary', 'arz', 'ar-levant', 'yue', 'ht', 'rw', 'ln', 'sw'] as const).flatMap((variety) => [
-    mk({ task: 'character_dialogue', variety, provider: 'openrouter', primary: 'anthropic/claude-sonnet-5.5', fallbacks: ['anthropic/claude-haiku-5.5', 'google/gemini-3.8-flash'], latency: 'realtime', params: { temperature: 0.7, maxOutputTokens: 400, timeoutMs: 14_000, maxRetries: 1 } }),
+    mk({ task: 'character_dialogue', variety, provider: 'openrouter', primary: 'anthropic/claude-sonnet-5.5', fallbacks: ['anthropic/claude-haiku-5.5', 'google/gemini-3.8-flash'], latency: 'realtime', params: { temperature: 0.7, maxOutputTokens: 1000, timeoutMs: 14_000, maxRetries: 1 } }),
     mk({ task: 'learner_evaluation', variety, provider: 'openrouter', primary: 'anthropic/claude-sonnet-5.5', fallbacks: ['google/gemini-3.8-flash'], latency: 'batch', params: { temperature: 0.1, maxOutputTokens: 1200, timeoutMs: 40_000 } }),
   ]),
 ];

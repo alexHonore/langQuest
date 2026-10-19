@@ -108,7 +108,13 @@
     },
     "noPaywall": "Todo LangQuest es gratis. No hay nada que desbloquear ni comprar.",
     "privacyNote": "Tus grabaciones solo se usan para ayudarte. Tú decides qué se guarda.",
-    "finish": "Empezar mi primera misión"
+    "finish": "Empezar mi primera misión",
+    "replay": {
+      "pending": "Preparando tu curso…",
+      "failed": "Aún no se pudo preparar tu curso.",
+      "retry": "Reintentar",
+      "scriptModeHint": "Podrás cambiar esta elección más adelante para este curso."
+    }
   },
   "enrollment": {
     "title": "Tus cursos",
@@ -152,7 +158,13 @@
       },
       "optInFallback": "Usar {fallback} para las partes que faltan",
       "optInFallbackHint": "Verás una etiqueta cada vez que una pista venga de {fallback} en lugar de {source}.",
-      "fallbackLabel": "Mostrado en {fallback} (aún no disponible en {source})"
+      "fallbackLabel": "Mostrado en {fallback} (aún no disponible en {source})",
+      "short": {
+        "complete": "Totalmente disponible",
+        "partial": "Parcialmente disponible",
+        "planned": "Previsto",
+        "unavailable": "No disponible"
+      }
     },
     "remove": "Quitar curso",
     "removeTitle": "¿Quitar {target}?",

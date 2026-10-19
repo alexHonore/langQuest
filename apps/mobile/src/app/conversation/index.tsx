@@ -5,6 +5,9 @@ import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, Platform, ScrollView, TextInput, View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { ErrorView, LoadingView } from '@/components/StateViews';
+import { SyntheticVoiceBadge } from '@/components/SyntheticVoiceBadge';
+import { findCastCharacter } from '@/features/characters/cast';
+import { useCast } from '@/features/characters/use-cast';
 import { ConversationController, type ConversationSnapshot } from '@/features/conversation/controller';
 import { sessionScopeFromParams } from '@/features/conversation/scope';
 import { levelToUnit } from '@/features/conversation/vad';
@@ -165,7 +168,10 @@ function LiveConversation({ session, enrollment, mode }: { session: Conversation
   }, [online, controller]);
 
   const characterName = session.character.name;
-  const roster = findCharacter(session.character.id);
+  // Portrait art is keyed by the roster slug the manifest carries for this character; the stable uuid
+  // resolves too for the seeded cast, so a manifest that is still loading degrades to the uuid lookup.
+  const { cast } = useCast(enrollment);
+  const roster = findCharacter(findCastCharacter(cast, session.character.id)?.portraitKey ?? session.character.id);
   const speechState = snap?.speechState ?? 'idle';
   const machineState = snap?.machine.state ?? 'preparing';
   const stateLabel = labels.conversationState(machineState, characterName);
@@ -279,10 +285,13 @@ function LiveConversation({ session, enrollment, mode }: { session: Conversation
         </Surface>
       ) : null}
       <SceneArtwork sceneId="cafe" aspectRatio={2.4} overlay={<CharacterPortrait characterId={roster?.id ?? session.character.id} expression={snap?.lastCharacterTurn?.expression ?? 'neutral'} speechState={speechState} name={characterName} subtitle={roster ? `${roster.role} · ${roster.city}` : session.character.role} size={96} stateLabels={labels.speechStatesFor(characterName)} />} overlayPosition="center" scrim />
-      <ThemedText variant="caption" tone="muted">
-        {t('speak.sourceLanguageNote', { source: names(enrollment.sourceLanguageCode), name: characterName, target: trackDef.displayName })}
-        {session.character.syntheticVoice ? ` · ${X.syntheticVoice}` : ''}
-      </ThemedText>
+      <Row gap={theme.spacing.xs} wrap>
+        {session.character.syntheticVoice ? <SyntheticVoiceBadge name={characterName} /> : null}
+        <ThemedText variant="caption" tone="muted" style={{ flexShrink: 1 }}>
+          {t('speak.sourceLanguageNote', { source: names(enrollment.sourceLanguageCode), name: characterName, target: trackDef.displayName })}
+          {session.character.syntheticVoice ? ` · ${X.syntheticVoice}` : ''}
+        </ThemedText>
+      </Row>
 
       <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: theme.spacing.sm }}>
         {(snap?.turns ?? []).map((turn) => {

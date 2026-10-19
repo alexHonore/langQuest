@@ -61,8 +61,8 @@ describeStack('admin publish route is rights-gated (A20)', () => {
 
   afterAll(async () => {
     await h.app.flush();
-    await seeder.cleanup();
     await deleteTestUsers(h, [editor, learner]);
+    await seeder.cleanup();
   });
 
   it('learners cannot publish; editors are blocked with an explicit rights reason and the state does not change', async () => {

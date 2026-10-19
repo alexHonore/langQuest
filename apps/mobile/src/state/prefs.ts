@@ -7,7 +7,7 @@
  * are pushed to the server by the settings screens.
  */
 import AsyncStorage from '@react-native-async-storage/async-storage';
-import type { ConversationMode, SourceLanguageCode } from '@langquest/contracts';
+import type { ConversationMode, ScriptMode, SourceLanguageCode } from '@langquest/contracts';
 import { create } from 'zustand';
 import { createJSONStorage, persist } from 'zustand/middleware';
 
@@ -30,6 +30,11 @@ export interface PrefsState {
   /** Chosen during onboarding before an account exists; applied to the profile on sign-up. */
   pendingDefaultSourceLanguage: SourceLanguageCode | null;
   pendingTrackId: string | null;
+  /** Script mode / regional option picked in onboarding for `pendingTrackId` (replayed into the enrollment). */
+  pendingScriptMode: ScriptMode | null;
+  pendingRegionalOption: string | null;
+  /** Idempotency key of the replayed `POST /v1/me/enrollments`, so a retry never creates a duplicate. */
+  pendingEnrollmentKey: string | null;
   activeEnrollmentId: string | null;
   /**
    * Per-enrollment explicit opt-in to the editorial fallback instruction language (§2.1: "let them opt
@@ -67,6 +72,9 @@ export const DEFAULT_PREFS: Omit<PrefsState, 'hydrated'> = {
   onboardingComplete: false,
   pendingDefaultSourceLanguage: null,
   pendingTrackId: null,
+  pendingScriptMode: null,
+  pendingRegionalOption: null,
+  pendingEnrollmentKey: null,
   activeEnrollmentId: null,
   fallbackOptIns: {},
   wifiOnlyDownloads: true,

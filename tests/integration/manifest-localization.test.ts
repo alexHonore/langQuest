@@ -48,8 +48,8 @@ describeStack('course manifest localization and caching', () => {
 
   afterAll(async () => {
     await h.app.flush();
-    await seeder.cleanup();
     await deleteTestUsers(h, [learner]);
+    await seeder.cleanup();
   });
 
   const missionsOf = <M extends { id: string }>(manifest: { chapters: Array<{ missions: M[] }> }): M[] => manifest.chapters.flatMap((c) => c.missions);

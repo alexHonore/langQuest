@@ -1,17 +1,16 @@
 import { SOURCE_LANGUAGES, getCourseTrack, isCourseTrackId, type LearnerLevel, type ScriptMode, type SourceLanguageCode } from '@langquest/contracts';
-import { Button, Chip, CourseCover, CoverageBadge, Row, StatusLine, Surface, ThemedText, dialectClarification, orderedSourceLanguages, useTheme } from '@langquest/ui';
+import { Button, Chip, CourseCover, Row, StatusLine, Surface, ThemedText, dialectClarification, orderedSourceLanguages, useTheme } from '@langquest/ui';
 import { useMutation } from '@tanstack/react-query';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { Screen } from '@/components/Screen';
+import { CoverageStatus } from '@/components/CoverageStatus';
 import { ErrorView } from '@/components/StateViews';
-import { coverageDescriptions } from '@/features/session/coverage-copy';
 import { useActiveEnrollment, useCourses, useInvalidateLearner } from '@/features/session/queries';
 import { useExtraLabels } from '@/lib/extra-labels';
 import { newUuid } from '@/lib/ids';
 import { useLanguageNames, useT } from '@/lib/i18n';
-import { useUiLabels } from '@/lib/labels';
 import { useServices } from '@/lib/services';
 import { track } from '@/lib/telemetry';
 import { usePrefs } from '@/state/prefs';
@@ -29,7 +28,6 @@ export default function EnrollTrack(): React.JSX.Element {
   const t = useT();
   const names = useLanguageNames();
   const X = useExtraLabels();
-  const labels = useUiLabels();
   const { api } = useServices();
   const { trackId } = useLocalSearchParams<{ trackId: string }>();
   const { me, enrollments } = useActiveEnrollment();
@@ -102,7 +100,7 @@ export default function EnrollTrack(): React.JSX.Element {
           <View style={{ gap: theme.spacing.xs }}>
             {/* The editorial status for this exact (track, source) pair; while it loads nothing is guessed. */}
             {coverage || !courses.isLoading ? (
-              <CoverageBadge testID="catalog-coverage" status={coverage?.status ?? 'planned'} sourceLanguageCode={source} nativeReviewed={coverage?.nativeReviewed} fallbackSourceLanguageCode={coverage?.fallbackSourceLanguageCode ?? null} verbose labels={labels.coverage} descriptions={coverageDescriptions(t, X, names(source), coverage?.fallbackSourceLanguageCode ? names(coverage.fallbackSourceLanguageCode) : null)} languageNames={{ [source]: names(source), ...(coverage?.fallbackSourceLanguageCode ? { [coverage.fallbackSourceLanguageCode]: names(coverage.fallbackSourceLanguageCode) } : {}) }} />
+              <CoverageStatus testID="catalog-coverage" status={coverage?.status ?? 'planned'} sourceLanguageCode={source} nativeReviewed={coverage?.nativeReviewed} fallbackSourceLanguageCode={coverage?.fallbackSourceLanguageCode ?? null} verbose />
             ) : null}
             {coverage && coverage.status !== 'complete' && coverage.fallbackSourceLanguageCode ? (
               <ThemedText variant="caption" tone="secondary">

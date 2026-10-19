@@ -69,6 +69,11 @@ export class MemoryAiRequestSink implements AiRequestSink {
   }
 }
 
+/** When a structured reply is cut off by `max_tokens`, the repair attempt runs with this multiple of the budget… */
+export const TRUNCATION_BUDGET_FACTOR = 2;
+/** …capped here, so a runaway model never gets an unbounded output budget. */
+export const MAX_REPAIR_OUTPUT_TOKENS = 4000;
+
 export class StructuredOutputError extends Error {
   constructor(
     message: string,
@@ -160,6 +165,9 @@ export class OpenRouterTextReasoner implements TextReasoner {
 
     let messages = baseMessages;
     let lastError: StructuredOutputError | null = null;
+    // Output budget for this attempt. A reply cut off by `max_tokens` (finish_reason "length") can never validate,
+    // and re-asking under the same cap cannot succeed either: the repair attempt then runs with a larger budget.
+    let maxTokens = profile.params.maxOutputTokens;
     for (let attempt = 0; attempt <= this.repairRetries; attempt += 1) {
       const startedAt = Date.now();
       let result;
@@ -170,7 +178,7 @@ export class OpenRouterTextReasoner implements TextReasoner {
             messages,
             responseFormat,
             temperature: profile.params.temperature,
-            maxTokens: profile.params.maxOutputTokens,
+            maxTokens,
             topP: profile.params.topP,
             ...(this.userHash ? { user: this.userHash } : {}),
           },
@@ -201,6 +209,7 @@ export class OpenRouterTextReasoner implements TextReasoner {
       }
 
       const parsed = safeParse(schema, result.content);
+      const truncated = !parsed.success && result.finishReason === 'length';
       await this.emit({
         task,
         locale,
@@ -210,22 +219,25 @@ export class OpenRouterTextReasoner implements TextReasoner {
         fallbackIndex: result.fallbackIndex,
         latencyMs: result.latencyMs,
         success: parsed.success,
-        errorCode: parsed.success ? null : 'schema_validation_failed',
+        errorCode: parsed.success ? null : truncated ? 'output_truncated' : 'schema_validation_failed',
         traceId,
         usage: result.usage,
         cost: result.estimatedCostUsd,
-        log: { attempt, templateId: prompt.templateId, templateVersion: prompt.templateVersion, requestId: result.requestId, generationId: result.generationId, provider: result.provider, finishReason: result.finishReason, messages: redactMessages(messages), strict: responseFormat.json_schema.strict ?? false, profileSource: profile.resolvedSource },
+        log: { attempt, templateId: prompt.templateId, templateVersion: prompt.templateVersion, requestId: result.requestId, generationId: result.generationId, provider: result.provider, finishReason: result.finishReason, maxTokens: maxTokens ?? null, messages: redactMessages(messages), strict: responseFormat.json_schema.strict ?? false, profileSource: profile.resolvedSource },
       });
       if (parsed.success) return parsed.data;
 
-      lastError = new StructuredOutputError(`Model output failed schema validation for task ${task}`, parsed.issues, result.content);
+      lastError = new StructuredOutputError(truncated ? `Model output for task ${task} was cut off by the output limit (${maxTokens ?? 'provider default'} tokens) before the JSON was complete` : `Model output failed schema validation for task ${task}`, parsed.issues, result.content);
+      if (truncated && maxTokens !== undefined) maxTokens = Math.min(maxTokens * TRUNCATION_BUDGET_FACTOR, MAX_REPAIR_OUTPUT_TOKENS);
       // Repair instruction: show the raw output and the validation issues; ask for corrected JSON only.
       messages = [
         ...baseMessages,
         { role: 'assistant', content: result.content.slice(0, 6000) },
         {
           role: 'user',
-          content: `Your previous reply did not match the required JSON schema. Problems:\n${formatIssues(parsed.issues)}\nReturn ONLY a corrected JSON object that satisfies the schema. Keep the same language, script and variety constraints as instructed.`,
+          content: truncated
+            ? `Your previous reply was cut off by the output limit before the JSON object was complete. Return ONLY a complete, compact JSON object that satisfies the schema: no reasoning, no commentary, no markdown, and keep every string short. Keep the same language, script and variety constraints as instructed.`
+            : `Your previous reply did not match the required JSON schema. Problems:\n${formatIssues(parsed.issues)}\nReturn ONLY a corrected JSON object that satisfies the schema. Keep the same language, script and variety constraints as instructed.`,
         },
       ];
     }

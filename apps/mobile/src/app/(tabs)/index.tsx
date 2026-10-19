@@ -4,10 +4,12 @@ import { useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import { View } from 'react-native';
 import { Screen } from '@/components/Screen';
-import { CacheNotice, ErrorView, LoadingView } from '@/components/StateViews';
+import { CacheNotice, ErrorView, LoadingView, errorMessageFor } from '@/components/StateViews';
 import { usePathway } from '@/features/missions/use-pathway';
+import { useOnboardingReplay } from '@/features/onboarding/use-onboarding-replay';
 import { useFallbackOptIn } from '@/features/session/fallback';
 import { useActiveEnrollment, useProgress, useReviewsDue } from '@/features/session/queries';
+import { headingLevel } from '@/lib/a11y';
 import { useExtraLabels } from '@/lib/extra-labels';
 import { useLanguageNames, useSourceTranslator, useT } from '@/lib/i18n';
 import { useUiLabels } from '@/lib/labels';
@@ -29,6 +31,8 @@ export default function Home(): React.JSX.Element {
   const reviews = useReviewsDue(enrollment, 12);
   const progress = useProgress(Boolean(me));
   const fallback = useFallbackOptIn(enrollment);
+  // The course picked in onboarding is replayed into an enrollment here, after sign-up or sign-in.
+  const replay = useOnboardingReplay();
   // Only the fallback the learner explicitly accepted is ever passed to the translator (§2.1).
   const sourceT = useSourceTranslator(enrollment?.sourceLanguageCode, fallback.active);
   useEffect(() => track.screenView('home', theme.direction.rtl, enrollment?.scriptMode ?? null), [theme.direction.rtl, enrollment?.scriptMode]);
@@ -61,12 +65,20 @@ export default function Home(): React.JSX.Element {
       {query.error && !query.data ? <ErrorView error={query.error} onRetry={() => void query.refetch()} /> : null}
       {query.data?.fromCache ? <CacheNotice fetchedAt={query.data.fetchedAt} /> : null}
 
-      {query.data && !enrollment ? <EmptyState title={t('home.noCourse')} description={t('onboarding.chooseTargetHint')} mascotState="curious" actionLabel={t('home.addCourse')} onAction={() => router.push('/catalog')} /> : null}
+      {replay.state.status === 'running' || (replay.pending && replay.state.status === 'idle' && !enrollment) ? <StatusLine icon="info" tone="info" text={t('onboarding.replay.pending')} /> : null}
+      {replay.state.status === 'failed' ? (
+        <Surface variant="muted" radius="md" padding={theme.spacing.md} style={{ gap: theme.spacing.xs }}>
+          <StatusLine icon="warning" tone="warning" text={t('onboarding.replay.failed')} />
+          <ThemedText variant="caption" tone="muted">{errorMessageFor(replay.state.error, t)}</ThemedText>
+          {replay.state.retryable ? <Button label={t('onboarding.replay.retry')} variant="secondary" size="sm" icon="replay" onPress={replay.retry} accessibilityLabel={t('onboarding.replay.retry')} /> : null}
+        </Surface>
+      ) : null}
+      {query.data && !enrollment && !replay.pending && replay.state.status !== 'running' ? <EmptyState title={t('home.noCourse')} description={t('onboarding.chooseTargetHint')} mascotState="curious" actionLabel={t('home.addCourse')} onAction={() => router.push('/catalog')} /> : null}
 
       {enrollment ? (
         <View style={{ gap: theme.spacing.lg }}>
           <Row gap={theme.spacing.sm} justify="space-between">
-            <ThemedText variant="heading" accessibilityRole="header">
+            <ThemedText variant="heading" accessibilityRole="header" {...headingLevel(2)}>
               {t('home.nextConversation')}
             </ThemedText>
             <Button testID="home-switch-course" label={t('home.switchCourse')} variant="ghost" size="sm" icon="globe" onPress={() => router.push('/course-switcher')} accessibilityLabel={t('home.switchCourse')} />

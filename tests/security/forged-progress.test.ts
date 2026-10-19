@@ -26,8 +26,8 @@ describeStack('forged XP / mastery / outcome writes are refused', () => {
 
   afterAll(async () => {
     await h.app.flush();
-    await seeder.cleanup();
     await deleteTestUsers(h, [learner]);
+    await seeder.cleanup();
   });
 
   it('DB: direct inserts into xp_ledger, user_skill_mastery, mission_progress, user_achievements, learning_observations and device_sync_events fail', async () => {

@@ -16,7 +16,7 @@ import { FakeReasoner } from '@langquest/ai/test-support/fakes';
 import type { AiServices } from '@langquest/ai';
 import { unsupportedCapability, type Prompt, type SpeechRecognizer, type SpeechSynthesizer } from '@langquest/contracts';
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { call, createStackUser, deleteStackUsers, describeWithStack, localJwtSecret, signTestToken, stackApp, type StackHarness, type TestUser } from '../harness';
+import { call, createStackUser, deleteStackRows, deleteStackUsers, describeWithStack, localJwtSecret, signTestToken, stackApp, type StackHarness, type TestUser } from '../harness';
 
 const describeStack = describeWithStack('api.hardening');
 
@@ -55,8 +55,9 @@ describeStack('client-security hardening against the local stack', () => {
 
   afterAll(async () => {
     await h.app.flush();
-    if (characterId) await h.service.from('characters').delete().eq('id', characterId);
+    // Users first: their sessions reference the character (ON DELETE RESTRICT).
     await deleteStackUsers(h, [alice.id]);
+    if (characterId) await deleteStackRows(h, 'characters', [characterId]);
   });
 
   it('refreshes a session with the refresh token alone, rejects junk, and still rejects an invalid Bearer', async () => {

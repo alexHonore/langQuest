@@ -42,8 +42,8 @@ describeStack('mission attempt → evaluate → progress', () => {
 
   afterAll(async () => {
     await h.app.flush();
-    await seeder.cleanup();
     await deleteTestUsers(h, [learner]);
+    await seeder.cleanup();
   });
 
   const stepResult = (stepId: string, overrides: Partial<Record<string, unknown>> = {}) => ({ stepId, outcome: 'success', hintsUsed: 0, replays: 0, durationMs: 45_000, speechAssessmentIds: [], attemptedBeforeReveal: null, selectedIntentId: null, conversationSessionId: null, ...overrides });
