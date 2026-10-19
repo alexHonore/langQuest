@@ -33,6 +33,7 @@ export default function LanguageStep(): React.JSX.Element {
       title={t('onboarding.chooseUiLanguage')}
       hint={t('onboarding.chooseUiLanguageHint')}
       primaryDisabled={!source}
+      primaryTestID="onboarding-language-continue"
       onPrimary={() => {
         if (!source) return;
         set({ pendingDefaultSourceLanguage: source });
@@ -42,7 +43,9 @@ export default function LanguageStep(): React.JSX.Element {
     >
       <Row gap={theme.spacing.sm} wrap accessibilityRole="radiogroup">
         {SUPPORTED_UI_LOCALES.map((code) => (
-          <Chip key={code} label={names(code)} selected={(uiOverride ?? deviceUiLocale()) === code} tone="accent" onPress={() => set({ uiLocale: code })} accessibilityLabel={names(code)} />
+          <View key={code} testID={`onboarding-ui-${code}`}>
+            <Chip label={names(code)} selected={(uiOverride ?? deviceUiLocale()) === code} tone="accent" onPress={() => set({ uiLocale: code })} accessibilityLabel={names(code)} />
+          </View>
         ))}
       </Row>
       <View style={{ gap: theme.spacing.sm, marginTop: theme.spacing.lg }}>
@@ -55,12 +58,16 @@ export default function LanguageStep(): React.JSX.Element {
         </ThemedText>
         <Row gap={theme.spacing.sm} wrap accessibilityRole="radiogroup">
           {tier1.map((s) => (
-            <Chip key={s.code} label={`${names(s.code)} · ${s.nativeName}`} selected={source === s.code} tone="accent" onPress={() => setSource(s.code)} accessibilityLabel={names(s.code)} />
+            <View key={s.code} testID={`onboarding-source-${s.code}`}>
+              <Chip label={`${names(s.code)} · ${s.nativeName}`} selected={source === s.code} tone="accent" onPress={() => setSource(s.code)} accessibilityLabel={names(s.code)} />
+            </View>
           ))}
         </Row>
         <Row gap={theme.spacing.sm} wrap accessibilityRole="radiogroup">
           {rest.map((s) => (
-            <Chip key={s.code} label={names(s.code)} selected={source === s.code} onPress={() => setSource(s.code)} accessibilityLabel={names(s.code)} />
+            <View key={s.code} testID={`onboarding-source-${s.code}`}>
+              <Chip label={names(s.code)} selected={source === s.code} onPress={() => setSource(s.code)} accessibilityLabel={names(s.code)} />
+            </View>
           ))}
         </Row>
       </View>

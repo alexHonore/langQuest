@@ -16,6 +16,13 @@ import { JobFailure, type JobContext } from '../queue/types';
 
 export const UuidParam = z.string().uuid();
 
+/**
+ * The job's id when it has a `processing_jobs` row, else null: `runDirect` executes handlers outside the queue
+ * with a synthetic row (`idempotency_key = 'direct:…'`), so FK columns such as `generated_by_job_id` /
+ * `asset_suggestions.job_id` must not point at it.
+ */
+export const queuedJobId = (ctx: Pick<JobContext, 'job'>): string | null => (ctx.job.idempotency_key.startsWith('direct:') ? null : ctx.job.id);
+
 /** Load the parent asset of a job (params.assetId wins over parent_asset_id). */
 export async function requireAsset(ctx: JobContext<{ assetId?: string | null }>): Promise<MediaAssetRow> {
   const assetId = ctx.params.assetId ?? ctx.job.parent_asset_id;

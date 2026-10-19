@@ -2,10 +2,11 @@
 import Link from 'next/link';
 import { useState } from 'react';
 import { ArrowDown, ArrowUp } from 'lucide-react';
-import { localCall } from '@/src/lib/local-api/client';
+import type { LessonCreateRequest, ReorderRequest } from '@langquest/contracts';
+import { browserApi } from '@/src/lib/api-browser';
 import { useI18n } from '@/src/lib/i18n/client';
 import { useAction } from '@/src/lib/use-action';
-import { pickLocalized, shortId } from '@/src/lib/format';
+import { newIdempotencyKey, pickLocalized, shortId } from '@/src/lib/format';
 import { Button, Field, Input } from '@/src/components/ui';
 import { Dialog } from '@/src/components/dialog';
 import { LanguageSelect, LevelSelect, LocalizedTextEditor, VarietySelect } from '@/src/components/forms';
@@ -30,23 +31,36 @@ export function LessonList({ chapterId, lessons, defaults }: { chapterId: string
   const [variety, setVariety] = useState<string | null>(defaults.targetVarietyId);
   const [source, setSource] = useState<string | null>(defaults.instructionLanguageCode);
   const create = useAction(
-    async () =>
-      localCall<{ id: string }>('/api/admin/lessons', {
-        method: 'POST',
-        body: { chapterId, titleTranslations: title, sortOrder: lessons.length + 1, level, targetVarietyId: variety, instructionLanguageCode: source },
-      }),
+    async () => {
+      const body: LessonCreateRequest = {
+        chapterId,
+        titleTranslations: title,
+        descriptionTranslations: {},
+        sortOrder: lessons.length + 1,
+        level: level as LessonCreateRequest['level'],
+        targetVarietyId: variety as LessonCreateRequest['targetVarietyId'],
+        instructionLanguageCode: source as LessonCreateRequest['instructionLanguageCode'],
+        speakerIds: [],
+        idempotencyKey: newIdempotencyKey('lsn'),
+      };
+      return browserApi().call('adminLessonCreate', { body, idempotencyKey: body.idempotencyKey });
+    },
     { successMessage: t('admin.ui.saved') },
   );
-  const reorder = useAction(async (items: Array<{ id: string; sortOrder: number }>) => localCall('/api/admin/lessons/reorder', { method: 'POST', body: { items } }), { successMessage: t('admin.ui.saved') });
+  // Reorder = the FULL permutation of the chapter's lessons (the RPC rejects partial lists).
+  const reorder = useAction(
+    async (orderedIds: string[]) => {
+      const body: ReorderRequest = { orderedIds, idempotencyKey: newIdempotencyKey('ord') };
+      return browserApi().call('adminLessonsReorder', { params: { id: chapterId }, body, idempotencyKey: body.idempotencyKey });
+    },
+    { successMessage: t('admin.ui.saved') },
+  );
   const move = (index: number, dir: -1 | 1) => {
     const target = index + dir;
     if (target < 0 || target >= lessons.length) return;
-    const a = lessons[index]!;
-    const b = lessons[target]!;
-    void reorder.run([
-      { id: a.id, sortOrder: b.sort_order === a.sort_order ? b.sort_order + (dir > 0 ? 1 : -1) : b.sort_order },
-      { id: b.id, sortOrder: a.sort_order },
-    ]);
+    const ids = lessons.map((l) => l.id);
+    [ids[index], ids[target]] = [ids[target]!, ids[index]!];
+    void reorder.run(ids);
   };
   return (
     <div>

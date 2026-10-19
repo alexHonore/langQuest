@@ -8,7 +8,7 @@
  */
 import { CancelledError, createCancellationToken } from '@langquest/ai/realtime/pipeline';
 import { signSessionTicket } from '@langquest/ai/realtime/tickets';
-import { ConversationEndRequestSchema, ConversationEndResponseSchema, ConversationSessionCreateRequestSchema, ConversationSessionCreateResponseSchema, ConversationTurnRequestSchema, ConversationTurnResponseSchema, UuidSchema, unsupportedCapability, type AudioInput, type Capability, type CharacterTurn, type ConversationTurnAudio, type EvaluatorOutput, type LearnerTurnInput, type ShortLivedSession, type SpeechRetention } from '@langquest/contracts';
+import { ConversationEndRequestSchema, ConversationEndResponseSchema, ConversationSessionCreateRequestSchema, ConversationSessionCreateResponseSchema, ConversationTurnRequestSchema, ConversationTurnResponseSchema, UuidSchema, emptyEvaluatorOutput, unsupportedCapability, type AudioInput, type Capability, type CharacterTurn, type ConversationSessionScope, type ConversationTurnAudio, type EvaluatorOutput, type LearnerTurnInput, type ShortLivedSession, type SpeechRetention } from '@langquest/contracts';
 import { DbError } from '@langquest/db/errors';
 import type { Row } from '@langquest/db/types';
 import { sha256Hex } from '@langquest/telemetry/privacy';
@@ -17,7 +17,7 @@ import type { DefineRoute } from '../../app';
 import { AI_TIMEOUT_MS } from '../../app';
 import { problem, respondErr, respondOk } from '../../http/envelope';
 import { parseBody, parseParams } from '../../http/validate';
-import { attachAudio, buildContext, evaluateSession, EVALUATE_EVERY_TURNS, hasForbiddenControlChars, listTurns, loadOwnedSession, MAX_LEARNER_TEXT_CHARS, MAX_SESSION_MS, normaliseLearnerText, objectivesFromMission, personaFor, recentWeaknesses, refreshSummary, relationshipSummary, sessionState, voiceConfig, type CharacterRow, type SessionRow } from '../../lib/conversation';
+import { attachAudio, audioLessonSceneFacts, buildContext, evaluateSession, EVALUATE_EVERY_TURNS, hasForbiddenControlChars, listTurns, loadOwnedSession, MAX_LEARNER_TEXT_CHARS, MAX_SESSION_MS, normaliseLearnerText, objectivesFromMission, personaFor, recentWeaknesses, refreshSummary, relationshipSummary, sessionScope, sessionState, voiceConfig, type CharacterRow, type SessionRow } from '../../lib/conversation';
 import { parsePrivacy } from '../../lib/dto';
 import { languageContextFor, loadOwnedEnrollment, loadUiLocale, varietyOf, type EnrollmentRow } from '../../lib/enrollment';
 import { awardXp, scheduleReviews } from '../../lib/learning';
@@ -77,14 +77,14 @@ function normaliseLearnerInput(input: LearnerTurnInput): LearnerTurnInput {
   return input;
 }
 
-const EMPTY_EVALUATION: EvaluatorOutput = { objectivesCompleted: [], skillsExercised: [], observations: [], priorityCorrections: [], summary: '', reviewTriggers: [], relationshipMemoryUpdate: null, confidence: 0 };
-
 interface SessionBundle {
   session: SessionRow;
   enrollment: EnrollmentRow;
   character: CharacterRow;
   mission: Row<'missions'> | null;
   scenario: Row<'dialogue_scenarios'> | null;
+  /** What the session practises (persisted as sent; null for sessions created before migration 120). */
+  scope: ConversationSessionScope | null;
 }
 
 async function loadBundle(s: RequestServices, sessionId: string): Promise<SessionBundle> {
@@ -97,16 +97,17 @@ async function loadBundle(s: RequestServices, sessionId: string): Promise<Sessio
     session.scenario_id ? db.from('dialogue_scenarios').select('*').eq('id', session.scenario_id).maybeSingle().then((r) => r.data ?? null) : Promise.resolve(null),
   ]);
   if (!character) throw problem.notFound('Character');
-  return { session, enrollment, character, mission, scenario };
+  return { session, enrollment, character, mission, scenario, scope: sessionScope(session) };
 }
 
 async function contextFor(s: RequestServices, b: SessionBundle) {
   const { db, principal } = s.requireUser();
   const uiLocale = await loadUiLocale(db, principal.userId);
   const language = languageContextFor(b.enrollment, uiLocale);
-  const [weaknesses, relationship] = await Promise.all([recentWeaknesses(s, b.enrollment.id), relationshipSummary(db, b.character.id, b.enrollment.id)]);
+  // `audio_lesson` scope: the lesson's transcript lines become the scene facts (read under the learner's RLS).
+  const [weaknesses, relationship, sceneFacts] = await Promise.all([recentWeaknesses(s, b.enrollment.id), relationshipSummary(db, b.character.id, b.enrollment.id), b.scope?.kind === 'audio_lesson' ? audioLessonSceneFacts(db, b.scope, b.enrollment.source_language_code) : Promise.resolve(null)]);
   const objectives = objectivesFromMission(b.mission, b.enrollment.source_language_code, b.session.objectives_completed);
-  const context = buildContext({ language, session: b.session, character: b.character, scenario: b.scenario, objectives, weaknesses, relationship });
+  const context = buildContext({ language, session: b.session, character: b.character, scenario: b.scenario, objectives, weaknesses, relationship, sceneFacts });
   return { context, persona: personaFor(b.character), objectives };
 }
 
@@ -136,15 +137,19 @@ export function registerConversationRoutes(define: DefineRoute): void {
     let character: CharacterRow;
     let mission: Row<'missions'> | null = null;
     let scenario: Row<'dialogue_scenarios'> | null = null;
+    // Scope as sent, or derived: `missionId` ⇒ mission scope, nothing ⇒ free conversation (persisted either way).
+    let scope: ConversationSessionScope | null = body.scope ?? (body.missionId ? { kind: 'mission', missionId: body.missionId } : { kind: 'free' });
     let replay = false;
     if (existing.data) {
       if (existing.data.enrollment_id !== enrollment.id) throw problem.conflict('clientSessionId already used for another enrollment');
       const b = await loadBundle(s, existing.data.id);
-      ({ session, character, mission, scenario } = b);
+      ({ session, character, mission, scenario, scope } = b);
       replay = true;
     } else {
-      mission = body.missionId ? await repos.curriculum.getMission(body.missionId) : null;
-      if (body.missionId && !mission) throw problem.notFound('Mission');
+      const missionId = body.missionId ?? (scope?.kind === 'mission' ? scope.missionId : undefined);
+      mission = missionId ? await repos.curriculum.getMission(missionId) : null;
+      if (missionId && !mission) throw problem.notFound('Mission');
+      if (scope?.kind === 'audio_lesson') await audioLessonSceneFacts(db, scope, enrollment.source_language_code); // 404 when the lesson is not visible to this learner
       if (mission && mission.target_variety_id !== variety) throw problem.validation('Mission belongs to another course variety');
       const scenarios = mission ? await repos.curriculum.listScenarios(mission.id) : [];
       scenario = body.scenarioId ? ((await db.from('dialogue_scenarios').select('*').eq('id', body.scenarioId).maybeSingle()).data ?? null) : (scenarios[0] ?? null);
@@ -159,7 +164,7 @@ export function registerConversationRoutes(define: DefineRoute): void {
       const retention = body.speechRetention ?? parsePrivacy(profile?.privacy_options).store_speech_recordings;
       const ins = await db
         .from('conversation_sessions')
-        .insert({ id: body.clientSessionId, user_id: principal.userId, enrollment_id: enrollment.id, mission_id: mission?.id ?? null, scenario_id: scenario?.id ?? null, character_id: character.id, target_variety_id: variety, source_language_code: enrollment.source_language_code, mode: body.mode, state: 'preparing', pipeline: body.mode === 'text_only' ? 'text_only' : 'stt_llm_tts', speech_retention: retention })
+        .insert({ id: body.clientSessionId, user_id: principal.userId, enrollment_id: enrollment.id, mission_id: mission?.id ?? null, scenario_id: scenario?.id ?? null, character_id: character.id, target_variety_id: variety, source_language_code: enrollment.source_language_code, mode: body.mode, state: 'preparing', pipeline: body.mode === 'text_only' ? 'text_only' : 'stt_llm_tts', speech_retention: retention, scope: scope as never })
         .select('*')
         .single();
       if (ins.error) throw new DbError(ins.error, 'conversation.session');
@@ -167,7 +172,7 @@ export function registerConversationRoutes(define: DefineRoute): void {
     }
 
     const ai = await s.ai(session.id);
-    const { context, persona, objectives } = await contextFor(s, { session, enrollment, character, mission, scenario });
+    const { context, persona, objectives } = await contextFor(s, { session, enrollment, character, mission, scenario, scope });
     const config = voiceConfig({ session, context, enrollment, character, inputEncoding: body.inputEncoding });
     const capabilities = await capabilitiesFor(ai, config.locale, config.voiceId, config.interruptible);
     let provider: ShortLivedSession;
@@ -262,7 +267,7 @@ export function registerConversationRoutes(define: DefineRoute): void {
       }
       if (Date.now() < inFlightUntil) {
         const retryAfterSeconds = Math.max(1, Math.ceil((inFlightUntil - Date.now()) / 1000));
-        const res = respondErr(c, 'conflict', 'This clientTurnId is still being processed; retry the same clientTurnId shortly', { clientTurnId: body.clientTurnId, retryAfterSeconds });
+        const res = respondErr(c, 'turn_in_progress', 'This clientTurnId is still being processed; retry the same clientTurnId shortly', { clientTurnId: body.clientTurnId, retryAfterSeconds });
         res.headers.set('Retry-After', String(Math.min(retryAfterSeconds, 30)));
         return res;
       }
@@ -287,7 +292,11 @@ export function registerConversationRoutes(define: DefineRoute): void {
       try {
         learnerRow = await insertTurn(s, { session_id: session.id, turn_index: nextIndex, speaker: 'learner', client_turn_id: body.clientTurnId, text: learnerText, occurred_at: new Date().toISOString(), command, confidence: learnerInput.kind === 'transcript' ? learnerInput.confidence : null, audio_asset_id: learnerInput.kind === 'audio' ? learnerInput.assetId : null });
       } catch (error) {
-        if (error instanceof DbError && error.isUniqueViolation) throw problem.conflict('This clientTurnId is being processed; retry shortly');
+        if (error instanceof DbError && error.isUniqueViolation) {
+          const res = respondErr(c, 'turn_in_progress', 'This clientTurnId is being processed; retry the same clientTurnId shortly', { clientTurnId: body.clientTurnId, retryAfterSeconds: 2 });
+          res.headers.set('Retry-After', '2');
+          return res;
+        }
         throw error;
       }
     }
@@ -366,7 +375,8 @@ export function registerConversationRoutes(define: DefineRoute): void {
     let { session } = b;
     const turns = await listTurns(s, session.id);
     const learnerTurns = turns.filter((t) => t.speaker === 'learner').length;
-    let evaluation: EvaluatorOutput = (session.rubric_outcomes as EvaluatorOutput | null) ?? EMPTY_EVALUATION;
+    // No evaluator output ⇒ `confidence: null` (never a fabricated 0).
+    let evaluation: EvaluatorOutput = (session.rubric_outcomes as EvaluatorOutput | null) ?? emptyEvaluatorOutput();
     let summary = session.summary ?? '';
     if (session.state !== 'finished') {
       const ai = await s.ai(session.id);

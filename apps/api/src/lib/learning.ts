@@ -4,7 +4,7 @@
  * with the FSRS-like scheduler. Every write goes through the service client AFTER the request has been validated
  * against the learner's own enrollment (RLS-bound read), never from a bare client claim.
  */
-import { masteryRank, type AutonomyLevel, type MasteryState, type ObservationOutcome, type ObservationType, type ReviewCard, type ReviewRating, type ScorerKind, type SkillObservationInput, type XpReason } from '@langquest/contracts';
+import { masteryRank, xpAmountForReason, type AutonomyLevel, type MasteryState, type ObservationOutcome, type ObservationType, type ReviewCard, type ReviewRating, type ScorerKind, type SkillObservationInput, type XpReason } from '@langquest/contracts';
 import { deriveMasteryForAll, type MasteryObservation } from '@langquest/curriculum/mastery/mastery';
 import { createScheduler, newCard, type Scheduler } from '@langquest/curriculum/scheduler/scheduler';
 import { DbError } from '@langquest/db/errors';
@@ -107,13 +107,13 @@ export interface XpAwardResult {
 }
 
 /**
- * Award XP with the canonical amount for the reason (`xp_amount_for_reason`), idempotent on `idempotencyKey`,
- * and only when the referenced row is an owned, completed row (`award_xp` re-checks via `xp_reference_owned`).
+ * Award XP with the canonical amount for the reason (`XP_AMOUNTS` in `@langquest/contracts`, the table that mirrors
+ * `public.xp_amount_for_reason` exactly), idempotent on `idempotencyKey`, and only when the referenced row is an
+ * owned, completed row (`award_xp` re-checks via `xp_reference_owned`). `amount` is what was actually written to
+ * `xp_ledger` by THIS call (0 on replay or rejection), so callers can sum it honestly into `xpAwarded`.
  */
 export async function awardXp(s: RequestServices, input: { idempotencyKey: string; userId: string; enrollmentId: string | null; reason: XpReason; referenceTable: string; referenceId: string; units?: number; occurredAt?: string }): Promise<XpAwardResult> {
-  const amountRes = await s.service.rpc('xp_amount_for_reason', { p_reason: input.reason });
-  if (amountRes.error) throw new DbError(amountRes.error, 'xp.amount');
-  const unit = amountRes.data ?? 0;
+  const unit = xpAmountForReason(input.reason);
   const units = Math.max(1, Math.min(10, Math.floor(input.units ?? 1)));
   const amount = unit * units;
   if (amount <= 0) return { applied: false, amount: 0, totalXp: 0, rejectedReason: 'unknown_xp_reason' };

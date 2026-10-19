@@ -40,11 +40,11 @@ export default function TabsLayout(): React.JSX.Element {
           sceneStyle: { backgroundColor: theme.colors.background, paddingBottom: miniVisible ? MINI_PLAYER_HEIGHT + 8 : 0 },
         }}
       >
-        <Tabs.Screen name="index" options={{ title: t('common.tabs.home'), tabBarIcon: icon('home') }} />
-        <Tabs.Screen name="missions" options={{ title: t('common.tabs.missions'), tabBarIcon: icon('missions') }} />
-        <Tabs.Screen name="audio" options={{ title: t('common.tabs.audio'), tabBarIcon: icon('audio') }} />
-        <Tabs.Screen name="speak" options={{ title: t('common.tabs.speak'), tabBarIcon: icon('speak') }} />
-        <Tabs.Screen name="progress" options={{ title: t('common.tabs.progress'), tabBarIcon: icon('progress') }} />
+        <Tabs.Screen name="index" options={{ title: t('common.tabs.home'), tabBarIcon: icon('home'), tabBarButtonTestID: 'tab-home' }} />
+        <Tabs.Screen name="missions" options={{ title: t('common.tabs.missions'), tabBarIcon: icon('missions'), tabBarButtonTestID: 'tab-missions' }} />
+        <Tabs.Screen name="audio" options={{ title: t('common.tabs.audio'), tabBarIcon: icon('audio'), tabBarButtonTestID: 'tab-audio' }} />
+        <Tabs.Screen name="speak" options={{ title: t('common.tabs.speak'), tabBarIcon: icon('speak'), tabBarButtonTestID: 'tab-speak' }} />
+        <Tabs.Screen name="progress" options={{ title: t('common.tabs.progress'), tabBarIcon: icon('progress'), tabBarButtonTestID: 'tab-progress' }} />
       </Tabs>
       <MiniPlayer bottomOffset={tabBarHeight + 6} />
       <AudioRuntimeBridge />

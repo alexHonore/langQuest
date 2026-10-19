@@ -237,14 +237,20 @@ describeStack('API against the local stack', () => {
     expect(deleted.json.data.status).toBe('deleted');
     const gone = await h.service.from('profiles').select('user_id').eq('user_id', victim.id).maybeSingle();
     expect(gone.data).toBeNull();
-    // Alice has append-only evidence rows: the cascade is refused by the ledgers, so the account is deactivated
-    // immediately (banned + anonymised) and the hard delete is deferred to the retention job.
-    const deferred = await call(h.app, '/v1/me', { method: 'DELETE', token: alice.token, body: { confirmation: 'DELETE' } });
-    expect(deferred.status).toBe(200);
-    expect(deferred.json.data.status).toBe('scheduled');
-    const profile = await h.service.from('profiles').select('deleted_at, display_name').eq('user_id', alice.id).single();
-    expect(profile.data?.deleted_at).toBeTruthy();
-    const banned = await h.service.auth.admin.getUserById(alice.id);
-    expect(banned.data.user?.email).toMatch(/@deleted\.invalid$/);
+    // Alice has append-only evidence rows (xp_ledger, learning_observations): `delete_account` (migration 100) removes
+    // her own evidence under its transaction-local bypass, anonymises the retained ledgers and lets the auth user go.
+    const xpBefore = await h.service.from('xp_ledger').select('id').eq('user_id', alice.id);
+    expect(xpBefore.data?.length).toBeGreaterThan(0);
+    const full = await call(h.app, '/v1/me', { method: 'DELETE', token: alice.token, body: { confirmation: 'DELETE' } });
+    expect(full.status, JSON.stringify(full.json)).toBe(200);
+    expect(full.json.data.status).toBe('deleted');
+    expect(full.json.data.anonymisedTables.length).toBeGreaterThan(0);
+    expect(full.json.data.retainedForLegalReasons.length).toBeGreaterThan(0);
+    const profile = await h.service.from('profiles').select('user_id').eq('user_id', alice.id).maybeSingle();
+    expect(profile.data).toBeNull();
+    const xpAfter = await h.service.from('xp_ledger').select('id').eq('user_id', alice.id);
+    expect(xpAfter.data).toEqual([]);
+    const user = await h.service.auth.admin.getUserById(alice.id);
+    expect(user.data.user ?? null).toBeNull();
   });
 });

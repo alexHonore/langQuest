@@ -64,7 +64,12 @@ export class ApiClientError extends Error {
   readonly traceId: string | null;
   readonly details: unknown;
   readonly route: RouteKey;
-  constructor(route: RouteKey, kind: ApiFailureKind, message: string, status: number | null = null, traceId: string | null = null, details?: unknown) {
+  /**
+   * Server-suggested wait before retrying the SAME request (from the `Retry-After` header, or
+   * `details.retryAfterSeconds` for `turn_in_progress`), in ms; null when the server gave none.
+   */
+  readonly retryAfterMs: number | null;
+  constructor(route: RouteKey, kind: ApiFailureKind, message: string, status: number | null = null, traceId: string | null = null, details?: unknown, retryAfterMs: number | null = null) {
     super(message);
     this.name = 'ApiClientError';
     this.route = route;
@@ -72,6 +77,7 @@ export class ApiClientError extends Error {
     this.status = status;
     this.traceId = traceId;
     this.details = details;
+    this.retryAfterMs = retryAfterMs ?? retryAfterFromDetails(details);
   }
   get retryable(): boolean {
     return this.kind === 'network' || this.kind === 'timeout' || this.kind === 'provider_unavailable' || this.kind === 'rate_limited' || this.kind === 'internal';
@@ -83,6 +89,7 @@ export class ApiClientError extends Error {
 }
 
 const RETRYABLE_STATUS = new Set([408, 425, 429, 500, 502, 503, 504]);
+const MAX_RETRY_AFTER_MS = 8_000;
 const defaultSleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
 
 export interface ApiClient {
@@ -188,19 +195,34 @@ export function createApiClient(options: ApiClientOptions): ApiClient {
       const message = failure.success ? failure.data.error.message : `HTTP ${response.status}`;
       const traceId = failure.success ? (failure.data.error.traceId ?? null) : null;
 
+      const retryAfterMs = parseRetryAfter(response.headers.get('retry-after'));
       if (RETRYABLE_STATUS.has(response.status) && attempt < maxRetries) {
-        const retryAfter = Number(response.headers.get('retry-after'));
-        await sleep(Number.isFinite(retryAfter) && retryAfter > 0 ? Math.min(8_000, retryAfter * 1000) : backoffFor(attempt));
+        await sleep(retryAfterMs !== null && retryAfterMs > 0 ? Math.min(MAX_RETRY_AFTER_MS, retryAfterMs) : backoffFor(attempt));
         attempt += 1;
         continue;
       }
       if (response.status === 401) options.onUnauthorized?.();
       options.onError?.({ route, code, status: response.status, traceId });
-      throw new ApiClientError(route, code, message, response.status, traceId, failure.success ? failure.data.error.details : undefined);
+      throw new ApiClientError(route, code, message, response.status, traceId, failure.success ? failure.data.error.details : undefined, retryAfterMs);
     }
   }
 
   return { call, baseUrl };
+}
+
+/** `Retry-After` as ms: delta-seconds or an HTTP date; null when absent or unparseable. */
+export function parseRetryAfter(header: string | null, now: number = Date.now()): number | null {
+  if (!header) return null;
+  const trimmed = header.trim();
+  if (/^\d+$/.test(trimmed)) return Number(trimmed) * 1000;
+  const date = Date.parse(trimmed);
+  if (Number.isNaN(date)) return null;
+  return Math.max(0, date - now);
+}
+
+function retryAfterFromDetails(details: unknown): number | null {
+  const seconds = (details as { retryAfterSeconds?: unknown } | null)?.retryAfterSeconds;
+  return typeof seconds === 'number' && Number.isFinite(seconds) && seconds >= 0 ? Math.round(seconds * 1000) : null;
 }
 
 function statusToCode(status: number): ApiErrorCode {

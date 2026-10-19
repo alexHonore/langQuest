@@ -6,8 +6,10 @@ import React, { useState } from 'react';
 import { Alert, View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { ErrorView } from '@/components/StateViews';
+import { coverageDescriptions } from '@/features/session/coverage-copy';
 import { useFallbackOptIn } from '@/features/session/fallback';
 import { useActiveEnrollment, useCourses, useInvalidateLearner } from '@/features/session/queries';
+import { ApiClientError } from '@/lib/api/client';
 import { useExtraLabels } from '@/lib/extra-labels';
 import { useLanguageNames, useT } from '@/lib/i18n';
 import { useUiLabels } from '@/lib/labels';
@@ -21,8 +23,10 @@ const LEVELS: readonly LearnerLevel[] = ['beginner', 'elementary', 'intermediate
 /**
  * Per-enrollment editor (§2.1): change the instruction language (never resets
  * progress; server RPC only touches `source_language_code`), script mode,
- * regional preference, level, temporary translation language, and archive
- * with confirmation. Other enrollments are untouched.
+ * regional preference, level, temporary translation language, and remove the
+ * course with confirmation — archive (progress kept, `PATCH ?confirm=archive`)
+ * or delete (§15: progress erased, `DELETE ?confirm=delete`). Other enrollments
+ * are untouched.
  */
 export default function EnrollmentEditor(): React.JSX.Element {
   const theme = useTheme();
@@ -44,6 +48,13 @@ export default function EnrollmentEditor(): React.JSX.Element {
   const [status, setStatus] = useState<string | null>(null);
   const fallback = useFallbackOptIn(enrollment);
 
+  /** Leave the editor once the course is gone server-side (archived or deleted). */
+  const leaveAfterRemoval = (removedId: string): void => {
+    if (activeId === removedId) setPrefs({ activeEnrollmentId: null });
+    if (router.canGoBack()) router.back();
+    else router.replace('/(tabs)');
+  };
+
   const patch = useMutation({
     mutationFn: async (body: EnrollmentPatchRequest) => {
       if (!enrollment) throw new Error('missing');
@@ -61,12 +72,32 @@ export default function EnrollmentEditor(): React.JSX.Element {
       await invalidate();
       if (body.status === 'archived') {
         // Only now is the course gone server-side: clear the active course and leave.
-        if (activeId === dto.id) setPrefs({ activeEnrollmentId: null });
-        router.back();
+        leaveAfterRemoval(dto.id);
         return;
       }
       if (body.sourceLanguageCode) setStatus(t('enrollment.sourceChanged', { target: getCourseTrack(dto.courseTrackId).displayName, source: names(dto.sourceLanguageCode) }));
       else setStatus(t('common.done'));
+    },
+  });
+
+  const remove = useMutation({
+    mutationFn: async (): Promise<string> => {
+      if (!enrollment) throw new Error('missing');
+      try {
+        const dto = await api.enrollmentDelete(enrollment.id);
+        return dto.enrollmentId;
+      } catch (error) {
+        // A transport retry after a lost success response lands on the already-deleted row: that is done, not a failure.
+        if (error instanceof ApiClientError && error.kind === 'not_found') return enrollment.id;
+        throw error;
+      }
+    },
+    onSuccess: async (removedId) => {
+      // The server erased this course's progress; drop the device copy too so nothing resurrects it offline.
+      const store = await getLocalStore();
+      await store.cache.forgetEnrollment(removedId);
+      await invalidate();
+      leaveAfterRemoval(removedId);
     },
   });
 
@@ -80,13 +111,18 @@ export default function EnrollmentEditor(): React.JSX.Element {
   const trackDef = getCourseTrack(enrollment.courseTrackId);
   const sources = orderedSourceLanguages().filter((s) => s.code !== trackDef.languageCode && SOURCE_LANGUAGES.some((x) => x.code === s.code));
 
-  const archive = (): void => {
-    Alert.alert(t('enrollment.removeTitle', { target: trackDef.displayName }), t('enrollment.removeOtherCoursesSafe'), [
+  const removing = remove.isPending || (patch.isPending && patch.variables?.status === 'archived');
+  const confirmRemove = (): void => {
+    Alert.alert(t('enrollment.removeTitle', { target: trackDef.displayName }), `${X.removeDeletePermanent} ${t('enrollment.removeOtherCoursesSafe')}`, [
       { text: t('common.cancel'), style: 'cancel' },
       {
         text: t('enrollment.removeArchive'),
-        style: 'destructive',
         onPress: () => patch.mutate({ status: 'archived' }),
+      },
+      {
+        text: t('enrollment.removeDelete'),
+        style: 'destructive',
+        onPress: () => remove.mutate(),
       },
     ]);
   };
@@ -101,10 +137,24 @@ export default function EnrollmentEditor(): React.JSX.Element {
         <ThemedText variant="heading">{t('enrollment.sourceLanguage')}</ThemedText>
         <Row gap={theme.spacing.xs} wrap accessibilityRole="radiogroup">
           {sources.map((s) => (
-            <Chip key={s.code} label={names(s.code)} selected={source === s.code} tone={s.prominent ? 'accent' : 'neutral'} onPress={() => setSource(s.code)} accessibilityLabel={names(s.code)} />
+            <View key={s.code} testID={`enrollment-source-${s.code}`}>
+              <Chip label={names(s.code)} selected={source === s.code} tone={s.prominent ? 'accent' : 'neutral'} onPress={() => setSource(s.code)} accessibilityLabel={names(s.code)} />
+            </View>
           ))}
         </Row>
-        {source ? <CoverageBadge status={coverage?.status ?? (source === enrollment.sourceLanguageCode ? enrollment.coverage.status : 'planned')} sourceLanguageCode={source} nativeReviewed={coverage?.nativeReviewed ?? enrollment.coverage.nativeReviewed} fallbackSourceLanguageCode={coverage?.fallbackSourceLanguageCode ?? null} verbose labels={labels.coverage} languageNames={{ [source]: names(source), ...(coverage?.fallbackSourceLanguageCode ? { [coverage.fallbackSourceLanguageCode]: names(coverage.fallbackSourceLanguageCode) } : {}) }} /> : null}
+        {source ? (
+          <CoverageBadge
+            testID="enrollment-coverage"
+            status={coverage?.status ?? (source === enrollment.sourceLanguageCode ? enrollment.coverage.status : 'planned')}
+            sourceLanguageCode={source}
+            nativeReviewed={coverage?.nativeReviewed ?? (source === enrollment.sourceLanguageCode ? enrollment.coverage.nativeReviewed : undefined)}
+            fallbackSourceLanguageCode={coverage?.fallbackSourceLanguageCode ?? (source === enrollment.sourceLanguageCode ? enrollment.coverage.fallbackSourceLanguageCode : null)}
+            verbose
+            labels={labels.coverage}
+            descriptions={coverageDescriptions(t, X, names(source), (coverage?.fallbackSourceLanguageCode ?? (source === enrollment.sourceLanguageCode ? enrollment.coverage.fallbackSourceLanguageCode : null)) ? names((coverage?.fallbackSourceLanguageCode ?? enrollment.coverage.fallbackSourceLanguageCode) as string) : null)}
+            languageNames={{ [source]: names(source), ...(coverage?.fallbackSourceLanguageCode ? { [coverage.fallbackSourceLanguageCode]: names(coverage.fallbackSourceLanguageCode) } : {}) }}
+          />
+        ) : null}
         {source === enrollment.sourceLanguageCode && enrollment.coverage.status !== 'complete' && fallback.offered ? (
           <View style={{ gap: theme.spacing.xs }}>
             <ThemedText variant="caption" tone="secondary">{fallback.active ? X.fallbackInUse(names(fallback.active)) : t('enrollment.coverage.optInFallbackHint', { fallback: names(fallback.offered), source: names(enrollment.sourceLanguageCode) })}</ThemedText>
@@ -115,9 +165,8 @@ export default function EnrollmentEditor(): React.JSX.Element {
             )}
           </View>
         ) : null}
-        {source === enrollment.sourceLanguageCode && enrollment.coverage.status === 'planned' && !fallback.offered ? <ThemedText variant="caption" tone="secondary">{X.plannedNoFallback(names(enrollment.sourceLanguageCode))}</ThemedText> : null}
         {source && source !== enrollment.sourceLanguageCode ? (
-          <Button label={t('enrollment.editSource')} loading={patch.isPending} onPress={() => patch.mutate({ sourceLanguageCode: source })} accessibilityLabel={t('enrollment.editSource')} />
+          <Button testID="enrollment-change-source" label={t('enrollment.editSource')} loading={patch.isPending} onPress={() => patch.mutate({ sourceLanguageCode: source })} accessibilityLabel={t('enrollment.editSource')} />
         ) : null}
         {patch.isPending && source !== enrollment.sourceLanguageCode ? <ThemedText variant="caption" tone="muted">{t('enrollment.sourceChangeRefresh', { source: names(source ?? '') })}</ThemedText> : null}
       </Surface>
@@ -163,10 +212,12 @@ export default function EnrollmentEditor(): React.JSX.Element {
         </Row>
       </View>
       {status ? <StatusLine icon="check" tone="success" text={status} /> : null}
+      {status ? <Button testID="enrollment-done" label={t('common.done')} variant="secondary" onPress={() => router.back()} accessibilityLabel={t('common.done')} /> : null}
       {patch.error ? <ErrorView error={patch.error} /> : null}
-      <Button label={t('enrollment.remove')} variant="danger" icon="close" loading={patch.isPending && patch.variables?.status === 'archived'} onPress={archive} accessibilityLabel={t('enrollment.remove')} />
+      {remove.error ? <ErrorView error={remove.error} /> : null}
+      <Button testID="enrollment-remove" label={t('enrollment.remove')} variant="danger" icon="close" loading={removing} onPress={confirmRemove} accessibilityLabel={t('enrollment.remove')} />
       <ThemedText variant="caption" tone="muted">
-        {t('enrollment.removeArchive')} — {t('enrollment.removeOtherCoursesSafe')}
+        {t('enrollment.removeArchive')} · {t('enrollment.removeDelete')} — {X.removeDeletePermanent} {t('enrollment.removeOtherCoursesSafe')}
       </ThemedText>
     </Screen>
   );

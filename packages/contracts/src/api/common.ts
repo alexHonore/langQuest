@@ -21,6 +21,13 @@ export const API_ERROR_CODE_VALUES = [
   'payload_too_large',
   'unsupported_media_type',
   'precondition_failed',
+  /**
+   * `POST /v1/ai/conversation/:id/turn` replay semantics: the same `clientTurnId` is still being processed by
+   * the first request (no character reply yet). The server never runs the pipeline twice for one turn id; it
+   * answers 409 with a `Retry-After` header (seconds) and `details.retryAfterSeconds`, and the client retries
+   * the SAME `clientTurnId` after that delay, which then replays the original character turn (`replayed: true`).
+   */
+  'turn_in_progress',
   'internal',
 ] as const;
 export const ApiErrorCodeSchema = z.enum(API_ERROR_CODE_VALUES);
@@ -41,6 +48,7 @@ export const API_ERROR_HTTP_STATUS: Readonly<Record<ApiErrorCode, number>> = {
   payload_too_large: 413,
   unsupported_media_type: 415,
   precondition_failed: 412,
+  turn_in_progress: 409,
   internal: 500,
 };
 
@@ -134,6 +142,20 @@ export interface Page<T> {
 /** Standard idempotency header for mutating learner/admin calls. */
 export const IDEMPOTENCY_KEY_HEADER = 'Idempotency-Key' as const;
 
+/**
+ * Query schema for routes that need an explicit `?confirm=<value>` before a destructive or hard-to-undo change
+ * (CONVENTIONS §3 "honesty": the server never infers consent). Without the exact value the API answers
+ * `precondition_failed` with `details.requiredConfirmation: <value>`; any other value is `validation_failed`.
+ *
+ * `confirmQuery('archive')` is `EnrollmentPatchQuerySchema`, `confirmQuery('delete')` is `EnrollmentDeleteQuerySchema`.
+ */
+export function confirmQuery<const V extends string>(value: V) {
+  return z.object({ confirm: z.enum([value]).optional() });
+}
+/** Generic confirm flag (`archive` | `delete`); route-specific schemas narrow it to a single value. */
+export const ConfirmQuerySchema = z.object({ confirm: z.enum(['archive', 'delete']).optional() });
+export type ConfirmQuery = z.infer<typeof ConfirmQuerySchema>;
+
 // ---------------------------------------------------------------------------
 // Routes
 // ---------------------------------------------------------------------------
@@ -179,6 +201,11 @@ export const ROUTES = {
   meProgress: route('GET', '/v1/me/progress', 'learner'),
   // §6.2 speaking & AI
   conversationSessionCreate: route('POST', '/v1/ai/conversation/session', 'learner'),
+  /**
+   * Idempotent on `clientTurnId`: a replay returns the original character turn (`replayed: true`). While the
+   * first request is still running the API answers `turn_in_progress` (409) + `Retry-After`; the client retries
+   * the same `clientTurnId` after the delay. See `ApiErrorCode` docs.
+   */
   conversationTurn: route('POST', '/v1/ai/conversation/:id/turn', 'learner'),
   conversationEnd: route('POST', '/v1/ai/conversation/:id/end', 'learner'),
   speechTranscribe: route('POST', '/v1/speech/transcribe', 'learner'),
@@ -224,6 +251,52 @@ export const ROUTES = {
   adminAnalyticsCost: route('GET', '/v1/admin/analytics/cost', 'admin'),
   adminAnalyticsUsage: route('GET', '/v1/admin/analytics/usage', 'admin'),
   adminAnalyticsErrors: route('GET', '/v1/admin/analytics/errors', 'admin'),
+  // §7.3 speakers (people/voices behind recordings; consent + rights live here)
+  adminSpeakersList: route('GET', '/v1/admin/speakers', 'admin'),
+  adminSpeakerCreate: route('POST', '/v1/admin/speakers', 'admin'),
+  adminSpeakerGet: route('GET', '/v1/admin/speakers/:id', 'admin'),
+  adminSpeakerPatch: route('PATCH', '/v1/admin/speakers/:id', 'admin'),
+  adminSpeakerDelete: route('DELETE', '/v1/admin/speakers/:id', 'admin'),
+  // §7.3 library structure: collections → chapters → lessons (reorder = full permutation, atomic in SQL)
+  adminCollectionsList: route('GET', '/v1/admin/library/collections', 'admin'),
+  adminCollectionCreate: route('POST', '/v1/admin/library/collections', 'admin'),
+  adminCollectionGet: route('GET', '/v1/admin/library/collections/:id', 'admin'),
+  adminCollectionPatch: route('PATCH', '/v1/admin/library/collections/:id', 'admin'),
+  adminCollectionDelete: route('DELETE', '/v1/admin/library/collections/:id', 'admin'),
+  adminChaptersReorder: route('POST', '/v1/admin/library/collections/:id/chapters/reorder', 'admin'),
+  adminChapterCreate: route('POST', '/v1/admin/library/chapters', 'admin'),
+  adminChapterGet: route('GET', '/v1/admin/library/chapters/:id', 'admin'),
+  adminChapterPatch: route('PATCH', '/v1/admin/library/chapters/:id', 'admin'),
+  adminChapterDelete: route('DELETE', '/v1/admin/library/chapters/:id', 'admin'),
+  adminLessonsReorder: route('POST', '/v1/admin/library/chapters/:id/lessons/reorder', 'admin'),
+  adminLessonCreate: route('POST', '/v1/admin/library/lessons', 'admin'),
+  adminLessonGet: route('GET', '/v1/admin/library/lessons/:id', 'admin'),
+  /** Field updates stay on `adminAudioLessonPatch` (`PATCH /v1/admin/audio/lessons/:id`). */
+  adminLessonDelete: route('DELETE', '/v1/admin/library/lessons/:id', 'admin'),
+  adminLessonAssetAttach: route('POST', '/v1/admin/library/lessons/:id/assets', 'admin'),
+  adminLessonAssetDetach: route('DELETE', '/v1/admin/library/lessons/:id/assets/:assetId', 'admin'),
+  // §7.5 content rights (one row per grant; assets/lessons/speakers point at it via contentRightsId)
+  adminContentRightsList: route('GET', '/v1/admin/content-rights', 'admin'),
+  adminContentRightsCreate: route('POST', '/v1/admin/content-rights', 'admin'),
+  adminContentRightsGet: route('GET', '/v1/admin/content-rights/:id', 'admin'),
+  adminContentRightsPatch: route('PATCH', '/v1/admin/content-rights/:id', 'admin'),
+  /** One transaction (`revoke_content_rights` RPC): unpublishes dependents + revokes offline packs. */
+  adminContentRightsRevoke: route('POST', '/v1/admin/content-rights/:id/revoke', 'admin'),
+  // §10.2A visual assets: upload-initiate (image-only multipart) → register → assign / replace
+  adminVisualAssetsList: route('GET', '/v1/admin/visual-assets', 'admin'),
+  adminVisualAssetUploadInitiate: route('POST', '/v1/admin/visual-assets/upload-initiate', 'admin'),
+  adminVisualAssetRegister: route('POST', '/v1/admin/visual-assets', 'admin'),
+  adminVisualAssetGet: route('GET', '/v1/admin/visual-assets/:id', 'admin'),
+  adminVisualAssetPatch: route('PATCH', '/v1/admin/visual-assets/:id', 'admin'),
+  adminVisualAssetReplace: route('POST', '/v1/admin/visual-assets/:id/replace', 'admin'),
+  adminVisualAssetAssign: route('POST', '/v1/admin/visual-assets/:id/assign', 'admin'),
+  adminVisualAssetUnassign: route('POST', '/v1/admin/visual-assets/:id/unassign', 'admin'),
+  // §7.4 AI-assisted organisation suggestions (review queue; nothing applies without a human decision)
+  adminAssetSuggestionsList: route('GET', '/v1/admin/asset-suggestions', 'admin'),
+  adminAssetSuggestionsGenerate: route('POST', '/v1/admin/asset-suggestions/generate', 'admin'),
+  adminAssetSuggestionsBulkDecide: route('POST', '/v1/admin/asset-suggestions/bulk-decide', 'admin'),
+  adminAssetSuggestionGet: route('GET', '/v1/admin/asset-suggestions/:id', 'admin'),
+  adminAssetSuggestionDecide: route('POST', '/v1/admin/asset-suggestions/:id/decide', 'admin'),
 } as const satisfies Record<string, RouteDef>;
 export type RouteKey = keyof typeof ROUTES;
 

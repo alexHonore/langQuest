@@ -79,7 +79,7 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
             canReview={session.roles.some((r) => ['super_admin', 'admin', 'content_editor', 'language_reviewer'].includes(r))}
           />
           <Card title={t('admin.ui.lsAssets')}>
-            <LessonAssets lessonId={l.id} assets={(assets.ok ? assets.data : []) as unknown as Parameters<typeof LessonAssets>[0]['assets']} />
+            <LessonAssets lessonId={l.id} assets={(assets.ok ? assets.data : []) as unknown as Parameters<typeof LessonAssets>[0]['assets']} expectedRevision={revision} />
           </Card>
         </div>
         <aside className="space-y-4">

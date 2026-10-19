@@ -1,4 +1,4 @@
-import { JOB_STATE_VALUES, PROCESSING_JOB_TYPE_VALUES } from '@langquest/contracts';
+import { JOB_STATE_VALUES, PROCESSING_JOB_TYPE_VALUES_ALL } from '@langquest/contracts';
 import { requireSection } from '@/src/lib/auth/session';
 import { serverTranslator } from '@/src/lib/i18n/server';
 import { listJobs } from '@/src/lib/queries/ops';
@@ -21,7 +21,7 @@ export default async function JobsPage({ searchParams }: { searchParams: Promise
     <div>
       <PageHeader title={t('admin.jobs.title')} description={t('admin.ui.jbRetryHint')} />
       {!jobs.ok ? <ErrorState title={t('admin.ui.errorTitle')} message={jobs.error} /> : null}
-      <JobsScreen rows={filtered} page={page} hasNext={jobs.ok ? jobs.data.hasNext : false} states={[...JOB_STATE_VALUES]} types={[...PROCESSING_JOB_TYPE_VALUES]} canRetry={session.roles.some((r) => ['super_admin', 'admin', 'content_editor'].includes(r))} />
+      <JobsScreen rows={filtered} page={page} hasNext={jobs.ok ? jobs.data.hasNext : false} states={[...JOB_STATE_VALUES]} types={[...PROCESSING_JOB_TYPE_VALUES_ALL]} canRetry={session.roles.some((r) => ['super_admin', 'admin', 'content_editor'].includes(r))} />
     </div>
   );
 }

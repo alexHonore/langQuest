@@ -3,7 +3,8 @@
  * `Row<…>` types with sensible defaults, so handlers exercise the same code paths as in production.
  */
 import type { CourseManifest } from '@langquest/contracts';
-import type { EnqueueJobInput, Insert, Row, Update } from '@langquest/db';
+import type { EnqueueJobInput, Insert, ManifestRef, PutManifestInput, Row, StoredManifestRow, Update } from '@langquest/db';
+import { audioManifestLanguage } from '@langquest/db';
 import type { JobsDb, LessonWithMedia, MediaAssetRow, ProcessingJobRow, SegmentRow, TranscriptRow, TranslationRow, UploadRow, WordAlignmentRow } from '../db';
 
 const now = () => new Date().toISOString();
@@ -34,6 +35,9 @@ interface RowMap {
   audio_cover_art: Row<'audio_cover_art'>;
   ai_requests: Row<'ai_requests'>;
   speakers: Row<'speakers'>;
+  course_manifests: Row<'course_manifests'>;
+  audio_collection_manifests: Row<'audio_collection_manifests'>;
+  asset_suggestions: Row<'asset_suggestions'>;
 }
 
 export class MemoryJobsDb implements JobsDb {
@@ -61,6 +65,9 @@ export class MemoryJobsDb implements JobsDb {
     audio_cover_art: new Map(),
     ai_requests: new Map(),
     speakers: new Map(),
+    course_manifests: new Map(),
+    audio_collection_manifests: new Map(),
+    asset_suggestions: new Map(),
   };
   /** Intent keys known to the (fake) `communicative_intents` table. */
   readonly intents = new Map<string, string>();
@@ -366,6 +373,39 @@ export class MemoryJobsDb implements JobsDb {
   async buildCourseManifest() {
     if (!this.courseManifest) throw new Error('MemoryJobsDb.courseManifest not set');
     return this.courseManifest;
+  }
+  async getLatestStoredManifest(ref: ManifestRef): Promise<StoredManifestRow | null> {
+    const rows: StoredManifestRow[] =
+      ref.kind === 'course'
+        ? [...this.tables.course_manifests.values()].filter((r) => r.course_track_id === ref.courseTrackId && r.source_language_code === ref.sourceLanguageCode)
+        : [...this.tables.audio_collection_manifests.values()].filter((r) => r.collection_id === ref.collectionId && r.instruction_language_code === audioManifestLanguage(ref.instructionLanguageCode));
+    return rows.sort((a, b) => b.version - a.version)[0] ?? null;
+  }
+  async putStoredManifest(ref: ManifestRef, input: PutManifestInput): Promise<StoredManifestRow> {
+    const common = { version: input.version, checksum: input.checksum, manifest: input.manifest as never, published_at: input.publishedAt === undefined ? now() : input.publishedAt, generated_by_job_id: input.generatedByJobId ?? null, updated_at: now() };
+    if (ref.kind === 'course') {
+      const existing = [...this.tables.course_manifests.values()].find((r) => r.course_track_id === ref.courseTrackId && r.source_language_code === ref.sourceLanguageCode && r.version === input.version);
+      const row: Row<'course_manifests'> = { id: existing?.id ?? uuid(), created_at: existing?.created_at ?? now(), course_track_id: ref.courseTrackId, source_language_code: ref.sourceLanguageCode, ...common };
+      this.tables.course_manifests.set(row.id, row);
+      return row;
+    }
+    const lang = audioManifestLanguage(ref.instructionLanguageCode);
+    const existing = [...this.tables.audio_collection_manifests.values()].find((r) => r.collection_id === ref.collectionId && r.instruction_language_code === lang && r.version === input.version);
+    const row: Row<'audio_collection_manifests'> = { id: existing?.id ?? uuid(), created_at: existing?.created_at ?? now(), collection_id: ref.collectionId, instruction_language_code: lang, ...common };
+    this.tables.audio_collection_manifests.set(row.id, row);
+    return row;
+  }
+  async insertAssetSuggestions(rows: Insert<'asset_suggestions'>[]) {
+    const out: Row<'asset_suggestions'>[] = [];
+    for (const r of rows) {
+      const full: Row<'asset_suggestions'> = { id: uuid(), media_asset_id: r.media_asset_id, lesson_id: r.lesson_id ?? null, job_id: r.job_id ?? null, kind: r.kind, suggestion: (r.suggestion ?? {}) as never, confidence: r.confidence ?? null, provenance: (r.provenance ?? {}) as never, review_status: r.review_status ?? 'review_needed', reviewer_id: r.reviewer_id ?? null, decided_at: r.decided_at ?? null, decision_note: r.decision_note ?? null, created_at: now(), updated_at: now() };
+      this.tables.asset_suggestions.set(full.id, full);
+      out.push(full);
+    }
+    return out;
+  }
+  async listAssetSuggestionsForJob(jobId: string) {
+    return [...this.tables.asset_suggestions.values()].filter((s) => s.job_id === jobId).sort((a, b) => a.created_at.localeCompare(b.created_at));
   }
   async findVisualByHash(hash: string) {
     return [...this.tables.visual_assets.values()].find((v) => v.content_hash === hash) ?? null;

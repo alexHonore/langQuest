@@ -8,13 +8,28 @@
  */
 import type { DbClient } from '../client';
 import { unwrap, unwrapMaybe } from '../errors';
-import type { Insert, Row, Update } from '../types';
+import { clampLimit, type Insert, type PageQuery, type PageResult, type Row, type Update } from '../types';
 
 export type AssetSuggestionRow = Row<'asset_suggestions'>;
 export type AssetSuggestionReviewStatus = AssetSuggestionRow['review_status'];
 
+export interface AssetSuggestionsListFilter extends PageQuery {
+  reviewStatus?: AssetSuggestionReviewStatus;
+  kind?: AssetSuggestionRow['kind'];
+  mediaAssetId?: string;
+  lessonId?: string;
+  jobId?: string;
+  /** Rows with `confidence >= minConfidence` (rows with null confidence are excluded when set). */
+  minConfidence?: number;
+}
+
 export interface AssetSuggestionsRepository {
   getById(id: string): Promise<AssetSuggestionRow | null>;
+  getByIds(ids: string[]): Promise<AssetSuggestionRow[]>;
+  /** Paged admin listing (`adminAssetSuggestionsList`), oldest first. */
+  listPaged(filter?: AssetSuggestionsListFilter): Promise<PageResult<AssetSuggestionRow>>;
+  /** Decides several rows at once (only rows still pending are changed); returns the updated rows. */
+  decideMany(ids: string[], decision: { reviewStatus: 'approved' | 'rejected'; reviewerId?: string | null; note?: string | null }): Promise<AssetSuggestionRow[]>;
   insert(row: Insert<'asset_suggestions'>): Promise<AssetSuggestionRow>;
   insertMany(rows: Insert<'asset_suggestions'>[]): Promise<AssetSuggestionRow[]>;
   listForAsset(mediaAssetId: string, filter?: { reviewStatus?: AssetSuggestionReviewStatus; kind?: AssetSuggestionRow['kind'] }): Promise<AssetSuggestionRow[]>;
@@ -36,6 +51,30 @@ export function assetSuggestionsRepository(db: DbClient): AssetSuggestionsReposi
   return {
     async getById(id) {
       return unwrapMaybe(await db.from('asset_suggestions').select('*').eq('id', id).maybeSingle(), 'suggestions.getById');
+    },
+    async getByIds(ids) {
+      return ids.length ? unwrap(await db.from('asset_suggestions').select('*').in('id', ids), 'suggestions.getByIds') : [];
+    },
+    async listPaged(filter) {
+      const limit = clampLimit(filter?.limit);
+      let q = db.from('asset_suggestions').select('*').order('created_at').order('id').limit(limit + 1);
+      if (filter?.reviewStatus) q = q.eq('review_status', filter.reviewStatus);
+      if (filter?.kind) q = q.eq('kind', filter.kind);
+      if (filter?.mediaAssetId) q = q.eq('media_asset_id', filter.mediaAssetId);
+      if (filter?.lessonId) q = q.eq('lesson_id', filter.lessonId);
+      if (filter?.jobId) q = q.eq('job_id', filter.jobId);
+      if (filter?.minConfidence !== undefined) q = q.gte('confidence', filter.minConfidence);
+      if (filter?.cursor) q = q.gt('created_at', filter.cursor);
+      const rows = unwrap(await q, 'suggestions.listPaged');
+      const items = rows.slice(0, limit);
+      return { items, nextCursor: rows.length > limit ? (items[items.length - 1]?.created_at ?? null) : null };
+    },
+    async decideMany(ids, decision) {
+      if (ids.length === 0) return [];
+      const patch: Update<'asset_suggestions'> = { review_status: decision.reviewStatus };
+      if (decision.reviewerId !== undefined) patch.reviewer_id = decision.reviewerId;
+      if (decision.note !== undefined) patch.decision_note = decision.note;
+      return unwrap(await db.from('asset_suggestions').update(patch).in('id', ids).in('review_status', PENDING).select('*'), 'suggestions.decideMany');
     },
     async insert(row) {
       return unwrap(await db.from('asset_suggestions').insert(row).select('*').single(), 'suggestions.insert');

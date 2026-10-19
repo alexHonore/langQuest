@@ -9,10 +9,12 @@ env:
     clearState: false
 - runFlow:
     when:
-      visible: "Get started"
+      visible:
+        id: "onboarding-get-started"
     commands:
       - runFlow: _sign-in.yaml
-- tapOn: "Missions"
+- tapOn:
+    id: "tab-missions"
 - assertVisible: "Your pathway"
 - runFlow:
     when:
@@ -27,7 +29,8 @@ env:
     text: ".*(Step|min|minutes).*"
     optional: true
 - scrollUntilVisible:
-    element: "Next step"
+    element:
+      id: "mission-next-step"
     direction: DOWN
     timeout: 15000
     optional: true
@@ -37,12 +40,13 @@ env:
     timeout: 20000
 # Listening step: replay and slow are real controls (no fake waveform).
 - tapOn:
-    text: "Replay"
+    id: "mission-replay"
     optional: true
 - tapOn:
-    text: "Slow"
+    id: "mission-slow"
     optional: true
-- tapOn: "Next step"
+- tapOn:
+    id: "mission-next-step"
 - extendedWaitUntil:
     visible:
       text: "Step .* of .*"
@@ -53,22 +57,27 @@ env:
       visible: "How would you answer?"
     commands:
       - assertNotVisible: "A natural answer"
-      - tapOn: "Type instead"
       - tapOn:
-          below: "How would you answer?"
+          id: "mission-type-instead"
+      - tapOn:
+          id: "mission-typed-input"
       - inputText: "salam, bghit atay 3afak"
       - hideKeyboard
-      - tapOn: "Reveal and compare"
+      - tapOn:
+          id: "mission-reveal"
       - assertVisible: "A natural answer"
-      - tapOn: "Next step"
+      - tapOn:
+          id: "mission-next-step"
 # No numeric pronunciation score may appear without an acoustic assessor.
 - assertNotVisible:
     text: "[0-9]+ ?/ ?100"
-- tapOn: "Leave mission?"
+- tapOn:
+    id: "mission-leave"
 - assertVisible: "Your progress in this mission is saved. You can come back any time."
 - tapOn: "Stay"
 - assertVisible:
     text: "Step .* of .*"
-- tapOn: "Leave mission?"
+- tapOn:
+    id: "mission-leave"
 - tapOn: "Leave"
 - assertVisible: "Your pathway"

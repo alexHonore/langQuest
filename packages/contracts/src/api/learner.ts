@@ -8,7 +8,7 @@ import { CoverageStatusSchema, EnrollmentStatusSchema, LearnerLevelSchema, Learn
 import { CourseManifestSchema, SceneIdSchema, VisualRefSchema, AssetRefSchema } from '../manifest';
 import { Bcp47Schema, JsonObjectSchema, KeySchema, MillisSchema, NonNegativeIntSchema, TimestamptzSchema, UnitIntervalSchema, UuidSchema } from '../primitives';
 import { ReviewCardSchema, ReviewRatingSchema, SkillMasterySnapshotSchema, SkillObservationInputSchema } from '../srs';
-import { pageOf, PaginationQuerySchema, QueryBooleanSchema } from './common';
+import { confirmQuery, pageOf, PaginationQuerySchema, QueryBooleanSchema } from './common';
 
 // --- auth -------------------------------------------------------------------
 
@@ -146,7 +146,11 @@ export const EnrollmentCreateRequestSchema = z
 export type EnrollmentCreateRequest = z.infer<typeof EnrollmentCreateRequestSchema>;
 export const EnrollmentCreateResponseSchema = EnrollmentDtoSchema;
 
-/** Changing the source language never resets mastery, bookmarks or progress (§2.1). */
+/**
+ * Changing the source language never resets mastery, bookmarks or progress (§2.1).
+ * Route contract: `PATCH /v1/me/enrollments/:id?confirm=archive` (`EnrollmentPatchQuerySchema`) is required
+ * when the patch sets `status: 'archived'`; without it the API answers `precondition_failed`.
+ */
 export const EnrollmentPatchRequestSchema = z
   .object({
     sourceLanguageCode: SourceLanguageCodeSchema,
@@ -169,7 +173,7 @@ export const EnrollmentPatchResponseSchema = EnrollmentDtoSchema;
  * `?confirm=archive`; otherwise the API answers `precondition_failed` with `details.requiredConfirmation`.
  * Archiving keeps all progress and is reversible (restore by patching `status` back to `active`).
  */
-export const EnrollmentPatchQuerySchema = z.object({ confirm: z.enum(['archive']).optional() });
+export const EnrollmentPatchQuerySchema = confirmQuery('archive');
 export type EnrollmentPatchQuery = z.infer<typeof EnrollmentPatchQuerySchema>;
 
 /** Query for `GET /v1/me/enrollments`: archived enrollments are hidden unless `includeArchived=true`. */
@@ -182,7 +186,7 @@ export const EnrollmentsListResponseSchema = z.object({ enrollments: z.array(Enr
  * enrollment's own progress (other enrollments and the account are untouched); `?confirm=delete` is required
  * and a request without it answers `precondition_failed` with `details.requiredConfirmation: 'delete'`.
  */
-export const EnrollmentDeleteQuerySchema = z.object({ confirm: z.enum(['delete']).optional() });
+export const EnrollmentDeleteQuerySchema = confirmQuery('delete');
 export type EnrollmentDeleteQuery = z.infer<typeof EnrollmentDeleteQuerySchema>;
 export const EnrollmentDeleteResponseSchema = z.object({ deleted: z.literal(true), enrollmentId: UuidSchema });
 export type EnrollmentDeleteResponse = z.infer<typeof EnrollmentDeleteResponseSchema>;
@@ -293,7 +297,10 @@ export type MissionEvaluateRequest = z.infer<typeof MissionEvaluateRequestSchema
 
 export const MissionEvaluateResponseSchema = z.object({
   attemptId: UuidSchema,
+  /** `evaluation.confidence` is `null` whenever no evaluator ran (see `evaluatorRan`). */
   evaluation: EvaluatorOutputSchema,
+  /** Honest flag: false when the result is rubric-only (no LLM evaluator). Optional for older servers. */
+  evaluatorRan: z.boolean().optional(),
   xpAwarded: NonNegativeIntSchema,
   xpReplayed: z.boolean(),
   masteryChanges: z.array(z.object({ skillKey: KeySchema, from: MasteryStateSchema, to: MasteryStateSchema })),

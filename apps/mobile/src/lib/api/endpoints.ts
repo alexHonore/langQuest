@@ -13,6 +13,7 @@ import {
   CoursesResponseSchema,
   CoverageResponseSchema,
   EnrollmentCreateResponseSchema,
+  EnrollmentDeleteResponseSchema,
   EnrollmentPatchResponseSchema,
   EnrollmentsListResponseSchema,
   LanguagesResponseSchema,
@@ -36,6 +37,8 @@ import {
   type ConversationSessionCreateRequest,
   type ConversationTurnRequest,
   type EnrollmentCreateRequest,
+  type EnrollmentDeleteQuery,
+  type EnrollmentPatchQuery,
   type EnrollmentPatchRequest,
   type MeDeleteRequest,
   type MissionEvaluateRequest,
@@ -48,6 +51,13 @@ import {
 import { z } from 'zod';
 import type { ApiClient } from './client';
 import { MeResponseSchemaLenient } from './me-schema';
+import { retryWhileTurnInProgress } from './turn-retry';
+
+/**
+ * Conversation calls wait for a full LLM (+ STT/TTS) round trip; the API's own turn budget is well above the
+ * generic 20 s default, so these never time out before the server does (§8.3 "no broken spinner").
+ */
+export const CONVERSATION_TIMEOUT_MS = 60_000;
 
 export type ConversationEndRequest = z.infer<typeof ConversationEndRequestSchema>;
 export type PlaybackUrlRequest = z.infer<typeof PlaybackUrlRequestSchema>;
@@ -65,12 +75,21 @@ export function createEndpoints(client: ApiClient) {
     enrollmentCreate: (body: EnrollmentCreateRequest, idempotencyKey: string) =>
       client.call('enrollmentsCreate', { body, idempotencyKey, schema: EnrollmentCreateResponseSchema }),
     /**
-     * Archiving needs the API's explicit `?confirm=archive` (412 `precondition_failed` with
-     * `requiredConfirmation: 'archive'` otherwise). The query is not modelled in `@langquest/contracts`
-     * yet (cross-package gap: `EnrollmentPatchQuerySchema`), so it is derived from the body here.
+     * Archiving needs the API's explicit `?confirm=archive` (`EnrollmentPatchQuerySchema`; 412
+     * `precondition_failed` with `requiredConfirmation: 'archive'` otherwise). Derived from the body when
+     * the caller does not pass it, so the destructive path can never silently fail.
      */
-    enrollmentPatch: (id: string, body: EnrollmentPatchRequest, query?: { confirm?: 'archive' }) =>
+    enrollmentPatch: (id: string, body: EnrollmentPatchRequest, query?: EnrollmentPatchQuery) =>
       client.call('enrollmentPatch', { params: { id }, body, query: query ?? (body.status === 'archived' ? { confirm: 'archive' } : undefined), schema: EnrollmentPatchResponseSchema }),
+    /**
+     * §15 "User removes a course": `DELETE /v1/me/enrollments/:id?confirm=delete` permanently deletes ONE
+     * enrollment and its scoped progress (other courses and the account are untouched). The API answers 412
+     * `precondition_failed` with `requiredConfirmation: 'delete'` without the query, so the wrapper always
+     * sends it (`EnrollmentDeleteQuerySchema`). Not retried beyond the client's DELETE default: the route is
+     * idempotent (a replay after the row is gone is a 404 the screen treats as done).
+     */
+    enrollmentDelete: (id: string, query: EnrollmentDeleteQuery = { confirm: 'delete' }) =>
+      client.call('enrollmentDelete', { params: { id }, query, schema: EnrollmentDeleteResponseSchema }),
     /** GET /v1/me/export — portable JSON bundle of the learner's own data (§11). */
     exportData: () => client.call('meExport', { schema: MeExportResponseSchema, timeoutMs: 60_000 }),
     /** DELETE /v1/me — server-side account deletion; requires the literal confirmation text (§11, A28). */
@@ -93,20 +112,31 @@ export function createEndpoints(client: ApiClient) {
         body: ConversationSessionCreateRequestSchema.parse(body),
         idempotencyKey: body.clientSessionId,
         schema: ConversationSessionCreateResponseSchema,
-        timeoutMs: 45_000,
+        timeoutMs: CONVERSATION_TIMEOUT_MS,
       }),
-    conversationTurn: (id: string, body: ConversationTurnRequest, signal?: AbortSignal) =>
-      client.call('conversationTurn', {
-        params: { id },
-        body: ConversationTurnRequestSchema.parse(body),
-        idempotencyKey: body.clientTurnId,
-        schema: ConversationTurnResponseSchema,
-        timeoutMs: 45_000,
-        signal,
-        maxRetries: 1,
-      }),
+    /**
+     * A 409 `turn_in_progress` (the same `clientTurnId` is still being processed, e.g. after a transport retry
+     * or a reconnect) is retried with the SAME body after `Retry-After` / `details.retryAfterSeconds`; the server
+     * then replays the original character turn. A new id is never minted for the same learner utterance.
+     */
+    conversationTurn: (id: string, body: ConversationTurnRequest, signal?: AbortSignal) => {
+      const parsed = ConversationTurnRequestSchema.parse(body);
+      return retryWhileTurnInProgress(
+        () =>
+          client.call('conversationTurn', {
+            params: { id },
+            body: parsed,
+            idempotencyKey: body.clientTurnId,
+            schema: ConversationTurnResponseSchema,
+            timeoutMs: CONVERSATION_TIMEOUT_MS,
+            signal,
+            maxRetries: 1,
+          }),
+        { signal },
+      );
+    },
     conversationEnd: (id: string, body: ConversationEndRequest) =>
-      client.call('conversationEnd', { params: { id }, body: ConversationEndRequestSchema.parse(body), idempotencyKey: body.clientEventId, schema: ConversationEndResponseSchema, timeoutMs: 60_000 }),
+      client.call('conversationEnd', { params: { id }, body: ConversationEndRequestSchema.parse(body), idempotencyKey: body.clientEventId, schema: ConversationEndResponseSchema, timeoutMs: CONVERSATION_TIMEOUT_MS }),
     // Speech routes are registered `idempotent: false` on the API (the Idempotency-Key is never stored or
     // replayed), so a transport retry would run STT/assessor/TTS twice for the same utterance. Never retry
     // them automatically; the screens offer an explicit retry instead.

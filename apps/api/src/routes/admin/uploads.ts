@@ -8,7 +8,7 @@
  * Node runner (no multi-GB hashing in a Worker). Object keys are generated (`media/{assetId}/{sha256}.{ext}`),
  * never user filenames; the original name/path is stored as legacy metadata only.
  */
-import { UploadAbortRequestSchema, UploadAbortResponseSchema, UploadCompleteRequestSchema, UploadCompleteResponseSchema, UploadInitiateRequestSchema, UploadInitiateResponseSchema, UploadPartsSignRequestSchema, UploadPartsSignResponseSchema, UuidSchema, type ContentState } from '@langquest/contracts';
+import { UploadAbortRequestSchema, UploadAbortResponseSchema, UploadCompleteRequestSchema, UploadCompleteResponseSchema, UploadInitiateRequestSchema, UploadInitiateResponseSchema, UploadPartsSignRequestSchema, UploadPartsSignResponseSchema, UuidSchema, type ContentState, type UploadInitiateRequest, type UploadInitiateResponse } from '@langquest/contracts';
 import type { Row } from '@langquest/db/types';
 import { sha256Hex as mediaSha256 } from '@langquest/media/hashing';
 import { parseObjectKey } from '@langquest/media/keys';
@@ -45,43 +45,52 @@ async function persistSession(s: RequestServices, session: UploadSession, extra:
   if (res.error) throw problem.internal(`Could not persist the upload session: ${res.error.message}`);
 }
 
+/**
+ * Open (or resume) a multipart upload session for `body` on behalf of the calling editor. Shared by the audio/any-kind
+ * `adminUploadInitiate` route and the image-only `adminVisualAssetUploadInitiate` route (same lifecycle, same keys).
+ */
+export async function initiateUploadSession(s: RequestServices, body: UploadInitiateRequest): Promise<{ response: UploadInitiateResponse; status: 200 | 201 }> {
+  const { principal } = s.requireUser();
+  const now = new Date();
+  const fingerprint = idempotencyFingerprint(body, principal.userId);
+  const existingRes = await s.service.from('uploads').select('*').eq('user_id', principal.userId).eq('idempotency_key', body.idempotencyKey).maybeSingle();
+  const existing = existingRes.data ? fromUploadRow(existingRes.data as unknown as Parameters<typeof fromUploadRow>[0], { kind: kindForMime(existingRes.data.declared_mime_type), fingerprint }) : null;
+  const assetId = existing ? (parseObjectKey(existing.storageKey) as { assetId?: string } | null)?.assetId ?? crypto.randomUUID() : crypto.randomUUID();
+  const result = initiateUpload(body, { uploadId: existing?.uploadId ?? crypto.randomUUID(), assetId, userId: principal.userId, now, existing });
+  if (result.outcome === 'rejected') {
+    if (result.failureCode === 'idempotency_conflict') throw problem.conflict(result.message);
+    throw problem.validation(result.message, { failureCode: result.failureCode });
+  }
+  const duplicates = await s.service.from('media_assets').select('id, checksum_sha256, storage_key, content_rights_id, owner_id, disposition, state').eq('checksum_sha256', body.clientChecksumSha256.toLowerCase()).limit(10);
+  const dedupe = decideDedupe({ incomingChecksumSha256: body.clientChecksumSha256, incomingContentRightsId: null, incomingOwnerId: principal.userId, existing: (duplicates.data ?? []).map((a) => ({ assetId: a.id, checksumSha256: a.checksum_sha256, storageKey: a.storage_key, contentRightsId: a.content_rights_id, ownerId: a.owner_id, disposition: a.disposition as 'active', state: a.state as ContentState })) });
+  if (dedupe.decision === 'blocked') throw problem.rights(`Upload refused: ${dedupe.reason}`, { duplicateOfAssetId: dedupe.duplicateOfAssetId });
+
+  let session = result.session;
+  let resumed = result.outcome === 'resumed';
+  let completedPartNumbers = result.outcome === 'resumed' ? result.completedPartNumbers : [];
+  if (result.outcome === 'created') {
+    if (!s.media.canPresign) throw problem.unsupported(s.media.available ? 'Multipart uploads need R2 S3 credentials (R2_ACCOUNT_ID / R2_ACCESS_KEY_ID / R2_SECRET_ACCESS_KEY)' : R2_UNAVAILABLE_MESSAGE);
+    const multipartUploadId = await s.media.createMultipart(session.storageKey, session.declaredMimeType);
+    session = { ...session, multipartUploadId };
+    const { id, ...rest } = toUploadRow(session);
+    const ins = existing
+      ? await s.service.from('uploads').update({ ...rest, draft_asset_id: null }).eq('id', id)
+      : await s.service.from('uploads').insert({ id, ...rest, draft_asset_id: null });
+    if (ins.error) throw problem.internal(`Could not create the upload session: ${ins.error.message}`);
+    s.audit({ action: 'upload.initiate', entityTable: 'uploads', entityId: id, after: { storageKey: session.storageKey, byteLength: session.declaredByteLength, parts: session.partCount, kind: body.kind, dedupe: dedupe.decision } });
+  } else if (resumed) {
+    completedPartNumbers = session.completedParts.map((p) => p.partNumber).sort((a, b) => a - b);
+    resumed = true;
+  }
+  const response = UploadInitiateResponseSchema.parse({ uploadId: session.uploadId, storageKey: session.storageKey, partSizeBytes: session.partSizeBytes, partCount: session.partCount, expiresAt: session.expiresAt, status: session.status, duplicateOfAssetId: dedupe.duplicateOfAssetId, resumed, completedPartNumbers });
+  return { response, status: resumed ? 200 : 201 };
+}
+
 export function registerUploadRoutes(define: DefineRoute): void {
   define('adminUploadInitiate', { role: 'contentEditor', idempotent: false }, async (c) => {
     const body = await parseBody(c, UploadInitiateRequestSchema);
-    const s = c.get('services')!;
-    const { principal } = s.requireUser();
-    const now = new Date();
-    const fingerprint = idempotencyFingerprint(body, principal.userId);
-    const existingRes = await s.service.from('uploads').select('*').eq('user_id', principal.userId).eq('idempotency_key', body.idempotencyKey).maybeSingle();
-    const existing = existingRes.data ? fromUploadRow(existingRes.data as unknown as Parameters<typeof fromUploadRow>[0], { kind: kindForMime(existingRes.data.declared_mime_type), fingerprint }) : null;
-    const assetId = existing ? (parseObjectKey(existing.storageKey) as { assetId?: string } | null)?.assetId ?? crypto.randomUUID() : crypto.randomUUID();
-    const result = initiateUpload(body, { uploadId: existing?.uploadId ?? crypto.randomUUID(), assetId, userId: principal.userId, now, existing });
-    if (result.outcome === 'rejected') {
-      if (result.failureCode === 'idempotency_conflict') throw problem.conflict(result.message);
-      throw problem.validation(result.message, { failureCode: result.failureCode });
-    }
-    const duplicates = await s.service.from('media_assets').select('id, checksum_sha256, storage_key, content_rights_id, owner_id, disposition, state').eq('checksum_sha256', body.clientChecksumSha256.toLowerCase()).limit(10);
-    const dedupe = decideDedupe({ incomingChecksumSha256: body.clientChecksumSha256, incomingContentRightsId: null, incomingOwnerId: principal.userId, existing: (duplicates.data ?? []).map((a) => ({ assetId: a.id, checksumSha256: a.checksum_sha256, storageKey: a.storage_key, contentRightsId: a.content_rights_id, ownerId: a.owner_id, disposition: a.disposition as 'active', state: a.state as ContentState })) });
-    if (dedupe.decision === 'blocked') throw problem.rights(`Upload refused: ${dedupe.reason}`, { duplicateOfAssetId: dedupe.duplicateOfAssetId });
-
-    let session = result.session;
-    let resumed = result.outcome === 'resumed';
-    let completedPartNumbers = result.outcome === 'resumed' ? result.completedPartNumbers : [];
-    if (result.outcome === 'created') {
-      if (!s.media.canPresign) throw problem.unsupported(s.media.available ? 'Multipart uploads need R2 S3 credentials (R2_ACCOUNT_ID / R2_ACCESS_KEY_ID / R2_SECRET_ACCESS_KEY)' : R2_UNAVAILABLE_MESSAGE);
-      const multipartUploadId = await s.media.createMultipart(session.storageKey, session.declaredMimeType);
-      session = { ...session, multipartUploadId };
-      const { id, ...rest } = toUploadRow(session);
-      const ins = existing
-        ? await s.service.from('uploads').update({ ...rest, draft_asset_id: null }).eq('id', id)
-        : await s.service.from('uploads').insert({ id, ...rest, draft_asset_id: null });
-      if (ins.error) throw problem.internal(`Could not create the upload session: ${ins.error.message}`);
-      s.audit({ action: 'upload.initiate', entityTable: 'uploads', entityId: id, after: { storageKey: session.storageKey, byteLength: session.declaredByteLength, parts: session.partCount, dedupe: dedupe.decision } });
-    } else if (resumed) {
-      completedPartNumbers = session.completedParts.map((p) => p.partNumber).sort((a, b) => a - b);
-      resumed = true;
-    }
-    return respondOk(c, UploadInitiateResponseSchema.parse({ uploadId: session.uploadId, storageKey: session.storageKey, partSizeBytes: session.partSizeBytes, partCount: session.partCount, expiresAt: session.expiresAt, status: session.status, duplicateOfAssetId: dedupe.duplicateOfAssetId, resumed, completedPartNumbers }), resumed ? 200 : 201);
+    const { response, status } = await initiateUploadSession(c.get('services')!, body);
+    return respondOk(c, response, status);
   });
 
   define('adminUploadPartsSign', { role: 'contentEditor', idempotent: false }, async (c) => {

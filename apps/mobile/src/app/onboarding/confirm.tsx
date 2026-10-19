@@ -22,7 +22,7 @@ export default function ConfirmStep(): React.JSX.Element {
   const track = getCourseTrack(trackId);
   const clar = dialectClarification(track);
   return (
-    <OnboardingFrame step={3} title={t('onboarding.learnFromConfirm', { target: track.displayName, source: names(source) })} primaryLabel={t('common.confirm')} onPrimary={() => router.push('/onboarding/warmup')}>
+    <OnboardingFrame step={3} title={t('onboarding.learnFromConfirm', { target: track.displayName, source: names(source) })} primaryLabel={t('common.confirm')} primaryTestID="onboarding-confirm" onPrimary={() => router.push('/onboarding/warmup')}>
       <CourseCover trackId={track.id} title={track.displayName} />
       <View style={{ gap: theme.spacing.sm }}>
         <ThemedText variant="heading">{t('onboarding.learnFrom', { target: track.displayName, source: names(source) })}</ThemedText>

@@ -6,6 +6,7 @@ import React, { useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { ErrorView } from '@/components/StateViews';
+import { coverageDescriptions } from '@/features/session/coverage-copy';
 import { useActiveEnrollment, useCourses, useInvalidateLearner } from '@/features/session/queries';
 import { useExtraLabels } from '@/lib/extra-labels';
 import { newUuid } from '@/lib/ids';
@@ -92,17 +93,20 @@ export default function EnrollTrack(): React.JSX.Element {
         </ThemedText>
         <Row gap={theme.spacing.xs} wrap accessibilityRole="radiogroup">
           {sources.map((s) => (
-            <Chip key={s.code} label={names(s.code)} selected={source === s.code} tone={s.prominent ? 'accent' : 'neutral'} onPress={() => setSource(s.code)} accessibilityLabel={names(s.code)} />
+            <View key={s.code} testID={`catalog-source-${s.code}`}>
+              <Chip label={names(s.code)} selected={source === s.code} tone={s.prominent ? 'accent' : 'neutral'} onPress={() => setSource(s.code)} accessibilityLabel={names(s.code)} />
+            </View>
           ))}
         </Row>
         {source ? (
           <View style={{ gap: theme.spacing.xs }}>
-            <CoverageBadge status={coverage?.status ?? 'planned'} sourceLanguageCode={source} nativeReviewed={coverage?.nativeReviewed} fallbackSourceLanguageCode={coverage?.fallbackSourceLanguageCode ?? null} verbose labels={labels.coverage} languageNames={{ [source]: names(source), ...(coverage?.fallbackSourceLanguageCode ? { [coverage.fallbackSourceLanguageCode]: names(coverage.fallbackSourceLanguageCode) } : {}) }} />
-            {coverage && coverage.status !== 'complete' ? (
+            {/* The editorial status for this exact (track, source) pair; while it loads nothing is guessed. */}
+            {coverage || !courses.isLoading ? (
+              <CoverageBadge testID="catalog-coverage" status={coverage?.status ?? 'planned'} sourceLanguageCode={source} nativeReviewed={coverage?.nativeReviewed} fallbackSourceLanguageCode={coverage?.fallbackSourceLanguageCode ?? null} verbose labels={labels.coverage} descriptions={coverageDescriptions(t, X, names(source), coverage?.fallbackSourceLanguageCode ? names(coverage.fallbackSourceLanguageCode) : null)} languageNames={{ [source]: names(source), ...(coverage?.fallbackSourceLanguageCode ? { [coverage.fallbackSourceLanguageCode]: names(coverage.fallbackSourceLanguageCode) } : {}) }} />
+            ) : null}
+            {coverage && coverage.status !== 'complete' && coverage.fallbackSourceLanguageCode ? (
               <ThemedText variant="caption" tone="secondary">
-                {coverage.status === 'planned' && !coverage.fallbackSourceLanguageCode
-                  ? X.plannedNoFallback(names(source))
-                  : t(`enrollment.coverage.detail.${coverage.status}`, { source: names(source), fallback: coverage.fallbackSourceLanguageCode ? names(coverage.fallbackSourceLanguageCode) : '' })}
+                {t('enrollment.coverage.optInFallbackHint', { fallback: names(coverage.fallbackSourceLanguageCode), source: names(source) })}
               </ThemedText>
             ) : null}
             {summary ? (
@@ -152,7 +156,7 @@ export default function EnrollTrack(): React.JSX.Element {
       {existing ? (
         <Button label={t('catalog.enrolled')} variant="secondary" icon="check" fullWidth onPress={() => { setPrefs({ activeEnrollmentId: existing.id }); router.replace('/(tabs)'); }} accessibilityLabel={t('catalog.enrolled')} />
       ) : (
-        <Button label={source ? t('onboarding.learnFrom', { target: trackDef.displayName, source: names(source) }) : t('catalog.enroll')} size="lg" fullWidth disabled={!source || coverage?.status === 'unavailable'} loading={enroll.isPending} onPress={() => enroll.mutate()} accessibilityLabel={t('catalog.enroll')} />
+        <Button testID="catalog-enroll" label={source ? t('onboarding.learnFrom', { target: trackDef.displayName, source: names(source) }) : t('catalog.enroll')} size="lg" fullWidth disabled={!source || coverage?.status === 'unavailable'} loading={enroll.isPending} onPress={() => enroll.mutate()} accessibilityLabel={t('catalog.enroll')} />
       )}
     </Screen>
   );

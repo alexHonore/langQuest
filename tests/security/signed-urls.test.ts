@@ -6,7 +6,7 @@
  */
 import { authorizePlayback, SIGNED_URL_POLICY, shouldRenew, ttlForAsset } from '@langquest/media/playback';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { signStreamToken, verifyStreamToken } from '../../apps/api/src/lib/media-token';
+import { signStreamToken, streamSubject, verifyStreamToken } from '../../apps/api/src/lib/media-token';
 import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, enrol, Seeder, TEST_TICKET_SECRET, type ApiHarness, type TestUser } from '../src/harness';
 
 describe('signed URL model (pure)', () => {
@@ -18,9 +18,13 @@ describe('signed URL model (pure)', () => {
   it('a stream token is bound to asset, learner and expiry; tampering or replaying for another asset fails', () => {
     const now = Math.floor(Date.now() / 1000);
     const token = signStreamToken(secret, asset, user, now + 600);
-    expect(verifyStreamToken(secret, token, now)).toEqual({ assetId: asset, userId: user });
+    // The token carries a pseudonymous learner subject (never the raw user id: stream URLs end up in CDN/proxy logs).
+    const subject = streamSubject(secret, user);
+    expect(subject).toMatch(/^[0-9a-f]{16}$/);
+    expect(token).not.toContain(user);
+    expect(verifyStreamToken(secret, token, now)).toMatchObject({ assetId: asset, subject });
     expect(verifyStreamToken(secret, token.replace(asset, other), now)).toBeNull();
-    expect(verifyStreamToken(secret, token.replace(encodeURIComponent(user), encodeURIComponent(crypto.randomUUID())), now)).toBeNull();
+    expect(verifyStreamToken(secret, token.replace(subject, streamSubject(secret, crypto.randomUUID())), now)).toBeNull();
     expect(verifyStreamToken(secret, token, now + 601)).toBeNull();
     const [a, exp, u, sig] = token.split('.') as [string, string, string, string];
     expect(verifyStreamToken(secret, `${a}.${Number(exp) + 86_400}.${u}.${sig}`, now)).toBeNull();

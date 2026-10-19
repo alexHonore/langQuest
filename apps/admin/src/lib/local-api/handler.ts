@@ -1,9 +1,11 @@
 import 'server-only';
 /**
  * Local adapter routes (`app/api/admin/**`) — the CMS needs a handful of writes the shared
- * contracts do not expose yet (speakers, collections/chapters/lessons structure, rights
- * records, coverage editorial status, transcript segments, role grants, revision rollback,
- * job retry, model probes). Each handler:
+ * contracts do not expose yet (coverage editorial status, transcript segments, role grants,
+ * revision rollback, job retry, model probes, editorial approve/reject of drafts). Speakers,
+ * library structure (collections / chapters / lessons / lesson assets) and content rights are
+ * served by the LangQuest API and called from the browser through the typed client
+ * (`src/lib/api.ts`); their local routes were removed. Each remaining handler:
  *   1. requires a verified staff session and the section role,
  *   2. validates the body with Zod,
  *   3. writes through the user's own Supabase session, so RLS (editor/reviewer/admin

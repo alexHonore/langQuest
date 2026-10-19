@@ -75,7 +75,9 @@ export default async function QualityReviewPage() {
             {visual.ok
               ? visual.data.map((v) => (
                   <li key={v.id} className="flex items-center gap-2">
-                    <code className="font-mono text-xs">{shortId(v.id)}</code>
+                    <Link href="/visual-assets" className="font-mono text-xs text-accent hover:underline">
+                      {shortId(v.id)}
+                    </Link>
                     <span>{v.type}</span>
                     <Badge>{v.origin}</Badge>
                     <span className="text-xs text-fg-muted">{v.alt_text_key}</span>

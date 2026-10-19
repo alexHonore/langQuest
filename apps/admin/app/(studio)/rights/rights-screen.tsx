@@ -1,12 +1,11 @@
 'use client';
 import { useMemo, useState } from 'react';
 import { LICENSE_NAMES, buildAttributionText, canPublish } from '@langquest/media';
+import type { ContentRightsCreateRequest, ContentRightsPatchRequest, ContentRightsRevokeRequest } from '@langquest/contracts';
 import { browserApi } from '@/src/lib/api-browser';
-import { localCall } from '@/src/lib/local-api/client';
 import { useI18n } from '@/src/lib/i18n/client';
 import { useAction } from '@/src/lib/use-action';
-import type { RightsUpsert } from '@/src/lib/local-api/schemas';
-import { formatDateTime, shortId } from '@/src/lib/format';
+import { formatDateTime, newIdempotencyKey, shortId } from '@/src/lib/format';
 import { Button, Checkbox, Field, Input, Notice, Select, Textarea } from '@/src/components/ui';
 import { Dialog } from '@/src/components/dialog';
 import { Badge, StatusBadge } from '@/src/components/badges';
@@ -39,6 +38,11 @@ export interface RightsRow {
   lessons: { id: string; state: string }[];
   collections: { id: string; state: string }[];
 }
+
+/** Form = contract create body minus its idempotency key; `revokedAt` is read-only (revocation is its own API call). */
+type RightsUpsert = Omit<ContentRightsCreateRequest, 'idempotencyKey'> & { id?: string; revokedAt: string | null };
+
+const REVOKE_REASONS: ContentRightsRevokeRequest['reason'][] = ['rights_revoked', 'takedown', 'expired', 'other'];
 
 const emptyForm: RightsUpsert = {
   originUrl: null,
@@ -108,12 +112,35 @@ function gateFor(form: RightsUpsert) {
   });
 }
 
-export function RightsScreen({ rows, page, hasNext, highlightId }: { rows: RightsRow[]; page: number; hasNext: boolean; highlightId: string | null }) {
+export function RightsScreen({ rows, page, hasNext, highlightId, canVerify }: { rows: RightsRow[]; page: number; hasNext: boolean; highlightId: string | null; canVerify: boolean }) {
   const { t, locale } = useI18n();
   const { get, set } = useUrlFilters();
   const [form, setForm] = useState<RightsUpsert | null>(null);
+  const [revokeReason, setRevokeReason] = useState<ContentRightsRevokeRequest['reason']>('rights_revoked');
+  const [revokeNote, setRevokeNote] = useState('');
   const [report, setReport] = useState<{ items: Array<{ contentRightsId: string; licenseId: string; attributionText: string | null; usedBy: Array<{ entityTable: string; entityId: string; state: string }>; verified: boolean }>; total: number | null } | null>(null);
-  const save = useAction(async () => (form ? localCall('/api/admin/rights', { method: 'POST', body: form }) : null), { successMessage: t('admin.ui.saved') });
+  const save = useAction(
+    async () => {
+      if (!form) return null;
+      const { id, revokedAt: _revokedAt, ...fields } = form;
+      void _revokedAt;
+      if (id) {
+        const body: ContentRightsPatchRequest = fields;
+        return browserApi().call('adminContentRightsPatch', { params: { id }, body });
+      }
+      const body: ContentRightsCreateRequest = { ...fields, idempotencyKey: newIdempotencyKey('rts') };
+      return browserApi().call('adminContentRightsCreate', { body, idempotencyKey: body.idempotencyKey });
+    },
+    { successMessage: t('admin.ui.saved') },
+  );
+  // One transaction server-side: unpublishes every dependent entity and revokes offline packs (§7.5).
+  const revoke = useAction(
+    async (id: string) => {
+      const body: ContentRightsRevokeRequest = { reason: revokeReason, note: revokeNote || undefined, idempotencyKey: newIdempotencyKey('rvk') };
+      return browserApi().call('adminContentRightsRevoke', { params: { id }, body, idempotencyKey: body.idempotencyKey });
+    },
+    { successMessage: (res) => t('admin.ui.rtRevokedResult', { count: res.affected.length, manifest: res.manifestInvalidated ? t('admin.ui.yes') : t('admin.ui.no') }) },
+  );
   const loadReport = useAction(
     async () => {
       const res = await browserApi().call('adminLicensesAttributions', { query: { limit: 200 } });
@@ -241,14 +268,40 @@ export function RightsScreen({ rows, page, hasNext, highlightId }: { rows: Right
                 )}
               </Field>
               <Field label={t('admin.ui.rtExpires')}>{(id) => <Input id={id} type="datetime-local" value={form.expiresAt ? form.expiresAt.slice(0, 16) : ''} onChange={(e) => setForm({ ...form, expiresAt: e.target.value ? new Date(e.target.value).toISOString() : null })} />}</Field>
-              <Field label={t('admin.ui.rtRevoked')}>{(id) => <Input id={id} type="datetime-local" value={form.revokedAt ? form.revokedAt.slice(0, 16) : ''} onChange={(e) => setForm({ ...form, revokedAt: e.target.value ? new Date(e.target.value).toISOString() : null })} />}</Field>
+              <Field label={t('admin.ui.rtRevoked')}>{(id) => <Input id={id} readOnly value={form.revokedAt ? formatDateTime(form.revokedAt, locale) : '—'} />}</Field>
               <div className="flex flex-col gap-1 sm:col-span-2">
                 <Checkbox label={t('admin.rights.commercialUse')} checked={form.commercialRedistribution} onChange={(e) => setForm({ ...form, commercialRedistribution: e.target.checked })} />
                 <Checkbox label={t('admin.rights.attributionRequired')} checked={form.attributionRequired} onChange={(e) => setForm({ ...form, attributionRequired: e.target.checked })} />
                 <Checkbox label={t('admin.ui.rtAlterations')} checked={form.alterationsPermitted} onChange={(e) => setForm({ ...form, alterationsPermitted: e.target.checked })} />
                 <Checkbox label={t('admin.ui.rtAiProcessing')} checked={form.aiProcessingPermitted} onChange={(e) => setForm({ ...form, aiProcessingPermitted: e.target.checked })} />
-                <Checkbox label={t('admin.ui.rtVerified')} checked={form.verified} onChange={(e) => setForm({ ...form, verified: e.target.checked })} />
+                <Checkbox label={t('admin.ui.rtVerified')} checked={form.verified} disabled={!canVerify} onChange={(e) => setForm({ ...form, verified: e.target.checked })} />
+                {!canVerify ? <p className="text-xs text-fg-muted">{t('admin.ui.rtVerifyNeedsAdmin')}</p> : null}
               </div>
+              {form.id && !form.revokedAt ? (
+                <div className="space-y-2 rounded-md border border-error/40 bg-error-soft p-2 sm:col-span-2">
+                  <p className="text-xs font-semibold text-error">{t('admin.ui.rtRevokeTitle')}</p>
+                  <p className="text-xs text-fg-muted">{t('admin.ui.rtRevokeHint')}</p>
+                  <div className="flex flex-wrap items-end gap-2">
+                    <Field label={t('admin.ui.rtRevokeReason')}>
+                      {(id) => (
+                        <Select id={id} value={revokeReason} onChange={(e) => setRevokeReason(e.target.value as ContentRightsRevokeRequest['reason'])}>
+                          {REVOKE_REASONS.map((r) => (
+                            <option key={r} value={r}>
+                              {r}
+                            </option>
+                          ))}
+                        </Select>
+                      )}
+                    </Field>
+                    <Field label={t('admin.ui.pbNote')} className="flex-1">
+                      {(id) => <Input id={id} value={revokeNote} onChange={(e) => setRevokeNote(e.target.value)} />}
+                    </Field>
+                    <Button variant="danger" loading={revoke.busy} onClick={() => window.confirm(t('admin.ui.confirmTitle')) && void revoke.run(form.id!).then((r) => r && setForm(null))}>
+                      {t('admin.ui.rtRevokeAction')}
+                    </Button>
+                  </div>
+                </div>
+              ) : null}
             </div>
             <aside className="space-y-2 rounded-md border border-border bg-surface-muted p-3 text-xs">
               <h3 className="font-semibold">{t('admin.ui.rtGateTitle')}</h3>

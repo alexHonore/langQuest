@@ -68,7 +68,9 @@ describe('XP rules', () => {
     expect(missionCompletionXp('success')).toBe(XP_RULES.mission_completed);
     expect(missionCompletionXp('partial')).toBe(25);
     expect(missionCompletionXp('fail')).toBe(0);
-    expect(masteryAdvanceXp('emerging', 'practiced')).toBe(15);
+    // amounts come from the shared table that mirrors `xp_amount_for_reason` (XP_AMOUNTS)
+    expect(XP_RULES.review_completed).toBe(3);
+    expect(masteryAdvanceXp('emerging', 'practiced')).toBe(20);
     expect(masteryAdvanceXp('practiced', 'emerging')).toBe(0);
     expect(expectedXp({ reason: 'conversation_turns', units: 4 })).toBe(8);
     expect(levelForXp(0)).toBe(0);
@@ -94,11 +96,11 @@ describe('XP rules', () => {
     const fp = responseFingerprint(ATTEMPT, 'step-3', 'Bghit wa7ed l9ahwa, 3afak!');
     expect(fp).toBe(responseFingerprint(ATTEMPT, 'step-3', '  bghit wa7ed  l9ahwa 3afak '));
     expect(fp).not.toBe(responseFingerprint(ATTEMPT, 'step-3', 'ness ness 3afak'));
-    const first: XpClaim = { clientEventId: 'r-1', enrollmentId: ENROLLMENT, reason: 'review_completed', referenceId: 'review-1', amount: 8, responseFingerprint: fp };
-    expect(ledger.apply(first)).toMatchObject({ resolution: 'applied', amount: 8 });
+    const first: XpClaim = { clientEventId: 'r-1', enrollmentId: ENROLLMENT, reason: 'review_completed', referenceId: 'review-1', amount: XP_RULES.review_completed, responseFingerprint: fp };
+    expect(ledger.apply(first)).toMatchObject({ resolution: 'applied', amount: XP_RULES.review_completed });
     expect(ledger.apply({ ...first, clientEventId: 'r-2', referenceId: 'review-2' })).toMatchObject({ resolution: 'rejected', reason: 'identical_response' });
     expect(ledger.apply({ ...first, clientEventId: 'r-3', referenceId: 'review-3', responseFingerprint: responseFingerprint(ATTEMPT, 'step-3', 'different answer') })).toMatchObject({ resolution: 'applied' });
-    expect(ledger.totalXp).toBe(16);
+    expect(ledger.totalXp).toBe(2 * XP_RULES.review_completed);
   });
 
   it('derives achievements from can-do mastery, not from XP', () => {

@@ -31,6 +31,24 @@ automatically in development), `R2_BUCKET`, `R2_PUBLIC_BUCKET`.
 - `JOBS_QUEUE` (Queue producer, optional; Workers Paid): job notifications when `JOBS_BACKEND=cloudflare_queues`.
   The `processing_jobs` table stays the system of record (ADR-005).
 
+## Deploying the 2026-10-19 API (admin structure routes, stored manifests)
+
+The Worker now serves the promoted admin routes (`/v1/admin/speakers`, `/v1/admin/library/{collections,chapters,lessons}`,
+`/v1/admin/content-rights`, `/v1/admin/visual-assets`, `/v1/admin/asset-suggestions`), stores course / audio manifests
+in `course_manifests` / `audio_collection_manifests` on publish and persists `conversation_sessions.scope`. These need
+migration **120** (`reorder_audio_chapters` / `reorder_audio_lessons` / `revoke_content_rights` RPCs,
+`visual_assets.alt_text_translations`, `conversation_sessions.scope`) on the hosted project **before** `wrangler deploy`:
+
+```sh
+pnpm --filter @langquest/db migrate            # supabase db push (hosted) — then re-run gen-types --linked and cross-check
+pnpm --filter @langquest/api typecheck && pnpm --filter @langquest/api test
+pnpm --filter @langquest/api deploy
+```
+
+`DELETE /v1/me` now relies on the `delete_account` RPC (migration 100): without it the route fails closed (500), it never
+falls back to a partial delete. `adminVisualAssetRegister` reads the image header from R2 to record real dimensions and
+answers `capability_unsupported` while R2 is disabled.
+
 ## Current state (2026-10-14)
 
 - R2 is **not enabled** on the account (`10042`): every media URL/upload endpoint returns

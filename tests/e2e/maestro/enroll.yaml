@@ -9,34 +9,41 @@ env:
     clearState: false
 - runFlow:
     when:
-      visible: "Get started"
+      visible:
+        id: "onboarding-get-started"
     commands:
       - runFlow: _sign-in.yaml
 - extendedWaitUntil:
     visible: "Learning Arabic (Moroccan) from French"
     timeout: 20000
-- tapOn: "Switch course"
+- tapOn:
+    id: "home-switch-course"
 - assertVisible: "Your courses"
-- tapOn: "Add a course"
+- tapOn:
+    id: "course-switcher-add"
 - assertVisible: "Courses"
-- tapOn: "Search languages and dialects"
+- tapOn:
+    id: "catalog-search"
 - inputText: "Japanese"
 - hideKeyboard
 - tapOn:
-    text: "Japanese.*"
-- assertVisible: "Add this course"
-# Instruction language is chosen per course: pick English for Japanese.
-- runFlow:
-    when:
-      visible: "Learn from French"
-    commands:
-      - tapOn: "Learn from French"
-      - tapOn: "English"
-- tapOn: "Add this course"
+    id: "catalog-track-japanese"
+- assertVisible:
+    id: "catalog-enroll"
+# Instruction language is chosen per course: pick English for Japanese. The editorial status for
+# (Japanese, English) is shown before enrolling; no fallback language is applied automatically.
+- tapOn:
+    id: "catalog-source-en"
+- assertVisible:
+    id: "catalog-coverage"
+- assertVisible: "Learn Japanese from English"
+- tapOn:
+    id: "catalog-enroll"
 - extendedWaitUntil:
     visible: "Learning Japanese from English"
     timeout: 20000
-- tapOn: "Switch course"
+- tapOn:
+    id: "home-switch-course"
 - assertVisible: "Learning Arabic (Moroccan) from French"
 - assertVisible: "Learning Japanese from English"
 - tapOn: "Learning Arabic (Moroccan) from French"

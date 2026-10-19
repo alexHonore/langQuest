@@ -8,12 +8,13 @@ import { useExtraLabels } from '@/lib/extra-labels';
 import { useT } from '@/lib/i18n';
 import { useAuth } from '@/state/auth';
 
-export function Field(props: { label: string; value: string; onChangeText: (v: string) => void; secure?: boolean; keyboardType?: TextInputProps['keyboardType']; autoComplete?: TextInputProps['autoComplete']; textContentType?: TextInputProps['textContentType'] }): React.JSX.Element {
+export function Field(props: { label: string; value: string; onChangeText: (v: string) => void; secure?: boolean; keyboardType?: TextInputProps['keyboardType']; autoComplete?: TextInputProps['autoComplete']; textContentType?: TextInputProps['textContentType']; testID?: string }): React.JSX.Element {
   const theme = useTheme();
   return (
     <View style={{ gap: theme.spacing.xs }}>
       <ThemedText variant="label">{props.label}</ThemedText>
       <TextInput
+        testID={props.testID}
         value={props.value}
         onChangeText={props.onChangeText}
         secureTextEntry={props.secure}

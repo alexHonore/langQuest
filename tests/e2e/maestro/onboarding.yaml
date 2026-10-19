@@ -1,5 +1,6 @@
 # A02 / §10.2B screen 1: fresh install → choose UI + instruction language → choose target → confirm → warm-up → Home.
 # Requires MAESTRO_EMAIL / MAESTRO_PASSWORD: a learner with NO enrollments on the target stack.
+# Controls use the app's `testID`s; copy assertions stay on the English catalog text.
 appId: org.langquest.app
 env:
   EMAIL: ${MAESTRO_EMAIL}
@@ -8,36 +9,52 @@ env:
 - clearState
 - launchApp
 - assertVisible: "Start speaking from day one"
-- assertVisible: "Get started"
+- assertVisible:
+    id: "onboarding-get-started"
 - assertNotVisible: "Upgrade"
 - assertNotVisible: "Premium"
-- tapOn: "I already have an account"
+- tapOn:
+    id: "onboarding-have-account"
 - runFlow: _sign-in.yaml
 # A learner without a course is sent to onboarding.
 - extendedWaitUntil:
     visible: "Which language should the app use?"
     timeout: 15000
-- tapOn: "English"
+- tapOn:
+    id: "onboarding-ui-en"
 - assertVisible: "Which language do you want to learn from?"
-- tapOn: "French"
+- tapOn:
+    id: "onboarding-source-fr"
+- tapOn:
+    id: "onboarding-language-continue"
 - assertVisible: "What do you want to learn?"
-- tapOn: "Search languages and dialects"
+- tapOn:
+    id: "onboarding-target-search"
 - inputText: "Moroccan"
 - hideKeyboard
 - tapOn:
-    text: "Arabic (Moroccan).*"
+    id: "onboarding-target-arabic-moroccan"
+- tapOn:
+    id: "onboarding-target-continue"
 - assertVisible: "Confirm: learn Arabic (Moroccan) from French"
 - assertVisible: "Scripts:.*"
-- tapOn: "Confirm"
+- tapOn:
+    id: "onboarding-confirm"
 - extendedWaitUntil:
     visible: "A quick, low-pressure warm-up"
     timeout: 15000
-- tapOn: "Skip the warm-up"
+- tapOn:
+    id: "onboarding-warmup-skip"
 - extendedWaitUntil:
     visible: "Learning Arabic (Moroccan) from French"
     timeout: 20000
-- assertVisible: "Switch course"
-- assertVisible: "Missions"
-- assertVisible: "Audio"
-- assertVisible: "Speak"
-- assertVisible: "Progress"
+- assertVisible:
+    id: "home-switch-course"
+- assertVisible:
+    id: "tab-missions"
+- assertVisible:
+    id: "tab-audio"
+- assertVisible:
+    id: "tab-speak"
+- assertVisible:
+    id: "tab-progress"

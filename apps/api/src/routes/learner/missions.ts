@@ -6,14 +6,12 @@
  * with the service client, strictly AFTER the attempt and enrollment were validated as the learner's own.
  */
 import {
-  EvaluatorOutputSchema,
   MissionAttemptCreateRequestSchema,
   MissionAttemptCreateResponseSchema,
   MissionDetailQuerySchema,
   MissionDetailResponseSchema,
   MissionEvaluateRequestSchema,
   MissionEvaluateResponseSchema,
-  UnitIntervalSchema,
   UuidSchema,
   type AutonomyLevel,
   type EvaluatorOutput,
@@ -56,12 +54,11 @@ const MissionEvaluateBoundedSchema = MissionEvaluateRequestSchema.extend({
 const IdParams = z.object({ id: UuidSchema });
 
 /**
- * Learner-facing API shape for `missionEvaluate`. The contracts schema requires a numeric confidence; this
- * server extension makes it nullable and adds `evaluatorRan` so a mission without any conversation evaluator
- * output never reports a made-up percentage (§16.3): `evaluatorRan: false` ⇒ `evaluation.confidence: null`.
+ * Learner-facing API shape for `missionEvaluate`: the contracts response (nullable `confidence`, optional
+ * `evaluatorRan`) with `evaluatorRan` made mandatory, so a mission without any conversation evaluator output never
+ * reports a made-up percentage (§16.3): `evaluatorRan: false` ⇒ `evaluation.confidence: null`.
  */
 export const MissionEvaluateApiResponseSchema = MissionEvaluateResponseSchema.extend({
-  evaluation: EvaluatorOutputSchema.extend({ confidence: UnitIntervalSchema.nullable() }),
   /** True only when at least one referenced conversation session carried LLM evaluator output. */
   evaluatorRan: z.boolean(),
 });
@@ -251,7 +248,9 @@ export function registerMissionRoutes(define: DefineRoute): void {
       if (successRatio >= 0.8) for (const g of goals) reportedObjectives.add(g.id);
     }
     const evaluatorRan = sessionEvaluations.length > 0;
-    const merged: Omit<EvaluatorOutput, 'confidence'> & { confidence: number | null } = {
+    // Only evaluators that reported a figure count; a session whose evaluator ran but reported none stays null.
+    const reportedConfidences = sessionEvaluations.map((e) => e.confidence).filter((v): v is number => typeof v === 'number');
+    const merged: EvaluatorOutput = {
       objectivesCompleted: [...reportedObjectives],
       skillsExercised: [...new Set([...goalSkills, ...sessionEvaluations.flatMap((e) => e.skillsExercised)])],
       observations: sessionEvaluations.flatMap((e) => e.observations),
@@ -260,11 +259,9 @@ export function registerMissionRoutes(define: DefineRoute): void {
       reviewTriggers: [...new Set(sessionEvaluations.flatMap((e) => e.reviewTriggers))],
       relationshipMemoryUpdate: sessionEvaluations.find((e) => e.relationshipMemoryUpdate)?.relationshipMemoryUpdate ?? null,
       // No evaluator ⇒ no confidence figure: the deterministic rubric only knows step outcomes (§16.3).
-      confidence: evaluatorRan ? Math.min(...sessionEvaluations.map((e) => e.confidence)) : null,
+      confidence: evaluatorRan && reportedConfidences.length ? Math.min(...reportedConfidences) : null,
     };
-    // The curriculum rubric is typed on the contracts `EvaluatorOutput` (numeric confidence); its `confidence`
-    // output is discarded here and the response carries the honest nullable value instead.
-    const rubric = evaluateMissionObjectives({ objectives: goals.map((g) => ({ id: g.id, intentKeys: [], skillKeys: g.skill_keys ?? [], required: true })) }, { ...merged, confidence: merged.confidence ?? 0 });
+    const rubric = evaluateMissionObjectives({ objectives: goals.map((g) => ({ id: g.id, intentKeys: [], skillKeys: g.skill_keys ?? [], required: true })) }, merged);
 
     // 1. Attempt outcome (service role: these columns are server-decided).
     const alreadyCompleted = attempt.completed_at !== null;
@@ -279,11 +276,11 @@ export function registerMissionRoutes(define: DefineRoute): void {
     // 2. Observations → mastery (skip when replaying an already-completed attempt to avoid double evidence).
     const { changes, masteryRows } = alreadyCompleted ? { changes: [], masteryRows: [] } : await recordObservations(s, enrollment, observations, now);
 
-    // 3. XP: mission completion (idempotent on clientEventId + attempt reference) and mastery advances.
+    // 3. XP: mission completion (idempotent on clientEventId + attempt reference) and mastery advances. `xpAwarded`
+    //    is the sum of what THIS call wrote to `xp_ledger` (`XP_AMOUNTS` canonical amounts), achievements included below.
     const xp = rubric.outcome === 'fail' ? { applied: false, amount: 0, totalXp: 0, rejectedReason: 'mission_not_passed' } : await awardXp(s, { idempotencyKey: body.clientEventId, userId: principal.userId, enrollmentId: enrollment.id, reason: 'mission_completed', referenceTable: 'mission_attempts', referenceId: completedAttempt.id, occurredAt: body.completedAt });
     const advanceXp = await awardMasteryAdvances(s, enrollment, changes, masteryRows, body.clientEventId);
-    const xpAwarded = xp.amount + advanceXp;
-    if (xpAwarded > 0) await s.repos.progress.updateAttempt(attempt.id, { xp_awarded: (completedAttempt.xp_awarded ?? 0) + xpAwarded }).catch(() => undefined);
+    let xpAwarded = xp.amount + advanceXp;
 
     // 4. Mission progress + achievements.
     const progressRows = await s.repos.progress.listMissionProgress(enrollment.id);
@@ -318,9 +315,11 @@ export function registerMissionRoutes(define: DefineRoute): void {
       }
       if (ins.data) {
         unlocked.push(key);
-        await awardXp(s, { idempotencyKey: uuidFrom(`${body.clientEventId}:achievement_xp:${key}`), userId: principal.userId, enrollmentId: enrollment.id, reason: 'achievement', referenceTable: 'user_achievements', referenceId: ins.data.id });
+        const achievementXp = await awardXp(s, { idempotencyKey: uuidFrom(`${body.clientEventId}:achievement_xp:${key}`), userId: principal.userId, enrollmentId: enrollment.id, reason: 'achievement', referenceTable: 'user_achievements', referenceId: ins.data.id });
+        xpAwarded += achievementXp.amount;
       }
     }
+    if (xpAwarded > 0) await s.repos.progress.updateAttempt(attempt.id, { xp_awarded: (completedAttempt.xp_awarded ?? 0) + xpAwarded }).catch(() => undefined);
 
     // 5. Review scheduling (expressions practised + evaluator review triggers).
     const scheduled = rubric.outcome === 'fail' ? [] : await scheduleReviews(s, enrollment, [...bundle.expressions.map((e) => ({ kind: 'expression' as const, id: e.id })), ...rubric.reviewTriggers.map((k) => ({ kind: 'skill' as const, id: k }))], now, withoutHints ? 'good' : 'hard');

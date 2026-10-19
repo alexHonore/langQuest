@@ -1,7 +1,8 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
-import { localCall } from '@/src/lib/local-api/client';
+import { AUDIO_ASSET_TYPE_VALUES, type AudioAssetType } from '@langquest/contracts';
+import { browserApi } from '@/src/lib/api-browser';
 import { useI18n } from '@/src/lib/i18n/client';
 import { useAction } from '@/src/lib/use-action';
 import { formatBytes, formatDurationMs, shortId } from '@/src/lib/format';
@@ -16,13 +17,19 @@ interface AssetLink {
   asset: { id: string; kind: string; mime_type: string; byte_length: number; duration_ms: number | null; checksum_sha256: string; state: string; legacy_filename: string | null; source_asset_id: string | null; derivation: string | null } | null;
 }
 
-export function LessonAssets({ lessonId, assets }: { lessonId: string; assets: AssetLink[] }) {
+export function LessonAssets({ lessonId, assets, expectedRevision }: { lessonId: string; assets: AssetLink[]; expectedRevision?: number }) {
   const { t, locale } = useI18n();
   const [assetId, setAssetId] = useState('');
-  const [assetType, setAssetType] = useState('master');
+  const [assetType, setAssetType] = useState<AudioAssetType>('master');
   const [previewId, setPreviewId] = useState<string | null>(null);
-  const attach = useAction(async () => localCall(`/api/admin/lessons/${lessonId}/assets`, { method: 'POST', body: { assetId, assetType, sortOrder: assets.length } }), { successMessage: t('admin.ui.saved') });
-  const detach = useAction(async (id: string) => localCall(`/api/admin/lessons/${lessonId}/assets`, { method: 'DELETE', body: { assetId: id } }), { successMessage: t('admin.ui.saved') });
+  // 201 = fresh link, 200 + `movedFromLessonId` = the asset was moved here from another lesson (both lessons get a revision).
+  const attach = useAction(async () => browserApi().call('adminLessonAssetAttach', { params: { id: lessonId }, body: { assetId, assetType, sortOrder: assets.length, expectedRevision } }), {
+    successMessage: (res) => (res.movedFromLessonId ? t('admin.ui.lsAssetMoved', { from: shortId(res.movedFromLessonId), revision: res.revision }) : t('admin.ui.lsAssetAttached', { revision: res.revision })),
+  });
+  // Detached assets return to `imported_draft`; they are never deleted.
+  const detach = useAction(async (id: string) => browserApi().call('adminLessonAssetDetach', { params: { id: lessonId, assetId: id } }), {
+    successMessage: (res) => t('admin.ui.lsAssetDetached', { state: t(`admin.publish.state.${res.assetState}`) }),
+  });
   return (
     <div className="space-y-3">
       {assets.length === 0 ? <p className="text-sm text-fg-muted">{t('admin.ui.lsNoAssets')}</p> : null}
@@ -66,8 +73,8 @@ export function LessonAssets({ lessonId, assets }: { lessonId: string; assets: A
         </Field>
         <Field label={t('admin.ui.type')}>
           {(id) => (
-            <Select id={id} value={assetType} onChange={(e) => setAssetType(e.target.value)}>
-              {['master', 'mobile_encoded', 'review', 'slow', 'clip', 'cover'].map((v) => (
+            <Select id={id} value={assetType} onChange={(e) => setAssetType(e.target.value as AudioAssetType)}>
+              {AUDIO_ASSET_TYPE_VALUES.map((v) => (
                 <option key={v} value={v}>
                   {v}
                 </option>

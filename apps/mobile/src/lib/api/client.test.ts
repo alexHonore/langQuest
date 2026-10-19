@@ -39,6 +39,35 @@ describe('createApiClient', () => {
     expect(fetchMock).toHaveBeenCalledTimes(1);
   });
 
+  it('sends DELETE /v1/me/enrollments/:id?confirm=delete for enrollmentDelete (§15 remove a course)', async () => {
+    const id = '1f7d2a9e-6c0b-4b8d-9a3e-2b5c8d1e4f6a';
+    const fetchMock = vi.fn(async (url: string, init: RequestInit) => {
+      expect(url).toBe(`https://api.test/v1/me/enrollments/${id}?confirm=delete`);
+      expect(init.method).toBe('DELETE');
+      expect(init.body).toBeUndefined();
+      expect((init.headers as Record<string, string>).Authorization).toBe('Bearer tok');
+      return jsonResponse(200, { ok: true, data: { deleted: true, enrollmentId: id } });
+    });
+    const client = createApiClient({ baseUrl: 'https://api.test', getAccessToken: async () => 'tok', fetch: fetchMock, sleep: noSleep });
+    const data = await client.call('enrollmentDelete', { params: { id }, query: { confirm: 'delete' }, schema: z.object({ deleted: z.literal(true), enrollmentId: z.string() }) });
+    expect(data).toEqual({ deleted: true, enrollmentId: id });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
+  it('surfaces the API precondition when enrollmentDelete is sent without ?confirm=delete', async () => {
+    const id = '1f7d2a9e-6c0b-4b8d-9a3e-2b5c8d1e4f6a';
+    const fetchMock = vi.fn(async (url: string) => {
+      expect(url).toBe(`https://api.test/v1/me/enrollments/${id}`);
+      return jsonResponse(412, { ok: false, error: { code: 'precondition_failed', message: 'confirm', details: { requiredConfirmation: 'delete' } } });
+    });
+    const client = createApiClient({ baseUrl: 'https://api.test', getAccessToken: async () => 'tok', fetch: fetchMock, sleep: noSleep });
+    const err = await client.call('enrollmentDelete', { params: { id }, schema: z.object({}) }).catch((e: unknown) => e);
+    expect(err).toBeInstanceOf(ApiClientError);
+    expect((err as ApiClientError).kind).toBe('precondition_failed');
+    expect((err as ApiClientError).details).toEqual({ requiredConfirmation: 'delete' });
+    expect(fetchMock).toHaveBeenCalledTimes(1);
+  });
+
   it('retries transient failures with backoff and surfaces the typed error afterwards', async () => {
     let calls = 0;
     const fetchMock = vi.fn(async () => {

@@ -32,8 +32,9 @@ export default function Welcome(): React.JSX.Element {
           <StatusLine icon="info" tone="info" text={t('onboarding.privacyNote')} />
         </View>
         <View style={{ gap: theme.spacing.sm }}>
-          <Button label={t('onboarding.getStarted')} size="lg" fullWidth onPress={() => router.push('/onboarding/language')} accessibilityLabel={t('onboarding.getStarted')} />
+          <Button testID="onboarding-get-started" label={t('onboarding.getStarted')} size="lg" fullWidth onPress={() => router.push('/onboarding/language')} accessibilityLabel={t('onboarding.getStarted')} />
           <Button
+            testID="onboarding-have-account"
             label={t('onboarding.alreadyHaveAccount')}
             variant="ghost"
             fullWidth

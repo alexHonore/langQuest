@@ -13,30 +13,42 @@ env:
     clearState: false
 - runFlow:
     when:
-      visible: "Get started"
+      visible:
+        id: "onboarding-get-started"
     commands:
       - runFlow: _sign-in.yaml
 - extendedWaitUntil:
     visible: "Learning Arabic (Moroccan) from French"
     timeout: 20000
 # Note what Progress shows before the change.
-- tapOn: "Progress"
+- tapOn:
+    id: "tab-progress"
 - assertVisible:
     text: "Arabic (Moroccan).*"
-- tapOn: "Home"
-- tapOn: "Switch course"
+- tapOn:
+    id: "tab-home"
+- tapOn:
+    id: "home-switch-course"
 - tapOn:
     text: "Change instruction language Arabic (Moroccan)"
 - assertVisible: "Instruction language"
 - assertVisible: "Only this course changes. Your other courses keep their own instruction language."
-- tapOn: "English"
+- tapOn:
+    id: "enrollment-source-en"
+# The editorial status for (Arabic (Moroccan), English) is shown before anything is changed.
+- assertVisible:
+    id: "enrollment-coverage"
+- tapOn:
+    id: "enrollment-change-source"
 - extendedWaitUntil:
     visible: "Now learning Arabic (Moroccan) from English."
     timeout: 20000
-- tapOn: "Done"
+- tapOn:
+    id: "enrollment-done"
 - assertVisible: "Learning Arabic (Moroccan) from English"
 # Progress for the course is preserved (same course row still listed; no reset).
-- tapOn: "Progress"
+- tapOn:
+    id: "tab-progress"
 - assertVisible:
     text: "Arabic (Moroccan).*"
 # Re-render: the first mission's step instruction is now the ENGLISH overlay, and the French one is gone.
@@ -46,16 +58,22 @@ env:
 - assertNotVisible: ${MISSION_INSTRUCTION_FR}
 - runFlow:
     file: _leave-mission.yaml
-- tapOn: "Home"
+- tapOn:
+    id: "tab-home"
 # And back to French so the account is left as found.
-- tapOn: "Switch course"
+- tapOn:
+    id: "home-switch-course"
 - tapOn:
     text: "Change instruction language Arabic (Moroccan)"
-- tapOn: "French"
+- tapOn:
+    id: "enrollment-source-fr"
+- tapOn:
+    id: "enrollment-change-source"
 - extendedWaitUntil:
     visible: "Now learning Arabic (Moroccan) from French."
     timeout: 20000
-- tapOn: "Done"
+- tapOn:
+    id: "enrollment-done"
 - assertVisible: "Learning Arabic (Moroccan) from French"
 # …and the same mission re-renders its instruction in French again.
 - runFlow:
@@ -64,4 +82,5 @@ env:
 - assertNotVisible: ${MISSION_INSTRUCTION_EN}
 - runFlow:
     file: _leave-mission.yaml
-- tapOn: "Home"
+- tapOn:
+    id: "tab-home"

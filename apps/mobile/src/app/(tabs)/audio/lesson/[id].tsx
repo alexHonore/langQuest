@@ -11,6 +11,7 @@ import { DownloadControls } from '@/features/audio/components/DownloadControls';
 import { MediaNotice } from '@/features/audio/components/MediaNotice';
 import { TranscriptPanel } from '@/features/audio/components/TranscriptPanel';
 import { useAudioLabels } from '@/features/audio/labels';
+import { practiceSegmentIds } from '@/features/audio/practice-scope';
 import { useTranscript } from '@/features/audio/queries';
 import { useAudioRuntime, useEngineEvents, useLessonBookmarks } from '@/features/audio/use-audio';
 import { useLessonPlayer } from '@/features/audio/use-lesson-player';
@@ -83,11 +84,20 @@ export default function LessonPlayerScreen(): React.JSX.Element {
     if (bounds) engine.setLoop(bounds);
   };
 
+  /**
+   * "Practice this with AI": the conversation is scoped to this lesson (`scope.kind = 'audio_lesson'`), carrying
+   * the transcript segments the learner saved plus the one currently playing, so the character is grounded in
+   * exactly what was heard. A linked mission is passed too (the server keeps both).
+   */
   const practice = (): void => {
     if (!enrollment || !lesson) return;
     engine?.pause('user');
     const missionId = lesson.linkedMissionIds[0];
-    router.push({ pathname: '/conversation', params: { enrollmentId: enrollment.id, ...(missionId ? { missionId } : {}), audioLessonId: lesson.id } });
+    const segmentIds = practiceSegmentIds(transcript?.segments ?? null, positionMs, savedSegmentIds);
+    router.push({
+      pathname: '/conversation',
+      params: { enrollmentId: enrollment.id, ...(missionId ? { missionId } : {}), audioLessonId: lesson.id, ...(segmentIds.length > 0 ? { transcriptSegmentIds: segmentIds.join(',') } : {}) },
+    });
   };
 
   const sleep = isCurrent ? state.sleep : { kind: 'off' as const };
@@ -103,6 +113,7 @@ export default function LessonPlayerScreen(): React.JSX.Element {
           {notice ? <StatusLine icon="info" tone="info" text={notice} /> : null}
           {isCurrent && state.pauseReason === 'interrupted' && !notice ? <StatusLine icon="info" tone="warning" text={L.interrupted} /> : null}
           <AudioPlayer
+            testID="audio-player"
             controller={controller}
             title={lesson.title}
             subtitle={player.queueItem?.subtitle ?? null}
@@ -231,3 +242,4 @@ export default function LessonPlayerScreen(): React.JSX.Element {
     </Screen>
   );
 }
+

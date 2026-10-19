@@ -14,6 +14,7 @@ import { problem, respondOk } from '../../http/envelope';
 import { parseBody, parseParams, parseQuery } from '../../http/validate';
 import { currentRevision, loadContent, locateContent, recordPublicationEvent, recordRevision, stateOf, titleOf, transitionContent, type ContentRow } from '../../lib/content';
 import { goalsOf } from '../../lib/goals';
+import { refreshAudioCollectionManifest, refreshCourseManifests } from '../../lib/manifests';
 import { rightsFor, rightsRecord } from '../../lib/rights';
 import type { RequestServices } from '../../services/context';
 
@@ -37,6 +38,14 @@ async function manifestsFor(s: RequestServices, content: ContentRow): Promise<In
     }
     default:
       return [];
+  }
+}
+
+/** After `manifest.invalidated`: rebuild + store the affected manifests (background; the response never waits on it). */
+function storeManifests(s: RequestServices, manifests: readonly InvalidationInput[]): void {
+  for (const m of manifests) {
+    if (m.kind === 'course' && m.courseTrackId) s.waitUntil(refreshCourseManifests(s, m.courseTrackId, m.sourceLanguageCode));
+    if (m.kind === 'audio_collection' && m.collectionId) s.waitUntil(refreshAudioCollectionManifest(s, m.collectionId));
   }
 }
 
@@ -146,6 +155,7 @@ export function registerContentRoutes(define: DefineRoute): void {
     await recordPublicationEvent(s, content.table, id, nextRevision, from, 'published', body.note);
     const manifests = await manifestsFor(s, content);
     for (const m of manifests) await s.events.emit('manifest.invalidated', { ...m, newVersion: nextRevision, reason: 'published' }, { idempotencyKey: `manifest.invalidated:${content.table}:${id}:${nextRevision}:${m.courseTrackId ?? m.collectionId}`, traceId: s.requestId });
+    storeManifests(s, manifests);
     if (content.table === 'audio_lessons' || content.table === 'missions' || content.table === 'lesson_courses' || content.table === 'audio_course_collections') {
       const trackId = content.table === 'lesson_courses' ? content.row.course_track_id : content.table === 'audio_course_collections' ? content.row.course_track_id : content.table === 'missions' ? (trackIdsForVariety(content.row.target_variety_id)[0] ?? null) : null;
       await s.events.emit('lesson.published', { entityTable: content.table, entityId: id, revision: nextRevision, courseTrackId: trackId && isCourseTrackId(trackId) ? trackId : null, publishedBy: principal.userId, state: 'published' }, { idempotencyKey: `lesson.published:${content.table}:${id}:${nextRevision}`, traceId: s.requestId });
@@ -171,6 +181,7 @@ export function registerContentRoutes(define: DefineRoute): void {
     const revision = await recordRevision(s, content.table, id, { unpublish: true, reason: body.reason, note: body.note ?? null }, body.note);
     await recordPublicationEvent(s, content.table, id, revision, from, plan.newState, `${body.reason}${body.note ? `: ${body.note}` : ''}`);
     for (const m of plan.manifestInvalidations) await s.events.emit('manifest.invalidated', { kind: m.kind, courseTrackId: m.courseTrackId, collectionId: m.collectionId, sourceLanguageCode: m.sourceLanguageCode, newVersion: revision, reason: m.reason }, { idempotencyKey: `manifest.invalidated:${content.table}:${id}:${revision}:${m.courseTrackId ?? m.collectionId}`, traceId: s.requestId });
+    storeManifests(s, plan.manifestInvalidations);
     s.audit({ action: 'content.unpublish', entityTable: content.table, entityId: id, before: { state: from }, after: { state: plan.newState, reason: body.reason, revokedAssets: plan.revokePlaybackForAssetIds.length, revokedPacks: plan.dependentPackIds.length } });
     return respondOk(c, ContentUnpublishResponseSchema.parse({ contentId: id, state: plan.newState, offlineEligibilityRevoked: plan.offlineEligibilityRevoked, manifestInvalidated: plan.manifestInvalidations.length > 0 }));
   });

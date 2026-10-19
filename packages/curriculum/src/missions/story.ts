@@ -171,7 +171,7 @@ export function applyRelationshipUpdate(memory: RelationshipMemory, input: Memor
   while (facts.length > MAX_MEMORY_FACTS) facts.shift();
 
   const completion = requiredObjectiveCount > 0 ? Math.min(1, evaluation.objectivesCompleted.length / requiredObjectiveCount) : 1;
-  const confident = evaluation.confidence >= 0.5;
+  const confident = (evaluation.confidence ?? 0) >= 0.5;
   const delta = confident ? (completion - 0.5) * 0.3 : 0; // -0.15..+0.15
   return {
     ...memory,

@@ -1,8 +1,10 @@
 # Shared sub-flow: from any tab, open the first published mission of the active enrollment and wait for its first step.
-# Fails honestly when the pathway has no published mission (no fake content path).
+# Fails honestly when the pathway has no published mission (no fake content path). Mission cards carry no ids yet
+# (they are rendered by @langquest/ui), so the card is still picked by its visible text.
 appId: org.langquest.app
 ---
-- tapOn: "Missions"
+- tapOn:
+    id: "tab-missions"
 - assertVisible: "Your pathway"
 - assertNotVisible:
     text: ".*(Not available|planned but not ready).*"

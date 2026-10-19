@@ -129,8 +129,9 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
               </Surface>
             ))}
             <ThemedText tone="secondary">{t('missions.summary.reviewAdded', { count: res.scheduledReviews.length })}</ThemedText>
-            <ThemedText variant="caption" tone="muted">
-              {t('missions.summary.confidence', { confidence: Math.round(res.evaluation.confidence * 100) + '%' })}
+            <ThemedText variant="caption" tone="muted" testID="mission-evaluation-confidence">
+              {/* `confidence` is null when no evaluator ran (rubric-only result): say so, never invent a number. */}
+              {res.evaluation.confidence === null ? X.confidenceNotEvaluated : t('missions.summary.confidence', { confidence: Math.round(res.evaluation.confidence * 100) + '%' })}
             </ThemedText>
             {res.masteryChanges.map((m) => (
               <Chip key={m.skillKey} label={`${m.skillKey.replace(/_/g, ' ')}: ${labels.mastery[m.from]} → ${labels.mastery[m.to]}`} tone="success" />
@@ -171,7 +172,7 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
         <View style={{ flex: 1 }}>
           <LessonProgress step={state.index + 1} totalSteps={state.steps.length} phase={uiPhase(current.phase)} phaseLabel={t(`lesson.stepTypes.${step.type}`)} title={mission.title} formatStep={(a, b) => t('missions.stepOf', { current: a, total: b })} />
         </View>
-        <IconButton icon="close" accessibilityLabel={t('missions.leaveMission')} onPress={leave} />
+        <IconButton testID="mission-leave" icon="close" accessibilityLabel={t('missions.leaveMission')} onPress={leave} />
       </Row>
       {!mission.localizationComplete ? <StatusLine icon="info" tone="warning" text={t('enrollment.coverage.draftAvailable', { source: names(enrollment.sourceLanguageCode) })} /> : null}
       {lesson.offlineLimited ? <StatusLine icon="offline" tone="warning" text={t('errors.offlineLessonsAvailable')} /> : null}
@@ -197,8 +198,8 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
           </View>
         ) : null}
         <Row gap={theme.spacing.xs} wrap>
-          <Button label={t('lesson.replay')} icon="replay" variant="secondary" size="sm" disabled={!lesson.referenceUri || current.phase === 'recording'} onPress={() => lesson.dispatch({ type: 'replay', slow: false })} accessibilityLabel={t('lesson.replay')} />
-          <Button label={t('lesson.slow')} icon="slow" variant="secondary" size="sm" disabled={!lesson.referenceUri || current.phase === 'recording'} onPress={() => lesson.dispatch({ type: 'replay', slow: true })} accessibilityLabel={t('lesson.slow')} />
+          <Button testID="mission-replay" label={t('lesson.replay')} icon="replay" variant="secondary" size="sm" disabled={!lesson.referenceUri || current.phase === 'recording'} onPress={() => lesson.dispatch({ type: 'replay', slow: false })} accessibilityLabel={t('lesson.replay')} />
+          <Button testID="mission-slow" label={t('lesson.slow')} icon="slow" variant="secondary" size="sm" disabled={!lesson.referenceUri || current.phase === 'recording'} onPress={() => lesson.dispatch({ type: 'replay', slow: true })} accessibilityLabel={t('lesson.slow')} />
           <Button label={current.translationShown ? t('lesson.hideTranslation') : t('lesson.translate')} icon="translate" variant="ghost" size="sm" onPress={() => lesson.dispatch({ type: 'toggle_translation' })} accessibilityLabel={t('lesson.translate')} />
         </Row>
         {!lesson.referenceUri ? <ThemedText variant="caption" tone="muted">{t('audio.player.transcriptUnavailable')}</ThemedText> : null}
@@ -234,14 +235,14 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
           {permission === 'denied' ? <StatusLine icon="micOff" tone="warning" text={t('errors.permission.micDenied')} /> : null}
           {current.error ? <StatusLine icon="warning" tone="warning" text={current.error === 'offline' ? t('errors.network') : current.error === 'no_input' ? t('speak.noSpeech') : t('errors.providerUnavailable')} /> : null}
           <Row gap={theme.spacing.xs} wrap justify="center">
-            <Button label={t('lesson.hint')} icon="hint" variant="ghost" size="sm" onPress={() => setHintsOpen(true)} accessibilityLabel={t('lesson.hint')} />
-            <Button label={typing ? t('lesson.cannotSpeakNow') : t('lesson.typeInstead')} icon="transcript" variant="ghost" size="sm" onPress={() => setTyping(!typing)} accessibilityLabel={t('lesson.typeInstead')} />
-            {!current.revealed ? <Button label={t('lesson.revealAndCompare')} variant="ghost" size="sm" onPress={() => lesson.dispatch({ type: 'reveal' })} accessibilityLabel={t('lesson.revealAndCompare')} /> : null}
+            <Button testID="mission-hint" label={t('lesson.hint')} icon="hint" variant="ghost" size="sm" onPress={() => setHintsOpen(true)} accessibilityLabel={t('lesson.hint')} />
+            <Button testID="mission-type-instead" label={typing ? t('lesson.cannotSpeakNow') : t('lesson.typeInstead')} icon="transcript" variant="ghost" size="sm" onPress={() => setTyping(!typing)} accessibilityLabel={t('lesson.typeInstead')} />
+            {!current.revealed ? <Button testID="mission-reveal" label={t('lesson.revealAndCompare')} variant="ghost" size="sm" onPress={() => lesson.dispatch({ type: 'reveal' })} accessibilityLabel={t('lesson.revealAndCompare')} /> : null}
           </Row>
           {typing ? (
             <Row gap={theme.spacing.xs} style={{ width: '100%' }}>
-              <TextInput value={typed} onChangeText={setTyped} placeholder={t('lesson.typePlaceholder')} placeholderTextColor={theme.colors.textMuted} accessibilityLabel={t('lesson.typePlaceholder')} style={{ flex: 1, borderWidth: 1, borderColor: theme.colors.border, borderRadius: theme.radii.md, padding: theme.spacing.md, color: theme.colors.textPrimary, minHeight: theme.touchTargets.min }} />
-              <Button label={t('lesson.speak')} size="sm" disabled={!typed.trim()} onPress={() => { lesson.dispatch({ type: 'type_answer', text: typed }); setTyped(''); }} accessibilityLabel={t('lesson.speak')} />
+              <TextInput testID="mission-typed-input" value={typed} onChangeText={setTyped} placeholder={t('lesson.typePlaceholder')} placeholderTextColor={theme.colors.textMuted} accessibilityLabel={t('lesson.typePlaceholder')} style={{ flex: 1, borderWidth: 1, borderColor: theme.colors.border, borderRadius: theme.radii.md, padding: theme.spacing.md, color: theme.colors.textPrimary, minHeight: theme.touchTargets.min }} />
+              <Button testID="mission-typed-submit" label={t('lesson.speak')} size="sm" disabled={!typed.trim()} onPress={() => { lesson.dispatch({ type: 'type_answer', text: typed }); setTyped(''); }} accessibilityLabel={t('lesson.speak')} />
             </Row>
           ) : null}
           {typing ? <ThemedText variant="caption" tone="muted" align="center">{t('lesson.textAlternativeNote')}</ThemedText> : null}
@@ -278,7 +279,7 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
 
       <Row gap={theme.spacing.sm} justify="space-between">
         <Button label={current.transcriptShown ? t('lesson.transcriptOff') : t('lesson.transcriptOn')} variant="ghost" size="sm" icon="transcript" onPress={() => lesson.dispatch({ type: 'toggle_transcript' })} accessibilityLabel={t('lesson.toggleTranscript')} />
-        <Button label={state.index + 1 === state.steps.length ? t('common.done') : t('lesson.nextStep')} icon="chevronRight" iconPosition="end" disabled={!canAdvance || !revealAllowed} onPress={() => lesson.dispatch({ type: 'next', now: Date.now() })} accessibilityLabel={t('lesson.nextStep')} />
+        <Button testID="mission-next-step" label={state.index + 1 === state.steps.length ? t('common.done') : t('lesson.nextStep')} icon="chevronRight" iconPosition="end" disabled={!canAdvance || !revealAllowed} onPress={() => lesson.dispatch({ type: 'next', now: Date.now() })} accessibilityLabel={t('lesson.nextStep')} />
       </Row>
 
       <HintSheet

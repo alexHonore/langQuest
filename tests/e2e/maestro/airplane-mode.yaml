@@ -10,11 +10,14 @@ env:
     clearState: false
 - runFlow:
     when:
-      visible: "Get started"
+      visible:
+        id: "onboarding-get-started"
     commands:
       - runFlow: _sign-in.yaml
-- tapOn: "Audio"
-- tapOn: "Downloads"
+- tapOn:
+    id: "tab-audio"
+- tapOn:
+    id: "audio-downloads"
 - runFlow:
     when:
       visible: "This lesson is not downloaded."
@@ -30,7 +33,8 @@ env:
     index: 0
     text: ".*(Episode|Lesson).*"
 - extendedWaitUntil:
-    visible: "Play"
+    visible:
+      id: "audio-player"
     timeout: 15000
 - tapOn: "Play"
 - extendedWaitUntil:
@@ -47,6 +51,7 @@ env:
     notVisible:
       text: "You are offline\\..*"
     timeout: 30000
-- tapOn: "Home"
+- tapOn:
+    id: "tab-home"
 - assertNotVisible:
     text: "Some progress could not sync.*"

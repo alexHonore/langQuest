@@ -2,17 +2,17 @@
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { courseCoverSvgString } from '@art/covers';
-import { COURSE_TRACKS } from '@langquest/contracts';
-import { localCall } from '@/src/lib/local-api/client';
+import { COURSE_TRACKS, type CollectionCreateRequest, type CollectionPatchRequest } from '@langquest/contracts';
+import Link from 'next/link';
+import { browserApi } from '@/src/lib/api-browser';
 import { useI18n } from '@/src/lib/i18n/client';
 import { useAction } from '@/src/lib/use-action';
-import type { CollectionUpsert } from '@/src/lib/local-api/schemas';
 import type { CollectionOption, ChapterOption, SpeakerOption, RightsOption } from '@/src/lib/queries/library';
 import { Button, Field, Input, Select } from '@/src/components/ui';
 import { Dialog } from '@/src/components/dialog';
 import { LanguageSelect, LocalizedTextEditor, TrackSelect, VarietySelect } from '@/src/components/forms';
 import { SvgArt } from '@/src/components/asset-preview';
-import { shortId } from '@/src/lib/format';
+import { newIdempotencyKey, shortId } from '@/src/lib/format';
 
 export interface CollectionFormValue {
   id?: string;
@@ -28,6 +28,23 @@ export interface CollectionFormValue {
   sortOrder: number;
 }
 
+/** Catalog ids are validated by the contract schema server-side; the form holds plain strings until then. */
+type Fields = Omit<CollectionCreateRequest, 'idempotencyKey'>;
+function toFields(v: CollectionFormValue): Fields {
+  return {
+    titleTranslations: v.titleTranslations,
+    descriptionTranslations: v.descriptionTranslations,
+    courseTrackId: v.courseTrackId as Fields['courseTrackId'],
+    targetVarietyId: v.targetVarietyId as Fields['targetVarietyId'],
+    instructionLanguageCode: v.instructionLanguageCode as Fields['instructionLanguageCode'],
+    region: v.region,
+    instructorSpeakerId: v.instructorSpeakerId,
+    coverVisualAssetId: v.coverVisualAssetId,
+    contentRightsId: v.contentRightsId,
+    sortOrder: v.sortOrder,
+  };
+}
+
 const empty: CollectionFormValue = { titleTranslations: { en: '' }, descriptionTranslations: {}, courseTrackId: null, targetVarietyId: null, instructionLanguageCode: null, region: null, instructorSpeakerId: null, coverVisualAssetId: null, contentRightsId: null, sortOrder: 0 };
 
 export function CollectionEditor({ mode, initial, options }: { mode: 'create' | 'edit'; initial?: CollectionFormValue; options: { collections?: CollectionOption[]; chapters?: ChapterOption[]; speakers: SpeakerOption[]; rights: RightsOption[] } }) {
@@ -37,9 +54,13 @@ export function CollectionEditor({ mode, initial, options }: { mode: 'create' | 
   const [value, setValue] = useState<CollectionFormValue>(initial ?? empty);
   const action = useAction(
     async () => {
-      const body: CollectionUpsert = { ...value, state: undefined } as CollectionUpsert;
-      const res = await localCall<{ id: string }>('/api/admin/collections', { method: 'POST', body });
-      if (mode === 'create') router.push(`/collections/${res.id}`);
+      if (mode === 'edit' && value.id) {
+        const body: CollectionPatchRequest = toFields(value);
+        return browserApi().call('adminCollectionPatch', { params: { id: value.id }, body });
+      }
+      const body: CollectionCreateRequest = { ...toFields(value), idempotencyKey: newIdempotencyKey('col') };
+      const res = await browserApi().call('adminCollectionCreate', { body, idempotencyKey: body.idempotencyKey });
+      router.push(`/collections/${res.id}`);
       return res;
     },
     { successMessage: t('admin.ui.saved') },
@@ -111,7 +132,17 @@ export function CollectionEditor({ mode, initial, options }: { mode: 'create' | 
                 )}
               </Field>
               <Field label={t('admin.ui.order')}>{(id) => <Input id={id} type="number" min={0} value={value.sortOrder} onChange={(e) => set('sortOrder', Number(e.target.value))} />}</Field>
-              <Field label={t('admin.ui.colCover')} hint={t('admin.ui.colCoverUpload') + ': ' + t('admin.sections.uploads')}>
+              <Field
+                label={t('admin.ui.colCover')}
+                hint={
+                  <>
+                    {t('admin.ui.colCoverUpload')}:{' '}
+                    <Link href="/visual-assets" className="text-accent hover:underline">
+                      {t('admin.sections.visualAssets')}
+                    </Link>
+                  </>
+                }
+              >
                 {(id) => <Input id={id} placeholder="visual asset uuid" value={value.coverVisualAssetId ?? ''} onChange={(e) => set('coverVisualAssetId', e.target.value || null)} />}
               </Field>
             </div>

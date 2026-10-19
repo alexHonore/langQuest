@@ -1,10 +1,9 @@
 'use client';
 import Link from 'next/link';
 import { useMemo, useState } from 'react';
-import { ASSET_KIND_VALUES, CONTENT_STATE_VALUES, LANGUAGES, LANGUAGE_VARIETIES, type BulkLabelPatch } from '@langquest/contracts';
+import { ASSET_KIND_VALUES, AUDIO_ASSET_TYPE_VALUES, CONTENT_STATE_VALUES, LANGUAGES, LANGUAGE_VARIETIES, type AudioAssetType, type BulkLabelPatch, type ChapterCreateRequest } from '@langquest/contracts';
 import { parseCsvManifest } from '@langquest/media';
 import { browserApi } from '@/src/lib/api-browser';
-import { localCall } from '@/src/lib/local-api/client';
 import { useI18n } from '@/src/lib/i18n/client';
 import { formatBytes, formatDateTime, formatDurationMs, newIdempotencyKey, pickLocalized, shortId } from '@/src/lib/format';
 import { useAction } from '@/src/lib/use-action';
@@ -345,18 +344,21 @@ function AttachDialog({ open, onClose, rows, lessons }: { open: boolean; onClose
   const { t, locale } = useI18n();
   const [q, setQ] = useState('');
   const [lessonId, setLessonId] = useState('');
-  const [assetType, setAssetType] = useState<'master' | 'mobile_encoded' | 'review' | 'slow' | 'clip' | 'cover'>('master');
+  const [assetType, setAssetType] = useState<AudioAssetType>('master');
   const filtered = lessons.filter((l) => !q || JSON.stringify(l.title_translations).toLowerCase().includes(q.toLowerCase()));
   const action = useAction(
     async () => {
       let n = 0;
+      let moved = 0;
       for (const r of rows) {
-        await localCall(`/api/admin/lessons/${lessonId}/assets`, { method: 'POST', body: { assetId: r.id, assetType, sortOrder: n } });
+        // 201 = fresh link; 200 + movedFromLessonId = moved from another lesson (both lessons get a revision).
+        const res = await browserApi().call('adminLessonAssetAttach', { params: { id: lessonId }, body: { assetId: r.id, assetType, sortOrder: n } });
+        if (res.movedFromLessonId) moved += 1;
         n += 1;
       }
-      return n;
+      return { n, moved };
     },
-    { successMessage: (n) => t('admin.ui.libAffected', { count: n }) },
+    { successMessage: ({ n, moved }) => `${t('admin.ui.libAffected', { count: n })}${moved > 0 ? ` · ${t('admin.ui.libMovedLinks', { count: moved })}` : ''}` },
   );
   return (
     <Dialog
@@ -387,8 +389,8 @@ function AttachDialog({ open, onClose, rows, lessons }: { open: boolean; onClose
         </Field>
         <Field label={t('admin.ui.type')}>
           {(id) => (
-            <Select id={id} value={assetType} onChange={(e) => setAssetType(e.target.value as typeof assetType)}>
-              {['master', 'mobile_encoded', 'review', 'slow', 'clip', 'cover'].map((v) => (
+            <Select id={id} value={assetType} onChange={(e) => setAssetType(e.target.value as AudioAssetType)}>
+              {AUDIO_ASSET_TYPE_VALUES.map((v) => (
                 <option key={v} value={v}>
                   {v}
                 </option>
@@ -415,10 +417,15 @@ function MoveDialog({ open, onClose, rows, chapters, collections }: { open: bool
   const [start, setStart] = useState(1);
   const [step, setStep] = useState(1);
   const lessonIds = lessonIdsOf(rows);
+  // Field updates (chapter move + renumber) go through `adminAudioLessonPatch`, one lesson at a time; each gets a revision.
   const action = useAction(
     async () => {
-      const res = await localCall<{ updated: number }>('/api/admin/lessons/reorder', { method: 'POST', body: { items: lessonIds.map((id, i) => ({ id, sortOrder: start + i * step, ...(chapterId ? { chapterId } : {}) })) } });
-      return res.updated;
+      let updated = 0;
+      for (const [i, id] of lessonIds.entries()) {
+        await browserApi().call('adminAudioLessonPatch', { params: { id }, body: { sortOrder: start + i * step, ...(chapterId ? { chapterId } : {}) } });
+        updated += 1;
+      }
+      return updated;
     },
     { successMessage: (n) => t('admin.ui.libAffected', { count: n }) },
   );
@@ -465,9 +472,10 @@ function SplitDialog({ open, onClose, rows, chapters }: { open: boolean; onClose
   const action = useAction(
     async () => {
       if (!sourceChapter) throw new Error('No source chapter');
-      const created = await localCall<{ id: string }>('/api/admin/chapters', { method: 'POST', body: { collectionId: sourceChapter.collection_id, titleTranslations: { [locale]: title }, sortOrder: sourceChapter.sort_order + 1 } });
+      const body: ChapterCreateRequest = { collectionId: sourceChapter.collection_id, titleTranslations: { [locale]: title }, summaryTranslations: {}, sortOrder: sourceChapter.sort_order + 1, coverVisualAssetId: null, idempotencyKey: newIdempotencyKey('chp') };
+      const created = await browserApi().call('adminChapterCreate', { body, idempotencyKey: body.idempotencyKey });
       const ids = [...new Set(lessons.map((l) => l.id))];
-      await localCall('/api/admin/lessons/reorder', { method: 'POST', body: { items: ids.map((id, i) => ({ id, sortOrder: i + 1, chapterId: created.id })) } });
+      for (const [i, id] of ids.entries()) await browserApi().call('adminAudioLessonPatch', { params: { id }, body: { chapterId: created.id, sortOrder: i + 1 } });
       return ids.length;
     },
     { successMessage: (n) => t('admin.ui.libAffected', { count: n }) },
@@ -506,13 +514,13 @@ function MergeDialog({ open, onClose, rows }: { open: boolean; onClose: () => vo
     async () => {
       let relinked = 0;
       for (const group of groups) {
-        const lessons = group.flatMap((r) => r.lessonLinks.map((l) => ({ lessonId: l.lesson?.id, assetId: r.id, assetType: l.asset_type }))).filter((x): x is { lessonId: string; assetId: string; assetType: string } => Boolean(x.lessonId));
+        const lessons = group.flatMap((r) => r.lessonLinks.map((l) => ({ lessonId: l.lesson?.id, assetId: r.id, assetType: l.asset_type as AudioAssetType }))).filter((x): x is { lessonId: string; assetId: string; assetType: AudioAssetType } => Boolean(x.lessonId));
         const primaryLesson = lessons[0]?.lessonId;
         if (!primaryLesson) continue;
         for (const link of lessons.slice(1)) {
           if (link.lessonId === primaryLesson) continue;
-          await localCall(`/api/admin/lessons/${link.lessonId}/assets`, { method: 'DELETE', body: { assetId: link.assetId } });
-          await localCall(`/api/admin/lessons/${primaryLesson}/assets`, { method: 'POST', body: { assetId: link.assetId, assetType: link.assetType } });
+          // Attaching an asset that is linked elsewhere moves it (200 + movedFromLessonId); no separate detach needed.
+          await browserApi().call('adminLessonAssetAttach', { params: { id: primaryLesson }, body: { assetId: link.assetId, assetType: link.assetType, sortOrder: relinked } });
           relinked += 1;
         }
       }

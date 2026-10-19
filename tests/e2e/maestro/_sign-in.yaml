@@ -1,21 +1,26 @@
 # Shared sub-flow: sign in with the given credentials. Parameters: EMAIL, PASSWORD.
+# Controls are selected by their stable `testID`s (apps/mobile/src/app/auth/sign-in.tsx, onboarding/welcome.tsx).
 appId: org.langquest.app
 ---
 - runFlow:
     when:
-      visible: "I already have an account"
+      visible:
+        id: "onboarding-have-account"
     commands:
-      - tapOn: "I already have an account"
-- assertVisible: "Email"
+      - tapOn:
+          id: "onboarding-have-account"
+- assertVisible:
+    id: "auth-email"
 - tapOn:
-    below: "Email"
+    id: "auth-email"
 - inputText: ${EMAIL}
 - tapOn:
-    below: "Password"
+    id: "auth-password"
 - inputText: ${PASSWORD}
 - hideKeyboard
-- tapOn: "Continue"
+- tapOn:
+    id: "auth-continue"
 - extendedWaitUntil:
     visible:
-      text: "Home"
+      id: "tab-home"
     timeout: 20000

@@ -30,6 +30,7 @@ export default function TargetStep(): React.JSX.Element {
       title={t('onboarding.chooseTarget')}
       hint={t('onboarding.chooseTargetHint')}
       primaryDisabled={!selected}
+      primaryTestID="onboarding-target-continue"
       onPrimary={() => {
         if (!selected) return;
         set({ pendingTrackId: selected });
@@ -38,6 +39,7 @@ export default function TargetStep(): React.JSX.Element {
       }}
     >
       <TextInput
+        testID="onboarding-target-search"
         value={query}
         onChangeText={setQuery}
         placeholder={t('catalog.searchPlaceholder')}
@@ -51,7 +53,7 @@ export default function TargetStep(): React.JSX.Element {
           const clar = dialectClarification(tr);
           const isSelected = selected === tr.id;
           return (
-            <Pressable key={tr.id} onPress={() => setSelected(tr.id)} accessibilityRole="radio" accessibilityState={{ selected: isSelected }} accessibilityLabel={`${tr.displayName}. ${clar.needsClarification ? clar.focus : ''}`}>
+            <Pressable key={tr.id} testID={`onboarding-target-${tr.id}`} onPress={() => setSelected(tr.id)} accessibilityRole="radio" accessibilityState={{ selected: isSelected }} accessibilityLabel={`${tr.displayName}. ${clar.needsClarification ? clar.focus : ''}`}>
               <Surface variant={isSelected ? 'accentSoft' : 'surface'} bordered radius="lg" padding={theme.spacing.md} style={{ gap: theme.spacing.sm, borderColor: isSelected ? theme.colors.accent : theme.colors.border, borderWidth: isSelected ? 2 : 1 }}>
                 <Row gap={theme.spacing.md} align="flex-start">
                   <View style={{ width: 72 }}>

@@ -1,7 +1,9 @@
 'use client';
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { localCall } from '@/src/lib/local-api/client';
+import type { ChapterCreateRequest, ChapterPatchRequest } from '@langquest/contracts';
+import { browserApi } from '@/src/lib/api-browser';
+import { newIdempotencyKey } from '@/src/lib/format';
 import { useI18n } from '@/src/lib/i18n/client';
 import { useAction } from '@/src/lib/use-action';
 import { Button, Field, Input } from '@/src/components/ui';
@@ -24,8 +26,14 @@ export function ChapterEditor({ mode, collectionId, initial, nextOrder }: { mode
   const [value, setValue] = useState<ChapterFormValue>(initial ?? { collectionId, titleTranslations: { en: '' }, summaryTranslations: {}, sortOrder: nextOrder ?? 1, coverVisualAssetId: null });
   const action = useAction(
     async () => {
-      const res = await localCall<{ id: string }>('/api/admin/chapters', { method: 'POST', body: value });
-      if (mode === 'create') router.push(`/chapters/${res.id}`);
+      const fields = { collectionId: value.collectionId, titleTranslations: value.titleTranslations, summaryTranslations: value.summaryTranslations, sortOrder: value.sortOrder, coverVisualAssetId: value.coverVisualAssetId };
+      if (mode === 'edit' && value.id) {
+        const body: ChapterPatchRequest = fields;
+        return browserApi().call('adminChapterPatch', { params: { id: value.id }, body });
+      }
+      const body: ChapterCreateRequest = { ...fields, idempotencyKey: newIdempotencyKey('chp') };
+      const res = await browserApi().call('adminChapterCreate', { body, idempotencyKey: body.idempotencyKey });
+      router.push(`/chapters/${res.id}`);
       return res;
     },
     { successMessage: t('admin.ui.saved') },

@@ -6,6 +6,13 @@
  * rows in `review_needed` with provenance (model task, prompt version, trace id, job id). Rejected lines are
  * reported, never stored. Drafts carry `nativeReviewed: false` and can only be published by an editor
  * after native review and rights approval (publication gate lives in the API).
+ *
+ * `missions.goals` is written in the shape the API publish gate and learner routes read (§10.1,
+ * `apps/api/src/lib/goals.ts`): `{ id, skill_keys, description: { [sourceLanguage]: text } }` per accepted
+ * objective, the id being the intent key and the description the model's learner-facing goal text in the
+ * SOURCE language. An objective the model gave no description for gets no `description` at all (never a
+ * bare string or a text of unknown language), so the gate blocks publishing until an editor adds one; such
+ * goals are listed on the job output as `goalsWithoutDescription`.
  */
 import { z } from 'zod';
 import type { CourseTrackId, DraftContent, Register, SourceLanguageCode, VarietyId } from '@langquest/contracts';
@@ -53,6 +60,8 @@ export const GeneratedMissionSchema = z.object({
   title: z.string(),
   sceneDescription: z.string(),
   objectiveIntentKeys: z.array(z.string()).min(1),
+  /** One learner-facing goal sentence per objective intent, in the SOURCE language (→ `missions.goals[].description`). */
+  objectiveDescriptions: z.array(z.object({ intentKey: z.string(), description: z.string() })).max(20).default([]),
   dialogue: z.array(line).min(2).max(16),
   expressions: z.array(GeneratedExpressionSchema).min(1).max(12),
   instructions: z.string(),
@@ -79,7 +88,8 @@ export function buildContentFactoryPrompt(input: { track: CourseTrackId; variety
     'Each mission: a realistic scene, 2–16 dialogue lines alternating character/learner, 3–12 learner expressions that fulfil the requested intents, plus instructions and hints for the learner in the SOURCE language.',
     'Write how people actually talk in this variety: no textbook stiffness, no overly formal register unless requested, no offensive or insensitive content, nothing that only works as a quiz with one correct answer; give acceptable variants.',
     'Every expression must name the intent it fulfils (intentKey from the brief). Keep expressions within the typical length for the intent.',
-    'Output JSON only. Target text must be in the target variety; sourceMeaning, title, instructions and hints must be in the source language.',
+    'For every objective intent (objectiveIntentKeys) also give one objectiveDescriptions entry: a single learner-facing sentence in the SOURCE language saying what the learner will manage to do (e.g. "Order a coffee politely").',
+    'Output JSON only. Target text must be in the target variety; sourceMeaning, title, objectiveDescriptions, instructions and hints must be in the source language.',
   ].join('\n');
   const user = JSON.stringify({ level: input.level, scene: input.scene, missionCount: input.count, intents: input.intents });
   return { system, user, templateId: 'content_factory', templateVersion: CONTENT_FACTORY_PROMPT_VERSION };
@@ -118,6 +128,34 @@ export function validateGeneratedMission(
   return { accepted, objectives, rejections };
 }
 
+/** One `missions.goals` entry (§10.1; mirrors `MissionGoal` in the API's `lib/goals.ts`, which reads this column). */
+export interface MissionGoalDraft {
+  id: string;
+  skill_keys: string[];
+  /** Learner-facing text keyed by source language; absent when the model gave none (publish gate then blocks). */
+  description?: Record<string, string>;
+}
+
+/**
+ * Pure mapping from accepted objectives to `missions.goals` rows: id = intent key, `skill_keys` from the
+ * curriculum intent, `description` = `{ [sourceLanguage]: text }` when the model described the objective.
+ * Never writes a bare string (no language) or an empty map.
+ */
+export function buildMissionGoals(input: { objectives: readonly string[]; sourceLanguage: SourceLanguageCode; descriptions: ReadonlyArray<{ intentKey: string; description: string }>; skillKeysFor: (intentKey: string) => readonly string[] }): { goals: MissionGoalDraft[]; goalsWithoutDescription: string[] } {
+  const described = new Map<string, string>();
+  for (const d of input.descriptions) {
+    const text = d.description.trim();
+    if (text && !described.has(d.intentKey)) described.set(d.intentKey, text);
+  }
+  const goalsWithoutDescription: string[] = [];
+  const goals = input.objectives.map((id): MissionGoalDraft => {
+    const text = described.get(id);
+    if (!text) goalsWithoutDescription.push(id);
+    return text ? { id, skill_keys: [...input.skillKeysFor(id)], description: { [input.sourceLanguage]: text } } : { id, skill_keys: [...input.skillKeysFor(id)] };
+  });
+  return { goals, goalsWithoutDescription };
+}
+
 const DIFFICULTY: Record<string, number> = { beginner: 0.2, elementary: 0.35, intermediate: 0.5, upper_intermediate: 0.65, advanced: 0.8 };
 
 export const generateContentHandler: JobHandler<GenerateContentParams> = {
@@ -151,7 +189,7 @@ export const generateContentHandler: JobHandler<GenerateContentParams> = {
     await ctx.progress(50, `${generated.missions.length} missions generated`);
 
     const provenanceBase = { task: 'content_generation', role: 'content_factory', promptVersion: CONTENT_FACTORY_PROMPT_VERSION, traceId: ctx.traceId, jobId: ctx.job.id, generatedAt: ctx.services.now().toISOString(), nativeReviewed: false, licenseMarker: 'ai_generated_unlicensed_draft' };
-    const drafts: Array<{ missionId: string | null; draft: DraftContent; accepted: number; rejected: ValidationRejection[]; skippedIntents: string[] }> = [];
+    const drafts: Array<{ missionId: string | null; draft: DraftContent; accepted: number; rejected: ValidationRejection[]; skippedIntents: string[]; goals: MissionGoalDraft[]; goalsWithoutDescription: string[] }> = [];
     const rejectedMissions: Array<{ mission: number; reason: string; rejections: ValidationRejection[] }> = [];
     const missionIds: string[] = [];
 
@@ -171,6 +209,9 @@ export const generateContentHandler: JobHandler<GenerateContentParams> = {
         publication: { status: 'draft', requiresVerifiedSourceRights: true, requiresNativeReview: true },
       });
 
+      const { goals, goalsWithoutDescription } = buildMissionGoals({ objectives, sourceLanguage: p.sourceLanguage, descriptions: mission.objectiveDescriptions, skillKeysFor: (key) => (isIntentKey(key) ? getIntent(key).skillKeys : []) });
+      if (goalsWithoutDescription.length) rejections.push(...goalsWithoutDescription.map((id): ValidationRejection => ({ mission: index, item: `goal:${id}`, reason: 'no learner-facing description in the source language (editor must add one before publishing)' })));
+
       let missionId: string | null = null;
       const skippedIntents: string[] = [];
       if (!p.dryRun) {
@@ -180,7 +221,7 @@ export const generateContentHandler: JobHandler<GenerateContentParams> = {
           template_key: templateKey,
           mission_type: 'standard',
           title_translations: { [p.sourceLanguage]: mission.title } as never,
-          goals: objectives as never,
+          goals: goals as never,
           target_variety_id: variety,
           level: p.level,
           recommended_minutes: 8,
@@ -216,10 +257,10 @@ export const generateContentHandler: JobHandler<GenerateContentParams> = {
           if (e.transliteration && track.scripts.transliterations[0]) await db.insertExpressionForm({ expression_id: expr.id, script: null, transliteration_scheme: track.scripts.transliterations[0], text: e.transliteration });
           await db.insertExpressionTranslation({ expression_id: expr.id, source_language_code: p.sourceLanguage, natural_meaning: e.sourceMeaning, context_note: e.contextNote, literal_gloss: e.literalGloss, qa_state: 'machine_draft' });
         }
-        await db.recordAudit({ actor_id: ctx.job.requested_by, actor_role: 'jobs', action: 'content_factory.draft_created', entity_table: 'missions', entity_id: row.id, before: null, after: { draft, provenance: provenanceBase, rejected: rejections.length, skippedIntents } as never, request_id: ctx.job.id });
+        await db.recordAudit({ actor_id: ctx.job.requested_by, actor_role: 'jobs', action: 'content_factory.draft_created', entity_table: 'missions', entity_id: row.id, before: null, after: { draft, goals, goalsWithoutDescription, provenance: provenanceBase, rejected: rejections.length, skippedIntents } as never, request_id: ctx.job.id });
         await ctx.emit('translation.review_requested', { entityTable: 'missions', entityId: row.id, sourceLanguageCode: p.sourceLanguage, targetVarietyId: variety, requestedBy: ctx.job.requested_by, reviewerId: null }, `translation.review_requested:missions:${row.id}:${p.sourceLanguage}`);
       }
-      drafts.push({ missionId, draft, accepted: accepted.length, rejected: rejections, skippedIntents });
+      drafts.push({ missionId, draft, accepted: accepted.length, rejected: rejections, skippedIntents, goals, goalsWithoutDescription });
       await ctx.progress(50 + Math.round(((index + 1) / generated.missions.length) * 48));
     }
     if (!drafts.length) throw new JobFailure('all_drafts_rejected', `Validators rejected every generated mission (${rejectedMissions.map((m) => m.reason).join('; ')})`, { retry: true, backoffSeconds: 60, details: { rejectedMissions } });

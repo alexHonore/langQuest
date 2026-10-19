@@ -45,7 +45,7 @@ export default function Home(): React.JSX.Element {
   const fallbackName = fallback.offered ? names(fallback.offered) : null;
 
   return (
-    <Screen insideTabs headerEnd={<Button label={t('account.title')} variant="ghost" size="sm" icon="settings" onPress={() => router.push('/account')} accessibilityLabel={t('account.title')} />}>
+    <Screen insideTabs testID="screen-home" headerEnd={<Button testID="home-account" label={t('account.title')} variant="ghost" size="sm" icon="settings" onPress={() => router.push('/account')} accessibilityLabel={t('account.title')} />}>
       <Row gap={theme.spacing.md} align="flex-start">
         <Mascot state="welcome" size="companion" speech={mascotLine && !mascotLine.missing ? mascotLine.text : undefined} />
         <View style={{ flex: 1, gap: theme.spacing.xs }}>
@@ -69,7 +69,7 @@ export default function Home(): React.JSX.Element {
             <ThemedText variant="heading" accessibilityRole="header">
               {t('home.nextConversation')}
             </ThemedText>
-            <Button label={t('home.switchCourse')} variant="ghost" size="sm" icon="globe" onPress={() => router.push('/course-switcher')} accessibilityLabel={t('home.switchCourse')} />
+            <Button testID="home-switch-course" label={t('home.switchCourse')} variant="ghost" size="sm" icon="globe" onPress={() => router.push('/course-switcher')} accessibilityLabel={t('home.switchCourse')} />
           </Row>
           {enrollment.coverage.status !== 'complete' ? (
             <Surface variant="muted" radius="md" padding={theme.spacing.md} style={{ gap: theme.spacing.xs }}>

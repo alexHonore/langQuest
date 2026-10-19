@@ -5,7 +5,7 @@
  * - mission evaluate: no evaluator ⇒ `evaluatorRan: false` and `evaluation.confidence: null` (§16.3);
  * - request-review answers a contract `ReviewStatus` and validates the variety BEFORE writing anything;
  * - model capabilities resolve profiles for the enrollment's source language (never a hard-coded `en`);
- * - conversation turn: an in-flight `clientTurnId` is replayed once the character row lands, otherwise `conflict`
+ * - conversation turn: an in-flight `clientTurnId` is replayed once the character row lands, otherwise `turn_in_progress`
  *   + `Retry-After` (never a second pipeline run), and the contract's inline clip is accepted by validation.
  */
 import { ContentRequestReviewResponseSchema, MissionDetailResponseSchema } from '@langquest/contracts';
@@ -195,11 +195,12 @@ describeStack('review fixes against the local stack', () => {
     expect(rows.data).toHaveLength(3); // no second learner row, no second character row
   });
 
-  it('an in-flight clientTurnId with no reply yet answers conflict + Retry-After instead of running the pipeline again', async () => {
+  it('an in-flight clientTurnId with no reply yet answers turn_in_progress (409) + Retry-After instead of running the pipeline again', async () => {
     const { sessionId, clientTurnId } = await seedSession({ learnerAgeMs: 1_000 });
     const res = await call(h.app, `/v1/ai/conversation/${sessionId}/turn`, { token: alice.token, body: turnBody(clientTurnId) });
     expect(res.status, JSON.stringify(res.json)).toBe(409);
-    expect(res.json.error.code).toBe('conflict');
+    expect(res.json.error.code).toBe('turn_in_progress');
+    expect(res.json.error.details.retryAfterSeconds).toBeGreaterThanOrEqual(1);
     expect(res.json.error.details.clientTurnId).toBe(clientTurnId);
     expect(Number(res.headers.get('retry-after'))).toBeGreaterThanOrEqual(1);
     const rows = await h.service.from('conversation_turns').select('speaker').eq('session_id', sessionId);

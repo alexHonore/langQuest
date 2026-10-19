@@ -9,7 +9,7 @@
  * ports (`api`, `store`, `hasher`, `transport`) so the integration test runs in Node.
  */
 import { UPLOAD_LIMITS } from '@langquest/media';
-import type { AssetKind, UploadInitiateRequest } from '@langquest/contracts';
+import type { AssetKind, UploadInitiateRequest, VisualAssetUploadInitiateRequest } from '@langquest/contracts';
 import type { ApiClient } from '../api';
 import { ApiClientError } from '../api';
 import { HashAbortedError } from './hashing';
@@ -39,6 +39,13 @@ export interface UploadEngineOptions {
   now?: () => number;
   /** Back-off between part retries; injected for tests. */
   sleep?: (ms: number) => Promise<void>;
+  /**
+   * Route that opens the multipart session. `adminUploadInitiate` (default) accepts any asset kind;
+   * `adminVisualAssetUploadInitiate` is the image-only §10.2A variant (`kind` is fixed server-side to
+   * `image`), whose verified upload is then turned into a `visual_assets` row by `adminVisualAssetRegister`.
+   * Sign / complete / abort are shared by both.
+   */
+  initiateRoute?: 'adminUploadInitiate' | 'adminVisualAssetUploadInitiate';
 }
 
 export type UploadListener = (items: readonly UploadItem[]) => void;
@@ -381,17 +388,26 @@ export class UploadEngine {
       }
 
       // 3. initiate (idempotent → resume)
-      const body: UploadInitiateRequest = {
+      const base = {
         filename: item.name,
         relativePath: item.relativePath !== item.name ? item.relativePath : undefined,
-        contentType: item.mimeType as UploadInitiateRequest['contentType'],
         byteLength: item.size,
         clientChecksumSha256: item.checksumSha256!,
         idempotencyKey: item.idempotencyKey,
-        kind: item.kind,
         ...(this.opts.partSizeBytes >= UPLOAD_LIMITS.minPartBytes ? { partSizeBytes: this.opts.partSizeBytes } : {}),
       };
-      const init = await this.opts.api.call('adminUploadInitiate', { body, idempotencyKey: item.idempotencyKey, signal });
+      const init =
+        this.opts.initiateRoute === 'adminVisualAssetUploadInitiate'
+          ? await this.opts.api.call('adminVisualAssetUploadInitiate', {
+              body: { ...base, contentType: item.mimeType as VisualAssetUploadInitiateRequest['contentType'] } satisfies VisualAssetUploadInitiateRequest,
+              idempotencyKey: item.idempotencyKey,
+              signal,
+            })
+          : await this.opts.api.call('adminUploadInitiate', {
+              body: { ...base, contentType: item.mimeType as UploadInitiateRequest['contentType'], kind: item.kind } satisfies UploadInitiateRequest,
+              idempotencyKey: item.idempotencyKey,
+              signal,
+            });
       if (init.duplicateOfAssetId) {
         this.dispatch(localId, { type: 'duplicate', assetId: init.duplicateOfAssetId, localId: null });
         try {

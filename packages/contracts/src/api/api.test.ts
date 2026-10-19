@@ -1,11 +1,33 @@
 import { describe, expect, it } from 'vitest';
 import { PronunciationAssessmentSchema, SpeechEvaluationResultSchema, referenceComparisonAssessment } from '../ai/io';
-import { API_ERROR_HTTP_STATUS, ApiProblem, QueryBooleanSchema, ROUTES, apiEnvelope, buildPath, err, isOk, ok } from './common';
+import { API_ERROR_HTTP_STATUS, ApiProblem, ConfirmQuerySchema, QueryBooleanSchema, ROUTES, apiEnvelope, buildPath, confirmQuery, err, isOk, ok } from './common';
 import { EnrollmentCreateRequestSchema, EnrollmentDeleteQuerySchema, EnrollmentDeleteResponseSchema, EnrollmentPatchQuerySchema, EnrollmentPatchRequestSchema, EnrollmentsListQuerySchema, MeResponseSchema, MissionDetailResponseSchema, PatchSettingsRequestSchema, ProgressSyncRequestSchema, type CoursesResponse } from './learner';
 import { ManifestMissionSchema } from '../manifest';
 import { MediaStreamQuerySchema, type PlaybackUrlRequest } from './audio';
-import { ConversationTurnRequestSchema, PronunciationAssessRequestSchema, SynthesizeRequestSchema, type ConversationEndRequest, type TranscribeResponse } from './speech';
-import { BulkLabelRequestSchema, BulkLabelResponseSchema, ImportManifestResponseSchema, ImportR2PrefixResponseSchema, UploadInitiateRequestSchema } from './admin';
+import { ConversationSessionCreateRequestSchema, ConversationTurnRequestSchema, ModelCapabilitiesQuerySchema, PronunciationAssessRequestSchema, SynthesizeRequestSchema, type ConversationEndRequest, type TranscribeResponse } from './speech';
+import { AudioProgressPutRequestSchema, AudioProgressPutResponseSchema } from './audio';
+import { EvaluatorOutputSchema, emptyEvaluatorOutput } from '../ai/conversation';
+import {
+  AssetSuggestionDecideRequestSchema,
+  AssetSuggestionsGenerateRequestSchema,
+  BulkLabelRequestSchema,
+  BulkLabelResponseSchema,
+  ChapterPatchRequestSchema,
+  CollectionCreateRequestSchema,
+  ContentRequestReviewResponseSchema,
+  ContentRightsCreateRequestSchema,
+  ContentRightsRevokeRequestSchema,
+  ImportManifestResponseSchema,
+  ImportR2PrefixResponseSchema,
+  ReorderRequestSchema,
+  SpeakerCreateRequestSchema,
+  SpeakerPatchRequestSchema,
+  SpeakersListQuerySchema,
+  UploadInitiateRequestSchema,
+  VisualAssetAssignRequestSchema,
+  VisualAssetRegisterRequestSchema,
+  VisualAssetUploadInitiateRequestSchema,
+} from './admin';
 
 const uuid = '8f4b6c1e-1f3a-4c0b-9a7d-5e6f7a8b9c0d';
 const sha = 'a'.repeat(64);
@@ -117,6 +139,9 @@ describe('envelope helpers', () => {
     expect(p.toFailure('t').error).toEqual({ code: 'rights_blocked', message: 'Rights not verified', traceId: 't' });
     expect(API_ERROR_HTTP_STATUS.unauthorized).toBe(401);
     expect(API_ERROR_HTTP_STATUS.capability_unsupported).toBe(501);
+    // conversation turn replay: an in-flight clientTurnId is a 409 the client retries after Retry-After
+    expect(API_ERROR_HTTP_STATUS.turn_in_progress).toBe(409);
+    expect(new ApiProblem('turn_in_progress', 'still running', { retryAfterSeconds: 3 }).status).toBe(409);
   });
 });
 
@@ -126,7 +151,7 @@ describe('routes', () => {
       expect(def.path.startsWith('/v1/'), key).toBe(true);
       if (def.path.startsWith('/v1/admin/')) expect(def.auth, key).toBe('admin');
     }
-    expect(Object.keys(ROUTES).length).toBeGreaterThanOrEqual(55);
+    expect(Object.keys(ROUTES).length).toBeGreaterThanOrEqual(94);
   });
 
   it('no two routes share a method + path', () => {
@@ -170,6 +195,13 @@ describe('enrollment & media query schemas', () => {
     expect(EnrollmentsListQuerySchema.parse({})).toEqual({ includeArchived: false });
     expect(EnrollmentsListQuerySchema.parse({ includeArchived: 'true' })).toEqual({ includeArchived: true });
     expect(EnrollmentsListQuerySchema.parse({ includeArchived: 'false' })).toEqual({ includeArchived: false });
+  });
+
+  it('confirmQuery builds route-specific confirm flags and ConfirmQuerySchema accepts the documented values', () => {
+    expect(confirmQuery('archive').parse({ confirm: 'archive' }).confirm).toBe('archive');
+    expect(confirmQuery('archive').safeParse({ confirm: 'delete' }).success).toBe(false);
+    expect(ConfirmQuerySchema.parse({ confirm: 'delete' }).confirm).toBe('delete');
+    expect(ConfirmQuerySchema.safeParse({ confirm: 'yes' }).success).toBe(false);
   });
 
   it('confirm flags accept only the documented value for each route', () => {
@@ -268,5 +300,95 @@ describe('integration-gap closures (cross-package-gaps 2026-10-15)', () => {
     const courses: CoursesResponse = { courses: [] };
     const recording: TranscribeResponse['recordingAssetId'] = null;
     expect([end, playback, courses, recording].length).toBe(4);
+  });
+});
+
+describe('2026-10-19 contract additions (admin resources, scope, honesty flags)', () => {
+  const key = 'idem-0001-abcdef';
+
+  it('registers the promoted admin routes with stable paths', () => {
+    expect(ROUTES.adminSpeakersList).toEqual({ method: 'GET', path: '/v1/admin/speakers', auth: 'admin' });
+    expect(ROUTES.adminChaptersReorder.path).toBe('/v1/admin/library/collections/:id/chapters/reorder');
+    expect(ROUTES.adminLessonAssetDetach).toEqual({ method: 'DELETE', path: '/v1/admin/library/lessons/:id/assets/:assetId', auth: 'admin' });
+    expect(ROUTES.adminContentRightsRevoke.method).toBe('POST');
+    expect(ROUTES.adminVisualAssetUploadInitiate.path).toBe('/v1/admin/visual-assets/upload-initiate');
+    expect(ROUTES.adminAssetSuggestionDecide.path).toBe('/v1/admin/asset-suggestions/:id/decide');
+    expect(buildPath('adminLessonAssetDetach', { id: uuid, assetId: uuid })).toBe(`/v1/admin/library/lessons/${uuid}/assets/${uuid}`);
+  });
+
+  it('speakers: create defaults are honest (unknown variety stays null) and patch needs a field', () => {
+    const created = SpeakerCreateRequestSchema.parse({ displayName: 'Fatima', idempotencyKey: key });
+    expect(created.targetVarietyId).toBeNull();
+    expect(created.consentState).toBe('unknown');
+    expect(created.synthetic).toBe(false);
+    expect(SpeakerPatchRequestSchema.safeParse({ expectedRevision: 2 }).success).toBe(false);
+    expect(SpeakerPatchRequestSchema.safeParse({ region: 'Casablanca', expectedRevision: 2 }).success).toBe(true);
+    // a patch never re-applies create defaults (so `{ region }` does not silently reset `synthetic` to false)
+    expect(SpeakerPatchRequestSchema.parse({ region: 'Casablanca' })).toEqual({ region: 'Casablanca' });
+    expect(SpeakersListQuerySchema.parse({ synthetic: 'false', limit: '10' })).toMatchObject({ synthetic: false, limit: 10 });
+  });
+
+  it('structure: collections carry translations per language, reorders reject duplicates', () => {
+    expect(CollectionCreateRequestSchema.safeParse({ titleTranslations: 'Darija basics', idempotencyKey: key }).success).toBe(false);
+    expect(CollectionCreateRequestSchema.parse({ titleTranslations: { en: 'Darija basics' }, idempotencyKey: key }).descriptionTranslations).toEqual({});
+    expect(ChapterPatchRequestSchema.safeParse({ expectedRevision: 1 }).success).toBe(false);
+    expect(ReorderRequestSchema.safeParse({ orderedIds: [uuid, uuid], idempotencyKey: key }).success).toBe(false);
+    expect(ReorderRequestSchema.safeParse({ orderedIds: [uuid], idempotencyKey: key }).success).toBe(true);
+  });
+
+  it('content rights: revoke needs a documented reason; create defaults to unverified', () => {
+    expect(ContentRightsRevokeRequestSchema.safeParse({ reason: 'oops', idempotencyKey: key }).success).toBe(false);
+    expect(ContentRightsRevokeRequestSchema.safeParse({ reason: 'takedown', idempotencyKey: key }).success).toBe(true);
+    expect(ContentRightsCreateRequestSchema.parse({ permissionGrant: 'Written consent', licenseId: 'cc-by-4.0', idempotencyKey: key }).verified).toBe(false);
+  });
+
+  it('visual assets: upload-initiate is image-only, register requires English alt text, assign targets a known slot', () => {
+    const base = { filename: 'cover.png', byteLength: 10, clientChecksumSha256: sha, idempotencyKey: key };
+    expect(VisualAssetUploadInitiateRequestSchema.safeParse({ ...base, contentType: 'image/png' }).success).toBe(true);
+    expect(VisualAssetUploadInitiateRequestSchema.safeParse({ ...base, contentType: 'audio/mpeg' }).success).toBe(false);
+    const reg = { uploadId: uuid, type: 'mission_scene', styleVersion: 'v1', origin: 'original_upload', idempotencyKey: key };
+    expect(VisualAssetRegisterRequestSchema.safeParse({ ...reg, altTextTranslations: { fr: 'Un café' } }).success).toBe(false);
+    expect(VisualAssetRegisterRequestSchema.safeParse({ ...reg, altTextTranslations: { en: 'A café terrace', fr: 'Un café' }, crop: { x: 0.5, y: 0, width: 0.6, height: 1 } }).success).toBe(false);
+    expect(VisualAssetRegisterRequestSchema.safeParse({ ...reg, altTextTranslations: { en: 'A café terrace' }, crop: { x: 0.1, y: 0, width: 0.6, height: 1 } }).success).toBe(true);
+    expect(VisualAssetAssignRequestSchema.safeParse({ entityTable: 'audio_lessons', entityId: uuid, slot: 'cover', idempotencyKey: key }).success).toBe(true);
+    expect(VisualAssetAssignRequestSchema.safeParse({ entityTable: 'speakers', entityId: uuid, slot: 'cover', idempotencyKey: key }).success).toBe(false);
+  });
+
+  it('asset suggestions: generate needs a selection, decide is approve/reject only', () => {
+    expect(AssetSuggestionsGenerateRequestSchema.safeParse({ idempotencyKey: key }).success).toBe(false);
+    expect(AssetSuggestionsGenerateRequestSchema.parse({ assetIds: [uuid], idempotencyKey: key }).kinds).toContain('language');
+    expect(AssetSuggestionDecideRequestSchema.safeParse({ decision: 'accept', idempotencyKey: key }).success).toBe(false);
+    expect(AssetSuggestionDecideRequestSchema.safeParse({ decision: 'approve', overrideSuggestion: { level: 'beginner' }, idempotencyKey: key }).success).toBe(true);
+  });
+
+  it('request-review reports review_needed | in_review, never pending', () => {
+    expect(ContentRequestReviewResponseSchema.safeParse({ contentId: uuid, state: 'review_needed', reviewStatus: 'in_review' }).success).toBe(true);
+    expect(ContentRequestReviewResponseSchema.safeParse({ contentId: uuid, state: 'review_needed', reviewStatus: 'pending' }).success).toBe(false);
+    expect(ContentRequestReviewResponseSchema.safeParse({ contentId: uuid, state: 'review_needed', reviewStatus: 'approved' }).success).toBe(false);
+  });
+
+  it('evaluator confidence is null when no evaluator ran (never a fabricated 0)', () => {
+    expect(EvaluatorOutputSchema.parse(emptyEvaluatorOutput()).confidence).toBeNull();
+    expect(EvaluatorOutputSchema.safeParse({ ...emptyEvaluatorOutput(), confidence: 0.8 }).success).toBe(true);
+    expect(EvaluatorOutputSchema.safeParse({ ...emptyEvaluatorOutput(), confidence: 1.2 }).success).toBe(false);
+  });
+
+  it('conversation session scope is mission | audio_lesson | free and must agree with missionId', () => {
+    const base = { enrollmentId: uuid, clientSessionId: uuid };
+    expect(ConversationSessionCreateRequestSchema.parse(base).scope).toBeUndefined();
+    expect(ConversationSessionCreateRequestSchema.safeParse({ ...base, scope: { kind: 'free' } }).success).toBe(true);
+    expect(ConversationSessionCreateRequestSchema.safeParse({ ...base, scope: { kind: 'audio_lesson', audioLessonId: uuid, transcriptSegmentIds: [uuid] } }).success).toBe(true);
+    expect(ConversationSessionCreateRequestSchema.safeParse({ ...base, scope: { kind: 'audio_lesson' } }).success).toBe(false);
+    expect(ConversationSessionCreateRequestSchema.safeParse({ ...base, missionId: uuid, scope: { kind: 'mission', missionId: '8f4b6c1e-1f3a-4c0b-9a7d-5e6f7a8b9c0e' } }).success).toBe(false);
+  });
+
+  it('model capabilities query accepts enrollmentId and source; audio progress accepts clientSentAt + reason', () => {
+    expect(ModelCapabilitiesQuerySchema.parse({ trackId: 'arabic-moroccan', enrollmentId: uuid, source: 'fr' })).toMatchObject({ source: 'fr' });
+    expect(ModelCapabilitiesQuerySchema.safeParse({ trackId: 'arabic-moroccan', source: 'xx' }).success).toBe(false);
+    const put = { clientEventId: uuid, deviceId: 'd1', revision: 1, positionMs: 100, durationMs: null, completed: false, occurredAt: '2026-10-19T10:00:00.000Z' };
+    expect(AudioProgressPutRequestSchema.safeParse(put).success).toBe(true);
+    expect(AudioProgressPutRequestSchema.safeParse({ ...put, clientSentAt: '2026-10-19T10:00:01.000Z' }).success).toBe(true);
+    expect(AudioProgressPutResponseSchema.safeParse({ lessonId: uuid, positionMs: 100, completed: false, revision: 1, resolution: 'superseded', reason: 'older_event' }).success).toBe(true);
+    expect(AudioProgressPutResponseSchema.safeParse({ lessonId: uuid, positionMs: 100, completed: false, revision: 1, resolution: 'applied' }).success).toBe(true);
   });
 });

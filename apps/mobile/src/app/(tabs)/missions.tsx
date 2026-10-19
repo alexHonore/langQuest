@@ -1,7 +1,7 @@
 import { Button, EmptyState, MissionCard, StatusLine, StoryMap, ThemedText, useTheme } from '@langquest/ui';
 import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { CacheNotice, ErrorView, LoadingView } from '@/components/StateViews';
@@ -33,13 +33,15 @@ export default function Missions(): React.JSX.Element {
   const fallback = useFallbackOptIn(enrollment);
   const [view, setView] = useState<'map' | 'cards'>('map');
   const [resuming, setResuming] = useState(false);
+  const resumingRef = useRef(false);
   useEffect(() => track.screenView('missions', theme.direction.rtl, enrollment?.scriptMode ?? null), [theme.direction.rtl, enrollment?.scriptMode]);
 
   const pendingCount = (local.data ?? []).filter((p) => p.status === 'completed' && p.pendingEvaluation).length;
 
   // Finished missions whose evaluation never reached the server are re-sent here (byte-identical replay).
   const resume = useCallback(async () => {
-    if (!online || resuming) return;
+    if (!online || resumingRef.current) return;
+    resumingRef.current = true;
     setResuming(true);
     try {
       const store = await getLocalStore();
@@ -51,14 +53,17 @@ export default function Missions(): React.JSX.Element {
         await qc.invalidateQueries({ queryKey: ['local-progress'] });
       }
     } finally {
+      resumingRef.current = false;
       setResuming(false);
     }
-  }, [api, online, resuming, invalidate, qc]);
+  }, [api, online, invalidate, qc]);
 
+  // Auto-resume once the tab is visible and online (deferred: the kick-off is not a render-time state change).
   useEffect(() => {
-    if (pendingCount > 0 && online) void resume();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pendingCount, online]);
+    if (pendingCount === 0 || !online) return;
+    const handle = setTimeout(() => void resume(), 0);
+    return () => clearTimeout(handle);
+  }, [pendingCount, online, resume]);
 
   const open = (id: string): void => router.push({ pathname: '/mission/[id]', params: { id } });
   const sourceName = enrollment ? names(enrollment.sourceLanguageCode) : '';

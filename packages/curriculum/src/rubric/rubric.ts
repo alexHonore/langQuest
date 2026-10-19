@@ -47,7 +47,8 @@ export interface MissionEvaluation {
   summary: string;
   skillsExercised: string[];
   reviewTriggers: string[];
-  confidence: number;
+  /** Evaluator confidence, or `null` when no evaluator ran (rubric-only); never a fabricated number. */
+  confidence: number | null;
 }
 
 export interface IntentAcceptance {

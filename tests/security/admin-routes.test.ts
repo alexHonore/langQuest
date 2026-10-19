@@ -2,15 +2,28 @@
  * §5.5 / §11 "non-admin CMS calls": every `auth: 'admin'` route in the contracts ROUTES table answers 401 without
  * a token and 403 for a learner (never 404 — hidden controls are not authorization, and neither are leaks);
  * support_readonly cannot mutate; role checks are server-side (`user_roles`), so a self-granted role claim in the
- * JWT payload changes nothing.
+ * JWT payload changes nothing. The table-driven checks are closed over the APP, not only the contracts: every
+ * `/v1/admin/*` route the Hono app mounts must be declared `auth: 'admin'` in ROUTES, so a new admin route (library
+ * structure, visual assets, suggestions, …) cannot ship outside the gate; the structure routes are also exercised
+ * with ids that really exist so a 403 is never a disguised 404.
  */
 import { ROUTES, type RouteKey } from '@langquest/contracts';
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, userClient, type ApiHarness, type TestUser } from '../src/harness';
+import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, Seeder, userClient, type ApiHarness, type TestUser } from '../src/harness';
 
 const describeStack = describeWithStack('security.admin-routes');
 
 const SAMPLE_UUID = '00000000-0000-4000-8000-000000000001';
+
+/** Routes added with the library-structure / visual-asset / suggestion work (migration 120); all must be admin-gated. */
+const STRUCTURE_ROUTES = [
+  'adminCollectionsList', 'adminCollectionCreate', 'adminCollectionGet', 'adminCollectionPatch', 'adminCollectionDelete', 'adminChaptersReorder',
+  'adminChapterCreate', 'adminChapterGet', 'adminChapterPatch', 'adminChapterDelete', 'adminLessonsReorder',
+  'adminLessonCreate', 'adminLessonGet', 'adminLessonDelete', 'adminLessonAssetAttach', 'adminLessonAssetDetach',
+  'adminContentRightsList', 'adminContentRightsCreate', 'adminContentRightsGet', 'adminContentRightsPatch', 'adminContentRightsRevoke',
+  'adminVisualAssetsList', 'adminVisualAssetUploadInitiate', 'adminVisualAssetRegister', 'adminVisualAssetGet', 'adminVisualAssetPatch', 'adminVisualAssetReplace', 'adminVisualAssetAssign', 'adminVisualAssetUnassign',
+  'adminAssetSuggestionsList', 'adminAssetSuggestionsGenerate', 'adminAssetSuggestionsBulkDecide', 'adminAssetSuggestionGet', 'adminAssetSuggestionDecide',
+] as const satisfies readonly RouteKey[];
 
 function samplePath(key: RouteKey): string {
   return ROUTES[key].path.replace(/:([A-Za-z0-9_]+)/g, (_m, name: string) => (name === 'task' ? 'character_dialogue' : SAMPLE_UUID));
@@ -34,9 +47,68 @@ describeStack('admin routes enforce server-verified roles', () => {
     await deleteTestUsers(h, [learner, support, editor]);
   });
 
-  it('covers every admin route in the contracts (sanity)', () => {
+  it('covers every admin route in the contracts (sanity), including the structure / visual-asset / suggestion routes', () => {
     expect(adminRoutes.length).toBeGreaterThanOrEqual(22);
     expect(mutating.length).toBeGreaterThanOrEqual(12);
+    for (const key of STRUCTURE_ROUTES) expect(adminRoutes, key).toContain(key);
+  });
+
+  it('every /v1/admin/* route the app mounts is declared admin in the contracts (no admin route outside the gate)', () => {
+    const mounted = new Map<string, string>();
+    for (const r of h.app.app.routes) {
+      if (r.method === 'ALL' || !r.path.startsWith('/v1/admin/')) continue;
+      mounted.set(`${r.method} ${r.path}`, r.path);
+    }
+    expect(mounted.size).toBeGreaterThanOrEqual(adminRoutes.length);
+    const declared = new Set(adminRoutes.map((k) => `${ROUTES[k].method} ${ROUTES[k].path}`));
+    const undeclared = [...mounted.keys()].filter((route) => !declared.has(route));
+    expect(undeclared).toEqual([]);
+    // And every contract admin route is really mounted (the table-driven 401/403 checks below are not vacuous).
+    const unmounted = adminRoutes.filter((k) => !mounted.has(`${ROUTES[k].method} ${ROUTES[k].path}`));
+    expect(unmounted).toEqual([]);
+  });
+
+  it('library-structure routes deny learners and read-only support even for ids that exist (a 403, never a disguised 404)', async () => {
+    const seeder = new Seeder(h.service);
+    try {
+      const rights = await seeder.rights({ verified: true, commercialRedistribution: true });
+      const collection = await seeder.audioCollection({ trackId: 'arabic-moroccan', varietyId: 'ary', rightsId: rights.id, state: 'review_needed' });
+      const chapter = await seeder.audioChapter(collection.id, 'review_needed');
+      const lesson = await seeder.audioLesson({ chapterId: chapter.id, state: 'review_needed', rightsId: rights.id });
+      const asset = await seeder.mediaAsset({ rightsId: rights.id, state: 'review_needed' });
+      await seeder.linkLessonAsset(lesson.id, asset.id);
+      const ids: Record<string, string> = { collection: collection.id, chapter: chapter.id, lesson: lesson.id, asset: asset.id, rights: rights.id };
+      const realPath = (key: RouteKey): string => {
+        const path = ROUTES[key].path;
+        const entity = path.includes('/collections') ? 'collection' : path.includes('/chapters') ? 'chapter' : path.includes('/lessons') ? 'lesson' : path.includes('/content-rights') ? 'rights' : 'asset';
+        return path.replace(':assetId', ids.asset!).replace(':id', ids[entity]!);
+      };
+      const structural = STRUCTURE_ROUTES.filter((k) => ROUTES[k].path.startsWith('/v1/admin/library/') || ROUTES[k].path.startsWith('/v1/admin/content-rights'));
+      // The ids are real: an editor can read every one of them.
+      for (const key of ['adminCollectionGet', 'adminChapterGet', 'adminLessonGet', 'adminContentRightsGet'] as const) {
+        const res = await call(h, realPath(key), { token: editor.token });
+        expect(res.status, `${key} as editor → ${JSON.stringify(res.json)}`).toBe(200);
+      }
+      const wrong: string[] = [];
+      for (const key of structural) {
+        const method = ROUTES[key].method;
+        const asLearner = await call(h, realPath(key), { method, token: learner.token, body: method === 'GET' ? undefined : {} });
+        if (asLearner.status !== 403 || asLearner.json?.error?.code !== 'forbidden') wrong.push(`${key} learner → ${asLearner.status} ${asLearner.json?.error?.code}`);
+        if (method !== 'GET') {
+          const asSupport = await call(h, realPath(key), { method, token: support.token, body: {} });
+          if (asSupport.status !== 403) wrong.push(`${key} support_readonly → ${asSupport.status}`);
+        }
+      }
+      expect(wrong).toEqual([]);
+      // Nothing changed: the draft structure is intact and no asset was detached or moved.
+      const links = await h.service.from('audio_lesson_assets').select('asset_id').eq('lesson_id', lesson.id);
+      expect(links.data?.map((l) => l.asset_id)).toEqual([asset.id]);
+      expect((await h.service.from('audio_lessons').select('id').eq('id', lesson.id).maybeSingle()).data?.id).toBe(lesson.id);
+      expect((await h.service.from('audio_course_collections').select('id').eq('id', collection.id).maybeSingle()).data?.id).toBe(collection.id);
+    } finally {
+      await h.app.flush();
+      await seeder.cleanup();
+    }
   });
 
   it('anonymous callers get 401 on every admin route', async () => {

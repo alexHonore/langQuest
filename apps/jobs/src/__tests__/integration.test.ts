@@ -31,6 +31,7 @@ describeStack('processing_jobs lifecycle (local stack)', () => {
   let services: JobServices;
   const createdJobs: string[] = [];
   const createdAssets: string[] = [];
+  const createdCollections: string[] = [];
   const workerId = `vitest-${process.pid}`;
 
   beforeAll(async () => {
@@ -41,8 +42,10 @@ describeStack('processing_jobs lifecycle (local stack)', () => {
 
   afterAll(async () => {
     if (!client) return;
+    if (createdCollections.length) await client.from('audio_collection_manifests').delete().in('collection_id', createdCollections);
     if (createdJobs.length) await client.from('processing_jobs').delete().in('id', createdJobs);
     if (createdAssets.length) await client.from('media_assets').delete().in('id', createdAssets);
+    if (createdCollections.length) await client.from('audio_course_collections').delete().in('id', createdCollections);
   });
 
   it('enqueue is idempotent, claim runs the handler and complete records output + cost', async () => {
@@ -99,6 +102,43 @@ describeStack('processing_jobs lifecycle (local stack)', () => {
     for (let i = 0; i < 20 && o2 && o2.job.id !== bad.id; i += 1) o2 = await runner2.runOne();
     expect(o2).toMatchObject({ status: 'failed', code: 'invalid_params', retry: false });
     expect((await services.repos.processingJobs.getById(bad.id))!.state).toBe('failed');
+  });
+
+  it('regenerate_manifest runs under its dedicated job type and stores the version in audio_collection_manifests', async () => {
+    const collectionId = crypto.randomUUID();
+    const inserted = await client.from('audio_course_collections').insert({ id: collectionId, title_translations: { en: `Jobs IT ${collectionId.slice(0, 8)}` }, instruction_language_code: 'en', state: 'published' }).select('id').single();
+    expect(inserted.error).toBeNull();
+    createdCollections.push(collectionId);
+
+    const spec = enqueueSpecFor('regenerate_manifest', { kind: 'audio_collection', collectionId });
+    expect(spec).toEqual({ jobType: 'regenerate_manifest', params: { kind: 'audio_collection', collectionId } });
+    const job = await services.repos.processingJobs.enqueue({ jobType: spec.jobType, idempotencyKey: `vitest:manifest:${collectionId}`, params: spec.params, parentEntityTable: 'audio_course_collections', parentEntityId: collectionId, priority: 10 });
+    createdJobs.push(job.id);
+    const runner = new PostgresJobRunner({ services, registry: buildRegistry(), workerId, jobTypes: ['regenerate_manifest'], log: silentLogger });
+    let outcome = await runner.runOne();
+    for (let i = 0; i < 20 && outcome && outcome.job.id !== job.id; i += 1) outcome = await runner.runOne();
+    expect(outcome?.job.id).toBe(job.id);
+    expect(outcome?.status).toBe('succeeded');
+    const row = (await services.repos.processingJobs.getById(job.id))!;
+    expect(row.state).toBe('succeeded');
+    const output = row.output as Record<string, unknown>;
+    expect(output).toMatchObject({ kind: 'audio_collection', version: 1, changed: true, stored: { table: 'audio_collection_manifests', version: 1, written: true } });
+
+    const stored = await services.repos.manifests.getLatestManifest({ kind: 'audio_collection', collectionId, instructionLanguageCode: 'any' });
+    expect(stored).toMatchObject({ collection_id: collectionId, instruction_language_code: 'any', version: 1, checksum: output.checksum, generated_by_job_id: job.id });
+    expect(stored!.published_at).not.toBeNull();
+    expect((stored!.manifest as { collectionId: string; title: string }).collectionId).toBe(collectionId);
+    // The object-store copy is still written alongside the row.
+    expect(await services.store.head((output.keys as { latest: string }).latest)).not.toBeNull();
+
+    // Unchanged content: same version, no new row.
+    const again = await services.repos.processingJobs.enqueue({ jobType: spec.jobType, idempotencyKey: `vitest:manifest:${collectionId}:2`, params: spec.params, priority: 10 });
+    createdJobs.push(again.id);
+    let o2 = await runner.runOne();
+    for (let i = 0; i < 20 && o2 && o2.job.id !== again.id; i += 1) o2 = await runner.runOne();
+    expect(o2?.status).toBe('succeeded');
+    expect((await services.repos.processingJobs.getById(again.id))!.output).toMatchObject({ version: 1, changed: false, stored: { written: false } });
+    expect((await services.repos.manifests.listAudioCollectionManifestVersions(collectionId, 'any')).length).toBe(1);
   });
 
   it('sweep (requeue_expired_jobs) is callable with the service role', async () => {

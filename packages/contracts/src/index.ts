@@ -13,6 +13,7 @@ export * from './manifest';
 export * from './visual';
 export * from './events';
 export * from './telemetry';
+export * from './xp';
 export * from './ai';
 export * from './api';
 export * from './db';

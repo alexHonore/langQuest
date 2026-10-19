@@ -1410,6 +1410,7 @@ export type Database = {
           revision: number;
           rubric_outcomes: Json | null;
           scenario_id: string | null;
+          scope: Json | null;
           source_language_code: string;
           speech_retention: string;
           started_at: string;
@@ -1435,6 +1436,7 @@ export type Database = {
           revision?: number;
           rubric_outcomes?: Json | null;
           scenario_id?: string | null;
+          scope?: Json | null;
           source_language_code: string;
           speech_retention?: string;
           started_at?: string;
@@ -1459,6 +1461,7 @@ export type Database = {
           revision?: number;
           rubric_outcomes?: Json | null;
           scenario_id?: string | null;
+          scope?: Json | null;
           source_language_code?: string;
           speech_retention?: string;
           started_at?: string;
@@ -4384,6 +4387,8 @@ export type Database = {
           duration_ms: number | null;
           id: string;
           last_client_event_id: string | null;
+          last_device_id: string | null;
+          last_occurred_at: string | null;
           lesson_id: string;
           play_count: number;
           position_ms: number;
@@ -4399,6 +4404,8 @@ export type Database = {
           duration_ms?: number | null;
           id?: string;
           last_client_event_id?: string | null;
+          last_device_id?: string | null;
+          last_occurred_at?: string | null;
           lesson_id: string;
           play_count?: number;
           position_ms?: number;
@@ -4413,6 +4420,8 @@ export type Database = {
           duration_ms?: number | null;
           id?: string;
           last_client_event_id?: string | null;
+          last_device_id?: string | null;
+          last_occurred_at?: string | null;
           lesson_id?: string;
           play_count?: number;
           position_ms?: number;
@@ -4754,6 +4763,7 @@ export type Database = {
       visual_assets: {
         Row: {
           alt_text_key: string;
+          alt_text_translations: NonNullable<Json>;
           byte_length: number;
           content_hash: string;
           created_at: string;
@@ -4780,6 +4790,7 @@ export type Database = {
         ComputedFields: never;
         Insert: {
           alt_text_key: string;
+          alt_text_translations?: NonNullable<Json>;
           byte_length: number;
           content_hash: string;
           created_at?: string;
@@ -4805,6 +4816,7 @@ export type Database = {
         };
         Update: {
           alt_text_key?: string;
+          alt_text_translations?: NonNullable<Json>;
           byte_length?: number;
           content_hash?: string;
           created_at?: string;
@@ -5115,6 +5127,24 @@ export type Database = {
     };
     Functions: {
       account_deletion_in_progress: { Args: Record<PropertyKey, never>; Returns: boolean };
+      apply_audio_progress: {
+        Args: {
+          p_client_event_id: string;
+          p_clock_skew_ms: number;
+          p_completed: boolean;
+          p_device_id: string;
+          p_duration_ms: number;
+          p_lesson_id: string;
+          p_occurred_at: string;
+          p_position_ms: number;
+          p_revision: number;
+          p_user_id: string;
+        };
+        Returns: {
+          reason: string;
+          resolution: string;
+        }[];
+      };
       apply_sync_events: {
         Args: { p_client_sent_at?: string; p_events: Json[]; p_user_id?: string };
         Returns: {
@@ -5377,11 +5407,34 @@ export type Database = {
       object_key_scope: { Args: { p_key: string }; Returns: string };
       owns_media_asset: { Args: { p_asset_id: string }; Returns: boolean };
       purge_test_user: { Args: { p_user_id: string }; Returns: Json };
+      reorder_audio_chapters: {
+        Args: { p_collection_id: string; p_ordered_ids: string[] };
+        Returns: {
+          id: string;
+          sort_order: number;
+        }[];
+      };
+      reorder_audio_lessons: {
+        Args: { p_chapter_id: string; p_ordered_ids: string[] };
+        Returns: {
+          id: string;
+          sort_order: number;
+        }[];
+      };
       requeue_expired_jobs: {
         Args: { p_limit?: number };
         Returns: {
           job_id: string;
           new_state: string;
+        }[];
+      };
+      revoke_content_rights: {
+        Args: { p_actor_id?: string; p_note?: string; p_reason?: string; p_rights_id: string };
+        Returns: {
+          entity_id: string;
+          entity_table: string;
+          new_state: string;
+          previous_state: string;
         }[];
       };
       set_enrollment_source_language: {

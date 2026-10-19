@@ -11,6 +11,8 @@ export const VisualAssetsTable = defineTable('visual_assets', {
   content_hash: Sha256Schema,
   license_id: UuidSchema.nullable(),
   alt_text_key: KeySchema,
+  /** Per-source-language alt text for uploaded assets (migration 120); `alt_text_key` serves catalog-backed art. */
+  alt_text_translations: z.record(z.string(), z.string()),
   focal_point: FocalPointSchema.nullable(),
   dimensions: DimensionsSchema,
   locale_neutral: z.boolean(),

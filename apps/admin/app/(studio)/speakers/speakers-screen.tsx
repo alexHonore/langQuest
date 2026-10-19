@@ -1,12 +1,11 @@
 'use client';
 import { useState } from 'react';
-import { SPEAKER_CONSENT_STATE_VALUES } from '@langquest/contracts';
-import { localCall } from '@/src/lib/local-api/client';
+import { SPEAKER_CONSENT_STATE_VALUES, type SpeakerCreateRequest, type SpeakerPatchRequest } from '@langquest/contracts';
+import { browserApi } from '@/src/lib/api-browser';
 import { useI18n } from '@/src/lib/i18n/client';
 import { useAction } from '@/src/lib/use-action';
-import type { SpeakerUpsert } from '@/src/lib/local-api/schemas';
 import type { RightsOption } from '@/src/lib/queries/library';
-import { shortId } from '@/src/lib/format';
+import { newIdempotencyKey, shortId } from '@/src/lib/format';
 import { Button, Checkbox, Field, Input, Select, Textarea } from '@/src/components/ui';
 import { Dialog } from '@/src/components/dialog';
 import { VarietySelect } from '@/src/components/forms';
@@ -28,14 +27,29 @@ export interface SpeakerRow {
 
 const CONSENT_TONE: Record<string, 'neutral' | 'info' | 'success' | 'warning' | 'error'> = { unknown: 'neutral', pending: 'info', granted: 'success', revoked: 'error' };
 
+/** Form state = the contract create body minus its idempotency key (the client mints one per save). */
+type SpeakerUpsert = Omit<SpeakerCreateRequest, 'idempotencyKey'> & { id?: string };
+
 const emptyForm: SpeakerUpsert = { displayName: '', pseudonymous: true, targetVarietyId: null, region: null, consentState: 'unknown', contentRightsId: null, voiceDescription: null, synthetic: false };
 
 export function SpeakersScreen({ speakers, rights }: { speakers: SpeakerRow[]; rights: RightsOption[] }) {
   const { t } = useI18n();
   const [open, setOpen] = useState(false);
   const [form, setForm] = useState<SpeakerUpsert>(emptyForm);
-  const save = useAction(async () => localCall('/api/admin/speakers', { method: 'POST', body: form }), { successMessage: t('admin.ui.saved') });
-  const remove = useAction(async (id: string) => localCall(`/api/admin/speakers/${id}`, { method: 'DELETE' }), { successMessage: t('admin.ui.saved') });
+  const save = useAction(
+    async () => {
+      const { id, ...fields } = form;
+      if (id) {
+        const body: SpeakerPatchRequest = fields;
+        return browserApi().call('adminSpeakerPatch', { params: { id }, body });
+      }
+      const body: SpeakerCreateRequest = { ...fields, idempotencyKey: newIdempotencyKey('spk') };
+      return browserApi().call('adminSpeakerCreate', { body, idempotencyKey: body.idempotencyKey });
+    },
+    { successMessage: t('admin.ui.saved') },
+  );
+  // Deleting a speaker still linked to lessons is refused by the API (`conflict`) unless reassigned; the button stays disabled.
+  const remove = useAction(async (id: string) => browserApi().call('adminSpeakerDelete', { params: { id }, body: {} }), { successMessage: t('admin.ui.saved') });
   const edit = (s: SpeakerRow) => {
     setForm({ id: s.id, displayName: s.display_name, pseudonymous: s.pseudonymous, targetVarietyId: s.target_variety_id as SpeakerUpsert['targetVarietyId'], region: s.region, consentState: s.consent_state as SpeakerUpsert['consentState'], contentRightsId: s.content_rights_id, voiceDescription: s.voice_description, synthetic: s.synthetic });
     setOpen(true);

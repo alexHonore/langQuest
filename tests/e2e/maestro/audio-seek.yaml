@@ -1,4 +1,5 @@
 # A21: open a published audio lesson, play, seek with the skip controls, bookmark, pause; position text changes.
+# The player's own controls live in @langquest/ui (no ids yet) and are tapped by their accessibility labels.
 appId: org.langquest.app
 env:
   EMAIL: ${MAESTRO_EMAIL_ENROLLED}
@@ -8,10 +9,12 @@ env:
     clearState: false
 - runFlow:
     when:
-      visible: "Get started"
+      visible:
+        id: "onboarding-get-started"
     commands:
       - runFlow: _sign-in.yaml
-- tapOn: "Audio"
+- tapOn:
+    id: "tab-audio"
 - assertVisible: "Audio library"
 - runFlow:
     when:
@@ -31,7 +34,8 @@ env:
     index: 0
     text: ".*(Episode|Lesson).*"
 - extendedWaitUntil:
-    visible: "Play"
+    visible:
+      id: "audio-player"
     timeout: 20000
 - assertVisible:
     text: "Narrated by .*"

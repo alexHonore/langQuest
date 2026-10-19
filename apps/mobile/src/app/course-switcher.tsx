@@ -25,6 +25,7 @@ export default function CourseSwitcher(): React.JSX.Element {
           return (
             <Pressable
               key={e.id}
+              testID={`course-switcher-${e.id}`}
               accessibilityRole="radio"
               accessibilityState={{ selected: active }}
               accessibilityLabel={t('home.activeCourse', { target: trackDef.displayName, source: names(e.sourceLanguageCode) })}
@@ -46,7 +47,7 @@ export default function CourseSwitcher(): React.JSX.Element {
                       <Chip label={t(`enrollment.status.${e.status}`)} tone={active ? 'accent' : 'neutral'} />
                       {e.coverage.status !== 'complete' ? <Chip label={t(`enrollment.coverage.${e.coverage.status}`, { source: names(e.sourceLanguageCode) })} tone="warning" /> : null}
                     </Row>
-                    <Button label={t('enrollment.editSource')} variant="ghost" size="sm" icon="edit" onPress={() => router.push({ pathname: '/enrollment/[id]', params: { id: e.id } })} accessibilityLabel={`${t('enrollment.editSource')} ${trackDef.displayName}`} />
+                    <Button testID={`course-switcher-edit-${e.id}`} label={t('enrollment.editSource')} variant="ghost" size="sm" icon="edit" onPress={() => router.push({ pathname: '/enrollment/[id]', params: { id: e.id } })} accessibilityLabel={`${t('enrollment.editSource')} ${trackDef.displayName}`} />
                   </View>
                 </Row>
               </Surface>
@@ -54,7 +55,7 @@ export default function CourseSwitcher(): React.JSX.Element {
           );
         })}
       </View>
-      <Button label={t('enrollment.add')} icon="globe" variant="secondary" fullWidth onPress={() => router.push('/catalog')} accessibilityLabel={t('enrollment.add')} />
+      <Button testID="course-switcher-add" label={t('enrollment.add')} icon="globe" variant="secondary" fullWidth onPress={() => router.push('/catalog')} accessibilityLabel={t('enrollment.add')} />
     </Screen>
   );
 }

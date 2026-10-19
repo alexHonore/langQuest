@@ -1,6 +1,6 @@
 /** §6.2 — speaking and AI endpoints. */
 import { z } from 'zod';
-import { CourseTrackIdSchema, VarietyIdSchema } from '../catalog';
+import { CourseTrackIdSchema, SourceLanguageCodeSchema, VarietyIdSchema } from '../catalog';
 import { CapabilitySchema } from '../ai/capability';
 import { CharacterTurnSchema, ConversationSessionStateSchema, EvaluatorOutputSchema, LearnerTurnInputSchema, ShortLivedSessionSchema } from '../ai/conversation';
 import { AudioEncodingSchema, AudioInputSchema, AudioOutputSchema, SpeechEvaluationResultSchema, TranscriptResultSchema } from '../ai/io';
@@ -11,17 +11,33 @@ import { PronunciationFeatureSchema } from '../ai/capability';
 
 // --- conversation -----------------------------------------------------------
 
-export const ConversationSessionCreateRequestSchema = z.object({
-  enrollmentId: UuidSchema,
-  missionId: UuidSchema.optional(),
-  scenarioId: UuidSchema.optional(),
-  characterId: UuidSchema.optional(),
-  mode: ConversationModeSchema.default('push_to_talk'),
-  /** Client-generated idempotency key for session creation. */
-  clientSessionId: UuidSchema,
-  inputEncoding: AudioEncodingSchema.default('opus'),
-  speechRetention: SpeechRetentionSchema.optional(),
-});
+/**
+ * What the session practises. `mission` scopes the character to a mission's objectives; `audio_lesson`
+ * grounds it in a library lesson (optionally specific transcript segments the learner picked); `free`
+ * is open conversation in the enrollment's variety. Persisted as sent (`conversation_sessions.scope`).
+ */
+export const ConversationSessionScopeSchema = z.discriminatedUnion('kind', [
+  z.object({ kind: z.literal('mission'), missionId: UuidSchema }),
+  z.object({ kind: z.literal('audio_lesson'), audioLessonId: UuidSchema, transcriptSegmentIds: z.array(UuidSchema).max(200).optional() }),
+  z.object({ kind: z.literal('free') }),
+]);
+export type ConversationSessionScope = z.infer<typeof ConversationSessionScopeSchema>;
+
+export const ConversationSessionCreateRequestSchema = z
+  .object({
+    enrollmentId: UuidSchema,
+    missionId: UuidSchema.optional(),
+    scenarioId: UuidSchema.optional(),
+    characterId: UuidSchema.optional(),
+    mode: ConversationModeSchema.default('push_to_talk'),
+    /** Client-generated idempotency key for session creation. */
+    clientSessionId: UuidSchema,
+    inputEncoding: AudioEncodingSchema.default('opus'),
+    speechRetention: SpeechRetentionSchema.optional(),
+    /** Optional; when omitted the server derives `mission` from `missionId` or `free`. */
+    scope: ConversationSessionScopeSchema.optional(),
+  })
+  .refine((v) => !v.scope || v.scope.kind !== 'mission' || !v.missionId || v.scope.missionId === v.missionId, { message: 'scope.missionId must match missionId', path: ['scope', 'missionId'] });
 export type ConversationSessionCreateRequest = z.infer<typeof ConversationSessionCreateRequestSchema>;
 
 export const ConversationSessionCreateResponseSchema = z.object({
@@ -51,6 +67,11 @@ export type InlineAudioClip = z.infer<typeof InlineAudioClipSchema>;
 export const ConversationTurnAudioSchema = z.union([AudioInputSchema, InlineAudioClipSchema]);
 export type ConversationTurnAudio = z.infer<typeof ConversationTurnAudioSchema>;
 
+/**
+ * Replay semantics (`ROUTES.conversationTurn`): `clientTurnId` is the idempotency key. A completed turn replays
+ * the original character turn (`replayed: true`); a turn still in flight answers `turn_in_progress` (409) with
+ * `Retry-After` seconds and `details.retryAfterSeconds` — the client retries the SAME id, never a new one.
+ */
 export const ConversationTurnRequestSchema = z.object({
   /** Client-generated; a replay returns the original character turn (never a duplicate LLM response). */
   clientTurnId: UuidSchema,
@@ -156,7 +177,14 @@ export type SynthesizeResponse = z.infer<typeof SynthesizeResponseSchema>;
 
 // --- capabilities -----------------------------------------------------------
 
-export const ModelCapabilitiesQuerySchema = z.object({ trackId: CourseTrackIdSchema, regionalOption: z.string().optional() });
+export const ModelCapabilitiesQuerySchema = z.object({
+  trackId: CourseTrackIdSchema,
+  regionalOption: z.string().optional(),
+  /** Resolve capabilities for a specific enrollment (its variety, source language and regional preference). */
+  enrollmentId: UuidSchema.optional(),
+  /** Source (instruction) language to report coaching/explanation capability for; never silently substituted. */
+  source: SourceLanguageCodeSchema.optional(),
+});
 export type ModelCapabilitiesQuery = z.infer<typeof ModelCapabilitiesQuerySchema>;
 export const TaskCapabilitySchema = z.object({
   task: AiTaskNameSchema,

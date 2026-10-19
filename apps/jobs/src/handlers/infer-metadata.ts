@@ -12,18 +12,21 @@
  *
  * Evidence = existing transcript text when present, otherwise (optionally) a short STT sample of the first
  * `sampleSeconds`; plus the file's legacy path / tags. Every suggestion carries a confidence and the
- * provenance (task, prompt version, trace id → `ai_requests`). Suggestions are stored on the job output
- * and as an `asset_provenance_events` row plus `lesson_topics(provenance='ai_suggested')`; lesson fields
- * are NEVER changed and nothing is published.
+ * provenance (task, prompt version, trace id → `ai_requests`). Suggestions are stored as
+ * `asset_suggestions` rows (§7.4: one row per kind the requested mode covers, `review_needed`, the model's
+ * own confidence or null, provenance per `AssetSuggestionProvenanceSchema`; never re-inserted when the job
+ * is retried), on the job output, as an `asset_provenance_events` row and as
+ * `lesson_topics(provenance='ai_suggested')`; lesson fields are NEVER changed and nothing is published.
  */
 import { join } from 'node:path';
 import { z } from 'zod';
-import type { AudioEncoding, CourseTrackId, SourceLanguageCode, VarietyId } from '@langquest/contracts';
-import { LEARNER_LEVEL_VALUES, LANGUAGE_CODES, VARIETY_IDS, isSourceLanguageCode, isVarietyId } from '@langquest/contracts';
+import type { AssetSuggestionKind, AssetSuggestionProvenance, AudioEncoding, CourseTrackId, SourceLanguageCode, VarietyId } from '@langquest/contracts';
+import { AssetSuggestionProvenanceSchema, LEARNER_LEVEL_VALUES, LANGUAGE_CODES, VARIETY_IDS, isSourceLanguageCode, isVarietyId } from '@langquest/contracts';
+import type { Insert } from '@langquest/db';
 import { providerLocaleFor, resolveVariety, getPromptPack, coachingLanguageInstruction } from '@langquest/ai';
 import { buildClipCommand, decideTranscodeProfile } from '@langquest/media';
 import { JobFailure, type JobHandler } from '../queue/types';
-import { downloadToWorkDir, fileAssetResolver, jobLanguageContext, localized, masterFilename, trackForVarietyOrThrow } from './common';
+import { downloadToWorkDir, fileAssetResolver, jobLanguageContext, localized, masterFilename, queuedJobId, trackForVarietyOrThrow } from './common';
 import { SHORT_FIELD_MAX_CHARS, UNTRUSTED_DATA_DIRECTIVE, capList, capText } from './untrusted-evidence';
 
 export const INFER_PROMPT_VERSION = 'metadata_inference:v2';
@@ -120,6 +123,62 @@ export function buildInferencePrompt(input: { evidence: InferenceEvidence; sourc
   const evidence = capEvidence(input.evidence, input.maxEvidenceChars ?? Math.max(input.evidence.text.length, 1));
   const user = JSON.stringify({ evidence });
   return { system, user, templateId: 'metadata_inference', templateVersion: INFER_PROMPT_VERSION };
+}
+
+export type InferMode = NonNullable<InferMetadataParams['mode']>;
+
+/** Which `asset_suggestions.kind`s each mode produces (`all` = every kind). */
+export const SUGGESTION_KINDS_BY_MODE: Readonly<Record<InferMode, readonly AssetSuggestionKind[]>> = {
+  detect_language: ['language', 'variety'],
+  describe: ['description', 'tags', 'topics', 'level'],
+  segment_lessons: ['lesson_structure'],
+  all: ['language', 'variety', 'lesson_structure', 'description', 'tags', 'topics', 'level'],
+};
+
+/** Row-level confidence for a list of scored items: the least confident item (never an invented aggregate); null when empty. */
+const leastConfident = (items: ReadonlyArray<{ confidence: number }>): number | null => (items.length ? Math.min(...items.map((i) => i.confidence)) : null);
+
+/**
+ * Pure mapping from one sanitised {@link MetadataSuggestion} to `asset_suggestions` rows (§7.4). Kinds with
+ * nothing to suggest (null variety, empty tags, …) produce no row; every row is `review_needed` and carries
+ * the model's own confidence (or null) plus the shared provenance. `media_asset_id` is NOT NULL in the
+ * table, so a lesson without a master asset yields no rows (reported on the job output).
+ */
+export function buildSuggestionRows(input: {
+  suggestion: MetadataSuggestion;
+  mode: InferMode;
+  mediaAssetId: string;
+  lessonId: string | null;
+  jobId: string | null;
+  sourceLanguage: SourceLanguageCode;
+  expectedVariety: VarietyId | null;
+  provenance: AssetSuggestionProvenance;
+  evidence: Pick<InferenceEvidence, 'segmentLanguages'>;
+}): Insert<'asset_suggestions'>[] {
+  const { suggestion: s } = input;
+  const kinds = new Set(SUGGESTION_KINDS_BY_MODE[input.mode]);
+  const rows: Insert<'asset_suggestions'>[] = [];
+  const push = (kind: AssetSuggestionKind, suggestion: Record<string, unknown>, confidence: number | null) =>
+    rows.push({ media_asset_id: input.mediaAssetId, lesson_id: input.lessonId, job_id: input.jobId, kind, suggestion: suggestion as never, confidence, provenance: input.provenance as never, review_status: 'review_needed' });
+
+  if (kinds.has('language') && (s.likelyLanguages.length || s.instructionLanguage.code)) {
+    push('language', { likelyLanguages: s.likelyLanguages, instructionLanguage: s.instructionLanguage, voiceRoles: s.voiceRoles, segmentLanguages: input.evidence.segmentLanguages }, s.likelyLanguages[0]?.confidence ?? s.instructionLanguage.confidence ?? null);
+  }
+  if (kinds.has('variety') && s.likelyVariety.varietyId) {
+    push('variety', { varietyId: s.likelyVariety.varietyId, note: s.likelyVariety.note, expectedVarietyId: input.expectedVariety, conflictsWithExpected: input.expectedVariety !== null && s.likelyVariety.varietyId !== input.expectedVariety }, s.likelyVariety.confidence);
+  }
+  if (kinds.has('lesson_structure') && (s.lessonGuess.title !== null || s.lessonGuess.chapterTitle !== null || s.lessonGuess.lessonOrder !== null || s.lessonGuess.episodeNumber !== null)) {
+    push('lesson_structure', { title: s.lessonGuess.title, chapterTitle: s.lessonGuess.chapterTitle, lessonOrder: s.lessonGuess.lessonOrder, episodeNumber: s.lessonGuess.episodeNumber, languageCode: input.sourceLanguage }, s.lessonGuess.confidence);
+  }
+  if (kinds.has('description') && s.description.text.trim()) {
+    // The description was requested in the editor's source language; a model answering in another language is
+    // surfaced as such rather than silently relabelled.
+    push('description', { text: s.description.text, languageCode: s.description.languageCode, requestedLanguageCode: input.sourceLanguage, languageMismatch: s.description.languageCode !== input.sourceLanguage }, s.description.confidence);
+  }
+  if (kinds.has('tags') && s.tags.length) push('tags', { tags: s.tags }, leastConfident(s.tags));
+  if (kinds.has('topics') && s.topics.length) push('topics', { topics: s.topics }, leastConfident(s.topics));
+  if (kinds.has('level') && s.level.value) push('level', { value: s.level.value }, s.level.confidence);
+  return rows;
 }
 
 export const inferMetadataHandler: JobHandler<InferMetadataParams> = {
@@ -231,18 +290,48 @@ export const inferMetadataHandler: JobHandler<InferMetadataParams> = {
     if (suggestionRaw.likelyVariety.varietyId && !suggestion.likelyVariety.varietyId) dropped.push(`variety:${suggestionRaw.likelyVariety.varietyId}`);
     const varietyConflict = expectedVariety !== null && suggestion.likelyVariety.varietyId !== null && suggestion.likelyVariety.varietyId !== expectedVariety;
 
-    const provenance = { task: 'scene_planning', role: 'metadata_inference', promptVersion: INFER_PROMPT_VERSION, traceId: ctx.traceId, jobId: ctx.job.id, evidenceSource: evidence.source, generatedAt: ctx.services.now().toISOString(), reviewStatus: 'review_needed', autoApplied: false };
+    // Provider/model of the inference call, as recorded by the job-scoped request sink (null when unknown).
+    const inferenceCall = [...ctx.cost.records].reverse().find((r) => r.task === 'scene_planning' && r.success) ?? null;
+    const provenance = AssetSuggestionProvenanceSchema.parse({
+      task: 'scene_planning',
+      role: 'metadata_inference',
+      provider: inferenceCall?.provider ?? null,
+      model: inferenceCall?.model ?? null,
+      promptVersion: INFER_PROMPT_VERSION,
+      traceId: ctx.traceId,
+      jobId: queuedJobId(ctx),
+      evidenceSource: evidence.source,
+      generatedAt: ctx.services.now().toISOString(),
+      mode,
+      reviewStatus: 'review_needed',
+      autoApplied: false,
+    });
     await ctx.progress(80, 'storing suggestions');
 
     if (lessonId && suggestion.topics.length) {
       await db.upsertLessonTopics(suggestion.topics.map((t) => ({ lesson_id: lessonId, topic_key: t.topicKey, confidence: t.confidence, provenance: 'ai_suggested' as const })));
     }
+    // §7.4 review queue rows. A retried job (same id) keeps the rows of its earlier attempt instead of duplicating them.
+    let suggestionIds: string[] = [];
+    let suggestionsSkipped: 'no_media_asset' | 'already_stored' | null = null;
+    if (!masterAsset) suggestionsSkipped = 'no_media_asset';
+    else {
+      const jobId = queuedJobId(ctx);
+      const existing = jobId ? await db.listAssetSuggestionsForJob(jobId) : [];
+      if (existing.length) {
+        suggestionIds = existing.map((r) => r.id);
+        suggestionsSkipped = 'already_stored';
+      } else {
+        const rows = buildSuggestionRows({ suggestion, mode, mediaAssetId: masterAsset.id, lessonId, jobId, sourceLanguage, expectedVariety, provenance, evidence });
+        suggestionIds = (await db.insertAssetSuggestions(rows)).map((r) => r.id);
+      }
+    }
     if (masterAsset) {
-      await db.recordProvenance({ asset_id: masterAsset.id, event_type: 'edited', actor_id: ctx.job.requested_by, job_id: ctx.job.id, details: { action: 'ai_metadata_suggested', mode, suggestion, provenance, sttSample, varietyConflict, dropped } as never });
+      await db.recordProvenance({ asset_id: masterAsset.id, event_type: 'edited', actor_id: ctx.job.requested_by, job_id: queuedJobId(ctx), details: { action: 'ai_metadata_suggested', mode, suggestion, provenance, sttSample, varietyConflict, dropped, suggestionIds } as never });
     }
     await ctx.progress(100);
     return {
-      output: { assetId: masterAsset?.id ?? null, lessonId, mode, evidence: { source: evidence.source, transcriptId: evidence.transcriptId, sampleSeconds: evidence.sampleSeconds, chars: evidence.text.length }, suggestion, provenance, sttSample, varietyConflict, dropped, applied: false },
+      output: { assetId: masterAsset?.id ?? null, lessonId, mode, evidence: { source: evidence.source, transcriptId: evidence.transcriptId, sampleSeconds: evidence.sampleSeconds, chars: evidence.text.length }, suggestion, provenance, sttSample, varietyConflict, dropped, applied: false, suggestionIds, suggestionsStored: suggestionsSkipped === null ? suggestionIds.length : 0, suggestionsSkipped },
       outputAssetIds: masterAsset ? [masterAsset.id] : [],
     };
   },

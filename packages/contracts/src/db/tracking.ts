@@ -85,6 +85,8 @@ export const ConversationSessionsTable = defineTable('conversation_sessions', {
   objectives_completed: z.array(z.string()),
   revision: NonNegativeIntSchema,
   last_seq: NonNegativeIntSchema,
+  /** `ConversationSessionScope` as sent by the client (migration 120). */
+  scope: JsonObjectSchema.nullable(),
 });
 
 export const ConversationTurnsTable = defineLedgerTable('conversation_turns', {

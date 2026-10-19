@@ -9,8 +9,9 @@ import { fallbackTurnSummary } from '@langquest/ai/conversation/summariser';
 import type { CharacterPersona, TurnRecord } from '@langquest/ai/prompts/builders';
 import { defaultVoiceFor, findVoice } from '@langquest/ai/speech/voices';
 import { bytesToBase64 } from '@langquest/ai/util';
-import type { AudioOutput, CharacterTurn, ConversationCommand, ConversationContext, ConversationMode, ConversationSessionState, EvaluatorOutput, LanguageContext, SourceLanguageCode, SpeechRetention, VoiceSessionConfig } from '@langquest/contracts';
-import { ConversationSessionStateSchema } from '@langquest/contracts';
+import type { AudioOutput, CharacterTurn, ConversationCommand, ConversationContext, ConversationMode, ConversationSessionScope, ConversationSessionState, EvaluatorOutput, LanguageContext, SourceLanguageCode, SpeechRetention, VoiceSessionConfig } from '@langquest/contracts';
+import { ConversationSessionScopeSchema, ConversationSessionStateSchema } from '@langquest/contracts';
+import type { DbClient as LearnerDb } from '@langquest/db/client';
 import { sanitizeForMemory } from '@langquest/curriculum/missions/story';
 import type { DbClient } from '@langquest/db/client';
 import type { Row } from '@langquest/db/types';
@@ -61,6 +62,35 @@ export function sessionState(row: SessionRow, lastLearnerTurnId: string | null, 
   });
 }
 
+/** The persisted `conversation_sessions.scope` (migration 120), or null for rows written before it existed. */
+export function sessionScope(row: SessionRow): ConversationSessionScope | null {
+  const parsed = ConversationSessionScopeSchema.safeParse(row.scope);
+  return parsed.success ? parsed.data : null;
+}
+
+/** Facts for an `audio_lesson` scope: the lesson title + its transcript lines (the learner-picked segments when given), read under RLS. */
+export async function audioLessonSceneFacts(db: LearnerDb, scope: Extract<ConversationSessionScope, { kind: 'audio_lesson' }>, source: string): Promise<string[]> {
+  const lesson = (await db.from('audio_lessons').select('id, title_translations, instruction_language_code').eq('id', scope.audioLessonId).maybeSingle()).data;
+  if (!lesson) throw problem.notFound('Audio lesson');
+  const titles = (lesson.title_translations ?? {}) as Record<string, string>;
+  const title = titles[source] ?? titles[lesson.instruction_language_code ?? ''] ?? Object.values(titles)[0] ?? '';
+  const facts: string[] = [];
+  if (title) facts.push(`Audio lesson: ${title}`);
+  const transcript = (await db.from('transcripts').select('id').eq('lesson_id', lesson.id).order('revision', { ascending: false }).limit(1).maybeSingle()).data;
+  if (transcript) {
+    let q = db.from('transcript_segments').select('id, text, sort_index, speaker_label').eq('transcript_id', transcript.id).order('sort_index').limit(200);
+    if (scope.transcriptSegmentIds?.length) q = q.in('id', scope.transcriptSegmentIds);
+    const segments = (await q).data ?? [];
+    for (const seg of segments) {
+      if (facts.length >= 20) break;
+      const text = seg.text.replace(/[\r\n]+/g, ' ').trim();
+      if (!text) continue;
+      facts.push((seg.speaker_label ? `${seg.speaker_label}: ${text}` : text).slice(0, 300));
+    }
+  }
+  return facts;
+}
+
 export function personaFor(character: CharacterRow): CharacterPersona {
   const voice = (character.voice_profile ?? {}) as { voice_id?: string; voiceId?: string; speech_speed?: 'slow' | 'normal' | 'fast' };
   return { id: character.id, name: character.name, role: character.role, region: character.home_region, personality: character.personality, voiceId: voice.voice_id ?? voice.voiceId ?? null, speechSpeed: voice.speech_speed ?? 'normal' };
@@ -103,8 +133,9 @@ export async function relationshipSummary(db: DbClient, characterId: string, enr
   return sanitizeForMemory(res.data.story_summary, 1000);
 }
 
-export function buildContext(input: { language: LanguageContext; session: SessionRow; character: CharacterRow; scenario: Row<'dialogue_scenarios'> | null; objectives: Objective[]; weaknesses: string[]; relationship: string | null }): ConversationContext {
-  const facts = (input.scenario?.scene_facts?.length ? input.scenario.scene_facts : input.character.storyline_facts).slice(0, 20).map((f) => f.slice(0, 300));
+export function buildContext(input: { language: LanguageContext; session: SessionRow; character: CharacterRow; scenario: Row<'dialogue_scenarios'> | null; objectives: Objective[]; weaknesses: string[]; relationship: string | null; /** Scope-specific facts (e.g. the audio lesson's transcript lines) that replace the scenario/character defaults. */ sceneFacts?: readonly string[] | null }): ConversationContext {
+  const base = input.sceneFacts?.length ? input.sceneFacts : input.scenario?.scene_facts?.length ? input.scenario.scene_facts : input.character.storyline_facts;
+  const facts = base.slice(0, 20).map((f) => f.slice(0, 300));
   return {
     language: input.language,
     missionId: input.session.mission_id,

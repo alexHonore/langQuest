@@ -88,6 +88,16 @@ export function createCache(store: DocumentStore, now: () => string = () => new 
       const missions = await store.list<CachedEnvelope<MissionDetailResponse>>(COLLECTIONS.missions);
       for (const m of missions) if (m.doc.data.sourceLanguageCode === source) await store.remove(COLLECTIONS.missions, m.id);
     },
+    /**
+     * Forget everything cached for ONE enrollment after the learner deleted it server-side (§15): its due-review
+     * queue and local mission progress. Manifests/missions are keyed by track+source and may serve another
+     * enrollment, so they stay; the profile/progress snapshots are refreshed by the next fetch.
+     */
+    forgetEnrollment: async (enrollmentId: string) => {
+      await store.remove(COLLECTIONS.reviews, enrollmentId);
+      const local = await store.list<LocalMissionProgress>(COLLECTIONS.localProgress);
+      for (const p of local) if (p.doc.enrollmentId === enrollmentId) await store.remove(COLLECTIONS.localProgress, p.id);
+    },
     reset: () => store.reset(),
   };
 }

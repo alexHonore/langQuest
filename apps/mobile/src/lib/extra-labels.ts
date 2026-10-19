@@ -29,6 +29,8 @@ const EN = {
   fallbackStop: 'Stop using the fallback language',
   publicationState: { in_review: 'In review', coming_soon: 'Coming soon', published: 'Published' } as Record<string, string>,
   missionsPublished: (n: number): string => (n === 1 ? '1 mission published' : `${n} missions published`),
+  // Enrollment removal (§15): the delete option is permanent and scoped to one course.
+  removeDeletePermanent: 'Deleting erases this course’s progress permanently. Archiving keeps it.',
   // Auth chrome.
   password: 'Password',
   newPassword: 'New password',
@@ -68,6 +70,7 @@ const EN = {
   conversationNotice: {
     stt_failed: 'Your recording could not be transcribed. Try saying it again or type it.',
     turn_failed: 'The character could not answer that turn. Try again.',
+    turn_in_progress: 'That turn is still being processed on the server. Try again in a moment; the same turn is re-sent, not duplicated.',
     rate_limited: 'Too many requests. Wait a moment and try again.',
     validation_failed: 'That recording could not be processed (too long or in an unsupported format). Try a shorter take.',
     capability_unsupported: 'This feature is not supported for this language variety.',
@@ -83,6 +86,7 @@ const EN = {
   leaveWithoutSummary: 'Leave without a summary',
   endPendingQueued: 'The end of this conversation is queued and will be sent automatically.',
   // Missions.
+  confidenceNotEvaluated: 'Evaluation confidence: not evaluated (no evaluator ran; rubric only)',
   pendingEvaluation: (n: number): string => (n === 1 ? 'One finished mission is waiting for its evaluation.' : `${n} finished missions are waiting for their evaluation.`),
   sendPendingEvaluations: 'Send now',
   // Downloads.
@@ -108,6 +112,7 @@ const FR: ExtraLabels = {
   fallbackStop: 'Ne plus utiliser la langue de repli',
   publicationState: { in_review: 'En relecture', coming_soon: 'Bientôt disponible', published: 'Publié' },
   missionsPublished: (n) => (n === 1 ? '1 mission publiée' : `${n} missions publiées`),
+  removeDeletePermanent: 'Supprimer efface définitivement la progression de ce cours. Archiver la conserve.',
   password: 'Mot de passe',
   newPassword: 'Nouveau mot de passe',
   passwordRule: 'Mot de passe : au moins 8 caractères.',
@@ -144,6 +149,7 @@ const FR: ExtraLabels = {
   conversationNotice: {
     stt_failed: 'Votre enregistrement n’a pas pu être transcrit. Réessayez ou écrivez-le.',
     turn_failed: 'Le personnage n’a pas pu répondre à ce tour. Réessayez.',
+    turn_in_progress: 'Ce tour est encore en cours de traitement sur le serveur. Réessayez dans un instant ; le même tour est renvoyé, pas dupliqué.',
     rate_limited: 'Trop de requêtes. Patientez un instant puis réessayez.',
     validation_failed: 'Cet enregistrement n’a pas pu être traité (trop long ou format non pris en charge). Essayez une prise plus courte.',
     capability_unsupported: 'Cette fonction n’est pas prise en charge pour cette variété de langue.',
@@ -158,6 +164,7 @@ const FR: ExtraLabels = {
   retryEnd: 'Réessayer de terminer',
   leaveWithoutSummary: 'Quitter sans résumé',
   endPendingQueued: 'La fin de cette conversation est en file d’attente et sera envoyée automatiquement.',
+  confidenceNotEvaluated: 'Confiance de l’évaluation : non évaluée (aucun évaluateur n’a tourné ; grille seule)',
   pendingEvaluation: (n) => (n === 1 ? 'Une mission terminée attend son évaluation.' : `${n} missions terminées attendent leur évaluation.`),
   sendPendingEvaluations: 'Envoyer maintenant',
   fileMissing: 'Le fichier téléchargé est introuvable sur cet appareil. Téléchargez-le à nouveau.',

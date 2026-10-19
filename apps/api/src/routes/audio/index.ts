@@ -6,6 +6,7 @@
  */
 import {
   AudioBookmarkCreateRequestSchema,
+  AudioCollectionManifestSchema,
   AudioBookmarkResponseSchema,
   AudioChaptersResponseSchema,
   AudioCollectionsQuerySchema,
@@ -20,7 +21,6 @@ import {
   TranscriptQuerySchema,
   TranscriptResponseSchema,
   UuidSchema,
-  type AudioManifestLesson,
   type ContentState,
   type DownloadPackFile,
   type SourceLanguageCode,
@@ -28,13 +28,14 @@ import {
 import { DbError } from '@langquest/db/errors';
 import type { Row } from '@langquest/db/types';
 import { extensionForMime } from '@langquest/media/keys';
-import { buildAudioCollectionManifest, buildDownloadPackManifest, manifestCacheKey, packFilePath } from '@langquest/media/manifests';
+import { buildDownloadPackManifest, manifestCacheKey, packFilePath } from '@langquest/media/manifests';
 import { authorizePlayback, computeExpiry, ttlForAsset, SIGNED_URL_POLICY } from '@langquest/media/playback';
 import { z } from 'zod';
 import type { DefineRoute } from '../../app';
 import { problem, respondOk } from '../../http/envelope';
 import { parseBody, parseParams, parseQuery } from '../../http/validate';
-import { MEDIA_ASSET_COLUMNS, mediaAssetToRef, type MediaAssetPublicRow } from '../../lib/dto';
+import { buildAudioManifest, localizedDescription as description, localizedTitle as title } from '../../lib/audio-manifest';
+import { mediaAssetToRef, type MediaAssetPublicRow } from '../../lib/dto';
 import { mediaStreamSecret, signStreamToken } from '../../lib/media-token';
 import { attributionFor, loadRights, redistributable, rightsActive, rightsFor } from '../../lib/rights';
 import { uuidFrom } from '../../lib/learning';
@@ -44,14 +45,6 @@ import type { RequestServices } from '../../services/context';
 
 const IdParams = z.object({ id: UuidSchema });
 const LessonParams = z.object({ lessonId: UuidSchema });
-const title = (translations: unknown, lang: string | null): string => {
-  const t = (translations ?? {}) as Record<string, string>;
-  return (lang && t[lang]) || t.en || Object.values(t)[0] || '';
-};
-const description = (translations: unknown, lang: string | null): string | null => {
-  const t = (translations ?? {}) as Record<string, string>;
-  return (lang && t[lang]) || null;
-};
 
 /** Build a playback URL for an asset the caller is already authorised to play. */
 async function playbackUrlFor(s: RequestServices, asset: Pick<Row<'media_assets'>, 'id' | 'storage_key' | 'duration_ms' | 'mime_type'>, userId: string, purpose: 'playback' | 'download'): Promise<{ url: string; expiresAt: string; method: 'signed_get' | 'worker_proxy' }> {
@@ -114,53 +107,13 @@ export function registerAudioRoutes(define: DefineRoute): void {
     const cacheKey = manifestCacheKey({ kind: 'audio_collection', collectionId: id, instructionLanguageCode: (lang as never) ?? null, version: collection.published_version ?? 0 });
     const cached = await s.cache.get(cacheKey);
     if (cached) return new Response(cached.body, { status: 200, headers: { 'content-type': 'application/json', 'Cache-Control': 'private, max-age=300', 'X-Cache': 'HIT' } });
-    const chapters = await repos.audioLibrary.listChapters(id);
-    const chapterIds = chapters.map((ch) => ch.id);
-    const lessons = chapterIds.length ? ((await db.from('audio_lessons').select('*').in('chapter_id', chapterIds).order('sort_order')).data ?? []) : [];
-    const lessonIds = lessons.map((l) => l.id);
-    const [links, speakerLinks, transcripts, rightsRows] = await Promise.all([
-      lessonIds.length ? db.from('audio_lesson_assets').select('*').in('lesson_id', lessonIds).then((r) => r.data ?? []) : Promise.resolve([]),
-      lessonIds.length ? db.from('lesson_speakers').select('lesson_id, speakers!inner(display_name)').in('lesson_id', lessonIds).then((r) => (r.data ?? []) as unknown as { lesson_id: string; speakers: { display_name: string } | null }[]) : Promise.resolve([]),
-      lessonIds.length ? db.from('transcripts').select('lesson_id, status, id').in('lesson_id', lessonIds).then((r) => r.data ?? []) : Promise.resolve([]),
-      loadRights(s, [collection.content_rights_id, ...lessons.map((l) => l.content_rights_id)]),
-    ]);
-    const assetIds = [...new Set(links.map((l) => l.asset_id))];
-    const media = assetIds.length ? (((await db.from('media_assets').select(MEDIA_ASSET_COLUMNS).in('id', assetIds)).data as MediaAssetPublicRow[] | null) ?? []) : [];
-    const mediaById = new Map(media.map((m) => [m.id, m]));
-    const transcriptIds = transcripts.map((t) => t.id);
-    const translationLangs = transcriptIds.length ? ((await db.from('transcript_translations').select('language_code, transcript_segments!inner(transcript_id)').in('transcript_segments.transcript_id', transcriptIds)).data ?? []) as unknown as { language_code: string; transcript_segments: { transcript_id: string } }[] : [];
-    const collectionRights = collection.content_rights_id ? (rightsRows.get(collection.content_rights_id) ?? null) : null;
-    const toLesson = (l: Row<'audio_lessons'>): AudioManifestLesson => {
-      const r = l.content_rights_id ? (rightsRows.get(l.content_rights_id) ?? collectionRights) : collectionRights;
-      const tr = transcripts.filter((t) => t.lesson_id === l.id);
-      const langs = [...new Set(translationLangs.filter((x) => tr.some((t) => t.id === x.transcript_segments.transcript_id)).map((x) => x.language_code))];
-      return {
-        id: l.id,
-        order: l.sort_order,
-        title: title(l.title_translations, lang),
-        description: description(l.description_translations, lang),
-        durationMs: l.listen_length_ms,
-        level: l.level as AudioManifestLesson['level'],
-        speakerNames: speakerLinks.filter((sp) => sp.lesson_id === l.id).map((sp) => sp.speakers?.display_name ?? '').filter(Boolean),
-        assets: links.filter((lk) => lk.lesson_id === l.id && mediaById.has(lk.asset_id)).map((lk) => mediaAssetToRef(mediaById.get(lk.asset_id)!)),
-        transcriptAvailable: tr.some((t) => t.status === 'ready' || t.status === 'reviewed'),
-        transcriptLanguages: langs,
-        offlineEligible: l.state === 'published' && redistributable(r),
-      };
-    };
-    const manifest = buildAudioCollectionManifest({
-      collectionId: collection.id,
-      title: title(collection.title_translations, lang),
-      targetVarietyId: collection.target_variety_id as never,
-      instructionLanguageCode: (lang ?? null) as SourceLanguageCode | null,
-      version: collection.published_version ?? 0,
-      coverArt: null,
-      attributionText: attributionFor(collectionRights, title(collection.title_translations, lang)),
-      chapters: chapters.map((ch) => ({ id: ch.id, order: ch.sort_order, title: title(ch.title_translations, lang), summary: description(ch.summary_translations, lang), coverArt: null, lessons: lessons.filter((l) => l.chapter_id === ch.id).map(toLesson) })),
-    });
-    const body = JSON.stringify({ ok: true, data: AudioChaptersResponseSchema.parse({ manifest }) });
-    await s.cache.put(cacheKey, body, 300, `"${manifest.checksum.slice(0, 32)}"`);
-    return new Response(body, { status: 200, headers: { 'content-type': 'application/json', 'Cache-Control': 'private, max-age=300', 'X-Cache': 'MISS' } });
+    // Stored copy first (published version only under the learner's RLS), live build otherwise.
+    const stored = await repos.manifests.getLatestAudioCollectionManifest(id, lang);
+    const manifest = stored ? AudioCollectionManifestSchema.parse(stored.manifest) : await buildAudioManifest(s, db, collection);
+    const parsed = AudioChaptersResponseSchema.parse({ manifest });
+    const body = JSON.stringify({ ok: true, data: parsed });
+    await s.cache.put(cacheKey, body, 300, `"${parsed.manifest.checksum.slice(0, 32)}"`);
+    return new Response(body, { status: 200, headers: { 'content-type': 'application/json', 'Cache-Control': 'private, max-age=300', 'X-Cache': 'MISS', 'X-Manifest-Source': stored ? 'stored' : 'live' } });
   });
 
   define('audioLesson', {}, async (c) => {
@@ -289,11 +242,12 @@ export function registerAudioRoutes(define: DefineRoute): void {
     const body = await parseBody(c, AudioProgressPutRequestSchema);
     const s = c.get('services')!;
     const { repos, principal } = s.requireUser();
-    const [result] = await repos.progress.applySyncEvents([{ clientEventId: body.clientEventId, enrollmentId: null, deviceId: body.deviceId, revision: body.revision, occurredAt: body.occurredAt, payload: { type: 'audio_progress', lessonId, positionMs: body.positionMs, durationMs: body.durationMs, completed: body.completed } }]);
+    // `clientSentAt` lets `apply_sync_events` correct `occurredAt` for clock skew (migration 110), exactly like the batch sync.
+    const [result] = await repos.progress.applySyncEvents([{ clientEventId: body.clientEventId, enrollmentId: null, deviceId: body.deviceId, revision: body.revision, occurredAt: body.occurredAt, payload: { type: 'audio_progress', lessonId, positionMs: body.positionMs, durationMs: body.durationMs, completed: body.completed } }], body.clientSentAt ? { clientSentAt: body.clientSentAt } : undefined);
     if (!result) throw problem.internal('Sync returned no result');
     if (result.resolution === 'rejected') throw problem.validation(`Progress rejected: ${result.reason ?? 'unknown'}`);
     const row = await repos.audioLibrary.getProgress(principal.userId, lessonId);
-    return respondOk(c, AudioProgressPutResponseSchema.parse({ lessonId, positionMs: row?.position_ms ?? body.positionMs, completed: row?.completed ?? body.completed, revision: row?.revision ?? body.revision, resolution: result.resolution }));
+    return respondOk(c, AudioProgressPutResponseSchema.parse({ lessonId, positionMs: row?.position_ms ?? body.positionMs, completed: row?.completed ?? body.completed, revision: row?.revision ?? body.revision, resolution: result.resolution, reason: result.reason ?? null }));
   });
 
   define('audioBookmarkCreate', {}, async (c) => {

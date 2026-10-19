@@ -1,104 +1,13 @@
 /**
- * Zod schemas for the local adapter routes (shared by handlers and client forms).
- * Cross-package gap: these belong in `@langquest/contracts/api/admin.ts` once the API serves them.
+ * Zod schemas for the remaining local adapter routes (shared by handlers and client forms).
+ * Speakers, collections / chapters / lessons, lesson assets and content rights moved to the
+ * LangQuest API (`@langquest/contracts` `adminSpeaker*`, `adminCollection*`, `adminChapter*`,
+ * `adminLesson*`, `adminContentRights*`); the schemas below are the cross-package gaps still
+ * served locally (coverage editorial status, transcript segments, job retry, role grants,
+ * revision rollback, model probes, profile upserts).
  */
 import { z } from 'zod';
-import {
-  ContentStateSchema,
-  CourseTrackIdSchema,
-  CoverageStatusSchema,
-  LanguageCodeSchema,
-  LearnerLevelSchema,
-  ProcessingJobTypeSchema,
-  RoleSchema,
-  SpeakerConsentStateSchema,
-  TranslationQaStateSchema,
-  UuidSchema,
-  VarietyIdSchema,
-} from '@langquest/contracts';
-
-const Localized = z.record(z.string().min(2).max(10), z.string().max(2000));
-
-export const SpeakerUpsertSchema = z.object({
-  id: UuidSchema.optional(),
-  displayName: z.string().min(1).max(200),
-  pseudonymous: z.boolean().default(true),
-  targetVarietyId: VarietyIdSchema.nullable().default(null),
-  region: z.string().max(200).nullable().default(null),
-  consentState: SpeakerConsentStateSchema.default('unknown'),
-  contentRightsId: UuidSchema.nullable().default(null),
-  voiceDescription: z.string().max(2000).nullable().default(null),
-  synthetic: z.boolean().default(false),
-});
-export type SpeakerUpsert = z.infer<typeof SpeakerUpsertSchema>;
-
-export const CollectionUpsertSchema = z.object({
-  id: UuidSchema.optional(),
-  titleTranslations: Localized,
-  descriptionTranslations: Localized.default({}),
-  courseTrackId: CourseTrackIdSchema.nullable().default(null),
-  targetVarietyId: VarietyIdSchema.nullable().default(null),
-  instructionLanguageCode: LanguageCodeSchema.nullable().default(null),
-  region: z.string().max(200).nullable().default(null),
-  instructorSpeakerId: UuidSchema.nullable().default(null),
-  coverVisualAssetId: UuidSchema.nullable().default(null),
-  contentRightsId: UuidSchema.nullable().default(null),
-  state: ContentStateSchema.optional(),
-  sortOrder: z.number().int().min(0).default(0),
-});
-export type CollectionUpsert = z.infer<typeof CollectionUpsertSchema>;
-
-export const ChapterUpsertSchema = z.object({
-  id: UuidSchema.optional(),
-  collectionId: UuidSchema,
-  titleTranslations: Localized,
-  summaryTranslations: Localized.default({}),
-  sortOrder: z.number().int().min(0).default(0),
-  coverVisualAssetId: UuidSchema.nullable().default(null),
-  state: ContentStateSchema.optional(),
-});
-export type ChapterUpsert = z.infer<typeof ChapterUpsertSchema>;
-
-export const LessonCreateSchema = z.object({
-  chapterId: UuidSchema,
-  titleTranslations: Localized,
-  sortOrder: z.number().int().min(0).default(0),
-  level: LearnerLevelSchema.nullable().default(null),
-  targetVarietyId: VarietyIdSchema.nullable().default(null),
-  instructionLanguageCode: LanguageCodeSchema.nullable().default(null),
-});
-export type LessonCreate = z.infer<typeof LessonCreateSchema>;
-
-export const LessonReorderSchema = z.object({
-  items: z.array(z.object({ id: UuidSchema, sortOrder: z.number().int().min(0), chapterId: UuidSchema.optional() })).min(1).max(5000),
-});
-
-export const LessonAssetAttachSchema = z.object({
-  assetId: UuidSchema,
-  assetType: z.enum(['master', 'mobile_encoded', 'review', 'slow', 'clip', 'cover']).default('master'),
-  sortOrder: z.number().int().min(0).default(0),
-});
-
-export const RightsUpsertSchema = z.object({
-  id: UuidSchema.optional(),
-  originUrl: z.string().url().nullable().default(null),
-  authors: z.array(z.string().min(1).max(200)).default([]),
-  speakers: z.array(z.string().min(1).max(200)).default([]),
-  permissionGrant: z.string().min(1).max(4000),
-  licenseId: z.string().min(1).max(120),
-  licenseVersion: z.string().max(40).nullable().default(null),
-  commercialRedistribution: z.boolean().default(false),
-  attributionRequired: z.boolean().default(true),
-  attributionText: z.string().max(2000).nullable().default(null),
-  alterationsPermitted: z.boolean().default(false),
-  aiProcessingPermitted: z.boolean().default(false),
-  voiceRights: z.enum(['none', 'playback_only', 'synthesis_permitted']).default('none'),
-  expiresAt: z.string().datetime({ offset: true }).nullable().default(null),
-  revokedAt: z.string().datetime({ offset: true }).nullable().default(null),
-  evidenceAssetId: UuidSchema.nullable().default(null),
-  verified: z.boolean().default(false),
-});
-export type RightsUpsert = z.infer<typeof RightsUpsertSchema>;
+import { CourseTrackIdSchema, CoverageStatusSchema, LanguageCodeSchema, PROCESSING_JOB_TYPE_VALUES_ALL, RoleSchema, TranslationQaStateSchema, UuidSchema, VarietyIdSchema } from '@langquest/contracts';
 
 export const CoverageMetricsSchema = z.object({
   mission_instructions_pct: z.number().min(0).max(100),
@@ -187,4 +96,5 @@ export const ProfileLocalUpsertSchema = z.object({
   expectedVersion: z.number().int().min(0).optional(),
 });
 
-export const JOB_TYPES = ProcessingJobTypeSchema.options;
+/** Every job type the DB domain accepts (base ∪ migration-100 extension); filters must offer all of them. */
+export const JOB_TYPES = PROCESSING_JOB_TYPE_VALUES_ALL;

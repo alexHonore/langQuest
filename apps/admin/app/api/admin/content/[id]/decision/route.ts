@@ -15,7 +15,8 @@ const Body = z.object({
  *
  * - `request_review` is forwarded to the API (`adminContentRequestReview`): it owns the review
  *   workflow, the translation-review event and the audit log.
- * - `approve` / `reject` have no contract route yet (cross-package gap). They are applied here
+ * - `approve` / `reject` have no contract route yet (`adminContent*` covers generate / request-review /
+ *   publish / unpublish only; cross-package gap). They are applied here
  *   under the editor RLS policy, but only along a legal §7.6 transition (`canTransitionContent`),
  *   never on published content, and the move is recorded in `content_revisions` and
  *   `publication_events` (append-only, actor = the signed-in editor). `audit_logs` has no JWT

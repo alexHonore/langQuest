@@ -1,12 +1,14 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { LanguageGuard } from '@langquest/ai';
 import { FakeReasoner, createTestServices, runHandler, type TestServices } from '../test-support/fakes';
-import { buildContentFactoryPrompt, generateContentHandler, validateGeneratedMission, type GeneratedMission } from './generate-content';
+import { buildContentFactoryPrompt, buildMissionGoals, generateContentHandler, validateGeneratedMission, type GeneratedMission } from './generate-content';
 
 const mission = (overrides: Partial<GeneratedMission> = {}): GeneratedMission => ({
   title: 'Pedir un café',
   sceneDescription: 'Una cafetería en Madrid por la mañana.',
   objectiveIntentKeys: ['greet_hello', 'request_item'],
+  // Only one objective is described: the other must surface as a goal without a learner-facing description.
+  objectiveDescriptions: [{ intentKey: 'greet_hello', description: 'Saluer poliment le serveur.' }, { intentKey: 'not_in_brief', description: 'ignored' }],
   dialogue: [
     { speaker: 'character', intentKey: 'greet_hello', targetText: 'Hola, buenos días. ¿Qué te pongo?', transliteration: null, sourceMeaning: 'Bonjour. Qu’est-ce que je vous sers ?', register: 'neutral' },
     { speaker: 'learner', intentKey: 'request_item', targetText: 'Un café con leche, por favor.', transliteration: null, sourceMeaning: 'Un café au lait, s’il vous plaît.', register: 'polite' },
@@ -38,6 +40,15 @@ describe('validateGeneratedMission', () => {
   });
 });
 
+describe('buildMissionGoals', () => {
+  it('writes { id, skill_keys, description: { [source]: text } } per objective and never a bare string or empty map', () => {
+    const { goals, goalsWithoutDescription } = buildMissionGoals({ objectives: ['greet_hello', 'request_item'], sourceLanguage: 'fr', descriptions: [{ intentKey: 'greet_hello', description: '  Saluer.  ' }, { intentKey: 'request_item', description: '   ' }], skillKeysFor: (k) => (k === 'greet_hello' ? ['greetings.basic'] : []) });
+    expect(goals).toEqual([{ id: 'greet_hello', skill_keys: ['greetings.basic'], description: { fr: 'Saluer.' } }, { id: 'request_item', skill_keys: [] }]);
+    expect(goalsWithoutDescription).toEqual(['request_item']);
+    expect(goals.every((g) => typeof g.description !== 'string')).toBe(true);
+  });
+});
+
 describe('generate_content', () => {
   let t: TestServices;
   let reasoner: FakeReasoner;
@@ -57,13 +68,21 @@ describe('generate_content', () => {
     const drafts = out.drafts as Array<{ missionId: string; draft: Record<string, unknown>; accepted: number; rejected: unknown[] }>;
     expect(drafts.length).toBe(1);
     expect(drafts[0]!.accepted).toBe(2);
-    expect(drafts[0]!.rejected.length).toBe(4);
+    expect(drafts[0]!.rejected.length).toBe(5);
     expect(drafts[0]!.draft).toMatchObject({ targetTrack: 'spanish-spain', targetVariety: 'es-ES', sourceLanguage: 'fr', publication: { status: 'draft', requiresNativeReview: true, requiresVerifiedSourceRights: true } });
     expect((drafts[0]!.draft.expressions as Array<Record<string, unknown>>).every((e) => e.nativeReviewed === false && e.approvedForPublishing === false)).toBe(true);
     const missions = [...t.db.tables.missions.values()];
     expect(missions.length).toBe(1);
     expect(missions[0]!.state).toBe('review_needed');
     expect(missions[0]!.template_key).toMatch(/^cf\.greet_hello\.[a-z0-9]+$/);
+    // §10.1 goal shape read by the API publish gate / learner routes: id + skill_keys + per-source description map.
+    const goals = missions[0]!.goals as Array<{ id: string; skill_keys: string[]; description?: unknown }>;
+    expect(goals.map((g) => g.id)).toEqual(['greet_hello', 'request_item']);
+    expect(goals[0]).toMatchObject({ skill_keys: expect.arrayContaining([expect.stringMatching(/./)]), description: { fr: 'Saluer poliment le serveur.' } });
+    expect(goals[0]!.description).not.toHaveProperty('en');
+    expect(goals[1]).toEqual({ id: 'request_item', skill_keys: expect.any(Array) });
+    expect(drafts[0]!).toMatchObject({ goalsWithoutDescription: ['request_item'] });
+    expect(drafts[0]!.rejected.some((r) => (r as { item: string }).item === 'goal:request_item')).toBe(true);
     expect((missions[0]!.scoring_rubric as Record<string, unknown>).provenance).toMatchObject({ role: 'content_factory', promptVersion: expect.stringMatching(/content_factory:v/), nativeReviewed: false });
     expect([...t.db.tables.mission_localizations.values()][0]).toMatchObject({ source_language_code: 'fr', qa_state: 'machine_draft', title: 'Pedir un café' });
     const expressions = [...t.db.tables.expressions.values()];
@@ -93,5 +112,6 @@ describe('generate_content', () => {
     expect(p.system).toMatch(/Moroccan/);
     expect(p.system).toMatch(/French/);
     expect(p.system).toMatch(/arabizi/i);
+    expect(p.system).toMatch(/objectiveDescriptions/);
   });
 });

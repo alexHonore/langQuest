@@ -12,6 +12,7 @@ import { manifestsRepository } from './manifests';
 import { profilesRepository } from './profiles';
 import { progressRepository } from './progress';
 import { rightsRepository } from './rights';
+import { speakersRepository } from './speakers';
 import { processingJobsRepository, uploadsRepository } from './uploads-jobs';
 import { visualAssetsRepository } from './visual-assets';
 
@@ -27,6 +28,7 @@ export * from './manifests';
 export * from './profiles';
 export * from './progress';
 export * from './rights';
+export * from './speakers';
 export * from './uploads-jobs';
 export * from './visual-assets';
 
@@ -49,6 +51,8 @@ export function createRepositories(db: DbClient) {
     manifests: manifestsRepository(db),
     assetSuggestions: assetSuggestionsRepository(db),
     accountLifecycle: accountLifecycleRepository(db),
+    // added 2026-10-19 (migration 120, admin structure routes)
+    speakers: speakersRepository(db),
   };
 }
 export type Repositories = ReturnType<typeof createRepositories>;

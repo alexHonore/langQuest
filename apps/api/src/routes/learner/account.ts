@@ -111,8 +111,9 @@ export function registerAccountRoutes(define: DefineRoute): void {
  * §11 / A28 — data export and account deletion.
  * Export: a portable JSON bundle built only from the learner's own rows (RLS client). Raw recordings are not
  * embedded (they are listed by asset id); conversation turns are included only as the persisted summaries.
- * Deletion: requires the literal confirmation `DELETE`; opt-in recordings are removed from storage first, then the
- * auth user is deleted and every user-owned row cascades. Cost/audit ledgers keep anonymised rows (FK → null).
+ * Deletion: requires the literal confirmation `DELETE`; opt-in recording objects are removed from storage first, then
+ * `delete_account` (service-role RPC) deletes/anonymises the rows and the auth user is deleted when the summary says it
+ * can be (`authUserDeletable`); otherwise the account is deactivated and the hard delete left to the retention job.
  */
 export function registerAccountLifecycleRoutes(define: DefineRoute): void {
   define('meExport', { timeoutMs: 40_000 }, async (c) => {
@@ -147,33 +148,39 @@ export function registerAccountLifecycleRoutes(define: DefineRoute): void {
     const body = await parseBody(c, MeDeleteRequestSchema);
     const s = svc(c);
     const { principal } = s.requireUser();
-    const anonymised: string[] = [];
-    let recordingsDeleted = 0;
-    if (body.deleteOptInRecordings) {
+    // 1. Opt-in recordings: the objects leave storage first (the RPC only marks the rows; it says so in its summary).
+    let objectsDeleted = 0;
+    if (body.deleteOptInRecordings && s.media.available) {
       const assets = await s.service.from('media_assets').select('id, storage_key').eq('owner_id', principal.userId).eq('kind', 'audio').neq('disposition', 'deleted');
       for (const a of assets.data ?? []) {
-        if (s.media.available) await s.media.delete(a.storage_key).catch((error) => s.log.warn('account.delete_object_failed', { error }));
-        await s.service.from('media_assets').update({ disposition: 'deleted', owner_id: null }).eq('id', a.id);
-        recordingsDeleted += 1;
+        await s.media.delete(a.storage_key).catch((error) => s.log.warn('account.delete_object_failed', { error }));
+        objectsDeleted += 1;
       }
     }
-    s.audit({ action: 'account.delete', entityTable: 'profiles', entityId: principal.userId, after: { recordingsDeleted, deleteOptInRecordings: body.deleteOptInRecordings }, anonymousActor: true });
-    anonymised.push('ai_requests', 'audit_logs', 'moderation_incidents', 'feedback_reports', 'media_assets (owner cleared)');
-    const retained = ['audit_logs (actor anonymised, 5-year retention)', 'ai_requests (pseudonymous cost ledger, user reference removed)'];
-    const res = await s.service.auth.admin.deleteUser(principal.userId);
-    if (!res.error) {
-      s.log.info('account.deleted', { recordingsDeleted });
-      return respondOk(c, MeDeleteResponseSchema.parse({ status: 'deleted', anonymisedTables: anonymised, retainedForLegalReasons: retained }));
+    // 2. `delete_account` (migration 100, service role): every user-owned row and the learner's own evidence ledgers go,
+    //    retained ledgers (cost / audit / safety) are anonymised, recordings are marked deleted — one transaction.
+    const summary = await s.repos.accountLifecycle.deleteAccount(principal.userId, { deleteOptInRecordings: body.deleteOptInRecordings });
+    s.audit({ action: 'account.delete', entityTable: 'profiles', entityId: principal.userId, after: { recordingsDeleted: summary.recordingsDeleted, objectsDeleted, deleteOptInRecordings: body.deleteOptInRecordings, authUserDeletable: summary.authUserDeletable, counts: summary.counts }, anonymousActor: true });
+    // 3. The auth user: deleted outright unless NOT NULL editorial attribution (content_revisions / publication_events)
+    //    still references it — then the account is deactivated (sign-in banned, e-mail anonymised) and reported as such.
+    if (summary.authUserDeletable) {
+      const res = await s.service.auth.admin.deleteUser(principal.userId);
+      if (!res.error) {
+        s.log.info('account.deleted', { recordingsDeleted: summary.recordingsDeleted, deletedTables: summary.deletedTables.length });
+        return respondOk(c, MeDeleteResponseSchema.parse({ status: 'deleted', anonymisedTables: summary.anonymisedTables, retainedForLegalReasons: summary.retainedForLegalReasons }));
+      }
+      s.log.warn('account.auth_delete_failed', { error: res.error.message });
     }
-    // Append-only evidence ledgers (learning_observations, xp_ledger, device_sync_events, conversation_turns) reject the
-    // cascade for every role; until a `delete_account` RPC exists in the schema the account is deactivated immediately
-    // (login banned, profile marked deleted, personal fields cleared) and the hard delete is left to the retention job.
-    s.log.warn('account.delete_deferred', { error: res.error.message });
     const anonymisedEmail = `deleted-${principal.userId}@deleted.invalid`;
     const ban = await s.service.auth.admin.updateUserById(principal.userId, { ban_duration: '876000h', email: anonymisedEmail, user_metadata: {}, email_confirm: true } as never);
     if (ban.error) throw problem.internal(`Account deactivation failed: ${ban.error.message}`);
-    await s.service.from('profiles').update({ deleted_at: new Date().toISOString(), display_name: null }).eq('user_id', principal.userId);
-    await s.service.from('user_course_enrollments').update({ status: 'archived' }).eq('user_id', principal.userId);
-    return respondOk(c, MeDeleteResponseSchema.parse({ status: 'scheduled', anonymisedTables: [...anonymised, 'profiles (display name cleared, deleted_at set)', 'auth.users (email anonymised, sign-in banned)'], retainedForLegalReasons: [...retained, 'learning_observations / xp_ledger / device_sync_events / conversation_turns (append-only evidence ledgers; purged by the scheduled retention job)'] }));
+    return respondOk(
+      c,
+      MeDeleteResponseSchema.parse({
+        status: 'scheduled',
+        anonymisedTables: [...summary.anonymisedTables, 'auth.users (e-mail anonymised, sign-in banned)'],
+        retainedForLegalReasons: [...summary.retainedForLegalReasons, summary.authUserDeletable ? 'auth.users (deletion deferred to the retention job after a transient auth error)' : 'auth.users (editorial attribution in content_revisions / publication_events keeps the account id; deletion deferred to the retention job)'],
+      }),
+    );
   });
 }

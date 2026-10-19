@@ -7,21 +7,15 @@
  *    event ids are idempotent.
  *  - XP is never proof of proficiency: mastery lives in observations, not here.
  */
-import { XP_REASON_VALUES, type MasteryState, type ObservationOutcome, type XpReason } from '@langquest/contracts';
+import { XP_AMOUNTS, XP_REASON_VALUES, type MasteryState, type ObservationOutcome, type XpReason } from '@langquest/contracts';
 import { masteryRank } from '@langquest/contracts';
 import { fnv1a32 } from '../planner/random';
 
-/** Fixed XP per unit for each reason. */
-export const XP_RULES: Readonly<Record<XpReason, number>> = {
-  mission_completed: 50,
-  step_completed: 5,
-  review_completed: 8,
-  conversation_turns: 2,
-  skill_state_advanced: 15,
-  audio_lesson_completed: 20,
-  daily_goal: 10,
-  achievement: 25,
-};
+/**
+ * Fixed XP per unit for each reason — the contracts table that mirrors `public.xp_amount_for_reason`
+ * (`@langquest/contracts` `XP_AMOUNTS`), so the engine, the API and the ledger can never disagree.
+ */
+export const XP_RULES: Readonly<Record<XpReason, number>> = XP_AMOUNTS;
 
 /** Max units a single claim may carry (e.g. conversation turns per session). */
 export const XP_MAX_UNITS: Readonly<Record<XpReason, number>> = {

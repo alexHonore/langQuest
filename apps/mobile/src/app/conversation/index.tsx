@@ -6,8 +6,9 @@ import { Alert, Platform, ScrollView, TextInput, View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { ErrorView, LoadingView } from '@/components/StateViews';
 import { ConversationController, type ConversationSnapshot } from '@/features/conversation/controller';
+import { sessionScopeFromParams } from '@/features/conversation/scope';
 import { levelToUnit } from '@/features/conversation/vad';
-import { sourceTextDirection, turnLayersForScriptMode } from '@/features/lesson/forms';
+import { isolateSourceText, sourceTextDirection, turnLayersForScriptMode } from '@/features/lesson/forms';
 import { useActiveEnrollment, useInvalidateLearner } from '@/features/session/queries';
 import { createClipPlayer } from '@/lib/clip-player';
 import { useExtraLabels } from '@/lib/extra-labels';
@@ -26,7 +27,7 @@ export default function ConversationScreen(): React.JSX.Element {
   const router = useRouter();
   const t = useT();
   const { api } = useServices();
-  const params = useLocalSearchParams<{ enrollmentId?: string; characterId?: string; missionId?: string; scenarioId?: string }>();
+  const params = useLocalSearchParams<{ enrollmentId?: string; characterId?: string; missionId?: string; scenarioId?: string; audioLessonId?: string; transcriptSegmentIds?: string }>();
   const { enrollments, enrollment: active, me, query } = useActiveEnrollment();
   const prefMode = usePrefs((s) => s.speakMode);
   // A requested enrollment that does not exist (stale link, archived course) is an error, never a
@@ -54,6 +55,7 @@ export default function ConversationScreen(): React.JSX.Element {
           characterId: params.characterId,
           missionId: params.missionId,
           scenarioId: params.scenarioId,
+          scope: sessionScopeFromParams(params),
           mode: p === 'granted' ? prefMode : 'text_only',
           clientSessionId,
           inputEncoding: Platform.OS === 'web' ? 'webm_opus' : 'm4a',
@@ -325,8 +327,9 @@ function LiveConversation({ session, enrollment, mode }: { session: Conversation
 
       {mode === 'text_only' ? (
         <Row gap={theme.spacing.xs}>
-          <TextInput value={text} onChangeText={setText} placeholder={t('lesson.typePlaceholder')} placeholderTextColor={theme.colors.textMuted} accessibilityLabel={t('lesson.typePlaceholder')} style={{ flex: 1, borderWidth: 1, borderColor: theme.colors.border, borderRadius: theme.radii.md, padding: theme.spacing.md, color: theme.colors.textPrimary, minHeight: theme.touchTargets.min }} />
+          <TextInput testID="conversation-text-input" value={text} onChangeText={setText} placeholder={t('lesson.typePlaceholder')} placeholderTextColor={theme.colors.textMuted} accessibilityLabel={t('lesson.typePlaceholder')} style={{ flex: 1, borderWidth: 1, borderColor: theme.colors.border, borderRadius: theme.radii.md, padding: theme.spacing.md, color: theme.colors.textPrimary, minHeight: theme.touchTargets.min }} />
           <Button
+            testID="conversation-send"
             label={t('lesson.speak')}
             disabled={!text.trim()}
             onPress={() => {
@@ -361,13 +364,13 @@ function LiveConversation({ session, enrollment, mode }: { session: Conversation
       </Row>
       <Row gap={theme.spacing.xs} justify="flex-end">
         {/* Correction timing is not a session option in the contracts yet (cross-package gap); no decorative toggle. */}
-        <Button label={t('speak.endConversation')} variant="secondary" size="sm" loading={snap?.ending} disabled={Boolean(endPending)} onPress={leave} accessibilityLabel={t('speak.endConversation')} />
+        <Button testID="conversation-end" label={t('speak.endConversation')} variant="secondary" size="sm" loading={snap?.ending} disabled={Boolean(endPending)} onPress={leave} accessibilityLabel={t('speak.endConversation')} />
       </Row>
       <HintSheet
         visible={hintsOpen}
         onClose={() => setHintsOpen(false)}
         hints={[]}
-        translation={snap?.lastCharacterTurn?.sourceGloss ? `${sourceDir === 'rtl' ? '\u2067' : '\u2066'}${snap.lastCharacterTurn.sourceGloss}\u2069` : null}
+        translation={snap?.lastCharacterTurn?.sourceGloss ? isolateSourceText(snap.lastCharacterTurn.sourceGloss, enrollment.sourceLanguageCode) : null}
         availableCommands={['translate', 'example', 'meaning', 'slower', 'repeat', 'hint', 'skip']}
         onCommand={(c) => {
           setHintsOpen(false);

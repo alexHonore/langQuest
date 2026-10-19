@@ -2,7 +2,7 @@ import { readFile } from 'node:fs/promises';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { buildMasterKey, sha256HexSync } from '@langquest/media';
 import { FakeReasoner, FakeRecognizer, createTestServices, makeToneFixture, runHandler, type TestServices } from '../test-support/fakes';
-import { EVIDENCE_FIELD_CAPS, INFER_PROMPT_VERSION, buildInferencePrompt, inferMetadataHandler, type InferenceEvidence, type MetadataSuggestion } from './infer-metadata';
+import { EVIDENCE_FIELD_CAPS, INFER_PROMPT_VERSION, SUGGESTION_KINDS_BY_MODE, buildInferencePrompt, buildSuggestionRows, inferMetadataHandler, type InferenceEvidence, type MetadataSuggestion } from './infer-metadata';
 import { UNTRUSTED_DATA_DIRECTIVE } from './untrusted-evidence';
 
 const suggestion: MetadataSuggestion = {
@@ -68,6 +68,52 @@ describe('infer_metadata', () => {
     expect(topics.map((x) => [x.topic_key, x.provenance, x.confidence])).toEqual([['restaurant', 'ai_suggested', 0.8], ['introductions', 'ai_suggested', 0.3]]);
     const prov = [...t.db.tables.asset_provenance_events.values()][0]!;
     expect((prov.details as Record<string, unknown>).action).toBe('ai_metadata_suggested');
+    // §7.4 review queue: `describe` mode → description / tags / topics / level rows, review_needed, model confidence, provenance.
+    const rows = [...t.db.tables.asset_suggestions.values()];
+    expect(rows.map((r) => r.kind).sort()).toEqual(['description', 'level', 'tags', 'topics']);
+    expect(rows.every((r) => r.review_status === 'review_needed' && r.media_asset_id === asset.id && r.lesson_id === lesson.id && r.reviewer_id === null)).toBe(true);
+    const description = rows.find((r) => r.kind === 'description')!;
+    expect(description.confidence).toBe(0.7);
+    expect(description.suggestion).toEqual({ text: 'A short lesson about ordering coffee.', languageCode: 'en', requestedLanguageCode: 'en', languageMismatch: false });
+    expect(description.provenance).toMatchObject({ task: 'scene_planning', promptVersion: INFER_PROMPT_VERSION, provider: 'fake', model: 'fake-llm', evidenceSource: 'transcript', mode: 'describe', autoApplied: false });
+    expect((description.provenance as Record<string, unknown>).jobId).toBe(description.job_id);
+    expect(rows.find((r) => r.kind === 'tags')).toMatchObject({ confidence: 0.8, suggestion: { tags: suggestion.tags } });
+    expect(rows.find((r) => r.kind === 'level')).toMatchObject({ confidence: 0.6, suggestion: { value: 'beginner' } });
+    expect(out.suggestionsStored).toBe(4);
+    expect(out.suggestionIds).toEqual(rows.map((r) => r.id));
+    expect((prov.details as Record<string, unknown>).suggestionIds).toEqual(out.suggestionIds);
+  });
+
+  it('stores language/variety rows for detect_language (conflict surfaced, never applied) and does not duplicate them when the same job is retried', async () => {
+    const { asset, lesson } = await seed(true);
+    const jobId = crypto.randomUUID();
+    const { result } = await runHandler(inferMetadataHandler, t, {}, { id: jobId, job_type: 'detect_language', parent_asset_id: asset.id });
+    const rows = [...t.db.tables.asset_suggestions.values()];
+    expect(rows.map((r) => r.kind).sort()).toEqual(['language', 'variety']);
+    expect(rows.find((r) => r.kind === 'variety')).toMatchObject({ confidence: 0.7, job_id: jobId, suggestion: { varietyId: 'es-419', expectedVarietyId: 'es-ES', conflictsWithExpected: true, note: 'ustedes, carro' } });
+    expect(rows.find((r) => r.kind === 'language')).toMatchObject({ confidence: 0.9, suggestion: { likelyLanguages: [{ code: 'es', confidence: 0.9 }, { code: 'en', confidence: 0.6 }], segmentLanguages: ['es'] } });
+    expect((await t.db.getLesson(lesson.id))!.lesson.target_variety_id).toBe('es-ES');
+    // Retry of the same job (same id): the earlier attempt's rows are kept, nothing is inserted twice.
+    const retry = await runHandler(inferMetadataHandler, t, {}, { id: jobId, job_type: 'detect_language', parent_asset_id: asset.id, attempts: 2 });
+    expect(t.db.tables.asset_suggestions.size).toBe(2);
+    expect(retry.result.output).toMatchObject({ suggestionsSkipped: 'already_stored', suggestionsStored: 0, suggestionIds: (result.output as Record<string, unknown>).suggestionIds });
+    // A lesson-only target without a master asset cannot be queued (media_asset_id is NOT NULL): reported, not fabricated.
+    const bare = t.db.seedLesson(t.db.seedChapter(t.db.seedCollection().id).id, { instruction_language_code: 'en' });
+    const { result: r3 } = await runHandler(inferMetadataHandler, t, { lessonId: bare.id }, { job_type: 'describe' });
+    expect(r3.output).toMatchObject({ suggestionsSkipped: 'no_media_asset', suggestionsStored: 0, suggestionIds: [] });
+    expect(t.db.tables.asset_suggestions.size).toBe(2);
+  });
+
+  it('buildSuggestionRows: kinds follow the mode, empty suggestions produce no row, list confidence is the least confident item', () => {
+    const base = { mediaAssetId: crypto.randomUUID(), lessonId: null, jobId: null, sourceLanguage: 'fr' as const, expectedVariety: null, provenance: { task: 'scene_planning' }, evidence: { segmentLanguages: [] } };
+    expect(buildSuggestionRows({ ...base, suggestion, mode: 'all' }).map((r) => r.kind)).toEqual([...SUGGESTION_KINDS_BY_MODE.all]);
+    expect(buildSuggestionRows({ ...base, suggestion, mode: 'segment_lessons' }).map((r) => r.kind)).toEqual(['lesson_structure']);
+    const topics = buildSuggestionRows({ ...base, suggestion, mode: 'describe' }).find((r) => r.kind === 'topics')!;
+    expect(topics.confidence).toBe(0.3);
+    const mismatch = buildSuggestionRows({ ...base, suggestion, mode: 'describe' }).find((r) => r.kind === 'description')!;
+    expect(mismatch.suggestion).toMatchObject({ languageCode: 'en', requestedLanguageCode: 'fr', languageMismatch: true });
+    const empty: MetadataSuggestion = { likelyLanguages: [], likelyVariety: { varietyId: null, confidence: 0, note: null }, instructionLanguage: { code: null, confidence: 0 }, voiceRoles: [], lessonGuess: { title: null, chapterTitle: null, lessonOrder: null, episodeNumber: null, confidence: 0 }, description: { text: '  ', languageCode: 'fr', confidence: 0 }, tags: [], topics: [], level: { value: null, confidence: 0 } };
+    expect(buildSuggestionRows({ ...base, suggestion: empty, mode: 'all' })).toEqual([]);
   });
 
   it('transcribes a short sample when no transcript exists, and skips STT when told to', async () => {

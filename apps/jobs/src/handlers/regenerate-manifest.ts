@@ -1,9 +1,11 @@
 /**
  * `regenerate_manifest` — rebuild a versioned course manifest (ADR-004) or an audio-collection manifest
- * from published rows, store the JSON in the object store (`manifests/…/v{n}.json` + `latest.json`) and
- * emit `manifest.invalidated` so the API edge cache and mobile diff by version/checksum. Unchanged content
- * keeps its version and emits nothing. Job type `regenerate_manifest` (pre-migration-100 rows: `describe` +
- * `params.handler`).
+ * from published rows, store the JSON both in the object store (`manifests/…/v{n}.json` + `latest.json`)
+ * and in the stored-manifest tables (`course_manifests` / `audio_collection_manifests`, one row per
+ * version, `generated_by_job_id` = this job) and emit `manifest.invalidated` so the API edge cache and
+ * mobile diff by version/checksum. Unchanged content keeps its version and emits nothing (the stored row is
+ * only written when missing). The previous build is read from the object store, falling back to the newest
+ * stored row. Job type `regenerate_manifest` (pre-migration-100 rows: `describe` + `params.handler`).
  *
  * Audio-collection titles are localized STRICTLY in the collection's declared instruction language (or the
  * requested `instructionLanguageCode`): a language-agnostic collection (`instruction_language_code = null`)
@@ -14,8 +16,9 @@ import { z } from 'zod';
 import type { AudioCollectionManifest, CourseManifest } from '@langquest/contracts';
 import { AssetKindSchema, AssetVisibilitySchema, AudioCollectionManifestSchema, CourseManifestSchema, CourseTrackIdSchema, LearnerLevelSchema, SourceLanguageCodeSchema, getCourseTrack, isSourceLanguageCode, isVarietyId } from '@langquest/contracts';
 import { buildAudioCollectionManifest, computeManifestChecksum, diffManifests, lazyAssetRef, nextManifestVersion } from '@langquest/media';
+import type { ManifestRef } from '@langquest/db';
 import { JobFailure, type JobContext, type JobHandler } from '../queue/types';
-import { localizedExact } from './common';
+import { localizedExact, queuedJobId } from './common';
 
 export const RegenerateManifestParamsSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('course'), courseTrackId: CourseTrackIdSchema, sourceLanguageCode: SourceLanguageCodeSchema, reason: z.enum(['published', 'unpublished', 'rights_revoked', 'localization_updated', 'asset_replaced']).default('published') }),
@@ -30,12 +33,25 @@ export function manifestKeys(input: RegenerateManifestParams, version: number): 
   return { versioned: `${base}/v${version}.json`, latest: `${base}/latest.json` };
 }
 
-async function loadPrevious<T>(ctx: JobContext<RegenerateManifestParams>, key: string, schema: z.ZodType<T>): Promise<T | null> {
+/** Stored-manifest table key for the params (`repos.manifests`). */
+export function manifestRef(input: RegenerateManifestParams): ManifestRef {
+  return input.kind === 'course' ? { kind: 'course', courseTrackId: input.courseTrackId, sourceLanguageCode: input.sourceLanguageCode } : { kind: 'audio_collection', collectionId: input.collectionId, instructionLanguageCode: input.instructionLanguageCode ?? null };
+}
+
+/** Previous build: the object store's `latest.json`, else the newest stored row (either may lag the other after a partial failure). */
+async function loadPrevious<T>(ctx: JobContext<RegenerateManifestParams>, key: string, schema: z.ZodType<T>): Promise<{ manifest: T | null; source: 'object_store' | 'stored_row' | null }> {
   const bytes = await ctx.services.store.getBytes(key);
-  if (!bytes) return null;
-  ctx.cost.storage('get', bytes.byteLength);
-  const parsed = schema.safeParse(JSON.parse(new TextDecoder().decode(bytes)));
-  return parsed.success ? parsed.data : null;
+  if (bytes) {
+    ctx.cost.storage('get', bytes.byteLength);
+    const parsed = schema.safeParse(JSON.parse(new TextDecoder().decode(bytes)));
+    if (parsed.success) return { manifest: parsed.data, source: 'object_store' };
+  }
+  const row = await ctx.services.db.getLatestStoredManifest(manifestRef(ctx.params));
+  if (row) {
+    const parsed = schema.safeParse(row.manifest);
+    if (parsed.success) return { manifest: parsed.data, source: 'stored_row' };
+  }
+  return { manifest: null, source: null };
 }
 
 export const regenerateManifestHandler: JobHandler<RegenerateManifestParams> = {
@@ -50,17 +66,18 @@ export const regenerateManifestHandler: JobHandler<RegenerateManifestParams> = {
 
     let next: CourseManifest | AudioCollectionManifest;
     let previous: CourseManifest | AudioCollectionManifest | null;
+    let previousSource: 'object_store' | 'stored_row' | null;
     /** Audio collections only: which language titles were resolved in (`null` = none) and how many were missing. */
     let localization: { languageCode: string | null; missingTitles: number } | null = null;
     if (p.kind === 'course') {
       const track = getCourseTrack(p.courseTrackId);
-      previous = await loadPrevious(ctx, latestKey, CourseManifestSchema);
+      ({ manifest: previous, source: previousSource } = await loadPrevious(ctx, latestKey, CourseManifestSchema));
       const built = await db.buildCourseManifest(track.id, p.sourceLanguageCode, track.targetVarietyId);
       const parsed = CourseManifestSchema.safeParse(built);
       if (!parsed.success) throw new JobFailure('manifest_invalid', `Course manifest failed validation: ${parsed.error.issues.slice(0, 3).map((i) => i.message).join('; ')}`, { retry: false });
       next = parsed.data;
     } else {
-      previous = await loadPrevious(ctx, latestKey, AudioCollectionManifestSchema);
+      ({ manifest: previous, source: previousSource } = await loadPrevious(ctx, latestKey, AudioCollectionManifestSchema));
       const tree = await db.getCollectionTree(p.collectionId);
       if (!tree) throw new JobFailure('collection_not_found', `collection ${p.collectionId} not found`, { retry: false });
       // `null` = language-agnostic collection: no localization is applied (no English default).
@@ -131,6 +148,17 @@ export const regenerateManifestHandler: JobHandler<RegenerateManifestParams> = {
       ctx.cost.storage('put', json.length);
       ctx.cost.storage('put', json.length);
     }
+    // Stored copy (ADR-004 tables): written for every new version, and for an unchanged one only when its row is
+    // missing (e.g. the object store was populated before migration 100). Built from published rows only, so the
+    // stored version is published as of now.
+    const ref = manifestRef(p);
+    const table = p.kind === 'course' ? 'course_manifests' : 'audio_collection_manifests';
+    const storedBefore = changed ? null : await db.getLatestStoredManifest(ref);
+    const storedRow =
+      storedBefore && storedBefore.version === version
+        ? { row: storedBefore, written: false }
+        : { row: await db.putStoredManifest(ref, { version, checksum: manifest.checksum, manifest: manifest as unknown as Record<string, unknown>, publishedAt: ctx.services.now().toISOString(), generatedByJobId: queuedJobId(ctx) }), written: true };
+    const stored = { table, version: storedRow.row.version, checksum: storedRow.row.checksum, publishedAt: storedRow.row.published_at, written: storedRow.written };
     await ctx.progress(85, changed ? `version ${version}` : 'unchanged');
 
     if (changed) {
@@ -143,6 +171,6 @@ export const regenerateManifestHandler: JobHandler<RegenerateManifestParams> = {
       );
     }
     await ctx.progress(100);
-    return { output: { kind: p.kind, version, changed, checksum: manifest.checksum, keys, diff, localization, counts: p.kind === 'course' ? { chapters: (manifest as CourseManifest).chapters.length, missions: (manifest as CourseManifest).chapters.reduce((n, c) => n + c.missions.length, 0) } : { chapters: (manifest as AudioCollectionManifest).chapters.length, lessons: (manifest as AudioCollectionManifest).chapters.reduce((n, c) => n + c.lessons.length, 0) } } };
+    return { output: { kind: p.kind, version, changed, checksum: manifest.checksum, keys, stored, previousSource, diff, localization, counts: p.kind === 'course' ? { chapters: (manifest as CourseManifest).chapters.length, missions: (manifest as CourseManifest).chapters.reduce((n, c) => n + c.missions.length, 0) } : { chapters: (manifest as AudioCollectionManifest).chapters.length, lessons: (manifest as AudioCollectionManifest).chapters.reduce((n, c) => n + c.lessons.length, 0) } } };
   },
 };

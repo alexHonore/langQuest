@@ -5,7 +5,7 @@
  * tests by the in-memory `MemoryJobsDb` (`src/test-support/memory-db.ts`).
  */
 import type { CourseManifest } from '@langquest/contracts';
-import { DbError, createRepositories, unwrap, unwrapMaybe, type DbClient, type EnqueueJobInput, type Insert, type Repositories, type Row, type Update } from '@langquest/db';
+import { DbError, createRepositories, unwrap, unwrapMaybe, type DbClient, type EnqueueJobInput, type Insert, type ManifestRef, type PutManifestInput, type Repositories, type Row, type StoredManifestRow, type Update } from '@langquest/db';
 
 export type MediaAssetRow = Row<'media_assets'>;
 export type UploadRow = Row<'uploads'>;
@@ -90,6 +90,14 @@ export interface JobsDb {
   insertExpressionForm(row: Insert<'expression_forms'>): Promise<void>;
   insertExpressionTranslation(row: Insert<'expression_translations'>): Promise<void>;
   buildCourseManifest(courseTrackId: string, sourceLanguageCode: string, targetVarietyId: string): Promise<CourseManifest>;
+  // --- stored manifests (ADR-004: `course_manifests` / `audio_collection_manifests`) ---
+  /** Highest stored version for the ref, published or not (the job compares against the last build, whatever its publication state). */
+  getLatestStoredManifest(ref: ManifestRef): Promise<StoredManifestRow | null>;
+  /** Idempotent on (ref, version); `generatedByJobId` is dropped when no such `processing_jobs` row exists (direct runs). */
+  putStoredManifest(ref: ManifestRef, input: PutManifestInput): Promise<StoredManifestRow>;
+  // --- AI suggestions (§7.4: `asset_suggestions`, never auto-applied) ---
+  insertAssetSuggestions(rows: Insert<'asset_suggestions'>[]): Promise<Row<'asset_suggestions'>[]>;
+  listAssetSuggestionsForJob(jobId: string): Promise<Row<'asset_suggestions'>[]>;
   // --- visuals ---
   findVisualByHash(contentHash: string): Promise<Row<'visual_assets'> | null>;
   insertVisualAsset(row: Insert<'visual_assets'>): Promise<Row<'visual_assets'>>;
@@ -272,6 +280,21 @@ export function createSupabaseJobsDb(db: DbClient, repos: Repositories = createR
       const localized = await repos.curriculum.buildManifest(courseTrackId, sourceLanguageCode, targetVarietyId);
       return localized as unknown as CourseManifest;
     },
+    // stored manifests
+    getLatestStoredManifest: (ref) => repos.manifests.getLatestManifest(ref, { includeUnpublished: true }),
+    async putStoredManifest(ref, input) {
+      try {
+        return await repos.manifests.putManifest(ref, input);
+      } catch (error) {
+        // 23503 foreign_key_violation on generated_by_job_id: the job ran outside the queue (`runDirect`), so no
+        // processing_jobs row exists; the manifest itself is still stored, without the job link.
+        if (error instanceof DbError && error.code === '23503' && input.generatedByJobId) return repos.manifests.putManifest(ref, { ...input, generatedByJobId: null });
+        throw error;
+      }
+    },
+    // AI suggestions
+    insertAssetSuggestions: (rows) => repos.assetSuggestions.insertMany(rows),
+    listAssetSuggestionsForJob: (jobId) => repos.assetSuggestions.listForJob(jobId),
     // visuals
     findVisualByHash: (hash) => repos.visualAssets.findByHash(hash),
     insertVisualAsset: (row) => repos.visualAssets.insert(row),

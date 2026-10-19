@@ -8,7 +8,7 @@
  */
 import type { DbClient } from '../client';
 import { unwrap, unwrapMaybe } from '../errors';
-import type { Insert, Row, Update } from '../types';
+import { clampLimit, type FnReturns, type Insert, type PageQuery, type PageResult, type Row, type Update } from '../types';
 
 /** Columns of `media_assets` granted to `anon`/`authenticated` (every column except the staff-only three). */
 export const MEDIA_ASSET_COLUMNS =
@@ -19,8 +19,40 @@ export type MediaAssetRow = Omit<
   'owner_id' | 'legacy_filename' | 'legacy_path'
 >;
 
+export interface RightsListFilter extends PageQuery {
+  /** Case-insensitive substring of `license_id`, `permission_grant`, `attribution_text` or `origin_url`. */
+  q?: string;
+  verified?: boolean;
+  /** `true` = only revoked rows, `false` = only active rows. */
+  revoked?: boolean;
+  /** ISO timestamp: rows whose `expires_at` is before it (and set). */
+  expiringBefore?: string;
+  licenseId?: string;
+}
+
+/** Tables that reference a `content_rights` row (`content_rights_id`, or `license_id` for visual assets). */
+export const RIGHTS_DEPENDENT_TABLES = ['audio_lessons', 'audio_course_collections', 'media_assets', 'expressions', 'lesson_courses', 'speakers', 'visual_assets'] as const;
+export type RightsDependentTable = (typeof RIGHTS_DEPENDENT_TABLES)[number];
+export interface RightsUsage {
+  entityTable: RightsDependentTable;
+  entityId: string;
+  /** Publication state (`content_state`), or `review_status` for visual assets / `consent_state` for speakers. */
+  state: string;
+}
+export type RevokeRightsResult = FnReturns<'revoke_content_rights'>[number];
+
 export interface RightsRepository {
   getById(id: string): Promise<Row<'content_rights'> | null>;
+  getByIds(ids: string[]): Promise<Row<'content_rights'>[]>;
+  /** Paged admin listing (`adminContentRightsList`). */
+  list(filter?: RightsListFilter): Promise<PageResult<Row<'content_rights'>>>;
+  /** Every entity pointing at the grant, with its current state — the `usedBy` of the admin DTO. */
+  listUsages(rightsId: string): Promise<RightsUsage[]>;
+  /**
+   * `revoke_content_rights` RPC (migration 120): stamps `revoked_at`, unpublishes dependents, revokes offline
+   * packs — one transaction. Editor JWTs act as themselves; the service role must pass `actorId`.
+   */
+  revoke(rightsId: string, opts: { reason: 'rights_revoked' | 'takedown' | 'expired' | 'other'; note?: string | null; actorId?: string | null }): Promise<RevokeRightsResult[]>;
   create(row: Insert<'content_rights'>): Promise<Row<'content_rights'>>;
   update(id: string, patch: Update<'content_rights'>): Promise<Row<'content_rights'>>;
   /** True only when verified, not revoked, not expired and redistribution is permitted. */
@@ -79,6 +111,8 @@ export function rightsAllowPublishing(
   return r.commercial_redistribution;
 }
 
+const escapeLike = (s: string): string => s.replace(/[\\%_,()]/g, (m) => `\\${m}`);
+
 export function rightsRepository(db: DbClient): RightsRepository {
   return {
     async getById(id) {
@@ -86,6 +120,52 @@ export function rightsRepository(db: DbClient): RightsRepository {
         await db.from('content_rights').select('*').eq('id', id).single(),
         'rights.getById',
       );
+    },
+    async getByIds(ids) {
+      return ids.length ? unwrap(await db.from('content_rights').select('*').in('id', ids), 'rights.getByIds') : [];
+    },
+    async list(filter) {
+      const limit = clampLimit(filter?.limit);
+      let q = db.from('content_rights').select('*').order('created_at').order('id').limit(limit + 1);
+      if (filter?.verified !== undefined) q = q.eq('verified', filter.verified);
+      if (filter?.revoked === true) q = q.not('revoked_at', 'is', null);
+      if (filter?.revoked === false) q = q.is('revoked_at', null);
+      if (filter?.expiringBefore) q = q.lt('expires_at', filter.expiringBefore);
+      if (filter?.licenseId) q = q.eq('license_id', filter.licenseId);
+      if (filter?.q) {
+        const term = `%${escapeLike(filter.q)}%`;
+        q = q.or(`license_id.ilike.${term},permission_grant.ilike.${term},attribution_text.ilike.${term},origin_url.ilike.${term}`);
+      }
+      if (filter?.cursor) q = q.gt('created_at', filter.cursor);
+      const rows = unwrap(await q, 'rights.list');
+      const items = rows.slice(0, limit);
+      return { items, nextCursor: rows.length > limit ? (items[items.length - 1]?.created_at ?? null) : null };
+    },
+    async listUsages(rightsId) {
+      const [lessons, collections, media, expressions, courses, speakers, visuals] = await Promise.all([
+        db.from('audio_lessons').select('id, state').eq('content_rights_id', rightsId),
+        db.from('audio_course_collections').select('id, state').eq('content_rights_id', rightsId),
+        db.from('media_assets').select('id, state').eq('content_rights_id', rightsId),
+        db.from('expressions').select('id, state').eq('content_rights_id', rightsId),
+        db.from('lesson_courses').select('id, state').eq('content_rights_id', rightsId),
+        db.from('speakers').select('id, consent_state').eq('content_rights_id', rightsId),
+        db.from('visual_assets').select('id, review_status').eq('license_id', rightsId),
+      ]);
+      const usages: RightsUsage[] = [];
+      for (const r of unwrap(lessons, 'rights.listUsages.audio_lessons')) usages.push({ entityTable: 'audio_lessons', entityId: r.id, state: r.state });
+      for (const r of unwrap(collections, 'rights.listUsages.audio_course_collections')) usages.push({ entityTable: 'audio_course_collections', entityId: r.id, state: r.state });
+      for (const r of unwrap(media, 'rights.listUsages.media_assets')) usages.push({ entityTable: 'media_assets', entityId: r.id, state: r.state });
+      for (const r of unwrap(expressions, 'rights.listUsages.expressions')) usages.push({ entityTable: 'expressions', entityId: r.id, state: r.state });
+      for (const r of unwrap(courses, 'rights.listUsages.lesson_courses')) usages.push({ entityTable: 'lesson_courses', entityId: r.id, state: r.state });
+      for (const r of unwrap(speakers, 'rights.listUsages.speakers')) usages.push({ entityTable: 'speakers', entityId: r.id, state: r.consent_state });
+      for (const r of unwrap(visuals, 'rights.listUsages.visual_assets')) usages.push({ entityTable: 'visual_assets', entityId: r.id, state: r.review_status });
+      return usages;
+    },
+    async revoke(rightsId, opts) {
+      const args: { p_rights_id: string; p_reason: string; p_note?: string; p_actor_id?: string } = { p_rights_id: rightsId, p_reason: opts.reason };
+      if (opts.note) args.p_note = opts.note;
+      if (opts.actorId) args.p_actor_id = opts.actorId;
+      return unwrap(await db.rpc('revoke_content_rights', args), 'rights.revoke');
     },
     async create(row) {
       return unwrap(

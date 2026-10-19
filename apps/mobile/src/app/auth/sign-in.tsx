@@ -23,9 +23,10 @@ export default function SignIn(): React.JSX.Element {
   useEffect(() => clearError, [clearError]);
   return (
     <AuthFrame title={t('onboarding.alreadyHaveAccount')}>
-      <Field label={t('account.email')} value={email} onChangeText={setEmail} keyboardType="email-address" autoComplete="email" textContentType="emailAddress" />
-      <Field label={X.password} value={password} onChangeText={setPassword} secure autoComplete="password" textContentType="password" />
+      <Field testID="auth-email" label={t('account.email')} value={email} onChangeText={setEmail} keyboardType="email-address" autoComplete="email" textContentType="emailAddress" />
+      <Field testID="auth-password" label={X.password} value={password} onChangeText={setPassword} secure autoComplete="password" textContentType="password" />
       <Button
+        testID="auth-continue"
         label={t('common.continue')}
         size="lg"
         fullWidth
@@ -47,7 +48,7 @@ export default function SignIn(): React.JSX.Element {
           {t('onboarding.getStarted')}
         </ThemedText>
         <Link href="/auth/sign-up" asChild>
-          <Button label={t('onboarding.getStarted')} variant="secondary" fullWidth accessibilityLabel={t('onboarding.getStarted')} />
+          <Button testID="auth-sign-up" label={t('onboarding.getStarted')} variant="secondary" fullWidth accessibilityLabel={t('onboarding.getStarted')} />
         </Link>
       </View>
     </AuthFrame>

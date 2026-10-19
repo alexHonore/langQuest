@@ -10,7 +10,7 @@
 import type { AiServices } from '@langquest/ai';
 import { providerLocaleFor, capabilityFromStatus } from '@langquest/ai/capability/registry';
 import { base64ToBytes } from '@langquest/ai/util';
-import { AI_TASK_NAME_VALUES, ModelCapabilitiesQuerySchema, ModelCapabilitiesResponseSchema, PronunciationAssessRequestSchema, PronunciationAssessResponseSchema, SourceLanguageCodeSchema, SynthesizeRequestSchema, SynthesizeResponseSchema, TranscribeRequestSchema, TranscribeResponseSchema, UuidSchema, getCourseTrack, isAcousticAssessmentMode, unsupportedCapability, type AiTaskName, type Capability, type SkillObservationInput, type SourceLanguageCode, type SpeechEvaluationResult, type SpeechRetention, type VarietyId } from '@langquest/contracts';
+import { AI_TASK_NAME_VALUES, ModelCapabilitiesQuerySchema, ModelCapabilitiesResponseSchema, PronunciationAssessRequestSchema, PronunciationAssessResponseSchema, SynthesizeRequestSchema, SynthesizeResponseSchema, TranscribeRequestSchema, TranscribeResponseSchema, getCourseTrack, isAcousticAssessmentMode, unsupportedCapability, type AiTaskName, type Capability, type SkillObservationInput, type SourceLanguageCode, type SpeechEvaluationResult, type SpeechRetention, type VarietyId } from '@langquest/contracts';
 import { sha256Hex as mediaSha256 } from '@langquest/media/hashing';
 import { buildMasterKey, extensionForMime } from '@langquest/media/keys';
 import { sha256Hex } from '@langquest/telemetry/privacy';
@@ -29,13 +29,13 @@ import type { RequestServices } from '../../services/context';
 const PRONUNCIATION_SCORER_VERSION = 'speech-route@2026-10-14.1';
 
 /**
- * `GET /v1/ai/models/capabilities` query: the contract's `trackId` / `regionalOption` plus a server-side extension
- * (contracts gap) selecting the SOURCE language whose model profiles should be reported — `ai_model_profiles` are
- * keyed task × variety × source (CONVENTIONS §5), so an English-source answer is wrong for a French-source learner.
+ * `GET /v1/ai/model-capabilities` query: the contract carries `trackId` / `regionalOption` plus `enrollmentId` /
+ * `source`, which select the SOURCE language whose model profiles should be reported — `ai_model_profiles` are keyed
+ * task × variety × source (CONVENTIONS §5), so an English-source answer is wrong for a French-source learner.
  * `enrollmentId` (owned enrollment, its `source_language_code`) wins over `source`; with neither, only the
- * variety/global scope is resolved and the capability notes say so.
+ * variety/global scope is resolved and the capability notes say so. Kept as an alias for existing importers.
  */
-export const ModelCapabilitiesApiQuerySchema = ModelCapabilitiesQuerySchema.extend({ enrollmentId: UuidSchema.optional(), source: SourceLanguageCodeSchema.optional() });
+export const ModelCapabilitiesApiQuerySchema = ModelCapabilitiesQuerySchema;
 
 /**
  * Persist a learner recording (inline audio) under the learner's retention preference (or the explicit session

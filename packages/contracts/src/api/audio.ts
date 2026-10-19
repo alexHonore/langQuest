@@ -126,6 +126,8 @@ export const AudioProgressPutRequestSchema = z.object({
   durationMs: MillisSchema.nullable(),
   completed: z.boolean(),
   occurredAt: TimestamptzSchema,
+  /** Client wall-clock at send time; lets the server correct `occurredAt` for clock skew (migration 110). */
+  clientSentAt: TimestamptzSchema.optional(),
 });
 export const AudioProgressPutResponseSchema = z.object({
   lessonId: UuidSchema,
@@ -133,6 +135,8 @@ export const AudioProgressPutResponseSchema = z.object({
   completed: z.boolean(),
   revision: NonNegativeIntSchema,
   resolution: z.enum(['applied', 'duplicate', 'superseded']),
+  /** Machine-readable reason from `apply_audio_progress` (`older_revision`, `older_event`, `same_client_event`); optional for older servers. */
+  reason: z.string().nullable().optional(),
 });
 
 export const AudioBookmarkCreateRequestSchema = z.object({

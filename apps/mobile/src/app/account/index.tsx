@@ -101,7 +101,7 @@ export default function Account(): React.JSX.Element {
       <Button label={t('account.accessibility.title')} variant="secondary" fullWidth icon="settings" onPress={() => router.push('/account/accessibility')} accessibilityLabel={t('account.accessibility.title')} />
       <Button label={t('account.notifications.title')} variant="secondary" fullWidth icon="info" onPress={() => router.push('/account/notifications')} accessibilityLabel={t('account.notifications.title')} />
       <Button label={t('account.privacy.title')} variant="secondary" fullWidth icon="transcript" onPress={() => router.push('/account/privacy')} accessibilityLabel={t('account.privacy.title')} />
-      <Button label={`${t('account.export.title')} / ${t('account.deleteAccount.title')}`} variant="secondary" fullWidth icon="warning" onPress={() => router.push('/account/danger')} accessibilityLabel={t('account.deleteAccount.title')} />
+      <Button testID="account-danger" label={`${t('account.export.title')} / ${t('account.deleteAccount.title')}`} variant="secondary" fullWidth icon="warning" onPress={() => router.push('/account/danger')} accessibilityLabel={t('account.deleteAccount.title')} />
       <Divider />
       <Row gap={theme.spacing.xs} wrap>
         <Chip label={t('common.free')} tone="success" icon="check" />
@@ -109,7 +109,7 @@ export default function Account(): React.JSX.Element {
       </Row>
       <Button label={X.helpReport} variant="ghost" fullWidth onPress={() => void Linking.openURL('mailto:support@langquest.app?subject=LangQuest%20mobile')} accessibilityLabel={X.helpReport} />
       {patch.error ? <ErrorView error={patch.error} /> : null}
-      <Button label={t('account.signOut')} variant="danger" fullWidth loading={signingOut} onPress={() => void requestSignOut()} accessibilityLabel={t('account.signOut')} />
+      <Button testID="account-sign-out" label={t('account.signOut')} variant="danger" fullWidth loading={signingOut} onPress={() => void requestSignOut()} accessibilityLabel={t('account.signOut')} />
       <StatusLine icon="info" tone="secondary" text={t('account.accessibility.screenReaderNote')} />
     </Screen>
   );

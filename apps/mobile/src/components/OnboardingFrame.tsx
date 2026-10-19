@@ -17,6 +17,9 @@ export interface OnboardingFrameProps {
   secondaryLabel?: string;
   onSecondary?: () => void;
   showBack?: boolean;
+  /** Stable ids for the primary / secondary actions (Maestro flows under `tests/e2e/maestro`). */
+  primaryTestID?: string;
+  secondaryTestID?: string;
   children: React.ReactNode;
 }
 
@@ -44,8 +47,8 @@ export function OnboardingFrame(props: OnboardingFrameProps): React.JSX.Element 
       </ScrollView>
       {props.onPrimary || props.onSecondary ? (
         <View style={{ padding: theme.spacing.lg, gap: theme.spacing.sm, borderTopWidth: theme.highContrast ? 1 : 0, borderTopColor: theme.colors.border }}>
-          {props.onPrimary ? <Button label={props.primaryLabel ?? t('common.continue')} onPress={props.onPrimary} disabled={props.primaryDisabled} fullWidth size="lg" accessibilityLabel={props.primaryLabel ?? t('common.continue')} /> : null}
-          {props.onSecondary ? <Button label={props.secondaryLabel ?? t('common.skip')} variant="ghost" onPress={props.onSecondary} fullWidth accessibilityLabel={props.secondaryLabel ?? t('common.skip')} /> : null}
+          {props.onPrimary ? <Button testID={props.primaryTestID} label={props.primaryLabel ?? t('common.continue')} onPress={props.onPrimary} disabled={props.primaryDisabled} fullWidth size="lg" accessibilityLabel={props.primaryLabel ?? t('common.continue')} /> : null}
+          {props.onSecondary ? <Button testID={props.secondaryTestID} label={props.secondaryLabel ?? t('common.skip')} variant="ghost" onPress={props.onSecondary} fullWidth accessibilityLabel={props.secondaryLabel ?? t('common.skip')} /> : null}
         </View>
       ) : null}
     </View>

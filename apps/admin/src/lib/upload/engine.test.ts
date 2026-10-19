@@ -25,13 +25,15 @@ class FakeServer {
   byKey = new Map<string, string>();
   knownAssets = new Map<string, string>(); // checksum → assetId
   calls: string[] = [];
+  initiateBodies: Array<{ route: string; body: Record<string, unknown> }> = [];
   nextId = 1;
   api: Pick<ApiClient, 'call'> = {
     call: async <K extends RouteKey>(key: K, opts: CallOptions<K> = {}) => {
       this.calls.push(key);
       const body = opts.body as Record<string, unknown>;
       const params = opts.params as Record<string, string> | undefined;
-      if (key === 'adminUploadInitiate') {
+      if (key === 'adminUploadInitiate' || key === 'adminVisualAssetUploadInitiate') {
+        this.initiateBodies.push({ route: key, body });
         const existingId = this.byKey.get(String(body.idempotencyKey));
         const existing = existingId ? this.sessions.get(existingId) : undefined;
         if (existing) {
@@ -269,5 +271,26 @@ describe('UploadEngine', () => {
     expect(exe!.error).toContain('unsupported_type');
     expect(empty!.state).toBe('unsupported');
     expect(empty!.error).toBe('empty_file');
+  });
+});
+
+describe('UploadEngine visual initiate route', () => {
+  it('opens image sessions through adminVisualAssetUploadInitiate without a kind and shares sign/complete', async () => {
+    const server = new FakeServer();
+    const engine = makeEngine(server, server.transport(), new MemoryUploadStore(), { initiateRoute: 'adminVisualAssetUploadInitiate' });
+    const data = bytes(PART + 5, 7);
+    engine.addFiles([{ file: new File([data], 'cover.png', { type: 'image/png' }) }], { kind: 'image' });
+    engine.start();
+    await engine.idle();
+    const item = engine.getItems()[0]!;
+    expect(item.state).toBe('done');
+    expect(item.result?.status).toBe('verified');
+    expect(server.initiateBodies).toHaveLength(1);
+    expect(server.initiateBodies[0]!.route).toBe('adminVisualAssetUploadInitiate');
+    expect(server.initiateBodies[0]!.body).not.toHaveProperty('kind');
+    expect(server.initiateBodies[0]!.body.contentType).toBe('image/png');
+    expect(server.calls).not.toContain('adminUploadInitiate');
+    expect(server.calls).toContain('adminUploadPartsSign');
+    expect(server.calls).toContain('adminUploadComplete');
   });
 });

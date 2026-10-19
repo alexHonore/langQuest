@@ -54,7 +54,7 @@ export default function WarmupStep(): React.JSX.Element {
   };
 
   return (
-    <OnboardingFrame step={4} title={t('onboarding.baseline.title')} hint={t('onboarding.baseline.listenHint')} primaryLabel={t('onboarding.finish')} onPrimary={finish} secondaryLabel={t('onboarding.baseline.skip')} onSecondary={finish}>
+    <OnboardingFrame step={4} title={t('onboarding.baseline.title')} hint={t('onboarding.baseline.listenHint')} primaryLabel={t('onboarding.finish')} primaryTestID="onboarding-warmup-finish" onPrimary={finish} secondaryLabel={t('onboarding.baseline.skip')} secondaryTestID="onboarding-warmup-skip" onSecondary={finish}>
       <Row gap={theme.spacing.md} align="flex-start">
         <Mascot state="encouraging" size="companion" speech={t('onboarding.baseline.speakHint')} />
       </Row>

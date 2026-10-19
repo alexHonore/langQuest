@@ -8,11 +8,24 @@
 
 ## Why Maestro
 
-Expo SDK 57 + Expo Router; the app has **no `testID`s yet**, so flows select by the visible copy from
-`@langquest/locales` (English catalog) and by `accessibilityLabel`s the screens already set. Every `tapOn: "…"`
-string below is a real `en` catalog value (e.g. `onboarding.getStarted` = "Get started", `enrollment.editSource` =
-"Change instruction language", `home.switchCourse` = "Switch course"). If copy changes, update the flow and the
-catalog together. Flows are written for the English UI locale; set the simulator language to English.
+Expo SDK 57 + Expo Router. The primary controls carry stable **`testID`s** (`tapOn: { id: "…" }`), set in
+`apps/mobile/src/app/**` and `apps/mobile/src/components/*`:
+
+| Area | ids |
+|---|---|
+| Welcome / auth | `onboarding-get-started`, `onboarding-have-account`, `auth-email`, `auth-password`, `auth-continue`, `auth-sign-up` |
+| Onboarding | `onboarding-ui-<locale>`, `onboarding-source-<code>`, `onboarding-language-continue`, `onboarding-target-search`, `onboarding-target-<trackId>`, `onboarding-target-continue`, `onboarding-confirm`, `onboarding-warmup-finish`, `onboarding-warmup-skip` |
+| Tabs | `tab-home`, `tab-missions`, `tab-audio`, `tab-speak`, `tab-progress` |
+| Home / switcher / catalog | `home-switch-course`, `home-account`, `course-switcher-<enrollmentId>`, `course-switcher-edit-<enrollmentId>`, `course-switcher-add`, `catalog-search`, `catalog-track-<trackId>`, `catalog-source-<code>`, `catalog-coverage`, `catalog-enroll` |
+| Enrollment editor | `enrollment-source-<code>`, `enrollment-coverage`, `enrollment-change-source`, `enrollment-done`, `enrollment-remove` |
+| Mission | `mission-leave`, `mission-replay`, `mission-slow`, `mission-hint`, `mission-type-instead`, `mission-typed-input`, `mission-typed-submit`, `mission-reveal`, `mission-next-step`, `mission-evaluation-confidence` |
+| Audio / conversation | `audio-downloads`, `audio-player`, `conversation-text-input`, `conversation-send`, `conversation-end` |
+| Account | `account-danger`, `account-sign-out`, `account-export`, `account-export-share`, `account-delete-confirm`, `account-delete` |
+
+Everything that is rendered by `@langquest/ui` without an id (mission cards, the audio player's Play/Pause/skip
+buttons, native alerts) is still selected by the visible copy from `@langquest/locales` (English catalog) or its
+`accessibilityLabel`; those strings are real `en` catalog values, so update the flow and the catalog together.
+Flows are written for the English UI locale; set the simulator language to English.
 
 ## Prerequisites
 
@@ -22,6 +35,8 @@ catalog together. Flows are written for the English UI locale; set the simulator
    cd apps/mobile
    cp .env.example .env   # EXPO_PUBLIC_SUPABASE_URL / EXPO_PUBLIC_SUPABASE_ANON_KEY / EXPO_PUBLIC_API_BASE_URL
    npx expo run:ios   # or: npx expo run:android
+   # or a cloud development build: npx eas-cli@latest build --profile development --platform ios|android
+   #   (profiles in apps/mobile/eas.json; `eas init` once to set extra.eas.projectId)
    ```
    The API base URL must point at a running `pnpm dev:api` (wrangler dev, :8787) bound to the same Supabase stack.
    On Android emulators use `http://10.0.2.2:8787` and `http://10.0.2.2:54321`.

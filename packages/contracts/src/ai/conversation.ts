@@ -169,9 +169,17 @@ export const EvaluatorOutputSchema = z.object({
   reviewTriggers: z.array(KeySchema),
   /** Suggested relationship-memory delta (consented, concise). */
   relationshipMemoryUpdate: z.string().max(500).nullable(),
-  confidence: UnitIntervalSchema,
+  /**
+   * Evaluator self-reported confidence in [0, 1], or `null` when NO evaluator ran (rubric-only / offline
+   * attempt, provider unavailable). Honesty rule (§16.3): never substitute 0 or a made-up value — a null
+   * confidence must be rendered as "not evaluated", not as 0%.
+   */
+  confidence: UnitIntervalSchema.nullable(),
 });
 export type EvaluatorOutput = z.infer<typeof EvaluatorOutputSchema>;
+
+/** The evaluator output of an attempt that no evaluator scored (rubric-only). */
+export const emptyEvaluatorOutput = (): EvaluatorOutput => ({ objectivesCompleted: [], skillsExercised: [], observations: [], priorityCorrections: [], summary: '', reviewTriggers: [], relationshipMemoryUpdate: null, confidence: null });
 
 // ---------------------------------------------------------------------------
 // Runtime events (client ↔ orchestrator)

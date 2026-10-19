@@ -159,6 +159,10 @@ export const UserAudioProgressTable = defineTable('user_audio_progress', {
   play_count: NonNegativeIntSchema,
   revision: NonNegativeIntSchema,
   last_client_event_id: UuidSchema.nullable(),
+  /** Device that wrote the stored position; per-device revisions only compare against it (migration 110). */
+  last_device_id: z.string().nullable(),
+  /** Skew-corrected client time of the stored position; cross-device ordering key (migration 110). */
+  last_occurred_at: TimestamptzSchema.nullable(),
 });
 
 export const UserDownloadManifestsTable = defineTable('user_download_manifests', {

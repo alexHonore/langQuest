@@ -21,7 +21,7 @@ test('a learner without a staff role is bounced back to /login?reason=norole', a
 });
 
 test('API routes refuse anonymous callers with the contract envelope', async ({ request }) => {
-  const res = await request.post('/api/admin/speakers', { data: { displayName: 'x' } });
+  const res = await request.put('/api/admin/coverage', { data: { courseTrackId: 'french' } });
   expect(res.status()).toBe(401);
   const body = await res.json();
   expect(body.ok).toBe(false);

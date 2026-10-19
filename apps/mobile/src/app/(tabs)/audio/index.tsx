@@ -40,7 +40,7 @@ export default function AudioLibrary(): React.JSX.Element {
   const trackName = enrollment ? getCourseTrack(enrollment.courseTrackId).displayName : null;
 
   return (
-    <Screen insideTabs title={t('audio.library')} headerEnd={<Button label={L.downloads} variant="ghost" size="sm" icon="download" onPress={() => router.push('/audio/downloads')} accessibilityLabel={L.downloads} />}>
+    <Screen insideTabs title={t('audio.library')} headerEnd={<Button testID="audio-downloads" label={L.downloads} variant="ghost" size="sm" icon="download" onPress={() => router.push('/audio/downloads')} accessibilityLabel={L.downloads} />}>
       {!configured ? <MediaNotice reason="not_configured" /> : null}
 
       {continueListening.data.length > 0 ? (

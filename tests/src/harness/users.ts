@@ -1,7 +1,9 @@
 /**
  * Isolated test users: created through the GoTrue admin API with the service key, signed in with the anon key to
- * obtain a real access token (HS256 on the local stack). Every user gets a unique email so suites never collide;
- * deletion cascades through `auth.users` → profiles → owned rows.
+ * obtain a real access token (HS256 on the local stack). Every user gets a unique `@langquest.test` email so suites
+ * never collide and so the service-only `purge_test_user` RPC (migration 100) accepts them: it runs `delete_account`
+ * under the append-only bypass (ledger rows included), drops any editorial rows the test account authored and deletes
+ * the `auth.users` row itself — a plain GoTrue delete would be refused by the append-only ledgers / NOT NULL attribution.
  */
 import type { Role } from '@langquest/contracts';
 import { createUserClient, type DbClient } from '@langquest/db/client';
@@ -24,7 +26,7 @@ export interface CreateUserOptions {
 }
 
 export async function createTestUser(h: ApiHarness, label: string, opts: CreateUserOptions = {}): Promise<TestUser> {
-  const email = `tests-${label}-${crypto.randomUUID()}@test.local`;
+  const email = `tests-${label}-${crypto.randomUUID()}@langquest.test`;
   const password = `pw-${crypto.randomUUID()}`;
   const metadata: Record<string, string> = { ui_locale: opts.uiLocale ?? 'en-US' };
   if (opts.defaultSourceLanguageCode !== null) metadata.default_source_language_code = opts.defaultSourceLanguageCode ?? 'en';
@@ -52,10 +54,18 @@ export function userClient(h: ApiHarness, user: TestUser): DbClient {
   return createUserClient({ SUPABASE_URL: h.env.SUPABASE_URL, SUPABASE_ANON_KEY: h.env.SUPABASE_ANON_KEY }, user.token);
 }
 
+/**
+ * Purge harness users through `purge_test_user` (service role, `@langquest.test` only). A user the suite already
+ * deleted through `DELETE /v1/me` is reported as unknown (P0002) and skipped; any other failure falls back to the
+ * GoTrue admin delete so a broken purge never leaks accounts silently (the fallback error is logged, not thrown).
+ */
 export async function deleteTestUsers(h: ApiHarness, users: Array<Pick<TestUser, 'id'> | string>): Promise<void> {
   for (const u of users) {
     const id = typeof u === 'string' ? u : u.id;
-    await h.service.auth.admin.deleteUser(id).catch(() => undefined);
+    const purged = await h.service.rpc('purge_test_user', { p_user_id: id });
+    if (!purged.error || purged.error.code === 'P0002') continue;
+    const fallback = await h.service.auth.admin.deleteUser(id);
+    if (fallback.error) console.warn(`[harness] purge_test_user(${id}) failed (${purged.error.message}); GoTrue delete also failed: ${fallback.error.message}`);
   }
 }
 

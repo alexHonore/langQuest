@@ -5,6 +5,7 @@ import React, { useMemo, useState } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { CacheNotice } from '@/components/StateViews';
+import { coverageDescriptions } from '@/features/session/coverage-copy';
 import { useActiveEnrollment, useCourses } from '@/features/session/queries';
 import { useExtraLabels } from '@/lib/extra-labels';
 import { useLanguageNames, useT } from '@/lib/i18n';
@@ -40,7 +41,7 @@ export default function Catalog(): React.JSX.Element {
     <Screen title={t('catalog.title')} onBack={() => router.back()}>
       <ThemedText tone="secondary">{t('catalog.subtitle')}</ThemedText>
       {courses.data?.fromCache ? <CacheNotice fetchedAt={courses.data.fetchedAt} /> : null}
-      <TextInput value={query} onChangeText={setQuery} placeholder={t('catalog.searchPlaceholder')} placeholderTextColor={theme.colors.textMuted} accessibilityLabel={t('common.search')} style={{ borderWidth: 1, borderColor: theme.colors.border, borderRadius: theme.radii.md, padding: theme.spacing.md, color: theme.colors.textPrimary, minHeight: theme.touchTargets.min }} />
+      <TextInput testID="catalog-search" value={query} onChangeText={setQuery} placeholder={t('catalog.searchPlaceholder')} placeholderTextColor={theme.colors.textMuted} accessibilityLabel={t('common.search')} style={{ borderWidth: 1, borderColor: theme.colors.border, borderRadius: theme.radii.md, padding: theme.spacing.md, color: theme.colors.textPrimary, minHeight: theme.touchTargets.min }} />
       <Row gap={theme.spacing.xs} wrap>
         <Chip label={t('common.clearFilters')} selected={script === null} onPress={() => setScript(null)} />
         {scripts.map((s) => (
@@ -54,7 +55,7 @@ export default function Catalog(): React.JSX.Element {
           const clar = dialectClarification(tr);
           const sample = NATIVE_SAMPLES[tr.id];
           return (
-            <Pressable key={tr.id} onPress={() => router.push({ pathname: '/catalog/[trackId]', params: { trackId: tr.id } })} accessibilityRole="button" accessibilityLabel={tr.displayName}>
+            <Pressable key={tr.id} testID={`catalog-track-${tr.id}`} onPress={() => router.push({ pathname: '/catalog/[trackId]', params: { trackId: tr.id } })} accessibilityRole="button" accessibilityLabel={tr.displayName}>
               <Surface bordered radius="lg" padding={theme.spacing.md} style={{ gap: theme.spacing.sm }}>
                 <Row gap={theme.spacing.md} align="flex-start">
                   <View style={{ width: 84 }}>
@@ -73,7 +74,7 @@ export default function Catalog(): React.JSX.Element {
                     <ThemedText variant="caption" tone="secondary">
                       {clar.varietyName} · {tr.defaultLocale}
                     </ThemedText>
-                    {source ? <CoverageBadge status={cov?.status ?? 'planned'} sourceLanguageCode={source} nativeReviewed={cov?.nativeReviewed} fallbackSourceLanguageCode={cov?.fallbackSourceLanguageCode ?? null} labels={labels.coverage} languageNames={{ [source]: names(source), ...(cov?.fallbackSourceLanguageCode ? { [cov.fallbackSourceLanguageCode]: names(cov.fallbackSourceLanguageCode) } : {}) }} /> : null}
+                    {source ? <CoverageBadge status={cov?.status ?? 'planned'} sourceLanguageCode={source} nativeReviewed={cov?.nativeReviewed} fallbackSourceLanguageCode={cov?.fallbackSourceLanguageCode ?? null} labels={labels.coverage} descriptions={coverageDescriptions(t, X, names(source), cov?.fallbackSourceLanguageCode ? names(cov.fallbackSourceLanguageCode) : null)} languageNames={{ [source]: names(source), ...(cov?.fallbackSourceLanguageCode ? { [cov.fallbackSourceLanguageCode]: names(cov.fallbackSourceLanguageCode) } : {}) }} /> : null}
                     {c ? (
                       <Row gap={theme.spacing.xs} wrap>
                         {c.publicationState !== 'published' ? <Chip label={X.publicationState[c.publicationState] ?? c.publicationState} tone="warning" icon="info" /> : null}
