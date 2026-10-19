@@ -1,0 +1,21 @@
+# Shared sub-flow: sign in with the given credentials. Parameters: EMAIL, PASSWORD.
+appId: org.langquest.app
+---
+- runFlow:
+    when:
+      visible: "I already have an account"
+    commands:
+      - tapOn: "I already have an account"
+- assertVisible: "Email"
+- tapOn:
+    below: "Email"
+- inputText: ${EMAIL}
+- tapOn:
+    below: "Password"
+- inputText: ${PASSWORD}
+- hideKeyboard
+- tapOn: "Continue"
+- extendedWaitUntil:
+    visible:
+      text: "Home"
+    timeout: 20000

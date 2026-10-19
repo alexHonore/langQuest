@@ -1,0 +1,47 @@
+# A04: change the instruction language of ONE enrollment; mastery/progress stay; other courses untouched.
+appId: org.langquest.app
+env:
+  EMAIL: ${MAESTRO_EMAIL_ENROLLED}
+  PASSWORD: ${MAESTRO_PASSWORD_ENROLLED}
+---
+- launchApp:
+    clearState: false
+- runFlow:
+    when:
+      visible: "Get started"
+    commands:
+      - runFlow: _sign-in.yaml
+- extendedWaitUntil:
+    visible: "Learning Arabic (Moroccan) from French"
+    timeout: 20000
+# Note what Progress shows before the change.
+- tapOn: "Progress"
+- assertVisible:
+    text: "Arabic (Moroccan).*"
+- tapOn: "Home"
+- tapOn: "Switch course"
+- tapOn:
+    text: "Change instruction language Arabic (Moroccan)"
+- assertVisible: "Instruction language"
+- assertVisible: "Only this course changes. Your other courses keep their own instruction language."
+- tapOn: "English"
+- extendedWaitUntil:
+    visible: "Now learning Arabic (Moroccan) from English."
+    timeout: 20000
+- tapOn: "Done"
+- assertVisible: "Learning Arabic (Moroccan) from English"
+# Progress for the course is preserved (same course row still listed; no reset).
+- tapOn: "Progress"
+- assertVisible:
+    text: "Arabic (Moroccan).*"
+- tapOn: "Home"
+# And back to French so the account is left as found.
+- tapOn: "Switch course"
+- tapOn:
+    text: "Change instruction language Arabic (Moroccan)"
+- tapOn: "French"
+- extendedWaitUntil:
+    visible: "Now learning Arabic (Moroccan) from French."
+    timeout: 20000
+- tapOn: "Done"
+- assertVisible: "Learning Arabic (Moroccan) from French"

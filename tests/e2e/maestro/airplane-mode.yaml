@@ -1,0 +1,52 @@
+# A23 / §4.5 (Android only: setAirplaneMode): a downloaded lesson keeps playing offline; the app shows its honest
+# offline banner; after reconnecting, listening progress syncs. Requires a lesson already downloaded on the device
+# (run audio-seek.yaml, then "Download for offline" on the lesson) and an Android emulator with network control.
+appId: org.langquest.app
+env:
+  EMAIL: ${MAESTRO_EMAIL_ENROLLED}
+  PASSWORD: ${MAESTRO_PASSWORD_ENROLLED}
+---
+- launchApp:
+    clearState: false
+- runFlow:
+    when:
+      visible: "Get started"
+    commands:
+      - runFlow: _sign-in.yaml
+- tapOn: "Audio"
+- tapOn: "Downloads"
+- runFlow:
+    when:
+      visible: "This lesson is not downloaded."
+    commands:
+      - assertVisible: "This lesson is not downloaded."
+      - stopApp
+- assertVisible: "Available offline"
+- setAirplaneMode: enabled
+- waitForAnimationToEnd
+- assertVisible:
+    text: "You are offline\\..*"
+- tapOn:
+    index: 0
+    text: ".*(Episode|Lesson).*"
+- extendedWaitUntil:
+    visible: "Play"
+    timeout: 15000
+- tapOn: "Play"
+- extendedWaitUntil:
+    visible: "Pause"
+    timeout: 15000
+- tapOn: "Forward 15 s"
+- tapOn: "Pause"
+# Not-downloaded content is honestly unavailable, never a spinner forever.
+- back
+- assertNotVisible: "Loading…"
+- setAirplaneMode: disabled
+- waitForAnimationToEnd
+- extendedWaitUntil:
+    notVisible:
+      text: "You are offline\\..*"
+    timeout: 30000
+- tapOn: "Home"
+- assertNotVisible:
+    text: "Some progress could not sync.*"

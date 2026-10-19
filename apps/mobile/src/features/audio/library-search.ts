@@ -4,8 +4,11 @@
  * speaker, level, length and free text. Pure so it runs identically against
  * the network page and the offline cache.
  */
-import type { AudioCollectionManifest, AudioCollectionsResponse, AudioManifestLesson, LearnerLevel } from '@langquest/contracts';
+import type { AudioCollectionManifest, AudioCollectionsResponseSchema, AudioManifestLesson, LearnerLevel } from '@langquest/contracts';
+import type { z } from 'zod';
 
+/** `GET /v1/audio/collections` page (the contracts package exports the schema only). */
+export type AudioCollectionsResponse = z.infer<typeof AudioCollectionsResponseSchema>;
 export type AudioCollectionSummary = AudioCollectionsResponse['items'][number];
 
 export type LengthBucket = 'short' | 'medium' | 'long';

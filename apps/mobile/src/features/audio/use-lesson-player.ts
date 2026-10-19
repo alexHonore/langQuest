@@ -68,14 +68,14 @@ export function useLessonPlayer(lessonId: string | null, enrollment: EnrollmentD
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [runtime, lesson?.id, lessonQuery.data?.fromCache]);
 
-  const start = useCallback(
-    async (play: boolean): Promise<void> => {
-      if (!runtime || !lessonId) return;
-      setStartError(null);
+  // Loads the queue and starts the engine; returns the error to surface (null when playback started).
+  const startInner = useCallback(
+    async (play: boolean): Promise<Error | null> => {
+      if (!runtime || !lessonId) return null;
       const engine = runtime.engine;
       if (currentItem(engine.getState())?.id === lessonId) {
         if (play) await engine.play();
-        return;
+        return null;
       }
       const local = await runtime.progress.get(lessonId);
       const durationMs = lesson?.durationMs ?? local?.durationMs ?? null;
@@ -88,15 +88,14 @@ export function useLessonPlayer(lessonId: string | null, enrollment: EnrollmentD
         queue = queueFromDownloads(await runtime.index.list());
       }
       const index = queueIndexOf(queue, lessonId);
-      if (index < 0) {
-        setStartError(new Error('This lesson has no playable audio.'));
-        return;
-      }
+      if (index < 0) return new Error('This lesson has no playable audio.');
       startedFor.current = lessonId;
       await engine.setQueue(queue, index, { positionMs, autoplay: play });
+      return null;
     },
     [runtime, lessonId, lesson, manifest, queueItem, courseTrackId],
   );
+  const start = useCallback(async (play: boolean): Promise<void> => setStartError(await startInner(play)), [startInner]);
 
   // Auto-start once per lesson when data is available (manifest optional).
   useEffect(() => {
@@ -107,7 +106,7 @@ export function useLessonPlayer(lessonId: string | null, enrollment: EnrollmentD
     }
     const ready = Boolean(queueItem) && (manifest !== null || manifestQuery.isError || !lesson?.collectionId);
     if (!ready) return;
-    void start(autoplay);
+    void startInner(autoplay).then((error) => setStartError(error));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [runtime, lessonId, queueItem, manifest, manifestQuery.isError, autoplay]);
 

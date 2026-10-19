@@ -1,13 +1,15 @@
 /**
- * `/v1/me` response as the app consumes it. The contract schema requires a
- * `defaultSourceLanguageCode`, but `profiles.default_source_language_code` is
- * nullable in the database (a learner may not have chosen one yet), so the app
- * accepts `null` and treats it as "no prefill" in the enrollment wizard.
+ * `/v1/me` response as the app consumes it.
+ *
+ * `profiles.default_source_language_code` is nullable in the database (a learner
+ * may not have chosen one yet) and `MeResponseSchema` in `@langquest/contracts`
+ * now models that as `defaultSourceLanguageCode: nullable`. The app treats
+ * `null` as "no prefill" in the enrollment wizard. This module keeps the
+ * historical `MeResponseSchemaLenient` / `MeProfile` names as aliases of the
+ * contract schema so call sites have a single import point.
  */
-import { MeResponseSchema, SourceLanguageCodeSchema } from '@langquest/contracts';
+import { MeResponseSchema } from '@langquest/contracts';
 import type { z } from 'zod';
 
-export const MeResponseSchemaLenient = MeResponseSchema.extend({
-  defaultSourceLanguageCode: SourceLanguageCodeSchema.nullable(),
-});
+export const MeResponseSchemaLenient = MeResponseSchema;
 export type MeProfile = z.infer<typeof MeResponseSchemaLenient>;

@@ -1,0 +1,74 @@
+# A16 / §3.3: open a mission from the pathway, listen → anticipate (attempt or reveal) → next step → leave safely.
+# Needs at least one PUBLISHED mission for the enrollment; otherwise the honest empty state is asserted and the flow stops.
+appId: org.langquest.app
+env:
+  EMAIL: ${MAESTRO_EMAIL_ENROLLED}
+  PASSWORD: ${MAESTRO_PASSWORD_ENROLLED}
+---
+- launchApp:
+    clearState: false
+- runFlow:
+    when:
+      visible: "Get started"
+    commands:
+      - runFlow: _sign-in.yaml
+- tapOn: "Missions"
+- assertVisible: "Your pathway"
+- runFlow:
+    when:
+      visible:
+        text: ".*(Not available|planned but not ready).*"
+    commands:
+      - assertVisible:
+          text: ".*(Not available|planned but not ready).*"
+      - stopApp
+- tapOn:
+    index: 0
+    text: ".*(Step|min|minutes).*"
+    optional: true
+- scrollUntilVisible:
+    element: "Next step"
+    direction: DOWN
+    timeout: 15000
+    optional: true
+- extendedWaitUntil:
+    visible:
+      text: "Step .* of .*"
+    timeout: 20000
+# Listening step: replay and slow are real controls (no fake waveform).
+- tapOn:
+    text: "Replay"
+    optional: true
+- tapOn:
+    text: "Slow"
+    optional: true
+- tapOn: "Next step"
+- extendedWaitUntil:
+    visible:
+      text: "Step .* of .*"
+    timeout: 20000
+# Anticipation: the learner must attempt or explicitly reveal before the model answer appears.
+- runFlow:
+    when:
+      visible: "How would you answer?"
+    commands:
+      - assertNotVisible: "A natural answer"
+      - tapOn: "Type instead"
+      - tapOn:
+          below: "How would you answer?"
+      - inputText: "salam, bghit atay 3afak"
+      - hideKeyboard
+      - tapOn: "Reveal and compare"
+      - assertVisible: "A natural answer"
+      - tapOn: "Next step"
+# No numeric pronunciation score may appear without an acoustic assessor.
+- assertNotVisible:
+    text: "[0-9]+ ?/ ?100"
+- tapOn: "Leave mission?"
+- assertVisible: "Your progress in this mission is saved. You can come back any time."
+- tapOn: "Stay"
+- assertVisible:
+    text: "Step .* of .*"
+- tapOn: "Leave mission?"
+- tapOn: "Leave"
+- assertVisible: "Your pathway"

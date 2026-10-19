@@ -1,0 +1,56 @@
+# A21: open a published audio lesson, play, seek with the skip controls, bookmark, pause; position text changes.
+appId: org.langquest.app
+env:
+  EMAIL: ${MAESTRO_EMAIL_ENROLLED}
+  PASSWORD: ${MAESTRO_PASSWORD_ENROLLED}
+---
+- launchApp:
+    clearState: false
+- runFlow:
+    when:
+      visible: "Get started"
+    commands:
+      - runFlow: _sign-in.yaml
+- tapOn: "Audio"
+- assertVisible: "Audio library"
+- runFlow:
+    when:
+      notVisible: "Collections"
+    commands:
+      - assertVisible:
+          text: ".*(No |not available|Nothing).*"
+      - stopApp
+- tapOn:
+    index: 0
+    below: "Collections"
+- extendedWaitUntil:
+    visible:
+      text: ".*(Episode|Lesson|Chapter).*"
+    timeout: 20000
+- tapOn:
+    index: 0
+    text: ".*(Episode|Lesson).*"
+- extendedWaitUntil:
+    visible: "Play"
+    timeout: 20000
+- assertVisible:
+    text: "Narrated by .*"
+    optional: true
+- tapOn: "Play"
+- extendedWaitUntil:
+    visible: "Pause"
+    timeout: 15000
+- copyTextFrom:
+    text: ".*[0-9]+:[0-9][0-9].*"
+- tapOn: "Forward 15 s"
+- tapOn: "Forward 15 s"
+- assertNotVisible: ${maestro.copiedText}
+- tapOn: "Back 15 s"
+- tapOn: "Bookmark"
+- assertVisible:
+    text: "Bookmark added at .*"
+- tapOn: "Pause"
+- assertVisible: "Play"
+# Background note is informational only; transcript may honestly be unavailable.
+- assertVisible:
+    text: "(Follow along|Transcript not available for this lesson yet)"

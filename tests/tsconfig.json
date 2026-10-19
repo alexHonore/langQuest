@@ -1,6 +1,6 @@
 {
   "extends": "../tsconfig.base.json",
-  "compilerOptions": { "rootDir": ".", "noEmit": true, "types": ["node"] },
-  "include": ["src/**/*.ts", "**/*.ts", "*.ts"],
+  "compilerOptions": { "noEmit": true, "types": ["node"] },
+  "include": ["src/**/*.ts", "integration/**/*.ts", "security/**/*.ts", "locales/**/*.ts", "audio/**/*.ts", "load/**/*.ts", "*.ts"],
   "exclude": ["node_modules", "dist"]
 }

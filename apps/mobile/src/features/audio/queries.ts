@@ -4,7 +4,7 @@
  * lesson detail, transcripts). Every result says whether it came from cache so
  * screens can label it instead of pretending it is live.
  */
-import type { AudioCollectionManifest, AudioCollectionsResponse, AudioLessonResponse, EnrollmentDto, TranscriptResponse } from '@langquest/contracts';
+import type { AudioCollectionManifest, AudioLessonResponse, EnrollmentDto, TranscriptResponse } from '@langquest/contracts';
 import { getCourseTrack } from '@langquest/contracts';
 import { useQuery, type UseQueryResult } from '@tanstack/react-query';
 import { useMemo } from 'react';
@@ -13,6 +13,7 @@ import { useServices } from '@/lib/services';
 import type { CachedEnvelope } from '@/store/cache';
 import { getLocalStore } from '@/store';
 import { getAudioEndpoints } from './api';
+import type { AudioCollectionsResponse } from './library-search';
 
 export const AUDIO_CACHE = {
   collections: 'audio_collections',

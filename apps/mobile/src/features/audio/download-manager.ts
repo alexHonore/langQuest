@@ -253,12 +253,15 @@ export class DownloadManager {
 
       const dir = joinUri(this.deps.fs.packRoot(), lessonId);
       await this.deps.fs.ensureDirectory(dir);
-      for (const file of manifest.files) {
+      // Shared across files: a refresh triggered by one file (403 / stale lease) serves the next ones too.
+      const packRef = { current: manifest };
+      for (const original of manifest.files) {
+        const file = packRef.current.files.find((f) => f.assetId === original.assetId) ?? original;
         const current = (await this.deps.index.get(lessonId))?.files.find((f) => f.assetId === file.assetId);
         if (!current || current.state === 'done') continue;
         if (controller.signal.aborted) throw new DownloadAbortedError();
         const dest = joinUri(dir, file.path);
-        const ok = await this.downloadFile(lessonId, file, dest, controller.signal);
+        const ok = await this.downloadFile(lessonId, file, dest, controller.signal, packRef);
         if (!ok) return; // status already recorded
       }
       await this.setStatus(lessonId, 'complete');
@@ -277,7 +280,7 @@ export class DownloadManager {
   }
 
   /** Download + verify one file; returns false when the lesson's download must stop. */
-  private async downloadFile(lessonId: string, file: DownloadPackManifest['files'][number], dest: string, signal: AbortSignal): Promise<boolean> {
+  private async downloadFile(lessonId: string, file: DownloadPackManifest['files'][number], dest: string, signal: AbortSignal, packRef: { current: DownloadPackManifest }): Promise<boolean> {
     let url = file.url;
     let urlExpiresAt = Date.parse(file.urlExpiresAt);
     let lastProgressWrite = 0;
@@ -286,6 +289,7 @@ export class DownloadManager {
       // Download pack URLs are short-lived (§4.4): refresh the pack when this one is stale.
       if (Date.now() + 30_000 >= urlExpiresAt) {
         const pack = await this.deps.fetchPack(lessonId);
+        packRef.current = pack;
         const refreshed = pack.files.find((f) => f.assetId === file.assetId);
         if (!refreshed) {
           await this.deps.index.updateFile(lessonId, file.assetId, { state: 'error', error: 'media_unavailable' }, this.deps.now());

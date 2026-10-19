@@ -7,11 +7,10 @@ import { Button, ProgressBar, Row, StatusLine, ThemedText, useTheme } from '@lan
 import React from 'react';
 import { Alert, Platform, View } from 'react-native';
 import { useT } from '@/lib/i18n';
-import { downloadFraction, formatMegabytes, type DownloadRecord } from '../download-index';
+import { downloadFraction, formatMegabytes, type DownloadMeta, type DownloadRecord } from '../download-index';
 import type { DownloadFailureCode } from '../download-manager';
 import { useAudioLabels } from '../labels';
 import { useAudioRuntime, useDownloadRecord } from '../use-audio';
-import type { DownloadMeta } from '../download-index';
 
 export interface DownloadControlsProps {
   lessonId: string;

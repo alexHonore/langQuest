@@ -147,7 +147,7 @@ describe('AudioEngine', () => {
     const { engine, fp, events } = makeEngine({ resolve, clock });
     await engine.setQueue([item('a', 3_600_000)], 0, { autoplay: true });
     fp.setPosition(30_000);
-    fp.emit();
+    fp.emit({ durationMs: 3_600_000 });
     // 8.5 minutes later we are inside the renewal window and playback outlives the URL → swap.
     clock.advance(8.5 * 60_000);
     await flush();

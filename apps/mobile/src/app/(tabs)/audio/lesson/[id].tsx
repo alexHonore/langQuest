@@ -1,6 +1,6 @@
-import { AudioPlayer, Button, Chip, IconButton, Row, StatusLine, Surface, ThemedText, formatDurationMs, useTheme } from '@langquest/ui';
+import { AudioPlayer, Button, Chip, IconButton, Row, StatusLine, Surface, ThemedText, formatDurationMs, useTheme, type AUDIO_LABELS } from '@langquest/ui';
 import { useLocalSearchParams, useRouter } from 'expo-router';
-import React, { useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { CacheNotice, ErrorView, LoadingView } from '@/components/StateViews';
@@ -12,7 +12,7 @@ import { MediaNotice } from '@/features/audio/components/MediaNotice';
 import { TranscriptPanel } from '@/features/audio/components/TranscriptPanel';
 import { useAudioLabels } from '@/features/audio/labels';
 import { useTranscript } from '@/features/audio/queries';
-import { useAudioRuntime, useEngineEvent, useLessonBookmarks } from '@/features/audio/use-audio';
+import { useAudioRuntime, useEngineEvents, useLessonBookmarks } from '@/features/audio/use-audio';
 import { useLessonPlayer } from '@/features/audio/use-lesson-player';
 import { useActiveEnrollment } from '@/features/session/queries';
 import { haptic } from '@/lib/haptics';
@@ -39,22 +39,29 @@ export default function LessonPlayerScreen(): React.JSX.Element {
   const { lesson, state, controller, isCurrent } = player;
   const [transcriptOpen, setTranscriptOpen] = useState(captionsDefault);
   const [notice, setNotice] = useState<string | null>(null);
-  const event = useEngineEvent();
+  const noticeTimer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const showNotice = useCallback((text: string, ms = 4000): void => {
+    setNotice(text);
+    if (noticeTimer.current) clearTimeout(noticeTimer.current);
+    noticeTimer.current = setTimeout(() => setNotice(null), ms);
+  }, []);
+  useEffect(
+    () => () => {
+      if (noticeTimer.current) clearTimeout(noticeTimer.current);
+    },
+    [],
+  );
   const transcriptEnabled = Boolean(lesson && lesson.transcriptStatus !== 'none' && lesson.transcriptStatus !== 'failed');
   const transcriptQuery = useTranscript(lessonId, enrollment?.sourceLanguageCode ?? null, enrollment?.id ?? null, transcriptEnabled && transcriptOpen);
   const transcript = transcriptQuery.data?.data ?? null;
   const bookmarks = useLessonBookmarks(lessonId);
   const savedSegmentIds = useMemo(() => new Set(bookmarks.data.filter((b) => b.segmentId).map((b) => b.segmentId!)), [bookmarks.data]);
 
-  useEffect(() => {
-    if (!event) return;
-    if (event.type === 'url_renewed') setNotice(L.renewedLink);
-    else if (event.type === 'interrupted') setNotice(L.interrupted);
-    else if (event.type === 'sleep_fired') setNotice(L.sleepTimerFired);
-    else return;
-    const h = setTimeout(() => setNotice(null), 4000);
-    return () => clearTimeout(h);
-  }, [event, L]);
+  useEngineEvents((event) => {
+    if (event.type === 'url_renewed') showNotice(L.renewedLink);
+    else if (event.type === 'interrupted') showNotice(L.interrupted);
+    else if (event.type === 'sleep_fired') showNotice(L.sleepTimerFired);
+  });
 
   const engine = runtime?.engine ?? null;
   const positionMs = controller.positionMs;
@@ -65,8 +72,7 @@ export default function LessonPlayerScreen(): React.JSX.Element {
     await runtime.bookmarks.add({ lessonId, positionMs, segmentId: segment?.id ?? null, expressionText: segment?.text ?? null, expressionTranslation: segment?.translation?.text ?? null, note: segment ? segment.text : null });
     bookmarks.reload();
     void haptic('success');
-    setNotice(segment ? L.savedExpression : t('audio.player.bookmarkAdded', { position: formatDurationMs(positionMs) }));
-    setTimeout(() => setNotice(null), 3000);
+    showNotice(segment ? L.savedExpression : t('audio.player.bookmarkAdded', { position: formatDurationMs(positionMs) }), 3000);
   };
 
   const repeatSentence = (): void => {
@@ -125,7 +131,7 @@ export default function LessonPlayerScreen(): React.JSX.Element {
               position: (cur: string, total: string) => t('audio.player.position', { current: cur, total }),
               error: t('errors.audioPlayback'),
               loading: t('common.loading'),
-            }}
+            } as Partial<typeof AUDIO_LABELS>}
           />
           <Row gap={theme.spacing.sm} justify="space-between" align="center">
             <IconButton icon="chevronLeft" accessibilityLabel={t('audio.player.previousChapter')} onPress={() => void engine?.previous()} disabled={!isCurrent} mirrorRtl />

@@ -3,7 +3,7 @@
  * `useSyncExternalStore`, download records, listening progress and bookmarks
  * that re-read the local index whenever the manager/engine writes.
  */
-import { useEffect, useState, useSyncExternalStore } from 'react';
+import { useEffect, useRef, useState, useSyncExternalStore } from 'react';
 import type { AudioEngineEvent } from '@/audio/AudioEngine';
 import { INITIAL_ENGINE_STATE, type AudioEngineState } from '@/audio/engine-state';
 import type { LocalBookmark } from './bookmarks';
@@ -58,6 +58,19 @@ export function useEngineEvent(): AudioEngineEvent | null {
   return event;
 }
 
+/** Run `handler` for every engine event (the latest closure is used; subscription is per runtime). */
+export function useEngineEvents(handler: (event: AudioEngineEvent) => void): void {
+  const runtime = useAudioRuntime();
+  const ref = useRef(handler);
+  useEffect(() => {
+    ref.current = handler;
+  });
+  useEffect(() => {
+    if (!runtime) return;
+    return runtime.subscribeEvents((event) => ref.current(event));
+  }, [runtime]);
+}
+
 /** Ticks every second while something plays (for the sleep-timer countdown). */
 export function useClock(active: boolean, intervalMs = 1000): number {
   const [now, setNow] = useState(() => Date.now());
@@ -78,18 +91,19 @@ interface IndexedResult<T> {
 /** Re-read something from the local store whenever the download manager or engine writes. */
 function useLocalRead<T>(runtime: AudioRuntime | null, read: (rt: AudioRuntime) => Promise<T>, initial: T, deps: readonly unknown[], watchEngine = false): IndexedResult<T> {
   const [data, setData] = useState<T>(initial);
-  const [loading, setLoading] = useState(true);
   const [tick, setTick] = useState(0);
+  // `loading` is derived: true until the read for the current inputs has settled.
+  const key = JSON.stringify([tick, ...deps]);
+  const [loadedKey, setLoadedKey] = useState<string | null>(null);
   useEffect(() => {
     if (!runtime) return;
     let alive = true;
-    setLoading(true);
     void read(runtime)
       .then((d) => {
         if (alive) setData(d);
       })
       .finally(() => {
-        if (alive) setLoading(false);
+        if (alive) setLoadedKey(key);
       });
     const unsubDownloads = runtime.downloads.subscribe(() => {
       void read(runtime).then((d) => {
@@ -109,8 +123,8 @@ function useLocalRead<T>(runtime: AudioRuntime | null, read: (rt: AudioRuntime) 
       unsubEngine();
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [runtime, tick, ...deps]);
-  return { data, loading, refresh: () => setTick((t) => t + 1) };
+  }, [runtime, key]);
+  return { data, loading: loadedKey !== key, refresh: () => setTick((t) => t + 1) };
 }
 
 export function useDownloadRecord(lessonId: string | null): IndexedResult<DownloadRecord | null> {

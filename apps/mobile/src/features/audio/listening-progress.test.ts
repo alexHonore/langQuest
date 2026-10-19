@@ -22,7 +22,7 @@ function setup(opts: { online?: boolean; put?: (lessonId: string, body: AudioPro
     store,
     deviceId: 'device-1',
     newId: () => uuid(100 + ++ids),
-    now: () => new Date((t += 20_000)).toISOString(),
+    now: () => new Date((t += 5_000)).toISOString(),
     put,
     enqueueOutbox: async (payload) => void outbox.push(payload),
     isOnline: () => online,

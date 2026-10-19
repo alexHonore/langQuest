@@ -75,7 +75,8 @@ export class BookmarkStore {
     };
     await this.save(bookmark);
     await this.push(bookmark);
-    return (await this.deps.store.get<LocalBookmark>(BOOKMARKS_COLLECTION, key(bookmark.lessonId, bookmark.clientEventId))) ?? bookmark;
+    // Once synced the record lives under its server id, so look it up by client event id.
+    return (await this.list(bookmark.lessonId)).find((b) => b.clientEventId === clientEventId) ?? bookmark;
   }
 
   private async push(bookmark: LocalBookmark): Promise<void> {

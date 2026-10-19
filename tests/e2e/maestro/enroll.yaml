@@ -1,0 +1,43 @@
+# A03: an enrolled learner adds a second course with a different instruction language; both coexist.
+# Requires MAESTRO_EMAIL_ENROLLED / MAESTRO_PASSWORD_ENROLLED (already learning Arabic (Moroccan) from French).
+appId: org.langquest.app
+env:
+  EMAIL: ${MAESTRO_EMAIL_ENROLLED}
+  PASSWORD: ${MAESTRO_PASSWORD_ENROLLED}
+---
+- launchApp:
+    clearState: false
+- runFlow:
+    when:
+      visible: "Get started"
+    commands:
+      - runFlow: _sign-in.yaml
+- extendedWaitUntil:
+    visible: "Learning Arabic (Moroccan) from French"
+    timeout: 20000
+- tapOn: "Switch course"
+- assertVisible: "Your courses"
+- tapOn: "Add a course"
+- assertVisible: "Courses"
+- tapOn: "Search languages and dialects"
+- inputText: "Japanese"
+- hideKeyboard
+- tapOn:
+    text: "Japanese.*"
+- assertVisible: "Add this course"
+# Instruction language is chosen per course: pick English for Japanese.
+- runFlow:
+    when:
+      visible: "Learn from French"
+    commands:
+      - tapOn: "Learn from French"
+      - tapOn: "English"
+- tapOn: "Add this course"
+- extendedWaitUntil:
+    visible: "Learning Japanese from English"
+    timeout: 20000
+- tapOn: "Switch course"
+- assertVisible: "Learning Arabic (Moroccan) from French"
+- assertVisible: "Learning Japanese from English"
+- tapOn: "Learning Arabic (Moroccan) from French"
+- assertVisible: "Learning Arabic (Moroccan) from French"

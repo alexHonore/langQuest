@@ -3,16 +3,23 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
+  "description": "Cross-cutting LangQuest suites: integration journeys, security, locales, audio pipeline, load script and mobile E2E flows (Maestro).",
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
-    "test": "vitest run --passWithNoTests",
-    "test:integration": "vitest run integration",
-    "test:security": "vitest run security",
+    "test": "vitest run",
+    "test:integration": "vitest run --project integration",
+    "test:security": "vitest run --project security",
+    "test:locales": "vitest run --project locales",
+    "test:audio": "vitest run --project audio",
+    "test:load-smoke": "vitest run --project load",
+    "test:require-stack": "LANGQUEST_REQUIRE_STACK=1 vitest run",
+    "load": "tsx load/run-load.ts",
     "lint": "eslint ."
   },
   "dependencies": {
     "zod": "^4.6.0",
     "dotenv": "^18.0.0",
+    "jose": "^6.0.0",
     "@supabase/supabase-js": "^2.117.0",
     "@langquest/contracts": "workspace:*",
     "@langquest/db": "workspace:*",
@@ -23,6 +30,9 @@
     "@langquest/telemetry": "workspace:*"
   },
   "devDependencies": {
-    "@playwright/test": "^1.64.0"
+    "@playwright/test": "^1.64.0",
+    "vitest": "^4.1.0",
+    "tsx": "^4.23.0",
+    "typescript": "~5.9.3"
   }
 }
