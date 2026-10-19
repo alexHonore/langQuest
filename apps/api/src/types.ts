@@ -32,6 +32,8 @@ export interface AppVariables {
   clientKey: string;
   /** Idempotency-Key header when provided (already validated). */
   idempotencyKey?: string;
+  /** Aborted when the request times out or the client disconnects; threaded into every provider call. */
+  abortSignal?: AbortSignal;
 }
 
 export type AppEnv = { Bindings: Env; Variables: AppVariables };

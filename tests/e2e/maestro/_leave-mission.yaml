@@ -1,0 +1,7 @@
+# Shared sub-flow: leave the open mission through the confirmation sheet and land back on the pathway.
+appId: org.langquest.app
+---
+- tapOn: "Leave mission?"
+- assertVisible: "Your progress in this mission is saved. You can come back any time."
+- tapOn: "Leave"
+- assertVisible: "Your pathway"

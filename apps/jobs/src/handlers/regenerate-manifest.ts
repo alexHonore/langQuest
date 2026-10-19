@@ -2,15 +2,20 @@
  * `regenerate_manifest` — rebuild a versioned course manifest (ADR-004) or an audio-collection manifest
  * from published rows, store the JSON in the object store (`manifests/…/v{n}.json` + `latest.json`) and
  * emit `manifest.invalidated` so the API edge cache and mobile diff by version/checksum. Unchanged content
- * keeps its version and emits nothing. Runs under the carrier job type `describe` with
- * `params.handler = 'regenerate_manifest'`.
+ * keeps its version and emits nothing. Job type `regenerate_manifest` (pre-migration-100 rows: `describe` +
+ * `params.handler`).
+ *
+ * Audio-collection titles are localized STRICTLY in the collection's declared instruction language (or the
+ * requested `instructionLanguageCode`): a language-agnostic collection (`instruction_language_code = null`)
+ * or a missing translation yields `''` / `null`, never a silent English substitution (§2.1). The output's
+ * `localization` block reports the language used and how many titles were missing so admins can fix them.
  */
 import { z } from 'zod';
 import type { AudioCollectionManifest, CourseManifest } from '@langquest/contracts';
 import { AssetKindSchema, AssetVisibilitySchema, AudioCollectionManifestSchema, CourseManifestSchema, CourseTrackIdSchema, LearnerLevelSchema, SourceLanguageCodeSchema, getCourseTrack, isSourceLanguageCode, isVarietyId } from '@langquest/contracts';
 import { buildAudioCollectionManifest, computeManifestChecksum, diffManifests, lazyAssetRef, nextManifestVersion } from '@langquest/media';
 import { JobFailure, type JobContext, type JobHandler } from '../queue/types';
-import { localized } from './common';
+import { localizedExact } from './common';
 
 export const RegenerateManifestParamsSchema = z.discriminatedUnion('kind', [
   z.object({ kind: z.literal('course'), courseTrackId: CourseTrackIdSchema, sourceLanguageCode: SourceLanguageCodeSchema, reason: z.enum(['published', 'unpublished', 'rights_revoked', 'localization_updated', 'asset_replaced']).default('published') }),
@@ -35,7 +40,7 @@ async function loadPrevious<T>(ctx: JobContext<RegenerateManifestParams>, key: s
 
 export const regenerateManifestHandler: JobHandler<RegenerateManifestParams> = {
   name: 'regenerate_manifest',
-  jobTypes: [],
+  jobTypes: ['regenerate_manifest'],
   runtime: 'any',
   paramsSchema: RegenerateManifestParamsSchema,
   async run(ctx) {
@@ -45,6 +50,8 @@ export const regenerateManifestHandler: JobHandler<RegenerateManifestParams> = {
 
     let next: CourseManifest | AudioCollectionManifest;
     let previous: CourseManifest | AudioCollectionManifest | null;
+    /** Audio collections only: which language titles were resolved in (`null` = none) and how many were missing. */
+    let localization: { languageCode: string | null; missingTitles: number } | null = null;
     if (p.kind === 'course') {
       const track = getCourseTrack(p.courseTrackId);
       previous = await loadPrevious(ctx, latestKey, CourseManifestSchema);
@@ -56,22 +63,29 @@ export const regenerateManifestHandler: JobHandler<RegenerateManifestParams> = {
       previous = await loadPrevious(ctx, latestKey, AudioCollectionManifestSchema);
       const tree = await db.getCollectionTree(p.collectionId);
       if (!tree) throw new JobFailure('collection_not_found', `collection ${p.collectionId} not found`, { retry: false });
-      const lang = p.instructionLanguageCode ?? tree.collection.instruction_language_code ?? 'en';
+      // `null` = language-agnostic collection: no localization is applied (no English default).
+      const lang: string | null = p.instructionLanguageCode ?? tree.collection.instruction_language_code ?? null;
+      let missingTitles = 0;
+      const titleIn = (translations: unknown): string => {
+        const v = localizedExact(translations, lang);
+        if (v === null) missingTitles += 1;
+        return v ?? '';
+      };
       const chapters = tree.chapters
         .filter(({ chapter }) => chapter.state === 'published')
         .map(({ chapter, lessons }) => ({
           id: chapter.id,
           order: chapter.sort_order,
-          title: localized(chapter.title_translations, lang, '') ?? '',
-          summary: localized(chapter.summary_translations, lang),
+          title: titleIn(chapter.title_translations),
+          summary: localizedExact(chapter.summary_translations, lang),
           coverArt: null,
           lessons: lessons
             .filter((l) => l.lesson.state === 'published')
             .map((l) => ({
               id: l.lesson.id,
               order: l.lesson.sort_order,
-              title: localized(l.lesson.title_translations, lang, '') ?? '',
-              description: localized(l.lesson.description_translations, lang),
+              title: titleIn(l.lesson.title_translations),
+              description: localizedExact(l.lesson.description_translations, lang),
               durationMs: l.lesson.listen_length_ms,
               level: l.lesson.level === null ? null : LearnerLevelSchema.parse(l.lesson.level),
               speakerNames: l.speakers.map((s) => s.display_name),
@@ -88,9 +102,9 @@ export const regenerateManifestHandler: JobHandler<RegenerateManifestParams> = {
       next = buildAudioCollectionManifest(
         {
           collectionId: tree.collection.id,
-          title: localized(tree.collection.title_translations, lang, '') ?? '',
+          title: titleIn(tree.collection.title_translations),
           targetVarietyId: varietyId,
-          instructionLanguageCode: isSourceLanguageCode(lang) ? lang : null,
+          instructionLanguageCode: lang !== null && isSourceLanguageCode(lang) ? lang : null,
           version: previous?.version ?? 0,
           coverArt: null,
           attributionText: null,
@@ -98,6 +112,8 @@ export const regenerateManifestHandler: JobHandler<RegenerateManifestParams> = {
         },
         ctx.services.now(),
       );
+      localization = { languageCode: lang, missingTitles };
+      if (missingTitles > 0) ctx.log.warn('manifest.titles_missing', { collectionId: p.collectionId, languageCode: lang, missingTitles });
     }
     await ctx.progress(60, 'built');
 
@@ -127,6 +143,6 @@ export const regenerateManifestHandler: JobHandler<RegenerateManifestParams> = {
       );
     }
     await ctx.progress(100);
-    return { output: { kind: p.kind, version, changed, checksum: manifest.checksum, keys, diff, counts: p.kind === 'course' ? { chapters: (manifest as CourseManifest).chapters.length, missions: (manifest as CourseManifest).chapters.reduce((n, c) => n + c.missions.length, 0) } : { chapters: (manifest as AudioCollectionManifest).chapters.length, lessons: (manifest as AudioCollectionManifest).chapters.reduce((n, c) => n + c.lessons.length, 0) } } };
+    return { output: { kind: p.kind, version, changed, checksum: manifest.checksum, keys, diff, localization, counts: p.kind === 'course' ? { chapters: (manifest as CourseManifest).chapters.length, missions: (manifest as CourseManifest).chapters.reduce((n, c) => n + c.missions.length, 0) } : { chapters: (manifest as AudioCollectionManifest).chapters.length, lessons: (manifest as AudioCollectionManifest).chapters.reduce((n, c) => n + c.lessons.length, 0) } } };
   },
 };

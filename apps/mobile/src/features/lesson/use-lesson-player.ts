@@ -8,6 +8,11 @@
  * - Speech is evaluated through `/v1/speech/pronunciation-assess` (meaning +
  *   honest pronunciation block). Offline, repeat steps still work with local
  *   playback but no result is invented: the UI shows "needs connection".
+ * - Typed answers are checked locally against the expression's forms and
+ *   produce a `TextAnswerResult` only — never a speech verdict (§3.6).
+ * - `completedAt` is frozen per attempt and the step results are stored
+ *   locally, so an evaluate retry is byte-identical (idempotent replay) and a
+ *   lost response can be resumed later (`pending-evaluation.ts`).
  */
 import { getCourseTrack, type EnrollmentDto, type MissionDetailResponse, type MissionEvaluateResponse, type SpeechEvaluationResult } from '@langquest/contracts';
 import { useCallback, useEffect, useMemo, useReducer, useRef, useState } from 'react';
@@ -19,7 +24,7 @@ import type { RecordedClip } from '@/features/conversation/controller';
 import { useServices } from '@/lib/services';
 import { track } from '@/lib/telemetry';
 import { getLocalStore } from '@/store';
-import { createLesson, reduceLesson, type LessonEffect, type LessonEvent, type LessonState, type LessonStepSpec } from './machine';
+import { createLesson, reduceLesson, type LessonEffect, type LessonEvent, type LessonState, type LessonStepSpec, type TextAnswerResult } from './machine';
 
 type MissionStep = MissionDetailResponse['steps'][number];
 
@@ -49,6 +54,8 @@ export interface LessonPlayer {
   recording: boolean;
   evaluating: boolean;
   evaluation: SpeechEvaluationResult | null;
+  /** Typed-answer check for the current step (meaning only; no speech was assessed). */
+  textAnswer: TextAnswerResult | null;
   result: MissionEvaluateResponse | null;
   finishing: boolean;
   finishError: unknown;
@@ -80,10 +87,11 @@ export function useLessonPlayer({ mission, enrollment, recorder, player }: Optio
   const [result, setResult] = useState<MissionEvaluateResponse | null>(null);
   const [finishing, setFinishing] = useState(false);
   const [finishError, setFinishError] = useState<unknown>(null);
-  const attemptRef = useRef<{ clientAttemptId: string; attemptId: string | null; startedAt: string } | null>(null);
+  const attemptRef = useRef<{ clientAttemptId: string; attemptId: string | null; startedAt: string; completedAt: string | null } | null>(null);
   /** Attempt identity (client UUID + server id); created lazily outside render. */
-  const getAttempt = useCallback(() => (attemptRef.current ??= { clientAttemptId: newUuid(), attemptId: null, startedAt: nowIso() }), []);
+  const getAttempt = useCallback(() => (attemptRef.current ??= { clientAttemptId: newUuid(), attemptId: null, startedAt: nowIso(), completedAt: null }), []);
   const speakingSeconds = useRef(0);
+  const finishedOnce = useRef(false);
 
   const step = mission.steps[state.index] ?? mission.steps[0]!;
   const asset = isAudioAsset(step);
@@ -122,38 +130,28 @@ export function useLessonPlayer({ mission, enrollment, recorder, player }: Optio
         rawDispatch({ type: 'evaluation_failed', message: 'no_input' });
         return;
       }
+      if (text) {
+        // Typed answers: a local exact-form meaning check. Nothing was heard, so no speech
+        // verdict (intelligibility, confidence, pronunciation) exists and none is synthesised.
+        rawDispatch({ type: 'text_evaluated', result: checkTypedAnswer(text, expression) });
+        return;
+      }
       if (!online) {
         rawDispatch({ type: 'evaluation_failed', message: 'offline' });
         return;
       }
       setEvaluating(true);
       try {
-        let evaluation: SpeechEvaluationResult;
-        if (clip) {
-          speakingSeconds.current += clip.durationMs / 1000;
-          evaluation = await api.pronunciationAssess({
-            enrollmentId: enrollment.id,
-            targetVarietyId: trackDef.targetVarietyId,
-            ...(expression ? { expressionId: expression.id } : { referenceText: current.instruction.slice(0, 500) }),
-            audio: { source: 'inline', base64: clip.base64, encoding: clip.encoding, sampleRateHz: clip.sampleRateHz },
-            requestedFeatures: trackDef.tonal ? ['word', 'tone'] : ['word'],
-            clientRequestId: newUuid(),
-            scenarioId: mission.id,
-          });
-        } else {
-          // Typed answers: meaning only. We never report pronunciation for text.
-          evaluation = {
-            assessmentId: newUuid(),
-            targetVarietyId: trackDef.targetVarietyId,
-            semanticIntentMatched: expression ? normalise(text!) === normalise(expression.canonicalText) || expression.forms.some((f) => normalise(f.text) === normalise(text!)) : false,
-            meaningConfidence: 0.5,
-            intelligibility: 'understood',
-            pronunciation: { assessmentMode: 'unavailable', numericScore: null, confidence: 'none', feedback: [], featuresAssessed: [], wordScores: [], phonemeHints: [], toneHints: [], highlightedSegment: null, provider: null, scorerVersion: null },
-            shouldAdvanceConversation: true,
-            transcript: text,
-            matchedIntentIds: [],
-          };
-        }
+        speakingSeconds.current += clip!.durationMs / 1000;
+        const evaluation: SpeechEvaluationResult = await api.pronunciationAssess({
+          enrollmentId: enrollment.id,
+          targetVarietyId: trackDef.targetVarietyId,
+          ...(expression ? { expressionId: expression.id } : { referenceText: current.instruction.slice(0, 500) }),
+          audio: { source: 'inline', base64: clip!.base64, encoding: clip!.encoding, sampleRateHz: clip!.sampleRateHz },
+          requestedFeatures: trackDef.tonal ? ['word', 'tone'] : ['word'],
+          clientRequestId: newUuid(),
+          scenarioId: mission.id,
+        });
         rawDispatch({ type: 'evaluated', result: evaluation });
       } catch (error) {
         rawDispatch({ type: 'evaluation_failed', message: error instanceof ApiClientError ? error.kind : 'failed' });
@@ -204,6 +202,9 @@ export function useLessonPlayer({ mission, enrollment, recorder, player }: Optio
             break;
           case 'step_completed': {
             const attempt = getAttempt();
+            // Offline (or before missionAttemptCreate answered) only the client attempt id exists. The sync route
+            // resolves either id and materialises an attempt it has never seen under the client id, so steps
+            // completed offline are never dropped on reconnect (§4.5).
             await enqueue({ type: 'step_completed', attemptId: attempt.attemptId ?? attempt.clientAttemptId, stepId: effect.result.stepId, outcome: effect.result.outcome, hintsUsed: effect.result.hintsUsed, durationMs: effect.result.durationMs }, enrollment.id);
             (await getLocalStore()).cache.putLocalMission({ missionId: mission.id, enrollmentId: enrollment.id, status: 'in_progress', stepIndex: stateRef.current.index + 1, attemptId: attempt.attemptId, clientAttemptId: attempt.clientAttemptId, startedAt: attempt.startedAt, completedAt: null, pendingEvaluation: false }).catch(() => undefined);
             break;
@@ -234,18 +235,28 @@ export function useLessonPlayer({ mission, enrollment, recorder, player }: Optio
     const attempt = getAttempt();
     const store = await getLocalStore();
     const clientEventId = `${attempt.clientAttemptId}`;
-    await store.cache.putLocalMission({ missionId: mission.id, enrollmentId: enrollment.id, status: 'completed', stepIndex: s.completed.length, attemptId: attempt.attemptId, clientAttemptId: attempt.clientAttemptId, startedAt: attempt.startedAt, completedAt: nowIso(), pendingEvaluation: true });
-    await enqueue({ type: 'activity_minutes', activityDate: localDateKey(), minutesActive: Math.max(1, Math.round((nowMs() - Date.parse(attempt.startedAt)) / 60_000)), speakingSeconds: Math.round(speakingSeconds.current) }, enrollment.id);
-    if (speakingSeconds.current > 0) track.speakingTime(Math.round(speakingSeconds.current), 'anticipation');
+    // Frozen once: a retry must send exactly the same body or the server's Idempotency-Key check
+    // answers `conflict` instead of replaying the stored result (§4.6).
+    attempt.completedAt ??= nowIso();
+    const firstFinish = !finishedOnce.current;
+    finishedOnce.current = true;
+    const local = { missionId: mission.id, enrollmentId: enrollment.id, status: 'completed' as const, stepIndex: s.completed.length, attemptId: attempt.attemptId, clientAttemptId: attempt.clientAttemptId, startedAt: attempt.startedAt, completedAt: attempt.completedAt, stepResults: s.completed, missionRevision: mission.revision };
+    await store.cache.putLocalMission({ ...local, pendingEvaluation: true });
+    if (firstFinish) {
+      await enqueue({ type: 'activity_minutes', activityDate: localDateKey(), minutesActive: Math.max(1, Math.round((nowMs() - Date.parse(attempt.startedAt)) / 60_000)), speakingSeconds: Math.round(speakingSeconds.current) }, enrollment.id);
+      if (speakingSeconds.current > 0) track.speakingTime(Math.round(speakingSeconds.current), 'anticipation');
+    }
     try {
       if (!attempt.attemptId) {
         const res = await api.missionAttemptCreate(mission.id, { enrollmentId: enrollment.id, clientAttemptId: attempt.clientAttemptId, missionRevision: mission.revision, startedAt: attempt.startedAt });
         attempt.attemptId = res.attemptId;
+        await store.cache.putLocalMission({ ...local, attemptId: attempt.attemptId, pendingEvaluation: true });
       }
-      const res = await api.missionEvaluate(mission.id, { attemptId: attempt.attemptId, enrollmentId: enrollment.id, completedAt: nowIso(), stepResults: s.completed, clientEventId });
+      const res = await api.missionEvaluate(mission.id, { attemptId: attempt.attemptId, enrollmentId: enrollment.id, completedAt: attempt.completedAt, stepResults: s.completed, clientEventId });
       setResult(res);
-      await store.cache.putLocalMission({ missionId: mission.id, enrollmentId: enrollment.id, status: 'completed', stepIndex: s.completed.length, attemptId: attempt.attemptId, clientAttemptId: attempt.clientAttemptId, startedAt: attempt.startedAt, completedAt: nowIso(), pendingEvaluation: false });
+      await store.cache.putLocalMission({ ...local, attemptId: attempt.attemptId, pendingEvaluation: false });
     } catch (error) {
+      // The completion stays `pendingEvaluation` locally; the Missions tab resumes it later.
       setFinishError(error);
     } finally {
       setFinishing(false);
@@ -256,6 +267,7 @@ export function useLessonPlayer({ mission, enrollment, recorder, player }: Optio
     const attempt = getAttempt();
     dispatch({ type: 'abandon' });
     player.stop();
+    // Same id rule as step_completed: the server accepts the client attempt id when the create call never landed.
     await enqueue({ type: 'mission_abandoned', attemptId: attempt.attemptId ?? attempt.clientAttemptId, atStepIndex: stateRef.current.index }, enrollment.id);
   }, [getAttempt, dispatch, enqueue, enrollment.id, player]);
 
@@ -270,6 +282,7 @@ export function useLessonPlayer({ mission, enrollment, recorder, player }: Optio
     recording,
     evaluating,
     evaluation: state.current.lastEvaluation,
+    textAnswer: state.current.lastTextAnswer,
     result,
     finishing,
     finishError,
@@ -280,4 +293,13 @@ export function useLessonPlayer({ mission, enrollment, recorder, player }: Optio
 }
 
 const normalise = (s: string): string => s.toLowerCase().normalize('NFKC').replace(/[\p{P}\p{S}]+/gu, ' ').replace(/\s+/g, ' ').trim();
+
+/** Exact-form meaning check for a typed answer (canonical text or any transliteration form). */
+export function checkTypedAnswer(text: string, expression: Pick<MissionDetailResponse['steps'][number]['expressions'][number], 'canonicalText' | 'forms'> | null): TextAnswerResult {
+  const typed = normalise(text);
+  if (!expression || !typed) return { semanticIntentMatched: false, matchedForm: null, text };
+  const candidates = [expression.canonicalText, ...expression.forms.map((f) => f.text)];
+  const matchedForm = candidates.find((c) => normalise(c) === typed) ?? null;
+  return { semanticIntentMatched: matchedForm !== null, matchedForm, text };
+}
 

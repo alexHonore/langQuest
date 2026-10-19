@@ -155,6 +155,14 @@ export const AudioBookmarkResponseSchema = z.object({
 export const DownloadPackQuerySchema = z.object({ includeTranscript: z.coerce.boolean().default(true), deviceId: z.string().min(1).max(128) });
 export const DownloadPackResponseSchema = z.object({ manifest: DownloadPackManifestSchema });
 
+/**
+ * Query for `GET /v1/media/stream/:assetId` (`ROUTES.mediaStream`): `t` is the short-lived HMAC token minted by
+ * `audioPlaybackUrl` for exactly this asset and learner. The route has no JWT; an invalid, expired or mismatched
+ * token answers `unauthorized` and the client must request a fresh playback URL.
+ */
+export const MediaStreamQuerySchema = z.object({ t: z.string().min(1) });
+export type MediaStreamQuery = z.infer<typeof MediaStreamQuerySchema>;
+
 // --- inferred types (additive; every request/response schema has a matching type) ---
 
 export type AudioCollectionSummary = z.infer<typeof AudioCollectionSummarySchema>;

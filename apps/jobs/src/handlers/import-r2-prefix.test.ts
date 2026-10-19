@@ -79,4 +79,24 @@ describe('import_r2_prefix', () => {
     expect(t.db.tables.media_assets.size).toBe(2);
     expect(t.db.tables.audio_lessons.size).toBe(3);
   });
+
+  it('refuses to store parsed titles without a declared language (no English default) and imports them once a language is set', async () => {
+    const { prefix } = await seedPrefix();
+    const dry = await runHandler(importR2PrefixHandler, t, { prefix, dryRun: true, defaultTrackId: 'spanish-spain' }, { job_type: 'import_prefix' });
+    expect(dry.result.output).toMatchObject({ titleLanguage: null, missingTitleLanguage: 3 });
+    const { result } = await runHandler(importR2PrefixHandler, t, { prefix, dryRun: false, defaultTrackId: 'spanish-spain' }, { job_type: 'import_prefix' });
+    const out = result.output as Record<string, unknown>;
+    expect(out).toMatchObject({ imported: 0, linked: 0, failed: 3 });
+    expect((out.failures as Array<{ reason: string }>).every((f) => f.reason.startsWith('title_language_missing'))).toBe(true);
+    // Nothing was copied or inserted, so the objects are not "known" and a corrected re-run imports them.
+    expect(t.db.tables.media_assets.size).toBe(0);
+    expect(t.db.tables.audio_lessons.size).toBe(0);
+    expect(t.db.tables.audio_course_collections.size).toBe(0);
+    const fixed = await runHandler(importR2PrefixHandler, t, { prefix, dryRun: false, defaultTrackId: 'spanish-spain', titleLanguage: 'fr' }, { job_type: 'import_prefix' });
+    expect(fixed.result.output).toMatchObject({ imported: 2, linked: 1, failed: 0 });
+    const lessons = [...t.db.tables.audio_lessons.values()];
+    expect(lessons.length).toBe(3);
+    expect(lessons.every((l) => Object.keys(l.title_translations as object).join() === 'fr')).toBe(true);
+    expect([...t.db.tables.audio_course_collections.values()][0]?.title_translations).toEqual({ fr: 'Spanish I' });
+  });
 });

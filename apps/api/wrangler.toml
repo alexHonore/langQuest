@@ -12,12 +12,17 @@ rules = [{ type = "ESModule", globs = ["**/*.ts"], fallthrough = true }]
 enabled = true
 
 # Non-secret configuration. Secrets are set with `wrangler secret put <NAME>` (list in infra/cloudflare/README.md)
-# and, for local dev, in apps/api/.dev.vars (copy .dev.vars.example).
+# and, for local dev, in apps/api/.dev.vars (copy .dev.vars.example — it sets API_ENV=development and the localhost
+# CORS origins for `wrangler dev`).
+#
+# The top-level profile is PRODUCTION-SAFE on purpose: a plain `wrangler deploy` (no --env) publishes the same Worker
+# name, so it must never carry development-only rules (localhost CORS with credentials, no HSTS). The supported deploy
+# command is `npx wrangler deploy --env production`; `wrangler dev` layers .dev.vars on top of these values.
 [vars]
-API_ENV = "development"
+API_ENV = "production"
 LOG_LEVEL = "info"
 JOBS_BACKEND = "postgres"
-CORS_ALLOWED_ORIGINS = "http://localhost:3000,http://localhost:8081"
+CORS_ALLOWED_ORIGINS = "https://admin.langquest.app,https://app.langquest.app"
 R2_BUCKET = "langquest-media"
 R2_PUBLIC_BUCKET = "langquest-public"
 

@@ -22,6 +22,27 @@ export interface OutboxEntry {
   /** Server resolution once acknowledged. */
   resolution: ProgressSyncResponse['results'][number]['resolution'] | null;
   enqueuedAt: string;
+  /**
+   * Device-wide enqueue sequence: the delivery order. Equals `event.revision` unless the caller
+   * supplied its own revision (entries written before this field existed fall back to `event.revision`).
+   */
+  seq?: number;
+}
+
+/** Caller-controlled identity for an event (see `Outbox.enqueue`). */
+export interface EnqueueOptions {
+  /**
+   * Reuse an id the caller already sent through another path (e.g. the audio `PUT` whose response was
+   * lost): the server dedupes on it, so the replay can never double-apply. Enqueueing an id that is
+   * already queued is a no-op returning the queued event.
+   */
+  clientEventId?: string;
+  /**
+   * Revision in the server's conflict-resolution space for this event type. `audio_progress` is
+   * compared per lesson and per device by the server, so it must carry the lesson revision, not the
+   * outbox's device-wide counter. Defaults to the device-wide counter.
+   */
+  revision?: number;
 }
 
 export interface OutboxMeta {
@@ -71,22 +92,34 @@ export class Outbox {
     return next;
   }
 
-  /** Record an event locally. Returns the stored event (with its client UUID and revision). */
-  async enqueue(payload: ProgressEventPayload, enrollmentId: string | null, occurredAt?: string): Promise<ProgressSyncEvent> {
+  /**
+   * Record an event locally. Returns the stored event (with its client UUID and revision).
+   * The device-wide counter always advances and orders delivery; `options` lets a caller pin the
+   * event id and/or the revision the server compares (see `EnqueueOptions`).
+   */
+  async enqueue(payload: ProgressEventPayload, enrollmentId: string | null, occurredAt?: string, options: EnqueueOptions = {}): Promise<ProgressSyncEvent> {
+    if (options.clientEventId) {
+      const queued = await this.deps.store.get<OutboxEntry>(OUTBOX_COLLECTION, options.clientEventId);
+      if (queued) return queued.event;
+    }
     const meta = await this.meta();
-    const revision = meta.revision + 1;
+    const seq = meta.revision + 1;
     const event: ProgressSyncEvent = {
-      clientEventId: this.deps.newId(),
+      clientEventId: options.clientEventId ?? this.deps.newId(),
       enrollmentId,
       deviceId: meta.deviceId,
-      revision,
+      revision: options.revision ?? seq,
       occurredAt: occurredAt ?? this.deps.now(),
       payload,
     };
-    const entry: OutboxEntry = { event, attempts: 0, rejectedReason: null, resolution: null, enqueuedAt: this.deps.now() };
-    await this.deps.store.put(OUTBOX_COLLECTION, event.clientEventId, entry, revision);
-    await this.saveMeta({ revision });
+    const entry: OutboxEntry = { event, attempts: 0, rejectedReason: null, resolution: null, enqueuedAt: this.deps.now(), seq };
+    await this.deps.store.put(OUTBOX_COLLECTION, event.clientEventId, entry, seq);
+    await this.saveMeta({ revision: seq });
     return event;
+  }
+
+  private sortKey(entry: OutboxEntry): number {
+    return entry.seq ?? entry.event.revision;
   }
 
   /** Events still waiting to be acknowledged (oldest first). */
@@ -128,7 +161,7 @@ export class Outbox {
       if (batch.length === 0) break;
       for (const entry of batch) {
         entry.attempts += 1;
-        await this.deps.store.put(OUTBOX_COLLECTION, entry.event.clientEventId, entry, entry.event.revision);
+        await this.deps.store.put(OUTBOX_COLLECTION, entry.event.clientEventId, entry, this.sortKey(entry));
       }
       let response: ProgressSyncResponse;
       try {
@@ -147,7 +180,7 @@ export class Outbox {
           result.rejected += 1;
           entry.rejectedReason = r.reason ?? 'rejected';
           entry.resolution = 'rejected';
-          await this.deps.store.put(OUTBOX_COLLECTION, entry.event.clientEventId, entry, entry.event.revision);
+          await this.deps.store.put(OUTBOX_COLLECTION, entry.event.clientEventId, entry, this.sortKey(entry));
         } else {
           if (r.resolution === 'applied') result.applied += 1;
           else result.duplicates += 1;

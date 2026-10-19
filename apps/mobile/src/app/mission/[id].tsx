@@ -6,12 +6,14 @@ import { Alert, TextInput, View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { CacheNotice, ErrorView, LoadingView } from '@/components/StateViews';
 import { sceneForMission } from '@/features/missions/story';
+import { formsForScriptMode, isolateSourceText, sourceTextDirection } from '@/features/lesson/forms';
 import { uiPhase } from '@/features/lesson/machine';
 import { useLessonPlayer } from '@/features/lesson/use-lesson-player';
 import { useActiveEnrollment, useInvalidateLearner, useMissionDetail } from '@/features/session/queries';
 import { createClipPlayer } from '@/lib/clip-player';
+import { useExtraLabels } from '@/lib/extra-labels';
 import { haptic } from '@/lib/haptics';
-import { useT } from '@/lib/i18n';
+import { useLanguageNames, useT } from '@/lib/i18n';
 import { useUiLabels } from '@/lib/labels';
 import { requestMicPermission, useRecorder, type MicPermission } from '@/lib/recorder';
 import { usePrefs } from '@/state/prefs';
@@ -37,6 +39,8 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
   const theme = useTheme();
   const router = useRouter();
   const t = useT();
+  const X = useExtraLabels();
+  const names = useLanguageNames();
   const labels = useUiLabels();
   const invalidate = useInvalidateLearner();
   const recorder = useRecorder();
@@ -57,7 +61,9 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
   const expression = step.expressions[0] ?? null;
   const character = mission.characters[0] ?? null;
   const sceneId = sceneForMission({ ...mission, order: 0, titleKey: null, difficulty: 0, prerequisiteSkillKeys: [], skillKeys: mission.goals.flatMap((g) => g.skillKeys), characterIds: [], publishedRevision: mission.revision, steps: [], localizationComplete: mission.localizationComplete }, null);
-  const scriptForms = expression ? expression.forms.filter((f) => (enrollment.scriptMode === 'latin' ? f.transliterationScheme !== null : enrollment.scriptMode === 'native' ? f.script !== null && f.transliterationScheme === null : true)) : [];
+  const scriptForms = expression ? formsForScriptMode(expression, trackDef.scripts.primary, enrollment.scriptMode) : [];
+  // Instruction-language text (instructions, meanings, hints) follows the SOURCE language's direction, not the UI's.
+  const sourceDir = sourceTextDirection(enrollment.sourceLanguageCode);
   const spec = state.steps[state.index]!;
   const revealAllowed = current.revealed || !spec.requiresAttemptBeforeReveal || current.attempts > 0;
   const canAdvance = !(spec.requiresAttemptBeforeReveal && !current.revealed && current.attempts === 0) && current.phase !== 'recording' && current.phase !== 'processing';
@@ -167,17 +173,17 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
         </View>
         <IconButton icon="close" accessibilityLabel={t('missions.leaveMission')} onPress={leave} />
       </Row>
-      {!mission.localizationComplete ? <StatusLine icon="info" tone="warning" text={t('enrollment.coverage.draftAvailable', { source: enrollment.sourceLanguageCode })} /> : null}
+      {!mission.localizationComplete ? <StatusLine icon="info" tone="warning" text={t('enrollment.coverage.draftAvailable', { source: names(enrollment.sourceLanguageCode) })} /> : null}
       {lesson.offlineLimited ? <StatusLine icon="offline" tone="warning" text={t('errors.offlineLessonsAvailable')} /> : null}
 
       <SceneArtwork sceneId={sceneId ?? 'cafe'} imageUri={mission.sceneArt?.publicUrl ?? null} altText={mission.sceneArt?.altTextKey ? t(mission.sceneArt.altTextKey) : undefined} overlay={character ? <ThemedText variant="caption" tone="onAccent">{character.name}</ThemedText> : undefined} overlayPosition="bottom" scrim />
 
       <Surface radius="lg" padding={theme.spacing.lg} bordered style={{ gap: theme.spacing.sm }}>
-        <ThemedText tone="secondary">{step.instruction}</ThemedText>
+        <ThemedText tone="secondary" direction={sourceDir}>{step.instruction}</ThemedText>
         {expression && (current.revealed || step.type !== 'anticipation') ? (
           <View style={{ gap: 2 }}>
-            {(scriptForms.length > 0 ? scriptForms : [{ text: expression.canonicalText, script: trackDef.scripts.primary, transliterationScheme: null }]).map((f, i) => (
-              <ThemedText key={i} variant={f.transliterationScheme ? 'transliteration' : 'phrase'} script={f.transliterationScheme ? 'Latn' : trackDef.scripts.primary} tone={f.transliterationScheme ? 'muted' : 'primary'}>
+            {scriptForms.map((f, i) => (
+              <ThemedText key={i} variant={f.transliterationScheme ? 'transliteration' : 'phrase'} script={f.script} tone={f.transliterationScheme ? 'muted' : 'primary'}>
                 {f.text}
               </ThemedText>
             ))}
@@ -186,8 +192,8 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
         {expression && (current.translationShown || captions) ? (
           <View style={{ gap: 2 }}>
             <ThemedText variant="caption" tone="muted">{t('lesson.translation')}</ThemedText>
-            <ThemedText>{expression.meaning}</ThemedText>
-            {expression.contextNote ? <ThemedText variant="caption" tone="secondary">{expression.contextNote}</ThemedText> : null}
+            <ThemedText direction={sourceDir}>{expression.meaning}</ThemedText>
+            {expression.contextNote ? <ThemedText variant="caption" tone="secondary" direction={sourceDir}>{expression.contextNote}</ThemedText> : null}
           </View>
         ) : null}
         <Row gap={theme.spacing.xs} wrap>
@@ -242,7 +248,22 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
         </View>
       )}
 
-      {lesson.evaluation && current.phase === 'compare' ? (
+      {lesson.textAnswer && current.phase === 'compare' ? (
+        // A typed answer: meaning checked against the expression's forms, no speech assessed (§3.6).
+        <Surface variant="elevated" level={1} radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.sm }}>
+          <ThemedText variant="heading">{t('pronunciation.feedback.title')}</ThemedText>
+          <StatusLine icon="transcript" tone="info" text={X.typedAnswerTitle} variant="subheading" />
+          <StatusLine icon={lesson.textAnswer.semanticIntentMatched ? 'check' : 'info'} tone={lesson.textAnswer.semanticIntentMatched ? 'success' : 'warning'} text={lesson.textAnswer.semanticIntentMatched ? X.typedAnswerMatched : X.typedAnswerNotMatched} />
+          <ThemedText variant="caption" tone="muted">{t('lesson.yourAnswer')}</ThemedText>
+          <ThemedText script={trackDef.scripts.primary}>{lesson.textAnswer.text}</ThemedText>
+          {lesson.textAnswer.matchedForm ? <ThemedText variant="caption" tone="secondary">{X.typedAnswerMatchedForm(lesson.textAnswer.matchedForm)}</ThemedText> : null}
+          <Row gap={theme.spacing.xs} wrap>
+            <Button label={t('pronunciation.retry')} variant="secondary" size="sm" icon="replay" onPress={() => lesson.dispatch({ type: 'retry' })} accessibilityLabel={t('pronunciation.retry')} />
+            {lesson.referenceUri ? <Button label={t('pronunciation.playReference')} variant="ghost" size="sm" icon="play" onPress={() => lesson.dispatch({ type: 'replay', slow: false })} accessibilityLabel={t('pronunciation.playReference')} /> : null}
+          </Row>
+        </Surface>
+      ) : null}
+      {lesson.evaluation && !lesson.textAnswer && current.phase === 'compare' ? (
         <PronunciationFeedback
           result={lesson.evaluation}
           targetScript={trackDef.scripts.primary}
@@ -263,10 +284,10 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
       <HintSheet
         visible={hintsOpen}
         onClose={() => setHintsOpen(false)}
-        hints={step.hints.map((h) => ({ text: h }))}
-        translation={expression?.meaning ?? null}
+        hints={step.hints.map((h) => ({ text: isolateSourceText(h, enrollment.sourceLanguageCode) }))}
+        translation={expression ? isolateSourceText(expression.meaning, enrollment.sourceLanguageCode) : null}
         example={current.revealed && expression ? expression.canonicalText : null}
-        meaning={expression?.contextNote ?? null}
+        meaning={expression?.contextNote ? isolateSourceText(expression.contextNote, enrollment.sourceLanguageCode) : null}
         availableCommands={['hint', 'translate', 'repeat', 'slower']}
         onCommand={(c) => {
           if (c === 'hint') lesson.dispatch({ type: 'hint' });

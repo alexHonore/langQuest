@@ -8,7 +8,7 @@ import { CoverageStatusSchema, EnrollmentStatusSchema, LearnerLevelSchema, Learn
 import { CourseManifestSchema, SceneIdSchema, VisualRefSchema, AssetRefSchema } from '../manifest';
 import { Bcp47Schema, JsonObjectSchema, KeySchema, MillisSchema, NonNegativeIntSchema, TimestamptzSchema, UnitIntervalSchema, UuidSchema } from '../primitives';
 import { ReviewCardSchema, ReviewRatingSchema, SkillMasterySnapshotSchema, SkillObservationInputSchema } from '../srs';
-import { pageOf, PaginationQuerySchema } from './common';
+import { pageOf, PaginationQuerySchema, QueryBooleanSchema } from './common';
 
 // --- auth -------------------------------------------------------------------
 
@@ -163,7 +163,29 @@ export const EnrollmentPatchRequestSchema = z
   .refine((v) => Object.keys(v).length > 0, { message: 'At least one field must be provided' });
 export type EnrollmentPatchRequest = z.infer<typeof EnrollmentPatchRequestSchema>;
 export const EnrollmentPatchResponseSchema = EnrollmentDtoSchema;
+
+/**
+ * Query for `PATCH /v1/me/enrollments/:id`. Setting `status: 'archived'` on a non-archived enrollment needs
+ * `?confirm=archive`; otherwise the API answers `precondition_failed` with `details.requiredConfirmation`.
+ * Archiving keeps all progress and is reversible (restore by patching `status` back to `active`).
+ */
+export const EnrollmentPatchQuerySchema = z.object({ confirm: z.enum(['archive']).optional() });
+export type EnrollmentPatchQuery = z.infer<typeof EnrollmentPatchQuerySchema>;
+
+/** Query for `GET /v1/me/enrollments`: archived enrollments are hidden unless `includeArchived=true`. */
+export const EnrollmentsListQuerySchema = z.object({ includeArchived: QueryBooleanSchema.default(false) });
+export type EnrollmentsListQuery = z.infer<typeof EnrollmentsListQuerySchema>;
 export const EnrollmentsListResponseSchema = z.object({ enrollments: z.array(EnrollmentDtoSchema) });
+
+/**
+ * Query for `DELETE /v1/me/enrollments/:id` (`ROUTES.enrollmentDelete`). Deletion is permanent and erases the
+ * enrollment's own progress (other enrollments and the account are untouched); `?confirm=delete` is required
+ * and a request without it answers `precondition_failed` with `details.requiredConfirmation: 'delete'`.
+ */
+export const EnrollmentDeleteQuerySchema = z.object({ confirm: z.enum(['delete']).optional() });
+export type EnrollmentDeleteQuery = z.infer<typeof EnrollmentDeleteQuerySchema>;
+export const EnrollmentDeleteResponseSchema = z.object({ deleted: z.literal(true), enrollmentId: UuidSchema });
+export type EnrollmentDeleteResponse = z.infer<typeof EnrollmentDeleteResponseSchema>;
 
 // --- manifest ---------------------------------------------------------------
 

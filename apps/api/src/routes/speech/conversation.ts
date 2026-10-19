@@ -8,26 +8,74 @@
  */
 import { CancelledError, createCancellationToken } from '@langquest/ai/realtime/pipeline';
 import { signSessionTicket } from '@langquest/ai/realtime/tickets';
-import { AudioInputSchema, ConversationEndRequestSchema, ConversationEndResponseSchema, ConversationSessionCreateRequestSchema, ConversationSessionCreateResponseSchema, ConversationTurnRequestSchema, ConversationTurnResponseSchema, UuidSchema, unsupportedCapability, type AudioInput, type Capability, type CharacterTurn, type EvaluatorOutput, type LearnerTurnInput, type ShortLivedSession } from '@langquest/contracts';
+import { ConversationEndRequestSchema, ConversationEndResponseSchema, ConversationSessionCreateRequestSchema, ConversationSessionCreateResponseSchema, ConversationTurnRequestSchema, ConversationTurnResponseSchema, UuidSchema, unsupportedCapability, type AudioInput, type Capability, type CharacterTurn, type ConversationTurnAudio, type EvaluatorOutput, type LearnerTurnInput, type ShortLivedSession, type SpeechRetention } from '@langquest/contracts';
 import { DbError } from '@langquest/db/errors';
 import type { Row } from '@langquest/db/types';
 import { sha256Hex } from '@langquest/telemetry/privacy';
 import { z } from 'zod';
 import type { DefineRoute } from '../../app';
 import { AI_TIMEOUT_MS } from '../../app';
-import { problem, respondOk } from '../../http/envelope';
+import { problem, respondErr, respondOk } from '../../http/envelope';
 import { parseBody, parseParams } from '../../http/validate';
-import { attachAudio, buildContext, evaluateSession, EVALUATE_EVERY_TURNS, listTurns, loadOwnedSession, MAX_SESSION_MS, objectivesFromMission, personaFor, recentWeaknesses, refreshSummary, relationshipSummary, sessionState, voiceConfig, type CharacterRow, type SessionRow } from '../../lib/conversation';
+import { attachAudio, buildContext, evaluateSession, EVALUATE_EVERY_TURNS, hasForbiddenControlChars, listTurns, loadOwnedSession, MAX_LEARNER_TEXT_CHARS, MAX_SESSION_MS, normaliseLearnerText, objectivesFromMission, personaFor, recentWeaknesses, refreshSummary, relationshipSummary, sessionState, voiceConfig, type CharacterRow, type SessionRow } from '../../lib/conversation';
 import { parsePrivacy } from '../../lib/dto';
 import { languageContextFor, loadOwnedEnrollment, loadUiLocale, varietyOf, type EnrollmentRow } from '../../lib/enrollment';
 import { awardXp, scheduleReviews } from '../../lib/learning';
+import { sessionTicketSecret } from '../../lib/secrets';
 import { SPEECH_BODY_LIMIT_BYTES } from '../../middleware/security';
+import { encodingForMime } from '../../services/ai';
 import type { RequestServices } from '../../services/context';
+import { retainRecording } from './speech';
 
 const IdParams = z.object({ id: UuidSchema });
 
-/** Local extension: a turn may carry the audio bytes/URL directly (contracts only reference an asset id). */
-const TurnRequestSchema = ConversationTurnRequestSchema.extend({ audio: AudioInputSchema.optional() });
+/**
+ * The published `ConversationTurnRequestSchema` (its `audio` field is the contract union of `AudioInput` and a bare
+ * `InlineAudioClip`), with every learner-controlled string bounded here: the contracts `transcript` variant has no
+ * max length (cross-package gap), so without this cap a multi-megabyte "transcript" would flow straight into the
+ * character agent and the evaluator (uncontrolled provider spend per request). Control characters are rejected outright.
+ */
+const learnerStrings = (input: LearnerTurnInput): string[] => (input.kind === 'text' || input.kind === 'transcript' ? [input.text] : input.kind === 'audio' && input.transcriptHint !== null ? [input.transcriptHint] : []);
+export const TurnRequestSchema = ConversationTurnRequestSchema.extend({
+  input: ConversationTurnRequestSchema.shape.input.superRefine((input, ctx) => {
+    for (const text of learnerStrings(input)) {
+      if (text.length > MAX_LEARNER_TEXT_CHARS) ctx.addIssue({ code: 'custom', path: ['text'], message: `Learner text is limited to ${MAX_LEARNER_TEXT_CHARS} characters per turn` });
+      if (hasForbiddenControlChars(text)) ctx.addIssue({ code: 'custom', path: ['text'], message: 'Learner text may not contain control characters' });
+    }
+  }),
+});
+
+/** `ConversationTurnAudio` → adapter `AudioInput`: a bare inline clip becomes an inline input with the encoding derived from its MIME type. */
+function toAudioInput(audio: ConversationTurnAudio | undefined): AudioInput | undefined {
+  if (!audio) return undefined;
+  if ('source' in audio) return audio;
+  return { source: 'inline', base64: audio.base64, encoding: encodingForMime(audio.mime), sampleRateHz: null };
+}
+
+/**
+ * How long a learner row without a following character row counts as "in flight" (the first request for that
+ * `clientTurnId` may still be running): the route budget. Older rows were abandoned (timed out / cancelled) and a
+ * retry is allowed to run the pipeline for them.
+ */
+export const TURN_IN_FLIGHT_WINDOW_MS = AI_TIMEOUT_MS;
+/** Longest a retry waits for the in-flight original before answering `conflict` + `Retry-After`. */
+export const TURN_RETRY_WAIT_MS = 20_000;
+const TURN_RETRY_POLL_MS = 1_000;
+const sleep = (ms: number): Promise<void> => new Promise((resolve) => setTimeout(resolve, ms));
+
+/** Character turn persisted for the learner row with `turnIndex`, or null. */
+async function findCharacterReply(s: RequestServices, sessionId: string, learnerTurnIndex: number): Promise<Row<'conversation_turns'> | null> {
+  const res = await s.service.from('conversation_turns').select('*').eq('session_id', sessionId).eq('speaker', 'character').eq('turn_index', learnerTurnIndex + 1).maybeSingle();
+  return res.data ?? null;
+}
+
+/** Apply `normaliseLearnerText` to whichever field of the learner input carries free text. */
+function normaliseLearnerInput(input: LearnerTurnInput): LearnerTurnInput {
+  if (input.kind === 'text') return { ...input, text: normaliseLearnerText(input.text) ?? '…' };
+  if (input.kind === 'transcript') return { ...input, text: normaliseLearnerText(input.text) ?? '…' };
+  if (input.kind === 'audio') return { ...input, transcriptHint: normaliseLearnerText(input.transcriptHint) };
+  return input;
+}
 
 const EMPTY_EVALUATION: EvaluatorOutput = { objectivesCompleted: [], skillsExercised: [], observations: [], priorityCorrections: [], summary: '', reviewTriggers: [], relationshipMemoryUpdate: null, confidence: 0 };
 
@@ -57,8 +105,9 @@ async function contextFor(s: RequestServices, b: SessionBundle) {
   const uiLocale = await loadUiLocale(db, principal.userId);
   const language = languageContextFor(b.enrollment, uiLocale);
   const [weaknesses, relationship] = await Promise.all([recentWeaknesses(s, b.enrollment.id), relationshipSummary(db, b.character.id, b.enrollment.id)]);
-  const context = buildContext({ language, session: b.session, character: b.character, scenario: b.scenario, objectives: objectivesFromMission(b.mission, b.enrollment.source_language_code, b.session.objectives_completed), weaknesses, relationship });
-  return { context, persona: personaFor(b.character) };
+  const objectives = objectivesFromMission(b.mission, b.enrollment.source_language_code, b.session.objectives_completed);
+  const context = buildContext({ language, session: b.session, character: b.character, scenario: b.scenario, objectives, weaknesses, relationship });
+  return { context, persona: personaFor(b.character), objectives };
 }
 
 async function capabilitiesFor(ai: Awaited<ReturnType<RequestServices['ai']>>, locale: string, voiceId: string, interruptible: boolean): Promise<{ realtime: Capability; recognition: Capability; synthesis: Capability; pronunciation: Capability }> {
@@ -118,7 +167,7 @@ export function registerConversationRoutes(define: DefineRoute): void {
     }
 
     const ai = await s.ai(session.id);
-    const { context, persona } = await contextFor(s, { session, enrollment, character, mission, scenario });
+    const { context, persona, objectives } = await contextFor(s, { session, enrollment, character, mission, scenario });
     const config = voiceConfig({ session, context, enrollment, character, inputEncoding: body.inputEncoding });
     const capabilities = await capabilitiesFor(ai, config.locale, config.voiceId, config.interruptible);
     let provider: ShortLivedSession;
@@ -132,7 +181,8 @@ export function registerConversationRoutes(define: DefineRoute): void {
     }
     // The learner's choice wins: a text-only session never runs STT/TTS even when speech is available (§8.6, §15).
     if (session.mode === 'text_only' && provider.pipeline !== 'text_only') {
-      const ticket = await signSessionTicket({ sessionId: session.id, userId: principal.userId, enrollmentId: enrollment.id, pipeline: 'text_only' }, ai.env.AI_SESSION_TICKET_SECRET ?? s.config.env.AI_SESSION_TICKET_SECRET ?? `${s.config.env.SUPABASE_ANON_KEY}-ticket`);
+      // Fail closed: the ticket secret is a dedicated server secret (parseEnv enforces it whenever AI is enabled).
+      const ticket = await signSessionTicket({ sessionId: session.id, userId: principal.userId, enrollmentId: enrollment.id, pipeline: 'text_only' }, sessionTicketSecret(s.config.env));
       provider = { ...provider, pipeline: 'text_only', clientToken: ticket.token, expiresAt: ticket.expiresAt, vad: null };
     }
     const pipeline = provider.pipeline;
@@ -171,7 +221,8 @@ export function registerConversationRoutes(define: DefineRoute): void {
         provider,
         character: { id: character.id, name: character.name, role: character.role, targetVarietyId: character.target_variety_id, syntheticVoice: true, portraitAssetId: character.portrait_visual_asset_id },
         capabilities,
-        objectives: context.objectives.map((o) => ({ id: o.id, description: o.description, skillKeys: o.skillKeys })),
+        // Learner-facing: source-language text only (empty when the goal is not localized for this enrollment, §10.1).
+        objectives: objectives.map((o) => ({ id: o.id, description: o.description, skillKeys: o.skillKeys })),
         openingTurn,
       }),
       replay ? 200 : 201,
@@ -191,18 +242,40 @@ export function registerConversationRoutes(define: DefineRoute): void {
     // Replay: the learner turn exists → return the character turn that followed it (never a second LLM call).
     const turns = await listTurns(s, session.id);
     const learnerTurn = turns.find((t) => t.client_turn_id === body.clientTurnId);
-    const followingCharacter = learnerTurn ? turns.find((t) => t.speaker === 'character' && t.turn_index === learnerTurn.turn_index + 1) : undefined;
-    if (learnerTurn && followingCharacter) {
-      const characterTurn: CharacterTurn = { turnId: followingCharacter.id, characterId: b.character.id, text: followingCharacter.text ?? '', transliteration: null, sourceGloss: null, expression: 'talking', respondsToCommand: (followingCharacter.command as CharacterTurn['respondsToCommand']) ?? null, tentativeObjectiveIds: followingCharacter.goals, audio: null, endsConversation: false, model: null, latencyMs: followingCharacter.latency_ms };
-      return respondOk(c, ConversationTurnResponseSchema.parse({ session: sessionState(session, learnerTurn.id, followingCharacter.id), learnerTranscript: learnerTurn.text ? { text: learnerTurn.text, confidence: learnerTurn.confidence } : null, characterTurn: characterTurn.text ? characterTurn : null, replayed: true, evaluationPending: false, objectivesCompleted: session.objectives_completed }));
+    let followingCharacter = learnerTurn ? turns.find((t) => t.speaker === 'character' && t.turn_index === learnerTurn.turn_index + 1) : undefined;
+    const replay = (learnerRow: Row<'conversation_turns'>, characterRow: Row<'conversation_turns'>): Response => {
+      const characterTurn: CharacterTurn = { turnId: characterRow.id, characterId: b.character.id, text: characterRow.text ?? '', transliteration: null, sourceGloss: null, expression: 'talking', respondsToCommand: (characterRow.command as CharacterTurn['respondsToCommand']) ?? null, tentativeObjectiveIds: characterRow.goals, audio: null, endsConversation: false, model: null, latencyMs: characterRow.latency_ms };
+      return respondOk(c, ConversationTurnResponseSchema.parse({ session: sessionState(session, learnerRow.id, characterRow.id), learnerTranscript: learnerRow.text ? { text: learnerRow.text, confidence: learnerRow.confidence } : null, characterTurn: characterTurn.text ? characterTurn : null, replayed: true, evaluationPending: false, objectivesCompleted: session.objectives_completed }));
+    };
+    if (learnerTurn && followingCharacter) return replay(learnerTurn, followingCharacter);
+    if (learnerTurn && !followingCharacter) {
+      // The first request for this clientTurnId may still be running (client retried before the server budget
+      // elapsed). Never run the pipeline a second time for it: wait (bounded) for its character row, then either
+      // replay it or ask the client to retry the SAME clientTurnId after `Retry-After`. Only a row older than the
+      // in-flight window is treated as abandoned and processed below.
+      const inFlightUntil = Date.parse(learnerTurn.occurred_at) + TURN_IN_FLIGHT_WINDOW_MS;
+      const waitUntilTs = Math.min(inFlightUntil, Date.now() + TURN_RETRY_WAIT_MS);
+      while (Date.now() < waitUntilTs) {
+        await sleep(Math.min(TURN_RETRY_POLL_MS, Math.max(0, waitUntilTs - Date.now())));
+        followingCharacter = (await findCharacterReply(s, session.id, learnerTurn.turn_index)) ?? undefined;
+        if (followingCharacter) return replay(learnerTurn, followingCharacter);
+      }
+      if (Date.now() < inFlightUntil) {
+        const retryAfterSeconds = Math.max(1, Math.ceil((inFlightUntil - Date.now()) / 1000));
+        const res = respondErr(c, 'conflict', 'This clientTurnId is still being processed; retry the same clientTurnId shortly', { clientTurnId: body.clientTurnId, retryAfterSeconds });
+        res.headers.set('Retry-After', String(Math.min(retryAfterSeconds, 30)));
+        return res;
+      }
+      s.log.warn('conversation.turn_abandoned_retry', { sessionId: session.id, clientTurnId: body.clientTurnId, ageMs: Date.now() - Date.parse(learnerTurn.occurred_at) });
     }
 
     const ai = await s.ai(session.id);
     const { context, persona } = await contextFor(s, b);
     const config = voiceConfig({ session, context, enrollment: b.enrollment, character: b.character, inputEncoding: 'opus' });
     const lastCharacter = [...turns].reverse().find((t) => t.speaker === 'character');
-    const learnerInput: LearnerTurnInput = body.input;
-    let audio: AudioInput | undefined = body.audio;
+    const learnerInput: LearnerTurnInput = normaliseLearnerInput(body.input);
+    let audio: AudioInput | undefined = toAudioInput(body.audio);
+    const inlineClip = audio?.source === 'inline' ? audio : null;
     if (learnerInput.kind === 'audio' && learnerInput.transcriptHint === null && !audio) audio = { source: 'asset', assetId: learnerInput.assetId, encoding: 'opus', sampleRateHz: null };
     if (learnerInput.kind === 'audio' && session.pipeline === 'text_only') throw problem.unsupported('This session runs in text-only mode; send text or a transcript');
 
@@ -220,7 +293,8 @@ export function registerConversationRoutes(define: DefineRoute): void {
     }
     if (body.bargeIn) s.log.info('conversation.barge_in', { sessionId: session.id, interrupted: lastCharacter?.id ?? null });
 
-    const token = createCancellationToken(c.req.raw.signal);
+    // Cancellation: client disconnect AND the route timeout (both feed `s.signal`), so no provider work outlives the response.
+    const token = createCancellationToken(s.signal ?? c.req.raw.signal);
     const started = Date.now();
     let result;
     try {
@@ -235,11 +309,34 @@ export function registerConversationRoutes(define: DefineRoute): void {
       return respondOk(c, ConversationTurnResponseSchema.parse({ session: sessionState(session, learnerRow.id, lastCharacter?.id ?? null), learnerTranscript: result.transcript ? { text: result.transcript.text, confidence: result.transcript.confidence } : null, characterTurn: null, replayed: false, evaluationPending: false, objectivesCompleted: session.objectives_completed }));
     }
     // Transcribed audio: the learner row keeps the sanitised transcript for the evaluator window (retention-bound).
-    if (result.transcript && !learnerRow.text) {
-      await s.service.from('conversation_turns').update({ text: result.transcript.text, text_hash: sha256Hex(result.transcript.text), confidence: result.transcript.confidence }).eq('id', learnerRow.id).then(() => undefined, () => undefined);
+    const transcriptText = result.transcript ? normaliseLearnerText(result.transcript.text) : null;
+    if (transcriptText && !learnerRow.text) {
+      await s.service.from('conversation_turns').update({ text: transcriptText, text_hash: sha256Hex(transcriptText), confidence: result.transcript!.confidence }).eq('id', learnerRow.id).then(() => undefined, () => undefined);
+    }
+    // Inline clip: retained under the session's speech retention (§8.6 JSDoc promise of the contract), never when 'none'/'session'.
+    if (inlineClip && learnerInput.kind === 'audio') {
+      const learnerRowId = learnerRow.id;
+      s.waitUntil(
+        retainRecording(s, b.enrollment, inlineClip, principal.userId, session.speech_retention as SpeechRetention).then(async (assetId) => {
+          if (assetId) await s.service.from('conversation_turns').update({ audio_asset_id: assetId }).eq('id', learnerRowId);
+        }),
+      );
     }
     const turnWithAudio = await attachAudio(s, result.turn, result.audio);
-    const charRow = await insertTurn(s, { session_id: session.id, turn_index: learnerRow.turn_index + 1, speaker: 'character', text: turnWithAudio.text, occurred_at: new Date().toISOString(), latency_ms: Date.now() - started, goals: turnWithAudio.tentativeObjectiveIds, command: turnWithAudio.respondsToCommand });
+    let charRow: Row<'conversation_turns'>;
+    try {
+      charRow = await insertTurn(s, { session_id: session.id, turn_index: learnerRow.turn_index + 1, speaker: 'character', text: turnWithAudio.text, occurred_at: new Date().toISOString(), latency_ms: Date.now() - started, goals: turnWithAudio.tentativeObjectiveIds, command: turnWithAudio.respondsToCommand });
+    } catch (error) {
+      // A concurrent request for the same clientTurnId already answered this learner turn: return ITS reply.
+      if (error instanceof DbError && error.isUniqueViolation) {
+        const existing = await findCharacterReply(s, session.id, learnerRow.turn_index);
+        if (existing) {
+          s.log.warn('conversation.turn_duplicate_reply_discarded', { sessionId: session.id, clientTurnId: body.clientTurnId });
+          return replay(learnerRow, existing);
+        }
+      }
+      throw error;
+    }
     const characterTurn: CharacterTurn = { ...turnWithAudio, turnId: charRow.id, characterId: b.character.id };
     const learnerTurnCount = turns.filter((t) => t.speaker === 'learner').length + 1;
     const allTurns = [...turns, learnerRow, charRow];

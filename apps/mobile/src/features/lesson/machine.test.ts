@@ -84,6 +84,25 @@ describe('lesson machine', () => {
     expect(r.state.current.attemptedBeforeReveal).toBe(true);
   });
 
+  it('typed answers never fabricate a speech verdict: no intelligibility, no assessment id', () => {
+    const start = run(createLesson([anticipation]), { type: 'type_answer', text: 'un café' });
+    const matched = run(start.state, { type: 'text_evaluated', result: { semanticIntentMatched: true, matchedForm: 'un café', text: 'un café' } });
+    expect(matched.state.current.phase).toBe('compare');
+    expect(matched.state.current.lastEvaluation).toBeNull();
+    expect(matched.state.current.lastTextAnswer?.matchedForm).toBe('un café');
+    expect(matched.state.current.outcome).toBe('success');
+    expect(matched.state.current.speechAssessmentIds).toEqual([]);
+    const done = run(matched.state, { type: 'next', now: 400 });
+    expect(done.effects.find((e) => e.type === 'step_completed')).toMatchObject({ result: { outcome: 'success', speechAssessmentIds: [] } });
+
+    const unmatched = run(run(createLesson([anticipation]), { type: 'type_answer', text: 'algo' }).state, { type: 'text_evaluated', result: { semanticIntentMatched: false, matchedForm: null, text: 'algo' } });
+    expect(unmatched.state.current.outcome).toBe('unclear');
+    // A later spoken attempt replaces the typed check, never merges with it.
+    const spoken = run(unmatched.state, { type: 'retry' }, { type: 'record_start' }, { type: 'record_stop', durationMs: 900 }, { type: 'evaluated', result: evaluation() });
+    expect(spoken.state.current.lastTextAnswer).toBeNull();
+    expect(spoken.state.current.lastEvaluation).not.toBeNull();
+  });
+
   it('abandon stops audio/recording and marks the index', () => {
     const r = run(createLesson([anticipation, listenIdentify]), { type: 'record_start' }, { type: 'abandon' });
     expect(r.state.finished).toBe(true);

@@ -6,10 +6,19 @@
  * the API enforces it; the UI shows the capability matrix status for the selected variety.
  */
 import { useEffect, useMemo, useState } from 'react';
-import { AI_TASK_NAME_VALUES, LATENCY_CLASS_VALUES, AiProviderSchema, ModelConfigPutRequestSchema, type ModelProfile } from '@langquest/contracts';
+import { AI_TASK_NAME_VALUES, LATENCY_CLASS_VALUES, AiProviderSchema, ModelBenchmarkRequestSchema, ModelConfigPutRequestSchema, type ModelProfile } from '@langquest/contracts';
 import type { z } from 'zod';
 
 type ModelConfigPutRequest = z.input<typeof ModelConfigPutRequestSchema>;
+type ModelBenchmarkRequest = z.input<typeof ModelBenchmarkRequestSchema>;
+
+/** Benchmark dialog state: the variety is explicit — a global profile never defaults to one dialect. */
+interface BenchmarkForm {
+  profile: ProfileRow;
+  sampleSetId: string;
+  targetVariety: string | null;
+  sourceLanguage: string | null;
+}
 import { browserApi } from '@/src/lib/api-browser';
 import { localCall } from '@/src/lib/local-api/client';
 import { useI18n } from '@/src/lib/i18n/client';
@@ -169,10 +178,25 @@ export function AiModelsScreen({ profiles, benchmarks, localProbeAvailable }: { 
       }),
     { successMessage: t('admin.ui.saved') },
   );
+  const [bench, setBench] = useState<BenchmarkForm | null>(null);
   const benchmark = useAction(
-    async (p: ProfileRow, sampleSetId: string) => browserApi().call('adminModelBenchmark', { params: { task: p.task }, body: { profileId: p.id, targetVariety: (p.target_variety_id ?? 'ary') as 'ary', sourceLanguage: (p.source_language_code ?? undefined) as 'en' | undefined, sampleSetId, idempotencyKey: newIdempotencyKey('bench') } }),
+    async (f: BenchmarkForm) => {
+      // Validate against the contract before calling: the variety must be a real VarietyId chosen by
+      // the operator (or the profile's own); nothing is ever substituted for a global profile.
+      const body: ModelBenchmarkRequest = ModelBenchmarkRequestSchema.parse({
+        profileId: f.profile.id,
+        targetVariety: f.targetVariety,
+        sourceLanguage: f.sourceLanguage ?? undefined,
+        sampleSetId: f.sampleSetId.trim(),
+        idempotencyKey: newIdempotencyKey('bench'),
+      });
+      const res = await browserApi().call('adminModelBenchmark', { params: { task: f.profile.task }, body });
+      setBench(null);
+      return res;
+    },
     { successMessage: (res) => t('admin.ui.aiBenchmarkQueued', { jobId: res.jobId.slice(0, 8), state: res.state }) },
   );
+  const benchReady = Boolean(bench && bench.sampleSetId.trim() && bench.targetVariety);
 
   const columns: Column<ProfileRow>[] = [
     { key: 'task', header: t('admin.models.task'), render: (p) => <button type="button" className="font-medium text-accent hover:underline" onClick={() => { setForm(toForm(p)); setSmoke(null); }}>{p.task}</button> },
@@ -188,7 +212,7 @@ export function AiModelsScreen({ profiles, benchmarks, localProbeAvailable }: { 
       key: 'actions',
       header: t('admin.ui.actions'),
       render: (p) => (
-        <Button size="sm" loading={benchmark.busy} onClick={() => { const s = window.prompt(t('admin.ui.aiSampleSet'), 'default'); if (s) void benchmark.run(p, s); }}>
+        <Button size="sm" loading={benchmark.busy} onClick={() => setBench({ profile: p, sampleSetId: 'default', targetVariety: p.target_variety_id, sourceLanguage: p.source_language_code })}>
           {t('admin.models.benchmark')}
         </Button>
       ),
@@ -255,6 +279,48 @@ export function AiModelsScreen({ profiles, benchmarks, localProbeAvailable }: { 
           </div>
         </Card>
       </div>
+
+      <Dialog
+        open={bench !== null}
+        onClose={() => setBench(null)}
+        title={bench ? t('admin.ui.aiBenchmarkTitle', { task: bench.profile.task, model: bench.profile.primary_model }) : ''}
+        footer={
+          bench ? (
+            <>
+              <Button onClick={() => setBench(null)}>{t('admin.ui.cancel')}</Button>
+              <Button variant="primary" loading={benchmark.busy} disabled={!benchReady} onClick={() => void benchmark.run(bench)}>
+                {t('admin.ui.aiRunBenchmark')}
+              </Button>
+            </>
+          ) : null
+        }
+      >
+        {bench ? (
+          <div className="space-y-3">
+            <Field label={t('admin.ui.aiSampleSet')} required>
+              {(id) => <Input id={id} value={bench.sampleSetId} onChange={(e) => setBench({ ...bench, sampleSetId: e.target.value })} />}
+            </Field>
+            {bench.profile.target_variety_id ? (
+              <Field label={t('admin.models.variety')}>{() => <p className="text-sm">{bench.profile.target_variety_id}</p>}</Field>
+            ) : (
+              <>
+                <Notice tone="warning">{t('admin.ui.aiBenchmarkVarietyHint')}</Notice>
+                <Field label={t('admin.models.variety')} required error={bench.targetVariety ? undefined : t('admin.ui.aiBenchmarkVarietyRequired')}>
+                  {(id) => <VarietySelect id={id} value={bench.targetVariety} onChange={(v) => setBench({ ...bench, targetVariety: v })} />}
+                </Field>
+              </>
+            )}
+            {bench.profile.source_language_code ? (
+              <Field label={t('admin.models.sourceLanguage')}>{() => <p className="text-sm">{bench.profile.source_language_code}</p>}</Field>
+            ) : (
+              <Field label={t('admin.models.sourceLanguage')} hint={t('admin.ui.aiBenchmarkSourceHint')}>
+                {(id) => <LanguageSelect id={id} value={bench.sourceLanguage} onChange={(v) => setBench({ ...bench, sourceLanguage: v })} emptyLabel={t('admin.ui.aiBenchmarkSourceAny')} />}
+              </Field>
+            )}
+            {benchmark.error ? <Notice tone="error">{benchmark.error}</Notice> : null}
+          </div>
+        ) : null}
+      </Dialog>
 
       <Dialog
         open={form !== null}

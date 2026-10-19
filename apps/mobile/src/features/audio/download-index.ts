@@ -119,12 +119,17 @@ export interface StorageSummary {
   bytesPending: number;
 }
 
+/** Bytes of verified files only: a stopped transfer leaves nothing reusable on disk (no resume). */
+export function bytesVerified(record: Pick<DownloadRecord, 'files'>): number {
+  return record.files.reduce((n, f) => n + (f.state === 'done' ? f.byteLength : 0), 0);
+}
+
 export function summarizeStorage(records: readonly DownloadRecord[]): StorageSummary {
   let bytesOnDisk = 0;
   let bytesPending = 0;
   let completeLessons = 0;
   for (const r of records) {
-    const done = bytesDownloaded(r);
+    const done = bytesVerified(r);
     bytesOnDisk += done;
     if (r.status === 'complete') completeLessons += 1;
     else if (r.status !== 'cancelled' && r.status !== 'error') bytesPending += Math.max(0, r.totalBytes - done);

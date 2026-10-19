@@ -154,20 +154,24 @@ export function registerUploadRoutes(define: DefineRoute): void {
     if (assetIns.error) throw problem.internal(`Could not create the draft asset: ${assetIns.error.message}`);
     await persistSession(s, current, { draft_asset_id: assetId });
     await s.repos.processingJobs.recordProvenance({ asset_id: assetId, event_type: 'uploaded', actor_id: principal.userId, details: { uploadId: id, filename: session.originalFilename, path: session.originalPath } }).catch(() => undefined);
+    // One job row per type: the route enqueues with the exact keys/params the `apps/jobs` handlers expect and the
+    // event dispatcher (`jobForEvent`) derives the same keys, so its idempotent re-enqueue returns these rows.
     if (verifiedChecksum) {
-      await s.events.emit('asset.verified', { assetId, durationMs: null, mimeType: session.declaredMimeType, checksumSha256: verifiedChecksum, duplicateOfAssetId: null, state: 'imported_draft' }, { idempotencyKey: `asset.verified:${assetId}`, traceId: s.requestId });
-      const job = await s.repos.processingJobs.enqueue({ jobType: 'extract_metadata', idempotencyKey: `extract_metadata:${assetId}:${verifiedChecksum}`, parentAssetId: assetId, requestedBy: principal.userId });
+      const job = await s.repos.processingJobs.enqueue({ jobType: 'extract_metadata', idempotencyKey: `extract_metadata:${assetId}:${verifiedChecksum}`, parentAssetId: assetId, requestedBy: principal.userId, params: { assetId } });
       queuedJobIds.push(job.id);
+      await s.events.emit('asset.verified', { assetId, durationMs: null, mimeType: session.declaredMimeType, checksumSha256: verifiedChecksum, duplicateOfAssetId: null, state: 'imported_draft' }, { idempotencyKey: `asset.verified:${assetId}:${verifiedChecksum}`, traceId: s.requestId });
       if (session.kind === 'audio') {
-        const t = await s.repos.processingJobs.enqueue({ jobType: 'transcode', idempotencyKey: `transcode:${assetId}:${verifiedChecksum}`, parentAssetId: assetId, requestedBy: principal.userId, params: { targetFormats: ['aac', 'opus'] } });
+        const formats: Array<'aac' | 'opus'> = ['aac', 'opus'];
+        const t = await s.repos.processingJobs.enqueue({ jobType: 'transcode', idempotencyKey: `transcode:${assetId}:${verifiedChecksum}`, parentAssetId: assetId, requestedBy: principal.userId, params: { assetId, formats } });
         queuedJobIds.push(t.id);
-        await s.events.emit('transcode.requested', { assetId, jobId: t.id, targetFormats: ['aac', 'opus'], priority: 5 }, { idempotencyKey: `transcode.requested:${t.id}`, traceId: s.requestId });
+        await s.events.emit('transcode.requested', { assetId, jobId: t.id, targetFormats: formats, priority: 5 }, { idempotencyKey: `transcode.requested:${t.id}`, traceId: s.requestId });
       }
     } else {
-      const job = await s.repos.processingJobs.enqueue({ jobType: 'verify', idempotencyKey: `verify:${id}:${session.clientChecksumSha256}`, parentAssetId: assetId, requestedBy: principal.userId, params: { uploadId: id, storageKey: session.storageKey, expectedChecksum: session.clientChecksumSha256 } });
+      const job = await s.repos.processingJobs.enqueue({ jobType: 'verify', idempotencyKey: `verify:${id}:${session.clientChecksumSha256}`, parentAssetId: assetId, requestedBy: principal.userId, params: { uploadId: id, assetId, storageKey: session.storageKey, expectedChecksum: session.clientChecksumSha256 } });
       queuedJobIds.push(job.id);
     }
-    await s.events.emit('upload.finalized', { uploadId: id, assetId, storageKey: session.storageKey, checksumSha256: session.clientChecksumSha256, byteLength: observed.byteLength, mimeType: session.declaredMimeType, uploaderId: principal.userId }, { idempotencyKey: `upload.finalized:${id}`, traceId: s.requestId });
+    // Verified inline ⇒ no `verify` job for this event (the dispatcher would otherwise create one).
+    await s.events.emit('upload.finalized', { uploadId: id, assetId, storageKey: session.storageKey, checksumSha256: session.clientChecksumSha256, byteLength: observed.byteLength, mimeType: session.declaredMimeType, uploaderId: principal.userId }, { idempotencyKey: `upload.finalized:${id}`, traceId: s.requestId, enqueueJob: verifiedChecksum === null });
     s.audit({ action: 'upload.complete', entityTable: 'media_assets', entityId: assetId, after: { status: current.status, byteLength: observed.byteLength, verifiedInline: verifiedChecksum !== null, jobs: queuedJobIds } });
     return respondOk(c, UploadCompleteResponseSchema.parse({ uploadId: id, status: current.status, assetId, verifiedChecksumSha256: verifiedChecksum, byteLength: observed.byteLength, durationMs: null, contentState: 'imported_draft', queuedJobIds, failureCode: null }));
   });

@@ -1,27 +1,67 @@
 import { Button, EmptyState, MissionCard, StatusLine, StoryMap, ThemedText, useTheme } from '@langquest/ui';
+import { useQueryClient } from '@tanstack/react-query';
 import { useRouter } from 'expo-router';
-import React, { useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { CacheNotice, ErrorView, LoadingView } from '@/components/StateViews';
+import { resumePendingEvaluations } from '@/features/lesson/pending-evaluation';
 import { usePathway } from '@/features/missions/use-pathway';
-import { useActiveEnrollment } from '@/features/session/queries';
-import { useT } from '@/lib/i18n';
+import { useFallbackOptIn } from '@/features/session/fallback';
+import { useActiveEnrollment, useInvalidateLearner } from '@/features/session/queries';
+import { ApiClientError } from '@/lib/api/client';
+import { useExtraLabels } from '@/lib/extra-labels';
+import { useLanguageNames, useT } from '@/lib/i18n';
 import { useUiLabels } from '@/lib/labels';
+import { useServices } from '@/lib/services';
 import { track } from '@/lib/telemetry';
+import { getLocalStore } from '@/store';
 
 /** Screen 3: illustrated mission pathway with an accessible linear list alternative. */
 export default function Missions(): React.JSX.Element {
   const theme = useTheme();
   const router = useRouter();
   const t = useT();
+  const X = useExtraLabels();
+  const names = useLanguageNames();
   const labels = useUiLabels();
+  const { api, online } = useServices();
+  const qc = useQueryClient();
+  const invalidate = useInvalidateLearner();
   const { enrollment } = useActiveEnrollment();
-  const { pathway, manifest } = usePathway(enrollment);
+  const { pathway, manifest, local } = usePathway(enrollment);
+  const fallback = useFallbackOptIn(enrollment);
   const [view, setView] = useState<'map' | 'cards'>('map');
+  const [resuming, setResuming] = useState(false);
   useEffect(() => track.screenView('missions', theme.direction.rtl, enrollment?.scriptMode ?? null), [theme.direction.rtl, enrollment?.scriptMode]);
 
+  const pendingCount = (local.data ?? []).filter((p) => p.status === 'completed' && p.pendingEvaluation).length;
+
+  // Finished missions whose evaluation never reached the server are re-sent here (byte-identical replay).
+  const resume = useCallback(async () => {
+    if (!online || resuming) return;
+    setResuming(true);
+    try {
+      const store = await getLocalStore();
+      const res = await resumePendingEvaluations(api, store.cache, (e) => e instanceof ApiClientError && e.isConnectivity);
+      if (res.sent.length > 0) {
+        await invalidate();
+        await qc.invalidateQueries({ queryKey: ['local-progress'] });
+      } else if (res.dropped.length > 0) {
+        await qc.invalidateQueries({ queryKey: ['local-progress'] });
+      }
+    } finally {
+      setResuming(false);
+    }
+  }, [api, online, resuming, invalidate, qc]);
+
+  useEffect(() => {
+    if (pendingCount > 0 && online) void resume();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [pendingCount, online]);
+
   const open = (id: string): void => router.push({ pathname: '/mission/[id]', params: { id } });
+  const sourceName = enrollment ? names(enrollment.sourceLanguageCode) : '';
 
   return (
     <Screen insideTabs title={t('missions.pathway')}>
@@ -29,11 +69,23 @@ export default function Missions(): React.JSX.Element {
       {manifest.isLoading ? <LoadingView rows={3} /> : null}
       {manifest.error && !manifest.data ? <ErrorView error={manifest.error} onRetry={() => void manifest.refetch()} /> : null}
       {manifest.data?.fromCache ? <CacheNotice fetchedAt={manifest.data.fetchedAt} /> : null}
+      {pendingCount > 0 ? (
+        <View style={{ gap: theme.spacing.xs }}>
+          <StatusLine icon="info" tone="info" text={X.pendingEvaluation(pendingCount)} />
+          {online ? <Button label={X.sendPendingEvaluations} variant="secondary" size="sm" loading={resuming} onPress={() => void resume()} accessibilityLabel={X.sendPendingEvaluations} /> : null}
+        </View>
+      ) : null}
       {pathway ? (
         <View style={{ gap: theme.spacing.lg }}>
           <StatusLine icon="info" tone="secondary" text={t('missions.noGeographyClaim')} />
           <Button label={view === 'map' ? t('missions.listView') : t('missions.mapView')} variant="ghost" size="sm" icon={view === 'map' ? 'missions' : 'map'} onPress={() => setView(view === 'map' ? 'cards' : 'map')} accessibilityLabel={view === 'map' ? t('missions.listView') : t('missions.mapView')} />
-          {pathway.missions.length === 0 ? <EmptyState title={t('common.notAvailable')} description={t('enrollment.coverage.detail.planned', { source: enrollment?.sourceLanguageCode ?? '', fallback: enrollment?.coverage.fallbackSourceLanguageCode ?? 'en' })} mascotState="quiet_audio" /> : null}
+          {pathway.missions.length === 0 ? (
+            <EmptyState
+              title={t('common.notAvailable')}
+              description={fallback.offered ? t('enrollment.coverage.detail.planned', { source: sourceName, fallback: names(fallback.offered) }) : X.plannedNoFallback(sourceName)}
+              mascotState="quiet_audio"
+            />
+          ) : null}
           {view === 'map' ? (
             <StoryMap nodes={pathway.nodes} onSelect={open} view="map" labels={labels.storyMap} />
           ) : (
@@ -54,7 +106,7 @@ export default function Missions(): React.JSX.Element {
                     status={m.status}
                     type={m.mission.type}
                     sceneId={m.sceneId}
-                    consequence={m.mission.localizationComplete ? null : t('enrollment.coverage.draftAvailable', { source: enrollment?.sourceLanguageCode ?? '' })}
+                    consequence={m.mission.localizationComplete ? null : t('enrollment.coverage.draftAvailable', { source: sourceName })}
                     labels={labels.mission}
                     onPress={() => open(m.mission.id)}
                   />

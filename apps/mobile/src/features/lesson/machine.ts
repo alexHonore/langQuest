@@ -9,11 +9,24 @@
  *   (recorded or typed) or chose an explicit reveal (`attemptedBeforeReveal` is recorded).
  * - Hints, replays, slow replays and reveal are counted per step for the evaluator.
  * - Listen/identify steps are answered by choosing an option (no recording).
+ * - Typed answers carry a `TextAnswerResult` (meaning check only). They NEVER
+ *   produce a `SpeechEvaluationResult`: nothing was heard, so no intelligibility
+ *   or pronunciation verdict exists to show (§3.6, ADR-006).
  * - Nothing here touches audio or the network; the screen executes `effects`.
  */
 import type { MissionStepType, ObservationOutcome, SpeechEvaluationResult, StepResult } from '@langquest/contracts';
 
 export type LessonPhase = 'listen' | 'anticipate' | 'recording' | 'processing' | 'compare' | 'summary';
+
+/** Outcome of a typed answer: an exact-form meaning check, no speech assessment of any kind. */
+export interface TextAnswerResult {
+  /** True when the normalised text equals the canonical form or one of its transliterations. */
+  semanticIntentMatched: boolean;
+  /** The expression form that matched (null when none did). */
+  matchedForm: string | null;
+  /** What the learner typed. */
+  text: string;
+}
 
 export interface LessonStepSpec {
   id: string;
@@ -43,6 +56,8 @@ export interface LessonStepState {
   typedAnswer: string | null;
   selectedOptionId: string | null;
   lastEvaluation: SpeechEvaluationResult | null;
+  /** Last typed-answer check (mutually exclusive with `lastEvaluation` for the latest attempt). */
+  lastTextAnswer: TextAnswerResult | null;
   outcome: ObservationOutcome | null;
   startedAt: number;
   speechAssessmentIds: string[];
@@ -69,6 +84,7 @@ export type LessonEvent =
   | { type: 'record_stop'; durationMs: number }
   | { type: 'type_answer'; text: string }
   | { type: 'evaluated'; result: SpeechEvaluationResult }
+  | { type: 'text_evaluated'; result: TextAnswerResult }
   | { type: 'evaluation_failed'; message: string }
   | { type: 'reveal' }
   | { type: 'choose_option'; optionId: string }
@@ -107,6 +123,7 @@ function freshStep(step: LessonStepSpec, now: number): LessonStepState {
     typedAnswer: null,
     selectedOptionId: null,
     lastEvaluation: null,
+    lastTextAnswer: null,
     outcome: null,
     startedAt: now,
     speechAssessmentIds: [],
@@ -125,6 +142,14 @@ function outcomeFromEvaluation(r: SpeechEvaluationResult): ObservationOutcome {
   if (r.semanticIntentMatched && r.intelligibility === 'understood') return 'success';
   if (r.semanticIntentMatched || r.intelligibility === 'partially_understood') return 'partial';
   return 'fail';
+}
+
+/**
+ * A typed answer gives evidence about meaning only. An exact match is a success; anything else is
+ * `unclear` because the exact-form check cannot judge a paraphrase and no evaluator was consulted.
+ */
+function outcomeFromTextAnswer(r: TextAnswerResult): ObservationOutcome {
+  return r.semanticIntentMatched ? 'success' : 'unclear';
 }
 
 function toResult(state: LessonState, now: number): StepResult {
@@ -199,12 +224,18 @@ export function reduceLesson(state: LessonState, event: LessonEvent): { state: L
           phase: 'compare',
           revealed: true,
           lastEvaluation: event.result,
+          lastTextAnswer: null,
           outcome: outcomeFromEvaluation(event.result),
           speechAssessmentIds: [...c.speechAssessmentIds, event.result.assessmentId],
           error: null,
         }),
         effects,
       };
+
+    case 'text_evaluated':
+      if (c.phase !== 'processing') return { state, effects };
+      // No assessment id is recorded: no speech assessment happened.
+      return { state: set({ phase: 'compare', revealed: true, lastEvaluation: null, lastTextAnswer: event.result, outcome: outcomeFromTextAnswer(event.result), error: null }), effects };
 
     case 'evaluation_failed':
       if (c.phase !== 'processing') return { state, effects };

@@ -122,7 +122,7 @@ const DIFFICULTY: Record<string, number> = { beginner: 0.2, elementary: 0.35, in
 
 export const generateContentHandler: JobHandler<GenerateContentParams> = {
   name: 'generate_content',
-  jobTypes: ['content_generate'],
+  jobTypes: ['content_generate', 'generate_content'],
   runtime: 'any',
   paramsSchema: GenerateContentParamsSchema,
   async run(ctx) {

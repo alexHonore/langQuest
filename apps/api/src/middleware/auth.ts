@@ -19,6 +19,7 @@ import { createRemoteJWKSet, customFetch, decodeProtectedHeader, jwtVerify, type
 import type { ApiEnv } from '../env';
 import { problem, respondErr } from '../http/envelope';
 import type { AppEnv, Principal } from '../types';
+import { peekTokens, RATE_POLICIES, takeToken, type RateLimitStore } from './rate-limit';
 
 export interface VerifiedToken {
   userId: string;
@@ -150,7 +151,23 @@ export interface AuthDeps {
   serviceClient: () => DbClient;
   /** Test hook: replace the `user_roles` lookup. */
   roleResolver?: (userId: string) => Promise<Role[]>;
+  /**
+   * Abuse-control store for FAILED token checks per client key (`RATE_POLICIES.auth`). Once the bucket is empty,
+   * further Bearer tokens from that client are answered `rate_limited` before the verifier (and its possible
+   * network call to Supabase Auth) runs — credential stuffing never costs an upstream request per probe.
+   */
+  failureStore?: RateLimitStore;
 }
+
+/** Distinct from the per-route `rl:auth:k:` bucket: route traffic (e.g. refresh probes) never locks out valid tokens. */
+const authFailureKey = (clientKey: string): string => `rl:auth_fail:k:${clientKey}`;
+
+const rateLimited = (c: Parameters<MiddlewareHandler<AppEnv>>[0], retryAfterSeconds: number): Response => {
+  c.get('log').warn('rate_limit.blocked', { klass: 'auth', subject: 'client' });
+  const res = respondErr(c, 'rate_limited', 'Too many failed authentication attempts from this network. This is an abuse guard, not a usage limit — please retry in a moment.');
+  res.headers.set('Retry-After', String(retryAfterSeconds));
+  return res;
+};
 
 const extractBearer = (header: string | undefined): string | null => {
   if (!header) return null;
@@ -169,6 +186,11 @@ export function authenticate(deps: AuthDeps, options: { optional?: boolean; reso
       if (options.optional) return next();
       return respondErr(c, 'unauthorized', 'Authentication required: send a Supabase access token as a Bearer token');
     }
+    const failureKey = authFailureKey(c.get('clientKey'));
+    if (deps.failureStore && (await peekTokens(deps.failureStore, failureKey, RATE_POLICIES.auth)) < 1) {
+      // Bucket already exhausted by earlier failures: do not even decode/verify (no upstream call, no CPU).
+      return rateLimited(c, Math.max(1, Math.ceil(60 / RATE_POLICIES.auth.perMinute)));
+    }
     let verified: VerifiedToken;
     try {
       verified = await deps.verifier.verify(token);
@@ -176,6 +198,10 @@ export function authenticate(deps: AuthDeps, options: { optional?: boolean; reso
       if (error instanceof TokenError) {
         c.get('log').warn('auth.rejected', { reason: error.reason });
         if (error.reason === 'provider_unavailable') return respondErr(c, 'provider_unavailable', 'Authentication service is temporarily unavailable');
+        if (deps.failureStore) {
+          const taken = await takeToken(deps.failureStore, failureKey, RATE_POLICIES.auth);
+          if (!taken.allowed) return rateLimited(c, taken.retryAfterSeconds);
+        }
         return respondErr(c, 'unauthorized', error.reason === 'expired' ? 'Your session has expired. Please sign in again.' : 'Invalid access token');
       }
       throw error;

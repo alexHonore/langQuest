@@ -36,6 +36,8 @@ export const track = {
   conversationFunnel: (step: 'session_created' | 'first_turn' | 'barge_in' | 'command_used' | 'ended', turnCount: number | null) => emit(telemetry.conversationFunnel(context, { step, turnCount })),
   apiError: (route: string, code: Parameters<typeof telemetry.apiError>[1]['code'], status: number, traceId: string | null) => emit(telemetry.apiError(context, { route, code, status, traceId })),
   appStart: (coldStartMs: number, lowEndDevice: boolean) => emit(telemetry.appStart(context, { coldStartMs, lowEndDevice })),
+  /** Non-fatal client fault worth an alert (e.g. the local database could not be opened). */
+  clientFault: (fingerprint: string, screen: string | null) => emit(telemetry.clientCrash(context, { fingerprint, fatal: false, screen })),
 };
 
 export const flushTelemetry = (): Promise<void> => sink?.flush() ?? Promise.resolve();

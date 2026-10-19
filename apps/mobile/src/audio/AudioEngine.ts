@@ -31,7 +31,10 @@ import {
   type ResolvedSource,
   type SleepTimer,
 } from './engine-state';
-import { renewalDecision } from './url-renewal';
+import { isLeaseExpired, renewalDecision } from './url-renewal';
+
+/** Retry cadence for a proactive renewal that failed while the current URL is still valid. */
+const RENEWAL_RETRY_MS = 15_000;
 
 /** Status pushed by the native player (ms-based; `expo-audio` reports seconds). */
 export interface NativePlayerStatus {
@@ -119,6 +122,8 @@ export class AudioEngine {
   private wantPlaying = false;
   private sleepHandle: unknown = null;
   private renewalHandle: unknown = null;
+  /** A proactive renewal failed and is being retried while the current lease still works. */
+  private renewalPending = false;
   private lastProgressAt = 0;
   private lastReportedPosition = -1;
   private disposed = false;
@@ -406,9 +411,20 @@ export class AudioEngine {
     } catch (error) {
       if (token !== this.loadToken) return;
       this.dispatch({ type: 'recovering', value: false });
+      const current = this.state.source;
+      const stillValid = !afterFailure && current?.kind === 'remote' && current.expiresAt !== null && !isLeaseExpired({ expiresAt: current.expiresAt }, this.now());
+      if (stillValid) {
+        // Proactive renewal failed (offline blip, transient API error) but the current URL is
+        // still good: keep playing on it and try again shortly, until the lease really expires.
+        this.renewalPending = true;
+        this.cancelRenewalTimer();
+        this.renewalHandle = this.setTimer(() => this.scheduleRenewalCheck(), RENEWAL_RETRY_MS);
+        return;
+      }
       this.fail(error);
       return;
     }
+    this.renewalPending = false;
     if (token !== this.loadToken || this.disposed) return;
     this.dispatch({ type: 'source_ready', source, renewal: true });
     this.deps.onEvent?.({ type: 'url_renewed', assetId: source.assetId, reactive: afterFailure });

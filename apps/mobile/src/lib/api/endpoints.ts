@@ -17,6 +17,8 @@ import {
   EnrollmentsListResponseSchema,
   LanguagesResponseSchema,
   ManifestResponseSchema,
+  MeDeleteResponseSchema,
+  MeExportResponseSchema,
   MissionAttemptCreateResponseSchema,
   MissionDetailResponseSchema,
   MissionEvaluateResponseSchema,
@@ -35,6 +37,7 @@ import {
   type ConversationTurnRequest,
   type EnrollmentCreateRequest,
   type EnrollmentPatchRequest,
+  type MeDeleteRequest,
   type MissionEvaluateRequest,
   type PatchSettingsRequest,
   type ProgressSyncRequest,
@@ -61,7 +64,17 @@ export function createEndpoints(client: ApiClient) {
     enrollmentsList: () => client.call('enrollmentsList', { schema: EnrollmentsListResponseSchema }),
     enrollmentCreate: (body: EnrollmentCreateRequest, idempotencyKey: string) =>
       client.call('enrollmentsCreate', { body, idempotencyKey, schema: EnrollmentCreateResponseSchema }),
-    enrollmentPatch: (id: string, body: EnrollmentPatchRequest) => client.call('enrollmentPatch', { params: { id }, body, schema: EnrollmentPatchResponseSchema }),
+    /**
+     * Archiving needs the API's explicit `?confirm=archive` (412 `precondition_failed` with
+     * `requiredConfirmation: 'archive'` otherwise). The query is not modelled in `@langquest/contracts`
+     * yet (cross-package gap: `EnrollmentPatchQuerySchema`), so it is derived from the body here.
+     */
+    enrollmentPatch: (id: string, body: EnrollmentPatchRequest, query?: { confirm?: 'archive' }) =>
+      client.call('enrollmentPatch', { params: { id }, body, query: query ?? (body.status === 'archived' ? { confirm: 'archive' } : undefined), schema: EnrollmentPatchResponseSchema }),
+    /** GET /v1/me/export — portable JSON bundle of the learner's own data (§11). */
+    exportData: () => client.call('meExport', { schema: MeExportResponseSchema, timeoutMs: 60_000 }),
+    /** DELETE /v1/me — server-side account deletion; requires the literal confirmation text (§11, A28). */
+    deleteAccount: (body: MeDeleteRequest, idempotencyKey: string) => client.call('meDelete', { body, idempotencyKey, schema: MeDeleteResponseSchema, timeoutMs: 60_000 }),
     courseManifest: (trackId: string, source: string) => client.call('courseManifest', { params: { trackId }, query: { source }, schema: ManifestResponseSchema }),
     missionDetail: (id: string, source: string, enrollmentId?: string) =>
       client.call('missionDetail', { params: { id }, query: { source, enrollmentId }, schema: MissionDetailResponseSchema }),
@@ -70,7 +83,9 @@ export function createEndpoints(client: ApiClient) {
     missionEvaluate: (id: string, body: MissionEvaluateRequest) =>
       client.call('missionEvaluate', { params: { id }, body, idempotencyKey: body.clientEventId, schema: MissionEvaluateResponseSchema, timeoutMs: 60_000 }),
     reviewsDue: (enrollmentId: string, limit = 12) => client.call('reviewsDue', { query: { enrollmentId, limit }, schema: ReviewsDueResponseSchema }),
-    progressSync: (body: ProgressSyncRequest) => client.call('progressSync', { body, idempotencyKey: body.events[0]?.clientEventId, schema: ProgressSyncResponseSchema }),
+    // `progressSync` is registered `idempotent: false` on the API (dedupe is per event UUID), so no
+    // transport retries: the outbox's own replay is the retry path.
+    progressSync: (body: ProgressSyncRequest) => client.call('progressSync', { body, schema: ProgressSyncResponseSchema, maxRetries: 0 }),
     skills: (enrollmentId: string, cursor?: string) => client.call('meSkills', { query: { enrollmentId, cursor, limit: 100 }, schema: SkillsResponseSchema }),
     progress: () => client.call('meProgress', { schema: ProgressResponseSchema }),
     conversationSessionCreate: (body: ConversationSessionCreateRequest) =>
@@ -92,10 +107,12 @@ export function createEndpoints(client: ApiClient) {
       }),
     conversationEnd: (id: string, body: ConversationEndRequest) =>
       client.call('conversationEnd', { params: { id }, body: ConversationEndRequestSchema.parse(body), idempotencyKey: body.clientEventId, schema: ConversationEndResponseSchema, timeoutMs: 60_000 }),
-    transcribe: (body: TranscribeRequest) => client.call('speechTranscribe', { body, idempotencyKey: body.clientRequestId, schema: TranscribeResponseSchema, timeoutMs: 45_000, maxRetries: 1 }),
-    pronunciationAssess: (body: PronunciationAssessRequest) =>
-      client.call('speechPronunciationAssess', { body, idempotencyKey: body.clientRequestId, schema: PronunciationAssessResponseSchema, timeoutMs: 45_000, maxRetries: 1 }),
-    synthesize: (body: SynthesizeRequest) => client.call('speechSynthesize', { body, schema: SynthesizeResponseSchema, timeoutMs: 45_000 }),
+    // Speech routes are registered `idempotent: false` on the API (the Idempotency-Key is never stored or
+    // replayed), so a transport retry would run STT/assessor/TTS twice for the same utterance. Never retry
+    // them automatically; the screens offer an explicit retry instead.
+    transcribe: (body: TranscribeRequest) => client.call('speechTranscribe', { body, schema: TranscribeResponseSchema, timeoutMs: 45_000, maxRetries: 0 }),
+    pronunciationAssess: (body: PronunciationAssessRequest) => client.call('speechPronunciationAssess', { body, schema: PronunciationAssessResponseSchema, timeoutMs: 45_000, maxRetries: 0 }),
+    synthesize: (body: SynthesizeRequest, signal?: AbortSignal) => client.call('speechSynthesize', { body, schema: SynthesizeResponseSchema, timeoutMs: 45_000, maxRetries: 0, signal }),
     modelCapabilities: (trackId: string, regionalOption?: string) =>
       client.call('modelCapabilities', { query: { trackId, regionalOption }, schema: ModelCapabilitiesResponseSchema }),
     playbackUrl: (assetId: string, body: PlaybackUrlRequest) => client.call('audioPlaybackUrl', { params: { id: assetId }, body, schema: PlaybackUrlResponseSchema }),

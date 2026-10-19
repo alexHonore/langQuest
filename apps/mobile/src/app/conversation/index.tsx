@@ -7,16 +7,19 @@ import { Screen } from '@/components/Screen';
 import { ErrorView, LoadingView } from '@/components/StateViews';
 import { ConversationController, type ConversationSnapshot } from '@/features/conversation/controller';
 import { levelToUnit } from '@/features/conversation/vad';
+import { sourceTextDirection, turnLayersForScriptMode } from '@/features/lesson/forms';
 import { useActiveEnrollment, useInvalidateLearner } from '@/features/session/queries';
 import { createClipPlayer } from '@/lib/clip-player';
+import { useExtraLabels } from '@/lib/extra-labels';
 import { haptic } from '@/lib/haptics';
-import { localDateKey, newUuid, nowMs } from '@/lib/ids';
-import { useT } from '@/lib/i18n';
+import { localDateKey, newUuid, nowIso, nowMs } from '@/lib/ids';
+import { useLanguageNames, useT } from '@/lib/i18n';
 import { useUiLabels } from '@/lib/labels';
 import { requestMicPermission, useRecorder, type MicPermission } from '@/lib/recorder';
 import { useServices } from '@/lib/services';
 import { track } from '@/lib/telemetry';
 import { usePrefs } from '@/state/prefs';
+import { getLocalStore } from '@/store';
 
 /** Screen 5: live AI character conversation (pipeline realtime, §8.3 machine, barge-in). */
 export default function ConversationScreen(): React.JSX.Element {
@@ -24,9 +27,13 @@ export default function ConversationScreen(): React.JSX.Element {
   const t = useT();
   const { api } = useServices();
   const params = useLocalSearchParams<{ enrollmentId?: string; characterId?: string; missionId?: string; scenarioId?: string }>();
-  const { enrollments, me } = useActiveEnrollment();
+  const { enrollments, enrollment: active, me, query } = useActiveEnrollment();
   const prefMode = usePrefs((s) => s.speakMode);
-  const enrollment = enrollments.find((e) => e.id === params.enrollmentId) ?? enrollments[0] ?? null;
+  // A requested enrollment that does not exist (stale link, archived course) is an error, never a
+  // silent switch to another course and instruction language.
+  const requested = typeof params.enrollmentId === 'string' && params.enrollmentId.length > 0 ? params.enrollmentId : null;
+  const enrollment = requested ? (enrollments.find((e) => e.id === requested) ?? null) : active;
+  const unknownEnrollment = Boolean(requested) && !enrollment && Boolean(query.data);
   const [session, setSession] = useState<ConversationSessionCreateResponse | null>(null);
   const [error, setError] = useState<unknown>(null);
   const [permission, setPermission] = useState<MicPermission | null>(null);
@@ -68,7 +75,7 @@ export default function ConversationScreen(): React.JSX.Element {
 
   return (
     <Screen title={t('speak.title')} onBack={() => router.back()} scroll={false} enrollment={enrollment}>
-      {!enrollment ? <ErrorView error={new Error(t('home.noCourse'))} /> : null}
+      {unknownEnrollment ? <ErrorView error={new Error(t('errors.notFound'))} /> : !enrollment && query.data ? <ErrorView error={new Error(t('home.noCourse'))} /> : null}
       {!session && !error && enrollment ? <LoadingView rows={1} label={t('speak.state.preparing')} /> : null}
       {error ? <ErrorView error={error} onRetry={() => router.replace({ pathname: '/conversation', params })} /> : null}
       {session && enrollment ? <LiveConversation session={session} enrollment={enrollment} mode={mode} /> : null}
@@ -80,6 +87,8 @@ function LiveConversation({ session, enrollment, mode }: { session: Conversation
   const theme = useTheme();
   const router = useRouter();
   const t = useT();
+  const X = useExtraLabels();
+  const names = useLanguageNames();
   const labels = useUiLabels();
   const { api, online, enqueue } = useServices();
   const invalidate = useInvalidateLearner();
@@ -93,8 +102,9 @@ function LiveConversation({ session, enrollment, mode }: { session: Conversation
   const [gloss, setGloss] = useState(false);
   const [hintsOpen, setHintsOpen] = useState(false);
   const [text, setText] = useState('');
-  const [immediateCorrections, setImmediateCorrections] = useState(false);
+  const [endQueued, setEndQueued] = useState(false);
   const startedAt = useRef(0);
+  const sourceDir = sourceTextDirection(enrollment.sourceLanguageCode);
   useEffect(() => {
     startedAt.current = nowMs();
   }, []);
@@ -109,7 +119,7 @@ function LiveConversation({ session, enrollment, mode }: { session: Conversation
           transcribe: async (clip, _signal) => {
             return api.transcribe({ enrollmentId: enrollment.id, targetVarietyId: trackDef.targetVarietyId, audio: { source: 'inline', base64: clip.base64, encoding: clip.encoding, sampleRateHz: clip.sampleRateHz }, clientRequestId: newUuid() });
           },
-          synthesize: (textToSpeak, speed) => api.synthesize({ enrollmentId: enrollment.id, targetVarietyId: trackDef.targetVarietyId, text: textToSpeak, speed, outputEncoding: 'mp3' }),
+          synthesize: (textToSpeak, speed, signal) => api.synthesize({ enrollmentId: enrollment.id, targetVarietyId: trackDef.targetVarietyId, text: textToSpeak, speed, outputEncoding: 'mp3' }, signal),
           end: (id, body) => api.conversationEnd(id, body),
         },
         audio: player,
@@ -158,6 +168,9 @@ function LiveConversation({ session, enrollment, mode }: { session: Conversation
   const machineState = snap?.machine.state ?? 'preparing';
   const stateLabel = labels.conversationState(machineState, characterName);
   const ended = snap?.ended ?? null;
+  const noticeCode = snap?.notice?.code ?? null;
+  const noticeText = noticeCode === null ? null : noticeCode === 'offline' ? t('errors.reconnectingDetail') : noticeCode === 'no_speech' ? t('speak.noSpeech') : noticeCode === 'tts_unavailable' ? t('errors.providerUnavailable') : (X.conversationNotice[noticeCode] ?? X.conversationNotice.generic ?? null);
+  const endPending = snap?.pendingEnd ?? null;
 
   const leave = (): void => {
     Alert.alert(t('speak.endConversation'), t('speak.endConversationHint'), [
@@ -170,13 +183,32 @@ function LiveConversation({ session, enrollment, mode }: { session: Conversation
     ]);
   };
 
+  const activityRecorded = useRef(false);
   const finish = async (reason: 'learner_ended' | 'completed'): Promise<void> => {
     const res = await controller.end(reason);
-    track.conversationFunnel('ended', snap?.machine.turnCount ?? null);
-    const seconds = Math.round((snap?.speakingMs ?? 0) / 1000);
-    if (seconds > 0) track.speakingTime(seconds, 'conversation');
-    await enqueue({ type: 'activity_minutes', activityDate: localDateKey(), minutesActive: Math.max(1, Math.round((nowMs() - startedAt.current) / 60_000)), speakingSeconds: seconds }, enrollment.id);
+    if (!activityRecorded.current) {
+      activityRecorded.current = true;
+      track.conversationFunnel('ended', snap?.machine.turnCount ?? null);
+      const seconds = Math.round((snap?.speakingMs ?? 0) / 1000);
+      if (seconds > 0) track.speakingTime(seconds, 'conversation');
+      await enqueue({ type: 'activity_minutes', activityDate: localDateKey(), minutesActive: Math.max(1, Math.round((nowMs() - startedAt.current) / 60_000)), speakingSeconds: seconds }, enrollment.id);
+    }
     if (res) await invalidate();
+  };
+
+  // The end request could not be delivered: queue it for replay on reconnect (§4.6) and let the learner
+  // either retry now or leave without a summary.
+  const queueEnd = async (): Promise<void> => {
+    const pending = controller.snapshot().pendingEnd;
+    if (!pending) return;
+    const store = await getLocalStore();
+    await store.cache.putPendingConversationEnd({ sessionId: session.session.sessionId, enrollmentId: enrollment.id, body: pending, queuedAt: nowIso(), attempts: 0 });
+    setEndQueued(true);
+  };
+  const leaveWithoutSummary = async (): Promise<void> => {
+    await queueEnd();
+    controller.abandonLocally();
+    router.back();
   };
 
   useEffect(() => {
@@ -219,13 +251,35 @@ function LiveConversation({ session, enrollment, mode }: { session: Conversation
   return (
     <View style={{ flex: 1, gap: theme.spacing.sm, paddingVertical: theme.spacing.sm }}>
       <Row gap={theme.spacing.sm} justify="space-between">
-        <SpeechStateIndicator state={speechState} labels={{ ...labels.speechStatesFor(characterName), [speechState]: stateLabel }} detail={snap?.notice ? (snap.notice.code === 'offline' ? t('errors.reconnectingDetail') : snap.notice.code === 'no_speech' ? t('speak.noSpeech') : snap.notice.code === 'tts_unavailable' ? t('errors.providerUnavailable') : snap.notice.code) : null} compact />
+        <SpeechStateIndicator state={speechState} labels={{ ...labels.speechStatesFor(characterName), [speechState]: stateLabel }} detail={noticeText} compact />
         <IconButton icon="close" accessibilityLabel={t('speak.controls.leave')} onPress={leave} />
       </Row>
       {!session.capabilities.realtime.supported ? <StatusLine icon="info" tone="warning" text={t('speak.providerFallback')} /> : null}
+      {machineState === 'recoverable_error' && online ? (
+        // Online but stuck in recoverable_error (e.g. the provider was unavailable): an explicit retry, no endless spinner.
+        <Row gap={theme.spacing.xs}>
+          <Button label={X.tryAgain} variant="secondary" size="sm" icon="replay" onPress={() => controller.reconnect()} accessibilityLabel={X.tryAgain} />
+        </Row>
+      ) : null}
+      {snap?.canRetryTurn ? (
+        <Row gap={theme.spacing.xs}>
+          <Button label={X.tryAgain} variant="secondary" size="sm" icon="replay" onPress={() => void controller.retryLastTurn()} accessibilityLabel={X.tryAgain} />
+        </Row>
+      ) : null}
+      {endPending && !ended ? (
+        <Surface variant="muted" radius="md" padding={theme.spacing.md} style={{ gap: theme.spacing.xs }}>
+          <StatusLine icon={noticeCode === 'end_offline' ? 'offline' : 'warning'} tone="warning" text={noticeText ?? X.conversationNotice.end_failed ?? ''} />
+          {endQueued ? <ThemedText variant="caption" tone="muted">{X.endPendingQueued}</ThemedText> : null}
+          <Row gap={theme.spacing.xs} wrap>
+            <Button label={X.retryEnd} variant="secondary" size="sm" icon="replay" loading={snap?.ending} onPress={() => void finish(endPending.reason === 'completed' ? 'completed' : 'learner_ended')} accessibilityLabel={X.retryEnd} />
+            <Button label={X.leaveWithoutSummary} variant="ghost" size="sm" onPress={() => void leaveWithoutSummary()} accessibilityLabel={X.leaveWithoutSummary} />
+          </Row>
+        </Surface>
+      ) : null}
       <SceneArtwork sceneId="cafe" aspectRatio={2.4} overlay={<CharacterPortrait characterId={roster?.id ?? session.character.id} expression={snap?.lastCharacterTurn?.expression ?? 'neutral'} speechState={speechState} name={characterName} subtitle={roster ? `${roster.role} · ${roster.city}` : session.character.role} size={96} stateLabels={labels.speechStatesFor(characterName)} />} overlayPosition="center" scrim />
       <ThemedText variant="caption" tone="muted">
-        {t('speak.sourceLanguageNote', { source: enrollment.sourceLanguageCode, name: characterName, target: trackDef.displayName })} {session.character.syntheticVoice ? `· ${t('audio.coverGenerated').replace(/cover art/i, 'voice')}` : ''}
+        {t('speak.sourceLanguageNote', { source: names(enrollment.sourceLanguageCode), name: characterName, target: trackDef.displayName })}
+        {session.character.syntheticVoice ? ` · ${X.syntheticVoice}` : ''}
       </ThemedText>
 
       <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: theme.spacing.sm }}>
@@ -237,9 +291,16 @@ function LiveConversation({ session, enrollment, mode }: { session: Conversation
               <ThemedText variant="caption" tone="muted">
                 {learner ? t('speak.turnLabel.learner') : t('speak.turnLabel.character', { name: characterName })}
               </ThemedText>
-              <ThemedText script={trackDef.scripts.primary}>{turn.text}</ThemedText>
-              {turn.transliteration && enrollment.scriptMode !== 'native' ? <ThemedText variant="transliteration" tone="muted">{turn.transliteration}</ThemedText> : null}
-              {gloss && turn.sourceGloss ? <ThemedText tone="secondary">{turn.sourceGloss}</ThemedText> : null}
+              {(() => {
+                const layers = learner ? { primary: turn.text, secondary: null, primaryIsTransliteration: false } : turnLayersForScriptMode(turn, enrollment.scriptMode);
+                return (
+                  <>
+                    <ThemedText script={layers.primaryIsTransliteration ? 'Latn' : trackDef.scripts.primary} variant={layers.primaryIsTransliteration ? 'transliteration' : 'body'}>{layers.primary}</ThemedText>
+                    {layers.secondary ? <ThemedText variant="transliteration" tone="muted">{layers.secondary}</ThemedText> : null}
+                  </>
+                );
+              })()}
+              {gloss && turn.sourceGloss ? <ThemedText tone="secondary" direction={sourceDir}>{turn.sourceGloss}</ThemedText> : null}
               {learner && turn.confidence !== null && turn.confidence < 0.5 ? <ThemedText variant="caption" tone="warning">{t('speak.lowConfidence')}</ThemedText> : null}
             </Surface>
           );
@@ -298,15 +359,15 @@ function LiveConversation({ session, enrollment, mode }: { session: Conversation
         <IconButton icon="transcript" accessibilityLabel={t('speak.controls.transcript')} selected={transcript} onPress={() => setTranscript(!transcript)} />
         <IconButton icon={machineState === 'paused' ? 'play' : 'pause'} accessibilityLabel={machineState === 'paused' ? t('speak.controls.resume') : t('speak.controls.pause')} onPress={() => (machineState === 'paused' ? controller.resume() : controller.pause())} />
       </Row>
-      <Row gap={theme.spacing.xs} justify="space-between">
-        <Button label={immediateCorrections ? t('speak.correctionsAfter') : t('speak.immediateCorrection')} variant="ghost" size="sm" onPress={() => setImmediateCorrections(!immediateCorrections)} accessibilityLabel={t('speak.immediateCorrection')} />
-        <Button label={t('speak.endConversation')} variant="secondary" size="sm" loading={snap?.ending} onPress={leave} accessibilityLabel={t('speak.endConversation')} />
+      <Row gap={theme.spacing.xs} justify="flex-end">
+        {/* Correction timing is not a session option in the contracts yet (cross-package gap); no decorative toggle. */}
+        <Button label={t('speak.endConversation')} variant="secondary" size="sm" loading={snap?.ending} disabled={Boolean(endPending)} onPress={leave} accessibilityLabel={t('speak.endConversation')} />
       </Row>
       <HintSheet
         visible={hintsOpen}
         onClose={() => setHintsOpen(false)}
         hints={[]}
-        translation={snap?.lastCharacterTurn?.sourceGloss ?? null}
+        translation={snap?.lastCharacterTurn?.sourceGloss ? `${sourceDir === 'rtl' ? '\u2067' : '\u2066'}${snap.lastCharacterTurn.sourceGloss}\u2069` : null}
         availableCommands={['translate', 'example', 'meaning', 'slower', 'repeat', 'hint', 'skip']}
         onCommand={(c) => {
           setHintsOpen(false);

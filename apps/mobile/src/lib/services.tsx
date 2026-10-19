@@ -2,6 +2,9 @@
  * App-wide services: typed API endpoints, the local offline store, the
  * progress outbox and the sync engine (flushed on reconnect, foreground and
  * after every enqueue). Screens reach them with `useServices()`.
+ *
+ * Also replays queued conversation ends (`POST /conversations/:id/end` that
+ * failed offline) whenever connectivity returns (§4.6).
  */
 import type { ProgressEventPayload } from '@langquest/contracts';
 import React, { createContext, useCallback, useContext, useEffect, useMemo, useState } from 'react';
@@ -10,7 +13,7 @@ import { ENV } from '@/config/env';
 import { useAuth } from '@/state/auth';
 import { getLocalStore, type LocalStore } from '@/store';
 import { SyncEngine, type SyncStatus } from '@/store/sync';
-import { createApiClient, createUnconfiguredClient } from './api/client';
+import { ApiClientError, createApiClient, createUnconfiguredClient } from './api/client';
 import { createEndpoints, type Endpoints } from './api/endpoints';
 import { isOnlineNow, useOnline, useReconnect } from './network';
 import { getAccessToken } from './supabase';
@@ -25,14 +28,40 @@ export interface Services {
   pendingEvents: number;
   online: boolean;
   configured: boolean;
+  /** True when the local database could not be opened: nothing below survives a restart (banner + downloads off). */
+  storageDegraded: boolean;
   /** Record a progress event locally and schedule a sync. */
   enqueue: (payload: ProgressEventPayload, enrollmentId: string | null) => Promise<void>;
   syncNow: () => Promise<void>;
+  /** Replay conversation ends that could not be delivered; returns how many are still queued. */
+  flushPendingConversationEnds: () => Promise<number>;
   /** Wipe local caches/outbox (sign-out, account deletion). */
   resetLocal: () => Promise<void>;
 }
 
 const ServicesContext = createContext<Services | null>(null);
+
+/** Replay queued `conversation_end` requests; a non-connectivity failure drops the entry after 5 attempts. */
+export async function replayPendingConversationEnds(api: Pick<Endpoints, 'conversationEnd'>, store: LocalStore): Promise<number> {
+  const pending = await store.cache.listPendingConversationEnds();
+  let remaining = 0;
+  for (const p of pending) {
+    try {
+      await api.conversationEnd(p.sessionId, p.body);
+      await store.cache.removePendingConversationEnd(p.sessionId);
+    } catch (error) {
+      const connectivity = error instanceof ApiClientError && (error.isConnectivity || error.kind === 'not_configured');
+      const gone = error instanceof ApiClientError && (error.kind === 'not_found' || error.kind === 'conflict' || error.kind === 'forbidden');
+      if (gone || (!connectivity && p.attempts + 1 >= 5)) {
+        await store.cache.removePendingConversationEnd(p.sessionId);
+        continue;
+      }
+      await store.cache.putPendingConversationEnd({ ...p, attempts: p.attempts + 1 });
+      remaining += 1;
+    }
+  }
+  return remaining;
+}
 
 export function ServicesProvider(props: { children: React.ReactNode }): React.JSX.Element {
   const online = useOnline();
@@ -57,7 +86,9 @@ export function ServicesProvider(props: { children: React.ReactNode }): React.JS
   useEffect(() => {
     let alive = true;
     void getLocalStore().then((store) => {
-      if (alive) setLocal(store);
+      if (!alive) return;
+      setLocal(store);
+      if (!store.persistent) track.clientFault('local_store_volatile', store.degradedReason ?? 'unknown');
     });
     return () => {
       alive = false;
@@ -86,42 +117,56 @@ export function ServicesProvider(props: { children: React.ReactNode }): React.JS
     };
   }, [sync, local]);
 
+  const flushPendingConversationEnds = useCallback(async (): Promise<number> => {
+    if (!local || !signedIn) return 0;
+    return replayPendingConversationEnds(api, local);
+  }, [api, local, signedIn]);
+
   // Flush when connectivity returns, when the app comes to the foreground and once signed in.
-  const onReconnect = useCallback(() => sync?.onReconnect(), [sync]);
+  const onReconnect = useCallback(() => {
+    sync?.onReconnect();
+    void flushPendingConversationEnds();
+  }, [sync, flushPendingConversationEnds]);
   useReconnect(onReconnect);
   useEffect(() => {
     const sub = AppState.addEventListener('change', (state) => {
-      if (state === 'active') void isOnlineNow().then((ok) => ok && sync?.onReconnect());
+      if (state === 'active') void isOnlineNow().then((ok) => ok && onReconnect());
     });
     return () => sub.remove();
-  }, [sync]);
+  }, [onReconnect]);
   useEffect(() => {
-    if (signedIn && sync) sync.requestSync();
-  }, [signedIn, sync]);
+    if (signedIn && sync) {
+      sync.requestSync();
+      void flushPendingConversationEnds();
+    }
+  }, [signedIn, sync, flushPendingConversationEnds]);
 
   const value: Services = {
-      api,
-      local,
-      sync,
-      syncStatus,
-      pendingEvents,
-      online,
-      configured: Boolean(ENV.apiBaseUrl),
-      enqueue: async (payload, enrollmentId) => {
-        const store = local ?? (await getLocalStore());
-        await store.outbox.enqueue(payload, enrollmentId);
-        setPendingEvents(await store.outbox.pendingCount());
-        sync?.requestSync();
-      },
-      syncNow: async () => {
-        await sync?.syncNow();
-      },
-      resetLocal: async () => {
-        const store = local ?? (await getLocalStore());
-        await store.outbox.clear();
-        await store.cache.reset();
-        setPendingEvents(0);
-      },
+    api,
+    local,
+    sync,
+    syncStatus,
+    pendingEvents,
+    online,
+    configured: Boolean(ENV.apiBaseUrl),
+    storageDegraded: local ? !local.persistent : false,
+    enqueue: async (payload, enrollmentId) => {
+      const store = local ?? (await getLocalStore());
+      await store.outbox.enqueue(payload, enrollmentId);
+      setPendingEvents(await store.outbox.pendingCount());
+      sync?.requestSync();
+    },
+    syncNow: async () => {
+      await sync?.syncNow();
+      await flushPendingConversationEnds();
+    },
+    flushPendingConversationEnds,
+    resetLocal: async () => {
+      const store = local ?? (await getLocalStore());
+      await store.outbox.clear();
+      await store.cache.reset();
+      setPendingEvents(0);
+    },
   };
 
   return <ServicesContext.Provider value={value}>{props.children}</ServicesContext.Provider>;

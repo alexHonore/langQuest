@@ -34,7 +34,8 @@ describe('import_manifest', () => {
     const { result } = await runHandler(importManifestHandler, t, { rows: [{ legacyPath: 'imports/x/Unit 1/01 - Hello.mp3', lessonTitle: 'Hello!', tags: ['new'], level: 'beginner', lessonOrder: 7, instructionLanguage: 'fr' }], dryRun: false });
     expect((result.output as Record<string, unknown>).applied).toBe(1);
     const updated = (await t.db.getLesson(lesson.id))!.lesson;
-    expect(updated.title_translations).toEqual({ en: 'Hello!' });
+    // The row declares instructionLanguage=fr, so its title lands under fr (no English default).
+    expect(updated.title_translations).toEqual({ en: 'Hello', fr: 'Hello!' });
     expect(updated.tags).toEqual(['old', 'new']);
     expect(updated.level).toBe('beginner');
     expect(updated.sort_order).toBe(7);
@@ -50,6 +51,25 @@ describe('import_manifest', () => {
     expect((await t.db.getLesson(lesson.id))!.lesson.topic).toBe('greetings');
   });
 
+  it('skips title / description fields whose language cannot be resolved and reports them instead of defaulting to English', async () => {
+    const { asset, lesson } = await seed();
+    const { result } = await runHandler(importManifestHandler, t, { rows: [{ assetId: asset.id, lessonTitle: 'Untitled language', description: 'Some blurb', topic: 'greetings' }], dryRun: false });
+    const out = result.output as Record<string, unknown>;
+    expect(out.applied).toBe(1);
+    expect(out.validationErrors).toEqual([
+      { row: 0, field: 'lessonTitle', message: expect.stringMatching(/^title_language_missing/) },
+      { row: 0, field: 'description', message: expect.stringMatching(/^title_language_missing/) },
+    ]);
+    const updated = (await t.db.getLesson(lesson.id))!.lesson;
+    expect(updated.title_translations).toEqual({ en: 'Hello' });
+    expect(updated.description_translations).toEqual({});
+    expect(updated.topic).toBe('greetings');
+
+    const explicit = await runHandler(importManifestHandler, t, { rows: [{ assetId: asset.id, lessonTitle: 'Hallo' }], titleLanguage: 'de', dryRun: false });
+    expect((explicit.result.output as Record<string, unknown>).validationErrors).toEqual([]);
+    expect((await t.db.getLesson(lesson.id))!.lesson.title_translations).toEqual({ en: 'Hello', de: 'Hallo' });
+  });
+
   it('reports validation errors from malformed rows', async () => {
     const { result } = await runHandler(importManifestHandler, t, { rows: [{ lessonTitle: 'no key' }], dryRun: true });
     const out = result.output as Record<string, unknown>;
@@ -61,5 +81,6 @@ describe('import_manifest', () => {
     const lesson = t.db.seedLesson(t.db.seedChapter(t.db.seedCollection().id).id, { tags: ['a'] });
     expect(lessonPatchFromRow({ storageKey: 'k' }, lesson, 'en')).toEqual({});
     expect(lessonPatchFromRow({ storageKey: 'k', tags: ['a', 'b'], scene: 'cafe' }, lesson, 'en')).toEqual({ tags: ['a', 'b'], scene: 'cafe' });
+    expect(lessonPatchFromRow({ storageKey: 'k', lessonTitle: 'T', description: 'D', scene: 'cafe' }, lesson, null)).toEqual({ scene: 'cafe' });
   });
 });

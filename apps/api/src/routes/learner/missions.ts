@@ -6,12 +6,14 @@
  * with the service client, strictly AFTER the attempt and enrollment were validated as the learner's own.
  */
 import {
+  EvaluatorOutputSchema,
   MissionAttemptCreateRequestSchema,
   MissionAttemptCreateResponseSchema,
   MissionDetailQuerySchema,
   MissionDetailResponseSchema,
   MissionEvaluateRequestSchema,
   MissionEvaluateResponseSchema,
+  UnitIntervalSchema,
   UuidSchema,
   type AutonomyLevel,
   type EvaluatorOutput,
@@ -39,18 +41,31 @@ import { problem, respondOk } from '../../http/envelope';
 import { parseBody, parseParams, parseQuery } from '../../http/validate';
 import { MEDIA_ASSET_COLUMNS, mediaAssetToRef, reviewRowToCard, type MediaAssetPublicRow } from '../../lib/dto';
 import { loadOwnedEnrollment, varietyOf } from '../../lib/enrollment';
+import { goalDescriptionFor, goalsOf } from '../../lib/goals';
 import { awardMasteryAdvances, awardXp, recordObservations, scheduleReviews, scheduler, uuidFrom } from '../../lib/learning';
 import type { RequestServices } from '../../services/context';
 
+/**
+ * Local bound on the only free-text field a client may put into `step_results` (`selectedIntentId` is an intent key,
+ * never a transcript): the contracts schema leaves it unbounded (cross-package gap), and the row is stored verbatim.
+ */
+const MissionEvaluateBoundedSchema = MissionEvaluateRequestSchema.extend({
+  stepResults: z.array(MissionEvaluateRequestSchema.shape.stepResults.element.extend({ selectedIntentId: z.string().max(200).nullable() })).min(1).max(100),
+});
+
 const IdParams = z.object({ id: UuidSchema });
 
-interface Goal {
-  id: string;
-  skill_keys: string[];
-  description_key?: string;
-  description?: string;
-}
-const goalsOf = (mission: Row<'missions'>): Goal[] => (Array.isArray(mission.goals) ? (mission.goals as unknown as Goal[]) : []).filter((g) => typeof g?.id === 'string');
+/**
+ * Learner-facing API shape for `missionEvaluate`. The contracts schema requires a numeric confidence; this
+ * server extension makes it nullable and adds `evaluatorRan` so a mission without any conversation evaluator
+ * output never reports a made-up percentage (§16.3): `evaluatorRan: false` ⇒ `evaluation.confidence: null`.
+ */
+export const MissionEvaluateApiResponseSchema = MissionEvaluateResponseSchema.extend({
+  evaluation: EvaluatorOutputSchema.extend({ confidence: UnitIntervalSchema.nullable() }),
+  /** True only when at least one referenced conversation session carried LLM evaluator output. */
+  evaluatorRan: z.boolean(),
+});
+export type MissionEvaluateApiResponse = z.infer<typeof MissionEvaluateApiResponseSchema>;
 
 /** Build the localized mission detail through the learner's RLS client (published rows only). */
 export async function buildMissionDetail(s: RequestServices, missionId: string, source: string): Promise<MissionDetailResponse> {
@@ -87,7 +102,11 @@ export async function buildMissionDetail(s: RequestServices, missionId: string, 
   };
   const expressionById = new Map(expressions.map((e) => [e.id, toExpression(e)]));
   const translationsComplete = expressions.every((e) => translationByExpr.has(e.id));
-  const localizationComplete = localization !== null && (localization.qa_state === 'reviewed' || localization.qa_state === 'approved') && translationsComplete;
+  const goalDescriptions = goalsOf(mission).map((g) => ({ goal: g, description: goalDescriptionFor(g, source as SourceLanguageCode, t.translator) }));
+  const goalsComplete = goalDescriptions.every((g) => g.description !== null);
+  const localizationComplete = localization !== null && (localization.qa_state === 'reviewed' || localization.qa_state === 'approved') && translationsComplete && goalsComplete;
+  // Generic step-type label from the source-language catalog: the only honest fallback when no overlay exists.
+  const stepTypeLabel = (stepType: string): string => (t.translator.has(`lesson.stepTypes.${stepType}`) ? t.translator.t(`lesson.stepTypes.${stepType}`) : '');
 
   return MissionDetailResponseSchema.parse({
     id: mission.id,
@@ -98,7 +117,7 @@ export async function buildMissionDetail(s: RequestServices, missionId: string, 
     targetVarietyId: mission.target_variety_id,
     sourceLanguageCode: source,
     localizationComplete,
-    goals: goalsOf(mission).map((g) => ({ id: g.id, description: g.description_key && t.translator.has(g.description_key) ? t.translator.t(g.description_key) : (g.description ?? ''), skillKeys: g.skill_keys ?? [] })),
+    goals: goalDescriptions.map(({ goal, description }) => ({ id: goal.id, description: description ?? '', skillKeys: goal.skill_keys ?? [] })),
     recommendedMinutes: Number(mission.recommended_minutes),
     sceneArt: null,
     characters: characters.map((ch) => ({ id: ch.id, name: ch.name, role: ch.role, portrait: null, syntheticVoice: Boolean((ch.voice_profile as Record<string, unknown>)?.synthetic ?? true) })),
@@ -107,8 +126,11 @@ export async function buildMissionDetail(s: RequestServices, missionId: string, 
       order: st.sort_order,
       type: st.step_type,
       lessonType: st.lesson_type,
-      instruction: t.translator.has(`lesson.stepTypes.${st.step_type}`) ? t.translator.t(`lesson.stepTypes.${st.step_type}`) : (localization?.instructions ?? ''),
-      hints: [...(localization?.hints ?? []), ...st.hint_scaffold],
+      // Authored source-language instruction first (§2.1/§10.1); the catalog label only when no overlay exists.
+      instruction: localization?.instructions?.trim() ? localization.instructions : stepTypeLabel(st.step_type),
+      // `mission_steps.hint_scaffold` carries no language (it is a realisation-time draft); only the overlay's
+      // hints are ever shown for a source language.
+      hints: localization?.hints ?? [],
       expressions: st.target_expression_ids.map((id) => expressionById.get(id)).filter((e): e is MissionExpression => e !== undefined),
       promptAssets: st.prompt_asset_ids.map((id) => assetById.get(id)).filter((a): a is MediaAssetPublicRow => a !== undefined).map((a) => mediaAssetToRef(a)),
       visuals: [],
@@ -171,7 +193,7 @@ export function registerMissionRoutes(define: DefineRoute): void {
 
   define('missionEvaluate', { timeoutMs: 40_000 }, async (c) => {
     const { id } = parseParams(c, IdParams);
-    const body = await parseBody(c, MissionEvaluateRequestSchema);
+    const body = await parseBody(c, MissionEvaluateBoundedSchema);
     const s = c.get('services')!;
     const { db, repos, principal } = s.requireUser();
     const enrollment = await loadOwnedEnrollment(db, body.enrollmentId);
@@ -228,7 +250,8 @@ export function registerMissionRoutes(define: DefineRoute): void {
     if (!hasConversation || sessionEvaluations.length === 0) {
       if (successRatio >= 0.8) for (const g of goals) reportedObjectives.add(g.id);
     }
-    const merged: EvaluatorOutput = {
+    const evaluatorRan = sessionEvaluations.length > 0;
+    const merged: Omit<EvaluatorOutput, 'confidence'> & { confidence: number | null } = {
       objectivesCompleted: [...reportedObjectives],
       skillsExercised: [...new Set([...goalSkills, ...sessionEvaluations.flatMap((e) => e.skillsExercised)])],
       observations: sessionEvaluations.flatMap((e) => e.observations),
@@ -236,9 +259,12 @@ export function registerMissionRoutes(define: DefineRoute): void {
       summary: sessionEvaluations.map((e) => e.summary).join(' ').slice(0, 1500),
       reviewTriggers: [...new Set(sessionEvaluations.flatMap((e) => e.reviewTriggers))],
       relationshipMemoryUpdate: sessionEvaluations.find((e) => e.relationshipMemoryUpdate)?.relationshipMemoryUpdate ?? null,
-      confidence: sessionEvaluations.length ? Math.min(...sessionEvaluations.map((e) => e.confidence)) : successRatio >= 0.8 ? 0.7 : 0.5,
+      // No evaluator ⇒ no confidence figure: the deterministic rubric only knows step outcomes (§16.3).
+      confidence: evaluatorRan ? Math.min(...sessionEvaluations.map((e) => e.confidence)) : null,
     };
-    const rubric = evaluateMissionObjectives({ objectives: goals.map((g) => ({ id: g.id, intentKeys: [], skillKeys: g.skill_keys ?? [], required: true })) }, merged);
+    // The curriculum rubric is typed on the contracts `EvaluatorOutput` (numeric confidence); its `confidence`
+    // output is discarded here and the response carries the honest nullable value instead.
+    const rubric = evaluateMissionObjectives({ objectives: goals.map((g) => ({ id: g.id, intentKeys: [], skillKeys: g.skill_keys ?? [], required: true })) }, { ...merged, confidence: merged.confidence ?? 0 });
 
     // 1. Attempt outcome (service role: these columns are server-decided).
     const alreadyCompleted = attempt.completed_at !== null;
@@ -246,7 +272,7 @@ export function registerMissionRoutes(define: DefineRoute): void {
       completed_at: attempt.completed_at ?? body.completedAt,
       step_results: body.stepResults as unknown as Row<'mission_attempts'>['step_results'],
       objectives_completed: rubric.objectives.filter((o) => o.completed).map((o) => o.id),
-      evaluation: { rubric, evaluator: merged } as unknown as Row<'mission_attempts'>['evaluation'],
+      evaluation: { rubric: { ...rubric, confidence: merged.confidence }, evaluator: merged, evaluatorRan } as unknown as Row<'mission_attempts'>['evaluation'],
       current_step_index: body.stepResults.length,
     });
 
@@ -313,9 +339,10 @@ export function registerMissionRoutes(define: DefineRoute): void {
     s.log.info('mission.evaluated', { missionId: id, attemptId: attempt.id, outcome: rubric.outcome, xpAwarded, replayed: alreadyCompleted });
     return respondOk(
       c,
-      MissionEvaluateResponseSchema.parse({
+      MissionEvaluateApiResponseSchema.parse({
         attemptId: completedAttempt.id,
         evaluation: merged,
+        evaluatorRan,
         xpAwarded,
         xpReplayed: alreadyCompleted || (!xp.applied && xp.rejectedReason === null && rubric.outcome !== 'fail'),
         masteryChanges: changes,

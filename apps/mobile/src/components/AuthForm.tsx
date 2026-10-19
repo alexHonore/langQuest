@@ -4,6 +4,7 @@ import React from 'react';
 import { ScrollView, TextInput, View, type TextInputProps } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { ENV, isBackendConfigured } from '@/config/env';
+import { useExtraLabels } from '@/lib/extra-labels';
 import { useT } from '@/lib/i18n';
 import { useAuth } from '@/state/auth';
 
@@ -33,13 +34,14 @@ export function AuthFrame(props: { title: string; children: React.ReactNode }): 
   const theme = useTheme();
   const insets = useSafeAreaInsets();
   const t = useT();
+  const X = useExtraLabels();
   const error = useAuth((s) => s.error);
   return (
     <ScrollView style={{ flex: 1, backgroundColor: theme.colors.background }} contentContainerStyle={{ padding: theme.spacing.xl, paddingTop: insets.top + theme.spacing.xl, paddingBottom: insets.bottom + theme.spacing.xl, gap: theme.spacing.lg }} keyboardShouldPersistTaps="handled">
       <ThemedText variant="title" accessibilityRole="header">
         {props.title}
       </ThemedText>
-      {!isBackendConfigured() ? <StatusLine icon="warning" tone="warning" text={`Sign-in is not configured in this build (missing ${[!ENV.supabaseUrl && 'EXPO_PUBLIC_SUPABASE_URL', !ENV.supabaseAnonKey && 'EXPO_PUBLIC_SUPABASE_ANON_KEY', !ENV.apiBaseUrl && 'EXPO_PUBLIC_API_BASE_URL'].filter(Boolean).join(', ')}).`} /> : null}
+      {!isBackendConfigured() ? <StatusLine icon="warning" tone="warning" text={X.signInNotConfigured([!ENV.supabaseUrl && 'EXPO_PUBLIC_SUPABASE_URL', !ENV.supabaseAnonKey && 'EXPO_PUBLIC_SUPABASE_ANON_KEY', !ENV.apiBaseUrl && 'EXPO_PUBLIC_API_BASE_URL'].filter(Boolean).join(', '))} /> : null}
       {error ? <StatusLine icon="warning" tone="error" text={error} /> : null}
       {props.children}
       <ThemedText variant="caption" tone="muted" align="center">

@@ -6,7 +6,9 @@ import React, { useState } from 'react';
 import { Alert, View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { ErrorView } from '@/components/StateViews';
+import { useFallbackOptIn } from '@/features/session/fallback';
 import { useActiveEnrollment, useCourses, useInvalidateLearner } from '@/features/session/queries';
+import { useExtraLabels } from '@/lib/extra-labels';
 import { useLanguageNames, useT } from '@/lib/i18n';
 import { useUiLabels } from '@/lib/labels';
 import { useServices } from '@/lib/services';
@@ -26,6 +28,7 @@ export default function EnrollmentEditor(): React.JSX.Element {
   const theme = useTheme();
   const router = useRouter();
   const t = useT();
+  const X = useExtraLabels();
   const names = useLanguageNames();
   const labels = useUiLabels();
   const { api } = useServices();
@@ -33,17 +36,20 @@ export default function EnrollmentEditor(): React.JSX.Element {
   const { enrollments, me } = useActiveEnrollment();
   const invalidate = useInvalidateLearner();
   const setPrefs = usePrefs((s) => s.set);
+  const activeId = usePrefs((s) => s.activeEnrollmentId);
   const enrollment = enrollments.find((e) => e.id === id) ?? me?.enrollments.find((e) => e.id === id) ?? null;
   const [source, setSource] = useState<SourceLanguageCode | null>(enrollment?.sourceLanguageCode ?? null);
   const coursesForSource = useCourses(source);
   const coverage = coursesForSource.data?.data.courses.find((c) => c.track.id === enrollment?.courseTrackId)?.coverage.find((c) => c.sourceLanguageCode === source) ?? null;
   const [status, setStatus] = useState<string | null>(null);
+  const fallback = useFallbackOptIn(enrollment);
 
   const patch = useMutation({
     mutationFn: async (body: EnrollmentPatchRequest) => {
       if (!enrollment) throw new Error('missing');
       const before = enrollment.sourceLanguageCode;
-      const dto = await api.enrollmentPatch(enrollment.id, body);
+      // Archiving sends `?confirm=archive` (derived in the endpoint wrapper); the API answers 412 otherwise.
+      const dto = await api.enrollmentPatch(enrollment.id, body, body.status === 'archived' ? { confirm: 'archive' } : undefined);
       if (body.sourceLanguageCode && body.sourceLanguageCode !== before) {
         track.enrollmentSourceChanged(before, body.sourceLanguageCode);
         const store = await getLocalStore();
@@ -53,6 +59,12 @@ export default function EnrollmentEditor(): React.JSX.Element {
     },
     onSuccess: async (dto, body) => {
       await invalidate();
+      if (body.status === 'archived') {
+        // Only now is the course gone server-side: clear the active course and leave.
+        if (activeId === dto.id) setPrefs({ activeEnrollmentId: null });
+        router.back();
+        return;
+      }
       if (body.sourceLanguageCode) setStatus(t('enrollment.sourceChanged', { target: getCourseTrack(dto.courseTrackId).displayName, source: names(dto.sourceLanguageCode) }));
       else setStatus(t('common.done'));
     },
@@ -74,11 +86,7 @@ export default function EnrollmentEditor(): React.JSX.Element {
       {
         text: t('enrollment.removeArchive'),
         style: 'destructive',
-        onPress: () => {
-          patch.mutate({ status: 'archived' });
-          setPrefs({ activeEnrollmentId: null });
-          router.back();
-        },
+        onPress: () => patch.mutate({ status: 'archived' }),
       },
     ]);
   };
@@ -96,7 +104,18 @@ export default function EnrollmentEditor(): React.JSX.Element {
             <Chip key={s.code} label={names(s.code)} selected={source === s.code} tone={s.prominent ? 'accent' : 'neutral'} onPress={() => setSource(s.code)} accessibilityLabel={names(s.code)} />
           ))}
         </Row>
-        {source ? <CoverageBadge status={coverage?.status ?? (source === enrollment.sourceLanguageCode ? enrollment.coverage.status : 'planned')} sourceLanguageCode={source} nativeReviewed={coverage?.nativeReviewed ?? enrollment.coverage.nativeReviewed} fallbackSourceLanguageCode={coverage?.fallbackSourceLanguageCode ?? null} verbose labels={labels.coverage} languageNames={{ [source]: names(source) }} /> : null}
+        {source ? <CoverageBadge status={coverage?.status ?? (source === enrollment.sourceLanguageCode ? enrollment.coverage.status : 'planned')} sourceLanguageCode={source} nativeReviewed={coverage?.nativeReviewed ?? enrollment.coverage.nativeReviewed} fallbackSourceLanguageCode={coverage?.fallbackSourceLanguageCode ?? null} verbose labels={labels.coverage} languageNames={{ [source]: names(source), ...(coverage?.fallbackSourceLanguageCode ? { [coverage.fallbackSourceLanguageCode]: names(coverage.fallbackSourceLanguageCode) } : {}) }} /> : null}
+        {source === enrollment.sourceLanguageCode && enrollment.coverage.status !== 'complete' && fallback.offered ? (
+          <View style={{ gap: theme.spacing.xs }}>
+            <ThemedText variant="caption" tone="secondary">{fallback.active ? X.fallbackInUse(names(fallback.active)) : t('enrollment.coverage.optInFallbackHint', { fallback: names(fallback.offered), source: names(enrollment.sourceLanguageCode) })}</ThemedText>
+            {fallback.active ? (
+              <Button label={X.fallbackStop} variant="ghost" size="sm" onPress={fallback.optOut} accessibilityLabel={X.fallbackStop} />
+            ) : (
+              <Button label={t('enrollment.coverage.optInFallback', { fallback: names(fallback.offered) })} variant="secondary" size="sm" onPress={fallback.optIn} accessibilityLabel={t('enrollment.coverage.optInFallback', { fallback: names(fallback.offered) })} />
+            )}
+          </View>
+        ) : null}
+        {source === enrollment.sourceLanguageCode && enrollment.coverage.status === 'planned' && !fallback.offered ? <ThemedText variant="caption" tone="secondary">{X.plannedNoFallback(names(enrollment.sourceLanguageCode))}</ThemedText> : null}
         {source && source !== enrollment.sourceLanguageCode ? (
           <Button label={t('enrollment.editSource')} loading={patch.isPending} onPress={() => patch.mutate({ sourceLanguageCode: source })} accessibilityLabel={t('enrollment.editSource')} />
         ) : null}
@@ -145,7 +164,7 @@ export default function EnrollmentEditor(): React.JSX.Element {
       </View>
       {status ? <StatusLine icon="check" tone="success" text={status} /> : null}
       {patch.error ? <ErrorView error={patch.error} /> : null}
-      <Button label={t('enrollment.remove')} variant="danger" icon="close" onPress={archive} accessibilityLabel={t('enrollment.remove')} />
+      <Button label={t('enrollment.remove')} variant="danger" icon="close" loading={patch.isPending && patch.variables?.status === 'archived'} onPress={archive} accessibilityLabel={t('enrollment.remove')} />
       <ThemedText variant="caption" tone="muted">
         {t('enrollment.removeArchive')} — {t('enrollment.removeOtherCoursesSafe')}
       </ThemedText>

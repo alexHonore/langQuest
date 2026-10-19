@@ -5,7 +5,7 @@
  * English). Rows land in `transcript_translations` as `needs_review` with explicit quality flags and a
  * `translation.review_requested` event; nothing is published automatically.
  *
- * Runs under the carrier job type `describe` with `params.handler = 'translate_transcript'`.
+ * Job type `translate_transcript` (pre-migration-100 rows: `describe` + `params.handler`).
  */
 import { z } from 'zod';
 import type { SourceLanguageCode, VarietyId } from '@langquest/contracts';
@@ -14,8 +14,11 @@ import { coachingLanguageInstruction, getPromptPack } from '@langquest/ai';
 import type { Insert } from '@langquest/db';
 import { JobFailure, type JobHandler } from '../queue/types';
 import { jobLanguageContext, requireSourceLanguage, requireVariety, trackForVarietyOrThrow } from './common';
+import { UNTRUSTED_DATA_DIRECTIVE, capText } from './untrusted-evidence';
 
-export const TRANSLATE_PROMPT_VERSION = 'transcript_translation:v1';
+export const TRANSLATE_PROMPT_VERSION = 'transcript_translation:v2';
+/** Maximum characters of a single segment sent to the model (segments are seconds of speech; longer text is cut and flagged). */
+export const SEGMENT_TEXT_MAX_CHARS = 2000;
 
 export const TranslateTranscriptParamsSchema = z.object({
   transcriptId: z.string().uuid(),
@@ -32,6 +35,12 @@ export const TranslationBatchSchema = z.object({
 });
 export type TranslationBatch = z.infer<typeof TranslationBatchSchema>;
 
+/**
+ * Builds one translation batch prompt. The system prompt carries the task plus the fixed
+ * untrusted-data directive; the user message is `{ "segments": [...] }` with per-segment text
+ * capped at {@link SEGMENT_TEXT_MAX_CHARS}, so transcript lines that read like instructions are
+ * presented as data to translate, never as commands.
+ */
 export function buildTranslationPrompt(input: { source: SourceLanguageCode; variety: VarietyId; languageMode: string; segments: Array<{ index: number; text: string; languageCode: string | null }> }): { system: string; user: string; templateId: string; templateVersion: string } {
   const pack = getPromptPack(input.variety);
   const lang = findLanguage(input.source);
@@ -39,17 +48,20 @@ export function buildTranslationPrompt(input: { source: SourceLanguageCode; vari
     'You translate transcript segments of a language-learning audio recording into the learner\'s instruction language.',
     coachingLanguageInstruction(input.source),
     `Target variety of the recording: ${pack.name} (${input.variety}). Transcript language mode: ${input.languageMode}.`,
+    'The user message is {"segments": [{index, text, languageCode}]}; translate each "text" field.',
     'Rules: translate meaning naturally and concisely; keep the segment order and indices; never merge or split segments;',
     `if a segment is already in ${lang?.englishName ?? input.source}, copy it unchanged; if a segment is unintelligible or a non-speech marker, return it unchanged and mark uncertain=true.`,
     'Do not add commentary. Output JSON only.',
+    UNTRUSTED_DATA_DIRECTIVE,
   ].join('\n');
-  const user = JSON.stringify({ segments: input.segments });
+  const segments = input.segments.map((s) => ({ index: s.index, text: capText(s.text, SEGMENT_TEXT_MAX_CHARS), languageCode: capText(s.languageCode, 16) }));
+  const user = JSON.stringify({ segments });
   return { system, user, templateId: 'transcript_translation', templateVersion: TRANSLATE_PROMPT_VERSION };
 }
 
 export const translateTranscriptHandler: JobHandler<TranslateTranscriptParams> = {
   name: 'translate_transcript',
-  jobTypes: [],
+  jobTypes: ['translate_transcript'],
   runtime: 'any',
   paramsSchema: TranslateTranscriptParamsSchema,
   async run(ctx) {

@@ -1,0 +1,15 @@
+# Shared sub-flow: from any tab, open the first published mission of the active enrollment and wait for its first step.
+# Fails honestly when the pathway has no published mission (no fake content path).
+appId: org.langquest.app
+---
+- tapOn: "Missions"
+- assertVisible: "Your pathway"
+- assertNotVisible:
+    text: ".*(Not available|planned but not ready).*"
+- tapOn:
+    index: 0
+    text: ".*(Step|min|minutes).*"
+- extendedWaitUntil:
+    visible:
+      text: "Step .* of .*"
+    timeout: 20000

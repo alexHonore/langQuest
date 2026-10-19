@@ -1,16 +1,16 @@
 # License and attribution report
 
-Generated 2026-10-15T01:49:28.843Z. Items: 1220 · verified: 0 · redistributable now: 0 · flagged: 1220.
+Generated 2026-10-15T05:48:35.626Z. Items: 1160 · verified: 0 · redistributable now: 0 · flagged: 1160.
 
 ## By license
 
 | License | Items | Redistributable | Flagged |
 |---|---:|---:|---:|
-| CC-BY | 1220 | 0 | 1220 |
+| CC-BY | 1160 | 0 | 1160 |
 
 ## Flags
 
-- unverified: 1220
+- unverified: 1160
 - audio_license_missing: 23
 - audio_not_redistributable: 338
 

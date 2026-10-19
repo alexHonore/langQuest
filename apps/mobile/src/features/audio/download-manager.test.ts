@@ -91,7 +91,8 @@ describe('download index helpers', () => {
     r.status = 'complete';
     expect(isPlayableOffline(r)).toBe(true);
     expect(localAudioFile(r, uuid(10))?.localUri).toBe('file:///packs/x/audio/10.mp3');
-    expect(summarizeStorage([r])).toEqual({ lessons: 1, completeLessons: 1, bytesOnDisk: 1_200, bytesPending: 0 });
+    // Partial bytes are not reusable (no resume), so only verified files count as "on disk".
+    expect(summarizeStorage([r])).toEqual({ lessons: 1, completeLessons: 1, bytesOnDisk: 1_000, bytesPending: 0 });
   });
 });
 
@@ -168,5 +169,128 @@ describe('DownloadManager', () => {
     await blocked.manager.start(uuid(13), meta);
     await settle(blocked.manager, uuid(13), blocked.index);
     expect((await blocked.index.get(uuid(13)))?.error).toBe('rights_blocked');
+  });
+});
+
+describe('DownloadManager: learner intent and connectivity', () => {
+  /** A fetchPack the test resolves by hand, to race cancel()/pause() against run(). */
+  function deferredPack() {
+    let resolve: ((m: DownloadPackManifest) => void) | null = null;
+    let released = false; // after the first manual release, later fetches resolve immediately
+    const fetchPack = vi.fn((lessonId: string) => (released ? Promise.resolve(pack(lessonId)) : new Promise<DownloadPackManifest>((r) => { resolve = r; })));
+    return {
+      fetchPack,
+      resolve: (lessonId: string) => {
+        released = true;
+        resolve?.(pack(lessonId));
+      },
+    };
+  }
+
+  it('cancel() during the pack fetch wins: the record does not resurrect as "downloading"', async () => {
+    const store = new MemoryDocumentStore();
+    const index = new DownloadIndex(store);
+    const f = fakeFs();
+    const d = deferredPack();
+    const manager = new DownloadManager({ index, fs: f.fs, fetchPack: d.fetchPack, network: async () => ({ online: true, wifi: true }), wifiOnly: () => false, now, sleep: async () => undefined });
+    await manager.start(uuid(20), meta);
+    await new Promise((r) => setTimeout(r, 2));
+    expect(d.fetchPack).toHaveBeenCalledTimes(1);
+    await manager.cancel(uuid(20));
+    expect(await index.get(uuid(20))).toBeNull();
+    d.resolve(uuid(20));
+    await new Promise((r) => setTimeout(r, 10));
+    expect(await index.get(uuid(20))).toBeNull();
+    expect(f.files.size).toBe(0);
+    expect(manager.isActive(uuid(20))).toBe(false);
+  });
+
+  it('pause() during the pack fetch leaves the record paused (not restarted) and resumable later', async () => {
+    const store = new MemoryDocumentStore();
+    const index = new DownloadIndex(store);
+    const f = fakeFs();
+    const d = deferredPack();
+    const manager = new DownloadManager({ index, fs: f.fs, fetchPack: d.fetchPack, network: async () => ({ online: true, wifi: true }), wifiOnly: () => false, now, sleep: async () => undefined });
+    await manager.start(uuid(21), meta);
+    await new Promise((r) => setTimeout(r, 2));
+    await manager.pause(uuid(21));
+    d.resolve(uuid(21));
+    await new Promise((r) => setTimeout(r, 10));
+    const r = await index.get(uuid(21));
+    expect(r?.status).toBe('paused');
+    expect(r?.bytesDownloaded).toBe(0);
+    expect(f.files.size).toBe(0);
+    await manager.retry(uuid(21));
+    await settle(manager, uuid(21), index);
+    expect((await index.get(uuid(21)))?.status).toBe('complete');
+  });
+
+  it('a transfer that dies with the network parks as paused/offline and resumes on reconnect', async () => {
+    const store = new MemoryDocumentStore();
+    const index = new DownloadIndex(store);
+    let online = true;
+    const f = fakeFs({ fail: (url, attempt) => (url.includes('/10') && attempt === 1 ? new Error('socket closed') : null) });
+    const sleeps: number[] = [];
+    const events: string[] = [];
+    const manager = new DownloadManager({
+      index,
+      fs: f.fs,
+      fetchPack: async (id) => pack(id),
+      network: async () => ({ online, wifi: true }),
+      wifiOnly: () => false,
+      now,
+      sleep: async (ms) => void sleeps.push(ms),
+      onEvent: (e) => events.push(e.type),
+    });
+    online = false; // goes offline right as the first file fails
+    // network() is consulted at start too, so start online then flip after the pack arrived.
+    online = true;
+    const original = f.fs.download;
+    f.fs.download = async (url, dest, options) => {
+      online = false;
+      return original(url, dest, options);
+    };
+    await manager.start(uuid(22), meta);
+    await settle(manager, uuid(22), index);
+    const parked = await index.get(uuid(22));
+    expect(parked?.status).toBe('paused');
+    expect(parked?.error).toBe('offline');
+    expect(DownloadManager.isWaitingForNetwork(parked!)).toBe(true);
+    expect(sleeps).toEqual([]); // no retry storm while offline
+    expect(events).toContain('paused');
+    online = true;
+    f.fs.download = original;
+    await manager.onNetworkChange();
+    await settle(manager, uuid(22), index);
+    expect((await index.get(uuid(22)))?.status).toBe('complete');
+  });
+
+  it('backs off between attempts when the network is up but a transfer keeps failing', async () => {
+    const sleeps: number[] = [];
+    const store = new MemoryDocumentStore();
+    const index = new DownloadIndex(store);
+    const f = fakeFs({ fail: (url, attempt) => (url.includes('/10') && attempt <= 2 ? new Error('reset') : null) });
+    const manager = new DownloadManager({ index, fs: f.fs, fetchPack: async (id) => pack(id), network: async () => ({ online: true, wifi: true }), wifiOnly: () => false, now, sleep: async (ms) => void sleeps.push(ms), retryBaseMs: 100 });
+    await manager.start(uuid(23), meta);
+    await settle(manager, uuid(23), index);
+    expect((await index.get(uuid(23)))?.status).toBe('complete');
+    expect(sleeps).toEqual([100, 200]);
+  });
+
+  it('markFileMissing reconciles a verified record whose file vanished and retry downloads it again', async () => {
+    const { manager, index, files } = setup();
+    await manager.start(uuid(24), meta);
+    await settle(manager, uuid(24), index);
+    const audioId = uuid(10);
+    files.delete('file:///packs/' + uuid(24) + '/audio/10.mp3');
+    await manager.markFileMissing(uuid(24), audioId);
+    const r = await index.get(uuid(24));
+    expect(r?.status).toBe('error');
+    expect(r?.error).toBe('file_missing');
+    expect(isPlayableOffline(r)).toBe(false);
+    expect(summarizeStorage([r!]).bytesOnDisk).toBe(500); // only the file still verified on disk
+    await manager.retry(uuid(24));
+    await settle(manager, uuid(24), index);
+    expect((await index.get(uuid(24)))?.status).toBe('complete');
   });
 });

@@ -1,9 +1,19 @@
 /**
- * Download manager (§4.4, §4.5, Phase 3): resumable per-file transfers from a
+ * Download manager (§4.4, §4.5, Phase 3): per-file transfers from a
  * rights-gated download pack, checksum verification, progress, pause / cancel /
  * retry, Wi-Fi-only gating and safe cleanup. The file system and network are
  * injected ({@link DownloadFs}) so the state machine is unit-tested; the
  * `expo-file-system` implementation is in `expo-fs-adapter.ts`.
+ *
+ * Honesty rules enforced here:
+ * - `cancel()` / `pause()` win over a `run()` still awaiting the pack: every
+ *   await in `run()` is followed by an abort check and the learner's intent is
+ *   restored if the record was overwritten meanwhile.
+ * - A transfer is restarted from byte 0 (the adapter cannot resume), so a
+ *   paused record reports 0 bytes written rather than bytes that are gone.
+ * - Network loss parks the lesson as `paused` with `error: 'offline'` and
+ *   `onNetworkChange()` re-queues exactly those records, so the copy "resumes
+ *   when you are back online" is true.
  *
  * Storage limits come from the device and the learner's own choices — never a
  * tier or quota (§0.2, Phase 3).
@@ -44,6 +54,14 @@ export class DownloadHttpError extends Error {
   }
 }
 
+/** Thrown inside `run()` when the device went offline mid-transfer (lesson parks as paused/offline). */
+export class DownloadOfflineError extends Error {
+  constructor() {
+    super('Device offline');
+    this.name = 'DownloadOfflineError';
+  }
+}
+
 export interface DownloadManagerDeps {
   index: DownloadIndex;
   fs: DownloadFs;
@@ -58,28 +76,46 @@ export interface DownloadManagerDeps {
   concurrency?: number;
   /** Keep this many bytes free on the device (default 200 MB). */
   minFreeBytes?: number;
+  /** Delay between file attempts (exponential; default 1 s base, injectable for tests). */
+  sleep?: (ms: number) => Promise<void>;
+  retryBaseMs?: number;
   onEvent?: (event: DownloadEvent) => void;
 }
 
 export type DownloadEvent = { type: 'started' | 'completed' | 'cancelled' | 'paused'; lessonId: string } | { type: 'failed'; lessonId: string; error: string } | { type: 'waiting_wifi'; lessonId: string };
 
-export type DownloadFailureCode = 'offline' | 'wifi_required' | 'rights_blocked' | 'media_unavailable' | 'checksum_mismatch' | 'disk_full' | 'http' | 'unknown';
+export type DownloadFailureCode = 'offline' | 'wifi_required' | 'rights_blocked' | 'media_unavailable' | 'checksum_mismatch' | 'disk_full' | 'http' | 'file_missing' | 'unknown';
+
+/** Learner intent recorded on the in-flight controller so a racing `run()` can honour it. */
+type DownloadIntent = 'cancel' | 'pause' | null;
+
+interface ActiveTransfer {
+  controller: AbortController;
+  intent: DownloadIntent;
+}
 
 const joinUri = (root: string, ...parts: string[]): string => [root.replace(/\/+$/, ''), ...parts.map((p) => p.replace(/^\/+/, ''))].join('/');
 
 const MAX_FILE_RETRIES = 3;
 
+/** Files not fully verified have no reusable bytes on disk once a transfer stops (no resume support). */
+const resetPartialFiles = (r: DownloadRecord): Partial<DownloadRecord> => ({ files: r.files.map((f) => (f.state === 'done' ? f : { ...f, bytesWritten: 0, state: f.state === 'error' ? f.state : 'pending' })) });
+
 export class DownloadManager {
-  private readonly controllers = new Map<string, AbortController>();
+  private readonly active = new Map<string, ActiveTransfer>();
   private readonly running = new Set<string>();
   private readonly waiting: string[] = [];
   private readonly listeners = new Set<() => void>();
   private readonly concurrency: number;
   private readonly minFreeBytes: number;
+  private readonly sleep: (ms: number) => Promise<void>;
+  private readonly retryBaseMs: number;
 
   constructor(private readonly deps: DownloadManagerDeps) {
     this.concurrency = deps.concurrency ?? 2;
     this.minFreeBytes = deps.minFreeBytes ?? 200 * 1024 * 1024;
+    this.sleep = deps.sleep ?? ((ms) => new Promise((resolve) => setTimeout(resolve, ms)));
+    this.retryBaseMs = deps.retryBaseMs ?? 1_000;
   }
 
   /** Notified after every index write (screens re-read the index). */
@@ -128,11 +164,19 @@ export class DownloadManager {
     }
   }
 
-  /** Cancel an in-flight or queued download and delete partial files. */
-  async cancel(lessonId: string): Promise<void> {
+  private abortWithIntent(lessonId: string, intent: Exclude<DownloadIntent, null>): void {
     const idx = this.waiting.indexOf(lessonId);
     if (idx >= 0) this.waiting.splice(idx, 1);
-    this.controllers.get(lessonId)?.abort();
+    const active = this.active.get(lessonId);
+    if (active) {
+      active.intent = intent;
+      active.controller.abort();
+    }
+  }
+
+  /** Cancel an in-flight or queued download and delete partial files. */
+  async cancel(lessonId: string): Promise<void> {
+    this.abortWithIntent(lessonId, 'cancel');
     await this.deps.index.update(lessonId, { status: 'cancelled' }, this.deps.now());
     await this.deleteFiles(lessonId);
     await this.deps.index.remove(lessonId);
@@ -140,12 +184,10 @@ export class DownloadManager {
     this.notify();
   }
 
-  /** Pause: abort the transfer but keep partial files for resume. */
+  /** Pause: abort the transfer. Partial bytes are not resumable, so they are not reported as kept. */
   async pause(lessonId: string): Promise<void> {
-    const idx = this.waiting.indexOf(lessonId);
-    if (idx >= 0) this.waiting.splice(idx, 1);
-    this.controllers.get(lessonId)?.abort();
-    await this.deps.index.update(lessonId, { status: 'paused' }, this.deps.now());
+    this.abortWithIntent(lessonId, 'pause');
+    await this.deps.index.update(lessonId, (r) => ({ status: 'paused', error: null, ...resetPartialFiles(r) }), this.deps.now());
     this.deps.onEvent?.({ type: 'paused', lessonId });
     this.notify();
   }
@@ -153,29 +195,49 @@ export class DownloadManager {
   async retry(lessonId: string): Promise<void> {
     const record = await this.deps.index.get(lessonId);
     if (!record) return;
-    await this.deps.index.update(lessonId, { status: 'queued', error: null, files: record.files.map((f) => (f.state === 'error' ? { ...f, state: 'pending', error: null } : f)) }, this.deps.now());
+    await this.deps.index.update(lessonId, (r) => ({ status: 'queued', error: null, files: resetPartialFiles(r).files!.map((f) => (f.state === 'error' ? { ...f, state: 'pending', error: null, bytesWritten: 0, localUri: null } : f)) }), this.deps.now());
     this.notify();
     this.enqueue(lessonId);
   }
 
   /** Delete a download and its files. */
   async remove(lessonId: string): Promise<void> {
-    this.controllers.get(lessonId)?.abort();
+    this.abortWithIntent(lessonId, 'cancel');
     await this.deleteFiles(lessonId);
     await this.deps.index.remove(lessonId);
     this.notify();
   }
 
-  /** Re-check downloads that were waiting for Wi-Fi (call on network change). */
-  async onNetworkChange(): Promise<void> {
-    const records = await this.deps.index.list();
-    for (const r of records) if (r.status === 'waiting_wifi' || (r.status === 'downloading' && !this.isActive(r.lessonId))) this.enqueue(r.lessonId);
+  /**
+   * A file the index believed verified is gone from disk (playback found it missing): reconcile the
+   * index so the UI stops saying "Downloaded" and offers "Download again".
+   */
+  async markFileMissing(lessonId: string, assetId: string): Promise<void> {
+    const record = await this.deps.index.get(lessonId);
+    if (!record) return;
+    await this.deps.index.updateFile(lessonId, assetId, { state: 'error', error: 'file_missing', localUri: null, bytesWritten: 0, verifiedBy: null }, this.deps.now());
+    await this.setStatus(lessonId, 'error', 'file_missing');
+    this.deps.onEvent?.({ type: 'failed', lessonId, error: 'file_missing' });
   }
 
-  /** Resume transfers interrupted by an app restart (status still `downloading`/`queued`). */
+  /** True for records parked by a network loss (auto-resumed on reconnect). */
+  static isWaitingForNetwork(r: Pick<DownloadRecord, 'status' | 'error'>): boolean {
+    return r.status === 'paused' && r.error === 'offline';
+  }
+
+  /** Re-check downloads waiting for Wi-Fi or for the network to return (call on network change). */
+  async onNetworkChange(): Promise<void> {
+    const records = await this.deps.index.list();
+    for (const r of records) {
+      if (this.isActive(r.lessonId)) continue;
+      if (r.status === 'waiting_wifi' || r.status === 'downloading' || r.status === 'queued' || DownloadManager.isWaitingForNetwork(r)) this.enqueue(r.lessonId);
+    }
+  }
+
+  /** Resume transfers interrupted by an app restart (still `downloading`/`queued`/`verifying`, or parked offline). */
   async resumeInterrupted(): Promise<void> {
     const records = await this.deps.index.list();
-    for (const r of records) if ((r.status === 'downloading' || r.status === 'queued' || r.status === 'verifying') && !this.isActive(r.lessonId)) this.enqueue(r.lessonId);
+    for (const r of records) if ((r.status === 'downloading' || r.status === 'queued' || r.status === 'verifying' || DownloadManager.isWaitingForNetwork(r)) && !this.isActive(r.lessonId)) this.enqueue(r.lessonId);
   }
 
   /** Purge downloads whose rights were revoked (pack says distribution is no longer allowed). */
@@ -204,12 +266,18 @@ export class DownloadManager {
   }
 
   private async run(lessonId: string): Promise<void> {
-    const controller = new AbortController();
-    this.controllers.set(lessonId, controller);
+    const transfer: ActiveTransfer = { controller: new AbortController(), intent: null };
+    const controller = transfer.controller;
+    this.active.set(lessonId, transfer);
+    const checkpoint = (): void => {
+      if (controller.signal.aborted) throw new DownloadAbortedError();
+    };
     try {
       const net = await this.deps.network();
+      checkpoint();
       if (!net.online) {
         await this.setStatus(lessonId, 'paused', 'offline');
+        this.deps.onEvent?.({ type: 'paused', lessonId });
         return;
       }
       if (this.deps.wifiOnly() && !net.wifi) {
@@ -218,15 +286,24 @@ export class DownloadManager {
         return;
       }
       const existing = await this.deps.index.get(lessonId);
+      checkpoint();
       if (!existing) return;
       let manifest: DownloadPackManifest;
       try {
         manifest = await this.deps.fetchPack(lessonId);
       } catch (error) {
-        await this.setStatus(lessonId, 'error', classifyPackError(error));
-        this.deps.onEvent?.({ type: 'failed', lessonId, error: classifyPackError(error) });
+        checkpoint();
+        const code = classifyPackError(error);
+        if (code === 'offline') {
+          await this.setStatus(lessonId, 'paused', 'offline');
+          this.deps.onEvent?.({ type: 'paused', lessonId });
+          return;
+        }
+        await this.setStatus(lessonId, 'error', code);
+        this.deps.onEvent?.({ type: 'failed', lessonId, error: code });
         return;
       }
+      checkpoint();
       if (!manifest.distributionAllowed) {
         await this.setStatus(lessonId, 'error', 'rights_blocked');
         return;
@@ -240,10 +317,12 @@ export class DownloadManager {
         return prev && prev.state === 'done' ? { ...f, state: 'done', localUri: prev.localUri, bytesWritten: prev.byteLength, verifiedBy: prev.verifiedBy } : f;
       });
       await this.deps.index.put(fresh);
+      checkpoint();
       this.notify();
       this.deps.onEvent?.({ type: 'started', lessonId });
 
       const free = await this.deps.fs.freeBytes();
+      checkpoint();
       const needed = manifest.totalBytes - fresh.files.filter((f) => f.state === 'done').reduce((n, f) => n + f.byteLength, 0);
       if (free !== null && free - needed < this.minFreeBytes) {
         await this.setStatus(lessonId, 'error', 'disk_full');
@@ -253,6 +332,7 @@ export class DownloadManager {
 
       const dir = joinUri(this.deps.fs.packRoot(), lessonId);
       await this.deps.fs.ensureDirectory(dir);
+      checkpoint();
       // Shared across files: a refresh triggered by one file (403 / stale lease) serves the next ones too.
       const packRef = { current: manifest };
       for (const original of manifest.files) {
@@ -268,14 +348,39 @@ export class DownloadManager {
       this.deps.onEvent?.({ type: 'completed', lessonId });
     } catch (error) {
       if (error instanceof DownloadAbortedError || controller.signal.aborted) {
-        // cancel()/pause() already wrote the final status
+        await this.restoreIntent(lessonId, transfer.intent);
+        return;
+      }
+      if (error instanceof DownloadOfflineError) {
+        await this.deps.index.update(lessonId, (r) => ({ status: 'paused', error: 'offline', ...resetPartialFiles(r) }), this.deps.now());
+        this.notify();
+        this.deps.onEvent?.({ type: 'paused', lessonId });
         return;
       }
       const code: DownloadFailureCode = error instanceof DownloadHttpError ? 'http' : 'unknown';
       await this.setStatus(lessonId, 'error', code);
       this.deps.onEvent?.({ type: 'failed', lessonId, error: code });
     } finally {
-      this.controllers.delete(lessonId);
+      if (this.active.get(lessonId) === transfer) this.active.delete(lessonId);
+    }
+  }
+
+  /**
+   * `cancel()`/`pause()` wrote their status while `run()` was still awaiting; if `run()` then
+   * overwrote the record (e.g. `index.put(fresh)` after the pack arrived), put the intent back.
+   */
+  private async restoreIntent(lessonId: string, intent: DownloadIntent): Promise<void> {
+    const record = await this.deps.index.get(lessonId);
+    if (!record) return; // cancelled and removed: nothing to restore
+    if (intent === 'cancel') {
+      await this.deleteFiles(lessonId);
+      await this.deps.index.remove(lessonId);
+      this.notify();
+      return;
+    }
+    if (record.status === 'downloading' || record.status === 'queued' || record.status === 'verifying') {
+      await this.deps.index.update(lessonId, (r) => ({ status: 'paused', error: null, ...resetPartialFiles(r) }), this.deps.now());
+      this.notify();
     }
   }
 
@@ -318,7 +423,16 @@ export class DownloadManager {
           urlExpiresAt = 0; // force a pack refresh on the next attempt
           continue;
         }
-        if (attempt < MAX_FILE_RETRIES) continue;
+        if (!(error instanceof DownloadHttpError)) {
+          // Transport failure: if the network is gone, park the lesson instead of burning the retries.
+          const net = await this.deps.network().catch(() => ({ online: true, wifi: false }));
+          if (!net.online) throw new DownloadOfflineError();
+        }
+        if (attempt < MAX_FILE_RETRIES) {
+          await this.sleep(this.retryBaseMs * 2 ** attempt);
+          if (signal.aborted) throw new DownloadAbortedError();
+          continue;
+        }
         const code: DownloadFailureCode = error instanceof DownloadHttpError ? 'http' : 'unknown';
         await this.deps.index.updateFile(lessonId, file.assetId, { state: 'error', error: code }, this.deps.now());
         await this.setStatus(lessonId, 'error', code);

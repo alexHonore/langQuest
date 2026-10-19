@@ -6,6 +6,7 @@ import { Pressable, TextInput, View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { CacheNotice } from '@/components/StateViews';
 import { useActiveEnrollment, useCourses } from '@/features/session/queries';
+import { useExtraLabels } from '@/lib/extra-labels';
 import { useLanguageNames, useT } from '@/lib/i18n';
 import { useUiLabels } from '@/lib/labels';
 
@@ -19,6 +20,7 @@ export default function Catalog(): React.JSX.Element {
   const router = useRouter();
   const t = useT();
   const names = useLanguageNames();
+  const X = useExtraLabels();
   const labels = useUiLabels();
   const { me, enrollments } = useActiveEnrollment();
   const source = (me?.defaultSourceLanguageCode ?? null) as SourceLanguageCode | null;
@@ -71,7 +73,13 @@ export default function Catalog(): React.JSX.Element {
                     <ThemedText variant="caption" tone="secondary">
                       {clar.varietyName} · {tr.defaultLocale}
                     </ThemedText>
-                    {source ? <CoverageBadge status={cov?.status ?? 'planned'} sourceLanguageCode={source} nativeReviewed={cov?.nativeReviewed} fallbackSourceLanguageCode={cov?.fallbackSourceLanguageCode ?? null} labels={labels.coverage} languageNames={{ [source]: names(source) }} /> : null}
+                    {source ? <CoverageBadge status={cov?.status ?? 'planned'} sourceLanguageCode={source} nativeReviewed={cov?.nativeReviewed} fallbackSourceLanguageCode={cov?.fallbackSourceLanguageCode ?? null} labels={labels.coverage} languageNames={{ [source]: names(source), ...(cov?.fallbackSourceLanguageCode ? { [cov.fallbackSourceLanguageCode]: names(cov.fallbackSourceLanguageCode) } : {}) }} /> : null}
+                    {c ? (
+                      <Row gap={theme.spacing.xs} wrap>
+                        {c.publicationState !== 'published' ? <Chip label={X.publicationState[c.publicationState] ?? c.publicationState} tone="warning" icon="info" /> : null}
+                        <Chip label={X.missionsPublished(c.publishedMissionCount)} tone={c.publishedMissionCount === 0 ? 'warning' : 'neutral'} />
+                      </Row>
+                    ) : null}
                     {c ? <ThemedText variant="caption" tone="muted">{t(`catalog.scoringSupport.${c.capabilities.pronunciationScoring === 'none' ? 'limited' : c.capabilities.pronunciationScoring}`)}</ThemedText> : null}
                   </View>
                 </Row>

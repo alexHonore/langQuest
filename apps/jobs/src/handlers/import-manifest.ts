@@ -3,6 +3,11 @@
  * their lessons. Rows match by `assetId`, `storageKey` or `legacyPath`; recognised fields are merged onto
  * the lesson (tags are unioned, existing titles kept unless the row provides one). Every change is written
  * to `audit_logs` with before/after so it stays reversible. `dryRun` (default) only reports matches.
+ *
+ * Titles / descriptions are stored under an explicit language: `params.titleLanguage`, else the row's
+ * `instructionLanguage`, else the lesson's `instruction_language_code`. There is no English default (§2.1):
+ * a row whose text fields have no resolvable language keeps its other fields and reports a
+ * `title_language_missing` validation error for the skipped ones.
  */
 import { z } from 'zod';
 import { ImportManifestRowSchema, type ImportManifestRow } from '@langquest/contracts';
@@ -20,7 +25,8 @@ export const ImportManifestParamsSchema = z
     /** Upload session whose object holds the manifest. */
     uploadId: z.string().uuid().optional(),
     dryRun: z.boolean().default(true),
-    titleLanguage: z.string().min(2).max(8).default('en'),
+    /** Language of `lessonTitle` / `description` / `chapterTitle` in the rows; defaults to each row's `instructionLanguage`, then the lesson's. Never English by default. */
+    titleLanguage: z.string().min(2).max(8).optional(),
   })
   .refine((v) => v.rows !== undefined || v.manifestKey !== undefined || v.uploadId !== undefined, { message: 'rows, manifestKey or uploadId is required' });
 export type ImportManifestParams = z.infer<typeof ImportManifestParamsSchema>;
@@ -51,10 +57,16 @@ async function loadRows(ctx: JobContext<ImportManifestParams>): Promise<{ rows: 
   return { rows: parsed.rows, validationErrors: parsed.errors };
 }
 
-export function lessonPatchFromRow(row: ImportManifestRow, lesson: LessonRow, titleLanguage: string): Update<'audio_lessons'> {
+/** Language the row's free-text fields are written in (`null` = unknown → those fields are skipped). */
+export function titleLanguageFor(row: Pick<ImportManifestRow, 'instructionLanguage'>, lesson: Pick<LessonRow, 'instruction_language_code'> | null, explicit: string | null | undefined): string | null {
+  return explicit ?? row.instructionLanguage ?? lesson?.instruction_language_code ?? null;
+}
+
+/** Lesson patch for a row. With `titleLanguage === null` the title / description fields are left untouched (reported by the caller). */
+export function lessonPatchFromRow(row: ImportManifestRow, lesson: LessonRow, titleLanguage: string | null): Update<'audio_lessons'> {
   const patch: Update<'audio_lessons'> = {};
-  if (row.lessonTitle) patch.title_translations = { ...((lesson.title_translations as object) ?? {}), [titleLanguage]: row.lessonTitle } as never;
-  if (row.description) patch.description_translations = { ...((lesson.description_translations as object) ?? {}), [titleLanguage]: row.description } as never;
+  if (row.lessonTitle && titleLanguage) patch.title_translations = { ...((lesson.title_translations as object) ?? {}), [titleLanguage]: row.lessonTitle } as never;
+  if (row.description && titleLanguage) patch.description_translations = { ...((lesson.description_translations as object) ?? {}), [titleLanguage]: row.description } as never;
   if (row.lessonOrder !== undefined) patch.sort_order = row.lessonOrder;
   if (row.episodeNumber !== undefined) patch.episode_number = row.episodeNumber;
   if (row.level) patch.level = row.level;
@@ -101,18 +113,24 @@ export const importManifestHandler: JobHandler<ImportManifestParams> = {
       for (const lessonId of lessonIds) {
         const detail = await db.getLesson(lessonId);
         if (!detail) continue;
-        const patch = lessonPatchFromRow(row, detail.lesson, p.titleLanguage);
+        const titleLanguage = titleLanguageFor(row, detail.lesson, p.titleLanguage);
+        if (!titleLanguage) {
+          for (const field of ['lessonTitle', 'description', 'chapterTitle'] as const) {
+            if (row[field]) validationErrors.push({ row: i, field, message: 'title_language_missing: set titleLanguage, the row instructionLanguage or the lesson instruction language (no English default)' });
+          }
+        }
+        const patch = lessonPatchFromRow(row, detail.lesson, titleLanguage);
         let chapterMove: string | null = null;
         if (row.chapterTitle || row.chapterOrder !== undefined || row.collectionId) {
           // Chapter moves need the collection; look it up through the current chapter.
           const collectionId = row.collectionId ?? null;
-          if (row.chapterTitle && collectionId) {
-            const chapter = (await db.findChapterByTitle(collectionId, row.chapterTitle, p.titleLanguage)) ?? (await db.upsertChapter({ collection_id: collectionId, title_translations: { [p.titleLanguage]: row.chapterTitle } as never, sort_order: row.chapterOrder ?? 0, state: 'imported_draft' } as never));
+          if (row.chapterTitle && collectionId && titleLanguage) {
+            const chapter = (await db.findChapterByTitle(collectionId, row.chapterTitle, titleLanguage)) ?? (await db.upsertChapter({ collection_id: collectionId, title_translations: { [titleLanguage]: row.chapterTitle } as never, sort_order: row.chapterOrder ?? 0, state: 'imported_draft' } as never));
             if (chapter.id !== detail.lesson.chapter_id) {
               patch.chapter_id = chapter.id;
               chapterMove = chapter.id;
             }
-          } else if (row.chapterTitle) unmatched.push({ row: i, reason: 'chapterTitle needs collectionId to resolve the chapter' });
+          } else if (row.chapterTitle && !collectionId) unmatched.push({ row: i, reason: 'chapterTitle needs collectionId to resolve the chapter' });
         }
         matches.push({ row: i, assetId: asset.id, lessonIds: [lessonId], patch, chapterMove });
         if (!p.dryRun && Object.keys(patch).length) {

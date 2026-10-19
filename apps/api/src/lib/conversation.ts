@@ -19,6 +19,7 @@ import { sha256Hex } from '@langquest/telemetry/privacy';
 import { problem } from '../http/envelope';
 import type { RequestServices } from '../services/context';
 import type { EnrollmentRow } from './enrollment';
+import { goalDescriptionFor, goalEditorialText, goalsOf } from './goals';
 import { recordObservations, scheduleReviews } from './learning';
 
 export type SessionRow = Row<'conversation_sessions'>;
@@ -26,6 +27,10 @@ export type TurnRow = Row<'conversation_turns'>;
 export type CharacterRow = Row<'characters'>;
 
 export const MAX_SESSION_MS = 30 * 60_000;
+/** Hard cap on one learner utterance (typed, transcript or hint) before it reaches storage or any prompt. */
+export const MAX_LEARNER_TEXT_CHARS = 2000;
+/** C0/C1 control characters except TAB, LF, CR (rejected at the boundary, stripped defensively here). */
+const CONTROL_CHARS = /[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F-\u009F]/g;
 export const MAX_TURN_MS = 60_000;
 /** Evaluate asynchronously every N learner turns (plus at the end). */
 export const EVALUATE_EVERY_TURNS = 4;
@@ -63,7 +68,10 @@ export function personaFor(character: CharacterRow): CharacterPersona {
 
 export interface Objective {
   id: string;
+  /** Learner-facing text in the enrollment's source language; empty when the goal is not localized for it (§10.1). */
   description: string;
+  /** Editor free text without a language tag: prompt context only, never shown to the learner. */
+  editorialDescription: string | null;
   skillKeys: string[];
   completed: boolean;
 }
@@ -71,10 +79,13 @@ export interface Objective {
 export function objectivesFromMission(mission: Row<'missions'> | null, source: string, completed: readonly string[]): Objective[] {
   if (!mission) return [];
   const t = sourceLanguageTranslator({ sourceLanguage: source as SourceLanguageCode });
-  const goals = (Array.isArray(mission.goals) ? mission.goals : []) as { id?: string; skill_keys?: string[]; description_key?: string; description?: string }[];
-  return goals
-    .filter((g) => typeof g.id === 'string')
-    .map((g) => ({ id: g.id!, description: g.description_key && t.translator.has(g.description_key) ? t.translator.t(g.description_key) : (g.description ?? g.id!), skillKeys: (g.skill_keys ?? []).filter((k) => /^[a-z0-9]+(?:[._][a-z0-9]+)*$/.test(k)), completed: completed.includes(g.id!) }));
+  return goalsOf(mission).map((g) => ({
+    id: g.id,
+    description: goalDescriptionFor(g, source as SourceLanguageCode, t.translator) ?? '',
+    editorialDescription: goalEditorialText(g),
+    skillKeys: (g.skill_keys ?? []).filter((k) => /^[a-z0-9]+(?:[._][a-z0-9]+)*$/.test(k)),
+    completed: completed.includes(g.id),
+  }));
 }
 
 export async function recentWeaknesses(s: RequestServices, enrollmentId: string): Promise<string[]> {
@@ -100,7 +111,8 @@ export function buildContext(input: { language: LanguageContext; session: Sessio
     characterId: input.character.id,
     scenarioId: input.session.scenario_id,
     sceneFacts: facts,
-    objectives: input.objectives.map((o) => ({ id: o.id, description: o.description, skillKeys: o.skillKeys, completed: o.completed })),
+    // The agent needs some wording for every objective; the learner-facing field stays source-language only.
+    objectives: input.objectives.map((o) => ({ id: o.id, description: o.description || o.editorialDescription || o.id, skillKeys: o.skillKeys, completed: o.completed })),
     recentWeaknessSkillKeys: input.weaknesses.slice(0, 10),
     turnSummary: (input.session.summary ?? '').slice(0, 2000),
     register: 'neutral',
@@ -135,7 +147,41 @@ export async function listTurns(s: RequestServices, sessionId: string, limit?: n
   return res.data ?? [];
 }
 
-export const turnRecords = (turns: readonly TurnRow[]): TurnRecord[] => turns.filter((t) => t.text).map((t) => ({ role: t.speaker as 'learner' | 'character', text: t.text ?? '', confidence: t.confidence, command: (t.command as ConversationCommand | null) ?? null }));
+/**
+ * Normalise learner-controlled text before persistence and before any prompt (§14.3 prompt injection): line breaks
+ * collapse to spaces so a learner can never forge a `CHARACTER:` / `SYSTEM:` line in the evaluator or summary
+ * transcript, triple quotes are neutralised so the character prompt's `"""…"""` framing cannot be closed, control
+ * characters are stripped and the length is capped. Returns null for empty input.
+ */
+export function normaliseLearnerText(text: string | null | undefined): string | null {
+  if (text === null || text === undefined) return null;
+  const cleaned = text
+    .replace(CONTROL_CHARS, '')
+    .replace(/[\r\n\u2028\u2029]+/g, ' ')
+    .replace(/\t+/g, ' ')
+    .replace(/"""+/g, '""')
+    .replace(/ {2,}/g, ' ')
+    .trim()
+    .slice(0, MAX_LEARNER_TEXT_CHARS);
+  return cleaned.length ? cleaned : null;
+}
+
+/** True when the text carries control characters the API refuses at validation time (TAB/LF/CR are allowed). */
+export const hasForbiddenControlChars = (text: string): boolean => {
+  CONTROL_CHARS.lastIndex = 0;
+  return CONTROL_CHARS.test(text);
+};
+
+/**
+ * Transcript window for the evaluator/summariser. Learner turns are normalised again here (rows written before this
+ * rule existed, or by other writers, still cannot smuggle a fake speaker line). Character turns are model output
+ * that already passed the language guard; they keep their text but lose line breaks for the same reason.
+ */
+export const turnRecords = (turns: readonly TurnRow[]): TurnRecord[] =>
+  turns
+    .map((t) => ({ row: t, text: t.speaker === 'learner' ? normaliseLearnerText(t.text) : (t.text?.replace(/[\r\n]+/g, ' ').trim() ?? null) }))
+    .filter((x): x is { row: TurnRow; text: string } => Boolean(x.text))
+    .map(({ row, text }) => ({ role: row.speaker as 'learner' | 'character', text, confidence: row.confidence, command: (row.command as ConversationCommand | null) ?? null }));
 
 /** Attach TTS audio to a character turn: R2-backed URL when available, otherwise an inline data URL. */
 export async function attachAudio(s: RequestServices, turn: CharacterTurn, audio: AudioOutput | null): Promise<CharacterTurn> {
@@ -168,7 +214,12 @@ export async function evaluateSession(s: RequestServices, ai: AiServices, input:
   const window = turnRecords(input.turns.slice(-EVALUATOR_WINDOW_TURNS));
   if (!window.some((t) => t.role === 'learner')) return null;
   try {
-    const output = await ai.evaluator.evaluate({ context: input.context, transcriptWindow: window, conversationSessionId: input.session.id, skillCatalog: input.context.objectives.flatMap((o) => o.skillKeys), traceId: input.traceId });
+    const raw = await ai.evaluator.evaluate({ context: input.context, transcriptWindow: window, conversationSessionId: input.session.id, skillCatalog: input.context.objectives.flatMap((o) => o.skillKeys), traceId: input.traceId });
+    // Objective ids are server-known (mission goals in the context). The package evaluator keeps raw ids when the
+    // context lists no objectives (free conversation); here nothing outside the context may ever be persisted, so a
+    // talked-into "completed g1" can never be matched against a mission goal later (missionEvaluate reads rubric_outcomes).
+    const allowed = new Set(input.context.objectives.map((o) => o.id));
+    const output: EvaluatorOutput = { ...raw, objectivesCompleted: raw.objectivesCompleted.filter((id) => allowed.has(id)) };
     const observations = ai.evaluator.toSkillObservations(output, input.enrollment.id);
     await recordObservations(s, input.enrollment, observations, new Date().toISOString());
     const objectives = [...new Set([...input.session.objectives_completed, ...output.objectivesCompleted])];

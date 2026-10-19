@@ -9,6 +9,8 @@ import { ModelProfileSchema } from '@langquest/contracts';
 import type { DbClient } from '@langquest/db/client';
 import type { Row } from '@langquest/db/types';
 import { pseudonymizeLearnerId } from '@langquest/telemetry/privacy';
+import { learnerPseudonymSalt } from '../lib/secrets';
+import { combineAbortSignals } from '../middleware/security';
 import type { AudioAssetResolver } from '@langquest/ai/speech/audio-input';
 import type { TtsCache } from '@langquest/ai/speech/tts';
 import type { ApiEnv } from '../env';
@@ -94,6 +96,21 @@ export interface AiWiringDeps {
   userId: string | null;
   sessionId?: string | null;
   fetch?: typeof fetch;
+  /**
+   * Request-scoped abort signal (timeout / client disconnect). Every provider HTTP call made by these services is
+   * bound to it, so work started by a handler stops once the response has already been sent as a timeout error.
+   */
+  signal?: AbortSignal;
+}
+
+/** Wrap `fetch` so every call is additionally aborted by `signal` (provider adapters keep their own timeouts). */
+export function abortableFetch(base: typeof fetch, signal: AbortSignal | undefined): typeof fetch {
+  if (!signal) return base;
+  const wrapped: typeof fetch = (input, init) => {
+    const initSignal = init?.signal ?? (input instanceof Request ? input.signal : undefined);
+    return base(input, { ...init, signal: combineAbortSignals(signal, initSignal) });
+  };
+  return wrapped;
 }
 
 /** Resolve learner-owned (or published-lesson) audio assets for STT/pronunciation adapters. */
@@ -151,7 +168,10 @@ export async function buildAiServices(deps: AiWiringDeps): Promise<AiServices> {
   if (!deps.env.OPENROUTER_API_KEY) throw problem.unsupported('AI features are not configured on this deployment (OPENROUTER_API_KEY missing)');
   const loaded = await loadDbProfiles(deps.service, deps.log);
   const sink = createAiRequestSink({ service: deps.service, log: deps.log, waitUntil: deps.waitUntil, knownProfileIds: () => loaded.ids, defaultUserId: deps.userId });
-  const salt = deps.env.AI_SESSION_TICKET_SECRET ?? deps.env.SUPABASE_ANON_KEY;
+  // Learner pseudonyms are salted with a dedicated server secret (never the public anon key); without one the
+  // ledger rows stay unhashed rather than computable by anyone holding a client bundle.
+  const salt = learnerPseudonymSalt(deps.env);
+  const fetchImpl = abortableFetch(deps.fetch ?? fetch, deps.signal);
   return createAiServices(
     {
       OPENROUTER_API_KEY: deps.env.OPENROUTER_API_KEY,
@@ -164,14 +184,14 @@ export async function buildAiServices(deps: AiWiringDeps): Promise<AiServices> {
       AI_APP_REFERER: 'https://langquest.app',
     },
     {
-      fetch: deps.fetch,
+      fetch: fetchImpl,
       logger: { debug: (e, f) => deps.log.debug(e, f), info: (e, f) => deps.log.info(e, f), warn: (e, f) => deps.log.warn(e, f), error: (e, f) => deps.log.error(e, f) },
       requestSink: sink,
       incidentSink: createIncidentSink({ service: deps.service, log: deps.log, waitUntil: deps.waitUntil }, { userId: deps.userId, sessionId: deps.sessionId ?? null }),
       profileLoader: { load: async () => overlayProfiles(loaded.profiles) },
       assetResolver: createAssetResolver(deps),
       ttsCache: createTtsCache(deps.media, deps.log),
-      userHash: deps.userId ? pseudonymizeLearnerId(deps.userId, salt) : null,
+      userHash: deps.userId && salt ? pseudonymizeLearnerId(deps.userId, salt) : null,
     },
   );
 }

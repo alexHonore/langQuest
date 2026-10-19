@@ -99,7 +99,8 @@ async function build(): Promise<AudioRuntime> {
     newId: newUuid,
     now: nowIso,
     put: (lessonId, body) => api.putProgress(lessonId, body),
-    enqueueOutbox: (payload) => local.outbox.enqueue(payload, null),
+    // Same event id as the PUT (server dedupes) and the LESSON revision (what the server compares per device).
+    enqueueOutbox: (payload, options) => local.outbox.enqueue(payload, null, options.occurredAt, { clientEventId: options.clientEventId, revision: options.revision }),
     isOnline: () => online,
     isConnectivityError,
   });
@@ -121,7 +122,11 @@ async function build(): Promise<AudioRuntime> {
       const record = await index.get(item.id);
       if (isPlayableOffline(record)) {
         const file = localAudioFile(record, item.assetId);
-        if (file?.localUri && (await fs.exists(file.localUri))) return { uri: file.localUri, kind: 'local', expiresAt: null, assetId: file.assetId };
+        if (file?.localUri) {
+          if (await fs.exists(file.localUri)) return { uri: file.localUri, kind: 'local', expiresAt: null, assetId: file.assetId };
+          // The index said "Downloaded" but the file is gone: reconcile so the UI stops claiming it (§4.4).
+          await downloads.markFileMissing(item.id, file.assetId).catch(() => undefined);
+        }
       }
     }
     // 2. Signed URL (renewed before expiry / after a mid-stream failure, A22).

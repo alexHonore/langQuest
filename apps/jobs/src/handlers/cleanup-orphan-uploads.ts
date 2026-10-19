@@ -4,8 +4,8 @@
  * `planOrphanCleanup` policy in `@langquest/media`; this handler only executes them: expire stale sessions,
  * abort their multipart uploads, delete staging objects of failed/aborted sessions after the grace period,
  * re-queue `completed`-but-unverified sessions for verification and fail them after the verify timeout.
- * Verified sessions are never touched. Runs under the carrier job type `describe` with
- * `params.handler = 'cleanup_orphan_uploads'`; `dryRun` reports the plan only.
+ * Verified sessions are never touched. Job type `cleanup_orphan_uploads` (pre-migration-100 rows: `describe` +
+ * `params.handler`); `dryRun` reports the plan only.
  */
 import { z } from 'zod';
 import { fromUploadRow, kindForMime, planOrphanCleanup, type OrphanAction, type UploadSession } from '@langquest/media';
@@ -20,7 +20,7 @@ export type CleanupOrphanUploadsParams = z.infer<typeof CleanupOrphanUploadsPara
 
 export const cleanupOrphanUploadsHandler: JobHandler<CleanupOrphanUploadsParams> = {
   name: 'cleanup_orphan_uploads',
-  jobTypes: [],
+  jobTypes: ['cleanup_orphan_uploads'],
   runtime: 'any',
   paramsSchema: CleanupOrphanUploadsParamsSchema,
   async run(ctx) {

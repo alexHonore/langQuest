@@ -4,6 +4,11 @@
  * rows, then create draft assets (copied to hashed master keys; the legacy path is kept as metadata,
  * never as the key) plus draft collection → chapter → lesson rows. Idempotent: objects already imported
  * (by legacy path / key / content hash) are reported as `known` and skipped. `dryRun` (default) only reports.
+ *
+ * Parsed folder / file-name titles are stored under an explicit language: `params.titleLanguage`, else the
+ * object's merged `instructionLanguage` (sidecar row or `defaultInstructionLanguage`). There is no English
+ * default (§2.1): an object with no resolvable title language is reported as `title_language_missing` and
+ * left untouched (nothing is copied or inserted for it), so a re-run after setting the language imports it.
  */
 import { createReadStream } from 'node:fs';
 import { z } from 'zod';
@@ -13,7 +18,7 @@ import type { Insert } from '@langquest/db';
 import { buildMasterKey, extractAudioMetadata, parseCsvManifest, parseJsonManifest, reconcilePrefix, type ImportDefaults, type ReconciledObject } from '@langquest/media';
 import type { CollectionRow, ChapterRow, MediaAssetRow } from '../db';
 import { JobFailure, type JobContext, type JobHandler } from '../queue/types';
-import { downloadToWorkDir, hashFile, keyHash, localized } from './common';
+import { downloadToWorkDir, hashFile, keyHash, localizedExact } from './common';
 
 export const ImportR2PrefixParamsSchema = z.object({
   prefix: z.string().min(1).max(1024),
@@ -28,8 +33,8 @@ export const ImportR2PrefixParamsSchema = z.object({
   defaultLicenseId: z.string().max(100).optional(),
   rightsOwner: z.string().max(200).optional(),
   defaultLevel: LearnerLevelSchema.optional(),
-  /** Language code of the parsed titles (folder names). */
-  titleLanguage: z.string().min(2).max(8).default('en'),
+  /** Language code of the parsed titles (folder names); defaults to each object's instruction language, never to English. */
+  titleLanguage: z.string().min(2).max(8).optional(),
   maxObjects: z.number().int().min(1).max(200_000).default(20_000),
   /** Extract ID3/container metadata per file (slower on huge prefixes; always on for non-dry runs). */
   extractMetadata: z.boolean().default(true),
@@ -49,7 +54,7 @@ async function loadSidecar(ctx: JobContext<ImportR2PrefixParams>, key: string): 
 
 export const importR2PrefixHandler: JobHandler<ImportR2PrefixParams> = {
   name: 'import_r2_prefix',
-  jobTypes: ['import_prefix'],
+  jobTypes: ['import_prefix', 'import_r2_prefix'],
   runtime: 'node',
   paramsSchema: ImportR2PrefixParamsSchema,
   async run(ctx) {
@@ -85,8 +90,11 @@ export const importR2PrefixHandler: JobHandler<ImportR2PrefixParams> = {
       listing.map((o) => ({ key: o.key, byteLength: o.byteLength, etag: o.etag, lastModified: o.lastModified })),
       { prefix, sidecarRows: sidecar.rows, defaults, knownKeys },
     );
-    const sample = entries.slice(0, 50).map((e) => ({ key: e.key, byteLength: e.byteLength, status: e.status, skipReason: e.skipReason, inferred: e.merged.values, provenance: e.merged.provenance }));
-    const base = { prefix, dryRun: p.dryRun, sidecarKey, sidecarRows: sidecar.rows.length, sidecarErrors: sidecar.errors.slice(0, 100), discovered: { objects: listing.length, audio: entries.filter((e) => e.parsed.isAudio).length, sidecars: entries.filter((e) => e.parsed.isSidecar).length, alreadyImported: summary.known, unsupported: entries.filter((e) => e.status === 'skipped' && !e.parsed.isSidecar).length }, summary, sample };
+    /** Language the parsed titles of one object are stored under (`null` = unknown → the object is not imported). */
+    const titleLanguageFor = (entry: ReconciledObject): string | null => p.titleLanguage ?? entry.merged.values.instructionLanguage ?? null;
+    const missingTitleLanguage = entries.filter((e) => e.status === 'new' && titleLanguageFor(e) === null).length;
+    const sample = entries.slice(0, 50).map((e) => ({ key: e.key, byteLength: e.byteLength, status: e.status, skipReason: e.skipReason, titleLanguage: titleLanguageFor(e), inferred: e.merged.values, provenance: e.merged.provenance }));
+    const base = { prefix, dryRun: p.dryRun, sidecarKey, sidecarRows: sidecar.rows.length, sidecarErrors: sidecar.errors.slice(0, 100), titleLanguage: p.titleLanguage ?? null, missingTitleLanguage, discovered: { objects: listing.length, audio: entries.filter((e) => e.parsed.isAudio).length, sidecars: entries.filter((e) => e.parsed.isSidecar).length, alreadyImported: summary.known, unsupported: entries.filter((e) => e.status === 'skipped' && !e.parsed.isSidecar).length }, summary, sample };
     if (p.dryRun) {
       await ctx.progress(100);
       return { output: { ...base, imported: 0, linked: 0, failed: 0, failures: [] } };
@@ -101,7 +109,7 @@ export const importR2PrefixHandler: JobHandler<ImportR2PrefixParams> = {
     let linked = 0;
     const work = entries.filter((e) => e.status === 'new');
 
-    const ensureCollection = async (entry: ReconciledObject): Promise<CollectionRow> => {
+    const ensureCollection = async (entry: ReconciledObject, titleLanguage: string): Promise<CollectionRow> => {
       const v = entry.merged.values;
       if (v.collectionId) {
         const cached = collections.get(v.collectionId);
@@ -115,27 +123,33 @@ export const importR2PrefixHandler: JobHandler<ImportR2PrefixParams> = {
       const cacheKey = `title:${title}`;
       const cached = collections.get(cacheKey);
       if (cached) return cached;
-      const existing = await db.findCollectionByTitle(title, p.titleLanguage);
+      const existing = await db.findCollectionByTitle(title, titleLanguage);
       const track = p.defaultTrackId && isCourseTrackId(p.defaultTrackId) ? p.defaultTrackId : null;
-      const row = existing ?? (await db.upsertCollection({ title_translations: { [p.titleLanguage]: title } as never, course_track_id: track, target_variety_id: v.targetVarietyId ?? null, instruction_language_code: v.instructionLanguage ?? null, state: 'imported_draft' } as Insert<'audio_course_collections'>));
+      const row = existing ?? (await db.upsertCollection({ title_translations: { [titleLanguage]: title } as never, course_track_id: track, target_variety_id: v.targetVarietyId ?? null, instruction_language_code: v.instructionLanguage ?? null, state: 'imported_draft' } as Insert<'audio_course_collections'>));
       collections.set(cacheKey, row);
       collections.set(row.id, row);
       return row;
     };
-    const ensureChapter = async (collection: CollectionRow, entry: ReconciledObject): Promise<ChapterRow> => {
+    const ensureChapter = async (collection: CollectionRow, entry: ReconciledObject, titleLanguage: string): Promise<ChapterRow> => {
       const v = entry.merged.values;
-      const title = v.chapterTitle ?? localized(collection.title_translations, p.titleLanguage) ?? 'Chapter 1';
+      const title = v.chapterTitle ?? localizedExact(collection.title_translations, titleLanguage) ?? 'Chapter 1';
       const cacheKey = `${collection.id}:${title}`;
       const cached = chapters.get(cacheKey);
       if (cached) return cached;
-      const existing = await db.findChapterByTitle(collection.id, title, p.titleLanguage);
-      const row = existing ?? (await db.upsertChapter({ collection_id: collection.id, title_translations: { [p.titleLanguage]: title } as never, sort_order: v.chapterOrder ?? 0, state: 'imported_draft' } as Insert<'audio_chapters'>));
+      const existing = await db.findChapterByTitle(collection.id, title, titleLanguage);
+      const row = existing ?? (await db.upsertChapter({ collection_id: collection.id, title_translations: { [titleLanguage]: title } as never, sort_order: v.chapterOrder ?? 0, state: 'imported_draft' } as Insert<'audio_chapters'>));
       chapters.set(cacheKey, row);
       return row;
     };
 
     for (const [i, entry] of work.entries()) {
       if (ctx.signal.aborted) throw new JobFailure('aborted', 'import aborted; re-run to continue (idempotent)', { retry: true, backoffSeconds: 60 });
+      const titleLanguage = titleLanguageFor(entry);
+      if (!titleLanguage) {
+        // Decided before anything is copied or inserted, so a re-run after setting the language imports the object.
+        failures.push({ key: entry.key, reason: 'title_language_missing: set titleLanguage, defaultInstructionLanguage or a sidecar instructionLanguage (no English default)' });
+        continue;
+      }
       try {
         const v = entry.merged.values;
         const ext = entry.parsed.extension ?? 'bin';
@@ -199,13 +213,13 @@ export const importR2PrefixHandler: JobHandler<ImportR2PrefixParams> = {
           imported += 1;
         }
 
-        const collection = await ensureCollection(entry);
-        const chapter = await ensureChapter(collection, entry);
+        const collection = await ensureCollection(entry, titleLanguage);
+        const chapter = await ensureChapter(collection, entry, titleLanguage);
         const lessonTitle = v.lessonTitle ?? entry.parsed.legacyFilename.replace(/\.[^.]+$/, '');
         const lesson = await db.upsertLesson({
           chapter_id: chapter.id,
-          title_translations: { [p.titleLanguage]: lessonTitle } as never,
-          description_translations: (v.description ? { [p.titleLanguage]: v.description } : {}) as never,
+          title_translations: { [titleLanguage]: lessonTitle } as never,
+          description_translations: (v.description ? { [titleLanguage]: v.description } : {}) as never,
           sort_order: v.lessonOrder ?? i,
           episode_number: v.episodeNumber ?? null,
           level: v.level ?? null,

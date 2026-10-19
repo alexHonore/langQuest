@@ -120,6 +120,69 @@ describeStack('progress sync idempotency (A27)', () => {
     expect(rows.data).toHaveLength(0);
   });
 
+  it('applies step_completed / mission_abandoned that reference the attempt by client_attempt_id only', async () => {
+    // Offline-first: the client enqueues steps before (or without) missionAttemptCreate succeeding, so it can
+    // only send its own client_attempt_id. Both ids must resolve to the learner's row (§4.5: never drop progress).
+    const steps = await seeder.steps(missionId, ['shadowing', 'shadowing']);
+    const open = await h.service.from('mission_attempts').select('client_attempt_id').eq('id', openAttemptId).single();
+    const clientAttemptId = open.data!.client_attempt_id;
+    const stepEvent = { type: 'step_completed', attemptId: clientAttemptId, stepId: steps[1]!.id, outcome: 'success', hintsUsed: 0, durationMs: 4000 };
+    const clientEventId = crypto.randomUUID();
+    const first = await call(h, '/v1/me/progress/sync', { token: alice.token, body: syncBody('phone', [{ clientEventId, enrollmentId, revision: 11, payload: stepEvent }]) });
+    expect(first.status).toBe(200);
+    expect(first.json.data.results[0], JSON.stringify(first.json.data.results[0])).toMatchObject({ resolution: 'applied', reason: null });
+    const advanced = await h.service.from('mission_attempts').select('current_step_index').eq('id', openAttemptId).single();
+    expect(advanced.data?.current_step_index).toBe(2); // sort_order 1 completed → next step index 2
+    const marked = await h.service.from('device_sync_events').select('applied_at, resolution').eq('user_id', alice.id).eq('client_event_id', clientEventId).single();
+    expect(marked.data?.resolution).toBe('applied');
+    expect(marked.data?.applied_at).toBeTruthy();
+    const replay = await call(h, '/v1/me/progress/sync', { token: alice.token, body: syncBody('phone', [{ clientEventId, enrollmentId, revision: 11, payload: stepEvent }]) });
+    expect(replay.json.data.results[0].resolution).toBe('duplicate');
+
+    const abandoned = await call(h, '/v1/me/progress/sync', { token: alice.token, body: syncBody('phone', [{ enrollmentId, revision: 12, payload: { type: 'mission_abandoned', attemptId: clientAttemptId, atStepIndex: 1 } }]) });
+    expect(abandoned.json.data.results[0].resolution).toBe('applied');
+    const row = await h.service.from('mission_attempts').select('abandoned_at, current_step_index').eq('id', openAttemptId).single();
+    expect(row.data?.abandoned_at).toBeTruthy();
+    expect(row.data?.current_step_index).toBe(2); // never moves progress backwards
+  });
+
+  it('materialises an attempt started offline (never created on the server) from its first synced step', async () => {
+    const steps = (await h.service.from('mission_steps').select('id, sort_order').eq('mission_id', missionId).order('sort_order')).data!;
+    const offlineClientAttemptId = crypto.randomUUID();
+    const res = await call(h, '/v1/me/progress/sync', {
+      token: alice.token,
+      body: syncBody('phone', [
+        { enrollmentId, revision: 13, payload: { type: 'step_completed', attemptId: offlineClientAttemptId, stepId: steps[0]!.id, outcome: 'success', hintsUsed: 1, durationMs: 3000 } },
+        { enrollmentId, revision: 14, payload: { type: 'mission_abandoned', attemptId: offlineClientAttemptId, atStepIndex: 1 } },
+      ]),
+    });
+    expect(res.status).toBe(200);
+    for (const r of res.json.data.results) expect(r, JSON.stringify(r)).toMatchObject({ resolution: 'applied' });
+    const created = await h.service.from('mission_attempts').select('id, user_id, enrollment_id, mission_id, current_step_index, abandoned_at, completed_at, xp_awarded').eq('user_id', alice.id).eq('client_attempt_id', offlineClientAttemptId).single();
+    expect(created.data).toMatchObject({ user_id: alice.id, enrollment_id: enrollmentId, mission_id: missionId, current_step_index: 1, completed_at: null, xp_awarded: 0 });
+    expect(created.data?.abandoned_at).toBeTruthy();
+    seeder.track('mission_attempts', created.data!.id);
+    // The client's eventual missionAttemptCreate with the same clientAttemptId replays the materialised row.
+    const replayed = await call(h, `/v1/missions/${missionId}/attempts`, { token: alice.token, body: { enrollmentId, clientAttemptId: offlineClientAttemptId, missionRevision: 0, startedAt: new Date(Date.now() - 60_000).toISOString() } });
+    expect(replayed.status).toBe(200);
+    expect(replayed.json.data).toMatchObject({ attemptId: created.data!.id, replayed: true });
+  });
+
+  it('never materialises an attempt for someone else\'s enrollment or client attempt id', async () => {
+    const steps = (await h.service.from('mission_steps').select('id').eq('mission_id', missionId).order('sort_order')).data!;
+    const alicesOpen = await h.service.from('mission_attempts').select('client_attempt_id').eq('id', openAttemptId).single();
+    const res = await call(h, '/v1/me/progress/sync', {
+      token: bob.token,
+      body: syncBody('bob-phone', [
+        { enrollmentId, revision: 3, payload: { type: 'step_completed', attemptId: alicesOpen.data!.client_attempt_id, stepId: steps[0]!.id, outcome: 'success', hintsUsed: 0, durationMs: 1000 } },
+        { enrollmentId, revision: 4, payload: { type: 'step_completed', attemptId: openAttemptId, stepId: steps[0]!.id, outcome: 'success', hintsUsed: 0, durationMs: 1000 } },
+      ]),
+    });
+    for (const r of res.json.data.results) expect(r.resolution).toBe('rejected');
+    const bobsAttempts = await h.service.from('mission_attempts').select('id').eq('user_id', bob.id);
+    expect(bobsAttempts.data).toHaveLength(0);
+  });
+
   it('rejects events aimed at another learner\'s enrollment without revealing it exists', async () => {
     const res = await call(h, '/v1/me/progress/sync', { token: bob.token, body: syncBody('bob-phone', [{ enrollmentId, revision: 1, payload: { type: 'enrollment_opened', enrollmentId } }, { enrollmentId, revision: 2, payload: { type: 'xp_claim', reason: 'mission_completed', referenceId: completedAttemptId, amount: 50 } }]) });
     expect(res.status).toBe(200);

@@ -5,7 +5,7 @@
  * immediately; network fetches refresh it. Nothing here fabricates data —
  * a missing cache entry is `null` and screens show honest offline states.
  */
-import type { CourseManifest, MissionDetailResponse, ProgressResponse, ReviewsDueResponse } from '@langquest/contracts';
+import type { ConversationEndRequest, CourseManifest, MissionDetailResponse, ProgressResponse, ReviewsDueResponse, StepResult } from '@langquest/contracts';
 import type { CoursesResponse } from '@/lib/api/endpoints';
 import type { MeProfile } from '@/lib/api/me-schema';
 import type { DocumentStore } from './document-store';
@@ -18,6 +18,7 @@ export const COLLECTIONS = {
   progress: 'progress',
   courses: 'courses',
   localProgress: 'local_progress',
+  pendingConversationEnds: 'pending_conversation_ends',
   meta: 'meta',
 } as const;
 
@@ -35,9 +36,23 @@ export interface LocalMissionProgress {
   attemptId: string | null;
   clientAttemptId: string;
   startedAt: string;
+  /** Frozen once per attempt so an evaluate retry is byte-identical (idempotency fingerprint, §4.6). */
   completedAt: string | null;
   /** True when the completion is recorded locally but the evaluate call has not succeeded yet. */
   pendingEvaluation: boolean;
+  /** Step results captured at completion so a pending evaluation can be re-sent after a restart. */
+  stepResults?: StepResult[];
+  /** Server revision the attempt was created against (needed to re-create the attempt). */
+  missionRevision?: number;
+}
+
+/** A `POST /conversations/:id/end` that could not be delivered (offline); replayed by the services layer. */
+export interface PendingConversationEnd {
+  sessionId: string;
+  enrollmentId: string;
+  body: ConversationEndRequest;
+  queuedAt: string;
+  attempts: number;
 }
 
 export function createCache(store: DocumentStore, now: () => string = () => new Date().toISOString()) {
@@ -60,6 +75,11 @@ export function createCache(store: DocumentStore, now: () => string = () => new 
     getLocalMission: (enrollmentId: string, missionId: string) => store.get<LocalMissionProgress>(COLLECTIONS.localProgress, `${enrollmentId}:${missionId}`),
     putLocalMission: (p: LocalMissionProgress) => store.put(COLLECTIONS.localProgress, `${p.enrollmentId}:${p.missionId}`, p, Date.parse(p.startedAt)),
     listLocalMissions: async (enrollmentId: string) => (await store.list<LocalMissionProgress>(COLLECTIONS.localProgress)).map((d) => d.doc).filter((p) => p.enrollmentId === enrollmentId),
+    /** Finished missions whose evaluate call has not succeeded yet (any enrollment). */
+    listPendingEvaluations: async () => (await store.list<LocalMissionProgress>(COLLECTIONS.localProgress)).map((d) => d.doc).filter((p) => p.status === 'completed' && p.pendingEvaluation),
+    putPendingConversationEnd: (p: PendingConversationEnd) => store.put(COLLECTIONS.pendingConversationEnds, p.sessionId, p, Date.parse(p.queuedAt)),
+    listPendingConversationEnds: async () => (await store.list<PendingConversationEnd>(COLLECTIONS.pendingConversationEnds, { order: 'asc' })).map((d) => d.doc),
+    removePendingConversationEnd: (sessionId: string) => store.remove(COLLECTIONS.pendingConversationEnds, sessionId),
     getMeta: <T>(key: string) => store.get<T>(COLLECTIONS.meta, key),
     putMeta: <T>(key: string, value: T) => store.put(COLLECTIONS.meta, key, value),
     /** Forget every cached manifest/mission for one enrollment's old source language (§2.1 cache invalidation). */

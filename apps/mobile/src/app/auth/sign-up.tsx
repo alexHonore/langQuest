@@ -4,12 +4,14 @@ import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { AuthFrame, Field, OAuthButtons } from '@/components/AuthForm';
 import { isBackendConfigured } from '@/config/env';
+import { useExtraLabels } from '@/lib/extra-labels';
 import { useI18n, useLanguageNames } from '@/lib/i18n';
 import { useAuth } from '@/state/auth';
 import { usePrefs } from '@/state/prefs';
 
 export default function SignUp(): React.JSX.Element {
   const { t, locale } = useI18n();
+  const X = useExtraLabels();
   const names = useLanguageNames();
   const theme = useTheme();
   const router = useRouter();
@@ -29,9 +31,9 @@ export default function SignUp(): React.JSX.Element {
       {pendingSource ? <StatusLine icon="info" tone="info" text={`${t('account.defaultSourceLanguage')}: ${names(pendingSource)}`} /> : null}
       <Field label={t('account.displayName')} value={displayName} onChangeText={setDisplayName} autoComplete="name" />
       <Field label={t('account.email')} value={email} onChangeText={setEmail} keyboardType="email-address" autoComplete="email" textContentType="emailAddress" />
-      <Field label="Password" value={password} onChangeText={setPassword} secure autoComplete="new-password" textContentType="newPassword" />
+      <Field label={X.password} value={password} onChangeText={setPassword} secure autoComplete="new-password" textContentType="newPassword" />
       {verify ? (
-        <StatusLine icon="check" tone="success" text="Check your inbox to verify your email, then sign in." />
+        <StatusLine icon="check" tone="success" text={X.checkInbox} />
       ) : (
         <Button
           label={t('common.continue')}
@@ -49,7 +51,7 @@ export default function SignUp(): React.JSX.Element {
         />
       )}
       <ThemedText variant="caption" tone="muted">
-        Password: at least 8 characters.
+        {X.passwordRule}
       </ThemedText>
       <OAuthButtons />
       <View style={{ gap: theme.spacing.sm }}>

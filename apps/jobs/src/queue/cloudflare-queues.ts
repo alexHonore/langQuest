@@ -12,7 +12,7 @@
  * them, leaving the rows `pending` for the Node runner (or a container-based consumer created with
  * `runtime: 'node'`). Nothing is dropped: the DB row is still the queue.
  */
-import type { ProcessingJobType } from '@langquest/contracts';
+import type { ProcessingJobTypeAll } from '@langquest/contracts';
 import type { Logger } from '../logger';
 import type { JobServices } from '../services';
 import { JobExecutor, type JobOutcome } from './runner';
@@ -20,7 +20,7 @@ import { resolveHandlerName, type HandlerRegistry } from './types';
 
 export interface QueueMessageBody {
   jobId: string;
-  jobType?: ProcessingJobType | string;
+  jobType?: ProcessingJobTypeAll | string;
 }
 
 /** Minimal structural subset of Cloudflare's `Message` / `MessageBatch` (no `@cloudflare/workers-types` dependency). */

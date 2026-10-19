@@ -1,6 +1,6 @@
 import type { Capability, CharacterTurn, ConversationSessionCreateResponse, ConversationTurnRequest, ConversationTurnResponse } from '@langquest/contracts';
 import { describe, expect, it, vi } from 'vitest';
-import { ConversationController, type RecordedClip, type SynthesizeResponse, type TranscribeResponse } from './controller';
+import { ConversationController, type ConversationEndBody, type RecordedClip, type SynthesizeResponse, type TranscribeResponse } from './controller';
 
 const uuid = (n: number): string => `00000000-0000-4000-8000-${String(n).padStart(12, '0')}`;
 const SESSION = uuid(1);
@@ -60,8 +60,8 @@ function harness(opening: CharacterTurn | null = characterTurn(0), mode: 'push_t
       return { session: sessionResponse(null).session, learnerTranscript: null, characterTurn: characterTurn(turnCount), replayed: false, evaluationPending: true, objectivesCompleted: [] };
     }),
     transcribe: vi.fn(async (): Promise<TranscribeResponse> => ({ transcript: { text: 'un café por favor', segments: [], confidence: 0.8, detectedLanguage: null, requestedLocale: 'es-ES', provider: 'openrouter', model: 'm', durationMs: 1500, languageMismatch: false }, capability, recordingAssetId: null })),
-    synthesize: vi.fn(async (): Promise<SynthesizeResponse> => ({ audio: { encoding: 'mp3', sampleRateHz: 24000, durationMs: 500, assetId: null, url: 'https://cdn.test/tts.mp3', base64: null, provider: 'openrouter', voiceId: 'v', synthetic: true, cached: false }, capability })),
-    end: vi.fn(async () => ({
+    synthesize: vi.fn(async (_text: string, _speed: 'slow' | 'normal', _signal: AbortSignal): Promise<SynthesizeResponse> => ({ audio: { encoding: 'mp3', sampleRateHz: 24000, durationMs: 500, assetId: null, url: 'https://cdn.test/tts.mp3', base64: null, provider: 'openrouter', voiceId: 'v', synthetic: true, cached: false }, capability })),
+    end: vi.fn(async (_id: string, _body: ConversationEndBody) => ({
       session: { ...sessionResponse(null).session, state: 'finished' as const },
       evaluation: { objectivesCompleted: ['order'], skillsExercised: ['request_item'], observations: [], priorityCorrections: [], summary: 'ok', reviewTriggers: [], relationshipMemoryUpdate: null, confidence: 0.7 },
       xpAwarded: 20,
@@ -176,6 +176,115 @@ describe('ConversationController', () => {
     expect(result?.xpAwarded).toBe(20);
     expect(h.controller.snapshot().machine.state).toBe('finished');
     expect(h.api.end).toHaveBeenCalledWith(SESSION, expect.objectContaining({ reason: 'learner_ended' }));
+  });
+
+  it('barge-in while the reply is still being synthesized: the audio never starts (§8.3 no overlap)', async () => {
+    const h = harness(characterTurn(0, { audio: null }));
+    let resolveSynth: ((r: SynthesizeResponse) => void) | null = null;
+    const abortSignals: AbortSignal[] = [];
+    h.api.synthesize.mockImplementation(async (_t: string, _s: 'slow' | 'normal', signal: AbortSignal) => {
+      abortSignals.push(signal);
+      return new Promise<SynthesizeResponse>((resolve) => {
+        resolveSynth = resolve;
+      });
+    });
+    // Opening turn: synthesis pending → dispose-safe start; resolve it so the session is listening.
+    const start = h.controller.start();
+    await flush();
+    resolveSynth!({ audio: { encoding: 'mp3', sampleRateHz: 24000, durationMs: 500, assetId: null, url: 'https://cdn.test/opening.mp3', base64: null, provider: 'openrouter', voiceId: 'v', synthetic: true, cached: false }, capability });
+    await flush();
+    h.finishPlayback();
+    await start;
+    expect(h.audio.play).toHaveBeenCalledTimes(1);
+
+    h.api.turn.mockResolvedValueOnce({ session: sessionResponse(null).session, learnerTranscript: null, characterTurn: characterTurn(5, { audio: null }), replayed: false, evaluationPending: true, objectivesCompleted: [] });
+    await h.controller.submitText('hola');
+    await flush();
+    expect(h.controller.snapshot().machine.state).toBe('responding');
+    expect(h.api.synthesize).toHaveBeenCalledTimes(2);
+    await h.controller.pressStart(); // learner talks over the character while TTS is still being fetched
+    expect(abortSignals[1]?.aborted).toBe(true);
+    expect(h.controller.snapshot().machine.state).toBe('speech_detected');
+    resolveSynth!({ audio: { encoding: 'mp3', sampleRateHz: 24000, durationMs: 500, assetId: null, url: 'https://cdn.test/late.mp3', base64: null, provider: 'openrouter', voiceId: 'v', synthetic: true, cached: false }, capability });
+    await flush();
+    await flush();
+    expect(h.audio.play).toHaveBeenCalledTimes(1); // the late synthesis is discarded, nothing plays over the learner
+    expect(h.played.some((p) => p.url.includes('late'))).toBe(false);
+  });
+
+  it('hands-free VAD is gated while the character speaks: speaker output cannot trigger a barge-in', async () => {
+    const h = harness(null, 'hands_free');
+    await h.controller.start();
+    await h.controller.armHandsFree();
+    await h.controller.submitText('hola');
+    await flush();
+    expect(h.controller.snapshot().machine.state).toBe('responding');
+    for (let t = 0; t <= 1000; t += 100) await h.controller.meter(-5, t); // loud: the device's own speaker
+    expect(h.controller.snapshot().machine.state).toBe('responding');
+    expect(h.audio.stop).not.toHaveBeenCalled();
+    h.finishPlayback();
+    await flush();
+    expect(h.controller.snapshot().machine.state).toBe('listening');
+    // Once the character is quiet the learner's voice starts a turn as usual.
+    await h.controller.meter(-20, 2000);
+    await h.controller.meter(-20, 2100);
+    await h.controller.meter(-20, 2300);
+    expect(h.controller.snapshot().machine.state).toBe('speech_detected');
+  });
+
+  it('a non-connectivity STT failure returns to listening with a retry instead of a permanent "reconnecting"', async () => {
+    const h = harness(null);
+    await h.controller.start();
+    h.api.transcribe.mockRejectedValueOnce(Object.assign(new Error('clip too long'), { kind: 'validation_failed', status: 422 }));
+    await h.controller.pressStart();
+    await h.controller.pressStop();
+    await flush();
+    await flush();
+    const snap = h.controller.snapshot();
+    expect(snap.machine.state).toBe('listening');
+    expect(snap.speechState).toBe('waiting');
+    expect(snap.notice?.code).toBe('validation_failed');
+    expect(snap.canRetryTurn).toBe(true);
+    expect(h.api.turn).not.toHaveBeenCalled();
+    await h.controller.retryLastTurn();
+    await flush();
+    await flush();
+    expect(h.api.transcribe).toHaveBeenCalledTimes(2);
+    expect(h.api.turn).toHaveBeenCalledTimes(1);
+    expect(h.controller.snapshot().machine.state).toBe('responding');
+  });
+
+  it('a 4xx on the turn goes back to listening (retryable), while a connectivity failure keeps the turn for reconnect', async () => {
+    const h = harness(null);
+    await h.controller.start();
+    h.api.turn.mockRejectedValueOnce(Object.assign(new Error('rate limited'), { kind: 'rate_limited', status: 429 }));
+    await h.controller.submitText('quiero un té');
+    await flush();
+    expect(h.controller.snapshot().machine.state).toBe('listening');
+    expect(h.controller.snapshot().notice?.code).toBe('rate_limited');
+    expect(h.controller.snapshot().canRetryTurn).toBe(true);
+    await h.controller.retryLastTurn();
+    await flush();
+    expect(h.api.turn).toHaveBeenCalledTimes(2);
+    expect(h.api.turn.mock.calls[1]?.[1].clientTurnId).toBe(h.api.turn.mock.calls[0]?.[1].clientTurnId);
+    expect(h.controller.snapshot().machine.state).toBe('responding');
+  });
+
+  it('ending offline holds the session in paused with a pending end; retrying delivers it and finishes', async () => {
+    const h = harness(null);
+    await h.controller.start();
+    h.api.end.mockRejectedValueOnce(Object.assign(new Error('offline'), { isConnectivity: true }));
+    const first = await h.controller.end('learner_ended');
+    expect(first).toBeNull();
+    const snap = h.controller.snapshot();
+    expect(snap.machine.state).toBe('paused');
+    expect(snap.notice?.code).toBe('end_offline');
+    expect(snap.pendingEnd?.reason).toBe('learner_ended');
+    const second = await h.controller.end('learner_ended');
+    expect(second?.xpAwarded).toBe(20);
+    expect(h.api.end.mock.calls[1]?.[1].clientEventId).toBe(h.api.end.mock.calls[0]?.[1].clientEventId); // identical replayable request
+    expect(h.controller.snapshot().machine.state).toBe('finished');
+    expect(h.controller.snapshot().pendingEnd).toBeNull();
   });
 
   it('hands-free mode turns metering samples into turns through the VAD', async () => {

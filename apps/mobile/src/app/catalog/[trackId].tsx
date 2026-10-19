@@ -7,6 +7,7 @@ import { View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { ErrorView } from '@/components/StateViews';
 import { useActiveEnrollment, useCourses, useInvalidateLearner } from '@/features/session/queries';
+import { useExtraLabels } from '@/lib/extra-labels';
 import { newUuid } from '@/lib/ids';
 import { useLanguageNames, useT } from '@/lib/i18n';
 import { useUiLabels } from '@/lib/labels';
@@ -26,6 +27,7 @@ export default function EnrollTrack(): React.JSX.Element {
   const router = useRouter();
   const t = useT();
   const names = useLanguageNames();
+  const X = useExtraLabels();
   const labels = useUiLabels();
   const { api } = useServices();
   const { trackId } = useLocalSearchParams<{ trackId: string }>();
@@ -41,6 +43,7 @@ export default function EnrollTrack(): React.JSX.Element {
   const courses = useCourses(source);
   const coverage = useMemo(() => courses.data?.data.courses.find((c) => c.track.id === trackId)?.coverage.find((c) => c.sourceLanguageCode === source) ?? null, [courses.data, trackId, source]);
   const existing = enrollments.find((e) => e.courseTrackId === trackId && e.sourceLanguageCode === source);
+  const summary = courses.data?.data.courses.find((c) => c.track.id === trackId) ?? null;
 
   const enroll = useMutation({
     mutationFn: async () => {
@@ -94,11 +97,19 @@ export default function EnrollTrack(): React.JSX.Element {
         </Row>
         {source ? (
           <View style={{ gap: theme.spacing.xs }}>
-            <CoverageBadge status={coverage?.status ?? 'planned'} sourceLanguageCode={source} nativeReviewed={coverage?.nativeReviewed} fallbackSourceLanguageCode={coverage?.fallbackSourceLanguageCode ?? null} verbose labels={labels.coverage} languageNames={{ [source]: names(source) }} />
+            <CoverageBadge status={coverage?.status ?? 'planned'} sourceLanguageCode={source} nativeReviewed={coverage?.nativeReviewed} fallbackSourceLanguageCode={coverage?.fallbackSourceLanguageCode ?? null} verbose labels={labels.coverage} languageNames={{ [source]: names(source), ...(coverage?.fallbackSourceLanguageCode ? { [coverage.fallbackSourceLanguageCode]: names(coverage.fallbackSourceLanguageCode) } : {}) }} />
             {coverage && coverage.status !== 'complete' ? (
               <ThemedText variant="caption" tone="secondary">
-                {t(`enrollment.coverage.detail.${coverage.status}`, { source: names(source), fallback: coverage.fallbackSourceLanguageCode ? names(coverage.fallbackSourceLanguageCode) : names('en') })}
+                {coverage.status === 'planned' && !coverage.fallbackSourceLanguageCode
+                  ? X.plannedNoFallback(names(source))
+                  : t(`enrollment.coverage.detail.${coverage.status}`, { source: names(source), fallback: coverage.fallbackSourceLanguageCode ? names(coverage.fallbackSourceLanguageCode) : '' })}
               </ThemedText>
+            ) : null}
+            {summary ? (
+              <Row gap={theme.spacing.xs} wrap>
+                {summary.publicationState !== 'published' ? <Chip label={X.publicationState[summary.publicationState] ?? summary.publicationState} tone="warning" icon="info" /> : null}
+                <Chip label={X.missionsPublished(summary.publishedMissionCount)} tone={summary.publishedMissionCount === 0 ? 'warning' : 'neutral'} />
+              </Row>
             ) : null}
             {!courses.data && courses.isLoading ? <ThemedText variant="caption" tone="muted">{t('common.loading')}</ThemedText> : null}
           </View>

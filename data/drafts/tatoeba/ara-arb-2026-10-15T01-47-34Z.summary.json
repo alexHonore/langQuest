@@ -1,0 +1,121 @@
+{
+  "target": "ara",
+  "varietyId": "arb",
+  "varietyAssignment": "operator_declared",
+  "snapshotId": "2026-10-14T22:31:10Z",
+  "inputs": [
+    {
+      "file": "ara_sentences.tsv.bz2",
+      "sha256": "8c5d3156669dc2ab513a02a39f728fb962ed85ac21a8c6387243b01b16136d45",
+      "byteLength": 767808
+    },
+    {
+      "file": "ara_sentences_with_audio.tsv.bz2",
+      "sha256": "0a2e488e2f138a980929a4116c6cc8eec72c01f5c168afc9a4097020a8f90563",
+      "byteLength": 2215
+    },
+    {
+      "file": "ara-eng_links.tsv.bz2",
+      "sha256": "1b9f9187b2bb3bbc9675fd114643fdc6b9d6171bce732cd4dfa8ccbcb752d7f5",
+      "byteLength": 299125
+    },
+    {
+      "file": "ara-fra_links.tsv.bz2",
+      "sha256": "18bf01d66567220b428e5657752fb8be9117636c61341b68f834beb0d86e60f3",
+      "byteLength": 20072
+    },
+    {
+      "file": "eng_sentences.tsv.bz2",
+      "sha256": "0eabb52f54350bbb39807190920bfddaf9fee2ba50ca75af67e11a22ec475c29",
+      "byteLength": 24904358
+    },
+    {
+      "file": "fra_sentences.tsv.bz2",
+      "sha256": "fac31d82b216c95affee7dffcee6c0ae59c45f254ebbfbbf8abb9e66da86ee8f",
+      "byteLength": 9765138
+    }
+  ],
+  "scanned": 68575,
+  "rejected": {
+    "toxic": 421,
+    "no_source_translation": 20419,
+    "irrelevant_too_long": 713,
+    "irrelevant_markup": 1,
+    "irrelevant_url_or_email": 3,
+    "sanity_script_Latn_expected_Arab": 5,
+    "intent_unmatched": 3151
+  },
+  "candidates": 47015,
+  "linked": 3451,
+  "withAudio": 0,
+  "audioRedistributable": 0,
+  "intentMatched": 300,
+  "emitted": 300,
+  "byIntent": {
+    "ask_name": 1,
+    "say_lost": 1,
+    "respond_to_thanks": 4,
+    "welcome_someone": 4,
+    "express_dislike": 8,
+    "describe_occupation": 5,
+    "ask_if_speaks_language": 1,
+    "express_like": 39,
+    "ask_where_is": 7,
+    "say_nice_to_meet": 2,
+    "ask_how_are_you": 4,
+    "ask_where_from": 1,
+    "describe_family": 3,
+    "offer_help": 5,
+    "small_talk_weather": 2,
+    "ask_opinion": 2,
+    "ask_permission": 13,
+    "ask_is_it_far": 4,
+    "introduce_name": 6,
+    "state_destination": 4,
+    "ask_repeat": 2,
+    "describe_routine": 12,
+    "decline_invitation": 27,
+    "ask_reason": 41,
+    "say_stop_here": 1,
+    "call_for_help": 2,
+    "ask_small_favour": 3,
+    "ask_destination": 3,
+    "agree": 4,
+    "disagree_politely": 1,
+    "say_not_understood": 1,
+    "accept_offer": 1,
+    "say_where_from": 2,
+    "say_unavailable": 3,
+    "express_feeling": 7,
+    "ask_time": 3,
+    "greet_hello": 10,
+    "say_dont_know": 3,
+    "say_goodbye": 2,
+    "ask_occupation": 4,
+    "suggest_activity": 3,
+    "report_lost_item": 4,
+    "confirm_plan": 2,
+    "say_delicious": 2,
+    "thank": 2,
+    "ask_price": 2,
+    "ask_clarification": 2,
+    "express_preference_between": 3,
+    "say_just_looking": 1,
+    "greet_time_of_day": 3,
+    "say_too_expensive": 1,
+    "describe_pain": 4,
+    "reply_fine": 1,
+    "invite": 4,
+    "grant_permission": 1,
+    "give_reason": 1,
+    "react_with_empathy": 2,
+    "state_opinion": 9,
+    "accept_invitation": 1,
+    "ask_for_bill": 1,
+    "compliment": 2,
+    "apologise": 1
+  },
+  "notes": [
+    "Variety arb declared by operator for corpus language ara; `ara` is overwhelmingly Modern Standard Arabic; dialect rows exist under separate codes (ary, arz, apc). Pass --variety arb unless you verified otherwise."
+  ]
+}

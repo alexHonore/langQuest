@@ -7,6 +7,7 @@ import { Screen } from '@/components/Screen';
 import { CacheNotice, ErrorView, LoadingView } from '@/components/StateViews';
 import { dueCalendar } from '@/features/progress/due-calendar';
 import { useActiveEnrollment, useProgress, useReviewsDue } from '@/features/session/queries';
+import { useExtraLabels } from '@/lib/extra-labels';
 import { useI18n } from '@/lib/i18n';
 import { useUiLabels } from '@/lib/labels';
 import { useServices } from '@/lib/services';
@@ -17,6 +18,7 @@ export default function Progress(): React.JSX.Element {
   const theme = useTheme();
   const router = useRouter();
   const { t, translator } = useI18n();
+  const X = useExtraLabels();
   const labels = useUiLabels();
   const { api } = useServices();
   const { enrollment } = useActiveEnrollment();
@@ -37,7 +39,7 @@ export default function Progress(): React.JSX.Element {
         <Surface variant="muted" radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.sm }}>
           <ThemedText variant="heading">{t('progress.overview')}</ThemedText>
           <ThemedText>{t('progress.conversationOutcome', { completed: per.missionsCompletedWithoutHints, total: per.missionsCompleted })}</ThemedText>
-          <ThemedText tone="secondary">{t('home.dailySpeakingDetail', { spoken: Math.round(per.speakingSecondsLast7Days / 60) })}</ThemedText>
+          <ThemedText tone="secondary">{X.speakingLast7Days(Math.round(per.speakingSecondsLast7Days / 60))}</ThemedText>
           {per.recall7DayPct !== null ? <ThemedText tone="secondary">{`7d: ${translator.formatPercent(per.recall7DayPct)}`}</ThemedText> : <ThemedText tone="muted">{t('progress.trendUnavailable')}</ThemedText>}
           <Row gap={theme.spacing.sm} wrap>
             <Chip label={`${per.xp} ${t('progress.xp')}`} tone="neutral" icon="star" />

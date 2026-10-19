@@ -4,7 +4,9 @@
  * Sync flow: `apply_sync_events` (RLS user, advisory-locked per user) records every event once and applies the
  * DB-handled payloads. Engine-handled payloads come back with `handled_in_db = false` and are finished here:
  *   - review_result  → FSRS-like scheduler on the learner's own card (RLS client)
- *   - step_completed / mission_abandoned → attempt bookkeeping on the learner's own attempt (RLS client)
+ *   - step_completed / mission_abandoned → attempt bookkeeping on the learner's own attempt (RLS client). The
+ *                      attempt reference is the server id OR the client_attempt_id (offline-started attempts);
+ *                      a step for an attempt the server has never seen materialises it under the client id.
  *   - observation    → evidence + mastery recompute (service client, after enrollment ownership check)
  *   - xp_claim       → validated against the referenced OWNED, COMPLETED row, then `award_xp` with the
  *                      clientEventId as idempotency key and the canonical amount (client amount ignored)
@@ -16,11 +18,12 @@ import { levelForXp } from '@langquest/curriculum/rubric/xp';
 import { masteryCounts } from '@langquest/curriculum/mastery/mastery';
 import { findSkill } from '@langquest/curriculum/skills';
 import { masteryRank } from '@langquest/contracts';
+import type { DbClient } from '@langquest/db/client';
 import type { Row } from '@langquest/db/types';
 import type { DefineRoute } from '../../app';
 import { respondOk } from '../../http/envelope';
 import { parseBody, parseQuery } from '../../http/validate';
-import { loadOwnedEnrollment, type EnrollmentRow } from '../../lib/enrollment';
+import { loadOwnedEnrollment, varietyOf, type EnrollmentRow } from '../../lib/enrollment';
 import { applyReviewResult, awardXp, recordObservations } from '../../lib/learning';
 import type { RequestServices } from '../../services/context';
 
@@ -43,9 +46,24 @@ interface EngineOutcome {
   card: ReviewCard | null;
 }
 
+type OwnedAttempt = Pick<Row<'mission_attempts'>, 'id' | 'mission_id' | 'current_step_index'>;
+
+/**
+ * Resolve the learner's own attempt from a sync payload reference. Offline-first clients enqueue `step_completed` /
+ * `mission_abandoned` before (or without) `missionAttemptCreate` succeeding, so `attemptId` may be either the server
+ * `mission_attempts.id` or the client-generated `client_attempt_id` (unique per `(user_id, client_attempt_id)`).
+ * The RLS client scopes both lookups to the caller's rows; `ref` is schema-validated as a UUID, so it is safe inside
+ * the PostgREST filter.
+ */
+async function resolveOwnedAttempt(db: DbClient, ref: string): Promise<OwnedAttempt | null> {
+  const res = await db.from('mission_attempts').select('id, mission_id, current_step_index').or(`id.eq.${ref},client_attempt_id.eq.${ref}`).limit(1).maybeSingle();
+  if (res.error) throw new Error(`mission_attempts lookup failed: ${res.error.message}`);
+  return res.data ?? null;
+}
+
 /** Finish one engine-handled sync event. Never throws for a bad event: it is reported as `rejected`. */
 async function finishEngineEvent(s: RequestServices, event: ProgressSyncEvent, enrollments: Map<string, EnrollmentRow>, userId: string, now: string): Promise<EngineOutcome> {
-  const { db } = s.requireUser();
+  const { db, repos } = s.requireUser();
   const p = event.payload;
   const enrollment = event.enrollmentId ? enrollments.get(event.enrollmentId) : undefined;
   const needEnrollment = (): EnrollmentRow => {
@@ -60,14 +78,33 @@ async function finishEngineEvent(s: RequestServices, event: ProgressSyncEvent, e
         return { resolution: 'applied', reason: null, xpCredited: null, card };
       }
       case 'step_completed': {
-        const attempt = await db.from('mission_attempts').select('id, current_step_index, enrollment_id').eq('id', p.attemptId).maybeSingle();
-        if (!attempt.data) return { resolution: 'rejected', reason: 'attempt_not_owned', xpCredited: null, card: null };
-        await db.from('mission_attempts').update({ current_step_index: Math.max(attempt.data.current_step_index, 1) }).eq('id', p.attemptId);
+        const step = await s.service.from('mission_steps').select('id, mission_id, sort_order').eq('id', p.stepId).maybeSingle();
+        if (!step.data) return { resolution: 'rejected', reason: 'step_not_found', xpCredited: null, card: null };
+        let attempt = await resolveOwnedAttempt(db, p.attemptId);
+        if (!attempt) {
+          // The attempt was started offline: `missionAttemptCreate` never reached the server, so the client only
+          // has its own `clientAttemptId`. Materialise the attempt under that id (same unique key the create route
+          // upserts on), so the later create call replays it and evaluation finds the learner's own row.
+          const e = needEnrollment();
+          const mission = await repos.curriculum.getMission(step.data.mission_id);
+          if (!mission) return { resolution: 'rejected', reason: 'mission_not_found', xpCredited: null, card: null };
+          if (mission.target_variety_id !== varietyOf(e)) return { resolution: 'rejected', reason: 'mission_variety_mismatch', xpCredited: null, card: null };
+          const row = await repos.progress.startAttempt({ user_id: userId, enrollment_id: e.id, mission_id: mission.id, mission_revision: mission.published_revision ?? 0, client_attempt_id: p.attemptId, started_at: event.occurredAt });
+          await repos.enrollments.setActiveMission(e.id, mission.id).catch(() => undefined);
+          attempt = { id: row.id, mission_id: row.mission_id, current_step_index: row.current_step_index };
+        } else if (attempt.mission_id !== step.data.mission_id) {
+          return { resolution: 'rejected', reason: 'step_not_in_attempt_mission', xpCredited: null, card: null };
+        }
+        const upd = await db.from('mission_attempts').update({ current_step_index: Math.max(attempt.current_step_index, step.data.sort_order + 1) }).eq('id', attempt.id).select('id').maybeSingle();
+        if (upd.error || !upd.data) return { resolution: 'rejected', reason: 'attempt_not_owned', xpCredited: null, card: null };
         return { resolution: 'applied', reason: null, xpCredited: null, card: null };
       }
       case 'mission_abandoned': {
-        const res = await db.from('mission_attempts').update({ abandoned_at: event.occurredAt, current_step_index: p.atStepIndex }).eq('id', p.attemptId).select('id').maybeSingle();
-        if (!res.data) return { resolution: 'rejected', reason: 'attempt_not_owned', xpCredited: null, card: null };
+        const attempt = await resolveOwnedAttempt(db, p.attemptId);
+        // No server-side attempt under either id means no step ever reached the server: there is nothing to mark.
+        if (!attempt) return { resolution: 'rejected', reason: 'attempt_not_found', xpCredited: null, card: null };
+        const upd = await db.from('mission_attempts').update({ abandoned_at: event.occurredAt, current_step_index: Math.max(attempt.current_step_index, p.atStepIndex) }).eq('id', attempt.id).select('id').maybeSingle();
+        if (upd.error || !upd.data) return { resolution: 'rejected', reason: 'attempt_not_owned', xpCredited: null, card: null };
         return { resolution: 'applied', reason: null, xpCredited: null, card: null };
       }
       case 'observation': {

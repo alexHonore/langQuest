@@ -177,9 +177,23 @@ export function keyHash(...parts: Array<string | number | null | undefined>): st
   return sha256HexSync(parts.map((p) => String(p ?? '')).join('|')).slice(0, 32);
 }
 
-/** Localized text helper: `{ en: '…' }` jsonb columns. */
+/**
+ * Localized text helper for `{ en: '…' }` jsonb columns, with an English fallback. Only for EDITOR-facing
+ * evidence (prompts, log lines, chapter lookups); anything published to learners must use `localizedExact`.
+ */
 export function localized(translations: unknown, lang: string, fallback: string | null = null): string | null {
   const obj = (translations ?? {}) as Record<string, unknown>;
   const v = obj[lang] ?? obj.en;
   return typeof v === 'string' && v.length ? v : fallback;
+}
+
+/**
+ * Strict variant: the requested language only, never a silent English substitution (§2.1). `null` when the
+ * text is missing in that language or when no language is declared (`lang === null`).
+ */
+export function localizedExact(translations: unknown, lang: string | null): string | null {
+  if (!lang) return null;
+  const obj = (translations ?? {}) as Record<string, unknown>;
+  const v = obj[lang];
+  return typeof v === 'string' && v.length ? v : null;
 }

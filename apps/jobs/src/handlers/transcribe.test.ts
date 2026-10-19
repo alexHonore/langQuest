@@ -50,8 +50,8 @@ describe('transcribe', () => {
     expect(raw.segments[1]?.words.length).toBe(5);
     expect(events.map((e) => e.type)).toContain('transcript.ready');
     const chained = [...t.db.tables.processing_jobs.values()];
-    expect(chained.map((j) => j.job_type).sort()).toEqual(['align', 'describe']);
-    expect(chained.find((j) => j.job_type === 'describe')?.params).toMatchObject({ handler: 'translate_transcript', sourceLanguages: ['en'] });
+    expect(chained.map((j) => j.job_type).sort()).toEqual(['align', 'translate_transcript']);
+    expect(chained.find((j) => j.job_type === 'translate_transcript')?.params).toMatchObject({ sourceLanguages: ['en'] });
     expect(t.aiRequests.length).toBe(1);
   });
 

@@ -2,11 +2,13 @@
  * CORS allowlist, security headers, body-size limits and per-request timeouts (§11).
  *
  * - CORS: only origins listed in `CORS_ALLOWED_ORIGINS` are reflected; mobile apps (no Origin) are
- *   unaffected. `*` is never used because requests carry Authorization headers.
+ *   unaffected. `*` is never used because requests carry Authorization headers. The localhost shortcut exists
+ *   only for `API_ENV=development` AND a request served from a local dev host (never a deployed hostname).
  * - Security headers: no sniffing, no framing, strict referrer, a restrictive CSP (this API serves JSON
  *   and media redirects only) and HSTS in production.
  * - Body limit: default 1 MiB; speech routes allow larger inline clips (declared per route group).
- * - Timeout: an AbortSignal is raced against the handler so a stuck provider never pins a Worker.
+ * - Timeout: the handler is raced against a timer AND the request-scoped `abortSignal` is aborted, so provider
+ *   calls started by the handler (OpenRouter, STT/TTS) stop spending once the client has received the error.
  */
 import type { MiddlewareHandler } from 'hono';
 import { RequestTimeoutError, respondErr } from '../http/envelope';
@@ -20,7 +22,7 @@ export function corsAllowlist(): MiddlewareHandler<AppEnv> {
   return async (c, next) => {
     const origin = c.req.header('origin');
     const config = c.get('config');
-    const allowed = origin !== undefined && isOriginAllowed(origin, config.corsOrigins, config.env.API_ENV);
+    const allowed = origin !== undefined && isOriginAllowed(origin, config.corsOrigins, config.env.API_ENV, requestHost(c.req.header('host'), c.req.url));
     if (c.req.method === 'OPTIONS') {
       const headers = new Headers({ 'Access-Control-Max-Age': '600', Vary: 'Origin' });
       if (allowed && origin) {
@@ -41,13 +43,35 @@ export function corsAllowlist(): MiddlewareHandler<AppEnv> {
   };
 }
 
-/** Exact-match allowlist; in development any localhost origin is accepted so admin/mobile web dev works. */
-export function isOriginAllowed(origin: string, allowlist: readonly string[], apiEnv: string): boolean {
+const LOCAL_HOSTNAMES = new Set(['localhost', '127.0.0.1', '[::1]', '::1']);
+
+/** Host the request was served on: the `Host` header (always present on a Worker), else the URL's host. */
+export function requestHost(hostHeader: string | undefined, url: string): string | undefined {
+  if (hostHeader) return hostHeader;
+  try {
+    return new URL(url).host;
+  } catch {
+    return undefined;
+  }
+}
+
+/** True for hosts a developer machine serves (`localhost`, loopback, `*.localhost`), never for a deployed name. */
+export function isLocalDevHost(host: string | undefined): boolean {
+  if (!host) return false;
+  const hostname = host.replace(/:\d+$/, '').toLowerCase();
+  return LOCAL_HOSTNAMES.has(hostname) || hostname.endsWith('.localhost');
+}
+
+/**
+ * Exact-match allowlist. In development, a localhost origin is additionally accepted — but only when the request
+ * itself reached a local dev host, so a Worker accidentally deployed with `API_ENV=development` still never
+ * reflects developer-machine origins with credentials.
+ */
+export function isOriginAllowed(origin: string, allowlist: readonly string[], apiEnv: string, requestHost?: string): boolean {
   if (allowlist.includes(origin)) return true;
-  if (apiEnv === 'development') {
+  if (apiEnv === 'development' && isLocalDevHost(requestHost)) {
     try {
-      const u = new URL(origin);
-      return u.hostname === 'localhost' || u.hostname === '127.0.0.1' || u.hostname === '[::1]';
+      return isLocalDevHost(new URL(origin).host);
     } catch {
       return false;
     }
@@ -112,23 +136,58 @@ export function bodyLimit(maxBytes: number): MiddlewareHandler<AppEnv> {
   };
 }
 
-/** Per-request wall-clock budget; a timeout maps to `provider_unavailable` (retryable). */
+/** Combine several optional AbortSignals into one (first abort wins); `undefined` when none is given. */
+export function combineAbortSignals(...signals: (AbortSignal | undefined | null)[]): AbortSignal | undefined {
+  const present = signals.filter((s): s is AbortSignal => Boolean(s));
+  if (present.length === 0) return undefined;
+  if (present.length === 1) return present[0];
+  const anyFn = (AbortSignal as unknown as { any?: (s: AbortSignal[]) => AbortSignal }).any;
+  if (typeof anyFn === 'function') return anyFn.call(AbortSignal, present);
+  const controller = new AbortController();
+  for (const s of present) {
+    if (s.aborted) {
+      controller.abort(s.reason);
+      break;
+    }
+    s.addEventListener('abort', () => controller.abort(s.reason), { once: true });
+  }
+  return controller.signal;
+}
+
+/**
+ * Per-request wall-clock budget; a timeout maps to `provider_unavailable` (retryable). The request-scoped
+ * `abortSignal` (also wired to the client's own abort) is aborted on timeout so downstream provider calls stop.
+ */
 export function requestTimeout(ms: number): MiddlewareHandler<AppEnv> {
   return async (c, next) => {
+    const controller = new AbortController();
+    c.set('abortSignal', combineAbortSignals(controller.signal, c.req.raw.signal) ?? controller.signal);
     let timer: ReturnType<typeof setTimeout> | undefined;
+    let timedOut = false;
     const timeout = new Promise<never>((_, reject) => {
-      timer = setTimeout(() => reject(new RequestTimeoutError(ms)), ms);
+      timer = setTimeout(() => {
+        const error = new RequestTimeoutError(ms);
+        timedOut = true;
+        reject(error);
+        controller.abort(error);
+      }, ms);
     });
+    const timeoutResponse = () => {
+      c.get('log').warn('http.timeout', { ms });
+      const res = respondErr(c, 'provider_unavailable', 'The request took too long and was cancelled. Please retry.');
+      // The handler may have finalised a response in the same tick the deadline fired; the timeout is authoritative.
+      c.res = res;
+      return res;
+    };
     try {
       await Promise.race([next(), timeout]);
     } catch (error) {
-      if (error instanceof RequestTimeoutError) {
-        c.get('log').warn('http.timeout', { ms });
-        return respondErr(c, 'provider_unavailable', 'The request took too long and was cancelled. Please retry.');
-      }
+      // The deadline, or the abort it caused downstream (AbortError from an aborted provider call), is one outcome.
+      if (error instanceof RequestTimeoutError || timedOut) return timeoutResponse();
       throw error;
     } finally {
       if (timer) clearTimeout(timer);
     }
+    if (timedOut) return timeoutResponse();
   };
 }

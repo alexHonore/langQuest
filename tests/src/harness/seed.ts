@@ -76,16 +76,21 @@ export class Seeder {
     });
   }
 
-  async steps(missionId: string, types: Array<Row<'mission_steps'>['step_type']>, expressionIds: string[] = []): Promise<Row<'mission_steps'>[]> {
+  /**
+   * Insert one published step per type (sort order = index). `hintScaffold` goes on every step's language-neutral
+   * `hint_scaffold` column so suites can prove it never leaks into a source-language overlay.
+   */
+  async steps(missionId: string, types: Array<Row<'mission_steps'>['step_type']>, expressionIds: string[] = [], options: { hintScaffold?: string[] } = {}): Promise<Row<'mission_steps'>[]> {
     const out: Row<'mission_steps'>[] = [];
     for (const [i, step_type] of types.entries()) {
-      out.push(await this.insert('mission_steps', { mission_id: missionId, sort_order: i, step_type, estimated_seconds: 60, target_expression_ids: expressionIds, offline_capable: step_type !== 'character_conversation' }));
+      out.push(await this.insert('mission_steps', { mission_id: missionId, sort_order: i, step_type, estimated_seconds: 60, target_expression_ids: expressionIds, hint_scaffold: options.hintScaffold ?? [], offline_capable: step_type !== 'character_conversation' }));
     }
     return out;
   }
 
-  async localization(missionId: string, code: string, input: { title: string; instructions?: string; qaState?: Row<'mission_localizations'>['qa_state'] }): Promise<Row<'mission_localizations'>> {
-    return this.insert('mission_localizations', { mission_id: missionId, source_language_code: code, title: input.title, instructions: input.instructions ?? `Instructions (${code})`, qa_state: input.qaState ?? 'machine_draft' });
+  /** Source-language overlay for one mission: title, instructions and graded hints (§2.1 `mission_localizations`). */
+  async localization(missionId: string, code: string, input: { title: string; instructions?: string; hints?: string[]; qaState?: Row<'mission_localizations'>['qa_state'] }): Promise<Row<'mission_localizations'>> {
+    return this.insert('mission_localizations', { mission_id: missionId, source_language_code: code, title: input.title, instructions: input.instructions ?? `Instructions (${code})`, hints: input.hints ?? [], qa_state: input.qaState ?? 'machine_draft' });
   }
 
   async character(varietyId: string, state: Row<'characters'>['state'] = 'published'): Promise<Row<'characters'>> {

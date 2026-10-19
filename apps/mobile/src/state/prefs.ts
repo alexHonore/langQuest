@@ -31,6 +31,12 @@ export interface PrefsState {
   pendingDefaultSourceLanguage: SourceLanguageCode | null;
   pendingTrackId: string | null;
   activeEnrollmentId: string | null;
+  /**
+   * Per-enrollment explicit opt-in to the editorial fallback instruction language (§2.1: "let them opt
+   * into it"). Keyed by enrollment id → fallback code the learner accepted. Device-local until the
+   * contracts/db carry it on the enrollment (cross-package gap).
+   */
+  fallbackOptIns: Record<string, SourceLanguageCode>;
   /** Wi-Fi only downloads + auto-download opt-in (read by the audio library). */
   wifiOnlyDownloads: boolean;
   autoDownload: boolean;
@@ -41,6 +47,8 @@ export interface PrefsActions {
   set: (patch: Partial<Omit<PrefsState, 'hydrated'>>) => void;
   applyServerSettings: (opts: { reduce_motion: boolean; mascot_enabled: boolean; high_contrast: boolean; text_scale: number; haptics_enabled: boolean; captions_default_on: boolean }, uiLocale: string) => void;
   resetForSignOut: () => void;
+  /** Record (or withdraw with `null`) the fallback language the learner accepted for one enrollment. */
+  setFallbackOptIn: (enrollmentId: string, fallback: SourceLanguageCode | null) => void;
   /** Internal: called once persisted state has been read (or failed to read). */
   markHydrated: () => void;
 }
@@ -60,6 +68,7 @@ export const DEFAULT_PREFS: Omit<PrefsState, 'hydrated'> = {
   pendingDefaultSourceLanguage: null,
   pendingTrackId: null,
   activeEnrollmentId: null,
+  fallbackOptIns: {},
   wifiOnlyDownloads: true,
   autoDownload: false,
 };
@@ -81,15 +90,23 @@ export const usePrefs = create<PrefsState & PrefsActions>()(
           uiLocale,
         }),
       resetForSignOut: () => set({ ...DEFAULT_PREFS, onboardingComplete: true, hydrated: true }),
+      setFallbackOptIn: (enrollmentId, fallback) =>
+        set((s) => {
+          const next = { ...s.fallbackOptIns };
+          if (fallback) next[enrollmentId] = fallback;
+          else delete next[enrollmentId];
+          return { fallbackOptIns: next };
+        }),
       markHydrated: () => set({ hydrated: true }),
     }),
     {
       name: 'langquest:prefs',
-      version: 1,
+      version: 2,
+      migrate: (persisted) => ({ ...DEFAULT_PREFS, ...(persisted as Partial<PrefsState>), fallbackOptIns: (persisted as Partial<PrefsState>)?.fallbackOptIns ?? {} }),
       // AsyncStorage is cross-platform (localStorage on web); hydration is async so `hydrated` gates the UI.
       storage: createJSONStorage(() => AsyncStorage),
       partialize: (s) => {
-        const { hydrated: _h, set: _s, applyServerSettings: _a, resetForSignOut: _r, markHydrated: _m, ...rest } = s;
+        const { hydrated: _h, set: _s, applyServerSettings: _a, resetForSignOut: _r, markHydrated: _m, setFallbackOptIn: _f, ...rest } = s;
         return rest;
       },
       onRehydrateStorage: () => (state) => {

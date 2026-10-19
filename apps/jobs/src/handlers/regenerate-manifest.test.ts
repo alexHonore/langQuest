@@ -55,6 +55,31 @@ describe('regenerate_manifest', () => {
     expect(t.services.events.emitted.at(-1)?.payload).toMatchObject({ newVersion: 2, reason: 'localization_updated' });
   });
 
+  it('never substitutes English: a language-agnostic collection gets empty titles and a null language, a declared language only its own translations', async () => {
+    const collection = t.db.seedCollection({ title_translations: { en: 'Any language' }, instruction_language_code: null, state: 'published' });
+    const chapter = t.db.seedChapter(collection.id, { state: 'published', title_translations: { en: 'Only English' } });
+    t.db.seedLesson(chapter.id, { state: 'published', title_translations: { en: 'English title', fr: 'Titre français' }, description_translations: { en: 'English blurb' } });
+    const agnostic = await runHandler(regenerateManifestHandler, t, { kind: 'audio_collection', collectionId: collection.id }, { job_type: 'regenerate_manifest' });
+    expect((agnostic.result.output as Record<string, unknown>).localization).toEqual({ languageCode: null, missingTitles: 3 });
+    const anyKeys = manifestKeys({ kind: 'audio_collection', collectionId: collection.id, reason: 'published' }, 1);
+    expect(anyKeys.latest).toBe(`manifests/audio/${collection.id}/any/latest.json`);
+    const stored = JSON.parse(new TextDecoder().decode((await t.store.getBytes(anyKeys.latest))!)) as AudioCollectionManifest;
+    expect(stored.instructionLanguageCode).toBeNull();
+    expect(stored.title).toBe('');
+    expect(stored.chapters[0]).toMatchObject({ title: '', summary: null });
+    expect(stored.chapters[0]!.lessons[0]).toMatchObject({ title: '', description: null });
+
+    const fr = await runHandler(regenerateManifestHandler, t, { kind: 'audio_collection', collectionId: collection.id, instructionLanguageCode: 'fr' }, { job_type: 'regenerate_manifest' });
+    expect((fr.result.output as Record<string, unknown>).localization).toEqual({ languageCode: 'fr', missingTitles: 2 });
+    const frKeys = manifestKeys({ kind: 'audio_collection', collectionId: collection.id, instructionLanguageCode: 'fr', reason: 'published' }, 1);
+    const storedFr = JSON.parse(new TextDecoder().decode((await t.store.getBytes(frKeys.latest))!)) as AudioCollectionManifest;
+    expect(storedFr.instructionLanguageCode).toBe('fr');
+    expect(storedFr.title).toBe('');
+    expect(storedFr.chapters[0]!.title).toBe('');
+    expect(storedFr.chapters[0]!.lessons[0]).toMatchObject({ title: 'Titre français', description: null });
+    expect(JSON.stringify(storedFr)).not.toMatch(/English/);
+  });
+
   it('stores course manifests built by the curriculum repository', async () => {
     t.db.courseManifest = buildCourseManifest({ courseTrackId: 'french', sourceLanguageCode: 'en', targetVarietyId: 'fr', version: 0, coverArt: null, chapters: [], characters: [] });
     const { result, events } = await runHandler(regenerateManifestHandler, t, { kind: 'course', courseTrackId: 'french', sourceLanguageCode: 'en' }, { job_type: 'describe' });

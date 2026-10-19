@@ -1,17 +1,19 @@
-import { SOURCE_LANGUAGES, type SourceLanguageCode } from '@langquest/contracts';
+import { SOURCE_LANGUAGES, getCourseTrack, type SourceLanguageCode } from '@langquest/contracts';
 import { SUPPORTED_UI_LOCALES } from '@langquest/locales';
 import { Button, Chip, Divider, Row, StatusLine, Surface, ThemedText, orderedSourceLanguages, useTheme } from '@langquest/ui';
 import * as Linking from 'expo-linking';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
-import { TextInput, View } from 'react-native';
+import { Alert, Platform, TextInput, View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { ErrorView } from '@/components/StateViews';
 import { ChoiceRow } from '@/components/SettingRow';
 import { usePatchSettings } from '@/features/account/use-settings';
 import { useActiveEnrollment } from '@/features/session/queries';
+import { useExtraLabels } from '@/lib/extra-labels';
 import { useLanguageNames, useT } from '@/lib/i18n';
 import { useServices } from '@/lib/services';
+import { prepareSignOut } from '@/lib/sign-out';
 import { useAuth } from '@/state/auth';
 import { usePrefs } from '@/state/prefs';
 
@@ -20,9 +22,43 @@ export default function Account(): React.JSX.Element {
   const theme = useTheme();
   const router = useRouter();
   const t = useT();
+  const X = useExtraLabels();
   const names = useLanguageNames();
   const { me, enrollments } = useActiveEnrollment();
-  const { resetLocal, pendingEvents } = useServices();
+  const { resetLocal, pendingEvents, syncNow, local } = useServices();
+  const [signingOut, setSigningOut] = useState(false);
+
+  const completeSignOut = async (): Promise<void> => {
+    await resetLocal();
+    prefs.resetForSignOut();
+    await signOut();
+    router.replace('/auth/sign-in');
+  };
+
+  /** Flush the outbox first; if progress is still unsent, ask before deleting it (§4.5). */
+  const requestSignOut = async (): Promise<void> => {
+    setSigningOut(true);
+    try {
+      const readiness = await prepareSignOut({ syncNow, pendingCount: async () => (local ? local.outbox.pendingCount() : 0) });
+      if (readiness.pending === 0) {
+        await completeSignOut();
+        return;
+      }
+      const confirmed = await new Promise<boolean>((resolve) => {
+        if (Platform.OS === 'web') {
+          resolve(typeof globalThis.confirm === 'function' ? globalThis.confirm(`${X.signOutPendingTitle}\n\n${X.signOutPendingBody(readiness.pending)}`) : false);
+          return;
+        }
+        Alert.alert(X.signOutPendingTitle, X.signOutPendingBody(readiness.pending), [
+          { text: t('common.cancel'), style: 'cancel', onPress: () => resolve(false) },
+          { text: X.signOutAnyway, style: 'destructive', onPress: () => resolve(true) },
+        ]);
+      });
+      if (confirmed) await completeSignOut();
+    } finally {
+      setSigningOut(false);
+    }
+  };
   const signOut = useAuth((s) => s.signOut);
   const prefs = usePrefs();
   const patch = usePatchSettings();
@@ -55,8 +91,8 @@ export default function Account(): React.JSX.Element {
         <ThemedText variant="label">{t('enrollment.title')}</ThemedText>
         {enrollments.map((e) => (
           <Row key={e.id} gap={theme.spacing.sm} justify="space-between">
-            <ThemedText style={{ flex: 1 }}>{t('home.activeCourse', { target: e.courseTrackId, source: names(e.sourceLanguageCode) })}</ThemedText>
-            <Button label={t('common.edit')} variant="ghost" size="sm" icon="edit" onPress={() => router.push({ pathname: '/enrollment/[id]', params: { id: e.id } })} accessibilityLabel={`${t('common.edit')} ${e.courseTrackId}`} />
+            <ThemedText style={{ flex: 1 }}>{t('home.activeCourse', { target: getCourseTrack(e.courseTrackId).displayName, source: names(e.sourceLanguageCode) })}</ThemedText>
+            <Button label={t('common.edit')} variant="ghost" size="sm" icon="edit" onPress={() => router.push({ pathname: '/enrollment/[id]', params: { id: e.id } })} accessibilityLabel={`${t('common.edit')} ${getCourseTrack(e.courseTrackId).displayName}`} />
           </Row>
         ))}
         <Button label={t('enrollment.add')} variant="secondary" size="sm" icon="globe" onPress={() => router.push('/catalog')} accessibilityLabel={t('enrollment.add')} />
@@ -69,22 +105,11 @@ export default function Account(): React.JSX.Element {
       <Divider />
       <Row gap={theme.spacing.xs} wrap>
         <Chip label={t('common.free')} tone="success" icon="check" />
-        {pendingEvents > 0 ? <Chip label={`${pendingEvents} pending sync`} tone="info" /> : null}
+        {pendingEvents > 0 ? <Chip label={X.pendingSync(pendingEvents)} tone="info" /> : null}
       </Row>
-      <Button label="Help & report a problem" variant="ghost" fullWidth onPress={() => void Linking.openURL('mailto:support@langquest.app?subject=LangQuest%20mobile')} accessibilityLabel="Help and report a problem" />
+      <Button label={X.helpReport} variant="ghost" fullWidth onPress={() => void Linking.openURL('mailto:support@langquest.app?subject=LangQuest%20mobile')} accessibilityLabel={X.helpReport} />
       {patch.error ? <ErrorView error={patch.error} /> : null}
-      <Button
-        label={t('account.signOut')}
-        variant="danger"
-        fullWidth
-        onPress={async () => {
-          await resetLocal();
-          prefs.resetForSignOut();
-          await signOut();
-          router.replace('/auth/sign-in');
-        }}
-        accessibilityLabel={t('account.signOut')}
-      />
+      <Button label={t('account.signOut')} variant="danger" fullWidth loading={signingOut} onPress={() => void requestSignOut()} accessibilityLabel={t('account.signOut')} />
       <StatusLine icon="info" tone="secondary" text={t('account.accessibility.screenReaderNote')} />
     </Screen>
   );

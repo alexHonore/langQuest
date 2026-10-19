@@ -43,7 +43,7 @@ export interface RenderCoverDeps {
 export function createRenderCoverHandler(deps: RenderCoverDeps = {}): JobHandler<RenderCoverParams> {
   return {
     name: 'render_cover',
-    jobTypes: ['generate_cover'],
+    jobTypes: ['generate_cover', 'render_cover'],
     runtime: 'any',
     paramsSchema: RenderCoverParamsSchema,
     async run(ctx) {

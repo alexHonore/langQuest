@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { PronunciationAssessmentSchema, SpeechEvaluationResultSchema, referenceComparisonAssessment } from '../ai/io';
-import { API_ERROR_HTTP_STATUS, ApiProblem, ROUTES, apiEnvelope, buildPath, err, isOk, ok } from './common';
-import { EnrollmentCreateRequestSchema, EnrollmentPatchRequestSchema, MeResponseSchema, MissionDetailResponseSchema, PatchSettingsRequestSchema, ProgressSyncRequestSchema, type CoursesResponse } from './learner';
+import { API_ERROR_HTTP_STATUS, ApiProblem, QueryBooleanSchema, ROUTES, apiEnvelope, buildPath, err, isOk, ok } from './common';
+import { EnrollmentCreateRequestSchema, EnrollmentDeleteQuerySchema, EnrollmentDeleteResponseSchema, EnrollmentPatchQuerySchema, EnrollmentPatchRequestSchema, EnrollmentsListQuerySchema, MeResponseSchema, MissionDetailResponseSchema, PatchSettingsRequestSchema, ProgressSyncRequestSchema, type CoursesResponse } from './learner';
 import { ManifestMissionSchema } from '../manifest';
-import { type PlaybackUrlRequest } from './audio';
+import { MediaStreamQuerySchema, type PlaybackUrlRequest } from './audio';
 import { ConversationTurnRequestSchema, PronunciationAssessRequestSchema, SynthesizeRequestSchema, type ConversationEndRequest, type TranscribeResponse } from './speech';
 import { BulkLabelRequestSchema, BulkLabelResponseSchema, ImportManifestResponseSchema, ImportR2PrefixResponseSchema, UploadInitiateRequestSchema } from './admin';
 
@@ -126,7 +126,16 @@ describe('routes', () => {
       expect(def.path.startsWith('/v1/'), key).toBe(true);
       if (def.path.startsWith('/v1/admin/')) expect(def.auth, key).toBe('admin');
     }
-    expect(Object.keys(ROUTES).length).toBeGreaterThanOrEqual(53);
+    expect(Object.keys(ROUTES).length).toBeGreaterThanOrEqual(55);
+  });
+
+  it('no two routes share a method + path', () => {
+    const seen = new Map<string, string>();
+    for (const [key, def] of Object.entries(ROUTES)) {
+      const sig = `${def.method} ${def.path}`;
+      expect(seen.get(sig), `${key} duplicates ${seen.get(sig)}`).toBeUndefined();
+      seen.set(sig, key);
+    }
   });
 
   it('buildPath substitutes params and query', () => {
@@ -134,6 +143,49 @@ describe('routes', () => {
     expect(buildPath('courseCoverage', { trackId: 'arabic-moroccan' }, { source: 'fr' })).toBe('/v1/courses/arabic-moroccan/coverage?source=fr');
     expect(buildPath('me')).toBe('/v1/me');
     expect(() => buildPath('missionDetail', { id: '' })).toThrow(/Missing route param/);
+  });
+
+  it('exposes the enrollment delete and media stream routes the API serves', () => {
+    expect(ROUTES.enrollmentDelete).toEqual({ method: 'DELETE', path: '/v1/me/enrollments/:id', auth: 'learner' });
+    expect(ROUTES.enrollmentPatch.path).toBe(ROUTES.enrollmentDelete.path);
+    expect(ROUTES.mediaStream).toEqual({ method: 'GET', path: '/v1/media/stream/:assetId', auth: 'public' });
+    expect(buildPath('enrollmentDelete', { id: uuid }, { confirm: 'delete' })).toBe(`/v1/me/enrollments/${uuid}?confirm=delete`);
+    expect(buildPath('enrollmentPatch', { id: uuid }, { confirm: 'archive' })).toBe(`/v1/me/enrollments/${uuid}?confirm=archive`);
+    expect(buildPath('enrollmentsList', undefined, { includeArchived: true })).toBe('/v1/me/enrollments?includeArchived=true');
+    expect(buildPath('mediaStream', { assetId: uuid }, { t: 'a.b' })).toBe(`/v1/media/stream/${uuid}?t=a.b`);
+  });
+});
+
+describe('enrollment & media query schemas', () => {
+  it('QueryBooleanSchema reads string flags honestly ("false" is false)', () => {
+    expect(QueryBooleanSchema.parse('true')).toBe(true);
+    expect(QueryBooleanSchema.parse('1')).toBe(true);
+    expect(QueryBooleanSchema.parse('false')).toBe(false);
+    expect(QueryBooleanSchema.parse('0')).toBe(false);
+    expect(QueryBooleanSchema.parse(true)).toBe(true);
+    expect(QueryBooleanSchema.safeParse('yes').success).toBe(false);
+  });
+
+  it('enrollments list defaults includeArchived to false and parses query strings', () => {
+    expect(EnrollmentsListQuerySchema.parse({})).toEqual({ includeArchived: false });
+    expect(EnrollmentsListQuerySchema.parse({ includeArchived: 'true' })).toEqual({ includeArchived: true });
+    expect(EnrollmentsListQuerySchema.parse({ includeArchived: 'false' })).toEqual({ includeArchived: false });
+  });
+
+  it('confirm flags accept only the documented value for each route', () => {
+    expect(EnrollmentPatchQuerySchema.parse({})).toEqual({});
+    expect(EnrollmentPatchQuerySchema.parse({ confirm: 'archive' }).confirm).toBe('archive');
+    expect(EnrollmentPatchQuerySchema.safeParse({ confirm: 'delete' }).success).toBe(false);
+    expect(EnrollmentDeleteQuerySchema.parse({ confirm: 'delete' }).confirm).toBe('delete');
+    expect(EnrollmentDeleteQuerySchema.safeParse({ confirm: 'archive' }).success).toBe(false);
+    expect(EnrollmentDeleteResponseSchema.safeParse({ deleted: true, enrollmentId: uuid }).success).toBe(true);
+    expect(EnrollmentDeleteResponseSchema.safeParse({ deleted: false, enrollmentId: uuid }).success).toBe(false);
+  });
+
+  it('media stream requires a non-empty token', () => {
+    expect(MediaStreamQuerySchema.safeParse({ t: 'abc.def' }).success).toBe(true);
+    expect(MediaStreamQuerySchema.safeParse({ t: '' }).success).toBe(false);
+    expect(MediaStreamQuerySchema.safeParse({}).success).toBe(false);
   });
 });
 

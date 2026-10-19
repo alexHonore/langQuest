@@ -4,7 +4,7 @@
  * Publishing records `publication_events` + `content_revisions`, emits `lesson.published` and
  * `manifest.invalidated` (edge cache purge), and is audit-logged.
  */
-import { ContentGenerateRequestSchema, ContentGenerateResponseSchema, ContentPublishRequestSchema, ContentPublishResponseSchema, ContentRequestReviewRequestSchema, ContentRequestReviewResponseSchema, ContentUnpublishRequestSchema, ContentUnpublishResponseSchema, LicensesAttributionsQuerySchema, LicensesAttributionsResponseSchema, UuidSchema, getCourseTrack, isCourseTrackId, tracksForVariety, type ContentState, type CourseTrackId } from '@langquest/contracts';
+import { ContentGenerateRequestSchema, ContentGenerateResponseSchema, ContentPublishRequestSchema, ContentPublishResponseSchema, ContentRequestReviewRequestSchema, ContentRequestReviewResponseSchema, ContentUnpublishRequestSchema, ContentUnpublishResponseSchema, LicensesAttributionsQuerySchema, LicensesAttributionsResponseSchema, UuidSchema, getCourseTrack, isCourseTrackId, tracksForVariety, type ContentState, type CourseTrackId, type ReviewStatus } from '@langquest/contracts';
 import type { Row } from '@langquest/db/types';
 import type { InvalidationInput } from '@langquest/media/manifests';
 import { canPublish, propagateTakedown, type PublishGateInput } from '@langquest/media/rights';
@@ -13,6 +13,7 @@ import type { DefineRoute } from '../../app';
 import { problem, respondOk } from '../../http/envelope';
 import { parseBody, parseParams, parseQuery } from '../../http/validate';
 import { currentRevision, loadContent, locateContent, recordPublicationEvent, recordRevision, stateOf, titleOf, transitionContent, type ContentRow } from '../../lib/content';
+import { goalsOf } from '../../lib/goals';
 import { rightsFor, rightsRecord } from '../../lib/rights';
 import type { RequestServices } from '../../services/context';
 
@@ -99,18 +100,21 @@ export function registerContentRoutes(define: DefineRoute): void {
     const { principal } = s.requireUser();
     const content = await locateContent(s, id);
     const from = stateOf(content);
+    const variety = 'target_variety_id' in content.row ? content.row.target_variety_id : null;
+    // Validate BEFORE any write: a variety mismatch must not leave a transition/revision/event behind.
+    if (variety && body.targetVarietyId && body.targetVarietyId !== variety) throw problem.validation(`Content is ${variety}; review cannot target ${body.targetVarietyId}`);
     const target: ContentState = from === 'published' ? 'published' : 'review_needed';
     if (target !== from) await transitionContent(s, content, target);
     const revision = await recordRevision(s, content.table, id, { requestReview: true, note: body.note ?? null, reviewerId: body.reviewerId ?? null }, body.note);
     await recordPublicationEvent(s, content.table, id, revision, from, target, body.note ?? 'review requested');
-    const variety = 'target_variety_id' in content.row ? content.row.target_variety_id : null;
-    if (variety && body.targetVarietyId && body.targetVarietyId !== variety) throw problem.validation(`Content is ${variety}; review cannot target ${body.targetVarietyId}`);
     if (variety) {
       const source = 'source_language_code' in content.row ? (content.row as { source_language_code?: string | null }).source_language_code : null;
       if (source) await s.events.emit('translation.review_requested', { entityTable: content.table, entityId: id, sourceLanguageCode: source as never, targetVarietyId: variety as never, requestedBy: principal.userId, reviewerId: body.reviewerId ?? null }, { idempotencyKey: `review:${content.table}:${id}:${revision}`, traceId: s.requestId });
     }
-    s.audit({ action: 'content.request_review', entityTable: content.table, entityId: id, before: { state: from }, after: { state: target, reviewerId: body.reviewerId ?? null } });
-    return respondOk(c, ContentRequestReviewResponseSchema.parse({ contentId: id, state: target, reviewStatus: 'pending' }));
+    // `ReviewStatus` (contracts): a named reviewer means the review is in progress, otherwise it is awaiting one.
+    const reviewStatus: ReviewStatus = body.reviewerId ? 'in_review' : 'review_needed';
+    s.audit({ action: 'content.request_review', entityTable: content.table, entityId: id, before: { state: from }, after: { state: target, reviewStatus, reviewerId: body.reviewerId ?? null } });
+    return respondOk(c, ContentRequestReviewResponseSchema.parse({ contentId: id, state: target, reviewStatus }));
   });
 
   define('adminContentPublish', { role: 'contentEditor' }, async (c) => {
@@ -121,6 +125,12 @@ export function registerContentRoutes(define: DefineRoute): void {
     const content = await loadContent(s, body.entityTable, id);
     const revision = await currentRevision(s, content.table, id);
     if (body.expectedRevision !== revision) throw problem.precondition(`Content revision is ${revision}, expected ${body.expectedRevision}`, { currentRevision: revision });
+    if (content.table === 'missions') {
+      // §10.1: a published goal must be describable per source language (catalog key or per-source map); a bare
+      // string has no language and would be shown to learners of every source as-is.
+      const unlabelled = goalsOf(content.row).filter((g) => !g.description_key && (g.description === undefined || typeof g.description === 'string')).map((g) => g.id);
+      if (unlabelled.length) throw problem.validation(`Mission goals need a description_key or a per-source description map before publishing: ${unlabelled.join(', ')}`, { goalIds: unlabelled });
+    }
     const gate = canPublish(await gateInputFor(s, content));
     if (!gate.allowed) {
       s.audit({ action: 'content.publish_blocked', entityTable: content.table, entityId: id, after: { blockedBy: gate.blockedBy } });

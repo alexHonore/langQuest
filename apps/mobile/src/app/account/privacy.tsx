@@ -6,6 +6,7 @@ import { Screen } from '@/components/Screen';
 import { ChoiceRow, SwitchRow } from '@/components/SettingRow';
 import { usePatchSettings } from '@/features/account/use-settings';
 import { useActiveEnrollment } from '@/features/session/queries';
+import { useExtraLabels } from '@/lib/extra-labels';
 import { useT } from '@/lib/i18n';
 
 const RETENTION: readonly SpeechRetention[] = ['none', 'session', 'opt_in_30_days', 'opt_in_until_deleted'];
@@ -14,6 +15,7 @@ const RETENTION: readonly SpeechRetention[] = ['none', 'session', 'opt_in_30_day
 export default function PrivacySettings(): React.JSX.Element {
   const router = useRouter();
   const t = useT();
+  const X = useExtraLabels();
   const { me } = useActiveEnrollment();
   const patch = usePatchSettings();
   const p = me?.privacyOptions;
@@ -25,7 +27,7 @@ export default function PrivacySettings(): React.JSX.Element {
       <Divider />
       <SwitchRow label={t('account.privacy.analytics')} hint={t('account.privacy.analyticsHint')} value={!(p?.analytics_opt_out ?? false)} onChange={(v) => patch.mutate({ privacyOptions: { analytics_opt_out: !v } })} />
       <SwitchRow label={t('account.privacy.aiTraining')} hint={t('account.privacy.aiTrainingHint')} value={p?.personalize_from_interests ?? false} onChange={(v) => patch.mutate({ privacyOptions: { personalize_from_interests: v } })} />
-      <SwitchRow label="Leaderboard" hint={t('account.notifications.optInNote')} value={p?.leaderboard_opt_in ?? false} onChange={(v) => patch.mutate({ privacyOptions: { leaderboard_opt_in: v } })} />
+      <SwitchRow label={X.leaderboard} hint={t('account.notifications.optInNote')} value={p?.leaderboard_opt_in ?? false} onChange={(v) => patch.mutate({ privacyOptions: { leaderboard_opt_in: v } })} />
       {patch.isPending ? <StatusLine icon="info" tone="info" text={t('common.loading')} /> : null}
       {patch.error ? <StatusLine icon="warning" tone="error" text={t('errors.generic')} /> : null}
     </Screen>

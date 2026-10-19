@@ -7,13 +7,17 @@ import { newUuid, nowIso } from '@/lib/ids';
 import { createCache, type LocalCache } from './cache';
 import type { DocumentStore } from './document-store';
 import { Outbox } from './outbox';
-import { getDocumentStore } from './sqlite';
+import { getDocumentStore, getStoreMode } from './sqlite';
 
 export interface LocalStore {
   store: DocumentStore;
   cache: LocalCache;
   outbox: Outbox;
   deviceId: string;
+  /** False when the database could not be opened and everything below is volatile (UI must say so). */
+  persistent: boolean;
+  /** Why the store is volatile (null when persistent). */
+  degradedReason: string | null;
 }
 
 let instance: Promise<LocalStore> | null = null;
@@ -22,6 +26,7 @@ export function getLocalStore(): Promise<LocalStore> {
   if (!instance) {
     instance = (async () => {
       const store = await getDocumentStore();
+      const mode = getStoreMode();
       const cache = createCache(store);
       let deviceId = await cache.getMeta<string>('deviceId');
       if (!deviceId) {
@@ -29,7 +34,7 @@ export function getLocalStore(): Promise<LocalStore> {
         await cache.putMeta('deviceId', deviceId);
       }
       const outbox = new Outbox({ store, newId: newUuid, now: nowIso, deviceId });
-      return { store, cache, outbox, deviceId };
+      return { store, cache, outbox, deviceId, persistent: mode.persistent, degradedReason: mode.reason };
     })();
   }
   return instance;

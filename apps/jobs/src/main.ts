@@ -89,7 +89,7 @@ async function main(argv: string[]): Promise<number> {
   }
   if (command === 'handlers') {
     const registry = buildRegistry();
-    for (const h of registry.list()) process.stdout.write(`${h.name.padEnd(24)} job types: ${h.jobTypes.join(', ') || '(carrier: describe + params.handler)'}  runtime: ${h.runtime}\n`);
+    for (const h of registry.list()) process.stdout.write(`${h.name.padEnd(24)} job types: ${h.jobTypes.join(', ')}  runtime: ${h.runtime}\n`);
     return 0;
   }
 

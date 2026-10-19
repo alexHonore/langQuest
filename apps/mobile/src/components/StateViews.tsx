@@ -3,7 +3,8 @@ import { Button, CardSkeleton, EmptyState, Row, StatusLine, ThemedText, useTheme
 import React from 'react';
 import { ActivityIndicator, View } from 'react-native';
 import { ApiClientError } from '@/lib/api/client';
-import { useT } from '@/lib/i18n';
+import { extraLabels } from '@/lib/extra-labels';
+import { useI18n, useT } from '@/lib/i18n';
 
 export function LoadingView(props: { rows?: number; label?: string }): React.JSX.Element {
   const t = useT();
@@ -18,14 +19,14 @@ export function LoadingView(props: { rows?: number; label?: string }): React.JSX
   );
 }
 
-export function errorMessageFor(error: unknown, t: ReturnType<typeof useT>): string {
+export function errorMessageFor(error: unknown, t: ReturnType<typeof useT>, locale = 'en'): string {
   if (error instanceof ApiClientError) {
     switch (error.kind) {
       case 'network':
       case 'timeout':
         return t('errors.network');
       case 'not_configured':
-        return 'This build has no API configured (EXPO_PUBLIC_API_BASE_URL).';
+        return extraLabels(locale).apiNotConfigured;
       case 'unauthorized':
         return t('errors.unauthorized');
       case 'forbidden':
@@ -54,9 +55,9 @@ export function errorMessageFor(error: unknown, t: ReturnType<typeof useT>): str
 }
 
 export function ErrorView(props: { error: unknown; onRetry?: () => void; title?: string }): React.JSX.Element {
-  const t = useT();
+  const { t, locale } = useI18n();
   const theme = useTheme();
-  const message = errorMessageFor(props.error, t);
+  const message = errorMessageFor(props.error, t, locale);
   return (
     <View style={{ gap: theme.spacing.md }}>
       <StatusLine icon="warning" tone="error" text={props.title ?? message} />

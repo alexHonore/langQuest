@@ -3,7 +3,7 @@
  * `mission_localizations` / editorial translations, cached by ETag per source, and never substitutes a language
  * silently (missing titles are empty with `titleLanguageCode: null`, not English).
  */
-import { CourseManifestSchema } from '@langquest/contracts';
+import { CourseManifestSchema, MissionDetailResponseSchema } from '@langquest/contracts';
 import { afterAll, beforeAll, expect, it } from 'vitest';
 import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, enrol, Seeder, type ApiHarness, type TestUser } from '../src/harness';
 
@@ -24,6 +24,11 @@ describeStack('course manifest localization and caching', () => {
   let draftMissionId: string;
   const TRACK = 'haitian-creole';
   const VARIETY = 'ht';
+  // Source-language overlays (mission_localizations.instructions / hints) and an authoring-time, language-neutral
+  // step scaffold written in English — the only hints a French learner may see are the French ones.
+  const FR = { instruction: 'Écoutez le marchand et repérez le prix avant de répondre.', hints: ['Le prix vient juste après « combien ».', 'Répétez le chiffre que vous entendez.'] };
+  const EN = { instruction: 'Listen to the vendor and spot the price before answering.', hints: ['The price comes right after "how much".', 'Repeat the number you hear.'] };
+  const HINT_SCAFFOLD = 'Scaffold: point at the mangoes and ask the price';
 
   beforeAll(async () => {
     h = createApiHarness();
@@ -34,9 +39,9 @@ describeStack('course manifest localization and caching', () => {
     const chapter = await seeder.chapter({ courseId: course.id, titles: { en: 'At the market', fr: 'Au marché' } });
     const published = await seeder.mission({ chapterId: chapter.id, varietyId: VARIETY, titles: { en: 'Buy mangoes', fr: 'Acheter des mangues' }, goals: [{ id: 'g1', skill_keys: ['shop.ask_price'] }] });
     publishedMissionId = published.id;
-    await seeder.steps(published.id, ['context_listening', 'modeled_expression', 'anticipation']);
-    await seeder.localization(published.id, 'fr', { title: 'Acheter des mangues (localisé)', qaState: 'reviewed' });
-    await seeder.localization(published.id, 'en', { title: 'Buy mangoes (localized)', qaState: 'machine_draft' });
+    await seeder.steps(published.id, ['context_listening', 'modeled_expression', 'anticipation'], [], { hintScaffold: [HINT_SCAFFOLD] });
+    await seeder.localization(published.id, 'fr', { title: 'Acheter des mangues (localisé)', instructions: FR.instruction, hints: FR.hints, qaState: 'reviewed' });
+    await seeder.localization(published.id, 'en', { title: 'Buy mangoes (localized)', instructions: EN.instruction, hints: EN.hints, qaState: 'machine_draft' });
     const draft = await seeder.mission({ chapterId: chapter.id, varietyId: VARIETY, state: 'review_needed', titles: { en: 'Draft mission' }, sortOrder: 1 });
     draftMissionId = draft.id;
   });
@@ -121,10 +126,45 @@ describeStack('course manifest localization and caching', () => {
     const enrollmentId = list.json.data.enrollments.find((e: { courseTrackId: string }) => e.courseTrackId === TRACK).id;
     const fr = await call(h, `/v1/missions/${publishedMissionId}?source=fr&enrollmentId=${enrollmentId}`, { token: learner.token });
     expect(fr.status).toBe(200);
-    expect(fr.json.data).toMatchObject({ sourceLanguageCode: 'fr', targetVarietyId: VARIETY, title: 'Acheter des mangues (localisé)' });
+    const detail = MissionDetailResponseSchema.parse(fr.json.data);
+    expect(detail).toMatchObject({ sourceLanguageCode: 'fr', targetVarietyId: VARIETY, title: 'Acheter des mangues (localisé)' });
+    expect(detail.steps.length).toBe(3);
     const mismatch = await call(h, `/v1/missions/${publishedMissionId}?source=en&enrollmentId=${enrollmentId}`, { token: learner.token });
     expect(mismatch.status).toBe(422);
     const draft = await call(h, `/v1/missions/${draftMissionId}?source=fr`, { token: learner.token });
     expect(draft.status).toBe(404); // RLS: unpublished content is invisible to learners
+  });
+
+  it('step instructions and hints come from the source-language overlay, never from another language (A04)', async () => {
+    const fr = await call(h, `/v1/missions/${publishedMissionId}?source=fr`, { token: learner.token });
+    expect(fr.status).toBe(200);
+    const frDetail = MissionDetailResponseSchema.parse(fr.json.data);
+    const frTexts = frDetail.steps.flatMap((st) => [st.instruction, ...st.hints]);
+    for (const st of frDetail.steps) {
+      // The localized instruction wins over the generic step-type label from the locale catalog ("Écoute en contexte").
+      expect(st.instruction).toBe(FR.instruction);
+      expect(st.hints).toEqual(FR.hints);
+    }
+    expect(frTexts).not.toContain(EN.instruction);
+    for (const leak of [...EN.hints, HINT_SCAFFOLD]) expect(frTexts).not.toContain(leak);
+
+    // The same mission read from English (no enrollment bound) re-renders instructions and hints in English.
+    const en = await call(h, `/v1/missions/${publishedMissionId}?source=en`, { token: learner.token });
+    expect(en.status).toBe(200);
+    const enDetail = MissionDetailResponseSchema.parse(en.json.data);
+    const enTexts = enDetail.steps.flatMap((st) => [st.instruction, ...st.hints]);
+    for (const st of enDetail.steps) {
+      expect(st.instruction).toBe(EN.instruction);
+      expect(st.hints).toEqual(EN.hints);
+    }
+    for (const leak of [FR.instruction, ...FR.hints, HINT_SCAFFOLD]) expect(enTexts).not.toContain(leak);
+
+    // A source with no overlay gets honest empties, not the scaffold or another language's text.
+    const sw = await call(h, `/v1/missions/${publishedMissionId}?source=sw`, { token: learner.token });
+    expect(sw.status).toBe(200);
+    const swDetail = MissionDetailResponseSchema.parse(sw.json.data);
+    const swTexts = swDetail.steps.flatMap((st) => [st.instruction, ...st.hints]);
+    for (const leak of [FR.instruction, EN.instruction, ...FR.hints, ...EN.hints, HINT_SCAFFOLD]) expect(swTexts).not.toContain(leak);
+    expect(swDetail.localizationComplete).toBe(false);
   });
 });

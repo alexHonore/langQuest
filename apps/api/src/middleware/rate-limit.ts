@@ -31,6 +31,12 @@ export const RATE_POLICIES = {
   ai: { perMinute: 90, burst: 30 } satisfies BucketPolicy,
   /** Admin mutations per user. */
   admin: { perMinute: 300, burst: 100 } satisfies BucketPolicy,
+  /**
+   * Pre-authentication ceiling per client key, taken BEFORE any JWT verification or role lookup so floods of
+   * missing/garbage/expired tokens are throttled without a network call to Supabase Auth or a `user_roles` query.
+   * Deliberately above every per-principal class (a shared NAT serves many honest learners).
+   */
+  ingress: { perMinute: 1200, burst: 400 } satisfies BucketPolicy,
 } as const;
 export type RateClass = keyof typeof RATE_POLICIES;
 
@@ -85,6 +91,14 @@ export interface TakeResult {
   retryAfterSeconds: number;
 }
 
+/** Current token count without consuming (refill applied); used to short-circuit auth probes before verifying. */
+export async function peekTokens(store: RateLimitStore, key: string, policy: BucketPolicy, now = Date.now()): Promise<number> {
+  const refillPerMs = policy.perMinute / 60_000;
+  const prev = (await store.get(key)) ?? { tokens: policy.burst, updatedAt: now };
+  const elapsed = Math.max(0, now - prev.updatedAt);
+  return Math.min(policy.burst, prev.tokens + elapsed * refillPerMs);
+}
+
 /** Token-bucket take: refill by elapsed time, then consume one token when available. */
 export async function takeToken(store: RateLimitStore, key: string, policy: BucketPolicy, now = Date.now()): Promise<TakeResult> {
   const refillPerMs = policy.perMinute / 60_000;
@@ -103,13 +117,19 @@ export interface RateLimitOptions {
   store: RateLimitStore;
   /** Which class applies; may depend on whether a principal is present. */
   classify: (c: Parameters<MiddlewareHandler<AppEnv>>[0]) => RateClass;
+  /**
+   * `principal` (default): key by user id when authenticated, else by client key. `client`: always key by the
+   * hashed client IP — used before authentication and for credential endpoints where the caller's identity is
+   * exactly what is being probed (§11 "protect authentication").
+   */
+  keyBy?: 'principal' | 'client';
 }
 
 export function rateLimit(options: RateLimitOptions): MiddlewareHandler<AppEnv> {
   return async (c, next) => {
     const klass = options.classify(c);
     const policy = RATE_POLICIES[klass];
-    const principal = c.get('principal');
+    const principal = options.keyBy === 'client' ? undefined : c.get('principal');
     const subject = principal ? `u:${principal.userId}` : `k:${c.get('clientKey')}`;
     const key = `rl:${klass}:${subject}`;
     const result = await takeToken(options.store, key, policy);

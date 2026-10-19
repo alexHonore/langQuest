@@ -1,0 +1,82 @@
+{
+  "target": "fra",
+  "varietyId": "fr",
+  "varietyAssignment": "corpus",
+  "snapshotId": "2026-10-14T22:31:10Z",
+  "inputs": [
+    {
+      "file": "fra_sentences.tsv.bz2",
+      "sha256": "fac31d82b216c95affee7dffcee6c0ae59c45f254ebbfbbf8abb9e66da86ee8f",
+      "byteLength": 9765138
+    },
+    {
+      "file": "fra_sentences_with_audio.tsv.bz2",
+      "sha256": "64102aee017e1e1571ecb6e6e6adaa7358ceebf2e8dfbe34081739798da18a3f",
+      "byteLength": 56670
+    },
+    {
+      "file": "fra-eng_links.tsv.bz2",
+      "sha256": "b77a891e9a2d019fc66caab9f623fa4fd1234ac2fbce32d9d3ff700d77395f01",
+      "byteLength": 2667900
+    },
+    {
+      "file": "eng_sentences.tsv.bz2",
+      "sha256": "0eabb52f54350bbb39807190920bfddaf9fee2ba50ca75af67e11a22ec475c29",
+      "byteLength": 24904358
+    }
+  ],
+  "scanned": 72540,
+  "rejected": {
+    "irrelevant_too_long": 5563,
+    "sanity_no_function_words": 3680,
+    "no_source_translation": 13068,
+    "toxic": 226,
+    "irrelevant_url_or_email": 1,
+    "irrelevant_markup": 5,
+    "intent_unmatched": 324
+  },
+  "candidates": 50000,
+  "linked": 384,
+  "withAudio": 12,
+  "audioRedistributable": 4,
+  "intentMatched": 60,
+  "emitted": 60,
+  "byIntent": {
+    "decline_invitation": 6,
+    "say_dont_know": 1,
+    "react_with_empathy": 2,
+    "state_opinion": 4,
+    "describe_routine": 1,
+    "ask_reason": 6,
+    "say_too_expensive": 2,
+    "express_dislike": 4,
+    "say_not_understood": 3,
+    "express_like": 2,
+    "ask_where_is": 3,
+    "introduce_name": 4,
+    "ask_opinion": 1,
+    "suggest_activity": 1,
+    "apologise": 1,
+    "thank": 1,
+    "ask_is_it_far": 2,
+    "ask_if_speaks_language": 1,
+    "greet_hello": 1,
+    "ask_clarification": 1,
+    "ask_how_to_say": 1,
+    "respond_to_compliment": 1,
+    "ask_time": 1,
+    "ask_where_from": 1,
+    "ask_name": 1,
+    "express_feeling": 1,
+    "ask_slow_down": 1,
+    "ask_for_bill": 1,
+    "ask_how_are_you": 1,
+    "call_for_help": 1,
+    "ask_meaning_of_word": 1,
+    "request_item": 1,
+    "describe_family": 1
+  },
+  "notes": [
+    "Candidate cap 50000 reached after scanning 72540 sentences; raise --max-candidates to go further."
+  ]
+}

@@ -50,8 +50,10 @@ export async function buildMeResponse(s: RequestServices): Promise<MeResponseNul
 }
 
 export function registerAccountRoutes(define: DefineRoute): void {
-  define('authSessionRefresh', { rate: 'auth', idempotent: false }, async (c) => {
-    // The refresh token is the credential here; no access token is required (it may already be expired).
+  // The refresh token is the credential here: the access token is optional (it is usually already expired), so the
+  // contract's `learner` class is overridden to `public` (optional Bearer) and the `auth` bucket is keyed by client
+  // IP — the identity being probed must never be the key that protects the probe (§11).
+  define('authSessionRefresh', { auth: 'public', rate: 'auth', rateKeyBy: 'client', idempotent: false }, async (c) => {
     const body = await parseBody(c, SessionRefreshRequestSchema);
     const s = svc(c);
     const res = await fetch(new URL('/auth/v1/token?grant_type=refresh_token', s.config.env.SUPABASE_URL), {

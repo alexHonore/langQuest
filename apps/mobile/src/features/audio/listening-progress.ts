@@ -3,8 +3,14 @@
  * the local store first (so "continue listening" and resume work offline),
  * then pushed with an idempotent `PUT /v1/me/audio-progress/:lessonId`. When
  * the device is offline or the PUT fails on connectivity, the same event
- * (same `clientEventId`) is queued in the progress outbox as an
- * `audio_progress` event so it syncs later without double-applying.
+ * (same `clientEventId`, same per-lesson `revision`) is queued in the progress
+ * outbox as an `audio_progress` event so it syncs later without double-applying.
+ *
+ * Conflict model (mirrors `apply_audio_progress` on the server): the revision
+ * is a per-lesson, per-device counter, so the server only compares it against
+ * the last write from THIS device; across devices the skew-corrected event
+ * time decides. A `superseded` answer therefore means another write is newer
+ * and the device adopts the server's position (unless it has typed more since).
  */
 import type { AudioProgressPutRequestSchema, AudioProgressPutResponseSchema, ProgressEventPayload } from '@langquest/contracts';
 import type { z } from 'zod';
@@ -48,8 +54,12 @@ export interface ListeningProgressDeps {
   newId: () => string;
   now: () => string;
   put: (lessonId: string, body: AudioProgressPutRequest) => Promise<AudioProgressPutResponse>;
-  /** Queue an outbox event (used when the PUT cannot reach the server). */
-  enqueueOutbox: (payload: ProgressEventPayload) => Promise<unknown>;
+  /**
+   * Queue an outbox event (used when the PUT cannot reach the server). `options` carries the identity the
+   * PUT would have sent: the pending `clientEventId` (server-side dedupe if the PUT did land) and the
+   * per-lesson `revision` the server compares per device — never the outbox's device-wide counter.
+   */
+  enqueueOutbox: (payload: ProgressEventPayload, options: { clientEventId: string; revision: number; occurredAt: string }) => Promise<unknown>;
   isOnline: () => boolean;
   /** Classify a PUT error: connectivity errors fall back to the outbox, others are dropped (logged). */
   isConnectivityError: (error: unknown) => boolean;
@@ -105,25 +115,31 @@ export class ListeningProgressSync {
     return record;
   }
 
-  /** Push the pending update for a lesson (deduplicated per lesson). */
+  /**
+   * Push the pending update for a lesson (deduplicated per lesson). When newer local writes landed
+   * while a PUT was in flight, they are pushed right after it (once the in-flight slot is free).
+   */
   push(lessonId: string, flush: boolean): Promise<void> {
     const pending = this.inflight.get(lessonId);
     if (pending) return pending;
-    const p = this.doPush(lessonId, flush).finally(() => this.inflight.delete(lessonId));
+    const p = this.doPush(lessonId, flush)
+      .finally(() => this.inflight.delete(lessonId))
+      .then((again) => (again ? this.push(lessonId, true) : undefined));
     this.inflight.set(lessonId, p);
     return p;
   }
 
-  private async doPush(lessonId: string, flush: boolean): Promise<void> {
+  /** Returns true when a newer local write is still pending and must be pushed again. */
+  private async doPush(lessonId: string, flush: boolean): Promise<boolean> {
     const record = await this.get(lessonId);
-    if (!record || record.pendingClientEventId === null || record.revision <= record.syncedRevision) return;
+    if (!record || record.pendingClientEventId === null || record.revision <= record.syncedRevision) return false;
     const nowMs = Date.parse(this.deps.now());
     const last = this.lastPutAt.get(lessonId) ?? 0;
     const throttle = this.deps.throttleMs ?? 15_000;
-    if (!flush && nowMs - last < throttle) return;
+    if (!flush && nowMs - last < throttle) return false;
     if (!this.deps.isOnline()) {
       await this.queueInOutbox(record);
-      return;
+      return false;
     }
     this.lastPutAt.set(lessonId, nowMs);
     const body: AudioProgressPutRequest = {
@@ -136,25 +152,38 @@ export class ListeningProgressSync {
       occurredAt: record.updatedAt,
     };
     try {
-      await this.deps.put(lessonId, body);
+      const response = await this.deps.put(lessonId, body);
       const latest = await this.get(lessonId);
-      if (!latest) return;
+      if (!latest) return false;
       // Newer local writes since we sent → keep them pending under a fresh event id.
       const stillDirty = latest.revision > record.revision;
-      await this.save({ ...latest, syncedRevision: Math.max(latest.syncedRevision, record.revision), pendingClientEventId: stillDirty ? this.deps.newId() : null, queuedInOutbox: false });
-      if (stillDirty) void this.push(lessonId, true);
+      if (response.resolution === 'superseded' && !stillDirty) {
+        // Another write (other device, or an older counter of ours the server already saw) is newer:
+        // the server's position is the truth. Lifting our revision to the server's keeps a same-device
+        // counter that fell behind from being superseded forever.
+        const revision = Math.max(latest.revision, response.revision);
+        await this.save({ ...latest, positionMs: response.positionMs, completed: latest.completed || response.completed, revision, syncedRevision: revision, pendingClientEventId: null, queuedInOutbox: false, updatedAt: this.deps.now() });
+        return false;
+      }
+      const revision = response.resolution === 'superseded' ? Math.max(latest.revision, response.revision) : latest.revision;
+      await this.save({ ...latest, revision, syncedRevision: Math.max(latest.syncedRevision, record.revision), pendingClientEventId: stillDirty ? this.deps.newId() : null, queuedInOutbox: false });
+      return stillDirty;
     } catch (error) {
       if (this.deps.isConnectivityError(error)) {
         const latest = (await this.get(lessonId)) ?? record;
         await this.queueInOutbox(latest);
       }
       // Validation/rejection errors are not retried: the local position stays authoritative on-device.
+      return false;
     }
   }
 
   private async queueInOutbox(record: LocalListeningProgress): Promise<void> {
-    if (record.queuedInOutbox) return;
-    await this.deps.enqueueOutbox({ type: 'audio_progress', lessonId: record.lessonId, positionMs: record.positionMs, durationMs: record.durationMs, completed: record.completed });
+    if (record.queuedInOutbox || record.pendingClientEventId === null) return;
+    await this.deps.enqueueOutbox(
+      { type: 'audio_progress', lessonId: record.lessonId, positionMs: record.positionMs, durationMs: record.durationMs, completed: record.completed },
+      { clientEventId: record.pendingClientEventId, revision: record.revision, occurredAt: record.updatedAt },
+    );
     // The outbox owns delivery now; the next local write starts a new pending event.
     await this.save({ ...record, queuedInOutbox: true, syncedRevision: record.revision, pendingClientEventId: null });
   }

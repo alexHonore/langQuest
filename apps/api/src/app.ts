@@ -17,7 +17,7 @@ import { bodyLimit, corsAllowlist, DEFAULT_BODY_LIMIT_BYTES, requestTimeout, sec
 import { registerAdminRoutes } from './routes/admin';
 import { registerAudioRoutes } from './routes/audio';
 import { registerLearnerRoutes } from './routes/learner';
-import { deleteEnrollmentHandler, ENROLLMENT_DELETE_PATH } from './routes/learner/enrollments';
+import { deleteEnrollmentHandler } from './routes/learner/enrollments';
 import { registerSpeechRoutes } from './routes/speech';
 import { registerMediaProxyRoutes } from './routes/media-proxy';
 import { createEdgeCache, type EdgeCache } from './services/cache';
@@ -45,7 +45,15 @@ export interface AppOptions {
 export interface RouteOptions {
   /** Admin routes: which role set is required (defaults to `staff` for `auth: 'admin'`). */
   role?: RoleSet;
+  /**
+   * Override the contract's auth class for the middleware chain (documented exception). Used by the session
+   * refresh route, whose credential is the refresh token itself: the contract lists it as `learner` but a
+   * mandatory Bearer check would reject exactly the expired access token the route exists to replace.
+   */
+  auth?: RouteDef['auth'];
   rate?: RateClass;
+  /** `client`: key the per-route bucket by hashed client IP even for authenticated callers (credential endpoints). */
+  rateKeyBy?: 'principal' | 'client';
   bodyLimitBytes?: number;
   timeoutMs?: number;
   /** Skip the Idempotency-Key layer (routes with their own domain idempotency and large bodies). */
@@ -98,19 +106,27 @@ export function createApp(options: AppOptions): AppContext {
     return respondErr(c, p.code, p.message, p.details);
   });
 
-  const authDeps = { verifier, serviceClient: () => shared.service, roleResolver: options.roleResolver };
+  const authDeps = { verifier, serviceClient: () => shared.service, roleResolver: options.roleResolver, failureStore: rateStore };
 
+  /**
+   * Middleware order (§11): body limit → pre-auth ingress bucket (per client key, BEFORE any token verification so
+   * unauthenticated floods never trigger a Supabase Auth call or a `user_roles` query) → authentication (failed
+   * tokens are counted per client key inside `authenticate`) → roles → per-principal class bucket → idempotency →
+   * abortable timeout → request services.
+   */
   const buildChain = (def: RouteDef, opts: RouteOptions): MiddlewareHandler<AppEnv>[] => {
+    const auth = opts.auth ?? def.auth;
     const chain: MiddlewareHandler<AppEnv>[] = [];
     chain.push(bodyLimit(opts.bodyLimitBytes ?? DEFAULT_BODY_LIMIT_BYTES));
-    if (def.auth === 'public') chain.push(authenticate(authDeps, { optional: true, resolveRoles: false }));
+    chain.push(rateLimit({ store: rateStore, classify: () => 'ingress', keyBy: 'client' }));
+    if (auth === 'public') chain.push(authenticate(authDeps, { optional: true, resolveRoles: false }));
     else chain.push(authenticate(authDeps));
-    if (def.auth === 'admin') chain.push(requireRoles(opts.role ?? 'staff'));
-    chain.push(rateLimit({ store: rateStore, classify: () => opts.rate ?? (def.auth === 'public' ? 'public' : def.auth === 'admin' ? 'admin' : 'learner') }));
+    if (auth === 'admin') chain.push(requireRoles(opts.role ?? 'staff'));
+    chain.push(rateLimit({ store: rateStore, classify: () => opts.rate ?? (auth === 'public' ? 'public' : auth === 'admin' ? 'admin' : 'learner'), keyBy: opts.rateKeyBy }));
     if (opts.idempotent !== false && def.method !== 'GET') chain.push(idempotency(idemStore));
     chain.push(requestTimeout(opts.timeoutMs ?? DEFAULT_TIMEOUT_MS));
     chain.push(async (c, next) => {
-      c.set('services', createRequestServices(shared, { log: c.get('log'), requestId: c.get('requestId'), principal: c.get('principal') ?? null, executionCtx: c.get('executionCtx'), clientKey: c.get('clientKey') }));
+      c.set('services', createRequestServices(shared, { log: c.get('log'), requestId: c.get('requestId'), principal: c.get('principal') ?? null, executionCtx: c.get('executionCtx'), clientKey: c.get('clientKey'), signal: c.get('abortSignal') }));
       await next();
     });
     return chain;
@@ -120,17 +136,13 @@ export function createApp(options: AppOptions): AppContext {
     app.on(def.method, [def.path], ...buildChain(def, opts), handler);
     registered.add(key);
   };
-  /** Routes beyond the contracts constants (documented extensions). */
-  const defineExtra = (def: RouteDef, opts: RouteOptions, handler: Handler<AppEnv>): void => {
-    app.on(def.method, [def.path], ...buildChain(def, opts), handler);
-  };
 
   registerLearnerRoutes(defineRoute);
   registerSpeechRoutes(defineRoute);
   registerAudioRoutes(defineRoute);
   registerAdminRoutes(defineRoute);
-  registerMediaProxyRoutes(app, shared);
-  defineExtra({ method: 'DELETE', path: ENROLLMENT_DELETE_PATH, auth: 'learner' }, {}, deleteEnrollmentHandler);
+  registerMediaProxyRoutes(defineRoute);
+  defineRoute('enrollmentDelete', {}, deleteEnrollmentHandler);
 
   app.get('/', (c) => c.json({ ok: true, data: { service: 'langquest-api', env: config.env.API_ENV, routes: registered.size } }));
   app.get('/healthz', (c) => c.json({ ok: true, data: { status: 'ok', media: media.mode, time: new Date().toISOString() } }));

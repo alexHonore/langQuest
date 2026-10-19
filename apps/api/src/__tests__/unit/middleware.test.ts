@@ -14,7 +14,7 @@ import { idempotency, MemoryIdempotencyStore } from '../../middleware/idempotenc
 import { createLogger } from '../../middleware/logging';
 import { MemoryRateLimitStore, takeToken } from '../../middleware/rate-limit';
 import { bodyLimit, requestTimeout } from '../../middleware/security';
-import { signStreamToken, verifyStreamToken } from '../../lib/media-token';
+import { mediaStreamSecret, signStreamToken, streamSubject, verifyStreamToken } from '../../lib/media-token';
 import { uuidFrom } from '../../lib/learning';
 import { createEventDispatcher } from '../../services/events';
 import { createEdgeCache } from '../../services/cache';
@@ -142,14 +142,24 @@ describe('token verifier', () => {
 });
 
 describe('media stream tokens', () => {
-  it('round-trips and rejects tampering/expiry', () => {
-    const secret = 'stream-secret-32-characters-long-xxxx';
+  it('round-trips a pseudonymous subject (never the raw user id) and rejects tampering/expiry', () => {
+    const secret = 'stream-secret-32-characters-long-xxxxxxx';
     const exp = Math.floor(Date.now() / 1000) + 60;
     const token = signStreamToken(secret, 'asset-1', 'user-1', exp);
-    expect(verifyStreamToken(secret, token)).toEqual({ assetId: 'asset-1', userId: 'user-1' });
+    expect(token).not.toContain('user-1');
+    expect(verifyStreamToken(secret, token)).toEqual({ assetId: 'asset-1', subject: streamSubject(secret, 'user-1'), expiresAtSec: exp });
+    expect(token.split('.')[3]).toHaveLength(64); // full HMAC-SHA256 digest, not a truncated prefix
     expect(verifyStreamToken(secret, token.replace('asset-1', 'asset-2'))).toBeNull();
+    expect(verifyStreamToken(secret, token.replace(streamSubject(secret, 'user-1'), streamSubject(secret, 'user-2')))).toBeNull();
     expect(verifyStreamToken('other-secret-32-characters-long-xxxx', token)).toBeNull();
     expect(verifyStreamToken(secret, signStreamToken(secret, 'a', 'u', exp - 120))).toBeNull();
+    expect(verifyStreamToken(secret, 'garbage')).toBeNull();
+  });
+
+  it('fails closed when no dedicated stream secret is configured (never a Supabase key)', () => {
+    expect(() => mediaStreamSecret({ MEDIA_STREAM_SECRET: undefined, AI_SESSION_TICKET_SECRET: undefined })).toThrow(ApiProblem);
+    expect(mediaStreamSecret({ MEDIA_STREAM_SECRET: undefined, AI_SESSION_TICKET_SECRET: 'ticket-secret-32-characters-long-xxxxx' })).toBe('ticket-secret-32-characters-long-xxxxx');
+    expect(mediaStreamSecret({ MEDIA_STREAM_SECRET: 'media-secret-32-characters-long-xxxxxx', AI_SESSION_TICKET_SECRET: 'ticket-secret-32-characters-long-xxxxx' })).toBe('media-secret-32-characters-long-xxxxxx');
   });
 });
 
@@ -178,7 +188,42 @@ describe('event dispatcher', () => {
     await Promise.all(pending);
     expect(handler).toHaveBeenCalledTimes(1);
     expect(enqueue).toHaveBeenCalledTimes(1);
-    expect(enqueue.mock.calls[0]![0]).toMatchObject({ jobType: 'verify', idempotencyKey: 'event:upload.finalized:k2' });
+    // Same key scheme as the upload route / `apps/jobs` handlers, so producer + dispatcher converge on ONE row.
+    expect(enqueue.mock.calls[0]![0]).toMatchObject({ jobType: 'verify', idempotencyKey: `verify:${uuidFrom('u')}:${'a'.repeat(64)}`, params: { uploadId: uuidFrom('u'), assetId: uuidFrom('a') } });
+  });
+
+  it('mirrors the upload pipeline: exactly one job per type, no verify job when verified inline, transcode never re-enqueued', async () => {
+    interface JobRow { id: string; job_type: string; params: unknown }
+    const rows = new Map<string, JobRow>();
+    const enqueue = vi.fn(async (input: { jobType: string; idempotencyKey: string; params?: unknown }): Promise<JobRow> => {
+      const existing = rows.get(input.idempotencyKey);
+      if (existing) return existing;
+      const row: JobRow = { id: uuidFrom(`job-${rows.size + 1}`), job_type: input.jobType, params: input.params ?? {} };
+      rows.set(input.idempotencyKey, row);
+      return row;
+    });
+    const pending: Promise<unknown>[] = [];
+    const d = createEventDispatcher({ jobs: { enqueue } as never, backend: 'postgres', log: createLogger('error', {}, () => undefined), waitUntil: (p) => void pending.push(p) });
+    const assetId = uuidFrom('asset');
+    const uploadId = uuidFrom('upload');
+    const sha = 'b'.repeat(64);
+    // What `adminUploadComplete` does for a small audio object verified in the Worker:
+    await enqueue({ jobType: 'extract_metadata', idempotencyKey: `extract_metadata:${assetId}:${sha}`, params: { assetId } });
+    await d.emit('asset.verified', { assetId, durationMs: null, mimeType: 'audio/mpeg', checksumSha256: sha, duplicateOfAssetId: null, state: 'imported_draft' }, { idempotencyKey: `asset.verified:${assetId}:${sha}` });
+    const transcode = await enqueue({ jobType: 'transcode', idempotencyKey: `transcode:${assetId}:${sha}`, params: { assetId, formats: ['aac', 'opus'] } });
+    await d.emit('transcode.requested', { assetId, jobId: transcode.id, targetFormats: ['aac', 'opus'], priority: 5 }, { idempotencyKey: `transcode.requested:${transcode.id}` });
+    await d.emit('upload.finalized', { uploadId, assetId, storageKey: 'media/x', checksumSha256: sha, byteLength: 10, mimeType: 'audio/mpeg', uploaderId: uuidFrom('p') }, { idempotencyKey: `upload.finalized:${uploadId}`, enqueueJob: false });
+    await Promise.all(pending);
+    const types = [...rows.values()].map((r) => r.job_type).sort();
+    expect(types).toEqual(['extract_metadata', 'transcode']);
+    expect([...rows.values()].find((r) => r.job_type === 'transcode')!.params).toEqual({ assetId, formats: ['aac', 'opus'] });
+
+    // Large object: the route enqueues `verify` itself and the event converges on the same row.
+    rows.clear();
+    await enqueue({ jobType: 'verify', idempotencyKey: `verify:${uploadId}:${sha}`, params: { uploadId, assetId, storageKey: 'media/x', expectedChecksum: sha } });
+    await d.emit('upload.finalized', { uploadId, assetId, storageKey: 'media/x', checksumSha256: sha, byteLength: 10, mimeType: 'audio/mpeg', uploaderId: uuidFrom('p') }, { idempotencyKey: `upload.finalized:${uploadId}:large` });
+    await Promise.all(pending);
+    expect([...rows.values()].map((r) => r.job_type)).toEqual(['verify']);
   });
 });
 

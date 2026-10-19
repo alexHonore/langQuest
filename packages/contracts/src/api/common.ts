@@ -104,6 +104,19 @@ export const PaginationQuerySchema = z.object({
 });
 export type PaginationQuery = z.infer<typeof PaginationQuerySchema>;
 
+/**
+ * Boolean query-string flag. Query values arrive as strings, and `z.coerce.boolean()` would turn the literal
+ * `"false"` into `true`; this schema accepts `true|false|1|0` (and a bare boolean) and yields a real boolean.
+ */
+export const QueryBooleanSchema = z.preprocess((v) => {
+  if (typeof v === 'string') {
+    const t = v.trim().toLowerCase();
+    if (t === 'true' || t === '1') return true;
+    if (t === 'false' || t === '0' || t === '') return false;
+  }
+  return v;
+}, z.boolean());
+
 export function pageOf<T extends z.ZodType>(item: T) {
   return z.object({
     items: z.array(item),
@@ -149,7 +162,13 @@ export const ROUTES = {
   courseCoverage: route('GET', '/v1/courses/:trackId/coverage', 'public'),
   enrollmentsCreate: route('POST', '/v1/me/enrollments', 'learner'),
   enrollmentsList: route('GET', '/v1/me/enrollments', 'learner'),
+  /** Accepts `?confirm=archive` (`EnrollmentPatchQuerySchema`) when the patch sets `status: 'archived'`. */
   enrollmentPatch: route('PATCH', '/v1/me/enrollments/:id', 'learner'),
+  /**
+   * §15 "User removes a course": permanently deletes ONE enrollment and its scoped progress. Requires
+   * `?confirm=delete` (`EnrollmentDeleteQuerySchema`); without it the API answers `precondition_failed`.
+   */
+  enrollmentDelete: route('DELETE', '/v1/me/enrollments/:id', 'learner'),
   courseManifest: route('GET', '/v1/courses/:trackId/manifest', 'learner'),
   missionDetail: route('GET', '/v1/missions/:id', 'learner'),
   missionAttemptCreate: route('POST', '/v1/missions/:id/attempts', 'learner'),
@@ -175,6 +194,12 @@ export const ROUTES = {
   audioProgressPut: route('PUT', '/v1/me/audio-progress/:lessonId', 'learner'),
   audioBookmarkCreate: route('POST', '/v1/me/audio-bookmarks', 'learner'),
   audioDownloadPack: route('GET', '/v1/me/audio-download-pack/:lessonId', 'learner'),
+  /**
+   * §4.4 Worker-proxied media streaming. Not JWT-authenticated: the URL returned by `audioPlaybackUrl`
+   * (`method: 'worker_proxy'`) carries a short-lived HMAC token in `?t=` (`MediaStreamQuerySchema`) that
+   * the server verifies against the asset id. Supports `Range` / `HEAD`; clients never build this URL themselves.
+   */
+  mediaStream: route('GET', '/v1/media/stream/:assetId', 'public'),
   // §6.4 admin
   adminUploadInitiate: route('POST', '/v1/admin/uploads/initiate', 'admin'),
   adminUploadPartsSign: route('POST', '/v1/admin/uploads/:id/parts/sign', 'admin'),

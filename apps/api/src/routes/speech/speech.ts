@@ -10,7 +10,7 @@
 import type { AiServices } from '@langquest/ai';
 import { providerLocaleFor, capabilityFromStatus } from '@langquest/ai/capability/registry';
 import { base64ToBytes } from '@langquest/ai/util';
-import { AI_TASK_NAME_VALUES, ModelCapabilitiesQuerySchema, ModelCapabilitiesResponseSchema, PronunciationAssessRequestSchema, PronunciationAssessResponseSchema, SynthesizeRequestSchema, SynthesizeResponseSchema, TranscribeRequestSchema, TranscribeResponseSchema, getCourseTrack, isAcousticAssessmentMode, unsupportedCapability, type AiTaskName, type Capability, type SkillObservationInput, type SpeechEvaluationResult } from '@langquest/contracts';
+import { AI_TASK_NAME_VALUES, ModelCapabilitiesQuerySchema, ModelCapabilitiesResponseSchema, PronunciationAssessRequestSchema, PronunciationAssessResponseSchema, SourceLanguageCodeSchema, SynthesizeRequestSchema, SynthesizeResponseSchema, TranscribeRequestSchema, TranscribeResponseSchema, UuidSchema, getCourseTrack, isAcousticAssessmentMode, unsupportedCapability, type AiTaskName, type Capability, type SkillObservationInput, type SourceLanguageCode, type SpeechEvaluationResult, type SpeechRetention, type VarietyId } from '@langquest/contracts';
 import { sha256Hex as mediaSha256 } from '@langquest/media/hashing';
 import { buildMasterKey, extensionForMime } from '@langquest/media/keys';
 import { sha256Hex } from '@langquest/telemetry/privacy';
@@ -28,11 +28,22 @@ import type { RequestServices } from '../../services/context';
 
 const PRONUNCIATION_SCORER_VERSION = 'speech-route@2026-10-14.1';
 
-/** Persist a learner recording (inline audio) under the learner's retention preference; null when not retained. */
-async function retainRecording(s: RequestServices, enrollment: EnrollmentRow, audio: { base64: string; encoding: string }, userId: string): Promise<string | null> {
+/**
+ * `GET /v1/ai/models/capabilities` query: the contract's `trackId` / `regionalOption` plus a server-side extension
+ * (contracts gap) selecting the SOURCE language whose model profiles should be reported — `ai_model_profiles` are
+ * keyed task × variety × source (CONVENTIONS §5), so an English-source answer is wrong for a French-source learner.
+ * `enrollmentId` (owned enrollment, its `source_language_code`) wins over `source`; with neither, only the
+ * variety/global scope is resolved and the capability notes say so.
+ */
+export const ModelCapabilitiesApiQuerySchema = ModelCapabilitiesQuerySchema.extend({ enrollmentId: UuidSchema.optional(), source: SourceLanguageCodeSchema.optional() });
+
+/**
+ * Persist a learner recording (inline audio) under the learner's retention preference (or the explicit session
+ * retention when given); null when not retained or when media storage is unavailable.
+ */
+export async function retainRecording(s: RequestServices, enrollment: EnrollmentRow, audio: { base64: string; encoding: string }, userId: string, retentionOverride?: SpeechRetention): Promise<string | null> {
   const { repos } = s.requireUser();
-  const profile = await repos.profiles.getByUserId(userId);
-  const retention = parsePrivacy(profile?.privacy_options).store_speech_recordings;
+  const retention = retentionOverride ?? parsePrivacy((await repos.profiles.getByUserId(userId))?.privacy_options).store_speech_recordings;
   if (retention === 'none' || retention === 'session' || !s.media.available) return null;
   const bytes = base64ToBytes(audio.base64);
   const mime = audio.encoding === 'mp3' ? 'audio/mpeg' : audio.encoding === 'wav' || audio.encoding === 'pcm16' ? 'audio/wav' : audio.encoding === 'flac' ? 'audio/flac' : audio.encoding === 'webm_opus' ? 'audio/webm' : audio.encoding === 'm4a' || audio.encoding === 'aac' ? 'audio/mp4' : 'audio/ogg';
@@ -81,6 +92,16 @@ const intelligibilityOf = (matched: boolean, confidence: number, needsClarificat
   if (needsClarification || confidence >= 0.3) return 'partially_understood';
   return 'not_understood';
 };
+
+/**
+ * Most specific enabled profile for a text task: (variety × source) → (variety) → (source) → (global) when a source
+ * is known, otherwise (variety) → (global) only. The registry's `find` always requires a source, hence this helper.
+ */
+function findTextProfile(ai: AiServices, task: AiTaskName, targetVariety: VarietyId, source: SourceLanguageCode | null): ReturnType<AiServices['profiles']['find']> {
+  if (source) return ai.profiles.find({ task, targetVariety, sourceLanguage: source });
+  const enabled = ai.profiles.list(task).filter((p) => p.enabled && p.sourceLanguage === null && (p.targetVariety === targetVariety || p.targetVariety === null));
+  return enabled.find((p) => p.targetVariety === targetVariety) ?? enabled.find((p) => p.targetVariety === null) ?? null;
+}
 
 export function registerSpeechRoutes(define: DefineRoute): void {
   define('speechTranscribe', { rate: 'ai', timeoutMs: AI_TIMEOUT_MS, bodyLimitBytes: SPEECH_BODY_LIMIT_BYTES, idempotent: false }, async (c) => {
@@ -171,10 +192,20 @@ export function registerSpeechRoutes(define: DefineRoute): void {
   });
 
   define('modelCapabilities', {}, async (c) => {
-    const query = parseQuery(c, ModelCapabilitiesQuerySchema);
+    const query = parseQuery(c, ModelCapabilitiesApiQuerySchema);
     const s = c.get('services')!;
     const track = getCourseTrack(query.trackId);
-    const locale = providerLocaleFor(track.targetVarietyId, query.regionalOption ?? null);
+    // Source language of the text-task profiles: the owned enrollment's (never a hard-coded 'en'), else an explicit
+    // `source`, else none (variety/global scope only — stated in the notes rather than pretending the 'en' route applies).
+    let source: SourceLanguageCode | null = query.source ?? null;
+    let regionalOption: string | null = query.regionalOption ?? null;
+    if (query.enrollmentId) {
+      const enrollment = await loadOwnedEnrollment(s.requireUser().db, query.enrollmentId, { allowArchived: true });
+      if (enrollment.course_track_id !== track.id) throw problem.validation(`Enrollment ${enrollment.id} is for ${enrollment.course_track_id}, not ${track.id}`);
+      source = enrollment.source_language_code as SourceLanguageCode;
+      regionalOption ??= enrollment.regional_preference;
+    }
+    const locale = providerLocaleFor(track.targetVarietyId, regionalOption);
     const profiles = await loadDbProfiles(s.service, s.log);
     const versionFor = (task: AiTaskName): number | null => {
       const candidates = profiles.profiles.filter((p) => p.task === task && p.enabled && (p.targetVariety === null || p.targetVariety === track.targetVarietyId));
@@ -192,11 +223,11 @@ export function registerSpeechRoutes(define: DefineRoute): void {
     }
     // Effective routing = enabled `ai_model_profiles` row (admin override) or the package default for the task.
     const textCapability = (task: AiTaskName): Capability => {
-      // No enrollment here: source-language-specific overrides are not considered (variety + global scope only).
-      const effective = ai ? ai.profiles.find({ task, targetVariety: track.targetVarietyId, sourceLanguage: 'en' }) : null;
+      const effective = ai ? findTextProfile(ai, task, track.targetVarietyId, source) : null;
       if (!openRouter || !effective) return unsupportedCapability('openrouter', ['provider_disabled'], ['No enabled model profile for this task']);
       const dbVersion = versionFor(task);
-      return capabilityFromStatus({ provider: 'openrouter', status: effective.benchmarkStatus === 'passing' ? 'verified' : 'vendor_documented', effectiveLocale: locale, latencyClass: effective.latencyClass, notes: [dbVersion === null ? 'Routed by the package default profile (no enabled ai_model_profiles row yet)' : `Routed by ai_model_profiles v${dbVersion}`] });
+      const scope = source ? `Resolved for source language ${source} (most specific enabled profile: ${effective.targetVariety ?? 'any variety'} × ${effective.sourceLanguage ?? 'any source'})` : 'Resolved at variety/global scope only: no enrollment or source given, so source-language-specific profiles are not reflected';
+      return capabilityFromStatus({ provider: 'openrouter', status: effective.benchmarkStatus === 'passing' ? 'verified' : 'vendor_documented', effectiveLocale: locale, latencyClass: effective.latencyClass, notes: [dbVersion === null ? 'Routed by the package default profile (no enabled ai_model_profiles row yet)' : `Routed by ai_model_profiles v${dbVersion}`, scope] });
     };
     const tasks = await Promise.all(
       AI_TASK_NAME_VALUES.map(async (task) => {

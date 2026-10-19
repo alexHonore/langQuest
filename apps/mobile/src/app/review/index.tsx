@@ -5,6 +5,7 @@ import React, { useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { CacheNotice, ErrorView, LoadingView } from '@/components/StateViews';
+import { formsForScriptMode, sourceTextDirection } from '@/features/lesson/forms';
 import { useActiveEnrollment, useInvalidateLearner, useReviewsDue } from '@/features/session/queries';
 import { createClipPlayer } from '@/lib/clip-player';
 import { haptic } from '@/lib/haptics';
@@ -48,6 +49,7 @@ export default function ReviewSession(): React.JSX.Element {
   const item = items[index] ?? null;
   const trackDef = enrollment ? getCourseTrack(enrollment.courseTrackId) : null;
   const reference = item?.expression?.audio.find((a) => a.asset.publicUrl) ?? null;
+  const sourceDir = sourceTextDirection(enrollment?.sourceLanguageCode);
 
   const rate = async (rating: ReviewRating): Promise<void> => {
     if (!item || !enrollment) return;
@@ -85,18 +87,17 @@ export default function ReviewSession(): React.JSX.Element {
             <Chip label={`${index + 1}/${items.length}`} />
             <Chip label={item.card.targetKind === 'skill' ? t('progress.skillMastery') : t('lesson.wordHelp')} tone="info" />
           </Row>
-          <SceneArtwork sceneId="park" imageUri={item.scenario.sceneArt?.publicUrl ?? null} aspectRatio={2.4} overlay={<ThemedText tone="onAccent" align="center">{item.scenario.description}</ThemedText>} scrim />
+          <SceneArtwork sceneId="park" imageUri={item.scenario.sceneArt?.publicUrl ?? null} aspectRatio={2.4} overlay={<ThemedText tone="onAccent" align="center" direction={sourceDir}>{item.scenario.description}</ThemedText>} scrim />
           <Surface radius="lg" padding={theme.spacing.lg} bordered style={{ gap: theme.spacing.sm }}>
             {item.expression ? (
               <>
                 <ThemedText variant="caption" tone="muted">{t('lesson.anticipate')}</ThemedText>
-                <ThemedText variant="heading">{item.expression.meaning}</ThemedText>
-                {item.expression.contextNote ? <ThemedText variant="caption" tone="secondary">{item.expression.contextNote}</ThemedText> : null}
+                <ThemedText variant="heading" direction={sourceDir}>{item.expression.meaning}</ThemedText>
+                {item.expression.contextNote ? <ThemedText variant="caption" tone="secondary" direction={sourceDir}>{item.expression.contextNote}</ThemedText> : null}
                 {revealed ? (
                   <View style={{ gap: 2, marginTop: theme.spacing.sm }}>
-                    <ThemedText variant="phrase" script={trackDef.scripts.primary}>{item.expression.canonicalText}</ThemedText>
-                    {item.expression.forms.filter((f) => f.transliterationScheme).map((f, i) => (
-                      <ThemedText key={i} variant="transliteration" tone="muted">{f.text}</ThemedText>
+                    {formsForScriptMode(item.expression, trackDef.scripts.primary, enrollment!.scriptMode).map((f, i) => (
+                      <ThemedText key={i} variant={f.transliterationScheme ? 'transliteration' : 'phrase'} script={f.script} tone={f.transliterationScheme ? 'muted' : 'primary'}>{f.text}</ThemedText>
                     ))}
                   </View>
                 ) : null}

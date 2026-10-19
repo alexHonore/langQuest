@@ -126,6 +126,8 @@ export interface TestUser {
   id: string;
   email: string;
   token: string;
+  /** GoTrue refresh token (for `/v1/auth/session/refresh` tests). */
+  refreshToken: string;
 }
 
 export async function createStackUser(h: StackHarness, label: string, opts: { role?: Role; defaultSourceLanguageCode?: string; uiLocale?: string } = {}): Promise<TestUser> {
@@ -141,7 +143,7 @@ export async function createStackUser(h: StackHarness, label: string, opts: { ro
   const auth = createClient(h.env.SUPABASE_URL, h.env.SUPABASE_ANON_KEY, { auth: { persistSession: false, autoRefreshToken: false } });
   const signed = await auth.auth.signInWithPassword({ email, password });
   if (signed.error || !signed.data.session) throw new Error(`signIn failed: ${signed.error?.message}`);
-  return { id, email, token: signed.data.session.access_token };
+  return { id, email, token: signed.data.session.access_token, refreshToken: signed.data.session.refresh_token };
 }
 
 export async function deleteStackUsers(h: StackHarness, ids: string[]): Promise<void> {

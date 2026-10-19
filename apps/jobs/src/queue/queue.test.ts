@@ -3,7 +3,8 @@ import { describe, expect, it } from 'vitest';
 import type { ProcessingJobsRepository, Repositories } from '@langquest/db';
 import { JobExecutor, PostgresJobRunner, classifyError, runDirect } from './runner';
 import { createQueueConsumer } from './cloudflare-queues';
-import { EXTENSION_CARRIER_JOB_TYPE, HandlerRegistry, JobFailure, enqueueSpecFor, resolveHandlerName, type JobHandler, type ProcessingJobRow } from './types';
+import { PROCESSING_JOB_TYPE_VALUES_ALL, PROCESSING_JOB_TYPE_EXTENSION_VALUES } from '@langquest/contracts';
+import { HANDLER_PRIMARY_JOB_TYPE, JOB_TYPE_HANDLERS, LEGACY_CARRIER_JOB_TYPE, HandlerRegistry, JobFailure, enqueueSpecFor, isProcessingJobType, resolveHandlerName, type JobHandler, type ProcessingJobRow } from './types';
 import { buildRegistry } from '../handlers';
 import { createTestServices, fakeJobRow } from '../test-support/fakes';
 import { AiCapabilityError } from '@langquest/ai';
@@ -71,7 +72,7 @@ function fakeQueue(initial: ProcessingJobRow[] = []) {
 
 const okHandler: JobHandler<{ value?: number }> = {
   name: 'cleanup_orphan_uploads',
-  jobTypes: [],
+  jobTypes: ['cleanup_orphan_uploads'],
   runtime: 'any',
   paramsSchema: z.object({ value: z.number().optional() }),
   async run(ctx) {
@@ -81,21 +82,52 @@ const okHandler: JobHandler<{ value?: number }> = {
 };
 
 describe('handler routing', () => {
-  it('maps DB job types to handlers and honours params.handler for extension handlers', () => {
+  it('maps DB job types to handlers, including the dedicated extension values, and still honours params.handler on legacy carrier rows', () => {
     expect(resolveHandlerName({ job_type: 'verify', params: {} })).toBe('inspect_asset');
     expect(resolveHandlerName({ job_type: 'describe', params: {} })).toBe('infer_metadata');
-    expect(resolveHandlerName({ job_type: 'describe', params: { handler: 'translate_transcript' } })).toBe('translate_transcript');
+    expect(resolveHandlerName({ job_type: 'translate_transcript', params: {} })).toBe('translate_transcript');
+    expect(resolveHandlerName({ job_type: 'regenerate_manifest', params: {} })).toBe('regenerate_manifest');
+    expect(resolveHandlerName({ job_type: 'cleanup_orphan_uploads', params: {} })).toBe('cleanup_orphan_uploads');
+    expect(resolveHandlerName({ job_type: 'render_cover', params: {} })).toBe('render_cover');
+    expect(resolveHandlerName({ job_type: 'infer_metadata', params: {} })).toBe('infer_metadata');
+    expect(resolveHandlerName({ job_type: 'generate_content', params: {} })).toBe('generate_content');
+    expect(resolveHandlerName({ job_type: 'import_r2_prefix', params: {} })).toBe('import_r2_prefix');
+    // Rows written before migration 100 (carrier type + params.handler) keep resolving.
+    expect(resolveHandlerName({ job_type: LEGACY_CARRIER_JOB_TYPE, params: { handler: 'translate_transcript' } })).toBe('translate_transcript');
     expect(resolveHandlerName({ job_type: 'benchmark_model', params: {} })).toBeNull();
     expect(resolveHandlerName({ job_type: 'nonsense', params: {} })).toBeNull();
   });
-  it('enqueueSpecFor adds the carrier marker only when needed', () => {
+  it('every value of the processing_job_type domain resolves to a handler or is explicitly null', () => {
+    const registry = buildRegistry();
+    for (const jobType of PROCESSING_JOB_TYPE_VALUES_ALL) {
+      expect(isProcessingJobType(jobType), jobType).toBe(true);
+      expect(Object.hasOwn(JOB_TYPE_HANDLERS, jobType), `${jobType} missing from JOB_TYPE_HANDLERS`).toBe(true);
+      const handler = JOB_TYPE_HANDLERS[jobType];
+      if (handler === null) {
+        expect(['benchmark_model', 'image_generate'], `${jobType} unexpectedly unhandled`).toContain(jobType);
+        continue;
+      }
+      expect(registry.get(handler)?.jobTypes, `${jobType} → ${handler} must list it in jobTypes (claim filter)`).toContain(jobType);
+      expect(registry.resolve({ job_type: jobType, params: {} })?.name).toBe(handler);
+    }
+    // No extension value is left unclaimable.
+    for (const jobType of PROCESSING_JOB_TYPE_EXTENSION_VALUES) expect(registry.jobTypes()).toContain(jobType);
+    // Every handler's primary type routes back to that handler.
+    for (const h of registry.list()) expect(JOB_TYPE_HANDLERS[HANDLER_PRIMARY_JOB_TYPE[h.name]]).toBe(h.name);
+  });
+  it('enqueueSpecFor enqueues the dedicated job type without a carrier marker', () => {
     expect(enqueueSpecFor('transcode', { a: 1 })).toEqual({ jobType: 'transcode', params: { a: 1 } });
-    expect(enqueueSpecFor('regenerate_manifest', { kind: 'course' })).toEqual({ jobType: EXTENSION_CARRIER_JOB_TYPE, params: { kind: 'course', handler: 'regenerate_manifest' } });
+    expect(enqueueSpecFor('regenerate_manifest', { kind: 'course' })).toEqual({ jobType: 'regenerate_manifest', params: { kind: 'course' } });
+    expect(enqueueSpecFor('translate_transcript', { transcriptId: 'x' })).toEqual({ jobType: 'translate_transcript', params: { transcriptId: 'x' } });
+    expect(enqueueSpecFor('cleanup_orphan_uploads', {})).toEqual({ jobType: 'cleanup_orphan_uploads', params: {} });
+    expect(enqueueSpecFor('infer_metadata', {})).toEqual({ jobType: 'describe', params: {} });
   });
   it('the full registry covers every runner job type', () => {
     const registry = buildRegistry();
     expect(registry.list().map((h) => h.name).sort()).toEqual(['align', 'cleanup_orphan_uploads', 'generate_content', 'import_manifest', 'import_r2_prefix', 'infer_metadata', 'inspect_asset', 'regenerate_manifest', 'render_cover', 'transcode', 'transcribe', 'translate_transcript']);
-    expect(registry.jobTypes().sort()).toEqual(['align', 'content_generate', 'describe', 'detect_language', 'extract_metadata', 'generate_cover', 'import_manifest', 'import_prefix', 'segment_lessons', 'transcode', 'transcribe', 'verify']);
+    expect(registry.jobTypes().sort()).toEqual([...PROCESSING_JOB_TYPE_VALUES_ALL].filter((t) => t !== 'benchmark_model' && t !== 'image_generate').sort());
+    // A partial registry never claims the legacy carrier type it cannot run.
+    expect(new HandlerRegistry().register(okHandler).jobTypes()).toEqual(['cleanup_orphan_uploads']);
     expect(() => new HandlerRegistry().register(okHandler).register(okHandler)).toThrow(/twice/);
   });
 });
@@ -175,12 +207,33 @@ describe('PostgresJobRunner', () => {
     try {
       const q = fakeQueue();
       const services = { ...t.services, repos: { processingJobs: q.repo } as unknown as Repositories };
-      for (let i = 0; i < 5; i += 1) await q.repo.enqueue({ jobType: 'describe', idempotencyKey: `k${i}`, params: { handler: 'cleanup_orphan_uploads', value: i } });
+      for (let i = 0; i < 5; i += 1) await q.repo.enqueue({ jobType: 'cleanup_orphan_uploads', idempotencyKey: `k${i}`, params: { value: i } });
       const runner = new PostgresJobRunner({ services, registry: new HandlerRegistry().register(okHandler), workerId: 'w1', concurrency: 2, pollIntervalMs: 5, idleExitMs: 20, requeueSweepMs: 1_000_000 });
       const stats = await runner.start();
       expect(stats.claimed).toBe(5);
       expect(stats.succeeded).toBe(5);
       expect([...q.rows.values()].every((r) => r.state === 'succeeded')).toBe(true);
+    } finally {
+      await t.cleanup();
+    }
+  });
+
+  it('claims rows enqueued with the dedicated extension job types (translate_transcript, regenerate_manifest, …) with the full registry', async () => {
+    const t = await createTestServices();
+    try {
+      const q = fakeQueue();
+      const services = { ...t.services, repos: { processingJobs: q.repo } as unknown as Repositories };
+      const registry = buildRegistry();
+      const fresh = await q.repo.enqueue({ jobType: 'cleanup_orphan_uploads', idempotencyKey: 'fresh', params: { dryRun: true } });
+      const legacy = await q.repo.enqueue({ jobType: 'describe', idempotencyKey: 'legacy', params: { handler: 'cleanup_orphan_uploads', dryRun: true } });
+      // Invalid params on a dedicated-type row: claimed (not stuck pending) and failed with a real code, not no_handler.
+      const broken = await q.repo.enqueue({ jobType: 'translate_transcript', idempotencyKey: 'broken', params: { transcriptId: 'not-a-uuid' } });
+      const runner = new PostgresJobRunner({ services, registry, workerId: 'w1', concurrency: 1, pollIntervalMs: 5, idleExitMs: 20, requeueSweepMs: 1_000_000 });
+      const stats = await runner.start();
+      expect(stats.claimed).toBe(3);
+      expect(q.rows.get(fresh.id)?.state).toBe('succeeded');
+      expect(q.rows.get(legacy.id)?.state).toBe('succeeded');
+      expect(q.rows.get(broken.id)).toMatchObject({ state: 'failed', failure_code: 'invalid_params' });
     } finally {
       await t.cleanup();
     }

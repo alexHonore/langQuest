@@ -3,7 +3,7 @@
  * the offline cache as a fallback (§4.5). Every hook returns `fromCache` so a
  * screen can say "last updated …" instead of pretending data is live.
  */
-import type { CourseManifest, EnrollmentDto, LanguageContext, MissionDetailResponse, ProgressResponse, ReviewsDueResponse } from '@langquest/contracts';
+import type { CourseManifest, EnrollmentDto, LanguageContext, MissionDetailResponse, ModelCapabilitiesResponse, ProgressResponse, ReviewsDueResponse } from '@langquest/contracts';
 import { buildLanguageContext } from '@langquest/contracts';
 import { useQuery, useQueryClient, type UseQueryResult } from '@tanstack/react-query';
 import { useCallback, useEffect, useMemo } from 'react';
@@ -171,6 +171,25 @@ export function useCourses(source: string | null): UseQueryResult<CachedResult<C
     fetch: () => api.courses(source ? { source } : undefined),
     read: async () => (await getLocalStore()).cache.getCourses(source),
     write: async (c) => (await getLocalStore()).cache.putCourses(source, c),
+  });
+}
+
+/**
+ * Live capability answer for the active track (`/v1/ai/model-capabilities`). The static catalog's
+ * `automatedScoringSupport` is never used as a fallback: capability claims come from the registry
+ * (CONVENTIONS §5, ADR-006). The last server answer is cached per track for offline reuse; when
+ * there is none, `data` is undefined and screens must say so rather than assume.
+ */
+export function useCapabilities(enrollment: EnrollmentDto | null): UseQueryResult<CachedResult<ModelCapabilitiesResponse>, Error> {
+  const { api } = useServices();
+  const key = enrollment ? `capabilities:${enrollment.courseTrackId}:${enrollment.regionalPreference ?? ''}` : 'capabilities:none';
+  return useCachedQuery<ModelCapabilitiesResponse>({
+    key: ['capabilities', enrollment?.courseTrackId, enrollment?.regionalPreference],
+    enabled: Boolean(enrollment),
+    staleTime: 10 * 60_000,
+    fetch: () => api.modelCapabilities(enrollment!.courseTrackId, enrollment!.regionalPreference ?? undefined),
+    read: async () => (await getLocalStore()).cache.getMeta<CachedEnvelope<ModelCapabilitiesResponse>>(key),
+    write: async (c) => (await getLocalStore()).cache.putMeta<CachedEnvelope<ModelCapabilitiesResponse>>(key, { fetchedAt: new Date().toISOString(), data: c }),
   });
 }
 

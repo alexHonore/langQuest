@@ -33,6 +33,24 @@ describe('Outbox', () => {
     expect(await outbox.pendingCount()).toBe(2);
   });
 
+  it('lets a caller pin the event id and revision without disturbing delivery order', async () => {
+    const { outbox } = makeOutbox();
+    await outbox.enqueue({ type: 'enrollment_opened', enrollmentId: enrollment }, enrollment);
+    const audio = { type: 'audio_progress' as const, lessonId: uuid(7), positionMs: 1000, durationMs: null, completed: false };
+    const pinned = await outbox.enqueue(audio, null, '2026-10-19T10:00:00.000Z', { clientEventId: uuid(500), revision: 3 });
+    expect(pinned).toMatchObject({ clientEventId: uuid(500), revision: 3, occurredAt: '2026-10-19T10:00:00.000Z' });
+    const later = await outbox.enqueue({ type: 'enrollment_opened', enrollmentId: enrollment }, enrollment);
+    expect(later.revision).toBe(3); // the device-wide counter kept advancing underneath the pinned revision
+    expect((await outbox.pending()).map((e) => e.event.clientEventId)).toEqual([uuid(1), uuid(500), uuid(2)]);
+    // Re-enqueueing an id that is already queued is idempotent.
+    const again = await outbox.enqueue({ ...audio, positionMs: 9999 }, null, undefined, { clientEventId: uuid(500) });
+    expect(again.payload).toMatchObject({ positionMs: 1000 });
+    expect(await outbox.pendingCount()).toBe(3);
+    const send = applyAll();
+    await outbox.flush(send);
+    expect(send.mock.calls[0]?.[0].events.map((e) => e.revision)).toEqual([1, 3, 3]);
+  });
+
   it('flushes in order, removes acknowledged events and records the server watermark', async () => {
     const { outbox } = makeOutbox();
     await outbox.enqueue({ type: 'enrollment_opened', enrollmentId: enrollment }, enrollment);

@@ -160,6 +160,61 @@ describe('AudioEngine', () => {
     expect(engine.getState().renewals).toBe(1);
   });
 
+  it('keeps playing on the still-valid URL when a proactive renewal fails, and retries later', async () => {
+    const clock = fakeClock();
+    let n = 0;
+    let failRenewals = true;
+    const resolve = async (it: QueueItem, o: { renewal: boolean }): Promise<ResolvedSource> => {
+      if (o.renewal && failRenewals) throw new SourceResolutionError('offline_no_link', 'Offline blip');
+      n += 1;
+      return { uri: `https://media/${it.id}?v=${n}`, kind: 'remote', expiresAt: new Date(clock.now() + 10 * 60_000).toISOString(), assetId: it.assetId };
+    };
+    const { engine, fp, events, resolve: spy } = makeEngine({ resolve, clock });
+    await engine.setQueue([item('a', 3_600_000)], 0, { autoplay: true });
+    fp.setPosition(30_000);
+    fp.emit({ durationMs: 3_600_000 });
+    clock.advance(8.5 * 60_000); // inside the renewal window → proactive swap attempted and fails
+    await flush();
+    await flush();
+    expect(spy).toHaveBeenCalledTimes(2);
+    expect(engine.getState().status).toBe('playing'); // not 'error': the lease is still valid for 1.5 min
+    expect(engine.getState().error).toBeNull();
+    expect(events).not.toContain('error');
+    expect(fp.calls.filter((c) => c.startsWith('load:'))).toHaveLength(1);
+    // Native status keeps flowing (the reducer is not frozen in an error state).
+    fp.setPosition(31_000);
+    fp.emit({ durationMs: 3_600_000 });
+    expect(engine.getState().positionMs).toBe(31_000);
+    // 15 s later the engine retries; this time the renewal succeeds and playback resumes in place.
+    failRenewals = false;
+    clock.advance(15_000);
+    await flush();
+    await flush();
+    expect(events).toContain('url_renewed');
+    expect(fp.calls).toContain('load:https://media/a?v=2');
+    expect(engine.getState().status).toBe('playing');
+  });
+
+  it('only fails once the lease has actually expired while renewals keep failing', async () => {
+    const clock = fakeClock();
+    const resolve = async (it: QueueItem, o: { renewal: boolean }): Promise<ResolvedSource> => {
+      if (o.renewal) throw new SourceResolutionError('offline_no_link', 'Offline');
+      return { uri: `https://media/${it.id}`, kind: 'remote', expiresAt: new Date(clock.now() + 3 * 60_000).toISOString(), assetId: it.assetId };
+    };
+    const { engine, fp } = makeEngine({ resolve, clock });
+    await engine.setQueue([item('a', 3_600_000)], 0, { autoplay: true });
+    fp.emit({ durationMs: 3_600_000 });
+    clock.advance(70_000); // in the window, lease still good → stays playing
+    await flush();
+    expect(engine.getState().status).toBe('playing');
+    for (let i = 0; i < 12; i += 1) {
+      clock.advance(15_000);
+      await flush();
+    }
+    expect(engine.getState().status).toBe('error');
+    expect(engine.getState().error?.code).toBe('offline_no_link');
+  });
+
   it('recovers from a mid-stream playback error on a remote source by renewing reactively', async () => {
     const clock = fakeClock();
     let n = 0;

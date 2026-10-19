@@ -1,8 +1,13 @@
-# A04: change the instruction language of ONE enrollment; mastery/progress stay; other courses untouched.
+# A04: change the instruction language of ONE enrollment; mastery/progress stay; other courses untouched;
+# mission instructions/hints re-render in the new source language (and back).
+# MISSION_INSTRUCTION_EN / MISSION_INSTRUCTION_FR are the `mission_localizations.instructions` texts of the first
+# published mission of this enrollment (see README "Test accounts"); the flow asserts them verbatim.
 appId: org.langquest.app
 env:
   EMAIL: ${MAESTRO_EMAIL_ENROLLED}
   PASSWORD: ${MAESTRO_PASSWORD_ENROLLED}
+  MISSION_INSTRUCTION_EN: ${MAESTRO_MISSION_INSTRUCTION_EN}
+  MISSION_INSTRUCTION_FR: ${MAESTRO_MISSION_INSTRUCTION_FR}
 ---
 - launchApp:
     clearState: false
@@ -34,6 +39,13 @@ env:
 - tapOn: "Progress"
 - assertVisible:
     text: "Arabic (Moroccan).*"
+# Re-render: the first mission's step instruction is now the ENGLISH overlay, and the French one is gone.
+- runFlow:
+    file: _open-first-mission.yaml
+- assertVisible: ${MISSION_INSTRUCTION_EN}
+- assertNotVisible: ${MISSION_INSTRUCTION_FR}
+- runFlow:
+    file: _leave-mission.yaml
 - tapOn: "Home"
 # And back to French so the account is left as found.
 - tapOn: "Switch course"
@@ -45,3 +57,11 @@ env:
     timeout: 20000
 - tapOn: "Done"
 - assertVisible: "Learning Arabic (Moroccan) from French"
+# …and the same mission re-renders its instruction in French again.
+- runFlow:
+    file: _open-first-mission.yaml
+- assertVisible: ${MISSION_INSTRUCTION_FR}
+- assertNotVisible: ${MISSION_INSTRUCTION_EN}
+- runFlow:
+    file: _leave-mission.yaml
+- tapOn: "Home"

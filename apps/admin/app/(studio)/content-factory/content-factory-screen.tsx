@@ -57,7 +57,8 @@ export interface GenerationJob {
 export function ContentFactoryScreen({ intents, missions, expressions, jobs, canDecide }: { intents: Array<{ key: string; description: string; concept: string }>; missions: DraftMission[]; expressions: DraftExpression[]; jobs: GenerationJob[]; canDecide: boolean }) {
   const { t, locale } = useI18n();
   const [track, setTrack] = useState<string | null>(COURSE_TRACKS[0]?.id ?? null);
-  const [source, setSource] = useState<string | null>('en');
+  // No preselected instruction language: the operator chooses it explicitly (never an implied English default).
+  const [source, setSource] = useState<string | null>(null);
   const [level, setLevel] = useState<string>('beginner');
   const [scene, setScene] = useState<string>('cafe');
   const [count, setCount] = useState(1);
@@ -98,7 +99,7 @@ export function ContentFactoryScreen({ intents, missions, expressions, jobs, can
         <Card title={t('admin.ui.cfBrief')}>
           <div className="space-y-2">
             <Field label={t('admin.contentFactory.track')}>{(id) => <TrackSelect id={id} value={track} onChange={setTrack} allowEmpty={false} />}</Field>
-            <Field label={t('admin.contentFactory.sourceLanguage')}>{(id) => <LanguageSelect id={id} value={source} onChange={setSource} allowEmpty={false} />}</Field>
+            <Field label={t('admin.contentFactory.sourceLanguage')} required>{(id) => <LanguageSelect id={id} value={source} onChange={setSource} emptyLabel={t('admin.ui.cfChooseSource')} />}</Field>
             <Field label={t('admin.contentFactory.level')}>
               {(id) => (
                 <Select id={id} value={level} onChange={(e) => setLevel(e.target.value)}>

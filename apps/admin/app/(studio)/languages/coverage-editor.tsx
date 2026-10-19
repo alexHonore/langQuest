@@ -129,7 +129,14 @@ export function CoverageEditor({ rows, tracks, languages, canEdit }: { rows: Cov
               ))}
             </div>
             <Checkbox label={t('admin.ui.lgNativeReviewed')} checked={form.nativeReviewed} onChange={(e) => setForm({ ...form, nativeReviewed: e.target.checked })} />
-            <Field label={t('admin.ui.lgFallback')} hint={t('enrollment.coverage.optInFallbackHint', { fallback: form.fallbackSourceLanguageCode ?? 'en' })}>
+            <Field
+              label={t('admin.ui.lgFallback')}
+              hint={
+                form.fallbackSourceLanguageCode
+                  ? t('enrollment.coverage.optInFallbackHint', { fallback: languages.find((l) => l.code === form.fallbackSourceLanguageCode)?.name ?? form.fallbackSourceLanguageCode, source: languages.find((l) => l.code === form.sourceLanguageCode)?.name ?? form.sourceLanguageCode })
+                  : t('admin.ui.lgNoFallback', { source: languages.find((l) => l.code === form.sourceLanguageCode)?.name ?? form.sourceLanguageCode })
+              }
+            >
               {(id) => <LanguageSelect id={id} value={form.fallbackSourceLanguageCode} onChange={(v) => setForm({ ...form, fallbackSourceLanguageCode: v as CoverageUpdate['fallbackSourceLanguageCode'] })} />}
             </Field>
             <Field label={t('admin.ui.lgNoteKey')}>{(id) => <Input id={id} value={form.editorialNoteKey ?? ''} onChange={(e) => setForm({ ...form, editorialNoteKey: e.target.value || null })} placeholder="enrollment.coverage.draftAvailable" />}</Field>

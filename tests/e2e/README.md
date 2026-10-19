@@ -31,6 +31,10 @@ catalog together. Flows are written for the English UI locale; set the simulator
    - `MAESTRO_EMAIL_ENROLLED` / `MAESTRO_PASSWORD_ENROLLED` — a learner already enrolled in **Arabic (Moroccan)
      from French** with at least one published mission and one published audio lesson visible (seed through the admin
      CMS or the integration harness `Seeder` in `tests/src/harness/seed.ts`).
+   - `MAESTRO_MISSION_INSTRUCTION_FR` / `MAESTRO_MISSION_INSTRUCTION_EN` — the exact `mission_localizations.instructions`
+     text of that enrollment's **first** pathway mission for `fr` and `en` (`Seeder.localization(missionId, code,
+     { title, instructions, hints })`). `switch-source-language.yaml` opens the mission after each switch and asserts
+     the instruction is the one from the new source language and the other one is gone (A04 "re-render hints").
 4. Content: the lesson/audio flows only pass when published content exists for that enrollment. They assert honest
    empty states otherwise and are expected to **fail** on an unseeded stack — there is no fake content path.
 
@@ -39,6 +43,7 @@ catalog together. Flows are written for the English UI locale; set the simulator
 ```bash
 cd tests/e2e
 export MAESTRO_EMAIL=... MAESTRO_PASSWORD=... MAESTRO_EMAIL_ENROLLED=... MAESTRO_PASSWORD_ENROLLED=...
+export MAESTRO_MISSION_INSTRUCTION_FR='…' MAESTRO_MISSION_INSTRUCTION_EN='…'   # switch-source-language.yaml
 maestro test maestro/onboarding.yaml
 maestro test maestro/                     # all flows, alphabetical
 maestro test --device <udid> maestro/airplane-mode.yaml   # Android only (setAirplaneMode)
@@ -52,9 +57,10 @@ device farm + seeded stack). Recordings: `maestro record maestro/lesson.yaml`.
 | File | Journey | Spec |
 |---|---|---|
 | `_sign-in.yaml` | shared sub-flow: sign in with `EMAIL`/`PASSWORD` parameters | — |
+| `_open-first-mission.yaml` / `_leave-mission.yaml` | shared sub-flows: open the first pathway mission (wait for "Step … of …"), leave it through the confirmation sheet | — |
 | `onboarding.yaml` | welcome → UI + instruction language → target track → confirm "Learn Arabic (Moroccan) from French" → warm-up (skippable) → Home shows the active course + source language | A02, §10.2B screen 1 |
 | `enroll.yaml` | signed-in learner adds a second course (Japanese from English) from the catalog; both courses listed with their own instruction language | A03 |
-| `switch-source-language.yaml` | open the enrollment, change instruction language fr → en, see "Now learning … from English", progress untouched (Progress tab still lists the course), switch back | A04 |
+| `switch-source-language.yaml` | open the enrollment, change instruction language fr → en, see "Now learning … from English", progress untouched (Progress tab still lists the course), the first mission's instruction re-renders in English (French text gone), switch back and it re-renders in French | A04 |
 | `lesson.yaml` | open the first mission from the pathway, walk listen → anticipate (reveal and compare) → next step → leave mission with confirmation | A16, §3.3 |
 | `audio-seek.yaml` | Audio tab → collection → lesson → play, skip forward/back, bookmark, pause; position label changes | A21 |
 | `airplane-mode.yaml` | with a downloaded lesson, enable airplane mode (Android), app shows the offline banner, downloaded lesson still plays, re-enable network, progress syncs | A23, §4.5 |

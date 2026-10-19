@@ -1,7 +1,14 @@
 /**
- * `infer_metadata` — AI-assisted organisation (§7.4) for job types `detect_language`, `describe` and
- * `segment_lessons`: likely language(s) and dialect, instruction-voice vs target-speech, lesson/chapter
- * guesses, a concise description in the editor's source language, tags and topics.
+ * `infer_metadata` — AI-assisted organisation (§7.4) for job types `detect_language`, `describe`,
+ * `segment_lessons` and `infer_metadata` (= all): likely language(s) and dialect, instruction-voice vs
+ * target-speech, lesson/chapter guesses, a concise description in the editor's source language, tags and
+ * topics.
+ *
+ * The description language is `params.sourceLanguage`, else the lesson's `instruction_language_code`; it is
+ * never defaulted to English (§2.1, §5 "source-language-appropriate"). Without one the job fails with
+ * `source_language_missing` BEFORE any AI spend, retrying with backoff so it lands in `review_needed`
+ * once attempts are exhausted (an admin can set the lesson's instruction language in the meantime); an
+ * unsupported code fails immediately with `source_language_invalid`.
  *
  * Evidence = existing transcript text when present, otherwise (optionally) a short STT sample of the first
  * `sampleSeconds`; plus the file's legacy path / tags. Every suggestion carries a confidence and the
@@ -17,14 +24,18 @@ import { providerLocaleFor, resolveVariety, getPromptPack, coachingLanguageInstr
 import { buildClipCommand, decideTranscodeProfile } from '@langquest/media';
 import { JobFailure, type JobHandler } from '../queue/types';
 import { downloadToWorkDir, fileAssetResolver, jobLanguageContext, localized, masterFilename, trackForVarietyOrThrow } from './common';
+import { SHORT_FIELD_MAX_CHARS, UNTRUSTED_DATA_DIRECTIVE, capList, capText } from './untrusted-evidence';
 
-export const INFER_PROMPT_VERSION = 'metadata_inference:v1';
+export const INFER_PROMPT_VERSION = 'metadata_inference:v2';
+
+/** Caps applied to the uploader-supplied fields of {@link InferenceEvidence} before prompting. */
+export const EVIDENCE_FIELD_CAPS = { legacyPath: SHORT_FIELD_MAX_CHARS, legacyFilename: 255, lessonTitle: 200, lessonDescription: 1000, tags: 24, tagChars: 64, segmentLanguages: 16 } as const;
 
 export const InferMetadataParamsSchema = z.object({
   assetId: z.string().uuid().optional(),
   lessonId: z.string().uuid().optional(),
   mode: z.enum(['detect_language', 'describe', 'segment_lessons', 'all']).optional(),
-  /** Language of the generated description / titles (editor's working language). */
+  /** Language of the generated description / titles (editor's working language); falls back to the lesson's instruction language, never to English. */
   sourceLanguage: z.string().min(2).optional(),
   /** Expected variety (hint only); the model may disagree. */
   locale: z.string().optional(),
@@ -62,11 +73,41 @@ export interface InferenceEvidence {
   lesson: { title: string | null; description: string | null; tags: string[]; instructionLanguage: string | null; varietyId: string | null } | null;
 }
 
-export function buildInferencePrompt(input: { evidence: InferenceEvidence; sourceLanguage: SourceLanguageCode; expectedVariety: VarietyId | null; mode: string }): { system: string; user: string; templateId: string; templateVersion: string } {
+/**
+ * Returns a copy of `evidence` with every uploader-supplied free-text field length-capped.
+ * `text` is capped by the caller via `maxEvidenceChars`; the caps here guard the short fields
+ * (paths, titles, tags) that would otherwise be sent verbatim.
+ */
+export function capEvidence(evidence: InferenceEvidence, maxTextChars: number): InferenceEvidence {
+  return {
+    ...evidence,
+    text: evidence.text.slice(0, maxTextChars),
+    segmentLanguages: capList(evidence.segmentLanguages, EVIDENCE_FIELD_CAPS.segmentLanguages, 16),
+    legacyPath: capText(evidence.legacyPath, EVIDENCE_FIELD_CAPS.legacyPath),
+    legacyFilename: capText(evidence.legacyFilename, EVIDENCE_FIELD_CAPS.legacyFilename),
+    lesson: evidence.lesson
+      ? {
+          ...evidence.lesson,
+          title: capText(evidence.lesson.title, EVIDENCE_FIELD_CAPS.lessonTitle),
+          description: capText(evidence.lesson.description, EVIDENCE_FIELD_CAPS.lessonDescription),
+          tags: capList(evidence.lesson.tags, EVIDENCE_FIELD_CAPS.tags, EVIDENCE_FIELD_CAPS.tagChars),
+          instructionLanguage: capText(evidence.lesson.instructionLanguage, 16),
+          varietyId: capText(evidence.lesson.varietyId, 16),
+        }
+      : null,
+  };
+}
+
+/**
+ * Builds the metadata-inference prompt. The system prompt carries the task plus the fixed
+ * untrusted-data directive; the user message is `{ "evidence": … }` with capped fields, so
+ * transcript lines or file names that read like instructions are presented as data only.
+ */
+export function buildInferencePrompt(input: { evidence: InferenceEvidence; sourceLanguage: SourceLanguageCode; expectedVariety: VarietyId | null; mode: string; maxEvidenceChars?: number }): { system: string; user: string; templateId: string; templateVersion: string } {
   const packNote = input.expectedVariety ? `The editor expects the target speech to be ${getPromptPack(input.expectedVariety).name} (${input.expectedVariety}); confirm or contradict with evidence.` : 'No expected variety was given.';
   const system = [
     'You organise uploaded language-course audio for a content editor. You only SUGGEST metadata; a human reviews it.',
-    'Given transcript evidence and file names, infer: the languages spoken (ISO 639-1 codes) with confidence; the most likely dialect/variety id from this list:',
+    'Given transcript evidence and file names (under the "evidence" key of the user message), infer: the languages spoken (ISO 639-1 codes) with confidence; the most likely dialect/variety id from this list:',
     VARIETY_IDS.join(', '),
     '(null when unsure — never guess a neighbouring dialect: Moroccan vs Egyptian vs MSA, Cantonese vs Mandarin, Haitian Creole vs French are distinct);',
     'whether the recording contains an instruction voice (teacher explaining in the learner language), target-language speech, or both (mixed);',
@@ -74,14 +115,16 @@ export function buildInferencePrompt(input: { evidence: InferenceEvidence; sourc
     coachingLanguageInstruction(input.sourceLanguage),
     packNote,
     `Mode requested by the editor: ${input.mode}. Be honest about low confidence. Output JSON only.`,
+    UNTRUSTED_DATA_DIRECTIVE,
   ].join('\n');
-  const user = JSON.stringify(input.evidence);
+  const evidence = capEvidence(input.evidence, input.maxEvidenceChars ?? Math.max(input.evidence.text.length, 1));
+  const user = JSON.stringify({ evidence });
   return { system, user, templateId: 'metadata_inference', templateVersion: INFER_PROMPT_VERSION };
 }
 
 export const inferMetadataHandler: JobHandler<InferMetadataParams> = {
   name: 'infer_metadata',
-  jobTypes: ['detect_language', 'describe', 'segment_lessons'],
+  jobTypes: ['detect_language', 'describe', 'segment_lessons', 'infer_metadata'],
   runtime: 'node',
   paramsSchema: InferMetadataParamsSchema,
   async run(ctx) {
@@ -95,8 +138,16 @@ export const inferMetadataHandler: JobHandler<InferMetadataParams> = {
     const masterLink = lesson?.assets.find((a) => a.asset_type === 'master' && a.media) ?? null;
     const masterAsset = asset ?? (masterLink ? await db.getAsset(masterLink.asset_id) : null);
 
-    const sourceLanguageRaw = ctx.params.sourceLanguage ?? lesson?.lesson.instruction_language_code ?? 'en';
-    const sourceLanguage: SourceLanguageCode = isSourceLanguageCode(sourceLanguageRaw) ? sourceLanguageRaw : 'en';
+    const sourceLanguageRaw = ctx.params.sourceLanguage ?? lesson?.lesson.instruction_language_code ?? null;
+    if (!sourceLanguageRaw) {
+      throw new JobFailure('source_language_missing', 'infer_metadata needs the description language: pass params.sourceLanguage or set the lesson instruction language (no English default)', {
+        retry: true,
+        backoffSeconds: 300,
+        details: { assetId: masterAsset?.id ?? null, lessonId },
+      });
+    }
+    if (!isSourceLanguageCode(sourceLanguageRaw)) throw new JobFailure('source_language_invalid', `"${sourceLanguageRaw}" is not a supported source language`, { retry: false, details: { sourceLanguage: sourceLanguageRaw } });
+    const sourceLanguage: SourceLanguageCode = sourceLanguageRaw;
     const expectedVariety = ctx.params.locale ? resolveVariety(ctx.params.locale) : lesson?.lesson.target_variety_id && isVarietyId(lesson.lesson.target_variety_id) ? lesson.lesson.target_variety_id : null;
 
     // --- evidence ---
@@ -163,7 +214,7 @@ export const inferMetadataHandler: JobHandler<InferMetadataParams> = {
     const track: CourseTrackId = expectedVariety ? trackForVarietyOrThrow(expectedVariety) : 'english';
     const languageContext = jobLanguageContext(ctx, { track, sourceLanguage });
     ctx.cost.assertBudget();
-    const prompt = buildInferencePrompt({ evidence, sourceLanguage, expectedVariety, mode });
+    const prompt = buildInferencePrompt({ evidence, sourceLanguage, expectedVariety, mode, maxEvidenceChars: ctx.params.maxEvidenceChars });
     const suggestionRaw = await ai.reasoner.generateStructured('scene_planning', languageContext, prompt, MetadataSuggestionSchema, { traceId: ctx.traceId });
     // Sanitise: only known codes / variety ids survive; everything else is reported but dropped.
     const dropped: string[] = [];

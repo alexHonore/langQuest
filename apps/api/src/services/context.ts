@@ -43,6 +43,8 @@ export interface RequestServices {
   readonly media: MediaStore;
   readonly cache: EdgeCache;
   readonly events: EventDispatcher;
+  /** Aborted on request timeout or client disconnect (undefined outside the middleware chain). */
+  readonly signal: AbortSignal | undefined;
   /** Build (memoised) AI services bound to this request's principal. */
   ai(sessionId?: string | null): Promise<AiServices>;
   waitUntil(p: Promise<unknown>): void;
@@ -57,7 +59,7 @@ export function createSharedServices(input: { config: AppConfig; media: MediaSto
   return { config: input.config, media: input.media, cache: input.cache, service, serviceRepos: createRepositories(service), fetch: input.fetch ?? fetch, aiFactory: input.aiFactory };
 }
 
-export function createRequestServices(shared: SharedServices, request: { log: Logger; requestId: string; principal: Principal | null; executionCtx: ExecutionContextLike; clientKey: string }): RequestServices {
+export function createRequestServices(shared: SharedServices, request: { log: Logger; requestId: string; principal: Principal | null; executionCtx: ExecutionContextLike; clientKey: string; /** Request timeout / client-disconnect signal, threaded into provider calls. */ signal?: AbortSignal }): RequestServices {
   const user = request.principal ? createUserClient({ SUPABASE_URL: shared.config.env.SUPABASE_URL, SUPABASE_ANON_KEY: shared.config.env.SUPABASE_ANON_KEY }, request.principal.accessToken) : null;
   const userRepos = user ? createRepositories(user) : null;
   const waitUntil = (p: Promise<unknown>) => request.executionCtx.waitUntil(p.catch((error) => request.log.error('background.failed', { error })));
@@ -81,6 +83,7 @@ export function createRequestServices(shared: SharedServices, request: { log: Lo
     media: shared.media,
     cache: shared.cache,
     events,
+    signal: request.signal,
     ai(sessionId) {
       aiPromise ??= (shared.aiFactory ?? buildAiServices)({
         env: shared.config.env,
@@ -91,6 +94,7 @@ export function createRequestServices(shared: SharedServices, request: { log: Lo
         userId: request.principal?.userId ?? null,
         sessionId: sessionId ?? null,
         fetch: shared.fetch,
+        signal: request.signal,
       });
       return aiPromise;
     },
