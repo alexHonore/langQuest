@@ -4,11 +4,12 @@
  * `defaultSourceLanguageCode` is only a prefill for NEW enrollments (§2.1); the profile column is nullable
  * until onboarding sets it, so the response is produced with a nullable local schema (contracts gap noted).
  */
-import { MeDeleteRequestSchema, MeDeleteResponseSchema, MeExportResponseSchema, MeResponseSchema, PatchSettingsRequestSchema, SessionRefreshRequestSchema, SessionRefreshResponseSchema, SourceLanguageCodeSchema, type MeResponse } from '@langquest/contracts';
+import { MeDeleteRequestSchema, MeDeleteResponseSchema, MeExportResponseSchema, MeResponseSchema, PatchSettingsRequestSchema, SessionRefreshRequestSchema, SessionRefreshResponseSchema, SourceLanguageCodeSchema, type CourseTrackId, type MeResponse, type SourceLanguageCode } from '@langquest/contracts';
 import type { Context } from 'hono';
 import type { DefineRoute } from '../../app';
 import { problem, respondOk } from '../../http/envelope';
 import { parseBody } from '../../http/validate';
+import { courseCapabilitiesForPairs, pairKey } from '../../lib/course-capabilities';
 import { enrollmentToDto, parseAccessibility, parsePrivacy, COVERAGE_COLUMNS, type CoverageRow } from '../../lib/dto';
 import type { RequestServices } from '../../services/context';
 import type { AppEnv } from '../../types';
@@ -34,6 +35,7 @@ export async function buildMeResponse(s: RequestServices): Promise<MeResponseNul
     coverageRows.push(...(res.data as CoverageRow[]));
   }
   const coverageFor = (trackId: string, source: string) => coverageRows.find((r) => r.course_track_id === trackId && r.source_language_code === source) ?? null;
+  const capabilities = await courseCapabilitiesForPairs(s, enrollments.map((e) => ({ trackId: e.course_track_id as CourseTrackId, source: e.source_language_code as SourceLanguageCode, coverageRow: coverageFor(e.course_track_id, e.source_language_code) })));
   return MeResponseNullableSchema.parse({
     userId: principal.userId,
     email: principal.email ?? null,
@@ -44,7 +46,7 @@ export async function buildMeResponse(s: RequestServices): Promise<MeResponseNul
     privacyOptions: parsePrivacy(profile.privacy_options),
     accessibilityOptions: parseAccessibility(profile.accessibility_options),
     roles: principal.roles,
-    enrollments: enrollments.map((e) => enrollmentToDto(e, coverageFor(e.course_track_id, e.source_language_code))),
+    enrollments: enrollments.map((e) => enrollmentToDto(e, coverageFor(e.course_track_id, e.source_language_code), capabilities.get(pairKey(e.course_track_id, e.source_language_code)))),
     createdAt: profile.created_at,
   });
 }

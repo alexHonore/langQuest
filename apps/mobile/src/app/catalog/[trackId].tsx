@@ -5,10 +5,10 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { Screen } from '@/components/Screen';
+import { CapabilityDisclaimer } from '@/components/CapabilityDisclaimer';
 import { CoverageStatus } from '@/components/CoverageStatus';
 import { ErrorView } from '@/components/StateViews';
-import { useActiveEnrollment, useCourses, useInvalidateLearner } from '@/features/session/queries';
-import { useExtraLabels } from '@/lib/extra-labels';
+import { useActiveEnrollment, useCourseCapabilities, useCourses, useInvalidateLearner } from '@/features/session/queries';
 import { newUuid } from '@/lib/ids';
 import { useLanguageNames, useT } from '@/lib/i18n';
 import { useServices } from '@/lib/services';
@@ -20,14 +20,16 @@ const LEVELS: readonly LearnerLevel[] = ['beginner', 'elementary', 'intermediate
 /**
  * Enrollment wizard: source language prefilled from the profile default but
  * editable here; script mode, regional option and level; honest coverage for
- * the chosen (track, source) pair with an explicit fallback opt-in.
+ * the chosen (track, source) pair with an explicit fallback opt-in, and — before
+ * the confirm button — the plain disclaimer of what this course × instruction
+ * language does not have yet (CONVENTIONS §8, from `GET /courses/:id/coverage?source=`).
+ * The confirm button stays enabled: the learner decides.
  */
 export default function EnrollTrack(): React.JSX.Element {
   const theme = useTheme();
   const router = useRouter();
   const t = useT();
   const names = useLanguageNames();
-  const X = useExtraLabels();
   const { api } = useServices();
   const { trackId } = useLocalSearchParams<{ trackId: string }>();
   const { me, enrollments } = useActiveEnrollment();
@@ -42,7 +44,7 @@ export default function EnrollTrack(): React.JSX.Element {
   const courses = useCourses(source);
   const coverage = useMemo(() => courses.data?.data.courses.find((c) => c.track.id === trackId)?.coverage.find((c) => c.sourceLanguageCode === source) ?? null, [courses.data, trackId, source]);
   const existing = enrollments.find((e) => e.courseTrackId === trackId && e.sourceLanguageCode === source);
-  const summary = courses.data?.data.courses.find((c) => c.track.id === trackId) ?? null;
+  const capabilities = useCourseCapabilities(valid ? trackId : null, source);
 
   const enroll = useMutation({
     mutationFn: async () => {
@@ -107,12 +109,6 @@ export default function EnrollTrack(): React.JSX.Element {
                 {t('enrollment.coverage.optInFallbackHint', { fallback: names(coverage.fallbackSourceLanguageCode), source: names(source) })}
               </ThemedText>
             ) : null}
-            {summary ? (
-              <Row gap={theme.spacing.xs} wrap>
-                {summary.publicationState !== 'published' ? <Chip label={X.publicationState[summary.publicationState] ?? summary.publicationState} tone="warning" icon="info" /> : null}
-                <Chip label={X.missionsPublished(summary.publishedMissionCount)} tone={summary.publishedMissionCount === 0 ? 'warning' : 'neutral'} />
-              </Row>
-            ) : null}
             {!courses.data && courses.isLoading ? <ThemedText variant="caption" tone="muted">{t('common.loading')}</ThemedText> : null}
           </View>
         ) : null}
@@ -150,11 +146,15 @@ export default function EnrollTrack(): React.JSX.Element {
         </Row>
       </View>
 
+      {/* What this course × instruction language does not have yet — disclosed before enrolling (§8). */}
+      {source ? <CapabilityDisclaimer testID="catalog-disclaimer" capabilities={capabilities.data?.data ?? null} sourceName={names(source)} targetName={trackDef.displayName} /> : null}
+      {source && capabilities.isLoading && !capabilities.data ? <ThemedText variant="caption" tone="muted">{t('common.loading')}</ThemedText> : null}
+
       {enroll.error ? <ErrorView error={enroll.error} /> : null}
       {existing ? (
         <Button label={t('catalog.enrolled')} variant="secondary" icon="check" fullWidth onPress={() => { setPrefs({ activeEnrollmentId: existing.id }); router.replace('/(tabs)'); }} accessibilityLabel={t('catalog.enrolled')} />
       ) : (
-        <Button testID="catalog-enroll" label={source ? t('onboarding.learnFrom', { target: trackDef.displayName, source: names(source) }) : t('catalog.enroll')} size="lg" fullWidth disabled={!source || coverage?.status === 'unavailable'} loading={enroll.isPending} onPress={() => enroll.mutate()} accessibilityLabel={t('catalog.enroll')} />
+        <Button testID="catalog-enroll" label={source ? t('onboarding.learnFrom', { target: trackDef.displayName, source: names(source) }) : t('catalog.enroll')} size="lg" fullWidth disabled={!source} loading={enroll.isPending} onPress={() => enroll.mutate()} accessibilityLabel={t('catalog.enroll')} />
       )}
     </Screen>
   );

@@ -6,13 +6,14 @@
  * Archiving (status → `archived`) and the destructive DELETE both require an explicit confirmation query
  * (`?confirm=archive` / `?confirm=delete`) so a stray request never erases a course (§15 "User removes a course").
  */
-import { EnrollmentCreateRequestSchema, EnrollmentPatchRequestSchema, EnrollmentsListResponseSchema, UuidSchema, getCourseTrack } from '@langquest/contracts';
+import { EnrollmentCreateRequestSchema, EnrollmentPatchRequestSchema, EnrollmentsListResponseSchema, UuidSchema, getCourseTrack, type CourseTrackId, type SourceLanguageCode } from '@langquest/contracts';
 import { DbError } from '@langquest/db/errors';
 import type { Context } from 'hono';
 import { z } from 'zod';
 import type { DefineRoute } from '../../app';
 import { problem, respondOk } from '../../http/envelope';
 import { parseBody, parseParams, parseQuery } from '../../http/validate';
+import { courseCapabilitiesFor, courseCapabilitiesForPairs, pairKey } from '../../lib/course-capabilities';
 import { enrollmentToDto, COVERAGE_COLUMNS, type CoverageRow } from '../../lib/dto';
 import { loadOwnedEnrollment } from '../../lib/enrollment';
 import type { RequestServices } from '../../services/context';
@@ -26,7 +27,9 @@ async function coverageRow(s: RequestServices, trackId: string, source: string):
 }
 
 async function dto(s: RequestServices, row: Awaited<ReturnType<typeof loadOwnedEnrollment>>) {
-  return enrollmentToDto(row, await coverageRow(s, row.course_track_id, row.source_language_code));
+  const coverage = await coverageRow(s, row.course_track_id, row.source_language_code);
+  const capabilities = await courseCapabilitiesFor(s, row.course_track_id as CourseTrackId, row.source_language_code as SourceLanguageCode, coverage);
+  return enrollmentToDto(row, coverage, capabilities);
 }
 
 const svc = (c: Context<AppEnv>): RequestServices => c.get('services')!;
@@ -70,7 +73,8 @@ export function registerEnrollmentRoutes(define: DefineRoute): void {
       ? ((await s.service.from('course_source_localizations').select(COVERAGE_COLUMNS).in('course_track_id', [...new Set(rows.map((r) => r.course_track_id))])).data as CoverageRow[] | null) ?? []
       : [];
     const find = (t: string, src: string) => coverage.find((r) => r.course_track_id === t && r.source_language_code === src) ?? null;
-    return respondOk(c, EnrollmentsListResponseSchema.parse({ enrollments: rows.map((r) => enrollmentToDto(r, find(r.course_track_id, r.source_language_code))) }));
+    const capabilities = await courseCapabilitiesForPairs(s, rows.map((r) => ({ trackId: r.course_track_id as CourseTrackId, source: r.source_language_code as SourceLanguageCode, coverageRow: find(r.course_track_id, r.source_language_code) })));
+    return respondOk(c, EnrollmentsListResponseSchema.parse({ enrollments: rows.map((r) => enrollmentToDto(r, find(r.course_track_id, r.source_language_code), capabilities.get(pairKey(r.course_track_id, r.source_language_code)))) }));
   });
 
   define('enrollmentPatch', {}, async (c) => {

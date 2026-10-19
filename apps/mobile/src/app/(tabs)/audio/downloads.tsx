@@ -1,5 +1,5 @@
-import { Button, Chip, EmptyState, Row, StatusLine, Surface, ThemedText, formatDurationMs, useTheme } from '@langquest/ui';
-import { useRouter } from 'expo-router';
+import { Button, Chip, EmptyState, Row, Surface, ThemedText, formatDurationMs, useTheme } from '@langquest/ui';
+import { Redirect, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Pressable, View } from 'react-native';
 import { Screen } from '@/components/Screen';
@@ -9,6 +9,8 @@ import { DownloadControls, confirmRemoveDownload } from '@/features/audio/compon
 import { formatMegabytes } from '@/features/audio/download-index';
 import { useAudioLabels } from '@/features/audio/labels';
 import { useAudioRuntime, useDownloadList, useStorageSummary } from '@/features/audio/use-audio';
+import { useActiveEnrollment } from '@/features/session/queries';
+import { useEnrollmentNavigation } from '@/features/session/use-capabilities';
 import { useT } from '@/lib/i18n';
 import { usePrefs } from '@/state/prefs';
 
@@ -19,6 +21,8 @@ export default function DownloadsScreen(): React.JSX.Element {
   const t = useT();
   const L = useAudioLabels();
   const runtime = useAudioRuntime();
+  const { enrollment } = useActiveEnrollment();
+  const nav = useEnrollmentNavigation(enrollment);
   const list = useDownloadList();
   const summary = useStorageSummary();
   const wifiOnly = usePrefs((s) => s.wifiOnlyDownloads);
@@ -47,9 +51,10 @@ export default function DownloadsScreen(): React.JSX.Element {
     });
   };
 
+  // Offline packs are a capability of the pair AND of the platform (§8): no controls when either is missing.
+  if (!nav.downloads) return <Redirect href="/(tabs)" />;
   return (
     <Screen insideTabs title={L.downloads} onBack={() => router.back()}>
-      {runtime && !runtime.downloadsSupported ? <StatusLine icon="info" tone="muted" text={L.downloadsUnsupportedWeb} /> : null}
       <Surface variant="muted" radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.sm }}>
         <ThemedText variant="subheading">{L.storageUsage}</ThemedText>
         <ThemedText tone="secondary">{t('audio.download.storageUsed', { used: formatMegabytes(summary.data.bytesOnDisk) })}</ThemedText>

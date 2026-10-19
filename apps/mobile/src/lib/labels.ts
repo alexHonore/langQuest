@@ -104,7 +104,6 @@ export function useUiLabels() {
         heading: t('pronunciation.feedback.title'),
         score: t('pronunciation.feedback.scoreAvailable', { score: '' }).replace(/[:\s/0-9]+$/, ''),
         scoreOutOf: t('pronunciation.feedback.scoreOutOf'),
-        detailedUnavailable: t('pronunciation.feedback.scoreUnavailable'),
         listenCompare: t('pronunciation.feedback.mode.reference-comparison'),
         humanCalibrated: t('pronunciation.feedback.mode.human-calibrated-reference-comparison'),
         semanticOnly: t('pronunciation.feedback.mode.semantic-only'),

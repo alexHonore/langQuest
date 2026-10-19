@@ -33,6 +33,8 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
+        {/* Cost needs the admin role: without it the card is not rendered (CONVENTIONS §8), it is not a placeholder. */}
+        {data.costToday.error === 'forbidden' ? null : (
         <Card title={t('admin.ui.dashCostToday')}>
           {data.costToday.ok ? (
             <div>
@@ -44,9 +46,10 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
               <p className="mt-2 text-xs text-fg-muted">{t('admin.ui.dashCostHint')}</p>
             </div>
           ) : (
-            <Notice tone="info">{data.costToday.error === 'forbidden' ? t('admin.ui.dashCostNoAccess') : t('admin.ui.honestUnavailable', { reason: data.costToday.error ?? 'unknown' })}</Notice>
+            <Notice tone="error">{t('admin.ui.dashCostError', { reason: data.costToday.error ?? 'unknown' })}</Notice>
           )}
         </Card>
+        )}
 
         <Card title={t('admin.ui.dashJobsHealth')}>
           <ul className="space-y-1 text-sm">
@@ -134,7 +137,14 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
                 <span className="tabular-nums">{data.assetsByState[s]}</span>
               </li>
             ))}
-            {CONTENT_STATE_VALUES.every((s) => data.assetsByState[s] === 0) ? <li className="text-fg-muted">{t('admin.ui.empty')}</li> : null}
+            {CONTENT_STATE_VALUES.every((s) => data.assetsByState[s] === 0) ? (
+              <li className="text-fg-muted">
+                {t('admin.ui.dashNoAssetsHint')}{' '}
+                <Link href={SECTION_PATHS.uploads} className="text-accent hover:underline">
+                  {t('admin.sections.uploads')} →
+                </Link>
+              </li>
+            ) : null}
           </ul>
         </Card>
       </div>

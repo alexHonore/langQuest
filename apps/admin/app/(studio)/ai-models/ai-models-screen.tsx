@@ -29,6 +29,8 @@ import { Dialog } from '@/src/components/dialog';
 import { Badge } from '@/src/components/badges';
 import { DataTable, type Column } from '@/src/components/data-table';
 import { LanguageSelect, TagListInput, VarietySelect } from '@/src/components/forms';
+import { SetupCard } from '@/src/components/setup-card';
+import { useDeployment } from '@/src/lib/setup/context';
 
 export interface ProfileRow {
   id: string;
@@ -121,6 +123,7 @@ const num = (v: string) => (v.trim() === '' ? undefined : Number(v));
 
 export function AiModelsScreen({ profiles, benchmarks, localProbeAvailable }: { profiles: ProfileRow[]; benchmarks: BenchmarkRow[]; localProbeAvailable: boolean }) {
   const { t, locale } = useI18n();
+  const { aiAvailable } = useDeployment();
   const [form, setForm] = useState<ProfileForm | null>(null);
   const [taskFilter, setTaskFilter] = useState('');
   const [smoke, setSmoke] = useState<Array<{ name: string; passed: boolean; detail: string | null }> | null>(null);
@@ -208,19 +211,31 @@ export function AiModelsScreen({ profiles, benchmarks, localProbeAvailable }: { 
     { key: 'bench', header: t('admin.models.benchmarkStatus', { status: '' }).replace(': ', ''), render: (p) => <Badge tone={BENCH_TONE(p.benchmark_status)}>{p.benchmark_status}</Badge> },
     { key: 'budget', header: t('admin.models.dailyBudget'), className: 'tabular-nums', render: (p) => formatUsd(p.daily_budget_usd, locale) },
     { key: 'version', header: t('admin.models.version', { version: '' }).trim(), render: (p) => <span className="text-xs">v{p.version} · {formatDateTime(p.updated_at, locale)}</span> },
-    {
-      key: 'actions',
-      header: t('admin.ui.actions'),
-      render: (p) => (
-        <Button size="sm" loading={benchmark.busy} onClick={() => setBench({ profile: p, sampleSetId: 'default', targetVariety: p.target_variety_id, sourceLanguage: p.source_language_code })}>
-          {t('admin.models.benchmark')}
-        </Button>
-      ),
-    },
+    // Benchmarks run through the API's provider: without an AI route the column does not exist (CONVENTIONS §8).
+    ...(aiAvailable
+      ? [
+          {
+            key: 'actions',
+            header: t('admin.ui.actions'),
+            render: (p: ProfileRow) => (
+              <Button size="sm" loading={benchmark.busy} onClick={() => setBench({ profile: p, sampleSetId: 'default', targetVariety: p.target_variety_id, sourceLanguage: p.source_language_code })}>
+                {t('admin.models.benchmark')}
+              </Button>
+            ),
+          } satisfies Column<ProfileRow>,
+        ]
+      : []),
   ];
+
+  const newProfile = (
+    <Button variant="primary" className="ms-auto" onClick={() => { setForm(emptyForm); setSmoke(null); }}>
+      {t('admin.ui.aiNewProfile')}
+    </Button>
+  );
 
   return (
     <div className="space-y-4">
+      {!aiAvailable ? <SetupCard keys={['api', 'ai']} /> : null}
       <div className="flex flex-wrap items-center gap-2">
         <Select aria-label={t('admin.models.task')} className="w-auto" value={taskFilter} onChange={(e) => setTaskFilter(e.target.value)}>
           <option value="">{t('admin.ui.all')}</option>
@@ -231,16 +246,16 @@ export function AiModelsScreen({ profiles, benchmarks, localProbeAvailable }: { 
           ))}
         </Select>
         <span className="text-xs text-fg-muted">{models ? `${models.length} models discoverable` : modelsError ? t('admin.ui.aiNoModels') : t('admin.ui.loading')}</span>
-        <Button variant="primary" className="ms-auto" onClick={() => { setForm(emptyForm); setSmoke(null); }}>
-          {t('admin.ui.aiNewProfile')}
-        </Button>
+        {rows.length > 0 ? newProfile : null}
       </div>
-      <DataTable columns={columns} rows={rows} rowKey={(p) => p.id} caption={t('admin.ui.aiProfiles')} dense />
+      <DataTable columns={columns} rows={rows} rowKey={(p) => p.id} caption={t('admin.ui.aiProfiles')} empty={t('admin.ui.aiEmptyProfiles')} emptyAction={newProfile} dense />
 
-      <div className="grid gap-4 lg:grid-cols-2">
-        <Harness localProbeAvailable={localProbeAvailable} defaultModel={profiles[0]?.primary_model ?? ''} />
+      {/* The harness needs a server-side key on the admin host; without it the card is simply absent (listed on Setup). */}
+      {localProbeAvailable || benchmarks.length > 0 ? (
+        <div className="grid gap-4 lg:grid-cols-2">
+          {localProbeAvailable ? <Harness defaultModel={profiles[0]?.primary_model ?? ''} /> : null}
+          {benchmarks.length > 0 ? (
         <Card title={t('admin.ui.aiBenchmarks')}>
-          {benchmarks.length === 0 ? <p className="text-sm text-fg-muted">{t('admin.ui.aiNoBenchmarks')}</p> : null}
           <div className="overflow-x-auto">
             <table className="w-full text-xs">
               <thead className="text-fg-muted">
@@ -278,7 +293,9 @@ export function AiModelsScreen({ profiles, benchmarks, localProbeAvailable }: { 
             </table>
           </div>
         </Card>
-      </div>
+          ) : null}
+        </div>
+      ) : null}
 
       <Dialog
         open={bench !== null}
@@ -331,12 +348,14 @@ export function AiModelsScreen({ profiles, benchmarks, localProbeAvailable }: { 
           form ? (
             <>
               <Button onClick={() => setForm(null)}>{t('admin.ui.cancel')}</Button>
-              <Button loading={saveDraftLocally.busy} disabled={!form.primaryModel.trim()} onClick={() => void saveDraftLocally.run(form).then((r) => r && setForm(null))} title={t('admin.ui.aiEnableRequiresSmoke')}>
-                {t('admin.ui.save')} (draft, disabled)
+              <Button variant={aiAvailable ? 'secondary' : 'primary'} loading={saveDraftLocally.busy} disabled={!form.primaryModel.trim()} onClick={() => void saveDraftLocally.run(form).then((r) => r && setForm(null))} title={t('admin.ui.aiEnableRequiresSmoke')}>
+                {t('admin.ui.aiSaveDraft')}
               </Button>
-              <Button variant="primary" loading={saveViaApi.busy} disabled={!form.primaryModel.trim()} onClick={() => void saveViaApi.run(form, true)}>
-                {t('admin.models.save')} {form.enabled ? '+ smoke tests' : ''}
-              </Button>
+              {aiAvailable ? (
+                <Button variant="primary" loading={saveViaApi.busy} disabled={!form.primaryModel.trim()} onClick={() => void saveViaApi.run(form, true)}>
+                  {t('admin.models.save')} {form.enabled ? '+ smoke tests' : ''}
+                </Button>
+              ) : null}
             </>
           ) : null
         }
@@ -394,9 +413,11 @@ export function AiModelsScreen({ profiles, benchmarks, localProbeAvailable }: { 
               <Field label={t('admin.ui.aiMaxTokens')}>{(id) => <Input id={id} type="number" min={0} value={form.maxOutputTokens} onChange={(e) => setForm({ ...form, maxOutputTokens: e.target.value })} />}</Field>
               <Field label={t('admin.ui.aiTimeout')}>{(id) => <Input id={id} type="number" min={0} value={form.timeoutMs} onChange={(e) => setForm({ ...form, timeoutMs: e.target.value })} />}</Field>
               <Field label={t('admin.models.dailyBudget')} hint={t('admin.models.budgetNote')}>{(id) => <Input id={id} type="number" min={0} step="0.5" value={form.dailyBudgetUsd} onChange={(e) => setForm({ ...form, dailyBudgetUsd: e.target.value })} />}</Field>
-              <div className="flex items-end">
-                <Checkbox label={t('admin.models.enabled')} checked={form.enabled} onChange={(e) => setForm({ ...form, enabled: e.target.checked })} />
-              </div>
+              {aiAvailable ? (
+                <div className="flex items-end">
+                  <Checkbox label={t('admin.models.enabled')} checked={form.enabled} onChange={(e) => setForm({ ...form, enabled: e.target.checked })} />
+                </div>
+              ) : null}
             </div>
             {smoke ? (
               <div>
@@ -426,7 +447,7 @@ function pct(v: number | null): string {
   return v == null ? '—' : `${Math.round(v * 100)}%`;
 }
 
-function Harness({ localProbeAvailable, defaultModel }: { localProbeAvailable: boolean; defaultModel: string }) {
+function Harness({ defaultModel }: { defaultModel: string }) {
   const { t } = useI18n();
   const [mode, setMode] = useState<'prompt' | 'synthesize' | 'transcribe'>('prompt');
   const [model, setModel] = useState(defaultModel);
@@ -457,7 +478,6 @@ function Harness({ localProbeAvailable, defaultModel }: { localProbeAvailable: b
   );
   return (
     <Card title={t('admin.ui.aiHarness')}>
-      {!localProbeAvailable ? <Notice tone="warning">{t('admin.ui.aiHarnessUnavailable')}</Notice> : null}
       <div className="mt-2 space-y-2">
         <div className="flex gap-1">
           {(['prompt', 'synthesize', 'transcribe'] as const).map((m) => (
@@ -487,7 +507,7 @@ function Harness({ localProbeAvailable, defaultModel }: { localProbeAvailable: b
             <Field label={t('admin.ui.aiSttLanguage')}>{(id) => <Input id={id} value={language} onChange={(e) => setLanguage(e.target.value)} placeholder="ar" />}</Field>
           </>
         ) : null}
-        <Button variant="primary" disabled={!localProbeAvailable || !model.trim() || (mode === 'prompt' && !prompt.trim()) || (mode === 'synthesize' && !text.trim()) || (mode === 'transcribe' && !file)} loading={run.busy} onClick={() => void run.run()}>
+        <Button variant="primary" disabled={!model.trim() || (mode === 'prompt' && !prompt.trim()) || (mode === 'synthesize' && !text.trim()) || (mode === 'transcribe' && !file)} loading={run.busy} onClick={() => void run.run()}>
           {t('admin.ui.aiRunPrompt')}
         </Button>
         {run.error ? <Notice tone="error">{run.error}</Notice> : null}

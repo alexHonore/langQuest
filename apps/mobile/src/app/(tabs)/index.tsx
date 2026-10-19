@@ -9,15 +9,19 @@ import { usePathway } from '@/features/missions/use-pathway';
 import { useOnboardingReplay } from '@/features/onboarding/use-onboarding-replay';
 import { useFallbackOptIn } from '@/features/session/fallback';
 import { useActiveEnrollment, useProgress, useReviewsDue } from '@/features/session/queries';
+import { homeCta } from '@/features/session/capabilities';
+import { useEnrollmentNavigation } from '@/features/session/use-capabilities';
 import { headingLevel } from '@/lib/a11y';
 import { useExtraLabels } from '@/lib/extra-labels';
 import { useLanguageNames, useSourceTranslator, useT } from '@/lib/i18n';
 import { useUiLabels } from '@/lib/labels';
 import { useServices } from '@/lib/services';
 import { track } from '@/lib/telemetry';
-import { AUDIO_TAB_PLACEHOLDER } from '@/features/audio/placeholder';
 
-/** Screen 2: Home / today. Primary CTA launches a speakable mission in one tap. */
+/**
+ * Screen 2: Home / today. Primary CTA launches a speakable mission in one tap — or, for a pair without a
+ * mission pathway, the live conversation (CONVENTIONS §8: controls the enrollment cannot use are not rendered).
+ */
 export default function Home(): React.JSX.Element {
   const theme = useTheme();
   const router = useRouter();
@@ -27,7 +31,9 @@ export default function Home(): React.JSX.Element {
   const labels = useUiLabels();
   const { pendingEvents, syncStatus, storageDegraded } = useServices();
   const { enrollment, me, query } = useActiveEnrollment();
-  const { pathway, manifest } = usePathway(enrollment);
+  const nav = useEnrollmentNavigation(enrollment);
+  const cta = homeCta(nav);
+  const { pathway, manifest } = usePathway(nav.missions ? enrollment : null);
   const reviews = useReviewsDue(enrollment, 12);
   const progress = useProgress(Boolean(me));
   const fallback = useFallbackOptIn(enrollment);
@@ -42,7 +48,6 @@ export default function Home(): React.JSX.Element {
   const speakingMinutes7d = perEnrollment ? Math.round(perEnrollment.speakingSecondsLast7Days / 60) : null;
   const streak = progress.data?.data.streak ?? null;
   const next = pathway?.next ?? null;
-  const noContent = pathway !== null && pathway.missions.length === 0;
   const greeting = me?.displayName ? t('home.welcomeBack', { name: me.displayName }) : perEnrollment && perEnrollment.missionsCompleted > 0 ? t('home.welcomeBackAnonymous') : t('home.welcomeFirst');
   const mascotLine = sourceT?.resolve('mascot.state.welcome');
   const sourceName = enrollment ? names(enrollment.sourceLanguageCode) : '';
@@ -78,9 +83,13 @@ export default function Home(): React.JSX.Element {
       {enrollment ? (
         <View style={{ gap: theme.spacing.lg }}>
           <Row gap={theme.spacing.sm} justify="space-between">
-            <ThemedText variant="heading" accessibilityRole="header" {...headingLevel(2)}>
-              {t('home.nextConversation')}
-            </ThemedText>
+            {cta ? (
+              <ThemedText variant="heading" accessibilityRole="header" {...headingLevel(2)}>
+                {t('home.nextConversation')}
+              </ThemedText>
+            ) : (
+              <View style={{ flex: 1 }} />
+            )}
             <Button testID="home-switch-course" label={t('home.switchCourse')} variant="ghost" size="sm" icon="globe" onPress={() => router.push('/course-switcher')} accessibilityLabel={t('home.switchCourse')} />
           </Row>
           {enrollment.coverage.status !== 'complete' ? (
@@ -101,11 +110,11 @@ export default function Home(): React.JSX.Element {
               ) : null}
             </Surface>
           ) : null}
-          {manifest.isLoading ? <LoadingView rows={1} /> : null}
-          {manifest.error && !manifest.data ? <ErrorView error={manifest.error} onRetry={() => void manifest.refetch()} /> : null}
-          {noContent ? (
-            // A course with no published missions is "not available yet", never "all caught up".
-            <EmptyState title={t('common.notAvailable')} description={fallbackName ? t('enrollment.coverage.detail.planned', { source: sourceName, fallback: fallbackName }) : X.plannedNoFallback(sourceName)} mascotState="quiet_audio" />
+          {cta === 'missions' && manifest.isLoading ? <LoadingView rows={1} /> : null}
+          {cta === 'missions' && manifest.error && !manifest.data ? <ErrorView error={manifest.error} onRetry={() => void manifest.refetch()} /> : null}
+          {cta === 'speak' ? (
+            // No mission pathway for this pair yet: the primary action is the live conversation (never an empty card).
+            <Button testID="home-cta-speak" label={t('home.quickSpeak')} icon="mic" size="lg" fullWidth onPress={() => router.push({ pathname: '/conversation', params: { enrollmentId: enrollment.id } })} accessibilityLabel={`${t('home.quickSpeak')} · ${getCourseTrack(enrollment.courseTrackId).displayName}`} />
           ) : next ? (
             <MissionCard
               title={next.mission.title}
@@ -122,7 +131,7 @@ export default function Home(): React.JSX.Element {
                 router.push({ pathname: '/mission/[id]', params: { id: next.mission.id } });
               }}
             />
-          ) : pathway ? (
+          ) : pathway && pathway.missions.length > 0 ? (
             <EmptyState title={t('missions.summary.completed')} description={t('progress.review.allDone')} mascotState="celebrate" />
           ) : null}
 
@@ -139,17 +148,19 @@ export default function Home(): React.JSX.Element {
             </ThemedText>
           </Surface>
 
-          <Button
-            label={`${t('home.reviewDue')} · ${t('home.reviewDueCount', { count: reviews.data?.data.dueCount ?? 0 })}`}
-            variant="secondary"
-            icon="replay"
-            fullWidth
-            disabled={!reviews.data || reviews.data.data.dueCount === 0}
-            onPress={() => router.push('/review')}
-            accessibilityLabel={t('home.reviewDue')}
-          />
-          <Button label={t('home.continueAudio')} variant="secondary" icon="headphones" fullWidth disabled={!AUDIO_TAB_PLACEHOLDER.available} onPress={() => router.push('/(tabs)/audio')} accessibilityLabel={t('home.continueAudio')} />
-          <Button label={t('home.quickSpeak')} icon="mic" fullWidth onPress={() => router.push({ pathname: '/conversation', params: { enrollmentId: enrollment.id } })} accessibilityLabel={`${t('home.quickSpeak')} · ${getCourseTrack(enrollment.courseTrackId).displayName}`} />
+          {/* Nothing due → no button (§8: never a greyed control); the Progress tab keeps the review calendar. */}
+          {reviews.data && reviews.data.data.dueCount > 0 ? (
+            <Button
+              label={`${t('home.reviewDue')} · ${t('home.reviewDueCount', { count: reviews.data.data.dueCount })}`}
+              variant="secondary"
+              icon="replay"
+              fullWidth
+              onPress={() => router.push('/review')}
+              accessibilityLabel={t('home.reviewDue')}
+            />
+          ) : null}
+          {nav.audio ? <Button label={t('home.continueAudio')} variant="secondary" icon="headphones" fullWidth onPress={() => router.push('/(tabs)/audio')} accessibilityLabel={t('home.continueAudio')} /> : null}
+          {nav.liveConversation && cta !== 'speak' ? <Button label={t('home.quickSpeak')} icon="mic" fullWidth onPress={() => router.push({ pathname: '/conversation', params: { enrollmentId: enrollment.id } })} accessibilityLabel={`${t('home.quickSpeak')} · ${getCourseTrack(enrollment.courseTrackId).displayName}`} /> : null}
 
           {pendingEvents > 0 ? <StatusLine icon={syncStatus === 'error' ? 'warning' : 'info'} tone={syncStatus === 'error' ? 'warning' : 'info'} text={syncStatus === 'error' ? t('errors.syncFailed') : X.pendingSync(pendingEvents)} /> : null}
         </View>

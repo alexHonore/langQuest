@@ -304,16 +304,9 @@ function PanelFrame<T>({ title, panel, children }: { title: string; panel: Panel
 function TimelineChart({ data, label, percent, secondLabel }: { data: TimelinePoint[]; label: string; percent?: boolean; secondLabel?: string }) {
   const { t } = useI18n();
   if (data.length === 0) return <p className="text-xs text-fg-muted">{t('admin.analytics.noData')}</p>;
-  // A series of nulls means the API does not compute this metric yet (e.g. recall 7d/30d); an empty
-  // percent axis would read as "0%", so say so instead of drawing it (§12.2 / ADR-006 consequence).
-  if (!timelineHasValues(data)) {
-    return (
-      <div>
-        <p className="text-xs font-medium">{label}</p>
-        <Notice tone="info">{t('admin.ui.anNotComputed')}</Notice>
-      </div>
-    );
-  }
+  // A series of nulls means the API does not compute this metric yet (e.g. recall 7d/30d): the chart is not
+  // rendered at all (CONVENTIONS §8; listed in docs/UPCOMING_FEATURES.md) — an empty percent axis would read as "0%".
+  if (!timelineHasValues(data)) return null;
   const fmt = (v: unknown) => (percent ? `${Math.round(Number(v) * 100)}%` : String(v));
   return (
     <div>

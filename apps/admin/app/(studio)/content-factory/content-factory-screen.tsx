@@ -11,6 +11,8 @@ import { Button, Card, Field, Input, Notice, Select, TextField, Textarea } from 
 import { Badge, JobBadge, StatusBadge } from '@/src/components/badges';
 import { SvgArt } from '@/src/components/asset-preview';
 import { LanguageSelect, TrackSelect } from '@/src/components/forms';
+import { SetupCard } from '@/src/components/setup-card';
+import { useDeployment } from '@/src/lib/setup/context';
 
 export interface DraftMission {
   id: string;
@@ -56,6 +58,7 @@ export interface GenerationJob {
 
 export function ContentFactoryScreen({ intents, missions, expressions, jobs, canDecide }: { intents: Array<{ key: string; description: string; concept: string }>; missions: DraftMission[]; expressions: DraftExpression[]; jobs: GenerationJob[]; canDecide: boolean }) {
   const { t, locale } = useI18n();
+  const { aiAvailable } = useDeployment();
   const [track, setTrack] = useState<string | null>(COURSE_TRACKS[0]?.id ?? null);
   // No preselected instruction language: the operator chooses it explicitly (never an implied English default).
   const [source, setSource] = useState<string | null>(null);
@@ -96,6 +99,8 @@ export function ContentFactoryScreen({ intents, missions, expressions, jobs, can
   return (
     <div className="grid gap-4 xl:grid-cols-[22rem_1fr]">
       <div className="space-y-4">
+        {!aiAvailable ? <SetupCard keys={['api', 'ai']} title={t('admin.ui.cfBrief')} /> : null}
+        {aiAvailable ? (
         <Card title={t('admin.ui.cfBrief')}>
           <div className="space-y-2">
             <Field label={t('admin.contentFactory.track')}>{(id) => <TrackSelect id={id} value={track} onChange={setTrack} allowEmpty={false} />}</Field>
@@ -149,8 +154,9 @@ export function ContentFactoryScreen({ intents, missions, expressions, jobs, can
             {generate.error ? <Notice tone="error">{generate.error}</Notice> : null}
           </div>
         </Card>
+        ) : null}
+        {jobs.length > 0 ? (
         <Card title={t('admin.jobs.title')}>
-          {jobs.length === 0 ? <p className="text-xs text-fg-muted">{t('admin.jobs.noJobs')}</p> : null}
           <ul className="space-y-1 text-xs">
             {jobs.slice(0, 10).map((j) => (
               <li key={j.id} className="flex items-center gap-2">
@@ -162,11 +168,12 @@ export function ContentFactoryScreen({ intents, missions, expressions, jobs, can
             ))}
           </ul>
         </Card>
+        ) : null}
       </div>
 
       <div className="space-y-4">
         <Card title={t('admin.ui.cfQueue')}>
-          {missions.length === 0 ? <p className="text-sm text-fg-muted">{t('admin.ui.cfNoDrafts')}</p> : null}
+          {missions.length === 0 ? <p className="text-sm text-fg-muted">{aiAvailable ? t('admin.ui.cfEmptyHint') : t('admin.ui.cfNoDrafts')}</p> : null}
           <ul className="divide-y divide-border">
             {missions.map((m) => (
               <li key={m.id}>

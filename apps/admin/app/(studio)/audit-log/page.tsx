@@ -20,6 +20,8 @@ export default async function AuditLogPage({ searchParams }: { searchParams: Pro
       <PageHeader title={t('admin.audit.title')} />
       <AuditFilters page={page} hasNext={logs.ok ? logs.data.hasNext : false} />
       {!logs.ok ? <Notice tone="warning">{logs.forbidden ? t('admin.ui.auNoAccess') : logs.error}</Notice> : null}
+      {logs.ok && logs.data.rows.length === 0 ? <p className="rounded-lg border border-dashed border-border px-4 py-6 text-center text-sm text-fg-muted">{t('admin.ui.auEmptyHint')}</p> : null}
+      {logs.ok && logs.data.rows.length === 0 ? null : (
       <div className="overflow-hidden rounded-lg border border-border bg-surface">
         <table className="w-full text-sm">
           <thead className="bg-surface-muted text-xs uppercase text-fg-muted">
@@ -32,13 +34,6 @@ export default async function AuditLogPage({ searchParams }: { searchParams: Pro
             </tr>
           </thead>
           <tbody>
-            {logs.ok && logs.data.rows.length === 0 ? (
-              <tr>
-                <td colSpan={5} className="px-3 py-8 text-center text-fg-muted">
-                  {t('admin.ui.empty')}
-                </td>
-              </tr>
-            ) : null}
             {logs.ok
               ? logs.data.rows.map((row) => (
                   <tr key={row.id} className="border-t border-border align-top">
@@ -68,6 +63,7 @@ export default async function AuditLogPage({ searchParams }: { searchParams: Pro
           </tbody>
         </table>
       </div>
+      )}
     </div>
   );
 }

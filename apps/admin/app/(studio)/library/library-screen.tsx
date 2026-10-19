@@ -128,7 +128,21 @@ export function LibraryScreen({ page, result, error, options, lessonOptions, can
       </FilterBar>
 
       {error ? <ErrorState title={t('admin.ui.errorTitle')} message={error} /> : null}
-      <DataTable columns={columns} rows={rows} rowKey={(r) => r.id} selectable={canEdit} selected={selected} onSelectionChange={setSelected} empty={t('admin.library.noResults')} caption={t('admin.library.title')} />
+      <DataTable
+        columns={columns}
+        rows={rows}
+        rowKey={(r) => r.id}
+        selectable={canEdit}
+        selected={selected}
+        onSelectionChange={setSelected}
+        empty={t('admin.library.noResults')}
+        emptyAction={
+          <Button size="sm" onClick={() => set({ status: null, kind: null, variety: null, source: null, speaker: null, collection: null, q: null, derived: null })}>
+            {t('admin.ui.clearFilters')}
+          </Button>
+        }
+        caption={t('admin.library.title')}
+      />
       <UrlPager page={page} hasNext={result?.hasNext ?? false} />
 
       {canEdit ? (

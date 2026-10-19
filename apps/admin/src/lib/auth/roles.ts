@@ -28,6 +28,7 @@ export const ADMIN_SECTIONS = [
   'publishing',
   'analytics',
   'users',
+  'setup',
   'settings',
   'auditLog',
 ] as const;
@@ -54,6 +55,7 @@ export const SECTION_PATHS: Readonly<Record<AdminSection, string>> = {
   publishing: '/publishing',
   analytics: '/analytics',
   users: '/users',
+  setup: '/setup',
   settings: '/settings',
   auditLog: '/audit-log',
 };
@@ -84,6 +86,7 @@ export const SECTION_ACCESS: Readonly<Record<AdminSection, readonly Role[]>> = {
   publishing: EDITOR,
   analytics: ['super_admin', 'admin', 'support_readonly'],
   users: ['super_admin'],
+  setup: ADMINS,
   settings: ADMINS,
   auditLog: ADMINS,
 };
@@ -115,9 +118,15 @@ export function canAccessSection(roles: readonly Role[], section: AdminSection):
   return roles.some((r) => SECTION_ACCESS[section].includes(r));
 }
 
-/** Sections visible to a role set, in IA order. */
-export function visibleSections(roles: readonly Role[]): AdminSection[] {
-  return ADMIN_SECTIONS.filter((s) => canAccessSection(roles, s));
+/**
+ * Sections visible to a role set, in IA order. While the deployment is not fully configured, Setup is the
+ * first item (CONVENTIONS §8: the checklist is the one place that says what is missing and how to fix it);
+ * once everything is configured it sits with Settings.
+ */
+export function visibleSections(roles: readonly Role[], options: { setupIncomplete?: boolean } = {}): AdminSection[] {
+  const sections = ADMIN_SECTIONS.filter((s) => canAccessSection(roles, s));
+  if (options.setupIncomplete && sections.includes('setup')) return ['setup', ...sections.filter((s) => s !== 'setup')];
+  return sections;
 }
 
 /** True when the role set may mutate content (uploads, labels, publishing). */

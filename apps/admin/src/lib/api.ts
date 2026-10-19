@@ -32,6 +32,7 @@ import {
   ContentRightsResponseSchema,
   ContentRightsRevokeResponseSchema,
   ContentUnpublishResponseSchema,
+  CoverageResponseSchema,
   ImportManifestResponseSchema,
   ImportR2PrefixResponseSchema,
   LessonAssetAttachResponseSchema,
@@ -140,6 +141,8 @@ export const RESPONSE_SCHEMAS = {
   adminAssetSuggestionGet: AssetSuggestionResponseSchema,
   adminAssetSuggestionDecide: AssetSuggestionDecideResponseSchema,
   audioPlaybackUrl: PlaybackUrlResponseSchema,
+  /** Public: per-source coverage + (with `?source=`) the live capability snapshot learners are told about (CONVENTIONS §8). */
+  courseCoverage: CoverageResponseSchema,
   speechSynthesize: SynthesizeResponseSchema,
   speechTranscribe: TranscribeResponseSchema,
 } satisfies Partial<Record<RouteKey, z.ZodType>>;

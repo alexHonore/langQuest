@@ -1,7 +1,7 @@
 'use client';
 /**
  * Image picker + multipart upload for §10.2A visual assets. Honest states: no media storage on
- * this deployment (server message shown verbatim, picker disabled), hashing / uploading progress,
+ * this deployment (server message shown verbatim, picker not rendered), hashing / uploading progress,
  * duplicate (same bytes already registered), failed with the reason, verified (ready to register).
  */
 import { useRef } from 'react';
@@ -29,9 +29,11 @@ export function ImageUploadField({ upload, disabled }: { upload: Upload; disable
         </Notice>
       ) : null}
       <div className="flex flex-wrap items-center gap-2">
-        <Button disabled={disabled || !ready || Boolean(storageUnavailable) || busy} onClick={() => input.current?.click()}>
-          {item ? t('admin.ui.vaChooseAnother') : t('admin.ui.vaChooseImage')}
-        </Button>
+        {storageUnavailable ? null : (
+          <Button disabled={disabled || !ready || busy} onClick={() => input.current?.click()}>
+            {item ? t('admin.ui.vaChooseAnother') : t('admin.ui.vaChooseImage')}
+          </Button>
+        )}
         <input
           ref={input}
           type="file"

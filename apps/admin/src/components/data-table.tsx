@@ -26,7 +26,10 @@ export interface DataTableProps<Row> {
   selected?: ReadonlySet<string>;
   onSelectionChange?: (next: Set<string>) => void;
   onRowClick?: (row: Row) => void;
+  /** One-line hint shown instead of the table when there are no rows (never an empty table caption). */
   empty?: ReactNode;
+  /** Primary action rendered with the hint when there are no rows (e.g. the "New …" button). */
+  emptyAction?: ReactNode;
   loading?: boolean;
   caption?: string;
   /** Pagination: `hasNext` + `onNext`/`onPrev`; `page` for display. */
@@ -34,7 +37,7 @@ export interface DataTableProps<Row> {
   dense?: boolean;
 }
 
-export function DataTable<Row>({ columns, rows, rowKey, selectable, selected, onSelectionChange, onRowClick, empty, loading, caption, pagination, dense }: DataTableProps<Row>) {
+export function DataTable<Row>({ columns, rows, rowKey, selectable, selected, onSelectionChange, onRowClick, empty, emptyAction, loading, caption, pagination, dense }: DataTableProps<Row>) {
   const { t } = useI18n();
   const bodyRef = useRef<HTMLTableSectionElement>(null);
   const allKeys = rows.map(rowKey);
@@ -78,6 +81,23 @@ export function DataTable<Row>({ columns, rows, rowKey, selectable, selected, on
     }
   };
 
+  // CONVENTIONS §8: no empty table — the primary action and a one-line hint stand alone.
+  if (rows.length === 0 && !loading) {
+    return (
+      <div className="rounded-lg border border-dashed border-border px-4 py-6 text-center" role="status">
+        <p className="text-sm text-fg-muted">{empty ?? t('admin.ui.empty')}</p>
+        {emptyAction ? <div className="mt-3 flex justify-center gap-2">{emptyAction}</div> : null}
+        {pagination && pagination.hasPrev ? (
+          <div className="mt-3 flex justify-center">
+            <Button size="sm" variant="ghost" onClick={pagination.onPrev} icon={<ChevronLeft size={14} className="rtl:rotate-180" />}>
+              {t('admin.ui.previous')}
+            </Button>
+          </div>
+        ) : null}
+      </div>
+    );
+  }
+
   return (
     <div className="overflow-hidden rounded-lg border border-border bg-surface">
       <div className="overflow-x-auto">
@@ -110,7 +130,7 @@ export function DataTable<Row>({ columns, rows, rowKey, selectable, selected, on
             {rows.length === 0 ? (
               <tr>
                 <td colSpan={columns.length + (selectable ? 1 : 0)} className="px-3 py-8 text-center text-fg-muted">
-                  {loading ? t('admin.ui.loading') : (empty ?? t('admin.ui.empty'))}
+                  {t('admin.ui.loading')}
                 </td>
               </tr>
             ) : (

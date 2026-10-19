@@ -30,18 +30,18 @@ export function confirmRemoveDownload(title: string, body: string, confirmLabel:
   ]);
 }
 
-export function DownloadControls(props: DownloadControlsProps): React.JSX.Element {
+export function DownloadControls(props: DownloadControlsProps): React.JSX.Element | null {
   const theme = useTheme();
   const t = useT();
   const L = useAudioLabels();
   const runtime = useAudioRuntime();
   const { data: record } = useDownloadRecord(props.lessonId);
 
-  if (!runtime) return <View />;
-  if (!runtime.downloadsSupported) return <StatusLine icon="info" tone="muted" text={L.downloadsUnsupportedWeb} />;
+  // §8 "visible means usable": no platform support or no offline licence → no control at all (never a greyed one).
+  if (!runtime || !runtime.downloadsSupported) return null;
   // A volatile store cannot keep the download index: never offer a download it would forget (§4.4).
   if (!runtime.local.persistent) return <StatusLine icon="warning" tone="warning" text={L.downloadsDisabledNoStorage} />;
-  if (!props.offlineEligible && !record) return <StatusLine icon="info" tone="muted" text={L.notOfflineEligible} />;
+  if (!props.offlineEligible && !record) return null;
 
   const start = (): void => void runtime.downloads.start(props.lessonId, props.meta);
   const remove = (): void => confirmRemoveDownload(L.deleteConfirmTitle, L.deleteConfirmBody, t('common.delete'), t('common.cancel'), () => void runtime.downloads.remove(props.lessonId));

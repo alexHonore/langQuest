@@ -3,7 +3,7 @@
  * the offline cache as a fallback (§4.5). Every hook returns `fromCache` so a
  * screen can say "last updated …" instead of pretending data is live.
  */
-import type { EnrollmentDto, LanguageContext, MissionDetailResponse, ModelCapabilitiesResponse, ProgressResponse, ReviewsDueResponse } from '@langquest/contracts';
+import type { CourseCapabilities, EnrollmentDto, LanguageContext, MissionDetailResponse, ModelCapabilitiesResponse, ProgressResponse, ReviewsDueResponse } from '@langquest/contracts';
 import { buildLanguageContext } from '@langquest/contracts';
 import { useQuery, useQueryClient, type UseQueryResult } from '@tanstack/react-query';
 import { useCallback, useEffect, useMemo } from 'react';
@@ -192,6 +192,25 @@ export function useCapabilities(enrollment: EnrollmentDto | null): UseQueryResul
     fetch: () => api.modelCapabilities(enrollment!.courseTrackId, enrollment!.regionalPreference ?? undefined),
     read: async () => (await getLocalStore()).cache.getMeta<CachedEnvelope<ModelCapabilitiesResponse>>(key),
     write: async (c) => (await getLocalStore()).cache.putMeta<CachedEnvelope<ModelCapabilitiesResponse>>(key, { fetchedAt: new Date().toISOString(), data: c }),
+  });
+}
+
+/**
+ * Capability snapshot of a (track, source) pair BEFORE enrolling (`GET /v1/courses/:trackId/coverage?source=`,
+ * public, `Cache-Control: max-age=60`). Drives the enrollment wizard's disclaimer (CONVENTIONS §8). The last
+ * answer is cached per pair so a wizard reopened offline still shows what it saw; with no cache the
+ * disclaimer is simply not rendered (nothing is guessed). After enrolling, read `EnrollmentDto.capabilities`.
+ */
+export function useCourseCapabilities(trackId: string | null, source: string | null): UseQueryResult<CachedResult<CourseCapabilities | null>, Error> {
+  const { api } = useServices();
+  const key = `course-capabilities:${trackId ?? ''}:${source ?? ''}`;
+  return useCachedQuery<CourseCapabilities | null>({
+    key: ['course-capabilities', trackId, source],
+    enabled: Boolean(trackId && source),
+    staleTime: 60_000,
+    fetch: async () => (await api.courseCoverage(trackId!, source!)).capabilities ?? null,
+    read: async () => (await getLocalStore()).cache.getMeta<CachedEnvelope<CourseCapabilities | null>>(key),
+    write: async (c) => (await getLocalStore()).cache.putMeta<CachedEnvelope<CourseCapabilities | null>>(key, { fetchedAt: new Date().toISOString(), data: c }),
   });
 }
 

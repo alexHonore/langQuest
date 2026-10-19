@@ -9,6 +9,7 @@ import { formatBytes, formatDurationMs, shortId } from '@/src/lib/format';
 import { Button, Field, Input, Select } from '@/src/components/ui';
 import { Badge, StatusBadge } from '@/src/components/badges';
 import { AssetPreview } from '@/src/components/asset-preview';
+import { useDeployment } from '@/src/lib/setup/context';
 
 interface AssetLink {
   id: string;
@@ -22,6 +23,7 @@ export function LessonAssets({ lessonId, assets, expectedRevision }: { lessonId:
   const [assetId, setAssetId] = useState('');
   const [assetType, setAssetType] = useState<AudioAssetType>('master');
   const [previewId, setPreviewId] = useState<string | null>(null);
+  const { mediaAvailable } = useDeployment();
   // 201 = fresh link, 200 + `movedFromLessonId` = the asset was moved here from another lesson (both lessons get a revision).
   const attach = useAction(async () => browserApi().call('adminLessonAssetAttach', { params: { id: lessonId }, body: { assetId, assetType, sortOrder: assets.length, expectedRevision } }), {
     successMessage: (res) => (res.movedFromLessonId ? t('admin.ui.lsAssetMoved', { from: shortId(res.movedFromLessonId), revision: res.revision }) : t('admin.ui.lsAssetAttached', { revision: res.revision })),
@@ -48,12 +50,16 @@ export function LessonAssets({ lessonId, assets, expectedRevision }: { lessonId:
                   </span>
                   {link.asset.source_asset_id ? <Badge tone="neutral">{t('admin.library.derived')} · {link.asset.derivation}</Badge> : <Badge tone="neutral">{t('admin.library.original')}</Badge>}
                   <StatusBadge state={link.asset.state} />
-                  <Button size="sm" variant="ghost" onClick={() => setPreviewId(previewId === link.asset!.id ? null : link.asset!.id)}>
-                    {t('admin.library.preview')}
-                  </Button>
+                  {mediaAvailable ? (
+                    <Button size="sm" variant="ghost" onClick={() => setPreviewId(previewId === link.asset!.id ? null : link.asset!.id)}>
+                      {t('admin.library.preview')}
+                    </Button>
+                  ) : null}
                 </>
               ) : (
-                <span className="text-fg-muted">{t('common.notAvailable')}</span>
+                // The asset row did not come back with the link (not readable by this role or already purged): only the
+                // detach control is shown, no "not available" label (CONVENTIONS §8).
+                null
               )}
               <Button size="sm" variant="ghost" className="ms-auto" loading={detach.busy} onClick={() => link.asset && void detach.run(link.asset.id)}>
                 {t('admin.ui.removeLocale')}

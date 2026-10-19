@@ -2,9 +2,9 @@
  * Pronunciation feedback (§3.6, §10.2B screen 6). Renders intelligibility and
  * the qualitative feedback list for every result. A numeric score is shown
  * ONLY when `result.pronunciation.numericScore !== null` AND the assessment
- * mode is acoustic (`pronunciationDisplay` enforces this). Otherwise a clear
- * "detailed phoneme assessment not yet available for this variety" line is
- * shown. All tones are paired with text + icon (colour-blind safe).
+ * mode is acoustic (`pronunciationDisplay` enforces this). Otherwise only the
+ * assessment-mode line is shown (what WAS compared), never a "not available"
+ * line (CONVENTIONS §8). All tones are paired with text + icon (colour-blind safe).
  */
 import type { ScriptId, SpeechEvaluationResult } from '@langquest/contracts';
 import React from 'react';
@@ -117,15 +117,10 @@ export function PronunciationFeedback(props: PronunciationFeedbackProps): React.
         <StatusLine
           icon="info"
           tone="info"
-          text={d.detailedUnavailable ? L.detailedUnavailable : L.listenCompare}
+          text={modeNotice ?? L.listenCompare}
           variant="caption"
         />
       )}
-      {modeNotice && d.detailedUnavailable ? (
-        <ThemedText variant="caption" tone="muted">
-          {modeNotice}
-        </ThemedText>
-      ) : null}
 
       {d.feedback.length > 0 ? (
         <View style={{ gap: theme.spacing.xs }} accessibilityRole="list">

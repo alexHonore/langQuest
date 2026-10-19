@@ -27,7 +27,6 @@
     "learnMore": "Подробнее",
     "confirm": "Подтвердить",
     "unknown": "Неизвестно",
-    "notAvailable": "Недоступно",
     "minutes": "{count, plural, one {# минута} few {# минуты} many {# минут} other {# минуты}}",
     "minutesShort": "{count} мин",
     "seconds": "{count, plural, one {# секунда} few {# секунды} many {# секунд} other {# секунды}}",
@@ -139,7 +138,7 @@
       "complete": "Полностью доступен с {source}",
       "partial": "Частично доступен с {source}",
       "planned": "Запланирован с {source}",
-      "unavailable": "Недоступен с {source}",
+      "unavailable": "Не предлагается с {source}",
       "detail": {
         "complete": "Все инструкции, объяснения и озвучка проверены носителями языка.",
         "partial": "Часть объяснений на {source} — черновики, ожидающие проверки носителем. Мы честно показываем редакционный статус, а не гадаем.",
@@ -163,7 +162,39 @@
         "complete": "Полностью доступно",
         "partial": "Частично доступно",
         "planned": "Запланировано",
-        "unavailable": "Недоступно"
+        "unavailable": "Не предлагается"
+      }
+    },
+    "disclaimer": {
+      "title": "Что входит в этот курс на {source}",
+      "missingTitle": "Чего в этом курсе пока нет",
+      "intro": "Всего перечисленного ниже пока нет. Мы скрываем это в приложении вместо пустых экранов; оно появится, как только будет готово.",
+      "allAvailable": "Для этого курса на {source} доступно всё.",
+      "noMissions": "Для этого курса пока нет маршрута миссий",
+      "noAudioLibrary": "Для этого курса пока нет аудиобиблиотеки",
+      "noLiveConversation": "Живого разговора с ИИ-персонажами пока нет",
+      "textOnlyConversation": "Живой разговор пока только текстом (без голоса)",
+      "noPronunciationScoring": "Автоматической оценки произношения пока нет (только прослушать и сравнить)",
+      "noPronunciationFeedback": "Голосовой обратной связи по произношению пока нет",
+      "noOfflineDownloads": "Офлайн-загрузок пока нет",
+      "instructionLanguageDraft": "Объяснения на {source} — черновики, ещё не проверенные носителями языка",
+      "instructionLanguagePlanned": "Материалы на {source} запланированы, но ещё не готовы",
+      "instructionLanguageUnavailable": "Этот курс не предлагается на {source}",
+      "partialInterfaceLanguage": "Часть текстов приложения ещё не переведена на {source}",
+      "severity": {
+        "blocking": "Пока не готово",
+        "info": "Пока отсутствует"
+      },
+      "includes": {
+        "title": "Что входит в этот курс",
+        "intro": "Уже доступно для этого курса на {source}:",
+        "missions": "Маршрут миссий ({count, plural, one {# миссия} few {# миссии} many {# миссий} other {# миссии}})",
+        "audioLibrary": "Аудиобиблиотека ({count, plural, one {# коллекция} few {# коллекции} many {# коллекций} other {# коллекции}})",
+        "liveConversation": "Живой разговор ({count, plural, one {# персонаж} few {# персонажа} many {# персонажей} other {# персонажа}})",
+        "liveConversationTextOnly": "Живой разговор, только текстом ({count, plural, one {# персонаж} few {# персонажа} many {# персонажей} other {# персонажа}})",
+        "pronunciationAcoustic": "Оценка произношения",
+        "pronunciationReference": "Обратная связь по произношению: прослушать и сравнить",
+        "offlineDownloads": "Офлайн-загрузки"
       }
     },
     "remove": "Убрать курс",

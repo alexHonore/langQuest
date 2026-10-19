@@ -16,6 +16,7 @@ import { useTranscript } from '@/features/audio/queries';
 import { useAudioRuntime, useEngineEvents, useLessonBookmarks } from '@/features/audio/use-audio';
 import { useLessonPlayer } from '@/features/audio/use-lesson-player';
 import { useActiveEnrollment } from '@/features/session/queries';
+import { useEnrollmentNavigation } from '@/features/session/use-capabilities';
 import { haptic } from '@/lib/haptics';
 import { useT } from '@/lib/i18n';
 import { usePrefs } from '@/state/prefs';
@@ -34,6 +35,7 @@ export default function LessonPlayerScreen(): React.JSX.Element {
   const params = useLocalSearchParams<{ id: string; autoplay?: string }>();
   const lessonId = params.id ?? null;
   const { enrollment } = useActiveEnrollment();
+  const nav = useEnrollmentNavigation(enrollment);
   const runtime = useAudioRuntime();
   const captionsDefault = usePrefs((s) => s.captionsDefaultOn);
   const player = useLessonPlayer(lessonId, enrollment, params.autoplay !== '0');
@@ -135,7 +137,6 @@ export default function LessonPlayerScreen(): React.JSX.Element {
               sleepTimer: t('audio.player.sleepTimer'),
               sleepOff: t('audio.player.sleepTimerOff'),
               transcript: t('audio.player.transcript'),
-              transcriptUnavailable: t('audio.player.transcriptUnavailable'),
               bookmark: t('audio.player.bookmark'),
               practice: t('audio.player.practiceWithAi'),
               repeatSentence: t('audio.player.repeatSentence'),
@@ -213,7 +214,7 @@ export default function LessonPlayerScreen(): React.JSX.Element {
             ))}
           </View>
 
-          <DownloadControls lessonId={lesson.id} offlineEligible={lesson.offlineEligible} meta={{ title: lesson.title, subtitle: player.queueItem?.subtitle ?? null, durationMs: lesson.durationMs, artworkUri: lesson.coverArt?.publicUrl ?? null, courseTrackId: enrollment?.courseTrackId ?? null }} />
+          {nav.downloads ? <DownloadControls lessonId={lesson.id} offlineEligible={lesson.offlineEligible} meta={{ title: lesson.title, subtitle: player.queueItem?.subtitle ?? null, durationMs: lesson.durationMs, artworkUri: lesson.coverArt?.publicUrl ?? null, courseTrackId: enrollment?.courseTrackId ?? null }} /> : null}
 
           <View style={{ gap: theme.spacing.xs }}>
             {lesson.speakers.map((s) => (

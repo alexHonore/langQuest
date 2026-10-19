@@ -3,7 +3,8 @@ import { requireSection } from '@/src/lib/auth/session';
 import { serverTranslator } from '@/src/lib/i18n/server';
 import { listChapters } from '@/src/lib/queries/structure';
 import { pickLocalized, shortId } from '@/src/lib/format';
-import { ErrorState, PageHeader } from '@/src/components/ui';
+import { EmptyState, ErrorState, PageHeader } from '@/src/components/ui';
+import { SECTION_PATHS } from '@/src/lib/auth/roles';
 import { StatusBadge } from '@/src/components/badges';
 
 export const dynamic = 'force-dynamic';
@@ -13,10 +14,22 @@ export default async function ChaptersPage() {
   await requireSection('chapters');
   const { t, locale } = await serverTranslator();
   const chapters = await listChapters();
+  const empty = chapters.ok && chapters.data.length === 0;
   return (
     <div>
       <PageHeader title={t('admin.sections.chapters')} description={t('admin.ui.chNew') + ': ' + t('admin.sections.collections')} />
       {!chapters.ok ? <ErrorState title={t('admin.ui.errorTitle')} message={chapters.error} /> : null}
+      {empty ? (
+        <EmptyState
+          title={t('admin.ui.chEmptyHint')}
+          action={
+            <Link href={SECTION_PATHS.collections} className="text-sm text-accent hover:underline">
+              {t('admin.sections.collections')} →
+            </Link>
+          }
+        />
+      ) : null}
+      {empty ? null : (
       <div className="overflow-hidden rounded-lg border border-border bg-surface">
         <table className="w-full text-sm">
           <thead className="bg-surface-muted text-xs uppercase text-fg-muted">
@@ -29,13 +42,6 @@ export default async function ChaptersPage() {
             </tr>
           </thead>
           <tbody>
-            {chapters.ok && chapters.data.length === 0 ? (
-              <tr>
-                <td colSpan={5} className="px-3 py-8 text-center text-fg-muted">
-                  {t('admin.ui.empty')}
-                </td>
-              </tr>
-            ) : null}
             {chapters.ok
               ? chapters.data.map((ch) => (
                   <tr key={ch.id} className="border-t border-border">
@@ -64,6 +70,7 @@ export default async function ChaptersPage() {
           </tbody>
         </table>
       </div>
+      )}
     </div>
   );
 }

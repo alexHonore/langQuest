@@ -31,6 +31,9 @@ export interface EdgeCache {
   invalidateAudioCollection(collectionId: string, instructionLanguageCode: SourceLanguageCode | null): Promise<number>;
 }
 
+/** Key of the cached published-content counts behind `CourseCapabilities` (CONVENTIONS §8); purged with the course. */
+export const courseCapabilityCountsKey = (courseTrackId: CourseTrackId, sourceLanguageCode: SourceLanguageCode): string => `course-capabilities:${courseTrackId}:${sourceLanguageCode}`;
+
 /** Namespaced key as stored (memory map and Cache API URL). */
 export const versionedCacheKey = (key: string): string => `${CACHE_KEY_VERSION}:${key}`;
 const toRequest = (key: string): Request => new Request(`${CACHE_ORIGIN}${encodeURIComponent(versionedCacheKey(key))}`);
@@ -80,6 +83,7 @@ export function createEdgeCache(options: { cache?: CacheLike | null } = {}): Edg
       let n = 0;
       for (const s of sources) {
         await api.delete(manifestCacheKey({ kind: 'course', courseTrackId, sourceLanguageCode: s }));
+        await api.delete(courseCapabilityCountsKey(courseTrackId, s));
         n += 1;
       }
       return n;

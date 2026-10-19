@@ -4,6 +4,7 @@
  * cacheable manifest) so manifests can be edge-cached and shared across learners.
  */
 import { z } from 'zod';
+import { CourseCapabilitiesSchema } from './capabilities';
 import { CourseTrackIdSchema, SourceLanguageCodeSchema, VarietyIdSchema } from './catalog';
 import { AssetKindSchema, LearnerLevelSchema, LessonTypeSchema, MissionStepTypeSchema, MissionTypeSchema, VisualAssetTypeSchema } from './enums';
 import { BytesSchema, KeySchema, MillisSchema, NonNegativeIntSchema, Sha256Schema, TimestamptzSchema, UrlSchema, UuidSchema } from './primitives';
@@ -129,6 +130,12 @@ export const CourseManifestSchema = z.object({
   characters: z.array(ManifestCharacterSchema),
   /** Suggested cache TTL in seconds. */
   cacheTtlSeconds: NonNegativeIntSchema,
+  /**
+   * Live capability snapshot for this (track, source) pair (CONVENTIONS §8). Attached by the API at serve time —
+   * it is NOT part of the stored manifest nor of `checksum` (it depends on deployment config and publish state).
+   * Absent only in manifests built offline (seed previews, fixtures).
+   */
+  capabilities: CourseCapabilitiesSchema.optional(),
 });
 export type CourseManifest = z.infer<typeof CourseManifestSchema>;
 

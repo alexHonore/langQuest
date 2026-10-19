@@ -7,6 +7,7 @@ import { formatBytes, formatDateTime, formatDurationMs, pickLocalized, shortId }
 import { Card, Mono, PageHeader } from '@/src/components/ui';
 import { Badge, JobBadge, StatusBadge } from '@/src/components/badges';
 import { AssetPreview } from '@/src/components/asset-preview';
+import { loadSetupStatus } from '@/src/lib/setup/status';
 
 export const dynamic = 'force-dynamic';
 
@@ -14,7 +15,7 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
   await requireSection('library');
   const { id } = await params;
   const { t, locale } = await serverTranslator();
-  const [asset, jobs] = await Promise.all([getAsset(id), listAssetJobs(id)]);
+  const [asset, jobs, setup] = await Promise.all([getAsset(id), listAssetJobs(id), loadSetupStatus()]);
   if (!asset.ok || !asset.data) notFound();
   const a = asset.data as unknown as LibraryAssetRow;
   const lessons = a.lessonLinks.map((l) => l.lesson).filter((l): l is NonNullable<typeof l> => Boolean(l));
@@ -22,9 +23,11 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
     <div className="space-y-4">
       <PageHeader title={a.legacy_filename ?? a.storage_key.split('/').pop()} description={a.legacy_path ?? undefined} actions={<StatusBadge state={a.state} />} />
       <div className="grid gap-4 lg:grid-cols-2">
-        <Card title={t('admin.library.preview')}>
-          <AssetPreview assetId={a.id} kind={a.kind} mimeType={a.mime_type} title={a.legacy_filename ?? undefined} />
-        </Card>
+        {setup.capabilities.mediaAvailable ? (
+          <Card title={t('admin.library.preview')}>
+            <AssetPreview assetId={a.id} kind={a.kind} mimeType={a.mime_type} title={a.legacy_filename ?? undefined} />
+          </Card>
+        ) : null}
         <Card title={t('admin.ui.id')}>
           <dl className="grid grid-cols-[9rem_1fr] gap-x-3 gap-y-1 text-sm">
             <dt className="text-fg-muted">{t('admin.ui.id')}</dt>

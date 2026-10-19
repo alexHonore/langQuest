@@ -1,6 +1,6 @@
 import { getCourseTrack } from '@langquest/contracts';
 import { CharacterPortrait, Chip, EmptyState, Row, Surface, ThemedText, findCharacter, useTheme } from '@langquest/ui';
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import React from 'react';
 import { Pressable, View } from 'react-native';
 import { Screen } from '@/components/Screen';
@@ -8,6 +8,7 @@ import { ErrorView, LoadingView } from '@/components/StateViews';
 import { SyntheticVoiceBadge } from '@/components/SyntheticVoiceBadge';
 import { useCast } from '@/features/characters/use-cast';
 import { useActiveEnrollment } from '@/features/session/queries';
+import { useEnrollmentNavigation } from '@/features/session/use-capabilities';
 import { useT } from '@/lib/i18n';
 
 /**
@@ -19,7 +20,8 @@ export default function Characters(): React.JSX.Element {
   const router = useRouter();
   const t = useT();
   const { enrollment } = useActiveEnrollment();
-  const { cast, query } = useCast(enrollment);
+  const nav = useEnrollmentNavigation(enrollment);
+  const { cast, query } = useCast(nav.liveConversation ? enrollment : null);
   const trackDef = enrollment ? getCourseTrack(enrollment.courseTrackId) : null;
   const regionalLabel = (optionId: string | null): string | null => trackDef?.regionalOptions.find((o) => o.id === optionId)?.label ?? optionId;
   if (!enrollment || !trackDef) {
@@ -29,12 +31,12 @@ export default function Characters(): React.JSX.Element {
       </Screen>
     );
   }
+  if (!nav.liveConversation) return <Redirect href="/(tabs)" />;
   return (
     <Screen title={trackDef.displayName} onBack={() => router.back()}>
       <ThemedText tone="secondary">{t('speak.characters.title')}</ThemedText>
       {query.isLoading && cast.length === 0 ? <LoadingView rows={2} /> : null}
       {query.error && !query.data ? <ErrorView error={query.error} onRetry={() => void query.refetch()} /> : null}
-      {query.data && cast.length === 0 ? <EmptyState title={t('speak.characters.empty')} description={trackDef.teachingFocus} mascotState="curious" /> : null}
       <View style={{ gap: theme.spacing.md }}>
         {cast.map((c) => {
           const roster = findCharacter(c.portraitKey);

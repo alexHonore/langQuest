@@ -103,7 +103,8 @@ export default function CollectionScreen(): React.JSX.Element {
           {[...manifest.chapters]
             .sort((a, b) => a.order - b.order)
             .map((chapter) => {
-              const lessons = [...chapter.lessons].sort((a, b) => a.order - b.order).filter((l) => hitIds.has(l.id));
+              // A lesson without an audio asset is not listed (§8: nothing is shown as "not available").
+              const lessons = [...chapter.lessons].sort((a, b) => a.order - b.order).filter((l) => hitIds.has(l.id) && l.assets.some((a) => a.kind === 'audio'));
               if (lessons.length === 0) return null;
               return (
                 <View key={chapter.id} style={{ gap: theme.spacing.sm }}>
@@ -123,7 +124,6 @@ export default function CollectionScreen(): React.JSX.Element {
                   {lessons.map((lesson) => {
                     const p = positions.get(lesson.id) ?? null;
                     const fraction = p && lesson.durationMs ? Math.min(1, p.positionMs / lesson.durationMs) : 0;
-                    const playable = lesson.assets.some((a) => a.kind === 'audio');
                     return (
                       <Pressable key={lesson.id} accessibilityRole="button" accessibilityLabel={lesson.title} onPress={() => router.push({ pathname: '/audio/lesson/[id]', params: { id: lesson.id } })}>
                         <Surface variant="muted" radius="md" padding={theme.spacing.md} style={{ gap: theme.spacing.xs }}>
@@ -140,11 +140,6 @@ export default function CollectionScreen(): React.JSX.Element {
                             {lesson.transcriptAvailable ? <Chip label={t('audio.player.transcript')} icon="transcript" /> : null}
                           </Row>
                           {p?.completed ? <Chip label={t('audio.progress.completed')} icon="check" tone="success" /> : fraction > 0 ? <View style={{ height: 4, borderRadius: 2, backgroundColor: theme.colors.surface, overflow: 'hidden' }}><View style={{ width: `${Math.round(fraction * 100)}%`, height: '100%', backgroundColor: theme.colors.accent }} /></View> : null}
-                          {!playable ? (
-                            <ThemedText variant="caption" tone="warning">
-                              {t('common.notAvailable')}
-                            </ThemedText>
-                          ) : null}
                         </Surface>
                       </Pressable>
                     );

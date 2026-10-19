@@ -9,6 +9,7 @@ import { DataTable, type Column } from '@/src/components/data-table';
 import { FilterBar, FilterSearch, FilterSelect, UrlPager, useUrlFilters } from '@/src/components/filters';
 import { JobBadge } from '@/src/components/badges';
 import { Button, Mono, Notice } from '@/src/components/ui';
+import { SECTION_PATHS } from '@/src/lib/auth/roles';
 import { Dialog } from '@/src/components/dialog';
 
 export interface JobRow {
@@ -87,7 +88,19 @@ export function JobsScreen({ rows, page, hasNext, states, types, canRetry }: { r
         <FilterSelect name="type" label={t('admin.ui.jbTypeFilter')} options={types.map((s) => ({ value: s, label: s }))} />
         <FilterSearch name="q" label={t('admin.ui.id')} />
       </FilterBar>
-      <DataTable columns={columns} rows={rows} rowKey={(j) => j.id} empty={t('admin.jobs.noJobs')} caption={t('admin.jobs.title')} dense />
+      <DataTable
+        columns={columns}
+        rows={rows}
+        rowKey={(j) => j.id}
+        empty={t('admin.ui.jbEmptyHint')}
+        emptyAction={
+          <Link href={SECTION_PATHS.uploads} className="text-sm text-accent hover:underline">
+            {t('admin.sections.uploads')} →
+          </Link>
+        }
+        caption={t('admin.jobs.title')}
+        dense
+      />
       <UrlPager page={page} hasNext={hasNext} />
       <Dialog open={detail !== null} onClose={() => setDetail(null)} wide title={detail ? `${detail.job_type} · ${shortId(detail.id)}` : ''}>
         {detail ? (
@@ -146,13 +159,7 @@ export function JobsScreen({ rows, page, hasNext, states, types, canRetry }: { r
                   {t('admin.jobs.retry')}
                 </Button>
               ) : null}
-              {detail.state === 'pending' || detail.state === 'running' ? (
-                <Button disabled title={t('admin.ui.jbCancelUnavailable')}>
-                  {t('admin.jobs.cancel')}
-                </Button>
-              ) : null}
             </div>
-            {detail.state === 'pending' || detail.state === 'running' ? <Notice tone="info">{t('admin.ui.jbCancelUnavailable')}</Notice> : null}
           </div>
         ) : null}
       </Dialog>

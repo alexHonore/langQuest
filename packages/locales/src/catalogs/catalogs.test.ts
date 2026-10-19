@@ -107,8 +107,12 @@ describe('spec-mandated copy', () => {
     expect(fr['onboarding.heroPromise']).toMatch(/premier jour/);
   });
 
-  it('has honest pronunciation copy', () => {
-    expect(en['pronunciation.feedback.phonemeUnavailable']).toMatch(/Detailed phoneme assessment not yet available/);
+  it('pronunciation copy is honest by omission (CONVENTIONS §8): no "not available" line, only what WAS assessed', () => {
+    for (const key of ['pronunciation.feedback.phonemeUnavailable', 'pronunciation.feedback.scoreUnavailable', 'pronunciation.feedback.toneUnavailable']) {
+      expect(en[key], key).toBeUndefined();
+    }
+    expect(en['pronunciation.feedback.mode.reference-comparison']).toBeTruthy();
+    expect(en['pronunciation.feedback.mode.semantic-only']).toBeTruthy();
   });
 
   it('covers every mascot state with speech and an accessibility label', () => {

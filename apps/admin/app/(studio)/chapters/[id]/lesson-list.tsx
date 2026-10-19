@@ -69,7 +69,7 @@ export function LessonList({ chapterId, lessons, defaults }: { chapterId: string
           {t('admin.ui.lsNew')}
         </Button>
       </div>
-      {lessons.length === 0 ? <p className="text-sm text-fg-muted">{t('admin.ui.empty')}</p> : null}
+      {lessons.length === 0 ? <p className="text-sm text-fg-muted">{t('admin.ui.lsEmptyHint')}</p> : null}
       <ol className="divide-y divide-border">
         {lessons.map((l, i) => (
           <li key={l.id} className="flex items-center gap-2 py-1.5 text-sm">

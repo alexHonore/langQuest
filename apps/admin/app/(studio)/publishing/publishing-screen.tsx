@@ -9,6 +9,7 @@ import { Badge, StatusBadge } from '@/src/components/badges';
 import { DataTable, type Column } from '@/src/components/data-table';
 import { FilterBar, FilterSelect, UrlPager, useUrlFilters } from '@/src/components/filters';
 import { PublishControls } from '@/src/components/publish-controls';
+import { SECTION_PATHS } from '@/src/lib/auth/roles';
 
 export interface PublishableRow {
   id: string;
@@ -66,7 +67,19 @@ export function PublishingScreen({ table, rows, page, hasNext, selectedId, revis
         <FilterBar>
           <FilterSelect name="table" label={t('admin.ui.pbFilterTable')} options={[{ value: 'audio_lessons', label: t('admin.sections.lessons') }, { value: 'audio_course_collections', label: t('admin.sections.collections') }]} allLabel={t('admin.sections.lessons')} />
         </FilterBar>
-        <DataTable columns={columns} rows={rows} rowKey={(r) => r.id} caption={t('admin.ui.pbEntities')} dense />
+        <DataTable
+          columns={columns}
+          rows={rows}
+          rowKey={(r) => r.id}
+          caption={t('admin.ui.pbEntities')}
+          empty={t('admin.ui.pbEmptyHint')}
+          emptyAction={
+            <Link href={SECTION_PATHS.library} className="text-sm text-accent hover:underline">
+              {t('admin.sections.library')} →
+            </Link>
+          }
+          dense
+        />
         <UrlPager page={page} hasNext={hasNext} />
       </div>
       <div className="space-y-4">
@@ -85,9 +98,11 @@ export function PublishingScreen({ table, rows, page, hasNext, selectedId, revis
                       {r.note ?? '—'}
                     </span>
                     <span className="text-fg-muted">{formatDateTime(r.created_at, locale)}</span>
-                    <Button size="sm" variant="ghost" disabled={!r.snapshot || r.revision === currentRevision} loading={rollback.busy} title={r.snapshot ? t('admin.ui.pbRollbackHint') : t('admin.ui.pbNoSnapshot')} onClick={() => void rollback.run(r.revision)}>
-                      {t('admin.ui.pbRollback')}
-                    </Button>
+                    {r.snapshot && r.revision !== currentRevision ? (
+                      <Button size="sm" variant="ghost" loading={rollback.busy} title={t('admin.ui.pbRollbackHint')} onClick={() => void rollback.run(r.revision)}>
+                        {t('admin.ui.pbRollback')}
+                      </Button>
+                    ) : null}
                   </li>
                 ))}
               </ul>

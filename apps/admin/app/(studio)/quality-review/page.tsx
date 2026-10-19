@@ -3,7 +3,8 @@ import { requireSection } from '@/src/lib/auth/session';
 import { serverTranslator } from '@/src/lib/i18n/server';
 import { listReviewQueue } from '@/src/lib/queries/ops';
 import { formatDateTime, pickLocalized, shortId } from '@/src/lib/format';
-import { Card, PageHeader } from '@/src/components/ui';
+import { Card, EmptyState, PageHeader } from '@/src/components/ui';
+import { SECTION_PATHS } from '@/src/lib/auth/roles';
 import { Badge, StatusBadge } from '@/src/components/badges';
 import { LessonReviewActions } from './review-actions';
 
@@ -18,8 +19,18 @@ export default async function QualityReviewPage() {
   return (
     <div className="space-y-4">
       <PageHeader title={t('admin.review.title')} description={t('admin.dashboard.pendingReview', { count: total })} />
+      {total === 0 ? (
+        <EmptyState
+          title={t('admin.ui.qrClear')}
+          action={
+            <Link href={SECTION_PATHS.library} className="text-sm text-accent hover:underline">
+              {t('admin.sections.library')} →
+            </Link>
+          }
+        />
+      ) : null}
+      {lessons.ok && lessons.data.length > 0 ? (
       <Card title={t('admin.ui.qrLessons')}>
-        {!lessons.ok || lessons.data.length === 0 ? <p className="text-sm text-fg-muted">{t('admin.ui.qrNothing')}</p> : null}
         <ul className="divide-y divide-border">
           {lessons.ok
             ? lessons.data.map((l) => (
@@ -40,9 +51,10 @@ export default async function QualityReviewPage() {
             : null}
         </ul>
       </Card>
+      ) : null}
       <div className="grid gap-4 lg:grid-cols-3">
+        {transcripts.ok && transcripts.data.length > 0 ? (
         <Card title={t('admin.ui.qrTranscripts')}>
-          {!transcripts.ok || transcripts.data.length === 0 ? <p className="text-sm text-fg-muted">{t('admin.ui.qrNothing')}</p> : null}
           <ul className="space-y-1 text-sm">
             {transcripts.ok
               ? transcripts.data.map((tr) => (
@@ -56,8 +68,9 @@ export default async function QualityReviewPage() {
               : null}
           </ul>
         </Card>
+        ) : null}
+        {translations.ok && translations.data.length > 0 ? (
         <Card title={t('admin.ui.qrTranslations')}>
-          {!translations.ok || translations.data.length === 0 ? <p className="text-sm text-fg-muted">{t('admin.ui.qrNothing')}</p> : null}
           <ul className="space-y-1 text-sm">
             {translations.ok
               ? translations.data.slice(0, 50).map((tr) => (
@@ -69,8 +82,9 @@ export default async function QualityReviewPage() {
               : null}
           </ul>
         </Card>
+        ) : null}
+        {visual.ok && visual.data.length > 0 ? (
         <Card title={t('admin.ui.qrVisual')}>
-          {!visual.ok || visual.data.length === 0 ? <p className="text-sm text-fg-muted">{t('admin.ui.qrNothing')}</p> : null}
           <ul className="space-y-1 text-sm">
             {visual.ok
               ? visual.data.map((v) => (
@@ -86,6 +100,7 @@ export default async function QualityReviewPage() {
               : null}
           </ul>
         </Card>
+        ) : null}
       </div>
     </div>
   );

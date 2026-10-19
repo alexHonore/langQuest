@@ -39,6 +39,8 @@ import { Dialog } from '@/src/components/dialog';
 import { FocalPointPicker } from '@/src/components/focal-point';
 import { LocalizedTextEditor } from '@/src/components/forms';
 import { ImageUploadField } from '@/src/components/image-upload';
+import { SetupCard } from '@/src/components/setup-card';
+import { useDeployment } from '@/src/lib/setup/context';
 import { Button, Checkbox, ErrorState, Field, Input, Mono, Notice, Select, Textarea } from '@/src/components/ui';
 
 export interface LessonPick {
@@ -79,6 +81,8 @@ export function VisualAssetsScreen({ options, lessons, canEdit }: Props) {
   const [result, setResult] = useState<{ key: string; page: { items: VisualAssetDto[]; nextCursor: string | null } | null; error: { unreachable: boolean; message: string } | null } | null>(null);
   const [selected, setSelected] = useState<VisualAssetDto | null>(null);
   const [creating, setCreating] = useState(false);
+  const { mediaAvailable } = useDeployment();
+  const canUpload = canEdit && mediaAvailable;
   const cursor = cursors[cursors.length - 1] ?? null;
   // One request per (filters, cursor, nonce); `loading` is derived, so the effect never sets state synchronously.
   const key = useMemo(() => JSON.stringify([filters, cursor, nonce]), [filters, cursor, nonce]);
@@ -205,7 +209,7 @@ export function VisualAssetsScreen({ options, lessons, canEdit }: Props) {
           <Button size="sm" onClick={() => void load()} loading={loading}>
             {t('admin.ui.refresh')}
           </Button>
-          {canEdit ? (
+          {canUpload && (page?.items.length ?? 0) > 0 ? (
             <Button size="sm" variant="primary" onClick={() => setCreating(true)}>
               {t('admin.ui.vaNew')}
             </Button>
@@ -213,12 +217,21 @@ export function VisualAssetsScreen({ options, lessons, canEdit }: Props) {
         </span>
       </div>
       <p className="text-xs text-fg-muted">{t('admin.ui.vaFilterNote')}</p>
+      {canEdit && !mediaAvailable ? <SetupCard keys={['api', 'media']} /> : null}
       {error ? <ErrorState title={error.unreachable ? t('admin.ui.apiUnreachableTitle') : t('admin.ui.errorTitle')} message={error.message} onRetry={() => void load()} retryLabel={t('common.retry')} /> : null}
       <DataTable
         columns={columns}
         rows={page?.items ?? []}
         rowKey={(a) => a.id}
         loading={loading && !page}
+        empty={t('admin.ui.vaEmptyHint')}
+        emptyAction={
+          canUpload ? (
+            <Button size="sm" variant="primary" onClick={() => setCreating(true)}>
+              {t('admin.ui.vaNew')}
+            </Button>
+          ) : null
+        }
         caption={t('admin.sections.visualAssets')}
         pagination={{
           page: cursors.length,
@@ -451,6 +464,7 @@ function NewAssetDialog({ open, onClose, rights, onCreated }: { open: boolean; o
 
 function AssetDetailDialog({ asset, onClose, onChanged, options, lessons, canEdit }: { asset: VisualAssetDto; onClose: () => void; onChanged: (next: VisualAssetDto) => void; options: Props['options']; lessons: LessonPick[]; canEdit: boolean }) {
   const { t, locale } = useI18n();
+  const { mediaAvailable } = useDeployment();
   const editable = canEdit && !asset.replacedByAssetId;
   const [form, setForm] = useState<RegisterForm & { reviewStatus: ReviewStatus }>({
     type: asset.type,
@@ -559,7 +573,6 @@ function AssetDetailDialog({ asset, onClose, onChanged, options, lessons, canEdi
           <dt className="text-fg-muted">{t('admin.ui.vaRevision')}</dt>
           <dd>{asset.revision} · {t('admin.ui.updated')} {formatDateTime(asset.updatedAt, locale)}</dd>
         </dl>
-        <p className="text-xs text-fg-muted">{t('admin.ui.vaNoPreview')}</p>
         {asset.replacedByAssetId ? (
           <Notice tone="warning">
             {t('admin.ui.vaReplacedNotice')} <Mono>{asset.replacedByAssetId}</Mono>
@@ -665,7 +678,7 @@ function AssetDetailDialog({ asset, onClose, onChanged, options, lessons, canEdi
           {assign.error ? <Notice tone="error">{assign.error}</Notice> : null}
         </section>
 
-        {editable ? (
+        {editable && mediaAvailable ? (
           <section className="space-y-3 rounded-md border border-border p-3">
             <h3 className="text-sm font-semibold">{t('admin.ui.vaReplace')}</h3>
             <p className="text-xs text-fg-muted">{t('admin.ui.vaReplaceHint')}</p>

@@ -18,6 +18,7 @@ import { formatTimecode } from '@/src/lib/format';
 import type { TranscriptBundle } from '@/src/lib/queries/transcripts';
 import type { TranscriptReplace, TranscriptSegmentInput } from '@/src/lib/local-api/schemas';
 import { usePlaybackUrl } from '@/src/components/asset-preview';
+import { useDeployment } from '@/src/lib/setup/context';
 import { Button, Checkbox, Field, Input, Notice, Select, TextField } from '@/src/components/ui';
 import { Badge } from '@/src/components/badges';
 import { LanguageSelect, VarietySelect } from '@/src/components/forms';
@@ -58,6 +59,7 @@ export function TranscriptEditor({ bundle, canReview }: { bundle: TranscriptBund
   const [selected, setSelected] = useState<number | null>(null);
 
   const audioRef = useRef<HTMLAudioElement>(null);
+  const { mediaAvailable } = useDeployment();
   const playback = usePlaybackUrl(bundle.lesson.masterAssetId);
   const [positionMs, setPositionMs] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -219,14 +221,18 @@ export function TranscriptEditor({ bundle, canReview }: { bundle: TranscriptBund
           </audio>
         ) : null}
         <div className="flex flex-wrap items-center gap-2">
-          <Button size="sm" onClick={togglePlay} disabled={!playback.url} icon={playing ? <Pause size={14} /> : <Play size={14} />}>
-            {playing ? t('admin.ui.trPause') : t('admin.ui.trPlay')}
-          </Button>
-          <Button size="sm" variant="ghost" onClick={() => seek(0)} disabled={!playback.url} icon={<SkipBack size={14} />} aria-label={t('admin.ui.trSeek')} />
+          {mediaAvailable && playback.url ? (
+            <>
+              <Button size="sm" onClick={togglePlay} icon={playing ? <Pause size={14} /> : <Play size={14} />}>
+                {playing ? t('admin.ui.trPause') : t('admin.ui.trPlay')}
+              </Button>
+              <Button size="sm" variant="ghost" onClick={() => seek(0)} icon={<SkipBack size={14} />} aria-label={t('admin.ui.trSeek')} />
+            </>
+          ) : null}
           <span className="font-mono text-xs tabular-nums">
             {formatTimecode(positionMs)} / {formatTimecode(durationMs)}
           </span>
-          {!playback.url && !playback.loading ? <Notice tone="warning">{bundle.lesson.masterAssetId ? t('admin.ui.playbackUrlUnavailable', { reason: playback.error ?? 'unknown' }) : t('admin.ui.trAudioMissing')}</Notice> : null}
+          {mediaAvailable && !playback.url && !playback.loading ? <Notice tone="warning">{bundle.lesson.masterAssetId ? t('admin.ui.playbackUrlUnavailable', { reason: playback.error ?? 'unknown' }) : t('admin.ui.trAudioMissing')}</Notice> : null}
           <span className="ms-auto flex gap-1">
             <Button size="sm" variant="ghost" onClick={addAtPlayhead}>
               + {t('admin.transcripts.editSegment')}

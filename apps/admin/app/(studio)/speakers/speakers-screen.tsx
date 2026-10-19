@@ -77,20 +77,21 @@ export function SpeakersScreen({ speakers, rights }: { speakers: SpeakerRow[]; r
       ),
     },
   ];
+  const addSpeaker = (
+    <Button
+      variant="primary"
+      onClick={() => {
+        setForm(emptyForm);
+        setOpen(true);
+      }}
+    >
+      {t('admin.speakersSection.add')}
+    </Button>
+  );
   return (
     <div>
-      <div className="mb-3 flex justify-end">
-        <Button
-          variant="primary"
-          onClick={() => {
-            setForm(emptyForm);
-            setOpen(true);
-          }}
-        >
-          {t('admin.speakersSection.add')}
-        </Button>
-      </div>
-      <DataTable columns={columns} rows={speakers} rowKey={(s) => s.id} caption={t('admin.speakersSection.title')} />
+      {speakers.length > 0 ? <div className="mb-3 flex justify-end">{addSpeaker}</div> : null}
+      <DataTable columns={columns} rows={speakers} rowKey={(s) => s.id} caption={t('admin.speakersSection.title')} empty={t('admin.ui.spEmptyHint')} emptyAction={addSpeaker} />
       <Dialog
         open={open}
         onClose={() => setOpen(false)}

@@ -10,6 +10,10 @@
  * cast drifted from `public.characters` (built before the seed, or after a publish/unpublish that stored nothing)
  * is rebuilt and re-stored on the way out, so a learner never sees an empty Speak tab because of a stale copy.
  * Regional ranking stays client-side (`regionalOption` per character): the manifest is shared by every learner.
+ *
+ * Capabilities (CONVENTIONS §8): `capabilities` is attached at serve time from `courseCapabilitiesFor` — never stored,
+ * never part of `checksum` (it depends on deployment config and on audio/character publication). The cached body
+ * is the manifest WITHOUT it; the ETag folds in a fingerprint of the snapshot so a 304 never pins stale capabilities.
  */
 import { CourseTrackIdSchema, ManifestQuerySchema, getCourseTrack, type CourseManifest } from '@langquest/contracts';
 import { manifestCacheKey } from '@langquest/media/manifests';
@@ -17,6 +21,7 @@ import { z } from 'zod';
 import type { DefineRoute } from '../../app';
 import { respondOk } from '../../http/envelope';
 import { parseParams, parseQuery } from '../../http/validate';
+import { capabilitiesFingerprint, courseCapabilitiesFor } from '../../lib/course-capabilities';
 import { storeCourseManifest, storedCastIsStale } from '../../lib/manifests';
 
 export const MANIFEST_TTL_SECONDS = 3600;
@@ -29,13 +34,16 @@ export function registerManifestRoutes(define: DefineRoute): void {
     const { repos } = s.requireUser();
     const key = manifestCacheKey({ kind: 'course', courseTrackId: trackId, sourceLanguageCode: query.source });
     const ifNoneMatch = c.req.header('if-none-match');
+    const capabilities = await courseCapabilitiesFor(s, trackId, query.source);
+    const etagFor = (base: string) => `"${base.replace(/"/g, '')}-${capabilitiesFingerprint(capabilities)}"`;
     const cached = await s.cache.get(key);
     if (cached) {
-      if (ifNoneMatch && cached.etag && ifNoneMatch === cached.etag) return new Response(null, { status: 304, headers: { ETag: cached.etag, 'Cache-Control': `private, max-age=${MANIFEST_TTL_SECONDS}` } });
-      // The cached body is the full envelope: the manifest version lives under `data`.
-      const parsed = JSON.parse(cached.body) as { data?: { version?: number } };
+      const etag = cached.etag ? etagFor(cached.etag) : '';
+      if (ifNoneMatch && etag && ifNoneMatch === etag) return new Response(null, { status: 304, headers: { ETag: etag, 'Cache-Control': `private, max-age=${MANIFEST_TTL_SECONDS}` } });
+      // The cached body is the full envelope without capabilities: the manifest version lives under `data`.
+      const parsed = JSON.parse(cached.body) as { ok: true; data: CourseManifest };
       if (query.version === undefined || query.version === parsed.data?.version) {
-        return new Response(cached.body, { status: 200, headers: { 'content-type': 'application/json', ETag: cached.etag ?? '', 'Cache-Control': `private, max-age=${MANIFEST_TTL_SECONDS}`, 'X-Cache': 'HIT' } });
+        return new Response(JSON.stringify({ ok: true, data: { ...parsed.data, capabilities } }), { status: 200, headers: { 'content-type': 'application/json', ETag: etag, 'Cache-Control': `private, max-age=${MANIFEST_TTL_SECONDS}`, 'X-Cache': 'HIT' } });
       }
     }
     const variety = getCourseTrack(trackId).targetVarietyId;
@@ -61,11 +69,13 @@ export function registerManifestRoutes(define: DefineRoute): void {
     } else {
       manifest = stored ? (stored.manifest as unknown as CourseManifest) : await repos.curriculum.buildManifest(trackId, query.source, variety, null);
     }
-    const body = JSON.stringify({ ok: true, data: manifest });
-    const etag = `"${manifest.checksum.slice(0, 32)}"`;
+    const { capabilities: _storedCapabilities, ...content } = manifest;
+    const body = JSON.stringify({ ok: true, data: content });
+    const baseEtag = `"${manifest.checksum.slice(0, 32)}"`;
+    const etag = etagFor(baseEtag);
     // Only the latest stored/live manifest is edge-cached under the versionless key (older versions are served directly).
-    if (!stored || query.version === undefined || stored.version === query.version) await s.cache.put(key, body, Math.min(MANIFEST_TTL_SECONDS, manifest.cacheTtlSeconds || MANIFEST_TTL_SECONDS), etag);
+    if (!stored || query.version === undefined || stored.version === query.version) await s.cache.put(key, body, Math.min(MANIFEST_TTL_SECONDS, manifest.cacheTtlSeconds || MANIFEST_TTL_SECONDS), baseEtag);
     if (ifNoneMatch && ifNoneMatch === etag) return new Response(null, { status: 304, headers: { ETag: etag } });
-    return respondOk(c, manifest, 200, { ETag: etag, 'Cache-Control': `private, max-age=${MANIFEST_TTL_SECONDS}`, 'X-Cache': 'MISS', 'X-Manifest-Source': source });
+    return respondOk(c, { ...content, capabilities }, 200, { ETag: etag, 'Cache-Control': `private, max-age=${MANIFEST_TTL_SECONDS}`, 'X-Cache': 'MISS', 'X-Manifest-Source': source });
   });
 }

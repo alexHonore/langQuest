@@ -1,6 +1,6 @@
 import { getCourseTrack, type ConversationMode, type ConversationSessionCreateResponse, type EnrollmentDto } from '@langquest/contracts';
 import { Button, CharacterPortrait, Chip, HintSheet, IconButton, ProgressBar, Row, SceneArtwork, SpeakButton, SpeechStateIndicator, StatusLine, Surface, ThemedText, findCharacter, useTheme } from '@langquest/ui';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Redirect, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, Platform, ScrollView, TextInput, View } from 'react-native';
 import { Screen } from '@/components/Screen';
@@ -13,6 +13,7 @@ import { sessionScopeFromParams } from '@/features/conversation/scope';
 import { levelToUnit } from '@/features/conversation/vad';
 import { isolateSourceText, sourceTextDirection, turnLayersForScriptMode } from '@/features/lesson/forms';
 import { useActiveEnrollment, useInvalidateLearner } from '@/features/session/queries';
+import { useEnrollmentNavigation } from '@/features/session/use-capabilities';
 import { createClipPlayer } from '@/lib/clip-player';
 import { useExtraLabels } from '@/lib/extra-labels';
 import { haptic } from '@/lib/haptics';
@@ -38,18 +39,21 @@ export default function ConversationScreen(): React.JSX.Element {
   const requested = typeof params.enrollmentId === 'string' && params.enrollmentId.length > 0 ? params.enrollmentId : null;
   const enrollment = requested ? (enrollments.find((e) => e.id === requested) ?? null) : active;
   const unknownEnrollment = Boolean(requested) && !enrollment && Boolean(query.data);
+  // Voice controls exist only when the pair's capability snapshot says STT + TTS are usable (CONVENTIONS §8).
+  const nav = useEnrollmentNavigation(enrollment);
+  const voiceAllowed = nav.conversationVoice;
   const [session, setSession] = useState<ConversationSessionCreateResponse | null>(null);
   const [error, setError] = useState<unknown>(null);
   const [permission, setPermission] = useState<MicPermission | null>(null);
   const [clientSessionId] = useState(() => newUuid());
 
-  const mode: ConversationMode = permission === 'denied' || permission === 'unavailable' ? 'text_only' : prefMode;
+  const mode: ConversationMode = !voiceAllowed || permission === 'denied' || permission === 'unavailable' ? 'text_only' : prefMode;
 
   useEffect(() => {
     if (!enrollment) return;
     let alive = true;
     (async () => {
-      const p = prefMode === 'text_only' ? 'granted' : await requestMicPermission();
+      const p = !voiceAllowed || prefMode === 'text_only' ? 'granted' : await requestMicPermission();
       if (!alive) return;
       setPermission(p);
       try {
@@ -59,7 +63,7 @@ export default function ConversationScreen(): React.JSX.Element {
           missionId: params.missionId,
           scenarioId: params.scenarioId,
           scope: sessionScopeFromParams(params),
-          mode: p === 'granted' ? prefMode : 'text_only',
+          mode: p === 'granted' && voiceAllowed ? prefMode : 'text_only',
           clientSessionId,
           inputEncoding: Platform.OS === 'web' ? 'webm_opus' : 'm4a',
           speechRetention: me?.privacyOptions.store_speech_recordings,
@@ -76,19 +80,20 @@ export default function ConversationScreen(): React.JSX.Element {
       alive = false;
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [enrollment?.id]);
+  }, [enrollment?.id, voiceAllowed]);
 
+  if (enrollment && !nav.liveConversation) return <Redirect href="/(tabs)" />;
   return (
     <Screen title={t('speak.title')} onBack={() => router.back()} scroll={false} enrollment={enrollment}>
       {unknownEnrollment ? <ErrorView error={new Error(t('errors.notFound'))} /> : !enrollment && query.data ? <ErrorView error={new Error(t('home.noCourse'))} /> : null}
       {!session && !error && enrollment ? <LoadingView rows={1} label={t('speak.state.preparing')} /> : null}
       {error ? <ErrorView error={error} onRetry={() => router.replace({ pathname: '/conversation', params })} /> : null}
-      {session && enrollment ? <LiveConversation session={session} enrollment={enrollment} mode={mode} /> : null}
+      {session && enrollment ? <LiveConversation session={session} enrollment={enrollment} mode={mode} voice={voiceAllowed} /> : null}
     </Screen>
   );
 }
 
-function LiveConversation({ session, enrollment, mode }: { session: ConversationSessionCreateResponse; enrollment: EnrollmentDto; mode: ConversationMode }): React.JSX.Element {
+function LiveConversation({ session, enrollment, mode, voice }: { session: ConversationSessionCreateResponse; enrollment: EnrollmentDto; mode: ConversationMode; voice: boolean }): React.JSX.Element {
   const theme = useTheme();
   const router = useRouter();
   const t = useT();
@@ -262,7 +267,6 @@ function LiveConversation({ session, enrollment, mode }: { session: Conversation
         <SpeechStateIndicator state={speechState} labels={{ ...labels.speechStatesFor(characterName), [speechState]: stateLabel }} detail={noticeText} compact />
         <IconButton icon="close" accessibilityLabel={t('speak.controls.leave')} onPress={leave} />
       </Row>
-      {!session.capabilities.realtime.supported ? <StatusLine icon="info" tone="warning" text={t('speak.providerFallback')} /> : null}
       {machineState === 'recoverable_error' && online ? (
         // Online but stuck in recoverable_error (e.g. the provider was unavailable): an explicit retry, no endless spinner.
         <Row gap={theme.spacing.xs}>
@@ -364,8 +368,9 @@ function LiveConversation({ session, enrollment, mode }: { session: Conversation
       )}
 
       <Row gap={theme.spacing.xs} wrap justify="center">
-        <IconButton icon="replay" accessibilityLabel={t('speak.controls.repeat')} onPress={() => void controller.command('repeat')} disabled={!snap?.lastCharacterTurn} />
-        <IconButton icon="slow" accessibilityLabel={t('speak.controls.slower')} onPress={() => void controller.command('slower')} disabled={!canTalk} />
+        {/* Replay / slower re-synthesise the character turn: no TTS for this pair → no such buttons (§8). */}
+        {voice ? <IconButton icon="replay" accessibilityLabel={t('speak.controls.repeat')} onPress={() => void controller.command('repeat')} disabled={!snap?.lastCharacterTurn} /> : null}
+        {voice ? <IconButton icon="slow" accessibilityLabel={t('speak.controls.slower')} onPress={() => void controller.command('slower')} disabled={!canTalk} /> : null}
         <IconButton icon="hint" accessibilityLabel={t('speak.controls.hint')} onPress={() => setHintsOpen(true)} />
         <IconButton icon="translate" accessibilityLabel={t('speak.controls.translate')} selected={gloss} onPress={() => setGloss(!gloss)} />
         <IconButton icon="transcript" accessibilityLabel={t('speak.controls.transcript')} selected={transcript} onPress={() => setTranscript(!transcript)} />

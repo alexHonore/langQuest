@@ -1,14 +1,14 @@
 import { Button, EmptyState, MissionCard, StatusLine, StoryMap, ThemedText, useTheme } from '@langquest/ui';
 import { useQueryClient } from '@tanstack/react-query';
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { CacheNotice, ErrorView, LoadingView } from '@/components/StateViews';
 import { resumePendingEvaluations } from '@/features/lesson/pending-evaluation';
 import { usePathway } from '@/features/missions/use-pathway';
-import { useFallbackOptIn } from '@/features/session/fallback';
 import { useActiveEnrollment, useInvalidateLearner } from '@/features/session/queries';
+import { useEnrollmentNavigation } from '@/features/session/use-capabilities';
 import { ApiClientError } from '@/lib/api/client';
 import { useExtraLabels } from '@/lib/extra-labels';
 import { useLanguageNames, useT } from '@/lib/i18n';
@@ -17,7 +17,10 @@ import { useServices } from '@/lib/services';
 import { track } from '@/lib/telemetry';
 import { getLocalStore } from '@/store';
 
-/** Screen 3: illustrated mission pathway with an accessible linear list alternative. */
+/**
+ * Screen 3: illustrated mission pathway with an accessible linear list alternative. Rendered only when the
+ * enrollment's capability snapshot has a mission pathway; otherwise the tab is hidden and a stale link lands Home.
+ */
 export default function Missions(): React.JSX.Element {
   const theme = useTheme();
   const router = useRouter();
@@ -29,8 +32,8 @@ export default function Missions(): React.JSX.Element {
   const qc = useQueryClient();
   const invalidate = useInvalidateLearner();
   const { enrollment } = useActiveEnrollment();
-  const { pathway, manifest, local } = usePathway(enrollment);
-  const fallback = useFallbackOptIn(enrollment);
+  const nav = useEnrollmentNavigation(enrollment);
+  const { pathway, manifest, local } = usePathway(nav.missions ? enrollment : null);
   const [view, setView] = useState<'map' | 'cards'>('map');
   const [resuming, setResuming] = useState(false);
   const resumingRef = useRef(false);
@@ -67,6 +70,7 @@ export default function Missions(): React.JSX.Element {
 
   const open = (id: string): void => router.push({ pathname: '/mission/[id]', params: { id } });
   const sourceName = enrollment ? names(enrollment.sourceLanguageCode) : '';
+  if (enrollment && !nav.missions) return <Redirect href="/(tabs)" />;
 
   return (
     <Screen insideTabs title={t('missions.pathway')}>
@@ -80,17 +84,10 @@ export default function Missions(): React.JSX.Element {
           {online ? <Button label={X.sendPendingEvaluations} variant="secondary" size="sm" loading={resuming} onPress={() => void resume()} accessibilityLabel={X.sendPendingEvaluations} /> : null}
         </View>
       ) : null}
-      {pathway ? (
+      {pathway && pathway.missions.length > 0 ? (
         <View style={{ gap: theme.spacing.lg }}>
           <StatusLine icon="info" tone="secondary" text={t('missions.noGeographyClaim')} />
           <Button label={view === 'map' ? t('missions.listView') : t('missions.mapView')} variant="ghost" size="sm" icon={view === 'map' ? 'missions' : 'map'} onPress={() => setView(view === 'map' ? 'cards' : 'map')} accessibilityLabel={view === 'map' ? t('missions.listView') : t('missions.mapView')} />
-          {pathway.missions.length === 0 ? (
-            <EmptyState
-              title={t('common.notAvailable')}
-              description={fallback.offered ? t('enrollment.coverage.detail.planned', { source: sourceName, fallback: names(fallback.offered) }) : X.plannedNoFallback(sourceName)}
-              mascotState="quiet_audio"
-            />
-          ) : null}
           {view === 'map' ? (
             <StoryMap nodes={pathway.nodes} onSelect={open} view="map" labels={labels.storyMap} />
           ) : (

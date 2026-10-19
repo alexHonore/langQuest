@@ -1,6 +1,6 @@
 import { getCourseTrack } from '@langquest/contracts';
 import { Button, CharacterPortrait, EmptyState, Row, StatusLine, Surface, ThemedText, useTheme } from '@langquest/ui';
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
 import { Screen } from '@/components/Screen';
@@ -8,6 +8,7 @@ import { LoadingView } from '@/components/StateViews';
 import { SyntheticVoiceBadge } from '@/components/SyntheticVoiceBadge';
 import { useCast } from '@/features/characters/use-cast';
 import { useActiveEnrollment } from '@/features/session/queries';
+import { useEnrollmentNavigation } from '@/features/session/use-capabilities';
 import { headingLevel } from '@/lib/a11y';
 import { useLanguageNames, useT } from '@/lib/i18n';
 import { track } from '@/lib/telemetry';
@@ -17,6 +18,8 @@ import { usePrefs } from '@/state/prefs';
  * Speak hub: free conversation, pronunciation coach, the course cast and the mic mode. The cast comes
  * from the course manifest (`characters[]` published for this track), so every id offered here is one
  * `POST /v1/ai/conversation/session` can start; the in-code portrait is picked by the roster key.
+ * Sections follow the enrollment's capability snapshot (CONVENTIONS §8): without live conversation only the
+ * pronunciation drills remain; without either the tab is hidden and a stale link lands Home.
  */
 export default function Speak(): React.JSX.Element {
   const theme = useTheme();
@@ -24,7 +27,8 @@ export default function Speak(): React.JSX.Element {
   const t = useT();
   const names = useLanguageNames();
   const { enrollment } = useActiveEnrollment();
-  const { cast, query: manifest } = useCast(enrollment);
+  const nav = useEnrollmentNavigation(enrollment);
+  const { cast, query: manifest } = useCast(nav.liveConversation ? enrollment : null);
   const speakMode = usePrefs((s) => s.speakMode);
   useEffect(() => track.screenView('speak', theme.direction.rtl, enrollment?.scriptMode ?? null), [theme.direction.rtl, enrollment?.scriptMode]);
   if (!enrollment) {
@@ -34,23 +38,26 @@ export default function Speak(): React.JSX.Element {
       </Screen>
     );
   }
+  if (!nav.speak) return <Redirect href="/(tabs)" />;
   const track_ = getCourseTrack(enrollment.courseTrackId);
-  const castLoading = manifest.isLoading && cast.length === 0;
+  const castLoading = nav.liveConversation && manifest.isLoading && cast.length === 0;
   return (
     <Screen insideTabs title={t('speak.title')}>
       <StatusLine icon="info" tone="secondary" text={t('speak.sourceLanguageNote', { source: names(enrollment.sourceLanguageCode), name: cast[0]?.name ?? track_.displayName, target: track_.displayName })} />
-      <Button label={t('home.quickSpeak')} icon="mic" size="lg" fullWidth onPress={() => router.push({ pathname: '/conversation', params: { enrollmentId: enrollment.id } })} accessibilityLabel={t('home.quickSpeak')} />
-      <Button label={t('pronunciation.title')} icon="volume" variant="secondary" fullWidth onPress={() => router.push('/pronunciation')} accessibilityLabel={t('pronunciation.title')} />
-      <Surface variant="muted" radius="lg" padding={theme.spacing.md} style={{ gap: theme.spacing.xs }}>
-        <ThemedText variant="label">{t('account.speakMode.label')}</ThemedText>
-        <ThemedText tone="secondary">{t(`account.speakMode.${speakMode}`)}</ThemedText>
-        <ThemedText variant="caption" tone="muted">
-          {t('speak.modeSwitchHint')}
-        </ThemedText>
-      </Surface>
+      {nav.liveConversation ? <Button testID="speak-quick" label={t('home.quickSpeak')} icon="mic" size="lg" fullWidth onPress={() => router.push({ pathname: '/conversation', params: { enrollmentId: enrollment.id } })} accessibilityLabel={t('home.quickSpeak')} /> : null}
+      {nav.pronunciationDrills ? <Button testID="speak-pronunciation" label={t('pronunciation.title')} icon="volume" variant={nav.liveConversation ? 'secondary' : 'primary'} size={nav.liveConversation ? 'md' : 'lg'} fullWidth onPress={() => router.push('/pronunciation')} accessibilityLabel={t('pronunciation.title')} /> : null}
+      {nav.conversationVoice ? (
+        <Surface variant="muted" radius="lg" padding={theme.spacing.md} style={{ gap: theme.spacing.xs }}>
+          <ThemedText variant="label">{t('account.speakMode.label')}</ThemedText>
+          <ThemedText tone="secondary">{t(`account.speakMode.${speakMode}`)}</ThemedText>
+          <ThemedText variant="caption" tone="muted">
+            {t('speak.modeSwitchHint')}
+          </ThemedText>
+        </Surface>
+      ) : null}
       {castLoading ? <LoadingView rows={1} /> : null}
       {/* §8 "visible means usable": a course without a published cast simply has no character section. */}
-      {cast.length > 0 ? (
+      {nav.liveConversation && cast.length > 0 ? (
         <>
           <Row gap={theme.spacing.sm} justify="space-between">
             <ThemedText variant="heading" accessibilityRole="header" {...headingLevel(2)}>

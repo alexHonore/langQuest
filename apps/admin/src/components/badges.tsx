@@ -4,7 +4,7 @@ import type { ContentState, CoverageStatus, JobState, Role } from '@langquest/co
 import { useI18n } from '@/src/lib/i18n/client';
 import { contentStateKey, coverageKey, jobStateKey, roleKey } from '@/src/lib/i18n';
 
-type Tone = 'neutral' | 'info' | 'success' | 'warning' | 'error' | 'accent';
+export type Tone = 'neutral' | 'info' | 'success' | 'warning' | 'error' | 'accent';
 
 const toneClass: Record<Tone, string> = {
   neutral: 'bg-surface-muted text-fg-secondary border-border',

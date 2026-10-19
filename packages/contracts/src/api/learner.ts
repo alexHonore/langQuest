@@ -5,6 +5,7 @@ import { EvaluatorOutputSchema } from '../ai/conversation';
 import { AccessibilityOptionsSchema, NotificationPreferencesSchema, PrivacyOptionsSchema } from '../db/identity';
 import { CoverageMetricsSchema } from '../db/identity';
 import { CoverageStatusSchema, EnrollmentStatusSchema, LearnerLevelSchema, LearningSpeedSchema, LessonTypeSchema, MasteryStateSchema, MissionStepTypeSchema, MissionTypeSchema, ObservationOutcomeSchema, RegisterSchema, RoleSchema, ScriptModeSchema, XpReasonSchema } from '../enums';
+import { CourseCapabilitiesSchema } from '../capabilities';
 import { CourseManifestSchema, SceneIdSchema, VisualRefSchema, AssetRefSchema } from '../manifest';
 import { Bcp47Schema, JsonObjectSchema, KeySchema, MillisSchema, NonNegativeIntSchema, TimestamptzSchema, UnitIntervalSchema, UuidSchema } from '../primitives';
 import { ReviewCardSchema, ReviewRatingSchema, SkillMasterySnapshotSchema, SkillObservationInputSchema } from '../srs';
@@ -38,6 +39,12 @@ export const EnrollmentDtoSchema = z.object({
   lastOpenedAt: TimestamptzSchema.nullable(),
   /** Coverage of this (track, source) pair so the UI can show honest editorial status. */
   coverage: z.object({ status: CoverageStatusSchema, nativeReviewed: z.boolean(), editorialNoteKey: z.string().nullable(), fallbackSourceLanguageCode: SourceLanguageCodeSchema.nullable() }),
+  /**
+   * Live capability snapshot for this enrollment's (track, source) pair (CONVENTIONS §8): drives which tabs /
+   * sections / controls the client renders. Always present in API responses; optional in the schema so fixtures
+   * built before 2026-10-19 still parse.
+   */
+  capabilities: CourseCapabilitiesSchema.optional(),
 });
 export type EnrollmentDto = z.infer<typeof EnrollmentDtoSchema>;
 
@@ -126,6 +133,8 @@ export const CoverageQuerySchema = z.object({ source: SourceLanguageCodeSchema.o
 export const CoverageResponseSchema = z.object({
   courseTrackId: CourseTrackIdSchema,
   coverage: z.array(SourceCoverageSchema),
+  /** Present when `?source=` was given: the live capability snapshot of that (track, source) pair (CONVENTIONS §8). */
+  capabilities: CourseCapabilitiesSchema.optional(),
 });
 export type CoverageResponse = z.infer<typeof CoverageResponseSchema>;
 

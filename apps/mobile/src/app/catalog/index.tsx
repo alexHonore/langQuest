@@ -73,13 +73,13 @@ export default function Catalog(): React.JSX.Element {
                       {clar.varietyName} · {tr.defaultLocale}
                     </ThemedText>
                     {source ? <CoverageStatus status={cov?.status ?? 'planned'} sourceLanguageCode={source} nativeReviewed={cov?.nativeReviewed} fallbackSourceLanguageCode={cov?.fallbackSourceLanguageCode ?? null} /> : null}
-                    {c ? (
+                    {/* §8: what exists is counted; what does not is simply absent (the wizard carries the full disclaimer). */}
+                    {c && c.publishedMissionCount > 0 ? (
                       <Row gap={theme.spacing.xs} wrap>
-                        {c.publicationState !== 'published' ? <Chip label={X.publicationState[c.publicationState] ?? c.publicationState} tone="warning" icon="info" /> : null}
-                        <Chip label={X.missionsPublished(c.publishedMissionCount)} tone={c.publishedMissionCount === 0 ? 'warning' : 'neutral'} />
+                        <Chip label={X.missionsPublished(c.publishedMissionCount)} />
                       </Row>
                     ) : null}
-                    {c ? <ThemedText variant="caption" tone="muted">{t(`catalog.scoringSupport.${c.capabilities.pronunciationScoring === 'none' ? 'limited' : c.capabilities.pronunciationScoring}`)}</ThemedText> : null}
+                    {c && (c.capabilities.pronunciationScoring === 'full' || c.capabilities.pronunciationScoring === 'partial') ? <ThemedText variant="caption" tone="muted">{t(`catalog.scoringSupport.${c.capabilities.pronunciationScoring}`)}</ThemedText> : null}
                   </View>
                 </Row>
               </Surface>

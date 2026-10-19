@@ -57,7 +57,7 @@ export default async function CollectionPage({ params }: { params: Promise<{ id:
             <PublishControls entityTable="audio_course_collections" entityId={c.id} state={c.state} revision={c.published_version ?? 0} />
           </Card>
           <Card title={t('admin.ui.colChapters')} actions={<ChapterEditor mode="create" collectionId={c.id} nextOrder={(chapters.ok ? chapters.data.length : 0) + 1} />}>
-            {chapters.ok && chapters.data.length === 0 ? <p className="text-sm text-fg-muted">{t('admin.ui.empty')}</p> : null}
+            {chapters.ok && chapters.data.length === 0 ? <p className="text-sm text-fg-muted">{t('admin.ui.chEmptyInCollection')}</p> : null}
             <ol className="divide-y divide-border">
               {chapters.ok
                 ? chapters.data.map((ch) => (

@@ -348,13 +348,13 @@ export function AudioPlayer(props: AudioPlayerProps): React.JSX.Element {
               onPress={() => setShowSleep((v) => !v)}
             />
           ) : null}
-          {transcript ? (
+          {transcript?.available ? (
+            // No transcript → no toggle at all (CONVENTIONS §8: never a disabled placeholder).
             <Button
               variant={transcript.visible ? 'primary' : 'secondary'}
               size="sm"
               icon="transcript"
-              label={transcript.available ? L.transcript : L.transcriptUnavailable}
-              disabled={!transcript.available}
+              label={L.transcript}
               onPress={transcript.onToggle}
             />
           ) : null}

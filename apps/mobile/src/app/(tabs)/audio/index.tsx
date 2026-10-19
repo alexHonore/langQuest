@@ -1,6 +1,6 @@
 import { getCourseTrack } from '@langquest/contracts';
 import { Button, Chip, EmptyState, Row, StatusLine, Surface, ThemedText, formatDurationMs, useTheme } from '@langquest/ui';
-import { useRouter } from 'expo-router';
+import { Redirect, useRouter } from 'expo-router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
 import { Screen } from '@/components/Screen';
@@ -13,12 +13,17 @@ import { EMPTY_FILTERS, filterCollections, type AudioCollectionSummary } from '@
 import { useAudioCollections, useCollectionsScope } from '@/features/audio/queries';
 import { useAudioRuntime, useContinueListening, useStorageSummary } from '@/features/audio/use-audio';
 import { useActiveEnrollment } from '@/features/session/queries';
+import { useEnrollmentNavigation } from '@/features/session/use-capabilities';
 import { useLanguageNames, useT } from '@/lib/i18n';
 import { useServices } from '@/lib/services';
 import { track } from '@/lib/telemetry';
 import { formatMegabytes } from '@/features/audio/download-index';
 
-/** Screen 7: audio course / audiobook library (collections, continue listening, search, downloads). */
+/**
+ * Screen 7: audio course / audiobook library (collections, continue listening, search, downloads). Rendered only
+ * when the enrollment's capability snapshot has published collections for its instruction language (CONVENTIONS
+ * §8); download controls only when offline packs are available on this platform.
+ */
 export default function AudioLibrary(): React.JSX.Element {
   const theme = useTheme();
   const router = useRouter();
@@ -27,6 +32,7 @@ export default function AudioLibrary(): React.JSX.Element {
   const names = useLanguageNames();
   const { configured } = useServices();
   const { enrollment } = useActiveEnrollment();
+  const nav = useEnrollmentNavigation(enrollment);
   const [allLanguages, setAllLanguages] = useState(false);
   const [query, setQuery] = useState('');
   const scope = useCollectionsScope(enrollment, allLanguages);
@@ -38,9 +44,10 @@ export default function AudioLibrary(): React.JSX.Element {
 
   const filtered = useMemo(() => filterCollections(collections.data?.data.items ?? [], { ...EMPTY_FILTERS, query }), [collections.data, query]);
   const trackName = enrollment ? getCourseTrack(enrollment.courseTrackId).displayName : null;
+  if (enrollment && !nav.audio) return <Redirect href="/(tabs)" />;
 
   return (
-    <Screen insideTabs title={t('audio.library')} headerEnd={<Button testID="audio-downloads" label={L.downloads} variant="ghost" size="sm" icon="download" onPress={() => router.push('/audio/downloads')} accessibilityLabel={L.downloads} />}>
+    <Screen insideTabs title={t('audio.library')} headerEnd={nav.downloads ? <Button testID="audio-downloads" label={L.downloads} variant="ghost" size="sm" icon="download" onPress={() => router.push('/audio/downloads')} accessibilityLabel={L.downloads} /> : undefined}>
       {!configured ? <MediaNotice reason="not_configured" /> : null}
 
       {continueListening.data.length > 0 ? (
@@ -102,12 +109,13 @@ export default function AudioLibrary(): React.JSX.Element {
         mediaUnavailableReason(collections.error) === 'not_configured' ? null : <ErrorView error={collections.error} onRetry={() => void collections.refetch()} />
       ) : null}
       {collections.data?.fromCache ? <CacheNotice fetchedAt={collections.data.fetchedAt} /> : null}
-      {collections.data && filtered.length === 0 ? <EmptyState title={query ? L.noResults : L.noCollections} description={query ? undefined : t('audio.offline.notDownloaded')} mascotState="quiet_audio" icon="headphones" actionLabel={!allLanguages && enrollment ? L.allLanguages : undefined} onAction={!allLanguages && enrollment ? () => setAllLanguages(true) : undefined} /> : null}
+      {/* Only a search with no hits gets an empty state; a scope with no collections renders nothing (§8). */}
+      {collections.data && filtered.length === 0 && query ? <EmptyState title={L.noResults} mascotState="quiet_audio" icon="headphones" actionLabel={!allLanguages && enrollment ? L.allLanguages : undefined} onAction={!allLanguages && enrollment ? () => setAllLanguages(true) : undefined} /> : null}
       {filtered.map((c) => (
         <CollectionCard key={c.id} collection={c} onPress={() => router.push({ pathname: '/audio/collection/[id]', params: { id: c.id } })} />
       ))}
 
-      {runtime?.downloadsSupported && storage.data.lessons > 0 ? (
+      {nav.downloads && runtime?.downloadsSupported && storage.data.lessons > 0 ? (
         <Pressable accessibilityRole="button" accessibilityLabel={L.downloads} onPress={() => router.push('/audio/downloads')}>
           <StatusLine icon="offline" tone="secondary" text={`${t('audio.download.storageUsed', { used: formatMegabytes(storage.data.bytesOnDisk) })} · ${L.lessonsCount(storage.data.completeLessons)}`} />
         </Pressable>

@@ -87,7 +87,7 @@ export default function Progress(): React.JSX.Element {
               <Chip label={t('progress.review.due', { count: day.count })} tone={day.count > 0 ? (day.overdue ? 'warning' : 'accent') : 'neutral'} />
             </Row>
           ))}
-          <Button label={t('progress.review.title')} icon="replay" disabled={reviews.data.data.dueCount === 0} onPress={() => router.push('/review')} accessibilityLabel={t('progress.review.title')} />
+          {reviews.data.data.dueCount > 0 ? <Button label={t('progress.review.title')} icon="replay" onPress={() => router.push('/review')} accessibilityLabel={t('progress.review.title')} /> : null}
         </View>
       ) : reviews.isLoading ? (
         <LoadingView rows={1} />

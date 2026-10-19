@@ -9,7 +9,9 @@ import { sceneForMission } from '@/features/missions/story';
 import { formsForScriptMode, isolateSourceText, sourceTextDirection } from '@/features/lesson/forms';
 import { uiPhase } from '@/features/lesson/machine';
 import { useLessonPlayer } from '@/features/lesson/use-lesson-player';
+import { withoutNumericScore } from '@/features/session/capabilities';
 import { useActiveEnrollment, useInvalidateLearner, useMissionDetail } from '@/features/session/queries';
+import { useEnrollmentNavigation } from '@/features/session/use-capabilities';
 import { createClipPlayer } from '@/lib/clip-player';
 import { useExtraLabels } from '@/lib/extra-labels';
 import { haptic } from '@/lib/haptics';
@@ -48,8 +50,12 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
   const tapToTalk = usePrefs((s) => s.tapToTalk);
   const captions = usePrefs((s) => s.captionsDefaultOn);
   const lesson = useLessonPlayer({ mission, enrollment, recorder, player });
+  // §8: without spoken feedback for this pair there is no mic coaching — the typed answer is the only input.
+  const nav = useEnrollmentNavigation(enrollment);
+  const micCoaching = nav.pronunciationDrills;
   const [hintsOpen, setHintsOpen] = useState(false);
-  const [typing, setTyping] = useState(false);
+  const [typingChoice, setTyping] = useState(false);
+  const typing = typingChoice || !micCoaching;
   const [typed, setTyped] = useState('');
   const [permission, setPermission] = useState<MicPermission | null>(null);
   const [celebrated, setCelebrated] = useState(false);
@@ -198,11 +204,11 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
           </View>
         ) : null}
         <Row gap={theme.spacing.xs} wrap>
-          <Button testID="mission-replay" label={t('lesson.replay')} icon="replay" variant="secondary" size="sm" disabled={!lesson.referenceUri || current.phase === 'recording'} onPress={() => lesson.dispatch({ type: 'replay', slow: false })} accessibilityLabel={t('lesson.replay')} />
-          <Button testID="mission-slow" label={t('lesson.slow')} icon="slow" variant="secondary" size="sm" disabled={!lesson.referenceUri || current.phase === 'recording'} onPress={() => lesson.dispatch({ type: 'replay', slow: true })} accessibilityLabel={t('lesson.slow')} />
+          {/* No reference audio → no replay controls (§8: never a disabled placeholder). */}
+          {lesson.referenceUri ? <Button testID="mission-replay" label={t('lesson.replay')} icon="replay" variant="secondary" size="sm" disabled={current.phase === 'recording'} onPress={() => lesson.dispatch({ type: 'replay', slow: false })} accessibilityLabel={t('lesson.replay')} /> : null}
+          {lesson.referenceUri ? <Button testID="mission-slow" label={t('lesson.slow')} icon="slow" variant="secondary" size="sm" disabled={current.phase === 'recording'} onPress={() => lesson.dispatch({ type: 'replay', slow: true })} accessibilityLabel={t('lesson.slow')} /> : null}
           <Button label={current.translationShown ? t('lesson.hideTranslation') : t('lesson.translate')} icon="translate" variant="ghost" size="sm" onPress={() => lesson.dispatch({ type: 'toggle_translation' })} accessibilityLabel={t('lesson.translate')} />
         </Row>
-        {!lesson.referenceUri ? <ThemedText variant="caption" tone="muted">{t('audio.player.transcriptUnavailable')}</ThemedText> : null}
       </Surface>
 
       <SpeechStateIndicator state={speechState} labels={labels.speechStates} compact />
@@ -218,25 +224,27 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
         <View style={{ alignItems: 'center', gap: theme.spacing.sm }}>
           {current.phase === 'listen' || current.phase === 'anticipate' ? <ThemedText variant="heading" align="center">{t('lesson.anticipate')}</ThemedText> : null}
           {current.phase === 'anticipate' ? <ThemedText variant="caption" tone="muted" align="center">{t('lesson.anticipateHint')}</ThemedText> : null}
-          <SpeakButton
-            mode={tapToTalk ? 'toggle' : 'hold'}
-            state={speakState}
-            showModeSwitch
-            onModeChange={(m) => usePrefs.getState().set({ tapToTalk: m === 'toggle' })}
-            onStart={() => {
-              void ensureMic().then((ok) => ok && lesson.dispatch({ type: 'record_start' }));
-            }}
-            onStop={() => lesson.dispatch({ type: 'record_stop', durationMs: recorder.durationMs() })}
-            onCancel={() => lesson.dispatch({ type: 'record_cancel' })}
-            onHaptic={(k) => void haptic(k)}
-            elapsedText={current.phase === 'recording' ? t('lesson.listening') : current.phase === 'processing' ? t('lesson.processing') : null}
-            labels={labels.speakButton}
-          />
-          {permission === 'denied' ? <StatusLine icon="micOff" tone="warning" text={t('errors.permission.micDenied')} /> : null}
+          {micCoaching ? (
+            <SpeakButton
+              mode={tapToTalk ? 'toggle' : 'hold'}
+              state={speakState}
+              showModeSwitch
+              onModeChange={(m) => usePrefs.getState().set({ tapToTalk: m === 'toggle' })}
+              onStart={() => {
+                void ensureMic().then((ok) => ok && lesson.dispatch({ type: 'record_start' }));
+              }}
+              onStop={() => lesson.dispatch({ type: 'record_stop', durationMs: recorder.durationMs() })}
+              onCancel={() => lesson.dispatch({ type: 'record_cancel' })}
+              onHaptic={(k) => void haptic(k)}
+              elapsedText={current.phase === 'recording' ? t('lesson.listening') : current.phase === 'processing' ? t('lesson.processing') : null}
+              labels={labels.speakButton}
+            />
+          ) : null}
+          {micCoaching && permission === 'denied' ? <StatusLine icon="micOff" tone="warning" text={t('errors.permission.micDenied')} /> : null}
           {current.error ? <StatusLine icon="warning" tone="warning" text={current.error === 'offline' ? t('errors.network') : current.error === 'no_input' ? t('speak.noSpeech') : t('errors.providerUnavailable')} /> : null}
           <Row gap={theme.spacing.xs} wrap justify="center">
             <Button testID="mission-hint" label={t('lesson.hint')} icon="hint" variant="ghost" size="sm" onPress={() => setHintsOpen(true)} accessibilityLabel={t('lesson.hint')} />
-            <Button testID="mission-type-instead" label={typing ? t('lesson.cannotSpeakNow') : t('lesson.typeInstead')} icon="transcript" variant="ghost" size="sm" onPress={() => setTyping(!typing)} accessibilityLabel={t('lesson.typeInstead')} />
+            {micCoaching ? <Button testID="mission-type-instead" label={typing ? t('lesson.cannotSpeakNow') : t('lesson.typeInstead')} icon="transcript" variant="ghost" size="sm" onPress={() => setTyping(!typingChoice)} accessibilityLabel={t('lesson.typeInstead')} /> : null}
             {!current.revealed ? <Button testID="mission-reveal" label={t('lesson.revealAndCompare')} variant="ghost" size="sm" onPress={() => lesson.dispatch({ type: 'reveal' })} accessibilityLabel={t('lesson.revealAndCompare')} /> : null}
           </Row>
           {typing ? (
@@ -245,7 +253,7 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
               <Button testID="mission-typed-submit" label={t('lesson.speak')} size="sm" disabled={!typed.trim()} onPress={() => { lesson.dispatch({ type: 'type_answer', text: typed }); setTyped(''); }} accessibilityLabel={t('lesson.speak')} />
             </Row>
           ) : null}
-          {typing ? <ThemedText variant="caption" tone="muted" align="center">{t('lesson.textAlternativeNote')}</ThemedText> : null}
+          {typing && micCoaching ? <ThemedText variant="caption" tone="muted" align="center">{t('lesson.textAlternativeNote')}</ThemedText> : null}
         </View>
       )}
 
@@ -266,7 +274,7 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
       ) : null}
       {lesson.evaluation && !lesson.textAnswer && current.phase === 'compare' ? (
         <PronunciationFeedback
-          result={lesson.evaluation}
+          result={withoutNumericScore(lesson.evaluation, nav)}
           targetScript={trackDef.scripts.primary}
           onRetry={() => lesson.dispatch({ type: 'retry' })}
           onReplayReference={lesson.referenceUri ? () => lesson.dispatch({ type: 'replay', slow: false }) : undefined}

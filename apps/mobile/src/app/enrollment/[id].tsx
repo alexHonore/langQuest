@@ -5,6 +5,7 @@ import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { Alert, View } from 'react-native';
 import { Screen } from '@/components/Screen';
+import { CapabilityDisclaimer } from '@/components/CapabilityDisclaimer';
 import { CoverageStatus } from '@/components/CoverageStatus';
 import { ErrorView } from '@/components/StateViews';
 import { useFallbackOptIn } from '@/features/session/fallback';
@@ -165,6 +166,9 @@ export default function EnrollmentEditor(): React.JSX.Element {
         ) : null}
         {patch.isPending && source !== enrollment.sourceLanguageCode ? <ThemedText variant="caption" tone="muted">{t('enrollment.sourceChangeRefresh', { source: names(source ?? '') })}</ThemedText> : null}
       </Surface>
+
+      {/* Per-pair capabilities (§8); the DTO is refetched after a source change, so this follows the new pair. */}
+      <CapabilityDisclaimer testID="enrollment-includes" capabilities={enrollment.capabilities} sourceName={names(enrollment.sourceLanguageCode)} targetName={trackDef.displayName} showIncludes />
 
       {trackDef.scriptModeOptions.length > 1 ? (
         <View style={{ gap: theme.spacing.xs }}>

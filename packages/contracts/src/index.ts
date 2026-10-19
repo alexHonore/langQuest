@@ -7,6 +7,7 @@
 export * from './primitives';
 export * from './enums';
 export * from './catalog';
+export * from './capabilities';
 export * from './language-context';
 export * from './srs';
 export * from './manifest';

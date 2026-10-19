@@ -11,6 +11,7 @@ import {
   isCourseTrackId,
   isSourceLanguageCode,
   type AssetRef,
+  type CourseCapabilities,
   type EnrollmentDto,
   type ReviewCard,
   type SourceCoverage,
@@ -54,7 +55,11 @@ export const plannedCoverage = (sourceLanguageCode: string): SourceCoverage => (
   fallbackSourceLanguageCode: null,
 });
 
-export function enrollmentToDto(row: Row<'user_course_enrollments'>, coverage: CoverageRow | null): EnrollmentDto {
+/**
+ * `capabilities` (CONVENTIONS §8) is attached by every learner route through `courseCapabilitiesFor`; the parameter
+ * is optional only so existing callers/tests keep compiling — API responses always carry it.
+ */
+export function enrollmentToDto(row: Row<'user_course_enrollments'>, coverage: CoverageRow | null, capabilities?: CourseCapabilities): EnrollmentDto {
   if (!isCourseTrackId(row.course_track_id)) throw problem.internal(`Enrollment references unknown track ${row.course_track_id}`);
   const track = getCourseTrack(row.course_track_id);
   const cov = coverage ? coverageToDto(coverage) : plannedCoverage(row.source_language_code);
@@ -74,6 +79,7 @@ export function enrollmentToDto(row: Row<'user_course_enrollments'>, coverage: C
     addedAt: row.added_at,
     lastOpenedAt: row.last_opened_at,
     coverage: { status: cov.status, nativeReviewed: cov.nativeReviewed, editorialNoteKey: cov.editorialNoteKey, fallbackSourceLanguageCode: cov.fallbackSourceLanguageCode },
+    capabilities,
   });
 }
 

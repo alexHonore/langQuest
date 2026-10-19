@@ -51,9 +51,7 @@ export function FocalPointPicker({ value, onChange, previewUrl, label }: { value
             />
           ) : null}
         </div>
-      ) : (
-        <p className="text-xs text-fg-muted">{t('admin.ui.vaNoPreview')}</p>
-      )}
+      ) : null}
       <div className="flex flex-wrap items-end gap-2">
         <Field label={`${label} · x`}>
           {(id) => <Input id={id} type="number" min={0} max={1} step={0.01} className="w-24" value={value?.x ?? ''} onChange={(e) => onChange({ x: clampUnit(Number(e.target.value)), y: value?.y ?? 0.5 })} />}

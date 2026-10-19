@@ -1,7 +1,8 @@
 /**
  * §6.1 public catalog: `/v1/languages` (static catalog constants), `/v1/courses` (published tracks with honest
  * per-source coverage and live capability snapshot) and `/v1/courses/:trackId/coverage`.
- * No learner data is involved; responses carry a short public cache TTL.
+ * No learner data is involved; responses carry a short public cache TTL. With `?source=`, the coverage route also
+ * carries the live `capabilities` snapshot of that pair (CONVENTIONS §8: the enrollment wizard's disclaimer).
  */
 import { COURSE_TRACKS, CourseTrackIdSchema, CoursesQuerySchema, CoverageQuerySchema, CoverageResponseSchema, CoursesResponseSchema, LANGUAGES, LANGUAGE_CODES, LANGUAGE_VARIETIES, LanguagesResponseSchema, SOURCE_LANGUAGES, WRITING_SYSTEMS, type CourseSummary, type SourceCoverage } from '@langquest/contracts';
 import { z } from 'zod';
@@ -9,10 +10,12 @@ import type { DefineRoute } from '../../app';
 import { problem, respondOk } from '../../http/envelope';
 import { parseParams, parseQuery } from '../../http/validate';
 import { trackCapabilitySummary } from '../../lib/capabilities';
+import { courseCapabilitiesFor } from '../../lib/course-capabilities';
 import { coverageToDto, COVERAGE_COLUMNS, plannedCoverage, type CoverageRow } from '../../lib/dto';
 import type { RequestServices } from '../../services/context';
 
 const PUBLIC_CACHE = { 'Cache-Control': 'public, max-age=300, stale-while-revalidate=600' };
+const CAPABILITY_CACHE = { 'Cache-Control': 'public, max-age=60, stale-while-revalidate=120' };
 
 const languagesPayload = LanguagesResponseSchema.parse({
   languages: LANGUAGES,
@@ -109,7 +112,10 @@ export function registerCatalogRoutes(define: DefineRoute): void {
   define('courseCoverage', {}, async (c) => {
     const { trackId } = parseParams(c, z.object({ trackId: CourseTrackIdSchema }));
     const query = parseQuery(c, CoverageQuerySchema);
-    const rows = await loadCoverageRows(c.get('services')!, [trackId], query.source ?? null);
-    return respondOk(c, CoverageResponseSchema.parse({ courseTrackId: trackId, coverage: coverageFor(rows, trackId, query.source ?? null) }), 200, PUBLIC_CACHE);
+    const s = c.get('services')!;
+    const rows = await loadCoverageRows(s, [trackId], query.source ?? null);
+    const capabilities = query.source ? await courseCapabilitiesFor(s, trackId, query.source, rows.find((r) => r.course_track_id === trackId && r.source_language_code === query.source) ?? null) : undefined;
+    // Capabilities change on publish/config; keep the per-pair answer on a shorter public TTL than the static coverage list.
+    return respondOk(c, CoverageResponseSchema.parse({ courseTrackId: trackId, coverage: coverageFor(rows, trackId, query.source ?? null), capabilities }), 200, capabilities ? CAPABILITY_CACHE : PUBLIC_CACHE);
   });
 }

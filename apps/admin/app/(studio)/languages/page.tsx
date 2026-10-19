@@ -6,6 +6,7 @@ import { listCoverage } from '@/src/lib/queries/structure';
 import { Card, ErrorState, PageHeader } from '@/src/components/ui';
 import { Badge } from '@/src/components/badges';
 import { CoverageEditor, type CoverageRow } from './coverage-editor';
+import { CapabilityMatrix } from './capability-matrix';
 
 export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Languages' };
@@ -75,6 +76,9 @@ export default async function LanguagesPage() {
             </tbody>
           </table>
         </div>
+      </Card>
+      <Card title={t('admin.ui.lgMatrix')}>
+        <CapabilityMatrix tracks={COURSE_TRACKS.map((tr) => ({ id: tr.id, name: tr.displayName }))} languages={LANGUAGES.map((l) => ({ code: l.code, name: l.englishName }))} />
       </Card>
       <Card title={t('admin.languages.coverage')}>
         {!coverage.ok ? <ErrorState title={t('admin.ui.errorTitle')} message={coverage.error} /> : null}

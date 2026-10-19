@@ -82,7 +82,7 @@ export default function CharacterDetail(): React.JSX.Element {
           ))}
         </ScrollView>
       ) : null}
-      <Button testID="character-speak" label={t('speak.title')} icon="mic" size="lg" fullWidth disabled={!enrollment} onPress={() => router.push({ pathname: '/conversation', params: { enrollmentId: enrollment!.id, characterId: character.id } })} accessibilityLabel={t('speak.characters.talkWith', { name: character.name })} />
+      {enrollment ? <Button testID="character-speak" label={t('speak.title')} icon="mic" size="lg" fullWidth onPress={() => router.push({ pathname: '/conversation', params: { enrollmentId: enrollment.id, characterId: character.id } })} accessibilityLabel={t('speak.characters.talkWith', { name: character.name })} /> : null}
     </Screen>
   );
 }

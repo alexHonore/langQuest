@@ -134,11 +134,11 @@ function LocaleSwitch() {
   );
 }
 
-export function StudioShell({ roles, email, children }: { roles: Role[]; email: string | null; children: ReactNode }) {
+export function StudioShell({ roles, email, setupIncomplete = false, children }: { roles: Role[]; email: string | null; setupIncomplete?: boolean; children: ReactNode }) {
   const { t } = useI18n();
   const pathname = usePathname();
   const active = sectionForPath(pathname);
-  const sections: AdminSection[] = visibleSections(roles);
+  const sections: AdminSection[] = visibleSections(roles, { setupIncomplete });
   return (
     <div className="flex min-h-screen">
       <a href="#main" className="sr-only focus:not-sr-only focus:absolute focus:left-2 focus:top-2 focus:z-50 focus:rounded focus:bg-elevated focus:px-2 focus:py-1">

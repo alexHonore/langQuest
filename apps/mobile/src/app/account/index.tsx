@@ -1,5 +1,4 @@
 import { SOURCE_LANGUAGES, getCourseTrack, type SourceLanguageCode } from '@langquest/contracts';
-import { SUPPORTED_UI_LOCALES } from '@langquest/locales';
 import { Button, Chip, Divider, Row, StatusLine, Surface, ThemedText, orderedSourceLanguages, useTheme } from '@langquest/ui';
 import * as Linking from 'expo-linking';
 import { useRouter } from 'expo-router';
@@ -9,6 +8,7 @@ import { Screen } from '@/components/Screen';
 import { ErrorView } from '@/components/StateViews';
 import { ChoiceRow } from '@/components/SettingRow';
 import { usePatchSettings } from '@/features/account/use-settings';
+import { completeUiLocales } from '@/features/session/capabilities';
 import { useActiveEnrollment } from '@/features/session/queries';
 import { useExtraLabels } from '@/lib/extra-labels';
 import { useLanguageNames, useT } from '@/lib/i18n';
@@ -16,6 +16,9 @@ import { useServices } from '@/lib/services';
 import { prepareSignOut } from '@/lib/sign-out';
 import { useAuth } from '@/state/auth';
 import { usePrefs } from '@/state/prefs';
+
+/** Chrome languages: complete catalogs only (partial es/ru stay instruction languages; docs/UPCOMING_FEATURES.md). */
+const UI_LOCALES = completeUiLocales();
 
 /** Account + settings hub (§1.3): profile, UI language, default instruction language, per-course overrides, sections. */
 export default function Account(): React.JSX.Element {
@@ -78,7 +81,7 @@ export default function Account(): React.JSX.Element {
         </Row>
       </Surface>
 
-      <ChoiceRow label={t('account.uiLanguage')} value={uiLocale} options={SUPPORTED_UI_LOCALES.map((c) => ({ value: c, label: names(c) }))} onChange={(v) => { prefs.set({ uiLocale: v }); patch.mutate({ uiLocale: v }); }} />
+      <ChoiceRow label={t('account.uiLanguage')} value={uiLocale} options={UI_LOCALES.map((c) => ({ value: c, label: names(c) }))} onChange={(v) => { prefs.set({ uiLocale: v }); patch.mutate({ uiLocale: v }); }} />
       <ChoiceRow
         label={t('account.defaultSourceLanguage')}
         hint={t('account.defaultSourceLanguageHint')}
@@ -95,6 +98,7 @@ export default function Account(): React.JSX.Element {
             <Button label={t('common.edit')} variant="ghost" size="sm" icon="edit" onPress={() => router.push({ pathname: '/enrollment/[id]', params: { id: e.id } })} accessibilityLabel={`${t('common.edit')} ${getCourseTrack(e.courseTrackId).displayName}`} />
           </Row>
         ))}
+        {enrollments.length > 0 ? <Button testID="account-course-includes" label={t('enrollment.disclaimer.includes.title')} variant="secondary" size="sm" icon="info" onPress={() => router.push('/account/includes')} accessibilityLabel={t('enrollment.disclaimer.includes.title')} /> : null}
         <Button label={t('enrollment.add')} variant="secondary" size="sm" icon="globe" onPress={() => router.push('/catalog')} accessibilityLabel={t('enrollment.add')} />
       </View>
       <Divider />

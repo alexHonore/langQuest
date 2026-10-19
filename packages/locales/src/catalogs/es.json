@@ -27,7 +27,6 @@
     "learnMore": "Más información",
     "confirm": "Confirmar",
     "unknown": "Desconocido",
-    "notAvailable": "No disponible",
     "minutes": "{count, plural, one {# minuto} other {# minutos}}",
     "minutesShort": "{count} min",
     "seconds": "{count, plural, one {# segundo} other {# segundos}}",
@@ -139,7 +138,7 @@
       "complete": "Totalmente disponible desde {source}",
       "partial": "Parcialmente disponible desde {source}",
       "planned": "Previsto desde {source}",
-      "unavailable": "No disponible desde {source}",
+      "unavailable": "No se ofrece desde {source}",
       "detail": {
         "complete": "Todas las instrucciones, explicaciones y locuciones han sido revisadas por hablantes nativos.",
         "partial": "Algunas explicaciones desde {source} son borradores pendientes de revisión nativa. Mostramos el estado editorial tal cual, sin adivinar.",
@@ -163,7 +162,39 @@
         "complete": "Totalmente disponible",
         "partial": "Parcialmente disponible",
         "planned": "Previsto",
-        "unavailable": "No disponible"
+        "unavailable": "No se ofrece"
+      }
+    },
+    "disclaimer": {
+      "title": "Qué incluye este curso desde {source}",
+      "missingTitle": "Lo que este curso aún no tiene",
+      "intro": "Todo lo que sigue falta por ahora. Lo ocultamos en la app en lugar de mostrar pantallas vacías; aparecerá en cuanto esté listo.",
+      "allAvailable": "Todo está disponible para este curso desde {source}.",
+      "noMissions": "Todavía no hay recorrido de misiones para este curso",
+      "noAudioLibrary": "Todavía no hay biblioteca de audio para este curso",
+      "noLiveConversation": "Todavía no hay conversación en directo con personajes de IA",
+      "textOnlyConversation": "La conversación en directo es solo por escrito (todavía sin voz)",
+      "noPronunciationScoring": "Todavía no hay puntuación automática de pronunciación (solo escuchar y comparar)",
+      "noPronunciationFeedback": "Todavía no hay comentarios orales sobre la pronunciación",
+      "noOfflineDownloads": "Todavía no hay descargas sin conexión",
+      "instructionLanguageDraft": "Las explicaciones en {source} son borradores, aún no revisados por hablantes nativos",
+      "instructionLanguagePlanned": "El contenido en {source} está previsto pero todavía no está listo",
+      "instructionLanguageUnavailable": "Este curso no se ofrece desde {source}",
+      "partialInterfaceLanguage": "Parte de los textos de la app aún no está traducida al {source}",
+      "severity": {
+        "blocking": "Todavía no está listo",
+        "info": "Falta por ahora"
+      },
+      "includes": {
+        "title": "Qué incluye este curso",
+        "intro": "Disponible ahora para este curso desde {source}:",
+        "missions": "Recorrido de misiones ({count, plural, one {# misión} other {# misiones}})",
+        "audioLibrary": "Biblioteca de audio ({count, plural, one {# colección} other {# colecciones}})",
+        "liveConversation": "Conversación en directo ({count, plural, one {# personaje} other {# personajes}})",
+        "liveConversationTextOnly": "Conversación en directo, solo por escrito ({count, plural, one {# personaje} other {# personajes}})",
+        "pronunciationAcoustic": "Puntuación de pronunciación",
+        "pronunciationReference": "Comentarios de pronunciación por escucha y comparación",
+        "offlineDownloads": "Descargas sin conexión"
       }
     },
     "remove": "Quitar curso",

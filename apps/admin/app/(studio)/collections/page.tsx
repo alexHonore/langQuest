@@ -4,7 +4,7 @@ import { serverTranslator } from '@/src/lib/i18n/server';
 import { listCollections } from '@/src/lib/queries/structure';
 import { loadPickerOptions } from '@/src/lib/queries/library';
 import { formatDateTime, pickLocalized, shortId } from '@/src/lib/format';
-import { ErrorState, PageHeader } from '@/src/components/ui';
+import { EmptyState, ErrorState, PageHeader } from '@/src/components/ui';
 import { CollectionEditor } from './collection-editor';
 import { StatusBadge } from '@/src/components/badges';
 
@@ -15,10 +15,13 @@ export default async function CollectionsPage() {
   await requireSection('collections');
   const { t, locale } = await serverTranslator();
   const [collections, options] = await Promise.all([listCollections(), loadPickerOptions()]);
+  const empty = collections.ok && collections.data.length === 0;
   return (
     <div>
-      <PageHeader title={t('admin.sections.collections')} actions={<CollectionEditor mode="create" options={options} />} />
+      <PageHeader title={t('admin.sections.collections')} actions={empty ? null : <CollectionEditor mode="create" options={options} />} />
       {!collections.ok ? <ErrorState title={t('admin.ui.errorTitle')} message={collections.error} /> : null}
+      {empty ? <EmptyState title={t('admin.ui.colEmptyHint')} action={<CollectionEditor mode="create" options={options} />} /> : null}
+      {empty ? null : (
       <div className="overflow-hidden rounded-lg border border-border bg-surface">
         <table className="w-full text-sm">
           <thead className="bg-surface-muted text-xs uppercase text-fg-muted">
@@ -32,13 +35,6 @@ export default async function CollectionsPage() {
             </tr>
           </thead>
           <tbody>
-            {collections.ok && collections.data.length === 0 ? (
-              <tr>
-                <td colSpan={6} className="px-3 py-8 text-center text-fg-muted">
-                  {t('admin.ui.empty')}
-                </td>
-              </tr>
-            ) : null}
             {collections.ok
               ? collections.data.map((c) => (
                   <tr key={c.id} className="border-t border-border">
@@ -60,6 +56,7 @@ export default async function CollectionsPage() {
           </tbody>
         </table>
       </div>
+      )}
     </div>
   );
 }

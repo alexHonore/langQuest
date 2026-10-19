@@ -27,7 +27,6 @@ const EN = {
   plannedNoFallback: (source: string): string => `Content from ${source} is planned but not ready. No fallback language is configured; we will never switch silently.`,
   fallbackInUse: (fallback: string): string => `Using ${fallback} for the parts not yet available`,
   fallbackStop: 'Stop using the fallback language',
-  publicationState: { in_review: 'In review', coming_soon: 'Coming soon', published: 'Published' } as Record<string, string>,
   missionsPublished: (n: number): string => (n === 1 ? '1 mission published' : `${n} missions published`),
   // Enrollment removal (§15): the delete option is permanent and scoped to one course.
   removeDeletePermanent: 'Deleting erases this course’s progress permanently. Archiving keeps it.',
@@ -110,7 +109,6 @@ const FR: ExtraLabels = {
   plannedNoFallback: (source) => `Le contenu en ${source} est prévu mais pas encore prêt. Aucune langue de repli n’est configurée ; nous ne changerons jamais de langue en silence.`,
   fallbackInUse: (fallback) => `Utilisation du ${fallback} pour les parties pas encore disponibles`,
   fallbackStop: 'Ne plus utiliser la langue de repli',
-  publicationState: { in_review: 'En relecture', coming_soon: 'Bientôt disponible', published: 'Publié' },
   missionsPublished: (n) => (n === 1 ? '1 mission publiée' : `${n} missions publiées`),
   removeDeletePermanent: 'Supprimer efface définitivement la progression de ce cours. Archiver la conserve.',
   password: 'Mot de passe',

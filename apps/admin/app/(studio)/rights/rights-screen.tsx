@@ -183,28 +183,51 @@ export function RightsScreen({ rows, page, hasNext, highlightId, canVerify }: { 
     { key: 'id', header: t('admin.ui.id'), render: (r) => <code className="font-mono text-[11px]">{shortId(r.id)}</code> },
   ];
 
+  const filtered = get('unverified') === '1';
+  const newRecord = (
+    <Button size="sm" variant="primary" onClick={() => setForm(emptyForm)}>
+      {t('admin.ui.rtNew')}
+    </Button>
+  );
+  const bare = rows.length === 0 && !filtered && page <= 1;
+
   return (
     <div>
-      <FilterBar>
-        <Checkbox label={t('admin.ui.rtOnlyUnverified')} checked={get('unverified') === '1'} onChange={(e) => set({ unverified: e.target.checked ? '1' : null })} />
-        <span className="ms-auto flex gap-2">
-          <Button size="sm" loading={loadReport.busy} onClick={() => void loadReport.run()}>
-            {t('admin.ui.rtAttributions')}
-          </Button>
-          <Button size="sm" variant="primary" onClick={() => setForm(emptyForm)}>
-            {t('admin.ui.rtNew')}
-          </Button>
-        </span>
-      </FilterBar>
-      <DataTable columns={columns} rows={rows} rowKey={(r) => r.id} caption={t('admin.rights.title')} />
-      <UrlPager page={page} hasNext={hasNext} />
+      {bare ? null : (
+        <FilterBar>
+          <Checkbox label={t('admin.ui.rtOnlyUnverified')} checked={filtered} onChange={(e) => set({ unverified: e.target.checked ? '1' : null })} />
+          <span className="ms-auto flex gap-2">
+            <Button size="sm" loading={loadReport.busy} onClick={() => void loadReport.run()}>
+              {t('admin.ui.rtAttributions')}
+            </Button>
+            {newRecord}
+          </span>
+        </FilterBar>
+      )}
+      <DataTable
+        columns={columns}
+        rows={rows}
+        rowKey={(r) => r.id}
+        caption={t('admin.rights.title')}
+        empty={filtered ? t('admin.ui.emptyNoMatch') : t('admin.ui.rtEmptyHint')}
+        emptyAction={
+          filtered ? (
+            <Button size="sm" onClick={() => set({ unverified: null })}>
+              {t('admin.ui.clearFilters')}
+            </Button>
+          ) : (
+            newRecord
+          )
+        }
+      />
+      {bare ? null : <UrlPager page={page} hasNext={hasNext} />}
       {loadReport.error ? <Notice tone="error">{loadReport.error}</Notice> : null}
       {report ? (
         <section className="mt-4 rounded-lg border border-border bg-surface p-3">
           <h2 className="mb-2 text-sm font-semibold">
             {t('admin.rights.report')} {report.total != null ? `(${report.total})` : ''}
           </h2>
-          {report.items.length === 0 ? <p className="text-sm text-fg-muted">{t('admin.ui.empty')}</p> : null}
+          {report.items.length === 0 ? <p className="text-sm text-fg-muted">{t('admin.ui.emptyNoMatch')}</p> : null}
           <ul className="space-y-1 text-xs">
             {report.items.map((item) => (
               <li key={item.contentRightsId} className="flex flex-wrap items-center gap-2">

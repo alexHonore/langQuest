@@ -3,12 +3,17 @@ import { Chip, CourseCover, Row, StatusLine, ThemedText, dialectClarification, u
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
+import { CapabilityDisclaimer } from '@/components/CapabilityDisclaimer';
 import { OnboardingFrame } from '@/components/OnboardingFrame';
+import { useCourseCapabilities } from '@/features/session/queries';
 import { newUuid } from '@/lib/ids';
 import { useLanguageNames, useT } from '@/lib/i18n';
 import { usePrefs } from '@/state/prefs';
 
-/** "Learn X from Y" confirmation for this enrollment; the source can be edited per course later. */
+/**
+ * "Learn X from Y" confirmation for this enrollment; the source can be edited per course later. Shows the
+ * capability disclaimer of the pair before the learner confirms (CONVENTIONS §8; public coverage endpoint).
+ */
 export default function ConfirmStep(): React.JSX.Element {
   const theme = useTheme();
   const router = useRouter();
@@ -20,6 +25,7 @@ export default function ConfirmStep(): React.JSX.Element {
   const pendingScriptMode = usePrefs((s) => s.pendingScriptMode);
   const pendingRegionalOption = usePrefs((s) => s.pendingRegionalOption);
   const pendingEnrollmentKey = usePrefs((s) => s.pendingEnrollmentKey);
+  const capabilities = useCourseCapabilities(trackId, source);
   if (!trackId || !source) {
     router.replace('/onboarding/language');
     return <View />;
@@ -72,6 +78,7 @@ export default function ConfirmStep(): React.JSX.Element {
           </ThemedText>
         </View>
       ) : null}
+      <CapabilityDisclaimer testID="onboarding-disclaimer" capabilities={capabilities.data?.data ?? null} sourceName={names(source)} targetName={track.displayName} />
       {track.regionalOptions.length > 0 ? (
         <View style={{ gap: theme.spacing.xs }}>
           <ThemedText variant="label">{t('catalog.regionalOptions')}</ThemedText>

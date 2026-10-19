@@ -1,8 +1,11 @@
+import Link from 'next/link';
 import { requireSection } from '@/src/lib/auth/session';
+import { SECTION_PATHS } from '@/src/lib/auth/roles';
 import { serverTranslator } from '@/src/lib/i18n/server';
-import { publicEnv, serverEnv } from '@/src/lib/env';
+import { publicEnv } from '@/src/lib/env';
+import { loadSetupStatus } from '@/src/lib/setup/status';
 import { Card, PageHeader } from '@/src/components/ui';
-import { Badge } from '@/src/components/badges';
+import { SetupItemRow } from '@/src/components/setup-card';
 import { ApiHealth } from './api-health';
 import pkg from '../../../package.json';
 
@@ -13,7 +16,8 @@ export default async function SettingsPage() {
   await requireSection('settings');
   const { t, locale } = await serverTranslator();
   const env = publicEnv();
-  const hasProbeKey = Boolean(serverEnv().OPENROUTER_API_KEY);
+  const setup = await loadSetupStatus();
+  const providers = setup.items.filter((i) => i.key === 'media' || i.key === 'ai' || i.key === 'speech' || i.key === 'adminProbe');
   return (
     <div className="space-y-4">
       <PageHeader title={t('admin.settings.title')} description={t('admin.settings.secretsNote')} />
@@ -36,27 +40,23 @@ export default async function SettingsPage() {
             </dd>
           </dl>
         </Card>
-        <Card title={t('admin.ui.stProviders')}>
-          <ul className="space-y-2 text-sm">
-            <li className="flex items-center justify-between">
-              <span>{t('admin.ui.stOpenRouter')}</span>
-              <span className="flex gap-1">
-                <Badge tone="info">{t('admin.ui.stConfiguredOnApi')}</Badge>
-                <Badge tone={hasProbeKey ? 'success' : 'neutral'}>
-                  {t('admin.ui.stLocalProbe')}: {hasProbeKey ? t('admin.ui.yes') : t('admin.ui.no')}
-                </Badge>
-              </span>
-            </li>
-            <li className="flex items-center justify-between">
-              <span>{t('admin.ui.stR2')}</span>
-              <Badge tone="info">{t('admin.ui.stConfiguredOnApi')}</Badge>
-            </li>
-            <li className="flex items-center justify-between">
-              <span>{t('admin.ui.stQueues')}</span>
-              <Badge tone="info">postgres (ADR-005)</Badge>
-            </li>
+        {/* Live provider status observed from the API (never a static "configured" badge). */}
+        <Card
+          title={t('admin.ui.stProviders')}
+          actions={
+            <Link href={SECTION_PATHS.setup} className="text-xs text-accent hover:underline">
+              {t('admin.ui.setup.openSetup')} →
+            </Link>
+          }
+        >
+          <ul className="divide-y divide-border">
+            {providers.map((item) => (
+              <SetupItemRow key={item.key} item={item} />
+            ))}
           </ul>
-          <p className="mt-3 text-xs text-fg-muted">{t('admin.ui.stStorageHint')}</p>
+          <p className="mt-3 text-xs text-fg-muted">{t('admin.ui.stQueues')}: postgres (ADR-005)</p>
+          <p className="mt-1 text-xs text-fg-muted">{t('admin.ui.stStorageHint')}</p>
+          <p className="mt-1 text-xs text-fg-muted">{t('admin.ui.stSetupLink')}</p>
         </Card>
       </div>
     </div>

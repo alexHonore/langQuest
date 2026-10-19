@@ -32,6 +32,7 @@ import { Badge } from '@/src/components/badges';
 import { DataTable, type Column } from '@/src/components/data-table';
 import { Dialog } from '@/src/components/dialog';
 import { Button, Checkbox, ErrorState, Field, Input, Mono, Notice, Select, Textarea } from '@/src/components/ui';
+import { useDeployment } from '@/src/lib/setup/context';
 
 const PENDING: ReadonlySet<ReviewStatus> = new Set(['draft', 'review_needed', 'in_review']);
 const REVIEW_TONE: Record<ReviewStatus, 'neutral' | 'info' | 'success' | 'warning' | 'error'> = { draft: 'neutral', review_needed: 'warning', in_review: 'info', approved: 'success', rejected: 'error' };
@@ -81,6 +82,8 @@ function ProposalDiff({ s }: { s: AssetSuggestionDto }) {
 
 export function SuggestionsScreen({ canDecide }: { canDecide: boolean }) {
   const { t, locale } = useI18n();
+  const { aiAvailable } = useDeployment();
+  const canGenerate = canDecide && aiAvailable;
   const [filters, setFilters] = useState<Filters>(DEFAULT_FILTERS);
   const [cursors, setCursors] = useState<Array<string | null>>([null]);
   const [nonce, setNonce] = useState(0);
@@ -235,7 +238,7 @@ export function SuggestionsScreen({ canDecide }: { canDecide: boolean }) {
           <Button size="sm" onClick={() => void load()} loading={loading}>
             {t('admin.ui.refresh')}
           </Button>
-          {canDecide ? (
+          {canGenerate ? (
             <Button size="sm" variant="primary" onClick={() => setGenerating(true)}>
               {t('admin.ui.sgGenerate')}
             </Button>
@@ -283,7 +286,7 @@ export function SuggestionsScreen({ canDecide }: { canDecide: boolean }) {
         selected={selected}
         onSelectionChange={setSelected}
         loading={loading && !page}
-        empty={t('admin.ui.sgNothing')}
+        empty={canGenerate ? t('admin.ui.sgEmptyHint') : t('admin.ui.sgNothing')}
         caption={t('admin.sections.assetSuggestions')}
         pagination={{
           page: cursors.length,
@@ -305,7 +308,7 @@ export function SuggestionsScreen({ canDecide }: { canDecide: boolean }) {
           }}
         />
       ) : null}
-      <GenerateDialog open={generating} onClose={() => setGenerating(false)} onQueued={() => void load()} />
+      {canGenerate ? <GenerateDialog open={generating} onClose={() => setGenerating(false)} onQueued={() => void load()} /> : null}
     </div>
   );
 }

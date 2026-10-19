@@ -1,15 +1,17 @@
 import { SOURCE_LANGUAGES, type SourceLanguageCode } from '@langquest/contracts';
-import { SUPPORTED_UI_LOCALES } from '@langquest/locales';
 import { Chip, Row, ThemedText, orderedSourceLanguages, useTheme } from '@langquest/ui';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { OnboardingFrame } from '@/components/OnboardingFrame';
+import { completeUiLocales } from '@/features/session/capabilities';
 import { deviceUiLocale, useI18n, useLanguageNames } from '@/lib/i18n';
 import { track } from '@/lib/telemetry';
 import { usePrefs } from '@/state/prefs';
 
 const PROMINENT: readonly SourceLanguageCode[] = ['en', 'fr'];
+/** Chrome languages: complete catalogs only (partial es/ru stay instruction languages; docs/UPCOMING_FEATURES.md). */
+const UI_LOCALES = completeUiLocales();
 
 /** UI language (menus) and default instruction language (explanations) — three independent variables (§10.1). */
 export default function LanguageStep(): React.JSX.Element {
@@ -42,7 +44,7 @@ export default function LanguageStep(): React.JSX.Element {
       }}
     >
       <Row gap={theme.spacing.sm} wrap accessibilityRole="radiogroup">
-        {SUPPORTED_UI_LOCALES.map((code) => (
+        {UI_LOCALES.map((code) => (
           <View key={code} testID={`onboarding-ui-${code}`}>
             <Chip label={names(code)} selected={(uiOverride ?? deviceUiLocale()) === code} tone="accent" onPress={() => set({ uiLocale: code })} accessibilityLabel={names(code)} />
           </View>

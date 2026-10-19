@@ -1,13 +1,15 @@
 import { getCourseTrack, type MissionExpression, type SpeechEvaluationResult } from '@langquest/contracts';
 import { Button, Chip, EmptyState, PronunciationFeedback, Row, SpeakButton, SpeechStateIndicator, StatusLine, Surface, ThemedText, useTheme } from '@langquest/ui';
-import { useLocalSearchParams, useRouter } from 'expo-router';
+import { Redirect, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { ErrorView, LoadingView } from '@/components/StateViews';
 import { formsForScriptMode, sourceTextDirection } from '@/features/lesson/forms';
 import { usePathway } from '@/features/missions/use-pathway';
-import { useActiveEnrollment, useCapabilities, useMissionDetail } from '@/features/session/queries';
+import { withoutNumericScore } from '@/features/session/capabilities';
+import { useActiveEnrollment, useMissionDetail } from '@/features/session/queries';
+import { useEnrollmentNavigation } from '@/features/session/use-capabilities';
 import { createClipPlayer, materialiseClip } from '@/lib/clip-player';
 import { useExtraLabels } from '@/lib/extra-labels';
 import { haptic } from '@/lib/haptics';
@@ -21,9 +23,10 @@ import { usePrefs } from '@/state/prefs';
 
 /**
  * Screen 6: pronunciation coach. Reference audio, record/retry, feedback.
- * A numeric score appears only when the result's assessmentMode is acoustic
- * (`pronunciationDisplay` in the ui package enforces it); otherwise the
- * honest "not yet available" line and listen-and-compare guidance.
+ * Rendered only when the enrollment's capability snapshot offers spoken feedback for mission expressions
+ * (CONVENTIONS §8). A numeric score appears only when the pair's assessor is acoustic: the result's
+ * `assessmentMode` (`pronunciationDisplay` in the ui package) AND the snapshot must agree — otherwise the
+ * number is dropped client-side and the screen is listen-and-compare only, with no "not available" copy.
  */
 export default function PronunciationCoach(): React.JSX.Element {
   const theme = useTheme();
@@ -34,11 +37,10 @@ export default function PronunciationCoach(): React.JSX.Element {
   const { api, online } = useServices();
   const params = useLocalSearchParams<{ missionId?: string; expressionId?: string }>();
   const { enrollment } = useActiveEnrollment();
-  const { pathway } = usePathway(enrollment);
+  const nav = useEnrollmentNavigation(enrollment);
+  const { pathway } = usePathway(nav.pronunciationDrills ? enrollment : null);
   const missionId = params.missionId ?? pathway?.next?.mission.id ?? null;
-  const mission = useMissionDetail(missionId, enrollment);
-  // Capability claims come from the live registry (cached per track for offline), never from the static catalog.
-  const capabilities = useCapabilities(enrollment);
+  const mission = useMissionDetail(missionId, nav.pronunciationDrills ? enrollment : null);
   const recorder = useRecorder();
   const player = useMemo(() => createClipPlayer(), []);
   const tapToTalk = usePrefs((s) => s.tapToTalk);
@@ -55,8 +57,6 @@ export default function PronunciationCoach(): React.JSX.Element {
   const trackDef = enrollment ? getCourseTrack(enrollment.courseTrackId) : null;
   const reference = expression?.audio.find((a) => a.asset.publicUrl) ?? null;
   const slowReference = expression?.audio.find((a) => a.speechRate === 'slow' && a.asset.publicUrl) ?? null;
-  const scoring = capabilities.data?.data.pronunciationScoring ?? null;
-  const scoringText = scoring ? t(`catalog.scoringSupport.${scoring === 'none' ? 'limited' : scoring}`) : capabilities.isLoading ? X.checkingAssessor : X.assessorUnconfirmed;
   const sourceDir = sourceTextDirection(enrollment?.sourceLanguageCode);
 
   const record = async (): Promise<void> => {
@@ -86,7 +86,7 @@ export default function PronunciationCoach(): React.JSX.Element {
         requestedFeatures: trackDef.tonal ? ['word', 'phoneme', 'tone', 'prosody'] : ['word', 'phoneme', 'prosody'],
         clientRequestId: newUuid(),
       });
-      setResult(res);
+      setResult(withoutNumericScore(res, nav));
       setPhase('result');
       track.speakingTime(Math.round(clip.durationMs / 1000), 'drill');
       void haptic('success');
@@ -96,13 +96,13 @@ export default function PronunciationCoach(): React.JSX.Element {
     }
   };
 
+  if (enrollment && !nav.pronunciationDrills) return <Redirect href="/(tabs)" />;
   return (
     <Screen title={t('pronunciation.title')} onBack={() => router.back()}>
       {!enrollment ? <EmptyState title={t('home.noCourse')} actionLabel={t('home.addCourse')} onAction={() => router.push('/catalog')} /> : null}
       {mission.isLoading ? <LoadingView rows={1} /> : null}
       {mission.error && !mission.data ? <ErrorView error={mission.error} onRetry={() => void mission.refetch()} /> : null}
-      <StatusLine icon="info" tone={scoring === 'full' ? 'success' : 'info'} text={scoringText} />
-      {capabilities.data?.fromCache ? <ThemedText variant="caption" tone="muted">{t('errors.offlineLessonsAvailable')}</ThemedText> : null}
+      {nav.numericScore ? <StatusLine icon="check" tone="success" text={t('enrollment.disclaimer.includes.pronunciationAcoustic')} /> : <StatusLine icon="info" tone="info" text={t('enrollment.disclaimer.includes.pronunciationReference')} />}
       <ThemedText variant="caption" tone="muted">
         {t('pronunciation.honesty')} {t('pronunciation.feedback.accentRespect')}
       </ThemedText>
@@ -125,11 +125,8 @@ export default function PronunciationCoach(): React.JSX.Element {
             <Button label={t('lesson.slow')} icon="slow" variant="secondary" size="sm" disabled={!reference} onPress={() => void player.playUri((slowReference ?? reference)!.asset.publicUrl!, slowReference ? 1 : 0.75)} accessibilityLabel={t('lesson.slow')} />
             {myClipUri ? <Button label={t('pronunciation.playYours')} icon="volume" variant="ghost" size="sm" onPress={() => void player.playUri(myClipUri, 1)} accessibilityLabel={t('pronunciation.playYours')} /> : null}
           </Row>
-          {!reference ? <ThemedText variant="caption" tone="muted">{t('pronunciation.referenceAudio')}: {t('common.notAvailable')}</ThemedText> : null}
           {reference?.synthetic ? <ThemedText variant="caption" tone="muted">{X.syntheticReference}</ThemedText> : null}
         </Surface>
-      ) : mission.data ? (
-        <EmptyState title={t('common.notAvailable')} description={t('pronunciation.tipListen')} mascotState="quiet_audio" />
       ) : null}
       <View style={{ alignItems: 'center', gap: theme.spacing.sm }}>
         <SpeechStateIndicator state={phase === 'recording' ? 'learner_mic_active' : phase === 'assessing' ? 'thinking' : player.playing ? 'character_speaking' : 'idle'} labels={labels.speechStates} compact />
