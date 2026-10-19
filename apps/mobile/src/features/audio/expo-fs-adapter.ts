@@ -17,10 +17,33 @@ const bytesToHex = (bytes: Uint8Array): string => Array.from(bytes, (b) => b.toS
 
 export const downloadsSupported = (): boolean => Platform.OS !== 'web';
 
-export function createExpoDownloadFs(): DownloadFs {
-  const root = new Directory(Paths.document, 'audio-packs');
+/**
+ * Web has no persistent file store for large media and expo-file-system's `Directory`
+ * class is native-only, so on web every operation reports "unsupported" instead of
+ * crashing at construction time (the download manager already hides downloads there).
+ */
+function createUnsupportedDownloadFs(): DownloadFs {
+  const unsupported = () => Promise.reject(new Error('Offline downloads are not supported on this platform'));
   return {
-    packRoot: () => root.uri,
+    packRoot: () => 'unsupported://audio-packs',
+    ensureDirectory: unsupported,
+    download: unsupported,
+    exists: async () => false,
+    size: async () => null,
+    sha256: async () => null,
+    delete: async () => undefined,
+    deleteDirectory: async () => undefined,
+    freeBytes: async () => null,
+  };
+}
+
+export function createExpoDownloadFs(): DownloadFs {
+  if (!downloadsSupported()) return createUnsupportedDownloadFs();
+  // Lazy: `Directory` touches the native module, so never construct it at import/build time.
+  let rootDir: Directory | null = null;
+  const root = () => (rootDir ??= new Directory(Paths.document, 'audio-packs'));
+  return {
+    packRoot: () => root().uri,
     ensureDirectory: async (uri) => {
       const dir = new Directory(uri);
       if (!dir.exists) dir.create({ intermediates: true, idempotent: true });
