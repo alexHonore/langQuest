@@ -10,7 +10,7 @@
 import { ConversationTurnResponseSchema } from '@langquest/contracts';
 import { afterAll, beforeAll, expect, it } from 'vitest';
 import { TURN_RETRY_WAIT_MS } from '../../apps/api/src/routes/speech/conversation';
-import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, enrol, Seeder, type ApiHarness, type TestUser } from '../src/harness';
+import { call, createApiHarness, createTestUser, describeWithStack, enrol, Seeder, teardown, type ApiHarness, type TestUser } from '../src/harness';
 
 const describeStack = describeWithStack('integration.conversation-replay');
 
@@ -41,11 +41,8 @@ describeStack('conversation turn: 409 turn_in_progress → retry the same client
     await seeder.insert('conversation_turns', { session_id: sessionId, turn_index: 1, speaker: 'learner', client_turn_id: clientTurnId, text: 'Salam, labas?', occurred_at: new Date(Date.now() - 1_000).toISOString() });
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    await deleteTestUsers(h, [learner, stranger]);
-    await seeder.cleanup();
-  });
+  // Users first (their owned rows and ledgers go with them), then the seeded content rows in reverse insertion order.
+  afterAll(() => teardown(h, seeder));
 
   it('a retry while the original is still in flight answers 409 turn_in_progress with Retry-After, and never runs the pipeline again', async () => {
     const res = await call(h, `/v1/ai/conversation/${sessionId}/turn`, { token: learner.token, body: turnBody(clientTurnId) });

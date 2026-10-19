@@ -9,7 +9,7 @@ import { LanguageGuard } from '@langquest/ai/prompts/language-guard';
 import { config as loadDotenv } from 'dotenv';
 import { resolve } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { call, createStackUser, deleteStackRows, deleteStackUsers, describeWithStack, REPO_ROOT, stackApp, type StackHarness, type TestUser } from '../harness';
+import { call, createStackUser, describeWithStack, REPO_ROOT, stackApp, teardownStack, trackRow, type StackHarness, type TestUser } from '../harness';
 
 loadDotenv({ path: resolve(REPO_ROOT, '.env'), quiet: true });
 const live = process.env.LANGQUEST_LIVE_TESTS === '1' && Boolean(process.env.OPENROUTER_API_KEY);
@@ -30,17 +30,13 @@ describeLive('live Darija-from-French conversation turn', () => {
     learner = await createStackUser(h, 'live', { defaultSourceLanguageCode: 'fr', uiLocale: 'fr-CA' });
     const character = await h.service.from('characters').insert({ character_key: `live.test.${crypto.randomUUID().replace(/-/g, '').slice(0, 10)}`, name: 'Khadija', role: 'café owner', personality: 'warm, patient, chatty', home_region: 'Casablanca', target_variety_id: 'ary', voice_profile: { synthetic: true }, storyline_facts: ['Runs a small café near the medina', 'Loves talking about mint tea'], state: 'published' }).select('id').single();
     if (character.error) throw new Error(character.error.message);
-    characterId = character.data.id;
+    characterId = trackRow(h, 'characters', character.data.id);
     const enrollment = await call(h.app, '/v1/me/enrollments', { token: learner.token, body: { courseTrackId: 'arabic-moroccan', sourceLanguageCode: 'fr', scriptMode: 'both' } });
     enrollmentId = enrollment.json.data.id;
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    // Learner first: the session references the character (ON DELETE RESTRICT).
-    await deleteStackUsers(h, [learner.id]);
-    if (characterId) await deleteStackRows(h, 'characters', [characterId]);
-  });
+  // Learner first (the session references the character, ON DELETE RESTRICT), then the tracked character.
+  afterAll(() => teardownStack(h));
 
   it('speaks Darija to the learner and coaches in French', async () => {
     const sessionId = crypto.randomUUID();

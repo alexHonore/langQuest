@@ -10,7 +10,7 @@
  */
 import { MeDeleteResponseSchema, MeExportResponseSchema } from '@langquest/contracts';
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, enrol, Seeder, syncBody, type ApiHarness, type TestUser } from '../src/harness';
+import { call, createApiHarness, createTestUser, describeWithStack, enrol, Seeder, syncBody, teardown, type ApiHarness, type TestUser } from '../src/harness';
 
 const describeStack = describeWithStack('integration.account-lifecycle');
 
@@ -76,11 +76,8 @@ describeStack('account export and deletion (A28) with ledger rows present', () =
     await h.app.flush();
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    await deleteTestUsers(h, [learner, bystander]);
-    await seeder.cleanup();
-  });
+  // Users first (their owned rows and ledgers go with them), then the seeded content rows in reverse insertion order.
+  afterAll(() => teardown(h, seeder));
 
   it('the ledgers really exist before export/deletion (sanity: the test is not vacuous)', async () => {
     const counts = await countOwned(learner.id);

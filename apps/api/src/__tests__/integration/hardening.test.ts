@@ -16,7 +16,7 @@ import { FakeReasoner } from '@langquest/ai/test-support/fakes';
 import type { AiServices } from '@langquest/ai';
 import { unsupportedCapability, type Prompt, type SpeechRecognizer, type SpeechSynthesizer } from '@langquest/contracts';
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { call, createStackUser, deleteStackRows, deleteStackUsers, describeWithStack, localJwtSecret, signTestToken, stackApp, type StackHarness, type TestUser } from '../harness';
+import { call, createStackUser, describeWithStack, localJwtSecret, signTestToken, stackApp, teardownStack, trackRow, type StackHarness, type TestUser } from '../harness';
 
 const describeStack = describeWithStack('api.hardening');
 
@@ -37,7 +37,7 @@ function fakeAi(reasoner: FakeReasoner): AiServices {
 describeStack('client-security hardening against the local stack', () => {
   let h: StackHarness;
   let alice: TestUser;
-  let characterId: string | null = null;
+  let characterId: string;
   const reasoner = new FakeReasoner();
   const pack = getPromptPack('ary');
 
@@ -53,12 +53,8 @@ describeStack('client-security hardening against the local stack', () => {
       );
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    // Users first: their sessions reference the character (ON DELETE RESTRICT).
-    await deleteStackUsers(h, [alice.id]);
-    if (characterId) await deleteStackRows(h, 'characters', [characterId]);
-  });
+  // Users first (their sessions reference the character, ON DELETE RESTRICT), then the tracked character.
+  afterAll(() => teardownStack(h));
 
   it('refreshes a session with the refresh token alone, rejects junk, and still rejects an invalid Bearer', async () => {
     const noBearer = await call(h.app, '/v1/auth/session/refresh', { body: { refreshToken: alice.refreshToken } });
@@ -89,7 +85,7 @@ describeStack('client-security hardening against the local stack', () => {
   it('an injected learner turn is normalised before storage and prompts; objectives and XP stay server-decided', async () => {
     const character = await h.service.from('characters').insert({ character_key: `hard.test.${crypto.randomUUID().replace(/-/g, '').slice(0, 10)}`, name: 'Khadija', role: 'café owner', personality: 'warm', home_region: 'Casablanca', target_variety_id: 'ary', voice_profile: { synthetic: true }, storyline_facts: ['Runs a café'], state: 'published' }).select('id').single();
     if (character.error) throw new Error(character.error.message);
-    characterId = character.data.id;
+    characterId = trackRow(h, 'characters', character.data.id);
     const enrollment = await call(h.app, '/v1/me/enrollments', { token: alice.token, body: { courseTrackId: 'arabic-moroccan', sourceLanguageCode: 'fr', scriptMode: 'both' } });
     expect(enrollment.status, JSON.stringify(enrollment.json)).toBe(201);
     const enrollmentId = enrollment.json.data.id as string;

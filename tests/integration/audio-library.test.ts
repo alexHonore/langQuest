@@ -5,7 +5,7 @@
  * honestly when rights are not verified or storage is not configured.
  */
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, enrol, Seeder, type ApiHarness, type TestUser } from '../src/harness';
+import { call, createApiHarness, createTestUser, describeWithStack, enrol, Seeder, teardown, type ApiHarness, type TestUser } from '../src/harness';
 
 const describeStack = describeWithStack('integration.audio');
 
@@ -45,11 +45,8 @@ describeStack('audio library — published-only reads, bookmarks, progress', () 
     await seeder.audioLesson({ chapterId: draftChapter.id, titles: { en: 'Published lesson inside a draft collection' } });
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    await deleteTestUsers(h, [alice, bob]);
-    await seeder.cleanup();
-  });
+  // Users first (their owned rows and ledgers go with them), then the seeded content rows in reverse insertion order.
+  afterAll(() => teardown(h, seeder));
 
   it('lists only published collections, localized to the requested instruction language, with honest counts', async () => {
     const res = await call(h, '/v1/audio/collections?language=ary&instructionLanguage=fr&limit=100', { token: alice.token });

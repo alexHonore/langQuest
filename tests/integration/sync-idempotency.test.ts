@@ -5,7 +5,7 @@
  * applied; events for someone else's enrollment are rejected and never leak.
  */
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, enrol, Seeder, syncBody, type ApiHarness, type TestUser } from '../src/harness';
+import { call, createApiHarness, createTestUser, describeWithStack, enrol, Seeder, syncBody, teardown, type ApiHarness, type TestUser } from '../src/harness';
 
 const describeStack = describeWithStack('integration.sync');
 
@@ -34,11 +34,8 @@ describeStack('progress sync idempotency (A27)', () => {
     seeder.track('mission_attempts', openAttemptId);
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    await deleteTestUsers(h, [alice, bob]);
-    await seeder.cleanup();
-  });
+  // Users first (their owned rows and ledgers go with them), then the seeded content rows in reverse insertion order.
+  afterAll(() => teardown(h, seeder));
 
   it('pays the same XP claim once when two devices race, then answers duplicate forever', async () => {
     const clientEventId = crypto.randomUUID();

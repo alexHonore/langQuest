@@ -9,7 +9,7 @@ import { getPromptPack } from '@langquest/ai/prompts/packs';
 import { FakeReasoner } from '@langquest/ai/test-support/fakes';
 import { characterUuid } from '@langquest/db/character-uuid';
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { call, createStackUser, deleteStackUsers, describeWithStack, fakeAiServices, stackApp, type StackHarness, type TestUser } from '../harness';
+import { call, createStackUser, describeWithStack, fakeAiServices, stackApp, teardownStack, trackRow, type StackHarness, type TestUser } from '../harness';
 
 const describeStack = describeWithStack('api.characters');
 
@@ -36,8 +36,6 @@ describeStack('seeded cast: manifest → conversation session', () => {
   const reasoner = new FakeReasoner();
   const pack = getPromptPack('ary');
   const opening = pack.exemplars[0]!;
-  /** Stored manifest versions created by this suite (cleaned up). */
-  let storedFrom: number | null = null;
 
   beforeAll(async () => {
     h = stackApp({ OPENROUTER_API_KEY: 'sk-or-test-not-used' }, { aiFactory: async () => fakeAiServices(reasoner) });
@@ -48,11 +46,7 @@ describeStack('seeded cast: manifest → conversation session', () => {
     enrollmentId = enrollment.json.data.id as string;
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    if (storedFrom !== null) await h.service.from('course_manifests').delete().eq('course_track_id', 'arabic-moroccan').eq('source_language_code', 'fr').gte('version', storedFrom);
-    await deleteStackUsers(h, [learner.id]);
-  });
+  afterAll(() => teardownStack(h));
 
   it('the seed is present: Nadia has the deterministic id shared with the art roster', async () => {
     const row = await h.service.from('characters').select('id, character_key, state, target_variety_id, voice_profile').eq('character_key', NADIA_KEY).maybeSingle();
@@ -85,12 +79,12 @@ describeStack('seeded cast: manifest → conversation session', () => {
     const latest = await h.service.from('course_manifests').select('version, manifest').eq('course_track_id', 'arabic-moroccan').eq('source_language_code', 'fr').order('version', { ascending: false }).limit(1).maybeSingle();
     expect(latest.error).toBeNull();
     const version = (latest.data?.version ?? -1) + 1;
-    storedFrom = version;
     // A copy as the API stored it before the seed: valid envelope, no characters.
     const live = await call(h.app, '/v1/courses/arabic-moroccan/manifest?source=fr', { token: learner.token });
     const stale = { ...live.json.data, version, characters: [], checksum: 'f'.repeat(64) };
-    const inserted = await h.service.from('course_manifests').insert({ course_track_id: 'arabic-moroccan', source_language_code: 'fr', version, checksum: stale.checksum, manifest: stale, published_at: new Date().toISOString() });
+    const inserted = await h.service.from('course_manifests').insert({ course_track_id: 'arabic-moroccan', source_language_code: 'fr', version, checksum: stale.checksum, manifest: stale, published_at: new Date().toISOString() }).select('id').single();
     expect(inserted.error?.message ?? null).toBeNull();
+    trackRow(h, 'course_manifests', inserted.data!.id);
     // Fresh app instance: an empty edge cache, so the stored copy is consulted.
     const fresh = stackApp({ OPENROUTER_API_KEY: 'sk-or-test-not-used' }, { aiFactory: async () => fakeAiServices(reasoner) });
     const res = await call(fresh.app, '/v1/courses/arabic-moroccan/manifest?source=fr', { token: learner.token });
@@ -99,6 +93,9 @@ describeStack('seeded cast: manifest → conversation session', () => {
     expect(res.json.data.version).toBe(version + 1);
     const ids = (res.json.data.characters as ManifestCharacterDto[]).map((ch) => ch.id);
     expect(ids).toContain(NADIA_ID);
+    // The API stored the rebuilt copy as version + 1: it is this suite's row too.
+    const refreshed = await h.service.from('course_manifests').select('id').eq('course_track_id', 'arabic-moroccan').eq('source_language_code', 'fr').eq('version', version + 1).maybeSingle();
+    if (refreshed.data) trackRow(h, 'course_manifests', refreshed.data.id);
     // The refreshed copy is now stored and served as such on the next uncached request.
     const again = stackApp({ OPENROUTER_API_KEY: 'sk-or-test-not-used' }, { aiFactory: async () => fakeAiServices(reasoner) });
     const second = await call(again.app, '/v1/courses/arabic-moroccan/manifest?source=fr', { token: learner.token });
@@ -157,11 +154,8 @@ describeStack('seeded cast: manifest → conversation session', () => {
     const draftKey = `cast.draft.${crypto.randomUUID().replace(/-/g, '').slice(0, 10)}`;
     const draft = await h.service.from('characters').insert({ character_key: draftKey, name: 'Draft', role: 'tester', personality: 'quiet', home_region: 'Rabat', target_variety_id: 'ary', voice_profile: { synthetic: true }, storyline_facts: ['draft'], state: 'review_needed' }).select('id').single();
     expect(draft.error?.message ?? null).toBeNull();
-    try {
-      const hidden = await call(h.app, '/v1/ai/conversation/session', { token: learner.token, body: { enrollmentId, characterId: draft.data!.id, clientSessionId: crypto.randomUUID(), mode: 'text_only' } });
-      expect(hidden.status).toBe(404);
-    } finally {
-      await h.service.from('characters').delete().eq('id', draft.data!.id);
-    }
+    trackRow(h, 'characters', draft.data!.id);
+    const hidden = await call(h.app, '/v1/ai/conversation/session', { token: learner.token, body: { enrollmentId, characterId: draft.data!.id, clientSessionId: crypto.randomUUID(), mode: 'text_only' } });
+    expect(hidden.status).toBe(404);
   });
 });

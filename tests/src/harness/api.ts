@@ -19,6 +19,8 @@ export interface ApiHarness {
   stack: TestStack;
   /** Lines the app logged (JSON); handy when a test fails. */
   logs: string[];
+  /** Auth users created through `createTestUser` on this harness; `teardown` purges them all. */
+  users: string[];
 }
 
 /** Secret shared by every harness app so HMAC media tokens can be forged/verified in tests. */
@@ -42,7 +44,7 @@ export function createApiHarness(extra: Partial<Env> = {}, overrides: Partial<Ap
   const logs: string[] = [];
   const app = createApp({ env, logSink: (line) => logs.push(line), ...overrides });
   const service = createServiceClient({ SUPABASE_URL: env.SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY: env.SUPABASE_SERVICE_ROLE_KEY });
-  return { app, service, env, stack, logs };
+  return { app, service, env, stack, logs, users: [] };
 }
 
 export interface CallOptions {

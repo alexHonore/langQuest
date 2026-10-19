@@ -9,6 +9,7 @@ import type { Role } from '@langquest/contracts';
 import { createUserClient, type DbClient } from '@langquest/db/client';
 import { createClient } from '@supabase/supabase-js';
 import type { ApiHarness } from './api';
+import type { Seeder } from './seed';
 
 export interface TestUser {
   id: string;
@@ -33,6 +34,8 @@ export async function createTestUser(h: ApiHarness, label: string, opts: CreateU
   const created = await h.service.auth.admin.createUser({ email, password, email_confirm: true, user_metadata: metadata });
   if (created.error || !created.data.user) throw new Error(`createUser(${label}) failed: ${created.error?.message}`);
   const id = created.data.user.id;
+  // Registered before the role grants / sign-in so a failure there (or in a sibling of a `Promise.all`) still purges it.
+  h.users.push(id);
   const roles = opts.roles ?? [];
   for (const role of roles) {
     const granted = await h.service.from('user_roles').insert({ user_id: id, role });
@@ -75,4 +78,18 @@ export async function enrol(h: ApiHarness, user: TestUser, body: { courseTrackId
   const json = (await res.json()) as { ok: boolean; data?: never; error?: { message: string } };
   if (res.status !== 201) throw new Error(`enrol failed (${res.status}): ${JSON.stringify(json)}`);
   return json.data as never;
+}
+
+/**
+ * Standard `afterAll` for stack-bound suites: flush background work, purge every user the harness created (their
+ * sessions, attempts, ledgers and editorial rows go with them, which is what the RESTRICT FKs on characters and
+ * intents wait for), then delete the seeded content rows in reverse insertion order. Idempotent; safe after a
+ * half-failed `beforeAll`.
+ */
+export async function teardown(h: ApiHarness | undefined, seeder?: Seeder): Promise<void> {
+  if (!h) return;
+  await h.app.flush().catch(() => undefined);
+  await deleteTestUsers(h, [...new Set(h.users)]);
+  h.users.length = 0;
+  if (seeder) await seeder.cleanup();
 }

@@ -9,7 +9,7 @@
  */
 import { ROUTES, type RouteKey } from '@langquest/contracts';
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, Seeder, userClient, type ApiHarness, type TestUser } from '../src/harness';
+import { call, createApiHarness, createTestUser, describeWithStack, Seeder, teardown, userClient, type ApiHarness, type TestUser } from '../src/harness';
 
 const describeStack = describeWithStack('security.admin-routes');
 
@@ -42,10 +42,8 @@ describeStack('admin routes enforce server-verified roles', () => {
     [learner, support, editor] = await Promise.all([createTestUser(h, 'learner'), createTestUser(h, 'support', { roles: ['support_readonly'] }), createTestUser(h, 'editor', { roles: ['content_editor'] })]);
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    await deleteTestUsers(h, [learner, support, editor]);
-  });
+  // Users first (their owned rows and ledgers go with them), then the seeded content rows in reverse insertion order.
+  afterAll(() => teardown(h));
 
   it('covers every admin route in the contracts (sanity), including the structure / visual-asset / suggestion routes', () => {
     expect(adminRoutes.length).toBeGreaterThanOrEqual(22);

@@ -6,7 +6,7 @@
  * A28 export/delete, manifest caching and honest capability answers without providers.
  */
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { call, createStackUser, deleteStackUsers, describeWithStack, stackApp, type StackHarness, type TestUser } from '../harness';
+import { call, createStackUser, describeWithStack, stackApp, teardownStack, trackRow, type StackHarness, type TestUser } from '../harness';
 
 const describeStack = describeWithStack('api.stack');
 
@@ -16,18 +16,14 @@ describeStack('API against the local stack', () => {
   let bob: TestUser;
   let editor: TestUser;
   let admin: TestUser;
-  const created: string[] = [];
 
   beforeAll(async () => {
     h = stackApp();
     [alice, bob, editor, admin] = await Promise.all([createStackUser(h, 'alice', { defaultSourceLanguageCode: 'fr' }), createStackUser(h, 'bob', { defaultSourceLanguageCode: 'en' }), createStackUser(h, 'editor', { role: 'content_editor' }), createStackUser(h, 'admin', { role: 'admin' })]);
-    created.push(alice.id, bob.id, editor.id, admin.id);
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    await deleteStackUsers(h, created);
-  });
+  // Users first (their attempts / sessions / ledgers go with them), then the tracked content rows in reverse order.
+  afterAll(() => teardownStack(h));
 
   it('GET /v1/me returns the verified principal, profile and roles', async () => {
     const me = await call(h.app, '/v1/me', { token: alice.token });
@@ -130,6 +126,7 @@ describeStack('API against the local stack', () => {
     // A completed mission attempt is the only thing that can back a mission_completed claim.
     const mission = await h.service.from('missions').insert({ template_key: `api_test_${crypto.randomUUID().replace(/-/g, '').slice(0, 12)}`, target_variety_id: 'ary', state: 'published', title_translations: { fr: 'Test' } }).select('id').single();
     expect(mission.error).toBeNull();
+    trackRow(h, 'missions', mission.data!.id);
     const attempt = await h.service.from('mission_attempts').insert({ user_id: alice.id, enrollment_id: darijaId, mission_id: mission.data!.id, client_attempt_id: crypto.randomUUID(), completed_at: new Date().toISOString() }).select('id').single();
     expect(attempt.error).toBeNull();
     const clientEventId = crypto.randomUUID();
@@ -160,7 +157,6 @@ describeStack('API against the local stack', () => {
     expect(obs.json.data.results[0].resolution).toBe('applied');
     const mastery = await h.service.from('user_skill_mastery').select('skill_key, mastery_state').eq('enrollment_id', darijaId);
     expect(mastery.data?.map((m) => m.skill_key).sort()).toEqual(['greet.basic', 'order.drink']);
-    await h.service.from('missions').delete().eq('id', mission.data!.id);
   });
 
   it('admin routes enforce roles server-side and audit mutations', async () => {
@@ -174,10 +170,10 @@ describeStack('API against the local stack', () => {
     const adminPut = await call(h.app, '/v1/admin/models/character_dialogue/config', { method: 'PUT', token: admin.token, body: { task: 'character_dialogue', targetVariety: 'ary', sourceLanguage: 'fr', provider: 'openrouter', primaryModel: 'anthropic/claude-haiku-5.5', fallbackModels: ['google/gemini-3.8-flash'], params: { temperature: 0.7 }, latencyClass: 'realtime', enabled: false, dailyBudgetUsd: 5, requireSmokeTests: false } });
     expect(adminPut.status).toBe(200);
     expect(adminPut.json.data.profile).toMatchObject({ task: 'character_dialogue', targetVariety: 'ary', sourceLanguage: 'fr', enabled: false });
+    trackRow(h, 'ai_model_profiles', adminPut.json.data.profile.id);
     await h.app.flush();
     const audit = await h.service.from('audit_logs').select('action, actor_id').eq('actor_id', admin.id);
     expect(audit.data?.some((a) => a.action === 'models.config_put')).toBe(true);
-    await h.service.from('ai_model_profiles').delete().eq('id', adminPut.json.data.profile.id);
     const jobs = await call(h.app, `/v1/admin/processing-jobs/${crypto.randomUUID()}`, { token: editor.token });
     expect(jobs.status).toBe(404);
     const analytics = await call(h.app, '/v1/admin/analytics/usage?from=2026-10-01&to=2026-10-14', { token: editor.token });

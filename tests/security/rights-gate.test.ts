@@ -5,7 +5,7 @@
  */
 import { canPublish } from '@langquest/media/rights';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
-import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, Seeder, type ApiHarness, type TestUser } from '../src/harness';
+import { call, createApiHarness, createTestUser, describeWithStack, Seeder, teardown, type ApiHarness, type TestUser } from '../src/harness';
 
 describe('rights gate (pure)', () => {
   const base = { entityKind: 'audio_lesson' as const, currentState: 'review_needed' as const, title: 'Episode 1', languageCode: 'ary', asset: { checksumVerified: true, disposition: 'active' as const, accessible: true, byteLength: 1000 }, speakers: { known: true, entries: [{ name: 'Narrator', consentState: 'granted' as const }] }, chapterId: 'c1' };
@@ -59,11 +59,8 @@ describeStack('admin publish route is rights-gated (A20)', () => {
     revokedLessonId = revokedLesson.id;
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    await deleteTestUsers(h, [editor, learner]);
-    await seeder.cleanup();
-  });
+  // Users first (their owned rows and ledgers go with them), then the seeded content rows in reverse insertion order.
+  afterAll(() => teardown(h, seeder));
 
   it('learners cannot publish; editors are blocked with an explicit rights reason and the state does not change', async () => {
     const asLearner = await call(h, `/v1/admin/content/${unclearLessonId}/publish`, { token: learner.token, body: { entityTable: 'audio_lessons', expectedRevision: 0 } });

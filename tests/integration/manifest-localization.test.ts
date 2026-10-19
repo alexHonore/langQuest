@@ -5,7 +5,7 @@
  */
 import { CourseManifestSchema, MissionDetailResponseSchema } from '@langquest/contracts';
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, enrol, Seeder, type ApiHarness, type TestUser } from '../src/harness';
+import { call, createApiHarness, createTestUser, describeWithStack, enrol, Seeder, teardown, type ApiHarness, type TestUser } from '../src/harness';
 
 const describeStack = describeWithStack('integration.manifest');
 
@@ -46,11 +46,8 @@ describeStack('course manifest localization and caching', () => {
     draftMissionId = draft.id;
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    await deleteTestUsers(h, [learner]);
-    await seeder.cleanup();
-  });
+  // Users first (their owned rows and ledgers go with them), then the seeded content rows in reverse insertion order.
+  afterAll(() => teardown(h, seeder));
 
   const missionsOf = <M extends { id: string }>(manifest: { chapters: Array<{ missions: M[] }> }): M[] => manifest.chapters.flatMap((c) => c.missions);
 

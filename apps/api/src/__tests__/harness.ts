@@ -19,6 +19,7 @@ import { SignJWT } from 'jose';
 import { describe } from 'vitest';
 import { detectLocalStack, type LocalStack } from '@langquest/db/local-stack';
 import { createServiceClient, type DbClient } from '@langquest/db/client';
+import type { TableName } from '@langquest/db/types';
 import type { Role } from '@langquest/contracts';
 import { createApp, type AppContext, type AppOptions } from '../app';
 import type { Env } from '../env';
@@ -45,7 +46,7 @@ export function offlineApp(roles: Record<string, Role[]> = {}, overrides: Partia
 
 export async function signTestToken(userId: string, opts: { secret?: string; role?: string; expiresInSeconds?: number; email?: string } = {}): Promise<string> {
   const now = Math.floor(Date.now() / 1000);
-  return new SignJWT({ role: opts.role ?? 'authenticated', email: opts.email ?? `${userId}@test.local`, aud: 'authenticated' })
+  return new SignJWT({ role: opts.role ?? 'authenticated', email: opts.email ?? `${userId}@langquest.test`, aud: 'authenticated' })
     .setProtectedHeader({ alg: 'HS256' })
     .setSubject(userId)
     .setIssuedAt(now)
@@ -106,10 +107,19 @@ export function describeWithStack(suite: string): typeof describe {
   return describe.skip as unknown as typeof describe;
 }
 
+export interface TrackedRow {
+  table: TableName;
+  id: string;
+}
+
 export interface StackHarness {
   app: AppContext;
   service: DbClient;
   env: Env;
+  /** Auth users this harness created (`createStackUser` registers them as soon as GoTrue returns an id). */
+  users: string[];
+  /** Content rows the suite inserted, in insertion order; `teardownStack` deletes them in reverse. */
+  rows: TrackedRow[];
 }
 
 /** App bound to the local stack. Extra env (e.g. OPENROUTER_API_KEY) can be layered for live tests. */
@@ -128,7 +138,31 @@ export function stackApp(extra: Partial<Env> = {}, overrides: Partial<AppOptions
   const lines: string[] = [];
   const app = createApp({ env, logSink: (l) => lines.push(l), ...overrides });
   const service = createServiceClient({ SUPABASE_URL: env.SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY: env.SUPABASE_SERVICE_ROLE_KEY });
-  return { app, service, env };
+  return { app, service, env, users: [], rows: [] };
+}
+
+/**
+ * Register a content row the suite inserted (characters, missions, media_assets, …) so `teardownStack` removes it.
+ * Track rows in INSERTION order (a parent before the rows that reference it): teardown walks the list backwards, so a
+ * child is deleted before a parent that RESTRICTs on it. Returns the id for chaining.
+ */
+export function trackRow(h: StackHarness, table: TableName, id: string): string {
+  h.rows.push({ table, id });
+  return id;
+}
+
+/**
+ * Tear a stack harness down: flush background work, purge every user it created (their sessions / attempts /
+ * ledgers go with them, which is what the RESTRICT FKs on characters and missions wait for), then delete the tracked
+ * content rows in reverse insertion order. Safe to call when `beforeAll` failed half-way, and idempotent.
+ */
+export async function teardownStack(h: StackHarness | undefined): Promise<void> {
+  if (!h) return;
+  await h.app.flush().catch(() => undefined);
+  await deleteStackUsers(h, [...new Set(h.users)]);
+  h.users.length = 0;
+  for (const { table, id } of [...h.rows].reverse()) await deleteStackRows(h, table, [id]);
+  h.rows.length = 0;
 }
 
 export interface TestUser {
@@ -151,6 +185,8 @@ export async function createStackUser(h: StackHarness, label: string, opts: { ro
   const created = await h.service.auth.admin.createUser({ email, password, email_confirm: true, user_metadata: { ui_locale: opts.uiLocale ?? 'fr-CA', default_source_language_code: opts.defaultSourceLanguageCode ?? 'fr' } });
   if (created.error || !created.data.user) throw new Error(`createUser failed: ${created.error?.message}`);
   const id = created.data.user.id;
+  // Registered before the role grant / sign-in so a failure there (or in a sibling of a `Promise.all`) still purges it.
+  h.users.push(id);
   if (opts.role) {
     const granted = await h.service.from('user_roles').insert({ user_id: id, role: opts.role });
     if (granted.error) throw new Error(`grant role failed: ${granted.error.message}`);
@@ -177,9 +213,9 @@ export async function deleteStackUsers(h: StackHarness, ids: string[]): Promise<
 }
 
 /** Delete seeded rows by id and warn (never throw, never hide) when a delete is refused, e.g. by a RESTRICT FK. */
-export async function deleteStackRows(h: StackHarness, table: 'characters' | 'missions' | 'conversation_sessions' | 'course_manifests', ids: string[]): Promise<void> {
+export async function deleteStackRows(h: StackHarness, table: TableName, ids: string[]): Promise<void> {
   if (!ids.length) return;
-  const res = await h.service.from(table).delete().in('id', ids);
+  const res = await h.service.from(table).delete().in('id' as never, ids as never);
   if (res.error) console.warn(`[api harness] delete ${table} ${ids.join(',')} failed: ${res.error.message}`);
 }
 

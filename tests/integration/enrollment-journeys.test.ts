@@ -5,7 +5,7 @@
  */
 import { deriveScriptOptions, getCourseTrack, resolveAssetTrackId } from '@langquest/contracts';
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, enrol, Seeder, signIn, type ApiHarness, type TestUser } from '../src/harness';
+import { call, createApiHarness, createTestUser, describeWithStack, enrol, Seeder, signIn, teardown, type ApiHarness, type TestUser } from '../src/harness';
 
 const describeStack = describeWithStack('integration.enrollment');
 
@@ -15,7 +15,6 @@ describeStack('enrollment and source-language journeys (A01–A07)', () => {
   let alice: TestUser; // English source
   let fabrice: TestUser; // French source
   let ruslan: TestUser; // Russian source
-  const users: TestUser[] = [];
 
   beforeAll(async () => {
     h = createApiHarness();
@@ -25,14 +24,10 @@ describeStack('enrollment and source-language journeys (A01–A07)', () => {
       createTestUser(h, 'fabrice', { defaultSourceLanguageCode: 'fr', uiLocale: 'fr-CA' }),
       createTestUser(h, 'ruslan', { defaultSourceLanguageCode: 'ru', uiLocale: 'ru-RU' }),
     ]);
-    users.push(alice, fabrice, ruslan);
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    await deleteTestUsers(h, users);
-    await seeder.cleanup();
-  });
+  // Users first (their owned rows and ledgers go with them), then the seeded content rows in reverse insertion order.
+  afterAll(() => teardown(h, seeder));
 
   it('A01 — English-source learner enrols in Spanish (Spain): target es-ES, source en, honest coverage', async () => {
     const e = await enrol(h, alice, { courseTrackId: 'spanish-spain', sourceLanguageCode: 'en' });

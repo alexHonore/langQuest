@@ -13,7 +13,7 @@
 import { CollectionResponseSchema, ContentRightsResponseSchema, LessonDetailResponseSchema, SpeakerResponseSchema } from '@langquest/contracts';
 import { buildMasterKey } from '@langquest/media/keys';
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { call, createStackUser, deleteStackUsers, describeWithStack, stackApp, type StackHarness, type TestUser } from '../harness';
+import { call, createStackUser, describeWithStack, stackApp, teardownStack, trackRow, type StackHarness, type TestUser } from '../harness';
 
 const describeStack = describeWithStack('api.admin-structure');
 const key = () => `idem-${crypto.randomUUID()}`;
@@ -26,24 +26,15 @@ describeStack('admin structure, rights, suggestions and manifests against the lo
   let editor: TestUser;
   let admin: TestUser;
   let learner: TestUser;
-  const cleanup: (() => PromiseLike<unknown>)[] = [];
 
   beforeAll(async () => {
     h = stackApp();
     [editor, admin, learner] = await Promise.all([createStackUser(h, 'struct-editor', { role: 'content_editor' }), createStackUser(h, 'struct-admin', { role: 'admin' }), createStackUser(h, 'struct-learner', { defaultSourceLanguageCode: 'fr' })]);
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    for (const fn of cleanup.reverse()) {
-      try {
-        await fn();
-      } catch {
-        /* best-effort cleanup */
-      }
-    }
-    await deleteStackUsers(h, [editor.id, admin.id, learner.id]);
-  });
+  // Users first (their editorial rows go with them), then every tracked row in reverse insertion order: chapters and
+  // lessons cascade from the collection, suggestions from their asset, lesson/speaker links from either side.
+  afterAll(() => teardownStack(h));
 
   let speakerId: string;
   let collectionId: string;
@@ -57,8 +48,7 @@ describeStack('admin structure, rights, suggestions and manifests against the lo
     const created = await call(h.app, '/v1/admin/speakers', { token: editor.token, body });
     expect(created.status, JSON.stringify(created.json)).toBe(201);
     const dto = SpeakerResponseSchema.parse(created.json.data);
-    speakerId = dto.id;
-    cleanup.push(() => h.service.from('speakers').delete().eq('id', speakerId));
+    speakerId = trackRow(h, 'speakers', dto.id);
     expect(dto).toMatchObject({ targetVarietyId: 'ary', consentState: 'granted', synthetic: false, lessonCount: 0, revision: 1 });
     const replay = await call(h.app, '/v1/admin/speakers', { token: editor.token, body });
     expect(replay.status).toBe(200);
@@ -78,8 +68,7 @@ describeStack('admin structure, rights, suggestions and manifests against the lo
   it('structure: collection → chapters → lessons with atomic reorders; a partial permutation is refused', async () => {
     const col = await call(h.app, '/v1/admin/library/collections', { token: editor.token, body: { titleTranslations: { en: 'Souk dialogues', fr: 'Dialogues du souk' }, courseTrackId: 'arabic-moroccan', targetVarietyId: 'ary', instructionLanguageCode: 'fr', idempotencyKey: key() } });
     expect(col.status, JSON.stringify(col.json)).toBe(201);
-    collectionId = CollectionResponseSchema.parse(col.json.data).id;
-    cleanup.push(() => h.service.from('audio_course_collections').delete().eq('id', collectionId));
+    collectionId = trackRow(h, 'audio_course_collections', CollectionResponseSchema.parse(col.json.data).id);
     const chA = await call(h.app, '/v1/admin/library/chapters', { token: editor.token, body: { collectionId, titleTranslations: { en: 'Greetings' }, sortOrder: 0, idempotencyKey: key() } });
     const chB = await call(h.app, '/v1/admin/library/chapters', { token: editor.token, body: { collectionId, titleTranslations: { en: 'Bargaining' }, sortOrder: 1, idempotencyKey: key() } });
     expect(chA.status).toBe(201);
@@ -125,7 +114,7 @@ describeStack('admin structure, rights, suggestions and manifests against the lo
     const k1 = masterKey('mp3');
     const asset = await h.service.from('media_assets').insert({ storage_key: k1.storageKey, bucket: 'langquest-media', kind: 'audio', checksum_sha256: k1.contentHash, mime_type: 'audio/mpeg', byte_length: 1234, state: 'metadata_needed', disposition: 'active', visibility: 'private' }).select('id').single();
     expect(asset.error).toBeNull();
-    cleanup.push(() => h.service.from('media_assets').delete().eq('id', asset.data!.id));
+    trackRow(h, 'media_assets', asset.data!.id);
     const attached = await call(h.app, `/v1/admin/library/lessons/${lessonIds[0]}/assets`, { token: editor.token, body: { assetId: asset.data!.id } });
     expect(attached.status, JSON.stringify(attached.json)).toBe(201);
     expect(attached.json.data).toMatchObject({ assetType: 'master', movedFromLessonId: null });
@@ -149,7 +138,7 @@ describeStack('admin structure, rights, suggestions and manifests against the lo
     const rights = await call(h.app, '/v1/admin/content-rights', { token: admin.token, body: { permissionGrant: 'Written consent on file', licenseId: 'custom', verified: true, commercialRedistribution: true, authors: ['Studio Test'], idempotencyKey: key() } });
     expect(rights.status, JSON.stringify(rights.json)).toBe(201);
     const dto = ContentRightsResponseSchema.parse(rights.json.data);
-    cleanup.push(() => h.service.from('content_rights').delete().eq('id', dto.id));
+    trackRow(h, 'content_rights', dto.id);
     expect(dto).toMatchObject({ verified: true, verifiedBy: admin.id, publishable: true, usedBy: [], revision: 1 });
     // Publish a lesson under this grant, then revoke.
     await h.service.from('audio_lessons').update({ content_rights_id: dto.id, state: 'published', published_revision: 1 }).eq('id', lessonIds[0]!);
@@ -178,7 +167,7 @@ describeStack('admin structure, rights, suggestions and manifests against the lo
     const k2 = masterKey('mp3');
     const asset = await h.service.from('media_assets').insert({ storage_key: k2.storageKey, bucket: 'langquest-media', kind: 'audio', checksum_sha256: k2.contentHash, mime_type: 'audio/mpeg', byte_length: 99, state: 'metadata_needed', disposition: 'active', visibility: 'private' }).select('id').single();
     expect(asset.error).toBeNull();
-    cleanup.push(() => h.service.from('media_assets').delete().eq('id', asset.data!.id));
+    trackRow(h, 'media_assets', asset.data!.id);
     const lessonId = lessonIds[2]!;
     const seeded = await h.service.from('asset_suggestions').insert([
       { media_asset_id: asset.data!.id, lesson_id: lessonId, kind: 'level', suggestion: { value: 'beginner' }, confidence: 0.82, provenance: { task: 'infer_metadata', model: 'test' }, review_status: 'review_needed' },
@@ -212,7 +201,7 @@ describeStack('admin structure, rights, suggestions and manifests against the lo
     const generate = await call(h.app, '/v1/admin/asset-suggestions/generate', { token: editor.token, body: { assetIds: [asset.data!.id], kinds: ['level'], idempotencyKey: key() } });
     expect(generate.status, JSON.stringify(generate.json)).toBe(202);
     expect(generate.json.data).toMatchObject({ queuedAssets: 1, replayed: false });
-    cleanup.push(() => h.service.from('processing_jobs').delete().in('id', generate.json.data.jobIds));
+    for (const jobId of generate.json.data.jobIds as string[]) trackRow(h, 'processing_jobs', jobId);
   });
 
   it('visual assets: honest 501 without R2, unknown upload is 404, slot validation per table', async () => {
@@ -226,7 +215,7 @@ describeStack('admin structure, rights, suggestions and manifests against the lo
     const k3 = masterKey('png');
     const seeded = await h.service.from('visual_assets').insert({ type: 'mission_scene', storage_key: k3.storageKey, style_version: 'v1', content_hash: k3.contentHash, alt_text_key: 'visual.test.souk', alt_text_translations: { en: 'Souk' }, dimensions: { width: 10, height: 10 }, origin: 'original_upload', mime_type: 'image/png', byte_length: 10, review_status: 'draft' }).select('id').single();
     expect(seeded.error).toBeNull();
-    cleanup.push(() => h.service.from('visual_assets').delete().eq('id', seeded.data!.id));
+    trackRow(h, 'visual_assets', seeded.data!.id);
     const badSlot = await call(h.app, `/v1/admin/visual-assets/${seeded.data!.id}/assign`, { token: editor.token, body: { entityTable: 'audio_lessons', entityId: lessonIds[0], slot: 'map', idempotencyKey: key() } });
     expect(badSlot.status).toBe(422);
     const assigned = await call(h.app, `/v1/admin/visual-assets/${seeded.data!.id}/assign`, { token: editor.token, body: { entityTable: 'audio_lessons', entityId: lessonIds[0], slot: 'cover', idempotencyKey: key() } });
@@ -246,9 +235,9 @@ describeStack('admin structure, rights, suggestions and manifests against the lo
     expect(live.status).toBe(200);
     expect(live.headers.get('x-manifest-source')).toBe('live');
     const stored = { ...live.json.data, version: 7, generatedAt: new Date().toISOString() };
-    const put = await h.service.from('course_manifests').insert({ course_track_id: 'swedish', source_language_code: 'fr', version: 7, checksum: stored.checksum, manifest: stored, published_at: new Date().toISOString() });
+    const put = await h.service.from('course_manifests').insert({ course_track_id: 'swedish', source_language_code: 'fr', version: 7, checksum: stored.checksum, manifest: stored, published_at: new Date().toISOString() }).select('id').single();
     expect(put.error).toBeNull();
-    cleanup.push(() => h.service.from('course_manifests').delete().eq('course_track_id', 'swedish').eq('source_language_code', 'fr'));
+    trackRow(h, 'course_manifests', put.data!.id);
     // The edge cache still holds the live copy: a fresh app isolate reads the stored row.
     const fresh = stackApp();
     const served = await call(fresh.app, '/v1/courses/swedish/manifest?source=fr', { token: learner.token });

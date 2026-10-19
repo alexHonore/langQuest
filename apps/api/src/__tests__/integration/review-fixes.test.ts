@@ -12,7 +12,7 @@ import { ContentRequestReviewResponseSchema, MissionDetailResponseSchema } from 
 import { afterAll, beforeAll, expect, it } from 'vitest';
 import { MissionEvaluateApiResponseSchema } from '../../routes/learner/missions';
 import { TURN_RETRY_WAIT_MS } from '../../routes/speech/conversation';
-import { call, createStackUser, deleteStackRows, deleteStackUsers, describeWithStack, stackApp, type StackHarness, type TestUser } from '../harness';
+import { call, createStackUser, describeWithStack, stackApp, teardownStack, trackRow, type StackHarness, type TestUser } from '../harness';
 
 const describeStack = describeWithStack('api.review-fixes');
 
@@ -28,8 +28,6 @@ describeStack('review fixes against the local stack', () => {
   let missionId: string;
   let stepIds: string[];
   let characterId: string;
-  const missionIds: string[] = [];
-  const sessionIds: string[] = [];
 
   const stepResult = (stepId: string) => ({ stepId, outcome: 'success', hintsUsed: 0, replays: 0, durationMs: 30_000, speechAssessmentIds: [], attemptedBeforeReveal: null, selectedIntentId: null, conversationSessionId: null });
   const templateKey = () => `api_fix_${crypto.randomUUID().replace(/-/g, '').slice(0, 12)}`;
@@ -48,8 +46,7 @@ describeStack('review fixes against the local stack', () => {
       .select('id')
       .single();
     if (mission.error) throw new Error(mission.error.message);
-    missionId = mission.data.id;
-    missionIds.push(missionId);
+    missionId = trackRow(h, 'missions', mission.data.id);
     const steps = await h.service
       .from('mission_steps')
       .insert([0, 1, 2].map((i) => ({ mission_id: missionId, sort_order: i, step_type: (['context_listening', 'modeled_expression', 'anticipation'] as const)[i]!, estimated_seconds: 30, hint_scaffold: [SCAFFOLD], offline_capable: true })))
@@ -63,18 +60,12 @@ describeStack('review fixes against the local stack', () => {
     if (locs.error) throw new Error(locs.error.message);
     const character = await h.service.from('characters').insert({ character_key: `fix.${crypto.randomUUID().replace(/-/g, '').slice(0, 10)}`, name: 'Youssef', role: 'vendor', personality: 'cheerful', home_region: 'Marrakech', target_variety_id: 'ary', voice_profile: { synthetic: true }, storyline_facts: ['Sells spices'], state: 'published' }).select('id').single();
     if (character.error) throw new Error(character.error.message);
-    characterId = character.data.id;
+    characterId = trackRow(h, 'characters', character.data.id);
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    // Users first: purging them removes every session they own (including ones not tracked in `sessionIds`),
-    // which is what the RESTRICT FKs on characters/missions wait for.
-    await deleteStackUsers(h, [alice.id, admin.id]);
-    await deleteStackRows(h, 'conversation_sessions', sessionIds);
-    if (characterId) await deleteStackRows(h, 'characters', [characterId]);
-    await deleteStackRows(h, 'missions', missionIds);
-  });
+  // Users first: purging them removes every session they own (tracked or not), which is what the RESTRICT FK on
+  // characters waits for; then the tracked missions / character / sessions in reverse insertion order.
+  afterAll(() => teardownStack(h));
 
   it('mission detail: authored source-language instructions/hints win and the language-less scaffold never leaks', async () => {
     const fr = await call(h.app, `/v1/missions/${missionId}?source=fr&enrollmentId=${enrollmentId}`, { token: alice.token });
@@ -124,7 +115,7 @@ describeStack('review fixes against the local stack', () => {
   it('request-review answers a contract ReviewStatus and rejects a variety mismatch before any write', async () => {
     const draft = await h.service.from('missions').insert({ template_key: templateKey(), target_variety_id: 'ary', state: 'imported_draft', title_translations: { fr: 'Brouillon' }, goals: [] }).select('id').single();
     if (draft.error) throw new Error(draft.error.message);
-    missionIds.push(draft.data.id);
+    trackRow(h, 'missions', draft.data.id);
 
     const mismatch = await call(h.app, `/v1/admin/content/${draft.data.id}/request-review`, { token: admin.token, body: { targetVarietyId: 'yue' } });
     expect(mismatch.status).toBe(422);
@@ -147,7 +138,7 @@ describeStack('review fixes against the local stack', () => {
   it('publishing a mission is refused while a goal has only a language-less description', async () => {
     const approved = await h.service.from('missions').insert({ template_key: templateKey(), target_variety_id: 'ary', state: 'approved', title_translations: { fr: 'Approuvé' }, goals: [{ id: 'g1', skill_keys: ['greet.basic'], description: 'no language' }] }).select('id').single();
     if (approved.error) throw new Error(approved.error.message);
-    missionIds.push(approved.data.id);
+    trackRow(h, 'missions', approved.data.id);
     const res = await call(h.app, `/v1/admin/content/${approved.data.id}/publish`, { token: admin.token, body: { entityTable: 'missions', expectedRevision: 0 } });
     expect(res.status).toBe(422);
     expect(res.json.error.details).toEqual({ goalIds: ['g1'] });
@@ -169,7 +160,7 @@ describeStack('review fixes against the local stack', () => {
     const sessionId = crypto.randomUUID();
     const ins = await h.service.from('conversation_sessions').insert({ id: sessionId, user_id: alice.id, enrollment_id: enrollmentId, mission_id: null, scenario_id: null, character_id: characterId, target_variety_id: 'ary', source_language_code: 'fr', mode: 'text_only', state: 'listening', pipeline: 'text_only', speech_retention: 'none', last_seq: 1, turn_count: 1 });
     if (ins.error) throw new Error(ins.error.message);
-    sessionIds.push(sessionId);
+    trackRow(h, 'conversation_sessions', sessionId);
     const clientTurnId = crypto.randomUUID();
     const occurredAt = new Date(Date.now() - options.learnerAgeMs).toISOString();
     const turns = await h.service.from('conversation_turns').insert([

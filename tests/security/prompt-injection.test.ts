@@ -13,7 +13,7 @@ import { LanguageGuard, MemoryQualityIncidentSink } from '@langquest/ai/prompts/
 import { getPromptPack } from '@langquest/ai/prompts/packs';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { INJECTED_EVALUATOR_RAW, INJECTION_FIXTURES } from '../src/fixtures/prompt-injection';
-import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, enrol, Seeder, type ApiHarness, type TestUser } from '../src/harness';
+import { call, createApiHarness, createTestUser, describeWithStack, enrol, Seeder, teardown, type ApiHarness, type TestUser } from '../src/harness';
 
 const CHARACTER_ID = '11111111-1111-4111-8111-111111111111';
 
@@ -187,11 +187,8 @@ describeStack('prompt injection — API keeps XP/mastery server-decided whatever
     injectedSessionId = (await seeder.conversationSession({ userId: learner.id, enrollmentId, characterId: character.id, varietyId: 'ary', sourceLanguageCode: 'fr', missionId, rubricOutcomes: injected })).id;
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    await deleteTestUsers(h, [learner]);
-    await seeder.cleanup();
-  });
+  // Users first (their owned rows and ledgers go with them), then the seeded content rows in reverse insertion order.
+  afterAll(() => teardown(h, seeder));
 
   it('evaluate with injected step strings and a poisoned session still awards the canonical XP once and a valid envelope', async () => {
     const attempt = await call(h, `/v1/missions/${missionId}/attempts`, { token: learner.token, body: { enrollmentId, clientAttemptId: crypto.randomUUID(), missionRevision: 0, startedAt: new Date().toISOString() } });

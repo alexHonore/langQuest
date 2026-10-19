@@ -7,7 +7,7 @@
 import { authorizePlayback, SIGNED_URL_POLICY, shouldRenew, ttlForAsset } from '@langquest/media/playback';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { signStreamToken, streamSubject, verifyStreamToken } from '../../apps/api/src/lib/media-token';
-import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, enrol, Seeder, TEST_TICKET_SECRET, type ApiHarness, type TestUser } from '../src/harness';
+import { call, createApiHarness, createTestUser, describeWithStack, enrol, Seeder, teardown, TEST_TICKET_SECRET, type ApiHarness, type TestUser } from '../src/harness';
 
 describe('signed URL model (pure)', () => {
   const secret = 'stream-secret-for-tests-32-characters-long';
@@ -88,11 +88,8 @@ describeStack('playback-url and media proxy misuse (API)', () => {
     await seeder.linkLessonAsset(draftLesson.id, draftAssetId);
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    await deleteTestUsers(h, [learner]);
-    await seeder.cleanup();
-  });
+  // Users first (their owned rows and ledgers go with them), then the seeded content rows in reverse insertion order.
+  afterAll(() => teardown(h, seeder));
 
   it('playback URLs are never minted for drafts, revoked assets, strangers or unauthenticated callers', async () => {
     expect((await call(h, `/v1/audio/assets/${publishedAssetId}/playback-url`, { body: {} })).status).toBe(401);

@@ -5,7 +5,7 @@
  * canonical amounts. Checked at the DB layer (as the learner's JWT) and through the API.
  */
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, enrol, Seeder, syncBody, userClient, type ApiHarness, type TestUser } from '../src/harness';
+import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, enrol, Seeder, syncBody, teardown, userClient, type ApiHarness, type TestUser } from '../src/harness';
 
 const describeStack = describeWithStack('security.forged-progress');
 
@@ -24,11 +24,8 @@ describeStack('forged XP / mastery / outcome writes are refused', () => {
     missionId = (await seeder.mission({ varietyId: 'de' })).id;
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    await deleteTestUsers(h, [learner]);
-    await seeder.cleanup();
-  });
+  // Users first (their owned rows and ledgers go with them), then the seeded content rows in reverse insertion order.
+  afterAll(() => teardown(h, seeder));
 
   it('DB: direct inserts into xp_ledger, user_skill_mastery, mission_progress, user_achievements, learning_observations and device_sync_events fail', async () => {
     const db = userClient(h, learner);

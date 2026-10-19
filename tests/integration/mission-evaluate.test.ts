@@ -6,7 +6,7 @@
  */
 import { MissionEvaluateResponseSchema } from '@langquest/contracts';
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, enrol, Seeder, type ApiHarness, type TestUser } from '../src/harness';
+import { call, createApiHarness, createTestUser, describeWithStack, enrol, Seeder, teardown, type ApiHarness, type TestUser } from '../src/harness';
 
 const describeStack = describeWithStack('integration.mission');
 
@@ -40,11 +40,8 @@ describeStack('mission attempt → evaluate → progress', () => {
     await seeder.steps(next.id, ['context_listening', 'modeled_expression']);
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    await deleteTestUsers(h, [learner]);
-    await seeder.cleanup();
-  });
+  // Users first (their owned rows and ledgers go with them), then the seeded content rows in reverse insertion order.
+  afterAll(() => teardown(h, seeder));
 
   const stepResult = (stepId: string, overrides: Partial<Record<string, unknown>> = {}) => ({ stepId, outcome: 'success', hintsUsed: 0, replays: 0, durationMs: 45_000, speechAssessmentIds: [], attemptedBeforeReveal: null, selectedIntentId: null, conversationSessionId: null, ...overrides });
 

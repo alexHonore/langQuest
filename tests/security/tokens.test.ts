@@ -4,7 +4,7 @@
  * token stops working.
  */
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, forgeToken, noneAlgToken, swapSubject, tamperSignature, type ApiHarness, type TestUser } from '../src/harness';
+import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, forgeToken, noneAlgToken, swapSubject, tamperSignature, teardown, type ApiHarness, type TestUser } from '../src/harness';
 
 const describeStack = describeWithStack('security.tokens');
 
@@ -18,10 +18,8 @@ describeStack('expired, forged and invalid tokens', () => {
     [alice, bob] = await Promise.all([createTestUser(h, 'tok-alice'), createTestUser(h, 'tok-bob')]);
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    await deleteTestUsers(h, [alice, bob]);
-  });
+  // Users first (their owned rows and ledgers go with them), then the seeded content rows in reverse insertion order.
+  afterAll(() => teardown(h));
 
   const expectUnauthorized = async (token: string | undefined, headers?: Record<string, string>) => {
     const res = await call(h, '/v1/me', { token, headers });

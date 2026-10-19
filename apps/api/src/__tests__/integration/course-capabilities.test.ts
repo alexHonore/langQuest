@@ -8,7 +8,7 @@
 import { afterAll, beforeAll, expect, it } from 'vitest';
 import { courseCapabilityCountsKey } from '../../services/cache';
 import type { CourseTrackId, SourceLanguageCode } from '@langquest/contracts';
-import { call, createStackUser, deleteStackUsers, describeWithStack, stackApp, type StackHarness, type TestUser } from '../harness';
+import { call, createStackUser, describeWithStack, stackApp, teardownStack, type StackHarness, type TestUser } from '../harness';
 
 const describeStack = describeWithStack('api.course-capabilities');
 
@@ -16,19 +16,16 @@ describeStack('course capabilities (track × instruction language)', () => {
   let plain: StackHarness;
   let withAi: StackHarness;
   let learner: TestUser;
-  const created: string[] = [];
 
   beforeAll(async () => {
     plain = stackApp();
     withAi = stackApp({ OPENROUTER_API_KEY: 'sk-or-test-key-never-called' });
     learner = await createStackUser(withAi, 'caps-learner', { defaultSourceLanguageCode: 'fr' });
-    created.push(learner.id);
   });
 
   afterAll(async () => {
-    await plain.app.flush();
-    await withAi.app.flush();
-    await deleteStackUsers(withAi, created);
+    await teardownStack(plain);
+    await teardownStack(withAi);
   });
 
   /** Ground truth straight from the database (the same rule the API applies), so the assertions survive other suites' seeds. */

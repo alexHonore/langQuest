@@ -7,6 +7,7 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { createRepositories, createServiceClient, detectLocalStack, type DbClient } from '@langquest/db';
+import type { TableName } from '@langquest/db/types';
 import { buildMasterKey } from '@langquest/media';
 import { readJobsEnv } from '../config';
 import { buildRegistry } from '../handlers';
@@ -29,9 +30,12 @@ const describeStack = stack
 describeStack('processing_jobs lifecycle (local stack)', () => {
   let client: DbClient;
   let services: JobServices;
-  const createdJobs: string[] = [];
-  const createdAssets: string[] = [];
-  const createdCollections: string[] = [];
+  /** Rows this suite inserted (jobs, assets, collections), in insertion order; deleted in reverse by `afterAll`. */
+  const rows: Array<{ table: TableName; id: string }> = [];
+  const track = (table: TableName, id: string): string => {
+    rows.push({ table, id });
+    return id;
+  };
   const workerId = `vitest-${process.pid}`;
 
   beforeAll(async () => {
@@ -42,17 +46,20 @@ describeStack('processing_jobs lifecycle (local stack)', () => {
 
   afterAll(async () => {
     if (!client) return;
-    if (createdCollections.length) await client.from('audio_collection_manifests').delete().in('collection_id', createdCollections);
-    if (createdJobs.length) await client.from('processing_jobs').delete().in('id', createdJobs);
-    if (createdAssets.length) await client.from('media_assets').delete().in('id', createdAssets);
-    if (createdCollections.length) await client.from('audio_course_collections').delete().in('id', createdCollections);
+    // Reverse insertion order: jobs before the asset / collection they hang off (those cascade anyway: processing_jobs
+    // from media_assets, audio_collection_manifests from audio_course_collections). A refused delete is reported, never hidden.
+    for (const { table, id } of [...rows].reverse()) {
+      const res = await client.from(table).delete().eq('id' as never, id as never);
+      if (res.error) console.warn(`[jobs integration] cleanup of ${table} ${id} failed: ${res.error.message}`);
+    }
+    rows.length = 0;
   });
 
   it('enqueue is idempotent, claim runs the handler and complete records output + cost', async () => {
     const spec = enqueueSpecFor('cleanup_orphan_uploads', { dryRun: true, limitPerStatus: 5 });
     const key = `vitest:cleanup:${crypto.randomUUID()}`;
     const job = await services.repos.processingJobs.enqueue({ jobType: spec.jobType, idempotencyKey: key, params: spec.params, priority: 10 });
-    createdJobs.push(job.id);
+    track('processing_jobs', job.id);
     const replay = await services.repos.processingJobs.enqueue({ jobType: spec.jobType, idempotencyKey: key, params: spec.params });
     expect(replay.id).toBe(job.id);
     expect(job.state).toBe('pending');
@@ -77,10 +84,10 @@ describeStack('processing_jobs lifecycle (local stack)', () => {
     const assetId = crypto.randomUUID();
     const inserted = await client.from('media_assets').insert({ id: assetId, storage_key: buildMasterKey({ assetId, contentHash: 'a'.repeat(64), mimeType: 'audio/mpeg' }), bucket: 'test', kind: 'audio', checksum_sha256: 'a'.repeat(64), mime_type: 'audio/mpeg', byte_length: 10 }).select('id').single();
     expect(inserted.error).toBeNull();
-    createdAssets.push(assetId);
+    track('media_assets', assetId);
 
     const missing = await services.repos.processingJobs.enqueue({ jobType: 'verify', idempotencyKey: `vitest:verify:${assetId}`, parentAssetId: assetId, priority: 10, maxAttempts: 3 });
-    createdJobs.push(missing.id);
+    track('processing_jobs', missing.id);
     const runner = new PostgresJobRunner({ services, registry: buildRegistry(), workerId, jobTypes: ['verify'], log: silentLogger });
     let outcome = await runner.runOne();
     for (let i = 0; i < 20 && outcome && outcome.job.id !== missing.id; i += 1) outcome = await runner.runOne();
@@ -96,7 +103,7 @@ describeStack('processing_jobs lifecycle (local stack)', () => {
     if (again) await services.repos.processingJobs.fail(again.id, workerId, 'vitest_released', 'released by the jobs integration test', { retry: true, backoffSeconds: 1 });
 
     const bad = await services.repos.processingJobs.enqueue({ jobType: 'transcode', idempotencyKey: `vitest:bad:${crypto.randomUUID()}`, params: { assetId: 'not-a-uuid' }, priority: 10 });
-    createdJobs.push(bad.id);
+    track('processing_jobs', bad.id);
     const runner2 = new PostgresJobRunner({ services, registry: buildRegistry(), workerId, jobTypes: ['transcode'], log: silentLogger });
     let o2 = await runner2.runOne();
     for (let i = 0; i < 20 && o2 && o2.job.id !== bad.id; i += 1) o2 = await runner2.runOne();
@@ -108,12 +115,12 @@ describeStack('processing_jobs lifecycle (local stack)', () => {
     const collectionId = crypto.randomUUID();
     const inserted = await client.from('audio_course_collections').insert({ id: collectionId, title_translations: { en: `Jobs IT ${collectionId.slice(0, 8)}` }, instruction_language_code: 'en', state: 'published' }).select('id').single();
     expect(inserted.error).toBeNull();
-    createdCollections.push(collectionId);
+    track('audio_course_collections', collectionId);
 
     const spec = enqueueSpecFor('regenerate_manifest', { kind: 'audio_collection', collectionId });
     expect(spec).toEqual({ jobType: 'regenerate_manifest', params: { kind: 'audio_collection', collectionId } });
     const job = await services.repos.processingJobs.enqueue({ jobType: spec.jobType, idempotencyKey: `vitest:manifest:${collectionId}`, params: spec.params, parentEntityTable: 'audio_course_collections', parentEntityId: collectionId, priority: 10 });
-    createdJobs.push(job.id);
+    track('processing_jobs', job.id);
     const runner = new PostgresJobRunner({ services, registry: buildRegistry(), workerId, jobTypes: ['regenerate_manifest'], log: silentLogger });
     let outcome = await runner.runOne();
     for (let i = 0; i < 20 && outcome && outcome.job.id !== job.id; i += 1) outcome = await runner.runOne();
@@ -133,7 +140,7 @@ describeStack('processing_jobs lifecycle (local stack)', () => {
 
     // Unchanged content: same version, no new row.
     const again = await services.repos.processingJobs.enqueue({ jobType: spec.jobType, idempotencyKey: `vitest:manifest:${collectionId}:2`, params: spec.params, priority: 10 });
-    createdJobs.push(again.id);
+    track('processing_jobs', again.id);
     let o2 = await runner.runOne();
     for (let i = 0; i < 20 && o2 && o2.job.id !== again.id; i += 1) o2 = await runner.runOne();
     expect(o2?.status).toBe('succeeded');

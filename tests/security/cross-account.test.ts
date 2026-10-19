@@ -5,7 +5,7 @@
  */
 import { USER_OWNED_TABLES } from '@langquest/contracts';
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { call, createApiHarness, createTestUser, deleteTestUsers, describeWithStack, enrol, Seeder, syncBody, userClient, type ApiHarness, type TestUser } from '../src/harness';
+import { call, createApiHarness, createTestUser, describeWithStack, enrol, Seeder, syncBody, teardown, userClient, type ApiHarness, type TestUser } from '../src/harness';
 
 const describeStack = describeWithStack('security.cross-account');
 
@@ -46,11 +46,8 @@ describeStack('cross-account access is denied at API and DB layers (A29)', () =>
     await h.service.rpc('award_xp', { p_idempotency_key: crypto.randomUUID(), p_user_id: victim.id, p_amount: 50, p_reason: 'mission_completed', p_enrollment_id: enrollmentId });
   });
 
-  afterAll(async () => {
-    await h.app.flush();
-    await deleteTestUsers(h, [victim, attacker]);
-    await seeder.cleanup();
-  });
+  // Users first (their owned rows and ledgers go with them), then the seeded content rows in reverse insertion order.
+  afterAll(() => teardown(h, seeder));
 
   it('API: enrollments, skills, reviews, progress and sessions of another learner are 404/rejected, never 200', async () => {
     expect((await call(h, `/v1/me/enrollments/${enrollmentId}`, { method: 'PATCH', token: attacker.token, body: { sourceLanguageCode: 'en' } })).status).toBe(404);
