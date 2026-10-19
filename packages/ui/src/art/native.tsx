@@ -59,17 +59,35 @@ export function renderSvgNode(node: SvgNode, key: string | number): React.ReactE
   return React.createElement(Component, props, children);
 }
 
+/**
+ * True when rendering into a browser DOM (Expo web / react-native-web). Detected from the runtime
+ * rather than `Platform` so this module keeps `react-native-svg` as its only React Native import
+ * (the string renderers, the export script and the Node tests load it without the RN runtime).
+ */
+const isWebDom = (): boolean =>
+  typeof document !== 'undefined' && typeof document.createElement === 'function';
+
+/**
+ * Accessibility props for the `<Svg>` root, chosen per platform. On web react-native-svg forwards
+ * unknown props to the DOM `<svg>`, where `accessible={true}` is an invalid attribute (React warns
+ * "Received `true` for a non-boolean attribute"), so the root gets `role="img"` + `aria-label` there
+ * and the React Native trio (`accessible`, `accessibilityRole`, `accessibilityLabel`) elsewhere.
+ */
+export function svgAccessibilityProps(label: string): Record<string, unknown> {
+  if (isWebDom()) return { role: 'img', 'aria-label': label };
+  return { accessible: true, accessibilityRole: 'image', accessibilityLabel: label };
+}
+
 /** Render a whole document inside an accessible `<Svg>` root. */
 export function renderSvgDocument(doc: SvgDocument, label?: string): React.JSX.Element {
   const { x, y, width, height } = doc.viewBox;
+  const a11y = svgAccessibilityProps(label ?? doc.label);
   return (
     <Svg
       width={doc.width}
       height={doc.height}
       viewBox={`${x} ${y} ${width} ${height}`}
-      accessible
-      accessibilityLabel={label ?? doc.label}
-      accessibilityRole="image"
+      {...a11y}
     >
       {doc.children.map((n, i) => renderSvgNode(n, i))}
     </Svg>

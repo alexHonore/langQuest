@@ -103,8 +103,9 @@ export function AppShell(props: AppShellProps): React.JSX.Element {
       ]}
       testID={testID}
     >
+      {/* Plain container: the screen title below carries the heading role, so a header role here would
+          render a nested <h1> on web. */}
       <View
-        accessibilityRole="header"
         style={{
           paddingHorizontal: theme.spacing.lg,
           paddingVertical: theme.spacing.sm,

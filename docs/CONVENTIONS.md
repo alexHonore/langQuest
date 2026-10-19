@@ -134,3 +134,10 @@ Rules:
 - Unit tests next to code: `src/**/*.test.ts` (Vitest). Integration/security/e2e under `tests/`.
 - Tests must never call paid providers unless `LANGQUEST_LIVE_TESTS=1` is set; use recorded fixtures otherwise.
 - Negative RLS tests are mandatory for every user-owned table.
+
+## 8. Product rule (owner decision, 2026-10-19): visible means usable
+
+- Never render "not available", "coming soon" or disabled placeholder features in the learner or admin apps. If a feature is not ready, it is not shown; it is listed in `docs/UPCOMING_FEATURES.md` with the condition that unlocks it.
+- Capability differences between courses (missions, audio library, live conversation, pronunciation scoring, downloads, instruction-language coverage) are disclosed **before enrollment** in the enrollment wizard, as a plain list of what this course × instruction language does not have yet. After enrollment the app adapts: tabs, sections and controls that the enrollment cannot use are hidden, not greyed out.
+- The spec's honesty rules still hold (no fabricated scores, no silent dialect/source substitution) but are expressed by omission plus the enrollment disclaimer, not by empty-state copy.
+- Design directions, mascots and character styles are presented as declinations for owner approval before any build-out.

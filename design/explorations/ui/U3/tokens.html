@@ -1,0 +1,199 @@
+<!doctype html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U3 Paper &amp; Ink · Tokens</title>
+<!-- LangQuest UI direction U3 "Paper & Ink" (light). Self-contained: inline CSS/SVG only, system fonts only.
+     Mascot, character, scene and icon SVGs are the repo's existing assets (assets/mascot, assets/characters, assets/scenes, assets/icons)
+     inlined as placeholders for fair comparison. All doodles/underlines/stamps are original, drawn in build.py. No CC0/stock assets used. -->
+<style>
+:root{--backdrop:#E6E1D6;--paper:#F8F4EA;--card:#FFFDF7;--ink:#1B1A17;--ink2:#58534B;--ink3:#8C8578;
+--hairline:#D8D1C3;--accent:#1F49E0;--accent-ink:#FFFFFF;--accent-soft:#E4E9FB;
+--success:#1E7A4A;--danger:#B42318;--warn:#8A5A00;
+--serif:ui-serif,"New York","Iowan Old Style",Georgia,"Noto Serif","Hiragino Mincho ProN","Noto Serif CJK JP",serif;
+--sans:-apple-system,system-ui,"SF Pro Text",Roboto,"Segoe UI","Noto Sans","Hiragino Sans","Noto Sans CJK JP","Noto Naskh Arabic",sans-serif;
+--mono:ui-monospace,"SF Mono",Menlo,Consolas,"Roboto Mono",monospace;
+--r-s:6px;--r-m:12px;--r-l:18px;--r-pill:999px;
+--lift:0 1px 0 var(--hairline),0 8px 18px -10px rgba(0,0,0,.35);
+--ease-ink:cubic-bezier(.2,.8,.2,1);--ease-settle:cubic-bezier(.34,1.3,.64,1);
+--d-fast:140ms;--d-base:220ms;--d-draw:420ms;
+color-scheme:light;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--backdrop);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;
+display:flex;flex-wrap:wrap;gap:36px;justify-content:center;align-items:flex-start;padding:28px 16px 60px;min-height:100vh}
+.phone{width:390px;height:844px;flex:0 0 390px;background:var(--paper);position:relative;overflow:hidden;border-radius:40px;
+outline:1px solid var(--hairline);box-shadow:0 40px 80px -30px rgba(0,0,0,.55)}
+.grain{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:20;opacity:0.07;mix-blend-mode:multiply}
+.screen{position:absolute;inset:0;overflow-y:auto;scrollbar-width:none;padding:0 20px 112px}
+.screen::-webkit-scrollbar{display:none}
+.status{height:50px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 6px 6px;font:600 14px/1 var(--sans)}
+.status .dots{display:flex;gap:4px;align-items:center}
+.status .dots i{display:block;width:4px;background:var(--ink);border-radius:1px}
+.status .batt{width:24px;height:11px;border:1.5px solid var(--ink);border-radius:3px;padding:1.5px}
+.status .batt i{display:block;height:100%;width:70%;background:var(--ink);border-radius:1px}
+h1,h2,h3,.serif{font-family:var(--serif);font-weight:600;letter-spacing:-.01em}
+h1{font-size:30px;line-height:1.1}
+h2{font-size:22px;line-height:1.15}
+h3{font-size:17px;line-height:1.2}
+.eyebrow{font:600 12px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink2)}
+.muted{color:var(--ink2)} .faint{color:var(--ink3)}
+.small{font-size:13px} .tiny{font-size:12px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.02em}
+.hand-ul{display:block;height:8px;margin-top:2px}
+.stamp{display:inline-block;font:700 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+border:1.5px dashed var(--accent);border-radius:4px;padding:5px 7px;transform:rotate(-4deg);white-space:nowrap}
+.card{background:var(--card);border:1px solid var(--hairline);border-radius:var(--r-m);box-shadow:var(--lift);padding:14px;position:relative}
+.card.flat{box-shadow:none}
+.row{display:flex;align-items:center;gap:10px} .between{justify-content:space-between} .col{display:flex;flex-direction:column;gap:4px}
+.grow{flex:1;min-width:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:var(--r-pill);
+font:600 15px/1 var(--sans);border:1.5px solid var(--ink);color:var(--ink);background:transparent;cursor:default;white-space:nowrap}
+.btn.primary{background:var(--ink);color:var(--paper);box-shadow:3px 3px 0 var(--accent)}
+.btn.wide{width:100%}
+.btn.ghost{border-color:var(--hairline);color:var(--ink)}
+.btn.text{border:0;padding:0 8px;min-height:40px;text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:4px;text-decoration-thickness:2px}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:var(--r-pill);border:1.5px solid var(--hairline);
+font:500 13px/1 var(--sans);color:var(--ink);background:var(--card)}
+.chip.on{border-color:var(--ink);box-shadow:2px 2px 0 var(--accent)}
+.iconbtn{width:44px;height:44px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1.5px solid var(--hairline);background:var(--card);color:var(--ink)}
+.taped{position:relative;border:1.5px solid var(--ink);border-radius:4px;overflow:hidden;background:var(--card)}
+.taped svg{display:block;width:100%;height:auto}
+.tape{position:absolute;width:64px;height:18px;background:var(--accent);opacity:.32;transform:rotate(-30deg);left:-18px;top:6px;border-radius:2px;z-index:2}
+.tape.r{left:auto;right:-18px;transform:rotate(30deg)}
+.tape.br{left:auto;right:-18px;top:auto;bottom:6px;transform:rotate(-30deg)}
+.tabbar{position:absolute;left:0;right:0;bottom:0;height:88px;background:var(--paper);border-top:1.5px solid var(--ink);display:flex;padding:8px 6px 22px;z-index:10}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--ink2);font:600 11px/1 var(--sans);position:relative;padding-top:6px}
+.tab.active{color:var(--ink)}
+.tab.active .hand-ul{width:34px;height:6px;position:absolute;bottom:-4px}
+.doodle{display:inline-block;vertical-align:middle;color:var(--ink2)}
+.doodle.accent{color:var(--accent)}
+.meter{display:block}
+.mascot-slot svg{width:100%;height:100%;display:block}
+.mic-wrap{display:flex;flex-direction:column;align-items:center;gap:8px}
+.mic{position:relative;width:112px;height:112px;display:flex;align-items:center;justify-content:center}
+.mic .doodle-ring{position:absolute;inset:0}
+.mic .core{width:84px;height:84px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;box-shadow:4px 4px 0 var(--accent)}
+.mic.disabled .core{background:transparent;color:var(--ink3);border:2px dashed var(--ink3);box-shadow:none}
+.mic.disabled .doodle-ring{opacity:.25}
+.rtl{direction:rtl;unicode-bidi:isolate;text-align:right}
+.ar{font-family:"Geeza Pro","Noto Naskh Arabic","Noto Sans Arabic",var(--sans);font-size:26px;line-height:1.5}
+.ja{font-family:"Hiragino Sans","Noto Sans CJK JP","Noto Sans JP",var(--sans);line-height:1.5}
+.state{display:inline-flex;align-items:center;gap:8px;min-height:32px;padding:0 12px;border-radius:var(--r-pill);border:1.5px solid var(--ink);background:var(--card);font:600 12px/1 var(--sans)}
+.state .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.state .dot.off{background:transparent;border:1.5px solid var(--ink3)}
+.state .dots3{display:inline-flex;gap:3px} .state .dots3 i{width:5px;height:5px;border-radius:50%;background:var(--ink)}
+.state.reconnect{border-color:var(--warn);border-style:dashed}
+.banner{border:1.5px dashed var(--warn);border-radius:var(--r-m);padding:10px 12px;background:var(--card);display:flex;gap:10px;align-items:flex-start;color:var(--ink)}
+.banner svg{color:var(--warn);flex:0 0 auto}
+.sheet{width:390px;flex:0 0 390px;background:var(--card);border:1px solid var(--hairline);border-radius:var(--r-l);padding:20px;box-shadow:var(--lift);display:flex;flex-direction:column;gap:14px}
+.sheet h2{font-size:20px}
+.sheet .note{font-size:13px;color:var(--ink2);line-height:1.45}
+hr.rule{border:0;border-top:1.5px dashed var(--hairline);margin:4px 0}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13px}
+.kv b{font-weight:600}
+.trail{display:flex;gap:5px;align-items:center} .trail i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--ink)} .trail i.done{background:var(--ink)} .trail i.now{background:var(--accent);border-color:var(--accent)}
+.portrait{width:96px;height:96px;border-radius:50%;border:2px solid var(--ink);background:var(--card);overflow:hidden;box-shadow:3px 3px 0 var(--accent)}
+.portrait svg{width:100%;height:100%;display:block}
+.transcript{border-left:2px solid var(--hairline);padding-left:12px;display:flex;flex-direction:column;gap:10px}
+.transcript .who{font:600 11px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-bottom:3px}
+.cover{width:52px;height:52px;border:1.5px solid var(--ink);border-radius:var(--r-s);background:var(--accent-soft);display:flex;align-items:center;justify-content:center;color:var(--accent)}
+.seek{height:4px;background:var(--hairline);border-radius:2px;position:relative;margin-top:6px}
+.seek i{position:absolute;left:0;top:0;bottom:0;background:var(--ink);border-radius:2px}
+.seek b{position:absolute;top:-4px;width:12px;height:12px;border-radius:50%;background:var(--accent);margin-left:-6px}
+@media (prefers-reduced-motion:no-preference){.pulse .dot{animation:pulse 1.2s var(--ease-ink) infinite}}
+@keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+
+.doc{width:min(1080px,100%);display:flex;flex-direction:column;gap:28px}
+.doc section{background:var(--card);border:1px solid var(--hairline);border-radius:var(--r-l);padding:22px 24px;box-shadow:var(--lift)}
+.swatches{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:12px;margin-top:12px}
+.swatch{display:flex;flex-direction:column;gap:4px;font-size:13px}
+.swatch i{display:block;height:48px;border-radius:8px;border:1px solid var(--hairline)}
+table{width:100%;border-collapse:collapse;font-size:13px;margin-top:12px}
+td,th{text-align:left;padding:8px 6px;border-bottom:1px dashed var(--hairline);vertical-align:middle}
+th{font:600 11px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink2)}
+.sw{display:inline-flex;width:34px;height:26px;align-items:center;justify-content:center;border:1px solid var(--hairline);border-radius:6px;margin-right:10px;font:700 13px var(--serif)}
+.dark-wrap{--backdrop:#090908;--paper:#151410;--card:#1F1D18;--ink:#F0EADD;--ink2:#A9A295;--ink3:#7D776B;--hairline:#3A362E;--accent:#8DA4FF;--accent-ink:#0E1A4D;--accent-soft:#232A45;--success:#6FD39A;--danger:#FF8A80;--warn:#F2C14E;background:var(--paper);color:var(--ink);border-radius:var(--r-m);padding:16px;margin-top:12px}
+.type-row{display:grid;grid-template-columns:200px 1fr;gap:16px;align-items:baseline;padding:10px 0;border-bottom:1px dashed var(--hairline)}
+.radii{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
+.radii div{width:110px;height:70px;border:1.5px solid var(--ink);display:flex;align-items:flex-end;padding:8px;font-size:12px}
+.elev{display:flex;gap:16px;flex-wrap:wrap;margin-top:12px}
+.elev div{width:160px;height:90px;border-radius:var(--r-m);background:var(--card);padding:10px;font-size:12px;border:1px solid var(--hairline)}
+</style>
+</head>
+<body>
+
+<main class="doc">
+  <header class="row between" style="align-items:flex-end">
+    <div><span class="eyebrow">LangQuest · UI direction U3</span><h1 style="margin-top:6px">Paper &amp; Ink — tokens</h1><svg class="hand-ul" style="width:220px" viewBox="0 0 200 10" preserveAspectRatio="none" aria-hidden="true"><path d="M3 6 C 30 2, 55 9, 85 5 S 140 2, 170 6 S 190 7, 197 4" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round"/></svg></div>
+    <span class="stamp">rev 1 · 2026-10-19</span>
+  </header>
+
+  <section>
+    <h2>Palette</h2>
+    <p class="small muted" style="margin-top:4px">Near-white warm paper, one ink, one bright accent (cobalt, “ballpoint on a postcard”). Semantic colours exist for states but never carry meaning alone — every state also has a label and an icon.</p>
+    <h3 style="margin-top:16px">Light</h3>
+    <div class="swatches"><div class="swatch"><i style="background:#F8F4EA"></i><b>paper</b><span class="mono">#F8F4EA</span></div><div class="swatch"><i style="background:#FFFDF7"></i><b>card</b><span class="mono">#FFFDF7</span></div><div class="swatch"><i style="background:#1B1A17"></i><b>ink</b><span class="mono">#1B1A17</span></div><div class="swatch"><i style="background:#58534B"></i><b>ink2</b><span class="mono">#58534B</span></div><div class="swatch"><i style="background:#8C8578"></i><b>ink3</b><span class="mono">#8C8578</span></div><div class="swatch"><i style="background:#D8D1C3"></i><b>hairline</b><span class="mono">#D8D1C3</span></div><div class="swatch"><i style="background:#1F49E0"></i><b>accent</b><span class="mono">#1F49E0</span></div><div class="swatch"><i style="background:#FFFFFF"></i><b>accentInk</b><span class="mono">#FFFFFF</span></div><div class="swatch"><i style="background:#E4E9FB"></i><b>accentSoft</b><span class="mono">#E4E9FB</span></div><div class="swatch"><i style="background:#1E7A4A"></i><b>success</b><span class="mono">#1E7A4A</span></div><div class="swatch"><i style="background:#B42318"></i><b>danger</b><span class="mono">#B42318</span></div><div class="swatch"><i style="background:#8A5A00"></i><b>warn</b><span class="mono">#8A5A00</span></div></div>
+    <table><thead><tr><th>Pair</th><th>fg / bg</th><th>Ratio</th><th>WCAG</th></tr></thead><tbody><tr><td><span class="sw" style="background:#F8F4EA;color:#1B1A17">Aa</span>ink on paper</td><td class="mono">#1B1A17 / #F8F4EA</td><td class="mono">15.84 : 1</td><td>AAA</td></tr><tr><td><span class="sw" style="background:#FFFDF7;color:#1B1A17">Aa</span>ink on card</td><td class="mono">#1B1A17 / #FFFDF7</td><td class="mono">17.11 : 1</td><td>AAA</td></tr><tr><td><span class="sw" style="background:#F8F4EA;color:#58534B">Aa</span>ink2 on paper</td><td class="mono">#58534B / #F8F4EA</td><td class="mono">6.94 : 1</td><td>AA</td></tr><tr><td><span class="sw" style="background:#F8F4EA;color:#8C8578">Aa</span>ink3 on paper (decorative only)</td><td class="mono">#8C8578 / #F8F4EA</td><td class="mono">3.33 : 1</td><td>AA-large/UI</td></tr><tr><td><span class="sw" style="background:#F8F4EA;color:#1F49E0">Aa</span>accent on paper</td><td class="mono">#1F49E0 / #F8F4EA</td><td class="mono">6.19 : 1</td><td>AA</td></tr><tr><td><span class="sw" style="background:#FFFDF7;color:#1F49E0">Aa</span>accent on card</td><td class="mono">#1F49E0 / #FFFDF7</td><td class="mono">6.69 : 1</td><td>AA</td></tr><tr><td><span class="sw" style="background:#1F49E0;color:#FFFFFF">Aa</span>accent-ink on accent (button text)</td><td class="mono">#FFFFFF / #1F49E0</td><td class="mono">6.80 : 1</td><td>AA</td></tr><tr><td><span class="sw" style="background:#1B1A17;color:#F8F4EA">Aa</span>paper on ink (primary button)</td><td class="mono">#F8F4EA / #1B1A17</td><td class="mono">15.84 : 1</td><td>AAA</td></tr><tr><td><span class="sw" style="background:#F8F4EA;color:#1E7A4A">Aa</span>success on paper</td><td class="mono">#1E7A4A / #F8F4EA</td><td class="mono">4.86 : 1</td><td>AA</td></tr><tr><td><span class="sw" style="background:#F8F4EA;color:#B42318">Aa</span>danger on paper</td><td class="mono">#B42318 / #F8F4EA</td><td class="mono">5.99 : 1</td><td>AA</td></tr><tr><td><span class="sw" style="background:#F8F4EA;color:#8A5A00">Aa</span>warn on paper</td><td class="mono">#8A5A00 / #F8F4EA</td><td class="mono">5.40 : 1</td><td>AA</td></tr><tr><td><span class="sw" style="background:#F8F4EA;color:#D8D1C3">Aa</span>hairline vs paper (non-text, ≥1.5 target)</td><td class="mono">#D8D1C3 / #F8F4EA</td><td class="mono">1.38 : 1</td><td>fail</td></tr></tbody></table>
+    <div class="dark-wrap">
+      <h3>Dark (“night paper”)</h3>
+      <div class="swatches"><div class="swatch"><i style="background:#151410"></i><b>paper</b><span class="mono">#151410</span></div><div class="swatch"><i style="background:#1F1D18"></i><b>card</b><span class="mono">#1F1D18</span></div><div class="swatch"><i style="background:#F0EADD"></i><b>ink</b><span class="mono">#F0EADD</span></div><div class="swatch"><i style="background:#A9A295"></i><b>ink2</b><span class="mono">#A9A295</span></div><div class="swatch"><i style="background:#7D776B"></i><b>ink3</b><span class="mono">#7D776B</span></div><div class="swatch"><i style="background:#3A362E"></i><b>hairline</b><span class="mono">#3A362E</span></div><div class="swatch"><i style="background:#8DA4FF"></i><b>accent</b><span class="mono">#8DA4FF</span></div><div class="swatch"><i style="background:#0E1A4D"></i><b>accentInk</b><span class="mono">#0E1A4D</span></div><div class="swatch"><i style="background:#232A45"></i><b>accentSoft</b><span class="mono">#232A45</span></div><div class="swatch"><i style="background:#6FD39A"></i><b>success</b><span class="mono">#6FD39A</span></div><div class="swatch"><i style="background:#FF8A80"></i><b>danger</b><span class="mono">#FF8A80</span></div><div class="swatch"><i style="background:#F2C14E"></i><b>warn</b><span class="mono">#F2C14E</span></div></div>
+      <table><thead><tr><th>Pair</th><th>fg / bg</th><th>Ratio</th><th>WCAG</th></tr></thead><tbody><tr><td><span class="sw" style="background:#151410;color:#F0EADD">Aa</span>ink on paper</td><td class="mono">#F0EADD / #151410</td><td class="mono">15.37 : 1</td><td>AAA</td></tr><tr><td><span class="sw" style="background:#1F1D18;color:#F0EADD">Aa</span>ink on card</td><td class="mono">#F0EADD / #1F1D18</td><td class="mono">14.05 : 1</td><td>AAA</td></tr><tr><td><span class="sw" style="background:#151410;color:#A9A295">Aa</span>ink2 on paper</td><td class="mono">#A9A295 / #151410</td><td class="mono">7.27 : 1</td><td>AAA</td></tr><tr><td><span class="sw" style="background:#151410;color:#7D776B">Aa</span>ink3 on paper (decorative only)</td><td class="mono">#7D776B / #151410</td><td class="mono">4.15 : 1</td><td>AA-large/UI</td></tr><tr><td><span class="sw" style="background:#151410;color:#8DA4FF">Aa</span>accent on paper</td><td class="mono">#8DA4FF / #151410</td><td class="mono">7.80 : 1</td><td>AAA</td></tr><tr><td><span class="sw" style="background:#1F1D18;color:#8DA4FF">Aa</span>accent on card</td><td class="mono">#8DA4FF / #1F1D18</td><td class="mono">7.13 : 1</td><td>AAA</td></tr><tr><td><span class="sw" style="background:#8DA4FF;color:#0E1A4D">Aa</span>accent-ink on accent (button text)</td><td class="mono">#0E1A4D / #8DA4FF</td><td class="mono">6.98 : 1</td><td>AA</td></tr><tr><td><span class="sw" style="background:#F0EADD;color:#151410">Aa</span>paper on ink (primary button)</td><td class="mono">#151410 / #F0EADD</td><td class="mono">15.37 : 1</td><td>AAA</td></tr><tr><td><span class="sw" style="background:#151410;color:#6FD39A">Aa</span>success on paper</td><td class="mono">#6FD39A / #151410</td><td class="mono">10.06 : 1</td><td>AAA</td></tr><tr><td><span class="sw" style="background:#151410;color:#FF8A80">Aa</span>danger on paper</td><td class="mono">#FF8A80 / #151410</td><td class="mono">8.07 : 1</td><td>AAA</td></tr><tr><td><span class="sw" style="background:#151410;color:#F2C14E">Aa</span>warn on paper</td><td class="mono">#F2C14E / #151410</td><td class="mono">10.98 : 1</td><td>AAA</td></tr><tr><td><span class="sw" style="background:#151410;color:#3A362E">Aa</span>hairline vs paper (non-text, ≥1.5 target)</td><td class="mono">#3A362E / #151410</td><td class="mono">1.53 : 1</td><td>fail</td></tr></tbody></table>
+    </div>
+    <p class="tiny faint" style="margin-top:10px">Ratios computed with the WCAG 2.x relative-luminance formula in build.py. ink3 is for decorative captions only (never for required information).</p>
+  </section>
+
+  <section>
+    <h2>Type scale</h2>
+    <p class="small muted" style="margin-top:4px">Two system families: a serif for titles (ui-serif / New York / Georgia / Noto Serif) and the platform sans for everything else. Mono for stamps and timestamps. No bundled fonts. All sizes scale with the OS text size; the serif is never used below 16 px.</p>
+    <div class="type-row"><span class="mono muted">display · serif 600 · 30/33</span><span class="serif" style="font-size:30px;line-height:1.1">Welcome back</span></div>
+    <div class="type-row"><span class="mono muted">title · serif 600 · 24/28</span><span class="serif" style="font-size:24px">Moroccan Darija</span></div>
+    <div class="type-row"><span class="mono muted">heading · serif 600 · 22/25</span><span class="serif" style="font-size:22px">Buy breakfast at the counter</span></div>
+    <div class="type-row"><span class="mono muted">subhead · serif 600 · 17/20</span><span class="serif" style="font-size:17px">Spoken today</span></div>
+    <div class="type-row"><span class="mono muted">body · sans 400 · 15/22</span><span style="font-size:15px;line-height:1.45">Formulez votre réponse à voix haute avant de voir le modèle.</span></div>
+    <div class="type-row"><span class="mono muted">small · sans 400 · 13/18</span><span class="small">Counts real speaking turns. Not a fluency score.</span></div>
+    <div class="type-row"><span class="mono muted">eyebrow · sans 600 · 12 · +12% tracking</span><span class="eyebrow">Your next real conversation</span></div>
+    <div class="type-row"><span class="mono muted">stamp · mono 700 · 11 · +14%</span><span class="stamp" style="transform:none">Sun 19 Oct</span></div>
+    <div class="type-row"><span class="mono muted">target script · Arabic 26/39 (RTL)</span><span class="ar rtl" lang="ar-MA">شنو بغيتي تشرب؟</span></div>
+    <div class="type-row"><span class="mono muted">target script · Japanese 19/29</span><span class="ja" lang="ja" style="font-size:19px">すみません、これをください。</span></div>
+    <div class="type-row"><span class="mono muted">target script · Hangul 19/29</span><span lang="ko" style="font-size:19px;line-height:1.5">실례합니다, 이거 주세요.</span></div>
+  </section>
+
+  <section>
+    <h2>Radii, lines and elevation</h2>
+    <div class="radii">
+      <div style="border-radius:var(--r-s)">6 · stamps, covers</div>
+      <div style="border-radius:var(--r-m)">12 · cards</div>
+      <div style="border-radius:var(--r-l)">18 · sheets</div>
+      <div style="border-radius:var(--r-pill)">999 · buttons, chips, pills</div>
+      <div style="border-radius:4px">4 · taped photos</div>
+    </div>
+    <p class="small muted" style="margin-top:14px">Lines: 1 px hairline (dividers, quiet cards), 1.5 px ink (emphasis: taped frames, tab bar top, chips when on), 2 px ink for portrait frames. Dashed = provisional / pending / network. Solid = settled.</p>
+    <div class="elev">
+      <div style="box-shadow:none">0 · flat paper<br><span class="muted">in-flow content</span></div>
+      <div style="box-shadow:var(--lift)">1 · lift<br><span class="muted">cards: 1px hairline + soft 18px blur, low alpha</span></div>
+      <div style="box-shadow:3px 3px 0 var(--accent);border-color:var(--ink)">2 · press<br><span class="muted">hard accent offset: primary, mic, portrait</span></div>
+      <div style="box-shadow:0 24px 40px -20px rgba(0,0,0,.45)">3 · sheet<br><span class="muted">modals/bottom sheets only</span></div>
+    </div>
+    <p class="small muted" style="margin-top:12px">Paper grain is a single inline feTurbulence layer at 5–7 % over the whole screen (multiply in light, screen in dark). On low-end Android it is rendered once to a cached bitmap, never per-frame.</p>
+  </section>
+
+  <section>
+    <h2>Motion</h2>
+    <table><thead><tr><th>What animates</th><th>Duration</th><th>Easing</th><th>Notes / engine</th></tr></thead><tbody>
+      <tr><td>Hand underline draws in under a new heading</td><td>420 ms</td><td>ease-ink (.2,.8,.2,1)</td><td>stroke-dashoffset; Reanimated on RN. Once per screen mount.</td></tr>
+      <tr><td>Primary button press: offset shadow collapses 3→1 px, button moves 2 px</td><td>140 ms</td><td>ease-ink</td><td>Reanimated; haptic light on release</td></tr>
+      <tr><td>Mic doodle ring “draws” when it becomes the learner’s turn</td><td>420 ms</td><td>ease-ink</td><td>Lottie (vector ring); static ring if reduced motion</td></tr>
+      <tr><td>Speech-state dot pulse</td><td>1.2 s loop</td><td>ease-ink</td><td>Only while audio is actually playing. Reanimated.</td></tr>
+      <tr><td>Thinking: three dots step</td><td>900 ms loop</td><td>steps(3)</td><td>Only while a request is in flight; never a waveform</td></tr>
+      <tr><td>Card enter (home sections)</td><td>220 ms, 40 ms stagger</td><td>ease-settle (.34,1.3,.64,1)</td><td>opacity + 8 px translate; max 4 items</td></tr>
+      <tr><td>Stamp “thump” on daily goal reached</td><td>260 ms</td><td>ease-settle</td><td>scale 1.15→1 + 3° rotation; Reanimated; haptic medium</td></tr>
+      <tr><td>Mascot idle/blink, reaction, celebrate</td><td>per mascot guide</td><td>—</td><td>Rive state machine (states = mascot contract). One instance per screen.</td></tr>
+      <tr><td>Page transitions</td><td>220 ms</td><td>ease-ink</td><td>Cross-fade + 12 px slide; the tab bar does not animate</td></tr>
+    </tbody></table>
+    <p class="small muted" style="margin-top:12px"><b>Reduced motion</b>: every loop stops, draw-ins become instant, transitions become 120 ms cross-fades; the speech state is then conveyed by the label and icon alone (already present). Nothing above ever blocks recording or playback.</p>
+  </section>
+</main>
+
+</body>
+</html>

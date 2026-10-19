@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LangQuest · Lesson · Soft Clay light</title>
+<!-- LangQuest · UI direction U4 "Soft Clay" · light · self-contained mockup, system fonts only.
+     Art inlined from the repository baseline (assets/mascot, assets/characters, assets/scenes) as placeholders for fair comparison.
+     No third-party or CC0 artwork is used in this file. -->
+<style>
+:root{--bg:#F4EEE8;--surface:#FBF8F5;--card:#FFFFFF;--card2:#F6EFE9;--ink:#2B2733;--ink2:#5F5969;--ink3:#857E90;--line:#E6DDD6;
+--peach:#FFC9B4;--mint:#BFEBDB;--lilac:#DBD2F7;--butter:#FFE49C;--sky:#CDE5F8;--pink:#2B2733;
+--deep:#C94F31;--deep-ink:#FFFFFF;--success:#17795B;--warning:#A6600C;--danger:#C43D3D;
+--shadow:rgba(74,46,60,0.14);--shadow2:rgba(74,46,60,0.08);--hi:rgba(255,255,255,0.75);--lo:rgba(74,46,60,0.10);
+--r-xl:28px;--r-lg:22px;--r-md:16px;--r-pill:999px;
+--spring:cubic-bezier(.34,1.56,.64,1);--ease:cubic-bezier(.2,.8,.2,1);}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#DED6CF;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;
+font-family:ui-rounded,-apple-system,BlinkMacSystemFont,"SF Pro Rounded","SF Pro Text","Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Noto Sans Arabic","Noto Sans CJK TC","PingFang HK",sans-serif;
+color:var(--ink);-webkit-font-smoothing:antialiased}
+.phone{width:390px;height:844px;border-radius:46px;background:var(--bg);overflow:hidden;position:relative;display:flex;flex-direction:column;
+box-shadow:0 30px 60px rgba(0,0,0,.25),inset 0 0 0 1px var(--line)}
+.status{height:50px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 28px 6px;font-size:15px;font-weight:700}
+.status svg{display:block}
+.scroll{flex:1;overflow:auto;padding:4px 16px 110px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.clay{background:linear-gradient(180deg,var(--card) 0%,var(--card2) 100%);border-radius:var(--r-xl);
+box-shadow:inset 0 2px 0 var(--hi),inset 0 -4px 0 var(--lo),0 10px 24px var(--shadow2)}
+.clay.sm{border-radius:var(--r-lg)}
+.tint{box-shadow:inset 0 2px 0 rgba(255,255,255,.55),inset 0 -4px 0 rgba(43,39,51,.12),0 10px 24px var(--shadow2);color:var(--pink)}
+.peach{background:linear-gradient(180deg,var(--peach),color-mix(in srgb,var(--peach) 86%,#2B2733))}
+.mint{background:linear-gradient(180deg,var(--mint),color-mix(in srgb,var(--mint) 86%,#2B2733))}
+.lilac{background:linear-gradient(180deg,var(--lilac),color-mix(in srgb,var(--lilac) 86%,#2B2733))}
+.butter{background:linear-gradient(180deg,var(--butter),color-mix(in srgb,var(--butter) 86%,#2B2733))}
+.sky{background:linear-gradient(180deg,var(--sky),color-mix(in srgb,var(--sky) 86%,#2B2733))}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;font:inherit;font-weight:700;color:var(--pink);cursor:pointer;
+border-radius:var(--r-lg);padding:14px 18px;font-size:16px;line-height:20px;
+box-shadow:inset 0 2px 0 rgba(255,255,255,.55),inset 0 -4px 0 rgba(43,39,51,.14),0 8px 16px var(--shadow2);
+transition:transform 160ms var(--spring),box-shadow 160ms var(--ease)}
+.btn:active{transform:translateY(3px) scale(.985);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),inset 0 -1px 0 rgba(43,39,51,.14),0 2px 6px var(--shadow2)}
+.btn.ghost{background:linear-gradient(180deg,var(--card),var(--card2));color:var(--ink);box-shadow:inset 0 2px 0 var(--hi),inset 0 -4px 0 var(--lo),0 8px 16px var(--shadow2)}
+.btn.deep{background:linear-gradient(180deg,color-mix(in srgb,var(--deep) 90%,#fff),var(--deep));color:var(--deep-ink)}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:var(--r-pill);padding:7px 12px;font-size:13px;font-weight:700;color:var(--pink);
+box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -2px 0 rgba(43,39,51,.12)}
+.chip.quiet{background:var(--surface);color:var(--ink2);box-shadow:inset 0 1px 0 var(--hi),inset 0 -2px 0 var(--lo)}
+.row{display:flex;align-items:center;gap:12px}
+.col{display:flex;flex-direction:column}
+.grow{flex:1;min-width:0}
+h1{font-size:26px;line-height:32px;font-weight:800;letter-spacing:-.3px}
+h2{font-size:18px;line-height:24px;font-weight:800}
+h3{font-size:15px;line-height:20px;font-weight:800}
+.cap{font-size:13px;line-height:18px;color:var(--ink2);font-weight:600}
+.micro{font-size:11px;line-height:14px;color:var(--ink3);font-weight:700;text-transform:uppercase;letter-spacing:.6px}
+.ic{flex:none;display:block}
+.iconbtn{width:44px;height:44px;border-radius:16px;display:flex;align-items:center;justify-content:center;color:var(--ink);
+background:linear-gradient(180deg,var(--card),var(--card2));box-shadow:inset 0 2px 0 var(--hi),inset 0 -3px 0 var(--lo),0 6px 12px var(--shadow2)}
+.tabs{position:absolute;left:0;right:0;bottom:0;height:96px;padding:10px 12px 26px;display:flex;justify-content:space-around;align-items:flex-start;
+background:linear-gradient(180deg,var(--surface),var(--bg));border-top:1px solid var(--line);box-shadow:0 -12px 24px var(--shadow2)}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:700;color:var(--ink3);width:64px}
+.tab .pad{width:52px;height:36px;border-radius:14px;display:flex;align-items:center;justify-content:center}
+.tab.on{color:var(--ink)}
+.tab.on .pad{background:linear-gradient(180deg,var(--peach),color-mix(in srgb,var(--peach) 86%,#2B2733));color:var(--pink);
+box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -3px 0 rgba(43,39,51,.14)}
+.tab.speak .pad{width:56px;height:44px;margin-top:-10px;border-radius:18px;background:linear-gradient(180deg,color-mix(in srgb,var(--deep) 90%,#fff),var(--deep));color:var(--deep-ink);
+box-shadow:inset 0 2px 0 rgba(255,255,255,.35),inset 0 -4px 0 rgba(0,0,0,.18),0 8px 16px var(--shadow)}
+.m{width:100%;height:100%;display:block}
+.p{width:100%;height:100%;display:block}
+.scene{width:100%;height:100%;display:block}
+.meter{height:14px;border-radius:999px;background:var(--surface);box-shadow:inset 0 2px 4px var(--lo);overflow:hidden}
+.meter > i{display:block;height:100%;border-radius:999px;background:linear-gradient(180deg,var(--mint),color-mix(in srgb,var(--mint) 80%,#2B2733));box-shadow:inset 0 -2px 0 rgba(43,39,51,.12)}
+.pulse{animation:pulse 1.6s var(--ease) infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes bars{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+.bars{display:inline-flex;gap:3px;height:14px;align-items:center}
+.bars i{width:4px;height:14px;border-radius:2px;background:currentColor;transform-origin:center;animation:bars .9s ease-in-out infinite}
+.bars i:nth-child(2){animation-delay:.15s}.bars i:nth-child(3){animation-delay:.3s}.bars i:nth-child(4){animation-delay:.45s}
+@media (prefers-reduced-motion:reduce){.pulse,.bars i{animation:none}.btn{transition:none}}
+.note{position:absolute;top:8px;left:50%;transform:translateX(-50%);font:600 11px/14px system-ui;color:#fff;background:rgba(0,0,0,.55);padding:3px 8px;border-radius:999px;white-space:nowrap;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="phone" role="application" aria-label="LangQuest · Lesson · Soft Clay light">
+<div class="status"><span>9:41</span>
+<svg width="64" height="14" viewBox="0 0 64 14" fill="currentColor" aria-hidden="true"><rect x="0" y="8" width="3" height="6" rx="1"/><rect x="5" y="6" width="3" height="8" rx="1"/><rect x="10" y="3" width="3" height="11" rx="1"/><rect x="15" y="0" width="3" height="14" rx="1"/>
+<path d="M30 5a9 9 0 0 1 11 0M32.5 8a5.5 5.5 0 0 1 6 0M35.5 11.5l.5-.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+<rect x="46" y="1.5" width="15" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="48" y="3.5" width="9" height="7" rx="1.5"/><rect x="62" y="5" width="1.5" height="4" rx=".75"/></svg></div>
+<div class="scroll" style="padding-bottom:16px">
+  <header class="row" style="padding:4px 0 12px;gap:10px">
+    <a href="#" class="iconbtn" aria-label="Back"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 6-6 6 6 6"/></svg></a>
+    <div class="col grow" style="gap:4px">
+      <span style="font-weight:800;font-size:15px;line-height:18px">Mission: Order a coffee</span>
+      <div class="row" style="gap:4px" role="progressbar" aria-valuemin="1" aria-valuemax="5" aria-valuenow="2" aria-label="Step 2 of 5">
+        <i style="flex:1;height:6px;border-radius:3px;background:var(--mint)"></i><i style="flex:1;height:6px;border-radius:3px;background:var(--mint)"></i>
+        <i style="flex:1;height:6px;border-radius:3px;background:var(--line)"></i><i style="flex:1;height:6px;border-radius:3px;background:var(--line)"></i><i style="flex:1;height:6px;border-radius:3px;background:var(--line)"></i>
+      </div>
+    </div>
+    <span class="chip quiet">2/5</span>
+  </header>
+
+  <!-- scene art area with character -->
+  <section class="clay" style="padding:6px;position:relative" aria-label="Scene: café counter, Nadia is speaking">
+    <div style="height:160px;border-radius:22px;overflow:hidden;position:relative">
+      <svg class="scene" style="" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 90" role="img" aria-label="A warm café interior with a wooden counter, a coffee machine, pastries under glass and a sunny window."><title>A warm café interior with a wooden counter, a coffee machine, pastries under glass and a sunny window.</title><defs><linearGradient id="scene-cafe-day-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#DCEFFB"/><stop offset="100%" stop-color="#F8F3E9"/></linearGradient></defs><rect x="0" y="0" width="160" height="90" fill="url(#scene-cafe-day-sky)"/><rect x="0" y="0" width="160" height="60" fill="#F3E9DF"/><rect x="0" y="44" width="160" height="2" fill="#E4D5C7"/><rect x="0" y="60" width="160" height="30" fill="#D6BB9C"/><rect x="8" y="10" width="30" height="30" fill="#DCEFFB" stroke="#2B3A42" stroke-width="0.9" stroke-opacity="0.55"/><line x1="23" y1="10" x2="23" y2="40" stroke="#2B3A42" stroke-width="0.7" stroke-opacity="0.4"/><line x1="8" y1="25" x2="38" y2="25" stroke="#2B3A42" stroke-width="0.7" stroke-opacity="0.4"/><polygon points="8,40 38,40 60,62 20,62" fill="#FFE3A3" fill-opacity="0.25"/><rect x="114" y="14" width="40" height="1.6" fill="#B98A5C"/><rect x="114" y="26" width="40" height="1.6" fill="#B98A5C"/><path d="M119.2,8H121.8A1.2,1.2 0 0 1 123,9.2V12.3A1.2,1.2 0 0 1 121.8,13.5H119.2A1.2,1.2 0 0 1 118,12.3V9.2A1.2,1.2 0 0 1 119.2,8Z" fill="#5FA9B8" stroke="#2B3A42" stroke-width="0.5" stroke-opacity="0.5"/><path d="M127.2,8H129.8A1.2,1.2 0 0 1 131,9.2V12.3A1.2,1.2 0 0 1 129.8,13.5H127.2A1.2,1.2 0 0 1 126,12.3V9.2A1.2,1.2 0 0 1 127.2,8Z" fill="#5FA9B8" stroke="#2B3A42" stroke-width="0.5" stroke-opacity="0.5"/><path d="M135.2,8H137.8A1.2,1.2 0 0 1 139,9.2V12.3A1.2,1.2 0 0 1 137.8,13.5H135.2A1.2,1.2 0 0 1 134,12.3V9.2A1.2,1.2 0 0 1 135.2,8Z" fill="#5FA9B8" stroke="#2B3A42" stroke-width="0.5" stroke-opacity="0.5"/><path d="M143.2,8H145.8A1.2,1.2 0 0 1 147,9.2V12.3A1.2,1.2 0 0 1 145.8,13.5H143.2A1.2,1.2 0 0 1 142,12.3V9.2A1.2,1.2 0 0 1 143.2,8Z" fill="#5FA9B8" stroke="#2B3A42" stroke-width="0.5" stroke-opacity="0.5"/><path d="M121.4,19H124.6A1.4,1.4 0 0 1 126,20.4V24.1A1.4,1.4 0 0 1 124.6,25.5H121.4A1.4,1.4 0 0 1 120,24.1V20.4A1.4,1.4 0 0 1 121.4,19Z" fill="#E98A6B" stroke="#2B3A42" stroke-width="0.5" stroke-opacity="0.5"/><path d="M132.4,19H135.6A1.4,1.4 0 0 1 137,20.4V24.1A1.4,1.4 0 0 1 135.6,25.5H132.4A1.4,1.4 0 0 1 131,24.1V20.4A1.4,1.4 0 0 1 132.4,19Z" fill="#E98A6B" stroke="#2B3A42" stroke-width="0.5" stroke-opacity="0.5"/><path d="M143.4,19H146.6A1.4,1.4 0 0 1 148,20.4V24.1A1.4,1.4 0 0 1 146.6,25.5H143.4A1.4,1.4 0 0 1 142,24.1V20.4A1.4,1.4 0 0 1 143.4,19Z" fill="#E98A6B" stroke="#2B3A42" stroke-width="0.5" stroke-opacity="0.5"/><path d="M4,64H156A4,4 0 0 1 160,68V90A0,0 0 0 1 160,90H0A0,0 0 0 1 0,90V68A4,4 0 0 1 4,64Z" fill="#B98A5C" stroke="#2B3A42" stroke-width="0.8" stroke-opacity="0.5"/><rect x="0" y="64" width="160" height="3" fill="#CBA785"/><path d="M123,42H143A3,3 0 0 1 146,45V61A3,3 0 0 1 143,64H123A3,3 0 0 1 120,61V45A3,3 0 0 1 123,42Z" fill="#9BA6AD" stroke="#2B3A42" stroke-width="0.8" stroke-opacity="0.6"/><rect x="124" y="46" width="18" height="5" fill="#2B3A42" fill-opacity="0.35"/><rect x="128" y="56" width="3" height="6" fill="#2B3A42" fill-opacity="0.5"/><rect x="136" y="56" width="3" height="6" fill="#2B3A42" fill-opacity="0.5"/><path d="M12,64 a12,12 0 0 1 24,0Z" fill="#CFE6F3" fill-opacity="0.55" stroke="#2B3A42" stroke-width="0.7" stroke-opacity="0.5"/><ellipse cx="18" cy="61" rx="4" ry="2.4" fill="#E98A6B"/><ellipse cx="26" cy="61" rx="4" ry="2.4" fill="#EDA189"/><ellipse cx="22" cy="57" rx="3.6" ry="2.2" fill="#B98A5C"/><path d="M147.2,59.2H152.8A1.2,1.2 0 0 1 154,60.4V63.6A1.2,1.2 0 0 1 152.8,64.8H147.2A1.2,1.2 0 0 1 146,63.6V60.4A1.2,1.2 0 0 1 147.2,59.2Z" fill="#E98A6B" stroke="#2B3A42" stroke-width="0.7" stroke-opacity="0.5"/><ellipse cx="150" cy="55.2" rx="5.6" ry="4.8" fill="#6FAE7C"/><ellipse cx="146" cy="52.8" rx="3.6" ry="3.2" fill="#4E8A5C"/><ellipse cx="154" cy="52" rx="3.6" ry="3.2" fill="#4E8A5C"/><ellipse cx="150" cy="49.6" rx="3.2" ry="3.2" fill="#6FAE7C"/><line x1="44" y1="0" x2="44" y2="8" stroke="#2B3A42" stroke-width="0.8" stroke-opacity="0.6"/><path d="M38,14 L41,8 H47 L50,14Z" fill="#5FA9B8" stroke="#2B3A42" stroke-width="0.7" stroke-opacity="0.5"/><ellipse cx="44" cy="14.5" rx="4.5" ry="1.2" fill="#F2E7D3"/><line x1="104" y1="0" x2="104" y2="8" stroke="#2B3A42" stroke-width="0.8" stroke-opacity="0.6"/><path d="M98,14 L101,8 H107 L110,14Z" fill="#5FA9B8" stroke="#2B3A42" stroke-width="0.7" stroke-opacity="0.5"/><ellipse cx="104" cy="14.5" rx="4.5" ry="1.2" fill="#F2E7D3"/><defs><radialGradient id="scene-cafe-day-vig" cx="0.5" cy="0.5" r="0.75"><stop offset="60%" stop-color="#2B3A42" stop-opacity="0"/><stop offset="100%" stop-color="#2B3A42" stop-opacity="0.18"/></radialGradient></defs><rect x="0" y="0" width="160" height="90" fill="url(#scene-cafe-day-vig)"/></svg>
+      <div style="position:absolute;left:14px;bottom:10px;width:92px;height:92px;border-radius:50%;box-shadow:0 8px 18px var(--shadow),inset 0 0 0 3px var(--card)" aria-hidden="true"><svg class="p" style="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Nadia, talking"><title>Nadia, talking</title><defs><clipPath id="clip-ary-cafe-staff-nadia"><circle cx="60" cy="60" r="56"/></clipPath></defs><circle cx="60" cy="60" r="56" fill="#FFE8D6"/><g clip-path="url(#clip-ary-cafe-staff-nadia)"><path d="M58,66H62A5,5 0 0 1 67,71V89A5,5 0 0 1 62,94H58A5,5 0 0 1 53,89V71A5,5 0 0 1 58,66Z" fill="#E2AC86" stroke="#2B2522" stroke-width="1.6"/><path d="M55,76 Q60,82 65,76" fill="#B98D6E" stroke="none"/><path d="M14,124 C14,98 36,90 60,90 C84,90 106,98 106,124Z" fill="#3A9D8F" stroke="#2B2522" stroke-width="1.6" stroke-linejoin="round"/><path d="M40,124 V104 Q40,98 46,98 H74 Q80,98 80,104 V124Z" fill="#D9C39A" stroke="#2B2522" stroke-width="1.6" stroke-linejoin="round"/><path d="M46,98 C46,92 50,90 54,90 M74,98 C74,92 70,90 66,90" fill="none" stroke="#2B2522" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M48,92 Q60,102 72,92" fill="none" stroke="#2B2522" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M73.5,100H73.5A1.5,1.5 0 0 1 75,101.5V110.5A1.5,1.5 0 0 1 73.5,112H73.5A1.5,1.5 0 0 1 72,110.5V101.5A1.5,1.5 0 0 1 73.5,100Z" fill="#2F4A6D" stroke="#2B2522" stroke-width="1" transform="rotate(8 73 106)"/><g transform="translate(60,72) rotate(0) translate(-60,-72)"><path d="M36.5,40 C31.5,68 37.5,80 34.5,88 C44.5,90 48.5,82 46.5,76 L73.5,76 C71.5,82 75.5,90 85.5,88 C82.5,80 88.5,68 83.5,40 Q60,22 36.5,40Z" fill="#3D2A20" stroke="#2B2522" stroke-width="1.6" stroke-linejoin="round"/><ellipse cx="39.5" cy="54" rx="3.4" ry="4.6" fill="#E2AC86" stroke="#2B2522" stroke-width="1.6"/><ellipse cx="80.5" cy="54" rx="3.4" ry="4.6" fill="#E2AC86" stroke="#2B2522" stroke-width="1.6"/><circle cx="39.5" cy="57.5" r="1.2" fill="#E0A93A" stroke="#2B2522" stroke-width="0.8"/><circle cx="80.5" cy="57.5" r="1.2" fill="#E0A93A" stroke="#2B2522" stroke-width="0.8"/><path d="M40.5,52 a19.5,24 0 1 0 39,0 a19.5,24 0 1 0 -39,0Z" fill="#E2AC86" stroke="#2B2522" stroke-width="1.6"/><ellipse cx="51" cy="53" rx="3.8" ry="2.9" fill="#FFFFFF" stroke="#2B2522" stroke-width="1.4"/><circle cx="51" cy="53" r="1.9" fill="#4A2E1C"/><circle cx="51" cy="53" r="0.9" fill="#2B2522"/><circle cx="50.3" cy="52.2" r="0.6" fill="#FFFFFF"/><ellipse cx="69" cy="53" rx="3.8" ry="2.9" fill="#FFFFFF" stroke="#2B2522" stroke-width="1.4"/><circle cx="69" cy="53" r="1.9" fill="#4A2E1C"/><circle cx="69" cy="53" r="0.9" fill="#2B2522"/><circle cx="68.3" cy="52.2" r="0.6" fill="#FFFFFF"/><path d="M47,46 Q51,44 55,46" fill="none" stroke="#37261D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M65,46 Q69,44 73,46" fill="none" stroke="#37261D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M59,56 q-2,5 1.5,6" fill="none" stroke="#937057" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M59.4,66.5H60.6A3,3 0 0 1 63.6,69.5V68.9A3.6,3.6 0 0 1 60,72.5H60A3.6,3.6 0 0 1 56.4,68.9V69.5A3,3 0 0 1 59.4,66.5Z" fill="#3A2126" stroke="#2B2522" stroke-width="1.2"/><ellipse cx="60" cy="71.4" rx="2.2" ry="1.2" fill="#D9646E"/><path d="M39.5,46 C38.5,30 52,23 62,24 C72,24 81.5,30 80.5,46 C76.5,38 70,32 60,38 C52,40 43.5,40 39.5,46Z" fill="#3D2A20" stroke="#2B2522" stroke-width="1.6" stroke-linejoin="round"/></g></g><circle cx="60" cy="60" r="56" fill="none" stroke="#2B2522" stroke-width="1.4" stroke-opacity="0.35"/></svg></div>
+      <span class="chip mint" style="position:absolute;right:12px;bottom:12px" aria-live="polite"><span class="bars" aria-hidden="true"><i></i><i></i><i></i><i></i></span> Nadia is speaking</span>
+    </div>
+    <!-- mascot companion, small, out of the centre band -->
+    <div style="position:absolute;right:8px;top:-12px;width:54px;height:54px" aria-label="Mascot listening to you"><svg class="m" style="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Mascot listening to you"><title>Mascot listening to you</title><g transform="translate(50,56) rotate(5) scale(1,1) translate(-50,-56)"><g><path d="M70,66 C78,72.2 86,72.8 84,67.2" fill="none" stroke="#1E3A3A" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="M84,67.2 C90,66 94,63.2 93,57.2" fill="none" stroke="#1E3A3A" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M93,57.2 C96,54.8 92,53.6 90.6,54.4" fill="none" stroke="#1E3A3A" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M70,66 C78,72.2 86,72.8 84,67.2" fill="none" stroke="#FF8F6B" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M84,67.2 C90,66 94,63.2 93,57.2" fill="none" stroke="#FF8F6B" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M93,57.2 C96,54.8 92,53.6 90.6,54.4" fill="none" stroke="#FF8F6B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M70,66 C78,72.2 86,72.8 84,67.2" fill="none" stroke="#E5704E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.55" transform="translate(0.6,2.2)"/></g><path d="M24,56C24,43.81 35.64,33.92 50,33.92C64.36,33.92 76,43.81 76,56C76,69.26 64.36,80 50,80C35.64,80 24,69.26 24,56Z" fill="#49C5B1" stroke="#1E3A3A" stroke-width="2.2"/><path d="M28,64 C40,82 62,82 72,62 C64,77 36,77 28,64Z" fill="#2FA896" fill-opacity="0.35"/><ellipse cx="50" cy="65" rx="14" ry="9.5" fill="#F4FBF8" fill-opacity="0.9"/><ellipse cx="39" cy="41" rx="6.5" ry="3.4" fill="#FFFFFF" fill-opacity="0.4" transform="rotate(-25 39 41)"/><ellipse cx="42" cy="79" rx="4.2" ry="2.6" fill="#49C5B1" stroke="#1E3A3A" stroke-width="1.6"/><ellipse cx="58" cy="79" rx="4.2" ry="2.6" fill="#49C5B1" stroke="#1E3A3A" stroke-width="1.6"/><g><path d="M27,60 Q22,66 23,72" fill="none" stroke="#1E3A3A" stroke-width="7.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M27,60 Q22,66 23,72" fill="none" stroke="#2FA896" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="23" cy="72" r="3.6" fill="#2FA896" stroke="#1E3A3A" stroke-width="1.8"/></g><g><path d="M73,60 Q82,54 72,46" fill="none" stroke="#1E3A3A" stroke-width="7.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M73,60 Q82,54 72,46" fill="none" stroke="#2FA896" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="72" cy="46" r="3.6" fill="#2FA896" stroke="#1E3A3A" stroke-width="1.8"/></g><g><circle cx="41" cy="50" r="6.6" fill="#FFFFFF" stroke="#1E3A3A" stroke-width="1.8"/><circle cx="39.6" cy="50" r="3.3" fill="#1E2A33"/><circle cx="38.5" cy="48.8" r="1.1" fill="#FFFFFF"/></g><g><circle cx="59" cy="50" r="6.6" fill="#FFFFFF" stroke="#1E3A3A" stroke-width="1.8"/><circle cx="57.6" cy="50" r="3.3" fill="#1E2A33"/><circle cx="56.5" cy="48.8" r="1.1" fill="#FFFFFF"/></g><path d="M37,39.5 Q41,36.5 45,38.5" fill="none" stroke="#1E3A3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M55,38.5 Q59,36.5 63,39.5" fill="none" stroke="#1E3A3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M46.5,63.5 Q50,66.5 53.5,63.5" fill="none" stroke="#1E2A33" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g><path d="M20,44 A11,11 0 0 1 20,60" fill="none" stroke="#1E3A3A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M13,39 A17,17 0 0 1 13,65" fill="none" stroke="#1E3A3A" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,34 A22,22 0 0 1 7,70" fill="none" stroke="#1E3A3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+  </section>
+
+  <!-- character line: Darija in Arabic script (RTL) + romanisation, script mode 'both' -->
+  <section class="clay" style="margin-top:10px;padding:12px 16px 14px" aria-label="What Nadia said">
+    <span class="micro">Nadia says</span>
+    <p lang="ar" dir="rtl" style="font-size:23px;line-height:34px;font-weight:700;text-align:right;margin-top:4px">شنو بغيتي تشرب؟</p>
+    <p class="cap" style="font-size:15px;color:var(--ink2);margin-top:2px" lang="ar-Latn">shnu bghiti tshreb?</p>
+    <div class="row" style="gap:8px;margin-top:10px">
+      <button class="btn ghost" style="flex:1;padding:10px 8px;font-size:14px"><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.5-5.8"/><path d="M4 4v5h5"/></svg> Replay</button>
+      <button class="btn ghost" style="flex:1;padding:10px 8px;font-size:14px"><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16a8 8 0 0 1 16 0"/><path d="M12 16 15.5 11"/><circle cx="12" cy="16" r="1.5"/></svg> Slow</button>
+      <button class="btn ghost" style="flex:1;padding:10px 8px;font-size:14px"><svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h9M8.5 4v2M11 6c-.8 3.5-3 6.5-6.5 8.5M6.5 9c1 2.5 3 4.5 5.5 5.5"/><path d="m13 20 3.5-8 3.5 8M14.3 17h4.4"/></svg> Traduire</button>
+    </div>
+  </section>
+
+  <!-- anticipate -->
+  <p style="text-align:center;margin:14px 0 4px;font-weight:800;font-size:17px">Comment répondrais-tu ?</p>
+  <p class="cap" style="text-align:center;margin-bottom:10px">Say what you would like to drink. Try before you peek — word help only on request.</p>
+
+  <!-- large mic -->
+  <div class="row" style="justify-content:center;gap:22px">
+    <button class="btn ghost" style="width:58px;height:58px;padding:0;border-radius:20px" aria-label="Need a hint"><svg class="ic " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M8 13.5A5.5 5.5 0 1 1 16 13.5c-.9.9-1.5 2-1.5 3h-5c0-1-.6-2.1-1.5-3z"/></svg></button>
+    <button class="btn deep pulse" style="width:104px;height:104px;padding:0;border-radius:38px" aria-label="Hold or tap to speak"><svg class="ic " width="46" height="46" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg></button>
+    <button class="btn ghost" style="width:58px;height:58px;padding:0;border-radius:20px" aria-label="Reveal and compare the model answer"><svg class="ic " width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12z"/><circle cx="12" cy="12" r="3"/></svg></button>
+  </div>
+  <div class="row" style="justify-content:center;gap:50px;margin-top:6px">
+    <span class="micro">Hint</span><span class="micro" style="margin:0 12px">Tap to speak</span><span class="micro">Reveal</span>
+  </div>
+
+  <!-- honest feedback for the previous attempt: no fabricated score -->
+  <section class="clay sm" style="margin-top:12px;padding:12px 16px" aria-label="Your last attempt">
+    <div class="row" style="justify-content:space-between">
+      <span class="micro">Your last attempt · 0:03</span>
+      <button class="chip sky"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 5.5v13l10-6.5z" fill="currentColor" stroke="none"/></svg> Play</button>
+    </div>
+    <p style="margin-top:6px;font-size:15px;line-height:21px">We heard: <b lang="ar-Latn">“bghit atay, afak”</b></p>
+    <div class="row" style="gap:10px;margin-top:8px;padding:8px 12px;border-radius:14px;background:var(--surface);align-items:flex-start">
+      <svg class="ic " width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l1.8 5.2L19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8z"/></svg>
+      <p class="cap" style="color:var(--ink2)">Detailed phoneme assessment isn’t available for Darija yet. Compare with Nadia’s model by ear — no score is shown because none was measured.</p>
+    </div>
+  </section>
+</div>
+
+</div>
+</body>
+</html>

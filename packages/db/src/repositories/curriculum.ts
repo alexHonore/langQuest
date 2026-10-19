@@ -21,6 +21,7 @@ import { createHash } from 'node:crypto';
 import type { DbClient } from '../client';
 import { unwrap, unwrapMaybe } from '../errors';
 import type { Insert, Row, Update } from '../types';
+import { rankCharactersForRegion } from './characters';
 
 /**
  * Which language a manifest title is actually in.
@@ -43,9 +44,30 @@ export type LocalizedManifestMission = ManifestMission &
   Pick<ManifestTitleLocalization, 'titleLanguageCode'>;
 export type LocalizedManifestChapter = Omit<ManifestChapter, 'missions'> &
   ManifestTitleLocalization & { missions: LocalizedManifestMission[] };
+/**
+ * Art ↔ database mapping for a manifest character.
+ *
+ * Gap note: `@langquest/contracts` `ManifestCharacterSchema` has no `characterKey` / `region` /
+ * `regionalOption` / `portraitKey` fields yet; until it does they are carried as a structural
+ * extension so mobile/admin can resolve the `@langquest/ui` portrait (`portraitKey` = roster slug =
+ * `characters.character_key`) and show regional fit. `id` is the deterministic uuid
+ * (`characterUuid(characterKey)`), identical to `stableCharacterUuid` in `@langquest/ui`.
+ */
+export interface ManifestCharacterArtMapping {
+  /** `characters.character_key`: the `@langquest/ui` roster slug. */
+  characterKey: string;
+  /** `characters.home_region` (city, country). */
+  region: string;
+  /** Regional option id within the variety, or null for a variety-wide character. */
+  regionalOption: string | null;
+  /** Key for the in-code portrait (`@langquest/ui` `findCharacter(portraitKey)`). */
+  portraitKey: string;
+}
+export type LocalizedManifestCharacter = ManifestCharacter & ManifestCharacterArtMapping;
 /** `CourseManifest` whose chapters/missions say which language each title is in. */
-export type LocalizedCourseManifest = Omit<CourseManifest, 'chapters'> & {
+export type LocalizedCourseManifest = Omit<CourseManifest, 'chapters' | 'characters'> & {
   chapters: LocalizedManifestChapter[];
+  characters: LocalizedManifestCharacter[];
 };
 
 export interface ResolvedManifestTitle {
@@ -123,11 +145,15 @@ export interface CurriculumRepository {
    * Assembles a versioned course manifest for (track, source) from published rows.
    * Titles are in `sourceLanguageCode`, or in the fallback language the coverage row declares,
    * or empty — each chapter/mission carries `titleLanguageCode` saying which (§2.1).
+   *
+   * `characters` always holds every published character of `targetVarietyId` (even when no mission
+   * is published yet), ordered by `regionalPreference` match first, then variety-wide, then the rest.
    */
   buildManifest(
     courseTrackId: string,
     sourceLanguageCode: string,
     targetVarietyId: string,
+    regionalPreference?: string | null,
   ): Promise<LocalizedCourseManifest>;
   // editor writes
   upsertMission(mission: Insert<'missions'>): Promise<Row<'missions'>>;
@@ -278,7 +304,20 @@ export function curriculumRepository(db: DbClient): CurriculumRepository {
         'curriculum.listSkills',
       );
     },
-    async buildManifest(courseTrackId, sourceLanguageCode, targetVarietyId) {
+    async buildManifest(courseTrackId, sourceLanguageCode, targetVarietyId, regionalPreference) {
+      // The cast is independent of mission publication: Speak/free conversation needs it on day one.
+      const characters = rankCharactersForRegion(
+        unwrap(
+          await db
+            .from('characters')
+            .select('*')
+            .eq('target_variety_id', targetVarietyId)
+            .eq('state', 'published')
+            .order('name'),
+          'manifest.characters',
+        ),
+        regionalPreference,
+      );
       const courses = unwrap(
         await db
           .from('lesson_courses')
@@ -313,7 +352,7 @@ export function curriculumRepository(db: DbClient): CurriculumRepository {
           )
         : [];
       const missionIds = missions.map((m) => m.id);
-      const [steps, localizations, characters] = missionIds.length
+      const [steps, localizations] = missionIds.length
         ? await Promise.all([
             unwrap(
               await db
@@ -331,16 +370,8 @@ export function curriculumRepository(db: DbClient): CurriculumRepository {
                 .eq('source_language_code', sourceLanguageCode),
               'manifest.localizations',
             ),
-            unwrap(
-              await db
-                .from('characters')
-                .select('*')
-                .eq('target_variety_id', targetVarietyId)
-                .eq('state', 'published'),
-              'manifest.characters',
-            ),
           ])
-        : [[], [], []];
+        : [[], []];
       const scenarios = missionIds.length
         ? unwrap(
             await db
@@ -453,12 +484,18 @@ export function curriculumRepository(db: DbClient): CurriculumRepository {
         sourceLanguageCode: sourceLanguageCode as CourseManifest['sourceLanguageCode'],
         targetVarietyId: targetVarietyId as CourseManifest['targetVarietyId'],
         chapters: manifestChapters,
-        characters: characters.map((c): ManifestCharacter => ({
+        characters: characters.map((c): LocalizedManifestCharacter => ({
           id: c.id,
+          characterKey: c.character_key,
           name: c.name,
           role: c.role,
+          region: c.home_region,
+          regionalOption: c.regional_option,
           varietyId: c.target_variety_id as ManifestCharacter['varietyId'],
+          // No reviewed visual_assets row yet: clients render the in-code portrait by `portraitKey`.
           portrait: null,
+          portraitKey: c.character_key,
+          // Honesty (§8.6): a character voice is synthetic unless its profile explicitly says otherwise.
           syntheticVoice: Boolean((c.voice_profile as Record<string, unknown>).synthetic ?? true),
         })),
       };

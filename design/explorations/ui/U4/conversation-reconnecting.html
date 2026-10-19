@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>LangQuest · Conversation (reconnecting) · Soft Clay light</title>
+<!-- LangQuest · UI direction U4 "Soft Clay" · light · self-contained mockup, system fonts only.
+     Art inlined from the repository baseline (assets/mascot, assets/characters, assets/scenes) as placeholders for fair comparison.
+     No third-party or CC0 artwork is used in this file. -->
+<style>
+:root{--bg:#F4EEE8;--surface:#FBF8F5;--card:#FFFFFF;--card2:#F6EFE9;--ink:#2B2733;--ink2:#5F5969;--ink3:#857E90;--line:#E6DDD6;
+--peach:#FFC9B4;--mint:#BFEBDB;--lilac:#DBD2F7;--butter:#FFE49C;--sky:#CDE5F8;--pink:#2B2733;
+--deep:#C94F31;--deep-ink:#FFFFFF;--success:#17795B;--warning:#A6600C;--danger:#C43D3D;
+--shadow:rgba(74,46,60,0.14);--shadow2:rgba(74,46,60,0.08);--hi:rgba(255,255,255,0.75);--lo:rgba(74,46,60,0.10);
+--r-xl:28px;--r-lg:22px;--r-md:16px;--r-pill:999px;
+--spring:cubic-bezier(.34,1.56,.64,1);--ease:cubic-bezier(.2,.8,.2,1);}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{background:#DED6CF;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:24px;
+font-family:ui-rounded,-apple-system,BlinkMacSystemFont,"SF Pro Rounded","SF Pro Text","Segoe UI",Roboto,"Helvetica Neue","Noto Sans","Noto Sans Arabic","Noto Sans CJK TC","PingFang HK",sans-serif;
+color:var(--ink);-webkit-font-smoothing:antialiased}
+.phone{width:390px;height:844px;border-radius:46px;background:var(--bg);overflow:hidden;position:relative;display:flex;flex-direction:column;
+box-shadow:0 30px 60px rgba(0,0,0,.25),inset 0 0 0 1px var(--line)}
+.status{height:50px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 28px 6px;font-size:15px;font-weight:700}
+.status svg{display:block}
+.scroll{flex:1;overflow:auto;padding:4px 16px 110px;scrollbar-width:none}
+.scroll::-webkit-scrollbar{display:none}
+.clay{background:linear-gradient(180deg,var(--card) 0%,var(--card2) 100%);border-radius:var(--r-xl);
+box-shadow:inset 0 2px 0 var(--hi),inset 0 -4px 0 var(--lo),0 10px 24px var(--shadow2)}
+.clay.sm{border-radius:var(--r-lg)}
+.tint{box-shadow:inset 0 2px 0 rgba(255,255,255,.55),inset 0 -4px 0 rgba(43,39,51,.12),0 10px 24px var(--shadow2);color:var(--pink)}
+.peach{background:linear-gradient(180deg,var(--peach),color-mix(in srgb,var(--peach) 86%,#2B2733))}
+.mint{background:linear-gradient(180deg,var(--mint),color-mix(in srgb,var(--mint) 86%,#2B2733))}
+.lilac{background:linear-gradient(180deg,var(--lilac),color-mix(in srgb,var(--lilac) 86%,#2B2733))}
+.butter{background:linear-gradient(180deg,var(--butter),color-mix(in srgb,var(--butter) 86%,#2B2733))}
+.sky{background:linear-gradient(180deg,var(--sky),color-mix(in srgb,var(--sky) 86%,#2B2733))}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;font:inherit;font-weight:700;color:var(--pink);cursor:pointer;
+border-radius:var(--r-lg);padding:14px 18px;font-size:16px;line-height:20px;
+box-shadow:inset 0 2px 0 rgba(255,255,255,.55),inset 0 -4px 0 rgba(43,39,51,.14),0 8px 16px var(--shadow2);
+transition:transform 160ms var(--spring),box-shadow 160ms var(--ease)}
+.btn:active{transform:translateY(3px) scale(.985);box-shadow:inset 0 1px 0 rgba(255,255,255,.4),inset 0 -1px 0 rgba(43,39,51,.14),0 2px 6px var(--shadow2)}
+.btn.ghost{background:linear-gradient(180deg,var(--card),var(--card2));color:var(--ink);box-shadow:inset 0 2px 0 var(--hi),inset 0 -4px 0 var(--lo),0 8px 16px var(--shadow2)}
+.btn.deep{background:linear-gradient(180deg,color-mix(in srgb,var(--deep) 90%,#fff),var(--deep));color:var(--deep-ink)}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:var(--r-pill);padding:7px 12px;font-size:13px;font-weight:700;color:var(--pink);
+box-shadow:inset 0 1px 0 rgba(255,255,255,.5),inset 0 -2px 0 rgba(43,39,51,.12)}
+.chip.quiet{background:var(--surface);color:var(--ink2);box-shadow:inset 0 1px 0 var(--hi),inset 0 -2px 0 var(--lo)}
+.row{display:flex;align-items:center;gap:12px}
+.col{display:flex;flex-direction:column}
+.grow{flex:1;min-width:0}
+h1{font-size:26px;line-height:32px;font-weight:800;letter-spacing:-.3px}
+h2{font-size:18px;line-height:24px;font-weight:800}
+h3{font-size:15px;line-height:20px;font-weight:800}
+.cap{font-size:13px;line-height:18px;color:var(--ink2);font-weight:600}
+.micro{font-size:11px;line-height:14px;color:var(--ink3);font-weight:700;text-transform:uppercase;letter-spacing:.6px}
+.ic{flex:none;display:block}
+.iconbtn{width:44px;height:44px;border-radius:16px;display:flex;align-items:center;justify-content:center;color:var(--ink);
+background:linear-gradient(180deg,var(--card),var(--card2));box-shadow:inset 0 2px 0 var(--hi),inset 0 -3px 0 var(--lo),0 6px 12px var(--shadow2)}
+.tabs{position:absolute;left:0;right:0;bottom:0;height:96px;padding:10px 12px 26px;display:flex;justify-content:space-around;align-items:flex-start;
+background:linear-gradient(180deg,var(--surface),var(--bg));border-top:1px solid var(--line);box-shadow:0 -12px 24px var(--shadow2)}
+.tab{display:flex;flex-direction:column;align-items:center;gap:3px;font-size:11px;font-weight:700;color:var(--ink3);width:64px}
+.tab .pad{width:52px;height:36px;border-radius:14px;display:flex;align-items:center;justify-content:center}
+.tab.on{color:var(--ink)}
+.tab.on .pad{background:linear-gradient(180deg,var(--peach),color-mix(in srgb,var(--peach) 86%,#2B2733));color:var(--pink);
+box-shadow:inset 0 1px 0 rgba(255,255,255,.55),inset 0 -3px 0 rgba(43,39,51,.14)}
+.tab.speak .pad{width:56px;height:44px;margin-top:-10px;border-radius:18px;background:linear-gradient(180deg,color-mix(in srgb,var(--deep) 90%,#fff),var(--deep));color:var(--deep-ink);
+box-shadow:inset 0 2px 0 rgba(255,255,255,.35),inset 0 -4px 0 rgba(0,0,0,.18),0 8px 16px var(--shadow)}
+.m{width:100%;height:100%;display:block}
+.p{width:100%;height:100%;display:block}
+.scene{width:100%;height:100%;display:block}
+.meter{height:14px;border-radius:999px;background:var(--surface);box-shadow:inset 0 2px 4px var(--lo);overflow:hidden}
+.meter > i{display:block;height:100%;border-radius:999px;background:linear-gradient(180deg,var(--mint),color-mix(in srgb,var(--mint) 80%,#2B2733));box-shadow:inset 0 -2px 0 rgba(43,39,51,.12)}
+.pulse{animation:pulse 1.6s var(--ease) infinite}
+@keyframes pulse{0%,100%{transform:scale(1)}50%{transform:scale(1.06)}}
+@keyframes bars{0%,100%{transform:scaleY(.4)}50%{transform:scaleY(1)}}
+.bars{display:inline-flex;gap:3px;height:14px;align-items:center}
+.bars i{width:4px;height:14px;border-radius:2px;background:currentColor;transform-origin:center;animation:bars .9s ease-in-out infinite}
+.bars i:nth-child(2){animation-delay:.15s}.bars i:nth-child(3){animation-delay:.3s}.bars i:nth-child(4){animation-delay:.45s}
+@media (prefers-reduced-motion:reduce){.pulse,.bars i{animation:none}.btn{transition:none}}
+.note{position:absolute;top:8px;left:50%;transform:translateX(-50%);font:600 11px/14px system-ui;color:#fff;background:rgba(0,0,0,.55);padding:3px 8px;border-radius:999px;white-space:nowrap;pointer-events:none}
+</style>
+</head>
+<body>
+<div class="phone" role="application" aria-label="LangQuest · Conversation (reconnecting) · Soft Clay light">
+<div class="status"><span>9:41</span>
+<svg width="64" height="14" viewBox="0 0 64 14" fill="currentColor" aria-hidden="true"><rect x="0" y="8" width="3" height="6" rx="1"/><rect x="5" y="6" width="3" height="8" rx="1"/><rect x="10" y="3" width="3" height="11" rx="1"/><rect x="15" y="0" width="3" height="14" rx="1"/>
+<path d="M30 5a9 9 0 0 1 11 0M32.5 8a5.5 5.5 0 0 1 6 0M35.5 11.5l.5-.4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+<rect x="46" y="1.5" width="15" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.2"/><rect x="48" y="3.5" width="9" height="7" rx="1.5"/><rect x="62" y="5" width="1.5" height="4" rx=".75"/></svg></div>
+<div class="col" style="flex:1;min-height:0">
+  <header class="row" style="padding:4px 16px 10px;gap:10px">
+    <a href="#" class="iconbtn" aria-label="Pause or leave the conversation"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-5"/><path d="M10 8l-4 4 4 4M6 12h10"/></svg></a>
+    <div class="col grow" style="gap:2px">
+      <span style="font-weight:800;font-size:15px;line-height:18px">Ka-yan · teahouse</span>
+      <span class="cap">Cantonese · hints in English</span>
+    </div>
+    <span class="chip quiet"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg> 2:40</span>
+  </header>
+
+  <!-- portrait area over contextual scene; centre band kept clear -->
+  <section style="margin:0 16px;height:258px;border-radius:28px;overflow:hidden;position:relative;box-shadow:inset 0 2px 0 var(--hi),inset 0 -4px 0 var(--lo),0 12px 28px var(--shadow2)" aria-label="Ka-yan, teahouse staff, neutral">
+    <svg class="scene" style="" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 90" role="img" aria-label="A restaurant interior with a set table, pendant lamps, a plant and a window at dusk."><title>A restaurant interior with a set table, pendant lamps, a plant and a window at dusk.</title><defs><linearGradient id="scene-restaurant-day-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#DCEFFB"/><stop offset="100%" stop-color="#F8F3E9"/></linearGradient></defs><rect x="0" y="0" width="160" height="90" fill="url(#scene-restaurant-day-sky)"/><rect x="0" y="0" width="160" height="60" fill="#E4DBD2"/><rect x="0" y="30" width="160" height="30" fill="#E4D5C7"/><rect x="0" y="29" width="160" height="1.5" fill="#B98A5C"/><rect x="0" y="60" width="160" height="30" fill="#A77C53"/><rect x="116" y="8" width="34" height="20" fill="#CFE6F3" stroke="#2B3A42" stroke-width="0.9" stroke-opacity="0.55"/><line x1="133" y1="8" x2="133" y2="28" stroke="#2B3A42" stroke-width="0.7" stroke-opacity="0.4"/><line x1="116" y1="18" x2="150" y2="18" stroke="#2B3A42" stroke-width="0.7" stroke-opacity="0.4"/><line x1="30" y1="0" x2="30" y2="10" stroke="#2B3A42" stroke-width="0.8" stroke-opacity="0.6"/><path d="M24,16 L27,10 H33 L36,16Z" fill="#5FA9B8" stroke="#2B3A42" stroke-width="0.7" stroke-opacity="0.5"/><ellipse cx="30" cy="16.5" rx="4.5" ry="1.2" fill="#F2E7D3"/><line x1="80" y1="0" x2="80" y2="8" stroke="#2B3A42" stroke-width="0.8" stroke-opacity="0.6"/><path d="M74,14 L77,8 H83 L86,14Z" fill="#5FA9B8" stroke="#2B3A42" stroke-width="0.7" stroke-opacity="0.5"/><ellipse cx="80" cy="14.5" rx="4.5" ry="1.2" fill="#F2E7D3"/><line x1="130" y1="0" x2="130" y2="10" stroke="#2B3A42" stroke-width="0.8" stroke-opacity="0.6"/><path d="M124,16 L127,10 H133 L136,16Z" fill="#5FA9B8" stroke="#2B3A42" stroke-width="0.7" stroke-opacity="0.5"/><ellipse cx="130" cy="16.5" rx="4.5" ry="1.2" fill="#F2E7D3"/><ellipse cx="50" cy="70" rx="36" ry="6" fill="#2B3A42" fill-opacity="0.12"/><path d="M17,62H83A3,3 0 0 1 86,65V65A3,3 0 0 1 83,68H17A3,3 0 0 1 14,65V65A3,3 0 0 1 17,62Z" fill="#FFFFFF" stroke="#2B3A42" stroke-width="0.7" stroke-opacity="0.5"/><rect x="48" y="68" width="4" height="18" fill="#B98A5C"/><ellipse cx="50" cy="86" rx="10" ry="2.5" fill="#B98A5C"/><circle cx="36" cy="64" r="6" fill="#AFD4DC" stroke="#2B3A42" stroke-width="0.6" stroke-opacity="0.5"/><circle cx="36" cy="64" r="3.6" fill="#E98A6B"/><rect x="26" y="60" width="1.2" height="8" fill="#9BA6AD"/><rect x="46" y="60" width="1.2" height="8" fill="#9BA6AD"/><path d="M63.5,54H65.5A1.5,1.5 0 0 1 67,55.5V63.5A1.5,1.5 0 0 1 65.5,65H63.5A1.5,1.5 0 0 1 62,63.5V55.5A1.5,1.5 0 0 1 63.5,54Z" fill="#CFE6F3" fill-opacity="0.7" stroke="#2B3A42" stroke-width="0.5" stroke-opacity="0.4"/><circle cx="72" cy="58" r="3" fill="#E98A6B"/><rect x="71.4" y="61" width="1.2" height="4" fill="#4E8A5C"/><path d="M6,82 v-10 h7 v10 M7,72 v-7 h5 v7" fill="none" stroke="#B98A5C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M88,82 v-10 h7 v10 M89,72 v-7 h5 v7" fill="none" stroke="#B98A5C" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" transform="translate(183,0) scale(-1,1)"/><path d="M126.85,54.6H133.15A1.35,1.35 0 0 1 134.5,55.95V59.55A1.35,1.35 0 0 1 133.15,60.9H126.85A1.35,1.35 0 0 1 125.5,59.55V55.95A1.35,1.35 0 0 1 126.85,54.6Z" fill="#E98A6B" stroke="#2B3A42" stroke-width="0.7" stroke-opacity="0.5"/><ellipse cx="130" cy="50.1" rx="6.3" ry="5.4" fill="#6FAE7C"/><ellipse cx="125.5" cy="47.4" rx="4.05" ry="3.6" fill="#4E8A5C"/><ellipse cx="134.5" cy="46.5" rx="4.05" ry="3.6" fill="#4E8A5C"/><ellipse cx="130" cy="43.8" rx="3.6" ry="3.6" fill="#6FAE7C"/><defs><radialGradient id="scene-restaurant-day-vig" cx="0.5" cy="0.5" r="0.75"><stop offset="60%" stop-color="#2B3A42" stop-opacity="0"/><stop offset="100%" stop-color="#2B3A42" stop-opacity="0.18"/></radialGradient></defs><rect x="0" y="0" width="160" height="90" fill="url(#scene-restaurant-day-vig)"/></svg>
+    <div style="position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,0) 40%,rgba(43,39,51,.45))" aria-hidden="true"></div>
+    <div style="position:absolute;left:50%;top:26px;transform:translateX(-50%);width:176px;height:176px;border-radius:50%;box-shadow:0 14px 30px var(--shadow),inset 0 0 0 5px var(--card)" aria-hidden="true"><svg class="p" style="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Ka-yan, neutral"><title>Ka-yan, neutral</title><defs><clipPath id="clip-yue-teahouse-staff-ka-yan"><circle cx="60" cy="60" r="56"/></clipPath></defs><circle cx="60" cy="60" r="56" fill="#FFF3D9"/><g clip-path="url(#clip-yue-teahouse-staff-ka-yan)"><path d="M58,66H62A5,5 0 0 1 67,71V89A5,5 0 0 1 62,94H58A5,5 0 0 1 53,89V71A5,5 0 0 1 58,66Z" fill="#F6D7C3" stroke="#2B2522" stroke-width="1.6"/><path d="M55,76 Q60,82 65,76" fill="#CAB0A0" stroke="none"/><path d="M14,124 C14,98 36,90 60,90 C84,90 106,98 106,124Z" fill="#3C3F45" stroke="#2B2522" stroke-width="1.6" stroke-linejoin="round"/><path d="M40,124 V104 Q40,98 46,98 H74 Q80,98 80,104 V124Z" fill="#E0A93A" stroke="#2B2522" stroke-width="1.6" stroke-linejoin="round"/><path d="M46,98 C46,92 50,90 54,90 M74,98 C74,92 70,90 66,90" fill="none" stroke="#2B2522" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M48,92 Q60,102 72,92" fill="none" stroke="#2B2522" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M73.5,100H73.5A1.5,1.5 0 0 1 75,101.5V110.5A1.5,1.5 0 0 1 73.5,112H73.5A1.5,1.5 0 0 1 72,110.5V101.5A1.5,1.5 0 0 1 73.5,100Z" fill="#2F4A6D" stroke="#2B2522" stroke-width="1" transform="rotate(8 73 106)"/><g transform="translate(60,72) rotate(0) translate(-60,-72)"><path d="M66,34 C86,28 90,66 82,82" fill="none" stroke="#2B2522" stroke-width="9.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M66,34 C86,28 90,66 82,82" fill="none" stroke="#1F1B1C" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/><ellipse cx="38" cy="54" rx="3.4" ry="4.6" fill="#F6D7C3" stroke="#2B2522" stroke-width="1.6"/><ellipse cx="82" cy="54" rx="3.4" ry="4.6" fill="#F6D7C3" stroke="#2B2522" stroke-width="1.6"/><circle cx="38" cy="57.5" r="1.2" fill="#E0A93A" stroke="#2B2522" stroke-width="0.8"/><circle cx="82" cy="57.5" r="1.2" fill="#E0A93A" stroke="#2B2522" stroke-width="0.8"/><path d="M39,52 a21,22 0 1 0 42,0 a21,22 0 1 0 -42,0Z" fill="#F6D7C3" stroke="#2B2522" stroke-width="1.6"/><ellipse cx="51" cy="53" rx="3.8" ry="2.9" fill="#FFFFFF" stroke="#2B2522" stroke-width="1.4"/><circle cx="51" cy="53" r="1.9" fill="#2B1D16"/><circle cx="51" cy="53" r="0.9" fill="#2B2522"/><circle cx="50.3" cy="52.2" r="0.6" fill="#FFFFFF"/><ellipse cx="69" cy="53" rx="3.8" ry="2.9" fill="#FFFFFF" stroke="#2B2522" stroke-width="1.4"/><circle cx="69" cy="53" r="1.9" fill="#2B1D16"/><circle cx="69" cy="53" r="0.9" fill="#2B2522"/><circle cx="68.3" cy="52.2" r="0.6" fill="#FFFFFF"/><path d="M47,46 Q51,44 55,46" fill="none" stroke="#1C1819" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M65,46 Q69,44 73,46" fill="none" stroke="#1C1819" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M59,56 q-2,5 1.5,6" fill="none" stroke="#A08C7F" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M56,68 Q60,71 64,68" fill="none" stroke="#2B2522" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M40,44 C39,32 50,28 60,28 C70,28 81,32 80,44 C68,38 52,38 40,44Z" fill="#1F1B1C" stroke="#2B2522" stroke-width="1.6" stroke-linejoin="round"/></g></g><circle cx="60" cy="60" r="56" fill="none" stroke="#2B2522" stroke-width="1.4" stroke-opacity="0.35"/></svg></div>
+    <div style="position:absolute;left:0;right:0;bottom:12px;display:flex;justify-content:center"><span class="chip butter" aria-live="assertive"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18"/><path d="M5 9.5a12 12 0 0 1 4.5-2.4M12 5a12 12 0 0 1 7 4.5M8.5 13a7 7 0 0 1 2-1.3M12 9a7 7 0 0 1 4 2M12 16.5a2 2 0 0 1 1.5 1"/><circle cx="12" cy="19" r="1" fill="currentColor"/></svg> Reconnecting · attempt 2 of 5</span></div>
+    <div style="position:absolute;right:10px;top:10px;width:40px;height:40px" aria-label="Mascot, quiet"><svg class="m" style="" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Mascot, relaxed"><title>Mascot, relaxed</title><g transform="translate(50,56) rotate(0) scale(1,1) translate(-50,-56)"><g><path d="M70,66 C78,72.6 86,74.4 84,68.6" fill="none" stroke="#1E3A3A" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="M84,68.6 C90,68 94,65.6 93,59.6" fill="none" stroke="#1E3A3A" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M93,59.6 C96,56.6 92,55.1 90,56.1" fill="none" stroke="#1E3A3A" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M70,66 C78,72.6 86,74.4 84,68.6" fill="none" stroke="#FF8F6B" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M84,68.6 C90,68 94,65.6 93,59.6" fill="none" stroke="#FF8F6B" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M93,59.6 C96,56.6 92,55.1 90,56.1" fill="none" stroke="#FF8F6B" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M70,66 C78,72.6 86,74.4 84,68.6" fill="none" stroke="#E5704E" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.55" transform="translate(0.6,2.2)"/></g><path d="M24,56C24,43.81 35.64,33.92 50,33.92C64.36,33.92 76,43.81 76,56C76,69.26 64.36,80 50,80C35.64,80 24,69.26 24,56Z" fill="#49C5B1" stroke="#1E3A3A" stroke-width="2.2"/><path d="M28,64 C40,82 62,82 72,62 C64,77 36,77 28,64Z" fill="#2FA896" fill-opacity="0.35"/><ellipse cx="50" cy="65" rx="14" ry="9.5" fill="#F4FBF8" fill-opacity="0.9"/><ellipse cx="39" cy="41" rx="6.5" ry="3.4" fill="#FFFFFF" fill-opacity="0.4" transform="rotate(-25 39 41)"/><ellipse cx="42" cy="79" rx="4.2" ry="2.6" fill="#49C5B1" stroke="#1E3A3A" stroke-width="1.6"/><ellipse cx="58" cy="79" rx="4.2" ry="2.6" fill="#49C5B1" stroke="#1E3A3A" stroke-width="1.6"/><g><path d="M27,60 Q22,66 23,72" fill="none" stroke="#1E3A3A" stroke-width="7.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M27,60 Q22,66 23,72" fill="none" stroke="#2FA896" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="23" cy="72" r="3.6" fill="#2FA896" stroke="#1E3A3A" stroke-width="1.8"/></g><g><path d="M73,60 Q78,66 77,72" fill="none" stroke="#1E3A3A" stroke-width="7.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M73,60 Q78,66 77,72" fill="none" stroke="#2FA896" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="77" cy="72" r="3.6" fill="#2FA896" stroke="#1E3A3A" stroke-width="1.8"/></g><g><circle cx="41" cy="50" r="6.6" fill="#FFFFFF" stroke="#1E3A3A" stroke-width="1.8"/><circle cx="41" cy="50" r="3.3" fill="#1E2A33"/><circle cx="39.9" cy="48.8" r="1.1" fill="#FFFFFF"/></g><g><circle cx="59" cy="50" r="6.6" fill="#FFFFFF" stroke="#1E3A3A" stroke-width="1.8"/><circle cx="59" cy="50" r="3.3" fill="#1E2A33"/><circle cx="57.9" cy="48.8" r="1.1" fill="#FFFFFF"/></g><path d="M37,41 Q41,39.5 45,40.5" fill="none" stroke="#1E3A3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M55,40.5 Q59,39.5 63,41" fill="none" stroke="#1E3A3A" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M44,62.5 Q50,68.5 56,62.5" fill="none" stroke="#1E2A33" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g></svg></div>
+  </section>
+
+  <!-- transcript (toggleable) -->
+  <section class="scroll" style="padding:12px 16px 0;flex:1" aria-label="Transcript">
+    <div class="col" style="gap:10px">
+      <div class="row" style="gap:8px;justify-content:flex-end"><span class="chip quiet" style="font-size:13px">You · 0:03</span></div>
+      <div class="row" style="gap:8px;justify-content:flex-end"><p class="clay sm" style="padding:10px 14px;font-size:15px;line-height:21px;max-width:80%" lang="zh-HK">我想飲普洱。</p></div>
+      <div class="row" style="gap:8px;justify-content:flex-end"><span class="chip quiet" style="font-size:13px;opacity:.75">You · 0:04 · queued, not sent yet</span></div>
+    </div>
+  </section>
+
+  
+  <section class="clay sm" style="margin:0 16px 10px;padding:12px 14px;border:2px solid var(--butter)" role="status">
+    <div class="row" style="gap:10px;align-items:flex-start">
+      <span style="color:var(--warning)"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 3l18 18"/><path d="M5 9.5a12 12 0 0 1 4.5-2.4M12 5a12 12 0 0 1 7 4.5M8.5 13a7 7 0 0 1 2-1.3M12 9a7 7 0 0 1 4 2M12 16.5a2 2 0 0 1 1.5 1"/><circle cx="12" cy="19" r="1" fill="currentColor"/></svg></span>
+      <div class="col grow" style="gap:4px">
+        <h3>Connection dropped</h3>
+        <p class="cap">Your last answer (0:04) is saved and will be sent when we reconnect. Ka-yan will not “forget” the conversation. Nothing is being recorded right now.</p>
+        <div class="row" style="gap:8px;margin-top:6px">
+          <button class="btn ghost" style="padding:9px 12px;font-size:13px">Retry now</button>
+          <button class="btn ghost" style="padding:9px 12px;font-size:13px">Continue offline later</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- single primary mic + secondary controls -->
+  <footer style="padding:8px 16px 26px;background:linear-gradient(180deg,transparent,var(--surface) 30%)">
+    <div class="row" style="justify-content:space-between;align-items:center;margin-bottom:10px">
+      <div class="col" style="align-items:center;gap:4px"><button class="btn ghost" style="width:52px;height:52px;padding:0;border-radius:18px" aria-label="Repeat"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 3l3 3-3 3"/><path d="M20 6H8a4 4 0 0 0-4 4v1"/><path d="m7 21-3-3 3-3"/><path d="M4 18h12a4 4 0 0 0 4-4v-1"/></svg></button><span class="micro">Repeat</span></div>
+      <div class="col" style="align-items:center;gap:4px"><button class="btn ghost" style="width:52px;height:52px;padding:0;border-radius:18px" aria-label="Slow"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 16a8 8 0 0 1 16 0"/><path d="M12 16 15.5 11"/><circle cx="12" cy="16" r="1.5"/></svg></button><span class="micro">Slow</span></div>
+      <div class="col" style="align-items:center;gap:4px"><button class="btn deep" disabled aria-disabled="true" style="width:92px;height:92px;padding:0;border-radius:32px;opacity:.55;filter:saturate(.4)" aria-label="Mic paused while reconnecting"><svg class="ic " width="42" height="42" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M8.5 21h7"/></svg></button><span class="micro">Paused</span></div>
+      <div class="col" style="align-items:center;gap:4px"><button class="btn ghost" style="width:52px;height:52px;padding:0;border-radius:18px" aria-label="Hint"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18h6M10 21h4"/><path d="M8 13.5A5.5 5.5 0 1 1 16 13.5c-.9.9-1.5 2-1.5 3h-5c0-1-.6-2.1-1.5-3z"/></svg></button><span class="micro">Hint</span></div>
+      <div class="col" style="align-items:center;gap:4px"><button class="btn ghost" style="width:52px;height:52px;padding:0;border-radius:18px" aria-label="Translate"><svg class="ic " width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 6h9M8.5 4v2M11 6c-.8 3.5-3 6.5-6.5 8.5M6.5 9c1 2.5 3 4.5 5.5 5.5"/><path d="m13 20 3.5-8 3.5 8M14.3 17h4.4"/></svg></button><span class="micro">Translate</span></div>
+    </div>
+    <div class="row" style="justify-content:center;gap:10px">
+      <span class="chip lilac" role="switch" aria-checked="true"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 6h14M5 10h14M5 14h9M5 18h6"/></svg> Transcript on</span>
+      <span class="chip quiet"><svg class="ic " width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 4h5a1 1 0 0 1 1 1v14a1 1 0 0 1-1 1h-5"/><path d="M10 8l-4 4 4 4M6 12h10"/></svg> Leave</span>
+    </div>
+  </footer>
+</div>
+
+</div>
+</body>
+</html>

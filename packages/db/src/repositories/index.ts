@@ -6,6 +6,7 @@ import { assetSuggestionsRepository } from './asset-suggestions';
 import { auditLogRepository } from './audit-log';
 import { audioLibraryRepository } from './audio-library';
 import { catalogRepository } from './catalog';
+import { charactersRepository } from './characters';
 import { curriculumRepository } from './curriculum';
 import { enrollmentsRepository } from './enrollments';
 import { manifestsRepository } from './manifests';
@@ -22,6 +23,7 @@ export * from './asset-suggestions';
 export * from './audit-log';
 export * from './audio-library';
 export * from './catalog';
+export * from './characters';
 export * from './curriculum';
 export * from './enrollments';
 export * from './manifests';
@@ -53,6 +55,8 @@ export function createRepositories(db: DbClient) {
     accountLifecycle: accountLifecycleRepository(db),
     // added 2026-10-19 (migration 120, admin structure routes)
     speakers: speakersRepository(db),
+    // added 2026-10-19 (migration 130, seeded character cast)
+    characters: charactersRepository(db),
   };
 }
 export type Repositories = ReturnType<typeof createRepositories>;

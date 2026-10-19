@@ -19,7 +19,8 @@
     "gen-types": "supabase gen types typescript --local --schema public > src/database.types.ts",
     "migrate": "supabase db push",
     "seed": "tsx src/seed/run-seed.ts",
-    "seed:catalog-sql": "tsx src/seed/write-catalog-sql.ts"
+    "seed:catalog-sql": "tsx src/seed/write-catalog-sql.ts",
+    "seed:characters-sql": "tsx src/seed/write-characters-sql.ts"
   },
   "dependencies": {
     "zod": "^4.6.0",
@@ -31,6 +32,7 @@
   "devDependencies": {
     "supabase": "^2.121.0",
     "tsx": "^4.23.0",
-    "vitest": "^4.1.0"
+    "vitest": "^4.1.0",
+    "@langquest/ui": "workspace:*"
   }
 }

@@ -28,10 +28,17 @@ interface TrackCounts {
   characters: Map<string, number>;
 }
 
-/** Published-content counts per track (public information; one query per table, grouped in memory). */
+/**
+ * Published-content counts per track (public information; one query per table, grouped in memory).
+ *
+ * A mission counts only when a learner can actually reach it through the course manifest: published
+ * `lesson_courses → chapters → missions`. Orphan or template rows (`chapter_id` null) and missions under an
+ * unpublished chapter/course never count, and the track is the one the course belongs to — so two tracks sharing
+ * a variety (`chinese-simplified` / `chinese-mandarin`) each report their own missions.
+ */
 async function loadTrackCounts(s: RequestServices): Promise<TrackCounts> {
   const [missions, lessons, characters] = await Promise.all([
-    s.service.from('missions').select('target_variety_id').eq('state', 'published'),
+    s.service.from('missions').select('id, chapters!inner(state, lesson_courses!inner(course_track_id, state))').eq('state', 'published').eq('chapters.state', 'published').eq('chapters.lesson_courses.state', 'published'),
     s.service.from('audio_lessons').select('id, audio_chapters!inner(collection_id, audio_course_collections!inner(course_track_id))').eq('state', 'published'),
     s.service.from('characters').select('target_variety_id').eq('state', 'published'),
   ]);
@@ -46,8 +53,9 @@ async function loadTrackCounts(s: RequestServices): Promise<TrackCounts> {
     return out;
   };
   const lessonRows = ((lessons.data ?? []) as unknown as { audio_chapters: { audio_course_collections: { course_track_id: string | null } | null } | null }[]).map((r) => ({ key: r.audio_chapters?.audio_course_collections?.course_track_id ?? null }));
+  const missionRows = ((missions.data ?? []) as unknown as { chapters: { lesson_courses: { course_track_id: string | null } | null } | null }[]).map((r) => ({ key: r.chapters?.lesson_courses?.course_track_id ?? null }));
   return {
-    missions: byVarietyToTracks(count((missions.data ?? []).map((r) => ({ key: r.target_variety_id })))),
+    missions: count(missionRows),
     audioLessons: count(lessonRows),
     characters: byVarietyToTracks(count((characters.data ?? []).map((r) => ({ key: r.target_variety_id })))),
   };

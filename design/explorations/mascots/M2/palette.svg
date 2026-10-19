@@ -1,0 +1,36 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 880 560" width="880" height="560" role="img" aria-label="Mascot M2 palette"><title>Mascot M2 palette</title>
+  <!-- Swatch values are documentation; system fonts only. -->
+  <rect width="880" height="560" fill="#FBF7F1"/>
+  <g font-family="system-ui, -apple-system, Helvetica, Arial, sans-serif" fill="#4A2A2E">
+    <text x="32" y="44" font-size="20" font-weight="600">M2 lantern-spirit, light palette</text>
+    <g transform="translate(32,64)">
+      <rect width="112" height="72" rx="10" fill="#FFF4CC" stroke="#4A2A2E" stroke-width="1"/><text x="0" y="92" font-size="12">core inner</text><text x="0" y="108" font-size="12" opacity="0.7">#FFF4CC</text>
+      <g transform="translate(128,0)"><rect width="112" height="72" rx="10" fill="#FFD66B"/><text x="0" y="92" font-size="12">halo / core mid</text><text x="0" y="108" font-size="12" opacity="0.7">#FFD66B</text></g>
+      <g transform="translate(256,0)"><rect width="112" height="72" rx="10" fill="#FFB347"/><text x="0" y="92" font-size="12">core outer</text><text x="0" y="108" font-size="12" opacity="0.7">#FFB347</text></g>
+      <g transform="translate(384,0)"><rect width="112" height="72" rx="10" fill="#FFB44D"/><text x="0" y="92" font-size="12">spark / rays</text><text x="0" y="108" font-size="12" opacity="0.7">#FFB44D</text></g>
+      <g transform="translate(512,0)"><rect width="112" height="72" rx="10" fill="#FDEBDD" stroke="#4A2A2E" stroke-width="1"/><text x="0" y="92" font-size="12">shell (78%)</text><text x="0" y="108" font-size="12" opacity="0.7">#FDEBDD</text></g>
+      <g transform="translate(640,0)"><rect width="112" height="72" rx="10" fill="#F3C7A6"/><text x="0" y="92" font-size="12">shell edge</text><text x="0" y="108" font-size="12" opacity="0.7">#F3C7A6</text></g>
+    </g>
+    <g transform="translate(32,192)">
+      <rect width="112" height="72" rx="10" fill="#F5955F"/><text x="0" y="92" font-size="12">fin / cap</text><text x="0" y="108" font-size="12" opacity="0.7">#F5955F</text>
+      <g transform="translate(128,0)"><rect width="112" height="72" rx="10" fill="#D9744A"/><text x="0" y="92" font-size="12">fin shade / rim</text><text x="0" y="108" font-size="12" opacity="0.7">#D9744A</text></g>
+      <g transform="translate(256,0)"><rect width="112" height="72" rx="10" fill="#FFC79A"/><text x="0" y="92" font-size="12">fin vein</text><text x="0" y="108" font-size="12" opacity="0.7">#FFC79A</text></g>
+      <g transform="translate(384,0)"><rect width="112" height="72" rx="10" fill="#4A2A2E"/><text x="0" y="92" font-size="12">outline</text><text x="0" y="108" font-size="12" opacity="0.7">#4A2A2E</text></g>
+      <g transform="translate(512,0)"><rect width="112" height="72" rx="10" fill="#2E1B1F"/><text x="0" y="92" font-size="12">pupil / mouth</text><text x="0" y="108" font-size="12" opacity="0.7">#2E1B1F</text></g>
+      <g transform="translate(640,0)"><rect width="112" height="72" rx="10" fill="#FFB09E"/><text x="0" y="92" font-size="12">cheek / tongue</text><text x="0" y="108" font-size="12" opacity="0.7">#FFB09E</text></g>
+    </g>
+    <g transform="translate(32,320)">
+      <rect width="112" height="72" rx="10" fill="#4FB8B4"/><text x="0" y="92" font-size="12">accent (props)</text><text x="0" y="108" font-size="12" opacity="0.7">#4FB8B4</text>
+      <g transform="translate(128,0)"><rect width="112" height="72" rx="10" fill="#2E8E8A"/><text x="0" y="92" font-size="12">accent deep</text><text x="0" y="108" font-size="12" opacity="0.7">#2E8E8A</text></g>
+      <g transform="translate(256,0)"><rect width="112" height="72" rx="10" fill="#E0565B"/><text x="0" y="92" font-size="12">danger (slash)</text><text x="0" y="108" font-size="12" opacity="0.7">#E0565B</text></g>
+      <g transform="translate(384,0)"><rect width="112" height="72" rx="10" fill="#EDE6E1" stroke="#4A2A2E" stroke-width="1"/><text x="0" y="92" font-size="12">muted shell</text><text x="0" y="108" font-size="12" opacity="0.7">#EDE6E1</text></g>
+      <g transform="translate(512,0)"><rect width="112" height="72" rx="10" fill="#CFC5BE"/><text x="0" y="92" font-size="12">muted core</text><text x="0" y="108" font-size="12" opacity="0.7">#CFC5BE</text></g>
+      <g transform="translate(640,0)"><rect width="112" height="72" rx="10" fill="#9A8F8A"/><text x="0" y="92" font-size="12">muted</text><text x="0" y="108" font-size="12" opacity="0.7">#9A8F8A</text></g>
+    </g>
+    <text x="32" y="470" font-size="20" font-weight="600">Dark palette (differences only)</text>
+    <g transform="translate(32,484)">
+      <rect width="112" height="52" rx="10" fill="#1C1520"/><text x="120" y="20" font-size="12">background #1C1520</text><text x="120" y="38" font-size="12">shell #3B2E3A at 90%, edge #6B4F55</text>
+      <g transform="translate(400,0)"><rect width="112" height="52" rx="10" fill="#F7E3CB"/><text x="120" y="20" font-size="12">outline #F7E3CB (cream, not dark)</text><text x="120" y="38" font-size="12">fin #F7A26E, spark #FFC75A, accent #6FD3CE</text></g>
+    </g>
+  </g>
+</svg>

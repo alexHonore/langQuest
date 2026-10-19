@@ -10,13 +10,15 @@ import type { CharacterPersona, TurnRecord } from '@langquest/ai/prompts/builder
 import { defaultVoiceFor, findVoice } from '@langquest/ai/speech/voices';
 import { bytesToBase64 } from '@langquest/ai/util';
 import type { AudioOutput, CharacterTurn, ConversationCommand, ConversationContext, ConversationMode, ConversationSessionScope, ConversationSessionState, EvaluatorOutput, LanguageContext, SourceLanguageCode, SpeechRetention, VoiceSessionConfig } from '@langquest/contracts';
-import { ConversationSessionScopeSchema, ConversationSessionStateSchema } from '@langquest/contracts';
+import { ConversationSessionScopeSchema, ConversationSessionStateSchema, UuidSchema } from '@langquest/contracts';
 import type { DbClient as LearnerDb } from '@langquest/db/client';
+import type { CharactersRepository } from '@langquest/db/repositories/characters';
 import { sanitizeForMemory } from '@langquest/curriculum/missions/story';
 import type { DbClient } from '@langquest/db/client';
 import type { Row } from '@langquest/db/types';
 import { sourceLanguageTranslator } from '@langquest/locales';
 import { sha256Hex } from '@langquest/telemetry/privacy';
+import { z } from 'zod';
 import { problem } from '../http/envelope';
 import type { RequestServices } from '../services/context';
 import type { EnrollmentRow } from './enrollment';
@@ -89,6 +91,32 @@ export async function audioLessonSceneFacts(db: LearnerDb, scope: Extract<Conver
     }
   }
   return facts;
+}
+
+/**
+ * `characters.character_key` (the `@langquest/ui` roster slug, e.g. `ary-cafe-staff-nadia`): same pattern as the
+ * DB check constraint (migration 130). Contracts `KeySchema` still rejects hyphens, hence a local schema.
+ */
+export const CharacterKeySchema = z.string().min(1).max(120).regex(/^[a-z0-9]+(?:[._-][a-z0-9]+)*$/, 'Expected a character key (lowercase slug)');
+/** A character reference as clients send it: the DB uuid (canonical) or, for backward compatibility, the roster key. */
+export const CharacterRefSchema = z.union([UuidSchema, CharacterKeySchema]);
+export type CharacterRef = z.infer<typeof CharacterRefSchema>;
+
+export const isUuid = (value: string): boolean => UuidSchema.safeParse(value).success;
+
+/**
+ * Resolve a character reference through the given repository (learner RLS: published rows only). A uuid is looked
+ * up by id; anything else by `character_key` (clients built on the art roster before the cast was seeded send the
+ * roster id). Null when absent — the caller decides whether that is a 404 (never a silent substitution).
+ */
+export async function resolveCharacterRef(characters: CharactersRepository, ref: CharacterRef): Promise<CharacterRow | null> {
+  return isUuid(ref) ? characters.getById(ref) : characters.getByKey(ref);
+}
+
+/** Honesty (§8.6): a character's voice is synthetic unless its voice profile explicitly says otherwise. */
+export function syntheticVoiceOf(character: Pick<CharacterRow, 'voice_profile'>): boolean {
+  const profile = (character.voice_profile ?? {}) as { synthetic?: unknown };
+  return profile.synthetic === false ? false : true;
 }
 
 export function personaFor(character: CharacterRow): CharacterPersona {

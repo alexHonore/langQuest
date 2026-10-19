@@ -30,6 +30,25 @@ pnpm --filter @langquest/db seed               # re-apply the idempotent seed to
 ```
 Coverage rows are seeded with status `planned` for `en` and `fr`; editors/reviewers raise them through the admin app.
 
+### 3.1 Curriculum seed (lesson courses, chapters, missions, steps, expressions)
+Migration 080 seeds only the catalog; the authored chapters in `packages/curriculum/src/content/*` are loaded by a CLI:
+```bash
+pnpm --filter @langquest/scripts seed-curriculum -- --dry-run              # print the plan, write nothing
+pnpm --filter @langquest/scripts seed-curriculum -- --apply                # local stack (or SUPABASE_URL + service key); needs the catalog + intents (seed-languages) first
+pnpm --filter @langquest/scripts seed-curriculum -- --track arabic-moroccan --apply
+```
+It upserts `content_rights`, `lesson_courses`, `chapters`, `missions`, `mission_steps`, `mission_localizations`,
+`expressions`, `expression_forms`, `expression_translations` and the `course_source_localizations` metrics with
+**deterministic ids** (UUID v5 of the content key, `packages/db/src/seed/curriculum-uuid.ts`), so re-runs update in
+place and stale steps/forms of a seeded mission are removed. The four flagship AI-draft chapters (arabic-moroccan fr+en,
+spanish-spain en, japanese en, english fr+ru) are **published** so the Missions tab has content, with every honesty flag
+kept (`reviewed = false`, translations/localizations `needs_review`, rights `verified = false`, coverage `partial` with
+`enrollment.coverage.draftAvailable`), so clients show the draft disclosure (`localizationComplete: false`). The chapter-1
+skeletons of the other 26 tracks are loaded as `review_needed` structure with no text rows and are never published.
+No `expression_audio` rows are written (nothing is faked). After `--apply` the CLI rebuilds the manifest of every
+published (track, source) pair and fails if a seeded mission is missing, has no steps, or has no title in that source.
+`published_revision` and a reviewer-set coverage status (`complete` / `native_reviewed`) are never lowered.
+
 ## 4. Generated types
 ```bash
 pnpm --filter @langquest/db gen-types          # supabase gen types typescript --local > src/database.types.ts

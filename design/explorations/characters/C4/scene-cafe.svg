@@ -1,0 +1,85 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 360" width="640" height="360" role="img" aria-label="Nadia at the café counter">
+<title>Nadia at the café counter</title>
+<desc>LangQuest style exploration C4 (bold minimal). Half-body vignette: Nadia, café staff in Casablanca, behind a counter with an espresso machine, a tray of mint tea glasses and a cup she is handing over. Flat two-tone shapes, one gradient halo, no text in artwork.</desc>
+<defs>
+<linearGradient id="scene-nadia-halo" x1="0.2" y1="0" x2="0.8" y2="1"><stop offset="0" stop-color="#E04F36"/><stop offset="1" stop-color="#F5BC46"/></linearGradient>
+<clipPath id="scene-nadia-stage"><rect width="640" height="360"/></clipPath>
+<clipPath id="scene-nadia-head"><ellipse cx="128" cy="116" rx="52" ry="60"/></clipPath>
+</defs>
+<g clip-path="url(#scene-nadia-stage)">
+<!-- wall -->
+<rect width="640" height="360" fill="#EADBC3"/>
+<rect x="0" y="0" width="640" height="26" fill="#D6C2A4"/>
+<!-- pendant lamp -->
+<path d="M96,26 L96,78" stroke="#1F1D2B" stroke-width="3"/>
+<path d="M62,112 Q96,66 130,112 Z" fill="#1F1D2B"/>
+<ellipse cx="96" cy="113" rx="22" ry="5" fill="#F5BC46"/>
+<!-- gradient halo arch (the one gradient in the scene) -->
+<path d="M94,330 L94,180 A128,128 0 0 1 350,180 L350,330 Z" fill="url(#scene-nadia-halo)"/>
+<!-- shelf with teapot and tea glasses -->
+<rect x="420" y="96" width="190" height="8" rx="3" fill="#8E6340"/>
+<rect x="430" y="104" width="12" height="20" fill="#8E6340"/>
+<rect x="590" y="104" width="12" height="20" fill="#8E6340"/>
+<g>
+  <path d="M452,96 L452,62 Q452,46 468,46 L486,46 Q502,46 502,62 L502,96 Z" fill="#C9CED6"/>
+  <path d="M484,96 L484,46 Q502,46 502,62 L502,96 Z" fill="#8F97A6"/>
+  <path d="M502,60 Q526,54 520,80" stroke="#8F97A6" stroke-width="7" stroke-linecap="round" fill="none"/>
+  <path d="M452,62 Q436,62 438,78" stroke="#C9CED6" stroke-width="6" stroke-linecap="round" fill="none"/>
+  <rect x="462" y="36" width="30" height="12" rx="4" fill="#8F97A6"/>
+  <circle cx="477" cy="32" r="5" fill="#1F1D2B"/>
+  <path d="M531,96 L533,62 L547,62 L549,96 Z" fill="#FFF8EF"/><path d="M541,96 L542,62 L547,62 L549,96 Z" fill="#D6C2A4"/><rect x="533" y="72" width="14" height="24" fill="#B9A24A"/><rect x="541" y="72" width="8" height="24" fill="#8F7C33"/><circle cx="538" cy="66" r="4" fill="#4E8A52"/><circle cx="543" cy="63" r="3.5" fill="#6AA66B"/><path d="M557,96 L559,62 L573,62 L575,96 Z" fill="#FFF8EF"/><path d="M567,96 L568,62 L573,62 L575,96 Z" fill="#D6C2A4"/><rect x="559" y="72" width="14" height="24" fill="#B9A24A"/><rect x="567" y="72" width="8" height="24" fill="#8F7C33"/><circle cx="564" cy="66" r="4" fill="#4E8A52"/><circle cx="569" cy="63" r="3.5" fill="#6AA66B"/><path d="M583,96 L585,62 L599,62 L601,96 Z" fill="#FFF8EF"/><path d="M593,96 L594,62 L599,62 L601,96 Z" fill="#D6C2A4"/><rect x="585" y="72" width="14" height="24" fill="#B9A24A"/><rect x="593" y="72" width="8" height="24" fill="#8F7C33"/><circle cx="590" cy="66" r="4" fill="#4E8A52"/><circle cx="595" cy="63" r="3.5" fill="#6AA66B"/>
+</g>
+<!-- espresso machine -->
+<g>
+  <rect x="432" y="150" width="168" height="104" rx="14" fill="#C9CED6"/>
+  <path d="M520,150 L586,150 Q600,150 600,164 L600,240 Q600,254 586,254 L520,254 Z" fill="#8F97A6"/>
+  <rect x="432" y="150" width="168" height="26" rx="12" fill="#1F1D2B"/>
+  <rect x="454" y="188" width="46" height="12" rx="6" fill="#1F1D2B"/>
+  <rect x="520" y="188" width="46" height="12" rx="6" fill="#1F1D2B"/>
+  <rect x="470" y="200" width="14" height="22" rx="4" fill="#1F1D2B"/>
+  <rect x="536" y="200" width="14" height="22" rx="4" fill="#1F1D2B"/>
+  <circle cx="586" cy="212" r="10" fill="#F5BC46"/>
+  <circle cx="586" cy="212" r="4" fill="#1F1D2B"/>
+  <rect x="454" y="236" width="112" height="6" rx="3" fill="#1F1D2B"/>
+  <path d="M446,150 L446,134 Q446,126 454,126 L578,126 Q586,126 586,134 L586,150 Z" fill="#8F97A6"/>
+  <circle cx="470" cy="136" r="7" fill="#FFF8EF"/><circle cx="492" cy="136" r="7" fill="#FFF8EF"/><circle cx="514" cy="136" r="7" fill="#FFF8EF"/><circle cx="536" cy="136" r="7" fill="#FFF8EF"/>
+</g>
+<!-- Nadia (behind counter) -->
+<g transform="translate(80 0) scale(1.12)"><path d="M-20,256 L-20,238 C-20,204 56,186 100,185 L156,185 C200,186 276,204 276,238 L276,256 Z" fill="#F1E4D0"/><path d="M104,204 L120,186 M152,204 L136,186" stroke="#36444F" stroke-width="10" stroke-linecap="round"/><path d="M92,202 L164,202 L172,256 L84,256 Z" fill="#36444F"/><path d="M164,202 L172,256 L136,256 L136,202 Z" fill="#4A5B68" opacity="0.9"/><rect x="111" y="150" width="34" height="52" rx="7" fill="#AE6F4C"/><g transform="rotate(-3 128 176)"><ellipse cx="78" cy="120" rx="8" ry="12" fill="#D79C74"/><ellipse cx="178" cy="120" rx="8" ry="12" fill="#AE6F4C"/><ellipse cx="128" cy="116" rx="52" ry="60" fill="#D79C74"/><path d="M143.6,54 C136.3,98 154,128 139.4,153.2 C131.1,170 112.4,174.8 99.4,178 L186,182 L186,50 Z" fill="#AE6F4C" clip-path="url(#scene-nadia-head)"/><path d="M129,114 L138,129 Q138,132 134,132 L127,132 Z" fill="#AE6F4C"/><path d="M96,90 L117,88" stroke="#1F1D2B" stroke-width="5.5" stroke-linecap="round" fill="none"/><path d="M139,88 L160,90" stroke="#1F1D2B" stroke-width="5.5" stroke-linecap="round" fill="none"/><ellipse cx="107" cy="108" rx="4.8" ry="5.8" fill="#1F1D2B"/><ellipse cx="149" cy="108" rx="4.8" ry="5.8" fill="#1F1D2B"/><path d="M113,143 Q129,170 145,143 Z" fill="#1F1D2B"/><path d="M117,145 L141,145" stroke="#FFF8EF" stroke-width="3.5" stroke-linecap="round"/><path d="M72,122 C66,78 92,50 128,50 C166,50 190,78 184,122 L184,108 C178,82 160,74 138,74 C112,74 92,78 76,108 Z" fill="#241B1E"/><circle cx="84" cy="74" r="10" fill="#241B1E"/><circle cx="100" cy="58" r="11" fill="#241B1E"/><circle cx="128" cy="48" r="12" fill="#241B1E"/><circle cx="156" cy="56" r="11" fill="#241B1E"/><circle cx="174" cy="72" r="10" fill="#241B1E"/><circle cx="96" cy="80" r="7" fill="#241B1E"/><circle cx="114" cy="72" r="7" fill="#241B1E"/><circle cx="146" cy="72" r="7" fill="#241B1E"/><circle cx="162" cy="80" r="7" fill="#241B1E"/><circle cx="170" cy="50" r="21" fill="#241B1E"/><circle cx="184" cy="62" r="9" fill="#241B1E"/><path d="M152,56 Q160,66 168,70" stroke="#F5BC46" stroke-width="5" stroke-linecap="round" fill="none"/></g></g>
+<!-- forearms (skin shade tone; she wears a tee) coming forward from the shoulders -->
+<rect x="150" y="226" width="32" height="34" rx="12" fill="#AE6F4C"/>
+<rect x="292" y="228" width="32" height="30" rx="12" fill="#AE6F4C"/>
+<!-- second cup and a saucer, standing on the counter -->
+<ellipse cx="401" cy="256" rx="26" ry="5" fill="#FFF8EF"/>
+<path d="M384,228 L418,228 L414,256 L388,256 Z" fill="#E04F36"/>
+<path d="M404,228 L418,228 L414,256 L402,256 Z" fill="#B93F2B"/>
+<rect x="384" y="228" width="34" height="5" fill="#1F1D2B" opacity="0.85"/>
+<!-- counter -->
+<rect x="0" y="252" width="640" height="108" fill="#B8865A"/>
+<path d="M0,252 L640,252 L640,266 L0,266 Z" fill="#D9AC7C"/>
+<rect x="0" y="266" width="640" height="10" fill="#8E6340"/>
+<!-- geometric tile band on the counter front -->
+<g>
+  <path d="M20,318 L46,296 L72,318 L46,340 Z" fill="#FFF8EF" opacity="0.9"/><path d="M46,296 L72,318 L46,340 Z" fill="#D6C2A4" opacity="0.9"/><path d="M80,318 L106,296 L132,318 L106,340 Z" fill="#F5BC46" opacity="0.9"/><path d="M106,296 L132,318 L106,340 Z" fill="#CD9540" opacity="0.9"/><path d="M140,318 L166,296 L192,318 L166,340 Z" fill="#FFF8EF" opacity="0.9"/><path d="M166,296 L192,318 L166,340 Z" fill="#D6C2A4" opacity="0.9"/><path d="M200,318 L226,296 L252,318 L226,340 Z" fill="#F5BC46" opacity="0.9"/><path d="M226,296 L252,318 L226,340 Z" fill="#CD9540" opacity="0.9"/><path d="M260,318 L286,296 L312,318 L286,340 Z" fill="#FFF8EF" opacity="0.9"/><path d="M286,296 L312,318 L286,340 Z" fill="#D6C2A4" opacity="0.9"/><path d="M320,318 L346,296 L372,318 L346,340 Z" fill="#F5BC46" opacity="0.9"/><path d="M346,296 L372,318 L346,340 Z" fill="#CD9540" opacity="0.9"/><path d="M380,318 L406,296 L432,318 L406,340 Z" fill="#FFF8EF" opacity="0.9"/><path d="M406,296 L432,318 L406,340 Z" fill="#D6C2A4" opacity="0.9"/><path d="M440,318 L466,296 L492,318 L466,340 Z" fill="#F5BC46" opacity="0.9"/><path d="M466,296 L492,318 L466,340 Z" fill="#CD9540" opacity="0.9"/><path d="M500,318 L526,296 L552,318 L526,340 Z" fill="#FFF8EF" opacity="0.9"/><path d="M526,296 L552,318 L526,340 Z" fill="#D6C2A4" opacity="0.9"/><path d="M560,318 L586,296 L612,318 L586,340 Z" fill="#F5BC46" opacity="0.9"/><path d="M586,296 L612,318 L586,340 Z" fill="#CD9540" opacity="0.9"/><path d="M620,318 L646,296 L672,318 L646,340 Z" fill="#FFF8EF" opacity="0.9"/><path d="M646,296 L672,318 L646,340 Z" fill="#D6C2A4" opacity="0.9"/>
+</g>
+<rect x="0" y="288" width="640" height="6" fill="#8E6340"/>
+<rect x="0" y="346" width="640" height="14" fill="#8E6340"/>
+<!-- Nadia's hands on the counter top -->
+<g>
+  <!-- left hand resting flat, fingers toward the viewer -->
+  <rect x="142" y="238" width="50" height="22" rx="10" fill="#D79C74"/>
+  <rect x="146" y="250" width="10" height="20" rx="5" fill="#D79C74"/><rect x="158" y="250" width="10" height="22" rx="5" fill="#D79C74"/><rect x="170" y="250" width="10" height="22" rx="5" fill="#D79C74"/><rect x="182" y="250" width="10" height="19" rx="5" fill="#D79C74"/>
+  <path d="M142,250 C142,258 150,262 158,262 L158,250 Z" fill="#AE6F4C"/>
+  <!-- right hand offering a cup: palm behind the cup, two fingers in front -->
+  <rect x="290" y="232" width="40" height="26" rx="10" fill="#D79C74"/>
+  <g>
+    <path d="M300,222 L338,222 L334,256 L304,256 Z" fill="#FFF8EF"/>
+    <path d="M322,222 L338,222 L334,256 L320,256 Z" fill="#D6C2A4"/>
+    <path d="M338,228 Q352,230 348,244 Q346,250 336,250" stroke="#FFF8EF" stroke-width="5" fill="none" stroke-linecap="round"/>
+    <rect x="300" y="222" width="38" height="5" fill="#1F1D2B" opacity="0.85"/>
+    <path d="M312,212 Q306,204 312,196 M324,212 Q330,204 324,196" stroke="#FFF8EF" stroke-width="3.5" stroke-linecap="round" fill="none" opacity="0.9"/>
+  </g>
+  <rect x="298" y="236" width="20" height="9" rx="4.5" fill="#D79C74"/><rect x="298" y="247" width="20" height="9" rx="4.5" fill="#D79C74"/>
+</g>
+</g>
+</svg>

@@ -10,6 +10,7 @@ export * from './client';
 export * from './env';
 export * from './errors';
 export * from './types';
+export * from './character-uuid';
 export * from './repositories';
 export * from './local-stack';
 export type { Database, Json } from './database.types';

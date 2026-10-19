@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>LangQuest Art Direction Review</title>
+<meta name="description" content="Owner review gallery for the LangQuest mascot (M1–M5), character style (C1–C4) and UI direction (U1–U4) explorations.">
+<style>
+:root{--bg:#F5F2EC;--surface:#FFFFFF;--sunken:#ECE7DE;--line:#DDD6C9;--ink:#1D2428;--ink2:#4C5A60;--ink3:#73828A;
+ --accent:#0E6E68;--accent-tint:#D9ECE8;--warm:#D9663D;--plus:#2F7A55;--minus:#B6362C;--radius:16px;
+ --font:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,"Noto Sans",sans-serif;
+ --serif:"New York","Iowan Old Style",Georgia,"Noto Serif","Times New Roman",serif;--mono:ui-monospace,Menlo,Consolas,monospace}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#15191B;--surface:#1E2427;--sunken:#262E31;--line:#334044;--ink:#F1ECE3;--ink2:#BAC5C6;--ink3:#8A9A9E;--accent:#63CDBF;--accent-tint:#1E3A38;--warm:#F3906F;--plus:#6FCB9A;--minus:#F08A80}}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font:16px/1.5 var(--font);-webkit-font-smoothing:antialiased}
+a{color:var(--accent)}a:hover{text-decoration-thickness:2px}
+img{max-width:100%;height:auto;display:block}
+.wrap{max-width:1480px;margin:0 auto;padding:0 24px 80px}
+header.top{padding:48px 0 24px;border-bottom:1px solid var(--line);margin-bottom:32px}
+header.top h1{font:700 40px/1.1 var(--serif);margin:0 0 8px;letter-spacing:-.01em}
+header.top .sub{color:var(--ink2);font-size:18px;margin:0 0 20px;max-width:900px}
+.instructions{background:var(--surface);border:2px solid var(--accent);border-radius:var(--radius);padding:18px 22px;display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center;max-width:1100px}
+.instructions p{margin:0}.instructions .big{font-size:22px;font-weight:700}
+.instructions code{font:600 20px/1 var(--mono);background:var(--accent-tint);color:var(--accent);padding:6px 10px;border-radius:8px;white-space:nowrap}
+.howto{color:var(--ink2);font-size:14px;margin-top:14px;max-width:1100px}
+nav.toc{display:flex;flex-wrap:wrap;gap:8px;margin:20px 0 0}
+nav.toc a{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:6px 14px;text-decoration:none;color:var(--ink);font-weight:600;font-size:14px}
+nav.toc a:hover{border-color:var(--accent)}
+section{margin:0 0 56px}
+section>h2{font:700 30px/1.2 var(--serif);margin:0 0 6px;scroll-margin-top:24px}
+section>.lede{color:var(--ink2);margin:0 0 20px;max-width:960px}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:24px;margin:0 0 24px;box-shadow:0 1px 2px rgba(0,0,0,.04)}
+.option{scroll-margin-top:24px}
+.option-head{display:flex;gap:16px;align-items:flex-start;margin-bottom:16px}
+.code{display:inline-grid;place-items:center;min-width:56px;height:56px;border-radius:14px;background:var(--ink);color:var(--bg);font:800 22px/1 var(--mono);letter-spacing:.02em;flex:none}
+.option-head h3{margin:0;font-size:24px;line-height:1.2}.option-head h3 small{font-weight:400;color:var(--ink2);font-size:18px}
+.links{margin:4px 0 0;font-size:14px;color:var(--ink3)}
+a.sheet{display:block;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:#fff;margin-bottom:16px}
+a.sheet img{width:100%}
+.states{display:grid;grid-template-columns:repeat(8,minmax(0,1fr));gap:8px;margin-bottom:16px}
+.state{margin:0;text-align:center;background:var(--sunken);border-radius:12px;padding:8px 4px 6px}
+.state img{width:96px;height:96px;margin:0 auto}
+.state figcaption,.portrait figcaption{font-size:12px;color:var(--ink2);margin-top:4px;text-transform:capitalize}
+.mascot-extras{display:grid;grid-template-columns:1fr auto;gap:20px;margin-bottom:16px}
+.mascot-extras h4,.text-cols h4{margin:0 0 8px;font-size:13px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink3)}
+.icon-row{display:flex;gap:28px;align-items:flex-end;background:var(--sunken);border-radius:12px;padding:16px 20px}
+.icon-row span{text-align:center;color:var(--ink2);font-size:12px}.icon-row img{margin:0 auto}
+.icon-row .gray img{filter:grayscale(1)}
+.plate{background:var(--plate,#0F1D21);border-radius:12px;padding:12px;display:grid;place-items:center}
+.text-cols{display:grid;grid-template-columns:1.3fr 1fr 1fr;gap:24px}
+.text-cols p{margin:0 0 10px}.scales{color:var(--ink2);font-size:14px}
+ul.plus,ul.minus{margin:0;padding-left:20px}ul.plus li::marker{color:var(--plus)}ul.minus li::marker{color:var(--minus)}
+ul.plus li,ul.minus li{margin-bottom:6px}
+code{font:13px var(--mono);background:var(--sunken);padding:1px 5px;border-radius:4px}
+.char-grid{display:grid;grid-template-columns:1fr 420px;gap:24px;margin-bottom:20px}
+.cast-row{display:grid;grid-template-columns:120px repeat(4,96px);gap:10px;align-items:center;margin-bottom:10px}
+.cast-name small{color:var(--ink2)}
+.portrait{margin:0;text-align:center}.portrait img{width:96px;height:96px;border-radius:50%;background:var(--sunken)}
+a.scene{display:block;border:1px solid var(--line);border-radius:12px;overflow:hidden;align-self:start}
+.pairing{margin-top:16px;border-top:1px solid var(--line);padding-top:12px}
+.pairing summary{cursor:pointer;font-weight:600;color:var(--accent)}
+.pair-table{width:100%;border-collapse:collapse;margin-top:10px;font-size:14px}
+.pair-table th{width:48px;text-align:left;font:800 14px var(--mono);vertical-align:top;padding:6px 8px 6px 0}
+.pair-table td{padding:6px 0;border-top:1px solid var(--line)}
+.footnote{font-size:13px;color:var(--ink3);margin:8px 0 0}
+.frames{display:grid;grid-template-columns:repeat(auto-fit,minmax(460px,1fr));gap:16px;margin-bottom:12px}
+.pair{display:flex;gap:12px;justify-content:center;background:var(--sunken);border-radius:12px;padding:12px}
+.phone{margin:0;text-align:center}
+.viewport{position:relative;overflow:hidden;border-radius:10px;border:1px solid var(--line);background:#fff;margin:0 auto}
+.viewport iframe{position:absolute;top:0;left:0;border:0;transform-origin:top left;pointer-events:none;background:#fff}
+.phone figcaption{font-size:12px;color:var(--ink2);margin-top:6px}
+.frame-note{font-size:13px;color:var(--ink3);margin:0 0 16px}
+.motion{font-size:14px;color:var(--ink2);border-top:1px solid var(--line);padding-top:12px;margin:16px 0 0}
+.matrix{width:100%;border-collapse:collapse;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;font-size:14px}
+.matrix th,.matrix td{padding:10px 12px;text-align:left;vertical-align:top;border-bottom:1px solid var(--line)}
+.matrix thead th{background:var(--sunken);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--ink2)}
+.matrix tr.group th{background:var(--accent-tint);color:var(--accent);font:700 13px var(--font);letter-spacing:.08em;text-transform:uppercase}
+.matrix th[scope=row]{font:800 15px var(--mono)}.matrix td.name{white-space:nowrap;font-weight:600}
+.dots{font-size:17px;letter-spacing:2px;color:var(--accent);white-space:nowrap}
+.matrix td.note{color:var(--ink2);min-width:260px}
+.legend{font-size:13px;color:var(--ink3);margin:10px 0 0}
+.combos{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+.combo{background:var(--surface);border:1px solid var(--line);border-left:6px solid var(--warm);border-radius:var(--radius);padding:20px}
+.combo h3{margin:0 0 4px;font-size:20px}.combo .codes{display:inline-block;font:800 18px var(--mono);background:var(--ink);color:var(--bg);padding:4px 10px;border-radius:8px;margin-left:6px}
+.combo .tone{margin:0 0 10px;color:var(--warm);font-weight:600;font-size:14px;text-transform:uppercase;letter-spacing:.06em}
+.combo p{margin:0;font-size:15px}
+footer{border-top:1px solid var(--line);padding-top:20px;color:var(--ink3);font-size:13px}
+footer p{margin:0 0 6px}
+@media (max-width:1100px){.text-cols{grid-template-columns:1fr}.char-grid{grid-template-columns:1fr}.combos{grid-template-columns:1fr}.states{grid-template-columns:repeat(4,minmax(0,1fr))}.mascot-extras{grid-template-columns:1fr}}
+@media (max-width:640px){.wrap{padding:0 16px 60px}.instructions{grid-template-columns:1fr}.frames{grid-template-columns:1fr}.pair{flex-wrap:wrap}.cast-row{grid-template-columns:repeat(4,1fr)}.cast-name{grid-column:1/-1}.states{grid-template-columns:repeat(2,1fr)}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="top">
+  <h1>LangQuest · art-direction review</h1>
+  <p class="sub">Five mascots, four character styles and four UI directions, all original work produced for this review. Each is a genuinely different declination, not a palette swap of the current orbit-creature baseline. Pick one of each.</p>
+  <div class="instructions">
+    <div>
+      <p class="big">Reply with the codes you approve.</p>
+      <p>One mascot (M), one character style (C), one UI direction (U). Add notes if you want a change before approval, or ask for a hybrid.</p>
+    </div>
+    <code>e.g. M3 + C2 + U4</code>
+  </div>
+  <p class="howto">Open this file from the repository (<code>design/explorations/index.html</code>): every image and phone is loaded by relative path from the folders next to it. Click any model sheet, style sheet or scene to open it at full size; each UI phone has an <em>open</em> link to the full mockup page. Three suggested combinations are at the bottom, with the honest trade-offs.</p>
+  <nav class="toc" aria-label="Sections">
+    <a href="#mascots">Mascots M1–M5</a><a href="#characters">Character styles C1–C4</a><a href="#ui">UI directions U1–U4</a><a href="#matrix">Comparison matrix</a><a href="#combos">Suggested combinations</a>
+  </nav>
+</header>
+
+<section id="mascots">
+  <h2>1 · Mascots (M1–M5)</h2>
+  <p class="lede">Each card shows the model sheet, the eight contract states (neutral, welcome, listening, speaking, thinking, celebrate, try again, offline), the 24 px icon at true size, a grayscale check and the dark-palette variant. Names are working proposals only; no name is baked into any artwork, and all need a trademark search.</p>
+  
+<article class="card option" id="M1">
+  <header class="option-head">
+    <span class="code">M1</span>
+    <div><h3>Ollo <small>— Refined orbit-creature (baseline option)</small></h3>
+    <p class="links"><a href="mascots/M1/README.md">README</a> · <a href="mascots/M1/model-sheet.svg">model sheet</a> · <a href="mascots/M1/palette.svg">palette</a> · <a href="mascots/M1/states/">states/</a></p></div>
+  </header>
+  <a class="sheet" href="mascots/M1/model-sheet.svg" title="Open the model sheet at full size"><img src="mascots/M1/model-sheet.svg" alt="M1 model sheet: front, three-quarter, side, proportions, expression vocabulary, size check" loading="lazy"></a>
+  <div class="states" role="group" aria-label="M1 eight states"><figure class="state"><img src="mascots/M1/states/neutral.svg" alt="M1 neutral state" loading="lazy" width="96" height="96"><figcaption>neutral</figcaption></figure><figure class="state"><img src="mascots/M1/states/welcome.svg" alt="M1 welcome state" loading="lazy" width="96" height="96"><figcaption>welcome</figcaption></figure><figure class="state"><img src="mascots/M1/states/listening.svg" alt="M1 listening state" loading="lazy" width="96" height="96"><figcaption>listening</figcaption></figure><figure class="state"><img src="mascots/M1/states/speaking.svg" alt="M1 speaking state" loading="lazy" width="96" height="96"><figcaption>speaking</figcaption></figure><figure class="state"><img src="mascots/M1/states/thinking.svg" alt="M1 thinking state" loading="lazy" width="96" height="96"><figcaption>thinking</figcaption></figure><figure class="state"><img src="mascots/M1/states/celebrate.svg" alt="M1 celebrate state" loading="lazy" width="96" height="96"><figcaption>celebrate</figcaption></figure><figure class="state"><img src="mascots/M1/states/try_again.svg" alt="M1 try_again state" loading="lazy" width="96" height="96"><figcaption>try again</figcaption></figure><figure class="state"><img src="mascots/M1/states/offline.svg" alt="M1 offline state" loading="lazy" width="96" height="96"><figcaption>offline</figcaption></figure></div>
+  <div class="mascot-extras">
+    <div class="icon-check">
+      <h4>24 px icon</h4>
+      <div class="icon-row">
+        <span><img src="mascots/M1/icon-24.svg" width="24" height="24" alt="M1 icon at 24 px"><br><small>24 px actual</small></span>
+        <span><img src="mascots/M1/icon-24.svg" width="48" height="48" alt="" aria-hidden="true"><br><small>48</small></span>
+        <span><img src="mascots/M1/icon-24.svg" width="96" height="96" alt="" aria-hidden="true"><br><small>96</small></span>
+        <span class="gray"><img src="mascots/M1/states/neutral.svg" width="48" height="48" alt="M1 neutral state in grayscale"><br><small>grayscale 48</small></span>
+      </div>
+    </div>
+    <div class="dark-check" style="--plate:#0F1D21">
+      <h4>Dark variant</h4>
+      <div class="plate"><img src="mascots/M1/dark-variant.svg" width="160" height="160" alt="M1 neutral state on the dark palette" loading="lazy"></div>
+    </div>
+  </div>
+  <div class="text-cols">
+    <div><h4>Personality</h4><p>The current silhouette (floating pebble body, big eyes, mitten arms, one ribbon tail on the right) kept exactly, with everything inside it rebuilt: two line weights, a filled twisted ribbon tail, taller eyes with iris ring, five brows, eight mouths, ten arm gestures, a body that leans away from the tail and a faint hover shadow. Always <em>just arriving</em> next to you; curious before clever.</p><p class="scales"><strong>Scales:</strong> 24 dp icon keeps body + eyes + ribbon; full figure from 40 dp; dark mode is a token swap.</p></div>
+    <div><h4>Strengths</h4><ul class="plus"><li>Drop-in continuity: same silhouette, tail-on-the-right rule and 17-state vocabulary as the existing style guide and <code>mascot.ts</code> contract.</li><li>Widest expression kit of the five (6 lids × 5 brows × 8 mouths × 10 arms × continuous tail), all from one <code>generate.js</code>.</li><li>Reads at 24 px and in four grayscale values; every part has a stable pivot for Rive bones.</li></ul></div>
+    <div><h4>Risks</h4><ul class="minus"><li>A teal blob with big eyes is a crowded genre; the ribbon tail is the only strong differentiator and must never be cropped.</li><li>Teal + coral sits close to several consumer-app palettes (not a copy, but little distance).</li><li>Tail at full lift grows the bounding box ~30 units upward; square slots must allow for it.</li></ul></div>
+  </div>
+</article>
+<article class="card option" id="M2">
+  <header class="option-head">
+    <span class="code">M2</span>
+    <div><h3>Glim <small>— The lantern-spirit</small></h3>
+    <p class="links"><a href="mascots/M2/README.md">README</a> · <a href="mascots/M2/model-sheet.svg">model sheet</a> · <a href="mascots/M2/palette.svg">palette</a> · <a href="mascots/M2/states/">states/</a></p></div>
+  </header>
+  <a class="sheet" href="mascots/M2/model-sheet.svg" title="Open the model sheet at full size"><img src="mascots/M2/model-sheet.svg" alt="M2 model sheet: front, three-quarter, side, proportions, expression vocabulary, size check" loading="lazy"></a>
+  <div class="states" role="group" aria-label="M2 eight states"><figure class="state"><img src="mascots/M2/states/neutral.svg" alt="M2 neutral state" loading="lazy" width="96" height="96"><figcaption>neutral</figcaption></figure><figure class="state"><img src="mascots/M2/states/welcome.svg" alt="M2 welcome state" loading="lazy" width="96" height="96"><figcaption>welcome</figcaption></figure><figure class="state"><img src="mascots/M2/states/listening.svg" alt="M2 listening state" loading="lazy" width="96" height="96"><figcaption>listening</figcaption></figure><figure class="state"><img src="mascots/M2/states/speaking.svg" alt="M2 speaking state" loading="lazy" width="96" height="96"><figcaption>speaking</figcaption></figure><figure class="state"><img src="mascots/M2/states/thinking.svg" alt="M2 thinking state" loading="lazy" width="96" height="96"><figcaption>thinking</figcaption></figure><figure class="state"><img src="mascots/M2/states/celebrate.svg" alt="M2 celebrate state" loading="lazy" width="96" height="96"><figcaption>celebrate</figcaption></figure><figure class="state"><img src="mascots/M2/states/try_again.svg" alt="M2 try_again state" loading="lazy" width="96" height="96"><figcaption>try again</figcaption></figure><figure class="state"><img src="mascots/M2/states/offline.svg" alt="M2 offline state" loading="lazy" width="96" height="96"><figcaption>offline</figcaption></figure></div>
+  <div class="mascot-extras">
+    <div class="icon-check">
+      <h4>24 px icon</h4>
+      <div class="icon-row">
+        <span><img src="mascots/M2/icon-24.svg" width="24" height="24" alt="M2 icon at 24 px"><br><small>24 px actual</small></span>
+        <span><img src="mascots/M2/icon-24.svg" width="48" height="48" alt="" aria-hidden="true"><br><small>48</small></span>
+        <span><img src="mascots/M2/icon-24.svg" width="96" height="96" alt="" aria-hidden="true"><br><small>96</small></span>
+        <span class="gray"><img src="mascots/M2/states/neutral.svg" width="48" height="48" alt="M2 neutral state in grayscale"><br><small>grayscale 48</small></span>
+      </div>
+    </div>
+    <div class="dark-check" style="--plate:#1A1424">
+      <h4>Dark variant</h4>
+      <div class="plate"><img src="mascots/M2/dark-variant.svg" width="160" height="160" alt="M2 neutral state on the dark palette" loading="lazy"></div>
+    </div>
+  </div>
+  <div class="text-cols">
+    <div><h4>Personality</h4><p>A floating lantern: translucent shell with rim, crown cap and loop, a warm teardrop of light inside whose level (off / dim / rest / bright / blaze) <em>is</em> the mood, two petal fin-ears that perk up when listening and fold when offline, and a spark that always trails lower-left. No limbs; meaning is carried by light, fin angle and face. Attentive, warm, a little dreamy.</p><p class="scales"><strong>Scales:</strong> Icon drops gradient and highlight, enlarges fins and spark; RTL mirrors the whole figure (spark then lower-right).</p></div>
+    <div><h4>Strengths</h4><ul class="plus"><li>Ownable metaphor for the product: light = understanding, mapped to real states (thinking = dim, success = bright) without faking evaluation.</li><li>Where dark mode shines: the glow does real work on dark canvases (see dark variant).</li><li>No limbs means few rig bones; most motion is scale / opacity / rotation, cheap on low-end Android.</li></ul></div>
+    <div><h4>Risks</h4><ul class="minus"><li><strong>Bird read.</strong> The two orange petal fins beside a rounded body can scan as wings on a chick; a hard rule of this brief. Needs a silhouette pass (fins lower, narrower, or ribbed) before approval.</li><li>Drifts toward egg / light-bulb if rim, cap or loop are dropped (the first draft read as a fried egg).</li><li>Fewer gestures: pointing and thumbs-up must be done with tilt, fins and props; translucency loses contrast on busy scenes.</li></ul></div>
+  </div>
+</article>
+<article class="card option" id="M3">
+  <header class="option-head">
+    <span class="code">M3</span>
+    <div><h3>Melo <small>— The chubby chameleon</small></h3>
+    <p class="links"><a href="mascots/M3/README.md">README</a> · <a href="mascots/M3/model-sheet.svg">model sheet</a> · <a href="mascots/M3/palette.svg">palette</a> · <a href="mascots/M3/states/">states/</a></p></div>
+  </header>
+  <a class="sheet" href="mascots/M3/model-sheet.svg" title="Open the model sheet at full size"><img src="mascots/M3/model-sheet.svg" alt="M3 model sheet: front, three-quarter, side, proportions, expression vocabulary, size check" loading="lazy"></a>
+  <div class="states" role="group" aria-label="M3 eight states"><figure class="state"><img src="mascots/M3/states/neutral.svg" alt="M3 neutral state" loading="lazy" width="96" height="96"><figcaption>neutral</figcaption></figure><figure class="state"><img src="mascots/M3/states/welcome.svg" alt="M3 welcome state" loading="lazy" width="96" height="96"><figcaption>welcome</figcaption></figure><figure class="state"><img src="mascots/M3/states/listening.svg" alt="M3 listening state" loading="lazy" width="96" height="96"><figcaption>listening</figcaption></figure><figure class="state"><img src="mascots/M3/states/speaking.svg" alt="M3 speaking state" loading="lazy" width="96" height="96"><figcaption>speaking</figcaption></figure><figure class="state"><img src="mascots/M3/states/thinking.svg" alt="M3 thinking state" loading="lazy" width="96" height="96"><figcaption>thinking</figcaption></figure><figure class="state"><img src="mascots/M3/states/celebrate.svg" alt="M3 celebrate state" loading="lazy" width="96" height="96"><figcaption>celebrate</figcaption></figure><figure class="state"><img src="mascots/M3/states/try_again.svg" alt="M3 try_again state" loading="lazy" width="96" height="96"><figcaption>try again</figcaption></figure><figure class="state"><img src="mascots/M3/states/offline.svg" alt="M3 offline state" loading="lazy" width="96" height="96"><figcaption>offline</figcaption></figure></div>
+  <div class="mascot-extras">
+    <div class="icon-check">
+      <h4>24 px icon</h4>
+      <div class="icon-row">
+        <span><img src="mascots/M3/icon-24.svg" width="24" height="24" alt="M3 icon at 24 px"><br><small>24 px actual</small></span>
+        <span><img src="mascots/M3/icon-24.svg" width="48" height="48" alt="" aria-hidden="true"><br><small>48</small></span>
+        <span><img src="mascots/M3/icon-24.svg" width="96" height="96" alt="" aria-hidden="true"><br><small>96</small></span>
+        <span class="gray"><img src="mascots/M3/states/neutral.svg" width="48" height="48" alt="M3 neutral state in grayscale"><br><small>grayscale 48</small></span>
+      </div>
+    </div>
+    <div class="dark-check" style="--plate:#121A14">
+      <h4>Dark variant</h4>
+      <div class="plate"><img src="mascots/M3/dark-variant.svg" width="160" height="160" alt="M3 neutral state on the dark palette" loading="lazy"></div>
+    </div>
+  </div>
+  <div class="text-cols">
+    <div><h4>Personality</h4><p>A round, unhurried chameleon who adapts instead of judging: two big eyes on gentle turrets that swivel independently (one on you, one on the idea), a soft saffron crest, two flank bands, stubby mitten limbs and a spiral tail used as a gesture limb (wave, question-hook, upright cheer, droop). Body hue drifts per course family while crest, bands and outline stay fixed.</p><p class="scales"><strong>Scales:</strong> 24 px keeps body, crest, two turrets with pupils and the spiral; course tints only touch body/bodyShade tokens.</p></div>
+    <div><h4>Strengths</h4><ul class="plus"><li>Independent eyes are a trait nobody in the category owns and carry listening / thinking / curious for free.</li><li>Adaptation mechanic is built in: a six-tint body dial per course family while the silhouette stays the brand anchor.</li><li>Tiny files (states 4.7–6.2 KB), grounded pose, no scales / teeth / claws, so it reads as plush, not lizard.</li></ul></div>
+    <div><h4>Risks</h4><ul class="minus"><li>"Frog with goggles" misread at a glance; the turret rings must stay close in tone to the body.</li><li>Reptile aversion in some audiences; the word "chameleon" may need to stay out of marketing copy in some locales.</li><li>Green is a common success colour; celebrate must rely on pose and confetti (it does), and hue shifts must never encode feedback.</li></ul></div>
+  </div>
+</article>
+<article class="card option" id="M4">
+  <header class="option-head">
+    <span class="code">M4</span>
+    <div><h3>Nimbo <small>— The cloud-blob traveller</small></h3>
+    <p class="links"><a href="mascots/M4/README.md">README</a> · <a href="mascots/M4/model-sheet.svg">model sheet</a> · <a href="mascots/M4/palette.svg">palette</a> · <a href="mascots/M4/states/">states/</a></p></div>
+  </header>
+  <a class="sheet" href="mascots/M4/model-sheet.svg" title="Open the model sheet at full size"><img src="mascots/M4/model-sheet.svg" alt="M4 model sheet: front, three-quarter, side, proportions, expression vocabulary, size check" loading="lazy"></a>
+  <div class="states" role="group" aria-label="M4 eight states"><figure class="state"><img src="mascots/M4/states/neutral.svg" alt="M4 neutral state" loading="lazy" width="96" height="96"><figcaption>neutral</figcaption></figure><figure class="state"><img src="mascots/M4/states/welcome.svg" alt="M4 welcome state" loading="lazy" width="96" height="96"><figcaption>welcome</figcaption></figure><figure class="state"><img src="mascots/M4/states/listening.svg" alt="M4 listening state" loading="lazy" width="96" height="96"><figcaption>listening</figcaption></figure><figure class="state"><img src="mascots/M4/states/speaking.svg" alt="M4 speaking state" loading="lazy" width="96" height="96"><figcaption>speaking</figcaption></figure><figure class="state"><img src="mascots/M4/states/thinking.svg" alt="M4 thinking state" loading="lazy" width="96" height="96"><figcaption>thinking</figcaption></figure><figure class="state"><img src="mascots/M4/states/celebrate.svg" alt="M4 celebrate state" loading="lazy" width="96" height="96"><figcaption>celebrate</figcaption></figure><figure class="state"><img src="mascots/M4/states/try_again.svg" alt="M4 try_again state" loading="lazy" width="96" height="96"><figcaption>try again</figcaption></figure><figure class="state"><img src="mascots/M4/states/offline.svg" alt="M4 offline state" loading="lazy" width="96" height="96"><figcaption>offline</figcaption></figure></div>
+  <div class="mascot-extras">
+    <div class="icon-check">
+      <h4>24 px icon</h4>
+      <div class="icon-row">
+        <span><img src="mascots/M4/icon-24.svg" width="24" height="24" alt="M4 icon at 24 px"><br><small>24 px actual</small></span>
+        <span><img src="mascots/M4/icon-24.svg" width="48" height="48" alt="" aria-hidden="true"><br><small>48</small></span>
+        <span><img src="mascots/M4/icon-24.svg" width="96" height="96" alt="" aria-hidden="true"><br><small>96</small></span>
+        <span class="gray"><img src="mascots/M4/states/neutral.svg" width="48" height="48" alt="M4 neutral state in grayscale"><br><small>grayscale 48</small></span>
+      </div>
+    </div>
+    <div class="dark-check" style="--plate:#17152B">
+      <h4>Dark variant</h4>
+      <div class="plate"><img src="mascots/M4/dark-variant.svg" width="160" height="160" alt="M4 neutral state on the dark palette" loading="lazy"></div>
+    </div>
+  </div>
+  <div class="text-cols">
+    <div><h4>Personality</h4><p>A small cloud that got curious about the ground and walked down on stubby legs, wearing a hand-knitted cranberry scarf whose trailing end is the expressive tail, plus matching boots. Its feelings are its weather: a puff rises to wave, bulges into an ear cup to listen, speech-puffs drift off when it talks, one raindrop falls on a missed try, a sun peeks out on success.</p><p class="scales"><strong>Scales:</strong> Stitches drop below 48 dp (band becomes plain); dark token set uses a mid-indigo outline at ≥ 3:1.</p></div>
+    <div><h4>Strengths</h4><ul class="plus"><li>Emotion carried by shape (rain, sun, speech-puffs), not colour; weather metaphors read across cultures.</li><li>Cheap, charming motion without limbs or complex rigging; plush, low-contrast body stays calm over scene art.</li><li>Instant silhouette at 24 px: bumpy top, dark band, two feet, a tail.</li></ul></div>
+    <div><h4>Risks</h4><ul class="minus"><li>Crowded category: cute clouds exist in stickers and weather apps; distinctiveness rests on scarf + boots + weather-as-emotion. Trademark search needed.</li><li>Rain can read as sadness; try_again must keep the soft smile and exactly one drop.</li><li>Lavender-white body needs its outline or a tinted card on pure white surfaces; no arms, so hints are pointed with a puff.</li></ul></div>
+  </div>
+</article>
+<article class="card option" id="M5">
+  <header class="option-head">
+    <span class="code">M5</span>
+    <div><h3>Plio <small>— The folded-paper guide</small></h3>
+    <p class="links"><a href="mascots/M5/README.md">README</a> · <a href="mascots/M5/model-sheet.svg">model sheet</a> · <a href="mascots/M5/palette.svg">palette</a> · <a href="mascots/M5/states/">states/</a></p></div>
+  </header>
+  <a class="sheet" href="mascots/M5/model-sheet.svg" title="Open the model sheet at full size"><img src="mascots/M5/model-sheet.svg" alt="M5 model sheet: front, three-quarter, side, proportions, expression vocabulary, size check" loading="lazy"></a>
+  <div class="states" role="group" aria-label="M5 eight states"><figure class="state"><img src="mascots/M5/states/neutral.svg" alt="M5 neutral state" loading="lazy" width="96" height="96"><figcaption>neutral</figcaption></figure><figure class="state"><img src="mascots/M5/states/welcome.svg" alt="M5 welcome state" loading="lazy" width="96" height="96"><figcaption>welcome</figcaption></figure><figure class="state"><img src="mascots/M5/states/listening.svg" alt="M5 listening state" loading="lazy" width="96" height="96"><figcaption>listening</figcaption></figure><figure class="state"><img src="mascots/M5/states/speaking.svg" alt="M5 speaking state" loading="lazy" width="96" height="96"><figcaption>speaking</figcaption></figure><figure class="state"><img src="mascots/M5/states/thinking.svg" alt="M5 thinking state" loading="lazy" width="96" height="96"><figcaption>thinking</figcaption></figure><figure class="state"><img src="mascots/M5/states/celebrate.svg" alt="M5 celebrate state" loading="lazy" width="96" height="96"><figcaption>celebrate</figcaption></figure><figure class="state"><img src="mascots/M5/states/try_again.svg" alt="M5 try_again state" loading="lazy" width="96" height="96"><figcaption>try again</figcaption></figure><figure class="state"><img src="mascots/M5/states/offline.svg" alt="M5 offline state" loading="lazy" width="96" height="96"><figcaption>offline</figcaption></figure></div>
+  <div class="mascot-extras">
+    <div class="icon-check">
+      <h4>24 px icon</h4>
+      <div class="icon-row">
+        <span><img src="mascots/M5/icon-24.svg" width="24" height="24" alt="M5 icon at 24 px"><br><small>24 px actual</small></span>
+        <span><img src="mascots/M5/icon-24.svg" width="48" height="48" alt="" aria-hidden="true"><br><small>48</small></span>
+        <span><img src="mascots/M5/icon-24.svg" width="96" height="96" alt="" aria-hidden="true"><br><small>96</small></span>
+        <span class="gray"><img src="mascots/M5/states/neutral.svg" width="48" height="48" alt="M5 neutral state in grayscale"><br><small>grayscale 48</small></span>
+      </div>
+    </div>
+    <div class="dark-check" style="--plate:#141A33">
+      <h4>Dark variant</h4>
+      <div class="plate"><img src="mascots/M5/dark-variant.svg" width="160" height="160" alt="M5 neutral state on the dark palette" loading="lazy"></div>
+    </div>
+  </div>
+  <div class="text-cols">
+    <div><h4>Personality</h4><p>A creature folded from one sheet of indigo paper: a six-sided faceted pod lit from the top-left, a cream face window, and a visor flap above it that folds up or down and acts as the brow (high = welcome, half = thinking, closed = offline). A tangerine paper-plane dart at the right hip always points where the learner should go next (up = keep going, down toward the mic = your turn). Nothing is round except the eyes and smile.</p><p class="scales"><strong>Scales:</strong> Silhouette priority when simplifying: pod → dart → face window → brim → arm tabs.</p></div>
+    <div><h4>Strengths</h4><ul class="plus"><li>The most distinct silhouette of the five (hexagon + dart vs. every blob and bird on the market).</li><li>One mechanic that is also the brand story: unfolding = opening up and speaking; the dart is an honest UI affordance.</li><li>Polygons only, three fills at 24 px, four grayscale values; cheapest to animate (flap, dart, tabs).</li></ul></div>
+    <div><h4>Risks</h4><ul class="minus"><li>Warmth ceiling: hard edges can read corporate or logo-like if the face is drawn small; keep the face window large.</li><li>Ink outline nearly vanishes on the dark canvas; silhouette relies on facet contrast (a light rim may be needed).</li><li>Half-closed flap crops the eyes; at 24 px thinking should use the flat mouth + notes cue instead.</li></ul></div>
+  </div>
+</article>
+</section>
+
+<section id="characters">
+  <h2>2 · Character styles (C1–C4)</h2>
+  <p class="lede">The same three cast members (Nadia, Kenji, Lucía) in the same four conversation states and the same crop, so the styles can be compared pose for pose, plus the Casablanca café vignette in each style's environment treatment. Clothing is contemporary everyday wear in every style; no flags, costumes, landmarks or real-person likeness.</p>
+  
+<article class="card option" id="C1">
+  <header class="option-head">
+    <span class="code">C1</span>
+    <div><h3>Cut paper, warm light <small>— Geometric flat (refined baseline)</small></h3>
+    <p class="links"><a href="characters/C1/README.md">README</a> · <a href="characters/C1/style-sheet.svg">style sheet</a> · <a href="characters/C1/scene-cafe.svg">café vignette</a> · <a href="characters/C1/portraits/">portraits/</a></p></div>
+  </header>
+  <div class="char-grid">
+    <div class="cast"><div class="cast-row"><div class="cast-name"><strong>Nadia</strong><br><small>30s · café counter, Casablanca</small></div><figure class="portrait"><img src="characters/C1/portraits/nadia-neutral.svg" alt="Nadia, neutral, C1 style" loading="lazy" width="96" height="96"><figcaption>neutral</figcaption></figure><figure class="portrait"><img src="characters/C1/portraits/nadia-greeting.svg" alt="Nadia, greeting, C1 style" loading="lazy" width="96" height="96"><figcaption>greeting</figcaption></figure><figure class="portrait"><img src="characters/C1/portraits/nadia-talking.svg" alt="Nadia, talking, C1 style" loading="lazy" width="96" height="96"><figcaption>talking</figcaption></figure><figure class="portrait"><img src="characters/C1/portraits/nadia-listening.svg" alt="Nadia, listening, C1 style" loading="lazy" width="96" height="96"><figcaption>listening</figcaption></figure></div><div class="cast-row"><div class="cast-name"><strong>Kenji</strong><br><small>60s · neighbour, Tokyo</small></div><figure class="portrait"><img src="characters/C1/portraits/kenji-neutral.svg" alt="Kenji, neutral, C1 style" loading="lazy" width="96" height="96"><figcaption>neutral</figcaption></figure><figure class="portrait"><img src="characters/C1/portraits/kenji-greeting.svg" alt="Kenji, greeting, C1 style" loading="lazy" width="96" height="96"><figcaption>greeting</figcaption></figure><figure class="portrait"><img src="characters/C1/portraits/kenji-talking.svg" alt="Kenji, talking, C1 style" loading="lazy" width="96" height="96"><figcaption>talking</figcaption></figure><figure class="portrait"><img src="characters/C1/portraits/kenji-listening.svg" alt="Kenji, listening, C1 style" loading="lazy" width="96" height="96"><figcaption>listening</figcaption></figure></div><div class="cast-row"><div class="cast-name"><strong>Lucía</strong><br><small>20s · coworker, Madrid</small></div><figure class="portrait"><img src="characters/C1/portraits/lucia-neutral.svg" alt="Lucía, neutral, C1 style" loading="lazy" width="96" height="96"><figcaption>neutral</figcaption></figure><figure class="portrait"><img src="characters/C1/portraits/lucia-greeting.svg" alt="Lucía, greeting, C1 style" loading="lazy" width="96" height="96"><figcaption>greeting</figcaption></figure><figure class="portrait"><img src="characters/C1/portraits/lucia-talking.svg" alt="Lucía, talking, C1 style" loading="lazy" width="96" height="96"><figcaption>talking</figcaption></figure><figure class="portrait"><img src="characters/C1/portraits/lucia-listening.svg" alt="Lucía, listening, C1 style" loading="lazy" width="96" height="96"><figcaption>listening</figcaption></figure></div></div>
+    <a class="scene" href="characters/C1/scene-cafe.svg" title="Open the café vignette at full size"><img src="characters/C1/scene-cafe.svg" alt="C1 café vignette: Nadia behind the counter" loading="lazy" width="640" height="360"></a>
+  </div>
+  <div class="text-cols">
+    <div><h4>The style</h4><p>The baseline's geometric DNA carried through properly: no outlines on fills (edges by luminance contrast, ≥ 0.12 between touching materials), exactly one flat shade per material from the top-left, line only for brows / closed mouth / glasses, solid eyes with one highlight that also carries gaze. One parametric head with per-character face proportions; hair and garment silhouettes do the characterisation.</p><p class="scales"><strong>Cost for 30 courses:</strong> ~2 weeks for a part library (12 hair, 15 garments, 10 accessories), then 1–2 h of art direction per character; scenes 0.5–1 day with day / evening / dark as tint swaps.</p></div>
+    <div><h4>Strengths</h4><ul class="plus"><li>Scale-proof and cheapest to produce: portraits are 3–6 KB, a new character is ~40 lines of parameters.</li><li>Honest continuity: current <code>assets/characters</code> migrate by removing strokes and adding one shade.</li><li>Warm, adult palette (seven-step skin ramp with matched blush, terracotta / teal / olive / mustard garments).</li></ul></div>
+    <div><h4>Risks</h4><ul class="minus"><li>Can look generic; flat-geometric people are a crowded genre, so distinctiveness must come from silhouettes, palette and the mascot.</li><li>Low emotional range at small sizes (no sclera, no line work).</li><li>Lighting never changes per scene; evening is a background tint only.</li></ul></div>
+  </div>
+  <details class="pairing"><summary>Pairing notes with the five mascots</summary>
+    <table class="pair-table"><tbody><tr><th scope="row">M1</th><td>Good with one tweak: M1 keeps a 2.6 px silhouette line, C1 has none. Give M1 a no-line in-scene variant, or a silhouette-only outline flag on C1.</td></tr><tr><th scope="row">M2</th><td>Strong contrast pairing: a glowing translucent guide against matte opaque people. Keep the halo as the only soft gradient on screen.</td></tr><tr><th scope="row">M3</th><td>Natural fit (both flat rounded shapes); Melo's hue dial sits cleanly on fixed warm people. Watch leaf green vs. Kenji's olive cardigan.</td></tr><tr><th scope="row">M4</th><td>Closest stylistic match, same cut-paper world; both so soft that CTAs need the stronger terracotta / teal tokens.</td></tr><tr><th scope="row">M5</th><td>Thematic match, tonal tension: crisp angular Plio over round people. Works if creases stay at 45 % and facets use the one-shade rule.</td></tr></tbody></table>
+  </details>
+</article>
+<article class="card option" id="C2">
+  <header class="option-head">
+    <span class="code">C2</span>
+    <div><h3>Soft dimensional <small>— Clay / plush</small></h3>
+    <p class="links"><a href="characters/C2/README.md">README</a> · <a href="characters/C2/style-sheet.svg">style sheet</a> · <a href="characters/C2/scene-cafe.svg">café vignette</a> · <a href="characters/C2/portraits/">portraits/</a></p></div>
+  </header>
+  <div class="char-grid">
+    <div class="cast"><div class="cast-row"><div class="cast-name"><strong>Nadia</strong><br><small>30s · café counter, Casablanca</small></div><figure class="portrait"><img src="characters/C2/portraits/nadia-neutral.svg" alt="Nadia, neutral, C2 style" loading="lazy" width="96" height="96"><figcaption>neutral</figcaption></figure><figure class="portrait"><img src="characters/C2/portraits/nadia-greeting.svg" alt="Nadia, greeting, C2 style" loading="lazy" width="96" height="96"><figcaption>greeting</figcaption></figure><figure class="portrait"><img src="characters/C2/portraits/nadia-talking.svg" alt="Nadia, talking, C2 style" loading="lazy" width="96" height="96"><figcaption>talking</figcaption></figure><figure class="portrait"><img src="characters/C2/portraits/nadia-listening.svg" alt="Nadia, listening, C2 style" loading="lazy" width="96" height="96"><figcaption>listening</figcaption></figure></div><div class="cast-row"><div class="cast-name"><strong>Kenji</strong><br><small>60s · neighbour, Tokyo</small></div><figure class="portrait"><img src="characters/C2/portraits/kenji-neutral.svg" alt="Kenji, neutral, C2 style" loading="lazy" width="96" height="96"><figcaption>neutral</figcaption></figure><figure class="portrait"><img src="characters/C2/portraits/kenji-greeting.svg" alt="Kenji, greeting, C2 style" loading="lazy" width="96" height="96"><figcaption>greeting</figcaption></figure><figure class="portrait"><img src="characters/C2/portraits/kenji-talking.svg" alt="Kenji, talking, C2 style" loading="lazy" width="96" height="96"><figcaption>talking</figcaption></figure><figure class="portrait"><img src="characters/C2/portraits/kenji-listening.svg" alt="Kenji, listening, C2 style" loading="lazy" width="96" height="96"><figcaption>listening</figcaption></figure></div><div class="cast-row"><div class="cast-name"><strong>Lucía</strong><br><small>20s · coworker, Madrid</small></div><figure class="portrait"><img src="characters/C2/portraits/lucia-neutral.svg" alt="Lucía, neutral, C2 style" loading="lazy" width="96" height="96"><figcaption>neutral</figcaption></figure><figure class="portrait"><img src="characters/C2/portraits/lucia-greeting.svg" alt="Lucía, greeting, C2 style" loading="lazy" width="96" height="96"><figcaption>greeting</figcaption></figure><figure class="portrait"><img src="characters/C2/portraits/lucia-talking.svg" alt="Lucía, talking, C2 style" loading="lazy" width="96" height="96"><figcaption>talking</figcaption></figure><figure class="portrait"><img src="characters/C2/portraits/lucia-listening.svg" alt="Lucía, listening, C2 style" loading="lazy" width="96" height="96"><figcaption>listening</figcaption></figure></div></div>
+    <a class="scene" href="characters/C2/scene-cafe.svg" title="Open the café vignette at full size"><img src="characters/C2/scene-cafe.svg" alt="C2 café vignette: Nadia behind the counter" loading="lazy" width="640" height="360"></a>
+  </div>
+  <div class="text-cols">
+    <div><h4>The style</h4><p>Characters as softly lit clay or plush figures: rounded inflated forms, a warm key light upper-left via 3-stop radial gradients, a cool clipped rim light lower-right, a small specular and soft contact shadows, zero outlines (shapes separate by value only). Glossy bead eyes, button nose, sculpted lips. One parametric rig drives brows, eye openness, gaze, mouth, tilt and hand.</p><p class="scales"><strong>Cost for 30 courses:</strong> Half a day of art direction per character once the rig is approved; 60–120 characters ≈ 30–60 artist-days; scenes 1–2 days each.</p></div>
+    <div><h4>Strengths</h4><ul class="plus"><li>Premium, warm, tactile; adults do not feel talked down to; photographs well in marketing.</li><li>Deliberately unlike the flat outlined saturated look of the category; well clear of any trade dress.</li><li>Environment uses the same shaded-form recipe so scenes and cast sit in one world.</li></ul></div>
+    <div><h4>Risks</h4><ul class="minus"><li>Rendering cost: ~60 gradient elements per portrait, ~250 per scene; list thumbnails must be rasterised.</li><li>Mouths animate well as swaps, badly as morphs (plan 4–6 shapes).</li><li>Dark-mode variant and the 24 px read are the weakest of the four (gradients collapse to mush at tab size).</li></ul></div>
+  </div>
+  <details class="pairing"><summary>Pairing notes with the five mascots</summary>
+    <table class="pair-table"><tbody><tr><th scope="row">M1</th><td>Best if re-rendered with the exact C2 recipe (focal radial, cool rim, specular, contact shadow); it becomes a sibling of the cast.</td></tr><tr><th scope="row">M2</th><td>Workable: M2 is already soft and lit; keep its glow as the only emissive object and give it a contact shadow.</td></tr><tr><th scope="row">M3</th><td>Flat outlined shapes clash on the same screen; re-render with the C2 recipe or keep it strictly to UI chrome.</td></tr><tr><th scope="row">M4</th><td>Good: a single inflated form takes the clay recipe with no redesign.</td></tr><tr><th scope="row">M5</th><td>Geometric facets fight the inflated look; keep Plio to tab icons and toasts, never beside a portrait.</td></tr></tbody></table><p class="footnote">C2's README states pairing rules per mascot archetype; the lines above apply those rules to M1–M5.</p>
+  </details>
+</article>
+<article class="card option" id="C3">
+  <header class="option-head">
+    <span class="code">C3</span>
+    <div><h3>Ink &amp; Fill <small>— "Carnet" — hand-drawn travel sketchbook</small></h3>
+    <p class="links"><a href="characters/C3/README.md">README</a> · <a href="characters/C3/style-sheet.svg">style sheet</a> · <a href="characters/C3/scene-cafe.svg">café vignette</a> · <a href="characters/C3/portraits/">portraits/</a></p></div>
+  </header>
+  <div class="char-grid">
+    <div class="cast"><div class="cast-row"><div class="cast-name"><strong>Nadia</strong><br><small>30s · café counter, Casablanca</small></div><figure class="portrait"><img src="characters/C3/portraits/nadia-neutral.svg" alt="Nadia, neutral, C3 style" loading="lazy" width="96" height="96"><figcaption>neutral</figcaption></figure><figure class="portrait"><img src="characters/C3/portraits/nadia-greeting.svg" alt="Nadia, greeting, C3 style" loading="lazy" width="96" height="96"><figcaption>greeting</figcaption></figure><figure class="portrait"><img src="characters/C3/portraits/nadia-talking.svg" alt="Nadia, talking, C3 style" loading="lazy" width="96" height="96"><figcaption>talking</figcaption></figure><figure class="portrait"><img src="characters/C3/portraits/nadia-listening.svg" alt="Nadia, listening, C3 style" loading="lazy" width="96" height="96"><figcaption>listening</figcaption></figure></div><div class="cast-row"><div class="cast-name"><strong>Kenji</strong><br><small>60s · neighbour, Tokyo</small></div><figure class="portrait"><img src="characters/C3/portraits/kenji-neutral.svg" alt="Kenji, neutral, C3 style" loading="lazy" width="96" height="96"><figcaption>neutral</figcaption></figure><figure class="portrait"><img src="characters/C3/portraits/kenji-greeting.svg" alt="Kenji, greeting, C3 style" loading="lazy" width="96" height="96"><figcaption>greeting</figcaption></figure><figure class="portrait"><img src="characters/C3/portraits/kenji-talking.svg" alt="Kenji, talking, C3 style" loading="lazy" width="96" height="96"><figcaption>talking</figcaption></figure><figure class="portrait"><img src="characters/C3/portraits/kenji-listening.svg" alt="Kenji, listening, C3 style" loading="lazy" width="96" height="96"><figcaption>listening</figcaption></figure></div><div class="cast-row"><div class="cast-name"><strong>Lucía</strong><br><small>20s · coworker, Madrid</small></div><figure class="portrait"><img src="characters/C3/portraits/lucia-neutral.svg" alt="Lucía, neutral, C3 style" loading="lazy" width="96" height="96"><figcaption>neutral</figcaption></figure><figure class="portrait"><img src="characters/C3/portraits/lucia-greeting.svg" alt="Lucía, greeting, C3 style" loading="lazy" width="96" height="96"><figcaption>greeting</figcaption></figure><figure class="portrait"><img src="characters/C3/portraits/lucia-talking.svg" alt="Lucía, talking, C3 style" loading="lazy" width="96" height="96"><figcaption>talking</figcaption></figure><figure class="portrait"><img src="characters/C3/portraits/lucia-listening.svg" alt="Lucía, listening, C3 style" loading="lazy" width="96" height="96"><figcaption>listening</figcaption></figure></div></div>
+    <a class="scene" href="characters/C3/scene-cafe.svg" title="Open the café vignette at full size"><img src="characters/C3/scene-cafe.svg" alt="C3 café vignette: Nadia behind the counter" loading="lazy" width="640" height="360"></a>
+  </div>
+  <div class="text-cols">
+    <div><h4>The style</h4><p>A true variable-width ribbon renderer: every line is a tapered filled stroke, heavier on the shadow side and under the chin, with wobble seeded per feature; fills are flat and deliberately misregistered from the ink (+1.6 / +1.3), one hard shadow and at most three hatch lines per area, warm near-black ink on cream paper. The people you meet, drawn quickly and warmly by someone sitting across the table.</p><p class="scales"><strong>Cost for 30 courses:</strong> A new character ≈ 60 lines of parameters; ~1–2 person-days per 10 characters once hair / garment blocks are reused; scenes ship as WebP (40–80 KB) with SVG kept as source.</p></div>
+    <div><h4>Strengths</h4><ul class="plus"><li>Genuinely different drawing language from the baseline and from every big language app.</li><li>Forgiving of production variance: wobble and misregistration are the family traits, so a cast across 30 courses can grow without geometric sameness.</li><li>Warm, adult, editorial; sits well next to real café / street photography if media ever mix.</li></ul></div>
+    <div><h4>Risks</h4><ul class="minus"><li>Heaviest files (44–67 KB per portrait, ~125 KB scene) and the ink collapses to a halo at 24 px; icons need a 1.6× ink regeneration.</li><li>Hard shadows can read as marks on skin if too dark or narrow.</li><li>Tone mismatch with a glossy mascot; the guide must be a different pen or a different material, decided, not accidental.</li></ul></div>
+  </div>
+  <details class="pairing"><summary>Pairing notes with the five mascots</summary>
+    <table class="pair-table"><tbody><tr><th scope="row">M1</th><td>Works after re-inking: body outline at 4.0, tail as one tapered ribbon (it already is one), drop belly gradient and glossy highlight.</td></tr><tr><th scope="row">M2</th><td>Clash unless deliberate: either flatten and ink it, or keep it glossy as the only un-inked object, always on its own paper-white badge.</td></tr><tr><th scope="row">M3</th><td>Flat vector: re-ink with the C3 pen at silhouette weight, add paper-tint misregistration, keep its shapes.</td></tr><tr><th scope="row">M4</th><td>Same as M3; the knit stitches become hatch lines naturally.</td></tr><tr><th scope="row">M5</th><td>Abstract / geometric: ink the outline only and let tangerine be the single saturated element. Strong guide-vs-interlocutor separation.</td></tr></tbody></table><p class="footnote">C3's README states pairing rules per mascot archetype; the lines above apply those rules to M1–M5.</p>
+  </details>
+</article>
+<article class="card option" id="C4">
+  <header class="option-head">
+    <span class="code">C4</span>
+    <div><h3>Bold Minimal <small>— Poster cut-outs</small></h3>
+    <p class="links"><a href="characters/C4/README.md">README</a> · <a href="characters/C4/style-sheet.svg">style sheet</a> · <a href="characters/C4/scene-cafe.svg">café vignette</a> · <a href="characters/C4/portraits/">portraits/</a></p></div>
+  </header>
+  <div class="char-grid">
+    <div class="cast"><div class="cast-row"><div class="cast-name"><strong>Nadia</strong><br><small>30s · café counter, Casablanca</small></div><figure class="portrait"><img src="characters/C4/portraits/nadia-neutral.svg" alt="Nadia, neutral, C4 style" loading="lazy" width="96" height="96"><figcaption>neutral</figcaption></figure><figure class="portrait"><img src="characters/C4/portraits/nadia-greeting.svg" alt="Nadia, greeting, C4 style" loading="lazy" width="96" height="96"><figcaption>greeting</figcaption></figure><figure class="portrait"><img src="characters/C4/portraits/nadia-talking.svg" alt="Nadia, talking, C4 style" loading="lazy" width="96" height="96"><figcaption>talking</figcaption></figure><figure class="portrait"><img src="characters/C4/portraits/nadia-listening.svg" alt="Nadia, listening, C4 style" loading="lazy" width="96" height="96"><figcaption>listening</figcaption></figure></div><div class="cast-row"><div class="cast-name"><strong>Kenji</strong><br><small>60s · neighbour, Tokyo</small></div><figure class="portrait"><img src="characters/C4/portraits/kenji-neutral.svg" alt="Kenji, neutral, C4 style" loading="lazy" width="96" height="96"><figcaption>neutral</figcaption></figure><figure class="portrait"><img src="characters/C4/portraits/kenji-greeting.svg" alt="Kenji, greeting, C4 style" loading="lazy" width="96" height="96"><figcaption>greeting</figcaption></figure><figure class="portrait"><img src="characters/C4/portraits/kenji-talking.svg" alt="Kenji, talking, C4 style" loading="lazy" width="96" height="96"><figcaption>talking</figcaption></figure><figure class="portrait"><img src="characters/C4/portraits/kenji-listening.svg" alt="Kenji, listening, C4 style" loading="lazy" width="96" height="96"><figcaption>listening</figcaption></figure></div><div class="cast-row"><div class="cast-name"><strong>Lucía</strong><br><small>20s · coworker, Madrid</small></div><figure class="portrait"><img src="characters/C4/portraits/lucia-neutral.svg" alt="Lucía, neutral, C4 style" loading="lazy" width="96" height="96"><figcaption>neutral</figcaption></figure><figure class="portrait"><img src="characters/C4/portraits/lucia-greeting.svg" alt="Lucía, greeting, C4 style" loading="lazy" width="96" height="96"><figcaption>greeting</figcaption></figure><figure class="portrait"><img src="characters/C4/portraits/lucia-talking.svg" alt="Lucía, talking, C4 style" loading="lazy" width="96" height="96"><figcaption>talking</figcaption></figure><figure class="portrait"><img src="characters/C4/portraits/lucia-listening.svg" alt="Lucía, listening, C4 style" loading="lazy" width="96" height="96"><figcaption>listening</figcaption></figure></div></div>
+    <a class="scene" href="characters/C4/scene-cafe.svg" title="Open the café vignette at full size"><img src="characters/C4/scene-cafe.svg" alt="C4 café vignette: Nadia behind the counter" loading="lazy" width="640" height="360"></a>
+  </div>
+  <div class="text-cols">
+    <div><h4>The style</h4><p>Large simplified shapes with no outlines, two-tone faces (one light tone plus a single curved shade plane, nose as a shade wedge), ink-only brows / eyes / mouth, one bold hair silhouette per character, and exactly one gradient per figure: the backing disc (terracotta→saffron for Nadia, teal→sage for Kenji, plum→coral for Lucía). Editorial poster art rather than cartoon.</p><p class="scales"><strong>Cost for 30 courses:</strong> 1–2 hours per new lead; the full ~16-character roster in two to three working days; 30 courses × 2–3 leads in one to two weeks.</p></div>
+    <div><h4>Strengths</h4><ul class="plus"><li>Most legible at small sizes: five distinct grayscale values per avatar, nothing thinner than 3 px on 256.</li><li>Tiny files (2.7–3.8 KB) and trivial rendering; lip-sync is a mouth-shape swap.</li><li>Hue carries identity, value carries legibility, so dark mode and colour-blind checks are predictable.</li></ul></div>
+    <div><h4>Risks</h4><ul class="minus"><li>Faces can read as corporate flat unless each character gets a signature hair silhouette, prop and gradient pair.</li><li>Two-tone split needs per-character skin pairs on dark skin tones (never derived by darkening).</li><li>Many gradient discs side by side look loud in lists; use the cream-disc variant there.</li></ul></div>
+  </div>
+  <details class="pairing"><summary>Pairing notes with the five mascots</summary>
+    <table class="pair-table"><tbody><tr><th scope="row">M1</th><td>Good: the outlined guide vs. the cut-out world helps roles read. Tie them by setting M1's outline to C4 ink #1F1D2B.</td></tr><tr><th scope="row">M2</th><td>Strongest pairing after M5: M2's glow is itself a single gradient, so the one-gradient rule applies to both.</td></tr><tr><th scope="row">M3</th><td>Workable, but the hue-shift body plus per-character discs can clash in the gallery; give the mascot the cream disc.</td></tr><tr><th scope="row">M4</th><td>Good tonal fit; keep the scarf tail width ≥ the C4 brow weight so both share one stroke scale.</td></tr><tr><th scope="row">M5</th><td>Best stylistic match: faceted planes are the same language as C4's shade plane; treat crease lines as C4 ink.</td></tr></tbody></table>
+  </details>
+</article>
+</section>
+
+<section id="ui">
+  <h2>3 · UI directions (U1–U4)</h2>
+  <p class="lede">Home, lesson (listen → anticipate → speak) and live conversation, light and dark side by side. Every direction shows the honest patterns the spec requires: no pronunciation score where none is measured, a reconnecting state with the mic disabled and "nothing is being recorded", speech indicators that only move while audio really flows, Arabic RTL and CJK samples. Tokens pages list both palettes with computed WCAG ratios.</p>
+  
+<article class="card option" id="U1">
+  <header class="option-head">
+    <span class="code">U1</span>
+    <div><h3>Warm Editorial <small>— A well-set magazine, not a game console</small></h3>
+    <p class="links"><a href="ui/U1/README.md">README</a> · <a href="ui/U1/tokens.html">tokens (palettes, contrast ratios, type, radii, motion)</a></p></div>
+  </header>
+  <div class="frames"><div class="pair"><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U1/home.html" title="Home / Today · light" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Home / Today · light · <a href="ui/U1/home.html">open</a></figcaption>
+</figure><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U1/home-dark.html" title="Home / Today · dark" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Home / Today · dark · <a href="ui/U1/home-dark.html">open</a></figcaption>
+</figure></div><div class="pair"><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U1/lesson.html" title="Lesson · light" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Lesson · light · <a href="ui/U1/lesson.html">open</a></figcaption>
+</figure><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U1/lesson-dark.html" title="Lesson · dark" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Lesson · dark · <a href="ui/U1/lesson-dark.html">open</a></figcaption>
+</figure></div><div class="pair"><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U1/conversation.html" title="Conversation · light" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Conversation · light · <a href="ui/U1/conversation.html">open</a></figcaption>
+</figure><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U1/conversation-dark.html" title="Conversation · dark" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Conversation · dark · <a href="ui/U1/conversation-dark.html">open</a></figcaption>
+</figure></div></div>
+  <p class="frame-note">Each phone is the real mockup file in an iframe (stage 500×960 scaled to 44 %). Pages that carry a side sheet or a second reduced phone are cropped here; use <em>open</em> to see the whole page. Mockups inline the <strong>current baseline</strong> mascot, characters and scenes as placeholders so the comparison is about the UI, not the art.</p>
+  <div class="text-cols">
+    <div><h4>The direction</h4><p>Cream paper surfaces (#F6F0E6 light / #121819 dark), deep teal as the single "you can act on this" colour, coral reserved for warmth and progress (never small white text), a system serif display face for the greeting, mission title and the character's target-language line, 20 px cards with soft ink-tinted shadows in light and hairline elevation in dark.</p></div>
+    <div><h4>Strengths</h4><ul class="plus"><li>Calm, adult, premium; two accents only, both borrowed from the mascot, so mascot + UI feel like one system.</li><li>Dark mode is a genuine design (hairline elevation, cream ink, lifted teal / coral) with higher contrast than light.</li><li>All text pairs ≥ 4.5:1 computed at build time; the only sub-AA pair (white on coral) is documented as disallowed.</li></ul></div>
+    <div><h4>Risks</h4><ul class="minus"><li>Serif availability varies across Android OEM skins; may need a sans display fallback.</li><li>Soft 6–8 % shadows can vanish on cheap LCDs, flattening cards.</li><li>Calm may read as quiet: celebration energy depends on Rive / Lottie and the mascot.</li></ul></div>
+  </div>
+  <p class="motion"><strong>Motion plan:</strong> Rive for the mascot (one instance per screen, 17 contract states, idle ±2 %, blink ~4 s, reaction ≤ 400 ms). Lottie for chapter-complete and achievement reveals (≤ 900 ms, skippable). Reanimated for press scale, hint sheet, meter fill and the mission-card → lesson shared element. Audio indicators are bound to real recorder / player signals; reduced motion pauses Rive on neutral and zeroes durations.</p>
+</article>
+<article class="card option" id="U2">
+  <header class="option-head">
+    <span class="code">U2</span>
+    <div><h3>Night Market <small>— A conversation happening under lights</small></h3>
+    <p class="links"><a href="ui/U2/README.md">README</a> · <a href="ui/U2/tokens.html">tokens (palettes, contrast ratios, type, radii, motion)</a></p></div>
+  </header>
+  <div class="frames"><div class="pair"><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U2/home.html" title="Home / Today · light" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Home / Today · light · <a href="ui/U2/home.html">open</a></figcaption>
+</figure><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U2/home-dark.html" title="Home / Today · dark" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Home / Today · dark · <a href="ui/U2/home-dark.html">open</a></figcaption>
+</figure></div><div class="pair"><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U2/lesson.html" title="Lesson · light" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Lesson · light · <a href="ui/U2/lesson.html">open</a></figcaption>
+</figure><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U2/lesson-dark.html" title="Lesson · dark" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Lesson · dark · <a href="ui/U2/lesson-dark.html">open</a></figcaption>
+</figure></div><div class="pair"><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U2/conversation.html" title="Conversation · light" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Conversation · light · <a href="ui/U2/conversation.html">open</a></figcaption>
+</figure><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U2/conversation-dark.html" title="Conversation · dark" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Conversation · dark · <a href="ui/U2/conversation-dark.html">open</a></figcaption>
+</figure></div></div>
+  <p class="frame-note">Each phone is the real mockup file in an iframe (stage 500×960 scaled to 44 %). Pages that carry a side sheet or a second reduced phone are cropped here; use <em>open</em> to see the whole page. Mockups inline the <strong>current baseline</strong> mascot, characters and scenes as placeholders so the comparison is about the UI, not the art.</p>
+  <div class="text-cols">
+    <div><h4>The direction</h4><p>Dark-first: a deep indigo canvas lit by three blurred lantern accents (magenta, amber, cyan) behind glassy translucent cards. Glow is rationed to exactly two things, the speech state (who is talking, whether the mic is open) and the one primary action per screen; everything else is quiet glass. The light variant is derived from the same tokens.</p></div>
+    <div><h4>Strengths</h4><ul class="plus"><li>Distinctive and premium at a glance; nothing like the flat-green / flat-blue competitor set.</li><li>Glow carries real meaning (speech state, primary action) so the speak-first loop is legible from across the room.</li><li>Dark-first suits when people actually practise speaking (evening, transit) and saves OLED battery.</li></ul></div>
+    <div><h4>Risks</h4><ul class="minus"><li>Backdrop blur is expensive on low-end Android; needs a solid-card <code>glassFallback</code> tier.</li><li>The light variant is the weaker sibling; the owner should decide whether light is first-class.</li><li>A souk / lantern theme applied to all 30 courses frames every language through one region's imagery; the README does not flag this, I do (see matrix).</li></ul></div>
+  </div>
+  <p class="motion"><strong>Motion plan:</strong> Rive for the mascot (idle / blink, listening lean, reaction bounce, connection_error shake → settle). Lottie for confetti and achievement reveals (≤ 1.2 s). Reanimated owns the speech glow (shared value from the audio engine), mic press spring (damping 14 / stiffness 180), card entrance, tab cross-fade, banner slide and a 22–31 s lantern drift that is disabled on low-end devices and under reduced motion.</p>
+</article>
+<article class="card option" id="U3">
+  <header class="option-head">
+    <span class="code">U3</span>
+    <div><h3>Paper &amp; Ink <small>— A travel journal you speak into</small></h3>
+    <p class="links"><a href="ui/U3/README.md">README</a> · <a href="ui/U3/tokens.html">tokens (palettes, contrast ratios, type, radii, motion)</a></p></div>
+  </header>
+  <div class="frames"><div class="pair"><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U3/home.html" title="Home / Today · light" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Home / Today · light · <a href="ui/U3/home.html">open</a></figcaption>
+</figure><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U3/home-dark.html" title="Home / Today · dark" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Home / Today · dark · <a href="ui/U3/home-dark.html">open</a></figcaption>
+</figure></div><div class="pair"><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U3/lesson.html" title="Lesson · light" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Lesson · light · <a href="ui/U3/lesson.html">open</a></figcaption>
+</figure><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U3/lesson-dark.html" title="Lesson · dark" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Lesson · dark · <a href="ui/U3/lesson-dark.html">open</a></figcaption>
+</figure></div><div class="pair"><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U3/conversation.html" title="Conversation · light" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Conversation · light · <a href="ui/U3/conversation.html">open</a></figcaption>
+</figure><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U3/conversation-dark.html" title="Conversation · dark" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Conversation · dark · <a href="ui/U3/conversation-dark.html">open</a></figcaption>
+</figure></div></div>
+  <p class="frame-note">Each phone is the real mockup file in an iframe (stage 500×960 scaled to 44 %). Pages that carry a side sheet or a second reduced phone are cropped here; use <em>open</em> to see the whole page. Mockups inline the <strong>current baseline</strong> mascot, characters and scenes as placeholders so the comparison is about the UI, not the art.</p>
+  <div class="text-cols">
+    <div><h4>The direction</h4><p>Warm near-white paper (#F8F4EA) with one ink (#1B1A17) and one bright cobalt accent (#1F49E0, the ballpoint on a postcard), system serif for titles, platform sans for everything else, and original hand-drawn marks: a wobbly underline under what matters, dashed rubber stamps for dates and states, tape strips holding scene photos, a pen-circled mic, a tally-mark speaking meter. Dark mode is real night paper (#151410), not an inversion.</p></div>
+    <div><h4>Strengths</h4><ul class="plus"><li>Cannot be mistaken for Duolingo, Babbel, Memrise or Drops; no gradient cards, no progress rings.</li><li>Honesty is built into the visual language: stamps carry words, meters are tally marks, states are labelled pills.</li><li>Scripts look best here: ink/paper 15.8:1, Arabic, CJK and Devanagari sit on calm paper like the real thing.</li></ul></div>
+    <div><h4>Risks</h4><ul class="minus"><li>Can read quiet or serious if doodles are under-used; needs a decoration budget per screen.</li><li>The baseline mascot is the loudest colour on the page; the chosen mascot needs an ink-and-paper rendition.</li><li>Serif below 16 px is unreadable; paper grain on OLED must be capped and device-tested.</li></ul></div>
+  </div>
+  <p class="motion"><strong>Motion plan:</strong> Rive for the mascot only. Lottie for the pen-circled mic ring draw-in and the stamp thump on goal reached (≤ 420 ms). Reanimated for everything structural: underline draw-in, button press (offset shadow collapses), speech-state dot pulse, card enter stagger, page transitions (140 / 220 / 420 ms). Nothing animates while nothing is happening; the reconnecting state has no motion at all.</p>
+</article>
+<article class="card option" id="U4">
+  <header class="option-head">
+    <span class="code">U4</span>
+    <div><h3>Soft Clay <small>— Pastel tiles you can press</small></h3>
+    <p class="links"><a href="ui/U4/README.md">README</a> · <a href="ui/U4/tokens.html">tokens (palettes, contrast ratios, type, radii, motion)</a></p></div>
+  </header>
+  <div class="frames"><div class="pair"><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U4/home.html" title="Home / Today · light" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Home / Today · light · <a href="ui/U4/home.html">open</a></figcaption>
+</figure><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U4/home-dark.html" title="Home / Today · dark" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Home / Today · dark · <a href="ui/U4/home-dark.html">open</a></figcaption>
+</figure></div><div class="pair"><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U4/lesson.html" title="Lesson · light" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Lesson · light · <a href="ui/U4/lesson.html">open</a></figcaption>
+</figure><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U4/lesson-dark.html" title="Lesson · dark" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Lesson · dark · <a href="ui/U4/lesson-dark.html">open</a></figcaption>
+</figure></div><div class="pair"><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U4/conversation.html" title="Conversation · light" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Conversation · light · <a href="ui/U4/conversation.html">open</a></figcaption>
+</figure><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U4/conversation-dark.html" title="Conversation · dark" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Conversation · dark · <a href="ui/U4/conversation-dark.html">open</a></figcaption>
+</figure></div><div class="pair"><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U4/conversation-reconnecting.html" title="Reconnecting state · light" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Reconnecting state · light · <a href="ui/U4/conversation-reconnecting.html">open</a></figcaption>
+</figure><figure class="phone">
+  <div class="viewport" style="width:220px;height:422px">
+    <iframe src="ui/U4/conversation-reconnecting-dark.html" title="Reconnecting state · dark" loading="lazy" width="500" height="960" scrolling="no" tabindex="-1" style="transform:scale(0.44)"></iframe>
+  </div>
+  <figcaption>Reconnecting state · dark · <a href="ui/U4/conversation-reconnecting-dark.html">open</a></figcaption>
+</figure></div></div>
+  <p class="frame-note">Each phone is the real mockup file in an iframe (stage 500×960 scaled to 44 %). Pages that carry a side sheet or a second reduced phone are cropped here; use <em>open</em> to see the whole page. Mockups inline the <strong>current baseline</strong> mascot, characters and scenes as placeholders so the comparison is about the UI, not the art.</p>
+  <div class="text-cols">
+    <div><h4>The direction</h4><p>Every card and button is a clay tile: pastel fill, 28 / 22 / 16 px radii, a 2 px inner highlight on top and a 4 px inner shadow at the bottom, plus a 160 ms spring on press. Five pastels carry roles (peach = speak, mint = progress and character speaking, lilac = course / review, butter = mascot / warnings, sky = audio) with dark ink on all of them; one deep coral is reserved for the single microphone / Speak tab.</p></div>
+    <div><h4>Strengths</h4><ul class="plus"><li>Depth is carried by edges, so it survives grayscale, low-end screens and 24 px icons; three box-shadows per tile.</li><li>One contrast rule (dark ink on pastel, white only on deep coral) keeps every pair predictable; ink on peach 9.9:1.</li><li>The tactile mic is the most prominent object on every speaking screen.</li></ul></div>
+    <div><h4>Risks</h4><ul class="minus"><li>Pastel clay tips into kids-app territory if saturation or radii creep; guardrails required.</li><li>Inset shadows are not native in React Native (two-layer view or 9-slice).</li><li>Tertiary text sits at ~3–3.5:1 and must stay restricted to 11 px bold labels next to higher-contrast elements.</li></ul></div>
+  </div>
+  <p class="motion"><strong>Motion plan:</strong> Rive for the mascot state machine (idle / blink, listening, speaking, thinking, celebrate, error_recovery). Lottie for confetti and medal reveals (≤ 1.2 s). Reanimated springs {damping 14, stiffness 220} for press and pop-in, 420 ms timing for settle and meters, a mic ring bound to the real input level; speech-chip bars loop only while character audio is really playing.</p>
+</article>
+</section>
+
+<section id="matrix">
+  <h2>4 · Comparison matrix</h2>
+  <p class="lede">My own assessment after rendering every file, not a summary of the designers' READMEs. 5 dots is best on every column (for production cost, 5 = cheapest for 30 courses). Where I disagree with a README, the note says so.</p>
+  <table class="matrix">
+  <thead><tr><th scope="col">Code</th><th scope="col">Option</th><th scope="col">Originality</th><th scope="col">Legibility at 24 px</th><th scope="col">Production cost (30 courses)</th><th scope="col">Cultural safety</th><th scope="col">Animation potential</th><th scope="col">Why</th></tr></thead>
+  <tbody><tr class="group"><th colspan="8" scope="colgroup">Mascots</th></tr><tr><th scope="row"><a href="#M1">M1</a></th><td class="name">Ollo (orbit-creature)</td><td><span class="dots" aria-label="2 out of 5">●●○○○</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td class="note">Polished and safe, but a teal big-eyed blob is the genre default; only the ribbon tail is ownable.</td></tr><tr><th scope="row"><a href="#M2">M2</a></th><td class="name">Glim (lantern-spirit)</td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="3 out of 5">●●●○○</span></td><td><span class="dots" aria-label="3 out of 5">●●●○○</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td class="note">Strong light metaphor, but the petal fins read as wings on a chick at small sizes (bird rule), and translucency needs a plate on busy art.</td></tr><tr><th scope="row"><a href="#M3">M3</a></th><td class="name">Melo (chameleon)</td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td class="note">Independent eyes + tail gestures + hue dial are a rich motion kit; some reptile aversion and the frog misread.</td></tr><tr><th scope="row"><a href="#M4">M4</a></th><td class="name">Nimbo (cloud-blob)</td><td><span class="dots" aria-label="3 out of 5">●●●○○</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td class="note">Weather-as-emotion is charming and universal; cute clouds are common, and the pale body needs its outline on white.</td></tr><tr><th scope="row"><a href="#M5">M5</a></th><td class="name">Plio (folded paper)</td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td><span class="dots" aria-label="3 out of 5">●●●○○</span></td><td class="note">Most distinct silhouette, cheapest geometry; fewer warm gestures and the dark-mode outline is weak.</td></tr><tr class="group"><th colspan="8" scope="colgroup">Character styles</th></tr><tr><th scope="row"><a href="#C1">C1</a></th><td class="name">Cut paper (geometric flat)</td><td><span class="dots" aria-label="2 out of 5">●●○○○</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td class="note">Cheapest and most scalable; generic unless silhouettes and palette are disciplined.</td></tr><tr><th scope="row"><a href="#C2">C2</a></th><td class="name">Soft dimensional (clay)</td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="3 out of 5">●●●○○</span></td><td><span class="dots" aria-label="2 out of 5">●●○○○</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="3 out of 5">●●●○○</span></td><td class="note">Premium and tactile; heaviest to render, gradients collapse at 24 px, no dark variant yet.</td></tr><tr><th scope="row"><a href="#C3">C3</a></th><td class="name">Ink &amp; Fill (Carnet)</td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td><span class="dots" aria-label="3 out of 5">●●●○○</span></td><td><span class="dots" aria-label="3 out of 5">●●●○○</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="3 out of 5">●●●○○</span></td><td class="note">Most original and adult; heaviest files and the ink halos at 24 px; needs an icon regeneration.</td></tr><tr><th scope="row"><a href="#C4">C4</a></th><td class="name">Bold Minimal (poster)</td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td class="note">Best small-size read and tiny files; dark-skin two-tone pairs must be hand-chosen; can go corporate.</td></tr><tr class="group"><th colspan="8" scope="colgroup">UI directions</th></tr><tr><th scope="row"><a href="#U1">U1</a></th><td class="name">Warm Editorial</td><td><span class="dots" aria-label="2 out of 5">●●○○○</span></td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="3 out of 5">●●●○○</span></td><td class="note">Refined baseline; superb contrast; serif availability on Android is the open question; calm can read quiet.</td></tr><tr><th scope="row"><a href="#U2">U2</a></th><td class="name">Night Market</td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="3 out of 5">●●●○○</span></td><td><span class="dots" aria-label="3 out of 5">●●●○○</span></td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td class="note">Most striking and the best motion story; blur cost, weaker light theme, and a souk framing for all 30 courses.</td></tr><tr><th scope="row"><a href="#U3">U3</a></th><td class="name">Paper &amp; Ink</td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td><span class="dots" aria-label="3 out of 5">●●●○○</span></td><td class="note">Cannot be mistaken for a competitor; no per-course colour, so identity comes from script and art; deliberately little motion.</td></tr><tr><th scope="row"><a href="#U4">U4</a></th><td class="name">Soft Clay</td><td><span class="dots" aria-label="3 out of 5">●●●○○</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td><span class="dots" aria-label="3 out of 5">●●●○○</span></td><td><span class="dots" aria-label="5 out of 5">●●●●●</span></td><td><span class="dots" aria-label="4 out of 5">●●●●○</span></td><td class="note">Cozy and game-ish; neumorphic clay is a known trend, inset shadows need custom RN work, tertiary text is borderline.</td></tr></tbody>
+</table>
+  <p class="legend">Cultural safety covers the hard rules of the brief (no national or ethnic reference, no flags, no caricature, contemporary clothing) plus how neutrally the option travels across 30 course cultures. Animation potential is the richness of what Rive / Lottie / reanimated can do with the option's own anatomy or tokens, not whether a plan exists (every option has one).</p>
+</section>
+
+<section id="combos">
+  <h2>5 · Suggested combinations</h2>
+  <p class="lede">Three coherent pairings. Any other M + C + U is possible; these are the ones where the three parts argue for each other.</p>
+  <div class="combos"><div class="combo">
+  <h3>A · The journal <span class="codes">M5 + C3 + U3</span></h3>
+  <p class="tone">most original, most adult</p>
+  <p>One material story end to end: a mascot folded from paper, people drawn in ink on paper, a UI that is paper. C3&#x27;s own rule (the guide must be a different pen from the cast) is satisfied for free because Plio is crisp and faceted while the cast is wobbly ribbon ink, so guide and interlocutor never blur. Tangerine dart + cobalt accent are the only two saturated colours on screen. Risk to manage: all three lean quiet; give Plio the warm, generous face from its model sheet and spend U3&#x27;s decoration budget on celebration moments.</p>
+</div><div class="combo">
+  <h3>B · The warm evolution <span class="codes">M1 + C1 + U1</span></h3>
+  <p class="tone">lowest risk, fastest to ship</p>
+  <p>Everything already in the repo migrates: same silhouette and state contract for the mascot, strokes removed and one shade added on the current characters, the existing teal / coral tokens refined. The three were literally designed around each other (C1 pairs M1 with a no-line variant; U1 tunes its two accents to M1&#x27;s body and ribbon). Cheapest for 30 courses. Risk to manage: least differentiated from the category; distinctiveness must come from motion and from a strict ribbon-tail-always-visible rule.</p>
+</div><div class="combo">
+  <h3>C · The night market <span class="codes">M2 + C4 + U2</span></h3>
+  <p class="tone">most striking, dark-first</p>
+  <p>C4 names M2 its strongest pairing after M5 because both obey a one-gradient rule (the disc, the glow), and U2&#x27;s glow language gives Glim&#x27;s light levels a real job: the mascot&#x27;s core brightness and the speech ring share one token. Poster cut-outs stay legible under scrims on dark glass. Risks to manage: M2 needs a silhouette pass so the fins never read as wings; U2 needs its solid-card fallback for low-end Android and a decision on whether the light theme is first-class; and the lantern framing should be made course-neutral (tint lanterns from each course&#x27;s cover) so it does not read as one region&#x27;s décor.</p>
+</div></div>
+</section>
+
+<footer>
+  <p><strong>Provenance.</strong> All mascot and character artwork is original vector work drawn in code for these explorations; no traced, stock, AI-generated or CC0 material (Open Peeps, Open Doodles, unDraw) was used in any folder, including as decoration. UI mockups inline the repository's current baseline assets as placeholders. No fonts are embedded anywhere; this page and all sheets use the system font stack.</p>
+  <p><strong>Checks run for this gallery.</strong> Every SVG under <code>mascots/</code>, <code>characters/</code> and <code>ui/</code> validates as standalone XML (xmllint), has <code>xmlns</code> and <code>viewBox</code>, has no external reference and is under 200 KB; every HTML mockup loads no external resource. Every path referenced from this page was verified to exist at build time.</p>
+  <p>Folder map and the approval process are in <a href="README.md">README.md</a>.</p>
+</footer>
+</div>
+</body>
+</html>

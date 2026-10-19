@@ -135,6 +135,18 @@ intentionally empty. Regenerate DB types after schema changes: `pnpm db:types` (
 Every seeded `ai_model_profiles` row is `enabled = false`; the API overlays only enabled rows on the package defaults
 (`docs/reference/cross-package-gaps.md`), so AI works locally with the `DEFAULT_PROFILES` from `packages/ai/src/profiles.ts`.
 
+Then load the curriculum content, otherwise every course manifest is empty and the Missions tab has nothing to show:
+
+```bash
+pnpm --filter @langquest/scripts seed-languages                  # intents + skills + coverage rows (idempotent)
+pnpm --filter @langquest/scripts seed-curriculum -- --apply      # chapters/missions/steps/expressions from packages/curriculum (idempotent, deterministic ids)
+```
+
+`seed-curriculum` publishes the four flagship AI-draft chapters (arabic-moroccan fr+en, spanish-spain en, japanese en,
+english fr+ru) with their draft disclosure intact (`reviewed = false`, coverage `partial`) and loads the other tracks'
+chapter-1 skeletons as unpublished `review_needed` structure; details in `database.md` §3.1. Re-run it after editing
+`packages/curriculum/src/content/*`.
+
 ### 3.1 Create a test learner and a staff account
 
 Sign-up is enabled on the local stack (`[auth] enable_signup = true`, e-mail confirmation off). Create a learner from the mobile

@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="dark">
+<title>U2 Night Market — Lesson (dark)</title>
+<!-- LangQuest UI exploration U2 "Night Market" (dark). Self-contained: inline CSS + inline SVG, system fonts only.
+     Artwork inlined from /assets (mascot, characters, scenes, icons, covers) as placeholders for a fair comparison.
+     No third-party or CC0 assets are used in this file. -->
+<style>
+:root {
+  --bg0:#0B0913; --bg1:#130F21; --bg2:#1C1730;
+  --glass:rgba(255,255,255,0.06); --glass-strong:rgba(255,255,255,0.11); --glass-border:rgba(255,255,255,0.13); --glass-hi:rgba(255,255,255,0.10);
+  --text1:#F5F2FB; --text2:#BDB6D0; --text3:#8E86A6;
+  --magenta:#FF4FA3; --magenta-ink:#2A0718; --magenta-text:#FF7CBB;
+  --amber:#FFB547; --amber-ink:#2B1A00; --amber-text:#FFC46A;
+  --cyan:#3EE1E8; --cyan-ink:#04282B; --cyan-text:#5FE9EF;
+  --success:#45E0A6; --success-ink:#03261A; --danger:#FF6B7A;
+  --r-sm:10px; --r-md:16px; --r-lg:22px; --r-xl:28px; --r-pill:999px;
+  --sp-1:4px; --sp-2:8px; --sp-3:12px; --sp-4:16px; --sp-5:20px; --sp-6:24px;
+  --dur-fast:120ms; --dur-base:200ms; --dur-slow:320ms; --dur-glow:1600ms;
+  --ease-standard:cubic-bezier(.2,.8,.2,1); --ease-emph:cubic-bezier(.3,0,0,1);
+}
+* { box-sizing:border-box; }
+html,body { margin:0; }
+a { color:inherit; text-decoration:none; }
+body { background:#050409; color:var(--text1); font-family:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "Noto Sans Arabic", "Noto Sans JP", "Hiragino Sans", "Yu Gothic", "Geeza Pro", sans-serif;
+  -webkit-font-smoothing:antialiased; display:flex; flex-wrap:wrap; gap:40px; justify-content:center; align-items:flex-start;
+  padding:40px 24px; min-height:100vh; }
+.page-note { width:100%; max-width:820px; color:#A9A2BF; font-size:13px; line-height:18px; text-align:center; margin:-16px 0 0; }
+.page-note b { color:#F5F2FB; }
+
+/* ---------- phone frame ---------- */
+.phone { width:390px; height:844px; border-radius:44px; background:var(--bg0); position:relative; overflow:hidden;
+  box-shadow:0 0 0 10px #07060C, 0 0 0 11px #2A2440, 0 30px 70px rgba(0,0,0,.45); color:var(--text1); flex:none; }
+.phone.small { transform:scale(.62); transform-origin:top left; margin-right:calc(390px*-.38); margin-bottom:calc(844px*-.38); }
+.lantern { position:absolute; border-radius:50%; filter:blur(48px); pointer-events:none; }
+.lantern.l1 { width:300px; height:300px; left:-110px; top:-80px; background:rgba(255,79,163,0.32); }
+.lantern.l2 { width:260px; height:260px; right:-120px; top:220px; background:rgba(62,225,232,0.22); }
+.lantern.l3 { width:280px; height:280px; left:40px; bottom:-120px; background:rgba(255,181,71,0.22); }
+@media (prefers-reduced-motion: no-preference) {
+  .lantern { animation:drift 22s ease-in-out infinite alternate; }
+  .lantern.l2 { animation-duration:27s; } .lantern.l3 { animation-duration:31s; }
+}
+@keyframes drift { from { transform:translate(0,0) } to { transform:translate(18px,-14px) } }
+.screen { position:absolute; inset:0; display:flex; flex-direction:column; }
+.status { height:54px; display:flex; align-items:flex-end; justify-content:space-between; padding:0 30px 8px; font-size:15px; font-weight:600; letter-spacing:.2px; }
+.status .sig { display:flex; gap:6px; align-items:center; }
+.status .sig i { display:inline-block; width:18px; height:10px; border:1.5px solid currentColor; border-radius:3px; position:relative; opacity:.9; }
+.status .sig i::after { content:""; position:absolute; left:2px; top:2px; bottom:2px; width:9px; background:currentColor; border-radius:1px; }
+.content { flex:1; padding:4px 16px 0; display:flex; flex-direction:column; gap:12px; min-height:0; }
+.home-ind { position:absolute; bottom:8px; left:50%; width:134px; height:5px; margin-left:-67px; border-radius:3px; background:var(--text1); opacity:.6; }
+
+/* ---------- glass cards ---------- */
+.card { position:relative; background:var(--glass); border:1px solid var(--glass-border); border-radius:var(--r-lg);
+  -webkit-backdrop-filter:blur(20px) saturate(150%); backdrop-filter:blur(20px) saturate(150%); box-shadow:0 18px 44px rgba(0,0,0,0.55); padding:14px 16px; }
+.card::before { content:""; position:absolute; inset:0; border-radius:inherit; pointer-events:none;
+  background:linear-gradient(180deg, var(--glass-hi), transparent 38%); opacity:.9; mix-blend-mode:screen; }
+.card.flat { box-shadow:none; }
+.card > * { position:relative; }
+.row { display:flex; align-items:center; gap:12px; }
+.grow { flex:1; min-width:0; }
+.ic { display:block; flex:none; }
+.eyebrow { font-size:12px; line-height:16px; font-weight:700; letter-spacing:.8px; text-transform:uppercase; color:var(--text3); }
+.h1 { font-size:26px; line-height:32px; font-weight:800; letter-spacing:-.3px; }
+.h2 { font-size:20px; line-height:26px; font-weight:800; letter-spacing:-.2px; }
+.h3 { font-size:17px; line-height:22px; font-weight:700; }
+.body { font-size:15px; line-height:22px; }
+.label { font-size:13px; line-height:18px; font-weight:600; }
+.caption { font-size:12px; line-height:16px; color:var(--text2); }
+.muted { color:var(--text2); } .faint { color:var(--text3); }
+.rtl { direction:rtl; unicode-bidi:isolate; font-size:1.15em; }
+.btn { display:inline-flex; align-items:center; justify-content:center; gap:8px; border-radius:var(--r-pill); font-weight:700; font-size:15px; line-height:20px;
+  padding:10px 16px; border:1px solid var(--glass-border); background:var(--glass-strong); color:var(--text1); min-height:44px; }
+.btn.primary { background:var(--magenta); color:var(--magenta-ink); border-color:transparent; box-shadow:0 0 0 1px rgba(255,255,255,.08) inset, 0 6px 22px rgba(255,79,163,.45); }
+.btn.amber { background:var(--amber); color:var(--amber-ink); border-color:transparent; }
+.btn.sm { min-height:36px; padding:7px 12px; font-size:13px; }
+.chip { display:inline-flex; align-items:center; gap:6px; border-radius:var(--r-pill); padding:6px 12px; font-size:13px; font-weight:600; line-height:18px;
+  background:var(--glass-strong); border:1px solid var(--glass-border); color:var(--text1); white-space:nowrap; }
+.chip.active { background:var(--magenta); color:var(--magenta-ink); border-color:transparent; box-shadow:0 4px 16px rgba(255,79,163,.4); }
+.chip .dot { width:8px; height:8px; border-radius:50%; background:var(--amber); }
+.iconbtn { width:44px; height:44px; border-radius:50%; display:flex; align-items:center; justify-content:center; background:var(--glass-strong); border:1px solid var(--glass-border); color:var(--text1); }
+.meter { height:10px; border-radius:5px; background:rgba(255,255,255,.10); overflow:hidden; }
+.meter > i { display:block; height:100%; border-radius:5px; background:linear-gradient(90deg, var(--amber), var(--magenta)); }
+.meter.cyan > i { background:var(--cyan); }
+.seg { display:flex; gap:4px; }
+.seg i { height:4px; flex:1; border-radius:2px; background:rgba(255,255,255,.14); }
+.seg i.done { background:var(--cyan); } .seg i.now { background:var(--magenta); box-shadow:0 0 10px var(--magenta); }
+
+/* ---------- speech glow ---------- */
+.glow-magenta { box-shadow:0 0 0 5px rgba(255,79,163,.28), 0 0 34px 6px rgba(255,79,163,.55); }
+.glow-cyan { box-shadow:0 0 0 5px rgba(62,225,232,.28), 0 0 34px 6px rgba(62,225,232,.55); }
+.glow-amber { box-shadow:0 0 0 5px rgba(255,181,71,.28), 0 0 30px 4px rgba(255,181,71,.5); }
+@media (prefers-reduced-motion: no-preference) {
+  .breathe { animation:breathe var(--dur-glow) ease-in-out infinite; }
+}
+@keyframes breathe { 0%,100% { transform:scale(1); opacity:.9 } 50% { transform:scale(1.06); opacity:1 } }
+
+/* ---------- mic ---------- */
+.mic { width:88px; height:88px; border-radius:50%; display:flex; align-items:center; justify-content:center; margin:0 auto;
+  background:radial-gradient(circle at 35% 30%, #FF8AC4, var(--magenta) 60%, #D0177B); color:var(--magenta-ink); border:2px solid rgba(255,255,255,.35); }
+.mic.listening { background:radial-gradient(circle at 35% 30%, #9DF3F6, var(--cyan) 60%, #15B2BA); color:var(--cyan-ink); }
+.mic.disabled { background:rgba(255,255,255,.08); color:var(--text3); border-color:var(--glass-border); box-shadow:none; }
+
+/* ---------- tab bar ---------- */
+.tabs { height:84px; margin:0 12px 10px; border-radius:var(--r-xl); background:var(--glass-strong); border:1px solid var(--glass-border);
+  -webkit-backdrop-filter:blur(24px) saturate(160%); backdrop-filter:blur(24px) saturate(160%); display:flex; align-items:center; justify-content:space-around; padding:0 6px; }
+.tab { display:flex; flex-direction:column; align-items:center; gap:3px; color:var(--text2); font-size:11px; font-weight:600; width:64px; }
+.tab .ic { width:24px; height:24px; }
+.tab.active { color:var(--magenta-text); }
+.tab.active .pill { background:rgba(255,79,163,.18); box-shadow:0 0 18px rgba(255,79,163,.35); }
+.tab .pill { width:44px; height:28px; border-radius:14px; display:flex; align-items:center; justify-content:center; }
+
+/* ---------- scene ---------- */
+.scene { position:relative; border-radius:var(--r-lg); overflow:hidden; border:1px solid var(--glass-border); background:var(--bg2); }
+.scene svg.art { display:block; width:100%; height:100%; }
+.scene .scrim { position:absolute; inset:0; background:linear-gradient(180deg, rgba(11,9,19,0) 30%, rgba(11,9,19,0.88) 100%); }
+.portrait { border-radius:50%; overflow:hidden; background:var(--bg2); border:3px solid rgba(255,255,255,.18); }
+.portrait svg { display:block; width:100%; height:100%; }
+.puck { border-radius:50%; background:var(--glass-strong); border:1px solid var(--glass-border); -webkit-backdrop-filter:blur(14px); backdrop-filter:blur(14px); display:flex; align-items:center; justify-content:center; }
+.state-pill { display:inline-flex; align-items:center; gap:8px; padding:6px 12px 6px 8px; border-radius:var(--r-pill); font-size:13px; font-weight:700; background:var(--glass-strong); border:1px solid var(--glass-border); }
+.state-pill .led { width:10px; height:10px; border-radius:50%; }
+.led.speaking { background:var(--magenta); box-shadow:0 0 10px var(--magenta); }
+.led.listening { background:var(--cyan); box-shadow:0 0 10px var(--cyan); }
+.led.thinking { background:var(--amber); box-shadow:0 0 10px var(--amber); }
+.led.off { background:var(--text3); }
+.banner { display:flex; gap:10px; align-items:center; padding:10px 12px; border-radius:var(--r-md); background:var(--glass-strong); border:1px solid var(--amber); color:var(--text1); font-size:13px; line-height:18px; }
+.banner b { color:var(--amber-text); }
+.honest { border-left:3px solid var(--cyan); padding-left:10px; }
+
+/* ---------- states gallery below phones ---------- */
+.gallery { width:390px; display:flex; flex-direction:column; gap:12px; color:var(--text1); }
+.gallery .card { background:rgba(255,255,255,.07); }
+.swatchrow { display:flex; gap:10px; align-items:center; }
+</style>
+</head>
+<body>
+<div class="phone"><div class="lantern l1"></div><div class="lantern l2"></div><div class="lantern l3"></div><div class="screen">
+<div class="status"><span>9:41</span><span class="sig"><span>•••</span><span style="font-size:12px">5G</span><i aria-hidden="true"></i></span></div>
+<div class="content" style="gap:10px">
+  <div class="row" style="gap:10px">
+    <a href="#" class="iconbtn" style="width:40px;height:40px" aria-label="Back"><svg class="ic" width="22" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="Back"><title>Back</title><polyline points="15,5 8,12 15,19" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+    <div class="grow">
+      <div class="label" style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Mission: Buy breakfast at the souk</div>
+      <div class="seg" style="margin-top:6px" aria-label="Step 2 of 5"><i class="done"></i><i class="now"></i><i></i><i></i><i></i></div>
+    </div>
+    <span class="caption" style="font-weight:700">2 / 5</span>
+  </div>
+
+  <!-- scene art area with character + mascot companion -->
+  <div class="scene" style="height:196px">
+    <svg class="art" preserveAspectRatio="xMidYMid slice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 90" role="img" aria-label="A lively open-air market with striped stall canopies, crates of fruit and vegetables and hanging lights."><title>A lively open-air market with striped stall canopies, crates of fruit and vegetables and hanging lights.</title><defs><linearGradient id="u21-scene-market-day-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2E4A66"/><stop offset="100%" stop-color="#3C5466"/></linearGradient></defs><rect x="0" y="0" width="160" height="90" fill="url(#u21-scene-market-day-sky)"/><circle cx="80" cy="12" r="6" fill="#D9C48A" fill-opacity="0.9"/><circle cx="80" cy="12" r="10.8" fill="#D9C48A" fill-opacity="0.18"/><rect x="0" y="28" width="24" height="20" fill="#827972"/><rect x="24" y="22" width="30" height="26" fill="#827972"/><rect x="110" y="26" width="24" height="22" fill="#827972"/><rect x="134" y="20" width="26" height="28" fill="#827972"/><rect x="0" y="62" width="160" height="28" fill="#847460"/><rect x="4" y="40" width="1.6" height="30" fill="#785A3C"/><rect x="40" y="40" width="1.6" height="30" fill="#785A3C"/><path d="M0,40 H46 L42,30 H4Z" fill="#975A46" stroke="#101A20" stroke-width="0.7" stroke-opacity="0.5"/><rect x="4" y="30.6" width="4" height="9.4" fill="#FFFFFF" fill-opacity="0.4"/><rect x="12" y="30.6" width="4" height="9.4" fill="#FFFFFF" fill-opacity="0.4"/><rect x="20" y="30.6" width="4" height="9.4" fill="#FFFFFF" fill-opacity="0.4"/><rect x="28" y="30.6" width="4" height="9.4" fill="#FFFFFF" fill-opacity="0.4"/><rect x="36" y="30.6" width="4" height="9.4" fill="#FFFFFF" fill-opacity="0.4"/><path d="M2,40 q3,4 6,0" fill="#975A46" stroke="#101A20" stroke-width="0.5" stroke-opacity="0.5"/><path d="M8,40 q3,4 6,0" fill="#975A46" stroke="#101A20" stroke-width="0.5" stroke-opacity="0.5"/><path d="M14,40 q3,4 6,0" fill="#975A46" stroke="#101A20" stroke-width="0.5" stroke-opacity="0.5"/><path d="M20,40 q3,4 6,0" fill="#975A46" stroke="#101A20" stroke-width="0.5" stroke-opacity="0.5"/><path d="M26,40 q3,4 6,0" fill="#975A46" stroke="#101A20" stroke-width="0.5" stroke-opacity="0.5"/><path d="M32,40 q3,4 6,0" fill="#975A46" stroke="#101A20" stroke-width="0.5" stroke-opacity="0.5"/><path d="M38,40 q3,4 6,0" fill="#975A46" stroke="#101A20" stroke-width="0.5" stroke-opacity="0.5"/><path d="M3.5,58H42.5A1.5,1.5 0 0 1 44,59.5V68.5A1.5,1.5 0 0 1 42.5,70H3.5A1.5,1.5 0 0 1 2,68.5V59.5A1.5,1.5 0 0 1 3.5,58Z" fill="#785A3C" stroke="#101A20" stroke-width="0.7" stroke-opacity="0.5"/><rect x="118" y="40" width="1.6" height="30" fill="#785A3C"/><rect x="154" y="40" width="1.6" height="30" fill="#785A3C"/><path d="M114,40 H160 L156,30 H118Z" fill="#3E6E78" stroke="#101A20" stroke-width="0.7" stroke-opacity="0.5"/><rect x="118" y="30.6" width="4" height="9.4" fill="#FFFFFF" fill-opacity="0.4"/><rect x="126" y="30.6" width="4" height="9.4" fill="#FFFFFF" fill-opacity="0.4"/><rect x="134" y="30.6" width="4" height="9.4" fill="#FFFFFF" fill-opacity="0.4"/><rect x="142" y="30.6" width="4" height="9.4" fill="#FFFFFF" fill-opacity="0.4"/><rect x="150" y="30.6" width="4" height="9.4" fill="#FFFFFF" fill-opacity="0.4"/><path d="M116,40 q3,4 6,0" fill="#3E6E78" stroke="#101A20" stroke-width="0.5" stroke-opacity="0.5"/><path d="M122,40 q3,4 6,0" fill="#3E6E78" stroke="#101A20" stroke-width="0.5" stroke-opacity="0.5"/><path d="M128,40 q3,4 6,0" fill="#3E6E78" stroke="#101A20" stroke-width="0.5" stroke-opacity="0.5"/><path d="M134,40 q3,4 6,0" fill="#3E6E78" stroke="#101A20" stroke-width="0.5" stroke-opacity="0.5"/><path d="M140,40 q3,4 6,0" fill="#3E6E78" stroke="#101A20" stroke-width="0.5" stroke-opacity="0.5"/><path d="M146,40 q3,4 6,0" fill="#3E6E78" stroke="#101A20" stroke-width="0.5" stroke-opacity="0.5"/><path d="M152,40 q3,4 6,0" fill="#3E6E78" stroke="#101A20" stroke-width="0.5" stroke-opacity="0.5"/><path d="M117.5,58H156.5A1.5,1.5 0 0 1 158,59.5V68.5A1.5,1.5 0 0 1 156.5,70H117.5A1.5,1.5 0 0 1 116,68.5V59.5A1.5,1.5 0 0 1 117.5,58Z" fill="#785A3C" stroke="#101A20" stroke-width="0.7" stroke-opacity="0.5"/><rect x="4" y="52" width="14" height="8" fill="#664D33" stroke="#101A20" stroke-width="0.6" stroke-opacity="0.5"/><circle cx="7" cy="51" r="2.2" fill="#E25A3C"/><circle cx="11" cy="51" r="2.2" fill="#E25A3C"/><circle cx="15" cy="51" r="2.2" fill="#E25A3C"/><circle cx="9" cy="48.5" r="2.2" fill="#E67359"/><circle cx="13" cy="48.5" r="2.2" fill="#E67359"/><rect x="22" y="52" width="14" height="8" fill="#664D33" stroke="#101A20" stroke-width="0.6" stroke-opacity="0.5"/><circle cx="25" cy="51" r="2.2" fill="#F2B134"/><circle cx="29" cy="51" r="2.2" fill="#F2B134"/><circle cx="33" cy="51" r="2.2" fill="#F2B134"/><circle cx="27" cy="48.5" r="2.2" fill="#F4BD52"/><circle cx="31" cy="48.5" r="2.2" fill="#F4BD52"/><rect x="120" y="52" width="14" height="8" fill="#664D33" stroke="#101A20" stroke-width="0.6" stroke-opacity="0.5"/><circle cx="123" cy="51" r="2.2" fill="#6FAE7C"/><circle cx="127" cy="51" r="2.2" fill="#6FAE7C"/><circle cx="131" cy="51" r="2.2" fill="#6FAE7C"/><circle cx="125" cy="48.5" r="2.2" fill="#85BA90"/><circle cx="129" cy="48.5" r="2.2" fill="#85BA90"/><rect x="138" y="52" width="14" height="8" fill="#664D33" stroke="#101A20" stroke-width="0.6" stroke-opacity="0.5"/><circle cx="141" cy="51" r="2.2" fill="#9B5FA7"/><circle cx="145" cy="51" r="2.2" fill="#9B5FA7"/><circle cx="149" cy="51" r="2.2" fill="#9B5FA7"/><circle cx="143" cy="48.5" r="2.2" fill="#AA77B4"/><circle cx="147" cy="48.5" r="2.2" fill="#AA77B4"/><path d="M0,20 Q40,28 80,20 T160,20" fill="none" stroke="#101A20" stroke-width="0.7" stroke-opacity="0.6"/><circle cx="13.33" cy="24.22" r="1.3" fill="#9D9689" stroke="#101A20" stroke-width="0.4" stroke-opacity="0.5"/><circle cx="26.67" cy="25.56" r="1.3" fill="#9D9689" stroke="#101A20" stroke-width="0.4" stroke-opacity="0.5"/><circle cx="40" cy="26" r="1.3" fill="#9D9689" stroke="#101A20" stroke-width="0.4" stroke-opacity="0.5"/><circle cx="53.33" cy="25.56" r="1.3" fill="#9D9689" stroke="#101A20" stroke-width="0.4" stroke-opacity="0.5"/><circle cx="66.67" cy="24.22" r="1.3" fill="#9D9689" stroke="#101A20" stroke-width="0.4" stroke-opacity="0.5"/><circle cx="80" cy="22" r="1.3" fill="#9D9689" stroke="#101A20" stroke-width="0.4" stroke-opacity="0.5"/><circle cx="93.33" cy="24.22" r="1.3" fill="#9D9689" stroke="#101A20" stroke-width="0.4" stroke-opacity="0.5"/><circle cx="106.67" cy="25.56" r="1.3" fill="#9D9689" stroke="#101A20" stroke-width="0.4" stroke-opacity="0.5"/><circle cx="120" cy="26" r="1.3" fill="#9D9689" stroke="#101A20" stroke-width="0.4" stroke-opacity="0.5"/><circle cx="133.33" cy="25.56" r="1.3" fill="#9D9689" stroke="#101A20" stroke-width="0.4" stroke-opacity="0.5"/><circle cx="146.67" cy="24.22" r="1.3" fill="#9D9689" stroke="#101A20" stroke-width="0.4" stroke-opacity="0.5"/><path d="M8,78 h14 l-2,8 h-10z" fill="#785A3C" stroke="#101A20" stroke-width="0.6" stroke-opacity="0.5"/><path d="M138,78 h14 l-2,8 h-10z" fill="#785A3C" stroke="#101A20" stroke-width="0.6" stroke-opacity="0.5"/><defs><radialGradient id="u21-scene-market-day-vig" cx="0.5" cy="0.5" r="0.75"><stop offset="60%" stop-color="#05090C" stop-opacity="0"/><stop offset="100%" stop-color="#05090C" stop-opacity="0.4"/></radialGradient></defs><rect x="0" y="0" width="160" height="90" fill="url(#u21-scene-market-day-vig)"/></svg>
+    <div class="scrim"></div>
+    <div class="portrait glow-magenta breathe" style="position:absolute;left:14px;bottom:12px;width:92px;height:92px"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Nadia, talking"><title>Nadia, talking</title><defs><clipPath id="u22-clip-ary-cafe-staff-nadia"><circle cx="60" cy="60" r="56"/></clipPath></defs><circle cx="60" cy="60" r="56" fill="#FFE8D6"/><g clip-path="url(#u22-clip-ary-cafe-staff-nadia)"><path d="M58,66H62A5,5 0 0 1 67,71V89A5,5 0 0 1 62,94H58A5,5 0 0 1 53,89V71A5,5 0 0 1 58,66Z" fill="#E2AC86" stroke="#2B2522" stroke-width="1.6"/><path d="M55,76 Q60,82 65,76" fill="#B98D6E" stroke="none"/><path d="M14,124 C14,98 36,90 60,90 C84,90 106,98 106,124Z" fill="#3A9D8F" stroke="#2B2522" stroke-width="1.6" stroke-linejoin="round"/><path d="M40,124 V104 Q40,98 46,98 H74 Q80,98 80,104 V124Z" fill="#D9C39A" stroke="#2B2522" stroke-width="1.6" stroke-linejoin="round"/><path d="M46,98 C46,92 50,90 54,90 M74,98 C74,92 70,90 66,90" fill="none" stroke="#2B2522" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M48,92 Q60,102 72,92" fill="none" stroke="#2B2522" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M73.5,100H73.5A1.5,1.5 0 0 1 75,101.5V110.5A1.5,1.5 0 0 1 73.5,112H73.5A1.5,1.5 0 0 1 72,110.5V101.5A1.5,1.5 0 0 1 73.5,100Z" fill="#2F4A6D" stroke="#2B2522" stroke-width="1" transform="rotate(8 73 106)"/><g transform="translate(60,72) rotate(0) translate(-60,-72)"><path d="M36.5,40 C31.5,68 37.5,80 34.5,88 C44.5,90 48.5,82 46.5,76 L73.5,76 C71.5,82 75.5,90 85.5,88 C82.5,80 88.5,68 83.5,40 Q60,22 36.5,40Z" fill="#3D2A20" stroke="#2B2522" stroke-width="1.6" stroke-linejoin="round"/><ellipse cx="39.5" cy="54" rx="3.4" ry="4.6" fill="#E2AC86" stroke="#2B2522" stroke-width="1.6"/><ellipse cx="80.5" cy="54" rx="3.4" ry="4.6" fill="#E2AC86" stroke="#2B2522" stroke-width="1.6"/><circle cx="39.5" cy="57.5" r="1.2" fill="#E0A93A" stroke="#2B2522" stroke-width="0.8"/><circle cx="80.5" cy="57.5" r="1.2" fill="#E0A93A" stroke="#2B2522" stroke-width="0.8"/><path d="M40.5,52 a19.5,24 0 1 0 39,0 a19.5,24 0 1 0 -39,0Z" fill="#E2AC86" stroke="#2B2522" stroke-width="1.6"/><ellipse cx="51" cy="53" rx="3.8" ry="2.9" fill="#FFFFFF" stroke="#2B2522" stroke-width="1.4"/><circle cx="51" cy="53" r="1.9" fill="#4A2E1C"/><circle cx="51" cy="53" r="0.9" fill="#2B2522"/><circle cx="50.3" cy="52.2" r="0.6" fill="#FFFFFF"/><ellipse cx="69" cy="53" rx="3.8" ry="2.9" fill="#FFFFFF" stroke="#2B2522" stroke-width="1.4"/><circle cx="69" cy="53" r="1.9" fill="#4A2E1C"/><circle cx="69" cy="53" r="0.9" fill="#2B2522"/><circle cx="68.3" cy="52.2" r="0.6" fill="#FFFFFF"/><path d="M47,46 Q51,44 55,46" fill="none" stroke="#37261D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M65,46 Q69,44 73,46" fill="none" stroke="#37261D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M59,56 q-2,5 1.5,6" fill="none" stroke="#937057" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M59.4,66.5H60.6A3,3 0 0 1 63.6,69.5V68.9A3.6,3.6 0 0 1 60,72.5H60A3.6,3.6 0 0 1 56.4,68.9V69.5A3,3 0 0 1 59.4,66.5Z" fill="#3A2126" stroke="#2B2522" stroke-width="1.2"/><ellipse cx="60" cy="71.4" rx="2.2" ry="1.2" fill="#D9646E"/><path d="M39.5,46 C38.5,30 52,23 62,24 C72,24 81.5,30 80.5,46 C76.5,38 70,32 60,38 C52,40 43.5,40 39.5,46Z" fill="#3D2A20" stroke="#2B2522" stroke-width="1.6" stroke-linejoin="round"/></g></g><circle cx="60" cy="60" r="56" fill="none" stroke="#2B2522" stroke-width="1.4" stroke-opacity="0.35"/></svg></div>
+    <div class="puck" style="position:absolute;right:12px;top:12px;width:60px;height:60px" aria-hidden="false"><svg width="56" height="56" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Mascot listening to you"><title>Mascot listening to you</title><g transform="translate(50,56) rotate(5) scale(1,1) translate(-50,-56)"><g><path d="M70,66 C78,72.2 86,72.8 84,67.2" fill="none" stroke="#0F1F22" stroke-width="11" stroke-linecap="round" stroke-linejoin="round"/><path d="M84,67.2 C90,66 94,63.2 93,57.2" fill="none" stroke="#0F1F22" stroke-width="7.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M93,57.2 C96,54.8 92,53.6 90.6,54.4" fill="none" stroke="#0F1F22" stroke-width="5.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M70,66 C78,72.2 86,72.8 84,67.2" fill="none" stroke="#FF9D7C" stroke-width="9" stroke-linecap="round" stroke-linejoin="round"/><path d="M84,67.2 C90,66 94,63.2 93,57.2" fill="none" stroke="#FF9D7C" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round"/><path d="M93,57.2 C96,54.8 92,53.6 90.6,54.4" fill="none" stroke="#FF9D7C" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M70,66 C78,72.2 86,72.8 84,67.2" fill="none" stroke="#E87C5A" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.55" transform="translate(0.6,2.2)"/></g><path d="M24,56C24,43.81 35.64,33.92 50,33.92C64.36,33.92 76,43.81 76,56C76,69.26 64.36,80 50,80C35.64,80 24,69.26 24,56Z" fill="#5FD6C3" stroke="#0F1F22" stroke-width="2.2"/><path d="M28,64 C40,82 62,82 72,62 C64,77 36,77 28,64Z" fill="#3DB8A4" fill-opacity="0.35"/><ellipse cx="50" cy="65" rx="14" ry="9.5" fill="#E6F7F3" fill-opacity="0.9"/><ellipse cx="39" cy="41" rx="6.5" ry="3.4" fill="#FFFFFF" fill-opacity="0.4" transform="rotate(-25 39 41)"/><ellipse cx="42" cy="79" rx="4.2" ry="2.6" fill="#5FD6C3" stroke="#0F1F22" stroke-width="1.6"/><ellipse cx="58" cy="79" rx="4.2" ry="2.6" fill="#5FD6C3" stroke="#0F1F22" stroke-width="1.6"/><g><path d="M27,60 Q22,66 23,72" fill="none" stroke="#0F1F22" stroke-width="7.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M27,60 Q22,66 23,72" fill="none" stroke="#3DB8A4" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="23" cy="72" r="3.6" fill="#3DB8A4" stroke="#0F1F22" stroke-width="1.8"/></g><g><path d="M73,60 Q82,54 72,46" fill="none" stroke="#0F1F22" stroke-width="7.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M73,60 Q82,54 72,46" fill="none" stroke="#3DB8A4" stroke-width="4.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="72" cy="46" r="3.6" fill="#3DB8A4" stroke="#0F1F22" stroke-width="1.8"/></g><g><circle cx="41" cy="50" r="6.6" fill="#FFFFFF" stroke="#0F1F22" stroke-width="1.8"/><circle cx="39.6" cy="50" r="3.3" fill="#0F1A20"/><circle cx="38.5" cy="48.8" r="1.1" fill="#FFFFFF"/></g><g><circle cx="59" cy="50" r="6.6" fill="#FFFFFF" stroke="#0F1F22" stroke-width="1.8"/><circle cx="57.6" cy="50" r="3.3" fill="#0F1A20"/><circle cx="56.5" cy="48.8" r="1.1" fill="#FFFFFF"/></g><path d="M37,39.5 Q41,36.5 45,38.5" fill="none" stroke="#0F1F22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M55,38.5 Q59,36.5 63,39.5" fill="none" stroke="#0F1F22" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M46.5,63.5 Q50,66.5 53.5,63.5" fill="none" stroke="#0F1A20" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/></g><path d="M20,44 A11,11 0 0 1 20,60" fill="none" stroke="#E8F1F2" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M13,39 A17,17 0 0 1 13,65" fill="none" stroke="#E8F1F2" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/><path d="M7,34 A22,22 0 0 1 7,70" fill="none" stroke="#E8F1F2" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="state-pill" style="position:absolute;right:12px;bottom:14px"><span class="led speaking" aria-hidden="true"></span>Nadia is speaking</div>
+  </div>
+
+  <!-- character line -->
+  <div class="card" style="padding:12px 14px">
+    <div class="eyebrow">Nadia · breakfast stall</div>
+    <p class="h2 rtl" lang="ar" style="margin:6px 0 2px;text-align:right">واش بغيتي قهوة ولا أتاي؟</p>
+    <div class="caption">Wash bghiti qahwa wla atay? · <span class="faint">Tap Translate to see it in French</span></div>
+    <div class="row" style="gap:8px;margin-top:10px">
+      <a href="#" class="btn sm grow"><svg class="ic" width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="Replay"><title>Replay</title><path d="M4 12a8 8 0 1 0 2.5-5.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 4v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="0.1" fill="currentColor" stroke="none"/></svg>Replay</a>
+      <a href="#" class="btn sm grow"><svg class="ic" width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="Slow playback"><title>Slow playback</title><path d="M4 14c3-7 10-9 16-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 14c0 2 1 3 2 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 12c0 3 1 5 3 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17" cy="12" r="1" fill="currentColor" stroke="none"/></svg>Slow</a>
+      <a href="#" class="btn sm grow"><svg class="ic" width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="Translate"><title>Translate</title><path d="M4 6h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.5 4v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 6c-1 4-3.5 7-7 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10c1 2.5 3 4.5 6 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 20l4-9 4 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14.5 17h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Translate</a>
+    </div>
+  </div>
+
+  <div style="text-align:center">
+    <div class="h3" lang="fr">Comment répondriez-vous ?</div>
+    <div class="caption">Formulate your answer out loud before revealing the model line.</div>
+  </div>
+
+  <!-- honest last-attempt feedback (no fabricated score) -->
+  <div class="card flat" style="padding:10px 14px">
+    <div class="honest">
+      <div class="label">We heard: <span lang="ar" class="rtl">قهوة عافاك</span> <span class="faint">(qahwa ʿafak)</span></div>
+      <div class="caption">Detailed phoneme assessment isn’t available for Darija yet. Compare with the model line, then try again.</div>
+    </div>
+  </div>
+
+  <div style="margin-top:2px">
+    <div class="mic glow-magenta breathe" role="button" aria-label="Hold to speak"><svg class="ic" width="40" height="40" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="Microphone"><title>Microphone</title><path d="M12 3a3 3 0 0 1 3 3v6a3 3 0 0 1-6 0V6a3 3 0 0 1 3-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 11a7 7 0 0 0 14 0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="18" x2="12" y2="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="9" y1="21" x2="15" y2="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+    <div class="caption" style="text-align:center;margin-top:8px">Hold to speak · or tap once to toggle</div>
+  </div>
+
+  <div class="row" style="gap:10px">
+    <a href="#" class="btn grow"><svg class="ic" width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="Hint"><title>Hint</title><path d="M9 18h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 21h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.5 14a5.5 5.5 0 1 1 7 0c-.8.7-1.5 1.6-1.5 3h-4c0-1.4-.7-2.3-1.5-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span lang="fr">Indice</span></a>
+    <a href="#" class="btn grow"><svg class="ic" width="18" height="18" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" role="img" aria-label="Transcript"><title>Transcript</title><rect x="4" y="4" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" rx="2"/><line x1="8" y1="9" x2="16" y2="9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="8" y1="13" x2="16" y2="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="8" y1="17" x2="12" y2="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>Reveal model</a>
+  </div>
+  <div class="caption" style="text-align:center"><a href="#" style="color:var(--cyan-text);font-weight:600">Word help</a> · hidden by default</div>
+</div>
+<div style="height:26px"></div>
+</div><div class="home-ind" aria-hidden="true"></div></div>
+<p class="page-note"><b>Listen → anticipate → speak</b> · Scene art with the character and the mascot companion (listening). The feedback panel uses the honest pattern: what we heard + “detailed phoneme assessment isn't available”, no score.</p>
+</body>
+</html>

@@ -17,7 +17,7 @@ import type { DefineRoute } from '../../app';
 import { AI_TIMEOUT_MS } from '../../app';
 import { problem, respondErr, respondOk } from '../../http/envelope';
 import { parseBody, parseParams } from '../../http/validate';
-import { attachAudio, audioLessonSceneFacts, buildContext, evaluateSession, EVALUATE_EVERY_TURNS, hasForbiddenControlChars, listTurns, loadOwnedSession, MAX_LEARNER_TEXT_CHARS, MAX_SESSION_MS, normaliseLearnerText, objectivesFromMission, personaFor, recentWeaknesses, refreshSummary, relationshipSummary, sessionScope, sessionState, voiceConfig, type CharacterRow, type SessionRow } from '../../lib/conversation';
+import { attachAudio, audioLessonSceneFacts, buildContext, CharacterRefSchema, evaluateSession, EVALUATE_EVERY_TURNS, hasForbiddenControlChars, listTurns, loadOwnedSession, MAX_LEARNER_TEXT_CHARS, MAX_SESSION_MS, normaliseLearnerText, objectivesFromMission, personaFor, recentWeaknesses, refreshSummary, relationshipSummary, resolveCharacterRef, sessionScope, sessionState, syntheticVoiceOf, voiceConfig, type CharacterRow, type SessionRow } from '../../lib/conversation';
 import { parsePrivacy } from '../../lib/dto';
 import { languageContextFor, loadOwnedEnrollment, loadUiLocale, varietyOf, type EnrollmentRow } from '../../lib/enrollment';
 import { awardXp, scheduleReviews } from '../../lib/learning';
@@ -28,6 +28,16 @@ import type { RequestServices } from '../../services/context';
 import { retainRecording } from './speech';
 
 const IdParams = z.object({ id: UuidSchema });
+
+/**
+ * The published `ConversationSessionCreateRequestSchema` with `characterId` widened to a {@link CharacterRefSchema}:
+ * the canonical value is the `characters.id` uuid (as the course manifest lists it); a roster key
+ * (`characters.character_key`, e.g. `ary-cafe-staff-nadia`) is accepted for clients that derived the cast from the
+ * `@langquest/ui` art roster before the manifest carried it. The contract's cross-field refinement is kept.
+ */
+export const SessionCreateRequestSchema = z
+  .object({ ...ConversationSessionCreateRequestSchema.shape, characterId: CharacterRefSchema.optional() })
+  .refine((v) => !v.scope || v.scope.kind !== 'mission' || !v.missionId || v.scope.missionId === v.missionId, { message: 'scope.missionId must match missionId', path: ['scope', 'missionId'] });
 
 /**
  * The published `ConversationTurnRequestSchema` (its `audio` field is the contract union of `AudioInput` and a bare
@@ -125,7 +135,7 @@ async function insertTurn(s: RequestServices, row: Omit<Row<'conversation_turns'
 
 export function registerConversationRoutes(define: DefineRoute): void {
   define('conversationSessionCreate', { rate: 'ai', timeoutMs: AI_TIMEOUT_MS }, async (c) => {
-    const body = await parseBody(c, ConversationSessionCreateRequestSchema);
+    const body = await parseBody(c, SessionCreateRequestSchema);
     const s = c.get('services')!;
     const { db, repos, principal } = s.requireUser();
     const enrollment = await loadOwnedEnrollment(db, body.enrollmentId);
@@ -154,10 +164,17 @@ export function registerConversationRoutes(define: DefineRoute): void {
       const scenarios = mission ? await repos.curriculum.listScenarios(mission.id) : [];
       scenario = body.scenarioId ? ((await db.from('dialogue_scenarios').select('*').eq('id', body.scenarioId).maybeSingle()).data ?? null) : (scenarios[0] ?? null);
       if (body.scenarioId && !scenario) throw problem.notFound('Scenario');
-      const characterId = body.characterId ?? scenario?.character_id ?? (await repos.curriculum.listCharacters(variety))[0]?.id;
-      if (!characterId) throw problem.unsupported(`No published conversation character exists for ${variety} yet`);
-      const found = await repos.curriculum.getCharacter(characterId);
-      if (!found) throw problem.notFound('Character');
+      // Character: as requested (uuid or roster key, published rows only under RLS), else the scenario's, else the
+      // first published character of the enrollment's variety ranked by its regional preference (§5.2).
+      const characterRef = body.characterId ?? scenario?.character_id ?? null;
+      let found: CharacterRow | null;
+      if (characterRef) {
+        found = await resolveCharacterRef(repos.characters, characterRef);
+        if (!found) throw problem.notFound('Character');
+      } else {
+        found = (await repos.characters.listPublishedForVariety(variety, enrollment.regional_preference))[0] ?? null;
+        if (!found) throw problem.unsupported(`No published conversation character exists for ${variety} yet`);
+      }
       if (found.target_variety_id !== variety) throw problem.validation(`Character speaks ${found.target_variety_id}, not ${variety}; dialects are never substituted`);
       character = found;
       const profile = await repos.profiles.getByUserId(principal.userId);
@@ -224,7 +241,7 @@ export function registerConversationRoutes(define: DefineRoute): void {
       ConversationSessionCreateResponseSchema.parse({
         session: sessionState(session, null, openingTurn?.turnId ?? null),
         provider,
-        character: { id: character.id, name: character.name, role: character.role, targetVarietyId: character.target_variety_id, syntheticVoice: true, portraitAssetId: character.portrait_visual_asset_id },
+        character: { id: character.id, name: character.name, role: character.role, targetVarietyId: character.target_variety_id, syntheticVoice: syntheticVoiceOf(character), portraitAssetId: character.portrait_visual_asset_id },
         capabilities,
         // Learner-facing: source-language text only (empty when the goal is not localized for this enrollment, §10.1).
         objectives: objectives.map((o) => ({ id: o.id, description: o.description, skillKeys: o.skillKeys })),

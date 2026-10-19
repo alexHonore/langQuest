@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en" data-theme="dark">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>U3 Paper &amp; Ink · Conversation (dark)</title>
+<!-- LangQuest UI direction U3 "Paper & Ink" (dark). Self-contained: inline CSS/SVG only, system fonts only.
+     Mascot, character, scene and icon SVGs are the repo's existing assets (assets/mascot, assets/characters, assets/scenes, assets/icons)
+     inlined as placeholders for fair comparison. All doodles/underlines/stamps are original, drawn in build.py. No CC0/stock assets used. -->
+<style>
+:root{--backdrop:#090908;--paper:#151410;--card:#1F1D18;--ink:#F0EADD;--ink2:#A9A295;--ink3:#7D776B;
+--hairline:#3A362E;--accent:#8DA4FF;--accent-ink:#0E1A4D;--accent-soft:#232A45;
+--success:#6FD39A;--danger:#FF8A80;--warn:#F2C14E;
+--serif:ui-serif,"New York","Iowan Old Style",Georgia,"Noto Serif","Hiragino Mincho ProN","Noto Serif CJK JP",serif;
+--sans:-apple-system,system-ui,"SF Pro Text",Roboto,"Segoe UI","Noto Sans","Hiragino Sans","Noto Sans CJK JP","Noto Naskh Arabic",sans-serif;
+--mono:ui-monospace,"SF Mono",Menlo,Consolas,"Roboto Mono",monospace;
+--r-s:6px;--r-m:12px;--r-l:18px;--r-pill:999px;
+--lift:0 1px 0 var(--hairline),0 8px 18px -10px rgba(0,0,0,.35);
+--ease-ink:cubic-bezier(.2,.8,.2,1);--ease-settle:cubic-bezier(.34,1.3,.64,1);
+--d-fast:140ms;--d-base:220ms;--d-draw:420ms;
+color-scheme:dark;}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--backdrop);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;
+display:flex;flex-wrap:wrap;gap:36px;justify-content:center;align-items:flex-start;padding:28px 16px 60px;min-height:100vh}
+.phone{width:390px;height:844px;flex:0 0 390px;background:var(--paper);position:relative;overflow:hidden;border-radius:40px;
+outline:1px solid var(--hairline);box-shadow:0 40px 80px -30px rgba(0,0,0,.55)}
+.grain{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;z-index:20;opacity:0.05;mix-blend-mode:screen}
+.screen{position:absolute;inset:0;overflow-y:auto;scrollbar-width:none;padding:0 20px 112px}
+.screen::-webkit-scrollbar{display:none}
+.status{height:50px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 6px 6px;font:600 14px/1 var(--sans)}
+.status .dots{display:flex;gap:4px;align-items:center}
+.status .dots i{display:block;width:4px;background:var(--ink);border-radius:1px}
+.status .batt{width:24px;height:11px;border:1.5px solid var(--ink);border-radius:3px;padding:1.5px}
+.status .batt i{display:block;height:100%;width:70%;background:var(--ink);border-radius:1px}
+h1,h2,h3,.serif{font-family:var(--serif);font-weight:600;letter-spacing:-.01em}
+h1{font-size:30px;line-height:1.1}
+h2{font-size:22px;line-height:1.15}
+h3{font-size:17px;line-height:1.2}
+.eyebrow{font:600 12px/1 var(--sans);letter-spacing:.12em;text-transform:uppercase;color:var(--ink2)}
+.muted{color:var(--ink2)} .faint{color:var(--ink3)}
+.small{font-size:13px} .tiny{font-size:12px}
+.mono{font-family:var(--mono);font-size:12px;letter-spacing:.02em}
+.hand-ul{display:block;height:8px;margin-top:2px}
+.stamp{display:inline-block;font:700 11px/1 var(--mono);letter-spacing:.14em;text-transform:uppercase;color:var(--accent);
+border:1.5px dashed var(--accent);border-radius:4px;padding:5px 7px;transform:rotate(-4deg);white-space:nowrap}
+.card{background:var(--card);border:1px solid var(--hairline);border-radius:var(--r-m);box-shadow:var(--lift);padding:14px;position:relative}
+.card.flat{box-shadow:none}
+.row{display:flex;align-items:center;gap:10px} .between{justify-content:space-between} .col{display:flex;flex-direction:column;gap:4px}
+.grow{flex:1;min-width:0}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:44px;padding:0 18px;border-radius:var(--r-pill);
+font:600 15px/1 var(--sans);border:1.5px solid var(--ink);color:var(--ink);background:transparent;cursor:default;white-space:nowrap}
+.btn.primary{background:var(--ink);color:var(--paper);box-shadow:3px 3px 0 var(--accent)}
+.btn.wide{width:100%}
+.btn.ghost{border-color:var(--hairline);color:var(--ink)}
+.btn.text{border:0;padding:0 8px;min-height:40px;text-decoration:underline;text-decoration-color:var(--accent);text-underline-offset:4px;text-decoration-thickness:2px}
+.chip{display:inline-flex;align-items:center;gap:6px;min-height:36px;padding:0 12px;border-radius:var(--r-pill);border:1.5px solid var(--hairline);
+font:500 13px/1 var(--sans);color:var(--ink);background:var(--card)}
+.chip.on{border-color:var(--ink);box-shadow:2px 2px 0 var(--accent)}
+.iconbtn{width:44px;height:44px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;border:1.5px solid var(--hairline);background:var(--card);color:var(--ink)}
+.taped{position:relative;border:1.5px solid var(--ink);border-radius:4px;overflow:hidden;background:var(--card)}
+.taped svg{display:block;width:100%;height:auto}
+.tape{position:absolute;width:64px;height:18px;background:var(--accent);opacity:.32;transform:rotate(-30deg);left:-18px;top:6px;border-radius:2px;z-index:2}
+.tape.r{left:auto;right:-18px;transform:rotate(30deg)}
+.tape.br{left:auto;right:-18px;top:auto;bottom:6px;transform:rotate(-30deg)}
+.tabbar{position:absolute;left:0;right:0;bottom:0;height:88px;background:var(--paper);border-top:1.5px solid var(--ink);display:flex;padding:8px 6px 22px;z-index:10}
+.tab{flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;color:var(--ink2);font:600 11px/1 var(--sans);position:relative;padding-top:6px}
+.tab.active{color:var(--ink)}
+.tab.active .hand-ul{width:34px;height:6px;position:absolute;bottom:-4px}
+.doodle{display:inline-block;vertical-align:middle;color:var(--ink2)}
+.doodle.accent{color:var(--accent)}
+.meter{display:block}
+.mascot-slot svg{width:100%;height:100%;display:block}
+.mic-wrap{display:flex;flex-direction:column;align-items:center;gap:8px}
+.mic{position:relative;width:112px;height:112px;display:flex;align-items:center;justify-content:center}
+.mic .doodle-ring{position:absolute;inset:0}
+.mic .core{width:84px;height:84px;border-radius:50%;background:var(--ink);color:var(--paper);display:flex;align-items:center;justify-content:center;box-shadow:4px 4px 0 var(--accent)}
+.mic.disabled .core{background:transparent;color:var(--ink3);border:2px dashed var(--ink3);box-shadow:none}
+.mic.disabled .doodle-ring{opacity:.25}
+.rtl{direction:rtl;unicode-bidi:isolate;text-align:right}
+.ar{font-family:"Geeza Pro","Noto Naskh Arabic","Noto Sans Arabic",var(--sans);font-size:26px;line-height:1.5}
+.ja{font-family:"Hiragino Sans","Noto Sans CJK JP","Noto Sans JP",var(--sans);line-height:1.5}
+.state{display:inline-flex;align-items:center;gap:8px;min-height:32px;padding:0 12px;border-radius:var(--r-pill);border:1.5px solid var(--ink);background:var(--card);font:600 12px/1 var(--sans)}
+.state .dot{width:8px;height:8px;border-radius:50%;background:var(--accent)}
+.state .dot.off{background:transparent;border:1.5px solid var(--ink3)}
+.state .dots3{display:inline-flex;gap:3px} .state .dots3 i{width:5px;height:5px;border-radius:50%;background:var(--ink)}
+.state.reconnect{border-color:var(--warn);border-style:dashed}
+.banner{border:1.5px dashed var(--warn);border-radius:var(--r-m);padding:10px 12px;background:var(--card);display:flex;gap:10px;align-items:flex-start;color:var(--ink)}
+.banner svg{color:var(--warn);flex:0 0 auto}
+.sheet{width:390px;flex:0 0 390px;background:var(--card);border:1px solid var(--hairline);border-radius:var(--r-l);padding:20px;box-shadow:var(--lift);display:flex;flex-direction:column;gap:14px}
+.sheet h2{font-size:20px}
+.sheet .note{font-size:13px;color:var(--ink2);line-height:1.45}
+hr.rule{border:0;border-top:1.5px dashed var(--hairline);margin:4px 0}
+.kv{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:13px}
+.kv b{font-weight:600}
+.trail{display:flex;gap:5px;align-items:center} .trail i{width:9px;height:9px;border-radius:50%;border:1.5px solid var(--ink)} .trail i.done{background:var(--ink)} .trail i.now{background:var(--accent);border-color:var(--accent)}
+.portrait{width:96px;height:96px;border-radius:50%;border:2px solid var(--ink);background:var(--card);overflow:hidden;box-shadow:3px 3px 0 var(--accent)}
+.portrait svg{width:100%;height:100%;display:block}
+.transcript{border-left:2px solid var(--hairline);padding-left:12px;display:flex;flex-direction:column;gap:10px}
+.transcript .who{font:600 11px/1 var(--sans);letter-spacing:.1em;text-transform:uppercase;color:var(--ink2);margin-bottom:3px}
+.cover{width:52px;height:52px;border:1.5px solid var(--ink);border-radius:var(--r-s);background:var(--accent-soft);display:flex;align-items:center;justify-content:center;color:var(--accent)}
+.seek{height:4px;background:var(--hairline);border-radius:2px;position:relative;margin-top:6px}
+.seek i{position:absolute;left:0;top:0;bottom:0;background:var(--ink);border-radius:2px}
+.seek b{position:absolute;top:-4px;width:12px;height:12px;border-radius:50%;background:var(--accent);margin-left:-6px}
+@media (prefers-reduced-motion:no-preference){.pulse .dot{animation:pulse 1.2s var(--ease-ink) infinite}}
+@keyframes pulse{0%,100%{opacity:.35}50%{opacity:1}}
+</style>
+</head>
+<body>
+
+<div class="phone" role="region" aria-label="Live conversation with Youssef">
+<svg class="grain" aria-hidden="true"><filter id="grain"><feTurbulence type="fractalNoise" baseFrequency="0.85" numOctaves="2" stitchTiles="stitch"/><feColorMatrix type="saturate" values="0"/></filter><rect width="100%" height="100%" filter="url(#grain)"/></svg>
+<div class="screen" style="padding-bottom:28px">
+<div class="status"><span>9:41</span><span class="dots" aria-hidden="true"><i style="height:4px"></i><i style="height:6px"></i><i style="height:8px"></i><i style="height:10px"></i><span class="batt"><i></i></span></span></div>
+<header class="row between" style="margin-top:2px">
+  <div class="col" style="gap:2px">
+    <span class="eyebrow">Live conversation</span>
+    <h2 style="font-size:19px;white-space:nowrap">Youssef <span class="muted" style="font-weight:400">· your neighbour</span></h2>
+  </div>
+  <div class="row" style="gap:8px">
+    <span class="mono muted" style="white-space:nowrap">turn 6</span>
+    <button class="btn text" style="color:var(--ink);padding:0 4px"><svg width="16" height="16" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><line x1="6" y1="6" x2="18" y2="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="18" y1="6" x2="6" y2="18" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg> Leave</button>
+  </div>
+</header>
+<div class="banner" role="status" aria-live="polite" style="margin-top:12px"><svg width="20" height="20" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 4 2.5 20h19z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="10" x2="12" y2="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="17" r="1" fill="currentColor" stroke="none"/></svg><div class="small" style="line-height:1.4"><b>Connection dropped.</b> Reconnecting (attempt 2 of 5). Your last answer is saved; Youssef will pick up where you left off. You can leave at any time.</div></div>
+<section style="margin-top:14px;position:relative">
+  <div class="taped" style="height:224px"><span class="tape " aria-hidden="true"></span><span class="tape r" aria-hidden="true"></span><svg style="height:224px;width:100%" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 160 90" role="img" aria-label="A quiet neighbourhood street with low buildings, a lamppost, a bicycle and a corner shop awning."><title>A quiet neighbourhood street with low buildings, a lamppost, a bicycle and a corner shop awning.</title><defs><linearGradient id="scene-street-day-sky" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#2E4A66"/><stop offset="100%" stop-color="#3C5466"/></linearGradient></defs><rect x="0" y="0" width="160" height="90" fill="url(#scene-street-day-sky)"/><circle cx="132" cy="16" r="6" fill="#D9C48A" fill-opacity="0.9"/><circle cx="132" cy="16" r="10.8" fill="#D9C48A" fill-opacity="0.18"/><rect x="0" y="22" width="30" height="36" fill="#857C74"/><rect x="30" y="14" width="22" height="44" fill="#857C74"/><rect x="52" y="28" width="18" height="30" fill="#857C74"/><rect x="100" y="24" width="26" height="34" fill="#857C74"/><rect x="126" y="12" width="34" height="46" fill="#857C74"/><rect x="0" y="26" width="38" height="34" fill="#9E9791" stroke="#101A20" stroke-width="0.8" stroke-opacity="0.4"/><rect x="6" y="32" width="9" height="10" fill="#2E4A66" stroke="#101A20" stroke-width="0.9" stroke-opacity="0.55"/><line x1="10.5" y1="32" x2="10.5" y2="42" stroke="#101A20" stroke-width="0.7" stroke-opacity="0.4"/><line x1="6" y1="37" x2="15" y2="37" stroke="#101A20" stroke-width="0.7" stroke-opacity="0.4"/><rect x="22" y="32" width="9" height="10" fill="#2E4A66" stroke="#101A20" stroke-width="0.9" stroke-opacity="0.55"/><line x1="26.5" y1="32" x2="26.5" y2="42" stroke="#101A20" stroke-width="0.7" stroke-opacity="0.4"/><line x1="22" y1="37" x2="31" y2="37" stroke="#101A20" stroke-width="0.7" stroke-opacity="0.4"/><path d="M0,26 H38 L34,21 H4Z" fill="#975A46"/><rect x="122" y="30" width="38" height="30" fill="#958E88" stroke="#101A20" stroke-width="0.8" stroke-opacity="0.4"/><rect x="128" y="36" width="9" height="10" fill="#2E4A66" stroke="#101A20" stroke-width="0.9" stroke-opacity="0.55"/><line x1="132.5" y1="36" x2="132.5" y2="46" stroke="#101A20" stroke-width="0.7" stroke-opacity="0.4"/><line x1="128" y1="41" x2="137" y2="41" stroke="#101A20" stroke-width="0.7" stroke-opacity="0.4"/><rect x="144" y="36" width="9" height="10" fill="#2E4A66" stroke="#101A20" stroke-width="0.9" stroke-opacity="0.55"/><line x1="148.5" y1="36" x2="148.5" y2="46" stroke="#101A20" stroke-width="0.7" stroke-opacity="0.4"/><line x1="144" y1="41" x2="153" y2="41" stroke="#101A20" stroke-width="0.7" stroke-opacity="0.4"/><path d="M118,46 H160 V52 L156,56 H122Z" fill="#3E6E78" stroke="#101A20" stroke-width="0.7" stroke-opacity="0.5"/><rect x="122" y="46" width="4" height="10" fill="#FFFFFF" fill-opacity="0.35"/><rect x="130" y="46" width="4" height="10" fill="#FFFFFF" fill-opacity="0.35"/><rect x="138" y="46" width="4" height="10" fill="#FFFFFF" fill-opacity="0.35"/><rect x="146" y="46" width="4" height="10" fill="#FFFFFF" fill-opacity="0.35"/><rect x="154" y="46" width="4" height="10" fill="#FFFFFF" fill-opacity="0.35"/><rect x="0" y="60" width="160" height="8" fill="#978774"/><rect x="0" y="68" width="160" height="22" fill="#342E27"/><rect x="10" y="78" width="16" height="1.6" fill="#FFFFFF" fill-opacity="0.55"/><rect x="40" y="78" width="16" height="1.6" fill="#FFFFFF" fill-opacity="0.55"/><rect x="70" y="78" width="16" height="1.6" fill="#FFFFFF" fill-opacity="0.55"/><rect x="100" y="78" width="16" height="1.6" fill="#FFFFFF" fill-opacity="0.55"/><rect x="130" y="78" width="16" height="1.6" fill="#FFFFFF" fill-opacity="0.55"/><rect x="43.1" y="34" width="1.8" height="26" fill="#656C70"/><path d="M42,28H46A1.5,1.5 0 0 1 47.5,29.5V32.5A1.5,1.5 0 0 1 46,34H42A1.5,1.5 0 0 1 40.5,32.5V29.5A1.5,1.5 0 0 1 42,28Z" fill="#9D9689" stroke="#101A20" stroke-width="0.7" stroke-opacity="0.5"/><circle cx="16" cy="64" r="5" fill="none" stroke="#101A20" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.8"/><circle cx="30" cy="64" r="5" fill="none" stroke="#101A20" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round" stroke-opacity="0.8"/><path d="M16,64 L22,54 L30,64 M22,54 L27,54 M20,52 h4" fill="none" stroke="#975A46" stroke-width="1.2" stroke-linecap="round" stroke-linejoin="round"/><rect x="108.72" y="48.8" width="2.56" height="11.2" fill="#543F2A"/><circle cx="110" cy="44" r="7.2" fill="#335A3C"/><circle cx="105.2" cy="48" r="4.8" fill="#487151"/><circle cx="114.8" cy="47.2" r="5.2" fill="#487151"/><circle cx="110.8" cy="40" r="4.8" fill="#487151"/><defs><radialGradient id="scene-street-day-vig" cx="0.5" cy="0.5" r="0.75"><stop offset="60%" stop-color="#05090C" stop-opacity="0"/><stop offset="100%" stop-color="#05090C" stop-opacity="0.4"/></radialGradient></defs><rect x="0" y="0" width="160" height="90" fill="url(#scene-street-day-vig)"/></svg>
+    <div style="position:absolute;left:0;right:0;bottom:0;height:120px;background:linear-gradient(to top,var(--paper),transparent);"></div>
+    <div style="position:absolute;left:50%;bottom:-6px;transform:translateX(-50%);width:168px;height:168px;border-radius:50%;border:2px solid var(--ink);background:var(--card);overflow:hidden;box-shadow:4px 4px 0 var(--accent)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 120" role="img" aria-label="Youssef, neutral"><title>Youssef, neutral</title><defs><clipPath id="clip-ary-neighbour-youssef"><circle cx="60" cy="60" r="56"/></clipPath></defs><circle cx="60" cy="60" r="56" fill="#E3EFE6"/><g clip-path="url(#clip-ary-neighbour-youssef)"><path d="M58,66H62A5,5 0 0 1 67,71V89A5,5 0 0 1 62,94H58A5,5 0 0 1 53,89V71A5,5 0 0 1 58,66Z" fill="#C98F66" stroke="#2B2522" stroke-width="1.6"/><path d="M55,76 Q60,82 65,76" fill="#A57554" stroke="none"/><path d="M14,124 C14,98 36,90 60,90 C84,90 106,98 106,124Z" fill="#7F8C4F" stroke="#2B2522" stroke-width="1.6" stroke-linejoin="round"/><path d="M48,91 L60,108 L72,91 L72,124 H48Z" fill="#F7F7F5" stroke="none"/><path d="M46,92 L55,96 L55,124 M74,92 L65,96 L65,124" fill="none" stroke="#2B2522" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="60" cy="114" r="1.4" fill="#2B2522"/><circle cx="60" cy="120" r="1.4" fill="#2B2522"/><g transform="translate(60,72) rotate(0) translate(-60,-72)"><ellipse cx="38.5" cy="54" rx="3.4" ry="4.6" fill="#C98F66" stroke="#2B2522" stroke-width="1.6"/><ellipse cx="81.5" cy="54" rx="3.4" ry="4.6" fill="#C98F66" stroke="#2B2522" stroke-width="1.6"/><path d="M55.5,29H64.5A16,16 0 0 1 80.5,45V62A13,13 0 0 1 67.5,75H52.5A13,13 0 0 1 39.5,62V45A16,16 0 0 1 55.5,29Z" fill="#C98F66" stroke="#2B2522" stroke-width="1.6"/><ellipse cx="51" cy="53" rx="3.8" ry="2.9" fill="#FFFFFF" stroke="#2B2522" stroke-width="1.4"/><circle cx="51" cy="53" r="1.9" fill="#3B2A1E"/><circle cx="51" cy="53" r="0.9" fill="#2B2522"/><circle cx="50.3" cy="52.2" r="0.6" fill="#FFFFFF"/><ellipse cx="69" cy="53" rx="3.8" ry="2.9" fill="#FFFFFF" stroke="#2B2522" stroke-width="1.4"/><circle cx="69" cy="53" r="1.9" fill="#3B2A1E"/><circle cx="69" cy="53" r="0.9" fill="#2B2522"/><circle cx="68.3" cy="52.2" r="0.6" fill="#FFFFFF"/><path d="M47,46 Q51,44 55,46" fill="none" stroke="#8F9497" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M65,46 Q69,44 73,46" fill="none" stroke="#8F9497" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/><path d="M59,56 q-2,5 1.5,6" fill="none" stroke="#835D42" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M56,68 Q60,71 64,68" fill="none" stroke="#2B2522" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"/><path d="M53,65.5 Q57,62 60,65 Q63,62 67,65.5 Q60,67 53,65.5Z" fill="#9FA4A8" stroke="#2B2522" stroke-width="1"/><path d="M45,57 q1,3 3,4 M75,57 q-1,3 -3,4" fill="none" stroke="#8D6447" stroke-width="1" stroke-linecap="round" stroke-linejoin="round"/><path d="M47.5,48.5H54.5A2.5,2.5 0 0 1 57,51V55A2.5,2.5 0 0 1 54.5,57.5H47.5A2.5,2.5 0 0 1 45,55V51A2.5,2.5 0 0 1 47.5,48.5Z" fill="none" stroke="#2B2522" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><path d="M65.5,48.5H72.5A2.5,2.5 0 0 1 75,51V55A2.5,2.5 0 0 1 72.5,57.5H65.5A2.5,2.5 0 0 1 63,55V51A2.5,2.5 0 0 1 65.5,48.5Z" fill="none" stroke="#2B2522" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/><line x1="57" y1="52" x2="63" y2="52" fill="none" stroke="#2B2522" stroke-width="1.4" stroke-linecap="round" stroke-linejoin="round"/><path d="M40.5,45 C38.5,31 52,25 62,26 C74,26 81.5,33 79.5,44 C74.5,37 64,33 54,37 C48,39 43.5,41 40.5,45Z" fill="#9FA4A8" stroke="#2B2522" stroke-width="1.6" stroke-linejoin="round"/></g></g><circle cx="60" cy="60" r="56" fill="none" stroke="#2B2522" stroke-width="1.4" stroke-opacity="0.35"/></svg></div>
+  </div>
+  <div style="display:flex;justify-content:center;margin-top:-16px;position:relative;z-index:3"><span class="state reconnect"><span class="dot off"></span>Reconnecting · attempt 2</span></div>
+</section>
+
+<section class="transcript" style="margin-top:14px" aria-label="Transcript">
+  <div>
+    <div class="who">Youssef · Darija</div>
+    <p class="ar rtl" lang="ar-MA" style="font-size:22px">فين غادي دابا؟</p>
+    <p class="small muted">Fin ghadi daba? <span class="faint">· Where are you going now?</span></p>
+  </div>
+  <div style="opacity:.8">
+    <div class="who">You</div>
+    <p class="small">Ghadi l souq, bghit nchri khoubz.</p>
+  </div>
+</section>
+
+<section class="mic-wrap" style="margin-top:14px">
+  <button class="mic disabled" aria-label="Microphone paused while reconnecting" aria-disabled="true"><svg class="doodle-ring" width="112" height="112" viewBox="0 0 112 112" aria-hidden="true"><path d="M56 8 C 84 6, 106 28, 104 56 C 102 84, 82 106, 54 104 C 26 102, 6 82, 8 54 C 10 28, 30 10, 58 10" fill="none" stroke="var(--accent)" stroke-width="2.4" stroke-linecap="round"/><path d="M60 11 C 86 12, 103 34, 101 60 C 99 86, 78 103, 52 101" fill="none" stroke="var(--accent)" stroke-width="1.4" stroke-linecap="round" opacity=".55"/></svg><span class="core"><svg width="36" height="36" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 6a3 3 0 0 1 6 0v6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M5 11a7 7 0 0 0 10.6 6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M19 11a7 7 0 0 1-.9 3.4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="12" y1="18" x2="12" y2="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="9" y1="21" x2="15" y2="21" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="4" y1="4" x2="20" y2="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></span></button>
+  <span class="small muted">Mic paused · nothing is being recorded</span>
+</section>
+
+<section class="row" style="margin-top:12px;justify-content:space-between;padding:0 6px">
+  <span class="tab" style="flex:0 0 auto"><svg width="22" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 1 0 2.5-5.8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M4 4v5h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="0.1" fill="currentColor" stroke="none"/></svg><span>Repeat</span></span>
+  <span class="tab" style="flex:0 0 auto"><svg width="22" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 14c3-7 10-9 16-4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8 14c0 2 1 3 2 3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M12 12c0 3 1 5 3 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="17" cy="12" r="1" fill="currentColor" stroke="none"/></svg><span>Slow</span></span>
+  <span class="tab" style="flex:0 0 auto"><svg width="22" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 18h6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M10 21h4" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.5 14a5.5 5.5 0 1 1 7 0c-.8.7-1.5 1.6-1.5 3h-4c0-1.4-.7-2.3-1.5-3z" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Hint</span></span>
+  <span class="tab" style="flex:0 0 auto"><svg width="22" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 6h9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M8.5 4v2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M11 6c-1 4-3.5 7-7 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M6 10c1 2.5 3 4.5 6 5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M13 20l4-9 4 9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><path d="M14.5 17h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Translate</span></span>
+  <span class="tab active" style="flex:0 0 auto"><svg width="22" height="22" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true"><rect x="4" y="4" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" rx="2"/><line x1="8" y1="9" x2="16" y2="9" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="8" y1="13" x2="16" y2="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><line x1="8" y1="17" x2="12" y2="17" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span>Transcript</span><svg class="hand-ul" style="width:100%" viewBox="0 0 200 10" preserveAspectRatio="none" aria-hidden="true"><path d="M3 6 C 30 2, 55 9, 85 5 S 140 2, 170 6 S 190 7, 197 4" fill="none" stroke="var(--accent)" stroke-width="2.6" stroke-linecap="round"/></svg></span>
+</section>
+<p class="tiny faint" style="text-align:center;margin-top:10px" lang="fr">Les indices sont en français · Youssef parle darija</p>
+</div>
+</div>
+
+<aside class="sheet" aria-label="Speech-state indicator variants">
+  <span class="stamp" style="align-self:flex-start">Speech states</span>
+  <h2>One pill, five honest states</h2>
+  <p class="note">The indicator never shows an animated waveform. Motion is a single dot or three stepping dots, and only while audio is really playing or a request is really in flight.</p>
+  <ul style="list-style:none;display:flex;flex-direction:column;gap:16px"><li class="col" style="gap:6px;align-items:flex-start"><span class="state pulse"><span class="dot"></span>Youssef is speaking</span><span class="note">Portrait in `talking`, dot pulses. Mic stays enabled: tapping interrupts.</span></li><li class="col" style="gap:6px;align-items:flex-start"><span class="state"><span class="dot" style="background:var(--ink)"></span>Your turn</span><span class="note">Portrait in `listening`. Mic ring draws in (420 ms). No timer.</span></li><li class="col" style="gap:6px;align-items:flex-start"><span class="state"><span class="dots3"><i></i><i></i><i></i></span>Thinking…</span><span class="note">Three ink dots step (not a waveform). Learner can still tap mic.</span></li><li class="col" style="gap:6px;align-items:flex-start"><span class="state reconnect"><span class="dot off"></span>Reconnecting · attempt 2</span><span class="note">Dashed warn border. Mic disabled, last turn kept, Leave always active.</span></li><li class="col" style="gap:6px;align-items:flex-start"><span class="state reconnect"><span class="dot off"></span>Microphone permission needed</span><span class="note">Replaces mic label with a settings link; conversation can continue in text/listen mode.</span></li></ul>
+  <hr class="rule">
+  <p class="note"><b>Light file</b> shows the “speaking” state; <b>dark file</b> shows the “reconnecting” state so both are visible at phone size.</p>
+</aside>
+
+</body>
+</html>

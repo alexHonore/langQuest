@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "LangQuest data/ops CLIs: corpus importers, bulk audio scan, license report, catalog seed, coverage validation, content factory.",
+  "description": "LangQuest data/ops CLIs: corpus importers, bulk audio scan, license report, catalog seed, curriculum seed, coverage validation, content factory.",
   "scripts": {
     "typecheck": "tsc --noEmit -p tsconfig.json",
     "test": "vitest run --passWithNoTests",
@@ -14,6 +14,7 @@
     "bulk-audio-scan": "tsx src/bulk-audio-scan.ts",
     "license-report": "tsx src/license-report.ts",
     "seed-languages": "tsx src/seed-languages.ts",
+    "seed-curriculum": "tsx src/seed-curriculum.ts",
     "validate-course-coverage": "tsx src/validate-course-coverage.ts",
     "content-factory": "tsx src/content-factory.ts"
   },
