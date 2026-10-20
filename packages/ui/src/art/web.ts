@@ -87,6 +87,10 @@ export {
   charactersForTrack,
   charactersForIntent,
   charactersForSituation,
+  charactersForMission,
+  castMatchesMission,
+  missionIntentsCovered,
+  missionIntentKeys,
   LEGACY_ROSTER_IDS,
   CHARACTER_SITUATIONS,
   SITUATION_TAGS,
@@ -139,6 +143,7 @@ export type {
   CurriculumIntentKey,
   SituationTag,
   CastSheet,
+  CharacterRef,
   ClayMaterial,
 } from './characters';
 

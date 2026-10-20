@@ -68,7 +68,7 @@ export default function ReviewSession(): React.JSX.Element {
 
   return (
     <LessonAccentScope lessonType="review_recall" courseTrackId={enrollment?.courseTrackId ?? null}>
-    <Screen title={t('progress.review.title')} onBack={() => router.back()} headerEnd={item ? <InfoAffordance label={t('common.moreInformation')} title={t('progress.review.title')} text={[t('lesson.textAlternativeNote'), t('speak.noPenalty')]} /> : undefined}>
+    <Screen title={t('progress.review.title')} onBack={() => router.back()} headerEnd={item ? <InfoAffordance label={t('common.moreInformation')} title={t('progress.review.title')} text={[...(item.expression?.contextNote ? [item.expression.contextNote] : []), t('lesson.textAlternativeNote'), t('speak.noPenalty')]} /> : undefined}>
       {reviews.isLoading ? <LoadingView rows={1} /> : null}
       {reviews.error && !reviews.data ? <ErrorView error={reviews.error} onRetry={() => void reviews.refetch()} /> : null}
       {reviews.data?.fromCache ? <CacheNotice fetchedAt={reviews.data.fetchedAt} /> : null}
@@ -95,8 +95,8 @@ export default function ReviewSession(): React.JSX.Element {
           <Surface variant="glass" level={1} radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.sm }}>
             {item.expression ? (
               <>
+                {/* The context note lives in the header ⓘ (calm density: one heading, no helper line here). */}
                 <ThemedText variant="heading" direction={sourceDir}>{item.expression.meaning}</ThemedText>
-                {item.expression.contextNote ? <ThemedText variant="caption" tone="secondary" direction={sourceDir}>{item.expression.contextNote}</ThemedText> : null}
                 {revealed ? (
                   <View style={{ gap: 2, marginTop: theme.spacing.sm }}>
                     {formsForScriptMode(item.expression, trackDef.scripts.primary, enrollment!.scriptMode).map((f, i) => (

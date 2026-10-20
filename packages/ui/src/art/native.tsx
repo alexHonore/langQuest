@@ -27,6 +27,7 @@ import { type CourseFamilyId, type MascotTint, buildMascotDocument } from './mas
 import type { ArtTheme } from './palette';
 import { type SceneId, type SceneVariant, buildSceneDocument } from './scenes';
 import type { SvgDocument, SvgNode, SvgTag } from './svg-node';
+import { useTheme } from '../theme/ThemeProvider';
 
 type AnyComponent = React.ComponentType<Record<string, unknown>>;
 
@@ -235,14 +236,29 @@ export function CourseCoverSvg(props: CourseCoverSvgProps): React.JSX.Element {
 
 export interface IconProps {
   size?: number;
+  /**
+   * Stroke colour. When omitted the icon takes the active theme's `textPrimary`
+   * (`InlineIcon` in `components/primitives` resolves a tone instead); never a
+   * hard-coded hex, so icons follow the scheme and the high-contrast palettes.
+   */
   color?: string;
 }
 
+/** Icon painted with the theme's primary text colour (the no-`color` default). */
+function ThemedIconSvg(props: { name: IconName; size: number }): React.JSX.Element {
+  const theme = useTheme();
+  return renderSvgDocument(
+    buildIconDocument(props.name, { size: props.size, color: theme.colors.textPrimary }),
+  );
+}
+
 function makeIcon(name: IconName): (props: IconProps) => React.JSX.Element {
-  const Icon = (props: IconProps): React.JSX.Element =>
-    renderSvgDocument(
-      buildIconDocument(name, { size: props.size ?? 24, color: props.color ?? '#1E3A3A' }),
-    );
+  const Icon = (props: IconProps): React.JSX.Element => {
+    const size = props.size ?? 24;
+    if (props.color !== undefined)
+      return renderSvgDocument(buildIconDocument(name, { size, color: props.color }));
+    return <ThemedIconSvg name={name} size={size} />;
+  };
   Icon.displayName = `Icon(${name})`;
   return Icon;
 }

@@ -1,5 +1,5 @@
 import type { MeDeleteResponse } from '@langquest/contracts';
-import { Button, StatusLine, Surface, ThemedText, useTheme } from '@langquest/ui';
+import { Button, InfoAffordance, StatusLine, Surface, ThemedText, useTheme } from '@langquest/ui';
 import { File, Paths } from 'expo-file-system';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
@@ -84,28 +84,23 @@ export default function DangerZone(): React.JSX.Element {
   };
 
   return (
-    <Screen title={t('account.deleteAccount.title')} onBack={() => router.back()}>
+    <Screen title={t('account.deleteAccount.title')} onBack={() => router.back()} headerEnd={<InfoAffordance label={t('common.moreInformation')} title={t('account.deleteAccount.title')} text={[`${t('account.export.title')}: ${t('account.export.hint')}`, t('account.deleteAccount.hint')]} />}>
+      {/* Calm density: the what-export / what-delete explanations sit behind the header ⓘ; only the confirm hint stays inline. */}
       <Surface radius="lg" padding={theme.spacing.lg} bordered style={{ gap: theme.spacing.sm }}>
         <ThemedText variant="heading">{t('account.export.title')}</ThemedText>
-        <ThemedText tone="secondary">{t('account.export.hint')}</ThemedText>
         {!online ? <StatusLine icon="offline" tone="warning" text={t('errors.network')} /> : null}
         <Button testID="account-export" label={X.exportButton} variant="secondary" icon="download" fullWidth loading={exporting} disabled={!online} onPress={() => void exportData()} accessibilityLabel={X.exportButton} />
         {exported ? (
           <>
             <StatusLine icon="check" tone="success" text={exported.uri ? X.exportSaved(exported.fileName) : t('account.export.ready')} />
             {exported.uri ? <Button testID="account-export-share" label={X.exportShare} variant="ghost" size="sm" onPress={() => void shareExport()} accessibilityLabel={X.exportShare} /> : null}
-            {exported.notes.length > 0 ? (
-              <ThemedText variant="caption" tone="muted">
-                {X.exportNotes}: {exported.notes.join(' · ')}
-              </ThemedText>
-            ) : null}
+            {exported.notes.length > 0 ? <InfoAffordance label={t('common.details')} title={X.exportNotes} text={exported.notes} /> : null}
           </>
         ) : null}
         {exportError ? <ErrorView error={exportError} onRetry={() => void exportData()} /> : null}
       </Surface>
       <Surface radius="lg" padding={theme.spacing.lg} bordered style={{ gap: theme.spacing.sm }}>
         <ThemedText variant="heading">{t('account.deleteAccount.confirmTitle')}</ThemedText>
-        <ThemedText tone="secondary">{t('account.deleteAccount.hint')}</ThemedText>
         <ThemedText variant="caption" tone="muted">{t('account.deleteAccount.confirmHint')}</ThemedText>
         <TextInput testID="account-delete-confirm" value={confirm} onChangeText={setConfirm} placeholder={t('account.deleteAccount.confirmPlaceholder')} placeholderTextColor={theme.colors.textMuted} autoCapitalize="characters" accessibilityLabel={t('account.deleteAccount.confirmPlaceholder')} style={{ borderWidth: 1, borderColor: theme.colors.error, borderRadius: theme.radii.md, padding: theme.spacing.md, color: theme.colors.textPrimary, minHeight: theme.touchTargets.min }} />
         {deleted ? (

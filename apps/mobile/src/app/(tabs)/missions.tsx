@@ -131,7 +131,7 @@ export default function Missions(): React.JSX.Element {
                   calmLabels={{ details: t('common.details'), hideDetails: t('common.hideDetails') }}
                   onPress={() => open(m.mission.id)}
                 />
-                <MissionCast characterIds={m.mission.characterIds} cast={cast} size={28} />
+                <MissionCast characterIds={m.mission.characterIds} cast={cast} mission={{ skillKeys: m.mission.skillKeys, sceneId: m.sceneId }} size={28} />
               </View>
             ))}
           </View>

@@ -1,4 +1,4 @@
-import { Button, Chip, EmptyState, Row, Surface, ThemedText, formatDurationMs, useTheme } from '@langquest/ui';
+import { Button, Chip, EmptyState, InfoAffordance, Row, Surface, ThemedText, formatDurationMs, useTheme } from '@langquest/ui';
 import { Redirect, useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { Pressable, View } from 'react-native';
@@ -51,23 +51,20 @@ export default function DownloadsScreen(): React.JSX.Element {
     });
   };
 
+  const storageDetails = [...(summary.data.bytesPending > 0 ? [`+${formatMegabytes(summary.data.bytesPending)} MB ${L.downloadQueued.toLowerCase()}`] : []), ...(free !== null ? [L.deviceFree(formatMegabytes(free))] : [])];
+
   // Offline packs are a capability of the pair AND of the platform (§8): no controls when either is missing.
   if (!nav.downloads) return <Redirect href="/(tabs)" />;
   return (
     <Screen insideTabs title={L.downloads} onBack={() => router.back()}>
+      {/* Storage card = one line (storage used); queued bytes and free space sit behind ⓘ. */}
       <Surface variant="muted" radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.sm }}>
-        <ThemedText variant="subheading">{L.storageUsage}</ThemedText>
-        <ThemedText tone="secondary">{t('audio.download.storageUsed', { used: formatMegabytes(summary.data.bytesOnDisk) })}</ThemedText>
-        {summary.data.bytesPending > 0 ? (
-          <ThemedText variant="caption" tone="muted">
-            +{formatMegabytes(summary.data.bytesPending)} MB {L.downloadQueued.toLowerCase()}
+        <Row gap={theme.spacing.sm} justify="space-between" align="center">
+          <ThemedText variant="subheading" style={{ flex: 1 }}>
+            {t('audio.download.storageUsed', { used: formatMegabytes(summary.data.bytesOnDisk) })}
           </ThemedText>
-        ) : null}
-        {free !== null ? (
-          <ThemedText variant="caption" tone="muted">
-            {L.deviceFree(formatMegabytes(free))}
-          </ThemedText>
-        ) : null}
+          {storageDetails.length > 0 ? <InfoAffordance label={t('common.details')} title={L.storageUsage} text={storageDetails} /> : null}
+        </Row>
         <SwitchRow label={t('audio.download.wifiOnly')} value={wifiOnly} onChange={(v) => setPrefs({ wifiOnlyDownloads: v })} />
       </Surface>
 
@@ -94,12 +91,10 @@ export default function DownloadsScreen(): React.JSX.Element {
               </View>
             </Row>
           </Pressable>
-          <DownloadControls lessonId={r.lessonId} offlineEligible meta={{ title: r.title, subtitle: r.subtitle, durationMs: r.durationMs, artworkUri: r.artworkUri, courseTrackId: r.courseTrackId }} compact />
-          {r.attributionText ? (
-            <ThemedText variant="caption" tone="muted">
-              {r.attributionText}
-            </ThemedText>
-          ) : null}
+          <Row gap={theme.spacing.sm} justify="space-between" align="center">
+            <DownloadControls lessonId={r.lessonId} offlineEligible meta={{ title: r.title, subtitle: r.subtitle, durationMs: r.durationMs, artworkUri: r.artworkUri, courseTrackId: r.courseTrackId }} compact />
+            {r.attributionText ? <InfoAffordance label={t('audio.player.details')} title={r.title} text={r.attributionText} /> : null}
+          </Row>
         </Surface>
       ))}
 

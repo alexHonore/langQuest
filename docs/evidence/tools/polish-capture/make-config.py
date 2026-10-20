@@ -1,5 +1,10 @@
 import json, sys, base64, urllib.parse
 S = sys.argv[1]; port = sys.argv[2]; out = sys.argv[3]; prefix = sys.argv[4]; with_admin = sys.argv[5] == '1'
+# Optional 6th arg: a UI locale ('en' | 'fr'). Then only the welcome / home / progress screens are generated, named
+# `<screen>-<locale>-<scheme>`. The welcome screen is unauthenticated, so the locale is primed as the `uiLocale` pref;
+# the authed screens follow the profile's `ui_locale` from `/v1/me`, so the caller must PATCH `/v1/me/settings`
+# (`{"uiLocale": …}`) before running that phase (and restore it afterwards).
+locale_phase = sys.argv[6] if len(sys.argv) > 6 else ''
 learner = json.load(open(f'{S}/session-LEARNER.json'))
 admin = json.load(open(f'{S}/session-ADMIN.json'))
 DEFAULT_PREFS = {"uiLocale": None, "scheme": "system", "highContrast": False, "reducedMotion": "system", "mascotEnabled": True, "textScale": 1, "hapticsEnabled": True, "captionsDefaultOn": False, "speakMode": "push_to_talk", "tapToTalk": False, "onboardingComplete": False, "pendingDefaultSourceLanguage": None, "pendingTrackId": None, "pendingScriptMode": None, "pendingRegionalOption": None, "pendingEnrollmentKey": None, "activeEnrollmentId": None, "fallbackOptIns": {}, "wifiOnlyDownloads": True, "autoDownload": False, "lanternsEnabled": True}
@@ -21,14 +26,20 @@ screens = [
   ("progress", "/progress", dict(onboardingComplete=True), True),
   ("account", "/account", dict(onboardingComplete=True), True),
 ]
+if locale_phase:
+    screens = [s for s in screens if s[0] in ("onboarding-welcome", "home", "progress")]
 scenarios = []
 for scheme in ("dark", "light"):
     for name, path, over, authed in screens:
+        over = dict(over)
+        if locale_phase: over["uiLocale"] = locale_phase
         ls = {"langquest:prefs": prefs(scheme, **over)}
         if authed: ls[SB_KEY] = json.dumps(learner)
-        scenarios.append({"name": f"{name}-{scheme}", "url": base + path, "colorScheme": scheme, "localStorage": ls, "loadingMarkers": ["Loading", "Chargement"]})
-cfg = {"outDir": out, "tmpDir": S, "width": 430, "height": 932, "dsf": 2, "mobile": True, "prefix": prefix, "settleMs": 1200, "scenarios": scenarios}
-json.dump(cfg, open(f'{S}/config-{prefix}mobile.json', 'w'), indent=1)
+        tag = f"{name}-{locale_phase}-{scheme}" if locale_phase else f"{name}-{scheme}"
+        scenarios.append({"name": tag, "url": base + path, "colorScheme": scheme, "localStorage": ls, "loadingMarkers": ["Loading", "Chargement"]})
+suffix = "-" + locale_phase if locale_phase else ""
+cfg = {"outDir": out, "tmpDir": S, "width": 430, "height": 932, "dsf": 2, "mobile": True, "prefix": prefix, "settleMs": 1200, "scenarios": scenarios, "auditPath": f"{S}/audit-{prefix}mobile{suffix}.json"}
+json.dump(cfg, open(f'{S}/config-{prefix}mobile{suffix}.json', 'w'), indent=1)
 if with_admin:
     raw = json.dumps(admin, separators=(',', ':'))
     value = 'base64-' + base64.urlsafe_b64encode(raw.encode()).decode().rstrip('=')
@@ -38,6 +49,6 @@ if with_admin:
     cookies = [{"name": SB_KEY if len(chunks) == 1 else f"{SB_KEY}.{i}", "value": c, "domain": "127.0.0.1", "path": "/"} for i, c in enumerate(chunks)]
     abase = 'http://127.0.0.1:3011'
     ascen = [{"name": n, "url": abase + p, "colorScheme": cs, "cookies": cookies, "loadingMarkers": ["Loading"]} for (n, p, cs) in [("admin-dashboard-dark", "/", "dark"), ("admin-languages-dark", "/languages", "dark"), ("admin-dashboard-light", "/", "light"), ("admin-languages-light", "/languages", "light")]]
-    acfg = {"outDir": out, "tmpDir": S, "width": 1440, "height": 900, "dsf": 1, "mobile": False, "prefix": prefix, "settleMs": 1500, "scenarios": ascen}
+    acfg = {"outDir": out, "tmpDir": S, "width": 1440, "height": 900, "dsf": 1, "mobile": False, "prefix": prefix, "settleMs": 1500, "scenarios": ascen, "auditPath": f"{S}/audit-{prefix}admin.json"}
     json.dump(acfg, open(f'{S}/config-{prefix}admin.json', 'w'), indent=1)
 print('ok', len(scenarios), 'chunks' if with_admin else '')

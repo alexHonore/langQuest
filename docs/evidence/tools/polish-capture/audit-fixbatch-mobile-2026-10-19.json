@@ -1,0 +1,502 @@
+[
+  {
+    "name": "onboarding-welcome-dark",
+    "url": "http://127.0.0.1:8921/onboarding/welcome",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-onboarding-welcome-dark.png",
+    "fullFile": null,
+    "words": 25,
+    "viewportWords": 25,
+    "chars": 166,
+    "headings": 1,
+    "headingText": [
+      "Start speaking from day one"
+    ],
+    "buttons": 3,
+    "textBlocks": 4,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/onboarding/welcome",
+    "sample": "Start speaking from day one Short real-life missions, patient AI characters, and honest feedback. No subscriptions, no paywalls. Get started I already have an account",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "onboarding-language-dark",
+    "url": "http://127.0.0.1:8921/onboarding/language",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-onboarding-language-dark.png",
+    "fullFile": null,
+    "words": 60,
+    "viewportWords": 60,
+    "chars": 421,
+    "headings": 2,
+    "headingText": [
+      "Which language should the app use?",
+      "Which language do you want to learn from?"
+    ],
+    "buttons": 27,
+    "textBlocks": 30,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/onboarding/language",
+    "sample": "1/5 Which language should the app use? English French Which language do you want to learn from? Explanations, hints and translations will be in this language. Every course can use a different one. English · English French · Français Russian Spanish Arabic Chinese Danish German Greek Haitian Creole Hebrew Hindi Italian Japanese Kinyarwanda Korean Lingala Portuguese Romanian Swahili Swedish Ukrainia",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "onboarding-target-dark",
+    "url": "http://127.0.0.1:8921/onboarding/target",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-onboarding-target-dark.png",
+    "fullFile": null,
+    "words": 178,
+    "viewportWords": 69,
+    "chars": 1427,
+    "headings": 1,
+    "headingText": [
+      "What do you want to learn?"
+    ],
+    "buttons": 1,
+    "textBlocks": 104,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/onboarding/target",
+    "sample": "2/5 What do you want to learn? 30 courses, including specific dialects. Pick the one people actually speak where you are headed. Arabic (Eastern) مرحبا Levantine (Eastern) Arabic ≠ Modern Standard Arabic ≠ Egyptian Arabic ≠ Moroccan Arabic (Darija) Arabic (Moroccan) سلام Moroccan Arabic (Darija) ≠ Modern Standard Arabic ≠ Egyptian Arabic ≠ Levantine (Eastern) Arabic Arabic (Egyptian) أهلاً Egyptia",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "onboarding-confirm-dark",
+    "url": "http://127.0.0.1:8921/onboarding/confirm",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-onboarding-confirm-dark.png",
+    "fullFile": null,
+    "words": 65,
+    "viewportWords": 65,
+    "chars": 491,
+    "headings": 2,
+    "headingText": [
+      "Learn Arabic (Moroccan) from French",
+      "Not in this course yet"
+    ],
+    "buttons": 10,
+    "textBlocks": 21,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/onboarding/confirm",
+    "sample": "3/5 Learn Arabic (Moroccan) from French Arabic (Moroccan) Darija as actually spoken, including natural French code-switching; Arabic and Arabizi both first-class. ≠ Modern Standard Arabic ≠ Egyptian Arabic ≠ Levantine (Eastern) Arabic Script mode Arab only Romanized only Arab + romanized Not in this course yet Explanations are unreviewed drafts No audio library yet No automated pronunciation score",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "catalog-dark",
+    "url": "http://127.0.0.1:8921/catalog",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-catalog-dark.png",
+    "fullFile": null,
+    "words": 339,
+    "viewportWords": 69,
+    "chars": 2177,
+    "headings": 1,
+    "headingText": [
+      "Cours"
+    ],
+    "buttons": 43,
+    "textBlocks": 134,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/catalog",
+    "sample": "Arabic (Moroccan) à partir du français Cours Effacer les filtres Arab Hant Hans Latn Grek Hebr Deva Jpan Kore Cyrl Arabic (Eastern) مرحبا Planned Pas encore relu par des locuteurs natifs Arabic (Moroccan) Inscrit سلام Partly available Pas encore relu par des locuteurs natifs Arabic (Egyptian) أهلاً Planned Pas encore relu par des locuteurs natifs Arabic (Modern Standard) مرحباً Planned Pas encore ",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "course-arabic-moroccan-dark",
+    "url": "http://127.0.0.1:8921/catalog/arabic-moroccan",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-course-arabic-moroccan-dark.png",
+    "fullFile": null,
+    "words": 107,
+    "viewportWords": 60,
+    "chars": 801,
+    "headings": 2,
+    "headingText": [
+      "Arabic (Moroccan)",
+      "Langue d'enseignement"
+    ],
+    "buttons": 37,
+    "textBlocks": 45,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/catalog/arabic-moroccan",
+    "sample": "Arabic (Moroccan) Arabic (Moroccan) Darija as actually spoken, including natural French code-switching; Arabic and Arabizi both first-class. ≠ Modern Standard Arabic ≠ Egyptian Arabic ≠ Levantine (Eastern) Arabic Langue d'enseignement anglais français russe espagnol chinois danois allemand grec créole haïtien hébreu hindi italien japonais kinyarwanda coréen lingala portugais roumain swahili suédoi",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "home-dark",
+    "url": "http://127.0.0.1:8921/",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-home-dark.png",
+    "fullFile": null,
+    "words": 37,
+    "viewportWords": 37,
+    "chars": 238,
+    "headings": 1,
+    "headingText": [
+      "Bon retour, Alex Test !"
+    ],
+    "buttons": 11,
+    "textBlocks": 15,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/",
+    "sample": "Arabic (Moroccan) à partir du français Compte Salut ! On va vous faire parler. Bon retour, Alex Test ! Changer de cours Partiellement disponible Saluer et se présenter 7 min Commencer Nadia Parler vite fait Accueil Missions Parler Progrès",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "missions-dark",
+    "url": "http://127.0.0.1:8921/missions",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-missions-dark.png",
+    "fullFile": null,
+    "words": 63,
+    "viewportWords": 49,
+    "chars": 349,
+    "headings": 2,
+    "headingText": [
+      "Votre parcours",
+      "Premiers jours à Casablanca"
+    ],
+    "buttons": 14,
+    "textBlocks": 28,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/missions",
+    "sample": "Arabic (Moroccan) à partir du français Votre parcours Premiers jours à Casablanca Saluer et se présenter Prête 7 min Commander au café Prête 8 min Demander le prix au souk Prête 8 min Demander son chemin Prête 8 min Rencontrer une voisine Prête 8 min Prendre un petit taxi Prête 8 min Une glace avec Salma Prête 6 min Accueil Missions Parler Progrès",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "speak-dark",
+    "url": "http://127.0.0.1:8921/speak",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-speak-dark.png",
+    "fullFile": null,
+    "words": 39,
+    "viewportWords": 39,
+    "chars": 286,
+    "headings": 2,
+    "headingText": [
+      "Parler",
+      "Personnages"
+    ],
+    "buttons": 14,
+    "textBlocks": 23,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/speak",
+    "sample": "Arabic (Moroccan) à partir du français Parler Parler vite fait Coach de prononciation Maintenir pour parler Personnages Afficher plus Nadia Voix synthétique Parler Omar Voix synthétique Parler Salma Voix synthétique Parler Youssef Voix synthétique Parler Accueil Missions Parler Progrès",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "progress-dark",
+    "url": "http://127.0.0.1:8921/progress",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-progress-dark.png",
+    "fullFile": null,
+    "words": 40,
+    "viewportWords": 40,
+    "chars": 237,
+    "headings": 4,
+    "headingText": [
+      "Progrès",
+      "Ce que vous savez faire",
+      "Aucune observation pour l'instant",
+      "À réviser"
+    ],
+    "buttons": 7,
+    "textBlocks": 13,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/progress",
+    "sample": "Arabic (Moroccan) à partir du français Progrès 0 objectifs sur 0 atteints 0 min de parole · 7 derniers jours 0 XP Ce que vous savez faire Aucune observation pour l'instant À réviser Aucune révision à faire Accueil Missions Parler Progrès",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "account-dark",
+    "url": "http://127.0.0.1:8921/account",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-account-dark.png",
+    "fullFile": null,
+    "words": 78,
+    "viewportWords": 71,
+    "chars": 605,
+    "headings": 1,
+    "headingText": [
+      "Compte"
+    ],
+    "buttons": 38,
+    "textBlocks": 41,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/account",
+    "sample": "Arabic (Moroccan) à partir du français Compte learner-local@langquest.test Enregistrer Langue de l'application anglais français Langue d'enseignement par défaut pour les nouveaux cours anglais français russe espagnol arabe chinois danois allemand grec créole haïtien hébreu hindi italien japonais kinyarwanda coréen lingala portugais roumain swahili suédois ukrainien vietnamien Vos cours Arabic (Mor",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "onboarding-welcome-light",
+    "url": "http://127.0.0.1:8921/onboarding/welcome",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-onboarding-welcome-light.png",
+    "fullFile": null,
+    "words": 25,
+    "viewportWords": 25,
+    "chars": 166,
+    "headings": 1,
+    "headingText": [
+      "Start speaking from day one"
+    ],
+    "buttons": 3,
+    "textBlocks": 4,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/onboarding/welcome",
+    "sample": "Start speaking from day one Short real-life missions, patient AI characters, and honest feedback. No subscriptions, no paywalls. Get started I already have an account",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "onboarding-language-light",
+    "url": "http://127.0.0.1:8921/onboarding/language",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-onboarding-language-light.png",
+    "fullFile": null,
+    "words": 60,
+    "viewportWords": 60,
+    "chars": 421,
+    "headings": 2,
+    "headingText": [
+      "Which language should the app use?",
+      "Which language do you want to learn from?"
+    ],
+    "buttons": 27,
+    "textBlocks": 30,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/onboarding/language",
+    "sample": "1/5 Which language should the app use? English French Which language do you want to learn from? Explanations, hints and translations will be in this language. Every course can use a different one. English · English French · Français Russian Spanish Arabic Chinese Danish German Greek Haitian Creole Hebrew Hindi Italian Japanese Kinyarwanda Korean Lingala Portuguese Romanian Swahili Swedish Ukrainia",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "onboarding-target-light",
+    "url": "http://127.0.0.1:8921/onboarding/target",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-onboarding-target-light.png",
+    "fullFile": null,
+    "words": 178,
+    "viewportWords": 69,
+    "chars": 1427,
+    "headings": 1,
+    "headingText": [
+      "What do you want to learn?"
+    ],
+    "buttons": 1,
+    "textBlocks": 104,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/onboarding/target",
+    "sample": "2/5 What do you want to learn? 30 courses, including specific dialects. Pick the one people actually speak where you are headed. Arabic (Eastern) مرحبا Levantine (Eastern) Arabic ≠ Modern Standard Arabic ≠ Egyptian Arabic ≠ Moroccan Arabic (Darija) Arabic (Moroccan) سلام Moroccan Arabic (Darija) ≠ Modern Standard Arabic ≠ Egyptian Arabic ≠ Levantine (Eastern) Arabic Arabic (Egyptian) أهلاً Egyptia",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "onboarding-confirm-light",
+    "url": "http://127.0.0.1:8921/onboarding/confirm",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-onboarding-confirm-light.png",
+    "fullFile": null,
+    "words": 65,
+    "viewportWords": 65,
+    "chars": 491,
+    "headings": 2,
+    "headingText": [
+      "Learn Arabic (Moroccan) from French",
+      "Not in this course yet"
+    ],
+    "buttons": 10,
+    "textBlocks": 21,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/onboarding/confirm",
+    "sample": "3/5 Learn Arabic (Moroccan) from French Arabic (Moroccan) Darija as actually spoken, including natural French code-switching; Arabic and Arabizi both first-class. ≠ Modern Standard Arabic ≠ Egyptian Arabic ≠ Levantine (Eastern) Arabic Script mode Arab only Romanized only Arab + romanized Not in this course yet Explanations are unreviewed drafts No audio library yet No automated pronunciation score",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "catalog-light",
+    "url": "http://127.0.0.1:8921/catalog",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-catalog-light.png",
+    "fullFile": null,
+    "words": 339,
+    "viewportWords": 69,
+    "chars": 2177,
+    "headings": 1,
+    "headingText": [
+      "Cours"
+    ],
+    "buttons": 43,
+    "textBlocks": 134,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/catalog",
+    "sample": "Arabic (Moroccan) à partir du français Cours Effacer les filtres Arab Hant Hans Latn Grek Hebr Deva Jpan Kore Cyrl Arabic (Eastern) مرحبا Planned Pas encore relu par des locuteurs natifs Arabic (Moroccan) Inscrit سلام Partly available Pas encore relu par des locuteurs natifs Arabic (Egyptian) أهلاً Planned Pas encore relu par des locuteurs natifs Arabic (Modern Standard) مرحباً Planned Pas encore ",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "course-arabic-moroccan-light",
+    "url": "http://127.0.0.1:8921/catalog/arabic-moroccan",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-course-arabic-moroccan-light.png",
+    "fullFile": null,
+    "words": 107,
+    "viewportWords": 60,
+    "chars": 801,
+    "headings": 2,
+    "headingText": [
+      "Arabic (Moroccan)",
+      "Langue d'enseignement"
+    ],
+    "buttons": 37,
+    "textBlocks": 45,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/catalog/arabic-moroccan",
+    "sample": "Arabic (Moroccan) Arabic (Moroccan) Darija as actually spoken, including natural French code-switching; Arabic and Arabizi both first-class. ≠ Modern Standard Arabic ≠ Egyptian Arabic ≠ Levantine (Eastern) Arabic Langue d'enseignement anglais français russe espagnol chinois danois allemand grec créole haïtien hébreu hindi italien japonais kinyarwanda coréen lingala portugais roumain swahili suédoi",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "home-light",
+    "url": "http://127.0.0.1:8921/",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-home-light.png",
+    "fullFile": null,
+    "words": 37,
+    "viewportWords": 37,
+    "chars": 238,
+    "headings": 1,
+    "headingText": [
+      "Bon retour, Alex Test !"
+    ],
+    "buttons": 11,
+    "textBlocks": 15,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/",
+    "sample": "Arabic (Moroccan) à partir du français Compte Salut ! On va vous faire parler. Bon retour, Alex Test ! Changer de cours Partiellement disponible Saluer et se présenter 7 min Commencer Nadia Parler vite fait Accueil Missions Parler Progrès",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "missions-light",
+    "url": "http://127.0.0.1:8921/missions",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-missions-light.png",
+    "fullFile": null,
+    "words": 63,
+    "viewportWords": 49,
+    "chars": 349,
+    "headings": 2,
+    "headingText": [
+      "Votre parcours",
+      "Premiers jours à Casablanca"
+    ],
+    "buttons": 14,
+    "textBlocks": 28,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/missions",
+    "sample": "Arabic (Moroccan) à partir du français Votre parcours Premiers jours à Casablanca Saluer et se présenter Prête 7 min Commander au café Prête 8 min Demander le prix au souk Prête 8 min Demander son chemin Prête 8 min Rencontrer une voisine Prête 8 min Prendre un petit taxi Prête 8 min Une glace avec Salma Prête 6 min Accueil Missions Parler Progrès",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "speak-light",
+    "url": "http://127.0.0.1:8921/speak",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-speak-light.png",
+    "fullFile": null,
+    "words": 39,
+    "viewportWords": 39,
+    "chars": 286,
+    "headings": 2,
+    "headingText": [
+      "Parler",
+      "Personnages"
+    ],
+    "buttons": 14,
+    "textBlocks": 23,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/speak",
+    "sample": "Arabic (Moroccan) à partir du français Parler Parler vite fait Coach de prononciation Maintenir pour parler Personnages Afficher plus Nadia Voix synthétique Parler Omar Voix synthétique Parler Salma Voix synthétique Parler Youssef Voix synthétique Parler Accueil Missions Parler Progrès",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "progress-light",
+    "url": "http://127.0.0.1:8921/progress",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-progress-light.png",
+    "fullFile": null,
+    "words": 40,
+    "viewportWords": 40,
+    "chars": 237,
+    "headings": 4,
+    "headingText": [
+      "Progrès",
+      "Ce que vous savez faire",
+      "Aucune observation pour l'instant",
+      "À réviser"
+    ],
+    "buttons": 7,
+    "textBlocks": 13,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/progress",
+    "sample": "Arabic (Moroccan) à partir du français Progrès 0 objectifs sur 0 atteints 0 min de parole · 7 derniers jours 0 XP Ce que vous savez faire Aucune observation pour l'instant À réviser Aucune révision à faire Accueil Missions Parler Progrès",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  },
+  {
+    "name": "account-light",
+    "url": "http://127.0.0.1:8921/account",
+    "file": "/private/tmp/claude-501/-Volumes-SSD-1tb-LangQuest/842c838c-1b03-45dd-b647-fd27f63bfb6d/scratchpad/cap/shots/polish-account-light.png",
+    "fullFile": null,
+    "words": 78,
+    "viewportWords": 71,
+    "chars": 605,
+    "headings": 1,
+    "headingText": [
+      "Compte"
+    ],
+    "buttons": 38,
+    "textBlocks": 41,
+    "docHeight": 932,
+    "title": "LangQuest",
+    "href": "/account",
+    "sample": "Arabic (Moroccan) à partir du français Compte learner-local@langquest.test Enregistrer Langue de l'application anglais français Langue d'enseignement par défaut pour les nouveaux cours anglais français russe espagnol arabe chinois danois allemand grec créole haïtien hébreu hindi italien japonais kinyarwanda coréen lingala portugais roumain swahili suédois ukrainien vietnamien Vos cours Arabic (Mor",
+    "logs": [
+      "WARNING Animated: `useNativeDriver` is not supported because the native animated module is missing. Falling back to JS-based animation. To resolve this, add `RCTAnimation` module to this app, or remove `useNativeDriver`. Make sure to run `bundle exec pod install` first. Read more about autolinking: https://github.com/react-native-community/cli/blob/master/docs/autolinking.md"
+    ]
+  }
+]

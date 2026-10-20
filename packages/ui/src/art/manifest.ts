@@ -10,6 +10,7 @@ import { COVER_RECIPES, courseCoverSvgString, coverAltTextKey } from './covers';
 import { ICON_NAMES, type IconName, iconSvgString } from './icons';
 import { MASCOT_STATES, mascotSvgString } from './mascot';
 import { SCENES, type SceneId, sceneArtSvgString } from './scenes';
+import { COLOR_PALETTES } from '../tokens/color';
 
 /** Bump when any exported geometry changes in a way consumers should re-cache. */
 export const ART_STYLE_VERSION = 'langquest-art-v1';
@@ -123,6 +124,11 @@ export function listArtExports(): ArtExportFile[] {
       svg: courseCoverSvgString(r.trackId, { width: 600 }),
     });
   for (const n of ICON_NAMES)
-    files.push({ path: iconAssetPath(n), svg: iconSvgString(n, { size: 24, color: '#1E3A3A' }) });
+    files.push({
+      path: iconAssetPath(n),
+      // Static export paints icons with the light palette's primary text token; in the apps the
+      // icon components take the active theme's `textPrimary` instead.
+      svg: iconSvgString(n, { size: 24, color: COLOR_PALETTES.light.textPrimary }),
+    });
   return files;
 }

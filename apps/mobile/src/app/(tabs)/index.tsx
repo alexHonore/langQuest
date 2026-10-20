@@ -104,9 +104,10 @@ export default function Home(): React.JSX.Element {
             <Button testID="home-switch-course" label={t('home.switchCourse')} variant="ghost" size="sm" onPress={() => router.push('/course-switcher')} accessibilityLabel={t('home.switchCourse')} />
           </View>
           {enrollment.coverage.status !== 'complete' ? (
-            <Surface variant="glass" level={1} radius="md" padding={theme.spacing.md} style={{ gap: theme.spacing.xs }}>
-              <Row justify="space-between" gap={theme.spacing.sm}>
-                <StatusLine icon="info" tone="warning" text={t(`enrollment.coverage.${enrollment.coverage.status}`, { source: sourceName })} />
+            // Coverage = one compact chip (2 words); the long status, the detail and the fallback note sit behind ⓘ.
+            <View style={{ gap: theme.spacing.xs }}>
+              <Row gap={theme.spacing.sm} align="center">
+                <Chip label={t(`enrollment.coverage.short.${enrollment.coverage.status}`)} tone="warning" icon="info" accessibilityLabel={t(`enrollment.coverage.${enrollment.coverage.status}`, { source: sourceName })} />
                 <InfoAffordance
                   label={t('home.coverageInfo')}
                   title={t(`enrollment.coverage.${enrollment.coverage.status}`, { source: sourceName })}
@@ -120,7 +121,7 @@ export default function Home(): React.JSX.Element {
                   <Button label={t('enrollment.coverage.optInFallback', { fallback: fallbackName })} variant="secondary" size="sm" onPress={fallback.optIn} accessibilityLabel={t('enrollment.coverage.optInFallback', { fallback: fallbackName })} />
                 )
               ) : null}
-            </Surface>
+            </View>
           ) : null}
           {cta === 'missions' && manifest.isLoading ? <LoadingView rows={1} /> : null}
           {cta === 'missions' && manifest.error && !manifest.data ? <ErrorView error={manifest.error} onRetry={() => void manifest.refetch()} /> : null}
@@ -146,32 +147,29 @@ export default function Home(): React.JSX.Element {
                   router.push({ pathname: '/mission/[id]', params: { id: next.mission.id } });
                 }}
               />
-              <MissionCast characterIds={next.mission.characterIds} cast={cast} withName testID="home-mission-cast" />
+              <MissionCast characterIds={next.mission.characterIds} cast={cast} mission={{ skillKeys: next.mission.skillKeys, sceneId: next.sceneId }} withName testID="home-mission-cast" />
             </View>
           ) : pathway && pathway.missions.length > 0 ? (
             <EmptyState title={t('missions.summary.completed')} description={t('progress.review.allDone')} infoLabel={t('common.moreInformation')} mascotState="celebrate" />
           ) : null}
 
-          <Surface variant="glass" level={1} radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.sm }}>
-            <Row justify="space-between" gap={theme.spacing.sm}>
-              <ThemedText variant="subheading" style={{ flex: 1 }}>
-                {speakingMinutes7d !== null ? t('home.speakingSummary', { count: speakingMinutes7d }) : progress.isLoading ? t('common.loading') : t('progress.trendUnavailable')}
-              </ThemedText>
-              <InfoAffordance label={t('home.aboutProgress')} title={t('home.dailySpeaking')} text={[t('home.xpNote'), t('progress.noFluencyClaim')]} />
-            </Row>
-            {streak?.enabled && streak.currentDays > 0 ? (
-              <Row gap={theme.spacing.xs}>
-                <Chip label={t('home.streak', { count: streak.currentDays })} icon="flame" tone="accent" />
-              </Row>
-            ) : null}
-          </Surface>
-
-          <Row gap={theme.spacing.sm} wrap>
+          {/* Melo's bubble is Home's one helper line. The 7-day speaking figure and the XP note live in the Progress tab;
+              on Home the ⓘ only accompanies the figure it explains (the streak chip), so no affordance ever sits alone on a
+              line (calm density: nothing on screen without a referent). A failed progress query shows the retry
+              affordance, never an "insufficient data" line. */}
+          <Row gap={theme.spacing.sm} align="center" wrap>
             {/* Nothing due → no button (§8: never a greyed control); the Progress tab keeps the review calendar. */}
             {reviews.data && reviews.data.data.dueCount > 0 ? <Button label={t('home.reviewDueCount', { count: reviews.data.data.dueCount })} variant="secondary" icon="replay" onPress={() => router.push('/review')} accessibilityLabel={t('home.reviewDue')} /> : null}
             {nav.audio ? <Button label={t('common.tabs.audio')} variant="secondary" icon="headphones" onPress={() => router.push('/(tabs)/audio')} accessibilityLabel={t('home.continueAudio')} /> : null}
             {nav.liveConversation && cta !== 'speak' ? <Button label={t('home.quickSpeak')} variant="secondary" icon="mic" onPress={openConversation} accessibilityLabel={`${t('home.quickSpeak')} · ${getCourseTrack(enrollment.courseTrackId).displayName}`} /> : null}
+            {progress.error && !progress.data ? <Button label={t('common.retry')} variant="ghost" size="sm" icon="replay" onPress={() => void progress.refetch()} accessibilityLabel={`${t('home.aboutProgress')} · ${t('common.retry')}`} /> : null}
           </Row>
+          {streak?.enabled && streak.currentDays > 0 ? (
+            <Row gap={theme.spacing.xs} align="center">
+              <Chip label={t('home.streak', { count: streak.currentDays })} icon="flame" tone="accent" />
+              <InfoAffordance label={t('home.aboutProgress')} title={t('home.dailySpeaking')} text={[...(speakingMinutes7d !== null ? [t('home.speakingSummary', { count: speakingMinutes7d })] : []), t('home.xpNote'), t('progress.noFluencyClaim')]} />
+            </Row>
+          ) : null}
 
           {pendingEvents > 0 ? <StatusLine icon={syncStatus === 'error' ? 'warning' : 'info'} tone={syncStatus === 'error' ? 'warning' : 'info'} text={syncStatus === 'error' ? t('errors.syncFailed') : X.pendingSync(pendingEvents)} /> : null}
         </View>

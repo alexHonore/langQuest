@@ -80,12 +80,17 @@ export type { CastSheet } from './characters/cast';
 export {
   CHARACTER_ROSTER,
   LEGACY_ROSTER_IDS,
+  castMatchesMission,
   charactersForIntent,
+  charactersForMission,
   charactersForSituation,
   charactersForTrack,
   charactersForVariety,
   findCharacter,
+  missionIntentKeys,
+  missionIntentsCovered,
 } from './characters/roster';
+export type { CharacterRef } from './characters/roster';
 export {
   PORTRAIT_FLAT_MAX_SIZE,
   PORTRAIT_VIEWBOX,

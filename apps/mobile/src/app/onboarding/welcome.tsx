@@ -4,6 +4,7 @@ import React, { useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Melo } from '@/components/Melo';
+import { HEADING_WRAP_STYLE } from '@/lib/heading-style';
 import { useT } from '@/lib/i18n';
 import { track } from '@/lib/telemetry';
 import { usePrefs } from '@/state/prefs';
@@ -22,7 +23,8 @@ export default function Welcome(): React.JSX.Element {
       <ScrollView contentContainerStyle={{ flexGrow: 1, padding: theme.spacing.xl, gap: theme.spacing.xl, justifyContent: 'center' }}>
         <View style={{ alignItems: 'center', gap: theme.spacing.lg }}>
           <Melo state="welcome" size="welcome" testID="welcome-mascot" />
-          <ThemedText variant="display" align="center" accessibilityRole="header">
+          {/* Display heading: stretched + shrinkable so the French promise wraps at 375–430 px instead of clipping. */}
+          <ThemedText variant="display" align="center" accessibilityRole="header" style={HEADING_WRAP_STYLE}>
             {t('onboarding.heroPromise')}
           </ThemedText>
           <Row gap={theme.spacing.xs} justify="center" align="center">

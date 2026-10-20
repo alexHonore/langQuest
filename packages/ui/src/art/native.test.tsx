@@ -1,5 +1,17 @@
-import type React from 'react';
+import React from 'react';
+import { renderToStaticMarkup } from 'react-dom/server';
 import { describe, expect, it, vi } from 'vitest';
+
+// `ThemeProvider` reads three react-native globals; stand them in so the themed icon
+// default can be rendered in Node.
+vi.mock('react-native', () => ({
+  AccessibilityInfo: {
+    isReduceMotionEnabled: () => Promise.resolve(false),
+    addEventListener: () => ({ remove: () => undefined }),
+  },
+  I18nManager: { isRTL: false },
+  useColorScheme: () => 'dark',
+}));
 
 // react-native-svg needs the RN runtime; stand in with tag-named components so the
 // element tree (not pixels) can be verified in Node.
@@ -41,6 +53,8 @@ import {
   renderSvgNode,
 } from './native';
 import { countNodes } from './svg-node';
+import { ThemeProvider } from '../theme/ThemeProvider';
+import { COLOR_PALETTES } from '../tokens/color';
 
 type El = React.ReactElement<Record<string, unknown>>;
 
@@ -113,6 +127,26 @@ describe('react-native-svg renderer', () => {
       expect(props[0]?.width).toBe(20);
       expect(props.some((p) => p.stroke === '#ABCDEF' || p.fill === '#ABCDEF')).toBe(true);
     }
+  });
+  it("icons without a colour take the active theme's textPrimary (no hard-coded hex)", () => {
+    const Icon = ICONS[ICON_NAMES[0]!];
+    for (const scheme of ['dark', 'light'] as const) {
+      const html = renderToStaticMarkup(
+        <ThemeProvider scheme={scheme} reducedMotion>
+          <Icon />
+        </ThemeProvider>,
+      );
+      expect(html).toContain(COLOR_PALETTES[scheme].textPrimary);
+      expect(html).not.toContain('#1E3A3A');
+    }
+    const hc = renderToStaticMarkup(
+      <ThemeProvider scheme="dark" highContrast reducedMotion>
+        <Icon />
+      </ThemeProvider>,
+    );
+    expect(hc).toContain(COLOR_PALETTES.highContrastDark.textPrimary);
+    // An explicit colour still wins (InlineIcon passes a tone colour this way).
+    expect(renderToStaticMarkup(<Icon color="#ABCDEF" />)).toContain('#ABCDEF');
   });
   it('passes camelCase attrs through untouched and drops undefined', () => {
     const el = renderSvgNode(

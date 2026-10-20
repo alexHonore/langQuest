@@ -1,5 +1,5 @@
 import type { LearnerLevel } from '@langquest/contracts';
-import { Button, Chip, EmptyState, Row, Surface, ThemedText, formatDurationMs, useTheme } from '@langquest/ui';
+import { Button, Chip, EmptyState, InfoAffordance, Row, Surface, ThemedText, formatDurationMs, useTheme } from '@langquest/ui';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
@@ -49,7 +49,7 @@ export default function CollectionScreen(): React.JSX.Element {
   const lengthLabel = (b: LengthBucket): string => (b === 'short' ? L.lengthShort : b === 'medium' ? L.lengthMedium : L.lengthLong);
 
   return (
-    <Screen insideTabs title={manifest?.title ?? t('audio.collections')} onBack={() => router.back()}>
+    <Screen insideTabs title={manifest?.title ?? t('audio.collections')} onBack={() => router.back()} headerEnd={manifest?.attributionText ? <InfoAffordance label={t('audio.player.details')} title={manifest.title} text={manifest.attributionText} /> : undefined}>
       {manifestQuery.isLoading ? <LoadingView /> : null}
       {manifestQuery.error && !manifest ? <ErrorView error={manifestQuery.error} onRetry={() => void manifestQuery.refetch()} /> : null}
       {manifestQuery.data?.fromCache ? <CacheNotice fetchedAt={manifestQuery.data.fetchedAt} /> : null}
@@ -58,14 +58,10 @@ export default function CollectionScreen(): React.JSX.Element {
           <Row gap={theme.spacing.md} align="flex-start">
             <CoverArt imageUri={manifest.coverArt?.publicUrl} courseTrackId={enrollment?.courseTrackId ?? null} title={manifest.title} size={120} />
             <View style={{ flex: 1, gap: theme.spacing.xs }}>
+              {/* One line per block: the attribution sits behind the header ⓘ. */}
               <ThemedText variant="caption" tone="muted">
                 {L.chaptersCount(manifest.chapters.length)} · {L.lessonsCount(manifest.chapters.reduce((n, c) => n + c.lessons.length, 0))}
               </ThemedText>
-              {manifest.attributionText ? (
-                <ThemedText variant="caption" tone="muted">
-                  {manifest.attributionText}
-                </ThemedText>
-              ) : null}
             </View>
           </Row>
 
@@ -109,16 +105,10 @@ export default function CollectionScreen(): React.JSX.Element {
               return (
                 <View key={chapter.id} style={{ gap: theme.spacing.sm }}>
                   <Row gap={theme.spacing.sm} justify="space-between" align="center">
-                    <View style={{ flex: 1 }}>
-                      <ThemedText variant="heading" accessibilityRole="header">
-                        {chapter.title}
-                      </ThemedText>
-                      {chapter.summary ? (
-                        <ThemedText variant="caption" tone="secondary">
-                          {chapter.summary}
-                        </ThemedText>
-                      ) : null}
-                    </View>
+                    <ThemedText variant="heading" accessibilityRole="header" style={{ flex: 1 }}>
+                      {chapter.title}
+                    </ThemedText>
+                    {chapter.summary ? <InfoAffordance label={t('common.details')} title={chapter.title} text={chapter.summary} /> : null}
                     <Button label={L.playAll} variant="secondary" size="sm" icon="play" onPress={() => void playChapter(chapter.id)} accessibilityLabel={`${L.playAll}: ${chapter.title}`} />
                   </Row>
                   {lessons.map((lesson) => {

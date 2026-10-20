@@ -95,3 +95,75 @@ export function charactersForSituation(varietyId: VarietyId, tag: string): LangQ
   const t: SituationTag = tag;
   return CHARACTER_ROSTER.filter((c) => c.varietyId === varietyId && c.situations.includes(t));
 }
+
+/* ------------------------------------------------- Mission ↔ cast matching --- */
+
+/** A character reference accepted by the mission helpers: roster entry, slug id or stable uuid. */
+export type CharacterRef = LangQuestCharacter | string;
+
+function resolveCharacter(ref: CharacterRef): LangQuestCharacter | undefined {
+  return typeof ref === 'string' ? findCharacter(ref) : ref;
+}
+
+/**
+ * The mission's intents this character's everyday situations produce, in mission order
+ * (duplicates in the mission list are kept once). `[]` for an unknown character.
+ */
+export function missionIntentsCovered(
+  missionIntents: readonly string[],
+  character: CharacterRef,
+): string[] {
+  const c = resolveCharacter(character);
+  if (!c) return [];
+  const carried = new Set(c.intents);
+  const out: string[] = [];
+  for (const key of missionIntents) if (carried.has(key) && !out.includes(key)) out.push(key);
+  return out;
+}
+
+/**
+ * Does the character's role match the mission ("cast roles must match missions")?
+ *
+ * True when at least one of the mission's intent keys (`steps[].validIntentIds`, flattened
+ * with {@link missionIntentKeys}) is produced by the character's situations. A mission that
+ * declares no intents constrains nobody (true for any known character); an unknown
+ * character (id not in the roster) never matches.
+ */
+export function castMatchesMission(
+  missionIntents: readonly string[],
+  character: CharacterRef,
+): boolean {
+  const c = resolveCharacter(character);
+  if (!c) return false;
+  if (missionIntents.length === 0) return true;
+  return missionIntents.some((key) => c.intents.includes(key));
+}
+
+/** Unique intent keys of a mission's steps, in step order (`validIntentIds` of each step). */
+export function missionIntentKeys(
+  mission: { steps: ReadonlyArray<{ validIntentIds?: readonly string[] }> } | null | undefined,
+): string[] {
+  const out: string[] = [];
+  for (const step of mission?.steps ?? [])
+    for (const key of step.validIntentIds ?? []) if (!out.includes(key)) out.push(key);
+  return out;
+}
+
+/**
+ * Characters of one variety ranked for a mission: those producing the most of its intents
+ * first, roster order as the tie-break. Characters producing none are left out, so an empty
+ * result means nobody in the variety fits (the caller falls back to `charactersForVariety`).
+ * With no mission intents everybody in the variety is returned in roster order.
+ */
+export function charactersForMission(
+  varietyId: VarietyId,
+  missionIntents: readonly string[],
+): LangQuestCharacter[] {
+  const variety = charactersForVariety(varietyId);
+  if (missionIntents.length === 0) return variety;
+  return variety
+    .map((c, index) => ({ c, index, hits: missionIntentsCovered(missionIntents, c).length }))
+    .filter((x) => x.hits > 0)
+    .sort((a, b) => b.hits - a.hits || a.index - b.index)
+    .map((x) => x.c);
+}

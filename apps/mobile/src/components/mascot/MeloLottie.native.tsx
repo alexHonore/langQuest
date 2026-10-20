@@ -1,23 +1,31 @@
 /**
  * Lottie clips of Melo (native, `lottie-react-native`), generated from the same geometry as the
- * SVG (`assets/mascot/lottie/*.json`, `pnpm --filter @langquest/ui lottie`). The clip's `body` and
- * `bands` layers are recoloured with the chameleon tint so a celebration wears the course colour.
- * Never mounted under reduced motion (the caller shows the static pose instead).
+ * SVG (`assets/mascot/lottie/*.json`, `pnpm --filter @langquest/ui lottie`). The clip is recoloured
+ * with the chameleon tint before it is handed to the player (`tintLottieClip`): every body-coloured
+ * fill — tail, arms, feet, eye turrets, body, bands — follows the state × course tint, while the
+ * belly, the crest and the outline strokes keep their own colours. Never mounted under reduced
+ * motion (the caller shows the static pose instead).
  */
-import LottieView from 'lottie-react-native';
-import React from 'react';
+import LottieView, { type AnimationObject } from 'lottie-react-native';
+import React, { useMemo } from 'react';
 import { View } from 'react-native';
+import { tintLottieClip } from './lottie-tint';
 import type { MeloLottieProps } from './lottie-types';
 
-const CLIPS = {
-  idle: require('../../../../../assets/mascot/lottie/idle.json'),
-  reaction: require('../../../../../assets/mascot/lottie/reaction.json'),
-  celebrate_bounce: require('../../../../../assets/mascot/lottie/celebrate_bounce.json'),
-  thinking: require('../../../../../assets/mascot/lottie/thinking.json'),
-} as const;
+const CLIPS: Record<MeloLottieProps['clip'], AnimationObject> = {
+  idle: require('../../../../../assets/mascot/lottie/idle.json') as AnimationObject,
+  reaction: require('../../../../../assets/mascot/lottie/reaction.json') as AnimationObject,
+  celebrate_bounce: require('../../../../../assets/mascot/lottie/celebrate_bounce.json') as AnimationObject,
+  thinking: require('../../../../../assets/mascot/lottie/thinking.json') as AnimationObject,
+};
 
 export function MeloLottie(props: MeloLottieProps): React.JSX.Element | null {
-  const source = CLIPS[props.clip];
+  const { clip, tint } = props;
+  const body = tint?.body;
+  const bodyShade = tint?.bodyShade;
+  const crest = tint?.crest;
+  // Memoised on the colours themselves: a new `tint` object with the same colours must not restart the clip.
+  const source = useMemo(() => (body && bodyShade && crest ? tintLottieClip(CLIPS[clip], { body, bodyShade, crest }) : CLIPS[clip]), [clip, body, bodyShade, crest]);
   return (
     <View accessible accessibilityRole="image" accessibilityLabel={props.accessibilityLabel} style={{ width: props.size, height: props.size }} testID={props.testID}>
       <LottieView
@@ -25,7 +33,6 @@ export function MeloLottie(props: MeloLottieProps): React.JSX.Element | null {
         autoPlay
         loop={props.loop ?? false}
         style={{ width: props.size, height: props.size }}
-        colorFilters={props.tint ? [{ keypath: 'body', color: props.tint.body }, { keypath: 'bands', color: props.tint.crest }] : undefined}
         onAnimationFinish={(cancelled) => {
           if (!cancelled) props.onFinish?.();
         }}

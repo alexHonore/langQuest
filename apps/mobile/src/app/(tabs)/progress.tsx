@@ -5,7 +5,7 @@ import React, { useEffect, useMemo } from 'react';
 import { View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { CacheNotice, ErrorView, LoadingView } from '@/components/StateViews';
-import { dueCalendar } from '@/features/progress/due-calendar';
+import { dueCalendarRows } from '@/features/progress/due-calendar';
 import { useActiveEnrollment, useProgress, useReviewsDue } from '@/features/session/queries';
 import { headingLevel } from '@/lib/a11y';
 import { useI18n } from '@/lib/i18n';
@@ -21,7 +21,7 @@ import { track } from '@/lib/telemetry';
 export default function Progress(): React.JSX.Element {
   const theme = useTheme();
   const router = useRouter();
-  const { t, translator } = useI18n();
+  const { t, translator, locale } = useI18n();
   const labels = useUiLabels();
   const { api } = useServices();
   const { enrollment } = useActiveEnrollment();
@@ -30,7 +30,8 @@ export default function Progress(): React.JSX.Element {
   const skills = useQuery({ queryKey: ['skills', enrollment?.id], enabled: Boolean(enrollment), queryFn: () => api.skills(enrollment!.id), retry: false });
   useEffect(() => track.screenView('progress', theme.direction.rtl, enrollment?.scriptMode ?? null), [theme.direction.rtl, enrollment?.scriptMode]);
   const per = progress.data?.data.perEnrollment.find((p) => p.enrollmentId === enrollment?.id) ?? null;
-  const calendar = useMemo(() => dueCalendar(reviews.data?.data.items.map((i) => i.card.due) ?? [], new Date()), [reviews.data]);
+  // Only the days that have reviews are listed (a quiet week is one line, not eight); labels follow the UI locale.
+  const calendar = useMemo(() => dueCalendarRows(reviews.data?.data.items.map((i) => i.card.due) ?? [], new Date(), { locale, labels: { overdue: t('progress.review.overdue'), today: t('progress.review.today') } }), [reviews.data, locale, t]);
   const about = [t('progress.xpExplainer'), t('progress.noFluencyClaim'), t('progress.uncertaintyHint'), ...(['not_attempted', 'emerging', 'practiced', 'independent', 'durable'] as const).map((m) => `${labels.mastery[m]}: ${t(`progress.masteryHint.${m}`)}`)];
 
   return (
@@ -74,10 +75,11 @@ export default function Progress(): React.JSX.Element {
       </ThemedText>
       {reviews.data ? (
         <View style={{ gap: theme.spacing.xs }}>
-          {calendar.map((day) => (
-            <Row key={day.date} gap={theme.spacing.md} justify="space-between">
+          {calendar.rows.length === 0 ? <Chip label={t('progress.review.due', { count: 0 })} tone="neutral" icon="check" /> : null}
+          {calendar.rows.map((day) => (
+            <Row key={day.date} gap={theme.spacing.md} justify="space-between" testID={`progress-due-${day.date}`}>
               <ThemedText tone={day.overdue ? 'warning' : 'primary'}>{day.label}</ThemedText>
-              <Chip label={t('progress.review.due', { count: day.count })} tone={day.count > 0 ? (day.overdue ? 'warning' : 'accent') : 'neutral'} />
+              <Chip label={t('progress.review.due', { count: day.count })} tone={day.overdue ? 'warning' : 'accent'} />
             </Row>
           ))}
           {reviews.data.data.dueCount > 0 ? <Button label={t('progress.review.title')} icon="replay" glow onPress={() => router.push('/review')} accessibilityLabel={t('progress.review.title')} /> : null}

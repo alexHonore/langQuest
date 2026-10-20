@@ -201,6 +201,11 @@ react-native stand-in) and asserts the calm variant shows no helper text unless 
 - Surfaces: `Surface variant="glass" | "glassStrong"` for cards / sheets / tab bar; `elevated`,
   `surface`, `muted`, `accentSoft` stay opaque.
 - Lanterns: `Lanterns` (drawn by `AppShell`); decorative, hidden from assistive tech.
+- Icons: `art/native.tsx` icons with no `color` prop paint themselves with the active theme's
+  `textPrimary` (a hook-backed default, so they follow the scheme and the high-contrast palettes);
+  `InlineIcon` resolves a tone instead. Never a hard-coded hex as the default.
+- Text over scene art / cover scrims uses `tone="onScrim"` (`CourseCover` title), never a literal
+  white.
 - Never: colour as the only cue (every state has text + icon or pose), accent fills as text,
   glass over scene art without `sceneScrim`.
 

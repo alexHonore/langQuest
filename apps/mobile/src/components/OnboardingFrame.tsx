@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { HEADING_WRAP_STYLE } from '@/lib/heading-style';
 import { useT } from '@/lib/i18n';
 
 export interface OnboardingFrameProps {
@@ -45,7 +46,7 @@ export function OnboardingFrame(props: OnboardingFrameProps): React.JSX.Element 
         <ProgressBar value={props.step / total} accessibilityLabel={`${props.step}/${total}`} height={4} />
       </View>
       <ScrollView contentContainerStyle={{ padding: theme.spacing.lg, gap: theme.spacing.lg }} keyboardShouldPersistTaps="handled">
-        <ThemedText variant="title" accessibilityRole="header">
+        <ThemedText variant="title" accessibilityRole="header" style={HEADING_WRAP_STYLE}>
           {props.title}
         </ThemedText>
         {props.hint ? <ThemedText tone="secondary">{props.hint}</ThemedText> : null}

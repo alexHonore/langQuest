@@ -95,7 +95,7 @@ export function CourseCover(props: CourseCoverProps): React.JSX.Element {
             backgroundColor: theme.colors.overlay,
           }}
         >
-          <ThemedText variant="label" style={{ color: '#FFFFFF' }} numberOfLines={2}>
+          <ThemedText variant="label" tone="onScrim" numberOfLines={2}>
             {name}
           </ThemedText>
         </View>

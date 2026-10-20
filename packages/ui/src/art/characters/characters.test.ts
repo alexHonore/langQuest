@@ -26,11 +26,15 @@ import {
 import {
   CHARACTER_ROSTER,
   LEGACY_ROSTER_IDS,
+  castMatchesMission,
   charactersForIntent,
+  charactersForMission,
   charactersForSituation,
   charactersForTrack,
   charactersForVariety,
   findCharacter,
+  missionIntentKeys,
+  missionIntentsCovered,
 } from './roster';
 import {
   CHARACTER_SITUATIONS,
@@ -248,6 +252,67 @@ describe('situations ↔ curriculum intents', () => {
       expect(charactersForIntent(v.id, 'ask_where_is').length, v.id).toBeGreaterThan(0);
       expect(charactersForIntent(v.id, 'greet_hello').length, v.id).toBeGreaterThan(0);
     }
+  });
+});
+
+describe('mission ↔ cast matching', () => {
+  const taxiMission = {
+    steps: [
+      { validIntentIds: ['hail_taxi', 'state_destination'] },
+      { validIntentIds: ['ask_fare', 'hail_taxi', 'say_stop_here'] },
+      { validIntentIds: [] },
+    ],
+  };
+
+  it("flattens a mission's step intents once, in step order", () => {
+    expect(missionIntentKeys(taxiMission)).toEqual([
+      'hail_taxi',
+      'state_destination',
+      'ask_fare',
+      'say_stop_here',
+    ]);
+    expect(missionIntentKeys(null)).toEqual([]);
+    expect(missionIntentKeys({ steps: [{}] })).toEqual([]);
+  });
+
+  it('matches a character by roster entry, slug id or stable uuid', () => {
+    const intents = missionIntentKeys(taxiMission);
+    const samir = findCharacter('arz-taxi-driver-samir')!;
+    expect(castMatchesMission(intents, samir)).toBe(true);
+    expect(castMatchesMission(intents, samir.id)).toBe(true);
+    expect(castMatchesMission(intents, samir.characterId)).toBe(true);
+    expect(missionIntentsCovered(intents, samir)).toEqual(intents);
+    // Salma (a schoolgirl) does not hail taxis.
+    expect(castMatchesMission(intents, 'ary-schoolgirl-salma')).toBe(false);
+    expect(missionIntentsCovered(intents, 'ary-schoolgirl-salma')).toEqual([]);
+    // Partial coverage is still a match, reported in mission order.
+    expect(missionIntentsCovered(['greet_hello', 'hail_taxi', 'greet_hello'], 'ary-schoolgirl-salma')).toEqual(['greet_hello']);
+    expect(castMatchesMission(['greet_hello', 'hail_taxi'], 'ary-schoolgirl-salma')).toBe(true);
+  });
+
+  it('a mission without intents constrains nobody; an unknown character never matches', () => {
+    expect(castMatchesMission([], 'ary-schoolgirl-salma')).toBe(true);
+    expect(castMatchesMission([], 'no-such-character')).toBe(false);
+    expect(castMatchesMission(['greet_hello'], 'no-such-character')).toBe(false);
+    expect(missionIntentsCovered(['greet_hello'], 'no-such-character')).toEqual([]);
+  });
+
+  it("ranks a variety's cast by intent coverage and never crosses the variety", () => {
+    const intents = missionIntentKeys(taxiMission);
+    expect(charactersForMission('arz', intents).map((c) => c.id)).toEqual(['arz-taxi-driver-samir']);
+    expect(charactersForMission('ary', intents)).toEqual([]);
+    const everyone = charactersForMission('ary', []);
+    expect(everyone).toEqual(charactersForVariety('ary'));
+    const greet = charactersForMission('ary', ['greet_hello', 'request_food', 'ask_where_is']);
+    expect(greet.length).toBeGreaterThan(0);
+    expect(greet.every((c) => c.varietyId === 'ary')).toBe(true);
+    const hits = greet.map((c) => missionIntentsCovered(['greet_hello', 'request_food', 'ask_where_is'], c).length);
+    expect([...hits].sort((a, b) => b - a)).toEqual(hits);
+    expect(hits.every((h) => h > 0)).toBe(true);
+    // Every mission-declared character in the roster matches its mission by construction of the
+    // situation catalogue: each variety has someone for the basics.
+    for (const v of LANGUAGE_VARIETIES)
+      expect(charactersForMission(v.id, ['greet_hello']).length, v.id).toBeGreaterThan(0);
   });
 });
 
