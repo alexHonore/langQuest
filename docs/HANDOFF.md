@@ -1,7 +1,7 @@
 # LangQuest handoff
 
 - **Date:** 2026-10-20 (first written 00:46; refreshed about 07:00 after the device QA pass and the owner-free backlog rounds)
-- **Pinned to:** commit `b9de208` on `master`, clean working tree at the time of writing (the Device QA session may add commits; check `git log`)
+- **Pinned to:** commit `c4c27f8` on `master`, clean working tree at the time of writing (the Device QA session may add commits; check `git log`)
 - **Audience:** a new Claude Code session with no memory of earlier conversations
 - **Rule for this file:** every fact here was checked against repo files or command output on 2026-10-20. Items marked **UNVERIFIED** were not. Cells marked **session output** come from 2026-10-20 command runs whose output is not saved in the repo.
 
@@ -25,9 +25,10 @@ Current state:
   complete product, phases 0-12, with the traceability file as the progress record.
 - 0b03e6e was the last design batch (Melo chameleon, C2 clay cast, Night Market applied). The
   Device QA session (id local_221a7079-824a-4337-bd0f-6b575648219b) then ran the first iOS
-  simulator pass and committed 886e0e6 and bfc41fd. b9de208 landed the owner-free backlog
-  (admin writes through the Worker, speech honesty, editorial integrity, benchmark jobs, skills
-  seed, docs). Verified: 14/14 typecheck, 2,076 tests passed against the local stack, 0 failed.
+  simulator pass and committed 886e0e6 and bfc41fd. b9de208, 56bdc42 and c4c27f8 landed the
+  owner-free backlog (admin writes through the Worker, speech honesty, server-authoritative
+  mission credit, conversation guard, editorial integrity, benchmark jobs, skills seed, docs).
+  Verified: 14/14 typecheck, 2,245 tests passed against the local stack, 0 failed.
 - The QA session shares this checkout and branch and still runs Metro on :8081, wrangler dev on
   :8787 and the Docker stack. It is waiting for the owner to pick a learning-curve declination
   (design/explorations/learning/index.html). Read HANDOFF §3 before touching any of it.
@@ -71,10 +72,10 @@ If the owner has not named a next step, ask which item from docs/HANDOFF.md §9 
 
 | Area | State | Evidence |
 |---|---|---|
-| History | 21 commits, all on `master`, no remote (`git remote -v` is empty). HEAD `b9de208` (owner-free backlog, 2026-10-20). Device QA commits `886e0e6` and `bfc41fd`. `0b03e6e` was the last design batch | `git log --oneline` |
-| Typecheck / lint | 14/14 packages typecheck. Lint 14/14, 1 known warning (`scripts/src/seed-curriculum.ts` `seedTitle` unused) | integration run before `b9de208` (commit message, traceability header) |
-| Full test suite | **2,076 passed, 6 live-only skipped, 0 failed** (217 files) with `LANGQUEST_REQUIRE_LOCAL_STACK=1 LANGQUEST_REQUIRE_STACK=1 pnpm -r --workspace-concurrency=1 test`. pgTAP 4 files / 167 tests. Admin `next build` and mobile `export:web` pass. Previous baseline 1,706 | traceability header, `b9de208` message. No `docs/evidence` run record yet (§9 item 9) |
-| Traceability (763 rows, recount = header) | 439 implemented_tested, 249 in_progress, 57 blocked, 18 not_started | `docs/requirements-traceability.md`, awk recount in §9 |
+| History | 25 commits, all on `master`, no remote (`git remote -v` is empty). HEAD `c4c27f8` (owner-free backlog rounds `b9de208`, `56bdc42`, `c4c27f8`, 2026-10-20). Device QA commits `886e0e6` and `bfc41fd`. `0b03e6e` was the last design batch | `git log --oneline` |
+| Typecheck / lint | 14/14 packages typecheck. Lint 14/14, 1 known warning (`scripts/src/seed-curriculum.ts` `seedTitle` unused) | integration run before `c4de208` (commit message, traceability header) |
+| Full test suite | **2,245 passed, 6 live-only skipped, 0 failed** (231 files) with `LANGQUEST_REQUIRE_LOCAL_STACK=1 LANGQUEST_REQUIRE_STACK=1 pnpm -r --workspace-concurrency=1 test`. pgTAP 6 files / 271 tests. Admin `next build` and mobile `export:web` pass. Earlier baselines 2,184, 2,076, 1,706 | `docs/evidence/test-run-2026-10-20.md` (all four 2026-10-20 runs, row counts, leftovers) |
+| Traceability (763 rows, recount = header) | 440 implemented_tested, 248 in_progress, 57 blocked, 18 not_started | `docs/requirements-traceability.md`, awk recount in §9 |
 | Admin | All Studio writes go through Worker `/v1/admin/*` routes. The only Next handlers left are `app/api/auth/signout` and `app/api/locale`. 57 direct reads remain under the staff JWT and RLS | `packages/contracts/src/api/admin-studio.ts`, `apps/api/src/routes/admin/{editorial,jobs,users,model-test}.ts`, `docs/runbooks/admin-manual.md` §0 |
 | API docs | Generated OpenAPI 3.1: 92 paths, 108 operations. Regenerate with `pnpm --filter @langquest/scripts exec tsx src/generate-openapi.ts` (`--check` in CI style) | `docs/api/README.md`, `docs/api/openapi.json` |
 | Speech honesty | STT results carry a speech-detection verdict (no_speech_prob, logprob, curated Whisper silence hallucinations). No-speech attempts are never graded "understood" and earn no XP or skill credit. Caller-supplied audio URLs are refused (422) on transcribe, pronunciation and conversation turns | `packages/ai/src/speech/*`, `apps/api/src/__tests__/unit/speech-honesty*.test.ts` |
@@ -94,7 +95,7 @@ If the owner has not named a next step, ask which item from docs/HANDOFF.md §9 
 - **Done:** `886e0e6` (iOS 27 UIScene config plugin, so the app launches) and `bfc41fd` (fit-to-screen lessons, minimal Home, Hermes Intl polyfills, a settings data-loss fix in contracts `patchOf`, a11y fixes, focus refetch, evidence doc and screenshots).
 - **Waiting on the owner:** its last question was "Which learning-curve options should I build?". The declinations are in `design/explorations/learning/index.html` (L1-L3 lesson flows × N1-N3 navigation, including the Learn section). It suggested **L1 + L3 inside N2**. Nothing is built yet. The owner answers in that session; do not build any of it elsewhere without the owner's pick.
 - **Still running (as of 2026-10-20 ~07:00):** its Metro (`expo start --dev-client`, :8081), `wrangler dev` (:8787, restarted by that session at 06:02), the simulator log stream, and the Docker stack. Leave them alone; do not stop, restart or kill them.
-- It proposed a separate session for the Whisper "understood on silence" defect. The server side of that is now fixed in `b9de208`. Only the mobile half remains (send `recording.peakLevelDb`, §9).
+- It proposed a separate session for the Whisper "understood on silence" defect. The server side of that is now fixed (`b9de208`, `56bdc42`). Only the mobile half remains (send `recording.peakLevelDb`, §9).
 
 **Owner direction from the device walkthrough** (memory note `feedback-teach-before-test`, 2026-10-20):
 - Lessons teach before they test: an immersive moment comes first (animation, the character speaking, a short audio mini-lesson), then practice, on a real learning curve.
@@ -204,7 +205,7 @@ Jobs: `pnpm dev:jobs`. It does **not** auto-detect the stack: `SUPABASE_URL` and
 | `packages/locales` | `@langquest/locales` | ICU catalogs en/fr/es/ru, coverage, RTL | `src/catalogs/*` |
 | `packages/ui` | `@langquest/ui` | Tokens, theme, art (mascot, cast, covers, scenes), RN components | `src/tokens/*`, `src/theme/*`, `src/art/*` |
 | `packages/media`, `packages/telemetry` | — | R2 keys, manifests, rights gating / typed events, cost, redaction | `src/*.ts` |
-| `supabase/` | — | 15 migrations (000 to 140), pgTAP tests, `config.toml`, `seed/000_local_dev.sql` | `migrations/` |
+| `supabase/` | — | 17 migrations (000 to 161; 160 is the conversation session guard, 161 the atomic mission credit), pgTAP tests, `config.toml`, `seed/000_local_dev.sql` | `migrations/` |
 | `scripts/` | `@langquest/scripts` | Importers, seed-languages, seed-curriculum, content-factory, coverage validator | `scripts/README.md` |
 | `tests/` | `@langquest/tests` | Cross-cutting Vitest projects (integration, security, locales, audio, load); 6 Maestro flows plus 3 shared sub-flows | `tests/README.md`, `tests/e2e/README.md`, `src/harness/*` |
 | `design/explorations/` | — | Declinations gallery (M1-M5, C1-C4, U1-U4). Approved: `mascots/M3`, `characters/C2`, `ui/U2` | `index.html` |
@@ -277,36 +278,35 @@ Row counts are from `docs/requirements-traceability.md` (status column + Blocker
 
 ## 9. Next steps a session can do without the owner (prioritized)
 
-Items 2, 3, 8 and 9 of the previous list (API route tests, admin through the Worker, docs-only rows, content-factory fixtures) and the round-2 fixes (speech honesty, query flags, analytics cap, editorial integrity, benchmark jobs, skills seed) landed in `b9de208`.
-
-**Items 1-8 below landed in `56bdc42`** (server-authoritative mission credit, test network guard, strict query flags, learner-only analytics, realtime no-speech, skill-key registry, restorable revisions, diversity publish gate; 2,184 tests passed, `docs/evidence/test-run-2026-10-20.md`). Their leftovers are listed in that evidence file under "Known leftovers". Item 9 is partly done (the run record exists). Item 10 is still open.
-
-The list as it stood before `56bdc42`:
+Done on 2026-10-20 in four verified rounds: `b9de208` (admin writes through the Worker, route tests, speech honesty, editorial integrity, benchmark jobs, skills seed, docs rows), `56bdc42` (server-authoritative mission credit, test network guard, strict query flags, learner-only analytics, realtime no-speech, skill-key registry, restorable revisions, diversity publish gate), `c4c27f8` (conversation session guard, atomic mission credit and progress, publish override in the contract, conditional suggestion decisions, test leftovers). Run record: `docs/evidence/test-run-2026-10-20.md` (its "Known leftovers after round 4" list is the detailed backlog).
 
 | # | Task | Main files | Done when |
 |---|---|---|---|
-| 1 | `missionEvaluate` trusts outcomes the client reports: derive them server-side | `apps/api/src/routes/learner/missions*.ts`, contracts | A forged "understood" outcome cannot earn XP or skill credit, with tests |
-| 2 | Stack-test hygiene: `apps/api/src/__tests__/integration/review-fixes.test.ts` sends a real (refused) request to openrouter.ai with a fake key; suites leave `processing_jobs` and `media_assets` rows | that test, `apps/api/src/__tests__/harness.ts`, `tests/src/harness/*` | No network call leaves a test run, and the harness tracks and removes those rows |
-| 3 | `GET /v1/me/enrollments?includeArchived=false` still returns archived rows (`z.coerce.boolean()` at `apps/api/src/routes/learner/enrollments.ts:70`); decide what `?x=` means | that route, `QueryBooleanSchema` in contracts | Use `parseQuery(c, EnrollmentsListQuerySchema)`, with tests |
-| 4 | Analytics counts staff and job `ai_requests` as active learners (`apps/api/src/routes/admin/analytics.ts`); the truncation header is not CORS-exposed or in the schema; `analytics/quality` has no stack test | analytics route, CORS `EXPOSED_HEADERS`, contracts | Learner metrics exclude staff, truncation is visible to the Studio, tests cover it |
-| 5 | Speech leftovers on the server: `realtime/pipeline.ts` turns an empty transcript into "…" and calls the LLM; the OpenRouter client drops `compression_ratio`; `partially_understood` vs `unclear` disagree with mobile | `apps/api/src/routes/speech/realtime/*`, `packages/ai/src/openrouter/*` | No model call on empty audio; the signal reaches detection; one outcome vocabulary |
-| 6 | The evaluator invents skill keys (`packages/ai/src/prompts/builders.ts`, `apps/api/src/lib/conversation.ts`); `buildSkillsSeedSql` uses `SKILLS` only | those files, `scripts/src/lib/seed-sql.ts` | Only registry keys can be credited, with tests |
-| 7 | Revisions without a restorable snapshot in `visual-assets.ts`, `suggestions.ts`, `rights.ts`; the library Attach/Merge dialogs can stop on a 409 halfway | `apps/api/src/routes/admin/*`, `apps/admin/app/(studio)/library/*` | Rollback works for every admin edit; dialogs report partial results |
-| 8 | The publish gate ignores `diversity_needs_regeneration`; the content-factory CLI chapter record is not wired; speech benchmarks are a no-op | publish route, `scripts/src/lib/content-factory.ts`, `apps/jobs` benchmark handler | Low-diversity drafts cannot be published; the CLI writes chapter records; tests |
-| 9 | Records: write a `docs/evidence/test-run-2026-10-20.md` for the 2,076-test run (once the QA session is finished with `docs/evidence`); fix `docs/runbooks/jobs.md` (still lists `benchmark_model` as `no_handler`) and the README Mobile row ("native device QA pending") | docs | Docs match the code |
-| 10 | Older items still open: reviews-due window vs the 7-day calendar; localized course names; move `admin.ui` keys out of `apps/admin/src/lib/i18n/extra.ts`; cross-package cleanup (`loc<T>()` casts, admin `@art/*` alias); stack journeys (A09, R-2.1-09, R-2.1-07, T-int-07); load run (T-perf-03) | see `docs/reference/cross-package-gaps.md` and the traceability rows | Rows move to implemented_tested with evidence |
+| 1 | Suggestion approval races: the `expectedRevision` approve path writes the lesson before the conditional decide; an override written while pending can be applied by a concurrent approval; two identical concurrent decisions answer 409 instead of a replay | `apps/api/src/routes/admin/suggestions.ts`, `packages/db/src/repositories/asset-suggestions.ts` | One `decide(..., { suggestion })` call, a replay when the status already matches, decide-then-apply; a real-Postgres race test |
+| 2 | Conversation edge cases: a service-role line can land milliseconds after the finish; retained inline recordings are never linked to their turn (append-only); a replayed `/end` shows `xpAwarded: 0`; a background evaluator run that lands before the finish records observations twice | `apps/api/src/routes/speech/conversation.ts`, `apps/api/src/lib/conversation.ts`, migrations if needed | Each case has a test and an honest outcome |
+| 3 | Mission credit leftovers: `scheduleReviews` can hit 23505 (500 after the decision settled); `mission_attempts.xp_awarded` and the mastery recompute are read-then-write; a DB-side variety check in `complete_mission_attempt`; `mission_evidence_claims` in contracts `DB_TABLES` | `apps/api/src/lib/{xp-credit,learning}.ts`, `apps/api/src/routes/learner/missions.ts` | Tests for each, no 500 on a settled decision |
+| 4 | Editorial leftovers: missions cannot pass `nativeReviewed`; visual-asset rollback restores only `alt_text_key` and `focal_point`; slot assignments only partly restorable; content-factory CLI verdict-sheet ingestion and mission rows on `--apply` | `apps/api/src/routes/admin/*`, `scripts/src/lib/content-factory.ts` | Tests; rows in `docs/requirements-traceability.md` updated |
+| 5 | Analytics: per-panel aggregate SQL functions (exact totals without paging); a stack test for `analytics/quality`; check the Studio analytics screen in a browser | `apps/api/src/routes/admin/analytics.ts`, a new migration, `apps/admin/app/(studio)/analytics/*` | Exact totals at any volume; screenshot of the screen |
+| 6 | Older items: reviews-due window vs the 7-day calendar; localized course names; move `admin.ui` keys out of `apps/admin/src/lib/i18n/extra.ts`; cross-package cleanup (`loc<T>()` casts, admin `@art/*` alias); stack journeys (A09, R-2.1-09, R-2.1-07, T-int-07); load run (T-perf-03) | `docs/reference/cross-package-gaps.md`, the traceability rows | Rows move to implemented_tested with evidence |
 
-**Mobile-owned leftovers** (QA session's files, or after it is finished): send `recording.peakLevelDb` with attempts so near-silent clips are caught on the server; show skill names instead of `descriptor`/raw keys (`apps/mobile/src/app/(tabs)/progress.tsx`, `review/index.tsx`, mission chips); align the outcome vocabulary with the server.
+**Mobile-owned leftovers** (the QA session's files; give them to that session or do them after it is finished). The server already serves these rules on :8787:
+- `apps/mobile/src/features/lesson/machine.ts` should read `r.outcome ?? speechObservationOutcome(r)` (and update `machine.test.ts`).
+- Show "I didn't hear you, try again" when `speech.speechDetected === false`.
+- Send `recording.peakLevelDb` with attempts, so near-silent clips are caught on the server.
+- Choice steps are never credited now (the player sends the answer key); crediting them needs opaque server-shuffled option ids in contracts and mobile.
+- Show skill names instead of `descriptor`/raw keys (`apps/mobile/src/app/(tabs)/progress.tsx`, `review/index.tsx`, mission chips).
+- 182 of the 203 seeded missions have no target expression, so they complete without paying XP. That is honest, but visible on the device.
 
 **Owner decisions waiting** (list them, do not decide):
 - The learning-curve declination (QA session's question, §3).
 - Reviewer write scope: the Worker follows the role table in `docs/content-rights/native-review-process.md` (reviewers approve/reject drafts, save reviewed transcript revisions, record `quality_review_status`), which is wider than the editors-only RLS. Each route moves to editors-only with a one-word role change in `apps/api/src/routes/admin/editorial.ts`.
+- Whether learner-inserted conversation turns should count toward conversation XP (migration 070 `owner_insert`).
 - Whether an admin Retry of a failed `benchmark_model` job may spend again (contracts still map it to no runner, so Retry is refused with 412).
 - Whether hiding a published lesson should invalidate its offline packs.
-- Deleting 3 mastery rows, their observations and 2 review cards in the local DB that carry evaluator-invented skill keys.
+- Test leftovers in the local DB (16 older test assets with their provenance, 7 `auth` `ai_requests` rows, 10 `test:*` jobs, 15 feedback rows, 3 mastery rows with invented skill keys plus their observations and 2 review cards): delete or keep. A migration letting `purge_test_user` remove a test-owned asset would also stop the one `removed` provenance event per run.
 - The Playwright browser download (`pnpm exec playwright install chromium`) for the admin e2e tests.
 
-Traceability recount (prints 439 / 249 / 57 / 18, total 763 at `b9de208`):
+Traceability recount (prints 440 / 248 / 57 / 18, total 763 at `c4c27f8`):
 ```bash
 awk -F'|' 'NF>=7 && $2 ~ /^ *(R-|A[0-9]|T-|N[0-9]|F[0-9]|E[0-9])/ {s=$5; gsub(/ /,"",s); c[s]++; n++} END {for (k in c) print k, c[k]; print "total", n}' docs/requirements-traceability.md
 ```
@@ -324,8 +324,8 @@ pnpm --filter @langquest/mobile lint                        # expo lint
 # while another session uses the stack: unit tests only
 LANGQUEST_SKIP_LOCAL_STACK=1 pnpm --filter <pkg> exec vitest run
 # only when the stack is free (LANGQUEST_LIVE_TESTS unset): a missing stack fails instead of skipping
-LANGQUEST_REQUIRE_LOCAL_STACK=1 LANGQUEST_REQUIRE_STACK=1 pnpm -r --workspace-concurrency=1 test   # baseline 2,076 passed / 6 skipped
-# only when the stack is free: pgTAP (3 files); starts a pg_prove container (wedge risk, database.md §8)
+LANGQUEST_REQUIRE_LOCAL_STACK=1 LANGQUEST_REQUIRE_STACK=1 pnpm -r --workspace-concurrency=1 test   # baseline 2,245 passed / 6 skipped
+# only when the stack is free: pgTAP (6 files, 271 tests); starts a pg_prove container (wedge risk, database.md §8)
 pnpm supabase test db
 # always
 pnpm --filter @langquest/mobile export:web                  # web export still builds
@@ -357,7 +357,7 @@ All recorded full runs used `pnpm -r test`. Whether `pnpm test` (turbo, running 
 - `supabase start` applies migrations only on first boot. After editing a migration you need `local:reset`, so ask first if another session is active. Migrations 080, 130 and 140 are **generated**, so never hand-edit them (§7 for 140).
 - **Docker Desktop wedge** (containers stuck in `Created`): `docker desktop restart` is not enough. The full recovery is in `docs/runbooks/database.md` §8. It kills Docker and its block ends with `pnpm supabase db reset`: stop before that last line. A Docker restart keeps the stack's data volume: the 2 local users, the super_admin row and the enrollment were still there at 01:05 on 2026-10-20, after the QA session's Docker and stack restart. Never run the recovery while another session uses the stack, and ask the owner first.
 - **Ignore rules can swallow source.** The root `.gitignore` rule `coverage/` once hid an admin route file from git. That route now lives in the Worker, but after adding any folder named `coverage`, `build` or `dist`, run `git check-ignore -v <file>`.
-- **Stack suites leave some rows.** Each full run adds about 2 `ai_requests` and 99 `audit_logs` rows (append-only by design), 2 `processing_jobs` (`test:verify:*`, `test:attrib:*`) and 3 `media_assets`. Users are purged. Do not delete the leftovers without the owner's OK; §9 item 2 is the fix.
+- **Stack suites leave some rows.** Each full run adds about 99 `audit_logs` and 1 `ai_requests` row (append-only by design) and 1 `asset_provenance_events` row; `processing_jobs` and `media_assets` no longer grow, and users are purged. A network guard fails any stack test that reaches a non-local host. Do not delete leftovers without the owner's OK (§9 owner decisions).
 - `apps/admin/.env.example` exists locally but is gitignored (`apps/admin/.gitignore:34` `.env*`), yet `developer-setup.md` §2 (line 52) says to copy it, so a fresh clone lacks it. There is no `apps/mobile/.env.example`.
 - **CI gaps.**
   - CI triggers on `main`, but the branch is `master`.
