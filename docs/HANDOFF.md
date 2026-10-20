@@ -29,6 +29,9 @@ Current state:
 - The owner then started the "Device QA" session (id local_221a7079-824a-4337-bd0f-6b575648219b).
   It shares this checkout and branch, committed 886e0e6, and holds the iOS simulator, Metro on
   :8081, wrangler dev on :8787 and the Docker stack. Read HANDOFF §3 before touching any of them.
+- The owner's newest direction (from that walkthrough): lessons teach before they test, exercise
+  screens fit the phone without scrolling, Home stays minimal, and a Learn section comes before
+  Missions/Parler. The QA session owns that work; new flows go to the owner as declinations first.
 - Nothing is hosted except an unconfigured API Worker that returns 503. Hosted Supabase and
   R2 are blocked on the owner. The local stack is the only database.
 - The build sessions ran in "ultracode" mode: the Workflow tool for every substantive task, with
@@ -99,6 +102,12 @@ What the repo and machine showed between 00:46 and 01:06 on 2026-10-20:
 - Uncommitted QA work at 01:06: `apps/mobile/src/components/Screen.tsx`, `apps/mobile/src/app/mission/[id].tsx`, new `apps/mobile/src/components/screen-insets{,.test}.ts`, and the untracked screenshots. Run `git status --short` for the current list. None of it is yours.
 - Running QA processes: Metro `expo start --dev-client --port 8081` (restarted 01:00), `simctl spawn B62B… log stream` (since 00:27), and `wrangler dev` + 2 `workerd` on 127.0.0.1:8787 (since 00:32). The build command was reported as `npx expo run:ios --device B62B69C7-… --no-bundler` with `LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 CI=1 EXPO_NO_TELEMETRY=1` (**UNVERIFIED**: it is no longer running and no repo file records it).
 - Whether the QA pass is finished is not known from the repo. Read the QA session's own result before you assume any device state.
+- **New owner direction from the device walkthrough (05:13, memory note `feedback-teach-before-test`):**
+  - Lessons teach before they test: an immersive moment comes first (animation, the character speaking, a short audio mini-lesson), then practice, on a real learning curve.
+  - Lesson and exercise screens fit the phone: no scrolling or overflow to reach the options or "next".
+  - Home is minimal: no greeting heading, no coverage chip, no quick-speak button. The next mission plus Melo is enough.
+  - The app needs a **Learn** section (audio, text, lessons, mini-games) before Missions and Parler, which stay.
+- The QA session's plan at 05:13 takes all four. Home cleanup, lesson fit, the Intl polyfills (raw plural messages, language names) and transcript/download-row defects ship directly. The teach-first flow and the Learn section are design changes, so it will present **declinations for approval** first. Do not start a parallel design for them. If that session ends without them, they are the top design item, and declinations still come before any build.
 - Toolchain: Xcode 27.1 (27A9275), iOS 26.5 and 27.0 simulator runtimes, CocoaPods 1.17.0 (Homebrew), booted iPhone 17 simulator.
 - Its brief is done when: the app builds and launches against the local stack; the local learner signs in; onboarding shows the enrollment disclaimer; a lesson works with mic recording; a live character conversation works; audio library behaviour is checked; whatever breaks is fixed; screenshots are in `docs/evidence/`; B-DEVICE traceability rows are updated only where actually verified.
 
