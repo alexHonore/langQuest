@@ -9,7 +9,7 @@ import { CourseCapabilitiesSchema } from '../capabilities';
 import { CourseManifestSchema, SceneIdSchema, VisualRefSchema, AssetRefSchema } from '../manifest';
 import { Bcp47Schema, JsonObjectSchema, KeySchema, MillisSchema, NonNegativeIntSchema, TimestamptzSchema, UnitIntervalSchema, UuidSchema } from '../primitives';
 import { ReviewCardSchema, ReviewRatingSchema, SkillMasterySnapshotSchema, SkillObservationInputSchema } from '../srs';
-import { confirmQuery, pageOf, PaginationQuerySchema, QueryBooleanSchema } from './common';
+import { confirmQuery, pageOf, PaginationQuerySchema, patchOf, QueryBooleanSchema } from './common';
 
 // --- auth -------------------------------------------------------------------
 
@@ -71,9 +71,9 @@ export const PatchSettingsRequestSchema = z
     /** Changes the prefill for NEW enrollments only. Existing enrollments are untouched. `null` clears the prefill. */
     defaultSourceLanguageCode: SourceLanguageCodeSchema.nullable(),
     timeZone: z.string(),
-    privacyOptions: PrivacyOptionsSchema.partial(),
-    accessibilityOptions: AccessibilityOptionsSchema.partial(),
-    notificationPreferences: NotificationPreferencesSchema.partial(),
+    privacyOptions: patchOf(PrivacyOptionsSchema),
+    accessibilityOptions: patchOf(AccessibilityOptionsSchema),
+    notificationPreferences: patchOf(NotificationPreferencesSchema),
     audioSpeed: z.number().min(0.5).max(1.5),
     defaultHintBehavior: z.enum(['on_request', 'after_pause', 'always']),
     conversationMode: z.enum(['push_to_talk', 'hands_free', 'text_only']),

@@ -24,6 +24,7 @@ import type { RecordedClip } from '@/features/conversation/controller';
 import { useServices } from '@/lib/services';
 import { track } from '@/lib/telemetry';
 import { getLocalStore } from '@/store';
+import { pickChoiceOptions } from './layout';
 import { createLesson, reduceLesson, type LessonEffect, type LessonEvent, type LessonState, type LessonStepSpec, type TextAnswerResult } from './machine';
 
 type MissionStep = MissionDetailResponse['steps'][number];
@@ -31,7 +32,8 @@ type MissionStep = MissionDetailResponse['steps'][number];
 export function toStepSpecs(mission: MissionDetailResponse): LessonStepSpec[] {
   return mission.steps.map((s): LessonStepSpec => {
     const expressions = s.expressions;
-    const options = s.type === 'listen_identify' || s.type === 'comprehension_check' ? expressions.map((e) => ({ id: e.id, label: e.meaning })) : [];
+    // Answer + up to three distractors in a stable per-step order (was: every expression, answer always first).
+    const options = s.type === 'listen_identify' || s.type === 'comprehension_check' ? pickChoiceOptions(expressions.map((e) => ({ id: e.id, label: e.meaning })), expressions[0]?.id ?? null, s.id) : [];
     return {
       id: s.id,
       type: s.type,

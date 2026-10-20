@@ -1,3 +1,5 @@
+// Must stay first: Hermes lacks Intl.PluralRules / Locale / DisplayNames (see the module).
+import '@/lib/intl-polyfills';
 import { useTheme } from '@langquest/ui';
 import { Stack } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';

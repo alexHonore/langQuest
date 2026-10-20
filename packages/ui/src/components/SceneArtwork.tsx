@@ -17,6 +17,8 @@ export interface SceneArtworkProps {
   /** Localized alt text; required when `imageUri` is used. */
   altText?: string;
   aspectRatio?: number;
+  /** Fixed height (dp) chosen by a fit-to-screen layout; overrides `aspectRatio` and the minimum height. */
+  height?: number;
   variant?: 'day' | 'evening';
   /** Content laid over the centre band (title, speech bubble…). */
   overlay?: React.ReactNode;
@@ -40,6 +42,7 @@ export function SceneArtwork(props: SceneArtworkProps): React.JSX.Element {
     imageUri,
     altText,
     aspectRatio,
+    height: fixedHeight,
     variant = 'day',
     overlay,
     overlayPosition = 'center',
@@ -56,9 +59,11 @@ export function SceneArtwork(props: SceneArtworkProps): React.JSX.Element {
   const scene = sceneId ? findScene(sceneId) : undefined;
   const label = altText ?? scene?.altText ?? '';
   const height =
-    width > 0
-      ? Math.max(theme.illustration.sceneMinHeight, width / ratio)
-      : theme.illustration.sceneMinHeight;
+    fixedHeight !== undefined && fixedHeight > 0
+      ? fixedHeight
+      : width > 0
+        ? Math.max(theme.illustration.sceneMinHeight, width / ratio)
+        : theme.illustration.sceneMinHeight;
   const useImage = Boolean(imageUri) && !imageFailed;
 
   const onLayout = (e: LayoutChangeEvent): void => setWidth(Math.round(e.nativeEvent.layout.width));

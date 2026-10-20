@@ -13,6 +13,7 @@ import { useCourseHeader } from '@/features/session/enrollment-header';
 import { useActiveEnrollment } from '@/features/session/queries';
 import { useUiLabels } from '@/lib/labels';
 import { useServices } from '@/lib/services';
+import { screenInsets } from './screen-insets';
 
 export interface ScreenProps {
   title?: string;
@@ -25,7 +26,7 @@ export interface ScreenProps {
   scroll?: boolean;
   /** Hide the edit affordance (used by the switcher itself). */
   noEdit?: boolean;
-  /** Skip the safe-area top inset when rendered inside a tab navigator that already applies it. */
+  /** Rendered inside the learner tabs: the tab bar owns the bottom inset (the top inset always applies, see `screen-insets.ts`). */
   insideTabs?: boolean;
   fullBleed?: boolean;
   contentStyle?: StyleProp<ViewStyle>;
@@ -51,7 +52,7 @@ export function Screen(props: ScreenProps): React.JSX.Element {
       onBack={props.onBack}
       headerEnd={props.headerEnd}
       offline={!online}
-      insets={{ top: props.insideTabs ? 0 : insets.top, bottom: props.footer ? insets.bottom : 0, left: insets.left, right: insets.right }}
+      insets={screenInsets(insets, { insideTabs: props.insideTabs, hasFooter: Boolean(props.footer) })}
       footer={props.footer}
       fullBleed={props.fullBleed}
       labels={labels}

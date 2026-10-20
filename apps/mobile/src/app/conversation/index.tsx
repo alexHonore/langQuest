@@ -11,6 +11,7 @@ import { findCastCharacter } from '@/features/characters/cast';
 import { useCast } from '@/features/characters/use-cast';
 import { ConversationController, type ConversationSnapshot } from '@/features/conversation/controller';
 import { sessionScopeFromParams } from '@/features/conversation/scope';
+import { showTurnInTranscript } from '@/features/conversation/transcript';
 import { levelToUnit } from '@/features/conversation/vad';
 import { isolateSourceText, sourceTextDirection, turnLayersForScriptMode } from '@/features/lesson/forms';
 import { useActiveEnrollment, useInvalidateLearner } from '@/features/session/queries';
@@ -323,7 +324,7 @@ function LiveConversation({ session, enrollment, mode, voice }: { session: Conve
       <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: theme.spacing.sm }}>
         {(snap?.turns ?? []).map((turn) => {
           const learner = turn.role === 'learner';
-          if (!transcript && learner) return null;
+          if (!showTurnInTranscript(turn.role, { transcriptOn: transcript, mode })) return null;
           return (
             <Surface key={turn.id} variant={learner ? 'accentSoft' : 'surface'} bordered radius="md" padding={theme.spacing.md} style={{ alignSelf: learner ? 'flex-end' : 'flex-start', maxWidth: '88%', gap: 2 }}>
               <ThemedText variant="caption" tone="muted">

@@ -6,6 +6,9 @@ import { Melo } from '@/components/Melo';
 import { Screen } from '@/components/Screen';
 import { ChoiceRow, SwitchRow } from '@/components/SettingRow';
 import { usePatchSettings } from '@/features/account/use-settings';
+import { downloadsOfferedForAny } from '@/features/session/capabilities';
+import { useActiveEnrollment } from '@/features/session/queries';
+import { DOWNLOADS_SUPPORTED_ON_PLATFORM } from '@/features/session/use-capabilities';
 import { useT } from '@/lib/i18n';
 import { track } from '@/lib/telemetry';
 import { usePrefs, type ThemeSchemePref } from '@/state/prefs';
@@ -24,6 +27,8 @@ export default function AccessibilitySettings(): React.JSX.Element {
   const t = useT();
   const prefs = usePrefs();
   const patch = usePatchSettings();
+  const { enrollments } = useActiveEnrollment();
+  const downloadsOffered = downloadsOfferedForAny(enrollments.map((e) => e.capabilities ?? null), { downloadsSupported: DOWNLOADS_SUPPORTED_ON_PLATFORM });
   const push = (acc: Partial<{ reduce_motion: boolean; mascot_enabled: boolean; high_contrast: boolean; text_scale: number; haptics_enabled: boolean; captions_default_on: boolean }>): void => patch.mutate({ accessibilityOptions: acc });
 
   return (
@@ -41,9 +46,10 @@ export default function AccessibilitySettings(): React.JSX.Element {
       <SwitchRow label={t('account.accessibility.deafMode')} hint={t('account.accessibility.deafModeHint')} value={prefs.captionsDefaultOn} onChange={(v) => { prefs.set({ captionsDefaultOn: v }); push({ captions_default_on: v }); }} />
       <SwitchRow label={t('account.accessibility.motorMode')} hint={t('account.accessibility.motorModeHint')} value={prefs.tapToTalk} onChange={(v) => prefs.set({ tapToTalk: v })} />
       <ChoiceRow<ConversationMode> label={t('account.speakMode.label')} value={prefs.speakMode} options={[{ value: 'push_to_talk', label: t('account.speakMode.push_to_talk') }, { value: 'hands_free', label: t('account.speakMode.hands_free') }, { value: 'text_only', label: t('account.speakMode.text_only') }]} onChange={(v) => { prefs.set({ speakMode: v }); patch.mutate({ conversationMode: v }); }} />
-      <Divider />
-      <SwitchRow label={t('audio.download.wifiOnly')} value={prefs.wifiOnlyDownloads} onChange={(v) => { prefs.set({ wifiOnlyDownloads: v }); patch.mutate({ offlineDownloadSettings: { wifiOnly: v } }); }} />
-      <SwitchRow label={t('audio.download.download')} hint={t('audio.download.manage')} value={prefs.autoDownload} onChange={(v) => { prefs.set({ autoDownload: v }); patch.mutate({ offlineDownloadSettings: { autoDownload: v } }); }} />
+      {/* §8: download rules only when one of the learner's courses can download (device QA 2026-10-20). */}
+      {downloadsOffered ? <Divider /> : null}
+      {downloadsOffered ? <SwitchRow label={t('audio.download.wifiOnly')} value={prefs.wifiOnlyDownloads} onChange={(v) => { prefs.set({ wifiOnlyDownloads: v }); patch.mutate({ offlineDownloadSettings: { wifiOnly: v } }); }} /> : null}
+      {downloadsOffered ? <SwitchRow label={t('audio.download.download')} hint={t('audio.download.manage')} value={prefs.autoDownload} onChange={(v) => { prefs.set({ autoDownload: v }); patch.mutate({ offlineDownloadSettings: { autoDownload: v } }); }} /> : null}
     </Screen>
   );
 }

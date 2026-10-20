@@ -2,7 +2,8 @@ import { getCourseTrack, type MissionDetailResponse, type EnrollmentDto } from '
 import { AchievementCelebration, Button, CharacterPortrait, Chip, HintSheet, IconButton, InfoAffordance, LessonAccentScope, LessonProgress, PronunciationFeedback, Row, SceneArtwork, SpeakButton, SpeechStateIndicator, StatusLine, Surface, ThemedText, expressionForSpeechState, useTheme } from '@langquest/ui';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useMemo, useState } from 'react';
-import { Alert, TextInput, View } from 'react-native';
+import { Alert, TextInput, View, useWindowDimensions } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 import { Melo } from '@/components/Melo';
 import { Screen } from '@/components/Screen';
 import { CacheNotice, ErrorView, LoadingView } from '@/components/StateViews';
@@ -11,6 +12,7 @@ import { findCastCharacter } from '@/features/characters/cast';
 import { useCast } from '@/features/characters/use-cast';
 import { sceneForMission } from '@/features/missions/story';
 import { formsForScriptMode, isolateSourceText, sourceTextDirection } from '@/features/lesson/forms';
+import { fitScene } from '@/features/lesson/layout';
 import { uiPhase } from '@/features/lesson/machine';
 import { useLessonPlayer } from '@/features/lesson/use-lesson-player';
 import { withoutNumericScore } from '@/features/session/capabilities';
@@ -36,6 +38,8 @@ export default function MissionScreen(): React.JSX.Element {
   const mission = useMissionDetail(typeof id === 'string' ? id : null, enrollment);
   return (
     <LessonAccentScope lessonType={mission.data?.data.type ?? null}>
+      {/* No scrolling: the step lays itself out to fit the screen (`features/lesson/layout.ts`; device QA 2026-10-20 found
+          "next step" at y≈1039 on an 874 pt phone with the old fixed-height scene). */}
       <Screen onBack={() => router.back()} scroll={false}>
         {mission.isLoading ? <LoadingView rows={2} /> : null}
         {mission.error && !mission.data ? <ErrorView error={mission.error} onRetry={() => void mission.refetch()} /> : null}
@@ -69,6 +73,10 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
   const [typed, setTyped] = useState('');
   const [permission, setPermission] = useState<MicPermission | null>(null);
   const [celebrated, setCelebrated] = useState(false);
+  const [sceneBox, setSceneBox] = useState({ width: 0, height: 0 });
+  const compactMic = useWindowDimensions().height < 760;
+  // Full-screen modal: nothing else pads the home-indicator strip, so the step keeps "next" above it.
+  const safeBottom = useSafeAreaInsets().bottom;
   useEffect(() => () => player.dispose(), [player]);
 
   const trackDef = getCourseTrack(enrollment.courseTrackId);
@@ -198,9 +206,17 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
   const mascotState = current.phase === 'recording' ? 'listening' : current.phase === 'processing' ? 'thinking' : lesson.playing ? 'quiet_audio' : current.phase === 'compare' ? (current.outcome === 'success' ? 'success' : 'try_again') : current.error ? 'connection_error' : current.phase === 'anticipate' ? 'curious' : 'neutral';
   const stepAbout = [step.instruction, t('lesson.anticipateHint'), ...(micCoaching ? [t('lesson.textAlternativeNote')] : []), ...(mission.localizationComplete ? [] : [t('enrollment.coverage.draftAvailable', { source: names(enrollment.sourceLanguageCode) })])];
 
+  // Fit-to-screen (owner feedback 2026-10-20): progress, phrase card, action zone and "next" keep their natural
+  // height; the scene takes what is left (measured) and hides when too little is left. No scrolling, no overflow.
+  const scene = fitScene(sceneBox.width, sceneBox.height);
+  const comparing = current.phase === 'compare' && spec.options.length === 0 && Boolean(lesson.textAnswer || lesson.evaluation);
+  const portraitSize = Math.max(40, Math.min(72, scene.height - 44));
+  const melo = <Melo state={mascotState} size={scene.visible ? Math.max(32, Math.min(48, Math.floor(scene.height / 2.5))) : 40} animate={false} testID="mission-mascot" />;
+  const speechLine = <SpeechStateIndicator state={speechState} labels={labels.speechStates} shortLabels={labels.speechStatesShort} compact />;
+
   return (
     <LessonAccentScope lessonType={step.type}>
-      <View style={{ flex: 1, gap: theme.spacing.md, paddingVertical: theme.spacing.sm }}>
+      <View style={{ flex: 1, gap: theme.spacing.sm, paddingTop: theme.spacing.sm, paddingBottom: theme.spacing.sm + safeBottom }} testID="mission-step">
         <Row gap={theme.spacing.sm} justify="space-between">
           <View style={{ flex: 1 }}>
             <LessonProgress step={state.index + 1} totalSteps={state.steps.length} phase={uiPhase(current.phase)} phaseLabel={t(`lesson.stepTypes.${step.type}`)} title={mission.title} formatStep={(a, b) => t('missions.stepOf', { current: a, total: b })} />
@@ -210,21 +226,48 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
         </Row>
         {lesson.offlineLimited ? <StatusLine icon="offline" tone="warning" text={t('errors.offlineLessonsAvailable')} /> : null}
 
-        <SceneArtwork
-          sceneId={sceneId ?? 'cafe'}
-          imageUri={mission.sceneArt?.publicUrl ?? null}
-          altText={mission.sceneArt?.altTextKey ? t(mission.sceneArt.altTextKey) : undefined}
-          overlay={character ? <CharacterPortrait characterId={castMember?.portraitKey ?? character.id} expression={expressionForSpeechState(speechState)} speechState={speechState} name={character.name} size={72} showStatusText={false} stateLabels={labels.speechStatesFor(character.name)} testID="mission-character" /> : undefined}
-          overlayPosition="center"
-          scrim
-        />
-        {character?.syntheticVoice ? (
-          <Row gap={theme.spacing.xs}>
-            <SyntheticVoiceBadge name={character.name} />
-          </Row>
-        ) : null}
+        {/* The flexible zone: the scene with the character, Melo and the speech state laid over it. */}
+        <View
+          style={{ flex: 1, minHeight: 0, justifyContent: 'center' }}
+          onLayout={(e) => {
+            const width = Math.round(e.nativeEvent.layout.width);
+            const height = Math.round(e.nativeEvent.layout.height);
+            setSceneBox((b) => (b.width === width && b.height === height ? b : { width, height }));
+          }}
+          testID="mission-scene-zone"
+        >
+          {scene.visible ? (
+            <View>
+              <SceneArtwork
+                sceneId={sceneId ?? 'cafe'}
+                imageUri={mission.sceneArt?.publicUrl ?? null}
+                altText={mission.sceneArt?.altTextKey ? t(mission.sceneArt.altTextKey) : undefined}
+                height={scene.height}
+                overlay={character ? <CharacterPortrait characterId={castMember?.portraitKey ?? character.id} expression={expressionForSpeechState(speechState)} speechState={speechState} name={character.name} size={portraitSize} showStatusText={false} stateLabels={labels.speechStatesFor(character.name)} testID="mission-character" /> : undefined}
+                overlayPosition="center"
+                scrim
+              />
+              {/* Glass backing keeps the speech-state word legible over any scene art. */}
+              <Surface variant="glass" level={2} radius="md" padding={theme.spacing.xs} style={{ position: 'absolute', left: theme.spacing.sm, bottom: theme.spacing.xs, flexDirection: theme.direction.row, alignItems: 'center', gap: theme.spacing.xs }}>
+                {melo}
+                {speechLine}
+              </Surface>
+              {character?.syntheticVoice ? (
+                <View style={{ position: 'absolute', left: theme.spacing.sm, top: theme.spacing.sm }}>
+                  <SyntheticVoiceBadge name={character.name} />
+                </View>
+              ) : null}
+            </View>
+          ) : (
+            <Row gap={theme.spacing.sm} align="center" wrap>
+              {melo}
+              {speechLine}
+              {character?.syntheticVoice ? <SyntheticVoiceBadge name={character.name} /> : null}
+            </Row>
+          )}
+        </View>
 
-        <Surface variant="glass" level={1} radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.sm }}>
+        <Surface variant="glass" level={1} radius="lg" padding={theme.spacing.md} style={{ gap: theme.spacing.xs }}>
           {expression && (current.revealed || step.type !== 'anticipation') ? (
             <View style={{ gap: 2 }}>
               {scriptForms.map((f, i) => (
@@ -254,22 +297,43 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
           </Row>
         </Surface>
 
-        <Row gap={theme.spacing.sm} align="center">
-          <Melo state={mascotState} size={56} animate={false} testID="mission-mascot" />
-          <SpeechStateIndicator state={speechState} labels={labels.speechStates} shortLabels={labels.speechStatesShort} compact />
-        </Row>
-
+        {/* Action zone: the options, OR the mic (+ typed alternative), OR — once compared — the feedback in its place. */}
         {spec.options.length > 0 ? (
           <View style={{ gap: theme.spacing.xs }}>
             {spec.options.map((o) => (
-              <Button key={o.id} label={o.label} variant={current.selectedOptionId === o.id ? 'primary' : 'secondary'} fullWidth disabled={current.phase === 'compare'} onPress={() => lesson.dispatch({ type: 'choose_option', optionId: o.id })} accessibilityLabel={o.label} />
+              <Button key={o.id} label={o.label} variant={current.selectedOptionId === o.id ? 'primary' : 'secondary'} size="sm" fullWidth disabled={current.phase === 'compare'} onPress={() => lesson.dispatch({ type: 'choose_option', optionId: o.id })} accessibilityLabel={o.label} />
             ))}
             {current.phase === 'compare' ? <StatusLine icon={current.outcome === 'success' ? 'check' : 'info'} tone={current.outcome === 'success' ? 'success' : 'warning'} text={current.outcome === 'success' ? t('lesson.accept') : t('lesson.tryAgain')} /> : null}
           </View>
+        ) : comparing && lesson.textAnswer ? (
+          // A typed answer: meaning checked against the expression's forms, no speech assessed (§3.6).
+          <Surface variant="glass" level={1} radius="lg" padding={theme.spacing.md} style={{ gap: theme.spacing.sm }}>
+            <Row justify="space-between" gap={theme.spacing.sm}>
+              <StatusLine icon={lesson.textAnswer.semanticIntentMatched ? 'check' : 'info'} tone={lesson.textAnswer.semanticIntentMatched ? 'success' : 'warning'} text={lesson.textAnswer.semanticIntentMatched ? X.typedAnswerMatched : t('lesson.tryAgain')} />
+              <InfoAffordance label={t('common.details')} title={t('pronunciation.feedback.title')} text={[X.typedAnswerTitle, lesson.textAnswer.semanticIntentMatched ? X.typedAnswerMatched : X.typedAnswerNotMatched, `${t('lesson.yourAnswer')}: ${lesson.textAnswer.text}`, ...(lesson.textAnswer.matchedForm ? [X.typedAnswerMatchedForm(lesson.textAnswer.matchedForm)] : [])]} />
+            </Row>
+            <Row gap={theme.spacing.xs} wrap>
+              <Button label={t('pronunciation.retry')} variant="secondary" size="sm" icon="replay" onPress={() => lesson.dispatch({ type: 'retry' })} accessibilityLabel={t('pronunciation.retry')} />
+              {lesson.referenceUri ? <IconButton icon="play" accessibilityLabel={t('pronunciation.playReference')} onPress={() => lesson.dispatch({ type: 'replay', slow: false })} /> : null}
+            </Row>
+          </Surface>
+        ) : comparing && lesson.evaluation ? (
+          <PronunciationFeedback
+            result={withoutNumericScore(lesson.evaluation, nav)}
+            targetScript={trackDef.scripts.primary}
+            onRetry={() => lesson.dispatch({ type: 'retry' })}
+            onReplayReference={lesson.referenceUri ? () => lesson.dispatch({ type: 'replay', slow: false }) : undefined}
+            onReplaySlow={lesson.referenceUri ? () => lesson.dispatch({ type: 'replay', slow: true }) : undefined}
+            labels={labels.pronunciation}
+            calmLabels={{ details: t('common.details'), hideDetails: t('common.hideDetails') }}
+            intelligibilityLabels={labels.intelligibility}
+            showTranscript={current.transcriptShown || captions}
+          />
         ) : (
-          <View style={{ alignItems: 'center', gap: theme.spacing.sm }}>
-            {current.phase === 'listen' || current.phase === 'anticipate' ? (
-              <ThemedText variant="heading" align="center" accessibilityRole="header">
+          <View style={{ alignItems: 'center', gap: theme.spacing.xs }}>
+            {/* The question only on an anticipation step; a listen step teaches, it does not quiz. */}
+            {current.phase === 'anticipate' ? (
+              <ThemedText variant="subheading" align="center" accessibilityRole="header">
                 {t('lesson.anticipate')}
               </ThemedText>
             ) : null}
@@ -277,6 +341,7 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
               <SpeakButton
                 mode={tapToTalk ? 'toggle' : 'hold'}
                 state={speakState}
+                size={compactMic ? 'compact' : 'default'}
                 onModeChange={(m) => usePrefs.getState().set({ tapToTalk: m === 'toggle' })}
                 onStart={() => {
                   void ensureMic().then((ok) => ok && lesson.dispatch({ type: 'record_start' }));
@@ -302,33 +367,6 @@ function LessonPlayerView({ mission, enrollment }: { mission: MissionDetailRespo
             </Row>
           </View>
         )}
-
-        {lesson.textAnswer && current.phase === 'compare' ? (
-          // A typed answer: meaning checked against the expression's forms, no speech assessed (§3.6).
-          <Surface variant="glass" level={1} radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.sm }}>
-            <Row justify="space-between" gap={theme.spacing.sm}>
-              <StatusLine icon={lesson.textAnswer.semanticIntentMatched ? 'check' : 'info'} tone={lesson.textAnswer.semanticIntentMatched ? 'success' : 'warning'} text={lesson.textAnswer.semanticIntentMatched ? X.typedAnswerMatched : t('lesson.tryAgain')} />
-              <InfoAffordance label={t('common.details')} title={t('pronunciation.feedback.title')} text={[X.typedAnswerTitle, lesson.textAnswer.semanticIntentMatched ? X.typedAnswerMatched : X.typedAnswerNotMatched, `${t('lesson.yourAnswer')}: ${lesson.textAnswer.text}`, ...(lesson.textAnswer.matchedForm ? [X.typedAnswerMatchedForm(lesson.textAnswer.matchedForm)] : [])]} />
-            </Row>
-            <Row gap={theme.spacing.xs} wrap>
-              <Button label={t('pronunciation.retry')} variant="secondary" size="sm" icon="replay" onPress={() => lesson.dispatch({ type: 'retry' })} accessibilityLabel={t('pronunciation.retry')} />
-              {lesson.referenceUri ? <IconButton icon="play" accessibilityLabel={t('pronunciation.playReference')} onPress={() => lesson.dispatch({ type: 'replay', slow: false })} /> : null}
-            </Row>
-          </Surface>
-        ) : null}
-        {lesson.evaluation && !lesson.textAnswer && current.phase === 'compare' ? (
-          <PronunciationFeedback
-            result={withoutNumericScore(lesson.evaluation, nav)}
-            targetScript={trackDef.scripts.primary}
-            onRetry={() => lesson.dispatch({ type: 'retry' })}
-            onReplayReference={lesson.referenceUri ? () => lesson.dispatch({ type: 'replay', slow: false }) : undefined}
-            onReplaySlow={lesson.referenceUri ? () => lesson.dispatch({ type: 'replay', slow: true }) : undefined}
-            labels={labels.pronunciation}
-            calmLabels={{ details: t('common.details'), hideDetails: t('common.hideDetails') }}
-            intelligibilityLabels={labels.intelligibility}
-            showTranscript={current.transcriptShown || captions}
-          />
-        ) : null}
 
         <Row gap={theme.spacing.sm} justify="flex-end">
           <Button

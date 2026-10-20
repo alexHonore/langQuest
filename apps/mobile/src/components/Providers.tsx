@@ -12,6 +12,7 @@ import { I18nManager, Platform } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
 import { CourseAccentScope } from '@/components/CourseAccentScope';
 import { LOW_END_DEVICE } from '@/lib/device-tier';
+import { useAppStateFocus } from '@/lib/query-focus';
 import { I18nProvider, useI18n } from '@/lib/i18n';
 import { ServicesProvider } from '@/lib/services';
 import { track } from '@/lib/telemetry';
@@ -56,6 +57,7 @@ function ThemedApp(props: { children: React.ReactNode }): React.JSX.Element {
 
 function AuthBootstrap(props: { children: React.ReactNode }): React.JSX.Element {
   const bootstrap = useAuth((s) => s.bootstrap);
+  useAppStateFocus();
   useEffect(() => {
     void bootstrap();
     track.appStart(Date.now() - startedAt, LOW_END_DEVICE);

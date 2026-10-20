@@ -322,3 +322,18 @@ export function buildPath<K extends RouteKey>(key: K, params?: RouteParams<K>, q
     .join('&');
   return qs ? `${path}?${qs}` : path;
 }
+
+/**
+ * Patch schema for a stored options object: every field optional and WITHOUT its `.default()`.
+ * Zod 4 applies a field's default even inside `.partial()`, so `Options.partial().parse({ a: true })` returned
+ * every other field reset to its default and the API's `{ ...stored, ...patch }` merge overwrote them
+ * (device QA 2026-10-20: hiding the mascot turned "reduce motion" back off).
+ */
+export function patchOf<Shape extends z.ZodRawShape>(schema: z.ZodObject<Shape>): z.ZodType<Partial<z.output<z.ZodObject<Shape>>>> {
+  const shape: Record<string, z.ZodType> = {};
+  for (const [key, field] of Object.entries(schema.shape)) {
+    const inner = field instanceof z.ZodDefault ? (field.unwrap() as z.ZodType) : (field as z.ZodType);
+    shape[key] = inner.optional();
+  }
+  return z.object(shape) as unknown as z.ZodType<Partial<z.output<z.ZodObject<Shape>>>>;
+}

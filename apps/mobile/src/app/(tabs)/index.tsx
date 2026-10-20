@@ -1,5 +1,5 @@
 import { getCourseTrack } from '@langquest/contracts';
-import { Button, Chip, EmptyState, InfoAffordance, MissionCard, Row, StatusLine, Surface, ThemedText, useTheme } from '@langquest/ui';
+import { Button, Chip, EmptyState, InfoAffordance, MissionCard, Row, StatusLine, Surface, useTheme } from '@langquest/ui';
 import { useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import { View } from 'react-native';
@@ -19,6 +19,7 @@ import { haptic } from '@/lib/haptics';
 import { useLanguageNames, useSourceTranslator, useT } from '@/lib/i18n';
 import { useUiLabels } from '@/lib/labels';
 import { useServices } from '@/lib/services';
+import { useRefetchOnFocus } from '@/lib/query-focus';
 import { track } from '@/lib/telemetry';
 
 /**
@@ -47,6 +48,7 @@ export default function Home(): React.JSX.Element {
   const replay = useOnboardingReplay();
   // Only the fallback the learner explicitly accepted is ever passed to the translator (§2.1).
   const sourceT = useSourceTranslator(enrollment?.sourceLanguageCode, fallback.active);
+  useRefetchOnFocus([query, progress, reviews, manifest]);
   useEffect(() => track.screenView('home', theme.direction.rtl, enrollment?.scriptMode ?? null), [theme.direction.rtl, enrollment?.scriptMode]);
 
   const perEnrollment = progress.data?.data.perEnrollment.find((p) => p.enrollmentId === enrollment?.id) ?? null;
@@ -56,7 +58,6 @@ export default function Home(): React.JSX.Element {
   const next = pathway?.next ?? null;
   const greeting = me?.displayName ? t('home.welcomeBack', { name: me.displayName }) : perEnrollment && perEnrollment.missionsCompleted > 0 ? t('home.welcomeBackAnonymous') : t('home.welcomeFirst');
   const mascotLine = sourceT?.resolve('mascot.state.welcome');
-  const sourceName = enrollment ? names(enrollment.sourceLanguageCode) : '';
   const fallbackName = fallback.offered ? names(fallback.offered) : null;
   const mascotState = !enrollment ? 'curious' : next || cta === 'speak' ? 'welcome' : 'happy';
   const openConversation = (): void => {
@@ -70,15 +71,11 @@ export default function Home(): React.JSX.Element {
 
   return (
     <Screen insideTabs testID="screen-home" headerEnd={<Button testID="home-account" label={t('account.title')} variant="ghost" size="sm" icon="settings" onPress={() => router.push('/account')} accessibilityLabel={t('account.title')} />}>
-      <Row gap={theme.spacing.md} align="flex-start">
-        <Melo state={mascotState} size="companion" speech={mascotLine && !mascotLine.missing ? mascotLine.text : undefined} bubblePlacement="below" testID="home-mascot" />
-        <View style={{ flex: 1, gap: theme.spacing.xs }}>
-          <ThemedText variant="title" accessibilityRole="header">
-            {greeting}
-          </ThemedText>
-          {mascotLine?.isFallback && sourceT ? <Chip label={X.fallbackInUse(names(sourceT.fallbackLanguage ?? ''))} tone="info" icon="translate" /> : null}
-        </View>
-      </Row>
+      {/* Owner feedback 2026-10-20 (device QA): no greeting heading — Melo's one line is Home's only text above the mission. */}
+      <View style={{ gap: theme.spacing.xs }}>
+        <Melo state={mascotState} size="companion" speech={mascotLine && !mascotLine.missing ? mascotLine.text : undefined} bubblePlacement="end" accessibilityLabel={greeting} testID="home-mascot" />
+        {mascotLine?.isFallback && sourceT ? <Chip label={X.fallbackInUse(names(sourceT.fallbackLanguage ?? ''))} tone="info" icon="translate" /> : null}
+      </View>
 
       {storageDegraded ? <StatusLine icon="warning" tone="warning" text={X.storageDegraded} /> : null}
       {query.isLoading ? <LoadingView /> : null}
@@ -103,25 +100,14 @@ export default function Home(): React.JSX.Element {
           <View style={{ height: 0, overflow: 'hidden' }} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
             <Button testID="home-switch-course" label={t('home.switchCourse')} variant="ghost" size="sm" onPress={() => router.push('/course-switcher')} accessibilityLabel={t('home.switchCourse')} />
           </View>
-          {enrollment.coverage.status !== 'complete' ? (
-            // Coverage = one compact chip (2 words); the long status, the detail and the fallback note sit behind ⓘ.
-            <View style={{ gap: theme.spacing.xs }}>
-              <Row gap={theme.spacing.sm} align="center">
-                <Chip label={t(`enrollment.coverage.short.${enrollment.coverage.status}`)} tone="warning" icon="info" accessibilityLabel={t(`enrollment.coverage.${enrollment.coverage.status}`, { source: sourceName })} />
-                <InfoAffordance
-                  label={t('home.coverageInfo')}
-                  title={t(`enrollment.coverage.${enrollment.coverage.status}`, { source: sourceName })}
-                  text={[t(`enrollment.coverage.detail.${enrollment.coverage.status}`, { source: sourceName, fallback: fallbackName ?? '' }), ...(fallback.offered && fallbackName ? [fallback.active ? X.fallbackInUse(fallbackName) : t('enrollment.coverage.optInFallbackHint', { fallback: fallbackName, source: sourceName })] : [])]}
-                />
-              </Row>
-              {fallback.offered && fallbackName ? (
-                fallback.active ? (
-                  <Button label={X.fallbackStop} variant="ghost" size="sm" onPress={fallback.optOut} accessibilityLabel={X.fallbackStop} />
-                ) : (
-                  <Button label={t('enrollment.coverage.optInFallback', { fallback: fallbackName })} variant="secondary" size="sm" onPress={fallback.optIn} accessibilityLabel={t('enrollment.coverage.optInFallback', { fallback: fallbackName })} />
-                )
-              ) : null}
-            </View>
+          {/* Coverage lives in the enrollment disclaimer and Account → "What this course includes" (no Home chip, owner
+              feedback 2026-10-20). Only the explicit fallback opt-in stays, because it is an action the learner can take. */}
+          {fallback.offered && fallbackName ? (
+            fallback.active ? (
+              <Button label={X.fallbackStop} variant="ghost" size="sm" onPress={fallback.optOut} accessibilityLabel={X.fallbackStop} />
+            ) : (
+              <Button label={t('enrollment.coverage.optInFallback', { fallback: fallbackName })} variant="secondary" size="sm" onPress={fallback.optIn} accessibilityLabel={t('enrollment.coverage.optInFallback', { fallback: fallbackName })} />
+            )
           ) : null}
           {cta === 'missions' && manifest.isLoading ? <LoadingView rows={1} /> : null}
           {cta === 'missions' && manifest.error && !manifest.data ? <ErrorView error={manifest.error} onRetry={() => void manifest.refetch()} /> : null}
@@ -161,7 +147,6 @@ export default function Home(): React.JSX.Element {
             {/* Nothing due → no button (§8: never a greyed control); the Progress tab keeps the review calendar. */}
             {reviews.data && reviews.data.data.dueCount > 0 ? <Button label={t('home.reviewDueCount', { count: reviews.data.data.dueCount })} variant="secondary" icon="replay" onPress={() => router.push('/review')} accessibilityLabel={t('home.reviewDue')} /> : null}
             {nav.audio ? <Button label={t('common.tabs.audio')} variant="secondary" icon="headphones" onPress={() => router.push('/(tabs)/audio')} accessibilityLabel={t('home.continueAudio')} /> : null}
-            {nav.liveConversation && cta !== 'speak' ? <Button label={t('home.quickSpeak')} variant="secondary" icon="mic" onPress={openConversation} accessibilityLabel={`${t('home.quickSpeak')} · ${getCourseTrack(enrollment.courseTrackId).displayName}`} /> : null}
             {progress.error && !progress.data ? <Button label={t('common.retry')} variant="ghost" size="sm" icon="replay" onPress={() => void progress.refetch()} accessibilityLabel={`${t('home.aboutProgress')} · ${t('common.retry')}`} /> : null}
           </Row>
           {streak?.enabled && streak.currentDays > 0 ? (

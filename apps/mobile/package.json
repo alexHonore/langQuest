@@ -4,6 +4,10 @@
   "version": "1.0.0",
   "dependencies": {
     "@expo/ui": "~57.0.24",
+    "@formatjs/intl-displaynames": "^7.3.15",
+    "@formatjs/intl-getcanonicallocales": "^3.2.12",
+    "@formatjs/intl-locale": "^5.3.12",
+    "@formatjs/intl-pluralrules": "^6.3.16",
     "@langquest/ai": "workspace:*",
     "@langquest/contracts": "workspace:*",
     "@langquest/curriculum": "workspace:*",

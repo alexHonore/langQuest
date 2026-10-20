@@ -81,6 +81,15 @@ export function resolveNavigation(caps: CapabilitySnapshot, options: NavigationO
   };
 }
 
+/**
+ * Download settings (Wi-Fi only, offline auto-download) are shown only when at least one of the learner's
+ * enrollments can actually download (CONVENTIONS §8). Device QA 2026-10-20 found both switches on an
+ * Arabic-from-French account with no audio library and R2 off.
+ */
+export function downloadsOfferedForAny(snapshots: readonly CapabilitySnapshot[], options: NavigationOptions = {}): boolean {
+  return snapshots.some((caps) => resolveNavigation(caps, options).downloads);
+}
+
 /** Expo Router tab routes, in bar order, that an enrollment can use. Home and Progress are always present. */
 export type LearnerTab = 'index' | 'missions' | 'audio' | 'speak' | 'progress';
 export function visibleTabs(nav: EnrollmentNavigation): LearnerTab[] {

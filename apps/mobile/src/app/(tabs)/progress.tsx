@@ -11,6 +11,7 @@ import { headingLevel } from '@/lib/a11y';
 import { useI18n } from '@/lib/i18n';
 import { useUiLabels } from '@/lib/labels';
 import { useServices } from '@/lib/services';
+import { useRefetchOnFocus } from '@/lib/query-focus';
 import { track } from '@/lib/telemetry';
 
 /**
@@ -28,6 +29,7 @@ export default function Progress(): React.JSX.Element {
   const progress = useProgress();
   const reviews = useReviewsDue(enrollment, 50);
   const skills = useQuery({ queryKey: ['skills', enrollment?.id], enabled: Boolean(enrollment), queryFn: () => api.skills(enrollment!.id), retry: false });
+  useRefetchOnFocus([progress, reviews, skills]);
   useEffect(() => track.screenView('progress', theme.direction.rtl, enrollment?.scriptMode ?? null), [theme.direction.rtl, enrollment?.scriptMode]);
   const per = progress.data?.data.perEnrollment.find((p) => p.enrollmentId === enrollment?.id) ?? null;
   // Only the days that have reviews are listed (a quiet week is one line, not eight); labels follow the UI locale.

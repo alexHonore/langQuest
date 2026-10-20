@@ -4,6 +4,7 @@ import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { OnboardingFrame } from '@/components/OnboardingFrame';
+import { selectedUiLocale } from '@/features/account/ui-locale';
 import { completeUiLocales } from '@/features/session/capabilities';
 import { deviceUiLocale, useI18n, useLanguageNames } from '@/lib/i18n';
 import { track } from '@/lib/telemetry';
@@ -46,7 +47,7 @@ export default function LanguageStep(): React.JSX.Element {
       <Row gap={theme.spacing.sm} wrap accessibilityRole="radiogroup">
         {UI_LOCALES.map((code) => (
           <View key={code} testID={`onboarding-ui-${code}`}>
-            <Chip label={names(code)} selected={(uiOverride ?? deviceUiLocale()) === code} tone="accent" onPress={() => set({ uiLocale: code })} accessibilityLabel={names(code)} />
+            <Chip label={names(code)} selected={selectedUiLocale(uiOverride ?? deviceUiLocale(), UI_LOCALES) === code} tone="accent" onPress={() => set({ uiLocale: code })} accessibilityLabel={names(code)} />
           </View>
         ))}
       </Row>

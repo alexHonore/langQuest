@@ -392,3 +392,19 @@ describe('2026-10-19 contract additions (admin resources, scope, honesty flags)'
     expect(AudioProgressPutResponseSchema.safeParse({ lessonId: uuid, positionMs: 100, completed: false, revision: 1, resolution: 'applied' }).success).toBe(true);
   });
 });
+
+describe('PatchSettingsRequestSchema keeps partial option patches partial (device QA 2026-10-20)', () => {
+  it('does not inject defaults for accessibility fields the client did not send', () => {
+    // Before: parse() returned reduce_motion:false etc., and the API merge reset the learner's other settings.
+    expect(PatchSettingsRequestSchema.parse({ accessibilityOptions: { mascot_enabled: false } })).toEqual({ accessibilityOptions: { mascot_enabled: false } });
+  });
+  it('does the same for privacy and notification patches', () => {
+    const privacy = PatchSettingsRequestSchema.parse({ privacyOptions: {} }) as { privacyOptions: Record<string, unknown> };
+    expect(privacy.privacyOptions).toEqual({});
+    const notif = PatchSettingsRequestSchema.parse({ notificationPreferences: {} }) as { notificationPreferences: Record<string, unknown> };
+    expect(notif.notificationPreferences).toEqual({});
+  });
+  it('still validates the fields that are sent', () => {
+    expect(() => PatchSettingsRequestSchema.parse({ accessibilityOptions: { text_scale: 5 } })).toThrow();
+  });
+});

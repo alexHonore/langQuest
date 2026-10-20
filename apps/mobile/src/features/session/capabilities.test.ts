@@ -1,7 +1,7 @@
 import { CAPABILITY_MISSING_I18N_KEYS, CourseCapabilitiesSchema, type CourseCapabilities } from '@langquest/contracts';
 import { createTranslator } from '@langquest/locales';
 import { describe, expect, it } from 'vitest';
-import { HIDDEN_NAVIGATION, buildDisclaimer, buildIncludes, completeUiLocales, homeCta, orderMissing, resolveNavigation, visibleTabs, withoutNumericScore } from './capabilities';
+import { HIDDEN_NAVIGATION, buildDisclaimer, downloadsOfferedForAny, buildIncludes, completeUiLocales, homeCta, orderMissing, resolveNavigation, visibleTabs, withoutNumericScore } from './capabilities';
 
 const base = (): CourseCapabilities =>
   CourseCapabilitiesSchema.parse({
@@ -223,5 +223,18 @@ describe('withoutNumericScore', () => {
   it('returns the same object when there is nothing to strip', () => {
     const r = { pronunciation: { numericScore: null, wordScores: [] } };
     expect(withoutNumericScore(r, { numericScore: false })).toBe(r);
+  });
+});
+
+describe('downloadsOfferedForAny (device QA 2026-10-20: download switches without downloads)', () => {
+  const noAudio = (): CourseCapabilities => ({ ...base(), audioLibrary: { available: false, publishedCollections: 0 }, offlineDownloads: { available: false } });
+  it('hides the download settings when no enrollment can download', () => {
+    expect(downloadsOfferedForAny([noAudio()])).toBe(false);
+    expect(downloadsOfferedForAny([])).toBe(false);
+    expect(downloadsOfferedForAny([null])).toBe(false);
+  });
+  it('shows them when one enrollment can, unless the platform cannot store files', () => {
+    expect(downloadsOfferedForAny([noAudio(), base()])).toBe(true);
+    expect(downloadsOfferedForAny([base()], { downloadsSupported: false })).toBe(false);
   });
 });

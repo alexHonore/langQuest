@@ -7,6 +7,7 @@ import { Alert, Platform, TextInput, View } from 'react-native';
 import { Screen } from '@/components/Screen';
 import { ErrorView } from '@/components/StateViews';
 import { ChoiceRow } from '@/components/SettingRow';
+import { selectedUiLocale } from '@/features/account/ui-locale';
 import { usePatchSettings } from '@/features/account/use-settings';
 import { completeUiLocales } from '@/features/session/capabilities';
 import { useActiveEnrollment } from '@/features/session/queries';
@@ -70,7 +71,7 @@ export default function Account(): React.JSX.Element {
   const prefs = usePrefs();
   const patch = usePatchSettings();
   const [displayName, setDisplayName] = useState<string | null>(null);
-  const uiLocale = prefs.uiLocale ?? me?.uiLocale ?? 'en';
+  const uiLocale = selectedUiLocale(prefs.uiLocale ?? me?.uiLocale ?? null, UI_LOCALES);
   const glass = theme.glass(1);
 
   return (
