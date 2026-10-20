@@ -89,11 +89,12 @@ from `src/queue/cloudflare-queues.ts` exports a `queue()` handler; it acknowledg
 | `detect_language`, `describe`, `segment_lessons` | `infer_metadata` | LLM suggestions (languages, variety, instruction vs target voice, lesson/chapter guess, description, tags, topics, level) with confidence + provenance; stored on the job output, provenance event and `lesson_topics(ai_suggested)`; never applied, never published. |
 | `import_prefix` | `import_r2_prefix` | list prefix → parse paths + sidecar CSV/JSON → (dry run) report; else copy to hashed master keys, draft collection/chapter/lesson rows, legacy path kept, idempotent via audit ledger. |
 | `import_manifest` | `import_manifest` | apply label rows (by assetId / storageKey / legacyPath) to lessons with audit before/after. |
-| `content_generate` | `generate_content` | content factory: brief → structured generation → language guard + intent/register validators → `review_needed` missions/expressions with provenance. |
+| `content_generate` | `generate_content` | content factory: brief → structured generation → language guard + intent/register validators → dialogue diversity gate (`scoreDialogueDiversity`; failing missions get `reviewFlags: ['diversity_needs_regeneration']`) → `review_needed` missions/expressions with provenance. |
 | `describe` + `params.handler=regenerate_manifest` | `regenerate_manifest` | course / audio-collection manifest → `manifests/…/v{n}.json` + `latest.json` → `manifest.invalidated` (only when content changed). |
 | `generate_cover` | `render_cover` | in-code SVG cover → public `visual_assets` (+ `audio_cover_art`); PNG only when `sharp` is importable. |
 | `describe` + `params.handler=cleanup_orphan_uploads` | `cleanup_orphan_uploads` | executes `planOrphanCleanup`: expire, abort multipart, delete old failed objects, requeue verify, fail unverified. |
-| `benchmark_model`, `image_generate` | — | not served by this runner (`no_handler`, failed without retry). |
+| `benchmark_model` | `benchmark_model` | fixed `core-v1` sample set (`benchmark-samples.ts`) through the measured profile with the benchmarked model first → one `ai_model_benchmarks` row (dialect adherence, latency p50/p95, cost per call; naturalness/WER stay null), the profile's `benchmark_status` only for its primary model on its own variety, `processing_jobs.output.benchmarkId`, staff-attributed `ai_requests` rows. Per-job ceiling and the profile's `daily_budget_usd` are checked before every sample; tasks outside `CORE_SET_TASKS` finish without a call. |
+| `image_generate` | — | not served by this runner (`no_handler`, failed without retry). |
 
 Failure semantics: `JobFailure(code, { retry })` → `fail_processing_job` (retry with exponential backoff
 → `review_needed` when `max_attempts` is exhausted; `retry:false` → `failed`). Provider outages retry;

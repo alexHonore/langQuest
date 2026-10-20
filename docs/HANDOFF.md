@@ -1,7 +1,7 @@
 # LangQuest handoff
 
-- **Date:** 2026-10-20 (first written 00:46, revised about 01:06 after a review pass)
-- **Pinned to:** commit `886e0e6` on `master` (made by the Device QA session at 00:54; it also committed the `apps/mobile/package.json` script change), plus that session's uncommitted work (§3)
+- **Date:** 2026-10-20 (first written 00:46; refreshed about 07:00 after the device QA pass and the owner-free backlog rounds)
+- **Pinned to:** commit `b9de208` on `master`, clean working tree at the time of writing (the Device QA session may add commits; check `git log`)
 - **Audience:** a new Claude Code session with no memory of earlier conversations
 - **Rule for this file:** every fact here was checked against repo files or command output on 2026-10-20. Items marked **UNVERIFIED** were not. Cells marked **session output** come from 2026-10-20 command runs whose output is not saved in the repo.
 
@@ -23,15 +23,17 @@ Read docs/HANDOFF.md first, then docs/CONVENTIONS.md (§8 especially).
 Current state:
 - The standing goal is the spec's primary directive (docs/MASTER_SPEC.md line 10): build the
   complete product, phases 0-12, with the traceability file as the progress record.
-- 0b03e6e was the last batch from the build sessions (minor UI fixes + re-captured screenshots):
-  the approved design (Melo chameleon, C2 clay cast, Night Market) is applied, 14/14 packages
-  typecheck, and 1,706 tests passed against the local Docker Supabase stack.
-- The owner then started the "Device QA" session (id local_221a7079-824a-4337-bd0f-6b575648219b).
-  It shares this checkout and branch, committed 886e0e6, and holds the iOS simulator, Metro on
-  :8081, wrangler dev on :8787 and the Docker stack. Read HANDOFF §3 before touching any of them.
-- The owner's newest direction (from that walkthrough): lessons teach before they test, exercise
-  screens fit the phone without scrolling, Home stays minimal, and a Learn section comes before
-  Missions/Parler. The QA session owns that work; new flows go to the owner as declinations first.
+- 0b03e6e was the last design batch (Melo chameleon, C2 clay cast, Night Market applied). The
+  Device QA session (id local_221a7079-824a-4337-bd0f-6b575648219b) then ran the first iOS
+  simulator pass and committed 886e0e6 and bfc41fd. b9de208 landed the owner-free backlog
+  (admin writes through the Worker, speech honesty, editorial integrity, benchmark jobs, skills
+  seed, docs). Verified: 14/14 typecheck, 2,076 tests passed against the local stack, 0 failed.
+- The QA session shares this checkout and branch and still runs Metro on :8081, wrangler dev on
+  :8787 and the Docker stack. It is waiting for the owner to pick a learning-curve declination
+  (design/explorations/learning/index.html). Read HANDOFF §3 before touching any of it.
+- The owner's newest direction: lessons teach before they test, exercise screens fit the phone,
+  Home stays minimal, and a Learn section comes before Missions/Parler. New flows go to the owner
+  as declinations first.
 - Nothing is hosted except an unconfigured API Worker that returns 503. Hosted Supabase and
   R2 are blocked on the owner. The local stack is the only database.
 - The build sessions ran in "ultracode" mode: the Workflow tool for every substantive task, with
@@ -69,66 +71,49 @@ If the owner has not named a next step, ask which item from docs/HANDOFF.md §9 
 
 | Area | State | Evidence |
 |---|---|---|
-| History | 16 commits, all on `master`, no remote (`git remote -v` is empty). HEAD `886e0e6` (2026-10-20 00:54 -0400, QA session); `0b03e6e` (2026-10-19 22:17) is the last build-session commit | `git log`, `git rev-list --count HEAD` |
-| Typecheck | 14/14 packages, exit 0 (re-run 2026-10-20 at `0b03e6e`, 40 s) | `pnpm run typecheck` (**session output**) |
-| Lint (13 packages, mobile excluded) | exit 0. 1 warning: `scripts/src/seed-curriculum.ts:167` `seedTitle` unused | `turbo run lint --filter='!@langquest/mobile'` (**session output**) |
-| Full test suite at `0b03e6e` | **1,706 passed, 6 skipped, 0 failed, 193 files**. 14/14 suites, local stack required | `docs/evidence/polish-2026-10-19.md` §7.1 |
-| Offline re-run 2026-10-20 | 1,483 passed, 6 skipped, 0 failed. 223 stack-bound tests were not run | `LANGQUEST_SKIP_LOCAL_STACK=1`, per package (**session output**) |
-| `886e0e6` | Mobile tsc clean, mobile suite 32 files / 198 tests passed | commit message only (**UNVERIFIED** here) |
-| Mobile lint, web export, admin `next build` | OK at the fix batch | polish §7.1 (not re-run 2026-10-20) |
-| Traceability (763 rows, recount = header) | 428 implemented_tested, 259 in_progress, 57 blocked, 19 not_started | `docs/requirements-traceability.md`, awk recount in §9 item 1 |
-| Design | M3 Melo (17 states), C2 cast (97 characters in `assets/characters/`), U2 Night Market tokens, calm density, app icon | commits `46feda5`, `0b03e6e` |
-| Locales | en and fr complete (1,509 keys). es and ru partial (192 keys, 12.72%) | `packages/locales/src/catalogs/coverage.json` |
-| Local DB | 30 course_tracks, 129 communicative_intents, 97 characters, 203 missions (21 published, 182 review_needed), 2 auth users | read-only psql (`begin read only`), 2026-10-20 01:05 |
-| Content | 4 flagship draft chapters published with disclosure (Darija fr/en, es-ES en, ja en, en fr/ru). Nothing is native-reviewed | `scripts/src/seed-curriculum.ts:8-16` |
-| Hosted | Worker `langquest-api.langquest-nsh.workers.dev` answers **503 `provider_unavailable`** because it has no secrets. No hosted Supabase, no R2, admin not deployed, no EAS build | curl 2026-10-20 (**session output**) |
-| Native or device builds | First ever on 2026-10-20, by the QA session (iOS simulator only) | §3, `886e0e6`, `docs/evidence/screenshots/device-ios-*` |
-| CI | `.github/workflows/ci.yml` exists but **has never run** (no remote) | R-4.1-16, R-13.0-13 |
-
-**Discrepancy on mission counts.** The last documented seed was 176 missions (`docs/evidence/test-run-2026-10-19.md` §5 and the memory note). The current code plan is 203 (21 published + 182 skeleton), because `46feda5` added `buy_ice_cream`. The local DB also has 203 / 21. Whether `ary_buy_ice_cream` is live is **UNVERIFIED**.
-
-**Stale status docs.** The traceability header still cites `359dd21` and 1,433 tests. B-DESIGN still reads "await owner's choice". README says "13 migrations" (there are 15) and says the visual identity is "awaiting owner approval". Re-baseline them before trusting row statuses (§9 item 1).
+| History | 21 commits, all on `master`, no remote (`git remote -v` is empty). HEAD `b9de208` (owner-free backlog, 2026-10-20). Device QA commits `886e0e6` and `bfc41fd`. `0b03e6e` was the last design batch | `git log --oneline` |
+| Typecheck / lint | 14/14 packages typecheck. Lint 14/14, 1 known warning (`scripts/src/seed-curriculum.ts` `seedTitle` unused) | integration run before `b9de208` (commit message, traceability header) |
+| Full test suite | **2,076 passed, 6 live-only skipped, 0 failed** (217 files) with `LANGQUEST_REQUIRE_LOCAL_STACK=1 LANGQUEST_REQUIRE_STACK=1 pnpm -r --workspace-concurrency=1 test`. pgTAP 4 files / 167 tests. Admin `next build` and mobile `export:web` pass. Previous baseline 1,706 | traceability header, `b9de208` message. No `docs/evidence` run record yet (§9 item 9) |
+| Traceability (763 rows, recount = header) | 439 implemented_tested, 249 in_progress, 57 blocked, 18 not_started | `docs/requirements-traceability.md`, awk recount in §9 |
+| Admin | All Studio writes go through Worker `/v1/admin/*` routes. The only Next handlers left are `app/api/auth/signout` and `app/api/locale`. 57 direct reads remain under the staff JWT and RLS | `packages/contracts/src/api/admin-studio.ts`, `apps/api/src/routes/admin/{editorial,jobs,users,model-test}.ts`, `docs/runbooks/admin-manual.md` §0 |
+| API docs | Generated OpenAPI 3.1: 92 paths, 108 operations. Regenerate with `pnpm --filter @langquest/scripts exec tsx src/generate-openapi.ts` (`--check` in CI style) | `docs/api/README.md`, `docs/api/openapi.json` |
+| Speech honesty | STT results carry a speech-detection verdict (no_speech_prob, logprob, curated Whisper silence hallucinations). No-speech attempts are never graded "understood" and earn no XP or skill credit. Caller-supplied audio URLs are refused (422) on transcribe, pronunciation and conversation turns | `packages/ai/src/speech/*`, `apps/api/src/__tests__/unit/speech-honesty*.test.ts` |
+| Design | M3 Melo (17 states), C2 cast (97 characters), U2 Night Market tokens, calm density, app icon. Home is minimal and lesson steps fit the screen (`bfc41fd`) | commits `46feda5`, `0b03e6e`, `bfc41fd` |
+| Locales | en and fr complete (1,571 keys). es and ru partial (12.22%) | `packages/locales/src/catalogs/coverage.json` |
+| Local DB | 30 course_tracks, 97 characters, 203 missions (21 published), 62 skills (en/fr names), 2 auth users (`LOCAL_*`), one `super_admin`, the learner's arabic-moroccan/fr enrollment. `seed-curriculum -- --apply` was re-run 2026-10-20 | read-only psql after the integration run |
+| Content | 4 flagship draft chapters published with disclosure (Darija fr/en, es-ES en, ja en, en fr/ru). Nothing is native-reviewed | `scripts/src/seed-curriculum.ts` |
+| Device | First iOS simulator pass done on iPhone 17 / iOS 27.0 (dev client, local stack, real Nadia conversation for $0.037). Android, a physical iPhone, background/lock-screen audio and Maestro flows are not run | `docs/evidence/device-qa-2026-10-19.md`, `docs/provider-matrix/mobile-audio-qa.md`, `device-ios-*` screenshots |
+| Hosted | Worker `langquest-api.langquest-nsh.workers.dev` answers **503 `provider_unavailable`** (no secrets). No hosted Supabase, no R2, admin not deployed, no EAS build | §8 |
+| CI | `.github/workflows/ci.yml` exists but **has never run** (no remote; it also triggers on `main` while the branch is `master`) | §11 |
 
 ---
 
 ## 3. In-flight work
 
-**Device QA session.** Name: "Device QA: iOS Simulator dev build of the mobile app", id `local_221a7079-824a-4337-bd0f-6b575648219b`. It owns the first on-device QA pass and works in **this same checkout and branch** (`git worktree list` shows one worktree).
+**Device QA session** ("Device QA: iOS Simulator dev build of the mobile app", id `local_221a7079-824a-4337-bd0f-6b575648219b`). It shares **this checkout and branch**.
+- **Done:** `886e0e6` (iOS 27 UIScene config plugin, so the app launches) and `bfc41fd` (fit-to-screen lessons, minimal Home, Hermes Intl polyfills, a settings data-loss fix in contracts `patchOf`, a11y fixes, focus refetch, evidence doc and screenshots).
+- **Waiting on the owner:** its last question was "Which learning-curve options should I build?". The declinations are in `design/explorations/learning/index.html` (L1-L3 lesson flows × N1-N3 navigation, including the Learn section). It suggested **L1 + L3 inside N2**. Nothing is built yet. The owner answers in that session; do not build any of it elsewhere without the owner's pick.
+- **Still running (as of 2026-10-20 ~07:00):** its Metro (`expo start --dev-client`, :8081), `wrangler dev` (:8787, restarted by that session at 06:02), the simulator log stream, and the Docker stack. Leave them alone; do not stop, restart or kill them.
+- It proposed a separate session for the Whisper "understood on silence" defect. The server side of that is now fixed in `b9de208`. Only the mobile half remains (send `recording.peakLevelDb`, §9).
 
-What the repo and machine showed between 00:46 and 01:06 on 2026-10-20:
-- A Debug simulator build of LangQuest had already succeeded at 00:38:54, before this file was first written (`~/Library/Developer/Xcode/DerivedData/LangQuest-*/Logs/Build/LogStoreManifest.plist`, status `W` = succeeded with warnings). `apps/mobile/ios` was then regenerated (00:48:15), a second build finished at 00:52:40, and `LangQuest.app` was installed on simulator `B62B69C7-A6C6-4E9E-A66D-4F59667EA2DE` at 00:52:42.
-- At 00:54 it committed `886e0e6`: iOS 27 asserts at launch when an app declares no `UIApplicationSceneManifest`, so `apps/mobile/plugins/with-ios-scene-lifecycle.js` (registered in `app.json`) adopts the UIScene life cycle.
-- Screenshots `device-ios-01` (committed) to `device-ios-09` (untracked) show the welcome screen, Home in French signed in as the learner, the missions pathway, a lesson, the mic prompt, the Speak hub and accessibility settings.
-- Uncommitted QA work at 01:06: `apps/mobile/src/components/Screen.tsx`, `apps/mobile/src/app/mission/[id].tsx`, new `apps/mobile/src/components/screen-insets{,.test}.ts`, and the untracked screenshots. Run `git status --short` for the current list. None of it is yours.
-- Running QA processes: Metro `expo start --dev-client --port 8081` (restarted 01:00), `simctl spawn B62B… log stream` (since 00:27), and `wrangler dev` + 2 `workerd` on 127.0.0.1:8787 (since 00:32). The build command was reported as `npx expo run:ios --device B62B69C7-… --no-bundler` with `LANG=en_US.UTF-8 LC_ALL=en_US.UTF-8 CI=1 EXPO_NO_TELEMETRY=1` (**UNVERIFIED**: it is no longer running and no repo file records it).
-- Whether the QA pass is finished is not known from the repo. Read the QA session's own result before you assume any device state.
-- **New owner direction from the device walkthrough (05:13, memory note `feedback-teach-before-test`):**
-  - Lessons teach before they test: an immersive moment comes first (animation, the character speaking, a short audio mini-lesson), then practice, on a real learning curve.
-  - Lesson and exercise screens fit the phone: no scrolling or overflow to reach the options or "next".
-  - Home is minimal: no greeting heading, no coverage chip, no quick-speak button. The next mission plus Melo is enough.
-  - The app needs a **Learn** section (audio, text, lessons, mini-games) before Missions and Parler, which stay.
-- The QA session's plan at 05:13 takes all four. Home cleanup, lesson fit, the Intl polyfills (raw plural messages, language names) and transcript/download-row defects ship directly. The teach-first flow and the Learn section are design changes, so it will present **declinations for approval** first. Do not start a parallel design for them. If that session ends without them, they are the top design item, and declinations still come before any build.
-- Toolchain: Xcode 27.1 (27A9275), iOS 26.5 and 27.0 simulator runtimes, CocoaPods 1.17.0 (Homebrew), booted iPhone 17 simulator.
-- Its brief is done when: the app builds and launches against the local stack; the local learner signs in; onboarding shows the enrollment disclaimer; a lesson works with mic recording; a live character conversation works; audio library behaviour is checked; whatever breaks is fixed; screenshots are in `docs/evidence/`; B-DEVICE traceability rows are updated only where actually verified.
-
-**`apps/mobile/package.json` script change (committed in `886e0e6`).** `ios`/`android` went from `expo start --ios/--android` to `expo run:ios/run:android`; the commit message says Expo CLI rewrote them.
-- package.json changed at 22:28:52 on 10-19, 5 s before the first prebuild wrote `ios/Podfile` (22:28:57). `ios/` has since been regenerated (00:48), so that Podfile time can no longer be checked.
-- Effect: `pnpm --filter @langquest/mobile ios` now compiles and installs a native build (`expo run:ios`) instead of starting Metro and opening an already-installed development build (`expo-dev-client` is a direct dependency, so `expo start --ios` already defaulted to dev-client mode: `node_modules/@expo/cli/build/src/start/resolveOptions.js:68`). The owner decides whether to keep it; reverting now needs a new commit.
-- `apps/mobile/ios/` is generated (CNG) and gitignored (`apps/mobile/.gitignore` `/ios`, `/android`). Never hand-edit it and never commit it.
+**Owner direction from the device walkthrough** (memory note `feedback-teach-before-test`, 2026-10-20):
+- Lessons teach before they test: an immersive moment comes first (animation, the character speaking, a short audio mini-lesson), then practice, on a real learning curve.
+- Lesson and exercise screens fit the phone with no scrolling or overflow (done in `bfc41fd`).
+- Home is minimal: no greeting heading, no coverage chip, no quick-speak (done in `bfc41fd`).
+- A **Learn** section (audio, text, lessons, mini-games) comes before Missions and Parler, which stay. This is the pending declination choice above.
 
 **Before you touch mobile, the local stack, :8081 or :8787:**
-1. Read the QA session's result: whether it finished, what it fixed, what it committed. Use the desktop session tools (for example `get_session` or `search_session_transcripts` with the id above; they existed in the session that revised this file, availability in yours is **UNVERIFIED**) or ask the owner. Never stop, archive, clear or message the QA session, and never kill its processes.
+1. Read the QA session's latest result (desktop session tools such as `get_session`/`list_events` with the id above, if your session has them) or ask the owner. Never stop, archive, clear or message the QA session, and never kill its processes.
 2. Run read-only checks:
    ```bash
    git -C /Volumes/SSD-1tb/LangQuest status --short
    git -C /Volumes/SSD-1tb/LangQuest log --oneline -5
    ps aux | grep -E 'expo (run:ios|start)|xcodebuild|wrangler|workerd|pod install|simctl' | grep -v grep
    lsof -nP -iTCP -sTCP:LISTEN | grep -E ':(8081|8787|54321|54322)\b'
-   ls -t /Volumes/SSD-1tb/LangQuest/docs/evidence /Volumes/SSD-1tb/LangQuest/docs/evidence/screenshots | head
    ```
-3. Port 8081 is the QA session's Metro (started separately from the build) and 8787 is its wrangler dev. A finished `expo run:ios` with Metro still up means the build ended, not that QA is done. While either port is held, do not `preview_start` the `.claude/launch.json` "api" or "mobile-web" configs and do not run `pnpm dev:api` or `mobile web`.
-4. While any of those processes runs, do not run expo, pod, xcodebuild, simctl, wrangler, `supabase start/stop/reset`, a Docker restart, seed `--apply`, stack-bound tests or screenshot captures.
-5. Only after that session is finished, ask the owner whether to keep the `package.json` script change.
+3. The shared `wrangler dev` hot-reloads `apps/api` **and the packages it imports** on every save. A half-written edit in `packages/contracts` crashed it once on 2026-10-20 ("UuidSchema is not defined"). Write complete files, register routes last, and typecheck right after each change.
+4. While its processes run, do not run expo, pod, xcodebuild, simctl, `supabase start/stop/reset`, a Docker restart or screenshot captures. Stack-bound suites and seeds were run on 2026-10-20 while that session was idle; they clean up their users, but see §11 for the rows they leave.
+5. `apps/mobile/ios/` is generated (CNG) and gitignored: never hand-edit or commit it. The `ios`/`android` scripts now run `expo run:*` (Expo CLI rewrote them, committed in `886e0e6`); whether to keep that is the owner's call.
 
 ---
 
@@ -292,29 +277,35 @@ Row counts are from `docs/requirements-traceability.md` (status column + Blocker
 
 ## 9. Next steps a session can do without the owner (prioritized)
 
-**While the QA session is active**, take only items 2, 3, 8 and 9 (API tests, admin→Worker routes, docs/runbooks, the content-factory fixtures), and re-read any file right before editing it. Wait for that session to finish before item 1 (it edits B-DEVICE rows in `docs/requirements-traceability.md`: 40 rows), items 4, 5, 6, 7 and 10 (`apps/mobile/src`, `packages/ui` and the shared locale catalogs, where its fixes land; it is already editing `apps/mobile/src/app/mission/[id].tsx`), items 11-12, `pnpm supabase test db`, and any capture into `docs/evidence/`.
+Items 2, 3, 8 and 9 of the previous list (API route tests, admin through the Worker, docs-only rows, content-factory fixtures) and the round-2 fixes (speech honesty, query flags, analytics cap, editorial integrity, benchmark jobs, skills seed) landed in `b9de208`. What is left, from that work's own reports:
 
 | # | Task | Main files | Done when |
 |---|---|---|---|
-| 1 | Re-baseline the status docs to HEAD | `docs/requirements-traceability.md` (header, B-DESIGN and its 9 rows), `README.md` | Header cites the HEAD commit and 1,706 tests, B-DESIGN reads "resolved 2026-10-19", README says 15 migrations, and the recount below the table equals the header. Re-run it after the QA session's B-DEVICE edits |
-| 2 | Route tests for 10 untested API routes (R-6.1-03, R-6.2-04/06, R-6.4-06/07/09/10/12/19/20) | `apps/api/src/__tests__/unit/*` (offline `harness.ts`) | Each row's Evidence names a passing test and the row is implemented_tested |
-| 3 | Move the 8 admin local handlers behind the Worker (R-4.3-01) | `apps/admin/app/api/admin/**`, contracts ROUTES, `apps/api/src/routes/admin/*` | The admin calls only `/v1/admin/*`, and `tests/security/admin-routes.test.ts` covers the new routes |
-| 4 | Fix the mismatch between the reviews-due window and the 7-day calendar | `apps/api/src/routes/learner/reviews.ts`, contracts, mobile Progress | Future buckets can be non-empty and are tested, or the grid is reduced to overdue/today |
-| 5 | Localized course names | contracts course DTO, `packages/locales` catalogs, mobile catalog/Home | The French UI shows French names and `tests/locales/parity.test.ts` passes |
-| 6 | Move admin.ui keys into the shared catalogs | `apps/admin/src/lib/i18n/extra.ts` (1,377 lines) -> `packages/locales/src/catalogs/{en,fr}.json` | `extra.ts` is empty and the parity tests pass (removing the file needs the owner's yes) |
-| 7 | Cross-package cleanup | drop the `loc<T>()` casts (`apps/mobile/src/lib/labels.ts`), replace the admin `@art/*` alias with `@langquest/ui/art/web`, update `docs/reference/cross-package-gaps.md`. Propose deleting `apps/mobile/src/features/audio/placeholder.ts` (from `f085ead`, 10-15) once a grep shows no importer, and delete it only after the owner's clear yes | `pnpm -r typecheck` is clean and the gaps doc lists only open items |
-| 8 | Docs-only rows: R-9.7-03 recording spec, R-9.7-02 brief template, R-12.2-05 incident runbooks, R-13.12-01 DB diagram, R-11-05 disclosure draft | `docs/runbooks/`, `docs/` | Files exist and the rows cite them |
-| 9 | Content-factory pipeline without live spend: verdict ingestion, second-model stage behind a fake reasoner, diversity test (R-9.8-02) | `scripts/src/lib/content-factory.ts`, `packages/ai`, admin content-factory screens | Fixture unit tests pass and `native-review-process.md` §6 is updated |
-| 10 | Mission pause/resume and audio-only view (R-3.3-02, R-1.3-14) | `apps/mobile/src/app/mission/[id].tsx`, `packages/ui` | Unit tests pass and web captures exist (mission mic coaching goes through the live OpenRouter key, §4). **Show the design to the owner first** |
-| 11 | Stack journeys: A09 Eastern Arabic, R-2.1-09 ES->EN, R-2.1-07 peek, T-int-07 | `tests/integration/*` | They pass with `LANGQUEST_REQUIRE_STACK=1` |
-| 12 | Load run and content re-check (T-perf-03, R-13.11-02). Re-run `seed-curriculum` and regenerate `docs/provider-matrix/coverage-report.md` | `tests/load/run-load.ts` | A p50/p95/p99 report and fresh seed totals are saved in `docs/evidence/` |
+| 1 | `missionEvaluate` trusts outcomes the client reports: derive them server-side | `apps/api/src/routes/learner/missions*.ts`, contracts | A forged "understood" outcome cannot earn XP or skill credit, with tests |
+| 2 | Stack-test hygiene: `apps/api/src/__tests__/integration/review-fixes.test.ts` sends a real (refused) request to openrouter.ai with a fake key; suites leave `processing_jobs` and `media_assets` rows | that test, `apps/api/src/__tests__/harness.ts`, `tests/src/harness/*` | No network call leaves a test run, and the harness tracks and removes those rows |
+| 3 | `GET /v1/me/enrollments?includeArchived=false` still returns archived rows (`z.coerce.boolean()` at `apps/api/src/routes/learner/enrollments.ts:70`); decide what `?x=` means | that route, `QueryBooleanSchema` in contracts | Use `parseQuery(c, EnrollmentsListQuerySchema)`, with tests |
+| 4 | Analytics counts staff and job `ai_requests` as active learners (`apps/api/src/routes/admin/analytics.ts`); the truncation header is not CORS-exposed or in the schema; `analytics/quality` has no stack test | analytics route, CORS `EXPOSED_HEADERS`, contracts | Learner metrics exclude staff, truncation is visible to the Studio, tests cover it |
+| 5 | Speech leftovers on the server: `realtime/pipeline.ts` turns an empty transcript into "…" and calls the LLM; the OpenRouter client drops `compression_ratio`; `partially_understood` vs `unclear` disagree with mobile | `apps/api/src/routes/speech/realtime/*`, `packages/ai/src/openrouter/*` | No model call on empty audio; the signal reaches detection; one outcome vocabulary |
+| 6 | The evaluator invents skill keys (`packages/ai/src/prompts/builders.ts`, `apps/api/src/lib/conversation.ts`); `buildSkillsSeedSql` uses `SKILLS` only | those files, `scripts/src/lib/seed-sql.ts` | Only registry keys can be credited, with tests |
+| 7 | Revisions without a restorable snapshot in `visual-assets.ts`, `suggestions.ts`, `rights.ts`; the library Attach/Merge dialogs can stop on a 409 halfway | `apps/api/src/routes/admin/*`, `apps/admin/app/(studio)/library/*` | Rollback works for every admin edit; dialogs report partial results |
+| 8 | The publish gate ignores `diversity_needs_regeneration`; the content-factory CLI chapter record is not wired; speech benchmarks are a no-op | publish route, `scripts/src/lib/content-factory.ts`, `apps/jobs` benchmark handler | Low-diversity drafts cannot be published; the CLI writes chapter records; tests |
+| 9 | Records: write a `docs/evidence/test-run-2026-10-20.md` for the 2,076-test run (once the QA session is finished with `docs/evidence`); fix `docs/runbooks/jobs.md` (still lists `benchmark_model` as `no_handler`) and the README Mobile row ("native device QA pending") | docs | Docs match the code |
+| 10 | Older items still open: reviews-due window vs the 7-day calendar; localized course names; move `admin.ui` keys out of `apps/admin/src/lib/i18n/extra.ts`; cross-package cleanup (`loc<T>()` casts, admin `@art/*` alias); stack journeys (A09, R-2.1-09, R-2.1-07, T-int-07); load run (T-perf-03) | see `docs/reference/cross-package-gaps.md` and the traceability rows | Rows move to implemented_tested with evidence |
 
-Traceability recount for item 1 (there is no parser in the repo; on 2026-10-20 this printed 428 / 259 / 57 / 19, total 763):
+**Mobile-owned leftovers** (QA session's files, or after it is finished): send `recording.peakLevelDb` with attempts so near-silent clips are caught on the server; show skill names instead of `descriptor`/raw keys (`apps/mobile/src/app/(tabs)/progress.tsx`, `review/index.tsx`, mission chips); align the outcome vocabulary with the server.
+
+**Owner decisions waiting** (list them, do not decide):
+- The learning-curve declination (QA session's question, §3).
+- Reviewer write scope: the Worker follows the role table in `docs/content-rights/native-review-process.md` (reviewers approve/reject drafts, save reviewed transcript revisions, record `quality_review_status`), which is wider than the editors-only RLS. Each route moves to editors-only with a one-word role change in `apps/api/src/routes/admin/editorial.ts`.
+- Whether an admin Retry of a failed `benchmark_model` job may spend again (contracts still map it to no runner, so Retry is refused with 412).
+- Whether hiding a published lesson should invalidate its offline packs.
+- Deleting 3 mastery rows, their observations and 2 review cards in the local DB that carry evaluator-invented skill keys.
+- The Playwright browser download (`pnpm exec playwright install chromium`) for the admin e2e tests.
+
+Traceability recount (prints 439 / 249 / 57 / 18, total 763 at `b9de208`):
 ```bash
 awk -F'|' 'NF>=7 && $2 ~ /^ *(R-|A[0-9]|T-|N[0-9]|F[0-9]|E[0-9])/ {s=$5; gsub(/ /,"",s); c[s]++; n++} END {for (k in c) print k, c[k]; print "total", n}' docs/requirements-traceability.md
 ```
-
-Ask the owner first about the Playwright browser download (`pnpm exec playwright install chromium`, needed for T-admin-02..07).
 
 ---
 
@@ -329,7 +320,7 @@ pnpm --filter @langquest/mobile lint                        # expo lint
 # while another session uses the stack: unit tests only
 LANGQUEST_SKIP_LOCAL_STACK=1 pnpm --filter <pkg> exec vitest run
 # only when the stack is free (LANGQUEST_LIVE_TESTS unset): a missing stack fails instead of skipping
-LANGQUEST_REQUIRE_LOCAL_STACK=1 LANGQUEST_REQUIRE_STACK=1 pnpm -r test   # baseline 1,706 passed / 6 skipped
+LANGQUEST_REQUIRE_LOCAL_STACK=1 LANGQUEST_REQUIRE_STACK=1 pnpm -r --workspace-concurrency=1 test   # baseline 2,076 passed / 6 skipped
 # only when the stack is free: pgTAP (3 files); starts a pg_prove container (wedge risk, database.md §8)
 pnpm supabase test db
 # always
@@ -361,7 +352,8 @@ All recorded full runs used `pnpm -r test`. Whether `pnpm test` (turbo, running 
   4. As the learner, `POST /v1/me/enrollments {"courseTrackId":"arabic-moroccan","sourceLanguageCode":"fr"}` (`docs/evidence/capabilities-2026-10-19.md`), then `PATCH /v1/me/settings {"uiLocale":"fr-CA"}` for each account.
 - `supabase start` applies migrations only on first boot. After editing a migration you need `local:reset`, so ask first if another session is active. Migrations 080, 130 and 140 are **generated**, so never hand-edit them (§7 for 140).
 - **Docker Desktop wedge** (containers stuck in `Created`): `docker desktop restart` is not enough. The full recovery is in `docs/runbooks/database.md` §8. It kills Docker and its block ends with `pnpm supabase db reset`: stop before that last line. A Docker restart keeps the stack's data volume: the 2 local users, the super_admin row and the enrollment were still there at 01:05 on 2026-10-20, after the QA session's Docker and stack restart. Never run the recovery while another session uses the stack, and ask the owner first.
-- **Ignore rules can swallow source.** The root `.gitignore` rule `coverage/` hid `apps/admin/app/api/admin/coverage/route.ts` until 2026-10-20, when an exception was added and the route committed (the docs now say `PUT`, which is what it exports). After adding a folder named `coverage`, `build` or `dist`, run `git check-ignore -v <file>`.
+- **Ignore rules can swallow source.** The root `.gitignore` rule `coverage/` once hid an admin route file from git. That route now lives in the Worker, but after adding any folder named `coverage`, `build` or `dist`, run `git check-ignore -v <file>`.
+- **Stack suites leave some rows.** Each full run adds about 2 `ai_requests` and 99 `audit_logs` rows (append-only by design), 2 `processing_jobs` (`test:verify:*`, `test:attrib:*`) and 3 `media_assets`. Users are purged. Do not delete the leftovers without the owner's OK; §9 item 2 is the fix.
 - `apps/admin/.env.example` exists locally but is gitignored (`apps/admin/.gitignore:34` `.env*`), yet `developer-setup.md` §2 (line 52) says to copy it, so a fresh clone lacks it. There is no `apps/mobile/.env.example`.
 - **CI gaps.**
   - CI triggers on `main`, but the branch is `master`.
