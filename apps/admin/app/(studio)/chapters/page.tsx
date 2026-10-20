@@ -4,6 +4,7 @@ import { serverTranslator } from '@/src/lib/i18n/server';
 import { listChapters } from '@/src/lib/queries/structure';
 import { pickLocalized, shortId } from '@/src/lib/format';
 import { EmptyState, ErrorState, PageHeader } from '@/src/components/ui';
+import { Melo } from '@/src/components/brand';
 import { SECTION_PATHS } from '@/src/lib/auth/roles';
 import { StatusBadge } from '@/src/components/badges';
 
@@ -21,9 +22,10 @@ export default async function ChaptersPage() {
       {!chapters.ok ? <ErrorState title={t('admin.ui.errorTitle')} message={chapters.error} /> : null}
       {empty ? (
         <EmptyState
+          art={<Melo state="curious" size={72} />}
           title={t('admin.ui.chEmptyHint')}
           action={
-            <Link href={SECTION_PATHS.collections} className="text-sm text-accent hover:underline">
+            <Link href={SECTION_PATHS.collections} className="text-sm text-accent-text hover:underline">
               {t('admin.sections.collections')} →
             </Link>
           }
@@ -47,13 +49,13 @@ export default async function ChaptersPage() {
                   <tr key={ch.id} className="border-t border-border">
                     <td className="px-3 py-2 tabular-nums">{ch.sort_order}</td>
                     <td className="px-3 py-2">
-                      <Link href={`/chapters/${ch.id}`} className="font-medium text-accent hover:underline">
+                      <Link href={`/chapters/${ch.id}`} className="font-medium text-accent-text hover:underline">
                         {pickLocalized(ch.title_translations, locale) || shortId(ch.id)}
                       </Link>
                     </td>
                     <td className="px-3 py-2">
                       {ch.collection ? (
-                        <Link href={`/collections/${ch.collection.id}`} className="text-accent hover:underline">
+                        <Link href={`/collections/${ch.collection.id}`} className="text-accent-text hover:underline">
                           {pickLocalized(ch.collection.title_translations, locale) || shortId(ch.collection.id)}
                         </Link>
                       ) : (

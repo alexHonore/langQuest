@@ -111,7 +111,7 @@ export function SetupCard({ keys, title }: { keys: readonly SetupItemKey[]; titl
   const items = status.items.filter((i) => keys.includes(i.key) && i.state !== 'ok');
   if (items.length === 0) return null;
   return (
-    <Card title={title ?? t('admin.ui.setup.title')} actions={status.canOpenSetup ? <Link href={SECTION_PATHS.setup} className="text-xs text-accent hover:underline">{t('admin.ui.setup.openSetup')} →</Link> : null}>
+    <Card title={title ?? t('admin.ui.setup.title')} actions={status.canOpenSetup ? <Link href={SECTION_PATHS.setup} className="text-xs text-accent-text hover:underline">{t('admin.ui.setup.openSetup')} →</Link> : null}>
       <ul className="divide-y divide-border">
         {items.map((item) => (
           <SetupItemRow key={item.key} item={item} />

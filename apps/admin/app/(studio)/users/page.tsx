@@ -13,7 +13,7 @@ export default async function UsersPage() {
   const roles = await listUserRoles();
   return (
     <div>
-      <PageHeader title={t('admin.users.title')} description={t('admin.ui.usLookupHint')} />
+      <PageHeader title={t('admin.users.title')} info={t('admin.ui.usLookupHint')} />
       {!roles.ok ? <ErrorState title={t('admin.ui.errorTitle')} message={roles.error} /> : null}
       <UsersScreen rows={roles.ok ? roles.data : []} currentUserId={session.userId} />
     </div>

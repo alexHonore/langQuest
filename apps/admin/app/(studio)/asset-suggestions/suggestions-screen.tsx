@@ -150,12 +150,12 @@ export function SuggestionsScreen({ canDecide }: { canDecide: boolean }) {
       header: t('admin.ui.sgTarget'),
       render: (s) => (
         <div className="text-xs">
-          <Link href={`/library/${s.mediaAssetId}`} className="font-mono text-accent hover:underline">
+          <Link href={`/library/${s.mediaAssetId}`} className="font-mono text-accent-text hover:underline">
             {shortId(s.mediaAssetId)}
           </Link>
           <div>
             {s.lessonId ? (
-              <Link href={`/lessons/${s.lessonId}`} className="text-accent hover:underline">
+              <Link href={`/lessons/${s.lessonId}`} className="text-accent-text hover:underline">
                 {t('admin.sections.lessons')} {shortId(s.lessonId)}
               </Link>
             ) : (
@@ -502,7 +502,7 @@ function GenerateDialog({ open, onClose, onQueued }: { open: boolean; onClose: (
             ) : null}
             {result.jobIds.length > 0 ? (
               <p className="mt-1 text-xs">
-                <Link href="/jobs" className="text-accent hover:underline">
+                <Link href="/jobs" className="text-accent-text hover:underline">
                   {t('admin.sections.jobQueue')} →
                 </Link>
               </p>

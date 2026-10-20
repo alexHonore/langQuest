@@ -14,7 +14,7 @@ export default async function ContentFactoryPage() {
   const { missions, expressions, jobs } = await listContentDrafts();
   return (
     <div>
-      <PageHeader title={t('admin.contentFactory.title')} description={t('admin.contentFactory.draftNote')} />
+      <PageHeader title={t('admin.contentFactory.title')} info={t('admin.contentFactory.draftNote')} />
       {!missions.ok ? <ErrorState title={t('admin.ui.errorTitle')} message={missions.error} /> : null}
       <ContentFactoryScreen
         intents={INTENTS.map((i) => ({ key: i.intentKey, description: i.description, concept: i.conceptId }))}

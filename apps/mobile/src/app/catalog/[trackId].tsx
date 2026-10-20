@@ -1,5 +1,5 @@
 import { SOURCE_LANGUAGES, getCourseTrack, isCourseTrackId, type LearnerLevel, type ScriptMode, type SourceLanguageCode } from '@langquest/contracts';
-import { Button, Chip, CourseCover, Row, StatusLine, Surface, ThemedText, dialectClarification, orderedSourceLanguages, useTheme } from '@langquest/ui';
+import { Button, Chip, CourseCover, InfoAffordance, Row, Surface, ThemedText, dialectClarification, orderedSourceLanguages, useTheme } from '@langquest/ui';
 import { useMutation } from '@tanstack/react-query';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
@@ -9,6 +9,8 @@ import { CapabilityDisclaimer } from '@/components/CapabilityDisclaimer';
 import { CoverageStatus } from '@/components/CoverageStatus';
 import { ErrorView } from '@/components/StateViews';
 import { useActiveEnrollment, useCourseCapabilities, useCourses, useInvalidateLearner } from '@/features/session/queries';
+import { haptic } from '@/lib/haptics';
+import { useExtraLabels } from '@/lib/extra-labels';
 import { newUuid } from '@/lib/ids';
 import { useLanguageNames, useT } from '@/lib/i18n';
 import { useServices } from '@/lib/services';
@@ -18,17 +20,17 @@ import { usePrefs } from '@/state/prefs';
 const LEVELS: readonly LearnerLevel[] = ['beginner', 'elementary', 'intermediate', 'upper_intermediate', 'advanced'];
 
 /**
- * Enrollment wizard: source language prefilled from the profile default but
- * editable here; script mode, regional option and level; honest coverage for
- * the chosen (track, source) pair with an explicit fallback opt-in, and — before
- * the confirm button — the plain disclaimer of what this course × instruction
- * language does not have yet (CONVENTIONS §8, from `GET /courses/:id/coverage?source=`).
+ * Enrollment wizard (calm density): cover, one helper line (what this variety is), the instruction
+ * language, the script / regional / level chips, the short disclaimer card of what this course ×
+ * instruction language does not have yet (CONVENTIONS §8) and ONE primary action. Assumptions,
+ * tonal note, shared assets, mission counts and scoring support sit behind the ⓘ "About this course".
  * The confirm button stays enabled: the learner decides.
  */
 export default function EnrollTrack(): React.JSX.Element {
   const theme = useTheme();
   const router = useRouter();
   const t = useT();
+  const X = useExtraLabels();
   const names = useLanguageNames();
   const { api } = useServices();
   const { trackId } = useLocalSearchParams<{ trackId: string }>();
@@ -42,7 +44,8 @@ export default function EnrollTrack(): React.JSX.Element {
   const [regional, setRegional] = useState<string | null>(null);
   const [level, setLevel] = useState<LearnerLevel>('beginner');
   const courses = useCourses(source);
-  const coverage = useMemo(() => courses.data?.data.courses.find((c) => c.track.id === trackId)?.coverage.find((c) => c.sourceLanguageCode === source) ?? null, [courses.data, trackId, source]);
+  const course = useMemo(() => courses.data?.data.courses.find((c) => c.track.id === trackId) ?? null, [courses.data, trackId]);
+  const coverage = useMemo(() => course?.coverage.find((c) => c.sourceLanguageCode === source) ?? null, [course, source]);
   const existing = enrollments.find((e) => e.courseTrackId === trackId && e.sourceLanguageCode === source);
   const capabilities = useCourseCapabilities(valid ? trackId : null, source);
 
@@ -57,6 +60,7 @@ export default function EnrollTrack(): React.JSX.Element {
     },
     onSuccess: async (dto) => {
       track.onboardingStep('enrolled');
+      void haptic('success');
       setPrefs({ activeEnrollmentId: dto.id, pendingTrackId: null });
       await invalidate();
       router.replace('/(tabs)');
@@ -72,24 +76,33 @@ export default function EnrollTrack(): React.JSX.Element {
   }
   const clar = dialectClarification(trackDef);
   const sources = orderedSourceLanguages().filter((s) => s.code !== trackDef.languageCode && SOURCE_LANGUAGES.some((x) => x.code === s.code));
+  const about = [
+    `${clar.varietyName} · ${trackDef.defaultLocale}`,
+    ...trackDef.assumptions.map((a) => t('catalog.assumption', { text: a })),
+    ...(trackDef.tonal ? [t('catalog.tonalNote')] : []),
+    ...(trackDef.sharesAssetsWithTrackId ? [t('catalog.sharedAssets')] : []),
+    t('catalog.scriptsOffered', { scripts: [trackDef.scripts.primary, ...trackDef.scripts.alternatives, ...trackDef.scripts.transliterations].join(', ') }),
+    ...(course && course.publishedMissionCount > 0 ? [X.missionsPublished(course.publishedMissionCount)] : []),
+    ...(course && (course.capabilities.pronunciationScoring === 'full' || course.capabilities.pronunciationScoring === 'partial') ? [t(`catalog.scoringSupport.${course.capabilities.pronunciationScoring}`)] : []),
+    ...(trackDef.regionalOptions.length > 0 ? [t('catalog.regionalOptionHint')] : []),
+    t('onboarding.learnFromEditLater'),
+  ];
 
   return (
-    <Screen title={trackDef.displayName} onBack={() => router.back()} enrollment={null} course={null}>
+    <Screen title={trackDef.displayName} onBack={() => router.back()} enrollment={null} course={null} headerEnd={<InfoAffordance label={t('catalog.aboutCourse')} title={trackDef.displayName} text={about} tone="accent" />}>
       <CourseCover trackId={trackDef.id} title={trackDef.displayName} />
-      <ThemedText tone="secondary">{clar.focus}</ThemedText>
-      {clar.distinctFrom.length > 0 ? <StatusLine icon="warning" tone="warning" text={`≠ ${clar.distinctFrom.join(', ')}`} /> : null}
-      {trackDef.assumptions.map((a) => (
-        <ThemedText key={a} variant="caption" tone="muted">
-          {t('catalog.assumption', { text: a })}
+      <Row gap={theme.spacing.xs} wrap align="center">
+        <ThemedText tone="secondary" style={{ flexShrink: 1 }}>
+          {clar.focus}
         </ThemedText>
-      ))}
-      {trackDef.tonal ? <StatusLine icon="info" tone="info" text={t('catalog.tonalNote')} /> : null}
-      {trackDef.sharesAssetsWithTrackId ? <StatusLine icon="info" tone="info" text={t('catalog.sharedAssets')} /> : null}
+        {clar.distinctFrom.map((n) => (
+          <Chip key={n} label={`≠ ${n}`} tone="warning" />
+        ))}
+      </Row>
 
-      <Surface variant="muted" radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.sm }}>
-        <ThemedText variant="heading">{t('enrollment.sourceLanguageFor', { target: trackDef.displayName })}</ThemedText>
-        <ThemedText variant="caption" tone="muted">
-          {t('onboarding.learnFromEditLater')}
+      <Surface variant="glass" level={1} radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.sm }}>
+        <ThemedText variant="subheading" accessibilityRole="header">
+          {t('enrollment.sourceLanguage')}
         </ThemedText>
         <Row gap={theme.spacing.xs} wrap accessibilityRole="radiogroup">
           {sources.map((s) => (
@@ -98,20 +111,8 @@ export default function EnrollTrack(): React.JSX.Element {
             </View>
           ))}
         </Row>
-        {source ? (
-          <View style={{ gap: theme.spacing.xs }}>
-            {/* The editorial status for this exact (track, source) pair; while it loads nothing is guessed. */}
-            {coverage || !courses.isLoading ? (
-              <CoverageStatus testID="catalog-coverage" status={coverage?.status ?? 'planned'} sourceLanguageCode={source} nativeReviewed={coverage?.nativeReviewed} fallbackSourceLanguageCode={coverage?.fallbackSourceLanguageCode ?? null} verbose />
-            ) : null}
-            {coverage && coverage.status !== 'complete' && coverage.fallbackSourceLanguageCode ? (
-              <ThemedText variant="caption" tone="secondary">
-                {t('enrollment.coverage.optInFallbackHint', { fallback: names(coverage.fallbackSourceLanguageCode), source: names(source) })}
-              </ThemedText>
-            ) : null}
-            {!courses.data && courses.isLoading ? <ThemedText variant="caption" tone="muted">{t('common.loading')}</ThemedText> : null}
-          </View>
-        ) : null}
+        {/* The editorial status for this exact (track, source) pair; while it loads nothing is guessed. */}
+        {source && (coverage || !courses.isLoading) ? <CoverageStatus testID="catalog-coverage" status={coverage?.status ?? 'planned'} sourceLanguageCode={source} nativeReviewed={coverage?.nativeReviewed} fallbackSourceLanguageCode={coverage?.fallbackSourceLanguageCode ?? null} verbose /> : null}
       </Surface>
 
       {trackDef.scriptModeOptions.length > 1 ? (
@@ -127,9 +128,6 @@ export default function EnrollTrack(): React.JSX.Element {
       {trackDef.regionalOptions.length > 0 ? (
         <View style={{ gap: theme.spacing.xs }}>
           <ThemedText variant="label">{t('catalog.regionalOptions')}</ThemedText>
-          <ThemedText variant="caption" tone="muted">
-            {t('catalog.regionalOptionHint')}
-          </ThemedText>
           <Row gap={theme.spacing.xs} wrap accessibilityRole="radiogroup">
             {trackDef.regionalOptions.map((o) => (
               <Chip key={o.id} label={o.label} selected={regional === o.id} onPress={() => setRegional(regional === o.id ? null : o.id)} />
@@ -148,13 +146,12 @@ export default function EnrollTrack(): React.JSX.Element {
 
       {/* What this course × instruction language does not have yet — disclosed before enrolling (§8). */}
       {source ? <CapabilityDisclaimer testID="catalog-disclaimer" capabilities={capabilities.data?.data ?? null} sourceName={names(source)} targetName={trackDef.displayName} /> : null}
-      {source && capabilities.isLoading && !capabilities.data ? <ThemedText variant="caption" tone="muted">{t('common.loading')}</ThemedText> : null}
 
       {enroll.error ? <ErrorView error={enroll.error} /> : null}
       {existing ? (
         <Button label={t('catalog.enrolled')} variant="secondary" icon="check" fullWidth onPress={() => { setPrefs({ activeEnrollmentId: existing.id }); router.replace('/(tabs)'); }} accessibilityLabel={t('catalog.enrolled')} />
       ) : (
-        <Button testID="catalog-enroll" label={source ? t('onboarding.learnFrom', { target: trackDef.displayName, source: names(source) }) : t('catalog.enroll')} size="lg" fullWidth disabled={!source} loading={enroll.isPending} onPress={() => enroll.mutate()} accessibilityLabel={t('catalog.enroll')} />
+        <Button testID="catalog-enroll" label={source ? t('onboarding.learnFrom', { target: trackDef.displayName, source: names(source) }) : t('catalog.enroll')} size="lg" fullWidth glow disabled={!source} loading={enroll.isPending} onPress={() => enroll.mutate()} accessibilityLabel={t('catalog.enroll')} />
       )}
     </Screen>
   );

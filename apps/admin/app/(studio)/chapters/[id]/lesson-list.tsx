@@ -74,7 +74,7 @@ export function LessonList({ chapterId, lessons, defaults }: { chapterId: string
         {lessons.map((l, i) => (
           <li key={l.id} className="flex items-center gap-2 py-1.5 text-sm">
             <span className="w-8 tabular-nums text-fg-muted">{l.sort_order}.</span>
-            <Link href={`/lessons/${l.id}`} className="flex-1 truncate font-medium text-accent hover:underline">
+            <Link href={`/lessons/${l.id}`} className="flex-1 truncate font-medium text-accent-text hover:underline">
               {pickLocalized(l.title_translations, locale) || shortId(l.id)}
             </Link>
             <span className="text-xs text-fg-muted">{[l.target_variety_id, l.instruction_language_code, l.level].filter(Boolean).join(' · ')}</span>

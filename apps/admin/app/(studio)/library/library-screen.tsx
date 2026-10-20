@@ -48,7 +48,7 @@ export function LibraryScreen({ page, result, error, options, lessonOptions, can
       header: t('admin.ui.filename'),
       render: (r) => (
         <div className="min-w-0">
-          <Link href={`/library/${r.id}`} className="block truncate font-medium text-accent hover:underline" title={r.legacy_path ?? r.storage_key}>
+          <Link href={`/library/${r.id}`} className="block truncate font-medium text-accent-text hover:underline" title={r.legacy_path ?? r.storage_key}>
             {r.legacy_filename ?? r.storage_key.split('/').pop()}
           </Link>
           <div className="truncate text-[11px] text-fg-muted" title={r.legacy_path ?? ''}>
@@ -71,7 +71,7 @@ export function LibraryScreen({ page, result, error, options, lessonOptions, can
           <ul className="space-y-0.5">
             {lessons.map((l) => (
               <li key={l.id}>
-                <Link href={`/lessons/${l.id}`} className="text-accent hover:underline">
+                <Link href={`/lessons/${l.id}`} className="text-accent-text hover:underline">
                   {pickLocalized(l.title_translations, locale) || shortId(l.id)}
                 </Link>
                 <span className="ms-1 text-[11px] text-fg-muted">{[l.target_variety_id, l.instruction_language_code].filter(Boolean).join(' / ')}</span>
@@ -633,7 +633,7 @@ function ProcessDialog({ open, onClose, rows }: { open: boolean; onClose: () => 
         <ul className="mt-3 space-y-1 text-xs">
           {queued.map((j) => (
             <li key={j.id} className="flex items-center gap-2">
-              <Link href={`/jobs?assetId=&q=${j.id}`} className="font-mono text-accent">
+              <Link href={`/jobs?assetId=&q=${j.id}`} className="font-mono text-accent-text">
                 {j.id.slice(0, 8)}
               </Link>
               <span>{j.type}</span>

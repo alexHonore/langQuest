@@ -18,3 +18,7 @@ Captured while driving the mobile web build (Expo) and the admin (Next.js) again
 - 5 (visual plainness): pending the owner's design choice (design/explorations).
 - 6 (web `Directory` crash in expo-fs-adapter): fixed — the adapter is lazy and returns an "unsupported" implementation on web.
 - 7 (Missions tab after coverage change): superseded by the capability snapshot (CONVENTIONS §8); missions appear when the pair is `partial`/`complete` with published, localized missions, and the 60 s capability cache is invalidated on publish.
+
+## Post-polish observations (2026-10-19, late)
+- 8 (web, 430 px, French): the welcome heading "Parlez dès le premier jour" is clipped on the right instead of wrapping (fixed-width heading in OnboardingFrame or missing flexShrink). Check all display headings for wrapping at 375–430 px in French.
+- 9 (web): Home captured blank by the headless verification pass while Missions/Speak rendered; to be confirmed with the pass report (session injection vs. render fault).

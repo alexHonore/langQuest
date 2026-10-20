@@ -1,5 +1,5 @@
 import { getCourseTrack } from '@langquest/contracts';
-import { CharacterPortrait, Chip, EmptyState, Row, Surface, ThemedText, findCharacter, useTheme } from '@langquest/ui';
+import { CharacterPortrait, Chip, EmptyState, InfoAffordance, Row, Surface, ThemedText, findCharacter, useTheme } from '@langquest/ui';
 import { Redirect, useRouter } from 'expo-router';
 import React from 'react';
 import { Pressable, View } from 'react-native';
@@ -12,8 +12,9 @@ import { useEnrollmentNavigation } from '@/features/session/use-capabilities';
 import { useT } from '@/lib/i18n';
 
 /**
- * Screen 8: meet the locals — the cast published for the active course (course manifest `characters[]`),
- * ranked for the enrollment's regional preference. Art is the in-code portrait keyed by the roster slug.
+ * Screen 8 (calm density): meet the locals — the cast published for the active course (course manifest
+ * `characters[]`), ranked for the enrollment's regional preference. One card per character: C2 clay
+ * portrait, name, role · place, the regional-fit chip and the synthetic-voice badge; nothing else.
  */
 export default function Characters(): React.JSX.Element {
   const theme = useTheme();
@@ -32,9 +33,9 @@ export default function Characters(): React.JSX.Element {
     );
   }
   if (!nav.liveConversation) return <Redirect href="/(tabs)" />;
+  const synthetic = cast.some((c) => c.syntheticVoice);
   return (
-    <Screen title={trackDef.displayName} onBack={() => router.back()}>
-      <ThemedText tone="secondary">{t('speak.characters.title')}</ThemedText>
+    <Screen title={t('speak.characters.title')} onBack={() => router.back()} headerEnd={<InfoAffordance label={t('speak.characters.aboutCast')} title={t('speak.characters.title')} text={[trackDef.displayName, ...(synthetic ? [t('speak.syntheticVoice.detail', { name: cast[0]?.name ?? '' })] : []), t('speak.characters.regionalFit', { region: regionalLabel(enrollment.regionalPreference) ?? '' })]} />}>
       {query.isLoading && cast.length === 0 ? <LoadingView rows={2} /> : null}
       {query.error && !query.data ? <ErrorView error={query.error} onRetry={() => void query.refetch()} /> : null}
       <View style={{ gap: theme.spacing.md }}>
@@ -43,16 +44,16 @@ export default function Characters(): React.JSX.Element {
           const where = c.region ?? (roster ? `${roster.city}, ${roster.region}` : null);
           return (
             <Pressable key={c.id} testID={`character-${c.portraitKey}`} onPress={() => router.push({ pathname: '/characters/[id]', params: { id: c.id } })} accessibilityRole="button" accessibilityLabel={[c.name, c.role, where].filter(Boolean).join(', ')}>
-              <Surface bordered radius="lg" padding={theme.spacing.md}>
-                <Row gap={theme.spacing.md} align="flex-start">
-                  <CharacterPortrait characterId={c.portraitKey} expression="greeting" size={80} />
-                  <View style={{ flex: 1, gap: 2 }}>
+              <Surface variant="glass" level={1} radius="lg" padding={theme.spacing.md}>
+                <Row gap={theme.spacing.md} align="center">
+                  <CharacterPortrait characterId={c.portraitKey} expression="greeting" size={72} />
+                  <View style={{ flex: 1, gap: theme.spacing.xs }}>
                     <ThemedText variant="subheading">{c.name}</ThemedText>
-                    {roster?.nameNative ? <ThemedText variant="transliteration" tone="muted">{roster.nameNative}</ThemedText> : null}
-                    <ThemedText tone="secondary">{where ? `${c.role} · ${where}` : c.role}</ThemedText>
+                    <ThemedText tone="secondary" numberOfLines={1}>
+                      {where ? `${c.role} · ${where}` : c.role}
+                    </ThemedText>
                     <Row gap={theme.spacing.xs} wrap>
-                      <Chip label={c.varietyId} />
-                      {c.regionalMatch ? <Chip label={t('speak.characters.regionalFit', { region: regionalLabel(c.regionalOption) ?? '' })} tone="success" icon="check" /> : c.regionalOption ? <Chip label={regionalLabel(c.regionalOption) ?? c.regionalOption} /> : null}
+                      {c.regionalMatch ? <Chip label={regionalLabel(c.regionalOption) ?? ''} tone="success" icon="check" accessibilityLabel={t('speak.characters.regionalFit', { region: regionalLabel(c.regionalOption) ?? '' })} /> : null}
                       {c.syntheticVoice ? <SyntheticVoiceBadge name={c.name} /> : null}
                     </Row>
                   </View>

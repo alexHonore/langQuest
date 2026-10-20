@@ -1,9 +1,11 @@
 /**
- * Design tokens for `@langquest/ui`: semantic colours (light / dark / high
- * contrast), script-aware typography, spacing, radii, elevation, motion, icon
- * sizes, illustration crops and focus rings, plus a WCAG contrast checker.
+ * Design tokens for `@langquest/ui` — "Night Market" (U2): semantic colours
+ * (dark-first, derived light, high contrast), glass + glow elevation, lantern
+ * accents per course and lesson, script-aware typography, spacing, radii,
+ * motion (springs, easings, durations), icon sizes, illustration crops, focus
+ * rings and a WCAG contrast checker.
  */
-export type { PaletteName, ColorTokens, SpeechStateColors } from './color';
+export type { PaletteName, ColorTokens, SpeechStateColors, GlassColors } from './color';
 export {
   COLOR_PALETTES,
   PALETTE_NAMES,
@@ -12,6 +14,8 @@ export {
   HIGH_CONTRAST_LIGHT_COLORS,
   HIGH_CONTRAST_DARK_COLORS,
   TEXT_COLOR_TOKEN_KEYS,
+  FILL_COLOR_TOKEN_KEYS,
+  FILL_INK_TOKEN,
   SURFACE_COLOR_TOKEN_KEYS,
   paletteNameFor,
 } from './color';
@@ -30,6 +34,22 @@ export {
   shade,
   withAlpha,
 } from './contrast';
+
+export type {
+  CourseAccent,
+  LessonAccentKey,
+  LessonAccent,
+  ResolvedAccents,
+  ResolveAccentsOptions,
+} from './accent';
+export {
+  courseAccent,
+  ACCENT_TRACK_IDS,
+  LESSON_ACCENTS,
+  LESSON_ACCENT_KEYS,
+  lessonAccent,
+  resolveAccents,
+} from './accent';
 
 export type {
   ScriptTypography,
@@ -54,7 +74,12 @@ export type {
   RadiusKey,
   ElevationStyle,
   ElevationLevel,
+  GlassLevel,
+  GlassStyle,
+  GlowStyle,
+  SpringTokens,
   MotionTokens,
+  MotionOptions,
   IconSizeKey,
   FocusRingTokens,
 } from './layout';
@@ -63,11 +88,20 @@ export {
   RADII,
   ELEVATION_LEVELS,
   elevationStyle,
+  GLASS_LEVELS,
+  GLASS_BLUR,
+  glassStyle,
+  GLOW,
+  glowStyle,
+  MOTION_SPRINGS,
+  MOTION_EASINGS,
   MOTION_DURATIONS,
+  LANTERN_DRIFT_MS,
   motionTokens,
   ICON_SIZES,
   ILLUSTRATION_CROPS,
   focusRingTokens,
   TOUCH_TARGETS,
   Z_INDEX,
+  TEXT_BUDGET,
 } from './layout';

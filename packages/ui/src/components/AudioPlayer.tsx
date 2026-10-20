@@ -4,6 +4,10 @@
  * component renders artwork, seek bar, speed, ±skip, chapters, sleep timer,
  * download state, transcript toggle, bookmark and "Practice this with AI".
  * Progress is whatever the controller reports — never estimated.
+ *
+ * Calm density (default): icons with accessibility labels, no captions —
+ * subtitle, current chapter and attribution move behind an ⓘ sheet, the
+ * secondary actions become icon buttons. Full density keeps the labelled buttons.
  */
 import React, { useMemo, useState } from 'react';
 import {
@@ -15,8 +19,10 @@ import {
   View,
   type ViewStyle,
 } from 'react-native';
+import type { Density } from '../theme/resolve';
 import { useTheme } from '../theme/ThemeProvider';
-import { AUDIO_LABELS, mergeLabels, type LocalizedLabels } from './labels';
+import { InfoAffordance } from './InfoAffordance';
+import { AUDIO_LABELS, CALM_LABELS, mergeLabels, type LocalizedLabels } from './labels';
 import {
   type ChapterMarker,
   PLAYBACK_RATES,
@@ -74,8 +80,11 @@ export interface AudioPlayerProps {
   /** Shown when the file is synthetic/attributed (e.g. CC-BY line). */
   attributionText?: string | null;
   compact?: boolean;
+  density?: Density;
   /** Localized overrides (`t(...)` strings; nested groups may be partial). */
   labels?: LocalizedLabels<typeof AUDIO_LABELS>;
+  /** Localized "Details" for the calm info button. */
+  calmLabels?: LocalizedLabels<typeof CALM_LABELS>;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 }
@@ -135,7 +144,7 @@ function SeekBar(props: {
           style={{
             width: `${fraction * 100}%`,
             height: '100%',
-            backgroundColor: theme.colors.accent,
+            backgroundColor: theme.accents.primary,
             alignSelf:
               theme.direction.mirrorRows && theme.direction.rtl ? 'flex-end' : 'flex-start',
           }}
@@ -154,7 +163,7 @@ function SeekBar(props: {
             width: 16,
             height: 16,
             borderRadius: 8,
-            backgroundColor: theme.colors.accent,
+            backgroundColor: theme.accents.primary,
             borderWidth: 2,
             borderColor: theme.colors.surface,
           }}
@@ -184,12 +193,16 @@ export function AudioPlayer(props: AudioPlayerProps): React.JSX.Element {
     errorText,
     attributionText,
     compact = false,
+    density,
     labels,
+    calmLabels,
     style,
     testID,
   } = props;
   const theme = useTheme();
+  const calm = (density ?? theme.density) === 'calm';
   const L = mergeLabels(AUDIO_LABELS, labels);
+  const C = mergeLabels(CALM_LABELS, calmLabels);
   const [showChapters, setShowChapters] = useState(false);
   const [showSleep, setShowSleep] = useState(false);
   const skipMs = skipSeconds * 1000;
@@ -218,9 +231,13 @@ export function AudioPlayer(props: AudioPlayerProps): React.JSX.Element {
           ? L.error
           : L.download;
 
+  const infoLines = [subtitle, currentChapter?.title, attributionText].filter((l): l is string =>
+    Boolean(l),
+  );
+
   return (
     <Surface
-      variant="elevated"
+      variant="glass"
       level={2}
       radius="lg"
       padding={theme.spacing.lg}
@@ -249,17 +266,20 @@ export function AudioPlayer(props: AudioPlayerProps): React.JSX.Element {
           >
             {title}
           </ThemedText>
-          {subtitle ? (
+          {!calm && subtitle ? (
             <ThemedText variant="caption" tone="secondary" numberOfLines={1}>
               {subtitle}
             </ThemedText>
           ) : null}
-          {currentChapter ? (
+          {!calm && currentChapter ? (
             <ThemedText variant="caption" tone="muted" numberOfLines={1}>
               {currentChapter.title}
             </ThemedText>
           ) : null}
         </View>
+        {calm && infoLines.length > 0 ? (
+          <InfoAffordance label={C.details} title={title} text={infoLines} />
+        ) : null}
         {onBookmark ? (
           <IconButton icon="bookmark" accessibilityLabel={L.bookmark} onPress={onBookmark} />
         ) : null}
@@ -324,7 +344,67 @@ export function AudioPlayer(props: AudioPlayerProps): React.JSX.Element {
         />
       </Row>
 
-      {!compact ? (
+      {!compact && calm ? (
+        <Row gap={theme.spacing.sm} wrap justify="center">
+          {chapters.length > 0 ? (
+            <IconButton
+              icon="missions"
+              accessibilityLabel={L.chapters}
+              selected={showChapters}
+              onPress={() => setShowChapters((v) => !v)}
+            />
+          ) : null}
+          {controller.setSleepTimer ? (
+            <IconButton
+              icon="sleep"
+              accessibilityLabel={
+                controller.sleepRemainingMs
+                  ? `${L.sleepTimer} ${formatDurationMs(controller.sleepRemainingMs)}`
+                  : L.sleepTimer
+              }
+              selected={Boolean(controller.sleepRemainingMs)}
+              onPress={() => setShowSleep((v) => !v)}
+            />
+          ) : null}
+          {transcript?.available ? (
+            <IconButton
+              icon="transcript"
+              accessibilityLabel={L.transcript}
+              selected={transcript.visible}
+              onPress={transcript.onToggle}
+            />
+          ) : null}
+          {onDownload || onRemoveDownload ? (
+            <IconButton
+              icon={download.status === 'downloaded' ? 'offline' : 'download'}
+              accessibilityLabel={
+                download.status === 'downloaded'
+                  ? `${L.downloaded}. ${L.removeDownload}`
+                  : downloadLabel
+              }
+              accessibilityState={{ busy: download.status === 'downloading' }}
+              disabled={download.status === 'downloading'}
+              onPress={download.status === 'downloaded' ? onRemoveDownload : onDownload}
+            />
+          ) : null}
+          {onRepeatSentence ? (
+            <IconButton
+              icon="replay"
+              accessibilityLabel={L.repeatSentence}
+              onPress={onRepeatSentence}
+            />
+          ) : null}
+          {onPracticeWithAi ? (
+            <IconButton
+              icon="speak"
+              accessibilityLabel={L.practice}
+              onPress={onPracticeWithAi}
+              tone="accent"
+              filled
+            />
+          ) : null}
+        </Row>
+      ) : !compact ? (
         <Row gap={theme.spacing.sm} wrap justify="center">
           {chapters.length > 0 ? (
             <Button
@@ -449,7 +529,7 @@ export function AudioPlayer(props: AudioPlayerProps): React.JSX.Element {
         </ScrollView>
       ) : null}
 
-      {attributionText ? (
+      {attributionText && !calm ? (
         <ThemedText variant="caption" tone="muted">
           {attributionText}
         </ThemedText>

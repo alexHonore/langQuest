@@ -1,8 +1,9 @@
 import { getCourseTrack, type CourseTrackId } from '@langquest/contracts';
-import { Button, Mascot, NATIVE_SAMPLES, Row, SpeakButton, StatusLine, ThemedText, useTheme } from '@langquest/ui';
+import { Button, InfoAffordance, NATIVE_SAMPLES, SpeakButton, StatusLine, ThemedText, useTheme } from '@langquest/ui';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { View } from 'react-native';
+import { Melo } from '@/components/Melo';
 import { OnboardingFrame } from '@/components/OnboardingFrame';
 import { haptic } from '@/lib/haptics';
 import { useT } from '@/lib/i18n';
@@ -54,10 +55,8 @@ export default function WarmupStep(): React.JSX.Element {
   };
 
   return (
-    <OnboardingFrame step={4} title={t('onboarding.baseline.title')} hint={t('onboarding.baseline.listenHint')} primaryLabel={t('onboarding.finish')} primaryTestID="onboarding-warmup-finish" onPrimary={finish} secondaryLabel={t('onboarding.baseline.skip')} secondaryTestID="onboarding-warmup-skip" onSecondary={finish}>
-      <Row gap={theme.spacing.md} align="flex-start">
-        <Mascot state="encouraging" size="companion" speech={t('onboarding.baseline.speakHint')} />
-      </Row>
+    <OnboardingFrame step={4} title={t('onboarding.baseline.title')} primaryLabel={t('onboarding.finish')} primaryTestID="onboarding-warmup-finish" onPrimary={finish} secondaryLabel={t('onboarding.baseline.skip')} secondaryTestID="onboarding-warmup-skip" onSecondary={finish} headerEnd={<InfoAffordance label={t('common.moreInformation')} title={t('onboarding.baseline.title')} text={[t('onboarding.baseline.listenHint'), t('onboarding.baseline.micJustInTime'), t('speak.noPenalty')]} />}>
+      <Melo state={state === 'recording' ? 'listening' : state === 'done' ? 'happy' : 'encouraging'} size="companion" speech={t('onboarding.baseline.speakHint')} testID="warmup-mascot" />
       {track && sample ? (
         <View style={{ alignItems: 'center', gap: theme.spacing.sm, paddingVertical: theme.spacing.lg }}>
           <ThemedText variant="phrase" script={track.scripts.primary} align="center">
@@ -80,9 +79,6 @@ export default function WarmupStep(): React.JSX.Element {
           elapsedText={state === 'recording' ? t('pronunciation.recording') : null}
           labels={labels.speakButton}
         />
-        <ThemedText variant="caption" tone="muted" align="center">
-          {t('onboarding.baseline.micJustInTime')}
-        </ThemedText>
         {permission === 'denied' ? <StatusLine icon="micOff" tone="warning" text={t('errors.permission.micDenied')} /> : null}
         {state === 'done' ? <StatusLine icon="check" tone="success" text={elapsed ? `${t('speak.noPenalty')} (${Math.round(elapsed / 100) / 10} s)` : t('speak.noSpeech')} /> : null}
         {state === 'done' ? <Button label={t('lesson.tryAgain')} variant="ghost" onPress={() => setState('idle')} accessibilityLabel={t('lesson.tryAgain')} /> : null}

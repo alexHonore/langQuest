@@ -61,7 +61,14 @@
       "characterPortrait": "Portrait de {name}",
       "sceneArt": "Scène : {description}",
       "languagePickerHint": "Appuyez deux fois pour choisir"
-    }
+    },
+    "info": "Infos",
+    "details": "Détails",
+    "hideDetails": "Masquer les détails",
+    "more": "Plus",
+    "less": "Moins",
+    "moreInformation": "Plus d'informations",
+    "about": "À propos"
   },
   "onboarding": {
     "heroPromise": "Parlez dès le premier jour",
@@ -113,7 +120,8 @@
       "failed": "Votre cours n’a pas encore pu être préparé.",
       "retry": "Réessayer",
       "scriptModeHint": "Vous pourrez modifier ce choix plus tard pour ce cours."
-    }
+    },
+    "aboutLangQuest": "À propos de LangQuest"
   },
   "home": {
     "welcomeBack": "Bon retour, {name} !",
@@ -137,7 +145,10 @@
     "xpNote": "Les XP mesurent votre pratique, pas votre niveau à l'oral.",
     "quickSpeak": "Parler vite fait",
     "noCourse": "Vous n'êtes inscrit à aucun cours pour le moment.",
-    "addCourse": "Ajouter un cours"
+    "addCourse": "Ajouter un cours",
+    "speakingSummary": "{count, plural, one {# min de parole} other {# min de parole}} · 7 derniers jours",
+    "aboutProgress": "Comment la progression est comptée",
+    "coverageInfo": "À propos de ce cours depuis votre langue"
   },
   "catalog": {
     "title": "Cours",
@@ -200,7 +211,14 @@
       "ukrainian": "Couverture du cours d’ukrainien : orbites abstraites en bleu et or",
       "vietnamese": "Couverture du cours de vietnamien : grille de points abstraite en vert et orange"
     },
-    "notNativeReviewed": "Pas encore relu par des locuteurs natifs"
+    "notNativeReviewed": "Pas encore relu par des locuteurs natifs",
+    "coverageShort": {
+      "complete": "Tout disponible",
+      "partial": "Partiellement disponible",
+      "planned": "Prévu",
+      "unavailable": "Non proposé"
+    },
+    "aboutCourse": "À propos de ce cours"
   },
   "missions": {
     "title": "Missions",
@@ -246,7 +264,10 @@
       "confidence": "Fiabilité de l'évaluation : {confidence}",
       "evaluationPending": "Votre bilan détaillé est en cours de préparation.",
       "evaluationUnavailable": "Le bilan détaillé n'a pas pu être préparé cette fois. Votre progression est enregistrée."
-    }
+    },
+    "details": "Détails",
+    "hideDetails": "Masquer les détails",
+    "aboutPathway": "À propos du parcours"
   },
   "lesson": {
     "listen": "Écouter",
@@ -310,7 +331,11 @@
       "feedback_retry": "Retour et nouvel essai",
       "review_recall": "Révision",
       "script_support": "Aide à l’écriture"
-    }
+    },
+    "hintMore": "Plus d'options",
+    "hintLess": "Moins d'options",
+    "aboutStep": "À propos de cette étape",
+    "answerOptions": "Autres façons de répondre"
   },
   "speak": {
     "title": "Parler",
@@ -384,8 +409,19 @@
       "title": "Personnages",
       "empty": "Aucun personnage n’est encore publié pour ce cours.",
       "regionalFit": "Parle la variété {region} que vous avez choisie",
-      "talkWith": "Parler avec {name}"
-    }
+      "talkWith": "Parler avec {name}",
+      "aboutCast": "À propos des personnages"
+    },
+    "stateShort": {
+      "idle": "Prêt",
+      "character_speaking": "Parle",
+      "waiting": "Parlez",
+      "learner_mic_active": "Écoute",
+      "thinking": "Réflexion",
+      "reconnecting": "Reconnexion",
+      "error": "Erreur"
+    },
+    "aboutConversation": "Comment fonctionne cette conversation"
   },
   "pronunciation": {
     "title": "Coach de prononciation",
@@ -446,13 +482,15 @@
       "retrySegment": "Réessayez cette partie",
       "scoreOutOf": "sur 100",
       "toneHint": "Ton {expected} attendu sur {syllable} ; ton {heard} entendu",
-      "lowConfidenceNote": "Qualité d'enregistrement faible ; le retour est approximatif."
+      "lowConfidenceNote": "Qualité d'enregistrement faible ; le retour est approximatif.",
+      "details": "Détails"
     },
     "honesty": "Nous n'inventons jamais de score. Si l'évaluateur ne peut pas mesurer quelque chose, nous le disons.",
     "tipsTitle": "Conseils",
     "tipSlow": "Essayez d'abord lentement, puis à vitesse normale.",
     "tipListen": "Écoutez deux fois avant d'enregistrer.",
-    "tipShadow": "Parlez en même temps que la référence."
+    "tipShadow": "Parlez en même temps que la référence.",
+    "aboutFeedback": "Comment fonctionne le retour"
   },
   "audio": {
     "title": "Audio",
@@ -488,7 +526,8 @@
       "sleepTimerSet": "Arrêt dans {count, plural, one {# minute} other {# minutes}}",
       "sleepTimerEndOfChapter": "Fin du chapitre",
       "sleepTimerOff": "Minuteur désactivé",
-      "backgroundNote": "L'audio continue en arrière-plan."
+      "backgroundNote": "L'audio continue en arrière-plan.",
+      "details": "Détails"
     },
     "download": {
       "download": "Télécharger pour écouter hors ligne",
@@ -607,7 +646,8 @@
         "upper_intermediate": "Intermédiaire avancé",
         "advanced": "Avancé"
       }
-    }
+    },
+    "aboutLesson": "À propos de cette leçon"
   },
   "progress": {
     "title": "Progrès",
@@ -660,7 +700,8 @@
       "showAnswer": "Voir la réponse",
       "nextDue": "Prochaine révision {when}",
       "allDone": "Tout est à jour pour aujourd'hui."
-    }
+    },
+    "aboutMastery": "Comment c’est mesuré"
   },
   "account": {
     "title": "Compte",
@@ -744,7 +785,9 @@
       "push_to_talk": "Maintenir pour parler",
       "hands_free": "Mains libres",
       "text_only": "Texte seulement"
-    }
+    },
+    "aboutSettings": "À propos de ces réglages",
+    "lanterns": "Halo de lanternes en arrière-plan"
   },
   "enrollment": {
     "title": "Vos cours",
@@ -826,6 +869,21 @@
         "pronunciationAcoustic": "Note de prononciation",
         "pronunciationReference": "Retour de prononciation par écoute et comparaison",
         "offlineDownloads": "Téléchargements hors ligne"
+      },
+      "shortTitle": "Pas encore dans ce cours",
+      "shortAllAvailable": "Tout est disponible",
+      "short": {
+        "no_missions": "Pas encore de missions",
+        "no_audio_library": "Pas encore de bibliothèque audio",
+        "no_live_conversation": "Pas encore de conversation live",
+        "text_only_conversation": "Conversation live par écrit seulement",
+        "no_pronunciation_scoring": "Pas de note de prononciation",
+        "no_pronunciation_feedback": "Pas de retour oral",
+        "no_offline_downloads": "Pas encore de téléchargements",
+        "instruction_language_draft": "Explications non relues",
+        "instruction_language_planned": "Votre langue est prévue",
+        "instruction_language_unavailable": "Pas proposé dans votre langue",
+        "partial_interface_language": "Textes partiellement traduits"
       }
     },
     "remove": "Retirer le cours",
@@ -834,7 +892,8 @@
     "removeDelete": "Supprimer la progression de ce cours",
     "removeOtherCoursesSafe": "Vos autres cours ne sont pas concernés.",
     "add": "Ajouter un cours",
-    "temporaryTranslation": "Afficher les traductions dans une autre langue pour le moment"
+    "temporaryTranslation": "Afficher les traductions dans une autre langue pour le moment",
+    "aboutEditor": "À propos de ces choix"
   },
   "errors": {
     "generic": "Un problème est survenu. Veuillez réessayer.",

@@ -67,3 +67,12 @@ export function findCastCharacter(cast: readonly CastCharacter[], ref: string | 
   if (!ref) return null;
   return cast.find((c) => c.id === ref) ?? cast.find((c) => c.characterKey === ref || c.portraitKey === ref) ?? null;
 }
+
+/**
+ * The cast of one mission: the manifest's `characterIds` resolved against the course cast, in
+ * manifest order. Ids the cast does not carry are dropped (never a placeholder, CONVENTIONS §8).
+ */
+export function missionCast(characterIds: readonly string[], cast: readonly CastCharacter[]): CastCharacter[] {
+  const byId = new Map(cast.map((c) => [c.id, c] as const));
+  return characterIds.map((id) => byId.get(id)).filter((c): c is CastCharacter => Boolean(c));
+}

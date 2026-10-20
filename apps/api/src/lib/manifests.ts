@@ -42,19 +42,43 @@ export async function storeCourseManifest(s: RequestServices, courseTrackId: Cou
 /** Published cast as a stored manifest should carry it: one entry per character id, each with its art mapping. */
 export type StoredManifestCast = Pick<CourseManifest, 'characters'>['characters'];
 
+/** Stored manifest shape the staleness checks read (a subset of `CourseManifest`, tolerant of older copies). */
+export interface StoredManifestCastView {
+  characters?: readonly Partial<Record<'id' | 'characterKey' | 'portraitKey', unknown>>[];
+  chapters?: readonly { missions?: readonly { id?: unknown; characterIds?: unknown }[] }[];
+}
+
 /**
  * Whether a stored course manifest's cast no longer matches the published characters of its variety. True when a
  * character was published/unpublished since the copy was stored, or when the copy predates the art mapping
  * (`characterKey` / `portraitKey` missing — manifests stored before migration 130 carried an empty `characters[]`).
+ * With `publishedMissionCast` (mission id → published `dialogue_scenarios.character_id`s, as the curriculum seed
+ * writes them), also true when a mission's cast changed since the copy was stored (roles correlate with lesson
+ * content, 2026-10-19: the seed can recast a mission without any character being published or unpublished).
  * Pure; the caller passes the ids it is allowed to see (learner RLS: published only).
  */
-export function storedCastIsStale(stored: { characters?: readonly Partial<Record<'id' | 'characterKey' | 'portraitKey', unknown>>[] } | null | undefined, publishedCharacterIds: readonly string[]): boolean {
+export function storedCastIsStale(stored: StoredManifestCastView | null | undefined, publishedCharacterIds: readonly string[], publishedMissionCast?: ReadonlyMap<string, readonly string[]>): boolean {
   const entries = stored?.characters ?? [];
   if (entries.length !== publishedCharacterIds.length) return true;
   const expected = new Set(publishedCharacterIds);
   for (const entry of entries) {
     if (typeof entry.id !== 'string' || !expected.has(entry.id)) return true;
     if (typeof entry.characterKey !== 'string' || typeof entry.portraitKey !== 'string') return true;
+  }
+  if (publishedMissionCast) return storedMissionCastIsStale(stored, publishedMissionCast);
+  return false;
+}
+
+/** Whether any stored mission lists a different cast than the published scenarios say (set comparison, order-free). */
+export function storedMissionCastIsStale(stored: StoredManifestCastView | null | undefined, publishedMissionCast: ReadonlyMap<string, readonly string[]>): boolean {
+  for (const chapter of stored?.chapters ?? []) {
+    for (const mission of chapter.missions ?? []) {
+      if (typeof mission.id !== 'string' || !Array.isArray(mission.characterIds)) return true;
+      const expected = new Set(publishedMissionCast.get(mission.id) ?? []);
+      const listed = new Set(mission.characterIds.filter((id): id is string => typeof id === 'string'));
+      if (listed.size !== expected.size) return true;
+      for (const id of listed) if (!expected.has(id)) return true;
+    }
   }
   return false;
 }

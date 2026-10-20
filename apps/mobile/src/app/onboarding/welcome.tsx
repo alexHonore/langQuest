@@ -1,13 +1,14 @@
-import { Button, Mascot, StatusLine, ThemedText, useTheme } from '@langquest/ui';
+import { Button, InfoAffordance, Lanterns, Row, ThemedText, useTheme } from '@langquest/ui';
 import { useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import { ScrollView, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Melo } from '@/components/Melo';
 import { useT } from '@/lib/i18n';
 import { track } from '@/lib/telemetry';
 import { usePrefs } from '@/state/prefs';
 
-/** Screen 1 hero: original mascot + "Start speaking from day one"; no paywall copy anywhere. */
+/** Screen 1 hero (calm): Melo + "Start speaking from day one" + one line; the free / privacy notes sit behind ⓘ. */
 export default function Welcome(): React.JSX.Element {
   const theme = useTheme();
   const insets = useSafeAreaInsets();
@@ -17,22 +18,22 @@ export default function Welcome(): React.JSX.Element {
   useEffect(() => track.onboardingStep('welcome'), []);
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background, paddingTop: insets.top, paddingBottom: insets.bottom }}>
+      {theme.lanterns.enabled ? <Lanterns /> : null}
       <ScrollView contentContainerStyle={{ flexGrow: 1, padding: theme.spacing.xl, gap: theme.spacing.xl, justifyContent: 'center' }}>
         <View style={{ alignItems: 'center', gap: theme.spacing.lg }}>
-          <Mascot state="welcome" size="welcome" animate={!theme.reducedMotion} accessibilityLabel={t('common.a11y.mascotImage', { state: t('mascot.a11yState.welcome') })} />
+          <Melo state="welcome" size="welcome" testID="welcome-mascot" />
           <ThemedText variant="display" align="center" accessibilityRole="header">
             {t('onboarding.heroPromise')}
           </ThemedText>
-          <ThemedText tone="secondary" align="center">
-            {t('onboarding.heroSubtitle')}
-          </ThemedText>
+          <Row gap={theme.spacing.xs} justify="center" align="center">
+            <ThemedText tone="secondary" align="center" style={{ flexShrink: 1 }}>
+              {t('onboarding.heroSubtitle')}
+            </ThemedText>
+            <InfoAffordance label={t('onboarding.aboutLangQuest')} title={t('common.appName')} text={[t('onboarding.noPaywall'), t('onboarding.privacyNote'), t('common.free')]} />
+          </Row>
         </View>
         <View style={{ gap: theme.spacing.sm }}>
-          <StatusLine icon="check" tone="success" text={t('onboarding.noPaywall')} />
-          <StatusLine icon="info" tone="info" text={t('onboarding.privacyNote')} />
-        </View>
-        <View style={{ gap: theme.spacing.sm }}>
-          <Button testID="onboarding-get-started" label={t('onboarding.getStarted')} size="lg" fullWidth onPress={() => router.push('/onboarding/language')} accessibilityLabel={t('onboarding.getStarted')} />
+          <Button testID="onboarding-get-started" label={t('onboarding.getStarted')} size="lg" fullWidth glow onPress={() => router.push('/onboarding/language')} accessibilityLabel={t('onboarding.getStarted')} />
           <Button
             testID="onboarding-have-account"
             label={t('onboarding.alreadyHaveAccount')}

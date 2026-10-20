@@ -20,7 +20,7 @@ export default async function SettingsPage() {
   const providers = setup.items.filter((i) => i.key === 'media' || i.key === 'ai' || i.key === 'speech' || i.key === 'adminProbe');
   return (
     <div className="space-y-4">
-      <PageHeader title={t('admin.settings.title')} description={t('admin.settings.secretsNote')} />
+      <PageHeader title={t('admin.settings.title')} info={t('admin.settings.secretsNote')} />
       <div className="grid gap-4 lg:grid-cols-2">
         <Card title={t('admin.ui.stEnvironment')}>
           <dl className="grid grid-cols-[10rem_1fr] gap-x-3 gap-y-1 text-sm">
@@ -44,7 +44,7 @@ export default async function SettingsPage() {
         <Card
           title={t('admin.ui.stProviders')}
           actions={
-            <Link href={SECTION_PATHS.setup} className="text-xs text-accent hover:underline">
+            <Link href={SECTION_PATHS.setup} className="text-xs text-accent-text hover:underline">
               {t('admin.ui.setup.openSetup')} →
             </Link>
           }

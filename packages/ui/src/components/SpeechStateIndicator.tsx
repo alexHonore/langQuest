@@ -1,15 +1,17 @@
 /**
  * Transparent speech-status indicator (§10.2A): character speaking, waiting,
  * learner microphone active, thinking, reconnecting, error. Only the two
- * states with real audio activity get a pulsing dot (static under reduced
- * motion); there is deliberately no waveform.
+ * states with real audio activity get a breathing glow ring (static under
+ * reduced motion); there is deliberately no waveform. Calm density (default):
+ * glow ring + ONE word; `detail` stays in the accessibility label.
  */
 import type { SpeechState } from '@langquest/contracts';
 import React, { useEffect, useRef } from 'react';
 import { Animated, type StyleProp, View, type ViewStyle } from 'react-native';
 import type { IconName } from '../art';
+import type { Density } from '../theme/resolve';
 import { useTheme } from '../theme/ThemeProvider';
-import { SPEECH_STATE_LABELS } from './labels';
+import { SPEECH_STATE_LABELS, SPEECH_STATE_SHORT_LABELS } from './labels';
 import { SPEECH_STATE_HAS_AUDIO } from './logic';
 import { InlineIcon, Row, ThemedText } from './primitives';
 
@@ -17,9 +19,12 @@ export interface SpeechStateIndicatorProps {
   state: SpeechState;
   /** Localized labels; default English. */
   labels?: Partial<Record<SpeechState, string>>;
-  /** Extra detail (e.g. "Retrying in 3 s", provider error text). */
+  /** Localized one-word labels for the calm density; default English. */
+  shortLabels?: Partial<Record<SpeechState, string>>;
+  /** Extra detail (e.g. "Retrying in 3 s", provider error text). Visible only in `full` density. */
   detail?: string | null;
   compact?: boolean;
+  density?: Density;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 }
@@ -53,66 +58,105 @@ export function speechStateColor(theme: ReturnType<typeof useTheme>, state: Spee
   }
 }
 
-function PulseDot(props: { color: string; active: boolean }): React.JSX.Element {
+/** Breathing glow ring (opacity + scale 1 → 1.06), static under reduced motion / when inactive. */
+export function GlowDot(props: {
+  color: string;
+  active: boolean;
+  size?: number;
+}): React.JSX.Element {
   const theme = useTheme();
-  const scale = useRef(new Animated.Value(1)).current;
+  const size = props.size ?? 10;
+  const pulse = useRef(new Animated.Value(0)).current;
+  const animated = props.active && theme.motion.glowAnimated && theme.motion.glowPulse > 0;
   useEffect(() => {
-    if (!props.active || theme.reducedMotion) {
-      scale.setValue(1);
+    if (!animated) {
+      pulse.setValue(props.active ? 1 : 0);
       return;
     }
+    const half = theme.motion.glowPulse / 2;
     const loop = Animated.loop(
       Animated.sequence([
-        Animated.timing(scale, {
-          toValue: 1.5,
-          duration: theme.motion.slow * 2,
-          useNativeDriver: true,
-        }),
-        Animated.timing(scale, {
-          toValue: 1,
-          duration: theme.motion.slow * 2,
-          useNativeDriver: true,
-        }),
+        Animated.timing(pulse, { toValue: 1, duration: half, useNativeDriver: true }),
+        Animated.timing(pulse, { toValue: 0.4, duration: half, useNativeDriver: true }),
       ]),
     );
     loop.start();
     return () => loop.stop();
-  }, [props.active, theme.reducedMotion, theme.motion.slow, scale]);
+  }, [animated, props.active, theme.motion.glowPulse, pulse]);
+  const glow = theme.glow(props.color, props.active ? undefined : 0);
+  const ring = glow.ringWidth;
   return (
-    <Animated.View
+    <View
       style={{
-        width: 10,
-        height: 10,
-        borderRadius: 5,
-        backgroundColor: props.color,
-        transform: [{ scale }],
+        width: size + ring * 2,
+        height: size + ring * 2,
+        alignItems: 'center',
+        justifyContent: 'center',
       }}
-    />
+    >
+      <Animated.View
+        pointerEvents="none"
+        style={{
+          position: 'absolute',
+          width: size + ring * 2,
+          height: size + ring * 2,
+          borderRadius: (size + ring * 2) / 2,
+          backgroundColor: glow.ringColor,
+          opacity: props.active
+            ? pulse.interpolate({ inputRange: [0, 1], outputRange: [0.5, 1] })
+            : 0.35,
+          transform: [
+            {
+              scale: pulse.interpolate({
+                inputRange: [0, 1],
+                outputRange: [1, theme.highContrast ? 1 : 1.06],
+              }),
+            },
+          ],
+        }}
+      />
+      <View
+        style={{
+          width: size,
+          height: size,
+          borderRadius: size / 2,
+          backgroundColor: props.color,
+          shadowColor: glow.shadowColor,
+          shadowOffset: glow.shadowOffset,
+          shadowOpacity: props.active ? glow.shadowOpacity : 0,
+          shadowRadius: glow.shadowRadius,
+        }}
+      />
+    </View>
   );
 }
 
 export function SpeechStateIndicator(props: SpeechStateIndicatorProps): React.JSX.Element {
-  const { state, labels, detail, compact = false, style, testID } = props;
+  const { state, labels, shortLabels, detail, compact = false, density, style, testID } = props;
   const theme = useTheme();
-  const label = labels?.[state] ?? SPEECH_STATE_LABELS[state];
+  const calm = (density ?? theme.density) === 'calm';
+  const longLabel = labels?.[state] ?? SPEECH_STATE_LABELS[state];
+  const label = calm ? (shortLabels?.[state] ?? SPEECH_STATE_SHORT_LABELS[state]) : longLabel;
   const color = speechStateColor(theme, state);
   const hasAudio = SPEECH_STATE_HAS_AUDIO[state];
   const tone = state === 'error' ? 'error' : state === 'reconnecting' ? 'warning' : 'secondary';
+  const glass = theme.glass(2);
+  const a11y = [longLabel, detail].filter(Boolean).join('. ');
   return (
     <View
       accessible
       accessibilityRole="text"
       accessibilityLiveRegion="polite"
-      accessibilityLabel={detail ? `${label}. ${detail}` : label}
+      accessibilityLabel={a11y}
       style={[
         {
           paddingVertical: theme.spacing.xs,
           paddingHorizontal: compact ? theme.spacing.sm : theme.spacing.md,
           borderRadius: theme.radii.pill,
-          backgroundColor: compact ? 'transparent' : theme.colors.surfaceMuted,
+          backgroundColor: compact ? 'transparent' : glass.backgroundColor,
           alignSelf: 'flex-start',
-          borderWidth: theme.highContrast && !compact ? 1 : 0,
-          borderColor: color,
+          borderWidth: compact ? 0 : glass.borderWidth,
+          borderColor: theme.highContrast ? color : glass.borderColor,
         },
         style,
       ]}
@@ -120,7 +164,7 @@ export function SpeechStateIndicator(props: SpeechStateIndicatorProps): React.JS
     >
       <Row gap={theme.spacing.sm}>
         {hasAudio ? (
-          <PulseDot color={color} active />
+          <GlowDot color={color} active />
         ) : (
           <InlineIcon name={STATE_ICON[state]} color={color} size={theme.iconSizes.xs} />
         )}
@@ -128,7 +172,7 @@ export function SpeechStateIndicator(props: SpeechStateIndicatorProps): React.JS
           {label}
         </ThemedText>
       </Row>
-      {detail && !compact ? (
+      {detail && !compact && !calm ? (
         <ThemedText variant="caption" tone="muted">
           {detail}
         </ThemedText>

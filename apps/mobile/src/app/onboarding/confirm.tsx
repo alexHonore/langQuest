@@ -1,5 +1,5 @@
 import { getCourseTrack, type CourseTrackId, type ScriptMode } from '@langquest/contracts';
-import { Chip, CourseCover, Row, StatusLine, ThemedText, dialectClarification, useTheme } from '@langquest/ui';
+import { Chip, CourseCover, InfoAffordance, Row, ThemedText, dialectClarification, useTheme } from '@langquest/ui';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { View } from 'react-native';
@@ -11,8 +11,9 @@ import { useLanguageNames, useT } from '@/lib/i18n';
 import { usePrefs } from '@/state/prefs';
 
 /**
- * "Learn X from Y" confirmation for this enrollment; the source can be edited per course later. Shows the
- * capability disclaimer of the pair before the learner confirms (CONVENTIONS §8; public coverage endpoint).
+ * "Learn X from Y" confirmation for this enrollment (calm density); the source can be edited per course
+ * later. Shows the short capability disclaimer of the pair before the learner confirms (CONVENTIONS §8;
+ * public coverage endpoint). Assumptions, scripts and the "edit later" notes sit behind ⓘ.
  */
 export default function ConfirmStep(): React.JSX.Element {
   const theme = useTheme();
@@ -40,29 +41,24 @@ export default function ConfirmStep(): React.JSX.Element {
     set({ pendingScriptMode: scriptMode, pendingRegionalOption: regional, pendingEnrollmentKey: pendingEnrollmentKey ?? newUuid() });
     router.push('/onboarding/warmup');
   };
+  const about = [
+    t('onboarding.learnFromEditLater'),
+    ...track.assumptions.map((a) => t('catalog.assumption', { text: a })),
+    t('catalog.scriptsOffered', { scripts: [track.scripts.primary, ...track.scripts.alternatives, ...track.scripts.transliterations].join(', ') }),
+    ...(track.scriptModeOptions.length > 1 ? [t('onboarding.replay.scriptModeHint')] : []),
+    ...(track.regionalOptions.length > 0 ? [t('catalog.regionalOptionHint')] : []),
+  ];
   return (
-    <OnboardingFrame step={3} title={t('onboarding.learnFromConfirm', { target: track.displayName, source: names(source) })} primaryLabel={t('common.confirm')} primaryTestID="onboarding-confirm" onPrimary={confirm}>
+    <OnboardingFrame step={3} title={t('onboarding.learnFrom', { target: track.displayName, source: names(source) })} primaryLabel={t('common.confirm')} primaryTestID="onboarding-confirm" onPrimary={confirm} headerEnd={<InfoAffordance label={t('catalog.aboutCourse')} title={track.displayName} text={about} />}>
       <CourseCover trackId={track.id} title={track.displayName} />
-      <View style={{ gap: theme.spacing.sm }}>
-        <ThemedText variant="heading">{t('onboarding.learnFrom', { target: track.displayName, source: names(source) })}</ThemedText>
-        <StatusLine icon="info" tone="info" text={t('onboarding.learnFromEditLater')} />
-        <ThemedText tone="secondary">{clar.focus}</ThemedText>
-        {clar.distinctFrom.length > 0 ? (
-          <Row gap={theme.spacing.xs} wrap>
-            {clar.distinctFrom.map((n) => (
-              <Chip key={n} label={`≠ ${n}`} tone="warning" />
-            ))}
-          </Row>
-        ) : null}
-        {track.assumptions.map((a) => (
-          <ThemedText key={a} variant="caption" tone="muted">
-            {t('catalog.assumption', { text: a })}
-          </ThemedText>
-        ))}
-        <ThemedText variant="caption" tone="muted">
-          {t('catalog.scriptsOffered', { scripts: [track.scripts.primary, ...track.scripts.alternatives, ...track.scripts.transliterations].join(', ') })}
+      <Row gap={theme.spacing.xs} wrap align="center">
+        <ThemedText tone="secondary" style={{ flexShrink: 1 }}>
+          {clar.focus}
         </ThemedText>
-      </View>
+        {clar.distinctFrom.map((n) => (
+          <Chip key={n} label={`≠ ${n}`} tone="warning" />
+        ))}
+      </Row>
       {track.scriptModeOptions.length > 1 ? (
         <View style={{ gap: theme.spacing.xs }}>
           <ThemedText variant="label">{t('enrollment.scriptMode')}</ThemedText>
@@ -73,18 +69,12 @@ export default function ConfirmStep(): React.JSX.Element {
               </View>
             ))}
           </Row>
-          <ThemedText variant="caption" tone="muted">
-            {t('onboarding.replay.scriptModeHint')}
-          </ThemedText>
         </View>
       ) : null}
       <CapabilityDisclaimer testID="onboarding-disclaimer" capabilities={capabilities.data?.data ?? null} sourceName={names(source)} targetName={track.displayName} />
       {track.regionalOptions.length > 0 ? (
         <View style={{ gap: theme.spacing.xs }}>
           <ThemedText variant="label">{t('catalog.regionalOptions')}</ThemedText>
-          <ThemedText variant="caption" tone="muted">
-            {t('catalog.regionalOptionHint')}
-          </ThemedText>
           <Row gap={theme.spacing.xs} wrap accessibilityRole="radiogroup">
             {track.regionalOptions.map((o) => (
               <View key={o.id} testID={`onboarding-regional-${o.id}`}>

@@ -42,7 +42,7 @@ export function LessonAssets({ lessonId, assets, expectedRevision }: { lessonId:
               <Badge tone={link.asset_type === 'master' ? 'accent' : 'neutral'}>{link.asset_type}</Badge>
               {link.asset ? (
                 <>
-                  <Link href={`/library/${link.asset.id}`} className="font-medium text-accent hover:underline">
+                  <Link href={`/library/${link.asset.id}`} className="font-medium text-accent-text hover:underline">
                     {link.asset.legacy_filename ?? shortId(link.asset.id)}
                   </Link>
                   <span className="text-xs text-fg-muted">

@@ -202,7 +202,7 @@ export function AiModelsScreen({ profiles, benchmarks, localProbeAvailable }: { 
   const benchReady = Boolean(bench && bench.sampleSetId.trim() && bench.targetVariety);
 
   const columns: Column<ProfileRow>[] = [
-    { key: 'task', header: t('admin.models.task'), render: (p) => <button type="button" className="font-medium text-accent hover:underline" onClick={() => { setForm(toForm(p)); setSmoke(null); }}>{p.task}</button> },
+    { key: 'task', header: t('admin.models.task'), render: (p) => <button type="button" className="font-medium text-accent-text hover:underline" onClick={() => { setForm(toForm(p)); setSmoke(null); }}>{p.task}</button> },
     { key: 'scope', header: t('admin.ui.aiSpecificity'), render: (p) => <span className="text-xs">{p.target_variety_id ?? '*'} / {p.source_language_code ?? '*'}{!p.target_variety_id && !p.source_language_code ? <Badge tone="neutral">{t('admin.ui.aiGlobal')}</Badge> : null}</span> },
     { key: 'model', header: t('admin.models.primaryModel'), render: (p) => <span className="font-mono text-xs">{p.primary_model}{p.fallback_models.length ? <span className="text-fg-muted"> → {p.fallback_models.join(' → ')}</span> : null}</span> },
     { key: 'provider', header: t('admin.models.provider'), render: (p) => p.provider },

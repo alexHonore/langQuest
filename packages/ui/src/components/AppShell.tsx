@@ -9,6 +9,7 @@ import { findCourseTrack } from '@langquest/contracts';
 import React from 'react';
 import { type StyleProp, View, type ViewStyle } from 'react-native';
 import { useTheme } from '../theme/ThemeProvider';
+import { Lanterns } from './Lanterns';
 import { SHELL_LABELS, mergeLabels, type LocalizedLabels } from './labels';
 import { languageName } from './logic';
 import { Chip, IconButton, Row, ThemedText } from './primitives';
@@ -47,6 +48,8 @@ export interface AppShellProps {
   footer?: React.ReactNode;
   /** Remove the horizontal gutter for full-bleed screens. */
   fullBleed?: boolean;
+  /** Background lantern glow (course × lesson colours). Default: the theme's `lanterns.enabled`. */
+  lanterns?: boolean;
   /** Localized overrides (`t(...)` strings; nested groups may be partial). */
   labels?: LocalizedLabels<typeof SHELL_LABELS>;
   children?: React.ReactNode;
@@ -65,6 +68,7 @@ export function AppShell(props: AppShellProps): React.JSX.Element {
     insets,
     footer,
     fullBleed = false,
+    lanterns,
     labels,
     children,
     style,
@@ -103,6 +107,7 @@ export function AppShell(props: AppShellProps): React.JSX.Element {
       ]}
       testID={testID}
     >
+      {(lanterns ?? theme.lanterns.enabled) ? <Lanterns /> : null}
       {/* Plain container: the screen title below carries the heading role, so a header role here would
           render a nested <h1> on web. */}
       <View
@@ -162,7 +167,14 @@ export function AppShell(props: AppShellProps): React.JSX.Element {
         {children}
       </View>
       {footer ? (
-        <View style={{ paddingBottom: pad.bottom, backgroundColor: theme.colors.surface }}>
+        <View
+          style={{
+            paddingBottom: pad.bottom,
+            backgroundColor: theme.glass(2).backgroundColor,
+            borderTopWidth: theme.glass(2).borderWidth,
+            borderTopColor: theme.glass(2).borderColor,
+          }}
+        >
           {footer}
         </View>
       ) : (

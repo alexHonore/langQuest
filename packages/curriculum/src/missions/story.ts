@@ -50,8 +50,8 @@ export const DEFAULT_STORY_ARC: StoryArcBlueprint = StoryArcBlueprintSchema.pars
     {
       key: 'arrival_first_days',
       titleKey: 'story.arrival.chapter1.title',
-      missionKeys: ['greet_and_introduce', 'cafe_order_drink', 'market_ask_price', 'ask_directions', 'meet_neighbour', 'take_taxi'],
-      characterRoles: ['friendly local acquaintance', 'café server', 'market vendor', 'passer-by', 'neighbour', 'taxi driver'],
+      missionKeys: ['greet_and_introduce', 'cafe_order_drink', 'market_ask_price', 'ask_directions', 'meet_neighbour', 'take_taxi', 'buy_ice_cream'],
+      characterRoles: ['friendly local acquaintance', 'café server', 'market vendor', 'passer-by', 'neighbour', 'taxi driver', 'child at the ice-cream stand'],
       milestone: { id: 'settled_in', requiresBlueprintKeys: ['greet_and_introduce', 'cafe_order_drink', 'ask_directions'], requiresSkillKeys: ['greet_politely', 'request_item'], minMasteryRank: 2, unlockKey: 'neighbourhood_map' },
     },
     {

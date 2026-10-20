@@ -152,7 +152,7 @@ export function RightsScreen({ rows, page, hasNext, highlightId, canVerify }: { 
   const gate = useMemo(() => (form ? gateFor(form) : null), [form]);
 
   const columns: Column<RightsRow>[] = [
-    { key: 'license', header: t('admin.rights.license'), render: (r) => <button type="button" className={`font-medium text-accent hover:underline ${highlightId === r.id ? 'underline' : ''}`} onClick={() => setForm(toForm(r))}>{LICENSE_NAMES[r.license_id] ?? r.license_id}{r.license_version ? ` ${r.license_version}` : ''}</button> },
+    { key: 'license', header: t('admin.rights.license'), render: (r) => <button type="button" className={`font-medium text-accent-text hover:underline ${highlightId === r.id ? 'underline' : ''}`} onClick={() => setForm(toForm(r))}>{LICENSE_NAMES[r.license_id] ?? r.license_id}{r.license_version ? ` ${r.license_version}` : ''}</button> },
     { key: 'owner', header: t('admin.rights.owner'), render: (r) => r.authors.join(', ') || '—' },
     { key: 'verified', header: t('admin.ui.rtVerified'), render: (r) => <Badge tone={r.verified ? 'success' : 'warning'}>{r.verified ? t('admin.ui.yes') : t('admin.ui.no')}</Badge> },
     { key: 'commercial', header: t('admin.rights.commercialUse'), render: (r) => <Badge tone={r.commercial_redistribution ? 'success' : 'neutral'}>{r.commercial_redistribution ? t('admin.ui.yes') : t('admin.ui.no')}</Badge> },
@@ -166,14 +166,14 @@ export function RightsScreen({ rows, page, hasNext, highlightId, canVerify }: { 
           <Badge>{r.assets.length} assets</Badge>
           {r.lessons.map((l) => (
             <span key={l.id} className="inline-flex items-center gap-1">
-              <a href={`/lessons/${l.id}`} className="text-accent hover:underline">
+              <a href={`/lessons/${l.id}`} className="text-accent-text hover:underline">
                 {shortId(l.id)}
               </a>
               <StatusBadge state={l.state} />
             </span>
           ))}
           {r.collections.map((c) => (
-            <a key={c.id} href={`/collections/${c.id}`} className="text-accent hover:underline">
+            <a key={c.id} href={`/collections/${c.id}`} className="text-accent-text hover:underline">
               {shortId(c.id)}
             </a>
           ))}

@@ -5,9 +5,11 @@
  * the language of the content, not the UI locale).
  */
 import clsx from 'clsx';
-import { forwardRef, useId, type ButtonHTMLAttributes, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes, type TextareaHTMLAttributes } from 'react';
+import { forwardRef, useEffect, useId, useRef, useState, type ButtonHTMLAttributes, type CSSProperties, type InputHTMLAttributes, type ReactNode, type SelectHTMLAttributes, type TextareaHTMLAttributes } from 'react';
+import { Info } from 'lucide-react';
 import { detectTextDirection, isRtlLocale } from '@langquest/locales';
 import { findVariety, type ScriptId } from '@langquest/contracts';
+import { useI18n } from '@/src/lib/i18n/client';
 
 type Variant = 'primary' | 'secondary' | 'ghost' | 'danger';
 type Size = 'sm' | 'md';
@@ -143,12 +145,63 @@ export function TextField({ contentLanguage, multiline, className, value, ...res
   return <input className={clsx(controlClass, className)} value={value} {...attrs} {...rest} />;
 }
 
-export function Card({ title, actions, children, className }: { title?: ReactNode; actions?: ReactNode; children: ReactNode; className?: string }) {
+/** Inline SVG from the `@langquest/ui` string renderers (trusted, generated in code — never user input). */
+export function InlineArt({ svg, label, className, style }: { svg: string; label: string; className?: string; style?: CSSProperties }) {
+  return <div role="img" aria-label={label} className={clsx('svg-preview', className)} style={style} dangerouslySetInnerHTML={{ __html: svg }} />;
+}
+
+/**
+ * The ⓘ affordance (text-budget rule): explanations live behind it, not on the screen. A
+ * toggle button opens a small note; Escape or clicking outside closes it.
+ */
+export function InfoTip({ children, label, className }: { children: ReactNode; label?: string; className?: string }) {
+  const { t } = useI18n();
+  const id = useId();
+  const [open, setOpen] = useState(false);
+  const ref = useRef<HTMLSpanElement>(null);
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: globalThis.KeyboardEvent) => e.key === 'Escape' && setOpen(false);
+    const onDown = (e: MouseEvent) => {
+      if (ref.current && !ref.current.contains(e.target as Node)) setOpen(false);
+    };
+    document.addEventListener('keydown', onKey);
+    document.addEventListener('mousedown', onDown);
+    return () => {
+      document.removeEventListener('keydown', onKey);
+      document.removeEventListener('mousedown', onDown);
+    };
+  }, [open]);
+  return (
+    <span ref={ref} className={clsx('relative inline-flex align-middle', className)}>
+      <button
+        type="button"
+        aria-label={label ?? t('admin.ui.moreInfo')}
+        aria-expanded={open}
+        aria-controls={id}
+        onClick={() => setOpen((o) => !o)}
+        className={clsx('inline-flex h-6 w-6 items-center justify-center rounded-full text-fg-muted hover:bg-surface-muted hover:text-fg', open && 'bg-surface-muted text-fg')}
+      >
+        <Info size={14} aria-hidden="true" />
+      </button>
+      {open ? (
+        <span id={id} role="note" className="absolute start-0 top-full z-30 mt-1 w-72 max-w-[80vw] rounded-md border border-border bg-elevated p-2.5 text-xs font-normal text-fg-secondary shadow-lg">
+          {children}
+        </span>
+      ) : null}
+    </span>
+  );
+}
+
+export function Card({ title, info, actions, children, className }: { title?: ReactNode; /** Explanation behind ⓘ in the card header. */ info?: ReactNode; actions?: ReactNode; children: ReactNode; className?: string }) {
   return (
     <section className={clsx('rounded-lg border border-border bg-surface', className)}>
       {title || actions ? (
         <header className="flex items-center justify-between gap-2 border-b border-border px-4 py-2.5">
-          <h2 className="text-sm font-semibold">{title}</h2>
+          <h2 className="flex items-center gap-1 text-sm font-semibold">
+            {title}
+            {info ? <InfoTip>{info}</InfoTip> : null}
+          </h2>
           {actions ? <div className="flex items-center gap-2">{actions}</div> : null}
         </header>
       ) : null}
@@ -157,11 +210,18 @@ export function Card({ title, actions, children, className }: { title?: ReactNod
   );
 }
 
-export function PageHeader({ title, description, actions }: { title: ReactNode; description?: ReactNode; actions?: ReactNode }) {
+/**
+ * One heading, at most one helper line (`description`), explanations behind ⓘ (`info`).
+ * Prefer `info` for anything that explains rather than instructs.
+ */
+export function PageHeader({ title, description, info, actions }: { title: ReactNode; description?: ReactNode; info?: ReactNode; actions?: ReactNode }) {
   return (
     <div className="mb-4 flex flex-wrap items-start justify-between gap-3">
       <div>
-        <h1 className="text-xl font-semibold">{title}</h1>
+        <h1 className="flex items-center gap-1.5 text-xl font-semibold">
+          {title}
+          {info ? <InfoTip>{info}</InfoTip> : null}
+        </h1>
         {description ? <p className="mt-0.5 text-sm text-fg-muted max-w-3xl">{description}</p> : null}
       </div>
       {actions ? <div className="flex flex-wrap items-center gap-2">{actions}</div> : null}
@@ -179,9 +239,10 @@ export function Stat({ label, value, hint, tone }: { label: ReactNode; value: Re
   );
 }
 
-export function EmptyState({ title, description, action }: { title: ReactNode; description?: ReactNode; action?: ReactNode }) {
+export function EmptyState({ title, description, action, art }: { title: ReactNode; description?: ReactNode; action?: ReactNode; /** Brand art above the title (e.g. `<Melo state="curious" />`). */ art?: ReactNode }) {
   return (
     <div className="rounded-lg border border-dashed border-border px-6 py-10 text-center">
+      {art ? <div className="mb-3 flex justify-center">{art}</div> : null}
       <p className="text-sm font-medium">{title}</p>
       {description ? <p className="mt-1 text-xs text-fg-muted max-w-md mx-auto">{description}</p> : null}
       {action ? <div className="mt-3 flex justify-center">{action}</div> : null}

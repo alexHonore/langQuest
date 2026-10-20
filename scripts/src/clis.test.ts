@@ -2,6 +2,7 @@
  * CLI smoke tests: every script answers --help, validates flags, and runs its --dry-run path on
  * the small fixtures without touching the network or a database.
  */
+import { CHAPTER_1_BLUEPRINT_KEYS } from '@langquest/curriculum';
 import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
@@ -123,7 +124,7 @@ describe('dry runs on fixtures', () => {
   it('content-factory never calls a model without --live and exports the seed chapter with --from-seed', async () => {
     const io = memoryIo();
     expect(await runCli(contentFactory.spec, ['--track', 'arabic-moroccan', '--source', 'fr', '--dry-run'], contentFactory.main, io)).toBe(0);
-    expect(io.lines.join('\n')).toMatch(/chapter plan: 6 model calls/);
+    expect(io.lines.join('\n')).toMatch(new RegExp(`chapter plan: ${CHAPTER_1_BLUEPRINT_KEYS.length} model calls`));
     const io2 = memoryIo();
     const prevLive = process.env.LANGQUEST_LIVE_TESTS;
     delete process.env.LANGQUEST_LIVE_TESTS;
@@ -136,7 +137,7 @@ describe('dry runs on fixtures', () => {
     const outDir = mkdtempSync(join(tmpdir(), 'cf-'));
     const io3 = memoryIo();
     expect(await runCli(contentFactory.spec, ['--track', 'arabic-moroccan', '--source', 'fr', '--from-seed', '--out-dir', outDir], contentFactory.main, io3)).toBe(0);
-    expect(io3.lines.join('\n')).toMatch(/chapter ary_ch1_arrival_casablanca: 6 missions/);
+    expect(io3.lines.join('\n')).toMatch(/chapter ary_ch1_arrival_casablanca: 7 missions/);
     const io4 = memoryIo();
     expect(await runCli(contentFactory.spec, ['--track', 'lingala', '--source', 'fr', '--from-seed', '--out-dir', outDir], contentFactory.main, io4)).toBe(1);
     const io5 = memoryIo();

@@ -1,8 +1,13 @@
 /**
  * Pure theme resolution (no React / RN imports) so it is unit-testable and
- * reusable on the admin web app.
+ * reusable on the admin web app. Dark-first ("Night Market", U2): when the OS
+ * scheme is unknown the theme is dark. The resolved theme carries the course
+ * / lesson lantern accents, the glass + glow recipes, the text-density rule
+ * and the mascot tint, so screens never hard-code colours.
  */
-import type { ScriptId } from '@langquest/contracts';
+import type { MascotState, ScriptId } from '@langquest/contracts';
+import { type MascotTint, mascotTint } from '../art/mascot/tint';
+import { type ResolvedAccents, resolveAccents } from '../tokens/accent';
 import {
   COLOR_PALETTES,
   type ColorTokens,
@@ -11,17 +16,25 @@ import {
 } from '../tokens/color';
 import {
   ELEVATION_LEVELS,
+  GLASS_LEVELS,
   ICON_SIZES,
   ILLUSTRATION_CROPS,
+  LANTERN_DRIFT_MS,
   RADII,
   SPACING,
+  TEXT_BUDGET,
   TOUCH_TARGETS,
   type ElevationLevel,
   type ElevationStyle,
   type FocusRingTokens,
+  type GlassLevel,
+  type GlassStyle,
+  type GlowStyle,
   type MotionTokens,
   elevationStyle,
   focusRingTokens,
+  glassStyle,
+  glowStyle,
   motionTokens,
 } from '../tokens/layout';
 import {
@@ -33,9 +46,17 @@ import {
 
 export type ColorScheme = 'light' | 'dark';
 
+/**
+ * Text density (owner decision 2026-10-19, "less information pollution").
+ * `calm` (default): one heading, at most one helper line, one primary action;
+ * explanations live behind an `InfoAffordance`. `full`: the previous verbose
+ * layouts (admin studio, reviewers, debugging).
+ */
+export type Density = 'calm' | 'full';
+
 /** Inputs a host app provides (from OS settings + the learner's accessibility options). */
 export interface ThemePreferences {
-  /** `'system'` follows the OS; resolved via `systemScheme`. */
+  /** `'system'` follows the OS; resolved via `systemScheme`. Unknown OS scheme → dark. */
   scheme?: ColorScheme | 'system';
   /** What the OS reports; used when `scheme` is `'system'`. */
   systemScheme?: ColorScheme | null;
@@ -53,6 +74,18 @@ export interface ThemePreferences {
   nativeRtl?: boolean;
   /** Haptics are optional (§10.3). */
   hapticsEnabled?: boolean;
+  /** Active course track: tints the lanterns, the primary action and the mascot. */
+  courseTrackId?: string | null;
+  /** Current mission / step / lesson type: modulates the lantern hues and glow. */
+  lessonType?: string | null;
+  /** Text density; `calm` by default. */
+  density?: Density;
+  /** Solid surfaces instead of blurred glass (device tier, reduce-transparency). `'auto'` follows `lowEndDevice`. */
+  glassFallback?: boolean | 'auto';
+  /** Device-tier flag: solid glass, no lantern drift. */
+  lowEndDevice?: boolean;
+  /** Background lantern blobs on/off (learner preference; always off in high contrast). */
+  lanterns?: boolean;
 }
 
 export interface DirectionTokens {
@@ -69,6 +102,18 @@ export interface DirectionTokens {
   writingDirection: 'ltr' | 'rtl';
   /** Multiplier for horizontal icon mirroring (chevrons, skip-back/forward). */
   iconScaleX: 1 | -1;
+}
+
+export interface LanternTokens {
+  /** Lead lantern first (course × lesson). */
+  colors: readonly [string, string, string];
+  /** 0 when lanterns are off (high contrast, preference). */
+  opacity: number;
+  /** Drift loop durations per blob; empty when drift is disabled. */
+  driftMs: readonly number[];
+  enabled: boolean;
+  /** Blur radius the host may apply to the blobs (0 on the solid tier). */
+  blur: number;
 }
 
 export interface Theme {
@@ -94,11 +139,33 @@ export interface Theme {
   text: (role: TypeRoleName, script?: ScriptId) => ResolvedTextStyle;
   /** Art theme understood by the art module (`MascotSvg`, scenes, portraits). */
   artTheme: 'light' | 'dark';
+  /* ---- Night Market additions (all derived from tokens; optional for callers) ---- */
+  /** Course × lesson accents: lanterns, primary fill/ink/text, glow ring. */
+  accents: ResolvedAccents;
+  courseTrackId: string | null;
+  lessonType: string | null;
+  density: Density;
+  /** Text budget the `calm` density enforces. */
+  textBudget: typeof TEXT_BUDGET;
+  /** True when surfaces are solid (no blur). */
+  glassFallback: boolean;
+  /** Glass surface recipe for a level (solid on the fallback tier). */
+  glass: (level: GlassLevel) => GlassStyle;
+  /** Glow recipe for a colour (speech state or primary action); intensity follows the lesson. */
+  glow: (color?: string, intensity?: number) => GlowStyle;
+  lanterns: LanternTokens;
+  /** Chameleon tint for the mascot in a state (course family × situation, from the art module). */
+  mascotTint: (state: MascotState) => MascotTint;
 }
 
 export const DEFAULT_THEME_PREFERENCES: Required<
-  Omit<ThemePreferences, 'systemScheme' | 'systemReducedMotion'>
-> & { systemScheme: ColorScheme | null; systemReducedMotion: boolean | null } = {
+  Omit<ThemePreferences, 'systemScheme' | 'systemReducedMotion' | 'courseTrackId' | 'lessonType'>
+> & {
+  systemScheme: ColorScheme | null;
+  systemReducedMotion: boolean | null;
+  courseTrackId: string | null;
+  lessonType: string | null;
+} = {
   scheme: 'system',
   systemScheme: null,
   highContrast: false,
@@ -109,6 +176,12 @@ export const DEFAULT_THEME_PREFERENCES: Required<
   rtl: 'auto',
   nativeRtl: false,
   hapticsEnabled: true,
+  courseTrackId: null,
+  lessonType: null,
+  density: 'calm',
+  glassFallback: 'auto',
+  lowEndDevice: false,
+  lanterns: true,
 };
 
 export function resolveDirection(rtl: boolean, nativeRtl: boolean): DirectionTokens {
@@ -126,7 +199,7 @@ export function resolveDirection(rtl: boolean, nativeRtl: boolean): DirectionTok
 /** Resolve preferences + OS signals into a concrete, immutable theme. */
 export function resolveTheme(prefs: ThemePreferences = {}): Theme {
   const p = { ...DEFAULT_THEME_PREFERENCES, ...stripUndefined(prefs) };
-  const scheme: ColorScheme = p.scheme === 'system' ? (p.systemScheme ?? 'light') : p.scheme;
+  const scheme: ColorScheme = p.scheme === 'system' ? (p.systemScheme ?? 'dark') : p.scheme;
   const reducedMotion =
     p.reducedMotion === 'system' ? (p.systemReducedMotion ?? false) : p.reducedMotion;
   const paletteName = paletteNameFor(scheme, p.highContrast);
@@ -135,6 +208,14 @@ export function resolveTheme(prefs: ThemePreferences = {}): Theme {
   const nativeRtl = p.nativeRtl;
   const rtl = p.rtl === 'auto' ? nativeRtl : p.rtl;
   const shadowColor = scheme === 'dark' ? '#000000' : colors.textPrimary;
+  const glassFallback =
+    p.glassFallback === 'auto' ? p.lowEndDevice || p.highContrast : p.glassFallback;
+  const motion = motionTokens(reducedMotion, { lowEndDevice: p.lowEndDevice });
+  const accents = resolveAccents(p.courseTrackId, p.lessonType, {
+    scheme: paletteName,
+    lanterns: p.lanterns,
+  });
+  const lanternsEnabled = accents.lanternOpacity > 0;
 
   const textCache = new Map<string, ResolvedTextStyle>();
   const text = (role: TypeRoleName, script?: ScriptId): ResolvedTextStyle => {
@@ -147,6 +228,24 @@ export function resolveTheme(prefs: ThemePreferences = {}): Theme {
     return v;
   };
 
+  const glassCache = new Map<GlassLevel, GlassStyle>();
+  const glass = (level: GlassLevel): GlassStyle => {
+    const lvl = GLASS_LEVELS.includes(level) ? level : 0;
+    let v = glassCache.get(lvl);
+    if (!v) {
+      v = glassStyle(lvl, colors.glass, colors.background, glassFallback);
+      glassCache.set(lvl, v);
+    }
+    return v;
+  };
+
+  const glow = (
+    color: string = accents.ring,
+    intensity: number = accents.glowIntensity,
+  ): GlowStyle => glowStyle(color, p.highContrast ? 0 : intensity);
+
+  const courseTrackId = p.courseTrackId;
+
   return Object.freeze({
     scheme,
     paletteName,
@@ -157,7 +256,7 @@ export function resolveTheme(prefs: ThemePreferences = {}): Theme {
     hapticsEnabled: p.hapticsEnabled,
     textScale,
     direction: resolveDirection(rtl, nativeRtl),
-    motion: motionTokens(reducedMotion),
+    motion,
     spacing: SPACING,
     radii: RADII,
     iconSizes: ICON_SIZES,
@@ -168,10 +267,27 @@ export function resolveTheme(prefs: ThemePreferences = {}): Theme {
       elevationStyle(ELEVATION_LEVELS.includes(level) ? level : 0, shadowColor),
     text,
     artTheme: scheme,
+    accents,
+    courseTrackId,
+    lessonType: p.lessonType,
+    density: p.density,
+    textBudget: TEXT_BUDGET,
+    glassFallback,
+    glass,
+    glow,
+    lanterns: {
+      colors: accents.lantern,
+      opacity: accents.lanternOpacity,
+      driftMs: lanternsEnabled && motion.lanternDriftEnabled ? LANTERN_DRIFT_MS : [],
+      enabled: lanternsEnabled,
+      blur: glassFallback ? 0 : 48,
+    },
+    mascotTint: (state: MascotState) =>
+      mascotTint({ state, theme: scheme, trackId: courseTrackId }),
   });
 }
 
-/** The theme used when no `ThemeProvider` is mounted (light, LTR, motion on). */
+/** The theme used when no `ThemeProvider` is mounted (dark, LTR, motion on, calm density). */
 export const DEFAULT_THEME: Theme = resolveTheme();
 
 function stripUndefined<T extends object>(obj: T): Partial<T> {

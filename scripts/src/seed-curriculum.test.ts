@@ -3,8 +3,9 @@
  * the arabic-moroccan seed to the LOCAL Supabase stack and checks the manifest the learner API serves.
  * The stack suite is skipped without a stack unless LANGQUEST_REQUIRE_LOCAL_STACK=1 (then it fails).
  */
-import { DRAFT_CHAPTERS, buildAllPlannedSkeletons } from '@langquest/curriculum';
+import { CHAPTER_1_BLUEPRINT_KEYS, DRAFT_CHAPTERS, buildAllPlannedSkeletons, getBlueprint } from '@langquest/curriculum';
 import { createRepositories } from '@langquest/db';
+import { CAST_ROSTER } from '@langquest/db/seed/cast-roster';
 import { curriculumSeedKeys, curriculumUuid } from '@langquest/db/seed/curriculum-uuid';
 import { describe, expect, it } from 'vitest';
 import { memoryIo, runCli } from './lib/cli';
@@ -30,7 +31,7 @@ describe('buildCurriculumSeedPlan', () => {
   it('never writes placeholder text: skeleton chapters carry no expressions, forms, translations or localizations', () => {
     const skeletonChapterIds = new Set(plan.rows.chapters.filter((c) => c.state === 'review_needed').map((c) => c.id));
     const skeletonMissionIds = new Set(plan.rows.missions.filter((m) => skeletonChapterIds.has(m.chapter_id!)).map((m) => m.id));
-    expect(skeletonMissionIds.size).toBe(26 * 6);
+    expect(skeletonMissionIds.size).toBe(26 * CHAPTER_1_BLUEPRINT_KEYS.length);
     expect(plan.rows.missionLocalizations.some((l) => skeletonMissionIds.has(l.mission_id))).toBe(false);
     expect(plan.rows.missionSteps.filter((s) => skeletonMissionIds.has(s.mission_id)).every((s) => (s.target_expression_ids ?? []).length === 0)).toBe(true);
     expect(plan.rows.expressions.every((e) => e.canonical_text.trim().length > 0 && !/pending|placeholder|lorem/i.test(e.canonical_text))).toBe(true);
@@ -95,14 +96,87 @@ describe('buildCurriculumSeedPlan', () => {
     expect(fr.metrics.audio_overlays_pct).toBe(0);
     expect(fr.metrics.subtitles_pct).toBe(0);
     const ja = plan.rows.coverage.find((c) => c.course_track_id === 'japanese')!;
-    expect(ja.metrics.mission_instructions_pct).toBeCloseTo(66.7, 1);
+    expect(ja.metrics.mission_instructions_pct).toBeCloseTo((4 / CHAPTER_1_BLUEPRINT_KEYS.length) * 100, 1);
+  });
+
+  it('casts a roster character whose role matches the lesson (café → café staff, directions → elder, ice cream → child) and leaves missions honestly uncast when nobody fits', () => {
+    const byKey = new Map(plan.cast.map((c) => [c.missionKey, c]));
+    const rosterById = new Map(CAST_ROSTER.map((c) => [c.characterId, c]));
+    expect(plan.cast).toHaveLength(plan.rows.missions.length);
+    const cafe = byKey.get('ary_cafe_order_drink')!;
+    expect(cafe.character?.characterKey).toBe('ary-cafe-staff-nadia');
+    expect(cafe.character?.role).toMatch(/caf/i);
+    expect(cafe.fit).toBe('role');
+    const directions = byKey.get('ary_ask_directions')!;
+    expect(['elder', 'adult']).toContain(directions.character?.ageBand);
+    expect(directions.character?.characterKey).toBe('ary-neighbour-youssef');
+    const ice = byKey.get('ary_buy_ice_cream')!;
+    expect(ice.character?.ageBand).toBe('child');
+    expect(ice.character?.characterKey).toBe('ary-schoolgirl-salma');
+    expect(ice.fit).toBe('pinned');
+    // No Darija taxi driver / market vendor in the roster yet: honest null, no scenario row, no wrong character.
+    expect(byKey.get('ary_take_taxi')!.character).toBeNull();
+    expect(byKey.get('ary_take_taxi')!.fit).toBe('none');
+    for (const c of plan.cast) {
+      expect(c.preferred.preferredCharacterIntents.length).toBeGreaterThan(0);
+      if (!c.character) continue;
+      const member = rosterById.get(c.character.id)!;
+      expect(member, c.missionKey).toBeDefined();
+      expect(member.varietyId, c.missionKey).toBe(c.targetVarietyId);
+      expect(c.character.characterKey).toBe(member.id);
+      if (c.blueprintKey === 'buy_ice_cream') expect(['child', 'teen'], c.missionKey).toContain(member.ageBand);
+      if (c.blueprintKey === 'take_taxi') expect(member.ageBand, c.missionKey).toBe('adult');
+      if (c.blueprintKey === 'ask_directions') expect(['elder', 'adult'], c.missionKey).toContain(member.ageBand);
+      if (c.fit === 'role') expect(c.reasons.join(' ')).toMatch(/matches/);
+    }
+    // Every chapter that has the ice-cream mission (26 skeletons + the Darija draft) casts a kid for it (the roster has ≥ 1 child or teen per track).
+    const iceCreams = plan.cast.filter((c) => c.blueprintKey === 'buy_ice_cream');
+    expect(iceCreams).toHaveLength(plan.chapters.filter((c) => c.kind === 'skeleton').length + 1);
+    expect(iceCreams.filter((c) => c.character).every((c) => ['child', 'teen'].includes(c.character!.ageBand))).toBe(true);
+    // Varieties without a kid who carries the scene (arabic-msa today) stay uncast rather than getting an adult.
+    expect(iceCreams.filter((c) => !c.character).length).toBeLessThanOrEqual(2);
+    expect(iceCreams.filter((c) => c.character?.ageBand === 'child').length).toBeGreaterThanOrEqual(20);
+    const summary = summarisePlan(plan);
+    expect(summary.missions_cast! + summary.missions_uncast!).toBe(plan.rows.missions.length);
+    expect(summary.missions_cast!).toBeGreaterThan(plan.rows.missions.length / 2);
+    expect(plan.chapters.reduce((n, c) => n + c.cast, 0)).toBe(summary.missions_cast!);
+  });
+
+  it('writes one seed-owned dialogue_scenarios row per cast mission with the roster uuid, the blueprint objectives and the mission state', () => {
+    const missionsById = new Map(plan.rows.missions.map((m) => [m.id, m]));
+    const castMissions = plan.cast.filter((c) => c.character);
+    expect(plan.rows.dialogueScenarios).toHaveLength(castMissions.length);
+    expect(new Set(plan.rows.dialogueScenarios.map((s) => s.id)).size).toBe(plan.rows.dialogueScenarios.length);
+    for (const c of castMissions) {
+      const row = plan.rows.dialogueScenarios.find((s) => s.mission_id === c.missionId)!;
+      expect(row, c.missionKey).toBeDefined();
+      expect(row.id).toBe(curriculumUuid('dialogue_scenario', curriculumSeedKeys.dialogueScenario(c.chapterKey, c.missionKey)));
+      expect(row.character_id).toBe(c.character!.id);
+      const bp = getBlueprint(c.blueprintKey);
+      expect(row.learner_role).toBe(bp.learnerRole);
+      expect(row.scene).toBe(bp.sceneVariants[0]!.id);
+      expect(row.min_level).toBe(bp.level);
+      expect(row.expectedIntentKeys).toEqual([...new Set(bp.objectives.flatMap((o) => o.intentKeys))]);
+      expect(row.state).toBe(missionsById.get(c.missionId)!.state);
+      expect(row.scene_facts!.length).toBeGreaterThan(0);
+    }
+    const uncast = new Set(plan.cast.filter((c) => !c.character).map((c) => c.missionId));
+    expect(plan.rows.dialogueScenarios.some((s) => uncast.has(s.mission_id))).toBe(false);
+    for (const m of plan.rows.missions) {
+      const seg = m.narrative_segment as { casting: { fit: string; character: { characterKey: string } | null; preferred: { preferredAgeBands: string[] } } };
+      expect(typeof seg.casting.fit).toBe('string');
+      expect(Array.isArray(seg.casting.preferred.preferredAgeBands)).toBe(true);
+    }
+    const custom = buildCurriculumSeedPlan({ tracks: ['arabic-moroccan'], roster: [] });
+    expect(custom.rows.dialogueScenarios).toHaveLength(0);
+    expect(custom.cast.every((c) => c.fit === 'none' && c.character === null)).toBe(true);
   });
 
   it('filters by track and can drop skeletons', () => {
     const one = buildCurriculumSeedPlan({ tracks: ['arabic-moroccan'] });
     expect(one.chapters).toHaveLength(1);
     expect(one.rows.lessonCourses).toHaveLength(1);
-    expect(one.rows.missions).toHaveLength(6);
+    expect(one.rows.missions).toHaveLength(7);
     expect(one.rows.coverage).toHaveLength(2);
     const noSkeletons = buildCurriculumSeedPlan({ includeSkeletons: false });
     expect(noSkeletons.chapters).toHaveLength(4);
@@ -131,7 +205,14 @@ describe('seed-curriculum CLI', () => {
     const text = io.lines.join('\n');
     expect(text).toMatch(/draft {4}published {5}arabic-moroccan/);
     expect(text).toMatch(/chapters_published=2/);
+    expect(text).toMatch(/missions_cast=\d+ missions_uncast=\d+/);
+    expect(text).not.toContain('cast     role');
     expect(text).toContain('expression_audio: 0 rows by design');
+    const withCast = memoryIo();
+    expect(await runCli(spec, ['--track', 'arabic-moroccan', '--dry-run', '--cast'], main, withCast)).toBe(0);
+    expect(withCast.lines.join('\n')).toMatch(/cast {5}role {5}arabic-moroccan {10}ary_cafe_order_drink.*→ ary-cafe-staff-nadia \(Café staff, adult\)/);
+    expect(withCast.lines.join('\n')).toMatch(/ary_buy_ice_cream.*→ ary-schoolgirl-salma \(Schoolgirl, child\)/);
+    expect(withCast.lines.join('\n')).toMatch(/ary_take_taxi.*nobody in the variety carries this scene/);
     expect(text).toContain('dry-run: nothing applied');
     const io2 = memoryIo();
     expect(await runCli(spec, ['--track', 'japanese'], main, io2)).toBe(0);
@@ -152,14 +233,17 @@ const describeWithStack = (() => {
 })();
 
 describeWithStack('seed-curriculum against the local stack', () => {
-  it('applies arabic-moroccan idempotently and the fr / en manifests list its published chapter with 6 missions', async () => {
+  it('applies arabic-moroccan idempotently and the fr / en manifests list its published chapter with 7 missions and their cast', async () => {
     const db = resolved!.client;
     const plan = buildCurriculumSeedPlan({ tracks: ['arabic-moroccan'] });
     const first = await applyCurriculumSeedPlan(db, plan, memoryIo());
     const second = await applyCurriculumSeedPlan(db, plan, memoryIo());
     expect(second.missions.inserted).toBe(0);
-    expect(second.missions.updated).toBe(6);
+    expect(second.missions.updated).toBe(7);
     expect(second.mission_steps.deleted).toBe(0);
+    expect(second.dialogue_scenarios.inserted).toBe(0);
+    expect(second.dialogue_scenarios.updated).toBe(plan.rows.dialogueScenarios.length);
+    expect(second.dialogue_scenarios.deleted).toBe(0);
     expect(second.expressions.inserted).toBe(0);
     expect(second.expression_forms.deleted).toBe(0);
     expect(first.expression_audio).toEqual({ inserted: 0, updated: 0, deleted: 0, skipped: 0 });
@@ -168,8 +252,11 @@ describeWithStack('seed-curriculum against the local stack', () => {
     expect(checks.map((c) => c.sourceLanguageCode).sort()).toEqual(['en', 'fr']);
     for (const c of checks) {
       expect(c.ok, `${c.courseTrackId} × ${c.sourceLanguageCode}`).toBe(true);
-      expect(c.seededMissions).toBe(6);
-      expect(c.titledInSource).toBe(6);
+      expect(c.seededMissions).toBe(7);
+      expect(c.titledInSource).toBe(7);
+      expect(c.expectedCast).toBe(plan.rows.dialogueScenarios.length);
+      expect(c.castListed).toBe(c.expectedCast);
+      expect(c.uncast).toBe(7 - c.expectedCast);
       // Drafts: the overlay exists but is not reviewed, so the manifest must NOT claim localizationComplete.
       expect(c.localizationComplete).toBe(0);
     }
@@ -184,6 +271,20 @@ describeWithStack('seed-curriculum against the local stack', () => {
     expect(chapter!.missions.map((m) => m.title)).toContain('Saluer et se présenter');
     expect(chapter!.missions.every((m) => m.steps.length >= 8 && m.steps.some((s) => s.expressionIds.length > 0))).toBe(true);
     expect(chapter!.missions.every((m) => m.localizationComplete === false)).toBe(true);
+
+    // Per-mission cast as the learner API serves it: café → café staff, directions → elder, ice cream → child; taxi honestly uncast.
+    const castOf = (title: string) => chapter!.missions.find((m) => m.title === title)!.characterIds;
+    const rosterKey = (id: string) => manifest.characters.find((c) => c.id === id)?.characterKey;
+    expect(castOf('Commander au café').map(rosterKey)).toEqual(['ary-cafe-staff-nadia']);
+    expect(castOf('Demander son chemin').map(rosterKey)).toEqual(['ary-neighbour-youssef']);
+    expect(castOf('Une glace avec Salma').map(rosterKey)).toEqual(['ary-schoolgirl-salma']);
+    expect(castOf('Prendre un petit taxi')).toEqual([]);
+    const cafeCharacter = manifest.characters.find((c) => c.characterKey === 'ary-cafe-staff-nadia')!;
+    expect(cafeCharacter.role).toMatch(/caf/i);
+    expect(cafeCharacter.syntheticVoice).toBe(true);
+    const scenarios = await db.from('dialogue_scenarios').select('mission_id, character_id, state').in('mission_id', plan.rows.missions.map((m) => m.id));
+    expect(scenarios.data).toHaveLength(plan.rows.dialogueScenarios.length);
+    expect(scenarios.data!.every((s) => s.state === 'published')).toBe(true);
 
     const coverage = await db.from('course_source_localizations').select('status, native_reviewed, editorial_note_key, metrics').eq('course_track_id', 'arabic-moroccan').eq('source_language_code', 'fr').single();
     expect(coverage.data?.status).toBe('partial');

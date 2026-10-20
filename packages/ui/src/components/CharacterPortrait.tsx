@@ -7,8 +7,9 @@ import type { CharacterExpression, SpeechState } from '@langquest/contracts';
 import React from 'react';
 import { type StyleProp, View, type ViewStyle } from 'react-native';
 import { CharacterPortraitSvg, findCharacter } from '../art';
+import type { Density } from '../theme/resolve';
 import { useTheme } from '../theme/ThemeProvider';
-import { SPEECH_STATE_LABELS } from './labels';
+import { SPEECH_STATE_LABELS, SPEECH_STATE_SHORT_LABELS } from './labels';
 import { Row, ThemedText } from './primitives';
 
 export interface CharacterPortraitProps {
@@ -26,6 +27,7 @@ export interface CharacterPortraitProps {
   showStatusText?: boolean;
   /** Localized speech-state labels; default English. */
   stateLabels?: Partial<Record<SpeechState, string>>;
+  density?: Density;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 }
@@ -59,10 +61,12 @@ export function CharacterPortrait(props: CharacterPortraitProps): React.JSX.Elem
     subtitle,
     showStatusText,
     stateLabels,
+    density,
     style,
     testID,
   } = props;
   const theme = useTheme();
+  const calm = (density ?? theme.density) === 'calm';
   const px = size ?? theme.illustration.portraitCard;
   const character = findCharacter(characterId);
   const displayName = name ?? character?.name ?? characterId;
@@ -80,9 +84,13 @@ export function CharacterPortrait(props: CharacterPortraitProps): React.JSX.Elem
               ? theme.colors.speech.error
               : 'transparent';
   const statusText = speechState
-    ? (stateLabels?.[speechState] ?? SPEECH_STATE_LABELS[speechState])
+    ? (stateLabels?.[speechState] ??
+      (calm ? SPEECH_STATE_SHORT_LABELS[speechState] : SPEECH_STATE_LABELS[speechState]))
     : null;
-  const ringWidth = speechState && speechState !== 'idle' ? (theme.highContrast ? 4 : 3) : 0;
+  const active = speechState === 'character_speaking' || speechState === 'learner_mic_active';
+  const glow =
+    speechState && speechState !== 'idle' ? theme.glow(ringColor, active ? undefined : 0) : null;
+  const ringWidth = glow ? (theme.highContrast ? 4 : glow.ringWidth) : 0;
   const a11y = [displayName, subtitle, statusText].filter(Boolean).join(', ');
 
   return (
@@ -99,11 +107,20 @@ export function CharacterPortrait(props: CharacterPortraitProps): React.JSX.Elem
           height: px + ringWidth * 2 + 4,
           borderRadius: (px + ringWidth * 2 + 4) / 2,
           borderWidth: ringWidth,
-          borderColor: ringColor,
+          borderColor: theme.highContrast || !glow ? ringColor : glow.ringColor,
           padding: 2,
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: theme.colors.surface,
+          ...(glow && active
+            ? {
+                shadowColor: glow.shadowColor,
+                shadowOffset: glow.shadowOffset,
+                shadowOpacity: glow.shadowOpacity,
+                shadowRadius: glow.shadowRadius,
+                elevation: glow.elevation,
+              }
+            : null),
         }}
       >
         <View style={{ width: px, height: px, borderRadius: px / 2, overflow: 'hidden' }}>
@@ -120,7 +137,7 @@ export function CharacterPortrait(props: CharacterPortraitProps): React.JSX.Elem
           {displayName}
         </ThemedText>
       ) : null}
-      {subtitle ? (
+      {subtitle && !calm ? (
         <ThemedText variant="caption" tone="secondary" align="center">
           {subtitle}
         </ThemedText>

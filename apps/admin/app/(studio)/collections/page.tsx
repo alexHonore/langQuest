@@ -5,6 +5,7 @@ import { listCollections } from '@/src/lib/queries/structure';
 import { loadPickerOptions } from '@/src/lib/queries/library';
 import { formatDateTime, pickLocalized, shortId } from '@/src/lib/format';
 import { EmptyState, ErrorState, PageHeader } from '@/src/components/ui';
+import { Melo } from '@/src/components/brand';
 import { CollectionEditor } from './collection-editor';
 import { StatusBadge } from '@/src/components/badges';
 
@@ -20,7 +21,7 @@ export default async function CollectionsPage() {
     <div>
       <PageHeader title={t('admin.sections.collections')} actions={empty ? null : <CollectionEditor mode="create" options={options} />} />
       {!collections.ok ? <ErrorState title={t('admin.ui.errorTitle')} message={collections.error} /> : null}
-      {empty ? <EmptyState title={t('admin.ui.colEmptyHint')} action={<CollectionEditor mode="create" options={options} />} /> : null}
+      {empty ? <EmptyState art={<Melo state="curious" size={72} />} title={t('admin.ui.colEmptyHint')} action={<CollectionEditor mode="create" options={options} />} /> : null}
       {empty ? null : (
       <div className="overflow-hidden rounded-lg border border-border bg-surface">
         <table className="w-full text-sm">
@@ -39,7 +40,7 @@ export default async function CollectionsPage() {
               ? collections.data.map((c) => (
                   <tr key={c.id} className="border-t border-border">
                     <td className="px-3 py-2">
-                      <Link href={`/collections/${c.id}`} className="font-medium text-accent hover:underline">
+                      <Link href={`/collections/${c.id}`} className="font-medium text-accent-text hover:underline">
                         {pickLocalized(c.title_translations, locale) || shortId(c.id)}
                       </Link>
                     </td>

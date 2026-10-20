@@ -1,26 +1,31 @@
 import { getCourseTrack } from '@langquest/contracts';
-import { Button, Chip, EmptyState, Mascot, MissionCard, Row, StatusLine, Surface, ThemedText, useTheme } from '@langquest/ui';
+import { Button, Chip, EmptyState, InfoAffordance, MissionCard, Row, StatusLine, Surface, ThemedText, useTheme } from '@langquest/ui';
 import { useRouter } from 'expo-router';
 import React, { useEffect } from 'react';
 import { View } from 'react-native';
+import { Melo } from '@/components/Melo';
 import { Screen } from '@/components/Screen';
 import { CacheNotice, ErrorView, LoadingView, errorMessageFor } from '@/components/StateViews';
+import { MissionCast } from '@/features/characters/MissionCast';
+import { useCast } from '@/features/characters/use-cast';
 import { usePathway } from '@/features/missions/use-pathway';
 import { useOnboardingReplay } from '@/features/onboarding/use-onboarding-replay';
 import { useFallbackOptIn } from '@/features/session/fallback';
 import { useActiveEnrollment, useProgress, useReviewsDue } from '@/features/session/queries';
 import { homeCta } from '@/features/session/capabilities';
 import { useEnrollmentNavigation } from '@/features/session/use-capabilities';
-import { headingLevel } from '@/lib/a11y';
 import { useExtraLabels } from '@/lib/extra-labels';
+import { haptic } from '@/lib/haptics';
 import { useLanguageNames, useSourceTranslator, useT } from '@/lib/i18n';
 import { useUiLabels } from '@/lib/labels';
 import { useServices } from '@/lib/services';
 import { track } from '@/lib/telemetry';
 
 /**
- * Screen 2: Home / today. Primary CTA launches a speakable mission in one tap — or, for a pair without a
- * mission pathway, the live conversation (CONVENTIONS §8: controls the enrollment cannot use are not rendered).
+ * Screen 2: Home / today (Night Market, calm density). One heading (the greeting), Melo's one line,
+ * ONE primary action — the next speakable mission card (glowing), or the live conversation for a
+ * pair without a pathway (CONVENTIONS §8: controls the enrollment cannot use are not rendered).
+ * Everything explanatory (XP note, coverage, fallback) sits behind ⓘ sheets.
  */
 export default function Home(): React.JSX.Element {
   const theme = useTheme();
@@ -34,6 +39,7 @@ export default function Home(): React.JSX.Element {
   const nav = useEnrollmentNavigation(enrollment);
   const cta = homeCta(nav);
   const { pathway, manifest } = usePathway(nav.missions ? enrollment : null);
+  const { cast } = useCast(nav.missions ? enrollment : null);
   const reviews = useReviewsDue(enrollment, 12);
   const progress = useProgress(Boolean(me));
   const fallback = useFallbackOptIn(enrollment);
@@ -52,16 +58,25 @@ export default function Home(): React.JSX.Element {
   const mascotLine = sourceT?.resolve('mascot.state.welcome');
   const sourceName = enrollment ? names(enrollment.sourceLanguageCode) : '';
   const fallbackName = fallback.offered ? names(fallback.offered) : null;
+  const mascotState = !enrollment ? 'curious' : next || cta === 'speak' ? 'welcome' : 'happy';
+  const openConversation = (): void => {
+    // Guard instead of `enrollment!`: an unconditional `enrollment.id` load in a render-scope closure lets the
+    // React Compiler treat `enrollment` as non-null and drop the `?.` from the memoised deps above, which then
+    // throws while `/v1/me` is still loading (blank Home on web, caught by the headless evidence run).
+    if (!enrollment) return;
+    void haptic('select');
+    router.push({ pathname: '/conversation', params: { enrollmentId: enrollment.id } });
+  };
 
   return (
     <Screen insideTabs testID="screen-home" headerEnd={<Button testID="home-account" label={t('account.title')} variant="ghost" size="sm" icon="settings" onPress={() => router.push('/account')} accessibilityLabel={t('account.title')} />}>
       <Row gap={theme.spacing.md} align="flex-start">
-        <Mascot state="welcome" size="companion" speech={mascotLine && !mascotLine.missing ? mascotLine.text : undefined} />
+        <Melo state={mascotState} size="companion" speech={mascotLine && !mascotLine.missing ? mascotLine.text : undefined} bubblePlacement="below" testID="home-mascot" />
         <View style={{ flex: 1, gap: theme.spacing.xs }}>
           <ThemedText variant="title" accessibilityRole="header">
             {greeting}
           </ThemedText>
-          {mascotLine?.isFallback && sourceT ? <ThemedText variant="caption" tone="muted">{t('enrollment.coverage.fallbackLabel', { fallback: names(sourceT.fallbackLanguage ?? ''), source: names(sourceT.sourceLanguage) })}</ThemedText> : null}
+          {mascotLine?.isFallback && sourceT ? <Chip label={X.fallbackInUse(names(sourceT.fallbackLanguage ?? ''))} tone="info" icon="translate" /> : null}
         </View>
       </Row>
 
@@ -72,40 +87,37 @@ export default function Home(): React.JSX.Element {
 
       {replay.state.status === 'running' || (replay.pending && replay.state.status === 'idle' && !enrollment) ? <StatusLine icon="info" tone="info" text={t('onboarding.replay.pending')} /> : null}
       {replay.state.status === 'failed' ? (
-        <Surface variant="muted" radius="md" padding={theme.spacing.md} style={{ gap: theme.spacing.xs }}>
-          <StatusLine icon="warning" tone="warning" text={t('onboarding.replay.failed')} />
-          <ThemedText variant="caption" tone="muted">{errorMessageFor(replay.state.error, t)}</ThemedText>
+        <Surface variant="glass" level={1} radius="md" padding={theme.spacing.md} style={{ gap: theme.spacing.xs }}>
+          <Row justify="space-between" gap={theme.spacing.sm}>
+            <StatusLine icon="warning" tone="warning" text={t('onboarding.replay.failed')} />
+            <InfoAffordance label={t('common.details')} text={errorMessageFor(replay.state.error, t)} />
+          </Row>
           {replay.state.retryable ? <Button label={t('onboarding.replay.retry')} variant="secondary" size="sm" icon="replay" onPress={replay.retry} accessibilityLabel={t('onboarding.replay.retry')} /> : null}
         </Surface>
       ) : null}
-      {query.data && !enrollment && !replay.pending && replay.state.status !== 'running' ? <EmptyState title={t('home.noCourse')} description={t('onboarding.chooseTargetHint')} mascotState="curious" actionLabel={t('home.addCourse')} onAction={() => router.push('/catalog')} /> : null}
+      {query.data && !enrollment && !replay.pending && replay.state.status !== 'running' ? <EmptyState title={t('home.noCourse')} description={t('onboarding.chooseTargetHint')} infoLabel={t('common.moreInformation')} actionLabel={t('home.addCourse')} onAction={() => router.push('/catalog')} /> : null}
 
       {enrollment ? (
         <View style={{ gap: theme.spacing.lg }}>
-          <Row gap={theme.spacing.sm} justify="space-between">
-            {cta ? (
-              <ThemedText variant="heading" accessibilityRole="header" {...headingLevel(2)}>
-                {t('home.nextConversation')}
-              </ThemedText>
-            ) : (
-              <View style={{ flex: 1 }} />
-            )}
-            <Button testID="home-switch-course" label={t('home.switchCourse')} variant="ghost" size="sm" icon="globe" onPress={() => router.push('/course-switcher')} accessibilityLabel={t('home.switchCourse')} />
-          </Row>
+          {/* Hidden switch affordance kept for the e2e flows; the header's edit icon is the visible one. */}
+          <View style={{ height: 0, overflow: 'hidden' }} accessibilityElementsHidden importantForAccessibility="no-hide-descendants">
+            <Button testID="home-switch-course" label={t('home.switchCourse')} variant="ghost" size="sm" onPress={() => router.push('/course-switcher')} accessibilityLabel={t('home.switchCourse')} />
+          </View>
           {enrollment.coverage.status !== 'complete' ? (
-            <Surface variant="muted" radius="md" padding={theme.spacing.md} style={{ gap: theme.spacing.xs }}>
-              <StatusLine icon="info" tone="warning" text={t(`enrollment.coverage.${enrollment.coverage.status}`, { source: sourceName })} />
+            <Surface variant="glass" level={1} radius="md" padding={theme.spacing.md} style={{ gap: theme.spacing.xs }}>
+              <Row justify="space-between" gap={theme.spacing.sm}>
+                <StatusLine icon="info" tone="warning" text={t(`enrollment.coverage.${enrollment.coverage.status}`, { source: sourceName })} />
+                <InfoAffordance
+                  label={t('home.coverageInfo')}
+                  title={t(`enrollment.coverage.${enrollment.coverage.status}`, { source: sourceName })}
+                  text={[t(`enrollment.coverage.detail.${enrollment.coverage.status}`, { source: sourceName, fallback: fallbackName ?? '' }), ...(fallback.offered && fallbackName ? [fallback.active ? X.fallbackInUse(fallbackName) : t('enrollment.coverage.optInFallbackHint', { fallback: fallbackName, source: sourceName })] : [])]}
+                />
+              </Row>
               {fallback.offered && fallbackName ? (
                 fallback.active ? (
-                  <>
-                    <ThemedText variant="caption" tone="secondary">{X.fallbackInUse(fallbackName)}</ThemedText>
-                    <Button label={X.fallbackStop} variant="ghost" size="sm" onPress={fallback.optOut} accessibilityLabel={X.fallbackStop} />
-                  </>
+                  <Button label={X.fallbackStop} variant="ghost" size="sm" onPress={fallback.optOut} accessibilityLabel={X.fallbackStop} />
                 ) : (
-                  <>
-                    <ThemedText variant="caption" tone="secondary">{t('enrollment.coverage.optInFallbackHint', { fallback: fallbackName, source: sourceName })}</ThemedText>
-                    <Button label={t('enrollment.coverage.optInFallback', { fallback: fallbackName })} variant="secondary" size="sm" onPress={fallback.optIn} accessibilityLabel={t('enrollment.coverage.optInFallback', { fallback: fallbackName })} />
-                  </>
+                  <Button label={t('enrollment.coverage.optInFallback', { fallback: fallbackName })} variant="secondary" size="sm" onPress={fallback.optIn} accessibilityLabel={t('enrollment.coverage.optInFallback', { fallback: fallbackName })} />
                 )
               ) : null}
             </Surface>
@@ -114,53 +126,52 @@ export default function Home(): React.JSX.Element {
           {cta === 'missions' && manifest.error && !manifest.data ? <ErrorView error={manifest.error} onRetry={() => void manifest.refetch()} /> : null}
           {cta === 'speak' ? (
             // No mission pathway for this pair yet: the primary action is the live conversation (never an empty card).
-            <Button testID="home-cta-speak" label={t('home.quickSpeak')} icon="mic" size="lg" fullWidth onPress={() => router.push({ pathname: '/conversation', params: { enrollmentId: enrollment.id } })} accessibilityLabel={`${t('home.quickSpeak')} · ${getCourseTrack(enrollment.courseTrackId).displayName}`} />
+            <Button testID="home-cta-speak" label={t('home.quickSpeak')} icon="mic" size="lg" fullWidth glow onPress={openConversation} accessibilityLabel={`${t('home.quickSpeak')} · ${getCourseTrack(enrollment.courseTrackId).displayName}`} />
           ) : next ? (
-            <MissionCard
-              title={next.mission.title}
-              objective={next.mission.skillKeys.map((k) => k.replace(/_/g, ' ')).join(', ')}
-              minutes={next.minutes}
-              focus={next.focus}
-              status={next.status}
-              type={next.mission.type}
-              sceneId={next.sceneId}
-              skills={next.mission.skillKeys.map((k) => ({ key: k, label: k.replace(/_/g, ' '), completed: false }))}
-              labels={labels.mission}
-              onPress={() => {
-                track.onboardingStep('first_mission_started');
-                router.push({ pathname: '/mission/[id]', params: { id: next.mission.id } });
-              }}
-            />
+            <View style={{ gap: theme.spacing.sm }}>
+              <MissionCard
+                title={next.mission.title}
+                objective={next.mission.skillKeys.map((k) => k.replace(/_/g, ' ')).join(', ')}
+                minutes={next.minutes}
+                focus={next.focus}
+                status={next.status}
+                type={next.mission.type}
+                sceneId={next.sceneId}
+                skills={next.mission.skillKeys.map((k) => ({ key: k, label: k.replace(/_/g, ' '), completed: false }))}
+                labels={labels.mission}
+                calmLabels={{ details: t('common.details'), hideDetails: t('common.hideDetails') }}
+                onPress={() => {
+                  void haptic('select');
+                  track.onboardingStep('first_mission_started');
+                  router.push({ pathname: '/mission/[id]', params: { id: next.mission.id } });
+                }}
+              />
+              <MissionCast characterIds={next.mission.characterIds} cast={cast} withName testID="home-mission-cast" />
+            </View>
           ) : pathway && pathway.missions.length > 0 ? (
-            <EmptyState title={t('missions.summary.completed')} description={t('progress.review.allDone')} mascotState="celebrate" />
+            <EmptyState title={t('missions.summary.completed')} description={t('progress.review.allDone')} infoLabel={t('common.moreInformation')} mascotState="celebrate" />
           ) : null}
 
-          <Surface variant="muted" radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.sm }}>
-            <ThemedText variant="subheading">{t('home.dailySpeaking')}</ThemedText>
-            {speakingMinutes7d !== null ? (
-              <ThemedText tone="secondary">{X.speakingLast7Days(speakingMinutes7d)}</ThemedText>
-            ) : (
-              <ThemedText tone="muted">{progress.isLoading ? t('common.loading') : t('progress.trendUnavailable')}</ThemedText>
-            )}
-            {streak?.enabled && streak.currentDays > 0 ? <Chip label={t('home.streak', { count: streak.currentDays })} icon="flame" tone="accent" /> : null}
-            <ThemedText variant="caption" tone="muted">
-              {t('home.xpNote')}
-            </ThemedText>
+          <Surface variant="glass" level={1} radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.sm }}>
+            <Row justify="space-between" gap={theme.spacing.sm}>
+              <ThemedText variant="subheading" style={{ flex: 1 }}>
+                {speakingMinutes7d !== null ? t('home.speakingSummary', { count: speakingMinutes7d }) : progress.isLoading ? t('common.loading') : t('progress.trendUnavailable')}
+              </ThemedText>
+              <InfoAffordance label={t('home.aboutProgress')} title={t('home.dailySpeaking')} text={[t('home.xpNote'), t('progress.noFluencyClaim')]} />
+            </Row>
+            {streak?.enabled && streak.currentDays > 0 ? (
+              <Row gap={theme.spacing.xs}>
+                <Chip label={t('home.streak', { count: streak.currentDays })} icon="flame" tone="accent" />
+              </Row>
+            ) : null}
           </Surface>
 
-          {/* Nothing due → no button (§8: never a greyed control); the Progress tab keeps the review calendar. */}
-          {reviews.data && reviews.data.data.dueCount > 0 ? (
-            <Button
-              label={`${t('home.reviewDue')} · ${t('home.reviewDueCount', { count: reviews.data.data.dueCount })}`}
-              variant="secondary"
-              icon="replay"
-              fullWidth
-              onPress={() => router.push('/review')}
-              accessibilityLabel={t('home.reviewDue')}
-            />
-          ) : null}
-          {nav.audio ? <Button label={t('home.continueAudio')} variant="secondary" icon="headphones" fullWidth onPress={() => router.push('/(tabs)/audio')} accessibilityLabel={t('home.continueAudio')} /> : null}
-          {nav.liveConversation && cta !== 'speak' ? <Button label={t('home.quickSpeak')} icon="mic" fullWidth onPress={() => router.push({ pathname: '/conversation', params: { enrollmentId: enrollment.id } })} accessibilityLabel={`${t('home.quickSpeak')} · ${getCourseTrack(enrollment.courseTrackId).displayName}`} /> : null}
+          <Row gap={theme.spacing.sm} wrap>
+            {/* Nothing due → no button (§8: never a greyed control); the Progress tab keeps the review calendar. */}
+            {reviews.data && reviews.data.data.dueCount > 0 ? <Button label={t('home.reviewDueCount', { count: reviews.data.data.dueCount })} variant="secondary" icon="replay" onPress={() => router.push('/review')} accessibilityLabel={t('home.reviewDue')} /> : null}
+            {nav.audio ? <Button label={t('common.tabs.audio')} variant="secondary" icon="headphones" onPress={() => router.push('/(tabs)/audio')} accessibilityLabel={t('home.continueAudio')} /> : null}
+            {nav.liveConversation && cta !== 'speak' ? <Button label={t('home.quickSpeak')} variant="secondary" icon="mic" onPress={openConversation} accessibilityLabel={`${t('home.quickSpeak')} · ${getCourseTrack(enrollment.courseTrackId).displayName}`} /> : null}
+          </Row>
 
           {pendingEvents > 0 ? <StatusLine icon={syncStatus === 'error' ? 'warning' : 'info'} tone={syncStatus === 'error' ? 'warning' : 'info'} text={syncStatus === 'error' ? t('errors.syncFailed') : X.pendingSync(pendingEvents)} /> : null}
         </View>

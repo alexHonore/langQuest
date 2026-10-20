@@ -11,7 +11,7 @@ export default async function AnalyticsPage() {
   const { t } = await serverTranslator();
   return (
     <div>
-      <PageHeader title={t('admin.analytics.title')} description={t('admin.ui.anNeedsApi')} />
+      <PageHeader title={t('admin.analytics.title')} info={t('admin.ui.anNeedsApi')} />
       <AnalyticsScreen />
     </div>
   );

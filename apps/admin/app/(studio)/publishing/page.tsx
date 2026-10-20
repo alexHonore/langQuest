@@ -17,7 +17,7 @@ export default async function PublishingPage({ searchParams }: { searchParams: P
   const [items, events, detail] = await Promise.all([listPublishables(table, page), listRecentPublicationEvents(30), sp.id ? listRevisions(table, sp.id) : Promise.resolve(null)]);
   return (
     <div>
-      <PageHeader title={t('admin.publish.title')} description={t('admin.ui.pbRollbackHint')} />
+      <PageHeader title={t('admin.publish.title')} info={t('admin.ui.pbRollbackHint')} />
       {!items.ok ? <ErrorState title={t('admin.ui.errorTitle')} message={items.error} /> : null}
       <PublishingScreen
         table={table}

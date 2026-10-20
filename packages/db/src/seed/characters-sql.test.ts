@@ -4,7 +4,7 @@ import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { CHARACTER_UUID_NAMESPACE, CHARACTER_UUID_NAME_PREFIX, characterUuid } from '../character-uuid';
-import { CHARACTER_SAFETY_RULES, buildCharacterSeedSql, seededCharacterRows } from './characters-sql';
+import { CHARACTER_SAFETY_RULES, CHARACTER_SEED_MIGRATION_FILE, LEGACY_CHARACTER_SEED_MIGRATION_FILE, buildCharacterSeedSql, seededCharacterRows } from './characters-sql';
 
 const CHARACTER_KEY_RE = /^[a-z0-9]+(?:[._-][a-z0-9]+)*$/;
 
@@ -62,8 +62,23 @@ describe('buildCharacterSeedSql', () => {
     expect(sql).toContain("check (character_key ~ '^[a-z0-9]+(?:[._-][a-z0-9]+)*$')");
   });
 
-  it('matches the committed migration file exactly (re-run seed:characters-sql after changing the roster)', () => {
-    const committed = readFileSync(resolve(import.meta.dirname, '../../../../supabase/migrations/20261019150000_130_seed_characters.sql'), 'utf8');
+  it('matches the committed 140 migration file exactly (re-run seed:characters-sql after changing the roster)', () => {
+    const committed = readFileSync(resolve(import.meta.dirname, `../../../../supabase/migrations/${CHARACTER_SEED_MIGRATION_FILE}`), 'utf8');
     expect(committed).toBe(sql);
+  });
+
+  it('keeps every row of the frozen 130 seed (16 legacy characters) with the identical uuid and key', () => {
+    const legacy = readFileSync(resolve(import.meta.dirname, `../../../../supabase/migrations/${LEGACY_CHARACTER_SEED_MIGRATION_FILE}`), 'utf8');
+    const legacyRows = [...legacy.matchAll(/values \('([0-9a-f-]{36})', '([a-z0-9-]+)', /g)].map((m) => ({ id: m[1]!, key: m[2]! }));
+    expect(legacyRows).toHaveLength(16);
+    const rows = seededCharacterRows();
+    for (const l of legacyRows) {
+      const row = rows.find((r) => r.character_key === l.key);
+      expect(row, l.key).toBeDefined();
+      expect(row!.id, l.key).toBe(l.id);
+      expect(sql).toContain(`values ('${l.id}', '${l.key}', `);
+    }
+    // Legacy rows come first so manifests / fixtures built on the first roster keep their order.
+    expect(rows.slice(0, 16).map((r) => r.character_key)).toEqual(legacyRows.map((l) => l.key));
   });
 });

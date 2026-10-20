@@ -19,6 +19,7 @@ import {
   type SourceLanguageCode,
 } from '@langquest/contracts';
 import { isIntentKey } from '../intents';
+import { AgeBandSchema, MissionCastingSchema } from '../missions/casting';
 import { findBlueprint } from '../missions/scenarios';
 import { ExpressionFormSchema, SourceMeaningSchema, type ExpressionCandidateInput } from '../missions/realise';
 
@@ -63,6 +64,8 @@ export const SeedCharacterSchema = z.object({
   personality: z.string().min(1),
   homeRegion: z.string().min(1),
   regionalOption: z.string().nullable().default(null),
+  /** Casting age band of the seed persona (documentation for the resolver; `null` = unspecified). */
+  ageBand: AgeBandSchema.nullable().default(null),
 });
 export type SeedCharacter = z.infer<typeof SeedCharacterSchema>;
 
@@ -73,6 +76,10 @@ export const SeedMissionSchema = z.object({
   sceneNotes: z.partialRecord(SourceLanguageCodeSchema, z.string().min(1)).default({}),
   characterKey: KeySchema,
   expressions: z.array(SeedExpressionSchema),
+  /** Per-mission casting overrides (each field set replaces the blueprint default; see `castForMission`). */
+  casting: MissionCastingSchema.partial().nullable().default(null),
+  /** Explicit `@langquest/ui` roster slug (or uuid) to cast for this mission; must exist in the chapter's variety. */
+  rosterCharacterId: z.string().min(1).nullable().default(null),
 });
 export type SeedMission = z.infer<typeof SeedMissionSchema>;
 export type SeedMissionInput = z.input<typeof SeedMissionSchema>;

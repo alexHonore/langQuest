@@ -1,5 +1,5 @@
 import { SOURCE_LANGUAGES, getCourseTrack, type EnrollmentPatchRequest, type LearnerLevel, type SourceLanguageCode } from '@langquest/contracts';
-import { Button, Chip, Row, StatusLine, Surface, ThemedText, orderedSourceLanguages, useTheme } from '@langquest/ui';
+import { Button, Chip, InfoAffordance, Row, StatusLine, Surface, ThemedText, orderedSourceLanguages, useTheme } from '@langquest/ui';
 import { useMutation } from '@tanstack/react-query';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
@@ -12,6 +12,7 @@ import { useFallbackOptIn } from '@/features/session/fallback';
 import { useActiveEnrollment, useCourses, useInvalidateLearner } from '@/features/session/queries';
 import { ApiClientError } from '@/lib/api/client';
 import { useExtraLabels } from '@/lib/extra-labels';
+import { haptic } from '@/lib/haptics';
 import { useLanguageNames, useT } from '@/lib/i18n';
 import { useServices } from '@/lib/services';
 import { track } from '@/lib/telemetry';
@@ -21,12 +22,11 @@ import { getLocalStore } from '@/store';
 const LEVELS: readonly LearnerLevel[] = ['beginner', 'elementary', 'intermediate', 'upper_intermediate', 'advanced'];
 
 /**
- * Per-enrollment editor (§2.1): change the instruction language (never resets
- * progress; server RPC only touches `source_language_code`), script mode,
- * regional preference, level, temporary translation language, and remove the
- * course with confirmation — archive (progress kept, `PATCH ?confirm=archive`)
- * or delete (§15: progress erased, `DELETE ?confirm=delete`). Other enrollments
- * are untouched.
+ * Per-enrollment editor (§2.1, calm density): change the instruction language (never resets
+ * progress; server RPC only touches `source_language_code`), script mode, regional preference,
+ * level, temporary translation language, and remove the course with confirmation — archive
+ * (progress kept, `PATCH ?confirm=archive`) or delete (§15: progress erased, `DELETE ?confirm=delete`).
+ * Other enrollments are untouched. The explanations live behind the header ⓘ.
  */
 export default function EnrollmentEditor(): React.JSX.Element {
   const theme = useTheme();
@@ -69,6 +69,7 @@ export default function EnrollmentEditor(): React.JSX.Element {
     },
     onSuccess: async (dto, body) => {
       await invalidate();
+      void haptic('success');
       if (body.status === 'archived') {
         // Only now is the course gone server-side: clear the active course and leave.
         leaveAfterRemoval(dto.id);
@@ -125,15 +126,14 @@ export default function EnrollmentEditor(): React.JSX.Element {
       },
     ]);
   };
+  const about = [t('enrollment.editSourceHint'), t('enrollment.editSourceOnlyThis'), ...(fallback.offered ? [fallback.active ? X.fallbackInUse(names(fallback.active)) : t('enrollment.coverage.optInFallbackHint', { fallback: names(fallback.offered), source: names(enrollment.sourceLanguageCode) })] : []), `${t('enrollment.removeArchive')} · ${t('enrollment.removeDelete')} — ${X.removeDeletePermanent} ${t('enrollment.removeOtherCoursesSafe')}`];
 
   return (
-    <Screen title={t('enrollment.sourceLanguageFor', { target: trackDef.displayName })} onBack={() => router.back()} enrollment={enrollment} noEdit>
-      <StatusLine icon="info" tone="info" text={t('enrollment.editSourceHint')} />
-      <ThemedText variant="caption" tone="muted">
-        {t('enrollment.editSourceOnlyThis')}
-      </ThemedText>
-      <Surface variant="muted" radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.sm }}>
-        <ThemedText variant="heading">{t('enrollment.sourceLanguage')}</ThemedText>
+    <Screen title={trackDef.displayName} onBack={() => router.back()} enrollment={enrollment} noEdit headerEnd={<InfoAffordance label={t('enrollment.aboutEditor')} title={t('enrollment.sourceLanguageFor', { target: trackDef.displayName })} text={about} tone="accent" />}>
+      <Surface variant="glass" level={1} radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.sm }}>
+        <ThemedText variant="subheading" accessibilityRole="header">
+          {t('enrollment.sourceLanguage')}
+        </ThemedText>
         <Row gap={theme.spacing.xs} wrap accessibilityRole="radiogroup">
           {sources.map((s) => (
             <View key={s.code} testID={`enrollment-source-${s.code}`}>
@@ -152,19 +152,15 @@ export default function EnrollmentEditor(): React.JSX.Element {
           />
         ) : null}
         {source === enrollment.sourceLanguageCode && enrollment.coverage.status !== 'complete' && fallback.offered ? (
-          <View style={{ gap: theme.spacing.xs }}>
-            <ThemedText variant="caption" tone="secondary">{fallback.active ? X.fallbackInUse(names(fallback.active)) : t('enrollment.coverage.optInFallbackHint', { fallback: names(fallback.offered), source: names(enrollment.sourceLanguageCode) })}</ThemedText>
-            {fallback.active ? (
-              <Button label={X.fallbackStop} variant="ghost" size="sm" onPress={fallback.optOut} accessibilityLabel={X.fallbackStop} />
-            ) : (
-              <Button label={t('enrollment.coverage.optInFallback', { fallback: names(fallback.offered) })} variant="secondary" size="sm" onPress={fallback.optIn} accessibilityLabel={t('enrollment.coverage.optInFallback', { fallback: names(fallback.offered) })} />
-            )}
-          </View>
+          fallback.active ? (
+            <Button label={X.fallbackStop} variant="ghost" size="sm" onPress={fallback.optOut} accessibilityLabel={X.fallbackStop} />
+          ) : (
+            <Button label={t('enrollment.coverage.optInFallback', { fallback: names(fallback.offered) })} variant="secondary" size="sm" onPress={fallback.optIn} accessibilityLabel={t('enrollment.coverage.optInFallback', { fallback: names(fallback.offered) })} />
+          )
         ) : null}
         {source && source !== enrollment.sourceLanguageCode ? (
-          <Button testID="enrollment-change-source" label={t('enrollment.editSource')} loading={patch.isPending} onPress={() => patch.mutate({ sourceLanguageCode: source })} accessibilityLabel={t('enrollment.editSource')} />
+          <Button testID="enrollment-change-source" label={t('enrollment.editSource')} glow loading={patch.isPending} onPress={() => patch.mutate({ sourceLanguageCode: source })} accessibilityLabel={t('enrollment.editSource')} />
         ) : null}
-        {patch.isPending && source !== enrollment.sourceLanguageCode ? <ThemedText variant="caption" tone="muted">{t('enrollment.sourceChangeRefresh', { source: names(source ?? '') })}</ThemedText> : null}
       </Surface>
 
       {/* Per-pair capabilities (§8); the DTO is refetched after a source change, so this follows the new pair. */}
@@ -215,9 +211,6 @@ export default function EnrollmentEditor(): React.JSX.Element {
       {patch.error ? <ErrorView error={patch.error} /> : null}
       {remove.error ? <ErrorView error={remove.error} /> : null}
       <Button testID="enrollment-remove" label={t('enrollment.remove')} variant="danger" icon="close" loading={removing} onPress={confirmRemove} accessibilityLabel={t('enrollment.remove')} />
-      <ThemedText variant="caption" tone="muted">
-        {t('enrollment.removeArchive')} · {t('enrollment.removeDelete')} — {X.removeDeletePermanent} {t('enrollment.removeOtherCoursesSafe')}
-      </ThemedText>
     </Screen>
   );
 }

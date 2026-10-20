@@ -18,7 +18,7 @@ export default async function SetupPage() {
   const status = await loadSetupStatus({ fresh: true });
   return (
     <div className="space-y-4">
-      <PageHeader title={t('admin.ui.setup.title')} description={t('admin.ui.setup.intro')} />
+      <PageHeader title={t('admin.ui.setup.title')} info={t('admin.ui.setup.intro')} />
       <SetupChecklist status={status} />
     </div>
   );

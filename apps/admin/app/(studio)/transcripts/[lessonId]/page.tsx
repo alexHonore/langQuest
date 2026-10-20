@@ -23,7 +23,7 @@ export default async function TranscriptPage({ params, searchParams }: { params:
         title={pickLocalized(lesson.title_translations, locale) || shortId(lesson.id)}
         description={
           <>
-            <Link href={`/lessons/${lesson.id}`} className="text-accent hover:underline">
+            <Link href={`/lessons/${lesson.id}`} className="text-accent-text hover:underline">
               {t('admin.ui.upLesson')}
             </Link>
             {' · '}

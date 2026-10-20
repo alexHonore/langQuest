@@ -7,6 +7,7 @@ import { Card, ErrorState, PageHeader } from '@/src/components/ui';
 import { Badge } from '@/src/components/badges';
 import { CoverageEditor, type CoverageRow } from './coverage-editor';
 import { CapabilityMatrix } from './capability-matrix';
+import { CastTable } from './cast-table';
 
 export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Languages' };
@@ -19,7 +20,7 @@ export default async function LanguagesPage() {
   const canEdit = session.roles.some((r) => ['super_admin', 'admin', 'content_editor', 'language_reviewer'].includes(r));
   return (
     <div className="space-y-4">
-      <PageHeader title={t('admin.languages.title')} description={t('admin.ui.lgStatusHint')} />
+      <PageHeader title={t('admin.languages.title')} info={t('admin.ui.lgStatusHint')} />
       <Card title={t('admin.languages.uiCatalog')}>
         <ul className="flex flex-wrap gap-3 text-sm">
           {Object.entries(ui).map(([loc, c]) => (
@@ -76,6 +77,9 @@ export default async function LanguagesPage() {
             </tbody>
           </table>
         </div>
+      </Card>
+      <Card title={t('admin.ui.castTitle')} info={t('admin.ui.castHint')}>
+        <CastTable tracks={COURSE_TRACKS.map((tr) => ({ id: tr.id, name: tr.displayName }))} />
       </Card>
       <Card title={t('admin.ui.lgMatrix')}>
         <CapabilityMatrix tracks={COURSE_TRACKS.map((tr) => ({ id: tr.id, name: tr.displayName }))} languages={LANGUAGES.map((l) => ({ code: l.code, name: l.englishName }))} />

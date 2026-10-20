@@ -20,7 +20,7 @@ export default async function TranscriptsPage({ searchParams }: { searchParams: 
   const rows = await listTranscriptLessons(page, sp.status || undefined);
   return (
     <div>
-      <PageHeader title={t('admin.transcripts.title')} description={t('admin.ui.trSelectLesson')} />
+      <PageHeader title={t('admin.transcripts.title')} info={t('admin.ui.trSelectLesson')} />
       <TranscriptsFilters statuses={[...TRANSCRIPT_STATUS_VALUES]} page={page} hasNext={rows.ok ? rows.data.hasNext : false} />
       {!rows.ok ? <ErrorState title={t('admin.ui.errorTitle')} message={rows.error} /> : null}
       <div className="overflow-hidden rounded-lg border border-border bg-surface">
@@ -48,7 +48,7 @@ export default async function TranscriptsPage({ searchParams }: { searchParams: 
               ? rows.data.rows.map((l) => (
                   <tr key={l.id} className="border-t border-border">
                     <td className="px-3 py-2">
-                      <Link href={`/transcripts/${l.id}`} className="font-medium text-accent hover:underline">
+                      <Link href={`/transcripts/${l.id}`} className="font-medium text-accent-text hover:underline">
                         {pickLocalized(l.title_translations, locale) || shortId(l.id)}
                       </Link>
                       <div className="text-xs text-fg-muted">

@@ -1,4 +1,4 @@
-import { AudioPlayer, Button, Chip, IconButton, Row, StatusLine, Surface, ThemedText, formatDurationMs, useTheme, type AUDIO_LABELS } from '@langquest/ui';
+import { AudioPlayer, Button, Chip, IconButton, InfoAffordance, LessonAccentScope, Row, StatusLine, Surface, ThemedText, formatDurationMs, useTheme, type AUDIO_LABELS } from '@langquest/ui';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { Pressable, View } from 'react-native';
@@ -22,10 +22,11 @@ import { useT } from '@/lib/i18n';
 import { usePrefs } from '@/state/prefs';
 
 /**
- * Full player (§10.2B screen 7, Phase 3/8): artwork, seek, speed with pitch
- * correction, skip, prev/next lesson, sleep timer, transcript follow-along
- * with A/B loop and save-to-review, bookmarks, download, attribution and
- * "Practice this with AI". Honest states when media cannot be served.
+ * Full player (§10.2B screen 7, Phase 3/8, calm density): artwork, seek, speed with pitch
+ * correction, skip, prev/next lesson, sleep timer, transcript follow-along with A/B loop and
+ * save-to-review, bookmarks, download and "Practice this with AI". Attribution, speakers,
+ * description, tags and the practice note sit behind the header ⓘ. Honest states when media
+ * cannot be served. Lantern accents follow the `listening_comprehension` lesson type.
  */
 export default function LessonPlayerScreen(): React.JSX.Element {
   const theme = useTheme();
@@ -103,9 +104,21 @@ export default function LessonPlayerScreen(): React.JSX.Element {
   };
 
   const sleep = isCurrent ? state.sleep : { kind: 'off' as const };
+  const about = lesson
+    ? [
+        ...lesson.speakers.map((s) => `${t('audio.attribution', { speaker: s.displayName })}${s.synthetic ? ` · ${L.synthetic}` : ''}`),
+        ...(lesson.attributionText ? [lesson.attributionText] : []),
+        ...(lesson.description ? [lesson.description] : []),
+        ...(lesson.tags.length > 0 ? [lesson.tags.join(' · ')] : []),
+        L.originalAudio,
+        t('audio.player.backgroundNote'),
+        ...(enrollment ? [lesson.linkedMissionIds.length > 0 ? L.practiceLinked : L.practiceNote] : []),
+      ]
+    : [];
 
   return (
-    <Screen insideTabs title={lesson?.title ?? t('audio.title')} onBack={() => router.back()}>
+    <LessonAccentScope lessonType="listening_comprehension" courseTrackId={enrollment?.courseTrackId ?? null}>
+    <Screen insideTabs title={lesson?.title ?? t('audio.title')} onBack={() => router.back()} headerEnd={lesson ? <InfoAffordance label={t('audio.aboutLesson')} title={lesson.title} text={about} /> : undefined}>
       {player.lessonLoading && !lesson ? <LoadingView /> : null}
       {player.lessonError && !lesson ? <ErrorView error={player.lessonError} onRetry={player.refetchLesson} /> : null}
       {player.fromCache ? <CacheNotice fetchedAt={null} /> : null}
@@ -156,13 +169,9 @@ export default function LessonPlayerScreen(): React.JSX.Element {
             <IconButton icon="chevronRight" accessibilityLabel={t('audio.player.nextChapter')} onPress={() => void engine?.next()} disabled={!isCurrent || !engine?.hasNext} mirrorRtl />
           </Row>
           {isCurrent && state.source?.kind === 'local' ? <StatusLine icon="offline" tone="success" text={t('audio.download.downloaded')} /> : null}
-          <ThemedText variant="caption" tone="muted">
-            {L.originalAudio}
-            {state.status === 'playing' ? ` ${t('audio.player.backgroundNote')}` : ''}
-          </ThemedText>
 
           {transcriptOpen ? (
-            <Surface variant="surface" radius="lg" padding={theme.spacing.md} bordered style={{ gap: theme.spacing.sm }}>
+            <Surface variant="glass" level={1} radius="lg" padding={theme.spacing.md} style={{ gap: theme.spacing.sm }}>
               {!transcriptEnabled ? <ThemedText tone="muted">{L.transcriptNone}</ThemedText> : null}
               {transcriptEnabled && lesson.transcriptStatus === 'pending' ? <ThemedText tone="muted">{L.transcriptPending}</ThemedText> : null}
               {transcriptEnabled && transcriptQuery.isLoading ? <LoadingView rows={1} /> : null}
@@ -187,14 +196,14 @@ export default function LessonPlayerScreen(): React.JSX.Element {
             </Surface>
           ) : null}
 
+          {bookmarks.data.length > 0 ? (
           <View style={{ gap: theme.spacing.sm }}>
             <ThemedText variant="heading" accessibilityRole="header">
               {L.bookmarks}
             </ThemedText>
-            {bookmarks.data.length === 0 ? <ThemedText tone="muted">{L.noBookmarks}</ThemedText> : null}
             {bookmarks.data.map((b) => (
               <Pressable key={b.id} accessibilityRole="button" accessibilityLabel={`${formatDurationMs(b.positionMs)} ${b.note ?? ''}`} onPress={() => controller.seekTo(b.positionMs)}>
-                <Surface variant="muted" radius="md" padding={theme.spacing.sm}>
+                <Surface variant="glass" level={1} radius="md" padding={theme.spacing.sm}>
                   <Row gap={theme.spacing.sm} align="center">
                     <Chip label={formatDurationMs(b.positionMs)} icon="bookmark" />
                     <View style={{ flex: 1 }}>
@@ -213,34 +222,15 @@ export default function LessonPlayerScreen(): React.JSX.Element {
               </Pressable>
             ))}
           </View>
+          ) : null}
 
           {nav.downloads ? <DownloadControls lessonId={lesson.id} offlineEligible={lesson.offlineEligible} meta={{ title: lesson.title, subtitle: player.queueItem?.subtitle ?? null, durationMs: lesson.durationMs, artworkUri: lesson.coverArt?.publicUrl ?? null, courseTrackId: enrollment?.courseTrackId ?? null }} /> : null}
 
-          <View style={{ gap: theme.spacing.xs }}>
-            {lesson.speakers.map((s) => (
-              <ThemedText key={s.id} variant="caption" tone="muted">
-                {t('audio.attribution', { speaker: s.displayName })}
-                {s.synthetic ? ` · ${L.synthetic}` : ''}
-              </ThemedText>
-            ))}
-            {lesson.description ? <ThemedText tone="secondary">{lesson.description}</ThemedText> : null}
-            {lesson.tags.length > 0 ? (
-              <Row gap={theme.spacing.xs} wrap>
-                {lesson.tags.map((tag) => (
-                  <Chip key={tag} label={tag} />
-                ))}
-              </Row>
-            ) : null}
-            {enrollment ? (
-              <ThemedText variant="caption" tone="muted">
-                {lesson.linkedMissionIds.length > 0 ? L.practiceLinked : L.practiceNote}
-              </ThemedText>
-            ) : null}
-            {!enrollment ? <Button label={t('home.addCourse')} variant="secondary" onPress={() => router.push('/catalog')} /> : null}
-          </View>
+          {!enrollment ? <Button label={t('home.addCourse')} variant="secondary" onPress={() => router.push('/catalog')} /> : null}
         </>
       ) : null}
     </Screen>
+    </LessonAccentScope>
   );
 }
 

@@ -206,7 +206,7 @@ export function TranscriptEditor({ bundle, canReview }: { bundle: TranscriptBund
           <span className="ms-auto flex items-center gap-1">
             {t('admin.ui.pbRevisions')}:
             {bundle.revisions.map((r) => (
-              <Link key={r.id} href={`/transcripts/${bundle.lesson.id}?revision=${r.revision}`} className={clsx('rounded px-1 hover:underline', bundle.transcript?.revision === r.revision ? 'bg-accent-soft text-accent-strong' : 'text-accent')}>
+              <Link key={r.id} href={`/transcripts/${bundle.lesson.id}?revision=${r.revision}`} className={clsx('rounded px-1 hover:underline', bundle.transcript?.revision === r.revision ? 'bg-accent-soft text-accent-text' : 'text-accent-text')}>
                 v{r.revision}
               </Link>
             ))}
@@ -333,7 +333,7 @@ export function TranscriptEditor({ bundle, canReview }: { bundle: TranscriptBund
         {segments.map((s, i) => (
           <li key={s.id} className={clsx('rounded-lg border bg-surface p-2', active?.id === s.id ? 'border-accent' : 'border-border')} onFocus={() => setSelected(i)}>
             <div className="flex flex-wrap items-center gap-2 text-xs">
-              <button type="button" className="font-mono text-accent hover:underline" onClick={() => seek(s.startMs)} title={t('admin.ui.trSeek')}>
+              <button type="button" className="font-mono text-accent-text hover:underline" onClick={() => seek(s.startMs)} title={t('admin.ui.trSeek')}>
                 {formatTimecode(s.startMs)}
               </button>
               <span>→</span>

@@ -30,6 +30,8 @@ export interface DataTableProps<Row> {
   empty?: ReactNode;
   /** Primary action rendered with the hint when there are no rows (e.g. the "New …" button). */
   emptyAction?: ReactNode;
+  /** Brand art above the hint (e.g. `<Melo state="curious" />`). */
+  emptyArt?: ReactNode;
   loading?: boolean;
   caption?: string;
   /** Pagination: `hasNext` + `onNext`/`onPrev`; `page` for display. */
@@ -37,7 +39,7 @@ export interface DataTableProps<Row> {
   dense?: boolean;
 }
 
-export function DataTable<Row>({ columns, rows, rowKey, selectable, selected, onSelectionChange, onRowClick, empty, emptyAction, loading, caption, pagination, dense }: DataTableProps<Row>) {
+export function DataTable<Row>({ columns, rows, rowKey, selectable, selected, onSelectionChange, onRowClick, empty, emptyAction, emptyArt, loading, caption, pagination, dense }: DataTableProps<Row>) {
   const { t } = useI18n();
   const bodyRef = useRef<HTMLTableSectionElement>(null);
   const allKeys = rows.map(rowKey);
@@ -85,6 +87,7 @@ export function DataTable<Row>({ columns, rows, rowKey, selectable, selected, on
   if (rows.length === 0 && !loading) {
     return (
       <div className="rounded-lg border border-dashed border-border px-4 py-6 text-center" role="status">
+        {emptyArt ? <div className="mb-3 flex justify-center">{emptyArt}</div> : null}
         <p className="text-sm text-fg-muted">{empty ?? t('admin.ui.empty')}</p>
         {emptyAction ? <div className="mt-3 flex justify-center gap-2">{emptyAction}</div> : null}
         {pagination && pagination.hasPrev ? (

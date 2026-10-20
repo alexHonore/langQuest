@@ -23,7 +23,7 @@ import Svg, {
 import { buildCharacterPortraitDocument } from './characters';
 import { buildCoverDocument } from './covers';
 import { ICON_NAMES, type IconName, buildIconDocument } from './icons';
-import { buildMascotDocument } from './mascot';
+import { type CourseFamilyId, type MascotTint, buildMascotDocument } from './mascot';
 import type { ArtTheme } from './palette';
 import { type SceneId, type SceneVariant, buildSceneDocument } from './scenes';
 import type { SvgDocument, SvgNode, SvgTag } from './svg-node';
@@ -83,12 +83,7 @@ export function renderSvgDocument(doc: SvgDocument, label?: string): React.JSX.E
   const { x, y, width, height } = doc.viewBox;
   const a11y = svgAccessibilityProps(label ?? doc.label);
   return (
-    <Svg
-      width={doc.width}
-      height={doc.height}
-      viewBox={`${x} ${y} ${width} ${height}`}
-      {...a11y}
-    >
+    <Svg width={doc.width} height={doc.height} viewBox={`${x} ${y} ${width} ${height}`} {...a11y}>
       {doc.children.map((n, i) => renderSvgNode(n, i))}
     </Svg>
   );
@@ -105,15 +100,25 @@ export interface MascotSvgProps {
   accessibilityLabel?: string;
   /** Opt-in subtle idle animation (breathing + occasional blink). Static by default. */
   animate?: boolean;
+  /** Explicit chameleon tint (wins over `courseFamily` / `trackId`). Default: the state's tint. */
+  tint?: MascotTint;
+  /** Course family for the chameleon tint dial (wins over `trackId`). */
+  courseFamily?: CourseFamilyId | string | null;
+  /** Course track id for the chameleon tint dial (`COURSE_TRACK_IDS`). */
+  trackId?: string | null;
 }
 
-/** Idle loop (breathing + occasional blink). Only mounted when animation is requested and allowed. */
-function AnimatedMascot(props: {
-  state: MascotState;
-  size: number;
-  theme: ArtTheme;
-  accessibilityLabel?: string;
-}): React.JSX.Element {
+type MascotTintProps = Pick<MascotSvgProps, 'tint' | 'courseFamily' | 'trackId'>;
+
+/** Idle loop (breathing + occasional blink + one-eye scan). Only mounted when animation is requested and allowed. */
+function AnimatedMascot(
+  props: {
+    state: MascotState;
+    size: number;
+    theme: ArtTheme;
+    accessibilityLabel?: string;
+  } & MascotTintProps,
+): React.JSX.Element {
   const [phase, setPhase] = useState(0);
   useEffect(() => {
     const id = setInterval(() => setPhase((p) => (p + 1) % 400), 100);
@@ -122,16 +127,29 @@ function AnimatedMascot(props: {
   const breath = Math.sin((phase / 400) * Math.PI * 2 * 10); // ~4 s cycle
   const blinkTick = phase % 40; // every ~4 s
   const blink = blinkTick >= 37 ? (blinkTick === 38 ? 1 : 0.6) : 0;
+  // Chameleon scan: every ~7 s the left eye drifts for ~1 s, then snaps back.
+  const scanTick = phase % 70;
+  const gazeL = scanTick >= 60 && scanTick < 69 ? ([0.6, 0] as const) : undefined;
   return renderSvgDocument(
-    buildMascotDocument(props.state, { size: props.size, theme: props.theme, blink, breath }),
+    buildMascotDocument(props.state, {
+      size: props.size,
+      theme: props.theme,
+      blink,
+      breath,
+      gazeL,
+      tint: props.tint,
+      courseFamily: props.courseFamily,
+      trackId: props.trackId,
+    }),
     props.accessibilityLabel,
   );
 }
 
 /**
- * Original orbit-creature mascot in one of the 17 contract states.
+ * Melo, the original chameleon mascot, in one of the 17 contract states.
  * Static by default (no hooks, no timers); `animate` enables a gentle idle loop
- * unless `reducedMotion` is set.
+ * unless `reducedMotion` is set. `tint` / `courseFamily` / `trackId` drive the
+ * chameleon colour (default: the state's own tint).
  */
 export function MascotSvg(props: MascotSvgProps): React.JSX.Element {
   const {
@@ -141,6 +159,9 @@ export function MascotSvg(props: MascotSvgProps): React.JSX.Element {
     reducedMotion = false,
     accessibilityLabel,
     animate = false,
+    tint,
+    courseFamily,
+    trackId,
   } = props;
   if (animate && !reducedMotion) {
     return (
@@ -149,10 +170,16 @@ export function MascotSvg(props: MascotSvgProps): React.JSX.Element {
         size={size}
         theme={theme}
         accessibilityLabel={accessibilityLabel}
+        tint={tint}
+        courseFamily={courseFamily}
+        trackId={trackId}
       />
     );
   }
-  return renderSvgDocument(buildMascotDocument(state, { size, theme }), accessibilityLabel);
+  return renderSvgDocument(
+    buildMascotDocument(state, { size, theme, tint, courseFamily, trackId }),
+    accessibilityLabel,
+  );
 }
 
 /* ----------------------------------------------------------- Characters --- */

@@ -45,6 +45,8 @@ export interface PrefsState {
   /** Wi-Fi only downloads + auto-download opt-in (read by the audio library). */
   wifiOnlyDownloads: boolean;
   autoDownload: boolean;
+  /** Night Market background lantern glow (decorative; always off in high contrast). */
+  lanternsEnabled: boolean;
   hydrated: boolean;
 }
 
@@ -79,6 +81,7 @@ export const DEFAULT_PREFS: Omit<PrefsState, 'hydrated'> = {
   fallbackOptIns: {},
   wifiOnlyDownloads: true,
   autoDownload: false,
+  lanternsEnabled: true,
 };
 
 export const usePrefs = create<PrefsState & PrefsActions>()(

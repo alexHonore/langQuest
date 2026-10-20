@@ -61,7 +61,14 @@
       "characterPortrait": "Portrait of {name}",
       "sceneArt": "Scene: {description}",
       "languagePickerHint": "Double-tap to choose"
-    }
+    },
+    "info": "Info",
+    "details": "Details",
+    "hideDetails": "Hide details",
+    "more": "More",
+    "less": "Less",
+    "moreInformation": "More information",
+    "about": "About"
   },
   "onboarding": {
     "heroPromise": "Start speaking from day one",
@@ -113,7 +120,8 @@
       "failed": "Your course could not be set up yet.",
       "retry": "Try again",
       "scriptModeHint": "You can change this later for this course."
-    }
+    },
+    "aboutLangQuest": "About LangQuest"
   },
   "home": {
     "welcomeBack": "Welcome back, {name}!",
@@ -137,7 +145,10 @@
     "xpNote": "XP tracks how much you practise, not how well you speak.",
     "quickSpeak": "Quick speak",
     "noCourse": "You are not enrolled in any course yet.",
-    "addCourse": "Add a course"
+    "addCourse": "Add a course",
+    "speakingSummary": "{count, plural, one {# min spoken} other {# min spoken}} · last 7 days",
+    "aboutProgress": "How progress is counted",
+    "coverageInfo": "About this course from your language"
   },
   "catalog": {
     "title": "Courses",
@@ -200,7 +211,14 @@
       "ukrainian": "Course cover for Ukrainian: abstract orbits in blue and gold",
       "vietnamese": "Course cover for Vietnamese: abstract dot grid in green and orange"
     },
-    "notNativeReviewed": "Not yet reviewed by native speakers"
+    "notNativeReviewed": "Not yet reviewed by native speakers",
+    "coverageShort": {
+      "complete": "Fully available",
+      "partial": "Partly available",
+      "planned": "Planned",
+      "unavailable": "Not offered"
+    },
+    "aboutCourse": "About this course"
   },
   "missions": {
     "title": "Missions",
@@ -246,7 +264,10 @@
       "confidence": "Evaluation confidence: {confidence}",
       "evaluationPending": "Your detailed summary is still being prepared.",
       "evaluationUnavailable": "The detailed summary could not be prepared this time. Your progress is saved."
-    }
+    },
+    "details": "Details",
+    "hideDetails": "Hide details",
+    "aboutPathway": "About the pathway"
   },
   "lesson": {
     "listen": "Listen",
@@ -310,7 +331,11 @@
       "feedback_retry": "Feedback and retry",
       "review_recall": "Review",
       "script_support": "Script support"
-    }
+    },
+    "hintMore": "More options",
+    "hintLess": "Fewer options",
+    "aboutStep": "About this step",
+    "answerOptions": "Other ways to answer"
   },
   "speak": {
     "title": "Speak",
@@ -384,8 +409,19 @@
       "title": "Characters",
       "empty": "No characters are published for this course yet.",
       "regionalFit": "Speaks the {region} variety you chose",
-      "talkWith": "Talk with {name}"
-    }
+      "talkWith": "Talk with {name}",
+      "aboutCast": "About the characters"
+    },
+    "stateShort": {
+      "idle": "Ready",
+      "character_speaking": "Speaking",
+      "waiting": "Speak",
+      "learner_mic_active": "Listening",
+      "thinking": "Thinking",
+      "reconnecting": "Reconnecting",
+      "error": "Error"
+    },
+    "aboutConversation": "How this conversation works"
   },
   "pronunciation": {
     "title": "Pronunciation coach",
@@ -446,13 +482,15 @@
       "retrySegment": "Try this part again",
       "scoreOutOf": "out of 100",
       "toneHint": "Tone {expected} expected on {syllable}; heard tone {heard}",
-      "lowConfidenceNote": "Low recording quality; feedback is approximate."
+      "lowConfidenceNote": "Low recording quality; feedback is approximate.",
+      "details": "Details"
     },
     "honesty": "We never invent scores. If the assessor can't measure something, we say so.",
     "tipsTitle": "Tips",
     "tipSlow": "Try it slowly first, then at normal speed.",
     "tipListen": "Listen twice before recording.",
-    "tipShadow": "Say it at the same time as the reference."
+    "tipShadow": "Say it at the same time as the reference.",
+    "aboutFeedback": "How feedback works"
   },
   "audio": {
     "title": "Audio",
@@ -488,7 +526,8 @@
       "sleepTimerSet": "Stops in {count, plural, one {# minute} other {# minutes}}",
       "sleepTimerEndOfChapter": "End of chapter",
       "sleepTimerOff": "Sleep timer off",
-      "backgroundNote": "Audio keeps playing in the background."
+      "backgroundNote": "Audio keeps playing in the background.",
+      "details": "Details"
     },
     "download": {
       "download": "Download for offline",
@@ -607,7 +646,8 @@
         "upper_intermediate": "Upper intermediate",
         "advanced": "Advanced"
       }
-    }
+    },
+    "aboutLesson": "About this lesson"
   },
   "progress": {
     "title": "Progress",
@@ -660,7 +700,8 @@
       "showAnswer": "Show answer",
       "nextDue": "Next review {when}",
       "allDone": "All caught up for today."
-    }
+    },
+    "aboutMastery": "How this is measured"
   },
   "account": {
     "title": "Account",
@@ -744,7 +785,9 @@
       "push_to_talk": "Hold to talk",
       "hands_free": "Hands-free",
       "text_only": "Text only"
-    }
+    },
+    "aboutSettings": "About these settings",
+    "lanterns": "Background lantern glow"
   },
   "enrollment": {
     "title": "Your courses",
@@ -826,6 +869,21 @@
         "pronunciationAcoustic": "Pronunciation score",
         "pronunciationReference": "Listen-and-compare pronunciation feedback",
         "offlineDownloads": "Offline downloads"
+      },
+      "shortTitle": "Not in this course yet",
+      "shortAllAvailable": "Everything is available",
+      "short": {
+        "no_missions": "No mission pathway yet",
+        "no_audio_library": "No audio library yet",
+        "no_live_conversation": "No live conversation yet",
+        "text_only_conversation": "Live conversation is text only",
+        "no_pronunciation_scoring": "No automated pronunciation score",
+        "no_pronunciation_feedback": "No spoken pronunciation feedback",
+        "no_offline_downloads": "No offline downloads yet",
+        "instruction_language_draft": "Explanations are unreviewed drafts",
+        "instruction_language_planned": "Your language is planned",
+        "instruction_language_unavailable": "Not offered in your language",
+        "partial_interface_language": "Some app text untranslated"
       }
     },
     "remove": "Remove course",
@@ -834,7 +892,8 @@
     "removeDelete": "Delete progress for this course",
     "removeOtherCoursesSafe": "Your other courses are not affected.",
     "add": "Add a course",
-    "temporaryTranslation": "Show translations in another language for now"
+    "temporaryTranslation": "Show translations in another language for now",
+    "aboutEditor": "About these choices"
   },
   "errors": {
     "generic": "Something went wrong. Please try again.",

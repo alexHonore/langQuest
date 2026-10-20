@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { castFromManifest, findCastCharacter, portraitKeyFor } from './cast';
+import { castFromManifest, findCastCharacter, missionCast, portraitKeyFor } from './cast';
 
 const nadia = { id: '0f7f3a72-6a7b-5a2b-9f6c-1d2e3f4a5b6c', name: 'Nadia', role: 'Café staff', varietyId: 'ary' as const, portrait: null, syntheticVoice: true, characterKey: 'ary-cafe-staff-nadia', region: 'Casablanca, Morocco', regionalOption: 'casablanca', portraitKey: 'ary-cafe-staff-nadia' };
 const driss = { id: '1a2b3c4d-5e6f-5a7b-8c9d-0e1f2a3b4c5d', name: 'Driss', role: 'Taxi driver', varietyId: 'ary' as const, portrait: null, syntheticVoice: true, characterKey: 'ary-taxi-driss', region: 'Marrakech, Morocco', regionalOption: 'marrakech', portraitKey: 'ary-taxi-driss' };
@@ -48,5 +48,16 @@ describe('findCastCharacter', () => {
     expect(findCastCharacter(cast, 'ary-taxi-driss')?.name).toBe('Driss');
     expect(findCastCharacter(cast, 'missing')).toBeNull();
     expect(findCastCharacter(cast, undefined)).toBeNull();
+  });
+});
+
+describe('missionCast', () => {
+  const cast = castFromManifest({ targetVarietyId: 'ary', characters: [nadia, driss] }, null);
+  it('resolves the manifest character ids in order and drops ids the cast does not carry', () => {
+    expect(missionCast([driss.id, 'not-in-cast', nadia.id], cast).map((c) => c.name)).toEqual(['Driss', 'Nadia']);
+  });
+  it('is empty for a mission without a cast (no placeholder)', () => {
+    expect(missionCast([], cast)).toEqual([]);
+    expect(missionCast([nadia.id], [])).toEqual([]);
   });
 });

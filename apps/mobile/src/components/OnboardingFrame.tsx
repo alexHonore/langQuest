@@ -1,5 +1,5 @@
 /** Shared frame for onboarding steps: safe areas, step progress, back + primary action. */
-import { Button, ProgressBar, Row, ThemedText, useTheme } from '@langquest/ui';
+import { Button, Lanterns, ProgressBar, Row, ThemedText, useTheme } from '@langquest/ui';
 import { useRouter } from 'expo-router';
 import React from 'react';
 import { ScrollView, View } from 'react-native';
@@ -20,6 +20,8 @@ export interface OnboardingFrameProps {
   /** Stable ids for the primary / secondary actions (Maestro flows under `tests/e2e/maestro`). */
   primaryTestID?: string;
   secondaryTestID?: string;
+  /** Right-side slot next to the step counter (an ⓘ affordance, typically). */
+  headerEnd?: React.ReactNode;
   children: React.ReactNode;
 }
 
@@ -31,10 +33,14 @@ export function OnboardingFrame(props: OnboardingFrameProps): React.JSX.Element 
   const total = props.totalSteps ?? 5;
   return (
     <View style={{ flex: 1, backgroundColor: theme.colors.background, paddingTop: insets.top, paddingBottom: insets.bottom }}>
+      {theme.lanterns.enabled ? <Lanterns /> : null}
       <View style={{ paddingHorizontal: theme.spacing.lg, paddingTop: theme.spacing.sm, gap: theme.spacing.sm }}>
         <Row gap={theme.spacing.sm} justify="space-between">
           {props.showBack !== false && router.canGoBack() ? <Button label={t('common.back')} variant="ghost" size="sm" icon="chevronLeft" onPress={() => router.back()} accessibilityLabel={t('common.a11y.goBack')} /> : <View />}
-          <ThemedText variant="caption" tone="muted">{`${props.step}/${total}`}</ThemedText>
+          <Row gap={theme.spacing.xs} align="center">
+            <ThemedText variant="caption" tone="muted">{`${props.step}/${total}`}</ThemedText>
+            {props.headerEnd}
+          </Row>
         </Row>
         <ProgressBar value={props.step / total} accessibilityLabel={`${props.step}/${total}`} height={4} />
       </View>
@@ -47,7 +53,7 @@ export function OnboardingFrame(props: OnboardingFrameProps): React.JSX.Element 
       </ScrollView>
       {props.onPrimary || props.onSecondary ? (
         <View style={{ padding: theme.spacing.lg, gap: theme.spacing.sm, borderTopWidth: theme.highContrast ? 1 : 0, borderTopColor: theme.colors.border }}>
-          {props.onPrimary ? <Button testID={props.primaryTestID} label={props.primaryLabel ?? t('common.continue')} onPress={props.onPrimary} disabled={props.primaryDisabled} fullWidth size="lg" accessibilityLabel={props.primaryLabel ?? t('common.continue')} /> : null}
+          {props.onPrimary ? <Button testID={props.primaryTestID} label={props.primaryLabel ?? t('common.continue')} onPress={props.onPrimary} disabled={props.primaryDisabled} fullWidth size="lg" glow accessibilityLabel={props.primaryLabel ?? t('common.continue')} /> : null}
           {props.onSecondary ? <Button testID={props.secondaryTestID} label={props.secondaryLabel ?? t('common.skip')} variant="ghost" onPress={props.onSecondary} fullWidth accessibilityLabel={props.secondaryLabel ?? t('common.skip')} /> : null}
         </View>
       ) : null}

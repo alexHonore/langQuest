@@ -11,6 +11,7 @@
     "@langquest/telemetry": "workspace:*",
     "@langquest/ui": "workspace:*",
     "@react-native-async-storage/async-storage": "2.2.0",
+    "@rive-app/react-canvas": "^4.37.0",
     "@supabase/supabase-js": "^2.117.3",
     "@tanstack/react-query": "^5.104.2",
     "expo": "~57.0.29",
@@ -54,6 +55,7 @@
     "react-native-url-polyfill": "^4.0.0",
     "react-native-web": "~0.21.0",
     "react-native-worklets": "0.10.1",
+    "rive-react-native": "^9.8.6",
     "zod": "^4.6.0",
     "zustand": "^5.0.15"
   },

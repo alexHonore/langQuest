@@ -5,75 +5,120 @@
 
 export type ArtTheme = 'light' | 'dark';
 
-/** Mascot ("Orbi", provisional name) palette. */
+/**
+ * Mascot palette — Melo the chameleon (design exploration M3, owner-approved 2026-10-19).
+ *
+ * `body` / `bodyShade` / `belly` are the *base* leaf-green tint; at render time they are
+ * replaced by `mascotTint(...)` (see `./mascot/tint.ts`), which shifts the hue with the
+ * mascot state and the course family — the chameleon mechanic. `crest`, `outline`, props
+ * and eyes never shift so the silhouette stays the brand anchor.
+ *
+ * Fields kept from the previous (orbit-creature) palette for API compatibility:
+ * `ribbon` / `ribbonShade` now alias the crest colours, `limb` aliases `bodyShade`,
+ * `mouth` aliases `pupil`.
+ */
 export interface MascotPalette {
   body: string;
   bodyShade: string;
   belly: string;
+  /** Saffron casque (crest) and flank bands — never tinted. */
+  crest: string;
+  crestShade: string;
+  /** @deprecated alias of `crest` (the orbit-creature's tail colour). */
   ribbon: string;
+  /** @deprecated alias of `crestShade`. */
   ribbonShade: string;
   outline: string;
   eyeWhite: string;
   pupil: string;
   highlight: string;
   cheek: string;
+  /** @deprecated alias of `bodyShade` (arms and feet use the body shade). */
   limb: string;
+  /** @deprecated alias of `pupil`. */
   mouth: string;
   tongue: string;
   prop: string;
   propFill: string;
+  /** Warm accent used by props (stars, badge, bulb). Same as `crest`. */
   accent: string;
   danger: string;
   muted: string;
   mutedFill: string;
   sleepy: string;
+  /** Confetti / sparkle secondaries. */
+  confettiSky: string;
+  confettiPink: string;
+}
+
+/** Base body hue of the leaf-green chameleon (HSL degrees). */
+export const MASCOT_BASE_HUE = 123;
+/** Base body saturation (0..1). */
+export const MASCOT_BASE_SATURATION = 0.4;
+/** Body / shade / belly lightness per theme (0..1). */
+export const MASCOT_BODY_LIGHTNESS: Record<
+  ArtTheme,
+  { body: number; shade: number; belly: number }
+> = {
+  light: { body: 0.59, shade: 0.45, belly: 0.94 },
+  dark: { body: 0.62, shade: 0.48, belly: 0.92 },
+};
+
+/**
+ * Body tokens for a hue / saturation / lightness-offset triple. Used by the chameleon
+ * tint system; also handy for previews ("what does Melo look like at hue X?").
+ */
+export function mascotBodyTokens(
+  theme: ArtTheme,
+  hue: number,
+  saturation: number = MASCOT_BASE_SATURATION,
+  lightnessDelta = 0,
+): { body: string; bodyShade: string; belly: string } {
+  const L = MASCOT_BODY_LIGHTNESS[theme];
+  const clamp = (v: number): number => Math.min(1, Math.max(0, v));
+  return {
+    body: hsl(hue, saturation, clamp(L.body + lightnessDelta)),
+    bodyShade: hsl(hue, saturation, clamp(L.shade + lightnessDelta)),
+    belly: hsl(hue - 20, Math.min(1, saturation + 0.05), clamp(L.belly)),
+  };
+}
+
+function buildMascotPalette(theme: ArtTheme): MascotPalette {
+  const dark = theme === 'dark';
+  const base = mascotBodyTokens(theme, MASCOT_BASE_HUE);
+  const crest = dark ? '#FFBC4F' : '#F2A93B';
+  const crestShade = dark ? '#E09A2E' : '#D98C1F';
+  const outline = dark ? '#0E1A12' : '#243B2A';
+  const pupil = dark ? '#0F1A20' : '#1F2A2E';
+  return {
+    ...base,
+    crest,
+    crestShade,
+    ribbon: crest,
+    ribbonShade: crestShade,
+    outline,
+    eyeWhite: dark ? '#F4F7F2' : '#FFFFFF',
+    pupil,
+    highlight: '#FFFFFF',
+    cheek: dark ? '#FF9E8A' : '#FFB08A',
+    limb: base.bodyShade,
+    mouth: pupil,
+    tongue: dark ? '#FF8E9B' : '#F07C8A',
+    prop: dark ? '#E8F1EA' : '#243B2A',
+    propFill: dark ? '#1C2B20' : '#FFFFFF',
+    accent: crest,
+    danger: dark ? '#FF7A7E' : '#E0565B',
+    muted: dark ? '#8C9792' : '#9AA3A8',
+    mutedFill: dark ? '#46524F' : '#E8EDEF',
+    sleepy: dark ? '#A9B6E8' : '#8F9FD6',
+    confettiSky: dark ? '#7CC8EA' : '#5FB3D9',
+    confettiPink: dark ? '#FF8E9B' : '#F07C8A',
+  };
 }
 
 export const MASCOT_PALETTE: Record<ArtTheme, MascotPalette> = {
-  light: {
-    body: '#49C5B1',
-    bodyShade: '#2FA896',
-    belly: '#F4FBF8',
-    ribbon: '#FF8F6B',
-    ribbonShade: '#E5704E',
-    outline: '#1E3A3A',
-    eyeWhite: '#FFFFFF',
-    pupil: '#1E2A33',
-    highlight: '#FFFFFF',
-    cheek: '#FFB3A0',
-    limb: '#2FA896',
-    mouth: '#1E2A33',
-    tongue: '#FF8F6B',
-    prop: '#1E3A3A',
-    propFill: '#FFFFFF',
-    accent: '#FFC94D',
-    danger: '#E0565B',
-    muted: '#7F8E96',
-    mutedFill: '#E3E9EC',
-    sleepy: '#8F9FD6',
-  },
-  dark: {
-    body: '#5FD6C3',
-    bodyShade: '#3DB8A4',
-    belly: '#E6F7F3',
-    ribbon: '#FF9D7C',
-    ribbonShade: '#E87C5A',
-    outline: '#0F1F22',
-    eyeWhite: '#FFFFFF',
-    pupil: '#0F1A20',
-    highlight: '#FFFFFF',
-    cheek: '#FF9E8A',
-    limb: '#3DB8A4',
-    mouth: '#0F1A20',
-    tongue: '#FF9D7C',
-    prop: '#E8F1F2',
-    propFill: '#1C2B2F',
-    accent: '#FFD46A',
-    danger: '#FF7A7E',
-    muted: '#9AA8B0',
-    mutedFill: '#2A373C',
-    sleepy: '#A9B6E8',
-  },
+  light: buildMascotPalette('light'),
+  dark: buildMascotPalette('dark'),
 };
 
 /** Neutral UI-ish colours used by scenes/covers/portraits for backgrounds and line work. */

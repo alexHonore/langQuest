@@ -24,7 +24,7 @@ export default async function ChapterPage({ params }: { params: Promise<{ id: st
         title={pickLocalized(ch.title_translations, locale) || shortId(ch.id)}
         description={
           ch.collection ? (
-            <Link href={`/collections/${ch.collection.id}`} className="text-accent hover:underline">
+            <Link href={`/collections/${ch.collection.id}`} className="text-accent-text hover:underline">
               {pickLocalized(ch.collection.title_translations, locale) || shortId(ch.collection.id)}
             </Link>
           ) : null

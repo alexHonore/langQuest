@@ -13,7 +13,7 @@ export default async function AssetSuggestionsPage() {
   const { t } = await serverTranslator();
   return (
     <div>
-      <PageHeader title={t('admin.sections.assetSuggestions')} description={t('admin.ui.sgIntro')} />
+      <PageHeader title={t('admin.sections.assetSuggestions')} info={t('admin.ui.sgIntro')} />
       <SuggestionsScreen canDecide={canEditContent(session.roles)} />
     </div>
   );

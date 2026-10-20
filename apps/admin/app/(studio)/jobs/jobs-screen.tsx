@@ -48,7 +48,7 @@ export function JobsScreen({ rows, page, hasNext, states, types, canRetry }: { r
   const retry = useAction(async (id: string) => localCall<{ jobId: string }>(`/api/admin/jobs/${id}/retry`, { method: 'POST', body: {} }), { successMessage: (r) => t('admin.ui.jbRetried', { jobId: r.jobId.slice(0, 8) }) });
 
   const columns: Column<JobRow>[] = [
-    { key: 'id', header: t('admin.ui.id'), render: (j) => <button type="button" className="font-mono text-xs text-accent hover:underline" onClick={() => setDetail(j)}>{shortId(j.id)}</button> },
+    { key: 'id', header: t('admin.ui.id'), render: (j) => <button type="button" className="font-mono text-xs text-accent-text hover:underline" onClick={() => setDetail(j)}>{shortId(j.id)}</button> },
     { key: 'type', header: t('admin.jobs.type'), render: (j) => j.job_type },
     { key: 'state', header: t('admin.ui.status'), render: (j) => <JobBadge state={j.state} /> },
     {
@@ -65,7 +65,7 @@ export function JobsScreen({ rows, page, hasNext, states, types, canRetry }: { r
         </div>
       ),
     },
-    { key: 'parent', header: t('admin.ui.jbParent'), render: (j) => (j.parent_asset_id ? <Link href={`/library/${j.parent_asset_id}`} className="font-mono text-xs text-accent hover:underline">{shortId(j.parent_asset_id)}</Link> : j.parent_entity_table ? <span className="text-xs">{j.parent_entity_table}:{shortId(j.parent_entity_id)}</span> : '—') },
+    { key: 'parent', header: t('admin.ui.jbParent'), render: (j) => (j.parent_asset_id ? <Link href={`/library/${j.parent_asset_id}`} className="font-mono text-xs text-accent-text hover:underline">{shortId(j.parent_asset_id)}</Link> : j.parent_entity_table ? <span className="text-xs">{j.parent_entity_table}:{shortId(j.parent_entity_id)}</span> : '—') },
     { key: 'cost', header: t('admin.analytics.cost'), className: 'tabular-nums', render: (j) => formatUsd(j.cost_actual_usd ?? j.cost_estimate_usd, locale) },
     { key: 'error', header: t('admin.ui.jbErrors'), render: (j) => (j.failure_code ? <span className="text-xs text-error" title={j.failure_message ?? ''}>{j.failure_code}</span> : '—') },
     { key: 'created', header: t('admin.ui.created'), className: 'whitespace-nowrap text-fg-muted', render: (j) => formatDateTime(j.created_at, locale) },
@@ -94,7 +94,7 @@ export function JobsScreen({ rows, page, hasNext, states, types, canRetry }: { r
         rowKey={(j) => j.id}
         empty={t('admin.ui.jbEmptyHint')}
         emptyAction={
-          <Link href={SECTION_PATHS.uploads} className="text-sm text-accent hover:underline">
+          <Link href={SECTION_PATHS.uploads} className="text-sm text-accent-text hover:underline">
             {t('admin.sections.uploads')} →
           </Link>
         }
@@ -146,7 +146,7 @@ export function JobsScreen({ rows, page, hasNext, states, types, canRetry }: { r
                 <p className="text-xs">
                   assets:{' '}
                   {detail.output_asset_ids.map((id) => (
-                    <Link key={id} href={`/library/${id}`} className="me-1 font-mono text-accent hover:underline">
+                    <Link key={id} href={`/library/${id}`} className="me-1 font-mono text-accent-text hover:underline">
                       {shortId(id)}
                     </Link>
                   ))}

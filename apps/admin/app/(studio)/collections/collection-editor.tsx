@@ -137,7 +137,7 @@ export function CollectionEditor({ mode, initial, options }: { mode: 'create' | 
                 hint={
                   <>
                     {t('admin.ui.colCoverUpload')}:{' '}
-                    <Link href="/visual-assets" className="text-accent hover:underline">
+                    <Link href="/visual-assets" className="text-accent-text hover:underline">
                       {t('admin.sections.visualAssets')}
                     </Link>
                   </>

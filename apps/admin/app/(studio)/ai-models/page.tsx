@@ -14,7 +14,7 @@ export default async function AiModelsPage() {
   const { profiles, benchmarks } = await listModelProfiles();
   return (
     <div>
-      <PageHeader title={t('admin.models.title')} description={`${t('admin.models.pricingNote')} ${t('admin.models.fallbackNote')}`} />
+      <PageHeader title={t('admin.models.title')} info={`${t('admin.models.pricingNote')} ${t('admin.models.fallbackNote')}`} />
       {!profiles.ok ? <ErrorState title={t('admin.ui.errorTitle')} message={profiles.error} /> : null}
       <AiModelsScreen profiles={(profiles.ok ? profiles.data : []) as unknown as ProfileRow[]} benchmarks={(benchmarks.ok ? benchmarks.data : []) as unknown as BenchmarkRow[]} localProbeAvailable={Boolean(serverEnv().OPENROUTER_API_KEY)} />
     </div>

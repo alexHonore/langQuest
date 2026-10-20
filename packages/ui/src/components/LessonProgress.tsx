@@ -4,6 +4,7 @@
  */
 import React from 'react';
 import { type StyleProp, View, type ViewStyle } from 'react-native';
+import type { Density } from '../theme/resolve';
 import { useTheme } from '../theme/ThemeProvider';
 import { type LessonPhase, stepProgress } from './logic';
 import { ProgressBar, Row, ThemedText } from './primitives';
@@ -19,6 +20,7 @@ export interface LessonProgressProps {
   title?: string;
   /** Localized "{step} of {total}" formatter. */
   formatStep?: (step: number, total: number) => string;
+  density?: Density;
   style?: StyleProp<ViewStyle>;
   testID?: string;
 }
@@ -33,8 +35,9 @@ const DEFAULT_PHASE_LABELS: Record<LessonPhase, string> = {
 };
 
 export function LessonProgress(props: LessonProgressProps): React.JSX.Element {
-  const { step, totalSteps, phase, phaseLabel, title, formatStep, style, testID } = props;
+  const { step, totalSteps, phase, phaseLabel, title, formatStep, density, style, testID } = props;
   const theme = useTheme();
+  const calm = (density ?? theme.density) === 'calm';
   const safeTotal = Math.max(1, Math.floor(totalSteps));
   const safeStep = Math.min(safeTotal, Math.max(1, Math.floor(step)));
   const stepText = formatStep ? formatStep(safeStep, safeTotal) : `${safeStep}/${safeTotal}`;
@@ -64,7 +67,7 @@ export function LessonProgress(props: LessonProgressProps): React.JSX.Element {
         accessibilityLabel={stepText}
         height={6}
       />
-      {phaseText ? (
+      {phaseText && !calm ? (
         <ThemedText variant="caption" tone="muted">
           {phaseText}
         </ThemedText>

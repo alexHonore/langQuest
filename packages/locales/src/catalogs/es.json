@@ -61,7 +61,14 @@
       "characterPortrait": "Retrato de {name}",
       "sceneArt": "Escena: {description}",
       "languagePickerHint": "Toca dos veces para elegir"
-    }
+    },
+    "info": "Info",
+    "details": "Detalles",
+    "hideDetails": "Ocultar detalles",
+    "more": "Más",
+    "less": "Menos",
+    "moreInformation": "Más información",
+    "about": "Acerca de"
   },
   "onboarding": {
     "heroPromise": "Empieza a hablar desde el primer día",
@@ -113,7 +120,8 @@
       "failed": "Aún no se pudo preparar tu curso.",
       "retry": "Reintentar",
       "scriptModeHint": "Podrás cambiar esta elección más adelante para este curso."
-    }
+    },
+    "aboutLangQuest": "Acerca de LangQuest"
   },
   "enrollment": {
     "title": "Tus cursos",
@@ -195,6 +203,21 @@
         "pronunciationAcoustic": "Puntuación de pronunciación",
         "pronunciationReference": "Comentarios de pronunciación por escucha y comparación",
         "offlineDownloads": "Descargas sin conexión"
+      },
+      "shortTitle": "Aún no en este curso",
+      "shortAllAvailable": "Todo está disponible",
+      "short": {
+        "no_missions": "Aún sin misiones",
+        "no_audio_library": "Aún sin biblioteca de audio",
+        "no_live_conversation": "Aún sin conversación en vivo",
+        "text_only_conversation": "Conversación en vivo solo escrita",
+        "no_pronunciation_scoring": "Sin nota de pronunciación",
+        "no_pronunciation_feedback": "Sin comentarios orales",
+        "no_offline_downloads": "Aún sin descargas",
+        "instruction_language_draft": "Explicaciones sin revisar",
+        "instruction_language_planned": "Tu idioma está previsto",
+        "instruction_language_unavailable": "No disponible en tu idioma",
+        "partial_interface_language": "Textos parcialmente traducidos"
       }
     },
     "remove": "Quitar curso",
@@ -203,6 +226,7 @@
     "removeDelete": "Eliminar el progreso de este curso",
     "removeOtherCoursesSafe": "Tus otros cursos no se ven afectados.",
     "add": "Añadir un curso",
-    "temporaryTranslation": "Mostrar traducciones en otro idioma por ahora"
+    "temporaryTranslation": "Mostrar traducciones en otro idioma por ahora",
+    "aboutEditor": "Acerca de estas opciones"
   }
 }

@@ -1,5 +1,5 @@
 import { getCourseTrack } from '@langquest/contracts';
-import { Chip, Row, ThemedText, useTheme } from '@langquest/ui';
+import { Chip, Row, useTheme } from '@langquest/ui';
 import { useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useState } from 'react';
 import { View } from 'react-native';
@@ -27,6 +27,7 @@ export default function CourseIncludes(): React.JSX.Element {
   const trackDef = enrollment ? getCourseTrack(enrollment.courseTrackId) : null;
   return (
     <Screen title={t('enrollment.disclaimer.includes.title')} onBack={() => router.back()} enrollment={enrollment ?? null} noEdit>
+      {/* Calm density: the course line is the header's course line; the card below carries the lists. */}
       {query.data?.fromCache ? <CacheNotice fetchedAt={query.data.fetchedAt} /> : null}
       {enrollments.length > 1 ? (
         <Row gap={theme.spacing.xs} wrap accessibilityRole="radiogroup">
@@ -39,9 +40,6 @@ export default function CourseIncludes(): React.JSX.Element {
       ) : null}
       {enrollment && trackDef ? (
         <View style={{ gap: theme.spacing.md }}>
-          <ThemedText variant="heading" accessibilityRole="header">
-            {t('home.activeCourse', { target: trackDef.displayName, source: names(enrollment.sourceLanguageCode) })}
-          </ThemedText>
           <CapabilityDisclaimer testID="account-includes" capabilities={enrollment.capabilities} sourceName={names(enrollment.sourceLanguageCode)} targetName={trackDef.displayName} showIncludes />
         </View>
       ) : null}

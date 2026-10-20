@@ -7,7 +7,12 @@
  * Nothing here is learner-facing instruction in the target language; mascot
  * speech and hints come from the enrollment's source language via props.
  */
-import type { CoverageStatus, Intelligibility, SpeechState } from '@langquest/contracts';
+import type {
+  CapabilityMissingKey,
+  CoverageStatus,
+  Intelligibility,
+  SpeechState,
+} from '@langquest/contracts';
 
 /* ------------------------------------------------------------------------ */
 /* Localized overrides                                                      */
@@ -77,6 +82,17 @@ export function mergeLabels<T extends object>(
 export const MISSION_FOCUS_VALUES = ['pronunciation', 'listening', 'conversation', 'tone'] as const;
 export type MissionFocus = (typeof MISSION_FOCUS_VALUES)[number];
 
+/** One-word speech-state labels for the calm density (glow ring + 1 word). Mirrors `speak.stateShort.*`. */
+export const SPEECH_STATE_SHORT_LABELS: Readonly<Record<SpeechState, string>> = {
+  idle: 'Ready',
+  character_speaking: 'Speaking',
+  waiting: 'Speak',
+  learner_mic_active: 'Listening',
+  thinking: 'Thinking',
+  reconnecting: 'Reconnecting',
+  error: 'Error',
+};
+
 export const SPEECH_STATE_LABELS: Readonly<Record<SpeechState, string>> = {
   idle: 'Ready',
   character_speaking: 'Character is speaking',
@@ -128,6 +144,14 @@ export const COVERAGE_LABELS: Readonly<Record<CoverageStatus, string>> = {
   partial: 'Partly available',
   planned: 'Planned',
   unavailable: 'Not available',
+};
+
+/** Two-word coverage labels for the calm density (icon + 2 words). Mirrors `catalog.coverageShort.*`. */
+export const COVERAGE_SHORT_LABELS: Readonly<Record<CoverageStatus, string>> = {
+  complete: 'Fully available',
+  partial: 'Partly available',
+  planned: 'Planned',
+  unavailable: 'Not offered',
 };
 
 export const COVERAGE_DESCRIPTIONS: Readonly<Record<CoverageStatus, string>> = {
@@ -273,4 +297,46 @@ export const ASSET_PICKER_LABELS = {
 
 export const EMPTY_LABELS = {
   retry: 'Try again',
+} as const;
+
+/**
+ * Calm-density affordances shared by the components (kept out of the
+ * per-component label sets so apps that build those sets exhaustively keep
+ * compiling). Mirrors `common.{details,hideDetails,more,less}`.
+ */
+export const CALM_LABELS = {
+  details: 'Details',
+  hideDetails: 'Hide details',
+  more: 'More',
+  less: 'Less',
+} as const;
+
+export const INFO_LABELS = {
+  /** Accessible name of the ⓘ button when the caller gives none. */
+  open: 'More information',
+  close: 'Close',
+} as const;
+
+/**
+ * Capability disclaimer (CONVENTIONS §8) in the calm density: one bullet per
+ * missing capability, ≤ 6 words each. Mirrors `enrollment.disclaimer.short.*`.
+ */
+export const CAPABILITY_LABELS = {
+  title: 'Not in this course yet',
+  allAvailable: 'Everything is available',
+  details: 'Details',
+  /** Keys mirror the `CapabilityMissingKey` contract enum and `enrollment.disclaimer.short.*`. */
+  short: {
+    no_missions: 'No mission pathway yet',
+    no_audio_library: 'No audio library yet',
+    no_live_conversation: 'No live conversation yet',
+    text_only_conversation: 'Live conversation is text only',
+    no_pronunciation_scoring: 'No automated pronunciation score',
+    no_pronunciation_feedback: 'No spoken pronunciation feedback',
+    no_offline_downloads: 'No offline downloads yet',
+    instruction_language_draft: 'Explanations are unreviewed drafts',
+    instruction_language_planned: 'Your language is planned',
+    instruction_language_unavailable: 'Not offered in your language',
+    partial_interface_language: 'Some app text untranslated',
+  } satisfies Record<CapabilityMissingKey, string>,
 } as const;

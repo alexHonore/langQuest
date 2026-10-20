@@ -1,13 +1,17 @@
 /**
  * Root providers: safe areas, react-query, theme (learner accessibility prefs
- * + OS), i18n (device locale → ui_locale, RTL), services (API/local store/
- * sync) and the auth bootstrap.
+ * + OS, Night Market dark-first with calm density), i18n (device locale →
+ * ui_locale, RTL), services (API/local store/sync), the auth bootstrap and the
+ * course accent scope (lanterns + primary action + mascot family follow the
+ * active enrollment's course track).
  */
 import { ThemeProvider } from '@langquest/ui';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import React, { useEffect, useMemo } from 'react';
 import { I18nManager, Platform } from 'react-native';
 import { SafeAreaProvider } from 'react-native-safe-area-context';
+import { CourseAccentScope } from '@/components/CourseAccentScope';
+import { LOW_END_DEVICE } from '@/lib/device-tier';
 import { I18nProvider, useI18n } from '@/lib/i18n';
 import { ServicesProvider } from '@/lib/services';
 import { track } from '@/lib/telemetry';
@@ -39,6 +43,11 @@ function ThemedApp(props: { children: React.ReactNode }): React.JSX.Element {
       hapticsEnabled={prefs.hapticsEnabled}
       rtl={isRtl}
       nativeRtl={I18nManager.isRTL}
+      // Night Market (U2): dark-first, calm text density, lanterns + glass gated by the device tier.
+      density="calm"
+      lanterns={prefs.lanternsEnabled}
+      lowEndDevice={LOW_END_DEVICE}
+      glassFallback="auto"
     >
       {props.children}
     </ThemeProvider>
@@ -49,7 +58,7 @@ function AuthBootstrap(props: { children: React.ReactNode }): React.JSX.Element 
   const bootstrap = useAuth((s) => s.bootstrap);
   useEffect(() => {
     void bootstrap();
-    track.appStart(Date.now() - startedAt, false);
+    track.appStart(Date.now() - startedAt, LOW_END_DEVICE);
   }, [bootstrap]);
   return <>{props.children}</>;
 }
@@ -62,7 +71,9 @@ export function Providers(props: { children: React.ReactNode }): React.JSX.Eleme
         <I18nProvider>
           <ThemedApp>
             <AuthBootstrap>
-              <ServicesProvider>{props.children}</ServicesProvider>
+              <ServicesProvider>
+                <CourseAccentScope>{props.children}</CourseAccentScope>
+              </ServicesProvider>
             </AuthBootstrap>
           </ThemedApp>
         </I18nProvider>

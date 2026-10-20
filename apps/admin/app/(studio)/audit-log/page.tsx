@@ -49,7 +49,7 @@ export default async function AuditLogPage({ searchParams }: { searchParams: Pro
                     </td>
                     <td className="px-3 py-2">
                       <details>
-                        <summary className="cursor-pointer text-xs text-accent">{t('admin.audit.details')}</summary>
+                        <summary className="cursor-pointer text-xs text-accent-text">{t('admin.audit.details')}</summary>
                         <div className="grid gap-2 sm:grid-cols-2">
                           <pre className="max-h-40 overflow-auto rounded bg-surface-muted p-1 text-[11px]">{t('admin.ui.auBefore')}: {JSON.stringify(row.before, null, 1)}</pre>
                           <pre className="max-h-40 overflow-auto rounded bg-surface-muted p-1 text-[11px]">{t('admin.ui.auAfter')}: {JSON.stringify(row.after, null, 1)}</pre>

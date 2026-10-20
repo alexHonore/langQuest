@@ -1,8 +1,9 @@
 import { getCourseTrack, type MissionExpression, type SpeechEvaluationResult } from '@langquest/contracts';
-import { Button, Chip, EmptyState, PronunciationFeedback, Row, SpeakButton, SpeechStateIndicator, StatusLine, Surface, ThemedText, useTheme } from '@langquest/ui';
+import { Chip, EmptyState, IconButton, InfoAffordance, LessonAccentScope, PronunciationFeedback, Row, SpeakButton, SpeechStateIndicator, StatusLine, Surface, ThemedText, useTheme } from '@langquest/ui';
 import { Redirect, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
+import { Melo } from '@/components/Melo';
 import { Screen } from '@/components/Screen';
 import { ErrorView, LoadingView } from '@/components/StateViews';
 import { formsForScriptMode, sourceTextDirection } from '@/features/lesson/forms';
@@ -22,11 +23,12 @@ import { track } from '@/lib/telemetry';
 import { usePrefs } from '@/state/prefs';
 
 /**
- * Screen 6: pronunciation coach. Reference audio, record/retry, feedback.
- * Rendered only when the enrollment's capability snapshot offers spoken feedback for mission expressions
- * (CONVENTIONS §8). A numeric score appears only when the pair's assessor is acoustic: the result's
- * `assessmentMode` (`pronunciationDisplay` in the ui package) AND the snapshot must agree — otherwise the
- * number is dropped client-side and the screen is listen-and-compare only, with no "not available" copy.
+ * Screen 6: pronunciation coach (calm density): the target phrase, reference playback icons, ONE primary
+ * action (the mic) and the honest feedback. The honesty note, what the assessor can measure and the
+ * tips live behind the header ⓘ. Rendered only when the enrollment's capability snapshot offers spoken
+ * feedback for mission expressions (CONVENTIONS §8). A numeric score appears only when the pair's assessor
+ * is acoustic: the result's `assessmentMode` AND the snapshot must agree — otherwise the number is dropped
+ * client-side and the screen is listen-and-compare only, with no "not available" copy.
  */
 export default function PronunciationCoach(): React.JSX.Element {
   const theme = useTheme();
@@ -97,53 +99,50 @@ export default function PronunciationCoach(): React.JSX.Element {
   };
 
   if (enrollment && !nav.pronunciationDrills) return <Redirect href="/(tabs)" />;
+  const speechState = phase === 'recording' ? 'learner_mic_active' : phase === 'assessing' ? 'thinking' : player.playing ? 'character_speaking' : 'idle';
+  const mascotState = phase === 'recording' ? 'listening' : phase === 'assessing' ? 'thinking' : player.playing ? 'quiet_audio' : result ? (result.intelligibility === 'understood' ? 'success' : 'encouraging') : 'neutral';
+  const about = [nav.numericScore ? t('enrollment.disclaimer.includes.pronunciationAcoustic') : t('enrollment.disclaimer.includes.pronunciationReference'), t('pronunciation.honesty'), t('pronunciation.feedback.accentRespect'), ...(reference?.synthetic ? [X.syntheticReference] : []), t('pronunciation.tipListen'), t('pronunciation.tipSlow'), t('pronunciation.tipShadow')];
   return (
-    <Screen title={t('pronunciation.title')} onBack={() => router.back()}>
-      {!enrollment ? <EmptyState title={t('home.noCourse')} actionLabel={t('home.addCourse')} onAction={() => router.push('/catalog')} /> : null}
-      {mission.isLoading ? <LoadingView rows={1} /> : null}
-      {mission.error && !mission.data ? <ErrorView error={mission.error} onRetry={() => void mission.refetch()} /> : null}
-      {nav.numericScore ? <StatusLine icon="check" tone="success" text={t('enrollment.disclaimer.includes.pronunciationAcoustic')} /> : <StatusLine icon="info" tone="info" text={t('enrollment.disclaimer.includes.pronunciationReference')} />}
-      <ThemedText variant="caption" tone="muted">
-        {t('pronunciation.honesty')} {t('pronunciation.feedback.accentRespect')}
-      </ThemedText>
-      {expressions.length > 1 ? (
-        <Row gap={theme.spacing.xs} wrap>
-          {expressions.map((e) => (
-            <Chip key={e.id} label={e.meaning} selected={expression?.id === e.id} onPress={() => { setSelected(e.id); setResult(null); setPhase('idle'); }} />
-          ))}
-        </Row>
-      ) : null}
-      {expression && trackDef ? (
-        <Surface radius="lg" padding={theme.spacing.lg} bordered style={{ gap: theme.spacing.sm }}>
-          <ThemedText variant="caption" tone="muted">{t('pronunciation.targetPhrase')}</ThemedText>
-          {formsForScriptMode(expression, trackDef.scripts.primary, enrollment!.scriptMode).map((f, i) => (
-            <ThemedText key={i} variant={f.transliterationScheme ? 'transliteration' : 'phrase'} script={f.script} tone={f.transliterationScheme ? 'muted' : 'primary'}>{f.text}</ThemedText>
-          ))}
-          <ThemedText tone="secondary" direction={sourceDir}>{expression.meaning}</ThemedText>
+    <LessonAccentScope lessonType="pronunciation_drill" courseTrackId={enrollment?.courseTrackId ?? null}>
+      <Screen title={t('pronunciation.title')} onBack={() => router.back()} headerEnd={<InfoAffordance label={t('pronunciation.aboutFeedback')} title={t('pronunciation.title')} text={about} />}>
+        {!enrollment ? <EmptyState title={t('home.noCourse')} actionLabel={t('home.addCourse')} onAction={() => router.push('/catalog')} /> : null}
+        {mission.isLoading ? <LoadingView rows={1} /> : null}
+        {mission.error && !mission.data ? <ErrorView error={mission.error} onRetry={() => void mission.refetch()} /> : null}
+        {expressions.length > 1 ? (
           <Row gap={theme.spacing.xs} wrap>
-            <Button label={t('pronunciation.playReference')} icon="play" variant="secondary" size="sm" disabled={!reference} onPress={() => void player.playUri(reference!.asset.publicUrl!, 1)} accessibilityLabel={t('pronunciation.playReference')} />
-            <Button label={t('lesson.slow')} icon="slow" variant="secondary" size="sm" disabled={!reference} onPress={() => void player.playUri((slowReference ?? reference)!.asset.publicUrl!, slowReference ? 1 : 0.75)} accessibilityLabel={t('lesson.slow')} />
-            {myClipUri ? <Button label={t('pronunciation.playYours')} icon="volume" variant="ghost" size="sm" onPress={() => void player.playUri(myClipUri, 1)} accessibilityLabel={t('pronunciation.playYours')} /> : null}
+            {expressions.map((e) => (
+              <Chip key={e.id} label={e.meaning} selected={expression?.id === e.id} onPress={() => { setSelected(e.id); setResult(null); setPhase('idle'); }} />
+            ))}
           </Row>
-          {reference?.synthetic ? <ThemedText variant="caption" tone="muted">{X.syntheticReference}</ThemedText> : null}
-        </Surface>
-      ) : null}
-      <View style={{ alignItems: 'center', gap: theme.spacing.sm }}>
-        <SpeechStateIndicator state={phase === 'recording' ? 'learner_mic_active' : phase === 'assessing' ? 'thinking' : player.playing ? 'character_speaking' : 'idle'} labels={labels.speechStates} compact />
-        <SpeakButton mode={tapToTalk ? 'toggle' : 'hold'} state={phase === 'recording' ? 'recording' : phase === 'assessing' ? 'processing' : !expression || permission === 'denied' ? 'disabled' : 'idle'} onStart={() => void record()} onStop={() => void stop()} onHaptic={(k) => void haptic(k)} labels={labels.speakButton} showModeSwitch onModeChange={(m) => usePrefs.getState().set({ tapToTalk: m === 'toggle' })} />
-        {permission === 'denied' ? <StatusLine icon="micOff" tone="warning" text={t('errors.permission.micDenied')} /> : null}
-        {!online ? <StatusLine icon="offline" tone="warning" text={t('errors.network')} /> : null}
-        {error ? <ErrorView error={error} /> : null}
-      </View>
-      {result && trackDef ? (
-        <PronunciationFeedback result={result} targetScript={trackDef.scripts.primary} onRetry={() => { setResult(null); setPhase('idle'); }} onReplayReference={reference ? () => void player.playUri(reference.asset.publicUrl!, 1) : undefined} onReplaySlow={reference ? () => void player.playUri((slowReference ?? reference).asset.publicUrl!, slowReference ? 1 : 0.75) : undefined} labels={labels.pronunciation} intelligibilityLabels={labels.intelligibility} />
-      ) : null}
-      <Surface variant="muted" radius="md" padding={theme.spacing.md} style={{ gap: 2 }}>
-        <ThemedText variant="label">{t('pronunciation.tipsTitle')}</ThemedText>
-        <ThemedText variant="caption" tone="secondary">{t('pronunciation.tipListen')}</ThemedText>
-        <ThemedText variant="caption" tone="secondary">{t('pronunciation.tipSlow')}</ThemedText>
-        <ThemedText variant="caption" tone="secondary">{t('pronunciation.tipShadow')}</ThemedText>
-      </Surface>
-    </Screen>
+        ) : null}
+        {expression && trackDef ? (
+          <Surface variant="glass" level={1} radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.sm }}>
+            {formsForScriptMode(expression, trackDef.scripts.primary, enrollment!.scriptMode).map((f, i) => (
+              <ThemedText key={i} variant={f.transliterationScheme ? 'transliteration' : 'phrase'} script={f.script} tone={f.transliterationScheme ? 'muted' : 'primary'}>{f.text}</ThemedText>
+            ))}
+            <ThemedText tone="secondary" direction={sourceDir}>{expression.meaning}</ThemedText>
+            {/* No reference audio → no playback icons (§8). */}
+            <Row gap={theme.spacing.xs} wrap>
+              {reference ? <IconButton icon="play" accessibilityLabel={t('pronunciation.playReference')} onPress={() => void player.playUri(reference.asset.publicUrl!, 1)} /> : null}
+              {reference ? <IconButton icon="slow" accessibilityLabel={t('lesson.slow')} onPress={() => void player.playUri((slowReference ?? reference).asset.publicUrl!, slowReference ? 1 : 0.75)} /> : null}
+              {myClipUri ? <IconButton icon="volume" accessibilityLabel={t('pronunciation.playYours')} onPress={() => void player.playUri(myClipUri, 1)} /> : null}
+            </Row>
+          </Surface>
+        ) : null}
+        <View style={{ alignItems: 'center', gap: theme.spacing.sm }}>
+          <Row gap={theme.spacing.sm} align="center">
+            <Melo state={mascotState} size={56} animate={false} testID="pronunciation-mascot" />
+            <SpeechStateIndicator state={speechState} labels={labels.speechStates} shortLabels={labels.speechStatesShort} compact />
+          </Row>
+          <SpeakButton mode={tapToTalk ? 'toggle' : 'hold'} state={phase === 'recording' ? 'recording' : phase === 'assessing' ? 'processing' : !expression || permission === 'denied' ? 'disabled' : 'idle'} onStart={() => void record()} onStop={() => void stop()} onHaptic={(k) => void haptic(k)} labels={labels.speakButton} onModeChange={(m) => usePrefs.getState().set({ tapToTalk: m === 'toggle' })} />
+          {permission === 'denied' ? <StatusLine icon="micOff" tone="warning" text={t('errors.permission.micDenied')} /> : null}
+          {!online ? <StatusLine icon="offline" tone="warning" text={t('errors.network')} /> : null}
+          {error ? <ErrorView error={error} /> : null}
+        </View>
+        {result && trackDef ? (
+          <PronunciationFeedback result={result} targetScript={trackDef.scripts.primary} onRetry={() => { setResult(null); setPhase('idle'); }} onReplayReference={reference ? () => void player.playUri(reference.asset.publicUrl!, 1) : undefined} onReplaySlow={reference ? () => void player.playUri((slowReference ?? reference).asset.publicUrl!, slowReference ? 1 : 0.75) : undefined} labels={labels.pronunciation} calmLabels={{ details: t('common.details'), hideDetails: t('common.hideDetails') }} intelligibilityLabels={labels.intelligibility} />
+        ) : null}
+      </Screen>
+    </LessonAccentScope>
   );
 }

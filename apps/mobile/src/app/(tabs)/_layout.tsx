@@ -37,14 +37,17 @@ export default function TabsLayout(): React.JSX.Element {
     return TabIcon;
   };
   const tabBarHeight = TAB_BAR_HEIGHT + insets.bottom;
+  // Tab bar = glass level 2; the active tab uses the course accent TEXT token (fills are never text, U2 §7).
+  const glass = theme.glass(2);
+  const activeTint = theme.accents.tinted ? theme.accents.primaryText : theme.colors.accentText;
   return (
     <View style={{ flex: 1 }}>
       <Tabs
         screenOptions={{
           headerShown: false,
-          tabBarActiveTintColor: theme.colors.accent,
+          tabBarActiveTintColor: activeTint,
           tabBarInactiveTintColor: theme.colors.textMuted,
-          tabBarStyle: { backgroundColor: theme.colors.surface, borderTopColor: theme.colors.border, height: tabBarHeight, paddingBottom: insets.bottom, paddingTop: 6 },
+          tabBarStyle: { backgroundColor: glass.backgroundColor, borderTopColor: glass.borderColor, borderTopWidth: glass.borderWidth, height: tabBarHeight, paddingBottom: insets.bottom, paddingTop: 6 },
           tabBarLabelStyle: { fontSize: Math.round(12 * Math.min(theme.textScale, 1.3)) },
           sceneStyle: { backgroundColor: theme.colors.background, paddingBottom: miniVisible ? MINI_PLAYER_HEIGHT + 8 : 0 },
         }}

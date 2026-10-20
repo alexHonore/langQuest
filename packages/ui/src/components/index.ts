@@ -61,7 +61,7 @@ export type { HapticKind, SpeakButtonProps } from './SpeakButton';
 export { SpeakButton } from './SpeakButton';
 
 export type { SpeechStateIndicatorProps } from './SpeechStateIndicator';
-export { SpeechStateIndicator, speechStateColor } from './SpeechStateIndicator';
+export { SpeechStateIndicator, speechStateColor, GlowDot } from './SpeechStateIndicator';
 
 export type { HintLevel, HintSheetProps } from './HintSheet';
 export { HintSheet } from './HintSheet';
@@ -92,3 +92,12 @@ export { Skeleton, CardSkeleton } from './Skeleton';
 
 export type { CoverageBadgeProps } from './CoverageBadge';
 export { CoverageBadge } from './CoverageBadge';
+
+export type { InfoAffordanceProps } from './InfoAffordance';
+export { InfoAffordance } from './InfoAffordance';
+
+export type { CapabilityDisclaimerItem, CapabilityDisclaimerProps } from './CapabilityDisclaimer';
+export { CapabilityDisclaimer } from './CapabilityDisclaimer';
+
+export type { LanternsProps } from './Lanterns';
+export { Lanterns } from './Lanterns';

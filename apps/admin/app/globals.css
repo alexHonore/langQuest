@@ -1,62 +1,13 @@
 @import 'tailwindcss';
 
 /*
- * LangQuest Studio theme. Token values follow @langquest/ui light/dark palettes
- * (accent, surfaces, semantic colours) expressed as CSS variables so Tailwind v4
- * utilities (`bg-surface`, `text-fg-muted`, …) stay theme-aware.
+ * LangQuest Studio theme. Colour values are NOT defined here: the root layout injects the
+ * CSS variables generated from `@langquest/ui/tokens` (see `src/lib/visual/theme.ts`) — light
+ * on `:root`, dark on `:root[data-theme='dark']` — and the shell overrides the accent /
+ * lantern family per active course. This file only maps the variables onto Tailwind v4
+ * utilities (`bg-surface`, `text-accent-text`, `bg-lantern-1`, …) so screens never hard-code
+ * a colour.
  */
-:root {
-  --bg: #f6f4ef;
-  --surface: #ffffff;
-  --elevated: #ffffff;
-  --surface-muted: #efece5;
-  --fg: #1d1b16;
-  --fg-secondary: #4a463d;
-  --fg-muted: #76715f;
-  --on-accent: #ffffff;
-  --accent: #2f6bff;
-  --accent-strong: #1f4fd1;
-  --accent-soft: #e4ecff;
-  --success: #1f8a4c;
-  --success-soft: #dff5e7;
-  --warning: #b76a00;
-  --warning-soft: #fff1d6;
-  --error: #c92f2f;
-  --error-soft: #fde3e3;
-  --info: #0b7a8f;
-  --info-soft: #dcf3f7;
-  --border: #dcd7cb;
-  --border-strong: #b9b3a3;
-  --focus: #2f6bff;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg: #15140f;
-    --surface: #1e1c16;
-    --elevated: #26231c;
-    --surface-muted: #2a2720;
-    --fg: #f3efe6;
-    --fg-secondary: #cfc9bb;
-    --fg-muted: #9b9484;
-    --on-accent: #0b1020;
-    --accent: #8db0ff;
-    --accent-strong: #b7cdff;
-    --accent-soft: #233254;
-    --success: #6fd09a;
-    --success-soft: #1f3a2b;
-    --warning: #f0b35a;
-    --warning-soft: #40301a;
-    --error: #ff8080;
-    --error-soft: #4a2222;
-    --info: #67c8d9;
-    --info-soft: #173a40;
-    --border: #3a3629;
-    --border-strong: #5a5543;
-    --focus: #8db0ff;
-  }
-}
-
 @theme inline {
   --color-bg: var(--bg);
   --color-surface: var(--surface);
@@ -69,6 +20,19 @@
   --color-accent: var(--accent);
   --color-accent-strong: var(--accent-strong);
   --color-accent-soft: var(--accent-soft);
+  --color-accent-text: var(--accent-text);
+  --color-amber: var(--amber);
+  --color-amber-text: var(--amber-text);
+  --color-on-amber: var(--on-amber);
+  --color-cyan: var(--cyan);
+  --color-cyan-text: var(--cyan-text);
+  --color-on-cyan: var(--on-cyan);
+  --color-lantern-1: var(--lantern-1);
+  --color-lantern-2: var(--lantern-2);
+  --color-lantern-3: var(--lantern-3);
+  --color-course-ring: var(--course-ring, var(--accent));
+  --color-overlay: var(--overlay);
+  --color-scene-scrim: var(--scene-scrim);
   --color-success: var(--success);
   --color-success-soft: var(--success-soft);
   --color-warning: var(--warning);
@@ -103,7 +67,7 @@ body {
 
 /* Native dialog */
 dialog::backdrop {
-  background: rgb(0 0 0 / 0.45);
+  background: var(--overlay);
 }
 
 /* Script-aware text fields: tall scripts need more line height (see @langquest/locales SCRIPT_METADATA). */

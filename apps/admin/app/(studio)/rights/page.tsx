@@ -17,7 +17,7 @@ export default async function RightsPage({ searchParams }: { searchParams: Promi
   const rights = await listRights(page, sp.unverified === '1');
   return (
     <div>
-      <PageHeader title={t('admin.rights.title')} description={t('admin.ui.rtGateHint')} />
+      <PageHeader title={t('admin.rights.title')} info={t('admin.ui.rtGateHint')} />
       {!rights.ok ? <ErrorState title={t('admin.ui.errorTitle')} message={rights.error} /> : null}
       <RightsScreen rows={(rights.ok ? rights.data.rows : []) as unknown as RightsRow[]} page={page} hasNext={rights.ok ? rights.data.hasNext : false} highlightId={sp.id ?? null} canVerify={isAdminRole(session.roles)} />
     </div>

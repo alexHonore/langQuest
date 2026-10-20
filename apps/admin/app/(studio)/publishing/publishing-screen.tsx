@@ -53,11 +53,11 @@ export function PublishingScreen({ table, rows, page, hasNext, selectedId, revis
   const currentRevision = selected ? (revisions[0]?.revision ?? selected.published_revision ?? selected.published_version ?? 0) : 0;
 
   const columns: Column<PublishableRow>[] = [
-    { key: 'title', header: t('admin.ui.title'), render: (r) => <button type="button" className="font-medium text-accent hover:underline" onClick={() => set({ id: r.id }, { keepPage: true })}>{pickLocalized(r.title_translations, locale) || shortId(r.id)}</button> },
+    { key: 'title', header: t('admin.ui.title'), render: (r) => <button type="button" className="font-medium text-accent-text hover:underline" onClick={() => set({ id: r.id }, { keepPage: true })}>{pickLocalized(r.title_translations, locale) || shortId(r.id)}</button> },
     { key: 'lang', header: t('admin.ui.targetVariety'), render: (r) => <span className="text-xs">{r.target_variety_id ?? r.course_track_id ?? '—'} / {r.instruction_language_code ?? '—'}</span> },
     { key: 'state', header: t('admin.ui.status'), render: (r) => <StatusBadge state={r.state} /> },
     { key: 'rev', header: t('admin.ui.pbRevisions'), render: (r) => (r.published_revision ?? r.published_version ?? '—') },
-    { key: 'rights', header: t('admin.library.rightsState'), render: (r) => (r.content_rights_id ? <Link href={`/rights?id=${r.content_rights_id}`} className="text-xs text-accent hover:underline">{shortId(r.content_rights_id)}</Link> : <Badge tone="warning">{t('admin.ui.none')}</Badge>) },
+    { key: 'rights', header: t('admin.library.rightsState'), render: (r) => (r.content_rights_id ? <Link href={`/rights?id=${r.content_rights_id}`} className="text-xs text-accent-text hover:underline">{shortId(r.content_rights_id)}</Link> : <Badge tone="warning">{t('admin.ui.none')}</Badge>) },
     { key: 'updated', header: t('admin.ui.updated'), className: 'text-fg-muted whitespace-nowrap', render: (r) => formatDateTime(r.updated_at, locale) },
   ];
 
@@ -74,7 +74,7 @@ export function PublishingScreen({ table, rows, page, hasNext, selectedId, revis
           caption={t('admin.ui.pbEntities')}
           empty={t('admin.ui.pbEmptyHint')}
           emptyAction={
-            <Link href={SECTION_PATHS.library} className="text-sm text-accent hover:underline">
+            <Link href={SECTION_PATHS.library} className="text-sm text-accent-text hover:underline">
               {t('admin.sections.library')} →
             </Link>
           }

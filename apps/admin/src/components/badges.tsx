@@ -12,7 +12,7 @@ const toneClass: Record<Tone, string> = {
   success: 'bg-success-soft text-success border-success/30',
   warning: 'bg-warning-soft text-warning border-warning/30',
   error: 'bg-error-soft text-error border-error/30',
-  accent: 'bg-accent-soft text-accent-strong border-accent/30',
+  accent: 'bg-accent-soft text-accent-text border-accent/30',
 };
 
 export function Badge({ tone = 'neutral', children, title }: { tone?: Tone; children: React.ReactNode; title?: string }) {

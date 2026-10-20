@@ -29,11 +29,11 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
         description={
           l.chapter ? (
             <>
-              <Link href={`/collections/${l.chapter.collection?.id}`} className="text-accent hover:underline">
+              <Link href={`/collections/${l.chapter.collection?.id}`} className="text-accent-text hover:underline">
                 {pickLocalized(l.chapter.collection?.title_translations, locale)}
               </Link>
               {' › '}
-              <Link href={`/chapters/${l.chapter.id}`} className="text-accent hover:underline">
+              <Link href={`/chapters/${l.chapter.id}`} className="text-accent-text hover:underline">
                 {pickLocalized(l.chapter.title_translations, locale)}
               </Link>
               {' · '}
@@ -44,7 +44,7 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
         actions={
           <>
             <StatusBadge state={l.state} />
-            <Link href={`/transcripts/${l.id}`} className="text-sm text-accent hover:underline">
+            <Link href={`/transcripts/${l.id}`} className="text-sm text-accent-text hover:underline">
               {t('admin.transcripts.title')} →
             </Link>
           </>
@@ -102,7 +102,7 @@ export default async function LessonPage({ params }: { params: Promise<{ id: str
                 ))}
               </ul>
             )}
-            <Link href={`/publishing?table=audio_lessons&id=${l.id}`} className="mt-2 inline-block text-xs text-accent hover:underline">
+            <Link href={`/publishing?table=audio_lessons&id=${l.id}`} className="mt-2 inline-block text-xs text-accent-text hover:underline">
               {t('admin.sections.publishing')} →
             </Link>
           </Card>

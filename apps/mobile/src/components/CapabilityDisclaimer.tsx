@@ -1,9 +1,12 @@
 /**
  * Plain disclaimer for one course × instruction language (CONVENTIONS §8): what the pair does NOT have yet,
- * one line per item, with the editorial status line — shown in the enrollment wizard before the confirm
- * button and in Account → "What this course includes". Nothing is rendered while the snapshot is unknown.
+ * shown in the enrollment wizard before the confirm button and in Account → "What this course includes".
+ * Calm density (owner decision 2026-10-19): one heading + short bullets; the long explanations, the intro
+ * and the editorial status live behind the ⓘ sheet of the shared `CapabilityDisclaimer`. Nothing is
+ * rendered while the snapshot is unknown.
  */
-import { Chip, Row, StatusLine, Surface, ThemedText, useTheme } from '@langquest/ui';
+import { CAPABILITY_MISSING_KEYS } from '@langquest/contracts';
+import { CapabilityDisclaimer as CalmDisclaimer, InfoAffordance, Row, StatusLine, Surface, ThemedText, useTheme } from '@langquest/ui';
 import React from 'react';
 import { View } from 'react-native';
 import { buildDisclaimer, buildIncludes, type CapabilitySnapshot } from '@/features/session/capabilities';
@@ -27,47 +30,32 @@ export function CapabilityDisclaimer(props: CapabilityDisclaimerProps): React.JS
   const disclaimer = buildDisclaimer(props.capabilities, t, { source: props.sourceName, target: props.targetName });
   if (!disclaimer) return null;
   const includes = props.showIncludes ? buildIncludes(props.capabilities, t, { downloadsSupported: DOWNLOADS_SUPPORTED_ON_PLATFORM }) : null;
+  const status = [disclaimer.instructionLanguageStatus, disclaimer.nativeReviewCaption].filter(Boolean).join(' · ');
+  const short = Object.fromEntries(CAPABILITY_MISSING_KEYS.map((k) => [k, t(`enrollment.disclaimer.short.${k}`)])) as Record<(typeof CAPABILITY_MISSING_KEYS)[number], string>;
   return (
     <View testID={props.testID} style={{ gap: theme.spacing.md }}>
       {includes && includes.length > 0 ? (
-        <Surface variant="muted" radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.xs }}>
-          <ThemedText variant="heading" accessibilityRole="header">
-            {t('enrollment.disclaimer.includes.title')}
-          </ThemedText>
-          <ThemedText variant="caption" tone="muted">
-            {t('enrollment.disclaimer.includes.intro', { source: props.sourceName })}
-          </ThemedText>
-          {includes.map((line) => (
-            <StatusLine key={line.key} icon="check" tone="success" text={line.text} />
-          ))}
+        <Surface variant="glass" level={1} radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.sm }}>
+          <Row justify="space-between" gap={theme.spacing.sm}>
+            <ThemedText variant="subheading" accessibilityRole="header" style={{ flex: 1 }}>
+              {t('enrollment.disclaimer.includes.title')}
+            </ThemedText>
+            <InfoAffordance label={t('common.details')} title={t('enrollment.disclaimer.includes.title')} text={[t('enrollment.disclaimer.includes.intro', { source: props.sourceName }), status]} />
+          </Row>
+          <View accessibilityRole="list" style={{ gap: theme.spacing.xs }}>
+            {includes.map((line) => (
+              <StatusLine key={line.key} icon="check" tone="success" text={line.text} />
+            ))}
+          </View>
         </Surface>
       ) : null}
-      <Surface variant="muted" radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.xs }}>
-        {disclaimer.lines.length > 0 ? (
-          <>
-            <ThemedText variant="heading" accessibilityRole="header">
-              {disclaimer.title}
-            </ThemedText>
-            <ThemedText variant="caption" tone="muted">
-              {disclaimer.intro}
-            </ThemedText>
-            {disclaimer.lines.map((line) => (
-              <Row key={line.key} gap={theme.spacing.xs} align="flex-start">
-                <View testID={`disclaimer-${line.key}`} style={{ flex: 1 }}>
-                  <StatusLine icon={line.severity === 'blocking' ? 'warning' : 'info'} tone={line.severity === 'blocking' ? 'warning' : 'secondary'} text={line.text} />
-                </View>
-                <Chip label={t(`enrollment.disclaimer.severity.${line.severity}`)} tone={line.severity === 'blocking' ? 'warning' : 'neutral'} />
-              </Row>
-            ))}
-          </>
-        ) : (
-          <StatusLine icon="check" tone="success" text={disclaimer.allAvailable ?? ''} />
-        )}
-        <ThemedText variant="caption" tone="secondary">
-          {disclaimer.instructionLanguageStatus}
-          {disclaimer.nativeReviewCaption ? ` · ${disclaimer.nativeReviewCaption}` : ''}
-        </ThemedText>
-      </Surface>
+      <CalmDisclaimer
+        items={disclaimer.lines.map((l) => ({ key: l.key, severity: l.severity, text: l.text }))}
+        title={t('enrollment.disclaimer.shortTitle')}
+        statusText={[disclaimer.intro, status].join('\n')}
+        labels={{ title: t('enrollment.disclaimer.shortTitle'), allAvailable: t('enrollment.disclaimer.shortAllAvailable'), details: t('common.details'), short }}
+        testID={props.testID ? `${props.testID}-list` : undefined}
+      />
     </View>
   );
 }

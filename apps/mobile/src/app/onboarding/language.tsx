@@ -1,5 +1,5 @@
 import { SOURCE_LANGUAGES, type SourceLanguageCode } from '@langquest/contracts';
-import { Chip, Row, ThemedText, orderedSourceLanguages, useTheme } from '@langquest/ui';
+import { Chip, InfoAffordance, Row, ThemedText, orderedSourceLanguages, useTheme } from '@langquest/ui';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
@@ -33,7 +33,7 @@ export default function LanguageStep(): React.JSX.Element {
     <OnboardingFrame
       step={1}
       title={t('onboarding.chooseUiLanguage')}
-      hint={t('onboarding.chooseUiLanguageHint')}
+      headerEnd={<InfoAffordance label={t('common.moreInformation')} title={t('onboarding.chooseUiLanguage')} text={[t('onboarding.chooseUiLanguageHint'), t('onboarding.chooseSourceLanguageHint'), t('catalog.filterBySource')]} />}
       primaryDisabled={!source}
       primaryTestID="onboarding-language-continue"
       onPrimary={() => {
@@ -55,9 +55,6 @@ export default function LanguageStep(): React.JSX.Element {
           {t('onboarding.chooseSourceLanguage')}
         </ThemedText>
         <ThemedText tone="secondary">{t('onboarding.chooseSourceLanguageHint')}</ThemedText>
-        <ThemedText variant="caption" tone="muted">
-          {t('catalog.filterBySource')}
-        </ThemedText>
         <Row gap={theme.spacing.sm} wrap accessibilityRole="radiogroup">
           {tier1.map((s) => (
             <View key={s.code} testID={`onboarding-source-${s.code}`}>

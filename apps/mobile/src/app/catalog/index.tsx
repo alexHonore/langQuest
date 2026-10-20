@@ -1,5 +1,5 @@
 import { type CourseTrackId, type SourceLanguageCode } from '@langquest/contracts';
-import { Chip, CourseCover, NATIVE_SAMPLES, ORDERED_TRACKS, Row, Surface, ThemedText, dialectClarification, useTheme } from '@langquest/ui';
+import { Chip, CourseCover, NATIVE_SAMPLES, ORDERED_TRACKS, Row, Surface, ThemedText, useTheme } from '@langquest/ui';
 import { useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
 import { Pressable, TextInput, View } from 'react-native';
@@ -7,20 +7,19 @@ import { Screen } from '@/components/Screen';
 import { CoverageStatus } from '@/components/CoverageStatus';
 import { CacheNotice } from '@/components/StateViews';
 import { useActiveEnrollment, useCourses } from '@/features/session/queries';
-import { useExtraLabels } from '@/lib/extra-labels';
 import { useLanguageNames, useT } from '@/lib/i18n';
 
 /**
- * Catalog: all 30 tracks with search, script/region filters and honest
- * per-source coverage. The catalog itself comes from the contracts constants,
- * so it renders offline; live coverage/capabilities overlay when available.
+ * Catalog (calm density): search, script chips, one card per track with the native sample and the
+ * honest coverage chip for the learner's instruction language. Details (variety, counts, scoring
+ * support, assumptions) live on the track screen. The catalog itself comes from the contracts
+ * constants, so it renders offline; live coverage overlays when available.
  */
 export default function Catalog(): React.JSX.Element {
   const theme = useTheme();
   const router = useRouter();
   const t = useT();
   const names = useLanguageNames();
-  const X = useExtraLabels();
   const { me, enrollments } = useActiveEnrollment();
   const source = (me?.defaultSourceLanguageCode ?? null) as SourceLanguageCode | null;
   const courses = useCourses(source);
@@ -34,12 +33,12 @@ export default function Catalog(): React.JSX.Element {
   }, [query, script, names]);
   const live = useMemo(() => new Map((courses.data?.data.courses ?? []).map((c) => [c.track.id, c] as const)), [courses.data]);
   const enrolledTracks = new Set(enrollments.map((e) => e.courseTrackId));
+  const glass = theme.glass(1);
 
   return (
     <Screen title={t('catalog.title')} onBack={() => router.back()}>
-      <ThemedText tone="secondary">{t('catalog.subtitle')}</ThemedText>
       {courses.data?.fromCache ? <CacheNotice fetchedAt={courses.data.fetchedAt} /> : null}
-      <TextInput testID="catalog-search" value={query} onChangeText={setQuery} placeholder={t('catalog.searchPlaceholder')} placeholderTextColor={theme.colors.textMuted} accessibilityLabel={t('common.search')} style={{ borderWidth: 1, borderColor: theme.colors.border, borderRadius: theme.radii.md, padding: theme.spacing.md, color: theme.colors.textPrimary, minHeight: theme.touchTargets.min }} />
+      <TextInput testID="catalog-search" value={query} onChangeText={setQuery} placeholder={t('catalog.searchPlaceholder')} placeholderTextColor={theme.colors.textMuted} accessibilityLabel={t('common.search')} style={{ backgroundColor: glass.backgroundColor, borderWidth: glass.borderWidth, borderColor: glass.borderColor, borderRadius: theme.radii.md, padding: theme.spacing.md, color: theme.colors.textPrimary, minHeight: theme.touchTargets.min }} />
       <Row gap={theme.spacing.xs} wrap>
         <Chip label={t('common.clearFilters')} selected={script === null} onPress={() => setScript(null)} />
         {scripts.map((s) => (
@@ -50,16 +49,15 @@ export default function Catalog(): React.JSX.Element {
         {tracks.map((tr) => {
           const c = live.get(tr.id);
           const cov = c?.coverage.find((x) => x.sourceLanguageCode === source) ?? null;
-          const clar = dialectClarification(tr);
           const sample = NATIVE_SAMPLES[tr.id];
           return (
             <Pressable key={tr.id} testID={`catalog-track-${tr.id}`} onPress={() => router.push({ pathname: '/catalog/[trackId]', params: { trackId: tr.id } })} accessibilityRole="button" accessibilityLabel={tr.displayName}>
-              <Surface bordered radius="lg" padding={theme.spacing.md} style={{ gap: theme.spacing.sm }}>
-                <Row gap={theme.spacing.md} align="flex-start">
-                  <View style={{ width: 84 }}>
-                    <CourseCover trackId={tr.id} width={84} hideTitle />
+              <Surface variant="glass" level={1} radius="lg" padding={theme.spacing.md}>
+                <Row gap={theme.spacing.md} align="center">
+                  <View style={{ width: 72 }}>
+                    <CourseCover trackId={tr.id} width={72} hideTitle />
                   </View>
-                  <View style={{ flex: 1, gap: 2 }}>
+                  <View style={{ flex: 1, gap: theme.spacing.xs }}>
                     <Row gap={theme.spacing.xs} justify="space-between">
                       <ThemedText variant="subheading" style={{ flex: 1 }}>
                         {tr.displayName}
@@ -69,17 +67,7 @@ export default function Catalog(): React.JSX.Element {
                     <ThemedText variant="scriptSample" script={tr.scripts.primary}>
                       {sample.native}
                     </ThemedText>
-                    <ThemedText variant="caption" tone="secondary">
-                      {clar.varietyName} · {tr.defaultLocale}
-                    </ThemedText>
                     {source ? <CoverageStatus status={cov?.status ?? 'planned'} sourceLanguageCode={source} nativeReviewed={cov?.nativeReviewed} fallbackSourceLanguageCode={cov?.fallbackSourceLanguageCode ?? null} /> : null}
-                    {/* §8: what exists is counted; what does not is simply absent (the wizard carries the full disclaimer). */}
-                    {c && c.publishedMissionCount > 0 ? (
-                      <Row gap={theme.spacing.xs} wrap>
-                        <Chip label={X.missionsPublished(c.publishedMissionCount)} />
-                      </Row>
-                    ) : null}
-                    {c && (c.capabilities.pronunciationScoring === 'full' || c.capabilities.pronunciationScoring === 'partial') ? <ThemedText variant="caption" tone="muted">{t(`catalog.scoringSupport.${c.capabilities.pronunciationScoring}`)}</ThemedText> : null}
                   </View>
                 </Row>
               </Surface>

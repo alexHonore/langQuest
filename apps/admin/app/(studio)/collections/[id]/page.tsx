@@ -64,7 +64,7 @@ export default async function CollectionPage({ params }: { params: Promise<{ id:
                     <li key={ch.id} className="flex items-center justify-between gap-2 py-2 text-sm">
                       <span>
                         <span className="me-2 tabular-nums text-fg-muted">{ch.sort_order}.</span>
-                        <Link href={`/chapters/${ch.id}`} className="font-medium text-accent hover:underline">
+                        <Link href={`/chapters/${ch.id}`} className="font-medium text-accent-text hover:underline">
                           {pickLocalized(ch.title_translations, locale) || shortId(ch.id)}
                         </Link>
                         <span className="ms-2 text-xs text-fg-muted">{t('admin.ui.upFiles', { count: ch.lessons.length }).replace(/file/i, 'lesson')}</span>
@@ -81,7 +81,7 @@ export default async function CollectionPage({ params }: { params: Promise<{ id:
           {c.course_track_id ? <SvgArt svg={courseCoverSvgString(c.course_track_id, { width: 256 })} label={title} className="rounded-md border border-border" /> : null}
           <dl className="text-xs text-fg-muted">
             <dt>{t('admin.ui.colRightsLink')}</dt>
-            <dd>{c.content_rights_id ? <Link href={`/rights?id=${c.content_rights_id}`} className="text-accent">{shortId(c.content_rights_id)}</Link> : t('admin.ui.none')}</dd>
+            <dd>{c.content_rights_id ? <Link href={`/rights?id=${c.content_rights_id}`} className="text-accent-text">{shortId(c.content_rights_id)}</Link> : t('admin.ui.none')}</dd>
           </dl>
         </aside>
       </div>

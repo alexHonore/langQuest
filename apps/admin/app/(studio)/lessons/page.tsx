@@ -48,18 +48,18 @@ export default async function LessonsPage({ searchParams }: { searchParams: Prom
               ? lessons.data.rows.map((l) => (
                   <tr key={l.id} className="border-t border-border">
                     <td className="px-3 py-2">
-                      <Link href={`/lessons/${l.id}`} className="font-medium text-accent hover:underline">
+                      <Link href={`/lessons/${l.id}`} className="font-medium text-accent-text hover:underline">
                         {l.sort_order}. {pickLocalized(l.title_translations, locale) || shortId(l.id)}
                       </Link>
                     </td>
                     <td className="px-3 py-2 text-xs">
                       {l.chapter ? (
                         <>
-                          <Link href={`/collections/${l.chapter.collection?.id}`} className="text-accent hover:underline">
+                          <Link href={`/collections/${l.chapter.collection?.id}`} className="text-accent-text hover:underline">
                             {pickLocalized(l.chapter.collection?.title_translations, locale)}
                           </Link>
                           {' › '}
-                          <Link href={`/chapters/${l.chapter.id}`} className="text-accent hover:underline">
+                          <Link href={`/chapters/${l.chapter.id}`} className="text-accent-text hover:underline">
                             {pickLocalized(l.chapter.title_translations, locale)}
                           </Link>
                         </>

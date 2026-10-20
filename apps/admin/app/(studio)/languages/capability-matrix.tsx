@@ -11,7 +11,7 @@ import { CAPABILITY_MISSING_I18N_KEYS, type CourseCapabilities } from '@langques
 import { browserApi } from '@/src/lib/api-browser';
 import { describeApiError } from '@/src/lib/api';
 import { useI18n } from '@/src/lib/i18n/client';
-import { useWorkingContext } from '@/src/components/shell';
+import { useWorkingContext } from '@/src/lib/working-context';
 import { Badge, CoverageBadge } from '@/src/components/badges';
 import { Button, Select } from '@/src/components/ui';
 

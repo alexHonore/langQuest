@@ -69,7 +69,7 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
             <ul className="space-y-1 text-sm">
               {lessons.map((l) => (
                 <li key={l.id}>
-                  <Link href={`/lessons/${l.id}`} className="text-accent hover:underline">
+                  <Link href={`/lessons/${l.id}`} className="text-accent-text hover:underline">
                     {pickLocalized(l.title_translations, locale) || shortId(l.id)}
                   </Link>
                   <span className="ms-2 text-xs text-fg-muted">{t('admin.transcripts.title')}: {t(`admin.transcripts.status.${l.transcript_status}`)}</span>
@@ -85,7 +85,7 @@ export default async function AssetPage({ params }: { params: Promise<{ id: stri
             <ul className="space-y-1 text-sm">
               {jobs.data.map((j) => (
                 <li key={j.id} className="flex flex-wrap items-center gap-2">
-                  <Link href={`/jobs?q=${j.id}`} className="font-mono text-xs text-accent">
+                  <Link href={`/jobs?q=${j.id}`} className="font-mono text-xs text-accent-text">
                     {shortId(j.id)}
                   </Link>
                   <span>{j.job_type}</span>

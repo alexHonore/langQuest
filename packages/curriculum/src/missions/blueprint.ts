@@ -24,6 +24,7 @@ import {
 } from '@langquest/contracts';
 import { isIntentKey } from '../intents';
 import { SituationTagSchema, isSkillKey } from '../skills';
+import { AgeBandSchema } from './casting';
 
 // ---------------------------------------------------------------------------
 // Blueprint schema
@@ -94,6 +95,13 @@ export const MissionBlueprintSchema = z.object({
   recommendedMinutes: z.number().min(2).max(30).default(8),
   /** When true, the mission also gets a script-support step on non-Latin tracks. */
   scriptSupport: z.boolean().default(true),
+  // --- Casting (owner decision 2026-10-19: roles correlate with lesson content; see `casting.ts`) ---
+  /** Intents the interlocutor should naturally carry (matched against the cast's `intents`). Empty = any. */
+  preferredCharacterIntents: z.array(KeySchema).default([]),
+  /** Age bands that fit the scene, most natural first (a kid at the ice-cream stand, an elder giving directions). Empty = any. */
+  preferredAgeBands: z.array(AgeBandSchema).default([]),
+  /** Lowercase role words matched against the character's role text (`café`, `vendor`, `taxi`…). Empty = any. */
+  preferredRoles: z.array(z.string().min(1)).default([]),
 });
 export type MissionBlueprint = z.infer<typeof MissionBlueprintSchema>;
 export type MissionBlueprintInput = z.input<typeof MissionBlueprintSchema>;
@@ -124,6 +132,7 @@ export function validateBlueprint(bp: MissionBlueprint): string[] {
   }
   for (const k of bp.rejectIntentKeys) if (!isIntentKey(k)) problems.push(`unknown reject intent ${k}`);
   for (const k of bp.prerequisiteSkillKeys) if (!isSkillKey(k)) problems.push(`unknown prerequisite skill ${k}`);
+  for (const k of bp.preferredCharacterIntents) if (!isIntentKey(k)) problems.push(`unknown preferred character intent ${k}`);
   return problems;
 }
 

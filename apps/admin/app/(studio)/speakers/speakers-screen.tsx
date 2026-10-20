@@ -11,6 +11,9 @@ import { Dialog } from '@/src/components/dialog';
 import { VarietySelect } from '@/src/components/forms';
 import { Badge } from '@/src/components/badges';
 import { DataTable, type Column } from '@/src/components/data-table';
+import { CastPortrait, Melo } from '@/src/components/brand';
+import { charactersForVariety } from '@art/characters';
+import { findVariety } from '@langquest/contracts';
 
 export interface SpeakerRow {
   id: string;
@@ -55,8 +58,28 @@ export function SpeakersScreen({ speakers, rights }: { speakers: SpeakerRow[]; r
     setOpen(true);
   };
   const columns: Column<SpeakerRow>[] = [
-    { key: 'name', header: t('admin.ui.spName'), render: (s) => <button type="button" className="font-medium text-accent hover:underline" onClick={() => edit(s)}>{s.display_name}</button> },
-    { key: 'variety', header: t('admin.speakersSection.variety'), render: (s) => s.target_variety_id ?? '—' },
+    { key: 'name', header: t('admin.ui.spName'), render: (s) => <button type="button" className="font-medium text-accent-text hover:underline" onClick={() => edit(s)}>{s.display_name}</button> },
+    {
+      key: 'variety',
+      header: t('admin.speakersSection.variety'),
+      render: (s) => {
+        // C2 portraits of the characters cast for the speaker's variety (never a stand-in for the human speaker).
+        const variety = s.target_variety_id ? findVariety(s.target_variety_id) : null;
+        const cast = variety ? charactersForVariety(variety.id) : [];
+        return (
+          <span className="flex items-center gap-2">
+            <span>{s.target_variety_id ?? '—'}</span>
+            {cast.length > 0 ? (
+              <span className="flex -space-x-1.5" title={t('admin.ui.castOfVariety')}>
+                {cast.slice(0, 4).map((c) => (
+                  <CastPortrait key={c.id} characterId={c.id} size={24} className="ring-1 ring-surface" />
+                ))}
+              </span>
+            ) : null}
+          </span>
+        );
+      },
+    },
     { key: 'region', header: t('admin.speakersSection.region'), render: (s) => s.region ?? '—' },
     { key: 'consent', header: t('admin.speakersSection.consent'), render: (s) => <Badge tone={CONSENT_TONE[s.consent_state] ?? 'neutral'}>{t(`admin.speakersSection.consentState.${s.consent_state}`)}</Badge> },
     { key: 'flags', header: t('admin.ui.type'), render: (s) => <span className="flex gap-1">{s.pseudonymous ? <Badge>{t('admin.ui.spPseudonymous')}</Badge> : null}{s.synthetic ? <Badge tone="info">{t('admin.ui.spSynthetic')}</Badge> : null}</span> },
@@ -91,7 +114,7 @@ export function SpeakersScreen({ speakers, rights }: { speakers: SpeakerRow[]; r
   return (
     <div>
       {speakers.length > 0 ? <div className="mb-3 flex justify-end">{addSpeaker}</div> : null}
-      <DataTable columns={columns} rows={speakers} rowKey={(s) => s.id} caption={t('admin.speakersSection.title')} empty={t('admin.ui.spEmptyHint')} emptyAction={addSpeaker} />
+      <DataTable columns={columns} rows={speakers} rowKey={(s) => s.id} caption={t('admin.speakersSection.title')} empty={t('admin.ui.spEmptyHint')} emptyAction={addSpeaker} emptyArt={<Melo state="curious" size={72} />} />
       <Dialog
         open={open}
         onClose={() => setOpen(false)}

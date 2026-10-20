@@ -1,4 +1,4 @@
-import { StatusLine, ThemedText } from '@langquest/ui';
+import { InfoAffordance, StatusLine } from '@langquest/ui';
 import * as Notifications from 'expo-notifications';
 import { useRouter } from 'expo-router';
 import React, { useState } from 'react';
@@ -37,15 +37,11 @@ export default function NotificationSettings(): React.JSX.Element {
   };
 
   return (
-    <Screen title={t('account.notifications.title')} onBack={() => router.back()}>
-      <ThemedText tone="secondary">{t('account.notifications.optInNote')}</ThemedText>
+    <Screen title={t('account.notifications.title')} onBack={() => router.back()} headerEnd={<InfoAffordance label={t('account.aboutSettings')} title={t('account.notifications.title')} text={[t('account.notifications.optInNote'), `${t('account.notifications.timezone')}: ${me?.timeZone ?? Intl.DateTimeFormat().resolvedOptions().timeZone}`]} />}>
       <SwitchRow label={t('account.notifications.dailyGoal')} value={local.daily_reminder} onChange={(v) => void toggle('daily_reminder', v)} />
       <SwitchRow label={t('account.notifications.dueReviews')} value={local.review_due} onChange={(v) => void toggle('review_due', v)} />
       <SwitchRow label={t('account.notifications.newMission')} value={local.story_updates} onChange={(v) => void toggle('story_updates', v)} />
       <SwitchRow label={t('account.notifications.pauseStreak')} hint={t('account.notifications.pauseStreakHint')} value={!local.streak_gentle} onChange={(v) => void toggle('streak_gentle', !v)} />
-      <ThemedText variant="caption" tone="muted">
-        {t('account.notifications.timezone')}: {me?.timeZone ?? Intl.DateTimeFormat().resolvedOptions().timeZone}
-      </ThemedText>
       {denied ? <StatusLine icon="warning" tone="warning" text={t('errors.permission.notificationsDenied')} /> : null}
     </Screen>
   );

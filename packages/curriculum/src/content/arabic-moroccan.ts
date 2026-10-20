@@ -62,6 +62,7 @@ export const ARABIC_MOROCCAN_CHAPTER_1: SeedChapter = defineSeedChapter({
     'Gender agreement (m/f) of learner lines must be verified and a feminine variant recorded where marked.',
     'Arabizi follows common Moroccan chat conventions (3 = ع, 7 = ح, 9 = ق, kh = خ, gh = غ).',
     'French code-switching is noted where it is natural (café, taxi); it is never a substitute for the Darija form.',
+    'Ice-cream mission: flavour words (chocolat, fraise, boule) are French loans in everyday Darija; reviewer should confirm the spelling of « غلاص » and whether « بول » is written or only spoken.',
   ],
   characters: [
     { characterKey: 'ary_sara_acquaintance', role: 'friendly local acquaintance', name: 'Sara', personality: 'warm, curious, patient with learners', homeRegion: 'Casablanca', regionalOption: 'casablanca' },
@@ -70,6 +71,7 @@ export const ARABIC_MOROCCAN_CHAPTER_1: SeedChapter = defineSeedChapter({
     { characterKey: 'ary_omar_passerby', role: 'passer-by', name: 'Omar', personality: 'helpful, speaks fast, slows down when asked', homeRegion: 'Casablanca', regionalOption: 'casablanca' },
     { characterKey: 'ary_nadia_neighbour', role: 'neighbour', name: 'Nadia', personality: 'hospitable, chatty, insists on tea', homeRegion: 'Casablanca', regionalOption: 'casablanca' },
     { characterKey: 'ary_hamid_taxi', role: 'taxi driver', name: 'Hamid', personality: 'talkative, knows every street', homeRegion: 'Casablanca', regionalOption: 'casablanca' },
+    { characterKey: 'ary_salma_kid', role: 'child at the ice-cream stand', name: 'Salma', personality: 'nine years old, decisive about flavours, negotiates for a second scoop', homeRegion: 'Casablanca', regionalOption: 'casablanca', ageBand: 'child' },
   ],
   missions: [
     {
@@ -173,6 +175,28 @@ export const ARABIC_MOROCCAN_CHAPTER_1: SeedChapter = defineSeedChapter({
         ary({ key: 'w9ef_hna', intent: 'say_stop_here', slot: 'stop', arab: 'وقف هنا عافاك', arabizi: 'w9ef hna 3afak', fr: 'Arrêtez ici, s\'il vous plaît.', en: 'Stop here, please.' }),
         ary({ key: '3ndek_sserf', intent: 'ask_for_change', slot: 'change', arab: 'عندك الصرف؟', arabizi: '3ndek sserf?', fr: 'Vous avez de la monnaie ?', en: 'Do you have change?', register: 'neutral' }),
         ary({ key: 'chokran_bslama', intent: 'say_goodbye', slot: 'bye', arab: 'شكرا، بسلامة', arabizi: 'chokran, bslama', fr: 'Merci, au revoir.', en: 'Thanks, goodbye.', register: 'neutral' }),
+      ],
+    },
+    {
+      key: 'ary_buy_ice_cream',
+      blueprintKey: 'buy_ice_cream',
+      characterKey: 'ary_salma_kid',
+      // Cast the roster's schoolgirl (owner decision: a kid asks for the ice cream).
+      rosterCharacterId: 'ary-schoolgirl-salma',
+      titles: { fr: 'Une glace avec Salma', en: 'An ice cream with Salma' },
+      sceneNotes: { fr: 'Devant le marchand de glaces, à la sortie de l\'école ; Salma veut deux boules, vous dites non gentiment.', en: 'At the ice-cream cart after school; Salma wants two scoops and you say no kindly.' },
+      expressions: [
+        ary({ key: 'bghit_glas', intent: 'request_food', slot: 'wants', speaker: 'character', arab: 'بغيت غلاص!', arabizi: 'bghit glas!', fr: 'Je veux une glace !', en: 'I want an ice cream!', frNote: '« glas » vient du français « glace » ; c\'est le mot courant.', enNote: '"glas" is borrowed from French "glace" and is the everyday word.', codeSwitch: 'Flavour and dessert words are mostly French loans (glace, chocolat, fraise); both pronunciations are natural.', register: 'casual' }),
+        ary({ key: 'chocolat_wla_fraise', intent: 'offer_options', slot: 'which_flavour', arab: 'شوكولا ولا فريز؟', arabizi: 'chocolat wla fraise?', fr: 'Chocolat ou fraise ?', en: 'Chocolate or strawberry?', frNote: '« wla » = « ou » ; les parfums gardent leur nom français.', enNote: '"wla" = "or"; flavour names keep their French form.', register: 'casual' }),
+        ary({ key: 'chocolat', intent: 'choose_option', slot: 'picks', speaker: 'character', arab: 'شوكولا!', arabizi: 'chocolat!', fr: 'Chocolat !', en: 'Chocolate!', register: 'casual' }),
+        ary({ key: 'wa7ed_lboule', intent: 'specify_quantity', slot: 'scoop', arab: 'واحد البول ديال الشوكولا عافاك', arabizi: 'wa7ed lboule dyal chocolat 3afak', fr: 'Une boule de chocolat, s\'il vous plaît.', en: 'One scoop of chocolate, please.', frNote: 'Dit au marchand ; « boule » est un emprunt au français.', enNote: 'Said to the vendor; "boule" (scoop) is a French loan.', pron: 'ديال (dyal) marks possession/“of”; the ل is light.' }),
+        ary({ key: 'wakha_jouj', intent: 'ask_permission', slot: 'asks_two', speaker: 'character', arab: 'واخا جوج؟', arabizi: 'wakha jouj?', fr: 'Je peux en avoir deux ?', en: 'Can I have two?', frNote: 'Litt. « d\'accord, deux ? » ; « wakha » sert aussi de « oui ».', enNote: 'Lit. "okay, two?"; "wakha" also means "okay / yes".', register: 'casual' }),
+        ary({ key: 'la_wa7ed_safi', intent: 'refuse_permission', slot: 'just_one', arab: 'لا، واحد صافي', arabizi: 'la, wa7ed safi', fr: 'Non, une seule, c\'est tout.', en: 'No, just one, that\'s it.', frNote: '« safi » clôt la discussion gentiment (« c\'est bon, ça suffit »).', enNote: '"safi" closes the matter kindly ("that\'s enough / done").', register: 'casual' }),
+        ary({ key: 'wakha', intent: 'grant_permission', slot: 'okay', arab: 'واخا', arabizi: 'wakha', fr: 'D\'accord.', en: 'Okay.', register: 'casual' }),
+        ary({ key: 'bnin_bzzaf', intent: 'say_delicious', slot: 'yummy', speaker: 'character', arab: 'بنين بزاف!', arabizi: 'bnin bzzaf!', fr: 'C\'est trop bon !', en: 'It\'s so good!', frNote: '« bnin » = délicieux ; « bzzaf » = beaucoup / très.', enNote: '"bnin" = tasty; "bzzaf" = a lot / very.', register: 'casual' }),
+        ary({ key: '7ta_ana_chocolat', intent: 'express_like', slot: 'me_too', arab: 'حتى أنا كنبغي الشوكولا', arabizi: '7ta ana kanbghi chocolat', fr: 'Moi aussi j\'aime le chocolat.', en: 'I like chocolate too.', frNote: '« kanbghi » = j\'aime (présent habituel en ka-).', enNote: '"kanbghi" = I like (habitual present with ka-).', register: 'casual' }),
+        ary({ key: 'chokran_kid', intent: 'thank', slot: 'thanks', speaker: 'character', arab: 'شكرا!', arabizi: 'chokran!', fr: 'Merci !', en: 'Thanks!', register: 'casual' }),
+        ary({ key: 'bla_jmil', intent: 'respond_to_thanks', slot: 'welcome', arab: 'بلا جميل', arabizi: 'bla jmil', fr: 'De rien.', en: 'You\'re welcome.', frNote: 'Litt. « sans faveur ».', enNote: 'Lit. "no favour (owed)".', register: 'casual' }),
       ],
     },
   ],

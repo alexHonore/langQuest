@@ -1,12 +1,15 @@
 import { describe, expect, it } from 'vitest';
 import {
   COLOR_PALETTES,
+  FILL_COLOR_TOKEN_KEYS,
+  FILL_INK_TOKEN,
   PALETTE_NAMES,
   SURFACE_COLOR_TOKEN_KEYS,
   TEXT_COLOR_TOKEN_KEYS,
   paletteNameFor,
 } from './color';
 import {
+  composite,
   contrastRatio,
   meetsWcag,
   parseColor,
@@ -17,7 +20,17 @@ import {
   withAlpha,
   UI_COMPONENT_MIN_CONTRAST,
 } from './contrast';
-import { elevationStyle, focusRingTokens, motionTokens, MOTION_DURATIONS } from './layout';
+import {
+  GLOW,
+  MOTION_DURATIONS,
+  MOTION_SPRINGS,
+  RADII,
+  elevationStyle,
+  focusRingTokens,
+  glassStyle,
+  glowStyle,
+  motionTokens,
+} from './layout';
 import {
   SCRIPT_TYPOGRAPHY,
   TALL_SCRIPTS,
@@ -76,6 +89,56 @@ describe('colour palettes', () => {
     expect(failures).toEqual([]);
   });
 
+  it.each(PALETTE_NAMES)(
+    '%s: text tokens also read on the solid glass tiers and the muted surface',
+    (name) => {
+      const p = COLOR_PALETTES[name];
+      const extra = [p.glass.solid, p.glass.solidStrong, p.surfaceMuted];
+      const failures: string[] = [];
+      for (const textKey of TEXT_COLOR_TOKEN_KEYS) {
+        for (const s of extra) {
+          const ratio = contrastRatio(p[textKey], s);
+          if (ratio < 4.5) failures.push(`${textKey} on ${s}: ${ratio.toFixed(2)}`);
+        }
+      }
+      expect(failures).toEqual([]);
+    },
+  );
+
+  it.each(PALETTE_NAMES)(
+    '%s: accent FILL tokens meet 3:1 on every surface and carry a 4.5:1 ink (never used as text)',
+    (name) => {
+      const p = COLOR_PALETTES[name];
+      for (const fill of FILL_COLOR_TOKEN_KEYS) {
+        for (const surfaceKey of SURFACE_COLOR_TOKEN_KEYS) {
+          expect(
+            contrastRatio(p[fill], p[surfaceKey]),
+            `${fill} vs ${surfaceKey}`,
+          ).toBeGreaterThanOrEqual(UI_COMPONENT_MIN_CONTRAST);
+        }
+        expect(
+          contrastRatio(p[FILL_INK_TOKEN[fill]], p[fill]),
+          `ink on ${fill}`,
+        ).toBeGreaterThanOrEqual(4.5);
+      }
+      // The three accent text tokens are distinct hues from each other.
+      expect(new Set([p.accentText, p.amberText, p.cyanText]).size).toBe(3);
+    },
+  );
+
+  it('dark is the reference palette and light is derived from the same hues (U2)', () => {
+    expect(COLOR_PALETTES.dark.background).toBe('#0B0913');
+    expect(COLOR_PALETTES.light.background).toBe('#F6F3FB');
+    expect(COLOR_PALETTES.dark.lantern).toEqual([
+      COLOR_PALETTES.dark.accent,
+      COLOR_PALETTES.dark.cyan,
+      COLOR_PALETTES.dark.amber,
+    ]);
+    // Speech states follow the lantern language: mic open = cyan, character = magenta.
+    expect(COLOR_PALETTES.dark.speech.listening).toBe(COLOR_PALETTES.dark.cyanText);
+    expect(COLOR_PALETTES.dark.speech.speaking).toBe(COLOR_PALETTES.dark.accentText);
+  });
+
   it.each(PALETTE_NAMES)('%s: speech-state colours read as text on every surface', (name) => {
     const palette = COLOR_PALETTES[name];
     const failures: string[] = [];
@@ -105,8 +168,35 @@ describe('colour palettes', () => {
       expect(contrastRatio(p.warning, p.warningSoft)).toBeGreaterThanOrEqual(4.5);
       expect(contrastRatio(p.error, p.errorSoft)).toBeGreaterThanOrEqual(4.5);
       expect(contrastRatio(p.info, p.infoSoft)).toBeGreaterThanOrEqual(4.5);
-      expect(contrastRatio(p.accent, p.accentSoft)).toBeGreaterThanOrEqual(4.5);
+      expect(contrastRatio(p.accentText, p.accentSoft)).toBeGreaterThanOrEqual(4.5);
+      expect(contrastRatio(p.amberText, p.warningSoft)).toBeGreaterThanOrEqual(4.5);
+      expect(contrastRatio(p.cyanText, p.infoSoft)).toBeGreaterThanOrEqual(4.5);
       expect(contrastRatio(p.textPrimary, p.surfaceMuted)).toBeGreaterThanOrEqual(4.5);
+    },
+  );
+
+  it.each(PALETTE_NAMES)(
+    '%s: onScrim reads on the composited overlay scrim (and onAccent would not)',
+    (name) => {
+      const p = COLOR_PALETTES[name];
+      // `overlay` is translucent and sits on arbitrary content (scene art, the canvas):
+      // measure against what the eye sees once it is drawn over the canvas, the surface and
+      // the worst cases, pure white and pure black. `sceneScrim` is the scrim *under glass*:
+      // text there lives on the glass surface, which the text-token checks above cover.
+      const backdrops = [p.background, p.surface, '#FFFFFF', '#000000'];
+      const failures: string[] = [];
+      for (const under of backdrops) {
+        const seen = toHex(composite(parseColor(p.overlay), parseColor(under)));
+        const ratio = contrastRatio(p.onScrim, seen);
+        if (ratio < 4.5) failures.push(`onScrim on overlay over ${under}: ${ratio.toFixed(2)}`);
+      }
+      expect(failures).toEqual([]);
+      // Regression guard for the review scenario caption: the dark scheme's accent ink is
+      // dark, so it is NOT a valid colour for text on a scrim over the canvas.
+      const overlayOnCanvas = toHex(composite(parseColor(p.overlay), parseColor(p.background)));
+      if (name === 'dark' || name === 'highContrastDark') {
+        expect(contrastRatio(p.onAccent, overlayOnCanvas)).toBeLessThan(4.5);
+      }
     },
   );
 
@@ -169,6 +259,16 @@ describe('typography', () => {
     expect(clampTextScale(0.1)).toBe(0.8);
   });
 
+  it('caps CJK weight at 700, drops Arabic tracking and gives Arabic +15 % (U2)', () => {
+    expect(resolveTextStyle('heading').fontWeight).toBe('800');
+    expect(resolveTextStyle('heading', { script: 'Jpan' }).fontWeight).toBe('700');
+    expect(resolveTextStyle('eyebrow').letterSpacing).toBe(0.8);
+    expect(resolveTextStyle('eyebrow').textTransform).toBe('uppercase');
+    expect(resolveTextStyle('eyebrow', { script: 'Arab' }).letterSpacing).toBe(0);
+    expect(resolveTextStyle('body', { script: 'Arab' }).fontSize).toBeCloseTo(15 * 1.15, 0);
+    expect(TYPE_ROLES.body.fontSize).toBeGreaterThanOrEqual(15);
+  });
+
   it('quotes multi-word families in the CSS stack', () => {
     expect(fontFamilyCss('Arab')).toContain('"Geeza Pro"');
     expect(fontFamilyCss('Latn')).toContain('sans-serif');
@@ -176,13 +276,58 @@ describe('typography', () => {
 });
 
 describe('layout tokens', () => {
-  it('zeros every duration under reduced motion', () => {
+  it('zeros every duration under reduced motion except the 120 ms colour change (U2)', () => {
     const reduced = motionTokens(true);
     for (const [k, v] of Object.entries(reduced)) {
-      if (k !== 'reducedMotion') expect(v).toBe(0);
+      if (typeof v !== 'number') continue;
+      if (k === 'colorChange') expect(v).toBe(MOTION_DURATIONS.colorChange);
+      else expect(v, k).toBe(0);
     }
     expect(reduced.reducedMotion).toBe(true);
+    expect(reduced.lanternDriftEnabled).toBe(false);
+    expect(reduced.glowAnimated).toBe(false);
     expect(motionTokens(false).base).toBe(MOTION_DURATIONS.base);
+    expect(motionTokens(false).glowPulse).toBe(1600);
+  });
+
+  it('carries the U2 springs and easings, and disables lantern drift on low-end devices', () => {
+    expect(MOTION_SPRINGS.press).toEqual({ damping: 14, stiffness: 180, mass: 1 });
+    expect(motionTokens(false).springs.press.damping).toBe(14);
+    expect(motionTokens(false).easings.standard).toEqual([0.2, 0.8, 0.2, 1]);
+    const lowEnd = motionTokens(false, { lowEndDevice: true });
+    expect(lowEnd.lanternDriftEnabled).toBe(false);
+    expect(lowEnd.lanternDrift).toBe(0);
+    expect(lowEnd.glowAnimated).toBe(true);
+  });
+
+  it('uses the U2 radii (cards 22, sheets 28)', () => {
+    expect(RADII).toMatchObject({ sm: 10, md: 16, lg: 22, xl: 28, pill: 999 });
+  });
+
+  it('glass falls back to the solid tier without blur', () => {
+    const g = COLOR_PALETTES.dark.glass;
+    const blurred = glassStyle(1, g, COLOR_PALETTES.dark.background, false);
+    expect(blurred.blur).toBe(20);
+    expect(blurred.backgroundColor).toBe(g.fill);
+    const strong = glassStyle(2, g, COLOR_PALETTES.dark.background, false);
+    expect(strong.blur).toBe(24);
+    const solid = glassStyle(2, g, COLOR_PALETTES.dark.background, true);
+    expect(solid.blur).toBe(0);
+    expect(solid.backgroundColor).toBe(g.solidStrong);
+    expect(glassStyle(0, g, COLOR_PALETTES.dark.background, false).backgroundColor).toBe(
+      COLOR_PALETTES.dark.background,
+    );
+  });
+
+  it('glow is a 5 px ring at 28 % plus a 34 px bloom, scaled by intensity', () => {
+    const full = glowStyle('#FF4FA3', 1);
+    expect(full.ringWidth).toBe(GLOW.ringWidth);
+    expect(full.ringColor).toBe('rgba(255, 79, 163, 0.28)');
+    expect(full.shadowOpacity).toBeCloseTo(GLOW.bloomAlpha, 5);
+    expect(full.boxShadow).toContain('34px');
+    const off = glowStyle('#FF4FA3', 0);
+    expect(off.shadowOpacity).toBe(0);
+    expect(off.elevation).toBe(0);
   });
 
   it('builds elevation and focus ring styles', () => {

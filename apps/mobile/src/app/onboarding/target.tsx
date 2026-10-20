@@ -1,4 +1,4 @@
-import { COURSE_TRACKS, type CourseTrackId } from '@langquest/contracts';
+import { type CourseTrackId } from '@langquest/contracts';
 import { Chip, CourseCover, NATIVE_SAMPLES, ORDERED_TRACKS, Row, Surface, ThemedText, dialectClarification, useTheme } from '@langquest/ui';
 import { useRouter } from 'expo-router';
 import React, { useMemo, useState } from 'react';
@@ -45,7 +45,7 @@ export default function TargetStep(): React.JSX.Element {
         placeholder={t('catalog.searchPlaceholder')}
         placeholderTextColor={theme.colors.textMuted}
         accessibilityLabel={t('common.search')}
-        style={{ borderWidth: 1, borderColor: theme.colors.border, borderRadius: theme.radii.md, padding: theme.spacing.md, color: theme.colors.textPrimary, minHeight: theme.touchTargets.min }}
+        style={{ backgroundColor: theme.glass(1).backgroundColor, borderWidth: 1, borderColor: theme.glass(1).borderColor, borderRadius: theme.radii.md, padding: theme.spacing.md, color: theme.colors.textPrimary, minHeight: theme.touchTargets.min }}
       />
       <View style={{ gap: theme.spacing.md }} accessibilityRole="radiogroup">
         {tracks.map((tr) => {
@@ -54,7 +54,7 @@ export default function TargetStep(): React.JSX.Element {
           const isSelected = selected === tr.id;
           return (
             <Pressable key={tr.id} testID={`onboarding-target-${tr.id}`} onPress={() => setSelected(tr.id)} accessibilityRole="radio" accessibilityState={{ selected: isSelected }} accessibilityLabel={`${tr.displayName}. ${clar.needsClarification ? clar.focus : ''}`}>
-              <Surface variant={isSelected ? 'accentSoft' : 'surface'} bordered radius="lg" padding={theme.spacing.md} style={{ gap: theme.spacing.sm, borderColor: isSelected ? theme.colors.accent : theme.colors.border, borderWidth: isSelected ? 2 : 1 }}>
+              <Surface variant={isSelected ? 'accentSoft' : 'glass'} level={1} radius="lg" padding={theme.spacing.md} style={{ gap: theme.spacing.sm, borderColor: isSelected ? theme.accents.primary : theme.glass(1).borderColor, borderWidth: isSelected ? 2 : 1 }}>
                 <Row gap={theme.spacing.md} align="flex-start">
                   <View style={{ width: 72 }}>
                     <CourseCover trackId={tr.id} width={72} hideTitle />
@@ -64,17 +64,18 @@ export default function TargetStep(): React.JSX.Element {
                     <ThemedText variant="scriptSample" script={tr.scripts.primary} direction={tr.scripts.primary === 'Arab' || tr.scripts.primary === 'Hebr' ? 'rtl' : 'ltr'}>
                       {sample.native}
                     </ThemedText>
-                    {sample.latin ? (
-                      <ThemedText variant="transliteration" tone="muted">
-                        {sample.latin}
-                      </ThemedText>
-                    ) : null}
                     {clar.needsClarification ? (
-                      <ThemedText variant="caption" tone="secondary">
-                        {clar.varietyName} · {clar.focus}
+                      <ThemedText variant="caption" tone="secondary" numberOfLines={1}>
+                        {clar.varietyName}
                       </ThemedText>
                     ) : null}
-                    {clar.distinctFrom.length > 0 ? <Chip label={`≠ ${clar.distinctFrom.join(', ')}`} tone="warning" /> : null}
+                    {clar.distinctFrom.length > 0 ? (
+                      <Row gap={theme.spacing.xs} wrap>
+                        {clar.distinctFrom.map((n) => (
+                          <Chip key={n} label={`≠ ${n}`} tone="warning" />
+                        ))}
+                      </Row>
+                    ) : null}
                   </View>
                 </Row>
               </Surface>
@@ -82,9 +83,6 @@ export default function TargetStep(): React.JSX.Element {
           );
         })}
       </View>
-      <ThemedText variant="caption" tone="muted">
-        {t('catalog.subtitle')} ({COURSE_TRACKS.length})
-      </ThemedText>
     </OnboardingFrame>
   );
 }

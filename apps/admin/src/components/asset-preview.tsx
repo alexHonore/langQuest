@@ -9,7 +9,7 @@ import { browserApi } from '@/src/lib/api-browser';
 import { describeApiError } from '@/src/lib/api';
 import { useI18n } from '@/src/lib/i18n/client';
 import { useDeployment } from '@/src/lib/setup/context';
-import { Notice, Spinner } from './ui';
+import { InlineArt, Notice, Spinner } from './ui';
 
 export interface PlaybackState {
   url: string | null;
@@ -67,7 +67,7 @@ export function AssetPreview({ assetId, kind, mimeType, title }: { assetId: stri
   return <p className="text-xs text-fg-muted">{t('admin.ui.noPreview')} ({mimeType ?? kind})</p>;
 }
 
-/** Inline SVG from the @langquest/ui string renderers (trusted, generated in code). */
+/** Inline SVG from the @langquest/ui string renderers (trusted, generated in code). Alias of `InlineArt`. */
 export function SvgArt({ svg, label, className }: { svg: string; label: string; className?: string }) {
-  return <div role="img" aria-label={label} className={`svg-preview ${className ?? ''}`} dangerouslySetInnerHTML={{ __html: svg }} />;
+  return <InlineArt svg={svg} label={label} className={className} />;
 }

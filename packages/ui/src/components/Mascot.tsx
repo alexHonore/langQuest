@@ -64,6 +64,9 @@ export function Mascot(props: MascotProps): React.JSX.Element | null {
   const theme = useTheme();
   const px = mascotSize(theme, size);
   const label = accessibilityLabel ?? MASCOT_ACCESSIBILITY_LABELS[state];
+  // Chameleon tint: situation (state) × course family (theme.courseTrackId). Without it
+  // the shared Mascot would ignore the active course and only the state hue would apply.
+  const tint = theme.mascotTint(state);
 
   const bubble = speech ? (
     <Surface
@@ -92,6 +95,8 @@ export function Mascot(props: MascotProps): React.JSX.Element | null {
       state={state}
       size={px}
       theme={theme.artTheme}
+      tint={tint}
+      trackId={theme.courseTrackId}
       reducedMotion={theme.reducedMotion}
       animate={animate && !theme.reducedMotion}
       accessibilityLabel={label}

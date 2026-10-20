@@ -26,6 +26,15 @@ export function useUiLabels() {
       reconnecting: t('speak.state.reconnecting'),
       error: t('speak.state.error'),
     };
+    const speechStatesShort: Record<SpeechState, string> = {
+      idle: t('speak.stateShort.idle'),
+      character_speaking: t('speak.stateShort.character_speaking'),
+      waiting: t('speak.stateShort.waiting'),
+      learner_mic_active: t('speak.stateShort.learner_mic_active'),
+      thinking: t('speak.stateShort.thinking'),
+      reconnecting: t('speak.stateShort.reconnecting'),
+      error: t('speak.stateShort.error'),
+    };
     const speechStatesFor = (name: string): Record<SpeechState, string> => ({ ...speechStates, character_speaking: t('speak.state.character_speaking', { name }), thinking: t('speak.state.thinking', { name }) });
     const conversationState = (state: ConversationState, name: string): string => t(`speak.state.${state}`, { name });
     const intelligibility: Record<Intelligibility, string> = {
@@ -51,6 +60,8 @@ export function useUiLabels() {
     };
     return {
       speechStates,
+      /** One-word labels for the calm density (glow ring + one word). */
+      speechStatesShort,
       speechStatesFor,
       conversationState,
       intelligibility,

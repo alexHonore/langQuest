@@ -15,6 +15,11 @@
  *    they carry no expression rows (never a placeholder string) and no localizations (their titles are
  *    catalog keys, not text).
  *  - No fake audio: `expression_audio` rows need a verified media asset, so none are written.
+ *  - Cast (owner decision 2026-10-19, roles correlate with lesson content): every mission is cast from the
+ *    `@langquest/ui` roster with `castChapter()` (`@langquest/curriculum`), and the chosen character is written
+ *    as the mission's published `dialogue_scenarios` row, which is where `buildManifest()` reads a mission's
+ *    `characterIds`. When nobody in the variety carries the scene the mission stays uncast (no row, honest)
+ *    rather than getting a wrong character; the plan lists those as `uncast`.
  *
  * Idempotent: every row id is a deterministic UUID v5 of its content key (`@langquest/db/seed/curriculum-uuid`),
  * so re-runs update in place; stale `mission_steps` / `expression_forms` of a seeded mission/expression are
@@ -32,15 +37,21 @@ import {
   DEFAULT_STORY_ARC,
   DRAFT_CHAPTERS,
   buildAllPlannedSkeletons,
+  castChapter,
   expandTemplate,
   getBlueprint,
   type BlueprintStep,
+  type CastFit,
+  type CastMember,
+  type CastResult,
   type MissionBlueprint,
+  type MissionCasting,
   type SeedChapter,
   type SeedExpression,
   type SeedMission,
 } from '@langquest/curriculum';
 import { createRepositories, type DbClient, type Insert, type Json } from '@langquest/db';
+import { CAST_ROSTER } from '@langquest/db/seed/cast-roster';
 
 /** Non-null jsonb payload (the generated `Insert` types reject `null` for `not null` json columns). */
 type JsonValue = NonNullable<Json>;
@@ -62,9 +73,10 @@ rows are faked. Coverage rows for sources with overlays become 'partial' (never 
     { name: 'apply', type: 'boolean', description: 'Write to the database (otherwise the plan is only printed).', default: false },
     { name: 'skeletons', type: 'boolean', description: 'Include the planned chapter-1 skeletons of tracks without a draft chapter.', default: true },
     { name: 'verify', type: 'boolean', description: 'After --apply, rebuild the course manifest of every published (track, source) pair and check it lists missions.', default: true },
-    { name: 'json-out', type: 'string', description: 'Write the plan summary (chapters, row counts) to this JSON file.' },
+    { name: 'cast', type: 'boolean', description: 'Print who plays each mission (roster character, fit, or uncast) in the plan.', default: false },
+    { name: 'json-out', type: 'string', description: 'Write the plan summary (chapters, row counts, cast) to this JSON file.' },
   ],
-  examples: ['seed-curriculum -- --dry-run', 'seed-curriculum -- --track arabic-moroccan --apply', 'seed-curriculum -- --apply --no-skeletons'],
+  examples: ['seed-curriculum -- --dry-run', 'seed-curriculum -- --track arabic-moroccan --dry-run --cast', 'seed-curriculum -- --track arabic-moroccan --apply', 'seed-curriculum -- --apply --no-skeletons'],
 };
 
 // ---------------------------------------------------------------------------
@@ -78,6 +90,25 @@ export const SEED_LICENSE_ID = 'langquest-original-draft';
 
 export type PlannedExpressionRow = Omit<Insert<'expressions'>, 'intent_id'> & { id: string; intentKey: string };
 export type PlannedStepRow = Omit<Insert<'mission_steps'>, 'valid_intent_ids'> & { id: string; acceptedIntentKeys: string[] };
+/** The mission's cast scenario (one per cast mission; `character_id` is the roster character's seeded uuid). */
+export type PlannedScenarioRow = Omit<Insert<'dialogue_scenarios'>, 'expected_intent_ids'> & { id: string; mission_id: string; expectedIntentKeys: string[] };
+
+/** Who plays a mission, and why (`plan.cast`; also stored in `missions.narrative_segment.casting`). */
+export interface PlannedMissionCast {
+  courseTrackId: CourseTrackId;
+  chapterKey: string;
+  missionKey: string;
+  missionId: string;
+  blueprintKey: string;
+  /** Language-neutral role the blueprint asks for. */
+  characterRole: string;
+  targetVarietyId: string;
+  fit: CastFit;
+  preferred: MissionCasting;
+  /** `null` when nobody in the variety carries the scene (no scenario row is written). */
+  character: { id: string; characterKey: string; name: string | null; role: string; ageBand: CastMember['ageBand']; regionalOption: string | null } | null;
+  reasons: string[];
+}
 export interface PlannedCoverageRow {
   course_track_id: CourseTrackId;
   source_language_code: SourceLanguageCode;
@@ -95,10 +126,15 @@ export interface PlannedChapterSummary {
   steps: number;
   expressions: number;
   localizations: number;
+  /** Missions with a cast roster character / missions nobody in the variety could play. */
+  cast: number;
+  uncast: number;
 }
 
 export interface CurriculumSeedPlan {
   chapters: PlannedChapterSummary[];
+  /** Per-mission casting outcome (every mission, cast or not). */
+  cast: PlannedMissionCast[];
   /** Skeletons not loaded because a draft chapter already covers that chapter index of the track. */
   supersededSkeletons: { courseTrackId: CourseTrackId; chapterKey: string; supersededBy: string }[];
   rows: {
@@ -107,6 +143,7 @@ export interface CurriculumSeedPlan {
     chapters: (Insert<'chapters'> & { id: string })[];
     missions: (Insert<'missions'> & { id: string })[];
     missionSteps: PlannedStepRow[];
+    dialogueScenarios: PlannedScenarioRow[];
     missionLocalizations: Insert<'mission_localizations'>[];
     expressions: PlannedExpressionRow[];
     expressionForms: (Insert<'expression_forms'> & { id: string })[];
@@ -120,6 +157,8 @@ export interface PlanOptions {
   includeSkeletons?: boolean;
   drafts?: readonly SeedChapter[];
   skeletons?: readonly SeedChapter[];
+  /** Cast roster (default: the `@langquest/ui` roster as seeded by migration 140). */
+  roster?: readonly CastMember[];
 }
 
 const pct = (num: number, den: number): number => (den === 0 ? 0 : Math.round((num / den) * 1000) / 10);
@@ -266,6 +305,36 @@ function expressionRows(chapter: SeedChapter, mission: SeedMission, bp: MissionB
   return { expressions, forms, translations };
 }
 
+/** Cast every mission of a chapter from the roster of its variety (pure; see `castChapter`). */
+export function castSeedChapter(chapter: SeedChapter, roster: readonly CastMember[]): Map<string, CastResult> {
+  const regionalOption = chapter.characters.find((c) => c.regionalOption)?.regionalOption ?? null;
+  return castChapter(
+    chapter.missions.map((m) => ({ key: m.key, blueprint: getBlueprint(m.blueprintKey), casting: m.casting, rosterCharacterId: m.rosterCharacterId })),
+    roster,
+    { varietyId: chapter.targetVarietyId, regionalOption },
+  );
+}
+
+function scenarioRow(chapter: SeedChapter, mission: SeedMission, bp: MissionBlueprint, missionId: string, characterId: string, publish: boolean): PlannedScenarioRow {
+  const scene = bp.sceneVariants[0]!;
+  return {
+    id: curriculumUuid('dialogue_scenario', curriculumSeedKeys.dialogueScenario(chapter.key, mission.key)),
+    mission_id: missionId,
+    scene: scene.id,
+    learner_role: bp.learnerRole,
+    character_id: characterId,
+    min_level: bp.level,
+    max_level: 'advanced',
+    expectedIntentKeys: [...new Set(bp.objectives.flatMap((o) => o.intentKeys))],
+    interruption_policy: 'allow_barge_in',
+    // The character row carries the guard-rails (seeded safety_rules); scene-level rules stay language-neutral facts.
+    safety_rules: [],
+    topic_rules: [`Stay in the "${bp.situation}" scene as the ${bp.characterRole}; the learner is the ${bp.learnerRole}.`],
+    scene_facts: [...scene.sceneFacts, ...(scene.twist ? [`Twist: ${scene.twist}`] : [])],
+    state: publish ? 'published' : 'review_needed',
+  };
+}
+
 function coverageRows(chapter: SeedChapter, expectedMissions: number, uiPct: Record<string, number>): PlannedCoverageRow[] {
   const expressions = chapter.missions.flatMap((m) => m.expressions);
   const withText = expressions.filter((e) => e.targetText !== null).length;
@@ -276,7 +345,7 @@ function coverageRows(chapter: SeedChapter, expectedMissions: number, uiPct: Rec
       course_track_id: chapter.courseTrackId,
       source_language_code: source,
       metrics: {
-        mission_instructions_pct: pct(missionsWithOverlay, expectedMissions),
+        mission_instructions_pct: pct(missionsWithOverlay, Math.max(expectedMissions, chapter.missions.length)),
         explanations_pct: withText > 0 ? pct(withMeaning, withText) : 0,
         ui_pct: clampPct(uiPct[source]),
         subtitles_pct: 0,
@@ -301,10 +370,12 @@ export function buildCurriculumSeedPlan(options: PlanOptions = {}): CurriculumSe
   }
   const uiPct = uiCoveragePctByLanguage();
   const expectedMissions = CHAPTER_1_BLUEPRINT_KEYS.length;
+  const roster = options.roster ?? CAST_ROSTER;
   const plan: CurriculumSeedPlan = {
     chapters: [],
+    cast: [],
     supersededSkeletons,
-    rows: { contentRights: [], lessonCourses: [], chapters: [], missions: [], missionSteps: [], missionLocalizations: [], expressions: [], expressionForms: [], expressionTranslations: [], coverage: [] },
+    rows: { contentRights: [], lessonCourses: [], chapters: [], missions: [], missionSteps: [], dialogueScenarios: [], missionLocalizations: [], expressions: [], expressionForms: [], expressionTranslations: [], coverage: [] },
   };
 
   // One lesson course per track (the default story arc); published when the track has a published draft chapter.
@@ -351,12 +422,33 @@ export function buildCurriculumSeedPlan(options: PlanOptions = {}): CurriculumSe
       map_visual_asset_id: null,
       state,
     });
-    const summary: PlannedChapterSummary = { courseTrackId: chapter.courseTrackId, targetVarietyId: chapter.targetVarietyId, chapterKey: chapter.key, kind: draft ? 'draft' : 'skeleton', state, sourceLanguages: [...chapter.sourceLanguages], missions: chapter.missions.length, steps: 0, expressions: 0, localizations: 0 };
+    const summary: PlannedChapterSummary = { courseTrackId: chapter.courseTrackId, targetVarietyId: chapter.targetVarietyId, chapterKey: chapter.key, kind: draft ? 'draft' : 'skeleton', state, sourceLanguages: [...chapter.sourceLanguages], missions: chapter.missions.length, steps: 0, expressions: 0, localizations: 0, cast: 0, uncast: 0 };
+    const castResults = castSeedChapter(chapter, roster);
 
     chapter.missions.forEach((mission, sortOrder) => {
       const bp = getBlueprint(mission.blueprintKey);
       const missionId = curriculumUuid('mission', curriculumSeedKeys.mission(chapter.key, mission.key));
       const character = chapter.characters.find((c) => c.characterKey === mission.characterKey) ?? null;
+      const cast = castResults.get(mission.key)!;
+      const member = cast.character && cast.character.characterId ? cast.character : null;
+      const plannedCast: PlannedMissionCast = {
+        courseTrackId: chapter.courseTrackId,
+        chapterKey: chapter.key,
+        missionKey: mission.key,
+        missionId,
+        blueprintKey: bp.key,
+        characterRole: bp.characterRole,
+        targetVarietyId: chapter.targetVarietyId,
+        fit: member ? cast.fit : 'none',
+        preferred: cast.casting,
+        character: member ? { id: member.characterId!, characterKey: member.id, name: member.name ?? null, role: member.role, ageBand: member.ageBand, regionalOption: member.regionalOption ?? null } : null,
+        reasons: cast.reasons,
+      };
+      plan.cast.push(plannedCast);
+      if (member) {
+        plan.rows.dialogueScenarios.push(scenarioRow(chapter, mission, bp, missionId, member.characterId!, publish));
+        summary.cast += 1;
+      } else summary.uncast += 1;
       const withText = mission.expressions.filter((e) => e.targetText !== null);
       const difficulty = withText.length ? withText.reduce((a, e) => a + e.difficulty, 0) / withText.length : 0.25;
       plan.rows.missions.push({
@@ -380,7 +472,9 @@ export function buildCurriculumSeedPlan(options: PlanOptions = {}): CurriculumSe
           characterRole: bp.characterRole,
           sceneVariants: bp.sceneVariants,
           sceneNotes: mission.sceneNotes,
-          character: character ? { key: character.characterKey, name: character.name, role: character.role, homeRegion: character.homeRegion, regionalOption: character.regionalOption } : null,
+          character: character ? { key: character.characterKey, name: character.name, role: character.role, homeRegion: character.homeRegion, regionalOption: character.regionalOption, ageBand: character.ageBand } : null,
+          // Roster cast (who the manifest lists for this mission, via dialogue_scenarios) and the preferences that chose it.
+          casting: { preferred: plannedCast.preferred, fit: plannedCast.fit, character: plannedCast.character, reasons: plannedCast.reasons },
           region: track.displayName,
         } as unknown as JsonValue,
         scoring_rubric: {
@@ -424,7 +518,7 @@ export interface TableCounts {
   deleted: number;
   skipped: number;
 }
-export type ApplyCounts = Record<'content_rights' | 'lesson_courses' | 'chapters' | 'missions' | 'mission_steps' | 'mission_localizations' | 'expressions' | 'expression_forms' | 'expression_translations' | 'expression_audio' | 'course_source_localizations', TableCounts>;
+export type ApplyCounts = Record<'content_rights' | 'lesson_courses' | 'chapters' | 'missions' | 'mission_steps' | 'dialogue_scenarios' | 'mission_localizations' | 'expressions' | 'expression_forms' | 'expression_translations' | 'expression_audio' | 'course_source_localizations', TableCounts>;
 
 const CHUNK = 200;
 const chunks = <T,>(rows: readonly T[]): T[][] => {
@@ -437,7 +531,7 @@ const fail = (ctx: string, error: { message: string } | null): void => {
 };
 const emptyCounts = (): TableCounts => ({ inserted: 0, updated: 0, deleted: 0, skipped: 0 });
 
-type IdTable = 'content_rights' | 'lesson_courses' | 'chapters' | 'missions' | 'mission_steps' | 'expressions' | 'expression_forms';
+type IdTable = 'content_rights' | 'lesson_courses' | 'chapters' | 'missions' | 'mission_steps' | 'expressions' | 'expression_forms' | 'dialogue_scenarios';
 
 async function existingIds(db: DbClient, table: IdTable, ids: readonly string[]): Promise<Set<string>> {
   const found = new Set<string>();
@@ -493,6 +587,7 @@ export async function applyCurriculumSeedPlan(db: DbClient, plan: CurriculumSeed
     chapters: emptyCounts(),
     missions: emptyCounts(),
     mission_steps: emptyCounts(),
+    dialogue_scenarios: emptyCounts(),
     mission_localizations: emptyCounts(),
     expressions: emptyCounts(),
     expression_forms: emptyCounts(),
@@ -528,6 +623,22 @@ export async function applyCurriculumSeedPlan(db: DbClient, plan: CurriculumSeed
   // Steps are unique on (mission_id, sort_order): drop stale ones first so a re-ordered template cannot collide.
   await deleteStale(db, 'mission_steps', 'mission_id', missions.map((m) => m.id), new Set(steps.map((s) => s.id)), counts.mission_steps);
   await upsertById(db, 'mission_steps', steps, counts.mission_steps);
+
+  // Cast scenarios: one seed-owned row per cast mission (deterministic id). A mission that is no longer cast loses
+  // only its seed-owned row; editor-authored scenarios of the same mission are never touched.
+  const scenarios = plan.rows.dialogueScenarios.map(({ expectedIntentKeys, ...row }) => ({ ...row, expected_intent_ids: expectedIntentKeys.map(intentId) }));
+  const keepScenarioIds = new Set(scenarios.map((sc) => sc.id));
+  const uncastScenarioIds = plan.cast.filter((c) => !c.character).map((c) => curriculumUuid('dialogue_scenario', curriculumSeedKeys.dialogueScenario(c.chapterKey, c.missionKey))).filter((id) => !keepScenarioIds.has(id));
+  for (const ids of chunks(uncastScenarioIds)) {
+    const res = await db.from('dialogue_scenarios').select('id').in('id', ids);
+    fail('dialogue_scenarios.select stale', res.error);
+    const stale = (res.data ?? []).map((r) => r.id);
+    if (stale.length === 0) continue;
+    const del = await db.from('dialogue_scenarios').delete().in('id', stale);
+    fail('dialogue_scenarios.delete stale', del.error);
+    counts.dialogue_scenarios.deleted += stale.length;
+  }
+  await upsertById(db, 'dialogue_scenarios', scenarios, counts.dialogue_scenarios);
 
   if (plan.rows.missionLocalizations.length) {
     const missionIds = [...new Set(plan.rows.missionLocalizations.map((l) => l.mission_id))];
@@ -597,6 +708,11 @@ export interface ManifestCheck {
   /** Published chapters / missions in the manifest that the seed did not write (editor content or test leftovers). */
   foreignChapters: number;
   foreignMissions: number;
+  /** Seeded missions the plan cast / whose manifest `characterIds` list exactly that roster character. */
+  expectedCast: number;
+  castListed: number;
+  /** Seeded missions the plan left uncast (the manifest lists no character for them, honestly). */
+  uncast: number;
   ok: boolean;
 }
 
@@ -604,6 +720,7 @@ export interface ManifestCheck {
 export async function verifyManifests(db: DbClient, plan: CurriculumSeedPlan): Promise<ManifestCheck[]> {
   const repos = createRepositories(db);
   const publishedMissions = new Set(plan.rows.missions.filter((m) => m.state === 'published').map((m) => m.id));
+  const castByMission = new Map(plan.cast.map((c) => [c.missionId, c.character?.id ?? null]));
   const pairs = new Map<string, { courseTrackId: CourseTrackId; sourceLanguageCode: SourceLanguageCode; chapterIds: Set<string>; missionIds: Set<string> }>();
   for (const summary of plan.chapters) {
     if (summary.state !== 'published') continue;
@@ -625,6 +742,11 @@ export async function verifyManifests(db: DbClient, plan: CurriculumSeedPlan): P
     const seeded = allMissions.filter((m) => missionIds.has(m.id));
     const seededChapters = manifest.chapters.filter((ch) => chapterIds.has(ch.id));
     const titledInSource = seeded.filter((m) => m.titleLanguageCode === sourceLanguageCode && m.title.trim().length > 0).length;
+    const expectedCast = seeded.filter((m) => castByMission.get(m.id)).length;
+    const castListed = seeded.filter((m) => {
+      const id = castByMission.get(m.id);
+      return id ? m.characterIds.includes(id) && manifest.characters.some((c) => c.id === id) : false;
+    }).length;
     out.push({
       courseTrackId,
       sourceLanguageCode,
@@ -637,12 +759,16 @@ export async function verifyManifests(db: DbClient, plan: CurriculumSeedPlan): P
       localizationComplete: seeded.filter((m) => m.localizationComplete).length,
       foreignChapters: manifest.chapters.length - seededChapters.length,
       foreignMissions: allMissions.length - seeded.length,
+      expectedCast,
+      castListed,
+      uncast: seeded.filter((m) => !castByMission.get(m.id)).length,
       ok:
         seededChapters.length === chapterIds.size &&
         seeded.length === missionIds.size &&
         missionIds.size > 0 &&
         seeded.every((m) => m.steps.length > 0) &&
         titledInSource === seeded.length &&
+        castListed === expectedCast &&
         seededChapters.every((ch) => ch.titleLanguageCode === sourceLanguageCode && ch.title.trim().length > 0),
     });
   }
@@ -673,6 +799,9 @@ export function summarisePlan(plan: CurriculumSeedPlan): Record<string, number> 
     chapters: r.chapters.length,
     missions: r.missions.length,
     mission_steps: r.missionSteps.length,
+    dialogue_scenarios: r.dialogueScenarios.length,
+    missions_cast: plan.cast.filter((c) => c.character).length,
+    missions_uncast: plan.cast.filter((c) => !c.character).length,
     mission_localizations: r.missionLocalizations.length,
     expressions: r.expressions.length,
     expression_forms: r.expressionForms.length,
@@ -685,15 +814,21 @@ export function summarisePlan(plan: CurriculumSeedPlan): Record<string, number> 
 export async function main(args: ParsedArgs, io: CliIo): Promise<number> {
   loadRootEnv();
   const plan = buildCurriculumSeedPlan({ tracks: parseTracks(args), includeSkeletons: flagBool(args, 'skeletons') });
-  for (const c of plan.chapters) io.log(`${c.kind.padEnd(8)} ${c.state.padEnd(13)} ${c.courseTrackId.padEnd(24)} ${c.chapterKey.padEnd(34)} sources=${c.sourceLanguages.join(',').padEnd(5)} missions=${c.missions} steps=${c.steps} expressions=${c.expressions} localizations=${c.localizations}`);
+  for (const c of plan.chapters) io.log(`${c.kind.padEnd(8)} ${c.state.padEnd(13)} ${c.courseTrackId.padEnd(24)} ${c.chapterKey.padEnd(34)} sources=${c.sourceLanguages.join(',').padEnd(5)} missions=${c.missions} steps=${c.steps} expressions=${c.expressions} localizations=${c.localizations} cast=${c.cast} uncast=${c.uncast}`);
   for (const s of plan.supersededSkeletons) io.log(`skip     superseded    ${s.courseTrackId.padEnd(24)} ${s.chapterKey.padEnd(34)} (draft ${s.supersededBy} covers chapter 1)`);
+  if (flagBool(args, 'cast')) {
+    for (const c of plan.cast) {
+      const who = c.character ? `${c.character.characterKey} (${c.character.role}, ${c.character.ageBand})` : '— nobody in the variety carries this scene';
+      io.log(`cast     ${c.fit.padEnd(8)} ${c.courseTrackId.padEnd(24)} ${c.missionKey.padEnd(40)} ${c.characterRole.padEnd(32)} → ${who}`);
+    }
+  }
   const totals = summarisePlan(plan);
   io.log(`plan: ${Object.entries(totals).map(([k, v]) => `${k}=${v}`).join(' ')}`);
   io.log('expression_audio: 0 rows by design (no verified media asset exists; nothing is faked)');
   const jsonOut = flagString(args, 'json-out');
   if (jsonOut) {
     const path = resolve(repoRoot(), jsonOut);
-    writeJsonFileSync(path, { generatedAt: new Date().toISOString(), totals, chapters: plan.chapters, supersededSkeletons: plan.supersededSkeletons, coverage: plan.rows.coverage });
+    writeJsonFileSync(path, { generatedAt: new Date().toISOString(), totals, chapters: plan.chapters, supersededSkeletons: plan.supersededSkeletons, coverage: plan.rows.coverage, cast: plan.cast });
     io.log(`wrote ${path}`);
   }
   if (args.dryRun || !flagBool(args, 'apply')) {
@@ -726,10 +861,10 @@ export async function main(args: ParsedArgs, io: CliIo): Promise<number> {
   let ok = true;
   for (const c of checks) {
     ok &&= c.ok;
-    io.log(`manifest ${c.courseTrackId} × ${c.sourceLanguageCode}: seededChapters=${c.seededChapters}/${c.expectedChapters} seededMissions=${c.seededMissions}/${c.expectedMissions} steps=${c.steps} titledInSource=${c.titledInSource} localizationComplete=${c.localizationComplete} foreignChapters=${c.foreignChapters} foreignMissions=${c.foreignMissions} ${c.ok ? 'OK' : 'FAILED'}`);
+    io.log(`manifest ${c.courseTrackId} × ${c.sourceLanguageCode}: seededChapters=${c.seededChapters}/${c.expectedChapters} seededMissions=${c.seededMissions}/${c.expectedMissions} steps=${c.steps} titledInSource=${c.titledInSource} localizationComplete=${c.localizationComplete} cast=${c.castListed}/${c.expectedCast} uncast=${c.uncast} foreignChapters=${c.foreignChapters} foreignMissions=${c.foreignMissions} ${c.ok ? 'OK' : 'FAILED'}`);
     if (c.foreignChapters || c.foreignMissions) io.warn(`manifest ${c.courseTrackId} × ${c.sourceLanguageCode}: ${c.foreignChapters} published chapter(s) / ${c.foreignMissions} mission(s) were not written by this seed (editor content or test leftovers; left untouched)`);
   }
-  if (!ok) io.error('manifest verification failed: a seeded published chapter is missing from its manifest, or a seeded mission has no steps / no title in the requested source language');
+  if (!ok) io.error('manifest verification failed: a seeded published chapter is missing from its manifest, a seeded mission has no steps / no title in the requested source language, or a cast character is not listed in characterIds');
   return ok ? 0 : 1;
 }
 

@@ -111,7 +111,7 @@ export function VisualAssetsScreen({ options, lessons, canEdit }: Props) {
   };
 
   const columns: Column<VisualAssetDto>[] = [
-    { key: 'id', header: t('admin.ui.id'), render: (a) => <button type="button" className="font-mono text-xs text-accent hover:underline" onClick={() => setSelected(a)}>{shortId(a.id)}</button> },
+    { key: 'id', header: t('admin.ui.id'), render: (a) => <button type="button" className="font-mono text-xs text-accent-text hover:underline" onClick={() => setSelected(a)}>{shortId(a.id)}</button> },
     { key: 'type', header: t('admin.ui.type'), render: (a) => <span className="text-xs">{a.type}</span> },
     { key: 'origin', header: t('admin.ui.vaOrigin'), render: (a) => <Badge>{a.origin}</Badge> },
     { key: 'review', header: t('admin.ui.status'), render: (a) => <Badge tone={REVIEW_TONE[a.reviewStatus]}>{t(`admin.ui.reviewStatus.${a.reviewStatus}`)}</Badge> },
@@ -610,7 +610,7 @@ function AssetDetailDialog({ asset, onClose, onChanged, options, lessons, canEdi
               <li key={`${a.entityTable}:${a.entityId}:${a.slot}`} className="flex flex-wrap items-center gap-2">
                 <Badge tone="accent">{a.slot}</Badge>
                 <span className="text-xs">{a.entityTable}</span>
-                {a.entityTable === 'audio_course_collections' ? <Link href={`/collections/${a.entityId}`} className="font-mono text-xs text-accent hover:underline">{shortId(a.entityId)}</Link> : a.entityTable === 'audio_chapters' ? <Link href={`/chapters/${a.entityId}`} className="font-mono text-xs text-accent hover:underline">{shortId(a.entityId)}</Link> : a.entityTable === 'audio_lessons' ? <Link href={`/lessons/${a.entityId}`} className="font-mono text-xs text-accent hover:underline">{shortId(a.entityId)}</Link> : <Mono>{a.entityId}</Mono>}
+                {a.entityTable === 'audio_course_collections' ? <Link href={`/collections/${a.entityId}`} className="font-mono text-xs text-accent-text hover:underline">{shortId(a.entityId)}</Link> : a.entityTable === 'audio_chapters' ? <Link href={`/chapters/${a.entityId}`} className="font-mono text-xs text-accent-text hover:underline">{shortId(a.entityId)}</Link> : a.entityTable === 'audio_lessons' ? <Link href={`/lessons/${a.entityId}`} className="font-mono text-xs text-accent-text hover:underline">{shortId(a.entityId)}</Link> : <Mono>{a.entityId}</Mono>}
                 <span className="text-xs text-fg-muted">{a.assignedAt ? formatDateTime(a.assignedAt, locale) : ''}</span>
                 {editable ? (
                   <Button size="sm" variant="ghost" className="ms-auto" loading={unassign.busy} onClick={() => void unassign.run({ entityTable: a.entityTable, entityId: a.entityId, slot: a.slot })}>

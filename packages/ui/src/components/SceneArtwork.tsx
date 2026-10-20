@@ -23,6 +23,12 @@ export interface SceneArtworkProps {
   overlayPosition?: 'center' | 'bottom' | 'top';
   /** Darken the art slightly so overlay text stays readable. */
   scrim?: boolean;
+  /**
+   * Back the `overlay` content with a full-strength `overlay` scrim band so text drawn
+   * with `tone="onScrim"` stays AA over any art. Opt-in: overlays that carry their own
+   * surface or scheme-dependent ink (a `CharacterPortrait`) must not use it.
+   */
+  overlayScrim?: boolean;
   radius?: 'none' | 'md' | 'lg';
   style?: StyleProp<ViewStyle>;
   testID?: string;
@@ -38,6 +44,7 @@ export function SceneArtwork(props: SceneArtworkProps): React.JSX.Element {
     overlay,
     overlayPosition = 'center',
     scrim = false,
+    overlayScrim = false,
     radius = 'lg',
     style,
     testID,
@@ -127,7 +134,22 @@ export function SceneArtwork(props: SceneArtworkProps): React.JSX.Element {
             alignItems: 'center',
           }}
         >
-          {overlay}
+          {overlayScrim ? (
+            <View
+              style={{
+                backgroundColor: theme.colors.overlay,
+                borderRadius: theme.radii.md,
+                paddingVertical: theme.spacing.sm,
+                paddingHorizontal: theme.spacing.md,
+                maxWidth: '100%',
+              }}
+              testID={testID ? `${testID}-scrim-band` : undefined}
+            >
+              {overlay}
+            </View>
+          ) : (
+            overlay
+          )}
         </View>
       ) : null}
     </View>

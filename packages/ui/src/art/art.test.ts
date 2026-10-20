@@ -137,11 +137,15 @@ describe('characters', () => {
     const nadia = findCharacter('ary-cafe-staff-nadia');
     expect(nadia?.name).toBe('Nadia');
     expect(findCharacter(nadia!.characterId)?.id).toBe('ary-cafe-staff-nadia');
-    expect(charactersForVariety('ary').map((c) => c.id)).toEqual([
-      'ary-cafe-staff-nadia',
-      'ary-neighbour-youssef',
-    ]);
-    expect(charactersForVariety('arb')).toEqual([]); // MSA never gets Darija characters and vice versa
+    expect(
+      charactersForVariety('ary')
+        .map((c) => c.id)
+        .slice(0, 2),
+    ).toEqual(['ary-cafe-staff-nadia', 'ary-neighbour-youssef']);
+    expect(charactersForVariety('ary').every((c) => c.varietyId === 'ary')).toBe(true);
+    // MSA never gets Darija characters and vice versa.
+    expect(charactersForVariety('arb').some((c) => c.varietyId !== 'arb')).toBe(false);
+    expect(charactersForVariety('arb').map((c) => c.id)).not.toContain('ary-cafe-staff-nadia');
   });
   it('covers the 9 required expressions', () => {
     expect(CHARACTER_EXPRESSIONS).toEqual(CHARACTER_EXPRESSION_VALUES);
@@ -282,7 +286,8 @@ describe('manifest', () => {
       ...Object.values(ART_MANIFEST.icons),
     ];
     for (const p of manifestPaths) expect(paths).toContain(p);
+    // 97 clay portraits × 9 expressions dominate the export (≈ 9 KB each at 240 px).
     const total = files.reduce((n, f) => n + f.svg.length, 0);
-    expect(total).toBeLessThan(3 * KB * KB);
+    expect(total).toBeLessThan(16 * KB * KB);
   });
 });

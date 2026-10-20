@@ -31,6 +31,10 @@ export type TextTone =
   | 'muted'
   | 'accent'
   | 'onAccent'
+  /** Text drawn on `overlay` / `sceneScrim` (scene captions). */
+  | 'onScrim'
+  | 'amber'
+  | 'cyan'
   | 'success'
   | 'warning'
   | 'error'
@@ -55,9 +59,16 @@ export function toneColor(theme: Theme, tone: TextTone): string {
     case 'muted':
       return c.textMuted;
     case 'accent':
-      return c.accent;
+      // Accent as TEXT follows the course (AA-tuned); the fill token is never used for text.
+      return theme.accents.tinted ? theme.accents.primaryText : c.accentText;
     case 'onAccent':
-      return c.onAccent;
+      return theme.accents.onPrimary;
+    case 'onScrim':
+      return c.onScrim;
+    case 'amber':
+      return c.amberText;
+    case 'cyan':
+      return c.cyanText;
     case 'success':
       return c.success;
     case 'warning':
@@ -107,6 +118,7 @@ export function ThemedText(props: ThemedTextProps): React.JSX.Element {
     writingDirection: direction ?? (script ? t.writingDirection : theme.direction.writingDirection),
   };
   if (t.fontFamily) textStyle.fontFamily = t.fontFamily;
+  if (t.textTransform) textStyle.textTransform = t.textTransform;
   return (
     <Text
       allowFontScaling={false /* we apply the learner's text scale ourselves */}
@@ -161,10 +173,17 @@ export function Row(props: RowProps): React.JSX.Element {
 
 export interface SurfaceProps extends ViewProps {
   level?: 0 | 1 | 2 | 3 | 4;
-  variant?: 'surface' | 'elevated' | 'muted' | 'accentSoft' | 'transparent';
+  /**
+   * `glass` / `glassStrong` are the Night Market translucent cards (solid on
+   * the `glassFallback` tier); the other variants are opaque.
+   */
+  variant?:
+    'surface' | 'elevated' | 'muted' | 'accentSoft' | 'transparent' | 'glass' | 'glassStrong';
   radius?: keyof Theme['radii'];
   padding?: number;
   bordered?: boolean;
+  /** Glow ring + bloom (elevation 3). Reserved for the speech state and the primary action. */
+  glow?: boolean | string;
   children?: React.ReactNode;
 }
 
@@ -176,22 +195,31 @@ export function Surface(props: SurfaceProps): React.JSX.Element {
     radius = 'md',
     padding,
     bordered,
+    glow,
     style,
     children,
     ...rest
   } = props;
   const theme = useTheme();
-  const bg =
-    variant === 'transparent'
+  const glass =
+    variant === 'glass' ? theme.glass(1) : variant === 'glassStrong' ? theme.glass(2) : null;
+  const bg = glass
+    ? glass.backgroundColor
+    : variant === 'transparent'
       ? 'transparent'
       : variant === 'muted'
         ? theme.colors.surfaceMuted
         : variant === 'accentSoft'
-          ? theme.colors.accentSoft
+          ? theme.accents.tinted
+            ? theme.accents.primarySoft
+            : theme.colors.accentSoft
           : variant === 'elevated'
             ? theme.colors.elevated
             : theme.colors.surface;
-  const showBorder = bordered ?? (theme.highContrast && variant !== 'transparent');
+  const showBorder = bordered ?? (glass ? true : theme.highContrast && variant !== 'transparent');
+  const glowStyleObj = glow
+    ? theme.glow(typeof glow === 'string' ? glow : theme.accents.ring)
+    : null;
   return (
     <View
       {...rest}
@@ -202,8 +230,19 @@ export function Surface(props: SurfaceProps): React.JSX.Element {
           borderRadius: theme.radii[radius],
           padding,
           borderWidth: showBorder ? 1 : 0,
-          borderColor: theme.colors.border,
+          borderColor: glass ? glass.borderColor : theme.colors.border,
         },
+        glowStyleObj
+          ? {
+              borderWidth: glowStyleObj.ringWidth,
+              borderColor: glowStyleObj.ringColor,
+              shadowColor: glowStyleObj.shadowColor,
+              shadowOffset: glowStyleObj.shadowOffset,
+              shadowOpacity: glowStyleObj.shadowOpacity,
+              shadowRadius: glowStyleObj.shadowRadius,
+              elevation: glowStyleObj.elevation,
+            }
+          : null,
         style,
       ]}
     >
@@ -224,6 +263,8 @@ export interface ButtonProps extends Omit<PressableProps, 'style' | 'children'> 
   size?: 'sm' | 'md' | 'lg';
   loading?: boolean;
   fullWidth?: boolean;
+  /** Glow (elevation 3): only for THE primary action of a screen. */
+  glow?: boolean;
   style?: StyleProp<ViewStyle>;
   accessibilityLabel?: string;
 }
@@ -234,22 +275,28 @@ function buttonColors(
   pressed: boolean,
 ): { bg: string; fg: string; border: string } {
   const c = theme.colors;
+  const a = theme.accents;
+  const accentText = a.tinted ? a.primaryText : c.accentText;
   switch (variant) {
     case 'primary':
       return {
-        bg: pressed ? c.accentStrong : c.accent,
-        fg: c.onAccent,
-        border: pressed ? c.accentStrong : c.accent,
+        bg: pressed ? a.primaryStrong : a.primary,
+        fg: a.onPrimary,
+        border: pressed ? a.primaryStrong : a.primary,
       };
     case 'danger':
       return { bg: pressed ? c.errorSoft : c.surface, fg: c.error, border: c.error };
     case 'ghost':
-      return { bg: pressed ? c.surfaceMuted : 'transparent', fg: c.accent, border: 'transparent' };
+      return {
+        bg: pressed ? c.surfaceMuted : 'transparent',
+        fg: accentText,
+        border: 'transparent',
+      };
     default:
       return {
-        bg: pressed ? c.surfaceMuted : c.surface,
-        fg: c.accent,
-        border: theme.highContrast ? c.border : c.borderStrong,
+        bg: pressed ? theme.glass(2).backgroundColor : theme.glass(1).backgroundColor,
+        fg: accentText,
+        border: theme.highContrast ? c.border : theme.glass(1).borderColor,
       };
   }
 }
@@ -264,12 +311,14 @@ export function Button(props: ButtonProps): React.JSX.Element {
     size = 'md',
     loading = false,
     fullWidth = false,
+    glow = false,
     disabled,
     style,
     accessibilityLabel,
     ...rest
   } = props;
   const theme = useTheme();
+  const glowStyleObj = glow && variant === 'primary' ? theme.glow() : null;
   const height =
     size === 'lg' ? theme.touchTargets.comfortable : size === 'sm' ? theme.touchTargets.min : 48;
   const Icon = icon ? ICONS[icon] : null;
@@ -296,7 +345,17 @@ export function Button(props: ButtonProps): React.JSX.Element {
             opacity: isDisabled ? 0.5 : 1,
             alignSelf: fullWidth ? 'stretch' : 'flex-start',
             justifyContent: 'center',
+            transform: [{ scale: pressed && !isDisabled ? 0.96 : 1 }],
           },
+          glowStyleObj && !isDisabled
+            ? {
+                shadowColor: glowStyleObj.shadowColor,
+                shadowOffset: glowStyleObj.shadowOffset,
+                shadowOpacity: glowStyleObj.shadowOpacity,
+                shadowRadius: glowStyleObj.shadowRadius,
+                elevation: glowStyleObj.elevation,
+              }
+            : null,
           style,
         ];
       }}
@@ -357,7 +416,7 @@ export function IconButton(props: IconButtonProps): React.JSX.Element {
   const iconSize = size ?? theme.iconSizes.md;
   const target = Math.max(theme.touchTargets.min, iconSize + theme.spacing.lg);
   const state: AccessibilityState = { disabled: Boolean(disabled), selected };
-  const color = selected ? theme.colors.onAccent : toneColor(theme, tone);
+  const color = selected ? theme.accents.onPrimary : toneColor(theme, tone);
   return (
     <Pressable
       accessibilityRole={accessibilityRole}
@@ -374,7 +433,7 @@ export function IconButton(props: IconButtonProps): React.JSX.Element {
           alignItems: 'center',
           justifyContent: 'center',
           backgroundColor: selected
-            ? theme.colors.accent
+            ? theme.accents.primary
             : filled
               ? pressed
                 ? theme.colors.surfaceMuted
@@ -420,16 +479,20 @@ export function Chip(props: ChipProps): React.JSX.Element {
   } = props;
   const theme = useTheme();
   const c = theme.colors;
+  const a = theme.accents;
   const palette = {
     neutral: { bg: c.surfaceMuted, fg: c.textSecondary },
-    accent: { bg: c.accentSoft, fg: c.accent },
+    accent: {
+      bg: a.tinted ? a.primarySoft : c.accentSoft,
+      fg: a.tinted ? a.primaryText : c.accentText,
+    },
     success: { bg: c.successSoft, fg: c.success },
     warning: { bg: c.warningSoft, fg: c.warning },
     error: { bg: c.errorSoft, fg: c.error },
     info: { bg: c.infoSoft, fg: c.info },
   }[tone];
-  const bg = selected ? c.accent : palette.bg;
-  const fg = selected ? c.onAccent : palette.fg;
+  const bg = selected ? a.primary : palette.bg;
+  const fg = selected ? a.onPrimary : palette.fg;
   const Icon = icon ? ICONS[icon] : null;
   const content = (
     <Row
@@ -493,7 +556,7 @@ export function ProgressBar(props: ProgressBarProps): React.JSX.Element {
       ? theme.colors.success
       : tone === 'info'
         ? theme.colors.info
-        : theme.colors.accent;
+        : theme.accents.primary;
   return (
     <View
       accessible

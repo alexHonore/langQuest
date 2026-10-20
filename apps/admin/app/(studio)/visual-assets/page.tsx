@@ -20,7 +20,7 @@ export default async function VisualAssetsPage() {
   const [options, lessons] = await Promise.all([loadPickerOptions(), listLessonOptions()]);
   return (
     <div>
-      <PageHeader title={t('admin.sections.visualAssets')} description={t('admin.ui.vaIntro')} />
+      <PageHeader title={t('admin.sections.visualAssets')} info={t('admin.ui.vaIntro')} />
       <VisualAssetsScreen options={{ collections: options.collections, chapters: options.chapters, rights: options.rights }} lessons={(lessons.ok ? lessons.data : []) as LessonPick[]} canEdit={canEditContent(session.roles)} />
     </div>
   );

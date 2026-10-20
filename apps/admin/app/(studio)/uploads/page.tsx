@@ -15,7 +15,7 @@ export default async function UploadsPage() {
   const setup = await loadSetupStatus();
   return (
     <div>
-      <PageHeader title={t('admin.upload.title')} description={setup.capabilities.mediaAvailable ? t('admin.upload.multipart') : undefined} />
+      <PageHeader title={t('admin.upload.title')} info={setup.capabilities.mediaAvailable ? t('admin.upload.multipart') : undefined} />
       {setup.capabilities.mediaAvailable ? <UploadsScreen /> : <SetupCard keys={['api', 'media']} />}
     </div>
   );

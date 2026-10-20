@@ -7,7 +7,7 @@ import { defineBlueprint, type MissionBlueprint } from './blueprint';
 
 const polite = 'polite' as const;
 
-/** The 16 core situational blueprints, in a sensible introduction order. */
+/** The 17 core situational blueprints, in a sensible introduction order (`buy_ice_cream` is the kid-friendly chapter-1 scene). */
 export const SITUATIONAL_BLUEPRINTS: readonly MissionBlueprint[] = [
   defineBlueprint({
     key: 'greet_and_introduce',
@@ -17,6 +17,9 @@ export const SITUATIONAL_BLUEPRINTS: readonly MissionBlueprint[] = [
     situation: 'introductions',
     learnerRole: 'newcomer meeting a local for the first time',
     characterRole: 'friendly local acquaintance',
+    preferredCharacterIntents: ['greet_hello', 'ask_how_are_you', 'introduce_name', 'ask_name', 'say_where_from'],
+    preferredAgeBands: ['teen', 'adult', 'child', 'elder'],
+    preferredRoles: ['student', 'classmate', 'neighbour', 'friend', 'acquaintance', 'host'],
     objectives: [
       { id: 'greet', intentKeys: ['greet_hello', 'greet_time_of_day'], skillKeys: ['greet_politely'] },
       { id: 'wellbeing', intentKeys: ['ask_how_are_you', 'reply_fine'], skillKeys: ['respond_to_greeting'] },
@@ -49,6 +52,9 @@ export const SITUATIONAL_BLUEPRINTS: readonly MissionBlueprint[] = [
     situation: 'cafe',
     learnerRole: 'customer at a café',
     characterRole: 'café server',
+    preferredCharacterIntents: ['request_drink', 'offer_options', 'confirm_order', 'ask_for_bill', 'ask_payment_method'],
+    preferredAgeBands: ['adult', 'elder', 'teen'],
+    preferredRoles: ['café', 'cafe', 'barista', 'server', 'teahouse', 'waiter', 'waitress'],
     objectives: [
       { id: 'greet', intentKeys: ['greet_hello', 'greet_time_of_day'], skillKeys: ['greet_politely'] },
       { id: 'request_drink', intentKeys: ['request_drink', 'request_item'], skillKeys: ['request_drink', 'request_item'] },
@@ -78,6 +84,9 @@ export const SITUATIONAL_BLUEPRINTS: readonly MissionBlueprint[] = [
     situation: 'market',
     learnerRole: 'shopper at a market stall',
     characterRole: 'market vendor',
+    preferredCharacterIntents: ['state_price', 'offer_lower_price', 'ask_last_price', 'agree_to_price', 'say_too_expensive'],
+    preferredAgeBands: ['adult', 'elder'],
+    preferredRoles: ['vendor', 'seller', 'stall', 'market', 'grocer', 'fishmonger', 'butcher'],
     objectives: [
       { id: 'greet', intentKeys: ['greet_hello'], skillKeys: ['greet_politely'] },
       { id: 'ask_price', intentKeys: ['ask_price'], skillKeys: ['ask_price'] },
@@ -107,6 +116,9 @@ export const SITUATIONAL_BLUEPRINTS: readonly MissionBlueprint[] = [
     situation: 'directions',
     learnerRole: 'visitor looking for a place',
     characterRole: 'passer-by',
+    preferredCharacterIntents: ['give_direction_straight', 'give_direction_turn', 'say_it_is_far', 'say_it_is_near', 'ask_where_is'],
+    preferredAgeBands: ['elder', 'adult'],
+    preferredRoles: ['passer-by', 'retired', 'neighbour', 'guide', 'pensioner', 'doorman', 'caretaker'],
     objectives: [
       { id: 'attention', intentKeys: ['get_attention', 'apologise'], skillKeys: ['apologise'] },
       { id: 'ask_where', intentKeys: ['ask_where_is', 'ask_how_to_get'], skillKeys: ['ask_location'] },
@@ -139,6 +151,9 @@ export const SITUATIONAL_BLUEPRINTS: readonly MissionBlueprint[] = [
     situation: 'neighbours',
     learnerRole: 'new resident meeting a neighbour',
     characterRole: 'neighbour',
+    preferredCharacterIntents: ['say_new_neighbour', 'welcome_someone', 'offer_help', 'ask_small_favour', 'small_talk_weather'],
+    preferredAgeBands: ['adult', 'elder'],
+    preferredRoles: ['neighbour', 'neighbor', 'caretaker', 'landlord', 'landlady'],
     objectives: [
       { id: 'introduce', intentKeys: ['say_new_neighbour', 'introduce_name'], skillKeys: ['introduce_self'] },
       { id: 'origin', intentKeys: ['say_where_from', 'ask_where_from'], skillKeys: ['say_where_from', 'ask_where_from'] },
@@ -174,6 +189,9 @@ export const SITUATIONAL_BLUEPRINTS: readonly MissionBlueprint[] = [
     situation: 'transport',
     learnerRole: 'passenger',
     characterRole: 'taxi driver',
+    preferredCharacterIntents: ['ask_destination', 'ask_fare', 'ask_use_meter', 'say_stop_here', 'hail_taxi'],
+    preferredAgeBands: ['adult'],
+    preferredRoles: ['taxi', 'driver', 'rider', 'chauffeur'],
     objectives: [
       { id: 'hail', intentKeys: ['hail_taxi', 'greet_hello'], skillKeys: ['use_taxi'] },
       { id: 'destination', intentKeys: ['state_destination'], skillKeys: ['use_taxi'] },
@@ -206,6 +224,9 @@ export const SITUATIONAL_BLUEPRINTS: readonly MissionBlueprint[] = [
     situation: 'restaurant',
     learnerRole: 'diner',
     characterRole: 'waiter',
+    preferredCharacterIntents: ['request_table', 'ask_recommendation', 'ask_ingredients', 'confirm_order', 'ask_for_bill'],
+    preferredAgeBands: ['adult', 'elder'],
+    preferredRoles: ['waiter', 'waitress', 'server', 'restaurant', 'cook', 'chef', 'café', 'cafe'],
     objectives: [
       { id: 'table', intentKeys: ['request_table', 'ask_availability'], skillKeys: ['ask_about_availability'] },
       { id: 'recommend', intentKeys: ['ask_recommendation'], skillKeys: ['ask_recommendation'], required: false },
@@ -236,6 +257,9 @@ export const SITUATIONAL_BLUEPRINTS: readonly MissionBlueprint[] = [
     situation: 'shopping',
     learnerRole: 'customer in a clothes shop',
     characterRole: 'shop assistant',
+    preferredCharacterIntents: ['ask_for_variant', 'express_preference_between', 'say_too_expensive', 'say_just_looking', 'ask_alternative'],
+    preferredAgeBands: ['adult', 'teen'],
+    preferredRoles: ['shop assistant', 'tailor', 'seamstress', 'boutique', 'clothes', 'shopkeeper', 'dressmaker'],
     objectives: [
       { id: 'browse', intentKeys: ['say_just_looking', 'request_item'], skillKeys: ['decline_politely', 'request_item'] },
       { id: 'variant', intentKeys: ['ask_for_variant'], skillKeys: ['ask_for_variant'] },
@@ -266,6 +290,9 @@ export const SITUATIONAL_BLUEPRINTS: readonly MissionBlueprint[] = [
     situation: 'emergencies',
     learnerRole: 'person needing urgent help',
     characterRole: 'helpful bystander',
+    preferredCharacterIntents: ['call_for_help', 'ask_emergency_type', 'ask_for_doctor_or_pharmacy', 'describe_pain', 'react_with_empathy'],
+    preferredAgeBands: ['adult'],
+    preferredRoles: ['nurse', 'pharmacist', 'doctor', 'paramedic', 'bystander', 'security', 'police'],
     objectives: [
       { id: 'call', intentKeys: ['call_for_help', 'get_attention'], skillKeys: ['ask_for_help_emergency'] },
       { id: 'what', intentKeys: ['say_emergency_type', 'describe_pain'], skillKeys: ['ask_for_help_emergency', 'describe_symptom'] },
@@ -294,6 +321,9 @@ export const SITUATIONAL_BLUEPRINTS: readonly MissionBlueprint[] = [
     situation: 'travel',
     learnerRole: 'traveller at a ticket counter',
     characterRole: 'ticket clerk',
+    preferredCharacterIntents: ['buy_ticket', 'ask_departure_time', 'ask_which_stop', 'tell_time', 'report_lost_item'],
+    preferredAgeBands: ['adult'],
+    preferredRoles: ['clerk', 'station', 'conductor', 'ticket', 'railway', 'bus driver'],
     objectives: [
       { id: 'ticket', intentKeys: ['buy_ticket'], skillKeys: ['buy_ticket'] },
       { id: 'time', intentKeys: ['ask_departure_time', 'tell_time'], skillKeys: ['tell_time'] },
@@ -324,6 +354,9 @@ export const SITUATIONAL_BLUEPRINTS: readonly MissionBlueprint[] = [
     situation: 'family',
     learnerRole: 'guest at a family meal',
     characterRole: 'host',
+    preferredCharacterIntents: ['describe_family', 'ask_about_family', 'narrate_past_event', 'welcome_someone', 'offer_options'],
+    preferredAgeBands: ['elder', 'adult'],
+    preferredRoles: ['host', 'grandmother', 'grandfather', 'retired', 'aunt', 'uncle', 'mother', 'father'],
     objectives: [
       { id: 'ask_family', intentKeys: ['ask_about_family'], skillKeys: ['talk_about_family'] },
       { id: 'describe_family', intentKeys: ['describe_family'], skillKeys: ['talk_about_family'] },
@@ -351,6 +384,9 @@ export const SITUATIONAL_BLUEPRINTS: readonly MissionBlueprint[] = [
     situation: 'plans',
     learnerRole: 'friend making plans',
     characterRole: 'friend',
+    preferredCharacterIntents: ['invite', 'suggest_activity', 'make_plan_time', 'suggest_other_time', 'confirm_plan'],
+    preferredAgeBands: ['teen', 'adult'],
+    preferredRoles: ['friend', 'student', 'classmate', 'roommate', 'flatmate'],
     objectives: [
       { id: 'suggest', intentKeys: ['suggest_activity', 'invite'], skillKeys: ['make_plans'] },
       { id: 'time', intentKeys: ['make_plan_time', 'suggest_other_time'], skillKeys: ['make_plans', 'tell_time'] },
@@ -379,6 +415,9 @@ export const SITUATIONAL_BLUEPRINTS: readonly MissionBlueprint[] = [
     situation: 'daily_life',
     learnerRole: 'colleague chatting during a break',
     characterRole: 'colleague',
+    preferredCharacterIntents: ['describe_routine', 'ask_occupation', 'describe_occupation', 'ask_time', 'tell_time'],
+    preferredAgeBands: ['adult', 'teen'],
+    preferredRoles: ['colleague', 'coworker', 'co-worker', 'office', 'intern'],
     objectives: [
       { id: 'routine', intentKeys: ['describe_routine'], skillKeys: ['describe_daily_routine'] },
       { id: 'time', intentKeys: ['tell_time'], skillKeys: ['tell_time'] },
@@ -405,6 +444,9 @@ export const SITUATIONAL_BLUEPRINTS: readonly MissionBlueprint[] = [
     situation: 'work',
     learnerRole: 'new colleague on the first day',
     characterRole: 'team lead',
+    preferredCharacterIntents: ['ask_opinion', 'agree', 'disagree_politely', 'make_plan_time', 'ask_availability'],
+    preferredAgeBands: ['adult'],
+    preferredRoles: ['team lead', 'manager', 'coworker', 'colleague', 'engineer', 'office', 'boss'],
     objectives: [
       { id: 'introduce', intentKeys: ['introduce_name', 'say_nice_to_meet'], skillKeys: ['introduce_self', 'use_appropriate_register'] },
       { id: 'occupation', intentKeys: ['describe_occupation', 'ask_occupation'], skillKeys: ['describe_job'] },
@@ -433,6 +475,9 @@ export const SITUATIONAL_BLUEPRINTS: readonly MissionBlueprint[] = [
     situation: 'debates',
     learnerRole: 'friend in a friendly argument',
     characterRole: 'opinionated friend',
+    preferredCharacterIntents: ['state_opinion', 'ask_opinion', 'disagree_politely', 'give_reason', 'ask_reason'],
+    preferredAgeBands: ['adult', 'teen', 'elder'],
+    preferredRoles: ['friend', 'student', 'musician', 'journalist', 'teacher', 'coworker'],
     objectives: [
       { id: 'opinion', intentKeys: ['state_opinion'], skillKeys: ['express_opinion'] },
       { id: 'reason', intentKeys: ['give_reason'], skillKeys: ['justify_opinion'] },
@@ -461,6 +506,9 @@ export const SITUATIONAL_BLUEPRINTS: readonly MissionBlueprint[] = [
     situation: 'story',
     learnerRole: 'friend telling what happened yesterday',
     characterRole: 'curious friend',
+    preferredCharacterIntents: ['narrate_past_event', 'say_when_happened', 'react_with_empathy', 'ask_reason', 'express_feeling'],
+    preferredAgeBands: ['elder', 'adult', 'teen', 'child'],
+    preferredRoles: ['friend', 'grandmother', 'grandfather', 'retired', 'neighbour', 'host'],
     objectives: [
       { id: 'narrate', intentKeys: ['narrate_past_event'], skillKeys: ['narrate_past_experience'] },
       { id: 'when', intentKeys: ['say_when_happened'], skillKeys: ['narrate_past_experience'] },
@@ -478,6 +526,44 @@ export const SITUATIONAL_BLUEPRINTS: readonly MissionBlueprint[] = [
       { id: 'market_bargain', sceneFacts: ['the learner bargained at the market', 'got a good price'], twist: 'the friend wants to know the final price' },
     ],
     prerequisiteSkillKeys: ['describe_daily_routine'],
+  }),
+  defineBlueprint({
+    key: 'buy_ice_cream',
+    titleKey: 'mission.buy_ice_cream.title',
+    missionType: 'situational',
+    level: 'beginner',
+    situation: 'shopping',
+    learnerRole: 'grown-up taking a child to the ice-cream stand',
+    characterRole: 'child at the ice-cream stand',
+    preferredCharacterIntents: ['request_food', 'choose_option', 'say_delicious', 'ask_permission', 'express_like'],
+    preferredAgeBands: ['child', 'teen'],
+    preferredRoles: ['schoolgirl', 'schoolboy', 'pupil', 'child', 'kid', 'schoolchild', 'cousin', 'nephew', 'niece'],
+    objectives: [
+      { id: 'offer_choice', intentKeys: ['offer_options', 'ask_opinion'], skillKeys: ['express_preference'] },
+      { id: 'order_scoop', intentKeys: ['specify_quantity', 'request_food'], skillKeys: ['specify_quantity', 'order_food'] },
+      { id: 'permission', intentKeys: ['grant_permission', 'refuse_permission'], skillKeys: ['accept_offer', 'decline_politely'] },
+      { id: 'enjoy', intentKeys: ['say_delicious', 'express_like'], skillKeys: ['express_feeling'], required: false },
+      { id: 'thanks', intentKeys: ['respond_to_thanks'], skillKeys: ['thank_and_respond'], required: false },
+    ],
+    slots: [
+      { slotId: 'wants', intentKey: 'request_food', register: 'casual', speaker: 'character' },
+      { slotId: 'which_flavour', intentKey: 'offer_options', register: 'casual' },
+      { slotId: 'picks', intentKey: 'choose_option', register: 'casual', speaker: 'character' },
+      { slotId: 'scoop', intentKey: 'specify_quantity', register: polite },
+      { slotId: 'asks_two', intentKey: 'ask_permission', register: 'casual', speaker: 'character' },
+      { slotId: 'just_one', intentKey: 'refuse_permission', register: 'casual' },
+      { slotId: 'okay', intentKey: 'grant_permission', register: 'casual', required: false },
+      { slotId: 'yummy', intentKey: 'say_delicious', register: 'casual', speaker: 'character', required: false },
+      { slotId: 'me_too', intentKey: 'express_like', register: 'casual', required: false },
+      { slotId: 'thanks', intentKey: 'thank', register: 'casual', speaker: 'character', required: false },
+      { slotId: 'welcome', intentKey: 'respond_to_thanks', register: 'casual', required: false },
+    ],
+    sceneVariants: [
+      { id: 'cart_after_school', sceneFacts: ['an ice-cream cart outside the school', 'the child wants an ice cream', 'two flavours are left'], twist: 'the child asks for a second scoop; the learner has to say no kindly' },
+      { id: 'seaside_kiosk', sceneFacts: ['a kiosk by the sea', 'the child cannot decide between two flavours', 'the ice cream melts fast'], twist: 'the child changes flavour at the last moment' },
+    ],
+    rejectIntentKeys: ['bare_command'],
+    recommendedMinutes: 6,
   }),
 ];
 

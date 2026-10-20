@@ -4,6 +4,7 @@ import { serverTranslator } from '@/src/lib/i18n/server';
 import { listReviewQueue } from '@/src/lib/queries/ops';
 import { formatDateTime, pickLocalized, shortId } from '@/src/lib/format';
 import { Card, EmptyState, PageHeader } from '@/src/components/ui';
+import { Melo } from '@/src/components/brand';
 import { SECTION_PATHS } from '@/src/lib/auth/roles';
 import { Badge, StatusBadge } from '@/src/components/badges';
 import { LessonReviewActions } from './review-actions';
@@ -21,9 +22,10 @@ export default async function QualityReviewPage() {
       <PageHeader title={t('admin.review.title')} description={t('admin.dashboard.pendingReview', { count: total })} />
       {total === 0 ? (
         <EmptyState
+          art={<Melo state="success" size={72} />}
           title={t('admin.ui.qrClear')}
           action={
-            <Link href={SECTION_PATHS.library} className="text-sm text-accent hover:underline">
+            <Link href={SECTION_PATHS.library} className="text-sm text-accent-text hover:underline">
               {t('admin.sections.library')} →
             </Link>
           }
@@ -35,7 +37,7 @@ export default async function QualityReviewPage() {
           {lessons.ok
             ? lessons.data.map((l) => (
                 <li key={l.id} className="flex flex-wrap items-center gap-2 py-2 text-sm">
-                  <Link href={`/lessons/${l.id}`} className="font-medium text-accent hover:underline">
+                  <Link href={`/lessons/${l.id}`} className="font-medium text-accent-text hover:underline">
                     {pickLocalized(l.title_translations, locale) || shortId(l.id)}
                   </Link>
                   <span className="text-xs text-fg-muted">
@@ -59,7 +61,7 @@ export default async function QualityReviewPage() {
             {transcripts.ok
               ? transcripts.data.map((tr) => (
                   <li key={tr.id}>
-                    <Link href={`/transcripts/${tr.lesson_id}?revision=${tr.revision}`} className="text-accent hover:underline">
+                    <Link href={`/transcripts/${tr.lesson_id}?revision=${tr.revision}`} className="text-accent-text hover:underline">
                       {pickLocalized(tr.lesson?.title_translations, locale) || shortId(tr.lesson_id)} · v{tr.revision}
                     </Link>
                     <span className="ms-1 text-xs text-fg-muted">{tr.primary_language_code} · {formatDateTime(tr.updated_at, locale)}</span>
@@ -89,7 +91,7 @@ export default async function QualityReviewPage() {
             {visual.ok
               ? visual.data.map((v) => (
                   <li key={v.id} className="flex items-center gap-2">
-                    <Link href="/visual-assets" className="font-mono text-xs text-accent hover:underline">
+                    <Link href="/visual-assets" className="font-mono text-xs text-accent-text hover:underline">
                       {shortId(v.id)}
                     </Link>
                     <span>{v.type}</span>

@@ -61,7 +61,14 @@
       "characterPortrait": "Портрет: {name}",
       "sceneArt": "Сцена: {description}",
       "languagePickerHint": "Нажмите дважды, чтобы выбрать"
-    }
+    },
+    "info": "Инфо",
+    "details": "Подробнее",
+    "hideDetails": "Скрыть подробности",
+    "more": "Ещё",
+    "less": "Меньше",
+    "moreInformation": "Подробная информация",
+    "about": "О приложении"
   },
   "onboarding": {
     "heroPromise": "Начните говорить с первого дня",
@@ -113,7 +120,8 @@
       "failed": "Пока не удалось настроить ваш курс.",
       "retry": "Повторить",
       "scriptModeHint": "Этот выбор можно будет изменить позже для этого курса."
-    }
+    },
+    "aboutLangQuest": "О LangQuest"
   },
   "enrollment": {
     "title": "Ваши курсы",
@@ -195,6 +203,21 @@
         "pronunciationAcoustic": "Оценка произношения",
         "pronunciationReference": "Обратная связь по произношению: прослушать и сравнить",
         "offlineDownloads": "Офлайн-загрузки"
+      },
+      "shortTitle": "Пока нет в этом курсе",
+      "shortAllAvailable": "Всё доступно",
+      "short": {
+        "no_missions": "Миссий пока нет",
+        "no_audio_library": "Аудиобиблиотеки пока нет",
+        "no_live_conversation": "Живого разговора пока нет",
+        "text_only_conversation": "Живой разговор только текстом",
+        "no_pronunciation_scoring": "Без оценки произношения",
+        "no_pronunciation_feedback": "Без устного разбора произношения",
+        "no_offline_downloads": "Офлайн-загрузок пока нет",
+        "instruction_language_draft": "Объяснения ещё не проверены",
+        "instruction_language_planned": "Ваш язык запланирован",
+        "instruction_language_unavailable": "Нет на вашем языке",
+        "partial_interface_language": "Часть текста не переведена"
       }
     },
     "remove": "Убрать курс",
@@ -203,6 +226,7 @@
     "removeDelete": "Удалить прогресс по этому курсу",
     "removeOtherCoursesSafe": "Остальные курсы не затрагиваются.",
     "add": "Добавить курс",
-    "temporaryTranslation": "Пока показывать переводы на другом языке"
+    "temporaryTranslation": "Пока показывать переводы на другом языке",
+    "aboutEditor": "Об этих настройках"
   }
 }

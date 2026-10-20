@@ -18,7 +18,7 @@ const LATIN_ONLY = /^[\p{Script=Latin}\p{N}\p{P}\s]+$/u;
 describe('draft chapters are honestly labelled', () => {
   it('ships the four flagship drafts with the requested mission counts', () => {
     expect(DRAFT_CHAPTERS.map((c) => [c.courseTrackId, c.sourceLanguages, c.missions.length])).toEqual([
-      ['arabic-moroccan', ['fr', 'en'], 6],
+      ['arabic-moroccan', ['fr', 'en'], 7],
       ['spanish-spain', ['en'], 6],
       ['japanese', ['en'], 4],
       ['english', ['fr', 'ru'], 4],
@@ -192,11 +192,11 @@ describe('coverage summary', () => {
     expect(summary.totals.partial).toBe(6);
     expect(summary.totals.planned).toBe(summary.rows.length - 6);
     const row = (track: string, source: SourceLanguageCode) => summary.rows.find((r) => r.courseTrackId === track && r.sourceLanguageCode === source)!;
-    expect(row('arabic-moroccan', 'fr')).toMatchObject({ status: 'partial', nativeReviewed: false, draftedMissionCount: 6, nativeReviewedExpressionCount: 0 });
+    expect(row('arabic-moroccan', 'fr')).toMatchObject({ status: 'partial', nativeReviewed: false, draftedMissionCount: 7, nativeReviewedExpressionCount: 0 });
     expect(row('arabic-moroccan', 'fr').metrics.mission_instructions_pct).toBe(100);
     expect(row('arabic-moroccan', 'ru').status).toBe('planned');
     expect(row('english', 'ru')).toMatchObject({ status: 'partial', draftedMissionCount: 4 });
-    expect(row('english', 'ru').metrics.mission_instructions_pct).toBeCloseTo(66.7, 1);
+    expect(row('english', 'ru').metrics.mission_instructions_pct).toBeCloseTo(57.1, 1);
     expect(row('lingala', 'en')).toMatchObject({ status: 'planned', expressionsWithTargetText: 0 });
     expect(row('lingala', 'en').reason).toMatch(/no target text/);
     expect(row('chinese-simplified', 'en').plannedChapterKeys).toEqual(['chinese_simplified_ch1_planned']);

@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { mascotSvgString } from '@art/mascot';
 import { ART_STYLE_VERSION } from '@art/manifest';
 import { CONTENT_STATE_VALUES, JOB_STATE_VALUES } from '@langquest/contracts';
 import { requireSection } from '@/src/lib/auth/session';
@@ -8,47 +7,54 @@ import { loadDashboard } from '@/src/lib/queries/dashboard';
 import { formatBytes, formatDateTime, formatUsd } from '@/src/lib/format';
 import { Card, Notice, PageHeader, Stat } from '@/src/components/ui';
 import { JobBadge, StatusBadge, CoverageBadge, Badge } from '@/src/components/badges';
-import { SvgArt } from '@/src/components/asset-preview';
+import { Melo } from '@/src/components/brand';
 import { SECTION_PATHS } from '@/src/lib/auth/roles';
 
 export const dynamic = 'force-dynamic';
 
+/**
+ * Dashboard. Text budget (owner decision 2026-10-19): one heading, numbers, one primary link per
+ * card; every explanation sits behind ⓘ. Cards that the role cannot use are not rendered
+ * (CONVENTIONS §8), never greyed out.
+ */
 export default async function DashboardPage({ searchParams }: { searchParams: Promise<{ denied?: string }> }) {
   await requireSection('dashboard');
   const { denied } = await searchParams;
   const { t, locale } = await serverTranslator();
   const data = await loadDashboard();
-  const mascot = mascotSvgString('neutral', { size: 96 });
+  const more = (href: string, label: string) => (
+    <Link href={href} className="mt-3 inline-block text-xs text-accent-text hover:underline">
+      {label} →
+    </Link>
+  );
 
   return (
     <div className="space-y-4">
-      <PageHeader title={t('admin.sections.dashboard')} description={t('admin.dashboard.coverageByPair')} />
+      <PageHeader title={t('admin.sections.dashboard')} info={t('admin.ui.dashHint')} />
       {denied ? <Notice tone="warning">{t('admin.ui.denied', { section: t(`admin.sections.${denied}`) })}</Notice> : null}
 
       <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
         <Stat label={t('admin.ui.dashPending')} value={data.jobs.pending} />
         <Stat label={t('admin.ui.dashRunning')} value={data.jobs.running} tone={data.jobs.running > 0 ? 'success' : 'default'} />
-        <Stat label={t('admin.ui.dashFailed')} value={data.jobs.failed} tone={data.jobs.failed > 0 ? 'error' : 'default'} hint={t('admin.dashboard.failedJobs', { count: data.jobs.failed })} />
-        <Stat label={t('admin.ui.dashReviewNeeded')} value={data.pendingReviews.total} tone={data.pendingReviews.total > 0 ? 'warning' : 'default'} hint={t('admin.dashboard.pendingReview', { count: data.pendingReviews.total })} />
+        <Stat label={t('admin.ui.dashFailed')} value={data.jobs.failed} tone={data.jobs.failed > 0 ? 'error' : 'default'} />
+        <Stat label={t('admin.ui.dashReviewNeeded')} value={data.pendingReviews.total} tone={data.pendingReviews.total > 0 ? 'warning' : 'default'} />
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
-        {/* Cost needs the admin role: without it the card is not rendered (CONVENTIONS §8), it is not a placeholder. */}
         {data.costToday.error === 'forbidden' ? null : (
-        <Card title={t('admin.ui.dashCostToday')}>
-          {data.costToday.ok ? (
-            <div>
-              <div className="text-2xl font-semibold tabular-nums">{formatUsd(data.costToday.usd, locale)}</div>
-              <p className="mt-1 text-xs text-fg-muted">
-                {t('admin.ui.dashRequestsToday', { count: data.costToday.requests })}
-                {data.costToday.unpriced > 0 ? ` · ${data.costToday.unpriced} unpriced` : ''}
-              </p>
-              <p className="mt-2 text-xs text-fg-muted">{t('admin.ui.dashCostHint')}</p>
-            </div>
-          ) : (
-            <Notice tone="error">{t('admin.ui.dashCostError', { reason: data.costToday.error ?? 'unknown' })}</Notice>
-          )}
-        </Card>
+          <Card title={t('admin.ui.dashCostToday')} info={t('admin.ui.dashCostHint')}>
+            {data.costToday.ok ? (
+              <div>
+                <div className="text-2xl font-semibold tabular-nums">{formatUsd(data.costToday.usd, locale)}</div>
+                <p className="mt-1 text-xs text-fg-muted">
+                  {t('admin.ui.dashRequestsToday', { count: data.costToday.requests })}
+                  {data.costToday.unpriced > 0 ? ` · ${data.costToday.unpriced} unpriced` : ''}
+                </p>
+              </div>
+            ) : (
+              <Notice tone="error">{t('admin.ui.dashCostError', { reason: data.costToday.error ?? 'unknown' })}</Notice>
+            )}
+          </Card>
         )}
 
         <Card title={t('admin.ui.dashJobsHealth')}>
@@ -60,36 +66,27 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
               </li>
             ))}
           </ul>
-          <Link href={SECTION_PATHS.jobQueue} className="mt-3 inline-block text-xs text-accent hover:underline">
-            {t('admin.sections.jobQueue')} →
-          </Link>
+          {more(SECTION_PATHS.jobQueue, t('admin.sections.jobQueue'))}
         </Card>
 
         <Card title={t('admin.review.queue')}>
           <ul className="space-y-1 text-sm">
-            <li className="flex justify-between">
-              <span>{t('admin.ui.qrLessons')}</span>
-              <span className="tabular-nums">{data.pendingReviews.lessons}</span>
-            </li>
-            <li className="flex justify-between">
-              <span>{t('admin.ui.qrTranscripts')}</span>
-              <span className="tabular-nums">{data.pendingReviews.transcripts}</span>
-            </li>
-            <li className="flex justify-between">
-              <span>{t('admin.ui.qrTranslations')}</span>
-              <span className="tabular-nums">{data.pendingReviews.translations}</span>
-            </li>
-            <li className="flex justify-between">
-              <span>{t('admin.ui.qrVisual')}</span>
-              <span className="tabular-nums">{data.pendingReviews.visual}</span>
-            </li>
-            <li className="flex justify-between border-t border-border pt-1 text-fg-muted">
-              <span>{t('admin.dashboard.rightsUnverified', { count: data.rightsUnverified })}</span>
-            </li>
+            {(
+              [
+                ['qrLessons', data.pendingReviews.lessons],
+                ['qrTranscripts', data.pendingReviews.transcripts],
+                ['qrTranslations', data.pendingReviews.translations],
+                ['qrVisual', data.pendingReviews.visual],
+              ] as const
+            ).map(([key, n]) => (
+              <li key={key} className="flex justify-between">
+                <span>{t(`admin.ui.${key}`)}</span>
+                <span className="tabular-nums">{n}</span>
+              </li>
+            ))}
+            {data.rightsUnverified > 0 ? <li className="border-t border-border pt-1 text-fg-muted">{t('admin.dashboard.rightsUnverified', { count: data.rightsUnverified })}</li> : null}
           </ul>
-          <Link href={SECTION_PATHS.qualityReview} className="mt-3 inline-block text-xs text-accent hover:underline">
-            {t('admin.sections.qualityReview')} →
-          </Link>
+          {more(SECTION_PATHS.qualityReview, t('admin.sections.qualityReview'))}
         </Card>
       </div>
 
@@ -124,9 +121,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
               </tbody>
             </table>
           )}
-          <Link href={SECTION_PATHS.uploads} className="mt-3 inline-block text-xs text-accent hover:underline">
-            {t('admin.sections.uploads')} →
-          </Link>
+          {more(SECTION_PATHS.uploads, t('admin.sections.uploads'))}
         </Card>
 
         <Card title={t('admin.ui.dashAssetsByState')}>
@@ -140,7 +135,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
             {CONTENT_STATE_VALUES.every((s) => data.assetsByState[s] === 0) ? (
               <li className="text-fg-muted">
                 {t('admin.ui.dashNoAssetsHint')}{' '}
-                <Link href={SECTION_PATHS.uploads} className="text-accent hover:underline">
+                <Link href={SECTION_PATHS.uploads} className="text-accent-text hover:underline">
                   {t('admin.sections.uploads')} →
                 </Link>
               </li>
@@ -150,8 +145,7 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
       </div>
 
       <div className="grid gap-4 lg:grid-cols-3">
-        <Card title={t('admin.ui.dashCoverage')} className="lg:col-span-2">
-          <p className="mb-2 text-xs text-fg-muted">{t('admin.ui.dashCoverageHint')}</p>
+        <Card title={t('admin.ui.dashCoverage')} info={t('admin.ui.dashCoverageInfo')} className="lg:col-span-2">
           {data.coverage.length === 0 ? (
             <p className="text-sm text-fg-muted">{t('admin.ui.lgRowsMissing')}</p>
           ) : (
@@ -164,24 +158,22 @@ export default async function DashboardPage({ searchParams }: { searchParams: Pr
               ))}
             </ul>
           )}
-          <Link href={SECTION_PATHS.languages} className="mt-3 inline-block text-xs text-accent hover:underline">
-            {t('admin.sections.languages')} →
-          </Link>
+          {more(SECTION_PATHS.languages, t('admin.sections.languages'))}
         </Card>
-        <Card title={t('admin.ui.dashQuickActions')}>
+        <Card title={t('admin.ui.dashQuickActions')} info={t('admin.ui.dashStyle', { version: ART_STYLE_VERSION })}>
           <div className="flex items-start gap-3">
-            <SvgArt svg={mascot} label={t('common.a11y.mascotImage', { state: 'neutral' })} className="w-24 shrink-0" />
+            {/* Melo "welcome", tinted by the active course (chameleon) — the only art on the page. */}
+            <Melo state="welcome" size={96} />
             <div className="space-y-1 text-sm">
-              <Link href={SECTION_PATHS.uploads} className="block text-accent hover:underline">
+              <Link href={SECTION_PATHS.uploads} className="block text-accent-text hover:underline">
                 {t('admin.upload.title')}
               </Link>
-              <Link href={SECTION_PATHS.contentFactory} className="block text-accent hover:underline">
+              <Link href={SECTION_PATHS.contentFactory} className="block text-accent-text hover:underline">
                 {t('admin.contentFactory.generate')}
               </Link>
-              <Link href={SECTION_PATHS.rights} className="block text-accent hover:underline">
+              <Link href={SECTION_PATHS.rights} className="block text-accent-text hover:underline">
                 {t('admin.rights.report')}
               </Link>
-              <p className="pt-2 text-xs text-fg-muted">{t('admin.ui.dashMascot', { version: ART_STYLE_VERSION })}</p>
             </div>
           </div>
         </Card>

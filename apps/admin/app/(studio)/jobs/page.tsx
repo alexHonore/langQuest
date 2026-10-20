@@ -19,7 +19,7 @@ export default async function JobsPage({ searchParams }: { searchParams: Promise
   const filtered = sp.q ? rows.filter((r) => r.id.startsWith(sp.q!) || r.idempotency_key.includes(sp.q!)) : rows;
   return (
     <div>
-      <PageHeader title={t('admin.jobs.title')} description={t('admin.ui.jbRetryHint')} />
+      <PageHeader title={t('admin.jobs.title')} info={t('admin.ui.jbRetryHint')} />
       {!jobs.ok ? <ErrorState title={t('admin.ui.errorTitle')} message={jobs.error} /> : null}
       <JobsScreen rows={filtered} page={page} hasNext={jobs.ok ? jobs.data.hasNext : false} states={[...JOB_STATE_VALUES]} types={[...PROCESSING_JOB_TYPE_VALUES_ALL]} canRetry={session.roles.some((r) => ['super_admin', 'admin', 'content_editor'].includes(r))} />
     </div>

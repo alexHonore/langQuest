@@ -1,10 +1,12 @@
 /**
  * `@langquest/ui` art module — original visual identity assets as code.
  *
- * - Mascot ("orbit-creature") in 17 states, light/dark, RN + string renderers.
+ * - Mascot ("Melo", the chameleon) in 17 states, light/dark, chameleon tint per
+ *   state × course family (`mascotTint`), RN + string renderers.
  *   `mascotLabelKey(state)` → `mascot.a11yState.<state>` (accessibility label);
  *   `mascotSpeechKey(state)` → `mascot.state.<state>` (speech-bubble copy).
- * - 16 original conversational characters × 9 expressions (parametric portraits).
+ * - 97 original conversational characters × 9 expressions (C2 clay parametric portraits,
+ *   ≥ 3 per track, roles ↔ lesson situations via `charactersForIntent`; flat LOD ≤ 48 px).
  * - 12 layered scene environments (day/evening, light/dark).
  * - 30 course covers from a palette + motif system.
  * - 37 stroke icons on a 24 grid.
@@ -23,7 +25,17 @@ export type {
   HairColorId,
   ClothColorId,
 } from './palette';
-export { MASCOT_PALETTE, SCENE_BASE, SKIN_TONES, HAIR_COLORS, CLOTH_COLORS } from './palette';
+export {
+  MASCOT_PALETTE,
+  MASCOT_BASE_HUE,
+  MASCOT_BASE_SATURATION,
+  MASCOT_BODY_LIGHTNESS,
+  mascotBodyTokens,
+  SCENE_BASE,
+  SKIN_TONES,
+  HAIR_COLORS,
+  CLOTH_COLORS,
+} from './palette';
 
 export {
   MASCOT_STATES,
@@ -35,6 +47,20 @@ export {
   buildMascotNodes,
   buildMascotDocument,
   mascotSvgString,
+  MASCOT_NAME,
+  MASCOT_PART_IDS,
+  MASCOT_PIVOT,
+  MASCOT_STATE_TINTS,
+  COURSE_FAMILY_IDS,
+  COURSE_FAMILY_HUE_OFFSETS,
+  COURSE_TRACK_FAMILIES,
+  courseFamilyTint,
+  mascotTint,
+  mascotBaseTint,
+  mascotTintTable,
+  buildMascotParts,
+  figureTransform,
+  mascotMasterSvgString,
 } from './mascot';
 export type {
   MascotPose,
@@ -44,6 +70,15 @@ export type {
   ArmPose,
   BrowShape,
   PropKind,
+  TailSpec,
+  MascotDetail,
+  MascotPartId,
+  MascotParts,
+  CourseFamilyId,
+  CourseFamilyTint,
+  MascotTint,
+  MascotTintInput,
+  MascotStateTint,
 } from './mascot';
 
 export {
@@ -54,6 +89,28 @@ export {
   PORTRAIT_VIEWBOX,
   findCharacter,
   charactersForVariety,
+  charactersForTrack,
+  charactersForIntent,
+  charactersForSituation,
+  LEGACY_ROSTER_IDS,
+  CHARACTER_SITUATIONS,
+  SITUATION_TAGS,
+  intentsForSituations,
+  isSituationTag,
+  situationFitsAge,
+  EXPRESSION_LABELS,
+  PORTRAIT_FLAT_MAX_SIZE,
+  portraitDetailForSize,
+  DISC_TINTS,
+  cast,
+  skinToneFamily,
+  ClayContext,
+  KEY_LIGHT,
+  RIM_COLOR,
+  RIM_OPACITY,
+  SHADOW_INK,
+  mix,
+  specular,
   stableCharacterUuid,
   uuidV5,
   characterKey,
@@ -76,6 +133,18 @@ export type {
   Clothing,
   Extra,
   AgeGroup,
+  AgeBand,
+  GenderPresentation,
+  SkinToneFamily,
+  Stature,
+  PortraitDetail,
+  PortraitRenderOptions,
+  ExpressionPose,
+  CharacterSituation,
+  CurriculumIntentKey,
+  SituationTag,
+  CastSheet,
+  ClayMaterial,
 } from './characters';
 
 export {

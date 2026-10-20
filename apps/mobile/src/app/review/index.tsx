@@ -1,8 +1,9 @@
 import { getCourseTrack, type ReviewRating } from '@langquest/contracts';
-import { Button, Chip, EmptyState, Mascot, Row, SceneArtwork, SpeakButton, StatusLine, Surface, ThemedText, useTheme } from '@langquest/ui';
+import { Button, Chip, EmptyState, IconButton, InfoAffordance, LessonAccentScope, Row, SceneArtwork, SpeakButton, StatusLine, Surface, ThemedText, useTheme } from '@langquest/ui';
 import { useRouter } from 'expo-router';
 import React, { useEffect, useMemo, useState } from 'react';
 import { View } from 'react-native';
+import { Melo } from '@/components/Melo';
 import { Screen } from '@/components/Screen';
 import { CacheNotice, ErrorView, LoadingView } from '@/components/StateViews';
 import { formsForScriptMode, sourceTextDirection } from '@/features/lesson/forms';
@@ -19,9 +20,10 @@ import { usePrefs } from '@/state/prefs';
 const RATINGS: readonly ReviewRating[] = ['again', 'hard', 'good', 'easy'];
 
 /**
- * Due reviews (§3.5, A17): each card is presented in a varied practical scenario,
+ * Due reviews (§3.5, A17, calm density): each card is presented in a varied practical scenario,
  * the learner retrieves (optionally speaking it), then rates recall. Results go
- * through the outbox (`review_result`) so they sync idempotently even offline.
+ * through the outbox (`review_result`) so they sync idempotently even offline. Melo follows
+ * the moment (curious → encouraging → celebrate); the "speaking is optional" note sits behind ⓘ.
  */
 export default function ReviewSession(): React.JSX.Element {
   const theme = useTheme();
@@ -65,7 +67,8 @@ export default function ReviewSession(): React.JSX.Element {
   };
 
   return (
-    <Screen title={t('progress.review.title')} onBack={() => router.back()}>
+    <LessonAccentScope lessonType="review_recall" courseTrackId={enrollment?.courseTrackId ?? null}>
+    <Screen title={t('progress.review.title')} onBack={() => router.back()} headerEnd={item ? <InfoAffordance label={t('common.moreInformation')} title={t('progress.review.title')} text={[t('lesson.textAlternativeNote'), t('speak.noPenalty')]} /> : undefined}>
       {reviews.isLoading ? <LoadingView rows={1} /> : null}
       {reviews.error && !reviews.data ? <ErrorView error={reviews.error} onRetry={() => void reviews.refetch()} /> : null}
       {reviews.data?.fromCache ? <CacheNotice fetchedAt={reviews.data.fetchedAt} /> : null}
@@ -74,6 +77,7 @@ export default function ReviewSession(): React.JSX.Element {
           title={t('progress.review.allDone')}
           description={t('progress.review.due', { count: 0 })}
           mascotState={done > 0 ? 'celebrate' : 'quiet_audio'}
+          infoLabel={t('common.moreInformation')}
           actionLabel={t('common.done')}
           onAction={async () => {
             await invalidate();
@@ -83,15 +87,14 @@ export default function ReviewSession(): React.JSX.Element {
       ) : null}
       {item && trackDef ? (
         <View style={{ gap: theme.spacing.md }}>
-          <Row gap={theme.spacing.sm} justify="space-between">
+          <Row gap={theme.spacing.sm} justify="space-between" align="center">
             <Chip label={`${index + 1}/${items.length}`} />
-            <Chip label={item.card.targetKind === 'skill' ? t('progress.skillMastery') : t('lesson.wordHelp')} tone="info" />
+            <Melo state={revealed ? 'encouraging' : 'curious'} size={44} animate={false} testID="review-mascot" />
           </Row>
-          <SceneArtwork sceneId="park" imageUri={item.scenario.sceneArt?.publicUrl ?? null} aspectRatio={2.4} overlay={<ThemedText tone="onAccent" align="center" direction={sourceDir}>{item.scenario.description}</ThemedText>} scrim />
-          <Surface radius="lg" padding={theme.spacing.lg} bordered style={{ gap: theme.spacing.sm }}>
+          <SceneArtwork sceneId="park" imageUri={item.scenario.sceneArt?.publicUrl ?? null} aspectRatio={2.4} overlay={<ThemedText tone="onScrim" align="center" direction={sourceDir}>{item.scenario.description}</ThemedText>} scrim overlayScrim />
+          <Surface variant="glass" level={1} radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.sm }}>
             {item.expression ? (
               <>
-                <ThemedText variant="caption" tone="muted">{t('lesson.anticipate')}</ThemedText>
                 <ThemedText variant="heading" direction={sourceDir}>{item.expression.meaning}</ThemedText>
                 {item.expression.contextNote ? <ThemedText variant="caption" tone="secondary" direction={sourceDir}>{item.expression.contextNote}</ThemedText> : null}
                 {revealed ? (
@@ -103,14 +106,11 @@ export default function ReviewSession(): React.JSX.Element {
                 ) : null}
               </>
             ) : item.skill ? (
-              <>
-                <ThemedText variant="caption" tone="muted">{t('progress.canDo')}</ThemedText>
-                <ThemedText variant="heading">{item.skill.descriptor}</ThemedText>
-              </>
+              <ThemedText variant="heading">{item.skill.descriptor}</ThemedText>
             ) : null}
             <Row gap={theme.spacing.xs} wrap>
               {!revealed ? <Button label={t('progress.review.showAnswer')} size="sm" variant="secondary" onPress={() => { setRevealed(true); setHints(hints + 1); }} accessibilityLabel={t('progress.review.showAnswer')} /> : null}
-              {reference ? <Button label={t('lesson.replay')} icon="play" size="sm" variant="secondary" onPress={() => { setReplays(replays + 1); void player.playUri(reference.asset.publicUrl!, 1); }} accessibilityLabel={t('lesson.replay')} /> : null}
+              {reference ? <IconButton icon="play" accessibilityLabel={t('lesson.replay')} onPress={() => { setReplays(replays + 1); void player.playUri(reference.asset.publicUrl!, 1); }} /> : null}
             </Row>
           </Surface>
           <View style={{ alignItems: 'center', gap: theme.spacing.xs }}>
@@ -134,16 +134,16 @@ export default function ReviewSession(): React.JSX.Element {
               onHaptic={(k) => void haptic(k)}
               labels={labels.speakButton}
             />
-            {spoke ? <StatusLine icon="check" tone="success" text={t('speak.noPenalty')} /> : <ThemedText variant="caption" tone="muted">{t('lesson.textAlternativeNote')}</ThemedText>}
+            {spoke ? <StatusLine icon="check" tone="success" text={t('speak.noPenalty')} /> : null}
           </View>
           <Row gap={theme.spacing.xs} wrap justify="center">
             {RATINGS.map((r) => (
               <Button key={r} label={t(`progress.review.${r}`)} variant={r === 'again' ? 'danger' : r === 'good' ? 'primary' : 'secondary'} onPress={() => void rate(r)} accessibilityLabel={t(`progress.review.${r}`)} />
             ))}
           </Row>
-          <Mascot state={revealed ? 'encouraging' : 'curious'} size="icon" />
         </View>
       ) : null}
     </Screen>
+    </LessonAccentScope>
   );
 }

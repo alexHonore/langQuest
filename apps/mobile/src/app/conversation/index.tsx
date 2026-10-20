@@ -1,8 +1,9 @@
 import { getCourseTrack, type ConversationMode, type ConversationSessionCreateResponse, type EnrollmentDto } from '@langquest/contracts';
-import { Button, CharacterPortrait, Chip, HintSheet, IconButton, ProgressBar, Row, SceneArtwork, SpeakButton, SpeechStateIndicator, StatusLine, Surface, ThemedText, findCharacter, useTheme } from '@langquest/ui';
+import { Button, CharacterPortrait, Chip, HintSheet, IconButton, InfoAffordance, LessonAccentScope, ProgressBar, Row, SceneArtwork, SpeakButton, SpeechStateIndicator, StatusLine, Surface, ThemedText, findCharacter, useTheme } from '@langquest/ui';
 import { Redirect, useLocalSearchParams, useRouter } from 'expo-router';
 import React, { useEffect, useMemo, useRef, useState } from 'react';
 import { Alert, Platform, ScrollView, TextInput, View } from 'react-native';
+import { Melo } from '@/components/Melo';
 import { Screen } from '@/components/Screen';
 import { ErrorView, LoadingView } from '@/components/StateViews';
 import { SyntheticVoiceBadge } from '@/components/SyntheticVoiceBadge';
@@ -26,7 +27,12 @@ import { track } from '@/lib/telemetry';
 import { usePrefs } from '@/state/prefs';
 import { getLocalStore } from '@/store';
 
-/** Screen 5: live AI character conversation (pipeline realtime, §8.3 machine, barge-in). */
+/**
+ * Screen 5: live AI character conversation (pipeline realtime, §8.3 machine, barge-in). Calm density: the
+ * portrait with the speech glow, one speech-state word, the transcript, ONE primary action (the mic),
+ * icon commands; the honesty notes (instruction language, synthetic voice) live behind ⓘ. Lantern accents
+ * follow the course and the `character_conversation` lesson type.
+ */
 export default function ConversationScreen(): React.JSX.Element {
   const router = useRouter();
   const t = useT();
@@ -84,12 +90,14 @@ export default function ConversationScreen(): React.JSX.Element {
 
   if (enrollment && !nav.liveConversation) return <Redirect href="/(tabs)" />;
   return (
-    <Screen title={t('speak.title')} onBack={() => router.back()} scroll={false} enrollment={enrollment}>
+    <LessonAccentScope lessonType="character_conversation" courseTrackId={enrollment?.courseTrackId ?? null}>
+      <Screen onBack={() => router.back()} scroll={false} enrollment={enrollment}>
       {unknownEnrollment ? <ErrorView error={new Error(t('errors.notFound'))} /> : !enrollment && query.data ? <ErrorView error={new Error(t('home.noCourse'))} /> : null}
       {!session && !error && enrollment ? <LoadingView rows={1} label={t('speak.state.preparing')} /> : null}
       {error ? <ErrorView error={error} onRetry={() => router.replace({ pathname: '/conversation', params })} /> : null}
       {session && enrollment ? <LiveConversation session={session} enrollment={enrollment} mode={mode} voice={voiceAllowed} /> : null}
-    </Screen>
+      </Screen>
+    </LessonAccentScope>
   );
 }
 
@@ -164,6 +172,14 @@ function LiveConversation({ session, enrollment, mode, voice }: { session: Conve
     return () => clearInterval(timer);
   }, [controller, mode, recorder]);
 
+  // A new character turn arrived: a light haptic tick (gated by the learner's setting inside `haptic`).
+  const lastTurnId = useRef<string | null>(null);
+  useEffect(() => {
+    const id = snap?.lastCharacterTurn?.turnId ?? null;
+    if (id && lastTurnId.current && id !== lastTurnId.current) void haptic('select');
+    lastTurnId.current = id;
+  }, [snap?.lastCharacterTurn?.turnId]);
+
   // Connectivity → machine.
   const wasOnline = useRef(online);
   useEffect(() => {
@@ -231,29 +247,34 @@ function LiveConversation({ session, enrollment, mode, voice }: { session: Conve
 
   if (ended) {
     const ev = ended.evaluation;
+    const details = [
+      ended.summary,
+      t('missions.summary.objectivesMet', { count: ev.objectivesCompleted.length }),
+      t('missions.summary.reviewAdded', { count: ended.scheduledReviews.length }),
+      `${labels.celebration.xp(ended.xpAwarded)} · ${t('home.xpNote')}`,
+      ended.transcriptRetained ? t('account.privacy.recordings') : t('account.privacy.speechRetention.none'),
+    ];
     return (
       <ScrollView contentContainerStyle={{ gap: theme.spacing.md, paddingVertical: theme.spacing.md }}>
-        <ThemedText variant="title" accessibilityRole="header">
-          {t('missions.summary.title')}
-        </ThemedText>
-        <StatusLine icon="check" tone="success" text={t('speak.state.finished')} />
-        <ThemedText>{t('missions.summary.objectivesMet', { count: ev.objectivesCompleted.length })}</ThemedText>
-        <ThemedText tone="secondary">{ended.summary}</ThemedText>
-        <ThemedText variant="label">{t('missions.summary.corrections')}</ThemedText>
-        {ev.priorityCorrections.length === 0 ? <ThemedText tone="secondary">{t('missions.summary.correctionsNone')}</ThemedText> : null}
-        {ev.priorityCorrections.slice(0, 2).map((c, i) => (
-          <Surface key={i} variant="muted" radius="md" padding={theme.spacing.md} style={{ gap: 2 }}>
-            <Chip label={c.category.replace(/_/g, ' ')} />
-            <ThemedText script={trackDef.scripts.primary}>{c.learnerUtterance}</ThemedText>
-            <ThemedText script={trackDef.scripts.primary} tone="accent">{c.suggestedUtterance}</ThemedText>
-            <ThemedText tone="secondary">{c.explanation}</ThemedText>
-          </Surface>
-        ))}
-        <ThemedText tone="secondary">{t('missions.summary.reviewAdded', { count: ended.scheduledReviews.length })}</ThemedText>
-        <ThemedText variant="caption" tone="muted">
-          {labels.celebration.xp(ended.xpAwarded)} · {t('home.xpNote')} · {ended.transcriptRetained ? t('account.privacy.recordings') : t('account.privacy.speechRetention.none')}
-        </ThemedText>
-        <Button label={t('common.done')} size="lg" fullWidth onPress={() => router.back()} accessibilityLabel={t('common.done')} />
+        <Row gap={theme.spacing.md} align="center">
+          <Melo state="celebrate" size="companion" clip="celebrate_bounce" testID="conversation-summary-mascot" />
+          <ThemedText variant="title" accessibilityRole="header" style={{ flex: 1 }}>
+            {t('speak.state.finished')}
+          </ThemedText>
+          <InfoAffordance label={t('common.details')} title={t('missions.summary.title')} text={details} />
+        </Row>
+        <Surface variant="glass" level={1} radius="lg" padding={theme.spacing.lg} style={{ gap: theme.spacing.sm }}>
+          <ThemedText variant="subheading">{t('missions.summary.corrections')}</ThemedText>
+          {ev.priorityCorrections.length === 0 ? <ThemedText tone="secondary">{t('missions.summary.correctionsNone')}</ThemedText> : null}
+          {ev.priorityCorrections.slice(0, 2).map((c, i) => (
+            <Surface key={i} variant="muted" radius="md" padding={theme.spacing.md} style={{ gap: 2 }}>
+              <ThemedText script={trackDef.scripts.primary} tone="muted">{c.learnerUtterance}</ThemedText>
+              <ThemedText script={trackDef.scripts.primary} tone="accent">{c.suggestedUtterance}</ThemedText>
+              <ThemedText variant="caption" tone="secondary">{c.explanation}</ThemedText>
+            </Surface>
+          ))}
+        </Surface>
+        <Button label={t('common.done')} size="lg" fullWidth glow onPress={() => router.back()} accessibilityLabel={t('common.done')} />
       </ScrollView>
     );
   }
@@ -264,9 +285,13 @@ function LiveConversation({ session, enrollment, mode, voice }: { session: Conve
   return (
     <View style={{ flex: 1, gap: theme.spacing.sm, paddingVertical: theme.spacing.sm }}>
       <Row gap={theme.spacing.sm} justify="space-between">
-        <SpeechStateIndicator state={speechState} labels={{ ...labels.speechStatesFor(characterName), [speechState]: stateLabel }} detail={noticeText} compact />
-        <IconButton icon="close" accessibilityLabel={t('speak.controls.leave')} onPress={leave} />
+        <SpeechStateIndicator state={speechState} labels={{ ...labels.speechStatesFor(characterName), [speechState]: stateLabel }} shortLabels={labels.speechStatesShort} detail={noticeText} compact />
+        <Row gap={theme.spacing.xs}>
+          <InfoAffordance label={t('speak.aboutConversation')} title={characterName} text={[t('speak.sourceLanguageNote', { source: names(enrollment.sourceLanguageCode), name: characterName, target: trackDef.displayName }), ...(session.character.syntheticVoice ? [t('speak.syntheticVoice.detail', { name: characterName })] : []), t('speak.interruptHint', { name: characterName }), t('speak.endConversationHint')]} />
+          <IconButton testID="conversation-end" icon="close" accessibilityLabel={t('speak.endConversation')} onPress={leave} disabled={Boolean(endPending)} />
+        </Row>
       </Row>
+      {noticeText && !endPending ? <StatusLine icon={noticeCode === 'offline' ? 'offline' : 'info'} tone="warning" text={noticeText} /> : null}
       {machineState === 'recoverable_error' && online ? (
         // Online but stuck in recoverable_error (e.g. the provider was unavailable): an explicit retry, no endless spinner.
         <Row gap={theme.spacing.xs}>
@@ -288,14 +313,12 @@ function LiveConversation({ session, enrollment, mode, voice }: { session: Conve
           </Row>
         </Surface>
       ) : null}
-      <SceneArtwork sceneId="cafe" aspectRatio={2.4} overlay={<CharacterPortrait characterId={roster?.id ?? session.character.id} expression={snap?.lastCharacterTurn?.expression ?? 'neutral'} speechState={speechState} name={characterName} subtitle={roster ? `${roster.role} · ${roster.city}` : session.character.role} size={96} stateLabels={labels.speechStatesFor(characterName)} />} overlayPosition="center" scrim />
-      <Row gap={theme.spacing.xs} wrap>
-        {session.character.syntheticVoice ? <SyntheticVoiceBadge name={characterName} /> : null}
-        <ThemedText variant="caption" tone="muted" style={{ flexShrink: 1 }}>
-          {t('speak.sourceLanguageNote', { source: names(enrollment.sourceLanguageCode), name: characterName, target: trackDef.displayName })}
-          {session.character.syntheticVoice ? ` · ${X.syntheticVoice}` : ''}
-        </ThemedText>
-      </Row>
+      <SceneArtwork sceneId="cafe" aspectRatio={2.4} overlay={<CharacterPortrait characterId={roster?.id ?? session.character.id} expression={snap?.lastCharacterTurn?.expression ?? 'neutral'} speechState={speechState} name={characterName} subtitle={roster ? `${roster.role} · ${roster.city}` : session.character.role} size={96} showStatusText={false} stateLabels={labels.speechStatesFor(characterName)} testID="conversation-character" />} overlayPosition="center" scrim />
+      {session.character.syntheticVoice ? (
+        <Row gap={theme.spacing.xs}>
+          <SyntheticVoiceBadge name={characterName} />
+        </Row>
+      ) : null}
 
       <ScrollView style={{ flex: 1 }} contentContainerStyle={{ gap: theme.spacing.sm }}>
         {(snap?.turns ?? []).map((turn) => {
@@ -331,16 +354,13 @@ function LiveConversation({ session, enrollment, mode, voice }: { session: Conve
 
       {mode === 'hands_free' ? (
         <View style={{ gap: theme.spacing.xs }}>
-          <ThemedText variant="caption" tone="muted">
-            {t('speak.handsFreeOn')} · {t('speak.micLevel', { level: levelToUnit(recorder.level()) })}
-          </ThemedText>
-          <ProgressBar value={snap?.micLevel ?? 0} accessibilityLabel={t('speak.noFakeWaveform')} tone="info" height={6} />
+          <ProgressBar value={snap?.micLevel ?? 0} accessibilityLabel={`${t('speak.handsFreeOn')} · ${t('speak.micLevel', { level: levelToUnit(recorder.level()) })}`} tone="info" height={6} />
         </View>
       ) : null}
 
       {mode === 'text_only' ? (
         <Row gap={theme.spacing.xs}>
-          <TextInput testID="conversation-text-input" value={text} onChangeText={setText} placeholder={t('lesson.typePlaceholder')} placeholderTextColor={theme.colors.textMuted} accessibilityLabel={t('lesson.typePlaceholder')} style={{ flex: 1, borderWidth: 1, borderColor: theme.colors.border, borderRadius: theme.radii.md, padding: theme.spacing.md, color: theme.colors.textPrimary, minHeight: theme.touchTargets.min }} />
+          <TextInput testID="conversation-text-input" value={text} onChangeText={setText} placeholder={t('lesson.typePlaceholder')} placeholderTextColor={theme.colors.textMuted} accessibilityLabel={t('lesson.typePlaceholder')} style={{ flex: 1, backgroundColor: theme.glass(1).backgroundColor, borderWidth: 1, borderColor: theme.glass(1).borderColor, borderRadius: theme.radii.md, padding: theme.spacing.md, color: theme.colors.textPrimary, minHeight: theme.touchTargets.min }} />
           <Button
             testID="conversation-send"
             label={t('lesson.speak')}
@@ -376,10 +396,7 @@ function LiveConversation({ session, enrollment, mode, voice }: { session: Conve
         <IconButton icon="transcript" accessibilityLabel={t('speak.controls.transcript')} selected={transcript} onPress={() => setTranscript(!transcript)} />
         <IconButton icon={machineState === 'paused' ? 'play' : 'pause'} accessibilityLabel={machineState === 'paused' ? t('speak.controls.resume') : t('speak.controls.pause')} onPress={() => (machineState === 'paused' ? controller.resume() : controller.pause())} />
       </Row>
-      <Row gap={theme.spacing.xs} justify="flex-end">
-        {/* Correction timing is not a session option in the contracts yet (cross-package gap); no decorative toggle. */}
-        <Button testID="conversation-end" label={t('speak.endConversation')} variant="secondary" size="sm" loading={snap?.ending} disabled={Boolean(endPending)} onPress={leave} accessibilityLabel={t('speak.endConversation')} />
-      </Row>
+      {/* Correction timing is not a session option in the contracts yet (cross-package gap); no decorative toggle. */}
       <HintSheet
         visible={hintsOpen}
         onClose={() => setHintsOpen(false)}
@@ -392,6 +409,7 @@ function LiveConversation({ session, enrollment, mode, voice }: { session: Conve
           else void controller.command(c);
         }}
         labels={labels.hints}
+        calmLabels={{ more: t('lesson.hintMore'), less: t('lesson.hintLess') }}
         targetScript={trackDef.scripts.primary}
       />
     </View>
