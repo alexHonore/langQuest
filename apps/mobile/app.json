@@ -60,7 +60,8 @@
       "expo-localization",
       "expo-secure-store",
       "expo-web-browser",
-      "expo-notifications"
+      "expo-notifications",
+      "./plugins/with-ios-scene-lifecycle"
     ],
     "experiments": {
       "typedRoutes": true,
