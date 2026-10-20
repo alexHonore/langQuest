@@ -128,7 +128,7 @@ when a voice is AI). The publish gate blocks lessons/collections whose known spe
 
 - Catalog view of the 30 course tracks (variety, default locale, RTL, tonal, script modes, regional options) — read-only,
   seeded from `@langquest/contracts`.
-- **Coverage editor** per (track × instruction language) (`POST /api/admin/coverage`, `CoverageUpdateSchema`): status
+- **Coverage editor** per (track × instruction language) (`PUT /api/admin/coverage`, `CoverageUpdateSchema`): status
   `complete | partial | planned | unavailable`, metrics (mission instructions %, explanations %, UI %, subtitles %, audio
   overlays %), **native reviewed** + reviewer, editorial note key, opt-in fallback source language.
   Rule shown in the UI: "complete" requires a native review with every metric at 100%; "unavailable" hides the pair from

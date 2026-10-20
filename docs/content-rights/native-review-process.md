@@ -19,7 +19,7 @@ Reviewer identity is persisted, never free text:
 |---|---|---|
 | `expressions` | `reviewed boolean`, `reviewer_id → auth.users` | admin decision route on **Approve** (`apps/admin/app/api/admin/content/[id]/decision/route.ts`) |
 | `content_rights` | `verified`, `reviewer_id`, `reviewed_at` | Rights screen (rights review is a separate gate from language review) |
-| `course_source_localizations` | `native_reviewed`, `reviewer_id` (column-level grant), `status` | Coverage editor (`POST /api/admin/coverage`) |
+| `course_source_localizations` | `native_reviewed`, `reviewer_id` (column-level grant), `status` | Coverage editor (`PUT /api/admin/coverage`) |
 | `transcripts` / `transcript_segments` | `status = 'reviewed'`, per-segment `reviewed`; `transcript_translations.qa_state` | Transcript editor (new revision each save) |
 | `content_revisions` | `editor_id` (not null), `diff`, `snapshot`, `note` | every decision/edit |
 | `ai_model_benchmarks` | `reviewer_id`, `passed`, `notes` | model benchmark |
