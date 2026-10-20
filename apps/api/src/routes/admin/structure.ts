@@ -3,9 +3,15 @@
  * with atomic full-permutation reorders (`reorder_audio_chapters` / `reorder_audio_lessons`, migration 120).
  *
  * Rules: creates are idempotent on `idempotencyKey`; patches honour `expectedRevision` (412 on mismatch); deletes
- * are refused (`conflict`) while the entity or any child is `published`; detached assets return to `imported_draft`
+ * are refused (`conflict`) while the entity or any child is `published`, and so are detaching audio from a published
+ * lesson and moving it off one by attaching it elsewhere; detached assets return to `imported_draft`
  * and are never deleted; every mutation writes `content_revisions` + an audit row; changes under a published
  * collection emit `manifest.invalidated` so the edge cache and stored audio manifest are refreshed.
+ *
+ * Integrity (shared helpers in `./content`): every revision carries the restorable snapshot of its row
+ * (`recordRestorableRevision`, R-7.3-04), and the `expectedRevision` guards are atomic (`guardedEdit`): everything
+ * that can be refused (permutation, asset checks) is checked first, then revision `expectedRevision + 1` is claimed
+ * under the unique key, then the write runs — row updates conditional on the `updated_at` that was read.
  */
 import {
   ChapterCreateRequestSchema,
@@ -34,15 +40,17 @@ import {
   type ContentState,
   type LessonDetailResponse,
 } from '@langquest/contracts';
+import type { MediaAssetRow } from '@langquest/db/repositories/rights';
 import type { Insert, Row, Update } from '@langquest/db/types';
 import { canTransitionContent } from '@langquest/media/rights';
 import { z } from 'zod';
 import type { DefineRoute } from '../../app';
 import { problem, respondOk } from '../../http/envelope';
 import { parseBody, parseParams, parseQuery } from '../../http/validate';
-import { currentRevision, currentRevisions, recordRevision, titleOf } from '../../lib/content';
+import { currentRevision, currentRevisions, titleOf } from '../../lib/content';
 import { createDiff, findIdempotentCreate } from '../../lib/idempotent-create';
 import type { RequestServices } from '../../services/context';
+import { guardedEdit, recordRestorableRevision, restorableSnapshot, staleRevision, updateIfUnchanged } from './content';
 
 const IdParams = z.object({ id: UuidSchema });
 const LessonAssetParams = z.object({ id: UuidSchema, assetId: UuidSchema });
@@ -76,7 +84,16 @@ async function loadLesson(s: RequestServices, id: string): Promise<Row<'audio_le
 }
 
 function assertRevision(what: string, current: number, expected: number | undefined): void {
-  if (expected !== undefined && expected !== current) throw problem.precondition(`${what} revision is ${current}, expected ${expected}`, { currentRevision: current });
+  if (expected !== undefined && expected !== current) throw staleRevision(what, current, expected);
+}
+
+/**
+ * The reorder RPCs' rule (a full permutation of the current children, each once), checked BEFORE a revision is
+ * claimed so a malformed list is a plain 422 (the RPC still enforces it atomically).
+ */
+function assertPermutation(child: 'chapter' | 'lesson', parent: 'collection' | 'chapter', currentIds: readonly string[], orderedIds: readonly string[]): void {
+  const ordered = new Set(orderedIds);
+  if (ordered.size !== orderedIds.length || ordered.size !== currentIds.length || currentIds.some((cid) => !ordered.has(cid))) throw problem.validation(`orderedIds must list every ${child} of the ${parent} exactly once`, { orderedIds: [...orderedIds] });
 }
 
 /** Published collections feed the learner audio manifest: structural changes invalidate it (edge cache + stored copy). */
@@ -196,22 +213,41 @@ async function lessonResponse(s: RequestServices, lesson: Row<'audio_lessons'>):
   });
 }
 
-/** Link one asset to a lesson, moving it from another lesson when needed; returns the move source (or null). */
-async function attachAsset(s: RequestServices, lesson: Row<'audio_lessons'>, input: { assetId: string; assetType: Row<'audio_lesson_assets'>['asset_type']; sortOrder: number }): Promise<{ movedFromLessonId: string | null }> {
+interface AttachPlan {
+  asset: MediaAssetRow;
+  assetType: Row<'audio_lesson_assets'>['asset_type'];
+  sortOrder: number;
+  /** Links of the same asset type on other lessons: the asset moves from them. */
+  moveFrom: Row<'audio_lesson_assets'>[];
+  movedFromLessonId: string | null;
+}
+
+/** Check that an asset can be linked and plan the move (read-only: nothing is written before every check passed). */
+async function planAttach(s: RequestServices, lessonId: string | null, input: { assetId: string; assetType: Row<'audio_lesson_assets'>['asset_type']; sortOrder: number }): Promise<AttachPlan> {
   const asset = await s.repos.rights.getAsset(input.assetId);
   if (!asset) throw problem.validation('assetId does not exist', { assetId: input.assetId });
   if (asset.kind !== 'audio') throw problem.validation(`Asset is ${asset.kind}; only audio assets can be attached to a lesson`);
   if (asset.disposition !== 'active') throw problem.rights(`Asset is ${asset.disposition} and cannot be attached`);
-  const elsewhere = (await s.repos.audioLibrary.listLessonLinksForAsset(input.assetId, lesson.id)).filter((l) => l.asset_type === input.assetType);
-  let movedFromLessonId: string | null = null;
-  for (const link of elsewhere) {
-    await s.repos.audioLibrary.detachLessonAsset(link.lesson_id, input.assetId, input.assetType);
-    await recordRevision(s, 'audio_lessons', link.lesson_id, { assetMovedTo: lesson.id, assetId: input.assetId, assetType: input.assetType });
-    movedFromLessonId ??= link.lesson_id;
+  const moveFrom = (await s.repos.audioLibrary.listLessonLinksForAsset(input.assetId, lessonId ?? undefined)).filter((l) => l.asset_type === input.assetType);
+  // Moving the audio of a PUBLISHED lesson would leave that lesson live without it (and its manifest stale): refused
+  // like the direct detach (`adminLessonAssetDetach`), before anything is written.
+  if (moveFrom.length) {
+    const res = await s.service.from('audio_lessons').select('id, state').in('id', [...new Set(moveFrom.map((l) => l.lesson_id))]);
+    if (res.error) throw problem.internal(`Could not read the lessons using this asset: ${res.error.message}`);
+    const published = (res.data ?? []).filter((l) => l.state === 'published').map((l) => l.id);
+    if (published.length) throw problem.conflict('This audio belongs to a published lesson; unpublish that lesson before moving its audio', { publishedLessonIds: published });
   }
-  await s.repos.audioLibrary.attachLessonAsset({ lesson_id: lesson.id, asset_id: input.assetId, asset_type: input.assetType, sort_order: input.sortOrder });
-  if (asset.state === 'imported_draft' && canTransitionContent('imported_draft', 'metadata_needed')) await s.repos.rights.updateAsset(input.assetId, { state: 'metadata_needed' }).catch(() => undefined);
-  return { movedFromLessonId };
+  return { asset, assetType: input.assetType, sortOrder: input.sortOrder, moveFrom, movedFromLessonId: moveFrom[0]?.lesson_id ?? null };
+}
+
+/** Link the planned asset to `lessonId`, moving it from the other lessons (each records a revision with snapshot). */
+async function performAttach(s: RequestServices, lessonId: string, plan: AttachPlan): Promise<void> {
+  for (const link of plan.moveFrom) {
+    await s.repos.audioLibrary.detachLessonAsset(link.lesson_id, plan.asset.id, plan.assetType);
+    await recordRestorableRevision(s, 'audio_lessons', link.lesson_id, { assetMovedTo: lessonId, assetId: plan.asset.id, assetType: plan.assetType });
+  }
+  await s.repos.audioLibrary.attachLessonAsset({ lesson_id: lessonId, asset_id: plan.asset.id, asset_type: plan.assetType, sort_order: plan.sortOrder });
+  if (plan.asset.state === 'imported_draft' && canTransitionContent('imported_draft', 'metadata_needed')) await s.repos.rights.updateAsset(plan.asset.id, { state: 'metadata_needed' }).catch(() => undefined);
 }
 
 export function registerStructureRoutes(define: DefineRoute): void {
@@ -237,7 +273,7 @@ export function registerStructureRoutes(define: DefineRoute): void {
     if (body.contentRightsId && !(await s.repos.rights.getById(body.contentRightsId))) throw problem.validation('contentRightsId does not exist');
     const row: Insert<'audio_course_collections'> = { title_translations: body.titleTranslations as never, description_translations: body.descriptionTranslations as never, course_track_id: body.courseTrackId, target_variety_id: body.targetVarietyId, instruction_language_code: body.instructionLanguageCode, region: body.region, instructor_speaker_id: body.instructorSpeakerId, cover_visual_asset_id: body.coverVisualAssetId, content_rights_id: body.contentRightsId, sort_order: body.sortOrder, state: 'imported_draft' };
     const created = await s.repos.audioLibrary.upsertCollection(row);
-    await recordRevision(s, 'audio_course_collections', created.id, createDiff('collection.create', body.idempotencyKey));
+    await recordRestorableRevision(s, 'audio_course_collections', created.id, createDiff('collection.create', body.idempotencyKey), { row: created });
     s.audit({ action: 'collection.create', entityTable: 'audio_course_collections', entityId: created.id, after: { idempotencyKey: body.idempotencyKey, title: titleOf(created.title_translations), courseTrackId: created.course_track_id } });
     return respondOk(c, await collectionResponse(s, created), 201);
   });
@@ -253,7 +289,8 @@ export function registerStructureRoutes(define: DefineRoute): void {
     const body = await parseBody(c, CollectionPatchRequestSchema);
     const s = c.get('services')!;
     const before = await loadCollection(s, id);
-    assertRevision('Collection', await currentRevision(s, 'audio_course_collections', id), body.expectedRevision);
+    const current = await currentRevision(s, 'audio_course_collections', id);
+    assertRevision('Collection', current, body.expectedRevision);
     if (body.instructorSpeakerId && !(await s.repos.speakers.getById(body.instructorSpeakerId))) throw problem.validation('instructorSpeakerId does not exist');
     if (body.contentRightsId && !(await s.repos.rights.getById(body.contentRightsId))) throw problem.validation('contentRightsId does not exist');
     const patch: Update<'audio_course_collections'> = {};
@@ -269,9 +306,8 @@ export function registerStructureRoutes(define: DefineRoute): void {
     if (body.coverVisualAssetId !== undefined) patch.cover_visual_asset_id = body.coverVisualAssetId;
     if (body.contentRightsId !== undefined) patch.content_rights_id = body.contentRightsId;
     if (body.sortOrder !== undefined) patch.sort_order = body.sortOrder;
-    const updated = Object.keys(patch).length ? await s.repos.audioLibrary.updateCollection(id, patch) : before;
     const { expectedRevision: _expected, ...diff } = body;
-    const revision = await recordRevision(s, 'audio_course_collections', id, diff as Record<string, unknown>);
+    const { result: updated, revision } = await guardedEdit(s, { table: 'audio_course_collections', id, what: 'Collection', expected: body.expectedRevision, current, diff: diff as Record<string, unknown>, snapshot: restorableSnapshot('audio_course_collections', { ...before, ...patch }) }, async () => (Object.keys(patch).length ? ((await updateIfUnchanged(s, 'audio_course_collections', before, patch, 'Collection')) as Row<'audio_course_collections'>) : before));
     const manifestInvalidated = await invalidateCollectionManifest(s, updated, revision, 'localization_updated');
     s.audit({ action: 'collection.patch', entityTable: 'audio_course_collections', entityId: id, before: { state: before.state }, after: { fields: Object.keys(patch), revision, manifestInvalidated } });
     return respondOk(c, await collectionResponse(s, updated));
@@ -299,10 +335,11 @@ export function registerStructureRoutes(define: DefineRoute): void {
     const body = await parseBody(c, ReorderRequestSchema);
     const s = c.get('services')!;
     const collection = await loadCollection(s, id);
-    assertRevision('Collection', await currentRevision(s, 'audio_course_collections', id), body.expectedRevision);
-    // The RPC rejects partial lists / foreign ids / duplicates with 23514 → `validation_failed` (toProblem).
-    const items = await s.repos.audioLibrary.reorderChapters(id, body.orderedIds);
-    const revision = await recordRevision(s, 'audio_course_collections', id, { reorderChapters: body.orderedIds, idempotencyKey: body.idempotencyKey });
+    const current = await currentRevision(s, 'audio_course_collections', id);
+    assertRevision('Collection', current, body.expectedRevision);
+    assertPermutation('chapter', 'collection', (await s.repos.audioLibrary.listChapters(id)).map((ch) => ch.id), body.orderedIds);
+    // The RPC still rejects partial lists / foreign ids / duplicates atomically (23514 → `validation_failed`).
+    const { result: items, revision } = await guardedEdit(s, { table: 'audio_course_collections', id, what: 'Collection', expected: body.expectedRevision, current, diff: { reorderChapters: body.orderedIds, idempotencyKey: body.idempotencyKey }, snapshot: restorableSnapshot('audio_course_collections', collection) }, () => s.repos.audioLibrary.reorderChapters(id, body.orderedIds));
     const manifestInvalidated = await invalidateCollectionManifest(s, collection, revision, 'localization_updated');
     s.audit({ action: 'collection.reorder_chapters', entityTable: 'audio_course_collections', entityId: id, after: { orderedIds: body.orderedIds, revision, manifestInvalidated } });
     return respondOk(c, ReorderResponseSchema.parse({ parentId: id, revision, items }));
@@ -320,8 +357,8 @@ export function registerStructureRoutes(define: DefineRoute): void {
     const collection = await loadCollection(s, body.collectionId);
     const row: Insert<'audio_chapters'> = { collection_id: collection.id, title_translations: body.titleTranslations as never, summary_translations: body.summaryTranslations as never, sort_order: body.sortOrder, cover_visual_asset_id: body.coverVisualAssetId, state: 'imported_draft' };
     const created = await s.repos.audioLibrary.upsertChapter(row);
-    await recordRevision(s, 'audio_chapters', created.id, createDiff('chapter.create', body.idempotencyKey, { collectionId: collection.id }));
-    const revision = await recordRevision(s, 'audio_course_collections', collection.id, { chapterAdded: created.id });
+    await recordRestorableRevision(s, 'audio_chapters', created.id, createDiff('chapter.create', body.idempotencyKey, { collectionId: collection.id }), { row: created });
+    const revision = await recordRestorableRevision(s, 'audio_course_collections', collection.id, { chapterAdded: created.id }, { row: collection });
     await invalidateCollectionManifest(s, collection, revision, 'localization_updated');
     s.audit({ action: 'chapter.create', entityTable: 'audio_chapters', entityId: created.id, after: { idempotencyKey: body.idempotencyKey, collectionId: collection.id, title: titleOf(created.title_translations) } });
     return respondOk(c, await chapterResponse(s, created), 201);
@@ -338,7 +375,8 @@ export function registerStructureRoutes(define: DefineRoute): void {
     const body = await parseBody(c, ChapterPatchRequestSchema);
     const s = c.get('services')!;
     const before = await loadChapter(s, id);
-    assertRevision('Chapter', await currentRevision(s, 'audio_chapters', id), body.expectedRevision);
+    const current = await currentRevision(s, 'audio_chapters', id);
+    assertRevision('Chapter', current, body.expectedRevision);
     const patch: Update<'audio_chapters'> = {};
     const title = mergeTranslations(before.title_translations, body.titleTranslations);
     if (title) patch.title_translations = title as never;
@@ -351,16 +389,15 @@ export function registerStructureRoutes(define: DefineRoute): void {
       await loadCollection(s, body.collectionId!);
       patch.collection_id = body.collectionId;
     }
-    const updated = Object.keys(patch).length ? await s.repos.audioLibrary.updateChapter(id, patch) : before;
     const { expectedRevision: _expected, ...diff } = body;
-    const revision = await recordRevision(s, 'audio_chapters', id, diff as Record<string, unknown>);
+    const { result: updated, revision } = await guardedEdit(s, { table: 'audio_chapters', id, what: 'Chapter', expected: body.expectedRevision, current, diff: diff as Record<string, unknown>, snapshot: restorableSnapshot('audio_chapters', { ...before, ...patch }) }, async () => (Object.keys(patch).length ? ((await updateIfUnchanged(s, 'audio_chapters', before, patch, 'Chapter')) as Row<'audio_chapters'>) : before));
     // A move is recorded on both collections (and both manifests are invalidated when published).
     const touched = moved ? [before.collection_id, updated.collection_id] : [updated.collection_id];
     let manifestInvalidated = false;
     for (const collectionId of touched) {
       const collection = await s.repos.audioLibrary.getCollection(collectionId);
       if (!collection) continue;
-      const rev = await recordRevision(s, 'audio_course_collections', collectionId, moved ? { chapterMoved: id, from: before.collection_id, to: updated.collection_id } : { chapterPatched: id, revision });
+      const rev = await recordRestorableRevision(s, 'audio_course_collections', collectionId, moved ? { chapterMoved: id, from: before.collection_id, to: updated.collection_id } : { chapterPatched: id, revision }, { row: collection });
       manifestInvalidated = (await invalidateCollectionManifest(s, collection, rev, 'localization_updated')) || manifestInvalidated;
     }
     s.audit({ action: 'chapter.patch', entityTable: 'audio_chapters', entityId: id, before: { collectionId: before.collection_id }, after: { fields: Object.keys(patch), revision, moved, manifestInvalidated } });
@@ -382,8 +419,8 @@ export function registerStructureRoutes(define: DefineRoute): void {
       const target = await loadChapter(s, body.moveLessonsToChapterId);
       const offset = (await s.repos.audioLibrary.listLessons(target.id)).length;
       for (const [i, lesson] of lessons.entries()) {
-        await s.repos.audioLibrary.updateLesson(lesson.id, { chapter_id: target.id, sort_order: offset + i });
-        await recordRevision(s, 'audio_lessons', lesson.id, { movedToChapter: target.id, fromChapter: id });
+        const movedLesson = await s.repos.audioLibrary.updateLesson(lesson.id, { chapter_id: target.id, sort_order: offset + i });
+        await recordRestorableRevision(s, 'audio_lessons', lesson.id, { movedToChapter: target.id, fromChapter: id }, { row: movedLesson });
         movedLessonIds.push(lesson.id);
       }
     } else if (lessons.length) {
@@ -393,7 +430,7 @@ export function registerStructureRoutes(define: DefineRoute): void {
     await s.repos.audioLibrary.deleteChapter(id);
     const released = await releaseOrphanedAssets(s, orphanAssetIds);
     const collection = await s.repos.audioLibrary.getCollection(chapter.collection_id);
-    if (collection) await invalidateCollectionManifest(s, collection, await recordRevision(s, 'audio_course_collections', collection.id, { chapterDeleted: id, movedLessonIds }), 'localization_updated');
+    if (collection) await invalidateCollectionManifest(s, collection, await recordRestorableRevision(s, 'audio_course_collections', collection.id, { chapterDeleted: id, movedLessonIds }, { row: collection }), 'localization_updated');
     s.audit({ action: 'chapter.delete', entityTable: 'audio_chapters', entityId: id, before: { collectionId: chapter.collection_id, lessons: lessons.length }, after: { movedLessonIds, releasedAssets: released.length } });
     return respondOk(c, ChapterDeleteResponseSchema.parse({ id, deleted: true, movedLessonIds }));
   });
@@ -403,9 +440,10 @@ export function registerStructureRoutes(define: DefineRoute): void {
     const body = await parseBody(c, ReorderRequestSchema);
     const s = c.get('services')!;
     const chapter = await loadChapter(s, id);
-    assertRevision('Chapter', await currentRevision(s, 'audio_chapters', id), body.expectedRevision);
-    const items = await s.repos.audioLibrary.reorderLessons(id, body.orderedIds);
-    const revision = await recordRevision(s, 'audio_chapters', id, { reorderLessons: body.orderedIds, idempotencyKey: body.idempotencyKey });
+    const current = await currentRevision(s, 'audio_chapters', id);
+    assertRevision('Chapter', current, body.expectedRevision);
+    assertPermutation('lesson', 'chapter', (await s.repos.audioLibrary.listLessons(id)).map((l) => l.id), body.orderedIds);
+    const { result: items, revision } = await guardedEdit(s, { table: 'audio_chapters', id, what: 'Chapter', expected: body.expectedRevision, current, diff: { reorderLessons: body.orderedIds, idempotencyKey: body.idempotencyKey }, snapshot: restorableSnapshot('audio_chapters', chapter) }, () => s.repos.audioLibrary.reorderLessons(id, body.orderedIds));
     const collection = await s.repos.audioLibrary.getCollection(chapter.collection_id);
     const manifestInvalidated = collection ? await invalidateCollectionManifest(s, collection, revision, 'localization_updated') : false;
     s.audit({ action: 'chapter.reorder_lessons', entityTable: 'audio_chapters', entityId: id, after: { orderedIds: body.orderedIds, revision, manifestInvalidated } });
@@ -427,14 +465,16 @@ export function registerStructureRoutes(define: DefineRoute): void {
       const missing = body.speakerIds.filter((sid) => !found.some((f) => f.id === sid));
       if (missing.length) throw problem.validation('Unknown speaker ids', { speakerIds: missing });
     }
+    // The asset is checked before the lesson exists: a refused attach never leaves a half-created lesson behind.
+    const attach = body.assetId ? await planAttach(s, null, { assetId: body.assetId, assetType: 'master', sortOrder: 0 }) : null;
     const row: Insert<'audio_lessons'> = { chapter_id: chapter.id, title_translations: body.titleTranslations as never, description_translations: body.descriptionTranslations as never, sort_order: body.sortOrder, level: body.level, target_variety_id: body.targetVarietyId, instruction_language_code: body.instructionLanguageCode, state: 'imported_draft', visibility: 'private' };
     const created = await s.repos.audioLibrary.upsertLesson(row);
     if (body.speakerIds.length) await s.repos.audioLibrary.setLessonSpeakers(created.id, body.speakerIds);
-    let movedFromLessonId: string | null = null;
-    if (body.assetId) ({ movedFromLessonId } = await attachAsset(s, created, { assetId: body.assetId, assetType: 'master', sortOrder: 0 }));
-    await recordRevision(s, 'audio_lessons', created.id, createDiff('lesson.create', body.idempotencyKey, { chapterId: chapter.id, assetId: body.assetId ?? null, movedFromLessonId }));
+    if (attach) await performAttach(s, created.id, attach);
+    const movedFromLessonId = attach?.movedFromLessonId ?? null;
+    await recordRestorableRevision(s, 'audio_lessons', created.id, createDiff('lesson.create', body.idempotencyKey, { chapterId: chapter.id, assetId: body.assetId ?? null, movedFromLessonId }), { row: created });
     const collection = await s.repos.audioLibrary.getCollection(chapter.collection_id);
-    if (collection) await invalidateCollectionManifest(s, collection, await recordRevision(s, 'audio_course_collections', collection.id, { lessonAdded: created.id, chapterId: chapter.id }), 'localization_updated');
+    if (collection) await invalidateCollectionManifest(s, collection, await recordRestorableRevision(s, 'audio_course_collections', collection.id, { lessonAdded: created.id, chapterId: chapter.id }, { row: collection }), 'localization_updated');
     s.audit({ action: 'lesson.create', entityTable: 'audio_lessons', entityId: created.id, after: { idempotencyKey: body.idempotencyKey, chapterId: chapter.id, title: titleOf(created.title_translations), assetId: body.assetId ?? null, speakers: body.speakerIds.length } });
     return respondOk(c, await lessonResponse(s, created), 201);
   });
@@ -455,7 +495,7 @@ export function registerStructureRoutes(define: DefineRoute): void {
     const detachedAssetIds = await releaseOrphanedAssets(s, links.map((l) => l.asset_id));
     const chapter = await s.repos.audioLibrary.getChapter(lesson.chapter_id);
     const collection = chapter ? await s.repos.audioLibrary.getCollection(chapter.collection_id) : null;
-    if (collection) await invalidateCollectionManifest(s, collection, await recordRevision(s, 'audio_course_collections', collection.id, { lessonDeleted: id }), 'localization_updated');
+    if (collection) await invalidateCollectionManifest(s, collection, await recordRestorableRevision(s, 'audio_course_collections', collection.id, { lessonDeleted: id }, { row: collection }), 'localization_updated');
     s.audit({ action: 'lesson.delete', entityTable: 'audio_lessons', entityId: id, before: { title: titleOf(lesson.title_translations), state: lesson.state, chapterId: lesson.chapter_id }, after: { detachedAssetIds } });
     return respondOk(c, LessonDeleteResponseSchema.parse({ id, deleted: true, detachedAssetIds }));
   });
@@ -465,9 +505,11 @@ export function registerStructureRoutes(define: DefineRoute): void {
     const body = await parseBody(c, LessonAssetAttachRequestSchema);
     const s = c.get('services')!;
     const lesson = await loadLesson(s, id);
-    assertRevision('Lesson', await currentRevision(s, 'audio_lessons', id), body.expectedRevision);
-    const { movedFromLessonId } = await attachAsset(s, lesson, { assetId: body.assetId, assetType: body.assetType, sortOrder: body.sortOrder });
-    const revision = await recordRevision(s, 'audio_lessons', id, { attachAsset: body.assetId, assetType: body.assetType, sortOrder: body.sortOrder, movedFromLessonId });
+    const current = await currentRevision(s, 'audio_lessons', id);
+    assertRevision('Lesson', current, body.expectedRevision);
+    const plan = await planAttach(s, lesson.id, { assetId: body.assetId, assetType: body.assetType, sortOrder: body.sortOrder });
+    const { movedFromLessonId } = plan;
+    const { revision } = await guardedEdit(s, { table: 'audio_lessons', id, what: 'Lesson', expected: body.expectedRevision, current, diff: { attachAsset: body.assetId, assetType: body.assetType, sortOrder: body.sortOrder, movedFromLessonId }, snapshot: restorableSnapshot('audio_lessons', lesson) }, () => performAttach(s, lesson.id, plan));
     s.audit({ action: 'lesson.asset_attach', entityTable: 'audio_lessons', entityId: id, after: { assetId: body.assetId, assetType: body.assetType, movedFromLessonId, revision } });
     return respondOk(c, LessonAssetAttachResponseSchema.parse({ lessonId: id, assetId: body.assetId, assetType: body.assetType, revision, movedFromLessonId }), movedFromLessonId ? 200 : 201);
   });
@@ -481,7 +523,7 @@ export function registerStructureRoutes(define: DefineRoute): void {
     if (removed === 0) throw problem.notFound('Lesson asset link');
     await releaseOrphanedAssets(s, [assetId]);
     const asset = await s.repos.rights.getAsset(assetId);
-    const revision = await recordRevision(s, 'audio_lessons', id, { detachAsset: assetId, removedLinks: removed });
+    const revision = await recordRestorableRevision(s, 'audio_lessons', id, { detachAsset: assetId, removedLinks: removed }, { row: lesson });
     s.audit({ action: 'lesson.asset_detach', entityTable: 'audio_lessons', entityId: id, after: { assetId, removedLinks: removed, assetState: asset?.state ?? null, revision } });
     return respondOk(c, LessonAssetDetachResponseSchema.parse({ lessonId: id, assetId, revision, assetState: asset?.state ?? 'imported_draft' }));
   });

@@ -3,6 +3,13 @@
  * `AiRequestSink` (so `ai_requests` rows are written with the job's trace id), storage operations are
  * counted per class and priced with the shared R2 pricing, and the total is written to
  * `processing_jobs.cost_actual_usd` plus a `job_cost` telemetry event.
+ *
+ * Ledger attribution (R-5.4-03): a job has no learner enrollment. Handlers build their `LanguageContext` with the
+ * job id in `enrollmentId` (`jobLanguageContext`), and the adapters copy that id into every record, so the row is
+ * written with `enrollment_id = null` (the job id stays in `redacted_log.jobId`): the job id is not an
+ * enrollment, and writing it would fail the `ai_requests.enrollment_id` foreign key and lose the cost row. A
+ * handler acting for a staff member (a model benchmark) records through `attributed()`, which names the staff
+ * actor (`user_id`), the DB profile it measured (`profile_id`) and the purpose in `redacted_log`.
  */
 import type { AiRequestRecord, AiRequestSink } from '@langquest/ai';
 import type { Insert } from '@langquest/db';
@@ -35,6 +42,19 @@ export interface JobCostTrackerOptions {
   /** Persist `ai_requests` rows (service role); optional in tests. */
   persistAiRequest?: (row: Insert<'ai_requests'>) => Promise<void>;
   onPersistError?: (error: unknown) => void;
+}
+
+/**
+ * Who a job's AI rows are attributed to. `userId` is the staff member who requested the job (`auth.users.id`),
+ * `profileId` an `ai_model_profiles.id` the handler has read from the DB (never a package-default id), and
+ * `purpose` a short tag written to `redacted_log.purpose` (e.g. `model_benchmark`).
+ */
+export interface JobAiAttribution {
+  userId?: string | null;
+  profileId?: string | null;
+  purpose: string;
+  /** Extra redacted metadata (sample ids, sample set); never prompts or learner data. */
+  log?: Record<string, unknown>;
 }
 
 export class CostCeilingExceeded extends Error {
@@ -72,27 +92,44 @@ export class JobCostTracker implements AiRequestSink {
 
   /** `AiRequestSink` — called by the reasoner/recognizer for every attempt. */
   record(entry: AiRequestRecord): void {
+    this.recordAttributed(entry, null);
+  }
+
+  /**
+   * A sink that records through this tracker (same ceiling, same ledger) with the given attribution stamped on
+   * every row. The caller vouches for `profileId` (a row it read from `ai_model_profiles`).
+   */
+  attributed(attribution: JobAiAttribution): AiRequestSink {
+    return { record: (entry) => this.recordAttributed(entry, attribution) };
+  }
+
+  /** The `ai_requests` row a record is persisted as (public so the mapping is testable without a database). */
+  toLedgerRow(entry: AiRequestRecord, attribution: JobAiAttribution | null = null): Insert<'ai_requests'> {
+    return {
+      user_id: attribution?.userId !== undefined ? attribution.userId : entry.userId,
+      // The job id stands in for an enrollment in job language contexts; it is never an enrollment row.
+      enrollment_id: entry.enrollmentId === this.jobId ? null : entry.enrollmentId,
+      task: entry.task,
+      provider: entry.provider,
+      model: entry.model,
+      profile_id: attribution?.profileId ?? null,
+      fallback_index: entry.fallbackIndex,
+      latency_ms: entry.latencyMs,
+      input_tokens: entry.inputTokens,
+      output_tokens: entry.outputTokens,
+      audio_seconds: entry.audioSeconds,
+      estimated_cost_usd: entry.estimatedCostUsd,
+      success: entry.success,
+      error_code: entry.errorCode,
+      trace_id: entry.traceId || this.traceId,
+      redacted_log: { ...(entry.redactedLog ?? {}), ...(attribution?.log ?? {}), ...(attribution ? { purpose: attribution.purpose } : {}), jobId: this.jobId } as never,
+    };
+  }
+
+  private recordAttributed(entry: AiRequestRecord, attribution: JobAiAttribution | null): void {
     this.records.push(entry);
     if (this.persist) {
-      const row: Insert<'ai_requests'> = {
-        user_id: entry.userId,
-        enrollment_id: entry.enrollmentId,
-        task: entry.task,
-        provider: entry.provider,
-        model: entry.model,
-        profile_id: null,
-        fallback_index: entry.fallbackIndex,
-        latency_ms: entry.latencyMs,
-        input_tokens: entry.inputTokens,
-        output_tokens: entry.outputTokens,
-        audio_seconds: entry.audioSeconds,
-        estimated_cost_usd: entry.estimatedCostUsd,
-        success: entry.success,
-        error_code: entry.errorCode,
-        trace_id: entry.traceId || this.traceId,
-        redacted_log: { ...(entry.redactedLog ?? {}), jobId: this.jobId } as never,
-      };
-      const p = this.persist(row).catch((error) => this.onPersistError?.(error));
+      const p = this.persist(this.toLedgerRow(entry, attribution)).catch((error) => this.onPersistError?.(error));
       this.pending.push(p);
     }
   }

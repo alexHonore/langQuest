@@ -1,6 +1,6 @@
 'use client';
 import Link from 'next/link';
-import { localCall } from '@/src/lib/local-api/client';
+import { browserApi } from '@/src/lib/api-browser';
 import { useI18n } from '@/src/lib/i18n/client';
 import { useAction } from '@/src/lib/use-action';
 import { formatDateTime, pickLocalized, shortId } from '@/src/lib/format';
@@ -49,7 +49,7 @@ export function PublishingScreen({ table, rows, page, hasNext, selectedId, revis
   const { t, locale } = useI18n();
   const { set } = useUrlFilters();
   const selected = rows.find((r) => r.id === selectedId) ?? null;
-  const rollback = useAction(async (revision: number) => localCall<{ revision: number }>('/api/admin/publishing/rollback', { method: 'POST', body: { entityTable: table, entityId: selectedId, revision } }), { successMessage: (r) => t('admin.ui.pbRolledBack', { revision: r.revision }) });
+  const rollback = useAction(async (entityId: string, revision: number) => browserApi().call('adminContentRollback', { params: { id: entityId }, body: { entityTable: table, revision } }), { successMessage: (r) => t('admin.ui.pbRolledBack', { revision: r.revision }) });
   const currentRevision = selected ? (revisions[0]?.revision ?? selected.published_revision ?? selected.published_version ?? 0) : 0;
 
   const columns: Column<PublishableRow>[] = [
@@ -99,7 +99,7 @@ export function PublishingScreen({ table, rows, page, hasNext, selectedId, revis
                     </span>
                     <span className="text-fg-muted">{formatDateTime(r.created_at, locale)}</span>
                     {r.snapshot && r.revision !== currentRevision ? (
-                      <Button size="sm" variant="ghost" loading={rollback.busy} title={t('admin.ui.pbRollbackHint')} onClick={() => void rollback.run(r.revision)}>
+                      <Button size="sm" variant="ghost" loading={rollback.busy} title={t('admin.ui.pbRollbackHint')} onClick={() => void rollback.run(selected.id, r.revision)}>
                         {t('admin.ui.pbRollback')}
                       </Button>
                     ) : null}

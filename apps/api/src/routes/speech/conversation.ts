@@ -5,10 +5,18 @@
  *
  * The evaluator runs asynchronously every few turns (`ctx.waitUntil`) and synchronously at the end; the
  * character agent never receives full transcripts, only the compact context (§8.3).
+ *
+ * Audio turns: learner audio is accepted inline or as the learner's own stored recording; a caller-supplied URL is
+ * refused (422, nothing fetched) exactly like the speech routes. The take is transcribed HERE, through the non-speech
+ * gate (`screening: 'learner'`), before the learner turn is recorded or the character is asked: a take without speech
+ * answers `speech: { speechDetected: false, reason }` with no learner turn, no character reply (no LLM / TTS call) and
+ * therefore no evaluator evidence and no XP. A take with speech is recorded with its transcript and reaches the
+ * character agent as a `transcript` input (the pipeline does not transcribe it a second time).
  */
 import { CancelledError, createCancellationToken } from '@langquest/ai/realtime/pipeline';
 import { signSessionTicket } from '@langquest/ai/realtime/tickets';
-import { ConversationEndRequestSchema, ConversationEndResponseSchema, ConversationSessionCreateRequestSchema, ConversationSessionCreateResponseSchema, ConversationTurnRequestSchema, ConversationTurnResponseSchema, UuidSchema, emptyEvaluatorOutput, unsupportedCapability, type AudioInput, type Capability, type CharacterTurn, type ConversationSessionScope, type ConversationTurnAudio, type EvaluatorOutput, type LearnerTurnInput, type ShortLivedSession, type SpeechRetention } from '@langquest/contracts';
+import { applySpeechScreening, speechDetectionOf } from '@langquest/ai/speech/speech-detection';
+import { ConversationEndRequestSchema, ConversationEndResponseSchema, ConversationSessionCreateRequestSchema, ConversationSessionCreateResponseSchema, ConversationTurnRequestSchema, ConversationTurnResponseSchema, UuidSchema, emptyEvaluatorOutput, unsupportedCapability, type AudioInput, type Capability, type CharacterTurn, type ConversationSessionScope, type ConversationTurnAudio, type EvaluatorOutput, type LearnerTurnInput, type ShortLivedSession, type SpeechDetection, type SpeechRetention } from '@langquest/contracts';
 import { DbError } from '@langquest/db/errors';
 import type { Row } from '@langquest/db/types';
 import { sha256Hex } from '@langquest/telemetry/privacy';
@@ -17,7 +25,7 @@ import type { DefineRoute } from '../../app';
 import { AI_TIMEOUT_MS } from '../../app';
 import { problem, respondErr, respondOk } from '../../http/envelope';
 import { parseBody, parseParams } from '../../http/validate';
-import { attachAudio, audioLessonSceneFacts, buildContext, CharacterRefSchema, evaluateSession, EVALUATE_EVERY_TURNS, hasForbiddenControlChars, listTurns, loadOwnedSession, MAX_LEARNER_TEXT_CHARS, MAX_SESSION_MS, normaliseLearnerText, objectivesFromMission, personaFor, recentWeaknesses, refreshSummary, relationshipSummary, resolveCharacterRef, sessionScope, sessionState, syntheticVoiceOf, voiceConfig, type CharacterRow, type SessionRow } from '../../lib/conversation';
+import { attachAudio, audioLessonSceneFacts, buildContext, CharacterRefSchema, evaluateSession, EVALUATE_EVERY_TURNS, hasForbiddenControlChars, isCreditedLearnerTurn, listTurns, loadOwnedSession, MAX_LEARNER_TEXT_CHARS, MAX_SESSION_MS, normaliseLearnerText, objectivesFromMission, personaFor, recentWeaknesses, refreshSummary, relationshipSummary, resolveCharacterRef, sessionScope, sessionState, syntheticVoiceOf, voiceConfig, type CharacterRow, type SessionRow } from '../../lib/conversation';
 import { parsePrivacy } from '../../lib/dto';
 import { languageContextFor, loadOwnedEnrollment, loadUiLocale, varietyOf, type EnrollmentRow } from '../../lib/enrollment';
 import { awardXp, scheduleReviews } from '../../lib/learning';
@@ -25,7 +33,7 @@ import { sessionTicketSecret } from '../../lib/secrets';
 import { SPEECH_BODY_LIMIT_BYTES } from '../../middleware/security';
 import { encodingForMime } from '../../services/ai';
 import type { RequestServices } from '../../services/context';
-import { retainRecording } from './speech';
+import { assertLearnerAudioSource, retainRecording } from './speech';
 
 const IdParams = z.object({ id: UuidSchema });
 
@@ -254,6 +262,9 @@ export function registerConversationRoutes(define: DefineRoute): void {
   define('conversationTurn', { rate: 'ai', timeoutMs: AI_TIMEOUT_MS, bodyLimitBytes: SPEECH_BODY_LIMIT_BYTES, idempotent: false }, async (c) => {
     const { id } = parseParams(c, IdParams);
     const body = await parseBody(c, TurnRequestSchema);
+    // Same refusal as the speech routes, before anything is read or fetched: no caller-supplied audio URL.
+    const turnAudio = toAudioInput(body.audio);
+    if (turnAudio) assertLearnerAudioSource(turnAudio);
     const s = c.get('services')!;
     const { principal } = s.requireUser();
     const b = await loadBundle(s, id);
@@ -295,19 +306,40 @@ export function registerConversationRoutes(define: DefineRoute): void {
     const { context, persona } = await contextFor(s, b);
     const config = voiceConfig({ session, context, enrollment: b.enrollment, character: b.character, inputEncoding: 'opus' });
     const lastCharacter = [...turns].reverse().find((t) => t.speaker === 'character');
-    const learnerInput: LearnerTurnInput = normaliseLearnerInput(body.input);
-    let audio: AudioInput | undefined = toAudioInput(body.audio);
+    const sentInput: LearnerTurnInput = normaliseLearnerInput(body.input);
+    let audio: AudioInput | undefined = turnAudio;
     const inlineClip = audio?.source === 'inline' ? audio : null;
-    if (learnerInput.kind === 'audio' && learnerInput.transcriptHint === null && !audio) audio = { source: 'asset', assetId: learnerInput.assetId, encoding: 'opus', sampleRateHz: null };
-    if (learnerInput.kind === 'audio' && session.pipeline === 'text_only') throw problem.unsupported('This session runs in text-only mode; send text or a transcript');
+    if (sentInput.kind === 'audio' && sentInput.transcriptHint === null && !audio) audio = { source: 'asset', assetId: sentInput.assetId, encoding: 'opus', sampleRateHz: null };
+    if (sentInput.kind === 'audio' && session.pipeline === 'text_only') throw problem.unsupported('This session runs in text-only mode; send text or a transcript');
+
+    // Non-speech gate before the learner turn is recorded or the character is asked (see the module comment).
+    let learnerInput: LearnerTurnInput = sentInput;
+    let speechVerdict: SpeechDetection | undefined;
+    if (sentInput.kind === 'audio' && sentInput.transcriptHint === null && audio) {
+      const clientSignals = body.recording ?? null;
+      const heard = await ai.recognizer.transcribe(audio, config.locale, { traceId: s.requestId, enrollmentId: b.enrollment.id, screening: 'learner', clientSignals });
+      const speech = speechDetectionOf(heard, { client: clientSignals });
+      const screened = applySpeechScreening(heard, speech);
+      const text = speech.speechDetected ? normaliseLearnerText(screened.text) : null;
+      if (!text) {
+        s.log.info('speech.no_speech_detected', { route: 'conversationTurn', sessionId: session.id, reason: speech.reason ?? 'empty_transcript', matchedPhrases: speech.matchedPhrases.length, signals: speech.signals, detector: speech.detectorVersion });
+        const lastLearner = [...turns].reverse().find((t) => t.speaker === 'learner');
+        return respondOk(c, ConversationTurnResponseSchema.parse({ session: sessionState(session, lastLearner?.id ?? null, lastCharacter?.id ?? null), learnerTranscript: null, characterTurn: null, replayed: false, evaluationPending: false, objectivesCompleted: session.objectives_completed, speech: { speechDetected: false, reason: speech.reason ?? 'empty_transcript' } }));
+      }
+      learnerInput = { kind: 'transcript', text, confidence: screened.confidence, provider: screened.provider };
+      speechVerdict = { speechDetected: true, reason: null };
+    }
 
     const nextIndex = turns.length ? Math.max(...turns.map((t) => t.turn_index)) + 1 : 0;
     const learnerText = learnerInput.kind === 'text' ? learnerInput.text : learnerInput.kind === 'transcript' ? learnerInput.text : learnerInput.kind === 'audio' ? learnerInput.transcriptHint : null;
     const command = learnerInput.kind === 'command' ? learnerInput.command : null;
+    // Stored recording of an audio turn: the asset it was sent as; an inline clip's `input.assetId` is a client
+    // placeholder (contract), so it is linked only once retained.
+    const audioAssetId = sentInput.kind !== 'audio' ? null : audio?.source === 'asset' ? audio.assetId : audio?.source === 'inline' ? null : sentInput.assetId;
     let learnerRow = learnerTurn ?? null;
     if (!learnerRow) {
       try {
-        learnerRow = await insertTurn(s, { session_id: session.id, turn_index: nextIndex, speaker: 'learner', client_turn_id: body.clientTurnId, text: learnerText, occurred_at: new Date().toISOString(), command, confidence: learnerInput.kind === 'transcript' ? learnerInput.confidence : null, audio_asset_id: learnerInput.kind === 'audio' ? learnerInput.assetId : null });
+        learnerRow = await insertTurn(s, { session_id: session.id, turn_index: nextIndex, speaker: 'learner', client_turn_id: body.clientTurnId, text: learnerText, occurred_at: new Date().toISOString(), command, confidence: learnerInput.kind === 'transcript' ? learnerInput.confidence : null, audio_asset_id: audioAssetId });
       } catch (error) {
         if (error instanceof DbError && error.isUniqueViolation) {
           const res = respondErr(c, 'turn_in_progress', 'This clientTurnId is being processed; retry the same clientTurnId shortly', { clientTurnId: body.clientTurnId, retryAfterSeconds: 2 });
@@ -324,7 +356,7 @@ export function registerConversationRoutes(define: DefineRoute): void {
     const started = Date.now();
     let result;
     try {
-      result = await ai.pipeline.runTurn({ config, persona, learnerInput, audio, lastCharacterText: lastCharacter?.text ?? null, token, traceId: s.requestId, textOnly: session.pipeline === 'text_only' });
+      result = await ai.pipeline.runTurn({ config, persona, learnerInput, audio: learnerInput.kind === 'audio' ? audio : undefined, lastCharacterText: lastCharacter?.text ?? null, token, traceId: s.requestId, textOnly: session.pipeline === 'text_only' });
     } catch (error) {
       if (error instanceof CancelledError) throw problem.precondition('Turn cancelled');
       throw error;
@@ -332,15 +364,12 @@ export function registerConversationRoutes(define: DefineRoute): void {
     if (result.cancelled || !result.turn) {
       const upd = await s.service.from('conversation_sessions').update({ state: 'listening', last_seq: session.last_seq + 1 }).eq('id', session.id).select('*').single();
       session = upd.data ?? session;
-      return respondOk(c, ConversationTurnResponseSchema.parse({ session: sessionState(session, learnerRow.id, lastCharacter?.id ?? null), learnerTranscript: result.transcript ? { text: result.transcript.text, confidence: result.transcript.confidence } : null, characterTurn: null, replayed: false, evaluationPending: false, objectivesCompleted: session.objectives_completed }));
+      return respondOk(c, ConversationTurnResponseSchema.parse({ session: sessionState(session, learnerRow.id, lastCharacter?.id ?? null), learnerTranscript: result.transcript ? { text: result.transcript.text, confidence: result.transcript.confidence } : learnerText && speechVerdict ? { text: learnerText, confidence: learnerInput.kind === 'transcript' ? learnerInput.confidence : null } : null, characterTurn: null, replayed: false, evaluationPending: false, objectivesCompleted: session.objectives_completed, ...(speechVerdict ? { speech: speechVerdict } : {}) }));
     }
-    // Transcribed audio: the learner row keeps the sanitised transcript for the evaluator window (retention-bound).
-    const transcriptText = result.transcript ? normaliseLearnerText(result.transcript.text) : null;
-    if (transcriptText && !learnerRow.text) {
-      await s.service.from('conversation_turns').update({ text: transcriptText, text_hash: sha256Hex(transcriptText), confidence: result.transcript!.confidence }).eq('id', learnerRow.id).then(() => undefined, () => undefined);
-    }
+    // A transcribed take was recorded WITH its sanitised transcript at insert (turns are append-only, so it could not be
+    // added afterwards); the evaluator window reads it from there (retention-bound).
     // Inline clip: retained under the session's speech retention (§8.6 JSDoc promise of the contract), never when 'none'/'session'.
-    if (inlineClip && learnerInput.kind === 'audio') {
+    if (inlineClip && sentInput.kind === 'audio') {
       const learnerRowId = learnerRow.id;
       s.waitUntil(
         retainRecording(s, b.enrollment, inlineClip, principal.userId, session.speech_retention as SpeechRetention).then(async (assetId) => {
@@ -380,7 +409,7 @@ export function registerConversationRoutes(define: DefineRoute): void {
       );
     }
     s.log.info('conversation.turn', { sessionId: session.id, latency: result.latency, pipeline: session.pipeline, userId: principal.userId });
-    return respondOk(c, ConversationTurnResponseSchema.parse({ session: sessionState(session, learnerRow.id, charRow.id), learnerTranscript: result.transcript ? { text: result.transcript.text, confidence: result.transcript.confidence } : learnerText ? { text: learnerText, confidence: learnerInput.kind === 'transcript' ? learnerInput.confidence : null } : null, characterTurn, replayed: false, evaluationPending, objectivesCompleted: session.objectives_completed }));
+    return respondOk(c, ConversationTurnResponseSchema.parse({ session: sessionState(session, learnerRow.id, charRow.id), learnerTranscript: result.transcript ? { text: result.transcript.text, confidence: result.transcript.confidence } : learnerText ? { text: learnerText, confidence: learnerInput.kind === 'transcript' ? learnerInput.confidence : null } : null, characterTurn, replayed: false, evaluationPending, objectivesCompleted: session.objectives_completed, ...(speechVerdict ? { speech: speechVerdict } : {}) }));
   });
 
   define('conversationEnd', { rate: 'ai', timeoutMs: AI_TIMEOUT_MS }, async (c) => {
@@ -391,7 +420,8 @@ export function registerConversationRoutes(define: DefineRoute): void {
     const b = await loadBundle(s, id);
     let { session } = b;
     const turns = await listTurns(s, session.id);
-    const learnerTurns = turns.filter((t) => t.speaker === 'learner').length;
+    // XP counts turns where the learner said something (text) or used a command; a take without speech is never a turn.
+    const learnerTurns = turns.filter(isCreditedLearnerTurn).length;
     // No evaluator output ⇒ `confidence: null` (never a fabricated 0).
     let evaluation: EvaluatorOutput = (session.rubric_outcomes as EvaluatorOutput | null) ?? emptyEvaluatorOutput();
     let summary = session.summary ?? '';

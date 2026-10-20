@@ -20,8 +20,13 @@ test('a learner without a staff role is bounced back to /login?reason=norole', a
   await expect(page.getByText(/no staff role|aucun rôle/i)).toBeVisible();
 });
 
-test('API routes refuse anonymous callers with the contract envelope', async ({ request }) => {
-  const res = await request.put('/api/admin/coverage', { data: { courseTrackId: 'french' } });
+/**
+ * The proxy's gate on the admin host's `/api/*` paths: an anonymous caller gets the contract envelope before any route
+ * runs. No Studio data route lives on the admin host any more (writes are `/v1/admin/*` on the LangQuest API, whose role
+ * gate is covered by `tests/security/admin-routes.test.ts`), so the probe path deliberately has no handler behind it.
+ */
+test('the proxy refuses anonymous callers of non-public /api/* paths with the contract envelope', async ({ request }) => {
+  const res = await request.put('/api/studio-gate-probe', { data: {} });
   expect(res.status()).toBe(401);
   const body = await res.json();
   expect(body.ok).toBe(false);

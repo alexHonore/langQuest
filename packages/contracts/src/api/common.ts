@@ -297,6 +297,23 @@ export const ROUTES = {
   adminAssetSuggestionsBulkDecide: route('POST', '/v1/admin/asset-suggestions/bulk-decide', 'admin'),
   adminAssetSuggestionGet: route('GET', '/v1/admin/asset-suggestions/:id', 'admin'),
   adminAssetSuggestionDecide: route('POST', '/v1/admin/asset-suggestions/:id/decide', 'admin'),
+  // §7 Studio writes formerly served by local Next route handlers (R-4.3-01; schemas in `admin-studio.ts`)
+  /** Coverage editorial status of one (track × instruction language) pair; "complete" needs a native review at 100%. */
+  adminCoveragePut: route('PUT', '/v1/admin/coverage', 'admin'),
+  /** Saves an edited transcript as a NEW revision (segments + per-source translations). */
+  adminTranscriptSave: route('PUT', '/v1/admin/transcripts/:lessonId', 'admin'),
+  /** Editorial approve / reject of a draft along a legal §7.6 transition; never publishes. */
+  adminContentDecision: route('POST', '/v1/admin/content/:id/decision', 'admin'),
+  /** Restores a revision snapshot as a new revision (restorable columns only; nothing is deleted). */
+  adminContentRollback: route('POST', '/v1/admin/content/:id/rollback', 'admin'),
+  /** Re-runs a failed / review_needed job as a fresh row; refuses job types no runner serves. */
+  adminProcessingJobRetry: route('POST', '/v1/admin/processing-jobs/:id/retry', 'admin'),
+  /** super_admin only. */
+  adminUserRoleGrant: route('POST', '/v1/admin/users/:userId/roles', 'admin'),
+  /** super_admin only; never your own super_admin. */
+  adminUserRoleRevoke: route('DELETE', '/v1/admin/users/:userId/roles/:role', 'admin'),
+  /** AI models test harness: prompt / synthesize / transcribe probes through the Worker's adapters (logged spend). */
+  adminModelTest: route('POST', '/v1/admin/models/test', 'admin'),
 } as const satisfies Record<string, RouteDef>;
 export type RouteKey = keyof typeof ROUTES;
 

@@ -2,7 +2,8 @@
  * Deployment setup status (CONVENTIONS §8, "visible means usable"), derived purely from public signals the
  * Studio can already observe — no new API route: `GET /healthz` (API reachability + media storage mode),
  * `GET /v1/courses` (per-track AI / pronunciation capability summary computed from the API's configured
- * providers), the public Supabase URL and the admin host's own optional probe key.
+ * providers) and the public Supabase URL. The Studio host holds no provider key: every AI call, the model test
+ * harness included, runs on the API.
  *
  * The result drives two things:
  * - the Setup page checklist (what is configured, exact next step for what is not);
@@ -29,11 +30,9 @@ export interface SetupSignals {
   health: { mediaMode: MediaMode } | null;
   /** `null` when `/v1/courses` could not be read (unreachable API or malformed answer). */
   tracks: TrackCapabilityInput[] | null;
-  /** The admin host holds a server-only OPENROUTER_API_KEY (test-harness probes). Presence only. */
-  adminProbeKey: boolean;
 }
 
-export const SETUP_ITEM_KEYS = ['supabase', 'api', 'media', 'ai', 'speech', 'email', 'adminProbe'] as const;
+export const SETUP_ITEM_KEYS = ['supabase', 'api', 'media', 'ai', 'speech', 'email'] as const;
 export type SetupItemKey = (typeof SETUP_ITEM_KEYS)[number];
 
 /**
@@ -61,7 +60,6 @@ export interface DeploymentCapabilities {
   mediaAvailable: boolean;
   aiAvailable: boolean;
   acousticScoring: boolean;
-  adminProbe: boolean;
   supabaseMode: 'local' | 'hosted';
 }
 
@@ -136,20 +134,13 @@ export function deriveSetup(signals: SetupSignals, now: Date = new Date()): Setu
       nextStepKey: supabaseMode === 'local' ? 'admin.ui.setup.email.step.local' : 'admin.ui.setup.email.step.hosted',
       unlocks: [],
     },
-    {
-      key: 'adminProbe',
-      state: signals.adminProbeKey ? 'ok' : 'missing',
-      detail: '',
-      nextStepKey: signals.adminProbeKey ? 'admin.ui.setup.adminProbe.step.ok' : 'admin.ui.setup.adminProbe.step.missing',
-      unlocks: [],
-    },
   ];
 
   return {
     items,
-    capabilities: { apiReachable, mediaMode, mediaAvailable, aiAvailable, acousticScoring, adminProbe: signals.adminProbeKey, supabaseMode },
-    // `manual` items never block: they cannot be verified here. The optional admin probe is a convenience, not setup.
-    incomplete: items.some((i) => i.key !== 'adminProbe' && (i.state === 'missing' || i.state === 'unknown')),
+    capabilities: { apiReachable, mediaMode, mediaAvailable, aiAvailable, acousticScoring, supabaseMode },
+    // `manual` items never block: they cannot be verified here.
+    incomplete: items.some((i) => i.state === 'missing' || i.state === 'unknown'),
     checkedAt: now.toISOString(),
   };
 }
@@ -161,6 +152,5 @@ export const UNKNOWN_CAPABILITIES: DeploymentCapabilities = {
   mediaAvailable: false,
   aiAvailable: false,
   acousticScoring: false,
-  adminProbe: false,
   supabaseMode: 'local',
 };

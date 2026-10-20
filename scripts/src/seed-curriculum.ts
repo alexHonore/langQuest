@@ -21,9 +21,15 @@
  *    `characterIds`. When nobody in the variety carries the scene the mission stays uncast (no row, honest)
  *    rather than getting a wrong character; the plan lists those as `uncast`.
  *
+ * Skills (device QA 2026-10-19 §6.2): every registry and system skill (`ALL_SKILLS`) is planned as a `skills` row with
+ * its en/fr catalog name (`skillNameKey`), and the plan refuses to apply while any skill key referenced by the curriculum
+ * or by the seeded missions (goals, prerequisites, rubric objectives) lacks a row or a name (`./lib/skills-seed`).
+ * Skills are language independent, so `--track` never narrows them.
+ *
  * Idempotent: every row id is a deterministic UUID v5 of its content key (`@langquest/db/seed/curriculum-uuid`),
  * so re-runs update in place; stale `mission_steps` / `expression_forms` of a seeded mission/expression are
- * removed. `published_revision` and an editor-raised coverage status are never lowered.
+ * removed. `published_revision` and an editor-raised coverage status are never lowered. A `skills` row that already
+ * exists keeps its id, and unchanged skills are not rewritten.
  *
  * Target: `SUPABASE_URL` + `SUPABASE_SERVICE_ROLE_KEY` (local URL, or `LANGQUEST_DB_TARGET=hosted`), else the
  * local stack via `supabase status`. Nothing is written without `--apply`.
@@ -58,8 +64,9 @@ type JsonValue = NonNullable<Json>;
 import { curriculumSeedKeys, curriculumUuid } from '@langquest/db/seed/curriculum-uuid';
 import { uiCoveragePctByLanguage } from '@langquest/locales';
 import { flagBool, flagList, flagString, isDirectRun, runCli, CliUsageError, type CliIo, type CliSpec, type ParsedArgs } from './lib/cli';
-import { ensureIntents, ensureSkills, probeDb, resolveServiceDb } from './lib/db';
+import { ensureIntents, probeDb, resolveServiceDb } from './lib/db';
 import { loadRootEnv, repoRoot, writeJsonFileSync } from './lib/io';
+import { applySkillSeed, buildSkillSeedPlan, describeSkillSeedPlan, type SkillSeedPlan, type SkillSeedRow } from './lib/skills-seed';
 
 export const spec: CliSpec = {
   name: 'seed-curriculum',
@@ -67,7 +74,9 @@ export const spec: CliSpec = {
   description: `Deterministic ids (UUID v5 of content keys) make re-runs update in place. Flagship draft chapters are
 published with reviewed=false / needs_review translations / unverified rights so learners see content with the
 draft disclosure; planned skeletons (no target text) are loaded as review_needed and never published. No audio
-rows are faked. Coverage rows for sources with overlays become 'partial' (never downgrading an editor-set status).`,
+rows are faked. Coverage rows for sources with overlays become 'partial' (never downgrading an editor-set status).
+Skills: one skills row per registry and system skill, each named in the en and fr catalogs (progress.skill.<key>);
+the plan refuses to apply (exit 1, even with --dry-run) while a referenced skill lacks a row or a name.`,
   flags: [
     { name: 'track', type: 'list', description: 'Only these course tracks (default: all 30).' },
     { name: 'apply', type: 'boolean', description: 'Write to the database (otherwise the plan is only printed).', default: false },
@@ -137,7 +146,10 @@ export interface CurriculumSeedPlan {
   cast: PlannedMissionCast[];
   /** Skeletons not loaded because a draft chapter already covers that chapter index of the track. */
   supersededSkeletons: { courseTrackId: CourseTrackId; chapterKey: string; supersededBy: string }[];
+  /** Skills plan: one row per registry/system skill with its en/fr names; `problems` must be empty to apply. */
+  skills: SkillSeedPlan;
   rows: {
+    skills: SkillSeedRow[];
     contentRights: (Insert<'content_rights'> & { id: string })[];
     lessonCourses: (Insert<'lesson_courses'> & { id: string })[];
     chapters: (Insert<'chapters'> & { id: string })[];
@@ -375,7 +387,8 @@ export function buildCurriculumSeedPlan(options: PlanOptions = {}): CurriculumSe
     chapters: [],
     cast: [],
     supersededSkeletons,
-    rows: { contentRights: [], lessonCourses: [], chapters: [], missions: [], missionSteps: [], dialogueScenarios: [], missionLocalizations: [], expressions: [], expressionForms: [], expressionTranslations: [], coverage: [] },
+    skills: { planned: [], referencedKeys: [], problems: [] },
+    rows: { skills: [], contentRights: [], lessonCourses: [], chapters: [], missions: [], missionSteps: [], dialogueScenarios: [], missionLocalizations: [], expressions: [], expressionForms: [], expressionTranslations: [], coverage: [] },
   };
 
   // One lesson course per track (the default story arc); published when the track has a published draft chapter.
@@ -505,6 +518,9 @@ export function buildCurriculumSeedPlan(options: PlanOptions = {}): CurriculumSe
     if (draft) plan.rows.coverage.push(...coverageRows(chapter, expectedMissions, uiPct));
     plan.chapters.push(summary);
   }
+  // Skills last: the plan must cover every key the curriculum and the mission rows above reference.
+  plan.skills = buildSkillSeedPlan({ missions: plan.rows.missions });
+  plan.rows.skills = plan.skills.planned.map((p) => p.row);
   return plan;
 }
 
@@ -518,7 +534,7 @@ export interface TableCounts {
   deleted: number;
   skipped: number;
 }
-export type ApplyCounts = Record<'content_rights' | 'lesson_courses' | 'chapters' | 'missions' | 'mission_steps' | 'dialogue_scenarios' | 'mission_localizations' | 'expressions' | 'expression_forms' | 'expression_translations' | 'expression_audio' | 'course_source_localizations', TableCounts>;
+export type ApplyCounts = Record<'skills' | 'content_rights' | 'lesson_courses' | 'chapters' | 'missions' | 'mission_steps' | 'dialogue_scenarios' | 'mission_localizations' | 'expressions' | 'expression_forms' | 'expression_translations' | 'expression_audio' | 'course_source_localizations', TableCounts>;
 
 const CHUNK = 200;
 const chunks = <T,>(rows: readonly T[]): T[][] => {
@@ -581,7 +597,9 @@ async function preservePublishedRevision<T extends { id: string; published_revis
 }
 
 export async function applyCurriculumSeedPlan(db: DbClient, plan: CurriculumSeedPlan, io: CliIo): Promise<ApplyCounts> {
+  if (plan.skills.problems.length) throw new Error(`skills plan has ${plan.skills.problems.length} problem(s); nothing applied: ${plan.skills.problems.join('; ')}`);
   const counts: ApplyCounts = {
+    skills: emptyCounts(),
     content_rights: emptyCounts(),
     lesson_courses: emptyCounts(),
     chapters: emptyCounts(),
@@ -596,8 +614,9 @@ export async function applyCurriculumSeedPlan(db: DbClient, plan: CurriculumSeed
     course_source_localizations: emptyCounts(),
   };
   const intentIds = await ensureIntents(db);
-  const skills = await ensureSkills(db);
-  io.log(`registries: ${intentIds.size} intents, ${skills} skills upserted`);
+  const skills = await applySkillSeed(db, plan.rows.skills);
+  counts.skills = { inserted: skills.inserted, updated: skills.updated, deleted: skills.deleted, skipped: skills.skipped };
+  io.log(`registries: ${intentIds.size} intents upserted; skills inserted=${skills.inserted} updated=${skills.updated} unchanged=${skills.skipped} (kept ${skills.keptExistingIds} pre-existing ids)`);
   const intentId = (key: string): string => {
     const id = intentIds.get(key);
     if (!id) throw new Error(`intent ${key} missing in communicative_intents`);
@@ -791,6 +810,7 @@ function parseTracks(args: ParsedArgs): CourseTrackId[] | undefined {
 export function summarisePlan(plan: CurriculumSeedPlan): Record<string, number> {
   const r = plan.rows;
   return {
+    skills: r.skills.length,
     chapters_total: plan.chapters.length,
     chapters_published: plan.chapters.filter((c) => c.state === 'published').length,
     chapters_review_needed: plan.chapters.filter((c) => c.state === 'review_needed').length,
@@ -811,9 +831,17 @@ export function summarisePlan(plan: CurriculumSeedPlan): Record<string, number> 
   };
 }
 
-export async function main(args: ParsedArgs, io: CliIo): Promise<number> {
+/** Injection points for tests; the defaults are the bundled plan builder and the real database resolver. */
+export interface SeedCurriculumDeps {
+  buildPlan: (options: PlanOptions) => CurriculumSeedPlan;
+  resolveDb: () => ReturnType<typeof resolveServiceDb>;
+}
+
+const defaultDeps: SeedCurriculumDeps = { buildPlan: buildCurriculumSeedPlan, resolveDb: () => resolveServiceDb() };
+
+export async function main(args: ParsedArgs, io: CliIo, deps: SeedCurriculumDeps = defaultDeps): Promise<number> {
   loadRootEnv();
-  const plan = buildCurriculumSeedPlan({ tracks: parseTracks(args), includeSkeletons: flagBool(args, 'skeletons') });
+  const plan = deps.buildPlan({ tracks: parseTracks(args), includeSkeletons: flagBool(args, 'skeletons') });
   for (const c of plan.chapters) io.log(`${c.kind.padEnd(8)} ${c.state.padEnd(13)} ${c.courseTrackId.padEnd(24)} ${c.chapterKey.padEnd(34)} sources=${c.sourceLanguages.join(',').padEnd(5)} missions=${c.missions} steps=${c.steps} expressions=${c.expressions} localizations=${c.localizations} cast=${c.cast} uncast=${c.uncast}`);
   for (const s of plan.supersededSkeletons) io.log(`skip     superseded    ${s.courseTrackId.padEnd(24)} ${s.chapterKey.padEnd(34)} (draft ${s.supersededBy} covers chapter 1)`);
   if (flagBool(args, 'cast')) {
@@ -825,18 +853,25 @@ export async function main(args: ParsedArgs, io: CliIo): Promise<number> {
   const totals = summarisePlan(plan);
   io.log(`plan: ${Object.entries(totals).map(([k, v]) => `${k}=${v}`).join(' ')}`);
   io.log('expression_audio: 0 rows by design (no verified media asset exists; nothing is faked)');
+  io.log(describeSkillSeedPlan(plan.skills));
   const jsonOut = flagString(args, 'json-out');
   if (jsonOut) {
     const path = resolve(repoRoot(), jsonOut);
-    writeJsonFileSync(path, { generatedAt: new Date().toISOString(), totals, chapters: plan.chapters, supersededSkeletons: plan.supersededSkeletons, coverage: plan.rows.coverage, cast: plan.cast });
+    const skills = plan.skills.planned.map((p) => ({ skillKey: p.row.skill_key, id: p.row.id, kind: p.kind, nameKey: p.nameKey, names: p.names, referencedBy: p.referencedBy }));
+    writeJsonFileSync(path, { generatedAt: new Date().toISOString(), totals, chapters: plan.chapters, supersededSkeletons: plan.supersededSkeletons, coverage: plan.rows.coverage, cast: plan.cast, skills, skillProblems: plan.skills.problems });
     io.log(`wrote ${path}`);
+  }
+  if (plan.skills.problems.length) {
+    for (const p of plan.skills.problems) io.error(`skills: ${p}`);
+    io.error('skills plan has problems: nothing applied (every referenced skill needs a row and en+fr names)');
+    return 1;
   }
   if (args.dryRun || !flagBool(args, 'apply')) {
     io.log(args.dryRun ? 'dry-run: nothing applied' : 'nothing applied: pass --apply to write to the database');
     return 0;
   }
 
-  const resolved = resolveServiceDb();
+  const resolved = deps.resolveDb();
   if (!resolved) {
     io.error('No database reachable: set SUPABASE_URL + SUPABASE_SERVICE_ROLE_KEY (local) or start the local stack (pnpm supabase start).');
     return 1;

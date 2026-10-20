@@ -8,20 +8,31 @@
  *  - expressions failing the language guard (wrong script / wrong variety / source-language leak) are
  *    rejected, never silently kept — dialect boundaries are not crossed;
  *  - provenance records model, prompt template id + version, trace ids and estimated cost;
- *  - nothing is published; the admin publish gate still requires native review and rights approval.
+ *  - nothing is published; the admin publish gate still requires native review and rights approval;
+ *  - a diversity gate (`scoreDialogueDiversity`, `@langquest/curriculum`) runs before drafts are
+ *    returned: a set below threshold is marked `needs_regeneration` with the reasons in the record —
+ *    never dropped silently, never published. Regenerating it once with the reasons costs extra paid
+ *    calls, so it runs only when the caller asks (`regenerateOnLowDiversity: true`, fixture suites and
+ *    chapters alike); a retry whose dialogue text is unchanged (labels only) is never kept;
+ *  - an optional second-model review (`deps.reviewer`, `content-review.ts`) annotates drafts with
+ *    advisory accept / revise / reject verdicts for the native reviewer; it never approves.
  *
  * `@langquest/ai` has no content-factory module of its own (only the `content_factory` role → task
  * mapping), so the prompt builders, output schemas and validators live here (cross-package gap).
  */
 import { z } from 'zod';
 import { REGISTER_VALUES, buildLanguageContext, getCourseTrack, getVariety, type CourseTrackId, type LanguageContext, type Prompt, type RegisterSchema, type ScriptId, type SourceLanguageCode, type TextReasoner, type TransliterationSchemeId, type VarietyId } from '@langquest/contracts';
-import { CHAPTER_1_BLUEPRINT_KEYS, DEFAULT_STORY_ARC, INTENTS, defineSeedChapter, getBlueprint, getIntent, isIntentKey, type MissionBlueprint, type SeedChapter, type SeedExpressionInput, type SeedMissionInput } from '@langquest/curriculum';
+import { CHAPTER_1_BLUEPRINT_KEYS, DEFAULT_STORY_ARC, DIALOGUE_TURN_ACTS, INTENTS, MISSION_DIVERSITY_THRESHOLDS, defineSeedChapter, diversityRegenerationScopes, getBlueprint, getIntent, isIntentKey, scoreDialogueDiversity, type DialogueSetInput, type DiversityReport, type DiversityThresholds, type MissionBlueprint, type SeedChapter, type SeedExpressionInput, type SeedMissionInput } from '@langquest/curriculum';
 import { StructuredOutputError, coachingLanguageInstruction, exemplarGloss, getPromptPack, varietyGuardInstruction, type AiRequestRecord, type GuardResult, type LanguageGuard } from '@langquest/ai';
+import { SECOND_MODEL_REVIEW_TEMPLATE_VERSION, describeSecondModelReview, fixtureItemRefs, modelReviewFlags, runSecondModelReview, unreviewedState, type ItemReviewState, type ModelReviewAnnotation, type NativeVerdict, type NativeVerdictSheetRef, type NativeVerdictSummary, type ReviewItem, type SecondModelReviewSummary } from './content-review';
+import { ledgerFromRecords, type GenerationLedger } from './content-ledger';
 import type { ExpressionDraft } from './drafts';
 import { normalizeText } from './text';
 
-export const CONTENT_FACTORY_VERSION = '1.0.0';
-export const PROMPT_TEMPLATE_VERSIONS = { mission: '2026-10-14.1', fixtureExpressions: '2026-10-14.1', fixtureDialogues: '2026-10-14.1', fixtureIntents: '2026-10-14.1' } as const;
+export { ledgerFromRecords, type GenerationLedger };
+
+export const CONTENT_FACTORY_VERSION = '1.1.0';
+export const PROMPT_TEMPLATE_VERSIONS = { mission: '2026-10-14.1', fixtureExpressions: '2026-10-14.1', fixtureDialogues: '2026-10-20.1', fixtureIntents: '2026-10-14.1', secondModelReview: SECOND_MODEL_REVIEW_TEMPLATE_VERSION } as const;
 
 type Register = z.infer<typeof RegisterSchema>;
 
@@ -71,7 +82,17 @@ export const FixtureDialoguesLlmSchema = z.object({
       title: z.string(),
       context: z.string(),
       twist: z.string(),
-      turns: z.array(z.object({ speaker: z.enum(['learner', 'character']), targetText: z.string(), forms: z.array(FormLlmSchema), meaning: z.string() })),
+      turns: z.array(
+        z.object({
+          speaker: z.enum(['learner', 'character']),
+          targetText: z.string(),
+          forms: z.array(FormLlmSchema),
+          meaning: z.string(),
+          /** Conversational function, read by the diversity gate (defaults keep pre-2026-10-20 drafts parseable). */
+          act: z.enum(DIALOGUE_TURN_ACTS).default('normal'),
+          intentKey: z.string().nullable().default(null),
+        }),
+      ),
     }),
   ),
   reviewerNotes: z.array(z.string()),
@@ -175,7 +196,7 @@ export function buildFixturePrompts(t: FactoryTarget): { expressions: Prompt; di
       templateId: 'content_factory.fixture.dialogues',
       templateVersion: PROMPT_TEMPLATE_VERSIONS.fixtureDialogues,
       system,
-      user: `Produce exactly 10 small natural conversations (4–8 turns each, alternating learner/character) covering: an unexpected answer, regional wording, polite vs casual choice, a misunderstanding repaired, a refusal, a price negotiation, asking for help, small talk about family/work, making a plan, and a code-switch where natural. Each dialogue: {title in ${t.sourceLanguage}, context in ${t.sourceLanguage}, twist in ${t.sourceLanguage} (what is unexpected), turns: [{speaker, targetText, forms, meaning in ${t.sourceLanguage}}]}. Output JSON {"dialogues": [...10], "reviewerNotes": [...]}.`,
+      user: `Produce exactly 10 small natural conversations (4–8 turns each) covering: an unexpected answer, regional wording, polite vs casual choice, a misunderstanding repaired, a refusal, a price negotiation, asking for help, small talk about family/work, making a plan, and a code-switch where natural. These are not quizzes: vary who opens, let the learner ask questions too, allow two turns in a row by the same speaker, and include at least two dialogues where someone misunderstands and the misunderstanding is repaired. Each dialogue: {title in ${t.sourceLanguage}, context in ${t.sourceLanguage}, twist in ${t.sourceLanguage} (what is unexpected), turns: [{speaker, targetText, forms, meaning in ${t.sourceLanguage}, act: one of ${DIALOGUE_TURN_ACTS.join(' | ')} (the turn's conversational function; "misunderstanding" for the turn that shows a misunderstanding, "repair" for the turn that fixes it), intentKey: the communicative intent key when one clearly applies (e.g. ask_repeat, say_not_understood, ask_clarification, request_drink), else null}]}. Output JSON {"dialogues": [...10], "reviewerNotes": [...]}.`,
     },
     intents: {
       templateId: 'content_factory.fixture.intents',
@@ -302,7 +323,27 @@ export interface GeneratedMission {
   blueprint: MissionBlueprint;
   draft: MissionDraftLlm;
   validation: MissionValidation;
+  /** Diversity gate over the accepted learner phrasings per intent (blueprint thresholds). */
+  diversity?: DiversityReport;
 }
+
+/** Seed expression key per accepted LLM expression index (the keys `assembleSeedChapter` writes). */
+export function seedExpressionKeys(m: GeneratedMission): Map<number, string> {
+  const used = new Set<string>();
+  const keys = new Map<number, string>();
+  m.draft.expressions
+    .map((e, index) => ({ e, index, v: m.validation.expressions[index]! }))
+    .filter(({ v }) => v.accepted)
+    .forEach(({ e, index }, i) => {
+      let key = e.slotId ? slug(e.slotId) : `${slug(e.intentKey)}_variant_${i + 1}`;
+      while (used.has(key)) key = `${key}_x`;
+      used.add(key);
+      keys.set(index, key);
+    });
+  return keys;
+}
+
+export const seedMissionKey = (t: FactoryTarget, blueprintKey: string): string => `${t.courseTrackId.replace(/-/g, '_')}_${blueprintKey}`;
 
 /** Build the honest `SeedChapter` from validated missions (throws if the curriculum schema rejects it). */
 export function assembleSeedChapter(t: FactoryTarget, missions: readonly GeneratedMission[], generatedBy: string, notes: readonly string[]): SeedChapter {
@@ -313,16 +354,13 @@ export function assembleSeedChapter(t: FactoryTarget, missions: readonly Generat
     .map((m) => {
       const characterKey = `${trackSlug}_${slug(m.draft.character.name) || 'character'}_${slug(m.blueprint.characterRole)}`.slice(0, 80);
       if (!characters.has(characterKey)) characters.set(characterKey, { characterKey, role: m.blueprint.characterRole, name: m.draft.character.name.trim(), personality: m.draft.character.personality.trim() || 'to be authored', homeRegion: m.draft.character.homeRegion.trim() || 'unspecified', regionalOption: null });
-      const used = new Set<string>();
+      const keys = seedExpressionKeys(m);
       const expressions: SeedExpressionInput[] = m.draft.expressions
-        .map((e, i) => ({ e, v: m.validation.expressions[i]! }))
+        .map((e, index) => ({ e, index, v: m.validation.expressions[index]! }))
         .filter(({ v }) => v.accepted)
-        .map(({ e }, i) => {
-          let key = e.slotId ? slug(e.slotId) : `${slug(e.intentKey)}_variant_${i + 1}`;
-          while (used.has(key)) key = `${key}_x`;
-          used.add(key);
+        .map(({ e, index }) => {
           return {
-            key,
+            key: keys.get(index)!,
             intentKey: e.intentKey,
             slotId: e.slotId,
             speaker: e.speaker,
@@ -339,7 +377,7 @@ export function assembleSeedChapter(t: FactoryTarget, missions: readonly Generat
           };
         });
       return {
-        key: `${trackSlug}_${m.blueprint.key}`,
+        key: seedMissionKey(t, m.blueprint.key),
         blueprintKey: m.blueprint.key,
         characterKey,
         titles: { [t.sourceLanguage]: normalizeText(m.draft.title) },
@@ -364,25 +402,11 @@ export function assembleSeedChapter(t: FactoryTarget, missions: readonly Generat
   });
 }
 
-export interface GenerationLedger {
-  traceIds: string[];
-  models: string[];
-  estimatedCostUsd: number;
-  inputTokens: number;
-  outputTokens: number;
-  calls: number;
-  failures: number;
+/** Diversity gate and second-model review results for a generated chapter (draft keys are `${missionKey}:${expressionKey}`). */
+export interface ChapterQuality {
+  diversity: Array<{ blueprintKey: string; missionKey: string; verdict: DiversityReport['verdict']; score: number; reasons: string[]; warnings: string[] }>;
+  secondModelReview: (SecondModelReviewSummary & { annotations: Array<ModelReviewAnnotation & { draftKey: string | null }> }) | null;
 }
-
-export const ledgerFromRecords = (records: readonly AiRequestRecord[]): GenerationLedger => ({
-  traceIds: [...new Set(records.map((r) => r.traceId))],
-  models: [...new Set(records.map((r) => r.model))],
-  estimatedCostUsd: Math.round(records.reduce((s, r) => s + (r.estimatedCostUsd ?? 0), 0) * 1e6) / 1e6,
-  inputTokens: records.reduce((s, r) => s + (r.inputTokens ?? 0), 0),
-  outputTokens: records.reduce((s, r) => s + (r.outputTokens ?? 0), 0),
-  calls: records.length,
-  failures: records.filter((r) => !r.success).length,
-});
 
 export interface ChapterDraftRecord {
   formatVersion: 1;
@@ -394,12 +418,16 @@ export interface ChapterDraftRecord {
   generation: (GenerationLedger & { promptTemplateVersions: typeof PROMPT_TEMPLATE_VERSIONS; live: boolean }) | null;
   validation: Array<{ blueprintKey: string; ok: boolean; errors: string[]; warnings: string[]; accepted: number; rejected: Array<{ index: number; reasons: string[] }> }>;
   chapter: SeedChapter;
+  /** Present for factory runs that carry `ChapterRunResult.quality` (absent for seed exports and older drafts). */
+  quality?: ChapterQuality;
 }
 
 /** Convert an honest seed chapter into generic expression drafts (for `applyExpressionDrafts`). */
 export function chapterToExpressionDrafts(record: ChapterDraftRecord): ExpressionDraft[] {
   const c = record.chapter;
   const out: ExpressionDraft[] = [];
+  const reviewByKey = new Map((record.quality?.secondModelReview?.annotations ?? []).filter((a) => a.draftKey).map((a) => [a.draftKey!, a]));
+  const lowDiversity = new Set((record.quality?.diversity ?? []).filter((d) => d.verdict === 'needs_regeneration').map((d) => d.missionKey));
   for (const m of c.missions) {
     for (const e of m.expressions) {
       if (e.targetText === null) continue;
@@ -429,7 +457,7 @@ export function chapterToExpressionDrafts(record: ChapterDraftRecord): Expressio
           verified: false,
           notes: ['Original material drafted for LangQuest (AI-assisted, unreviewed). Redistribution rights are ours once a native reviewer approves; verified stays false until then.'],
         },
-        curation: { intentKey: e.intentKey, intentConfidence: 1, alternativeIntentKeys: [], scenarioTags: [m.blueprintKey], register: e.register, difficulty: e.difficulty, wordCount: wordCount(e.targetText), flags: e.speaker === 'character' ? ['character_line'] : [] },
+        curation: { intentKey: e.intentKey, intentConfidence: 1, alternativeIntentKeys: [], scenarioTags: [m.blueprintKey], register: e.register, difficulty: e.difficulty, wordCount: wordCount(e.targetText), flags: [...(e.speaker === 'character' ? ['character_line'] : []), ...(lowDiversity.has(m.key) ? ['diversity_needs_regeneration'] : []), ...modelReviewFlags(reviewByKey.get(`${m.key}:${e.key}`))] },
         checks: { languageSanity: { ok: true, reason: null }, toxicity: { toxic: false, matches: [] }, relevance: { relevant: true, reasons: [] } },
       });
     }
@@ -458,6 +486,13 @@ export interface FactoryDeps {
   budgetCheck?: (ledger: GenerationLedger) => boolean;
   records: () => readonly AiRequestRecord[];
   log?: (line: string) => void;
+  /**
+   * Second-model critic (task `language_quality_check`, routed to a different model than
+   * `content_generation`). When set, drafts carry its advisory verdicts; it never approves.
+   * It must have a batch output budget (e.g. `ScriptsTextReasoner`): the package-default
+   * `language_quality_check` profile allows 200 output tokens / 8 s, which truncates a 20-item batch.
+   */
+  reviewer?: TextReasoner;
 }
 
 export interface ChapterRunResult {
@@ -465,10 +500,63 @@ export interface ChapterRunResult {
   chapter: SeedChapter | null;
   ledger: GenerationLedger;
   aborted: string | null;
+  /** Diversity gate per mission and the second-model review (set it as `ChapterDraftRecord.quality`). */
+  quality: ChapterQuality;
 }
 
-/** Generate chapter 1 for a target: one model call per blueprint, validated, assembled. */
-export async function generateChapter(t: FactoryTarget, deps: FactoryDeps, options: { blueprintKeys?: readonly string[]; generatedBy: string; retryOnValidation?: boolean } ): Promise<ChapterRunResult> {
+export interface ChapterOptions {
+  blueprintKeys?: readonly string[];
+  generatedBy: string;
+  retryOnValidation?: boolean;
+  /** Regenerate a mission once when its diversity gate fails (default false: blueprint missions are marked, not re-run). */
+  regenerateOnLowDiversity?: boolean;
+  /** Overrides on top of `MISSION_DIVERSITY_THRESHOLDS`. */
+  diversity?: Partial<DiversityThresholds>;
+  reviewBatchSize?: number;
+}
+
+const uniqueStrings = (xs: readonly string[]): string[] => [...new Set(xs)];
+const acceptedCount = (v: MissionValidation): number => v.expressions.filter((e) => e.accepted).length;
+/** Fewer blocking reasons wins; on a tie, the higher score. */
+const diversityImproved = (candidate: DiversityReport, current: DiversityReport): boolean => candidate.reasons.length < current.reasons.length || (candidate.reasons.length === current.reasons.length && candidate.score > current.score);
+
+/** Diversity gate for one mission: accepted learner phrasings per intent (the blueprint fixes the turn structure). */
+export function missionDiversity(draft: MissionDraftLlm, validation: MissionValidation, overrides: Partial<DiversityThresholds> = {}): DiversityReport {
+  const byIntent = new Map<string, string[]>();
+  draft.expressions.forEach((e, i) => {
+    if (e.speaker !== 'learner' || !validation.expressions[i]?.accepted) return;
+    byIntent.set(e.intentKey, [...(byIntent.get(e.intentKey) ?? []), e.targetText]);
+  });
+  return scoreDialogueDiversity({ dialogues: [], intents: [...byIntent].map(([intentKey, phrasings]) => ({ intentKey, phrasings })) }, { ...MISSION_DIVERSITY_THRESHOLDS, ...overrides });
+}
+
+/** Regeneration feedback naming the gate's findings for the part being re-run. */
+export function diversityFeedback(report: DiversityReport, scope: 'mission' | 'intents' | 'dialogues'): string {
+  const findings = report.flags.filter((f) => scope === 'mission' || f.scope === scope || f.scope === 'set').map((f) => `${f.code}${f.subject !== null ? ` (${f.subject})` : ''}: ${f.detail}`);
+  const ask =
+    scope === 'dialogues'
+      ? 'Change the conversations themselves, not only their labels (the gate reads the text: relabelling the same lines does not pass). Vary the turn structure (who opens, questions from the learner, two turns in a row) and the words of each dialogue, include at least two dialogues where one speaker misunderstands and the other repairs it (label that turn "misunderstanding" and the reply that fixes it "repair"), and avoid question → answer drills.'
+      : 'Give acceptable learner phrasings that use different words and structures: not the same sentence with one word swapped, and not punctuation, spelling or vowel-mark variants of one answer.';
+  return `Your previous attempt failed the diversity gate: ${findings.join('; ')}. ${ask} Return the full JSON again.`;
+}
+
+/** Critic items for a chapter: the accepted expressions of the missions that will be assembled. */
+export function chapterReviewItems(t: FactoryTarget, missions: readonly GeneratedMission[]): Array<ReviewItem & { draftKey: string }> {
+  const items: Array<ReviewItem & { draftKey: string }> = [];
+  for (const m of missions) {
+    if (!m.validation.ok) continue;
+    const keys = seedExpressionKeys(m);
+    m.draft.expressions.forEach((e, i) => {
+      const key = keys.get(i);
+      if (!key) return;
+      items.push({ ref: `missions/${m.blueprint.key}/expressions/${i}`, kind: 'expression', speaker: e.speaker, targetText: normalizeText(e.targetText), meaning: normalizeText(e.meaning), context: `${m.blueprint.situation}; ${e.slotId ? `slot ${e.slotId}` : 'extra variant'}; intent ${e.intentKey}; register ${e.register}`, draftKey: `${seedMissionKey(t, m.blueprint.key)}:${key}` });
+    });
+  }
+  return items;
+}
+
+/** Generate chapter 1 for a target: one model call per blueprint, validated, diversity-gated, optionally critic-reviewed, assembled. */
+export async function generateChapter(t: FactoryTarget, deps: FactoryDeps, options: ChapterOptions): Promise<ChapterRunResult> {
   const keys = options.blueprintKeys ?? CHAPTER_1_BLUEPRINT_KEYS;
   const missions: GeneratedMission[] = [];
   const previous: string[] = [];
@@ -489,40 +577,88 @@ export async function generateChapter(t: FactoryTarget, deps: FactoryDeps, optio
       break;
     }
     let validation = validateMissionDraft(draft, blueprint, t, deps.guard);
-    if (!validation.ok && options.retryOnValidation !== false) {
+    let diversity = missionDiversity(draft, validation, options.diversity);
+    const lowDiversity = diversity.verdict === 'needs_regeneration';
+    const retryForValidation = !validation.ok && options.retryOnValidation !== false;
+    const retryForDiversity = validation.ok && lowDiversity && options.regenerateOnLowDiversity === true;
+    if (retryForValidation || retryForDiversity) {
       const ledger2 = ledgerFromRecords(deps.records());
       if (!deps.budgetCheck || deps.budgetCheck(ledger2)) {
         const feedback = [...validation.errors, ...validation.expressions.filter((e) => !e.accepted).map((e) => `expression ${e.index}: ${e.reasons.join(', ')}`)].join('; ');
-        prompt = { ...prompt, user: `${prompt.user}\n\nYour previous attempt was rejected by the validator: ${feedback}. Fix every point and return the full JSON again.` };
+        const parts = [prompt.user];
+        if (feedback) parts.push(`Your previous attempt was rejected by the validator: ${feedback}. Fix every point and return the full JSON again.`);
+        if (lowDiversity) parts.push(diversityFeedback(diversity, 'mission'));
+        prompt = { ...prompt, user: parts.join('\n\n') };
         try {
           const retry = await deps.reasoner.generateStructured('content_generation', t.context, prompt, MissionDraftLlmSchema);
           const retryValidation = validateMissionDraft(retry, blueprint, t, deps.guard);
-          if (retryValidation.ok || retryValidation.expressions.filter((e) => e.accepted).length > validation.expressions.filter((e) => e.accepted).length) {
+          const retryDiversity = missionDiversity(retry, retryValidation, options.diversity);
+          const keep = validation.ok ? retryValidation.ok && diversityImproved(retryDiversity, diversity) : retryValidation.ok || acceptedCount(retryValidation) > acceptedCount(validation);
+          if (keep) {
             draft = retry;
             validation = retryValidation;
+            diversity = retryDiversity;
           }
         } catch (err) {
           deps.log?.(`retry failed for ${key}: ${describeModelError(err)}`);
         }
       }
     }
-    deps.log?.(`${key}: ${validation.ok ? 'ok' : 'INVALID'} — ${validation.expressions.filter((e) => e.accepted).length}/${validation.expressions.length} expressions accepted${validation.errors.length ? `; ${validation.errors.join('; ')}` : ''}`);
-    missions.push({ blueprint, draft, validation });
+    if (diversity.verdict === 'needs_regeneration') validation.warnings.push(`diversity_gate:needs_regeneration:${diversity.reasons.join(',')}`);
+    deps.log?.(`${key}: ${validation.ok ? 'ok' : 'INVALID'} — ${acceptedCount(validation)}/${validation.expressions.length} expressions accepted${validation.errors.length ? `; ${validation.errors.join('; ')}` : ''}; diversity ${diversity.verdict} (${diversity.score})`);
+    missions.push({ blueprint, draft, validation, diversity });
     for (const [i, e] of draft.expressions.entries()) if (validation.expressions[i]?.accepted && e.speaker === 'learner') previous.push(e.targetText);
   }
+
+  // Second-model review (advisory) of what will be assembled.
+  let secondModelReview: ChapterQuality['secondModelReview'] = null;
+  const reviewItems = deps.reviewer ? chapterReviewItems(t, missions) : [];
+  if (deps.reviewer && reviewItems.length) {
+    const result = await runSecondModelReview(t, reviewItems, { reviewer: deps.reviewer, guard: deps.guard, records: deps.records, budgetCheck: deps.budgetCheck, log: deps.log }, { batchSize: options.reviewBatchSize });
+    const draftKeyByRef = new Map(reviewItems.map((i) => [i.ref, i.draftKey]));
+    secondModelReview = { ...result.summary, annotations: result.annotations.map((a) => ({ ...a, draftKey: draftKeyByRef.get(a.ref) ?? null })) };
+    for (const a of result.annotations) {
+      if (a.verdict === 'accept') continue;
+      const [, blueprintKey, , index] = a.ref.split('/');
+      missions.find((m) => m.blueprint.key === blueprintKey)?.validation.warnings.push(`second_model_${a.verdict}:expressions/${index}:${uniqueStrings(a.issues.map((i) => i.kind)).join('+') || 'unspecified'}`);
+    }
+    deps.log?.(describeSecondModelReview(result.summary));
+  }
+
+  const quality: ChapterQuality = {
+    diversity: missions.map((m) => ({ blueprintKey: m.blueprint.key, missionKey: seedMissionKey(t, m.blueprint.key), verdict: m.diversity!.verdict, score: m.diversity!.score, reasons: m.diversity!.reasons, warnings: m.diversity!.flags.filter((f) => f.severity === 'warn').map((f) => `${f.code}${f.subject !== null ? `:${f.subject}` : ''}`) })),
+    secondModelReview,
+  };
   const ledger = ledgerFromRecords(deps.records());
   let chapter: SeedChapter | null = null;
   if (missions.some((m) => m.validation.ok)) {
+    const generatorModels = uniqueStrings(deps.records().filter((r) => r.task === 'content_generation').map((r) => r.model));
     try {
       chapter = assembleSeedChapter(t, missions, options.generatedBy, [
-        `AI draft generated ${new Date().toISOString()} with ${ledger.models.join(', ')}; validator accepted ${missions.reduce((s, m) => s + m.validation.expressions.filter((e) => e.accepted).length, 0)} expressions; native review required before publishing.`,
+        `AI draft generated ${new Date().toISOString()} with ${generatorModels.join(', ')}; validator accepted ${missions.reduce((s, m) => s + acceptedCount(m.validation), 0)} expressions; native review required before publishing.`,
+        ...missions.filter((m) => m.validation.ok && m.diversity?.verdict === 'needs_regeneration').map((m) => `${m.blueprint.key}: diversity gate marked this mission for regeneration (${m.diversity!.reasons.join(', ')}); learner intents have too few distinct phrasings.`),
+        ...(secondModelReview ? [describeSecondModelReview(secondModelReview)] : []),
         ...missions.flatMap((m) => m.draft.reviewerNotes.map((n) => `${m.blueprint.key}: ${n}`)),
       ]);
     } catch (err) {
       aborted = `${aborted ? aborted + '; ' : ''}seed chapter rejected by curriculum schema: ${err instanceof Error ? err.message : String(err)}`;
     }
   }
-  return { missions, chapter, ledger, aborted };
+  return { missions, chapter, ledger, aborted, quality };
+}
+
+type FixtureExpressionLlm = z.infer<typeof FixtureExpressionsLlmSchema>['expressions'][number];
+type FixtureDialogueLlm = z.infer<typeof FixtureDialoguesLlmSchema>['dialogues'][number];
+type FixtureIntentLlm = z.infer<typeof FixtureIntentsLlmSchema>['intents'][number];
+type FixtureConfusionLlm = z.infer<typeof FixtureIntentsLlmSchema>['confusionTest'];
+
+/** Diversity gate result stored on the suite record. */
+export interface FixtureDiversityGate extends DiversityReport {
+  /** Calls re-run with the gate's reasons whose result was kept (it scored better and its dialogue text changed). */
+  regenerated: Array<'intents' | 'dialogues'>;
+  regenerationAttempts: number;
+  /** Why regeneration did not run although the gate failed (not requested, or budget). */
+  regenerationSkipped: string | null;
 }
 
 export interface FixtureSuiteRecord {
@@ -537,19 +673,67 @@ export interface FixtureSuiteRecord {
   spec: '§14.2';
   requirements: { expressions: 25; dialogues: 10; intents: 5; confusionTests: 1 };
   counts: { expressions: number; dialogues: number; intents: number; confusionPairs: number };
-  expressions: Array<z.infer<typeof FixtureExpressionsLlmSchema>['expressions'][number] & { validation: { accepted: boolean; reasons: string[]; warnings: string[] } ; reviewed: false; verdict: null }>;
-  dialogues: Array<z.infer<typeof FixtureDialoguesLlmSchema>['dialogues'][number] & { turnsFlagged: Array<{ index: number; reasons: string[] }>; reviewed: false; verdict: null }>;
-  intents: z.infer<typeof FixtureIntentsLlmSchema>['intents'];
-  confusionTest: z.infer<typeof FixtureIntentsLlmSchema>['confusionTest'] & { reviewed: false; verdict: null };
+  expressions: Array<FixtureExpressionLlm & { validation: { accepted: boolean; reasons: string[]; warnings: string[] } } & ItemReviewState>;
+  dialogues: Array<FixtureDialogueLlm & { turnsFlagged: Array<{ index: number; reasons: string[] }> } & ItemReviewState>;
+  intents: Array<Omit<FixtureIntentLlm, 'acceptablePhrasings' | 'unacceptable'> & { acceptablePhrasings: Array<FixtureIntentLlm['acceptablePhrasings'][number] & ItemReviewState>; unacceptable: Array<FixtureIntentLlm['unacceptable'][number] & ItemReviewState> }>;
+  confusionTest: Omit<FixtureConfusionLlm, 'pairs'> & { pairs: Array<FixtureConfusionLlm['pairs'][number] & ItemReviewState>; reviewed: boolean; verdict: NativeVerdict | null };
   reviewerNotes: string[];
   gaps: string[];
+  /** Diversity gate (§9.8): `needs_regeneration` sets are kept for review with the reasons, never dropped. */
+  diversityGate: FixtureDiversityGate | null;
+  /** Second-model review summary; per-item verdicts sit on each item's `modelReview`. */
+  secondModelReview: SecondModelReviewSummary | null;
+  /** Native verdict sheets ingested so far (`ingestNativeVerdicts`); the suite itself stays review_needed. */
+  nativeVerdictSheets: NativeVerdictSheetRef[];
+  nativeVerdictSummary: NativeVerdictSummary | null;
+  /** The `content_generation` calls of this run only (incl. regeneration); the critic's calls are in `secondModelReview.ledger`. */
   generation: (GenerationLedger & { promptTemplateVersions: typeof PROMPT_TEMPLATE_VERSIONS; live: true }) | null;
   provenance: ChapterDraftRecord['provenance'];
 }
 
-/** Generate the §14.2 fixture suite (3 calls) and validate it. */
-export async function generateFixtureSuite(t: FactoryTarget, deps: FactoryDeps, generatedBy: string): Promise<{ suite: FixtureSuiteRecord | null; ledger: GenerationLedger; aborted: string | null }> {
+export interface FixtureSuiteOptions {
+  /** Overrides on top of `DEFAULT_DIVERSITY_THRESHOLDS`. */
+  diversity?: Partial<DiversityThresholds>;
+  /**
+   * Re-run the dialogues and/or intents call once with the gate's reasons (budget-checked). Default
+   * false: up to 2 extra paid calls, so a caller turns it on explicitly and plans "up to 5 model calls".
+   */
+  regenerateOnLowDiversity?: boolean;
+  reviewBatchSize?: number;
+}
+
+const knownIntents = (intents: { intents: FixtureIntentLlm[] } | null): FixtureIntentLlm[] => (intents?.intents ?? []).filter((i) => isIntentKey(i.intentKey));
+
+/** Diversity-gate input for a fixture suite: the dialogues plus the acceptable phrasings per known intent. */
+export function fixtureDiversityInput(dialogues: readonly FixtureDialogueLlm[], intents: readonly FixtureIntentLlm[]): DialogueSetInput {
+  return {
+    dialogues: dialogues.map((d, i) => ({ id: `dialogues/${i}`, turns: d.turns.map((turn) => ({ speaker: turn.speaker, text: turn.targetText, act: turn.act, intentKey: turn.intentKey })) })),
+    intents: intents.map((i) => ({ intentKey: i.intentKey, phrasings: i.acceptablePhrasings.map((p) => p.targetText) })),
+  };
+}
+
+/** Critic items for a suite: accepted expressions, acceptable phrasings, dialogues and confusion pairs. */
+export function fixtureReviewItems(suite: FixtureSuiteRecord): ReviewItem[] {
+  const items: ReviewItem[] = [];
+  suite.expressions.forEach((e, i) => {
+    if (e.validation.accepted) items.push({ ref: `expressions/${i}`, kind: 'expression', speaker: null, targetText: normalizeText(e.targetText), meaning: normalizeText(e.meaning), context: `intent ${e.intentKey}; register ${e.register}` });
+  });
+  suite.intents.forEach((intent, i) => intent.acceptablePhrasings.forEach((p, j) => items.push({ ref: `intents/${i}/acceptablePhrasings/${j}`, kind: 'phrasing', speaker: 'learner', targetText: normalizeText(p.targetText), meaning: normalizeText(p.meaning), context: `acceptable phrasing for intent ${intent.intentKey}; register ${p.register}` })));
+  suite.dialogues.forEach((d, i) => items.push({ ref: `dialogues/${i}`, kind: 'dialogue', speaker: null, targetText: d.turns.map((turn) => `${turn.speaker === 'learner' ? 'L' : 'C'}: ${normalizeText(turn.targetText)}`).join('\n'), meaning: d.turns.map((turn) => normalizeText(turn.meaning)).join('\n'), context: `${normalizeText(d.title)}: ${normalizeText(d.context)}; twist: ${normalizeText(d.twist)}` }));
+  suite.confusionTest.pairs.forEach((p, k) => items.push({ ref: `confusionTest/pairs/${k}`, kind: 'confusion_pair', speaker: null, targetText: normalizeText(p.thisVariety), meaning: normalizeText(p.meaning), context: `must differ from ${suite.confusionTest.contrastVarietyId}: ${normalizeText(p.contrastVariety)}; ${normalizeText(p.note)}` }));
+  return items;
+}
+
+/** Dialogue text only (speaker + normalised target text), to tell a real rewrite from a relabelled copy. */
+const dialogueText = (dialogues: readonly FixtureDialogueLlm[]): string => JSON.stringify(dialogues.map((d) => d.turns.map((turn) => [turn.speaker, normalizeText(turn.targetText)])));
+
+/**
+ * Generate the §14.2 fixture suite (3 calls; up to 5 with `regenerateOnLowDiversity`), gate it for
+ * diversity, optionally critic-review it, and validate it.
+ */
+export async function generateFixtureSuite(t: FactoryTarget, deps: FactoryDeps, generatedBy: string, options: FixtureSuiteOptions = {}): Promise<{ suite: FixtureSuiteRecord | null; ledger: GenerationLedger; aborted: string | null }> {
   const prompts = buildFixturePrompts(t);
+  const firstRecord = deps.records().length;
   const check = (): string | null => {
     const ledger = ledgerFromRecords(deps.records());
     return deps.budgetCheck && !deps.budgetCheck(ledger) ? `budget exhausted (≈ $${ledger.estimatedCostUsd.toFixed(4)})` : null;
@@ -567,20 +751,64 @@ export async function generateFixtureSuite(t: FactoryTarget, deps: FactoryDeps, 
   } catch (err) {
     aborted = `model call failed: ${describeModelError(err)}`;
   }
-  const ledger = ledgerFromRecords(deps.records());
-  if (!expressions && !dialogues && !intents) return { suite: null, ledger, aborted };
+  if (!expressions && !dialogues && !intents) return { suite: null, ledger: ledgerFromRecords(deps.records()), aborted };
+
+  // --- diversity gate, before the draft is returned/written ----------------------------------
+  let diversity = scoreDialogueDiversity(fixtureDiversityInput(dialogues?.dialogues ?? [], knownIntents(intents)), options.diversity);
+  const regenerated: Array<'intents' | 'dialogues'> = [];
+  let regenerationAttempts = 0;
+  let regenerationSkipped: string | null = null;
+  if (diversity.verdict === 'needs_regeneration' && options.regenerateOnLowDiversity !== true && !aborted) regenerationSkipped = 'not requested (regenerateOnLowDiversity is off)';
+  if (diversity.verdict === 'needs_regeneration' && options.regenerateOnLowDiversity === true && !aborted) {
+    for (const scope of diversityRegenerationScopes(diversity)) {
+      if ((scope === 'dialogues' && !dialogues) || (scope === 'intents' && !intents)) continue;
+      const stop = check();
+      if (stop) {
+        regenerationSkipped = stop;
+        break;
+      }
+      const base = scope === 'dialogues' ? prompts.dialogues : prompts.intents;
+      const prompt = { ...base, user: `${base.user}\n\n${diversityFeedback(diversity, scope)}` };
+      regenerationAttempts += 1;
+      try {
+        if (scope === 'dialogues') {
+          const retry = await deps.reasoner.generateStructured('content_generation', t.context, prompt, FixtureDialoguesLlmSchema);
+          const candidate = scoreDialogueDiversity(fixtureDiversityInput(retry.dialogues, knownIntents(intents)), options.diversity);
+          // Labels are self-reported: a retry with the same lines (only `act` / `intentKey` changed) is never kept.
+          const rewritten = dialogueText(retry.dialogues) !== dialogueText(dialogues?.dialogues ?? []);
+          if (!rewritten) deps.log?.('diversity regeneration (dialogues): same dialogue text, labels only; kept the original');
+          if (rewritten && retry.dialogues.length >= (dialogues?.dialogues.length ?? 0) && diversityImproved(candidate, diversity)) {
+            dialogues = retry;
+            diversity = candidate;
+            regenerated.push('dialogues');
+          }
+        } else {
+          const retry = await deps.reasoner.generateStructured('content_generation', t.context, prompt, FixtureIntentsLlmSchema);
+          const candidate = scoreDialogueDiversity(fixtureDiversityInput(dialogues?.dialogues ?? [], knownIntents(retry)), options.diversity);
+          if (knownIntents(retry).length >= knownIntents(intents).length && retry.confusionTest.pairs.length >= (intents?.confusionTest.pairs.length ?? 0) && diversityImproved(candidate, diversity)) {
+            intents = retry;
+            diversity = candidate;
+            regenerated.push('intents');
+          }
+        }
+      } catch (err) {
+        deps.log?.(`diversity regeneration (${scope}) failed: ${describeModelError(err)}`);
+      }
+    }
+  }
+  deps.log?.(`diversity gate: ${diversity.verdict} (score ${diversity.score})${diversity.reasons.length ? ` — ${diversity.reasons.join(', ')}` : ''}${regenerated.length ? `; regenerated ${regenerated.join(', ')}` : ''}`);
+
   const gaps: string[] = [];
   const exprOut = (expressions?.expressions ?? []).map((e, i) => {
     const v = validateExpression({ ...e }, t, deps.guard, i);
-    return { ...e, validation: { accepted: v.accepted, reasons: v.reasons, warnings: v.warnings }, reviewed: false as const, verdict: null };
+    return { ...e, validation: { accepted: v.accepted, reasons: v.reasons, warnings: v.warnings }, ...unreviewedState() };
   });
   const dlgOut = (dialogues?.dialogues ?? []).map((d) => ({
     ...d,
     turnsFlagged: d.turns.map((turn, i) => ({ index: i, reasons: validateExpression({ targetText: turn.targetText, forms: turn.forms, meaning: turn.meaning, intentKey: 'greet_hello', register: 'neutral', speaker: turn.speaker }, t, deps.guard, i).reasons.filter((r) => r.startsWith('guard_') || r.startsWith('missing_')) })).filter((f) => f.reasons.length),
-    reviewed: false as const,
-    verdict: null,
+    ...unreviewedState(),
   }));
-  const intentList = (intents?.intents ?? []).filter((i) => isIntentKey(i.intentKey));
+  const intentList = knownIntents(intents).map((i) => ({ ...i, acceptablePhrasings: i.acceptablePhrasings.map((p) => ({ ...p, ...unreviewedState() })), unacceptable: i.unacceptable.map((u) => ({ ...u, ...unreviewedState() })) }));
   for (const i of intents?.intents ?? []) if (!isIntentKey(i.intentKey)) gaps.push(`unknown intent ${i.intentKey} dropped`);
   const accepted = exprOut.filter((e) => e.validation.accepted).length;
   if (accepted < 25) gaps.push(`only ${accepted}/25 expressions passed validation`);
@@ -591,6 +819,8 @@ export async function generateFixtureSuite(t: FactoryTarget, deps: FactoryDeps, 
   if (!expressions) gaps.push('expressions call did not run');
   if (!dialogues) gaps.push('dialogues call did not run');
   if (!intents) gaps.push('intents/confusion call did not run');
+  if (diversity.verdict === 'needs_regeneration') gaps.push(`diversity gate: needs regeneration (${diversity.reasons.join(', ')})`);
+  if (regenerationSkipped) gaps.push(`diversity regeneration skipped: ${regenerationSkipped}`);
   const suite: FixtureSuiteRecord = {
     formatVersion: 1,
     kind: 'fixture_suite',
@@ -606,13 +836,33 @@ export async function generateFixtureSuite(t: FactoryTarget, deps: FactoryDeps, 
     expressions: exprOut,
     dialogues: dlgOut,
     intents: intentList,
-    confusionTest: { ...confusion, reviewed: false, verdict: null },
+    confusionTest: { ...confusion, pairs: confusion.pairs.map((p) => ({ ...p, ...unreviewedState() })), reviewed: false, verdict: null },
     reviewerNotes: [...(expressions?.reviewerNotes ?? []), ...(dialogues?.reviewerNotes ?? []), ...(intents?.reviewerNotes ?? [])],
     gaps,
-    generation: { ...ledger, promptTemplateVersions: PROMPT_TEMPLATE_VERSIONS, live: true },
+    diversityGate: { ...diversity, regenerated, regenerationAttempts, regenerationSkipped },
+    secondModelReview: null,
+    nativeVerdictSheets: [],
+    nativeVerdictSummary: null,
+    generation: null,
     provenance: { dataset: 'content_factory', snapshotId: `${generatedBy}`, inputs: [], evidence: [], importedAt: new Date().toISOString(), importer: `scripts/content-factory@${CONTENT_FACTORY_VERSION}` },
   };
-  return { suite, ledger, aborted };
+
+  // --- second-model review (advisory) -----------------------------------------------------------
+  const generationRecords = deps.records().slice(firstRecord);
+  if (deps.reviewer) {
+    const result = await runSecondModelReview(t, fixtureReviewItems(suite), { reviewer: deps.reviewer, guard: deps.guard, records: deps.records, budgetCheck: deps.budgetCheck, log: deps.log }, { batchSize: options.reviewBatchSize });
+    const refs = fixtureItemRefs(suite);
+    for (const a of result.annotations) {
+      const item = refs.get(a.ref);
+      if (item) item.modelReview = a;
+    }
+    suite.secondModelReview = result.summary;
+    if (result.summary.status !== 'complete') gaps.push(`second-model review ${result.summary.status}: ${result.summary.unreviewedRefs.length} item(s) unreviewed${result.summary.aborted ? ` (${result.summary.aborted})` : ''}`);
+    deps.log?.(describeSecondModelReview(result.summary));
+  }
+  // Generator calls only: the benchmark row for the generating model (`nativeVerdictBenchmarkRow`) reads this.
+  suite.generation = { ...ledgerFromRecords(generationRecords), promptTemplateVersions: PROMPT_TEMPLATE_VERSIONS, live: true };
+  return { suite, ledger: ledgerFromRecords(deps.records()), aborted };
 }
 
 /** The intents a fixture suite may reference (exported for tests/docs). */

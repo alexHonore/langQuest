@@ -63,7 +63,7 @@ export function SetupChecklist({ status: fresh }: { status?: SetupStatus }) {
     router.refresh();
     setTimeout(() => setBusy(false), 800);
   };
-  const hidden = (['media', 'ai', 'speech', 'adminProbe'] as const).filter((k) => status.items.find((i) => i.key === k)?.state !== 'ok');
+  const hidden = (['media', 'ai', 'speech'] as const).filter((k) => status.items.find((i) => i.key === k)?.state !== 'ok');
   return (
     <div className="space-y-4">
       <Card

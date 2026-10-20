@@ -189,7 +189,8 @@ export const AssetsListQuerySchema = z
     collectionId: UuidSchema.optional(),
     chapterId: UuidSchema.optional(),
     speakerId: UuidSchema.optional(),
-    rightsVerified: z.coerce.boolean().optional(),
+    /** Strict query flag (`QueryBooleanSchema`): `false` lists the assets whose rights are NOT verified. */
+    rightsVerified: QueryBooleanSchema.optional(),
     transcriptStatus: z.string().optional(),
     jobState: JobStateSchema.optional(),
     legacyPathPrefix: z.string().max(1024).optional(),
@@ -389,7 +390,7 @@ export const ContentUnpublishResponseSchema = z.object({ contentId: UuidSchema, 
 
 // --- licenses ---------------------------------------------------------------
 
-export const LicensesAttributionsQuerySchema = z.object({ trackId: CourseTrackIdSchema.optional(), onlyUnverified: z.coerce.boolean().optional() }).extend(PaginationQuerySchema.shape);
+export const LicensesAttributionsQuerySchema = z.object({ trackId: CourseTrackIdSchema.optional(), onlyUnverified: QueryBooleanSchema.optional() }).extend(PaginationQuerySchema.shape);
 export const AttributionItemSchema = z.object({
   contentRightsId: UuidSchema,
   licenseId: z.string(),

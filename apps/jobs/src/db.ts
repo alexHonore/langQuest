@@ -107,7 +107,35 @@ export interface JobsDb {
   resolveSttModels(targetVarietyId: string): Promise<string[] | null>;
   listEnabledModelProfiles(): Promise<Row<'ai_model_profiles'>[]>;
   logAiRequest(row: Insert<'ai_requests'>): Promise<void>;
+  // --- model benchmarks (§8.7, `benchmark_model`) ---
+  /** One `ai_model_profiles` row by id, enabled or not (benchmarks also run on draft profiles). */
+  getModelProfile(id: string): Promise<Row<'ai_model_profiles'> | null>;
+  /**
+   * Set a profile's `benchmark_status` only while the row still routes to the benchmarked model at the version the run
+   * read (a config change during the run bumps `version`). Returns whether a row was updated.
+   */
+  setModelProfileBenchmarkStatus(input: { id: string; status: Row<'ai_model_profiles'>['benchmark_status']; primaryModel: string; version: number }): Promise<boolean>;
+  recordModelBenchmark(row: Insert<'ai_model_benchmarks'>): Promise<Row<'ai_model_benchmarks'>>;
+  /** The full-run benchmark row an earlier attempt of this job recorded (its notes carry `benchmarkNotesJobMarker`), if any. */
+  findModelBenchmarkForJob(input: { profileId: string; jobId: string }): Promise<Row<'ai_model_benchmarks'> | null>;
+  /** Sum of `ai_requests.estimated_cost_usd` attributed to a profile since an instant (daily budget checks). */
+  sumAiSpendSince(input: { profileId: string; since: string }): Promise<number>;
 }
+
+const UUID_RE = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+
+/**
+ * Marker a `benchmark_model` run writes into `ai_model_benchmarks.notes` (there is no job column): a retry of the same
+ * job finds its earlier row by it instead of re-running the paid samples. Only uuids are accepted, so the LIKE pattern
+ * built from it has no wildcard characters.
+ */
+export function benchmarkNotesJobMarker(jobId: string): string {
+  if (!UUID_RE.test(jobId)) throw new Error(`benchmarkNotesJobMarker: ${jobId} is not a uuid`);
+  return `job ${jobId.toLowerCase()}.`;
+}
+
+/** PostgREST answers at most this many rows per request (`max_rows`); ledger sums page through it. */
+const LEDGER_PAGE_ROWS = 1000;
 
 const LEGACY_COLUMNS = 'id, legacy_path, storage_key, checksum_sha256';
 
@@ -312,5 +340,25 @@ export function createSupabaseJobsDb(db: DbClient, repos: Repositories = createR
     },
     listEnabledModelProfiles: () => repos.aiProfiles.list({ enabledOnly: true }),
     logAiRequest: (row) => repos.aiProfiles.logRequest(row),
+    // model benchmarks
+    getModelProfile: (id) => repos.aiProfiles.getById(id),
+    async setModelProfileBenchmarkStatus({ id, status, primaryModel, version }) {
+      const rows = unwrap(await db.from('ai_model_profiles').update({ benchmark_status: status }).eq('id', id).eq('primary_model', primaryModel).eq('version', version).select('id'), 'jobs.setModelProfileBenchmarkStatus');
+      return rows.length > 0;
+    },
+    recordModelBenchmark: (row) => repos.aiProfiles.recordBenchmark(row),
+    async findModelBenchmarkForJob({ profileId, jobId }) {
+      if (!UUID_RE.test(jobId)) return null;
+      const rows = unwrap(await db.from('ai_model_benchmarks').select('*').eq('profile_id', profileId).like('notes', `%${benchmarkNotesJobMarker(jobId)}%`).order('created_at').limit(1), 'jobs.findModelBenchmarkForJob');
+      return rows[0] ?? null;
+    },
+    async sumAiSpendSince({ profileId, since }) {
+      let total = 0;
+      for (let from = 0; ; from += LEDGER_PAGE_ROWS) {
+        const rows = unwrap(await db.from('ai_requests').select('id, estimated_cost_usd').eq('profile_id', profileId).gte('created_at', since).order('created_at').order('id').range(from, from + LEDGER_PAGE_ROWS - 1), 'jobs.sumAiSpendSince');
+        for (const r of rows) total += Number(r.estimated_cost_usd ?? 0);
+        if (rows.length < LEDGER_PAGE_ROWS) return total;
+      }
+    },
   };
 }

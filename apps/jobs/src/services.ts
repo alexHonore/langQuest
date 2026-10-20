@@ -41,6 +41,23 @@ export interface JobAiOptions {
   assetResolver?: AudioAssetResolver;
   /** Variety the job works on; loads that variety's STT profile override when one is enabled. */
   varietyId?: VarietyId | null;
+  /**
+   * Route text calls through exactly these profiles instead of the process-wide registry of enabled rows (see
+   * `scopedProfileRegistry`). A model benchmark passes the one row it measures — enabled or still a disabled draft —
+   * so the run uses that row's params, timeout and fallback chain, read fresh for this job.
+   */
+  profiles?: readonly ModelProfile[];
+}
+
+/**
+ * A registry holding only the given profiles, each treated as an enabled DB row (no package defaults): resolution can
+ * only land on one of them, so a call never silently borrows another profile's parameters. Used for benchmarks of a
+ * single `ai_model_profiles` row, which is often a disabled draft that the shared registry would skip.
+ */
+export function scopedProfileRegistry(profiles: readonly ModelProfile[]): ModelProfileRegistry {
+  const registry = new ModelProfileRegistry([]);
+  for (const profile of profiles) registry.upsert({ ...profile, enabled: true }, 'db');
+  return registry;
 }
 
 export interface JobServices {
@@ -192,8 +209,10 @@ export async function createJobServices(options: CreateServicesOptions = {}): Pr
         }
       }
       const recognizer = new OpenRouterSpeechRecognizer({ client: shared.client, sink: aiOptions.sink, assetResolver: aiOptions.assetResolver, modelOverrides: overrides });
-      const reasoner = new OpenRouterTextReasoner({ client: shared.client, profiles: shared.profiles, sink: aiOptions.sink });
-      const guard = new LanguageGuard({ reasoner });
+      const sharedReasoner = new OpenRouterTextReasoner({ client: shared.client, profiles: shared.profiles, sink: aiOptions.sink });
+      const reasoner = aiOptions.profiles ? new OpenRouterTextReasoner({ client: shared.client, profiles: scopedProfileRegistry(aiOptions.profiles), sink: aiOptions.sink }) : sharedReasoner;
+      // The guard's own model checks keep the normal routing (a scoped registry holds no language_quality_check row).
+      const guard = new LanguageGuard({ reasoner: sharedReasoner });
       return { recognizer, reasoner, guard, sttModelsFor: (variety: VarietyId) => recognizer.modelsFor(variety) };
     });
 

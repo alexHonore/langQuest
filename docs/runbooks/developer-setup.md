@@ -43,7 +43,7 @@ the CI `security` job fails on committed key patterns).
 |---|---|---|
 | `.env` (repo root) | `apps/jobs` (dotenv), `scripts` (dotenv, never overriding the shell), `packages/db` seed/tests, live tests | `.env.example` |
 | `apps/api/.dev.vars` | `wrangler dev` (local Worker secrets) | `apps/api/.dev.vars.example` |
-| `apps/admin/.env.local` | Next.js admin (public `NEXT_PUBLIC_*` + optional server-only probe key) | `apps/admin/.env.example` |
+| `apps/admin/.env.local` | Next.js admin (the three public `NEXT_PUBLIC_*` values only; the admin holds no server secret) | `apps/admin/.env.example` (a local file: `apps/admin/.gitignore` matches `.env*`, so a fresh clone does not have it; write the three values from §6 by hand) |
 | shell / EAS env for `apps/mobile` | Expo (`EXPO_PUBLIC_*` only; there is no `.env.example` inside `apps/mobile`, use the root `.env` or export in the shell) | root `.env.example` |
 
 ```bash
@@ -72,7 +72,7 @@ template but not read by any package in this checkout (documented so nobody assu
 | `R2_BUCKET`, `R2_PUBLIC_BUCKET` | server | private master/derived bucket and public bucket names (`langquest-media`, `langquest-public`) | `apps/api/wrangler.toml [vars]`, `apps/jobs/src/config.ts` |
 | `R2_ACCESS_KEY_ID`, `R2_SECRET_ACCESS_KEY` | **server only** | R2 S3 API token (presigned URLs, multipart) | `apps/api/src/env.ts`, `apps/jobs/src/config.ts` |
 | `R2_ENDPOINT` | server | `https://<account>.r2.cloudflarestorage.com` (jobs runner S3 client). The Worker derives the endpoint from `R2_ACCOUNT_ID` instead — that secret is **not** in `.env.example`, it lives in `apps/api/.dev.vars` / `wrangler secret` | `apps/jobs/src/config.ts` |
-| `OPENROUTER_API_KEY` | **server only** | OpenRouter key (text, STT, TTS) | `apps/api/src/env.ts`, `apps/jobs/src/config.ts`, `packages/ai/src/env.ts`, `scripts` (live only), `apps/admin` server routes (optional probe) |
+| `OPENROUTER_API_KEY` | **server only** | OpenRouter key (text, STT, TTS) | `apps/api/src/env.ts`, `apps/jobs/src/config.ts`, `packages/ai/src/env.ts`, `scripts` (live only). The admin never reads it: its AI test harness calls the API (`POST /v1/admin/models/test`) |
 | `OPENROUTER_SITE_URL`, `OPENROUTER_APP_NAME` | unused | OpenRouter attribution headers. The API hard-codes `AI_APP_NAME: 'LangQuest'` / `AI_APP_REFERER: 'https://langquest.app'` in `apps/api/src/services/ai.ts`; `packages/ai/src/env.ts` reads `AI_APP_NAME` / `AI_APP_REFERER`, not these names | — |
 | `AZURE_SPEECH_KEY`, `AZURE_SPEECH_REGION` | server | optional acoustic pronunciation assessor (ADR-006) | `apps/api/src/env.ts`, `packages/ai/src/env.ts`; declared in `apps/jobs/src/config.ts` but unused by jobs |
 | `REALTIME_VOICE_PROVIDER` | unused | reserved for a duplex provider; only the STT→LLM→TTS pipeline exists (`DuplexProviderStub` reports unsupported) | — |
@@ -97,7 +97,6 @@ template but not read by any package in this checkout (documented so nobody assu
 | `OPENROUTER_BASE_URL`, `AI_REALTIME_CONNECT_URL`, `R2_PUBLIC_BASE_URL` | API optional | override OpenRouter base URL; streaming turn endpoint template; public bucket base URL |
 | `JOBS_WORKER_ID`, `JOBS_CONCURRENCY`, `JOBS_LEASE_SECONDS`, `JOBS_HEARTBEAT_MS`, `JOBS_REQUEUE_SWEEP_MS`, `JOBS_JOB_TYPES`, `JOBS_IDLE_EXIT_MS`, `JOBS_MAX_RUNTIME_MS`, `JOBS_WORK_DIR`, `JOBS_AUTO_CHAIN`, `JOBS_TELEMETRY`, `JOBS_LOG_LEVEL`, `JOBS_MAX_COST_PER_JOB_USD` (default `2`), `OBJECT_STORE` (`r2`\|`local`), `LOCAL_OBJECT_STORE_DIR`, `CLOUDFLARE_QUEUE_ID`, `FFPROBE_PATH`, `FFMPEG_TIMEOUT_MS` | jobs runner | see `jobs.md` §2 for defaults |
 | `EXPO_PUBLIC_OAUTH_PROVIDERS` (e.g. `google,apple`), `EXPO_PUBLIC_APP_VERSION` | mobile | OAuth buttons appear only when set; version shown in telemetry/About |
-| `OPENROUTER_API_KEY` in `apps/admin/.env.local` | admin **server** routes only | lets the AI test harness probe models when the API is not deployed; never reaches the browser (`serverEnv()` in `apps/admin/src/lib/env.ts`) |
 | `DATABASE_URL` | `packages/db seed`, `scripts` | explicit Postgres target; without it the local stack is auto-detected via `supabase status` |
 | `LANGQUEST_DB_TARGET=hosted` | `scripts` | required before `--apply` may touch a non-local `SUPABASE_URL` |
 
@@ -213,8 +212,10 @@ pnpm --filter @langquest/admin build && pnpm --filter @langquest/admin start
 `apps/admin/.env.local` needs `NEXT_PUBLIC_SUPABASE_URL`, `NEXT_PUBLIC_SUPABASE_ANON_KEY`, `NEXT_PUBLIC_API_BASE_URL`
 (`http://127.0.0.1:8787`); a missing value throws "Admin env is incomplete" and the login page renders the setup state.
 Sign in with a staff account (§3.1); learners are bounced to `/login?reason=norole`. Reads go straight to Supabase under the
-user's session (RLS), writes go to the API or to the local adapter routes under `apps/admin/app/api/admin/**`; the admin never
-holds a service-role key. See `admin-manual.md`.
+user's session (RLS); every data write goes to the Worker API (`/v1/admin/*`) with the staff JWT (upload parts go to the
+presigned URLs the API returns). The only Next route handlers
+are `app/api/auth/signout` and `app/api/locale`, and the admin holds no service-role or provider key (`apps/admin/src/lib/env.ts`
+reads only the three `NEXT_PUBLIC_*` values). See `admin-manual.md`.
 
 ## 7. Run the learner app (`apps/mobile`)
 

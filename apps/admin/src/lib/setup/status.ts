@@ -1,13 +1,13 @@
 import 'server-only';
 /**
- * Server-side setup status: observes `/healthz` and `/v1/courses` (both public), the public env and the
- * admin host's optional probe key, then derives the checklist + deployment capabilities (`derive.ts`).
+ * Server-side setup status: observes `/healthz` and `/v1/courses` (both public) and the public env, then
+ * derives the checklist + deployment capabilities (`derive.ts`).
  * Cached per process for a short TTL so the studio layout can read it on every navigation without
  * hammering the API; the cache holds deployment-level facts only (no user data).
  */
 import { z } from 'zod';
 import { CoursesResponseSchema } from '@langquest/contracts';
-import { publicEnv, serverEnv } from '@/src/lib/env';
+import { publicEnv } from '@/src/lib/env';
 import { deriveSetup, type MediaMode, type SetupSignals, type SetupStatus } from './derive';
 
 const TTL_MS = 30_000;
@@ -43,7 +43,6 @@ async function observe(): Promise<SetupStatus> {
     apiBaseUrl: env.NEXT_PUBLIC_API_BASE_URL,
     health: health.success ? { mediaMode: health.data.data.media as MediaMode } : null,
     tracks: courses.success ? courses.data.data.courses.map((c) => c.capabilities) : null,
-    adminProbeKey: Boolean(serverEnv().OPENROUTER_API_KEY),
   };
   return deriveSetup(signals);
 }
@@ -53,7 +52,7 @@ export function loadSetupStatus(options: { fresh?: boolean } = {}): Promise<Setu
   const now = Date.now();
   if (!options.fresh && cache && now - cache.at < TTL_MS) return cache.promise;
   const promise = observe().catch(() =>
-    deriveSetup({ supabaseUrl: safeUrl('NEXT_PUBLIC_SUPABASE_URL'), apiBaseUrl: safeUrl('NEXT_PUBLIC_API_BASE_URL'), health: null, tracks: null, adminProbeKey: Boolean(serverEnv().OPENROUTER_API_KEY) }),
+    deriveSetup({ supabaseUrl: safeUrl('NEXT_PUBLIC_SUPABASE_URL'), apiBaseUrl: safeUrl('NEXT_PUBLIC_API_BASE_URL'), health: null, tracks: null }),
   );
   cache = { at: now, promise };
   return promise;

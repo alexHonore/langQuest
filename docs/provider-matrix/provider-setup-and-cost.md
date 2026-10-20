@@ -26,8 +26,9 @@ table refreshes from `GET /api/v1/models`._
 ### 2.1 OpenRouter
 
 - **Setup:** create a key at https://openrouter.ai/ → set a **key budget** in the dashboard (the build used $50/month) →
-  put it in `apps/api/.dev.vars` / `wrangler secret put OPENROUTER_API_KEY`, the root `.env` for `apps/jobs` and `scripts`,
-  optionally `apps/admin/.env.local` (server-only, test harness).
+  put it in `apps/api/.dev.vars` / `wrangler secret put OPENROUTER_API_KEY` and the root `.env` for `apps/jobs` and `scripts`.
+  Never in the admin: the Studio holds no provider key, and its AI test harness runs on the API
+  (`POST /v1/admin/models/test`, `apps/api/src/routes/admin/model-test.ts`).
 - **Secrets / vars:** `OPENROUTER_API_KEY` (server only), `OPENROUTER_BASE_URL` (optional override), attribution headers
   `AI_APP_NAME` / `AI_APP_REFERER` (the API sets `LangQuest` / `https://langquest.app` in `apps/api/src/services/ai.ts`;
   `OPENROUTER_SITE_URL` / `OPENROUTER_APP_NAME` in `.env.example` are not read).
@@ -171,5 +172,9 @@ Hard ceilings and alerts (operator-side only; never learner quotas):
   aggregated (`r2Operations: 0`) because R2 is not enabled.
 - Azure, R2, Queues, hosted Supabase, Resend SMTP, PostHog and Sentry have **no measured cost** because they were not
   exercised; the figures above are vendor list prices from the dates stated.
-- The `benchmark_model` job has no runner handler, so full-sample benchmarks (WER/CER, naturalness) cannot run yet; only the
-  inline smoke benchmark records a row.
+- The `benchmark_model` job runs in `apps/jobs` (`apps/jobs/src/handlers/benchmark-model.ts`) on the fixed `core-v1` sample
+  set for the three target-variety text tasks (`CORE_SET_TASKS`: `character_dialogue`, `scene_planning`,
+  `content_generation`), within `JOBS_MAX_COST_PER_JOB_USD` and the profile's `daily_budget_usd`; its calls are ledgered in
+  `ai_requests` as staff spend. Speech benchmarks (WER/CER, voice naturalness) score nothing until reference-audio sample
+  sets exist; for those tasks only the inline smoke benchmark records a row. It has run only against fakes so far: a real
+  run spends OpenRouter credit and needs the owner's OK.

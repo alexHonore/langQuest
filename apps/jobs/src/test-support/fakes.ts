@@ -6,7 +6,7 @@ import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import type { z } from 'zod';
-import type { AiTaskName, AudioInput, Capability, LanguageContext, Prompt, SpeechRecognizer, TextReasoner, TranscriptResult, TranscriptSegment } from '@langquest/contracts';
+import type { AiTaskName, AudioInput, Capability, LanguageContext, Prompt, SpeechRecognizer, TextReasoner, TextReasonerOptions, TranscriptResult, TranscriptSegment } from '@langquest/contracts';
 import { LanguageGuard, type AiRequestRecord, type AiRequestSink } from '@langquest/ai';
 import type { Repositories } from '@langquest/db';
 import { readJobsEnv, type JobsEnv } from '../config';
@@ -59,6 +59,36 @@ export class FakeReasoner implements TextReasoner {
   }
 }
 
+export interface ScriptedReasonerScript {
+  answer: (prompt: Prompt, task: AiTaskName) => unknown;
+  /** Fallback index the "provider" answered with (0 = the requested model); a fallback reports `fake/fallback-model`. */
+  fallbackIndex?: (prompt: Prompt) => number;
+  /** Error to throw for a call (recorded as a failed attempt first, like the real reasoner). */
+  fail?: (prompt: Prompt) => Error | null;
+  costUsd?: number | null;
+}
+
+/**
+ * Reasoner that honours `modelOverride` like the OpenRouter one: the requested model answers (and is recorded) unless
+ * the script makes a fallback answer. Records one ledger attempt per call through the given sink.
+ */
+export class ScriptedReasoner implements TextReasoner {
+  readonly calls: Array<{ task: AiTaskName; prompt: Prompt; locale: LanguageContext; options: TextReasonerOptions }> = [];
+  constructor(
+    private readonly sink: AiRequestSink | null,
+    private readonly script: ScriptedReasonerScript,
+  ) {}
+  async generateStructured<T>(task: AiTaskName, locale: LanguageContext, prompt: Prompt, schema: z.ZodType<T>, options: TextReasonerOptions = {}): Promise<T> {
+    this.calls.push({ task, prompt, locale, options });
+    const error = this.script.fail?.(prompt) ?? null;
+    const fallbackIndex = this.script.fallbackIndex?.(prompt) ?? 0;
+    const model = fallbackIndex > 0 ? 'fake/fallback-model' : (options.modelOverride ?? 'fake-llm');
+    await this.sink?.record({ occurredAt: new Date().toISOString(), userId: null, enrollmentId: locale.enrollmentId, task, provider: 'openrouter', model, profileId: null, fallbackIndex, latencyMs: 4, inputTokens: 120, outputTokens: 30, audioSeconds: null, estimatedCostUsd: this.script.costUsd === undefined ? 0.001 : this.script.costUsd, success: !error, errorCode: error ? 'fake_error' : null, traceId: options.traceId ?? 'fake', redactedLog: { templateId: prompt.templateId, templateVersion: prompt.templateVersion } } satisfies AiRequestRecord);
+    if (error) throw error;
+    return schema.parse(this.script.answer(prompt, task));
+  }
+}
+
 export interface TestServicesOptions {
   db?: MemoryJobsDb;
   recognizer?: SpeechRecognizer | ((sink: AiRequestSink) => SpeechRecognizer);
@@ -74,6 +104,10 @@ export interface TestServices {
   ffmpeg: FfRunner;
   root: string;
   aiRequests: AiRequestRecord[];
+  /** Options every `services.ai(...)` call received (e.g. the profiles a benchmark scopes its reasoner to). */
+  aiOptions: JobAiOptions[];
+  /** `ai_requests` writes the memory db refused (e.g. the enrollment foreign key); `runHandler` collects them. */
+  persistErrors: unknown[];
   cleanup(): Promise<void>;
 }
 
@@ -85,9 +119,11 @@ export async function createTestServices(options: TestServicesOptions = {}): Pro
   const store = new LocalFsObjectStore(join(root, 'store'), 'test-bucket');
   const ffmpeg = createFfRunner({ ffmpegPath: env.FFMPEG_PATH, ffprobePath: env.FFPROBE_PATH, timeoutMs: 120_000 });
   const aiRequests: AiRequestRecord[] = [];
+  const aiOptionsSeen: JobAiOptions[] = [];
   const events = new EventBus({ log: silentLogger, autoChain: false });
   const ai = async (aiOptions: JobAiOptions): Promise<JobAi> => {
     if (options.aiConfigured === false) throw new (await import('../services')).AiUnavailableError();
+    aiOptionsSeen.push(aiOptions);
     const sink: AiRequestSink = { record: (r) => void (aiRequests.push(r), aiOptions.sink.record(r)) };
     const recognizer = typeof options.recognizer === 'function' ? options.recognizer(sink) : (options.recognizer ?? new FakeRecognizer({ sink }));
     const reasoner = typeof options.reasoner === 'function' ? options.reasoner(sink) : (options.reasoner ?? new FakeReasoner(() => ({}), sink));
@@ -109,7 +145,7 @@ export async function createTestServices(options: TestServicesOptions = {}): Pro
     now: () => new Date(),
     newId: () => crypto.randomUUID(),
   };
-  return { services, db, store, ffmpeg, root, aiRequests, cleanup: () => rm(root, { recursive: true, force: true }) };
+  return { services, db, store, ffmpeg, root, aiRequests, aiOptions: aiOptionsSeen, persistErrors: [], cleanup: () => rm(root, { recursive: true, force: true }) };
 }
 
 /** Generate a short tone fixture with ffmpeg (wav by default). */
@@ -125,13 +161,17 @@ export function fakeJobRow(partial: Partial<ProcessingJobRow> & Pick<ProcessingJ
   return { id: crypto.randomUUID(), parent_asset_id: null, parent_entity_table: null, parent_entity_id: null, state: 'running', priority: 5, attempts: 1, max_attempts: 3, progress_pct: 0, provider: null, params: {}, cost_estimate_usd: null, cost_actual_usd: null, failure_code: null, failure_message: null, output_asset_ids: [], output: null, idempotency_key: crypto.randomUUID(), requested_by: null, started_at: now, finished_at: null, locked_by: 'test-worker', locked_until: null, created_at: now, updated_at: now, ...partial };
 }
 
-/** Run a handler directly with a hand-built context (params validated by the handler schema). */
+/**
+ * Run a handler directly with a hand-built context (params validated by the handler schema). The job's cost tracker
+ * persists `ai_requests` rows into the memory db like the runner does in production; refused rows land in
+ * `t.persistErrors`.
+ */
 export async function runHandler<P>(handler: JobHandler<P>, t: TestServices, params: unknown, job: Partial<ProcessingJobRow> = {}): Promise<{ result: JobResult; ctx: JobContext<P>; events: EventBus['emitted'] }> {
   const row = fakeJobRow({ job_type: handler.jobTypes[0] ?? 'describe', ...job });
   const parsed = handler.paramsSchema.parse(params);
   const workDir = join(t.services.workRoot, row.id);
   await (await import('node:fs/promises')).mkdir(workDir, { recursive: true });
-  const cost = new JobCostTracker({ jobId: row.id, traceId: `test:${row.id}`, maxUsd: 1 });
+  const cost = new JobCostTracker({ jobId: row.id, traceId: `test:${row.id}`, maxUsd: 1, persistAiRequest: (r) => t.db.logAiRequest(r), onPersistError: (error) => void t.persistErrors.push(error) });
   const ctx: JobContext<P> = {
     job: row,
     handler: handler.name as HandlerName,

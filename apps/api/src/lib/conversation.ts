@@ -225,6 +225,13 @@ export function normaliseLearnerText(text: string | null | undefined): string | 
   return cleaned.length ? cleaned : null;
 }
 
+/**
+ * A learner turn that earns conversation XP: the learner said something (stored text) or used a command. Takes without
+ * speech are never recorded as turns (non-speech gate in the turn route); a learner row without text or command (an
+ * audio turn recorded before that gate existed) is not credited either.
+ */
+export const isCreditedLearnerTurn = (t: Pick<TurnRow, 'speaker' | 'text' | 'command'>): boolean => t.speaker === 'learner' && (t.command !== null || normaliseLearnerText(t.text) !== null);
+
 /** True when the text carries control characters the API refuses at validation time (TAB/LF/CR are allowed). */
 export const hasForbiddenControlChars = (text: string): boolean => {
   CONTROL_CHARS.lastIndex = 0;

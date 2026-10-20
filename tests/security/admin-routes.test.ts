@@ -25,6 +25,13 @@ const STRUCTURE_ROUTES = [
   'adminAssetSuggestionsList', 'adminAssetSuggestionsGenerate', 'adminAssetSuggestionsBulkDecide', 'adminAssetSuggestionGet', 'adminAssetSuggestionDecide',
 ] as const satisfies readonly RouteKey[];
 
+/**
+ * Studio writes that used to be local Next route handlers in apps/admin (R-4.3-01). All admin-gated; the role sets
+ * narrow further per route (reviewers: coverage / transcripts / decisions; editors: rollback / job retry; admins:
+ * model test harness; super_admin: role grants).
+ */
+const STUDIO_ROUTES = ['adminCoveragePut', 'adminTranscriptSave', 'adminContentDecision', 'adminContentRollback', 'adminProcessingJobRetry', 'adminUserRoleGrant', 'adminUserRoleRevoke', 'adminModelTest'] as const satisfies readonly RouteKey[];
+
 function samplePath(key: RouteKey): string {
   return ROUTES[key].path.replace(/:([A-Za-z0-9_]+)/g, (_m, name: string) => (name === 'task' ? 'character_dialogue' : SAMPLE_UUID));
 }
@@ -45,10 +52,14 @@ describeStack('admin routes enforce server-verified roles', () => {
   // Users first (their owned rows and ledgers go with them), then the seeded content rows in reverse insertion order.
   afterAll(() => teardown(h));
 
-  it('covers every admin route in the contracts (sanity), including the structure / visual-asset / suggestion routes', () => {
+  it('covers every admin route in the contracts (sanity), including the structure / visual-asset / suggestion / Studio routes', () => {
     expect(adminRoutes.length).toBeGreaterThanOrEqual(22);
     expect(mutating.length).toBeGreaterThanOrEqual(12);
     for (const key of STRUCTURE_ROUTES) expect(adminRoutes, key).toContain(key);
+    for (const key of STUDIO_ROUTES) {
+      expect(adminRoutes, key).toContain(key);
+      expect(mutating, key).toContain(key);
+    }
   });
 
   it('every /v1/admin/* route the app mounts is declared admin in the contracts (no admin route outside the gate)', () => {
@@ -143,6 +154,19 @@ describeStack('admin routes enforce server-verified roles', () => {
     expect(put.status).toBe(403);
     const bench = await call(h, '/v1/admin/models/character_dialogue/benchmark', { token: editor.token, body: {} });
     expect(bench.status).toBe(403);
+  });
+
+  it('content editors cannot run model probes or change staff roles (admin / super_admin only)', async () => {
+    const wrong: string[] = [];
+    for (const key of ['adminModelTest', 'adminUserRoleGrant', 'adminUserRoleRevoke'] as const satisfies readonly (typeof STUDIO_ROUTES)[number][]) {
+      const res = await call(h, samplePath(key), { method: ROUTES[key].method, token: editor.token, body: {} });
+      if (res.status !== 403) wrong.push(`${key} → ${res.status}`);
+    }
+    expect(wrong).toEqual([]);
+    const grant = await call(h, `/v1/admin/users/${editor.id}/roles`, { token: editor.token, body: { role: 'super_admin' } });
+    expect(grant.status).toBe(403);
+    const roles = await h.service.from('user_roles').select('role').eq('user_id', editor.id);
+    expect(roles.data?.map((r) => r.role)).toEqual(['content_editor']);
   });
 
   it('roles come from user_roles, which learners cannot grant themselves', async () => {

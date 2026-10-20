@@ -5,7 +5,7 @@ import { listReviewQueue } from '@/src/lib/queries/ops';
 import { formatDateTime, pickLocalized, shortId } from '@/src/lib/format';
 import { Card, EmptyState, PageHeader } from '@/src/components/ui';
 import { Melo } from '@/src/components/brand';
-import { SECTION_PATHS } from '@/src/lib/auth/roles';
+import { SECTION_PATHS, canEditContent } from '@/src/lib/auth/roles';
 import { Badge, StatusBadge } from '@/src/components/badges';
 import { LessonReviewActions } from './review-actions';
 
@@ -13,7 +13,9 @@ export const dynamic = 'force-dynamic';
 export const metadata = { title: 'Quality review' };
 
 export default async function QualityReviewPage() {
-  await requireSection('qualityReview');
+  const session = await requireSection('qualityReview');
+  // Lessons outside `review_needed` only need a quality status, which is the editor-only lesson PATCH.
+  const canEdit = canEditContent(session.roles);
   const { t, locale } = await serverTranslator();
   const { lessons, transcripts, translations, visual } = await listReviewQueue();
   const total = (lessons.ok ? lessons.data.length : 0) + (transcripts.ok ? transcripts.data.length : 0) + (translations.ok ? translations.data.length : 0) + (visual.ok ? visual.data.length : 0);
@@ -46,7 +48,7 @@ export default async function QualityReviewPage() {
                   <StatusBadge state={l.state} />
                   <Badge tone={l.quality_review_status === 'approved' ? 'success' : l.quality_review_status === 'rejected' ? 'error' : 'warning'}>{l.quality_review_status}</Badge>
                   <span className="ms-auto">
-                    <LessonReviewActions lessonId={l.id} state={l.state} />
+                    <LessonReviewActions lessonId={l.id} state={l.state} canEdit={canEdit} />
                   </span>
                 </li>
               ))

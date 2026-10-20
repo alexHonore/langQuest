@@ -6,7 +6,7 @@ import { createQueueConsumer } from './cloudflare-queues';
 import { PROCESSING_JOB_TYPE_VALUES_ALL, PROCESSING_JOB_TYPE_EXTENSION_VALUES } from '@langquest/contracts';
 import { HANDLER_PRIMARY_JOB_TYPE, JOB_TYPE_HANDLERS, LEGACY_CARRIER_JOB_TYPE, HandlerRegistry, JobFailure, enqueueSpecFor, isProcessingJobType, resolveHandlerName, type JobHandler, type ProcessingJobRow } from './types';
 import { buildRegistry } from '../handlers';
-import { createTestServices, fakeJobRow } from '../test-support/fakes';
+import { ScriptedReasoner, createTestServices, fakeJobRow } from '../test-support/fakes';
 import { AiCapabilityError } from '@langquest/ai';
 
 /** In-memory stand-in for the Postgres queue RPCs (claim / heartbeat / complete / fail). */
@@ -94,7 +94,8 @@ describe('handler routing', () => {
     expect(resolveHandlerName({ job_type: 'import_r2_prefix', params: {} })).toBe('import_r2_prefix');
     // Rows written before migration 100 (carrier type + params.handler) keep resolving.
     expect(resolveHandlerName({ job_type: LEGACY_CARRIER_JOB_TYPE, params: { handler: 'translate_transcript' } })).toBe('translate_transcript');
-    expect(resolveHandlerName({ job_type: 'benchmark_model', params: {} })).toBeNull();
+    expect(resolveHandlerName({ job_type: 'benchmark_model', params: {} })).toBe('benchmark_model');
+    expect(resolveHandlerName({ job_type: 'image_generate', params: {} })).toBeNull();
     expect(resolveHandlerName({ job_type: 'nonsense', params: {} })).toBeNull();
   });
   it('every value of the processing_job_type domain resolves to a handler or is explicitly null', () => {
@@ -104,7 +105,7 @@ describe('handler routing', () => {
       expect(Object.hasOwn(JOB_TYPE_HANDLERS, jobType), `${jobType} missing from JOB_TYPE_HANDLERS`).toBe(true);
       const handler = JOB_TYPE_HANDLERS[jobType];
       if (handler === null) {
-        expect(['benchmark_model', 'image_generate'], `${jobType} unexpectedly unhandled`).toContain(jobType);
+        expect(['image_generate'], `${jobType} unexpectedly unhandled`).toContain(jobType);
         continue;
       }
       expect(registry.get(handler)?.jobTypes, `${jobType} → ${handler} must list it in jobTypes (claim filter)`).toContain(jobType);
@@ -124,8 +125,8 @@ describe('handler routing', () => {
   });
   it('the full registry covers every runner job type', () => {
     const registry = buildRegistry();
-    expect(registry.list().map((h) => h.name).sort()).toEqual(['align', 'cleanup_orphan_uploads', 'generate_content', 'import_manifest', 'import_r2_prefix', 'infer_metadata', 'inspect_asset', 'regenerate_manifest', 'render_cover', 'transcode', 'transcribe', 'translate_transcript']);
-    expect(registry.jobTypes().sort()).toEqual([...PROCESSING_JOB_TYPE_VALUES_ALL].filter((t) => t !== 'benchmark_model' && t !== 'image_generate').sort());
+    expect(registry.list().map((h) => h.name).sort()).toEqual(['align', 'benchmark_model', 'cleanup_orphan_uploads', 'generate_content', 'import_manifest', 'import_r2_prefix', 'infer_metadata', 'inspect_asset', 'regenerate_manifest', 'render_cover', 'transcode', 'transcribe', 'translate_transcript']);
+    expect(registry.jobTypes().sort()).toEqual([...PROCESSING_JOB_TYPE_VALUES_ALL].filter((t) => t !== 'image_generate').sort());
     // A partial registry never claims the legacy carrier type it cannot run.
     expect(new HandlerRegistry().register(okHandler).jobTypes()).toEqual(['cleanup_orphan_uploads']);
     expect(() => new HandlerRegistry().register(okHandler).register(okHandler)).toThrow(/twice/);
@@ -161,6 +162,27 @@ describe('JobExecutor', () => {
     }
   });
 
+  it('runs a queued benchmark_model job with the full registry and links the benchmark in processing_jobs.output', async () => {
+    const t = await createTestServices({ reasoner: (sink) => new ScriptedReasoner(sink, { answer: () => ({ reply: '¡Hola! ¿Qué tal estás?', transliteration: null }) }) });
+    try {
+      const q = fakeQueue();
+      const services = { ...t.services, repos: { processingJobs: q.repo } as unknown as Repositories };
+      const profile = t.db.seedModelProfile({ task: 'character_dialogue', target_variety_id: 'es-ES', primary_model: 'fake/model-a' });
+      const smoke = '0b0b0b0b-0b0b-4b0b-8b0b-0b0b0b0b0b0b';
+      const job = fakeJobRow({ job_type: 'benchmark_model', params: { profileId: profile.id, model: 'fake/model-a', targetVariety: 'es-ES', sourceLanguage: null, sampleSetId: 'default' } as never, output: { benchmarkId: smoke } as never, locked_by: 'w1' });
+      q.rows.set(job.id, job);
+      const outcome = await new JobExecutor({ services, registry: buildRegistry(), workerId: 'w1', heartbeatMs: 10_000 }).execute(job);
+      expect(outcome.status).toBe('succeeded');
+      const [bench] = [...t.db.tables.ai_model_benchmarks.values()];
+      const row = q.rows.get(job.id)!;
+      expect(row.state).toBe('succeeded');
+      expect(row.output).toMatchObject({ benchmarkId: bench!.id, smokeBenchmarkId: smoke, _cost: { aiCalls: 6 } });
+      expect(t.db.tables.ai_model_profiles.get(profile.id)!.benchmark_status).toBe('passing');
+    } finally {
+      await t.cleanup();
+    }
+  });
+
   it('fails invalid params without retry and unhandled errors with retry', async () => {
     const t = await createTestServices();
     try {
@@ -179,7 +201,7 @@ describe('JobExecutor', () => {
       expect(await exec.execute(crash)).toMatchObject({ status: 'failed', code: 'unhandled_error', retry: true });
       expect(q.rows.get(crash.id)?.state).toBe('pending');
 
-      const unknown = fakeJobRow({ job_type: 'benchmark_model', locked_by: 'w1' });
+      const unknown = fakeJobRow({ job_type: 'image_generate', locked_by: 'w1' });
       q.rows.set(unknown.id, unknown);
       expect(await exec.execute(unknown)).toMatchObject({ status: 'failed', code: 'no_handler' });
     } finally {

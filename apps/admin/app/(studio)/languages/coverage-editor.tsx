@@ -1,10 +1,9 @@
 'use client';
 import { useMemo, useState } from 'react';
-import { COVERAGE_STATUS_VALUES } from '@langquest/contracts';
-import { localCall } from '@/src/lib/local-api/client';
+import { COVERAGE_STATUS_VALUES, type CoverageMetrics, type CoverageUpdateRequest } from '@langquest/contracts';
+import { browserApi } from '@/src/lib/api-browser';
 import { useI18n } from '@/src/lib/i18n/client';
 import { useAction } from '@/src/lib/use-action';
-import type { CoverageMetrics, CoverageUpdate } from '@/src/lib/local-api/schemas';
 import { Button, Checkbox, Field, Input, Notice, Select } from '@/src/components/ui';
 import { Dialog } from '@/src/components/dialog';
 import { CoverageBadge } from '@/src/components/badges';
@@ -30,20 +29,20 @@ export function CoverageEditor({ rows, tracks, languages, canEdit }: { rows: Cov
   const { t } = useI18n();
   const [trackId, setTrackId] = useState(tracks[0]?.id ?? '');
   const [editing, setEditing] = useState<CoverageRow | null>(null);
-  const [form, setForm] = useState<CoverageUpdate | null>(null);
+  const [form, setForm] = useState<CoverageUpdateRequest | null>(null);
   const byTrack = useMemo(() => rows.filter((r) => r.course_track_id === trackId).sort((a, b) => a.source_language_code.localeCompare(b.source_language_code)), [rows, trackId]);
-  const save = useAction(async () => (form ? localCall('/api/admin/coverage', { method: 'PUT', body: form }) : null), { successMessage: t('admin.ui.saved') });
+  const save = useAction(async () => (form ? browserApi().call('adminCoveragePut', { body: form }) : null), { successMessage: t('admin.ui.saved') });
   const open = (row: CoverageRow) => {
     setEditing(row);
     const m = row.metrics ?? {};
     setForm({
-      courseTrackId: row.course_track_id as CoverageUpdate['courseTrackId'],
-      sourceLanguageCode: row.source_language_code as CoverageUpdate['sourceLanguageCode'],
-      status: row.status as CoverageUpdate['status'],
+      courseTrackId: row.course_track_id as CoverageUpdateRequest['courseTrackId'],
+      sourceLanguageCode: row.source_language_code as CoverageUpdateRequest['sourceLanguageCode'],
+      status: row.status as CoverageUpdateRequest['status'],
       metrics: Object.fromEntries(METRIC_KEYS.map((k) => [k, Number(m[k] ?? 0)])) as CoverageMetrics,
       nativeReviewed: row.native_reviewed,
       editorialNoteKey: row.editorial_note_key,
-      fallbackSourceLanguageCode: row.fallback_source_language_code as CoverageUpdate['fallbackSourceLanguageCode'],
+      fallbackSourceLanguageCode: row.fallback_source_language_code as CoverageUpdateRequest['fallbackSourceLanguageCode'],
     });
   };
   return (
@@ -112,7 +111,7 @@ export function CoverageEditor({ rows, tracks, languages, canEdit }: { rows: Cov
             <Notice tone="info">{t('admin.ui.lgStatusHint')}</Notice>
             <Field label={t('enrollment.coverage.label')}>
               {(id) => (
-                <Select id={id} value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value as CoverageUpdate['status'] })}>
+                <Select id={id} value={form.status} onChange={(e) => setForm({ ...form, status: e.target.value as CoverageUpdateRequest['status'] })}>
                   {COVERAGE_STATUS_VALUES.map((s) => (
                     <option key={s} value={s}>
                       {s}
@@ -137,7 +136,7 @@ export function CoverageEditor({ rows, tracks, languages, canEdit }: { rows: Cov
                   : t('admin.ui.lgNoFallback', { source: languages.find((l) => l.code === form.sourceLanguageCode)?.name ?? form.sourceLanguageCode })
               }
             >
-              {(id) => <LanguageSelect id={id} value={form.fallbackSourceLanguageCode} onChange={(v) => setForm({ ...form, fallbackSourceLanguageCode: v as CoverageUpdate['fallbackSourceLanguageCode'] })} />}
+              {(id) => <LanguageSelect id={id} value={form.fallbackSourceLanguageCode} onChange={(v) => setForm({ ...form, fallbackSourceLanguageCode: v as CoverageUpdateRequest['fallbackSourceLanguageCode'] })} />}
             </Field>
             <Field label={t('admin.ui.lgNoteKey')}>{(id) => <Input id={id} value={form.editorialNoteKey ?? ''} onChange={(e) => setForm({ ...form, editorialNoteKey: e.target.value || null })} placeholder="enrollment.coverage.draftAvailable" />}</Field>
             {save.error ? <Notice tone="error">{save.error}</Notice> : null}

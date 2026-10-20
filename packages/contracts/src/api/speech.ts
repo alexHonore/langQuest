@@ -9,6 +9,40 @@ import { ConversationModeSchema, ConversationStateSchema, SpeechRetentionSchema 
 import { KeySchema, MillisSchema, NonNegativeIntSchema, TimestamptzSchema, UuidSchema } from '../primitives';
 import { PronunciationFeatureSchema } from '../ai/capability';
 
+// --- speech detection (non-speech / recognizer-hallucination gate) ----------
+
+/**
+ * Why a learner recording was NOT credited as speech: the honest "I didn't hear you, try again" outcome. The server's
+ * gate (`@langquest/ai/speech/speech-detection`) decides this before any meaning judgement, score, skill or XP credit:
+ * - `empty_transcript`: the recognizer returned nothing (or punctuation only);
+ * - `silent_audio`: the server measured the decoded PCM/WAV clip as silent (peak below the silence floor);
+ * - `client_silence`: the recorder's own metering never rose above the silence floor during the take;
+ * - `no_speech_probability`: every segment is silence by the recognizer's own no-speech / log-probability signals;
+ * - `known_hallucination`: the transcript is only a known recognizer silence hallucination (YouTube outros,
+ *   subtitle credits such as "Sous-titres réalisés par la communauté d'Amara.org", "ご視聴ありがとうございました");
+ * - `non_speech_annotation`: only annotations such as "[Music]" / "♪";
+ * - `repetition_loop`: a repetitive decoding loop with weak acoustic evidence.
+ */
+export const NO_SPEECH_REASON_VALUES = ['empty_transcript', 'silent_audio', 'client_silence', 'no_speech_probability', 'known_hallucination', 'non_speech_annotation', 'repetition_loop'] as const;
+export const NoSpeechReasonSchema = z.enum(NO_SPEECH_REASON_VALUES);
+export type NoSpeechReason = z.infer<typeof NoSpeechReasonSchema>;
+
+/** Server verdict on a learner recording: `reason` is set exactly when no speech was detected. */
+export const SpeechDetectionSchema = z
+  .object({ speechDetected: z.boolean(), reason: NoSpeechReasonSchema.nullable() })
+  .refine((v) => v.speechDetected === (v.reason === null), { message: 'reason is set exactly when speechDetected is false', path: ['reason'] });
+export type SpeechDetection = z.infer<typeof SpeechDetectionSchema>;
+
+/**
+ * Optional recorder metadata sent with a learner recording. It can only make the outcome more conservative: a take whose
+ * metering never rose above the silence floor is answered "no speech" without a recognizer call; it never earns credit.
+ */
+export const RecordingSignalsSchema = z.object({
+  /** Loudest recorder metering sample of the take in dBFS (expo-audio `metering`); null when metering was unavailable. */
+  peakLevelDb: z.number().min(-200).max(20).nullable(),
+});
+export type RecordingSignals = z.infer<typeof RecordingSignalsSchema>;
+
 // --- conversation -----------------------------------------------------------
 
 /**
@@ -63,7 +97,12 @@ export const InlineAudioClipSchema = z.object({
 });
 export type InlineAudioClip = z.infer<typeof InlineAudioClipSchema>;
 
-/** Audio accepted inline on a conversation turn: the generic `AudioInput` (asset/url/inline) or a bare clip. */
+/**
+ * Audio accepted inline on a conversation turn: the generic `AudioInput` or a bare clip. The API serves learner audio
+ * only inline or as the learner's own stored recording (`asset`): a caller-supplied `url` is refused with 422
+ * `validation_failed` before anything is fetched (the Worker would otherwise fetch any host, internal ones included,
+ * and forward the bytes to the paid recognizer). The shape stays in the union so the refusal names the field.
+ */
 export const ConversationTurnAudioSchema = z.union([AudioInputSchema, InlineAudioClipSchema]);
 export type ConversationTurnAudio = z.infer<typeof ConversationTurnAudioSchema>;
 
@@ -82,6 +121,8 @@ export const ConversationTurnRequestSchema = z.object({
    * retention preference and transcribes it; omitted when the clip is referenced by `assetId` only.
    */
   audio: ConversationTurnAudioSchema.optional(),
+  /** Recorder metering for an audio turn (optional; see `RecordingSignalsSchema`). */
+  recording: RecordingSignalsSchema.optional(),
   /** Short client state so the server can recover after a disconnect. */
   clientState: z.object({ state: ConversationStateSchema, lastSeq: NonNegativeIntSchema, lastCharacterTurnId: UuidSchema.nullable() }),
   /** True when the learner interrupted the character mid-utterance (barge-in). */
@@ -97,6 +138,11 @@ export const ConversationTurnResponseSchema = z.object({
   /** Evaluation runs async; the client polls/receives it on `end` or via events. */
   evaluationPending: z.boolean(),
   objectivesCompleted: z.array(z.string()),
+  /**
+   * Set on audio turns. `speechDetected: false` is the honest "I didn't hear you" outcome: no learner turn is recorded,
+   * the character does not answer (`characterTurn: null`, `learnerTranscript: null`) and nothing is credited.
+   */
+  speech: SpeechDetectionSchema.optional(),
 });
 export type ConversationTurnResponse = z.infer<typeof ConversationTurnResponseSchema>;
 
@@ -127,13 +173,18 @@ export const TranscribeRequestSchema = z.object({
   /** Reference text when the recording is a repeat/anticipation step (improves alignment, never fabricates scores). */
   expectedText: z.string().max(1000).optional(),
   clientRequestId: UuidSchema,
+  /** Recorder metering for the take (optional; see `RecordingSignalsSchema`). */
+  recording: RecordingSignalsSchema.optional(),
 });
 export type TranscribeRequest = z.infer<typeof TranscribeRequestSchema>;
 export const TranscribeResponseSchema = z.object({
+  /** `text` is '' (no segments) when no speech was detected; `speech.reason` says why. */
   transcript: TranscriptResultSchema,
   capability: CapabilitySchema,
-  /** Stored only under the learner's retention preference. */
+  /** Stored only under the learner's retention preference (never for a take without speech). */
   recordingAssetId: UuidSchema.nullable(),
+  /** Non-speech gate verdict (optional for older servers). */
+  speech: SpeechDetectionSchema.optional(),
 });
 export type TranscribeResponse = z.infer<typeof TranscribeResponseSchema>;
 
@@ -150,11 +201,17 @@ export const PronunciationAssessRequestSchema = z
     requestedFeatures: z.array(PronunciationFeatureSchema).default(['word']),
     clientRequestId: UuidSchema,
     scenarioId: z.string().optional(),
+    /** Recorder metering for the take (optional; see `RecordingSignalsSchema`). */
+    recording: RecordingSignalsSchema.optional(),
   })
   .refine((v) => v.expressionId !== undefined || v.referenceText !== undefined, { message: 'expressionId or referenceText is required', path: ['expressionId'] });
 export type PronunciationAssessRequest = z.infer<typeof PronunciationAssessRequestSchema>;
 
-/** §6.5 exact result shape; see `PronunciationAssessmentSchema` for the numericScore refinement. */
+/**
+ * §6.5 exact result shape; see `PronunciationAssessmentSchema` for the numericScore refinement. A take without speech
+ * answers `intelligibility: 'no_speech_detected'` with `semanticIntentMatched: false`, `meaningConfidence: 0`,
+ * `transcript: null`, `shouldAdvanceConversation: false` and an `unavailable` pronunciation block (no score).
+ */
 export const PronunciationAssessResponseSchema = SpeechEvaluationResultSchema;
 export type PronunciationAssessResponse = z.infer<typeof PronunciationAssessResponseSchema>;
 

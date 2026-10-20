@@ -13,17 +13,31 @@
  * SOURCE language. An objective the model gave no description for gets no `description` at all (never a
  * bare string or a text of unknown language), so the gate blocks publishing until an editor adds one; such
  * goals are listed on the job output as `goalsWithoutDescription`.
+ *
+ * Diversity gate (§9.8 "diverse dialogues, not a rigid one-correct-answer quiz", R-9.8-02), the same metric the
+ * scripts content factory applies to chapters and fixture suites (`scoreDialogueDiversity`, `@langquest/curriculum`):
+ * - per mission (`MISSION_DIVERSITY_THRESHOLDS`): the accepted learner phrasings per intent (expression + its
+ *   variants) and the mission's own dialogue (a question → answer drill blocks);
+ * - per batch (`DEFAULT_DIVERSITY_THRESHOLDS`, two or more drafted missions): the missions' dialogues together
+ *   (repeated scripts, one turn structure, no misunderstanding → repair anywhere).
+ * A draft that fails either gate is still written as `review_needed` (never dropped, never published) and is marked
+ * for regeneration with the reasons: `scoring_rubric.diversity` + `reviewFlags: ['diversity_needs_regeneration']` on
+ * the mission, the same flag on its expressions, the audit row and `output.diversityGate`. Regenerating a failing
+ * mission once with the gate's reasons costs one extra paid call per mission, so it runs only when the job asks
+ * (`regenerateOnLowDiversity: true`), within the job cost ceiling; a retry is kept only when it validates, scores
+ * better and actually changes the text (relabelled turns do not count).
  */
 import { z } from 'zod';
 import type { CourseTrackId, DraftContent, Register, SourceLanguageCode, VarietyId } from '@langquest/contracts';
 import { CourseTrackIdSchema, DraftContentSchema, KeySchema, LearnerLevelSchema, RegisterSchema, SourceLanguageCodeSchema, getCourseTrack } from '@langquest/contracts';
 import { coachingLanguageInstruction, getPromptPack, varietyGuardInstruction, type GuardResult } from '@langquest/ai';
-import { getIntent, isIntentKey } from '@langquest/curriculum';
+import { DEFAULT_DIVERSITY_THRESHOLDS, DIALOGUE_TURN_ACTS, MISSION_DIVERSITY_THRESHOLDS, getIntent, isIntentKey, scoreDialogueDiversity, type DialogueSetInput, type DiversityDialogue, type DiversityReport } from '@langquest/curriculum';
 import type { Insert } from '@langquest/db';
+import { CostCeilingExceeded } from '../cost';
 import { JobFailure, type JobHandler } from '../queue/types';
 import { jobLanguageContext, keyHash } from './common';
 
-export const CONTENT_FACTORY_PROMPT_VERSION = 'content_factory:v1';
+export const CONTENT_FACTORY_PROMPT_VERSION = 'content_factory:v2';
 
 export const GenerateContentParamsSchema = z.object({
   targetTrack: CourseTrackIdSchema,
@@ -35,6 +49,8 @@ export const GenerateContentParamsSchema = z.object({
   count: z.number().int().min(1).max(20).default(1),
   /** Validate and report only; write nothing. */
   dryRun: z.boolean().default(false),
+  /** Re-run a mission that fails the diversity gate once, with the gate's reasons (one extra paid call per such mission). */
+  regenerateOnLowDiversity: z.boolean().default(false),
 });
 export type GenerateContentParams = z.infer<typeof GenerateContentParamsSchema>;
 
@@ -45,6 +61,8 @@ const line = z.object({
   transliteration: z.string().nullable(),
   sourceMeaning: z.string(),
   register: RegisterSchema,
+  /** Conversational function of the turn, read by the diversity gate's repair check (defaults keep v1 output parseable). */
+  act: z.enum(DIALOGUE_TURN_ACTS).default('normal'),
 });
 export const GeneratedExpressionSchema = z.object({
   intentKey: z.string(),
@@ -85,9 +103,11 @@ export function buildContentFactoryPrompt(input: { track: CourseTrackId; variety
     varietyGuardInstruction(pack, input.source),
     coachingLanguageInstruction(input.source),
     `Script: primary ${track.scripts.primary}${track.scripts.transliterations.length ? `; also give a ${track.scripts.transliterations[0]} transliteration when the script is not Latin` : ''}.`,
-    'Each mission: a realistic scene, 2–16 dialogue lines alternating character/learner, 3–12 learner expressions that fulfil the requested intents, plus instructions and hints for the learner in the SOURCE language.',
+    'Each mission: a realistic scene, 2–16 dialogue lines between the character and the learner, 3–12 learner expressions that fulfil the requested intents, plus instructions and hints for the learner in the SOURCE language.',
     'Write how people actually talk in this variety: no textbook stiffness, no overly formal register unless requested, no offensive or insensitive content, nothing that only works as a quiz with one correct answer; give acceptable variants.',
     'Every expression must name the intent it fulfils (intentKey from the brief). Keep expressions within the typical length for the intent.',
+    'Give each expression real alternatives in "variants": different words or structures a learner could also say, not punctuation, spelling or one-word swaps of the same sentence.',
+    `Write conversations, not quizzes: vary who opens, let the learner ask questions too, allow two turns in a row by the same speaker, and make the dialogues of different missions differ in words and structure. In at least one mission out of three, one speaker misunderstands and the other repairs it. Label every dialogue line with "act": ${DIALOGUE_TURN_ACTS.join(' | ')} ("misunderstanding" for the turn that shows it, "repair" for the turn that fixes it, otherwise "normal").`,
     'For every objective intent (objectiveIntentKeys) also give one objectiveDescriptions entry: a single learner-facing sentence in the SOURCE language saying what the learner will manage to do (e.g. "Order a coffee politely").',
     'Output JSON only. Target text must be in the target variety; sourceMeaning, title, objectiveDescriptions, instructions and hints must be in the source language.',
   ].join('\n');
@@ -156,7 +176,76 @@ export function buildMissionGoals(input: { objectives: readonly string[]; source
   return { goals, goalsWithoutDescription };
 }
 
+// --- diversity gate (§9.8, R-9.8-02) -------------------------------------------------------------
+
+/** Thresholds of the per-mission gate (relaxed alternative coverage, as for scripts chapter missions). */
+export const MISSION_GATE_THRESHOLDS = MISSION_DIVERSITY_THRESHOLDS;
+/** Thresholds of the per-batch gate over the dialogues of every drafted mission (free-set defaults). */
+export const BATCH_GATE_THRESHOLDS = DEFAULT_DIVERSITY_THRESHOLDS;
+export const DIVERSITY_REVIEW_FLAG = 'diversity_needs_regeneration';
+
+const missionDialogue = (mission: GeneratedMission, id: string): DiversityDialogue => ({ id, turns: mission.dialogue.map((l) => ({ speaker: l.speaker, text: l.targetText, intentKey: l.intentKey, act: l.act })) });
+
+/** Gate input for one mission: accepted learner phrasings per intent (expression + its variants) and its dialogue. */
+export function missionDiversityInput(mission: GeneratedMission, accepted: GeneratedMission['expressions'], id: string): DialogueSetInput {
+  const byIntent = new Map<string, string[]>();
+  for (const e of accepted) byIntent.set(e.intentKey, [...(byIntent.get(e.intentKey) ?? []), e.targetText, ...e.variants]);
+  return { intents: [...byIntent].map(([intentKey, phrasings]) => ({ intentKey, phrasings })), dialogues: [missionDialogue(mission, id)] };
+}
+
+/** Gate input for a batch: the dialogues of every drafted mission (phrasings are gated per mission). */
+export function batchDiversityInput(missions: ReadonlyArray<{ id: string; mission: GeneratedMission }>): DialogueSetInput {
+  return { intents: [], dialogues: missions.map((m) => missionDialogue(m.mission, m.id)) };
+}
+
+export interface DiversitySummary {
+  verdict: DiversityReport['verdict'];
+  score: number;
+  reasons: string[];
+  warnings: string[];
+}
+
+export const summarizeDiversity = (r: DiversityReport): DiversitySummary => ({ verdict: r.verdict, score: r.score, reasons: r.reasons, warnings: r.flags.filter((f) => f.severity === 'warn').map((f) => `${f.code}${f.subject !== null ? `:${f.subject}` : ''}`) });
+
+/** The mark stored on a draft (`scoring_rubric.diversity`, job output). */
+export interface DiversityMark {
+  verdict: DiversityReport['verdict'];
+  /** Mission reasons, then batch reasons prefixed `batch:`. */
+  reasons: string[];
+  mission: DiversitySummary;
+  batch: DiversitySummary | null;
+  regenerated: boolean;
+}
+
+/** Combine a mission's gate with its batch's: a failing batch marks every mission in it (they were generated together). */
+export function diversityMark(mission: DiversityReport, batch: DiversityReport | null, regenerated: boolean): DiversityMark {
+  const reasons = [...mission.reasons, ...(batch?.reasons ?? []).map((r) => `batch:${r}`)];
+  return { verdict: reasons.length ? 'needs_regeneration' : 'diverse', reasons, mission: summarizeDiversity(mission), batch: batch ? summarizeDiversity(batch) : null, regenerated };
+}
+
+/** Regeneration feedback naming the gate's blocking findings for one mission. */
+export function diversityFeedback(report: DiversityReport): string {
+  const findings = report.flags.filter((f) => f.severity === 'block').map((f) => `${f.code}${f.subject !== null ? ` (${f.subject})` : ''}: ${f.detail}`);
+  return `Your previous attempt at this mission failed the diversity gate: ${findings.join('; ')}. Give the learner expressions real alternatives in "variants" (different words or structures, not punctuation, spelling or one-word swaps), and write a conversation rather than a question → answer drill: vary who speaks and who asks, and let one speaker misunderstand and the other repair it (label those turns "misunderstanding" and "repair"). Return the full JSON again with exactly one mission.`;
+}
+
+/** Fewer blocking reasons wins; on a tie, the higher score (same rule as the scripts content factory). */
+export const diversityImproved = (candidate: DiversityReport, current: DiversityReport): boolean => candidate.reasons.length < current.reasons.length || (candidate.reasons.length === current.reasons.length && candidate.score > current.score);
+
+/** Target text of a mission (speaker + dialogue lines, expressions, variants): tells a rewrite from a relabelled copy. */
+const missionText = (m: GeneratedMission): string => JSON.stringify([m.dialogue.map((l) => [l.speaker, l.targetText.trim()]), m.expressions.map((e) => [e.targetText.trim(), e.variants])]);
+
 const DIFFICULTY: Record<string, number> = { beginner: 0.2, elementary: 0.35, intermediate: 0.5, upper_intermediate: 0.65, advanced: 0.8 };
+
+interface Candidate {
+  index: number;
+  mission: GeneratedMission;
+  accepted: GeneratedMission['expressions'];
+  objectives: string[];
+  rejections: ValidationRejection[];
+  gate: DiversityReport;
+  regenerated: boolean;
+}
 
 export const generateContentHandler: JobHandler<GenerateContentParams> = {
   name: 'generate_content',
@@ -176,29 +265,80 @@ export const generateContentHandler: JobHandler<GenerateContentParams> = {
     const ai = await ctx.services.ai({ sink: ctx.cost, varietyId: variety });
 
     ctx.cost.assertBudget();
-    const prompt = buildContentFactoryPrompt({
+    const promptInput = {
       track: track.id,
       variety,
       source: p.sourceLanguage,
       level: p.level,
       scene: p.scene ?? null,
-      count: p.count,
       intents: intents.map((i) => ({ key: i.intentKey, description: i.description, socialMeaning: i.socialMeaning ?? null, politeness: i.politeness, typicalMaxWords: i.responseConstraints.typicalMaxWords ?? null, variants: i.acceptableVariants })),
-    });
+    };
+    const prompt = buildContentFactoryPrompt({ ...promptInput, count: p.count });
     const generated = await ai.reasoner.generateStructured('content_generation', languageContext, prompt, ContentFactoryOutputSchema, { traceId: ctx.traceId });
-    await ctx.progress(50, `${generated.missions.length} missions generated`);
+    await ctx.progress(40, `${generated.missions.length} missions generated`);
 
     const provenanceBase = { task: 'content_generation', role: 'content_factory', promptVersion: CONTENT_FACTORY_PROMPT_VERSION, traceId: ctx.traceId, jobId: ctx.job.id, generatedAt: ctx.services.now().toISOString(), nativeReviewed: false, licenseMarker: 'ai_generated_unlicensed_draft' };
-    const drafts: Array<{ missionId: string | null; draft: DraftContent; accepted: number; rejected: ValidationRejection[]; skippedIntents: string[]; goals: MissionGoalDraft[]; goalsWithoutDescription: string[] }> = [];
-    const rejectedMissions: Array<{ mission: number; reason: string; rejections: ValidationRejection[] }> = [];
-    const missionIds: string[] = [];
+    const guard = (text: string) => ai.guard.checkHeuristic(text, variety, track.defaultScriptMode, { sourceLanguage: p.sourceLanguage, track: track.id });
+    const gateId = (index: number) => `missions/${index}`;
 
+    // --- 1. validate + per-mission diversity gate (pure) -----------------------------------------
+    const rejectedMissions: Array<{ mission: number; reason: string; rejections: ValidationRejection[] }> = [];
+    const candidates: Candidate[] = [];
     for (const [index, mission] of generated.missions.entries()) {
-      const { accepted, objectives, rejections } = validateGeneratedMission(mission, index, { allowedIntents: allowed, guard: (text) => ai.guard.checkHeuristic(text, variety, track.defaultScriptMode, { sourceLanguage: p.sourceLanguage, track: track.id }) });
+      const { accepted, objectives, rejections } = validateGeneratedMission(mission, index, { allowedIntents: allowed, guard });
       if (!accepted.length || !objectives.length) {
         rejectedMissions.push({ mission: index, reason: accepted.length ? 'no valid objective' : 'no expression passed validation', rejections });
         continue;
       }
+      candidates.push({ index, mission, accepted, objectives, rejections, gate: scoreDialogueDiversity(missionDiversityInput(mission, accepted, gateId(index)), MISSION_GATE_THRESHOLDS), regenerated: false });
+    }
+    if (!candidates.length) throw new JobFailure('all_drafts_rejected', `Validators rejected every generated mission (${rejectedMissions.map((m) => m.reason).join('; ')})`, { retry: true, backoffSeconds: 60, details: { rejectedMissions } });
+
+    // --- 2. optional regeneration of low-diversity missions (paid; within the job ceiling) ------
+    const regeneration = { requested: p.regenerateOnLowDiversity, attempts: 0, kept: [] as number[], skipped: null as string | null };
+    const low = candidates.filter((c) => c.gate.verdict === 'needs_regeneration');
+    if (low.length && !p.regenerateOnLowDiversity) regeneration.skipped = 'not requested (regenerateOnLowDiversity is off)';
+    if (low.length && p.regenerateOnLowDiversity) {
+      for (const c of low) {
+        try {
+          ctx.cost.assertBudget();
+        } catch (error) {
+          if (!(error instanceof CostCeilingExceeded)) throw error;
+          regeneration.skipped = `job cost ceiling reached (${error.usd.toFixed(4)} of ${error.ceilingUsd.toFixed(2)} USD)`;
+          break;
+        }
+        const base = buildContentFactoryPrompt({ ...promptInput, count: 1 });
+        regeneration.attempts += 1;
+        try {
+          const retry = await ai.reasoner.generateStructured('content_generation', languageContext, { ...base, user: `${base.user}\n\n${diversityFeedback(c.gate)}` }, ContentFactoryOutputSchema, { traceId: ctx.traceId });
+          const mission = retry.missions[0];
+          if (!mission) continue;
+          const v = validateGeneratedMission(mission, c.index, { allowedIntents: allowed, guard });
+          if (!v.accepted.length || !v.objectives.length || missionText(mission) === missionText(c.mission)) continue;
+          const gate = scoreDialogueDiversity(missionDiversityInput(mission, v.accepted, gateId(c.index)), MISSION_GATE_THRESHOLDS);
+          if (!diversityImproved(gate, c.gate)) continue;
+          Object.assign(c, { mission, accepted: v.accepted, objectives: v.objectives, rejections: v.rejections, gate, regenerated: true });
+          regeneration.kept.push(c.index);
+        } catch (error) {
+          // A failed regeneration keeps the original draft (still marked); the job itself does not fail.
+          ctx.log.warn('content_factory.diversity_regeneration_failed', { mission: c.index, error });
+        }
+      }
+    }
+
+    // --- 3. batch gate over the drafted missions' dialogues --------------------------------------
+    const batchGate = candidates.length >= 2 ? scoreDialogueDiversity(batchDiversityInput(candidates.map((c) => ({ id: gateId(c.index), mission: c.mission }))), BATCH_GATE_THRESHOLDS) : null;
+    await ctx.progress(50, `diversity gate: ${candidates.filter((c) => c.gate.verdict === 'needs_regeneration').length} mission(s) and batch ${batchGate?.verdict ?? 'n/a'}`);
+
+    // --- 4. drafts (always review_needed) -------------------------------------------------------
+    const drafts: Array<{ missionId: string | null; draft: DraftContent; accepted: number; rejected: ValidationRejection[]; skippedIntents: string[]; goals: MissionGoalDraft[]; goalsWithoutDescription: string[]; diversity: DiversityMark }> = [];
+    const missionIds: string[] = [];
+    const needsRegeneration: Array<{ mission: number; missionId: string | null; reasons: string[] }> = [];
+
+    for (const [position, c] of candidates.entries()) {
+      const { index, mission, accepted, objectives, rejections } = c;
+      const diversity = diversityMark(c.gate, batchGate, c.regenerated);
+      const reviewFlags = diversity.verdict === 'needs_regeneration' ? [DIVERSITY_REVIEW_FLAG] : [];
       const draft = DraftContentSchema.parse({
         intentId: objectives[0],
         targetTrack: track.id,
@@ -228,7 +368,7 @@ export const generateContentHandler: JobHandler<GenerateContentParams> = {
           prerequisite_skill_keys: [...new Set(intents.filter((i) => objectives.includes(i.intentKey)).flatMap((i) => i.skillKeys))],
           difficulty: DIFFICULTY[p.level] ?? 0.5,
           narrative_segment: { scene: draft.mission.scene, sceneDescription: mission.sceneDescription, dialogue: mission.dialogue, characterId: p.characterId ?? null } as never,
-          scoring_rubric: { objectives, provenance: provenanceBase, reviewStatus: 'review_needed' } as never,
+          scoring_rubric: { objectives, provenance: provenanceBase, reviewStatus: 'review_needed', diversity, reviewFlags } as never,
           sort_order: 0,
           state: 'review_needed',
         } as Insert<'missions'>);
@@ -248,7 +388,7 @@ export const generateContentHandler: JobHandler<GenerateContentParams> = {
             register: e.register,
             difficulty: DIFFICULTY[p.level] ?? 0.5,
             scenario_tags: [draft.mission.scene].filter(Boolean),
-            script_annotations: { variants: e.variants, missionId: row.id, provenance: provenanceBase } as never,
+            script_annotations: { variants: e.variants, missionId: row.id, provenance: provenanceBase, reviewFlags } as never,
             reviewed: false,
             origin: 'ai_generated',
             state: 'review_needed',
@@ -257,14 +397,27 @@ export const generateContentHandler: JobHandler<GenerateContentParams> = {
           if (e.transliteration && track.scripts.transliterations[0]) await db.insertExpressionForm({ expression_id: expr.id, script: null, transliteration_scheme: track.scripts.transliterations[0], text: e.transliteration });
           await db.insertExpressionTranslation({ expression_id: expr.id, source_language_code: p.sourceLanguage, natural_meaning: e.sourceMeaning, context_note: e.contextNote, literal_gloss: e.literalGloss, qa_state: 'machine_draft' });
         }
-        await db.recordAudit({ actor_id: ctx.job.requested_by, actor_role: 'jobs', action: 'content_factory.draft_created', entity_table: 'missions', entity_id: row.id, before: null, after: { draft, goals, goalsWithoutDescription, provenance: provenanceBase, rejected: rejections.length, skippedIntents } as never, request_id: ctx.job.id });
+        await db.recordAudit({ actor_id: ctx.job.requested_by, actor_role: 'jobs', action: 'content_factory.draft_created', entity_table: 'missions', entity_id: row.id, before: null, after: { draft, goals, goalsWithoutDescription, provenance: provenanceBase, rejected: rejections.length, skippedIntents, diversity } as never, request_id: ctx.job.id });
         await ctx.emit('translation.review_requested', { entityTable: 'missions', entityId: row.id, sourceLanguageCode: p.sourceLanguage, targetVarietyId: variety, requestedBy: ctx.job.requested_by, reviewerId: null }, `translation.review_requested:missions:${row.id}:${p.sourceLanguage}`);
       }
-      drafts.push({ missionId, draft, accepted: accepted.length, rejected: rejections, skippedIntents, goals, goalsWithoutDescription });
-      await ctx.progress(50 + Math.round(((index + 1) / generated.missions.length) * 48));
+      if (diversity.verdict === 'needs_regeneration') needsRegeneration.push({ mission: index, missionId, reasons: diversity.reasons });
+      drafts.push({ missionId, draft, accepted: accepted.length, rejected: rejections, skippedIntents, goals, goalsWithoutDescription, diversity });
+      await ctx.progress(50 + Math.round(((position + 1) / candidates.length) * 48));
     }
-    if (!drafts.length) throw new JobFailure('all_drafts_rejected', `Validators rejected every generated mission (${rejectedMissions.map((m) => m.reason).join('; ')})`, { retry: true, backoffSeconds: 60, details: { rejectedMissions } });
     await ctx.progress(100);
-    return { output: { dryRun: p.dryRun, targetTrack: track.id, targetVariety: variety, sourceLanguage: p.sourceLanguage, drafts, draftIds: missionIds, rejectedMissions, provenance: provenanceBase, publication: { status: 'draft', requiresNativeReview: true, requiresVerifiedSourceRights: true } } };
+    return {
+      output: {
+        dryRun: p.dryRun,
+        targetTrack: track.id,
+        targetVariety: variety,
+        sourceLanguage: p.sourceLanguage,
+        drafts,
+        draftIds: missionIds,
+        rejectedMissions,
+        diversityGate: { batch: batchGate ? summarizeDiversity(batchGate) : null, needsRegeneration, regeneration },
+        provenance: provenanceBase,
+        publication: { status: 'draft', requiresNativeReview: true, requiresVerifiedSourceRights: true },
+      },
+    };
   },
 };

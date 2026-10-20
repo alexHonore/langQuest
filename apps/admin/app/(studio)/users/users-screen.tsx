@@ -1,7 +1,7 @@
 'use client';
 import { useMemo, useState } from 'react';
 import { ROLE_VALUES, type Role } from '@langquest/contracts';
-import { localCall } from '@/src/lib/local-api/client';
+import { browserApi } from '@/src/lib/api-browser';
 import { useI18n } from '@/src/lib/i18n/client';
 import { useAction } from '@/src/lib/use-action';
 import { formatDateTime, shortId } from '@/src/lib/format';
@@ -22,8 +22,8 @@ export function UsersScreen({ rows, currentUserId }: { rows: RoleRow[]; currentU
   const [userId, setUserId] = useState('');
   const [role, setRole] = useState<Role>('content_editor');
   const [expiresAt, setExpiresAt] = useState('');
-  const grant = useAction(async () => localCall('/api/admin/users/roles', { method: 'PUT', body: { userId, role, expiresAt: expiresAt ? new Date(expiresAt).toISOString() : null } }), { successMessage: t('admin.users.roleGranted') });
-  const revoke = useAction(async (uid: string, r: string) => localCall('/api/admin/users/roles', { method: 'DELETE', body: { userId: uid, role: r } }), { successMessage: t('admin.ui.saved') });
+  const grant = useAction(async () => browserApi().call('adminUserRoleGrant', { params: { userId }, body: { role, expiresAt: expiresAt ? new Date(expiresAt).toISOString() : null } }), { successMessage: t('admin.users.roleGranted') });
+  const revoke = useAction(async (uid: string, r: string) => browserApi().call('adminUserRoleRevoke', { params: { userId: uid, role: r } }), { successMessage: t('admin.ui.saved') });
   const byUser = useMemo(() => {
     const map = new Map<string, RoleRow[]>();
     for (const r of rows) map.set(r.user_id, [...(map.get(r.user_id) ?? []), r]);

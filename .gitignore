@@ -14,8 +14,6 @@ build/
 .turbo/
 .wrangler/
 coverage/
-# source route, not a coverage report
-!apps/admin/app/api/admin/coverage/
 *.tsbuildinfo
 # data
 data/raw/

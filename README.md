@@ -34,19 +34,22 @@ pnpm dev:admin                  # CMS on http://localhost:3000
 pnpm dev:mobile                 # Expo dev server
 ```
 
-## Status (2026-10-19)
+## Status (2026-10-20)
+
+Requirement status (`docs/requirements-traceability.md`, 763 rows): 439 implemented_tested, 249 in_progress,
+57 blocked_by_external_dependency, 18 not_started.
 
 | Area | State | Evidence |
 |---|---|---|
-| Shared packages (contracts, db, curriculum, ai, locales, ui, media, telemetry) | implemented, unit-tested | `pnpm -r test` (see `docs/evidence/test-run-2026-10-19.md`) |
-| Database (13 migrations, RLS on every table, pgTAP suites, catalog + cast + curriculum seeds) | implemented, verified on the local Docker stack | `packages/db` stack tests, `supabase/tests/database/*.sql` |
-| API Worker (97 contract routes, JWT + RLS forwarding, idempotent sync/XP, conversation pipeline, admin routes) | implemented, integration-tested locally; deployed to workers.dev | `docs/evidence/conversation-journey-2026-10-19.md`, `docs/evidence/capabilities-2026-10-19.md` |
+| Shared packages (contracts, db, curriculum, ai, locales, ui, media, telemetry) | implemented, unit-tested | `pnpm -r test` with the local stack on 2026-10-20: 2 076 passed, 6 live-only skips, 0 failures (last recorded run: `docs/evidence/test-run-2026-10-19.md`) |
+| Database (15 migrations, RLS on every table, pgTAP suites, catalog + cast + curriculum seeds) | implemented, verified on the local Docker stack | `packages/db` stack tests, `supabase/tests/database/*.sql` |
+| API Worker (106 contract routes, JWT + RLS forwarding, idempotent sync/XP, conversation pipeline, admin routes) | implemented, integration-tested locally; deployed to workers.dev | `docs/evidence/conversation-journey-2026-10-19.md`, `docs/evidence/capabilities-2026-10-19.md` |
 | Admin CMS (all §7.1 sections, direct multipart uploads, Setup page) | implemented, built, browser-verified | `docs/evidence/screenshots/admin-*.jpg` |
 | Mobile app (onboarding, enrollment with capability disclaimer, lessons, live conversation, pronunciation coach, audio library, progress, account) | implemented, web export + unit tests; native device QA pending | `docs/evidence/screenshots/mobile-web-*.jpg`, `docs/provider-matrix/mobile-audio-qa.md` |
 | Jobs runner (ffmpeg, transcription, imports, content factory) | implemented, tested with fixtures + one live transcription | `docs/runbooks/jobs.md` |
 | Data scripts (Tatoeba/Taskmaster importers, seeds, coverage validator, content factory CLI) | implemented, run against real exports | `docs/content-rights/dataset-attribution-inventory.md` |
 | Content | 4 flagship **draft** chapters published with disclosure (not native-reviewed); 26 skeleton chapters unpublished; audio library empty | `docs/content-rights/native-review-process.md` |
-| Visual identity | baseline vector art shipped; 5 mascot / 4 character / 4 UI declinations awaiting owner approval | `design/explorations/index.html` |
+| Visual identity | approved by the owner on 2026-10-19 and applied: M3 Melo chameleon mascot, C2 clay cast, U2 "Night Market" UI (UI/UX may still change; new directions are shown as declinations first) | `design/explorations/index.html`, commits `46feda5`, `0b03e6e` |
 
 Learner-facing honesty rules in force: no numeric pronunciation score without an acoustic assessor; no silent dialect or
 instruction-language substitution; per-course capability disclaimer before enrolling and no "not available" placeholders after

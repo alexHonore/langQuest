@@ -9,7 +9,6 @@ const base: SetupSignals = {
   apiBaseUrl: 'http://127.0.0.1:8787',
   health: { mediaMode: 'none' },
   tracks: [usable, usable, none],
-  adminProbeKey: false,
 };
 
 describe('deriveSetup', () => {
@@ -24,8 +23,9 @@ describe('deriveSetup', () => {
     expect(by.ai?.detail).toBe('2/3');
     expect(by.speech?.state).toBe('missing');
     expect(by.email?.state).toBe('manual');
-    expect(by.adminProbe?.state).toBe('missing');
-    expect(s.capabilities).toEqual({ apiReachable: true, mediaMode: 'none', mediaAvailable: false, aiAvailable: true, acousticScoring: false, adminProbe: false, supabaseMode: 'local' });
+    // The Studio host holds no provider key: the AI test harness runs on the API, so there is no admin-host item.
+    expect(s.items.map((i) => i.key)).toEqual(['supabase', 'api', 'media', 'ai', 'speech', 'email']);
+    expect(s.capabilities).toEqual({ apiReachable: true, mediaMode: 'none', mediaAvailable: false, aiAvailable: true, acousticScoring: false, supabaseMode: 'local' });
     expect(s.incomplete).toBe(true);
     expect(s.checkedAt).toBe('2026-10-19T12:00:00.000Z');
   });
@@ -43,20 +43,18 @@ describe('deriveSetup', () => {
     expect(s.incomplete).toBe(true);
   });
 
-  it('fully configured hosted deployment: nothing blocking, the optional admin probe never makes Setup incomplete', () => {
+  it('fully configured hosted deployment: nothing blocking (e-mail is verified by hand and never blocks)', () => {
     const s = deriveSetup({
       supabaseUrl: 'https://abc.supabase.co',
       apiBaseUrl: 'https://api.langquest.app',
       health: { mediaMode: 's3+binding' },
       tracks: [{ ...usable, pronunciationScoring: 'full' }, usable],
-      adminProbeKey: false,
     });
     const by = Object.fromEntries(s.items.map((i) => [i.key, i]));
     expect(by.media?.state).toBe('ok');
     expect(by.media?.detail).toBe('s3+binding');
     expect(by.speech?.state).toBe('ok');
     expect(by.speech?.detail).toBe('1/2');
-    expect(by.adminProbe?.state).toBe('missing');
     expect(s.capabilities.supabaseMode).toBe('hosted');
     expect(s.capabilities.acousticScoring).toBe(true);
     expect(s.incomplete).toBe(false);

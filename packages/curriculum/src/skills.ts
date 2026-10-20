@@ -50,7 +50,7 @@ export type SkillEvidenceFocus = z.infer<typeof SkillEvidenceFocusSchema>;
 export const SkillSchema = z.object({
   /** Stable snake_case key, never renamed (`skills.skill_key`). */
   skillKey: KeySchema,
-  /** Short English descriptor for editors; learner-facing text lives in locale catalogs under `skill.<key>`. */
+  /** Short English descriptor for editors; learner-facing names live in the locale catalogs under `skillNameKey(skillKey)` (`progress.skill.<key>`). */
   descriptor: z.string().min(1),
   /** CEFR can-do band this skill aligns with (descriptive, not a certification). */
   cefrCanDo: CefrLevelSchema,
@@ -165,19 +165,54 @@ export const SKILLS: readonly Skill[] = [
 
 export const SKILL_KEYS = SKILLS.map((s) => s.skillKey) as readonly string[];
 
-const skillByKey = new Map(SKILLS.map((s) => [s.skillKey, s] as const));
+/**
+ * System skills: evidence dimensions the API records outside any mission objective. Device QA (2026-10-19 §6.2)
+ * found them on Progress as raw keys because no registry entry existed. They are not communicative skills, so
+ * blueprints and intents never target them (`isSkillKey` stays registry-only), but each has a `skills` row,
+ * a descriptor and catalog names like every registry skill:
+ *  - `speaking.intelligibility`: whether a speech check was understood (meaning-level evidence, `apps/api` speech route).
+ *  - `speaking.pronunciation`: recorded only with an acoustic assessor score (ADR-006); never an LLM verdict.
+ *  - `general.participation`: evidence for a mission step when the mission names no goal skills (`apps/api` missions route).
+ */
+export const SYSTEM_SKILLS: readonly Skill[] = [
+  skill('speaking.intelligibility', 'Be understood when speaking', 'A1', 'Can say short practised phrases that a listener understands, even with mistakes or an accent.', ['daily_life', 'small_talk'], { difficulty: 0.1, evidenceFocus: ['production', 'semantic'] }),
+  skill('speaking.pronunciation', 'Pronunciation', 'A1', 'Can pronounce practised phrases close to a native reference (measured only by an acoustic assessor).', ['daily_life'], { difficulty: 0.2, evidenceFocus: ['production'] }),
+  skill('general.participation', 'Take part in the conversation', 'A1', 'Can take part in a short guided exchange, taking turns and responding to prompts.', ['small_talk', 'daily_life'], { difficulty: 0.1, evidenceFocus: ['listening', 'production'] }),
+];
 
-/** Returns the skill for a key or throws when unknown. */
+export const SYSTEM_SKILL_KEYS = SYSTEM_SKILLS.map((s) => s.skillKey) as readonly string[];
+
+/** Every skill that may carry evidence: the communicative registry, then the system skills. One `skills` row each. */
+export const ALL_SKILLS: readonly Skill[] = [...SKILLS, ...SYSTEM_SKILLS];
+export const ALL_SKILL_KEYS = ALL_SKILLS.map((s) => s.skillKey) as readonly string[];
+
+const skillByKey = new Map(ALL_SKILLS.map((s) => [s.skillKey, s] as const));
+const registryKeys = new Set(SKILL_KEYS);
+
+/** Returns the skill (registry or system) for a key or throws when unknown. */
 export function getSkill(skillKey: string): Skill {
   const found = skillByKey.get(skillKey);
   if (!found) throw new Error(`Unknown skill key: ${skillKey}`);
   return found;
 }
 
-/** Returns the skill for a key or `undefined`. */
+/** Returns the skill (registry or system) for a key or `undefined`. */
 export const findSkill = (skillKey: string): Skill | undefined => skillByKey.get(skillKey);
 
-export const isSkillKey = (value: unknown): value is string => typeof value === 'string' && skillByKey.has(value);
+/** A communicative registry skill: what blueprints, intents and story milestones may reference. */
+export const isSkillKey = (value: unknown): value is string => typeof value === 'string' && registryKeys.has(value);
+
+/** Any skill that may carry evidence (registry or system). */
+export const isKnownSkillKey = (value: unknown): value is string => typeof value === 'string' && skillByKey.has(value);
+
+/** Catalog prefix of learner-facing skill names in `@langquest/locales` (en and fr). */
+export const SKILL_NAME_KEY_PREFIX = 'progress.skill' as const;
+
+/**
+ * Catalog key of a skill's learner-facing name: `progress.skill.greet_politely`, `progress.skill.speaking.intelligibility`.
+ * Dotted skill keys nest in the JSON catalogs, so no skill key may also be the dotted prefix of another (registry test).
+ */
+export const skillNameKey = (skillKey: string): `${typeof SKILL_NAME_KEY_PREFIX}.${string}` => `${SKILL_NAME_KEY_PREFIX}.${skillKey}`;
 
 /** Skills tagged with a situation (e.g. all `restaurant` skills). */
 export const skillsForSituation = (tag: SituationTag): readonly Skill[] => SKILLS.filter((s) => s.situations.includes(tag));

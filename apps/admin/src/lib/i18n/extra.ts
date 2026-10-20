@@ -102,9 +102,8 @@ export const ADMIN_EXTRA_EN = {
         hiddenIntro: 'These controls are not rendered at the moment (not greyed out):',
         hidden: {
           media: 'Uploads page, audio and image previews, visual-asset uploads and replacements',
-          ai: 'Content factory “Generate”, AI suggestions “Generate”, model Benchmark / Enable and smoke-tested saves',
+          ai: 'Content factory “Generate”, AI suggestions “Generate”, model Benchmark / Enable, smoke-tested saves and the AI models test harness',
           speech: 'Numeric pronunciation scores for learners (listen-and-compare feedback stays)',
-          adminProbe: 'AI test harness on the AI models page',
         },
         state: { ok: 'Configured', missing: 'Not configured', unknown: 'Cannot check yet', manual: 'Verify by hand' },
         supabase: {
@@ -150,13 +149,6 @@ export const ADMIN_EXTRA_EN = {
           step: {
             local: 'Not observable from the Studio. Locally Mailpit captures every message at http://127.0.0.1:54324. For production, set Supabase Auth → SMTP to the Resend key and a verified sender (docs/runbooks/provisioning.md).',
             hosted: 'Not observable from the Studio. Verify in the Supabase dashboard that Auth → SMTP uses the Resend key and a verified sender domain.',
-          },
-        },
-        adminProbe: {
-          title: 'AI test harness on this host (optional)',
-          step: {
-            ok: 'OPENROUTER_API_KEY is set on the admin server: prompt, synthesis and transcription probes run from the AI models page.',
-            missing: 'Optional: add OPENROUTER_API_KEY to apps/admin/.env.local (server-only, never NEXT_PUBLIC_*) and restart the Studio to show the AI test harness.',
           },
         },
       },
@@ -464,7 +456,11 @@ export const ADMIN_EXTRA_EN = {
       aiBenchmarkVarietyRequired: 'Choose a variety before running the benchmark.',
       aiBenchmarkSourceHint: 'Optional. The profile serves every instruction language; pick one to record the benchmark against it.',
       aiBenchmarkSourceAny: 'Any instruction language',
-      aiHarnessUnavailable: 'The test harness needs the LangQuest API (speech routes) or a server-side OPENROUTER_API_KEY on the admin host for prompt probes.',
+      aiHarnessUnavailable: 'The test harness runs on the LangQuest API and appears once the API reports a usable AI route.',
+      aiHarnessModelHint: "Tried first; the task profile's own chain for this variety is the fallback.",
+      aiHarnessVoiceHint: "Empty: the variety's default voice. The voice decides the TTS model; voices of another variety are refused.",
+      aiHarnessChain: 'Routing {chain}',
+      aiHarnessTrace: 'Trace {traceId}',
       aiResult: 'Result',
       aiLatency: 'Latency {ms} ms',
       aiCost: 'Estimated cost {usd}',
@@ -797,9 +793,8 @@ export const ADMIN_EXTRA_FR = {
         hiddenIntro: 'Ces contrôles ne sont pas rendus pour le moment (ni grisés) :',
         hidden: {
           media: "Page Téléversements, aperçus audio et image, téléversements et remplacements d'éléments visuels",
-          ai: '« Générer » de la fabrique de contenu, « Générer » des suggestions IA, Benchmark / Activer des modèles et enregistrements avec tests de fumée',
+          ai: '« Générer » de la fabrique de contenu, « Générer » des suggestions IA, Benchmark / Activer des modèles, enregistrements avec tests de fumée et banc de test des modèles IA',
           speech: "Scores de prononciation numériques pour les apprenants (l'écoute-comparaison reste)",
-          adminProbe: 'Banc de test IA sur la page Modèles IA',
         },
         state: { ok: 'Configuré', missing: 'Non configuré', unknown: 'Impossible à vérifier pour l\'instant', manual: 'À vérifier manuellement' },
         supabase: {
@@ -845,13 +840,6 @@ export const ADMIN_EXTRA_FR = {
           step: {
             local: 'Non observable depuis le Studio. En local, Mailpit capture chaque message sur http://127.0.0.1:54324. En production, configurez Supabase Auth → SMTP avec la clé Resend et un expéditeur vérifié (docs/runbooks/provisioning.md).',
             hosted: "Non observable depuis le Studio. Vérifiez dans le tableau de bord Supabase que Auth → SMTP utilise la clé Resend et un domaine d'expéditeur vérifié.",
-          },
-        },
-        adminProbe: {
-          title: 'Banc de test IA sur cet hôte (optionnel)',
-          step: {
-            ok: 'OPENROUTER_API_KEY est défini sur le serveur admin : les sondes prompt, synthèse et transcription fonctionnent depuis la page Modèles IA.',
-            missing: 'Optionnel : ajoutez OPENROUTER_API_KEY dans apps/admin/.env.local (serveur uniquement, jamais NEXT_PUBLIC_*) et redémarrez le Studio pour afficher le banc de test IA.',
           },
         },
       },
@@ -1149,7 +1137,11 @@ export const ADMIN_EXTRA_FR = {
       aiBenchmarkVarietyRequired: 'Choisissez une variété avant de lancer le benchmark.',
       aiBenchmarkSourceHint: "Facultatif. Le profil sert toutes les langues d'instruction ; choisissez-en une pour enregistrer le benchmark en regard de celle-ci.",
       aiBenchmarkSourceAny: "Toute langue d'instruction",
-      aiHarnessUnavailable: "Le banc de test a besoin de l'API LangQuest (routes parole) ou d'une clé OPENROUTER_API_KEY côté serveur sur l'hôte admin pour les sondes de prompt.",
+      aiHarnessUnavailable: "Le banc de test s'exécute sur l'API LangQuest et apparaît dès que l'API signale une route IA utilisable.",
+      aiHarnessModelHint: 'Essayé en premier ; la chaîne du profil de la tâche pour cette variété sert de repli.',
+      aiHarnessVoiceHint: "Vide : voix par défaut de la variété. La voix détermine le modèle TTS ; les voix d'une autre variété sont refusées.",
+      aiHarnessChain: 'Routage {chain}',
+      aiHarnessTrace: 'Trace {traceId}',
       aiResult: 'Résultat',
       aiLatency: 'Latence {ms} ms',
       aiCost: 'Coût estimé {usd}',

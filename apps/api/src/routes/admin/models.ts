@@ -1,12 +1,19 @@
 /**
  * §6.4 model routing (§8.2, §8.7, A25): list `ai_model_profiles` + live OpenRouter discovery, update a task's
  * profile (publishing a change requires language-specific smoke tests to pass), and benchmarks (live smoke
- * recorded in `ai_model_benchmarks` + a `benchmark_model` job for the full sample set). Changes take effect on
- * the next request through the profile loader — no mobile rebuild.
+ * recorded in `ai_model_benchmarks` + a `benchmark_model` job for the full sample set, run by `apps/jobs`
+ * `handlers/benchmark-model.ts`). Changes take effect on the next request through the profile loader — no mobile
+ * rebuild. Smoke calls are ledgered in `ai_requests` as staff spend (`staffReasoner`, purpose `admin_smoke_test`).
+ *
+ * A benchmark request is checked before any spend: the profile must serve the requested variety (and source language,
+ * when it is source-specific) and the sample set must be one the runner ships. Its smoke result sets the profile's
+ * `benchmark_status` only under the same rule as the full run: the profile's primary model, on the profile's own
+ * variety (a profile serving every variety is never marked from one variety), while the row still routes to that
+ * model at the version read, and never over a status the finished full run already wrote.
  */
 import { trackForVariety } from '@langquest/ai/capability/registry';
 import { getPromptPack } from '@langquest/ai/prompts/packs';
-import { AiTaskNameSchema, ModelBenchmarkRequestSchema, ModelBenchmarkResponseSchema, ModelConfigPutRequestSchema, ModelConfigPutResponseSchema, ModelsListQuerySchema, ModelsListResponseSchema, buildLanguageContext, type AiTaskName, type JsonValue, type ModelProfile, type VarietyId } from '@langquest/contracts';
+import { AiTaskNameSchema, ModelBenchmarkRequestSchema, ModelBenchmarkResponseSchema, ModelConfigPutRequestSchema, ModelConfigPutResponseSchema, ModelsListQuerySchema, ModelsListResponseSchema, UuidSchema, buildLanguageContext, type AiTaskName, type JsonValue, type ModelProfile, type VarietyId } from '@langquest/contracts';
 import type { Insert } from '@langquest/db/types';
 import { z } from 'zod';
 import type { DefineRoute } from '../../app';
@@ -15,10 +22,23 @@ import { problem, respondOk } from '../../http/envelope';
 import { parseBody, parseParams, parseQuery } from '../../http/validate';
 import { invalidateProfileCache, loadDbProfiles, rowToModelProfile } from '../../services/ai';
 import type { RequestServices } from '../../services/context';
+import { staffReasoner } from './model-test';
 
 const TaskParams = z.object({ task: AiTaskNameSchema });
+/** `processing_jobs.output` of a `benchmark_model` job once its smoke run has been recorded. */
+const BenchmarkJobOutputSchema = z.object({ benchmarkId: UuidSchema });
 const SPEECH_TASKS: ReadonlySet<AiTaskName> = new Set(['speech_recognition', 'speech_synthesis', 'realtime_conversation', 'pronunciation_assessment', 'transcription_alignment']);
 const SmokeSchema = z.object({ reply: z.string().min(1).max(300), transliteration: z.string().nullable() });
+/** `processing_jobs.output` of a full run that wrote the profile status (`benchmark-model.ts` `profileStatus`). */
+const FullRunStatusSchema = z.object({ profileStatus: z.object({ updated: z.literal(true) }) });
+
+/**
+ * Sample-set ids the jobs runner ships, `default` being the dialog's prefill. Mirrors `SAMPLE_SET_ALIASES` in
+ * `apps/jobs/src/handlers/benchmark-samples.ts` (apps/api does not depend on @langquest/jobs; the shared home for
+ * this list is `@langquest/contracts`). An unknown id is refused before any spend instead of enqueuing a job that
+ * can only fail.
+ */
+export const KNOWN_BENCHMARK_SAMPLE_SETS: readonly string[] = ['default', 'core', 'core-v1'];
 
 let catalogCache: { at: number; models: { id: string; provider: string; modalities: string[]; contextLength: number | null; pricing: Record<string, unknown> | null }[] } | null = null;
 
@@ -35,6 +55,7 @@ export async function runSmokeTests(s: RequestServices, profile: Pick<ModelProfi
   const ai = await s.ai();
   const variety = varietyOverride ?? profile.targetVariety ?? 'es-ES';
   const trackId = trackForVariety(variety);
+  // Placeholder enrollment id (the context requires one); the smoke call is ledgered as staff spend without it.
   const language = buildLanguageContext({ uiLocale: 'en', enrollmentId: crypto.randomUUID(), sourceLanguageCode: profile.sourceLanguage ?? 'en', courseTrackId: trackId });
   if (profile.provider === 'openrouter') {
     for (const model of [profile.primaryModel, ...profile.fallbackModels]) {
@@ -53,9 +74,10 @@ export async function runSmokeTests(s: RequestServices, profile: Pick<ModelProfi
     return tests;
   }
   const pack = getPromptPack(variety);
+  const reasoner = await staffReasoner(s, ai, 'admin_smoke_test');
   const started = Date.now();
   try {
-    const out = await ai.reasoner.generateStructured(
+    const out = await reasoner.generateStructured(
       profile.task,
       language,
       { system: `You are a ${pack.name} speaker. Reply ONLY in ${pack.name}. ${pack.scriptRules}`, user: 'Greet a learner in one short sentence and ask how they are.', templateId: 'admin.smoke', templateVersion: '2026-10-14.1' },
@@ -132,20 +154,59 @@ export function registerModelRoutes(define: DefineRoute): void {
     const profileRow = body.profileId ? await s.repos.aiProfiles.getById(body.profileId) : await s.repos.aiProfiles.resolve(task, body.targetVariety, body.sourceLanguage ?? null);
     if (!profileRow) throw problem.notFound('Model profile');
     if (profileRow.task !== task) throw problem.validation(`Profile is for task ${profileRow.task}, not ${task}`);
+    // The admin dialog pins these; the server enforces them for every caller (no ary→arb, yue→cmn, ht→fr).
+    if (profileRow.target_variety_id !== null && profileRow.target_variety_id !== body.targetVariety) throw problem.validation(`Profile ${profileRow.id} serves ${profileRow.target_variety_id}; benchmarking it on ${body.targetVariety} would cross a variety boundary`);
+    if (profileRow.source_language_code !== null && body.sourceLanguage !== undefined && profileRow.source_language_code !== body.sourceLanguage) throw problem.validation(`Profile ${profileRow.id} serves source language ${profileRow.source_language_code}, not ${body.sourceLanguage}`);
+    if (!KNOWN_BENCHMARK_SAMPLE_SETS.includes(body.sampleSetId.trim().toLowerCase())) throw problem.validation(`Unknown benchmark sample set "${body.sampleSetId}" (known: ${KNOWN_BENCHMARK_SAMPLE_SETS.join(', ')})`);
     const profile = rowToModelProfile(profileRow);
     if (!profile) throw problem.internal('Profile row failed validation');
     const model = body.model ?? profile.primaryModel;
-    const job = await s.repos.processingJobs.enqueue({ jobType: 'benchmark_model', idempotencyKey: `benchmark_model:${body.idempotencyKey}`, requestedBy: principal.userId, provider: profile.provider, params: { profileId: profileRow.id, model, targetVariety: body.targetVariety, sourceLanguage: body.sourceLanguage ?? null, sampleSetId: body.sampleSetId } });
+    // The smoke benchmark runs through this deployment's AI provider; without one there is nothing honest to record
+    // (a "failing" row and a flipped profile status would only describe the missing key).
+    if (!s.config.env.OPENROUTER_API_KEY) throw problem.unsupported('Model benchmarks need the AI provider on this deployment (OPENROUTER_API_KEY missing)');
+    const jobKey = `benchmark_model:${body.idempotencyKey}`;
+    const before = (await s.service.from('processing_jobs').select('id').eq('idempotency_key', jobKey).maybeSingle()).data;
+    const job = await s.repos.processingJobs.enqueue({ jobType: 'benchmark_model', idempotencyKey: jobKey, requestedBy: principal.userId, provider: profile.provider, params: { profileId: profileRow.id, model, targetVariety: body.targetVariety, sourceLanguage: body.sourceLanguage ?? null, sampleSetId: body.sampleSetId } });
+    if (before) {
+      // Replay of the same request (same idempotency key): answer with the benchmark linked to THIS job (null while the
+      // first run is still in flight or its row could not be recorded) instead of spending on another live smoke run.
+      // Never look a benchmark up by profile / model / sample set: that can return another key's or variety's run.
+      const linked = BenchmarkJobOutputSchema.safeParse(job.output);
+      return respondOk(c, ModelBenchmarkResponseSchema.parse({ jobId: job.id, benchmarkId: linked.success ? linked.data.benchmarkId : null, state: job.state }), 200);
+    }
+    // The source language the smoke call runs with (null = the profile serves any source; the smoke then uses en).
+    const source = body.sourceLanguage ?? profile.sourceLanguage;
     const started = Date.now();
-    const smoke = await runSmokeTests(s, { ...profile, primaryModel: model }, body.targetVariety);
+    const smoke = await runSmokeTests(s, { ...profile, primaryModel: model, sourceLanguage: source }, body.targetVariety);
     const passed = smoke.every((t) => t.passed);
-    const bench = await s.repos.aiProfiles.recordBenchmark({ profile_id: profileRow.id, model, target_variety_id: body.targetVariety, source_language_code: body.sourceLanguage ?? null, sample_set_id: body.sampleSetId, evaluator_version: 'smoke@2026-10-14.1', latency_p50_ms: Date.now() - started, passed, reviewer_id: principal.userId, notes: smoke.map((t) => `${t.name}: ${t.passed ? 'ok' : t.detail ?? 'failed'}`).join('\n') }).catch((error) => {
+    const bench = await s.repos.aiProfiles.recordBenchmark({ profile_id: profileRow.id, model, target_variety_id: body.targetVariety, source_language_code: source ?? 'en', sample_set_id: body.sampleSetId, evaluator_version: 'smoke@2026-10-14.1', latency_p50_ms: Date.now() - started, passed, reviewer_id: principal.userId, notes: smoke.map((t) => `${t.name}: ${t.passed ? 'ok' : t.detail ?? 'failed'}`).join('\n') }).catch((error) => {
       s.log.warn('benchmark.record_failed', { error });
       return null;
     });
-    await s.repos.aiProfiles.update(profileRow.id, { benchmark_status: passed ? 'passing' : 'failing' }).catch(() => undefined);
+    if (bench) {
+      // Link the benchmark to its job so a replay of this key answers with exactly this row. The jobs runner may already
+      // have finished the full sample set (its output names its own benchmark and keeps this one as smokeBenchmarkId):
+      // only a job without output is linked, so the full run's result is never overwritten by the smoke row.
+      const linked = await s.service.from('processing_jobs').update({ output: { benchmarkId: bench.id } }).eq('id', job.id).is('output', null);
+      if (linked.error) s.log.warn('benchmark.link_failed', { error: linked.error.message, jobId: job.id });
+    }
+    // The status is what `modelCapabilities` reports as `verified` for every variety the profile routes: only a run of
+    // the primary model on the profile's own variety may set it (same rule as the full run). A candidate model or a
+    // profile serving every variety keeps its status; the smoke row above is still recorded.
+    const statusBlocker = model !== profile.primaryModel ? `benchmarked model ${model} is not the profile's primary model ${profile.primaryModel}` : profileRow.target_variety_id !== body.targetVariety ? `the profile serves every variety; this run measured ${body.targetVariety} only` : null;
+    let statusUpdated = false;
+    if (!statusBlocker) {
+      // Same race as the link: once the full run has written the status, its result stands over the smoke run's.
+      const current = (await s.service.from('processing_jobs').select('state, output').eq('id', job.id).maybeSingle()).data;
+      if (!(current?.state === 'succeeded' && FullRunStatusSchema.safeParse(current.output).success)) {
+        // Conditional on the row this request read: a config change meanwhile (new primary model, version bump) wins.
+        const updated = await s.service.from('ai_model_profiles').update({ benchmark_status: passed ? 'passing' : 'failing' }).eq('id', profileRow.id).eq('primary_model', model).eq('version', profileRow.version).select('id');
+        if (updated.error) s.log.warn('benchmark.status_failed', { error: updated.error.message, profileId: profileRow.id });
+        statusUpdated = (updated.data?.length ?? 0) > 0;
+      }
+    }
     invalidateProfileCache();
-    s.audit({ action: 'models.benchmark', entityTable: 'ai_model_profiles', entityId: profileRow.id, after: { model, sampleSetId: body.sampleSetId, passed, jobId: job.id } });
+    s.audit({ action: 'models.benchmark', entityTable: 'ai_model_profiles', entityId: profileRow.id, after: { model, sampleSetId: body.sampleSetId, passed, jobId: job.id, profileStatus: { updated: statusUpdated, reason: statusBlocker } } });
     return respondOk(c, ModelBenchmarkResponseSchema.parse({ jobId: job.id, benchmarkId: bench?.id ?? null, state: job.state }), 202);
   });
 }

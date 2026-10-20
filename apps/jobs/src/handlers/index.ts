@@ -4,6 +4,7 @@
  */
 import { HandlerRegistry } from '../queue/types';
 import { alignHandler } from './align';
+import { benchmarkModelHandler } from './benchmark-model';
 import { cleanupOrphanUploadsHandler } from './cleanup-orphan-uploads';
 import { generateContentHandler } from './generate-content';
 import { importManifestHandler } from './import-manifest';
@@ -34,10 +35,13 @@ export function buildRegistry(options: RegistryOptions = {}): HandlerRegistry {
     .register(generateContentHandler)
     .register(regenerateManifestHandler)
     .register(createRenderCoverHandler(options.renderCover))
-    .register(cleanupOrphanUploadsHandler);
+    .register(cleanupOrphanUploadsHandler)
+    .register(benchmarkModelHandler);
 }
 
 export * from './align';
+export * from './benchmark-model';
+export * from './benchmark-samples';
 export * from './cleanup-orphan-uploads';
 export * from './common';
 export * from './generate-content';

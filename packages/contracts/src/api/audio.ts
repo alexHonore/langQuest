@@ -4,7 +4,7 @@ import { CourseTrackIdSchema, SourceLanguageCodeSchema, VarietyIdSchema } from '
 import { AudioAssetTypeSchema, LearnerLevelSchema, TranscriptStatusSchema } from '../enums';
 import { AssetRefSchema, AudioCollectionManifestSchema, DownloadPackManifestSchema, VisualRefSchema } from '../manifest';
 import { BytesSchema, MillisSchema, NonNegativeIntSchema, TimestamptzSchema, UnitIntervalSchema, UrlSchema, UuidSchema } from '../primitives';
-import { pageOf, PaginationQuerySchema } from './common';
+import { pageOf, PaginationQuerySchema, QueryBooleanSchema } from './common';
 
 export const AudioCollectionsQuerySchema = z
   .object({
@@ -156,7 +156,8 @@ export const AudioBookmarkResponseSchema = z.object({
   replayed: z.boolean(),
 });
 
-export const DownloadPackQuerySchema = z.object({ includeTranscript: z.coerce.boolean().default(true), deviceId: z.string().min(1).max(128) });
+/** `includeTranscript` is a strict query flag (`QueryBooleanSchema`): `?includeTranscript=false` leaves the transcript out. */
+export const DownloadPackQuerySchema = z.object({ includeTranscript: QueryBooleanSchema.default(true), deviceId: z.string().min(1).max(128) });
 export const DownloadPackResponseSchema = z.object({ manifest: DownloadPackManifestSchema });
 
 /**

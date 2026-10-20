@@ -3,7 +3,6 @@ import { useMemo, useState } from 'react';
 import { sceneArtSvgString, SCENE_IDS, type SceneId } from '@art/scenes';
 import { COURSE_TRACKS, LEARNER_LEVEL_VALUES, type ContentGenerateRequest } from '@langquest/contracts';
 import { browserApi } from '@/src/lib/api-browser';
-import { localCall } from '@/src/lib/local-api/client';
 import { useI18n } from '@/src/lib/i18n/client';
 import { useAction } from '@/src/lib/use-action';
 import { formatDateTime, newIdempotencyKey, pickLocalized, shortId } from '@/src/lib/format';
@@ -89,7 +88,7 @@ export function ContentFactoryScreen({ intents, missions, expressions, jobs, can
     },
     { successMessage: (res) => (res.replayed ? t('admin.ui.cfReplayed') : t('admin.ui.cfJobQueued', { jobId: res.jobId.slice(0, 8) })) },
   );
-  const decide = useAction(async (entityTable: 'missions' | 'expressions', id: string, decision: 'approve' | 'reject' | 'request_review') => localCall(`/api/admin/content/${id}/decision`, { method: 'POST', body: { entityTable, decision, note: qaComment || undefined } }), { successMessage: t('admin.ui.saved') });
+  const decide = useAction(async (entityTable: 'missions' | 'expressions', id: string, decision: 'approve' | 'reject') => browserApi().call('adminContentDecision', { params: { id }, body: { entityTable, decision, note: qaComment || undefined } }), { successMessage: t('admin.ui.saved') });
   const requestReview = useAction(async (id: string) => browserApi().call('adminContentRequestReview', { params: { id }, body: { note: qaComment || undefined, targetVarietyId: undefined } }), { successMessage: t('admin.contentFactory.sendToReview') });
 
   const mission = missions.find((m) => m.id === selectedMission) ?? null;

@@ -6,7 +6,7 @@
  * the API enforces it; the UI shows the capability matrix status for the selected variety.
  */
 import { useEffect, useMemo, useState } from 'react';
-import { AI_TASK_NAME_VALUES, LATENCY_CLASS_VALUES, AiProviderSchema, ModelBenchmarkRequestSchema, ModelConfigPutRequestSchema, type ModelProfile } from '@langquest/contracts';
+import { AI_TASK_NAME_VALUES, LATENCY_CLASS_VALUES, MODEL_TEST_TEXT_TASKS, AiProviderSchema, AudioEncodingSchema, ModelBenchmarkRequestSchema, ModelConfigPutRequestSchema, type ModelProfile, type ModelTestRequest, type ModelTestResponse } from '@langquest/contracts';
 import type { z } from 'zod';
 
 type ModelConfigPutRequest = z.input<typeof ModelConfigPutRequestSchema>;
@@ -19,8 +19,7 @@ interface BenchmarkForm {
   targetVariety: string | null;
   sourceLanguage: string | null;
 }
-import { browserApi } from '@/src/lib/api-browser';
-import { localCall } from '@/src/lib/local-api/client';
+import { browserApi, browserLongApi } from '@/src/lib/api-browser';
 import { useI18n } from '@/src/lib/i18n/client';
 import { useAction } from '@/src/lib/use-action';
 import { formatDateTime, formatUsd, newIdempotencyKey, shortId } from '@/src/lib/format';
@@ -121,9 +120,9 @@ function toForm(p: ProfileRow): ProfileForm {
 
 const num = (v: string) => (v.trim() === '' ? undefined : Number(v));
 
-export function AiModelsScreen({ profiles, benchmarks, localProbeAvailable }: { profiles: ProfileRow[]; benchmarks: BenchmarkRow[]; localProbeAvailable: boolean }) {
+export function AiModelsScreen({ profiles, benchmarks }: { profiles: ProfileRow[]; benchmarks: BenchmarkRow[] }) {
   const { t, locale } = useI18n();
-  const { aiAvailable } = useDeployment();
+  const { aiAvailable, apiReachable } = useDeployment();
   const [form, setForm] = useState<ProfileForm | null>(null);
   const [taskFilter, setTaskFilter] = useState('');
   const [smoke, setSmoke] = useState<Array<{ name: string; passed: boolean; detail: string | null }> | null>(null);
@@ -139,48 +138,29 @@ export function AiModelsScreen({ profiles, benchmarks, localProbeAvailable }: { 
 
   const rows = useMemo(() => profiles.filter((p) => !taskFilter || p.task === taskFilter), [profiles, taskFilter]);
 
+  const toConfigBody = (f: ProfileForm, overrides: Pick<ModelConfigPutRequest, 'enabled' | 'requireSmokeTests'>): ModelConfigPutRequest => ({
+    task: f.task as ModelProfile['task'],
+    targetVariety: f.targetVariety as ModelProfile['targetVariety'],
+    sourceLanguage: f.sourceLanguage as ModelProfile['sourceLanguage'],
+    provider: AiProviderSchema.parse(f.provider),
+    primaryModel: f.primaryModel,
+    fallbackModels: f.fallbackModels,
+    params: { temperature: num(f.temperature), topP: num(f.topP), maxOutputTokens: num(f.maxOutputTokens), timeoutMs: num(f.timeoutMs), sttLanguage: f.sttLanguage || undefined, voiceId: f.voiceId || undefined },
+    latencyClass: f.latencyClass as ModelProfile['latencyClass'],
+    dailyBudgetUsd: f.dailyBudgetUsd.trim() === '' ? null : Number(f.dailyBudgetUsd),
+    expectedVersion: f.expectedVersion,
+    ...overrides,
+  });
   const saveViaApi = useAction(
     async (f: ProfileForm, requireSmokeTests: boolean) => {
-      const body: ModelConfigPutRequest = {
-        task: f.task as ModelProfile['task'],
-        targetVariety: f.targetVariety as ModelProfile['targetVariety'],
-        sourceLanguage: f.sourceLanguage as ModelProfile['sourceLanguage'],
-        provider: AiProviderSchema.parse(f.provider),
-        primaryModel: f.primaryModel,
-        fallbackModels: f.fallbackModels,
-        params: { temperature: num(f.temperature), topP: num(f.topP), maxOutputTokens: num(f.maxOutputTokens), timeoutMs: num(f.timeoutMs), sttLanguage: f.sttLanguage || undefined, voiceId: f.voiceId || undefined },
-        latencyClass: f.latencyClass as ModelProfile['latencyClass'],
-        enabled: f.enabled,
-        dailyBudgetUsd: f.dailyBudgetUsd.trim() === '' ? null : Number(f.dailyBudgetUsd),
-        expectedVersion: f.expectedVersion,
-        requireSmokeTests,
-      };
-      const res = await browserApi().call('adminModelConfigPut', { params: { task: f.task }, body });
+      const res = await browserApi().call('adminModelConfigPut', { params: { task: f.task }, body: toConfigBody(f, { enabled: f.enabled, requireSmokeTests }) });
       setSmoke(res.smokeTests);
       return res;
     },
     { successMessage: (res) => `${t('admin.models.save')} · ${t('admin.models.version', { version: res.profile.version })}` },
   );
-  const saveDraftLocally = useAction(
-    async (f: ProfileForm) =>
-      localCall<{ id: string; version: number }>('/api/admin/models/profiles', {
-        method: 'POST',
-        body: {
-          id: f.id,
-          task: f.task,
-          targetVariety: f.targetVariety,
-          sourceLanguage: f.sourceLanguage,
-          provider: f.provider,
-          primaryModel: f.primaryModel,
-          fallbackModels: f.fallbackModels,
-          params: { temperature: num(f.temperature), topP: num(f.topP), maxOutputTokens: num(f.maxOutputTokens), timeoutMs: num(f.timeoutMs), sttLanguage: f.sttLanguage || undefined, voiceId: f.voiceId || undefined },
-          latencyClass: f.latencyClass,
-          dailyBudgetUsd: f.dailyBudgetUsd.trim() === '' ? null : Number(f.dailyBudgetUsd),
-          expectedVersion: f.expectedVersion,
-        },
-      }),
-    { successMessage: t('admin.ui.saved') },
-  );
+  // A draft is saved disabled and without smoke tests (benchmark status `unbenchmarked`): it can never route traffic.
+  const saveDraft = useAction(async (f: ProfileForm) => browserApi().call('adminModelConfigPut', { params: { task: f.task }, body: toConfigBody(f, { enabled: false, requireSmokeTests: false }) }), { successMessage: t('admin.ui.saved') });
   const [bench, setBench] = useState<BenchmarkForm | null>(null);
   const benchmark = useAction(
     async (f: BenchmarkForm) => {
@@ -250,10 +230,10 @@ export function AiModelsScreen({ profiles, benchmarks, localProbeAvailable }: { 
       </div>
       <DataTable columns={columns} rows={rows} rowKey={(p) => p.id} caption={t('admin.ui.aiProfiles')} empty={t('admin.ui.aiEmptyProfiles')} emptyAction={newProfile} dense />
 
-      {/* The harness needs a server-side key on the admin host; without it the card is simply absent (listed on Setup). */}
-      {localProbeAvailable || benchmarks.length > 0 ? (
+      {/* The harness runs on the API; without a usable AI route there the card is simply absent (listed on Setup). */}
+      {aiAvailable || benchmarks.length > 0 ? (
         <div className="grid gap-4 lg:grid-cols-2">
-          {localProbeAvailable ? <Harness defaultModel={profiles[0]?.primary_model ?? ''} /> : null}
+          {aiAvailable ? <Harness defaultModel={profiles[0]?.primary_model ?? ''} /> : null}
           {benchmarks.length > 0 ? (
         <Card title={t('admin.ui.aiBenchmarks')}>
           <div className="overflow-x-auto">
@@ -348,9 +328,11 @@ export function AiModelsScreen({ profiles, benchmarks, localProbeAvailable }: { 
           form ? (
             <>
               <Button onClick={() => setForm(null)}>{t('admin.ui.cancel')}</Button>
-              <Button variant={aiAvailable ? 'secondary' : 'primary'} loading={saveDraftLocally.busy} disabled={!form.primaryModel.trim()} onClick={() => void saveDraftLocally.run(form).then((r) => r && setForm(null))} title={t('admin.ui.aiEnableRequiresSmoke')}>
-                {t('admin.ui.aiSaveDraft')}
-              </Button>
+              {apiReachable ? (
+                <Button variant={aiAvailable ? 'secondary' : 'primary'} loading={saveDraft.busy} disabled={!form.primaryModel.trim()} onClick={() => void saveDraft.run(form).then((r) => r && setForm(null))} title={t('admin.ui.aiEnableRequiresSmoke')}>
+                  {t('admin.ui.aiSaveDraft')}
+                </Button>
+              ) : null}
               {aiAvailable ? (
                 <Button variant="primary" loading={saveViaApi.busy} disabled={!form.primaryModel.trim()} onClick={() => void saveViaApi.run(form, true)}>
                   {t('admin.models.save')} {form.enabled ? '+ smoke tests' : ''}
@@ -435,7 +417,7 @@ export function AiModelsScreen({ profiles, benchmarks, localProbeAvailable }: { 
               </div>
             ) : null}
             {saveViaApi.error ? <Notice tone="error">{saveViaApi.error}</Notice> : null}
-            {saveDraftLocally.error ? <Notice tone="error">{saveDraftLocally.error}</Notice> : null}
+            {saveDraft.error ? <Notice tone="error">{saveDraft.error}</Notice> : null}
           </div>
         ) : null}
       </Dialog>
@@ -447,30 +429,41 @@ function pct(v: number | null): string {
   return v == null ? '—' : `${Math.round(v * 100)}%`;
 }
 
+const HARNESS_ENCODING_BY_EXTENSION: Readonly<Record<string, ModelTestTranscribe['encoding']>> = { mp3: 'mp3', m4a: 'm4a', mp4: 'm4a', aac: 'aac', wav: 'wav', flac: 'flac', ogg: 'opus', opus: 'opus', webm: 'webm_opus' };
+type ModelTestTranscribe = Extract<ModelTestRequest, { mode: 'transcribe' }>;
+
+/**
+ * Test harness (§8.7): every probe runs on the LangQuest API (`adminModelTest`) through the same AI wiring learners
+ * use, so it is rendered only when the API reports a usable AI route. Prompt probes run as a text task for a course
+ * variety with the typed model tried first; synthesis uses the variety's voice registry; transcription its STT route.
+ */
 function Harness({ defaultModel }: { defaultModel: string }) {
   const { t } = useI18n();
   const [mode, setMode] = useState<'prompt' | 'synthesize' | 'transcribe'>('prompt');
+  const [task, setTask] = useState<(typeof MODEL_TEST_TEXT_TASKS)[number]>('character_dialogue');
+  const [variety, setVariety] = useState<string | null>('es-ES');
   const [model, setModel] = useState(defaultModel);
   const [prompt, setPrompt] = useState('');
   const [system, setSystem] = useState('');
   const [text, setText] = useState('');
   const [voice, setVoice] = useState('');
-  const [language, setLanguage] = useState('');
   const [file, setFile] = useState<File | null>(null);
-  const [result, setResult] = useState<Record<string, unknown> | null>(null);
+  const [result, setResult] = useState<ModelTestResponse | null>(null);
+  const encoding = file ? AudioEncodingSchema.safeParse(HARNESS_ENCODING_BY_EXTENSION[file.name.split('.').pop()?.toLowerCase() ?? '']).data : undefined;
   const run = useAction(
     async () => {
-      let body: Record<string, unknown>;
-      if (mode === 'prompt') body = { mode, models: model.split(',').map((m) => m.trim()).filter(Boolean), prompt, system: system || undefined };
-      else if (mode === 'synthesize') body = { mode, model, text, voice: voice || undefined };
+      const targetVariety = variety as ModelTestRequest['targetVariety'];
+      let body: ModelTestRequest;
+      if (mode === 'prompt') body = { mode, task, targetVariety, sourceLanguage: 'en', model: model.trim(), prompt, system: system || undefined };
+      else if (mode === 'synthesize') body = { mode, targetVariety, text, voiceId: voice.trim() || undefined };
       else {
-        if (!file) throw new Error('audio file required');
+        if (!file || !encoding) throw new Error('audio file required');
         const buf = new Uint8Array(await file.arrayBuffer());
         let bin = '';
         for (let i = 0; i < buf.length; i += 0x8000) bin += String.fromCharCode(...buf.subarray(i, i + 0x8000));
-        body = { mode, model, audioBase64: btoa(bin), format: file.name.split('.').pop() ?? 'mp3', language: language || undefined };
+        body = { mode, targetVariety, audioBase64: btoa(bin), encoding };
       }
-      const res = await localCall<Record<string, unknown>>('/api/admin/models/test', { method: 'POST', body });
+      const res = await browserLongApi().call('adminModelTest', { body });
       setResult(res);
       return res;
     },
@@ -486,11 +479,23 @@ function Harness({ defaultModel }: { defaultModel: string }) {
             </Button>
           ))}
         </div>
-        <Field label={t('admin.models.primaryModel')} hint={mode === 'prompt' ? 'comma-separated chain: primary, fallback…' : undefined}>
-          {(id) => <Input id={id} value={model} onChange={(e) => setModel(e.target.value)} />}
-        </Field>
+        <Field label={t('admin.ui.targetVariety')}>{(id) => <VarietySelect id={id} value={variety} onChange={setVariety} allowEmpty={false} />}</Field>
         {mode === 'prompt' ? (
           <>
+            <Field label={t('admin.models.task')}>
+              {(id) => (
+                <Select id={id} value={task} onChange={(e) => setTask(e.target.value as (typeof MODEL_TEST_TEXT_TASKS)[number])}>
+                  {MODEL_TEST_TEXT_TASKS.map((k) => (
+                    <option key={k} value={k}>
+                      {k}
+                    </option>
+                  ))}
+                </Select>
+              )}
+            </Field>
+            <Field label={t('admin.models.primaryModel')} hint={t('admin.ui.aiHarnessModelHint')}>
+              {(id) => <Input id={id} value={model} onChange={(e) => setModel(e.target.value)} />}
+            </Field>
             <Field label="system">{(id) => <Textarea id={id} rows={2} value={system} onChange={(e) => setSystem(e.target.value)} />}</Field>
             <Field label={t('admin.ui.aiPrompt')}>{(id) => <Textarea id={id} rows={3} value={prompt} onChange={(e) => setPrompt(e.target.value)} />}</Field>
           </>
@@ -498,38 +503,38 @@ function Harness({ defaultModel }: { defaultModel: string }) {
         {mode === 'synthesize' ? (
           <>
             <Field label={t('admin.ui.aiTextToSpeak')}>{(id) => <Textarea id={id} rows={2} value={text} onChange={(e) => setText(e.target.value)} />}</Field>
-            <Field label={t('admin.ui.aiVoice')}>{(id) => <Input id={id} value={voice} onChange={(e) => setVoice(e.target.value)} />}</Field>
+            <Field label={t('admin.ui.aiVoice')} hint={t('admin.ui.aiHarnessVoiceHint')}>
+              {(id) => <Input id={id} value={voice} onChange={(e) => setVoice(e.target.value)} />}
+            </Field>
           </>
         ) : null}
         {mode === 'transcribe' ? (
-          <>
-            <Field label={t('admin.ui.aiAudioFile')}>{(id) => <input id={id} type="file" accept="audio/*" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />}</Field>
-            <Field label={t('admin.ui.aiSttLanguage')}>{(id) => <Input id={id} value={language} onChange={(e) => setLanguage(e.target.value)} placeholder="ar" />}</Field>
-          </>
+          <Field label={t('admin.ui.aiAudioFile')}>{(id) => <input id={id} type="file" accept=".mp3,.m4a,.mp4,.aac,.wav,.flac,.ogg,.opus,.webm,audio/*" onChange={(e) => setFile(e.target.files?.[0] ?? null)} />}</Field>
         ) : null}
-        <Button variant="primary" disabled={!model.trim() || (mode === 'prompt' && !prompt.trim()) || (mode === 'synthesize' && !text.trim()) || (mode === 'transcribe' && !file)} loading={run.busy} onClick={() => void run.run()}>
+        <Button variant="primary" disabled={!variety || (mode === 'prompt' && (!model.trim() || !prompt.trim())) || (mode === 'synthesize' && !text.trim()) || (mode === 'transcribe' && !encoding)} loading={run.busy} onClick={() => void run.run()}>
           {t('admin.ui.aiRunPrompt')}
         </Button>
         {run.error ? <Notice tone="error">{run.error}</Notice> : null}
         {result ? (
           <div className="rounded-md border border-border bg-surface-muted p-2 text-xs">
             <div className="mb-1 flex flex-wrap gap-2 text-fg-muted">
-              {typeof result.latencyMs === 'number' ? <span>{t('admin.ui.aiLatency', { ms: result.latencyMs })}</span> : null}
-              {typeof result.estimatedCostUsd === 'number' ? <span>{t('admin.ui.aiCost', { usd: formatUsd(result.estimatedCostUsd) })}</span> : null}
-              {typeof result.model === 'string' ? <span className="font-mono">{result.model}</span> : null}
-              {typeof result.fallbackIndex === 'number' && result.fallbackIndex > 0 ? <Badge tone="warning">fallback #{result.fallbackIndex}</Badge> : null}
+              <span>{t('admin.ui.aiLatency', { ms: result.latencyMs })}</span>
+              {result.mode === 'prompt' ? <span className="font-mono">{t('admin.ui.aiHarnessChain', { chain: result.modelChain.join(' → ') })}</span> : null}
+              {result.mode !== 'prompt' && result.model ? <span className="font-mono">{result.model}</span> : null}
+              {result.mode === 'synthesize' ? <span className="font-mono">{result.voiceId}</span> : null}
+              <span className="font-mono">{t('admin.ui.aiHarnessTrace', { traceId: result.traceId.slice(0, 8) })}</span>
             </div>
-            {result.mode === 'prompt' ? <pre className="whitespace-pre-wrap">{String(result.content)}</pre> : null}
-            {result.mode === 'synthesize' && typeof result.audioBase64 === 'string' ? (
-              <audio controls src={`data:${String(result.mimeType)};base64,${result.audioBase64}`} className="w-full">
+            {result.mode === 'prompt' ? <pre className="whitespace-pre-wrap">{result.content}</pre> : null}
+            {result.mode === 'synthesize' ? (
+              <audio controls src={`data:${result.mimeType};base64,${result.audioBase64}`} className="w-full">
                 <track kind="captions" />
               </audio>
             ) : null}
             {result.mode === 'transcribe' ? (
               <div>
-                <p className="whitespace-pre-wrap">{String(result.text)}</p>
+                <p className="whitespace-pre-wrap">{result.text}</p>
                 <p className="text-fg-muted">
-                  {String(result.language ?? '')} · confidence {result.confidence == null ? '—' : String(result.confidence)}
+                  {result.detectedLanguage ?? ''} · confidence {result.confidence == null ? '—' : String(result.confidence)}
                 </p>
               </div>
             ) : null}

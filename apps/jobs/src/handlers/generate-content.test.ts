@@ -1,7 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
 import { LanguageGuard } from '@langquest/ai';
 import { FakeReasoner, createTestServices, runHandler, type TestServices } from '../test-support/fakes';
-import { buildContentFactoryPrompt, buildMissionGoals, generateContentHandler, validateGeneratedMission, type GeneratedMission } from './generate-content';
+import { BATCH_GATE_THRESHOLDS, DIVERSITY_REVIEW_FLAG, MISSION_GATE_THRESHOLDS, buildContentFactoryPrompt, buildMissionGoals, diversityMark, generateContentHandler, missionDiversityInput, validateGeneratedMission, type DiversityMark, type GeneratedMission } from './generate-content';
+import { scoreDialogueDiversity } from '@langquest/curriculum';
 
 const mission = (overrides: Partial<GeneratedMission> = {}): GeneratedMission => ({
   title: 'Pedir un café',
@@ -10,8 +11,8 @@ const mission = (overrides: Partial<GeneratedMission> = {}): GeneratedMission =>
   // Only one objective is described: the other must surface as a goal without a learner-facing description.
   objectiveDescriptions: [{ intentKey: 'greet_hello', description: 'Saluer poliment le serveur.' }, { intentKey: 'not_in_brief', description: 'ignored' }],
   dialogue: [
-    { speaker: 'character', intentKey: 'greet_hello', targetText: 'Hola, buenos días. ¿Qué te pongo?', transliteration: null, sourceMeaning: 'Bonjour. Qu’est-ce que je vous sers ?', register: 'neutral' },
-    { speaker: 'learner', intentKey: 'request_item', targetText: 'Un café con leche, por favor.', transliteration: null, sourceMeaning: 'Un café au lait, s’il vous plaît.', register: 'polite' },
+    { speaker: 'character', intentKey: 'greet_hello', targetText: 'Hola, buenos días. ¿Qué te pongo?', transliteration: null, sourceMeaning: 'Bonjour. Qu’est-ce que je vous sers ?', register: 'neutral', act: 'normal' },
+    { speaker: 'learner', intentKey: 'request_item', targetText: 'Un café con leche, por favor.', transliteration: null, sourceMeaning: 'Un café au lait, s’il vous plaît.', register: 'polite', act: 'normal' },
   ],
   expressions: [
     { intentKey: 'greet_hello', targetText: 'Hola, buenos días.', transliteration: null, sourceMeaning: 'Bonjour.', literalGloss: null, contextNote: null, register: 'neutral', variants: ['Buenas.'] },
@@ -24,6 +25,50 @@ const mission = (overrides: Partial<GeneratedMission> = {}): GeneratedMission =>
   instructions: 'Saluez et commandez un café.',
   hints: ['Commencez par « Hola ».'],
   ...overrides,
+});
+
+/**
+ * A one-correct-answer drill: the character asks, the learner answers, twice; each intent has a single acceptable
+ * phrasing (the "variant" only differs by punctuation).
+ */
+const drill = (overrides: Partial<GeneratedMission> = {}): GeneratedMission =>
+  mission({
+    title: 'Quiz del café',
+    objectiveDescriptions: [{ intentKey: 'greet_hello', description: 'Saluer.' }, { intentKey: 'request_item', description: 'Commander.' }],
+    dialogue: [
+      { speaker: 'character', intentKey: 'greet_hello', targetText: '¿Qué quieres tomar?', transliteration: null, sourceMeaning: 'Que veux-tu boire ?', register: 'neutral', act: 'normal' },
+      { speaker: 'learner', intentKey: 'request_item', targetText: 'Un café, por favor.', transliteration: null, sourceMeaning: 'Un café, s’il te plaît.', register: 'polite', act: 'normal' },
+      { speaker: 'character', intentKey: 'request_item', targetText: '¿Con leche o solo?', transliteration: null, sourceMeaning: 'Avec du lait ou noir ?', register: 'neutral', act: 'normal' },
+      { speaker: 'learner', intentKey: 'request_item', targetText: 'Con leche.', transliteration: null, sourceMeaning: 'Avec du lait.', register: 'neutral', act: 'normal' },
+    ],
+    expressions: [
+      { intentKey: 'greet_hello', targetText: 'Hola.', transliteration: null, sourceMeaning: 'Bonjour.', literalGloss: null, contextNote: null, register: 'neutral', variants: [] },
+      { intentKey: 'request_item', targetText: 'Un café, por favor.', transliteration: null, sourceMeaning: 'Un café, s’il vous plaît.', literalGloss: null, contextNote: null, register: 'polite', variants: ['Un café, por favor'] },
+    ],
+    ...overrides,
+  });
+
+describe('diversity gate', () => {
+  it('passes a mission with real alternatives and a conversational dialogue', () => {
+    const m = mission();
+    const report = scoreDialogueDiversity(missionDiversityInput(m, m.expressions.slice(0, 2), 'missions/0'), MISSION_GATE_THRESHOLDS);
+    expect(report).toMatchObject({ verdict: 'diverse', reasons: [] });
+    expect(diversityMark(report, null, false)).toMatchObject({ verdict: 'diverse', reasons: [], batch: null });
+  });
+
+  it('marks a question → answer drill whose intents have one acceptable phrasing each', () => {
+    const m = drill();
+    const report = scoreDialogueDiversity(missionDiversityInput(m, m.expressions, 'missions/0'), MISSION_GATE_THRESHOLDS);
+    expect(report.verdict).toBe('needs_regeneration');
+    expect(report.reasons).toEqual(expect.arrayContaining(['low_alternative_coverage:0', 'quiz_shaped_set:1']));
+    // A failing batch marks every mission in it, with the batch reasons prefixed.
+    const good = mission();
+    const batch = scoreDialogueDiversity({ intents: [], dialogues: [0, 1].map((i) => ({ id: `missions/${i}`, turns: good.dialogue.map((l) => ({ speaker: l.speaker, text: l.targetText })) })) }, BATCH_GATE_THRESHOLDS);
+    const mark = diversityMark(scoreDialogueDiversity(missionDiversityInput(good, good.expressions.slice(0, 2), 'missions/0'), MISSION_GATE_THRESHOLDS), batch, false);
+    expect(mark.verdict).toBe('needs_regeneration');
+    expect(mark.reasons).toEqual(expect.arrayContaining(['batch:repeated_dialogues:0.5']));
+    expect(mark.mission.verdict).toBe('diverse');
+  });
 });
 
 describe('validateGeneratedMission', () => {
@@ -92,6 +137,101 @@ describe('generate_content', () => {
     expect([...t.db.tables.expression_translations.values()].map((x) => x.source_language_code)).toEqual(['fr', 'fr']);
     expect(events.map((e) => e.type)).toEqual(['translation.review_requested']);
     expect([...t.db.tables.audit_logs.values()][0]?.action).toBe('content_factory.draft_created');
+    // Diversity gate: a conversational mission with alternatives passes; nothing is flagged for regeneration.
+    const rubric = missions[0]!.scoring_rubric as unknown as { diversity: DiversityMark; reviewFlags: string[]; reviewStatus: string };
+    expect(rubric).toMatchObject({ reviewStatus: 'review_needed', reviewFlags: [], diversity: { verdict: 'diverse', reasons: [], batch: null, regenerated: false } });
+    expect(out.diversityGate).toMatchObject({ batch: null, needsRegeneration: [], regeneration: { requested: false, attempts: 0, kept: [], skipped: null } });
+    expect(reasoner.calls[0]?.prompt.system).toMatch(/misunderstanding/);
+  });
+
+  it('writes the generation cost to ai_requests without an enrollment (the job id is not an enrollment)', async () => {
+    const { ctx } = await runHandler(generateContentHandler, t, { targetTrack: 'spanish-spain', sourceLanguage: 'fr', intentKeys: ['greet_hello', 'request_item'], level: 'beginner' }, { job_type: 'content_generate' });
+    await ctx.cost.flush();
+    // The reasoner saw the job-scoped context (job id as enrollmentId); the ledger row carries no enrollment.
+    expect(reasoner.calls[0]?.locale.enrollmentId).toBe(ctx.job.id);
+    expect(t.persistErrors).toEqual([]);
+    const rows = [...t.db.tables.ai_requests.values()];
+    expect(rows).toHaveLength(1);
+    expect(rows[0]).toMatchObject({ task: 'content_generation', enrollment_id: null, user_id: null, estimated_cost_usd: 0.0005, redacted_log: { jobId: ctx.job.id } });
+  });
+
+  it('keeps a low-diversity draft as review_needed, marked for regeneration with the reasons (never published, never dropped)', async () => {
+    const drillT = await createTestServices({ reasoner: (sink) => (reasoner = new FakeReasoner(() => ({ missions: [drill()] }), sink)) });
+    drillT.db.intents.set('greet_hello', crypto.randomUUID());
+    drillT.db.intents.set('request_item', crypto.randomUUID());
+    try {
+      const { result } = await runHandler(generateContentHandler, drillT, { targetTrack: 'spanish-spain', sourceLanguage: 'fr', intentKeys: ['greet_hello', 'request_item'], level: 'beginner' }, { job_type: 'content_generate' });
+      const out = result.output as { drafts: Array<{ missionId: string; diversity: DiversityMark }>; diversityGate: { needsRegeneration: Array<{ missionId: string; reasons: string[] }>; regeneration: { skipped: string | null; attempts: number } } };
+      expect(reasoner.calls).toHaveLength(1); // regeneration is opt-in (paid)
+      const [row] = [...drillT.db.tables.missions.values()];
+      expect(row!.state).toBe('review_needed');
+      const rubric = row!.scoring_rubric as unknown as { diversity: DiversityMark; reviewFlags: string[] };
+      expect(rubric.reviewFlags).toEqual([DIVERSITY_REVIEW_FLAG]);
+      expect(rubric.diversity.verdict).toBe('needs_regeneration');
+      expect(rubric.diversity.reasons).toEqual(expect.arrayContaining(['low_alternative_coverage:0', 'quiz_shaped_set:1']));
+      expect([...drillT.db.tables.expressions.values()].every((e) => e.state === 'review_needed' && (e.script_annotations as { reviewFlags: string[] }).reviewFlags.includes(DIVERSITY_REVIEW_FLAG))).toBe(true);
+      expect(out.diversityGate.needsRegeneration).toEqual([{ mission: 0, missionId: row!.id, reasons: rubric.diversity.reasons }]);
+      expect(out.diversityGate.regeneration).toMatchObject({ attempts: 0, skipped: 'not requested (regenerateOnLowDiversity is off)' });
+      const audit = [...drillT.db.tables.audit_logs.values()][0]!;
+      expect((audit.after as unknown as { diversity: DiversityMark }).diversity.verdict).toBe('needs_regeneration');
+    } finally {
+      await drillT.cleanup();
+    }
+  });
+
+  it('regenerates a low-diversity mission once with the gate reasons when asked, and keeps the retry only if it is better and rewritten', async () => {
+    let calls = 0;
+    const regenT = await createTestServices({ reasoner: (sink) => (reasoner = new FakeReasoner(() => ({ missions: [calls++ === 0 ? drill() : mission({ title: 'Pedir en la barra' })] }), sink)) });
+    regenT.db.intents.set('greet_hello', crypto.randomUUID());
+    regenT.db.intents.set('request_item', crypto.randomUUID());
+    try {
+      const { result } = await runHandler(generateContentHandler, regenT, { targetTrack: 'spanish-spain', sourceLanguage: 'fr', intentKeys: ['greet_hello', 'request_item'], level: 'beginner', regenerateOnLowDiversity: true }, { job_type: 'content_generate' });
+      expect(reasoner.calls).toHaveLength(2);
+      expect(reasoner.calls[1]!.prompt.user).toMatch(/failed the diversity gate: .*quiz_shaped_set/);
+      expect(JSON.parse(reasoner.calls[1]!.prompt.user.split('\n\n')[0]!)).toMatchObject({ missionCount: 1 });
+      const [row] = [...regenT.db.tables.missions.values()];
+      expect(row!.title_translations).toEqual({ fr: 'Pedir en la barra' });
+      expect(row!.scoring_rubric).toMatchObject({ reviewFlags: [], diversity: { verdict: 'diverse', regenerated: true } });
+      expect((result.output as { diversityGate: unknown }).diversityGate).toMatchObject({ regeneration: { requested: true, attempts: 1, kept: [0], skipped: null } });
+      // Both calls are in the job's ledger.
+      expect([...regenT.db.tables.ai_requests.values()]).toHaveLength(2);
+    } finally {
+      await regenT.cleanup();
+    }
+    // A retry that only relabels the same lines is never kept.
+    const relabelT = await createTestServices({ reasoner: (sink) => (reasoner = new FakeReasoner(() => ({ missions: [drill()] }), sink)) });
+    relabelT.db.intents.set('greet_hello', crypto.randomUUID());
+    relabelT.db.intents.set('request_item', crypto.randomUUID());
+    try {
+      const { result } = await runHandler(generateContentHandler, relabelT, { targetTrack: 'spanish-spain', sourceLanguage: 'fr', intentKeys: ['greet_hello', 'request_item'], level: 'beginner', regenerateOnLowDiversity: true }, { job_type: 'content_generate' });
+      expect(reasoner.calls).toHaveLength(2);
+      const [row] = [...relabelT.db.tables.missions.values()];
+      expect(row!.scoring_rubric).toMatchObject({ reviewFlags: [DIVERSITY_REVIEW_FLAG], diversity: { verdict: 'needs_regeneration', regenerated: false } });
+      expect((result.output as { diversityGate: unknown }).diversityGate).toMatchObject({ regeneration: { attempts: 1, kept: [] } });
+    } finally {
+      await relabelT.cleanup();
+    }
+  });
+
+  it('gates a batch: missions that repeat one dialogue are all marked with the batch reasons', async () => {
+    const batchT = await createTestServices({ reasoner: (sink) => (reasoner = new FakeReasoner(() => ({ missions: [mission(), mission()] }), sink)) });
+    batchT.db.intents.set('greet_hello', crypto.randomUUID());
+    batchT.db.intents.set('request_item', crypto.randomUUID());
+    try {
+      const { result } = await runHandler(generateContentHandler, batchT, { targetTrack: 'spanish-spain', sourceLanguage: 'fr', intentKeys: ['greet_hello', 'request_item'], level: 'beginner', count: 2 }, { job_type: 'content_generate' });
+      const out = result.output as { diversityGate: { batch: { verdict: string; reasons: string[] }; needsRegeneration: unknown[] } };
+      expect(out.diversityGate.batch.verdict).toBe('needs_regeneration');
+      expect(out.diversityGate.batch.reasons).toEqual(expect.arrayContaining(['repeated_dialogues:0.5', 'high_overlap_dialogues:1']));
+      expect(out.diversityGate.needsRegeneration).toHaveLength(2);
+      const rows = [...batchT.db.tables.missions.values()];
+      expect(rows).toHaveLength(2);
+      for (const row of rows) {
+        expect(row.state).toBe('review_needed');
+        expect(row.scoring_rubric).toMatchObject({ reviewFlags: [DIVERSITY_REVIEW_FLAG], diversity: { verdict: 'needs_regeneration', mission: { verdict: 'diverse' }, reasons: expect.arrayContaining(['batch:repeated_dialogues:0.5']) } });
+      }
+    } finally {
+      await batchT.cleanup();
+    }
   });
 
   it('dry run writes nothing; unknown intents fail fast; fully rejected output is retried', async () => {

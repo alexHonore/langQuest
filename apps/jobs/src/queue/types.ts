@@ -33,6 +33,7 @@ export const HANDLER_NAMES = [
   'regenerate_manifest',
   'render_cover',
   'cleanup_orphan_uploads',
+  'benchmark_model',
 ] as const;
 export type HandlerName = (typeof HANDLER_NAMES)[number];
 
@@ -40,7 +41,7 @@ export const isHandlerName = (v: unknown): v is HandlerName => typeof v === 'str
 
 /**
  * DB job type → handler, over the WHOLE domain (base + extension values). `null` = no handler in this runner
- * (benchmark / image generation live elsewhere). `queue.test.ts` asserts every domain value is listed here.
+ * (image generation has none yet). `queue.test.ts` asserts every domain value is listed here.
  */
 export const JOB_TYPE_HANDLERS: Readonly<Record<ProcessingJobTypeAll, HandlerName | null>> = {
   verify: 'inspect_asset',
@@ -55,7 +56,7 @@ export const JOB_TYPE_HANDLERS: Readonly<Record<ProcessingJobTypeAll, HandlerNam
   import_prefix: 'import_r2_prefix',
   import_manifest: 'import_manifest',
   content_generate: 'generate_content',
-  benchmark_model: null,
+  benchmark_model: 'benchmark_model',
   image_generate: null,
   // Extension values (migration 100): dedicated types for the former carrier handlers …
   translate_transcript: 'translate_transcript',
@@ -95,6 +96,7 @@ export const HANDLER_PRIMARY_JOB_TYPE: Readonly<Record<HandlerName, ProcessingJo
   regenerate_manifest: 'regenerate_manifest',
   render_cover: 'generate_cover',
   cleanup_orphan_uploads: 'cleanup_orphan_uploads',
+  benchmark_model: 'benchmark_model',
 };
 
 /** Handlers whose pre-migration rows ride on `LEGACY_CARRIER_JOB_TYPE` + `params.handler`. */

@@ -3,20 +3,19 @@
  * Transcript editor (§7.5): segment list with a time ruler (no waveform — none is fabricated),
  * play/seek through a signed playback URL, retime / split / merge, speaker + language labels,
  * side-by-side translations per instruction language, review state, SRT/VTT import/export.
- * Saving writes a NEW transcript revision through the local adapter route.
+ * Saving writes a NEW transcript revision through the LangQuest API (`adminTranscriptSave`).
  */
 import Link from 'next/link';
 import { useEffect, useMemo, useRef, useState } from 'react';
 import clsx from 'clsx';
 import { Download, Merge, Pause, Play, Scissors, SkipBack, Trash2, Upload } from 'lucide-react';
-import { LANGUAGES, TRANSLATION_QA_STATE_VALUES } from '@langquest/contracts';
+import { LANGUAGES, TRANSLATION_QA_STATE_VALUES, type TranscriptSaveRequest, type TranscriptSegmentInput } from '@langquest/contracts';
 import { activeSegmentAt, detectLanguageMix, mergeSegments, normalizeSegments, parseSubtitles, retimeSegment, splitSegment, toSrt, toVtt, transcriptCoveragePct, type Segment } from '@langquest/media';
-import { localCall } from '@/src/lib/local-api/client';
+import { browserLongApi } from '@/src/lib/api-browser';
 import { useI18n } from '@/src/lib/i18n/client';
 import { useAction } from '@/src/lib/use-action';
 import { formatTimecode } from '@/src/lib/format';
 import type { TranscriptBundle } from '@/src/lib/queries/transcripts';
-import type { TranscriptReplace, TranscriptSegmentInput } from '@/src/lib/local-api/schemas';
 import { usePlaybackUrl } from '@/src/components/asset-preview';
 import { useDeployment } from '@/src/lib/setup/context';
 import { Button, Checkbox, Field, Input, Notice, Select, TextField } from '@/src/components/ui';
@@ -39,7 +38,11 @@ function fromBundle(bundle: TranscriptBundle): { segments: Segment[]; translatio
   return { segments, translations };
 }
 
-export function TranscriptEditor({ bundle, canReview }: { bundle: TranscriptBundle; canReview: boolean }) {
+/**
+ * `canSetAccess`: content editors decide who can read a transcript (access rights) — the API refuses a reviewer's
+ * change, so reviewers see the current value as text and their revision keeps it.
+ */
+export function TranscriptEditor({ bundle, canReview, canSetAccess }: { bundle: TranscriptBundle; canReview: boolean; canSetAccess: boolean }) {
   const { t, locale } = useI18n();
   const initial = useMemo(() => fromBundle(bundle), [bundle]);
   const [segments, setSegments] = useState<Segment[]>(() => initial.segments.map((s) => ({ ...s, id: s.id ?? newId() })));
@@ -140,12 +143,12 @@ export function TranscriptEditor({ bundle, canReview }: { bundle: TranscriptBund
 
   const save = useAction(
     async () => {
-      const body: TranscriptReplace = {
+      const body: TranscriptSaveRequest = {
         primaryLanguageCode: primaryLanguage,
         languageMode: mix.mixed ? 'mixed' : primaryLanguage === bundle.lesson.instruction_language_code ? 'source' : 'target',
         status,
-        qaState: qaState as TranscriptReplace['qaState'],
-        accessRights: accessRights as TranscriptReplace['accessRights'],
+        qaState: qaState as TranscriptSaveRequest['qaState'],
+        accessRights: accessRights as TranscriptSaveRequest['accessRights'],
         durationMs: durationMs || null,
         segments: segments.map<TranscriptSegmentInput>((s, i) => ({
           sortIndex: i,
@@ -161,7 +164,8 @@ export function TranscriptEditor({ bundle, canReview }: { bundle: TranscriptBund
           translations: (translations[s.id!] ?? []).filter((tr) => tr.text.trim()).map((tr) => ({ languageCode: tr.languageCode as TranscriptSegmentInput['translations'][number]['languageCode'], text: tr.text, qaState: tr.qaState as TranscriptSegmentInput['translations'][number]['qaState'] })),
         })),
       };
-      const res = await localCall<{ transcriptId: string; revision: number }>(`/api/admin/transcripts/${bundle.lesson.id}`, { method: 'PUT', body });
+      // Long client: the API allows a large transcript save up to 55 s (see `browserLongApi`).
+      const res = await browserLongApi().call('adminTranscriptSave', { params: { lessonId: bundle.lesson.id }, body });
       setDirty(false);
       return res;
     },
@@ -304,13 +308,19 @@ export function TranscriptEditor({ bundle, canReview }: { bundle: TranscriptBund
           )}
         </Field>
         <Field label={t('admin.ui.trAccess')}>
-          {(id) => (
-            <Select id={id} value={accessRights} onChange={(e) => setAccessRights(e.target.value)}>
-              <option value="internal_only">internal_only</option>
-              <option value="learners">learners</option>
-              <option value="public">public</option>
-            </Select>
-          )}
+          {(id) =>
+            canSetAccess ? (
+              <Select id={id} value={accessRights} onChange={(e) => setAccessRights(e.target.value)}>
+                <option value="internal_only">internal_only</option>
+                <option value="learners">learners</option>
+                <option value="public">public</option>
+              </Select>
+            ) : (
+              <output id={id} className="inline-flex h-8 items-center font-mono text-xs">
+                {accessRights}
+              </output>
+            )
+          }
         </Field>
         <Field label={t('admin.ui.trTranslation', { language: '…' })}>
           {(id) => (

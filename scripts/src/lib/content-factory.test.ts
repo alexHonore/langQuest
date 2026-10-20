@@ -182,9 +182,13 @@ describe('generateFixtureSuite (fake reasoner)', () => {
     const dialogues = { dialogues: Array.from({ length: 3 }, (_, i) => ({ title: `D${i}`, context: 'c', twist: 't', turns: [{ speaker: 'character', targetText: 'سلام', forms: [{ script: 'Arab', transliterationScheme: null, text: 'سلام' }, { script: 'Latn', transliterationScheme: 'arabizi', text: 'salam' }], meaning: 'Salut' }] })), reviewerNotes: [] };
     const intents = { intents: [{ intentKey: 'thank', acceptablePhrasings: [{ targetText: 'شكرا', meaning: 'Merci', register: 'neutral' }], unacceptable: [{ targetText: 'x', reason: 'r' }] }, { intentKey: 'bogus', acceptablePhrasings: [], unacceptable: [] }], confusionTest: { contrastVarietyId: 'arb', pairs: [{ meaning: 'Comment ça va ?', thisVariety: 'لاباس؟', contrastVariety: 'كيف حالك؟', note: 'n' }] }, reviewerNotes: [] };
     const reasoner = fakeReasoner({ 'fixture.expressions': expressions, 'fixture.dialogues': dialogues, 'fixture.intents': intents }, records);
+    // Regeneration is opt-in (exercised in content-factory.quality.test.ts); by default the low-diversity set is only marked.
     const { suite, ledger, aborted } = await generateFixtureSuite(target, { reasoner, guard, records: () => records }, 'test');
     expect(aborted).toBeNull();
     expect(ledger.calls).toBe(3);
+    expect(suite!.diversityGate).toMatchObject({ verdict: 'needs_regeneration', regenerated: [], regenerationAttempts: 0, regenerationSkipped: 'not requested (regenerateOnLowDiversity is off)' });
+    expect(suite!.gaps).toEqual(expect.arrayContaining([expect.stringMatching(/^diversity gate: needs regeneration \(.*single_phrasing:thank/)]));
+    expect(suite!.status).toBe('review_needed');
     expect(suite).not.toBeNull();
     expect(suite!.counts).toEqual({ expressions: 20, dialogues: 3, intents: 1, confusionPairs: 1 });
     expect(suite!.expressions.filter((e) => !e.validation.accepted)).toHaveLength(5);

@@ -11,6 +11,7 @@ import { OpenRouterError, type OpenRouterClient, type TranscriptionResponse } fr
 import { resolveAttribution, type AiAttribution, type AiAttributionSource, type AiRequestSink } from '../reasoner';
 import { clamp, newId, nowIso } from '../util';
 import { resolveAudioBytes, type AudioAssetResolver } from './audio-input';
+import { SPEECH_GATE_MODEL, applySpeechScreening, detectSpeech, measureWavLevels, preflightSpeech, type ScreenedTranscriptResult, type SpeechScreening, type SpeechScreeningOptions } from './speech-detection';
 
 export interface OpenRouterSpeechRecognizerOptions {
   client: OpenRouterClient;
@@ -35,7 +36,14 @@ export interface OpenRouterSpeechRecognizerOptions {
 /** `'matrix'` = capability-matrix hint for the variety; `'auto'` = no hint (provider detection); else an ISO-639-1 code. */
 export type SttLanguageHint = 'matrix' | 'auto' | (string & {});
 
-export interface TranscribeOptions {
+/**
+ * Per-call options. Learner-facing callers (attempt grading, transcription of a learner take, voice turns) pass
+ * `screening: 'learner'`: the non-speech gate (`./speech-detection`) then blanks a take without speech (typed verdict in
+ * `result.speech`) and may answer a silent take without calling the provider. The default `annotate` keeps the legacy
+ * behaviour for content transcription (text blanked only when every segment has no_speech_prob > 0.8) and only attaches
+ * the verdict.
+ */
+export interface TranscribeOptions extends SpeechScreeningOptions {
   traceId?: string;
   enrollmentId?: string | null;
   /** See `OpenRouterSpeechRecognizerOptions.languageHint`; `'auto'` for mixed-language recordings. */
@@ -108,12 +116,20 @@ export class OpenRouterSpeechRecognizer implements SpeechRecognizer {
     return cap;
   }
 
-  async transcribe(audio: AudioInput, locale: string, options: TranscribeOptions = {}): Promise<TranscriptResult> {
+  async transcribe(audio: AudioInput, locale: string, options: TranscribeOptions = {}): Promise<ScreenedTranscriptResult> {
     const variety = resolveVariety(locale);
     const capability = await this.supports(locale);
     if (!variety || !capability.supported) throw new AiCapabilityError(`Speech recognition is not available for ${locale}`, capability, locale);
     const languageHint = effectiveLanguageHint(variety, options.languageHint ?? this.languageHint);
     const resolved = await resolveAudioBytes(audio, { assetResolver: this.assetResolver, fetch: this.fetchImpl });
+    const learner = options.screening === 'learner';
+    const clientSignals = options.clientSignals ?? null;
+    const audioLevels = resolved.format === 'wav' ? measureWavLevels(resolved.bytes) : null;
+    if (learner) {
+      // A take the recorder metering or the PCM level measure as silent is answered without a provider call (no cost).
+      const silent = preflightSpeech({ audioLevels, client: clientSignals });
+      if (silent) return silentTranscript(silent, providerLocaleFor(variety), this.provider, audioLevels?.durationMs ?? null);
+    }
     const traceId = options.traceId ?? newId();
     const models = this.modelsFor(variety);
     const attribution = resolveAttribution(this.attribution, { ...(options.attribution ?? {}), ...(options.enrollmentId !== undefined ? { enrollmentId: options.enrollmentId } : {}) });
@@ -123,8 +139,10 @@ export class OpenRouterSpeechRecognizer implements SpeechRecognizer {
       const startedAt = Date.now();
       try {
         const res = await this.transcribeWith(model, resolved.bytes, resolved.format, resolved.mimeType, languageHint, traceId);
-        await this.record({ model, traceId, attribution, languageHint, latencyMs: Date.now() - startedAt, res, success: true, errorCode: null });
-        return toTranscriptResult(res, variety, providerLocaleFor(variety), this.provider);
+        const speech = detectSpeech({ text: res.text, segments: res.segments, durationMs: res.durationSeconds !== null ? sec(res.durationSeconds) : null, detectedLanguage: res.language, expectedText: options.expectedText ?? null, audioLevels, client: clientSignals });
+        await this.record({ model, traceId, attribution, languageHint, latencyMs: Date.now() - startedAt, res, success: true, errorCode: null, speech });
+        const result = toTranscriptResult(res, variety, providerLocaleFor(variety), this.provider);
+        return learner ? applySpeechScreening(result, speech) : { ...result, speech };
       } catch (error) {
         lastError = error;
         const code = error instanceof OpenRouterError ? error.kind : 'unknown';
@@ -153,7 +171,7 @@ export class OpenRouterSpeechRecognizer implements SpeechRecognizer {
     }
   }
 
-  private async record(input: { model: string; traceId: string; attribution: Required<AiAttribution>; languageHint: string | null; latencyMs: number; res: TranscriptionResponse | null; success: boolean; errorCode: string | null }): Promise<void> {
+  private async record(input: { model: string; traceId: string; attribution: Required<AiAttribution>; languageHint: string | null; latencyMs: number; res: TranscriptionResponse | null; success: boolean; errorCode: string | null; speech?: SpeechScreening }): Promise<void> {
     if (!this.sink) return;
     await this.sink.record({
       occurredAt: nowIso(),
@@ -172,12 +190,20 @@ export class OpenRouterSpeechRecognizer implements SpeechRecognizer {
       success: input.success,
       errorCode: input.errorCode,
       traceId: input.traceId,
-      redactedLog: input.res ? { requestId: input.res.requestId, chars: input.res.text.length, language: input.res.language, languageHint: input.languageHint } : { languageHint: input.languageHint },
+      // The gate verdict, never the text: `speechDetected`, the reason and the matched phrase count only.
+      redactedLog: input.res
+        ? { requestId: input.res.requestId, chars: input.res.text.length, language: input.res.language, languageHint: input.languageHint, ...(input.speech ? { speechDetected: input.speech.speechDetected, noSpeechReason: input.speech.reason, matchedPhrases: input.speech.matchedPhrases.length, speechGate: input.speech.detectorVersion } : {}) }
+        : { languageHint: input.languageHint },
     });
   }
 }
 
 const sec = (s: number): number => Math.max(0, Math.round(s * 1000));
+
+/** Transcript for a take the gate answered before any provider call (silent by level): empty, with the verdict. */
+function silentTranscript(speech: SpeechScreening, requestedLocale: string, provider: string, durationMs: number | null): ScreenedTranscriptResult {
+  return { text: '', segments: [], confidence: null, detectedLanguage: null, requestedLocale, provider, model: SPEECH_GATE_MODEL, durationMs, languageMismatch: false, speech };
+}
 
 /** Map an OpenRouter transcription response onto the contract `TranscriptResult`. Exported for tests. */
 export function toTranscriptResult(res: TranscriptionResponse, variety: VarietyId, requestedLocale: string, provider: string): TranscriptResult {

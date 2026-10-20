@@ -3,13 +3,12 @@ import 'server-only';
  * Lightweight read queries used by server components. Every query runs through the signed-in
  * staff member's Supabase session, so RLS (`staff_select`, `admin_select`, …) decides what is
  * visible. Column lists are explicit (no `select('*')`) and results are plain data for the
- * client components. Mutations never live here — they go through the LangQuest API or the
- * local adapter routes.
+ * client components. Mutations never live here — they go through the LangQuest API (`/v1/admin/*`).
  */
-import type { SupabaseServer } from '@/src/lib/local-api/handler';
 import { createSupabaseServerClient } from '@/src/lib/supabase/server';
 
-export type Db = SupabaseServer;
+/** Request-scoped Supabase client acting as the signed-in staff member (anon key + their JWT, RLS applies). */
+export type Db = Awaited<ReturnType<typeof createSupabaseServerClient>>;
 
 export async function db(): Promise<Db> {
   return createSupabaseServerClient();

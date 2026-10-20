@@ -12,6 +12,7 @@
  *  - `planSession()`, `buildOfflinePack()` (`planner/`)
  *  - `evaluateMissionObjectives()`, `validateXpClaim()` (`rubric/`)
  *  - `DRAFT_CHAPTERS`, `buildAllPlannedSkeletons()`, `summariseCoverage()` (`content/`)
+ *  - `scoreDialogueDiversity()` — generated dialogue-set diversity gate (`diversity/`)
  */
 export * from './skills';
 export * from './intents';
@@ -21,3 +22,4 @@ export * from './mastery';
 export * from './planner';
 export * from './rubric';
 export * from './content';
+export * from './diversity';

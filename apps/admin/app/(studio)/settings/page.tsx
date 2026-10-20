@@ -17,7 +17,7 @@ export default async function SettingsPage() {
   const { t, locale } = await serverTranslator();
   const env = publicEnv();
   const setup = await loadSetupStatus();
-  const providers = setup.items.filter((i) => i.key === 'media' || i.key === 'ai' || i.key === 'speech' || i.key === 'adminProbe');
+  const providers = setup.items.filter((i) => i.key === 'media' || i.key === 'ai' || i.key === 'speech');
   return (
     <div className="space-y-4">
       <PageHeader title={t('admin.settings.title')} info={t('admin.settings.secretsNote')} />

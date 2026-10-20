@@ -28,14 +28,15 @@ refused at `/login?reason=norole`.
   (collections → chapters → lessons, full-permutation reorders, lesson-asset attach / detach),
   content rights (create / patch / revoke-in-one-transaction), visual assets (upload-initiate →
   register → assign / replace / unassign) and the AI asset-suggestion queue (decide / bulk-decide /
-  generate). Create / reorder / revoke calls carry an `Idempotency-Key`. A small set of writes the
-  contracts do not expose yet goes through local adapter routes under `app/api/admin/**`
-  (`src/lib/local-api/*`: coverage editorial status, transcript segments, role grants, revision
-  rollback, job retry, model probes, editorial approve / reject of drafts): they run under the
-  signed-in user's own Supabase session, so RLS stays the security boundary and the admin never
-  holds a service-role key.
+  generate), coverage editorial status, transcript revisions, editorial approve / reject of drafts,
+  revision rollback, job retry, role grants and the AI model test harness. Create / reorder / revoke
+  calls carry an `Idempotency-Key`. Every write is a `/v1/admin/*` call with the staff member's JWT;
+  the API checks the role server-side (`user_roles`) and audit-logs the mutation. The Studio has no
+  write route handlers of its own (only `app/api/auth/signout` and `app/api/locale`, which manage the
+  session and locale cookies) and holds no secret: no service-role key and no provider key.
 - **Reads** for lists use direct Supabase queries with explicit column lists
-  (`src/lib/queries/*`), gated by the `staff_select` / `admin_select` policies.
+  (`src/lib/queries/*`) under the signed-in staff member's own session (anon key + their JWT),
+  gated by the `staff_select` / `admin_select` policies.
 - **Visual assets** (`/visual-assets`, §10.2A): image-only multipart upload through the same
   engine bound to `adminVisualAssetUploadInitiate` (`src/lib/upload/use-image-upload.ts`), then
   `adminVisualAssetRegister` with type, per-language alt text (`en` required), focal point
@@ -58,8 +59,8 @@ refused at `/login?reason=norole`.
 ## Honest states ("visible means usable", CONVENTIONS §8)
 
 Nothing is simulated and nothing is greyed out. The studio layout observes the deployment once per
-request (`src/lib/setup/status.ts`: public `/healthz` + `/v1/courses`, the public env and the admin
-host's optional probe key — no new API route, no secret values) and hands the non-secret result to
+request (`src/lib/setup/status.ts`: public `/healthz` + `/v1/courses` and the public env — no new
+API route, no secret values) and hands the non-secret result to
 every page (`useDeployment()` / `useSetupStatus()` in `src/lib/setup/context.tsx`):
 
 - **Setup** (`/setup`, admins; first sidebar item while anything is unconfigured) is the one place
@@ -71,8 +72,9 @@ every page (`useDeployment()` / `useSetupStatus()` in `src/lib/setup/context.tsx
   Setup card without media storage; audio/image previews, the transcript play/seek buttons and
   visual-asset upload / replace do not exist without R2; "Generate" (content factory, AI
   suggestions), Benchmark, the Enable checkbox and smoke-tested saves do not exist without an AI
-  route on the API; the AI test harness exists only with a server-side `OPENROUTER_API_KEY` on the
-  admin host; rollback exists only for revisions with a snapshot; there is no job cancel button
+  route on the API, nor does the AI test harness (it runs on the API: `POST /v1/admin/models/test`);
+  the draft-profile save needs the API to be reachable; approve / reject show only for content in
+  review; rollback exists only for revisions with a snapshot; there is no job cancel button
   (no JWT-accessible cancel RPC).
 - Empty lists are never an empty table: `DataTable` renders the primary action (e.g. "New rights
   record") with a one-line hint instead.

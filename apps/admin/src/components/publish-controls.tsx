@@ -5,9 +5,8 @@
  * blocked, the checklist and `blockedBy` reasons are shown verbatim so the editor knows why.
  */
 import { useState } from 'react';
-import type { ContentPublishResponse, PublishChecklist } from '@langquest/contracts';
+import { ContentDecisionTableSchema, type ContentPublishResponse, type PublishChecklist } from '@langquest/contracts';
 import { browserApi } from '@/src/lib/api-browser';
-import { localCall } from '@/src/lib/local-api/client';
 import { useI18n } from '@/src/lib/i18n/client';
 import { useAction } from '@/src/lib/use-action';
 import { Button, Notice, Select, Input } from './ui';
@@ -45,7 +44,9 @@ export function PublishControls({ entityTable, entityId, state, revision, canDec
     { successMessage: (res) => `${t('admin.publish.state.unpublished')}${res.manifestInvalidated ? ` · ${t('admin.publish.manifestInvalidated')}` : ''}` },
   );
   const requestReview = useAction(async () => browserApi().call('adminContentRequestReview', { params: { id: entityId }, body: { note: note || undefined } }), { successMessage: t('admin.publish.state.review_needed') });
-  const decide = useAction(async (decision: 'approve' | 'reject') => localCall(`/api/admin/content/${entityId}/decision`, { method: 'POST', body: { entityTable, decision, note: note || undefined } }), { successMessage: t('admin.ui.saved') });
+  // Approve / reject exist for the content tables the decision route moves; other tables never show the controls.
+  const decisionTable = ContentDecisionTableSchema.safeParse(entityTable).data;
+  const decide = useAction(async (table: NonNullable<typeof decisionTable>, decision: 'approve' | 'reject') => browserApi().call('adminContentDecision', { params: { id: entityId }, body: { entityTable: table, decision, note: note || undefined } }), { successMessage: t('admin.ui.saved') });
 
   return (
     <div className="space-y-2 rounded-md border border-border p-3">
@@ -75,13 +76,14 @@ export function PublishControls({ entityTable, entityId, state, revision, canDec
             {t('admin.publish.requestReview')}
           </Button>
         ) : null}
-        {canDecide && (state === 'review_needed' || state === 'rejected') ? (
-          <Button loading={decide.busy} onClick={() => void decide.run('approve')}>
+        {/* rejected → approved is not a §7.6 transition (send it back to review first), so approve shows in review only. */}
+        {canDecide && decisionTable && state === 'review_needed' ? (
+          <Button loading={decide.busy} onClick={() => void decide.run(decisionTable, 'approve')}>
             {t('admin.review.approve')}
           </Button>
         ) : null}
-        {canDecide && state === 'review_needed' ? (
-          <Button variant="danger" loading={decide.busy} onClick={() => void decide.run('reject')}>
+        {canDecide && decisionTable && state === 'review_needed' ? (
+          <Button variant="danger" loading={decide.busy} onClick={() => void decide.run(decisionTable, 'reject')}>
             {t('admin.review.reject')}
           </Button>
         ) : null}

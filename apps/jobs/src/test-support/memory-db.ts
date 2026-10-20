@@ -5,7 +5,7 @@
 import type { CourseManifest } from '@langquest/contracts';
 import type { EnqueueJobInput, Insert, ManifestRef, PutManifestInput, Row, StoredManifestRow, Update } from '@langquest/db';
 import { audioManifestLanguage } from '@langquest/db';
-import type { JobsDb, LessonWithMedia, MediaAssetRow, ProcessingJobRow, SegmentRow, TranscriptRow, TranslationRow, UploadRow, WordAlignmentRow } from '../db';
+import { benchmarkNotesJobMarker, type JobsDb, type LessonWithMedia, type MediaAssetRow, type ProcessingJobRow, type SegmentRow, type TranscriptRow, type TranslationRow, type UploadRow, type WordAlignmentRow } from '../db';
 
 const now = () => new Date().toISOString();
 const uuid = () => crypto.randomUUID();
@@ -34,6 +34,8 @@ interface RowMap {
   visual_assets: Row<'visual_assets'>;
   audio_cover_art: Row<'audio_cover_art'>;
   ai_requests: Row<'ai_requests'>;
+  ai_model_profiles: Row<'ai_model_profiles'>;
+  ai_model_benchmarks: Row<'ai_model_benchmarks'>;
   speakers: Row<'speakers'>;
   course_manifests: Row<'course_manifests'>;
   audio_collection_manifests: Row<'audio_collection_manifests'>;
@@ -64,6 +66,8 @@ export class MemoryJobsDb implements JobsDb {
     visual_assets: new Map(),
     audio_cover_art: new Map(),
     ai_requests: new Map(),
+    ai_model_profiles: new Map(),
+    ai_model_benchmarks: new Map(),
     speakers: new Map(),
     course_manifests: new Map(),
     audio_collection_manifests: new Map(),
@@ -74,6 +78,36 @@ export class MemoryJobsDb implements JobsDb {
   /** `speech_recognition` model overrides per variety. */
   readonly sttProfiles = new Map<string, string[]>();
   courseManifest: CourseManifest | null = null;
+  /**
+   * `user_course_enrollments` ids the fake knows. `logAiRequest` enforces the `ai_requests.enrollment_id` foreign key
+   * against it (23503), so a ledger row naming a non-enrollment id fails here exactly as it does in Postgres.
+   */
+  readonly enrollments = new Set<string>();
+
+  seedModelProfile(partial: Partial<Row<'ai_model_profiles'>> = {}): Row<'ai_model_profiles'> {
+    const row: Row<'ai_model_profiles'> = {
+      id: uuid(),
+      task: 'character_dialogue',
+      target_variety_id: null,
+      source_language_code: null,
+      provider: 'openrouter',
+      primary_model: 'fake/model-a',
+      fallback_models: [],
+      params: {},
+      capabilities: {},
+      latency_class: 'interactive',
+      daily_budget_usd: null,
+      enabled: true,
+      version: 1,
+      benchmark_status: 'unbenchmarked',
+      updated_by: null,
+      created_at: now(),
+      updated_at: now(),
+      ...partial,
+    };
+    this.tables.ai_model_profiles.set(row.id, row);
+    return row;
+  }
 
   // --- seeding helpers ---------------------------------------------------------------------
   seedAsset(partial: Partial<MediaAssetRow> & Pick<MediaAssetRow, 'storage_key' | 'checksum_sha256' | 'mime_type' | 'byte_length'>): MediaAssetRow {
@@ -426,7 +460,37 @@ export class MemoryJobsDb implements JobsDb {
     return [];
   }
   async logAiRequest(row: Insert<'ai_requests'>) {
+    if (row.enrollment_id && !this.enrollments.has(row.enrollment_id)) {
+      throw Object.assign(new Error(`insert or update on table "ai_requests" violates foreign key constraint "ai_requests_enrollment_id_fkey" (enrollment_id ${row.enrollment_id})`), { code: '23503' });
+    }
+    if (row.profile_id && !this.tables.ai_model_profiles.has(row.profile_id)) {
+      throw Object.assign(new Error(`insert or update on table "ai_requests" violates foreign key constraint "ai_requests_profile_id_fkey" (profile_id ${row.profile_id})`), { code: '23503' });
+    }
     const full = { id: uuid(), user_id: null, enrollment_id: null, profile_id: null, fallback_index: 0, latency_ms: null, input_tokens: null, output_tokens: null, audio_seconds: null, estimated_cost_usd: null, error_code: null, redacted_log: null, created_at: now(), ...row } as Row<'ai_requests'>;
     this.tables.ai_requests.set(full.id, full);
+  }
+  async getModelProfile(id: string) {
+    return this.tables.ai_model_profiles.get(id) ?? null;
+  }
+  async setModelProfileBenchmarkStatus({ id, status, primaryModel, version }: { id: string; status: Row<'ai_model_profiles'>['benchmark_status']; primaryModel: string; version: number }) {
+    const row = this.tables.ai_model_profiles.get(id);
+    if (!row || row.primary_model !== primaryModel || row.version !== version) return false;
+    this.tables.ai_model_profiles.set(id, { ...row, benchmark_status: status, updated_at: now() });
+    return true;
+  }
+  async findModelBenchmarkForJob({ profileId, jobId }: { profileId: string; jobId: string }) {
+    const marker = benchmarkNotesJobMarker(jobId);
+    return [...this.tables.ai_model_benchmarks.values()].filter((b) => b.profile_id === profileId && (b.notes ?? '').includes(marker)).sort((a, b) => a.created_at.localeCompare(b.created_at))[0] ?? null;
+  }
+  async recordModelBenchmark(row: Insert<'ai_model_benchmarks'>) {
+    if (!this.tables.ai_model_profiles.has(row.profile_id)) throw Object.assign(new Error(`ai_model_benchmarks.profile_id ${row.profile_id} violates its foreign key`), { code: '23503' });
+    const full = { id: uuid(), target_variety_id: null, source_language_code: null, naturalness: null, intelligibility: null, dialect_adherence: null, false_correction_rate: null, wer: null, latency_p50_ms: null, latency_p95_ms: null, cost_per_call_usd: null, passed: false, reviewer_id: null, notes: null, created_at: now(), updated_at: now(), ...row } as Row<'ai_model_benchmarks'>;
+    this.tables.ai_model_benchmarks.set(full.id, full);
+    return full;
+  }
+  async sumAiSpendSince({ profileId, since }: { profileId: string; since: string }) {
+    let total = 0;
+    for (const r of this.tables.ai_requests.values()) if (r.profile_id === profileId && r.created_at >= since) total += Number(r.estimated_cost_usd ?? 0);
+    return total;
   }
 }

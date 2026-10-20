@@ -31,7 +31,11 @@ export default async function TranscriptPage({ params, searchParams }: { params:
           </>
         }
       />
-      <TranscriptEditor bundle={bundle.data} canReview={session.roles.some((r) => ['super_admin', 'admin', 'content_editor', 'language_reviewer'].includes(r))} />
+      <TranscriptEditor
+        bundle={bundle.data}
+        canReview={session.roles.some((r) => ['super_admin', 'admin', 'content_editor', 'language_reviewer'].includes(r))}
+        canSetAccess={session.roles.some((r) => ['super_admin', 'admin', 'content_editor'].includes(r))}
+      />
     </div>
   );
 }

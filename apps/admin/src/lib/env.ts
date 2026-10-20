@@ -1,7 +1,7 @@
 /**
- * Browser-safe environment for the admin app. Only `NEXT_PUBLIC_*` values live here;
- * server secrets (OPENROUTER_API_KEY, service-role keys, R2 keys) are read exclusively in
- * route handlers through `serverEnv()` and never reach a client bundle.
+ * Browser-safe environment for the admin app. Only `NEXT_PUBLIC_*` values live here. The Studio holds no
+ * server secret at all: provider keys (OpenRouter, Azure), service-role keys and R2 keys live on the
+ * LangQuest API, which the Studio reaches with the staff member's JWT (`/v1/admin/*`).
  */
 import { z } from 'zod';
 
@@ -39,9 +39,4 @@ export function hasPublicEnv(): boolean {
   } catch {
     return false;
   }
-}
-
-/** Server-only secrets; never import from a client component. */
-export function serverEnv(): { OPENROUTER_API_KEY: string | null } {
-  return { OPENROUTER_API_KEY: process.env.OPENROUTER_API_KEY?.trim() || null };
 }

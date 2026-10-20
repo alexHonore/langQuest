@@ -1,7 +1,7 @@
 'use client';
 import Link from 'next/link';
 import { useState } from 'react';
-import { localCall } from '@/src/lib/local-api/client';
+import { browserApi } from '@/src/lib/api-browser';
 import { useI18n } from '@/src/lib/i18n/client';
 import { useAction } from '@/src/lib/use-action';
 import { formatDateTime, formatUsd, shortId } from '@/src/lib/format';
@@ -45,7 +45,7 @@ export function JobsScreen({ rows, page, hasNext, states, types, canRetry }: { r
   const { t, locale } = useI18n();
   const { set } = useUrlFilters();
   const [detail, setDetail] = useState<JobRow | null>(null);
-  const retry = useAction(async (id: string) => localCall<{ jobId: string }>(`/api/admin/jobs/${id}/retry`, { method: 'POST', body: {} }), { successMessage: (r) => t('admin.ui.jbRetried', { jobId: r.jobId.slice(0, 8) }) });
+  const retry = useAction(async (id: string) => browserApi().call('adminProcessingJobRetry', { params: { id }, body: {} }), { successMessage: (r) => t('admin.ui.jbRetried', { jobId: r.jobId.slice(0, 8) }) });
 
   const columns: Column<JobRow>[] = [
     { key: 'id', header: t('admin.ui.id'), render: (j) => <button type="button" className="font-mono text-xs text-accent-text hover:underline" onClick={() => setDetail(j)}>{shortId(j.id)}</button> },

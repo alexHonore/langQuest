@@ -6,11 +6,18 @@
  * acoustic assessor produced it (the contracts schema enforces it), otherwise the learner gets reference
  * comparison + honest coarse feedback. Approved content only: synthesis accepts expression ids or text the
  * server itself generated for a character turn; pronunciation references must be published expressions.
+ *
+ * Non-speech gate (`@langquest/ai/speech/speech-detection`): learner takes are transcribed with `screening: 'learner'`.
+ * A take without speech (silence, ambient noise the recognizer turned into "اشتركوا في القناة" / "Sous-titres réalisés
+ * par la communauté d'Amara.org") is its own honest outcome: `no_speech_detected`, no meaning judgement (no LLM call),
+ * no observation, no skill or XP credit, no retained recording.
  */
 import type { AiServices } from '@langquest/ai';
 import { providerLocaleFor, capabilityFromStatus } from '@langquest/ai/capability/registry';
+import { MEANING_THRESHOLDS, type MeaningScoreResult } from '@langquest/ai/semantic/meaning';
+import { applySpeechScreening, noSpeechAssessment, speechDetectionOf, toSpeechDetection, type SpeechScreening } from '@langquest/ai/speech/speech-detection';
 import { base64ToBytes } from '@langquest/ai/util';
-import { AI_TASK_NAME_VALUES, ModelCapabilitiesQuerySchema, ModelCapabilitiesResponseSchema, PronunciationAssessRequestSchema, PronunciationAssessResponseSchema, SynthesizeRequestSchema, SynthesizeResponseSchema, TranscribeRequestSchema, TranscribeResponseSchema, getCourseTrack, isAcousticAssessmentMode, unsupportedCapability, type AiTaskName, type Capability, type SkillObservationInput, type SourceLanguageCode, type SpeechEvaluationResult, type SpeechRetention, type VarietyId } from '@langquest/contracts';
+import { AI_TASK_NAME_VALUES, ModelCapabilitiesQuerySchema, ModelCapabilitiesResponseSchema, PronunciationAssessRequestSchema, PronunciationAssessResponseSchema, SynthesizeRequestSchema, SynthesizeResponseSchema, TranscribeRequestSchema, TranscribeResponseSchema, getCourseTrack, isAcousticAssessmentMode, unsupportedCapability, type AiTaskName, type AudioInput, type Capability, type PronunciationAssessment, type SkillObservationInput, type SourceLanguageCode, type SpeechEvaluationResult, type SpeechRetention, type VarietyId } from '@langquest/contracts';
 import { sha256Hex as mediaSha256 } from '@langquest/media/hashing';
 import { buildMasterKey, extensionForMime } from '@langquest/media/keys';
 import { sha256Hex } from '@langquest/telemetry/privacy';
@@ -26,7 +33,8 @@ import { loadDbProfiles } from '../../services/ai';
 import { SPEECH_BODY_LIMIT_BYTES } from '../../middleware/security';
 import type { RequestServices } from '../../services/context';
 
-const PRONUNCIATION_SCORER_VERSION = 'speech-route@2026-10-14.1';
+/** Bumped 2026-10-20: non-speech gate before grading; a confident miss is no longer 'partially_understood'. */
+const PRONUNCIATION_SCORER_VERSION = 'speech-route@2026-10-20.1';
 
 /**
  * `GET /v1/ai/model-capabilities` query: the contract carries `trackId` / `regionalOption` plus `enrollmentId` /
@@ -86,12 +94,36 @@ async function isOwnCharacterText(s: RequestServices, userId: string, text: stri
   return ((res.data ?? []) as unknown as { conversation_sessions: { user_id: string } | null }[]).some((r) => r.conversation_sessions?.user_id === userId);
 }
 
-const intelligibilityOf = (matched: boolean, confidence: number, needsClarification: boolean, transcript: string | null): SpeechEvaluationResult['intelligibility'] => {
-  if (!transcript || transcript.trim() === '') return 'no_speech_detected';
-  if (matched) return 'understood';
-  if (needsClarification || confidence >= 0.3) return 'partially_understood';
+/**
+ * Learner audio arrives inline or as a stored recording (`asset`, which the asset resolver checks for ownership). A
+ * caller-supplied URL is refused: the Worker would fetch any host for the caller (internal addresses included) and
+ * forward up to 25 MB of whatever it returned to the paid STT provider.
+ */
+export function assertLearnerAudioSource(audio: AudioInput): void {
+  if (audio.source === 'url') throw problem.validation('audio.source "url" is not accepted; send the recording inline or as an uploaded asset (assetId)', { field: 'audio.source' });
+}
+
+/**
+ * Intelligibility of a take that contained speech. `meaning.confidence` is the judge's confidence in its OWN verdict
+ * (0.99 for "confidently NOT the expected meaning"), so it never makes a miss "partially understood": only partial
+ * lexical evidence (the deterministic score in the uncertain band) or a low-confidence recognition does. Takes without
+ * speech never reach this function (`no_speech_detected`).
+ */
+export const intelligibilityOf = (meaning: Pick<MeaningScoreResult, 'matched' | 'needsClarification' | 'deterministicScore'>): SpeechEvaluationResult['intelligibility'] => {
+  if (meaning.matched) return 'understood';
+  if (meaning.needsClarification || meaning.deterministicScore >= MEANING_THRESHOLDS.uncertainLow) return 'partially_understood';
   return 'not_understood';
 };
+
+/** §6.5 result for a take without speech: nothing heard, nothing judged, nothing credited (and nothing to advance on). */
+export function noSpeechEvaluation(input: { assessmentId: string; targetVarietyId: VarietyId; pronunciation: PronunciationAssessment }): SpeechEvaluationResult {
+  const pronunciation = input.pronunciation.assessmentMode === 'unavailable' && input.pronunciation.numericScore === null ? input.pronunciation : noSpeechAssessment(input.pronunciation.provider, input.pronunciation.scorerVersion);
+  return { assessmentId: input.assessmentId, targetVarietyId: input.targetVarietyId, semanticIntentMatched: false, meaningConfidence: 0, intelligibility: 'no_speech_detected', pronunciation, shouldAdvanceConversation: false, transcript: null, matchedIntentIds: [] };
+}
+
+/** Log line for a gated take: the reason and signals only, never the (discarded) text. */
+const logNoSpeech = (s: RequestServices, route: string, enrollmentId: string, speech: SpeechScreening): void =>
+  s.log.info('speech.no_speech_detected', { route, enrollmentId, reason: speech.reason, matchedPhrases: speech.matchedPhrases.length, signals: speech.signals, detector: speech.detectorVersion });
 
 /**
  * Most specific enabled profile for a text task: (variety × source) → (variety) → (source) → (global) when a source
@@ -106,6 +138,7 @@ function findTextProfile(ai: AiServices, task: AiTaskName, targetVariety: Variet
 export function registerSpeechRoutes(define: DefineRoute): void {
   define('speechTranscribe', { rate: 'ai', timeoutMs: AI_TIMEOUT_MS, bodyLimitBytes: SPEECH_BODY_LIMIT_BYTES, idempotent: false }, async (c) => {
     const body = await parseBody(c, TranscribeRequestSchema);
+    assertLearnerAudioSource(body.audio);
     const s = c.get('services')!;
     const { db, principal } = s.requireUser();
     const enrollment = await loadOwnedEnrollment(db, body.enrollmentId);
@@ -114,13 +147,18 @@ export function registerSpeechRoutes(define: DefineRoute): void {
     const locale = providerLocaleFor(body.targetVarietyId, enrollment.regional_preference);
     const pick = await ai.registry.recognizerFor(locale);
     if (!pick) throw problem.unsupported(`Speech recognition is not available for ${body.targetVarietyId} yet`, { capability: unsupportedCapability('openrouter', ['locale_unsupported']) });
-    const transcript = await ai.recognizer.transcribe(body.audio, locale, { traceId: s.requestId, enrollmentId: enrollment.id });
-    const recordingAssetId = body.audio.source === 'inline' ? await retainRecording(s, enrollment, body.audio, principal.userId) : null;
-    return respondOk(c, TranscribeResponseSchema.parse({ transcript, capability: pick.capability, recordingAssetId }));
+    const heard = await ai.recognizer.transcribe(body.audio, locale, { traceId: s.requestId, enrollmentId: enrollment.id, screening: 'learner', expectedText: body.expectedText ?? null, clientSignals: body.recording ?? null });
+    const speech = speechDetectionOf(heard, { expectedText: body.expectedText ?? null, client: body.recording ?? null });
+    const transcript = applySpeechScreening(heard, speech);
+    if (!speech.speechDetected) logNoSpeech(s, 'speechTranscribe', enrollment.id, speech);
+    // A take without speech is never kept, whatever the retention preference (nothing of the learner's to keep).
+    const recordingAssetId = speech.speechDetected && body.audio.source === 'inline' ? await retainRecording(s, enrollment, body.audio, principal.userId) : null;
+    return respondOk(c, TranscribeResponseSchema.parse({ transcript, capability: pick.capability, recordingAssetId, speech: toSpeechDetection(speech) }));
   });
 
   define('speechPronunciationAssess', { rate: 'ai', timeoutMs: AI_TIMEOUT_MS, bodyLimitBytes: SPEECH_BODY_LIMIT_BYTES, idempotent: false }, async (c) => {
     const body = await parseBody(c, PronunciationAssessRequestSchema);
+    assertLearnerAudioSource(body.audio);
     const s = c.get('services')!;
     const { db, principal } = s.requireUser();
     const enrollment = await loadOwnedEnrollment(db, body.enrollmentId);
@@ -129,11 +167,18 @@ export function registerSpeechRoutes(define: DefineRoute): void {
     const ai = await s.ai();
     const locale = providerLocaleFor(body.targetVarietyId, enrollment.regional_preference);
     const language = languageContextFor(enrollment, await loadUiLocale(db, principal.userId));
-    const result = await ai.assessor.assess({ audio: body.audio, targetVarietyId: body.targetVarietyId, locale, referenceText: reference.text, referencePhonemes: null, expressionId: reference.expressionId, requestedFeatures: body.requestedFeatures });
-    const transcriptText = result.transcript?.text ?? null;
-    const meaning = transcriptText && transcriptText.trim() ? await ai.meaning.score({ utterance: transcriptText, references: [{ text: reference.text, intentId: reference.expressionId ?? undefined }], language, utteranceConfidence: result.transcript?.confidence ?? null }) : { matched: false, confidence: 0, matchedIntentIds: [], method: 'deterministic' as const, deterministicScore: 0, paraphrase: false, reason: 'no_transcript', needsClarification: true };
-    const intelligibility = intelligibilityOf(meaning.matched, meaning.confidence, meaning.needsClarification, transcriptText);
+    const clientSignals = body.recording ?? null;
+    const result = await ai.assessor.assess({ audio: body.audio, targetVarietyId: body.targetVarietyId, locale, referenceText: reference.text, referencePhonemes: null, expressionId: reference.expressionId, requestedFeatures: body.requestedFeatures }, { clientSignals, traceId: s.requestId, enrollmentId: enrollment.id });
     const assessmentId = crypto.randomUUID();
+    // Gate before any judgement: the assessor's verdict, or one computed here for an acoustic assessor's transcript.
+    const speech = speechDetectionOf(result.transcript, { expectedText: reference.text, client: clientSignals });
+    if (!speech.speechDetected) {
+      logNoSpeech(s, 'speechPronunciationAssess', enrollment.id, speech);
+      return respondOk(c, PronunciationAssessResponseSchema.parse(noSpeechEvaluation({ assessmentId, targetVarietyId: body.targetVarietyId, pronunciation: result.pronunciation })));
+    }
+    const transcriptText = speech.text;
+    const meaning = await ai.meaning.score({ utterance: transcriptText, references: [{ text: reference.text, intentId: reference.expressionId ?? undefined }], language, utteranceConfidence: result.transcript?.confidence ?? null });
+    const intelligibility = intelligibilityOf(meaning);
     const evaluation = PronunciationAssessResponseSchema.parse({
       assessmentId,
       targetVarietyId: body.targetVarietyId,
@@ -141,7 +186,7 @@ export function registerSpeechRoutes(define: DefineRoute): void {
       meaningConfidence: meaning.confidence,
       intelligibility,
       pronunciation: result.pronunciation,
-      shouldAdvanceConversation: meaning.matched || (intelligibility === 'partially_understood' && meaning.confidence >= 0.5),
+      shouldAdvanceConversation: meaning.matched,
       transcript: transcriptText,
       matchedIntentIds: meaning.matchedIntentIds,
     });
