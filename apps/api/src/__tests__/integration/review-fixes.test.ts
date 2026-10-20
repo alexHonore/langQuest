@@ -6,13 +6,21 @@
  * - request-review answers a contract `ReviewStatus` and validates the variety BEFORE writing anything;
  * - model capabilities resolve profiles for the enrollment's source language (never a hard-coded `en`);
  * - conversation turn: an in-flight `clientTurnId` is replayed once the character row lands, otherwise `turn_in_progress`
- *   + `Retry-After` (never a second pipeline run), and the contract's inline clip is accepted by validation.
+ *   + `Retry-After` (never a second pipeline run), an abandoned one is processed once, and the contract's inline clip
+ *   is accepted by validation.
+ *
+ * No request leaves the process: the suite's AI is `fakeAiServices` with a scripted `FakeReasoner` (the turn tests
+ * used to run the real OpenRouter client against a fake key, which sent one refused request to openrouter.ai per run
+ * and left an `ai_requests` row with `error_code: auth`). Only the model-capabilities test wires the real adapters
+ * (profiles must resolve), and resolving capabilities sends nothing; the harness network guard fails any test that tries.
  */
+import { getPromptPack } from '@langquest/ai/prompts/packs';
+import { FakeReasoner } from '@langquest/ai/test-support/fakes';
 import { ContentRequestReviewResponseSchema, MissionDetailResponseSchema } from '@langquest/contracts';
 import { afterAll, beforeAll, expect, it } from 'vitest';
 import { MissionEvaluateApiResponseSchema } from '../../routes/learner/missions';
 import { TURN_RETRY_WAIT_MS } from '../../routes/speech/conversation';
-import { call, createStackUser, describeWithStack, stackApp, teardownStack, trackRow, type StackHarness, type TestUser } from '../harness';
+import { call, createStackUser, describeWithStack, fakeAiServices, stackApp, teardownStack, trackRow, type StackHarness, type TestUser } from '../harness';
 
 const describeStack = describeWithStack('api.review-fixes');
 
@@ -28,13 +36,16 @@ describeStack('review fixes against the local stack', () => {
   let missionId: string;
   let stepIds: string[];
   let characterId: string;
+  const reasoner = new FakeReasoner();
+  const reply = getPromptPack('ary').exemplars[0]!;
 
   const stepResult = (stepId: string) => ({ stepId, outcome: 'success', hintsUsed: 0, replays: 0, durationMs: 30_000, speechAssessmentIds: [], attemptedBeforeReveal: null, selectedIntentId: null, conversationSessionId: null });
   const templateKey = () => `api_fix_${crypto.randomUUID().replace(/-/g, '').slice(0, 12)}`;
 
   beforeAll(async () => {
-    // A syntactically valid but unusable key: adapters are wired (profiles resolve) while no provider is ever reached.
-    h = stackApp({ OPENROUTER_API_KEY: 'sk-or-v1-not-a-real-key-for-tests' });
+    // The key only switches the AI routes on; every model call goes to the scripted fake reasoner.
+    h = stackApp({ OPENROUTER_API_KEY: 'sk-or-test-not-used' }, { aiFactory: async () => fakeAiServices(reasoner) });
+    reasoner.on('character_dialogue', { text: reply.target, transliteration: reply.transliteration, sourceGloss: null, expression: 'greeting', respondsToCommand: null, tentativeObjectiveIds: [], endsConversation: false });
     [alice, admin] = await Promise.all([createStackUser(h, 'fix-alice', { defaultSourceLanguageCode: 'fr' }), createStackUser(h, 'fix-admin', { role: 'admin' })]);
     const enrol = await call(h.app, '/v1/me/enrollments', { token: alice.token, body: { courseTrackId: 'arabic-moroccan', sourceLanguageCode: 'fr', scriptMode: 'both' } });
     expect(enrol.status, JSON.stringify(enrol.json)).toBe(201);
@@ -106,7 +117,11 @@ describeStack('review fixes against the local stack', () => {
     const data = MissionEvaluateApiResponseSchema.parse(res.json.data);
     expect(data.evaluatorRan).toBe(false);
     expect(data.evaluation.confidence).toBeNull();
-    expect(data.evaluation.objectivesCompleted).toEqual(expect.arrayContaining(['g_localized', 'g_unlabelled']));
+    // No step has a target expression, so the server can grade none of them: all-success claims complete no objective
+    // and credit nothing (apps/api/src/lib/xp-credit.ts); the mission still completes for navigation.
+    expect(data.evaluation.objectivesCompleted).toEqual([]);
+    expect(data.credit.missionCredited).toBe(false);
+    expect(data.xpAwarded).toBe(0);
     const stored = await h.service.from('mission_attempts').select('evaluation').eq('id', attempt.json.data.attemptId).single();
     expect((stored.data?.evaluation as { evaluatorRan?: boolean; evaluator?: { confidence: unknown } }).evaluatorRan).toBe(false);
     expect((stored.data?.evaluation as { evaluator?: { confidence: unknown } }).evaluator?.confidence).toBeNull();
@@ -145,15 +160,22 @@ describeStack('review fixes against the local stack', () => {
   });
 
   it('model capabilities resolve text-task profiles for the enrollment source language, never a hard-coded en', async () => {
-    const res = await call(h.app, `/v1/ai/model-capabilities?trackId=arabic-moroccan&enrollmentId=${enrollmentId}`, { token: alice.token });
-    expect(res.status, JSON.stringify(res.json)).toBe(200);
-    const dialogue = res.json.data.tasks.find((t: { task: string }) => t.task === 'character_dialogue');
-    expect(dialogue.capability.notes.join(' ')).toContain('source language fr');
-    const scoped = await call(h.app, '/v1/ai/model-capabilities?trackId=arabic-moroccan', { token: alice.token });
-    const scopedDialogue = scoped.json.data.tasks.find((t: { task: string }) => t.task === 'character_dialogue');
-    expect(scopedDialogue.capability.notes.join(' ')).toContain('variety/global scope only');
-    const wrongTrack = await call(h.app, `/v1/ai/model-capabilities?trackId=japanese&enrollmentId=${enrollmentId}`, { token: alice.token });
-    expect(wrongTrack.status).toBe(422);
+    // Real adapter wiring (profiles resolve from ai_model_profiles + package defaults) behind a syntactically valid but
+    // unusable key. Resolving capabilities sends nothing; the network guard would fail this test if it did.
+    const wired = stackApp({ OPENROUTER_API_KEY: 'sk-or-v1-not-a-real-key-for-tests' });
+    try {
+      const res = await call(wired.app, `/v1/ai/model-capabilities?trackId=arabic-moroccan&enrollmentId=${enrollmentId}`, { token: alice.token });
+      expect(res.status, JSON.stringify(res.json)).toBe(200);
+      const dialogue = res.json.data.tasks.find((t: { task: string }) => t.task === 'character_dialogue');
+      expect(dialogue.capability.notes.join(' ')).toContain('source language fr');
+      const scoped = await call(wired.app, '/v1/ai/model-capabilities?trackId=arabic-moroccan', { token: alice.token });
+      const scopedDialogue = scoped.json.data.tasks.find((t: { task: string }) => t.task === 'character_dialogue');
+      expect(scopedDialogue.capability.notes.join(' ')).toContain('variety/global scope only');
+      const wrongTrack = await call(wired.app, `/v1/ai/model-capabilities?trackId=japanese&enrollmentId=${enrollmentId}`, { token: alice.token });
+      expect(wrongTrack.status).toBe(422);
+    } finally {
+      await teardownStack(wired); // flushes its background work; users and rows belong to `h`
+    }
   });
 
   async function seedSession(options: { learnerAgeMs: number }): Promise<{ sessionId: string; clientTurnId: string }> {
@@ -200,12 +222,17 @@ describeStack('review fixes against the local stack', () => {
     expect(rows.data).toHaveLength(2);
   }, TURN_RETRY_WAIT_MS + 30_000);
 
-  it('a learner row older than the in-flight window is treated as abandoned (the retry may process it)', async () => {
+  it('a learner row older than the in-flight window is treated as abandoned (the retry processes it once)', async () => {
     const { sessionId, clientTurnId } = await seedSession({ learnerAgeMs: 90_000 });
+    const before = reasoner.calls.filter((c) => c.task === 'character_dialogue').length;
     const res = await call(h.app, `/v1/ai/conversation/${sessionId}/turn`, { token: alice.token, body: turnBody(clientTurnId) });
-    // The pipeline is attempted (and fails against the unusable key); what matters is that it is NOT a 409.
-    expect(res.status).not.toBe(409);
-    expect(res.json.data?.replayed ?? false).toBe(false);
+    // Not a 409: the pipeline runs (against the scripted fake reasoner) and answers the existing learner row.
+    expect(res.status, JSON.stringify(res.json)).toBe(200);
+    expect(res.json.data.replayed).toBe(false);
+    expect(res.json.data.characterTurn.text).toBe(reply.target);
+    expect(reasoner.calls.filter((c) => c.task === 'character_dialogue').length).toBe(before + 1);
+    const rows = await h.service.from('conversation_turns').select('speaker').eq('session_id', sessionId).order('turn_index');
+    expect(rows.data?.map((r) => r.speaker)).toEqual(['character', 'learner', 'character']); // the learner row is reused, not duplicated
   });
 
   it('accepts the contract inline clip shape on a turn (no 422 from validation)', async () => {

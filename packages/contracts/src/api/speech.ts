@@ -21,7 +21,8 @@ import { PronunciationFeatureSchema } from '../ai/capability';
  * - `known_hallucination`: the transcript is only a known recognizer silence hallucination (YouTube outros,
  *   subtitle credits such as "Sous-titres réalisés par la communauté d'Amara.org", "ご視聴ありがとうございました");
  * - `non_speech_annotation`: only annotations such as "[Music]" / "♪";
- * - `repetition_loop`: a repetitive decoding loop with weak acoustic evidence.
+ * - `repetition_loop`: a repetitive decoding loop: the recognizer's own `compression_ratio` above Whisper's threshold (2.4)
+ *   on every segment, or a repetitive text with weak acoustic evidence.
  */
 export const NO_SPEECH_REASON_VALUES = ['empty_transcript', 'silent_audio', 'client_silence', 'no_speech_probability', 'known_hallucination', 'non_speech_annotation', 'repetition_loop'] as const;
 export const NoSpeechReasonSchema = z.enum(NO_SPEECH_REASON_VALUES);

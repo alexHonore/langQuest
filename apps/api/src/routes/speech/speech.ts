@@ -17,7 +17,7 @@ import { providerLocaleFor, capabilityFromStatus } from '@langquest/ai/capabilit
 import { MEANING_THRESHOLDS, type MeaningScoreResult } from '@langquest/ai/semantic/meaning';
 import { applySpeechScreening, noSpeechAssessment, speechDetectionOf, toSpeechDetection, type SpeechScreening } from '@langquest/ai/speech/speech-detection';
 import { base64ToBytes } from '@langquest/ai/util';
-import { AI_TASK_NAME_VALUES, ModelCapabilitiesQuerySchema, ModelCapabilitiesResponseSchema, PronunciationAssessRequestSchema, PronunciationAssessResponseSchema, SynthesizeRequestSchema, SynthesizeResponseSchema, TranscribeRequestSchema, TranscribeResponseSchema, getCourseTrack, isAcousticAssessmentMode, unsupportedCapability, type AiTaskName, type AudioInput, type Capability, type PronunciationAssessment, type SkillObservationInput, type SourceLanguageCode, type SpeechEvaluationResult, type SpeechRetention, type VarietyId } from '@langquest/contracts';
+import { AI_TASK_NAME_VALUES, ModelCapabilitiesQuerySchema, ModelCapabilitiesResponseSchema, PronunciationAssessRequestSchema, PronunciationAssessResponseSchema, SynthesizeRequestSchema, SynthesizeResponseSchema, TranscribeRequestSchema, TranscribeResponseSchema, getCourseTrack, isAcousticAssessmentMode, speechObservationOutcome, unsupportedCapability, type AiTaskName, type AudioInput, type Capability, type PronunciationAssessment, type SkillObservationInput, type SourceLanguageCode, type SpeechEvaluationResult, type SpeechRetention, type VarietyId } from '@langquest/contracts';
 import { sha256Hex as mediaSha256 } from '@langquest/media/hashing';
 import { buildMasterKey, extensionForMime } from '@langquest/media/keys';
 import { sha256Hex } from '@langquest/telemetry/privacy';
@@ -118,7 +118,7 @@ export const intelligibilityOf = (meaning: Pick<MeaningScoreResult, 'matched' | 
 /** §6.5 result for a take without speech: nothing heard, nothing judged, nothing credited (and nothing to advance on). */
 export function noSpeechEvaluation(input: { assessmentId: string; targetVarietyId: VarietyId; pronunciation: PronunciationAssessment }): SpeechEvaluationResult {
   const pronunciation = input.pronunciation.assessmentMode === 'unavailable' && input.pronunciation.numericScore === null ? input.pronunciation : noSpeechAssessment(input.pronunciation.provider, input.pronunciation.scorerVersion);
-  return { assessmentId: input.assessmentId, targetVarietyId: input.targetVarietyId, semanticIntentMatched: false, meaningConfidence: 0, intelligibility: 'no_speech_detected', pronunciation, shouldAdvanceConversation: false, transcript: null, matchedIntentIds: [] };
+  return { assessmentId: input.assessmentId, targetVarietyId: input.targetVarietyId, semanticIntentMatched: false, meaningConfidence: 0, intelligibility: 'no_speech_detected', pronunciation, shouldAdvanceConversation: false, transcript: null, matchedIntentIds: [], outcome: speechObservationOutcome({ intelligibility: 'no_speech_detected', semanticIntentMatched: false }) };
 }
 
 /** Log line for a gated take: the reason and signals only, never the (discarded) text. */
@@ -179,6 +179,8 @@ export function registerSpeechRoutes(define: DefineRoute): void {
     const transcriptText = speech.text;
     const meaning = await ai.meaning.score({ utterance: transcriptText, references: [{ text: reference.text, intentId: reference.expressionId ?? undefined }], language, utteranceConfidence: result.transcript?.confidence ?? null });
     const intelligibility = intelligibilityOf(meaning);
+    // The one outcome vocabulary (contracts `speechObservationOutcome`): recorded below AND returned to the client.
+    const outcome = speechObservationOutcome({ intelligibility, semanticIntentMatched: meaning.matched, needsClarification: meaning.needsClarification });
     const evaluation = PronunciationAssessResponseSchema.parse({
       assessmentId,
       targetVarietyId: body.targetVarietyId,
@@ -189,16 +191,24 @@ export function registerSpeechRoutes(define: DefineRoute): void {
       shouldAdvanceConversation: meaning.matched,
       transcript: transcriptText,
       matchedIntentIds: meaning.matchedIntentIds,
+      outcome,
     });
     // Evidence (A14): meaning and pronunciation are separate observations; pronunciation only counts with an acoustic scorer.
     const scenarioId = body.scenarioId ?? reference.expressionId ?? 'pronunciation';
     const observations: SkillObservationInput[] = [];
     const semanticSkill = 'speaking.intelligibility';
-    observations.push({ enrollmentId: enrollment.id, skillKey: semanticSkill, observationType: 'semantic_success', scenarioId, missionId: null, missionAttemptId: null, conversationSessionId: null, expressionId: reference.expressionId, autonomy: 'unaided', hintsUsed: 0, outcome: meaning.needsClarification ? 'unclear' : meaning.matched ? 'success' : 'fail', utteranceConfidence: result.transcript?.confidence ?? null, scorerKind: meaning.method === 'deterministic' ? 'deterministic' : 'llm_evaluator', scorerVersion: PRONUNCIATION_SCORER_VERSION, uncertainty: meaning.needsClarification ? 0.9 : 1 - meaning.confidence, observedAt: new Date().toISOString(), note: null });
+    observations.push({ enrollmentId: enrollment.id, skillKey: semanticSkill, observationType: 'semantic_success', scenarioId, missionId: null, missionAttemptId: null, conversationSessionId: null, expressionId: reference.expressionId, autonomy: 'unaided', hintsUsed: 0, outcome, utteranceConfidence: result.transcript?.confidence ?? null, scorerKind: meaning.method === 'deterministic' ? 'deterministic' : 'llm_evaluator', scorerVersion: PRONUNCIATION_SCORER_VERSION, uncertainty: meaning.needsClarification ? 0.9 : 1 - meaning.confidence, observedAt: new Date().toISOString(), note: null });
     if (isAcousticAssessmentMode(result.pronunciation.assessmentMode) && result.pronunciation.numericScore !== null) {
       observations.push({ enrollmentId: enrollment.id, skillKey: 'speaking.pronunciation', observationType: 'pronunciation', scenarioId, missionId: null, missionAttemptId: null, conversationSessionId: null, expressionId: reference.expressionId, autonomy: 'unaided', hintsUsed: 0, outcome: result.pronunciation.numericScore >= 70 ? 'success' : result.pronunciation.numericScore >= 45 ? 'partial' : 'fail', utteranceConfidence: result.transcript?.confidence ?? null, scorerKind: 'acoustic_assessor', scorerVersion: result.pronunciation.scorerVersion ?? result.pronunciation.provider ?? 'acoustic', uncertainty: 0.3, observedAt: new Date().toISOString(), note: null });
     }
-    s.waitUntil(recordObservations(s, enrollment, observations, new Date().toISOString()).then(() => undefined));
+    // The grading row is the evidence mission credit reads (`lib/xp-credit.ts`), so it is written before answering:
+    // a mission evaluate sent right after the last take must see that take. A failed write never fails the take itself;
+    // it only means the take earns no credit, which is logged.
+    try {
+      await recordObservations(s, enrollment, observations, new Date().toISOString());
+    } catch (error) {
+      s.log.warn('speech.grading_row_failed', { route: 'speechPronunciationAssess', enrollmentId: enrollment.id, assessmentId, error: error instanceof Error ? error.message : String(error) });
+    }
     return respondOk(c, evaluation);
   });
 

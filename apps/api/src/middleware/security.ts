@@ -16,7 +16,8 @@ import type { AppEnv } from '../types';
 
 const ALLOWED_METHODS = 'GET,POST,PUT,PATCH,DELETE,OPTIONS';
 const ALLOWED_HEADERS = 'Authorization,Content-Type,Idempotency-Key,X-Request-Id,X-Client-Platform,X-Client-Version,Range';
-const EXPOSED_HEADERS = 'X-Request-Id,ETag,Content-Range,Accept-Ranges,Retry-After,X-RateLimit-Remaining,X-Idempotent-Replay';
+/** `X-LangQuest-Analytics-Truncated`: the analytics panels name the reads cut at their page bound (`routes/admin/analytics.ts`), so the Studio in the browser can read it. */
+const EXPOSED_HEADERS = 'X-Request-Id,ETag,Content-Range,Accept-Ranges,Retry-After,X-RateLimit-Remaining,X-Idempotent-Replay,X-LangQuest-Analytics-Truncated';
 
 export function corsAllowlist(): MiddlewareHandler<AppEnv> {
   return async (c, next) => {

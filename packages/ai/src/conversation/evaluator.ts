@@ -3,7 +3,7 @@
  * Caps priority corrections at two, attaches provenance ids, and converts to `SkillObservationInput`s.
  */
 import { EvaluatorOutputSchema, type ConversationContext, type EvaluatorOutput, type SkillObservationInput, type TextReasoner } from '@langquest/contracts';
-import { EvaluatorLlmSchema, buildEvaluatorPrompt, type TurnRecord } from '../prompts/builders';
+import { EvaluatorLlmSchema, PROMPT_VERSIONS, buildEvaluatorPrompt, type TurnRecord } from '../prompts/builders';
 import { redactPii } from '../util';
 
 export interface EvaluateInput {
@@ -21,7 +21,8 @@ export interface EvaluatorOptions {
   scorerVersion?: string;
 }
 
-export const EVALUATOR_SCORER_VERSION = 'evaluator@2026-10-14.1/openrouter';
+/** Follows the evaluator prompt version, so a stored observation names the prompt that produced it. */
+export const EVALUATOR_SCORER_VERSION = `evaluator@${PROMPT_VERSIONS.evaluator}/openrouter`;
 
 /** Normalise a free-form key into the contract `KeySchema` format. */
 export const toSkillKey = (raw: string): string | null => {

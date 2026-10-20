@@ -17,7 +17,7 @@ import { afterAll, beforeAll, expect, it } from 'vitest';
 import { createServiceClient, type DbClient } from '../client';
 import { DbError } from '../errors';
 import { createRepositories } from '../repositories';
-import { createTestUser, deleteTestUsers, describeWithStack, stackEnv, type TestUser } from './stack';
+import { createTestUser, deleteTestUsers, deleteTrackedRows, describeWithStack, stackEnv, trackRow, type TestUser, type TrackedRow } from './stack';
 
 const describeStack = describeWithStack('app-gaps.test');
 const SHA = 'b'.repeat(64);
@@ -30,6 +30,8 @@ describeStack('migration 100: account lifecycle, blobs, manifests, suggestions (
   let other: TestUser;
   let editor: TestUser;
   const createdUserIds: string[] = [];
+  /** Service-role rows (assets, jobs, feedback); deleted BEFORE the users so no owner purge stamps a provenance event on them. */
+  const rows: TrackedRow[] = [];
   let characterId: string;
   let collectionId: string;
   let assetId: string;
@@ -60,7 +62,7 @@ describeStack('migration 100: account lifecycle, blobs, manifests, suggestions (
     if (collection.error) throw collection.error;
     collectionId = collection.data.id;
 
-    assetId = randomUUID();
+    assetId = trackRow(rows, 'media_assets', randomUUID());
     const asset = await service.from('media_assets').insert({
       id: assetId,
       storage_key: masterKey(assetId),
@@ -76,11 +78,13 @@ describeStack('migration 100: account lifecycle, blobs, manifests, suggestions (
     if (asset.error) throw asset.error;
   });
 
+  // Tracked rows first (the editor owns the shared asset: purging it first would append a provenance event that blocks
+  // the delete for good), then the users (their sessions RESTRICT the character), then the content they referenced.
   afterAll(async () => {
-    await service.from('media_assets').delete().eq('checksum_sha256', SHA);
-    await service.from('audio_course_collections').delete().eq('id', collectionId);
-    await service.from('characters').delete().eq('id', characterId);
+    await deleteTrackedRows(service, rows);
     await deleteTestUsers(service, createdUserIds);
+    if (collectionId) await service.from('audio_course_collections').delete().eq('id', collectionId);
+    if (characterId) await service.from('characters').delete().eq('id', characterId);
   });
 
   // -------------------------------------------------------------------------
@@ -93,6 +97,8 @@ describeStack('migration 100: account lifecycle, blobs, manifests, suggestions (
     if (enrollment.error) throw enrollment.error;
     const enrollmentId = enrollment.data.id;
     const sessionId = randomUUID();
+    const feedbackId = trackRow(rows, 'feedback_reports', randomUUID());
+    // The ai_requests / audit_logs rows are attributed to the victim and stay (append-only), anonymised by delete_account.
     const seeds = await Promise.all([
       service.from('xp_ledger').insert({ user_id: victim.id, enrollment_id: enrollmentId, amount: 5, reason: 'mission_completed', idempotency_key: randomUUID() }),
       service.from('device_sync_events').insert({ user_id: victim.id, device_id: 'd1', client_event_id: randomUUID(), payload_type: 'activity_minutes', client_occurred_at: new Date().toISOString(), resolution: 'applied' }),
@@ -101,7 +107,7 @@ describeStack('migration 100: account lifecycle, blobs, manifests, suggestions (
       service.from('conversation_sessions').insert({ id: sessionId, user_id: victim.id, enrollment_id: enrollmentId, character_id: characterId, target_variety_id: 'fr', source_language_code: 'en' }),
       service.from('ai_requests').insert({ user_id: victim.id, enrollment_id: enrollmentId, task: 'character_dialogue', provider: 'openrouter', model: 'test', success: true, trace_id: `trace-${victim.id}` }),
       service.from('audit_logs').insert({ actor_id: victim.id, action: 'gaps.test', ip_hash: 'abc' }),
-      service.from('feedback_reports').insert({ user_id: victim.id, enrollment_id: enrollmentId, category: 'bug', message: `gaps-${victim.id}` }),
+      service.from('feedback_reports').insert({ id: feedbackId, user_id: victim.id, enrollment_id: enrollmentId, category: 'bug', message: `gaps-${victim.id}` }),
     ]);
     for (const s of seeds) if (s.error) throw s.error;
     const turn = await service.from('conversation_turns').insert({ session_id: sessionId, turn_index: 0, speaker: 'learner', text: null });
@@ -154,13 +160,14 @@ describeStack('migration 100: account lifecycle, blobs, manifests, suggestions (
     expect(again.counts.xp_ledger).toBe(0);
     const deleted = await service.auth.admin.deleteUser(victim.id);
     expect(deleted.error).toBeNull();
-    await service.from('media_assets').delete().eq('id', recordingId);
+    // The recording row stays by design (one per run): delete_account appended its `removed` provenance event, which is
+    // append-only, and the asset's ON DELETE CASCADE onto it is refused. It is de-owned, private and disposition=deleted.
   });
 
   it('delete_account keeps recordings (owner cleared) when the learner did not opt in to deleting them', async () => {
     const victim = await createTestUser(service, 'gaps-keep');
     createdUserIds.push(victim.id);
-    const recordingId = randomUUID();
+    const recordingId = trackRow(rows, 'media_assets', randomUUID());
     const recording = await service.from('media_assets').insert({ id: recordingId, storage_key: masterKey(recordingId), bucket: 'media', owner_id: victim.id, kind: 'audio', checksum_sha256: SHA, mime_type: 'audio/mpeg', byte_length: 3 });
     if (recording.error) throw recording.error;
     const summary = await svc.accountLifecycle.deleteAccount(victim.id, { deleteOptInRecordings: false });
@@ -238,6 +245,7 @@ describeStack('migration 100: account lifecycle, blobs, manifests, suggestions (
   // -------------------------------------------------------------------------
   it('several logical media_assets rows may point at the same blob (storage_key no longer unique)', async () => {
     const twin = await svc.rights.insertAsset({ storage_key: masterKey(assetId), bucket: 'media', kind: 'audio', checksum_sha256: SHA, mime_type: 'audio/mpeg', byte_length: 10, visibility: 'authenticated', state: 'published' });
+    trackRow(rows, 'media_assets', twin.id);
     expect(twin.id).not.toBe(assetId);
     const byKey = await svc.rights.listAssetsStaffByStorageKey(masterKey(assetId));
     expect(byKey.map((a) => a.id)).toEqual([assetId, twin.id]);
@@ -328,6 +336,7 @@ describeStack('migration 100: account lifecycle, blobs, manifests, suggestions (
     const types = ['translate_transcript', 'regenerate_manifest', 'cleanup_orphan_uploads', 'render_cover', 'infer_metadata', 'generate_content', 'import_r2_prefix'] as const;
     for (const jobType of types) {
       const job = await svc.processingJobs.enqueue({ jobType, idempotencyKey: `gaps:${jobType}:${randomUUID()}`, params: { handler: jobType } });
+      trackRow(rows, 'processing_jobs', job.id);
       expect(job.job_type).toBe(jobType);
       await service.from('processing_jobs').delete().eq('id', job.id);
     }
@@ -339,9 +348,11 @@ describeStack('migration 100: account lifecycle, blobs, manifests, suggestions (
     expect(coverage?.course_track_id).toBe('french');
     expect(await createRepositories(learner.client).catalog.getCoverageStaff('french', 'en')).toBeNull();
     const prefix = `imports/${randomUUID()}/`;
-    await svc.auditLog.record({ action: 'import_r2_prefix.object', after: { key: `${prefix}a.mp3` } });
-    await svc.auditLog.record({ action: 'import_r2_prefix.object', after: { key: `${prefix}b_c.mp3` } });
-    await svc.auditLog.record({ action: 'import_r2_prefix.object', after: { key: `elsewhere/${randomUUID()}.mp3` } });
+    // audit_logs is append-only: attribute the rows to a purged test account (anonymised at teardown) rather than to nobody.
+    const actor_id = editor.id;
+    await svc.auditLog.record({ actor_id, action: 'import_r2_prefix.object', after: { key: `${prefix}a.mp3` } });
+    await svc.auditLog.record({ actor_id, action: 'import_r2_prefix.object', after: { key: `${prefix}b_c.mp3` } });
+    await svc.auditLog.record({ actor_id, action: 'import_r2_prefix.object', after: { key: `elsewhere/${randomUUID()}.mp3` } });
     const keys = await svc.auditLog.listAfterValuesByPrefix('import_r2_prefix.object', 'key', prefix);
     expect(keys.sort()).toEqual([`${prefix}a.mp3`, `${prefix}b_c.mp3`]);
   });

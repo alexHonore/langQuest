@@ -155,6 +155,13 @@ export interface TranscriptionSegment {
   /** Whisper-style average log-probability when provided. */
   avgLogprob: number | null;
   noSpeechProb: number | null;
+  /**
+   * Whisper's `compression_ratio` (gzip ratio of the segment text): above 2.4 the decode is "too repetitive" by
+   * Whisper's own rule (a hallucination loop). Passed through to the non-speech gate; null when not provided.
+   */
+  compressionRatio: number | null;
+  /** Whisper's decoding `temperature` for the segment (above 0 = the decoder fell back after a failed decode). */
+  temperature: number | null;
 }
 
 export interface TranscriptionWord {
@@ -428,7 +435,7 @@ export class OpenRouterClient {
       language?: string;
       duration?: number;
       confidence?: number;
-      segments?: Array<{ id?: number; start?: number; end?: number; text?: string; speaker?: number; avg_logprob?: number; no_speech_prob?: number }>;
+      segments?: Array<{ id?: number; start?: number; end?: number; text?: string; speaker?: number; avg_logprob?: number; no_speech_prob?: number; compression_ratio?: number; temperature?: number }>;
       words?: Array<{ word?: string; start?: number; end?: number; speaker?: number; confidence?: number }>;
       usage?: { seconds?: number; cost?: number; input_tokens?: number; output_tokens?: number; total_tokens?: number };
       error?: { message?: string; code?: number };
@@ -453,6 +460,8 @@ export class OpenRouterClient {
         speaker: typeof s.speaker === 'number' ? s.speaker : null,
         avgLogprob: typeof s.avg_logprob === 'number' ? s.avg_logprob : null,
         noSpeechProb: typeof s.no_speech_prob === 'number' ? s.no_speech_prob : null,
+        compressionRatio: finiteOrNull(s.compression_ratio),
+        temperature: finiteOrNull(s.temperature),
       })),
       words: (data.words ?? []).map((w) => ({
         word: (w.word ?? '').trim(),
@@ -652,6 +661,9 @@ const numOrNull = (v: string | number | undefined | null): number | null => {
   const n = Number(v);
   return Number.isFinite(n) ? n : null;
 };
+
+/** A provider number field, or null when absent / not a finite number. */
+const finiteOrNull = (v: unknown): number | null => (typeof v === 'number' && Number.isFinite(v) ? v : null);
 
 export const mimeForFormat = (format: string): string => {
   switch (format.toLowerCase()) {

@@ -13,7 +13,7 @@ import { LanguageGuard, MemoryQualityIncidentSink } from '@langquest/ai/prompts/
 import { getPromptPack } from '@langquest/ai/prompts/packs';
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import { INJECTED_EVALUATOR_RAW, INJECTION_FIXTURES } from '../src/fixtures/prompt-injection';
-import { call, createApiHarness, createTestUser, describeWithStack, enrol, Seeder, teardown, type ApiHarness, type TestUser } from '../src/harness';
+import { call, createApiHarness, createTestUser, describeWithStack, enrol, recordEvaluatorObservations, Seeder, teardown, type ApiHarness, type TestUser } from '../src/harness';
 
 const CHARACTER_ID = '11111111-1111-4111-8111-111111111111';
 
@@ -185,6 +185,12 @@ describeStack('prompt injection — API keeps XP/mastery server-decided whatever
     const evaluator = new Evaluator({ reasoner: scriptedReasoner([INJECTED_EVALUATOR_RAW]) });
     const injected = await evaluator.evaluate({ context: darijaFromFrenchContext(enrollmentId), transcriptWindow: INJECTION_FIXTURES.map((f) => ({ role: 'learner' as const, text: f.text })), conversationSessionId: crypto.randomUUID() });
     injectedSessionId = (await seeder.conversationSession({ userId: learner.id, enrollmentId, characterId: character.id, varietyId: 'ary', sourceLanguageCode: 'fr', missionId, rubricOutcomes: injected })).id;
+    // The evaluator's own rows for this session, as `evaluateSession` records them (it judged the order a success). The
+    // session's stored output is the injected one, which a learner can also rewrite through PostgREST: the server
+    // credits the conversation step and its objectives only as far as these rows back them (apps/api/src/lib/xp-credit.ts).
+    const honest = new Evaluator({ reasoner: scriptedReasoner([{ objectivesCompleted: ['g1'], skillsExercised: ['order.drink'], observations: [{ skillKey: 'order.drink', observationType: 'spoken_production', autonomy: 'unaided', hintsUsed: 0, outcome: 'success', uncertainty: 0.2, note: null }], priorityCorrections: [], summary: 'Ordered a mint tea.', reviewTriggers: [], relationshipMemoryUpdate: null, confidence: 0.7 }]) });
+    const honestOutput = await honest.evaluate({ context: { ...darijaFromFrenchContext(enrollmentId), missionId }, transcriptWindow: [{ role: 'learner', text: 'bghit atay 3afak', confidence: 0.9 }], conversationSessionId: injectedSessionId });
+    await recordEvaluatorObservations(h.service, learner.id, honest.toSkillObservations(honestOutput, enrollmentId));
   });
 
   // Users first (their owned rows and ledgers go with them), then the seeded content rows in reverse insertion order.

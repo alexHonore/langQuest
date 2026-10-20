@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { OBSERVATION_TYPE_VALUES } from '@langquest/contracts';
 import { conversationContext, persona } from '../test-support/fakes';
-import { EvaluatorLlmSchema, buildCharacterPrompt, buildEvaluatorPrompt, buildExplanationPrompt, regionalInstruction } from './builders';
+import { EvaluatorLlmSchema, PROMPT_VERSIONS, buildCharacterPrompt, buildEvaluatorPrompt, buildExplanationPrompt, evaluatorSkillCatalogLines, regionalInstruction } from './builders';
 
 const withRegion = (ctx: ReturnType<typeof conversationContext>, regionalPreference: string | null) => ({ ...ctx, language: { ...ctx.language, ...(regionalPreference ? { regionalPreference } : {}) } });
 
@@ -53,5 +53,36 @@ describe('EvaluatorLlmSchema', () => {
   it('derives its enums from the contracts and excludes only the acoustic observation type', () => {
     for (const t of OBSERVATION_TYPE_VALUES) expect(EvaluatorLlmSchema.safeParse(output(t)).success).toBe(t !== 'pronunciation');
     expect(EvaluatorLlmSchema.safeParse(output('made_up')).success).toBe(false);
+  });
+});
+
+describe('evaluator prompt — skill keys come from the registry only (HANDOFF §9 item 6)', () => {
+  // The objectives carry one registry key and one key the evaluator once invented (seen in the local DB).
+  const context = { ...conversationContext('french', 'en'), objectives: [{ id: 'g1', description: 'Greet the barista', skillKeys: ['greet_politely', 'greetings.basic'], completed: false }] };
+  const catalog = ['ask_name', 'greet_politely', 'general.participation', 'ask_name'];
+  const window = [{ role: 'learner' as const, text: 'Bonjour madame' }];
+
+  it('lists the catalog as the complete set of valid keys, mission skills first, and forbids inventing one', () => {
+    const prompt = buildEvaluatorPrompt({ context, transcriptWindow: window, skillCatalog: catalog });
+    expect(prompt.user).toContain('Skill catalog (the only valid skillKey values, copy them exactly):\nMission skills: greet_politely\nOther skills: ask_name, general.participation');
+    expect(prompt.system).toContain('must be copied EXACTLY from the skill catalog');
+    expect(prompt.system).toContain('Never invent, rename, translate or reformat a key');
+    expect(prompt.system).toContain('leave that observation out');
+    // The old wording invited invention and showed made-up example keys.
+    expect(prompt.system).not.toMatch(/invent only when nothing fits/);
+    expect(`${prompt.system}\n${prompt.user}`).not.toContain('greetings.basic');
+    expect(`${prompt.system}\n${prompt.user}`).not.toContain('ordering.cafe');
+    expect(prompt.templateVersion).toBe(PROMPT_VERSIONS.evaluator);
+    expect(PROMPT_VERSIONS.evaluator).toBe('2026-10-20.1');
+    // The catalog lines can never be read as a transcript speaker line.
+    expect(prompt.user.split('\n').some((l) => /^(LEARNER|CHARACTER|SYSTEM)\b/.test(l) && !l.startsWith('LEARNER: Bonjour madame'))).toBe(false);
+  });
+
+  it('without a catalog the evaluator is told to credit nothing rather than invent keys', () => {
+    const prompt = buildEvaluatorPrompt({ context, transcriptWindow: window });
+    expect(prompt.system).toContain('No skill catalog was provided: return empty "skillsExercised", "observations" and "reviewTriggers"');
+    expect(prompt.user).not.toContain('Skill catalog');
+    expect(evaluatorSkillCatalogLines(context, [])).toBeNull();
+    expect(evaluatorSkillCatalogLines({ ...context, objectives: [] }, ['ask_name'])).toBe('Skill catalog (the only valid skillKey values, copy them exactly):\nSkills: ask_name');
   });
 });

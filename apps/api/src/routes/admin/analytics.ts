@@ -13,14 +13,22 @@
  * - the extra pages one panel request may fetch are bounded (`ANALYTICS_EXTRA_PAGE_BUDGET`: every page is a Worker
  *   subrequest) and shared by water-filling, so small reads always complete and only the largest ones can be cut;
  * - a read that hits the bound (or receives short pages) is named in the `x-langquest-analytics-truncated` response
- *   header as `read=fetched/total` and logged as `analytics.truncated`; no header means every number was computed
- *   from every matching row;
+ *   header as `read=fetched/total` (CORS-exposed for the Studio), listed in the body's `truncated` field and logged
+ *   as `analytics.truncated`; no header and an empty `truncated` list mean every number was computed from every
+ *   matching row;
  * - track / source scope comes from each row's embedded enrollment (one join in SQL, no id lookups);
  * - a failed read is a 500, never a zero that looks measured.
+ *
+ * Learner figures count learner rows only (`aiRowAttribution`). Since 2026-10-20 staff and job AI calls land in
+ * `ai_requests` too (Studio probes and smoke tests, model benchmarks, content and media jobs), tagged `actor = 'staff'`
+ * or with a `jobId`. They stay in the bill (`totalUsd`, `byTask`, `byProvider`, `timeline`, provider error rates, the
+ * runaway-cost alert) and are reported as `staffAndJobsUsd`, but never count as active learners, learner spend,
+ * conversation cost or learner latency. Rows that are neither (no enrollment and no tag: learner spend whose course or
+ * account was deleted, untagged probes, older rows) are reported as `unattributedUsd`, never as staff or learner spend.
  */
 import { capabilityFromStatus } from '@langquest/ai/capability/registry';
 import { capabilityForTrack } from '@langquest/ai/capability/matrix';
-import { AnalyticsCostResponseSchema, AnalyticsErrorsResponseSchema, AnalyticsQualityResponseSchema, AnalyticsQuerySchema, AnalyticsUsageResponseSchema, COURSE_TRACKS, isCourseTrackId, type AiTaskName, type AnalyticsQuery, type CourseTrackId } from '@langquest/contracts';
+import { AnalyticsCostResponseSchema, AnalyticsErrorsResponseSchema, AnalyticsQualityResponseSchema, AnalyticsQuerySchema, AnalyticsUsageResponseSchema, COURSE_TRACKS, isCourseTrackId, type AiTaskName, type AnalyticsQuery, type AnalyticsTruncatedRead, type CourseTrackId } from '@langquest/contracts';
 import { CostAnomalyDetector, dayBucket } from '@langquest/telemetry/cost';
 import type { Context } from 'hono';
 import type { DefineRoute } from '../../app';
@@ -134,14 +142,64 @@ async function readPages<const Q extends Record<string, PageQuery<unknown>>>(s: 
   return out as RowSets<Q>;
 }
 
-/** Response headers for a panel: names the reads that hit the bound (and logs them), or nothing when all are exact. */
-function truncationHeaders(s: RequestServices, panel: string, reads: Record<string, RowSet<unknown>>): Record<string, string> | undefined {
-  const cut = Object.entries(reads)
+interface Truncation {
+  /** The body's `truncated` field: every read that hit the bound (empty = every figure is exact). */
+  truncated: AnalyticsTruncatedRead[];
+  /** The `x-langquest-analytics-truncated` header naming the same reads, or nothing when all are exact. */
+  headers: Record<string, string> | undefined;
+}
+
+/** The reads of a panel that hit the bound, for the body and the header (and logged), from one list. */
+function truncationOf(s: RequestServices, panel: string, reads: Record<string, RowSet<unknown>>): Truncation {
+  const truncated = Object.entries(reads)
     .filter(([, set]) => set.truncated)
-    .map(([name, set]) => `${name}=${set.rows.length}/${set.total}`);
-  if (!cut.length) return undefined;
-  s.log.warn('analytics.truncated', { panel, reads: cut, pageRows: ANALYTICS_PAGE_ROWS, extraPageBudget: ANALYTICS_EXTRA_PAGE_BUDGET });
-  return { [ANALYTICS_TRUNCATED_HEADER]: cut.join(', ') };
+    .map(([read, set]) => ({ read, fetched: set.rows.length, total: set.total }));
+  if (!truncated.length) return { truncated, headers: undefined };
+  const named = truncated.map((r) => `${r.read}=${r.fetched}/${r.total}`);
+  s.log.warn('analytics.truncated', { panel, reads: named, pageRows: ANALYTICS_PAGE_ROWS, extraPageBudget: ANALYTICS_EXTRA_PAGE_BUDGET });
+  return { truncated, headers: { [ANALYTICS_TRUNCATED_HEADER]: named.join(', ') } };
+}
+
+// ---------------------------------------------------------------------------------------------------------------
+// Learner rows vs staff and job rows
+// ---------------------------------------------------------------------------------------------------------------
+
+/**
+ * The `ai_requests` columns that say who a row was spent for. Staff rows carry `redacted_log.actor = 'staff'` and no
+ * enrollment (`routes/admin/model-test.ts` `staffLedgerSink`; the benchmark job); job rows carry `redacted_log.jobId`
+ * and no enrollment (`apps/jobs/src/cost.ts`). The two keys are read as JSON paths, never the whole `redacted_log`.
+ */
+export const AI_ACTOR_COLUMNS = 'enrollment_id, actor:redacted_log->>actor, job_id:redacted_log->>jobId';
+
+export interface AiActorColumns {
+  enrollment_id: string | null;
+  actor: string | null;
+  job_id: string | null;
+}
+
+/** Who an `ai_requests` row was spent for. Every row has exactly one attribution, so the three sums add up to the bill. */
+export type AiRowAttribution = 'learner' | 'staff_or_job' | 'unattributed';
+
+/**
+ * - `staff_or_job`: identified positively, by its tag: `actor = 'staff'` (Studio probes and smoke tests, benchmarks) or
+ *   a `jobId` (content and media jobs, benchmark runs), with or without an enrollment.
+ * - `learner`: written for an enrollment (every learner AI call carries one: dialogue and evaluation through the
+ *   `LanguageContext`, speech through `enrollmentId`) and not tagged.
+ * - `unattributed`: no enrollment and no tag. This is learner spend whose enrollment is gone
+ *   (`ai_requests.enrollment_id` is `on delete set null`: deleting a course removes the enrollment row, and account
+ *   deletion nulls `user_id` and `enrollment_id`), untagged Studio speech probes, operator scripts, and rows from before
+ *   learner speech carried its enrollment. It stays in the bill and in `unattributedUsd`, never in `staffAndJobsUsd`
+ *   (it is not known to be staff) nor in the learner figures (its learner is no longer known).
+ */
+export function aiRowAttribution(row: AiActorColumns): AiRowAttribution {
+  if (row.actor === 'staff' || (typeof row.job_id === 'string' && row.job_id.length > 0)) return 'staff_or_job';
+  if (typeof row.enrollment_id === 'string' && row.enrollment_id.length > 0) return 'learner';
+  return 'unattributed';
+}
+
+/** A learner row (see `aiRowAttribution`). */
+export function isLearnerAiRow(row: AiActorColumns): boolean {
+  return aiRowAttribution(row) === 'learner';
 }
 
 // ---------------------------------------------------------------------------------------------------------------
@@ -258,6 +316,7 @@ export function registerAnalyticsRoutes(define: DefineRoute): void {
       if (trackId) falseCorrectionsByTrack.set(trackId, (falseCorrectionsByTrack.get(trackId) ?? 0) + 1);
     }
     const confidences = reads.transcript_segments.rows.map((x) => x.confidence).filter((v): v is number => typeof v === 'number');
+    const cut = truncationOf(s, 'quality', reads);
     return respondOk(
       c,
       AnalyticsQualityResponseSchema.parse({
@@ -276,9 +335,10 @@ export function registerAnalyticsRoutes(define: DefineRoute): void {
         missionCompletionWithoutHints: series(q, (p) => ratio(noHintsByPeriod.get(p) ?? 0, totalByPeriod.get(p) ?? 0) ?? 0),
         recall7Day: series(q, () => null),
         recall30Day: series(q, () => null),
+        truncated: cut.truncated,
       }),
       200,
-      truncationHeaders(s, 'quality', reads),
+      cut.headers,
     );
   });
 
@@ -293,7 +353,7 @@ export function registerAnalyticsRoutes(define: DefineRoute): void {
         ai_requests: (w) =>
           s.service
             .from('ai_requests')
-            .select('task, provider, input_tokens, output_tokens, audio_seconds, estimated_cost_usd, user_id, created_at, user_course_enrollments(course_track_id, source_language_code)', counted(w))
+            .select(`task, provider, input_tokens, output_tokens, audio_seconds, estimated_cost_usd, user_id, created_at, ${AI_ACTOR_COLUMNS}, user_course_enrollments(course_track_id, source_language_code)`, counted(w))
             .gte('created_at', toIso(q.from))
             .lte('created_at', toIso(q.to, true))
             .order('id')
@@ -325,9 +385,17 @@ export function registerAnalyticsRoutes(define: DefineRoute): void {
       byProviderMap.set(r.provider, (byProviderMap.get(r.provider) ?? 0) + usd(r));
     }
     const timelineMap = sumBy(rows.map((r) => ({ period: periodOf(r.created_at, q.granularity), value: usd(r) })));
-    const activeLearners = new Set(rows.map((r) => r.user_id).filter((v): v is string => v !== null)).size;
-    const conversationUsd = rows.filter((r) => r.task === 'character_dialogue' || r.task === 'speech_recognition' || r.task === 'speech_synthesis' || r.task === 'learner_evaluation').reduce((n, r) => n + usd(r), 0);
+    // Learner figures: learner rows only. Staff probes, benchmarks and jobs are spend, not learners or conversations.
+    // Each row has one attribution, summed separately (never one figure derived as the bill minus another).
+    const spendBy: Record<AiRowAttribution, number> = { learner: 0, staff_or_job: 0, unattributed: 0 };
+    for (const r of rows) spendBy[aiRowAttribution(r)] += usd(r);
+    const learnerRows = rows.filter(isLearnerAiRow);
+    const learnerUsd = spendBy.learner;
+    const activeLearners = new Set(learnerRows.map((r) => r.user_id).filter((v): v is string => typeof v === 'string')).size;
+    const conversationUsd = learnerRows.filter((r) => r.task === 'character_dialogue' || r.task === 'speech_recognition' || r.task === 'speech_synthesis' || r.task === 'learner_evaluation').reduce((n, r) => n + usd(r), 0);
+    // Per-lesson cost is production cost: alignment runs as jobs, so every row of the task counts (unscoped only).
     const transcriptionUsd = rows.filter((r) => r.task === 'transcription_alignment').reduce((n, r) => n + usd(r), 0);
+    const cut = truncationOf(s, 'cost', reads);
     return respondOk(
       c,
       AnalyticsCostResponseSchema.parse({
@@ -336,16 +404,23 @@ export function registerAnalyticsRoutes(define: DefineRoute): void {
         byProvider: [...byProviderMap.entries()].map(([provider, usdValue]) => ({ provider, usd: usdValue })),
         storageGb: reads.media_assets.rows.reduce((n, a) => n + Number(a.byte_length), 0) / 1e9,
         r2Operations: 0,
-        estimatedUsdPerActiveLearner: activeLearners > 0 ? totalUsd / activeLearners : null,
+        estimatedUsdPerActiveLearner: activeLearners > 0 ? learnerUsd / activeLearners : null,
         usdPerMeaningfulConversation: conversations > 0 ? conversationUsd / conversations : null,
         // Alignment cost and reviewed transcripts are not tied to an enrollment, so a track / source filter has no honest
         // per-lesson figure (the scoped numerator would always read $0): null, never estimated.
         usdPerReviewedLesson: !scoped && reviewedTranscripts > 0 ? transcriptionUsd / reviewedTranscripts : null,
         timeline: series(q, (p) => timelineMap.get(p) ?? 0),
         reconciliation: { invoicedUsd: null, deltaUsd: null, asOf: null },
+        learnerUsd,
+        // Staff, job and unattributed rows mostly carry no enrollment, so a track / source filter has no honest figure
+        // for them: null, not $0.
+        staffAndJobsUsd: scoped ? null : spendBy.staff_or_job,
+        unattributedUsd: scoped ? null : spendBy.unattributed,
+        activeLearners,
+        truncated: cut.truncated,
       }),
       200,
-      truncationHeaders(s, 'cost', reads),
+      cut.headers,
     );
   });
 
@@ -442,6 +517,7 @@ export function registerAnalyticsRoutes(define: DefineRoute): void {
       const active = activeByTrack.get(t.id);
       return { trackId: t.id, activeLearners: active?.learners.size ?? 0, enrollmentsBySource: [...(active?.bySource ?? new Map<string, number>()).entries()].map(([sourceLanguage, count]) => ({ sourceLanguage, count })) };
     });
+    const cut = truncationOf(s, 'usage', reads);
     return respondOk(
       c,
       AnalyticsUsageResponseSchema.parse({
@@ -454,9 +530,10 @@ export function registerAnalyticsRoutes(define: DefineRoute): void {
         retentionD7: retention(7),
         retentionD30: retention(30),
         byTrack,
+        truncated: cut.truncated,
       }),
       200,
-      truncationHeaders(s, 'usage', reads),
+      cut.headers,
     );
   });
 
@@ -471,7 +548,7 @@ export function registerAnalyticsRoutes(define: DefineRoute): void {
         ai_requests: (w) =>
           s.service
             .from('ai_requests')
-            .select('task, provider, success, error_code, fallback_index, latency_ms, created_at, user_course_enrollments(course_track_id, source_language_code)', counted(w))
+            .select(`task, provider, success, error_code, fallback_index, latency_ms, created_at, ${AI_ACTOR_COLUMNS}, user_course_enrollments(course_track_id, source_language_code)`, counted(w))
             .gte('created_at', toIso(q.from))
             .lte('created_at', toIso(q.to, true))
             .order('id')
@@ -543,10 +620,11 @@ export function registerAnalyticsRoutes(define: DefineRoute): void {
     const lastStats = lastPeriod ? byPeriod.get(lastPeriod) : undefined;
     if (lastStats && lastStats.total >= 10 && lastStats.failed / lastStats.total > 0.5) alerts.push({ kind: 'provider_outage', since: toIso(lastPeriod!), detail: `${lastStats.failed}/${lastStats.total} AI requests failed in the last period` });
     for (const r of reads.content_rights.rows) alerts.push({ kind: 'rights_expiry', since: new Date(now).toISOString(), detail: `content_rights ${r.id} expires at ${r.expires_at}` });
-    // "Time to first AI audio": only requests whose output IS the AI audio (synthesis / realtime). Text, STT and admin
-    // smoke calls have their own latencies and would mislabel the metric.
-    const sorted = rows.filter((r) => r.task === 'speech_synthesis' || r.task === 'realtime_conversation').map((r) => r.latency_ms).filter((v): v is number => typeof v === 'number').sort((a, b) => a - b);
+    // "Time to first AI audio": only learner requests whose output IS the AI audio (synthesis / realtime). Text and STT
+    // have their own latencies, and Studio smoke tests or job runs are not what a learner waits for.
+    const sorted = rows.filter((r) => isLearnerAiRow(r) && (r.task === 'speech_synthesis' || r.task === 'realtime_conversation')).map((r) => r.latency_ms).filter((v): v is number => typeof v === 'number').sort((a, b) => a - b);
     const p95 = sorted.length ? sorted[Math.min(sorted.length - 1, Math.floor(sorted.length * 0.95))]! : null;
+    const cut = truncationOf(s, 'errors', reads);
     return respondOk(
       c,
       AnalyticsErrorsResponseSchema.parse({
@@ -558,9 +636,10 @@ export function registerAnalyticsRoutes(define: DefineRoute): void {
         latency: { apiP95Ms: null, timeToFirstAiAudioP95Ms: p95, interruptionLatencyP95Ms: null, mediaStartP99Ms: null },
         sttConfidenceByTrack: [...sttByTrack.entries()].map(([trackId, values]) => ({ trackId, meanConfidence: values.length ? values.reduce((a, b) => a + b, 0) / values.length : null, languageMismatchRate: null })),
         alerts: [...alerts, ...(failedJobs > 25 ? [{ kind: 'attack' as const, since: toIso(q.from), detail: `${failedJobs} processing jobs failed in range; check for abusive uploads` }] : [])],
+        truncated: cut.truncated,
       }),
       200,
-      truncationHeaders(s, 'errors', reads),
+      cut.headers,
     );
   });
 }

@@ -1,5 +1,6 @@
 'use client';
 import Link from 'next/link';
+import { useRouter } from 'next/navigation';
 import { useMemo, useState } from 'react';
 import { ASSET_KIND_VALUES, AUDIO_ASSET_TYPE_VALUES, CONTENT_STATE_VALUES, LANGUAGES, LANGUAGE_VARIETIES, type AudioAssetType, type BulkLabelPatch, type ChapterCreateRequest } from '@langquest/contracts';
 import { parseCsvManifest } from '@langquest/media';
@@ -14,6 +15,8 @@ import { Badge, JobBadge, StatusBadge } from '@/src/components/badges';
 import { Button, Checkbox, ErrorState, Field, Input, Notice, Select, TextField, Textarea } from '@/src/components/ui';
 import { Dialog } from '@/src/components/dialog';
 import { LanguageSelect, LevelSelect, TagListInput, VarietySelect } from '@/src/components/forms';
+import { useToast } from '@/src/components/toast';
+import { attachItemsOf, mergeItemsOf, mergeReports, remainingItems, runBatch, type AttachItem, type BatchReport, type MergeItem } from './batch-results';
 
 export interface LessonOption {
   id: string;
@@ -354,35 +357,107 @@ function BulkLabelDialog({ open, onClose, rows, options }: { open: boolean; onCl
 
 // ---------------------------------------------------------------------------------- attach
 
+const fileLabel = (r: LibraryAssetRow): string => r.legacy_filename ?? r.storage_key.split('/').pop() ?? shortId(r.id);
+
+/**
+ * Runs a library batch one file at a time (`runBatch`): a refused file (409: its audio belongs to a published lesson;
+ * 412: the lesson changed) or a failed one never stops the others. The report says which files landed and which did
+ * not, and `retry` re-runs only those; the library is refreshed whenever something landed.
+ */
+function useBatchRunner<T>(sameItem: (a: T, b: T) => boolean) {
+  const router = useRouter();
+  const toast = useToast();
+  const { t } = useI18n();
+  const [busy, setBusy] = useState(false);
+  const [report, setReport] = useState<BatchReport<T> | null>(null);
+  const run = async (items: T[], call: (item: T, index: number) => Promise<{ moved?: boolean } | void>, mode: 'fresh' | 'retry'): Promise<BatchReport<T>> => {
+    setBusy(true);
+    try {
+      const result = await runBatch(items, call);
+      const merged = mode === 'retry' ? mergeReports(report, result, sameItem) : result;
+      setReport(merged);
+      if (result.done > 0) router.refresh();
+      if (merged.complete) toast.success(`${t('admin.ui.libAffected', { count: merged.done })}${merged.moved > 0 ? ` · ${t('admin.ui.libMovedLinks', { count: merged.moved })}` : ''}`);
+      else toast.error(t('admin.ui.libBatchPartial', { done: merged.done, total: merged.outcomes.length }));
+      return merged;
+    } finally {
+      setBusy(false);
+    }
+  };
+  return { run, busy, report, reset: () => setReport(null) };
+}
+
+/** What did not land in the last batch, file by file, with the reason and a retry of exactly those files. */
+function BatchResultPanel<T>({ report, label, busy, onRetry }: { report: BatchReport<T> | null; label: (item: T) => string; busy: boolean; onRetry: () => void }) {
+  const { t } = useI18n();
+  if (!report || report.complete) return null;
+  const rest = report.outcomes.length - report.done;
+  return (
+    <div className="mt-3">
+      <Notice tone="warning">
+        <p className="font-medium">{t('admin.ui.libBatchPartial', { done: report.done, total: report.outcomes.length })}</p>
+        <ul className="mt-1 space-y-1 text-xs">
+          {report.outcomes.map((o, i) =>
+            o.status === 'done' ? null : (
+              <li key={i}>
+                <span className="font-medium">{label(o.item)}</span>
+                {' — '}
+                {o.status === 'conflict' && o.publishedLessonIds.length ? (
+                  <>
+                    {t('admin.ui.libBatchPublishedLesson')}{' '}
+                    {o.publishedLessonIds.map((id) => (
+                      <Link key={id} href={`/lessons/${id}`} className="me-1 font-mono text-accent-text hover:underline">
+                        {shortId(id)}
+                      </Link>
+                    ))}
+                  </>
+                ) : o.status === 'conflict' ? (
+                  t('admin.ui.libBatchConflict', { code: o.code, message: o.message })
+                ) : o.status === 'failed' ? (
+                  t('admin.ui.libBatchFailed', { code: o.code, message: o.message })
+                ) : (
+                  t('admin.ui.libBatchSkipped')
+                )}
+              </li>
+            ),
+          )}
+        </ul>
+        <div className="mt-2">
+          <Button size="sm" loading={busy} onClick={onRetry}>
+            {t('admin.ui.libBatchRetry', { count: rest })}
+          </Button>
+        </div>
+      </Notice>
+    </div>
+  );
+}
+
 function AttachDialog({ open, onClose, rows, lessons }: { open: boolean; onClose: () => void; rows: LibraryAssetRow[]; lessons: LessonOption[] }) {
   const { t, locale } = useI18n();
   const [q, setQ] = useState('');
   const [lessonId, setLessonId] = useState('');
   const [assetType, setAssetType] = useState<AudioAssetType>('master');
   const filtered = lessons.filter((l) => !q || JSON.stringify(l.title_translations).toLowerCase().includes(q.toLowerCase()));
-  const action = useAction(
-    async () => {
-      let n = 0;
-      let moved = 0;
-      for (const r of rows) {
-        // 201 = fresh link; 200 + movedFromLessonId = moved from another lesson (both lessons get a revision).
-        const res = await browserApi().call('adminLessonAssetAttach', { params: { id: lessonId }, body: { assetId: r.id, assetType, sortOrder: n } });
-        if (res.movedFromLessonId) moved += 1;
-        n += 1;
-      }
-      return { n, moved };
-    },
-    { successMessage: ({ n, moved }) => `${t('admin.ui.libAffected', { count: n })}${moved > 0 ? ` · ${t('admin.ui.libMovedLinks', { count: moved })}` : ''}` },
-  );
+  const items = useMemo<AttachItem[]>(() => attachItemsOf(rows, fileLabel), [rows]);
+  const batch = useBatchRunner<AttachItem>((a, b) => a.assetId === b.assetId);
+  // One call per file: 201 = fresh link; 200 + movedFromLessonId = moved from another (unpublished) lesson, both
+  // lessons get a revision. A file whose audio belongs to a published lesson is refused (409) and reported, alone.
+  // Each file sends its own position in the selection, on the first run and on a retry alike.
+  const attach = (list: AttachItem[], mode: 'fresh' | 'retry') =>
+    batch.run(list, async (item) => ({ moved: Boolean((await browserApi().call('adminLessonAssetAttach', { params: { id: lessonId }, body: { assetId: item.assetId, assetType, sortOrder: item.sortOrder } })).movedFromLessonId) }), mode);
+  const close = () => {
+    batch.reset();
+    onClose();
+  };
   return (
     <Dialog
       open={open}
-      onClose={onClose}
+      onClose={close}
       title={t('admin.ui.libAttachToLesson')}
       footer={
         <>
-          <Button onClick={onClose}>{t('admin.ui.cancel')}</Button>
-          <Button variant="primary" disabled={!lessonId || rows.length === 0} loading={action.busy} onClick={() => void action.run().then(onClose)}>
+          <Button onClick={close}>{t('admin.ui.cancel')}</Button>
+          <Button variant="primary" disabled={!lessonId || items.length === 0} loading={batch.busy} onClick={() => void attach(items, 'fresh').then((r) => (r.complete ? close() : undefined))}>
             {t('admin.ui.apply')}
           </Button>
         </>
@@ -392,7 +467,15 @@ function AttachDialog({ open, onClose, rows, lessons }: { open: boolean; onClose
         <Field label={t('common.search')}>{(id) => <Input id={id} value={q} onChange={(e) => setQ(e.target.value)} />}</Field>
         <Field label={t('admin.ui.upLesson')}>
           {(id) => (
-            <Select id={id} value={lessonId} onChange={(e) => setLessonId(e.target.value)} size={8}>
+            <Select
+              id={id}
+              value={lessonId}
+              onChange={(e) => {
+                setLessonId(e.target.value);
+                batch.reset();
+              }}
+              size={8}
+            >
               {filtered.map((l) => (
                 <option key={l.id} value={l.id}>
                   {[pickLocalized(l.chapter?.collection?.title_translations, locale), pickLocalized(l.chapter?.title_translations, locale), `${l.sort_order}. ${pickLocalized(l.title_translations, locale) || shortId(l.id)}`].filter(Boolean).join(' › ')}
@@ -403,7 +486,14 @@ function AttachDialog({ open, onClose, rows, lessons }: { open: boolean; onClose
         </Field>
         <Field label={t('admin.ui.type')}>
           {(id) => (
-            <Select id={id} value={assetType} onChange={(e) => setAssetType(e.target.value as AudioAssetType)}>
+            <Select
+              id={id}
+              value={assetType}
+              onChange={(e) => {
+                setAssetType(e.target.value as AudioAssetType);
+                batch.reset();
+              }}
+            >
               {AUDIO_ASSET_TYPE_VALUES.map((v) => (
                 <option key={v} value={v}>
                   {v}
@@ -413,6 +503,7 @@ function AttachDialog({ open, onClose, rows, lessons }: { open: boolean; onClose
           )}
         </Field>
       </div>
+      <BatchResultPanel report={batch.report} label={(item) => item.label} busy={batch.busy} onRetry={() => void attach(remainingItems(batch.report), 'retry').then((r) => (r.complete ? close() : undefined))} />
     </Dialog>
   );
 }
@@ -524,33 +615,27 @@ function MergeDialog({ open, onClose, rows }: { open: boolean; onClose: () => vo
     for (const r of rows) byHash.set(r.checksum_sha256, [...(byHash.get(r.checksum_sha256) ?? []), r]);
     return [...byHash.values()].filter((g) => g.length > 1);
   }, [rows]);
-  const action = useAction(
-    async () => {
-      let relinked = 0;
-      for (const group of groups) {
-        const lessons = group.flatMap((r) => r.lessonLinks.map((l) => ({ lessonId: l.lesson?.id, assetId: r.id, assetType: l.asset_type as AudioAssetType }))).filter((x): x is { lessonId: string; assetId: string; assetType: AudioAssetType } => Boolean(x.lessonId));
-        const primaryLesson = lessons[0]?.lessonId;
-        if (!primaryLesson) continue;
-        for (const link of lessons.slice(1)) {
-          if (link.lessonId === primaryLesson) continue;
-          // Attaching an asset that is linked elsewhere moves it (200 + movedFromLessonId); no separate detach needed.
-          await browserApi().call('adminLessonAssetAttach', { params: { id: primaryLesson }, body: { assetId: link.assetId, assetType: link.assetType, sortOrder: relinked } });
-          relinked += 1;
-        }
-      }
-      return relinked;
-    },
-    { successMessage: (n) => t('admin.ui.libAffected', { count: n }) },
-  );
+  // Every link to re-point at the group's primary lesson (the first lesson that references the content hash).
+  const items = useMemo<MergeItem[]>(() => mergeItemsOf(groups, fileLabel), [groups]);
+  const batch = useBatchRunner<MergeItem>((a, b) => a.assetId === b.assetId && a.lessonId === b.lessonId && a.assetType === b.assetType);
+  // Attaching an asset that is linked elsewhere moves it (200 + movedFromLessonId), so no separate detach is needed;
+  // audio of a PUBLISHED lesson is never moved (409), and that link alone is reported. A retry sends each link's own
+  // position again.
+  const merge = (list: MergeItem[], mode: 'fresh' | 'retry') =>
+    batch.run(list, async (item) => ({ moved: Boolean((await browserApi().call('adminLessonAssetAttach', { params: { id: item.primaryLessonId }, body: { assetId: item.assetId, assetType: item.assetType, sortOrder: item.sortOrder } })).movedFromLessonId) }), mode);
+  const close = () => {
+    batch.reset();
+    onClose();
+  };
   return (
     <Dialog
       open={open}
-      onClose={onClose}
+      onClose={close}
       title={t('admin.ui.libMerge')}
       footer={
         <>
-          <Button onClick={onClose}>{t('admin.ui.cancel')}</Button>
-          <Button variant="primary" disabled={groups.length === 0} loading={action.busy} onClick={() => void action.run().then(onClose)}>
+          <Button onClick={close}>{t('admin.ui.cancel')}</Button>
+          <Button variant="primary" disabled={items.length === 0} loading={batch.busy} onClick={() => void merge(items, 'fresh').then((r) => (r.complete ? close() : undefined))}>
             {t('admin.ui.apply')}
           </Button>
         </>
@@ -568,6 +653,7 @@ function MergeDialog({ open, onClose, rows }: { open: boolean; onClose: () => vo
           ))}
         </ul>
       )}
+      <BatchResultPanel report={batch.report} label={(item) => item.label} busy={batch.busy} onRetry={() => void merge(remainingItems(batch.report), 'retry').then((r) => (r.complete ? close() : undefined))} />
     </Dialog>
   );
 }

@@ -4,20 +4,41 @@
  * edit unverified rows); `revokedAt` is never patched directly — `adminContentRightsRevoke` runs the
  * `revoke_content_rights` RPC (migration 120), which unpublishes every dependent published entity and revokes
  * offline packs in ONE transaction, then the API records revisions and invalidates the affected manifests.
+ *
+ * Revisions and rollback (R-7.3-04):
+ * - A grant is a legal record, so `content_rights` is intentionally NOT restorable: it is not one of the contracts'
+ *   `ROLLBACK_ENTITY_TABLES`, `POST /v1/admin/content/:id/rollback` refuses it (422) and its revisions carry no
+ *   snapshot (`snapshot: null`, an audit trail only). Restoring an old revision would flip `verified` (an admin
+ *   decision) or undo a revocation (one-way, RPC-only) behind those gates; a grant changes through PATCH, or is revoked
+ *   and replaced by a new grant.
+ * - The content rows a revocation unpublishes ARE restorable tables: each gets a revision with the restorable snapshot
+ *   of the row as the RPC left it. A rollback of one restores metadata only, never `state`, so it cannot republish
+ *   content whose rights were revoked.
+ * - The PATCH `expectedRevision` guard is atomic (`guardedEdit` claims `expectedRevision + 1` before writing).
  */
-import { ContentRightsCreateRequestSchema, ContentRightsListQuerySchema, ContentRightsListResponseSchema, ContentRightsPatchRequestSchema, ContentRightsResponseSchema, ContentRightsRevokeRequestSchema, ContentRightsRevokeResponseSchema, UuidSchema, type ContentRightsDto } from '@langquest/contracts';
+import { ContentRightsCreateRequestSchema, ContentRightsListQuerySchema, ContentRightsListResponseSchema, ContentRightsPatchRequestSchema, ContentRightsResponseSchema, ContentRightsRevokeRequestSchema, ContentRightsRevokeResponseSchema, UuidSchema, type ContentRightsDto, type RollbackEntityTable } from '@langquest/contracts';
 import { rightsAllowPublishing } from '@langquest/db/repositories/rights';
 import type { Insert, Row, Update } from '@langquest/db/types';
 import { z } from 'zod';
 import type { DefineRoute } from '../../app';
 import { problem, respondOk } from '../../http/envelope';
 import { parseBody, parseParams, parseQuery } from '../../http/validate';
-import { currentRevision, currentRevisions, recordRevision } from '../../lib/content';
+import { currentRevision, currentRevisions, type RevisionTable } from '../../lib/content';
 import { createDiff, findIdempotentCreate } from '../../lib/idempotent-create';
 import { hasAnyRole } from '../../middleware/auth';
 import type { RequestServices } from '../../services/context';
+import { guardedEdit, recordRestorableRevision, staleRevision } from './content';
 
 const IdParams = z.object({ id: UuidSchema });
+
+/** A revision table that is never a rollback table: this stops type-checking if `content_rights` ever becomes one. */
+const RIGHTS_TABLE = 'content_rights' as const satisfies Exclude<RevisionTable, RollbackEntityTable>;
+/** A `content_rights` revision: an audit trail entry, never a restorable snapshot (see the module comment). */
+const recordRightsRevision = (s: RequestServices, id: string, diff: Record<string, unknown>, note?: string | null): Promise<number> => recordRestorableRevision(s, RIGHTS_TABLE, id, diff, { snapshot: null, note: note ?? null });
+
+/** Content tables a revocation can unpublish (rows of the `revoke_content_rights` RPC result); all restorable. */
+const REVOKABLE_CONTENT_TABLES = ['audio_lessons', 'audio_course_collections', 'missions', 'lesson_courses', 'expressions', 'visual_assets'] as const satisfies readonly (RollbackEntityTable & RevisionTable)[];
+const isRevokableContent = (table: string): table is (typeof REVOKABLE_CONTENT_TABLES)[number] => (REVOKABLE_CONTENT_TABLES as readonly string[]).includes(table);
 
 const isHttpUrl = (v: string | null): v is string => v !== null && /^https?:\/\//i.test(v);
 
@@ -105,7 +126,7 @@ export function registerRightsRoutes(define: DefineRoute): void {
       reviewed_at: body.verified ? now : null,
     };
     const created = await s.repos.rights.create(row);
-    await recordRevision(s, 'content_rights', created.id, createDiff('content_rights.create', body.idempotencyKey, { verified: created.verified }));
+    await recordRightsRevision(s, created.id, createDiff('content_rights.create', body.idempotencyKey, { verified: created.verified }));
     s.audit({ action: 'content_rights.create', entityTable: 'content_rights', entityId: created.id, after: { idempotencyKey: body.idempotencyKey, licenseId: created.license_id, verified: created.verified, commercialRedistribution: created.commercial_redistribution } });
     return respondOk(c, await rightsDto(s, created), 201);
   });
@@ -125,8 +146,8 @@ export function registerRightsRoutes(define: DefineRoute): void {
     const { principal } = s.requireUser();
     const before = await s.repos.rights.getById(id);
     if (!before) throw problem.notFound('Content rights');
-    const revision = await currentRevision(s, 'content_rights', id);
-    if (body.expectedRevision !== undefined && body.expectedRevision !== revision) throw problem.precondition(`Content rights revision is ${revision}, expected ${body.expectedRevision}`, { currentRevision: revision });
+    const revision = await currentRevision(s, RIGHTS_TABLE, id);
+    if (body.expectedRevision !== undefined && body.expectedRevision !== revision) throw staleRevision('Content rights', revision, body.expectedRevision);
     if (before.revoked_at) throw problem.precondition('A revoked grant cannot be edited; create a new grant instead', { revokedAt: before.revoked_at });
     // Flipping `verified` either way is an admin decision; editors may change the other fields of an unverified grant.
     if (body.verified !== undefined && body.verified !== before.verified) assertMayVerify(s, true);
@@ -151,9 +172,9 @@ export function registerRightsRoutes(define: DefineRoute): void {
       patch.reviewer_id = body.verified ? principal.userId : null;
       patch.reviewed_at = body.verified ? new Date().toISOString() : null;
     }
-    const updated = Object.keys(patch).length ? await s.repos.rights.update(id, patch) : before;
     const { expectedRevision: _expected, ...diff } = body;
-    const next = await recordRevision(s, 'content_rights', id, diff as Record<string, unknown>);
+    // Not restorable (module comment): the revision is an audit trail entry; the guard still claims it atomically.
+    const { result: updated, revision: next } = await guardedEdit(s, { table: RIGHTS_TABLE, id, what: 'Content rights', expected: body.expectedRevision, current: revision, diff: diff as Record<string, unknown>, snapshot: null }, async () => (Object.keys(patch).length ? await s.repos.rights.update(id, patch) : before));
     s.audit({ action: 'content_rights.patch', entityTable: 'content_rights', entityId: id, before: { verified: before.verified, commercialRedistribution: before.commercial_redistribution }, after: { fields: Object.keys(patch), verified: updated.verified, commercialRedistribution: updated.commercial_redistribution, revision: next } });
     return respondOk(c, await rightsDto(s, updated, next));
   });
@@ -179,11 +200,10 @@ export function registerRightsRoutes(define: DefineRoute): void {
       for (const l of chapters ?? []) if (l.audio_chapters?.collection_id) collectionIds.add(l.audio_chapters.collection_id);
     }
     for (const a of affected) {
-      if (a.entityTable === 'audio_lessons' || a.entityTable === 'audio_course_collections' || a.entityTable === 'missions' || a.entityTable === 'lesson_courses' || a.entityTable === 'expressions' || a.entityTable === 'visual_assets') {
-        await recordRevision(s, a.entityTable, a.entityId, { rightsRevoked: id, reason: body.reason, from: a.previousState, to: a.newState }, body.note);
-      }
+      // The snapshot is read from the row as the RPC left it (restorable columns only; never its state).
+      if (isRevokableContent(a.entityTable)) await recordRestorableRevision(s, a.entityTable, a.entityId, { rightsRevoked: id, reason: body.reason, from: a.previousState, to: a.newState }, { note: body.note ?? null });
     }
-    const revision = await recordRevision(s, 'content_rights', id, { revoke: true, reason: body.reason, idempotencyKey: body.idempotencyKey, replayed, affected: affected.length }, body.note);
+    const revision = await recordRightsRevision(s, id, { revoke: true, reason: body.reason, idempotencyKey: body.idempotencyKey, replayed, affected: affected.length }, body.note);
     for (const collectionId of collectionIds) {
       await s.events.emit('manifest.invalidated', { kind: 'audio_collection', courseTrackId: null, collectionId, sourceLanguageCode: null, newVersion: revision, reason: 'rights_revoked' }, { idempotencyKey: `manifest.invalidated:content_rights:${id}:${revision}:${collectionId}`, traceId: s.requestId });
     }

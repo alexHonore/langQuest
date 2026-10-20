@@ -7,9 +7,12 @@
  *   - step_completed / mission_abandoned → attempt bookkeeping on the learner's own attempt (RLS client). The
  *                      attempt reference is the server id OR the client_attempt_id (offline-started attempts);
  *                      a step for an attempt the server has never seen materialises it under the client id.
- *   - observation    → evidence + mastery recompute (service client, after enrollment ownership check)
- *   - xp_claim       → validated against the referenced OWNED, COMPLETED row, then `award_xp` with the
- *                      clientEventId as idempotency key and the canonical amount (client amount ignored)
+ *   - observation    → recorded as a CLIENT REPORT (scorer `client-sync:…`, uncertainty 1): history survives, mastery
+ *                      ignores it, and it can never pose as server evidence (service client, after enrollment check)
+ *   - xp_claim       → validated against the referenced OWNED, COMPLETED row that the server CREDITED (mission XP
+ *                      only for an attempt with mission credit; skill advances are paid by `missionEvaluate` only;
+ *                      `xpClaimRejection`), then `award_xp` with the clientEventId as idempotency key and the
+ *                      canonical amount (client amount ignored)
  * then `mark_sync_events_applied`. A duplicate from a second device returns `duplicate` with 0 XP.
  */
 import { ProgressResponseSchema, ProgressSyncRequestSchema, ProgressSyncResponseSchema, SkillsQuerySchema, SkillsResponseSchema, type MasteryState, type ProgressSyncEvent, type ReviewCard, type XpReason } from '@langquest/contracts';
@@ -25,6 +28,7 @@ import { respondOk } from '../../http/envelope';
 import { parseBody, parseQuery } from '../../http/validate';
 import { loadOwnedEnrollment, varietyOf, type EnrollmentRow } from '../../lib/enrollment';
 import { applyReviewResult, awardXp, recordObservations } from '../../lib/learning';
+import { clientReportedObservation, xpClaimRejection } from '../../lib/xp-credit';
 import type { RequestServices } from '../../services/context';
 
 /** Which owned, completed row an XP reason must point at (mirrors `xp_reference_owned` in SQL). */
@@ -111,7 +115,8 @@ async function finishEngineEvent(s: RequestServices, event: ProgressSyncEvent, e
         const e = needEnrollment();
         if (p.observation.enrollmentId !== e.id) return { resolution: 'rejected', reason: 'observation_enrollment_mismatch', xpCredited: null, card: null };
         if (p.observation.scorerKind === 'acoustic_assessor' || p.observation.scorerKind === 'human') return { resolution: 'rejected', reason: 'scorer_kind_not_client_assignable', xpCredited: null, card: null };
-        await recordObservations(s, e, [p.observation], now);
+        // A client report, not server evidence: recorded, but never credited and never usable as a grading row.
+        await recordObservations(s, e, [clientReportedObservation(p.observation)], now);
         return { resolution: 'applied', reason: null, xpCredited: null, card: null };
       }
       case 'xp_claim': {
@@ -119,6 +124,9 @@ async function finishEngineEvent(s: RequestServices, event: ProgressSyncEvent, e
         const table = XP_REFERENCE_TABLE[p.reason];
         const owned = await s.service.rpc('xp_reference_owned', { p_user_id: userId, p_reference_table: table, p_reference_id: p.referenceId });
         if (owned.error || owned.data !== true) return { resolution: 'rejected', reason: 'reference_not_owned_or_incomplete', xpCredited: 0, card: null };
+        // Owned and complete is not enough: the server must have credited it (lib/xp-credit.ts).
+        const refused = await xpClaimRejection(s, { userId, reason: p.reason, referenceTable: table, referenceId: p.referenceId });
+        if (refused) return { resolution: 'rejected', reason: refused, xpCredited: 0, card: null };
         const award = await awardXp(s, { idempotencyKey: event.clientEventId, userId, enrollmentId: enrollment?.id ?? null, reason: p.reason, referenceTable: table, referenceId: p.referenceId, occurredAt: event.occurredAt });
         if (award.rejectedReason) return { resolution: 'rejected', reason: award.rejectedReason, xpCredited: 0, card: null };
         return { resolution: 'applied', reason: award.applied ? null : 'already_awarded', xpCredited: award.amount, card: null };

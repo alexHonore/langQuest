@@ -3,7 +3,7 @@
  */
 import { z } from 'zod';
 import { VarietyIdSchema } from '../catalog';
-import { AssessmentModeSchema, IntelligibilitySchema, PronunciationConfidenceSchema, isAcousticAssessmentMode } from '../enums';
+import { AssessmentModeSchema, IntelligibilitySchema, ObservationOutcomeSchema, PronunciationConfidenceSchema, isAcousticAssessmentMode, type Intelligibility, type ObservationOutcome } from '../enums';
 import { MillisSchema, PercentSchema, UnitIntervalSchema, UuidSchema, UrlSchema } from '../primitives';
 import { PronunciationFeatureSchema } from './capability';
 
@@ -172,8 +172,32 @@ export const SpeechEvaluationResultSchema = z.object({
   transcript: z.string().nullable(),
   /** Matched intent / skill keys, for observations. */
   matchedIntentIds: z.array(z.string()),
+  /**
+   * The server's canonical observation outcome for this take (`speechObservationOutcome`): what it recorded as meaning
+   * evidence and what a client reports as the step outcome. Optional for backward compatibility; the API always sets it.
+   */
+  outcome: ObservationOutcomeSchema.optional(),
 });
 export type SpeechEvaluationResult = z.infer<typeof SpeechEvaluationResultSchema>;
+
+/**
+ * The ONE outcome vocabulary for a graded speech take (§3.4, ADR-006): the observation outcome the server records for
+ * the meaning check and the step outcome a client must report. `intelligibility` says what the listener heard;
+ * this says whether the meaning came across:
+ * - `no_speech_detected` → `unclear` (nothing was heard; the server records nothing at all);
+ * - meaning matched (`understood`) → `success`;
+ * - the recognizer was unsure (`needsClarification`: a low-confidence transcript that did not match) → `unclear`,
+ *   never credited and never blamed;
+ * - anything else → `fail`, including `partially_understood` from partial word overlap: the meaning did not come
+ *   across, so it is never "partial" credit. (`partial` comes only from an acoustic assessor's pronunciation score.)
+ * A response without `outcome` (older server) is mapped with `needsClarification` unknown, i.e. `fail` unless matched.
+ */
+export function speechObservationOutcome(input: { intelligibility: Intelligibility; semanticIntentMatched: boolean; needsClarification?: boolean | null }): ObservationOutcome {
+  if (input.intelligibility === 'no_speech_detected') return 'unclear';
+  if (input.semanticIntentMatched && input.intelligibility === 'understood') return 'success';
+  if (input.needsClarification === true) return 'unclear';
+  return 'fail';
+}
 
 /** Build an honest "no acoustic scorer" pronunciation block. */
 export const referenceComparisonAssessment = (feedback: string[], humanCalibrated = false): PronunciationAssessment =>

@@ -293,6 +293,9 @@
       "AnalyticsCostResponse": {
         "additionalProperties": false,
         "properties": {
+          "activeLearners": {
+            "$ref": "#/components/schemas/Bytes"
+          },
           "byProvider": {
             "items": {
               "additionalProperties": false,
@@ -357,6 +360,10 @@
               }
             ]
           },
+          "learnerUsd": {
+            "minimum": 0,
+            "type": "number"
+          },
           "r2Operations": {
             "$ref": "#/components/schemas/Bytes"
           },
@@ -398,6 +405,17 @@
             ],
             "type": "object"
           },
+          "staffAndJobsUsd": {
+            "anyOf": [
+              {
+                "minimum": 0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
           "storageGb": {
             "minimum": 0,
             "type": "number"
@@ -425,6 +443,23 @@
           "totalUsd": {
             "minimum": 0,
             "type": "number"
+          },
+          "truncated": {
+            "items": {
+              "$ref": "#/components/schemas/AnalyticsTruncatedRead"
+            },
+            "type": "array"
+          },
+          "unattributedUsd": {
+            "anyOf": [
+              {
+                "minimum": 0,
+                "type": "number"
+              },
+              {
+                "type": "null"
+              }
+            ]
           },
           "usdPerMeaningfulConversation": {
             "anyOf": [
@@ -652,6 +687,12 @@
           },
           "timeouts": {
             "$ref": "#/components/schemas/Bytes"
+          },
+          "truncated": {
+            "items": {
+              "$ref": "#/components/schemas/AnalyticsTruncatedRead"
+            },
+            "type": "array"
           }
         },
         "required": [
@@ -828,6 +869,12 @@
               }
             ]
           },
+          "truncated": {
+            "items": {
+              "$ref": "#/components/schemas/AnalyticsTruncatedRead"
+            },
+            "type": "array"
+          },
           "unresolvedTakedowns": {
             "$ref": "#/components/schemas/Bytes"
           }
@@ -843,6 +890,27 @@
           "missionCompletionWithoutHints",
           "recall7Day",
           "recall30Day"
+        ],
+        "type": "object"
+      },
+      "AnalyticsTruncatedRead": {
+        "additionalProperties": false,
+        "properties": {
+          "fetched": {
+            "$ref": "#/components/schemas/Bytes"
+          },
+          "read": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "total": {
+            "$ref": "#/components/schemas/Bytes"
+          }
+        },
+        "required": [
+          "read",
+          "fetched",
+          "total"
         ],
         "type": "object"
       },
@@ -1019,6 +1087,12 @@
                 "value"
               ],
               "type": "object"
+            },
+            "type": "array"
+          },
+          "truncated": {
+            "items": {
+              "$ref": "#/components/schemas/AnalyticsTruncatedRead"
             },
             "type": "array"
           }
@@ -11278,6 +11352,9 @@
           },
           "meaningConfidence": {
             "$ref": "#/components/schemas/UnitInterval"
+          },
+          "outcome": {
+            "$ref": "#/components/schemas/ObservationOutcome"
           },
           "pronunciation": {
             "$ref": "#/components/schemas/PronunciationAssessment"

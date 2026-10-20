@@ -4,6 +4,12 @@
  * dimensions sniffed from the object header, per-language alt text, review state `draft`), patch, `replace`
  * (new bytes under a NEW immutable key: assignments move, the old row keeps `replacedByAssetId`), and
  * `assign` / `unassign` of the real storage slots (`VISUAL_SLOT_TARGETS`). Every mutation records a revision + audit.
+ *
+ * Every revision carries the restorable snapshot of the row as the mutation leaves it (`recordRestorableRevision` /
+ * `guardedEdit` in `./content`, R-7.3-04), so `POST /v1/admin/content/:id/rollback` with `entityTable: 'visual_assets'`
+ * can restore any of them (the restorable columns are `ROLLBACK_RESTORABLE_COLUMNS.visual_assets`; `review_status` is
+ * the asset's lifecycle state and is never restored). The `expectedRevision` guards of patch / assign / unassign are
+ * atomic: revision `expectedRevision + 1` is claimed under the unique key before anything is written.
  */
 import {
   UuidSchema,
@@ -30,12 +36,13 @@ import { z } from 'zod';
 import type { DefineRoute } from '../../app';
 import { problem, respondOk } from '../../http/envelope';
 import { parseBody, parseParams, parseQuery } from '../../http/validate';
-import { currentRevision, currentRevisions, recordRevision } from '../../lib/content';
+import { currentRevision, currentRevisions } from '../../lib/content';
 import { createDiff, findIdempotentCreate } from '../../lib/idempotent-create';
 import { imageMimeMatches, sniffImage } from '../../lib/images';
 import { hasAnyRole } from '../../middleware/auth';
 import type { RequestServices } from '../../services/context';
 import { R2_UNAVAILABLE_MESSAGE } from '../../services/r2';
+import { guardedEdit, recordRestorableRevision, restorableSnapshot, staleRevision } from './content';
 import { initiateUploadSession } from './uploads';
 
 const IdParams = z.object({ id: UuidSchema });
@@ -207,7 +214,7 @@ export function registerVisualAssetRoutes(define: DefineRoute): void {
     };
     const created = await s.repos.visualAssets.insert(row);
     // `crop` has no column yet (contracts gap noted): it is kept in the revision diff for the variant-derivation job.
-    await recordRevision(s, 'visual_assets', created.id, createDiff('visual_asset.register', body.idempotencyKey, { uploadId: upload.id, crop: body.crop }));
+    await recordRestorableRevision(s, 'visual_assets', created.id, createDiff('visual_asset.register', body.idempotencyKey, { uploadId: upload.id, crop: body.crop }), { row: created });
     s.audit({ action: 'visual_asset.register', entityTable: 'visual_assets', entityId: created.id, after: { idempotencyKey: body.idempotencyKey, uploadId: upload.id, type: created.type, origin: created.origin, dimensions, mimeType: created.mime_type } });
     return respondOk(c, await visualDto(s, created), 201);
   });
@@ -224,7 +231,7 @@ export function registerVisualAssetRoutes(define: DefineRoute): void {
     const s = c.get('services')!;
     const before = await loadVisual(s, id);
     const revision = await currentRevision(s, 'visual_assets', id);
-    if (body.expectedRevision !== undefined && body.expectedRevision !== revision) throw problem.precondition(`Visual asset revision is ${revision}, expected ${body.expectedRevision}`, { currentRevision: revision });
+    if (body.expectedRevision !== undefined && body.expectedRevision !== revision) throw staleRevision('Visual asset', revision, body.expectedRevision);
     if (before.replaced_by_asset_id) throw problem.precondition('This asset was replaced; edit the replacement instead', { replacedByAssetId: before.replaced_by_asset_id });
     if (body.contentRightsId && !(await s.repos.rights.getById(body.contentRightsId))) throw problem.validation('contentRightsId does not exist');
     const patch: Update<'visual_assets'> = {};
@@ -243,9 +250,10 @@ export function registerVisualAssetRoutes(define: DefineRoute): void {
       if (body.reviewStatus === 'approved' && before.alt_text_key.startsWith('visual.uploaded.') && !hasEnglishAlt(alt)) throw problem.precondition('Approval needs English alt text (accessibility checklist)');
       patch.review_status = body.reviewStatus;
     }
-    const updated = Object.keys(patch).length ? await s.repos.visualAssets.update(id, patch) : before;
     const { expectedRevision: _expected, ...diff } = body;
-    const next = await recordRevision(s, 'visual_assets', id, diff as Record<string, unknown>);
+    // Snapshot of the row as the patch leaves it, computed before writing; with `expectedRevision` the next revision is
+    // claimed first, so of two editors at the same revision exactly one writes.
+    const { result: updated, revision: next } = await guardedEdit(s, { table: 'visual_assets', id, what: 'Visual asset', expected: body.expectedRevision, current: revision, diff: diff as Record<string, unknown>, snapshot: restorableSnapshot('visual_assets', { ...before, ...patch }) }, async () => (Object.keys(patch).length ? await s.repos.visualAssets.update(id, patch) : before));
     s.audit({ action: 'visual_asset.patch', entityTable: 'visual_assets', entityId: id, before: { reviewStatus: before.review_status }, after: { fields: Object.keys(patch), reviewStatus: updated.review_status, revision: next } });
     return respondOk(c, await visualDto(s, updated, next));
   });
@@ -256,7 +264,7 @@ export function registerVisualAssetRoutes(define: DefineRoute): void {
     const s = c.get('services')!;
     const before = await loadVisual(s, id);
     const revision = await currentRevision(s, 'visual_assets', id);
-    if (body.expectedRevision !== undefined && body.expectedRevision !== revision) throw problem.precondition(`Visual asset revision is ${revision}, expected ${body.expectedRevision}`, { currentRevision: revision });
+    if (body.expectedRevision !== undefined && body.expectedRevision !== revision) throw staleRevision('Visual asset', revision, body.expectedRevision);
     const replayId = await findIdempotentCreate(s, 'visual_asset.replace', body.idempotencyKey);
     if (replayId) {
       const replacement = await s.repos.visualAssets.getById(replayId);
@@ -294,8 +302,8 @@ export function registerVisualAssetRoutes(define: DefineRoute): void {
     });
     const assignmentsBefore = await s.repos.visualAssets.listAssignments(id);
     const movedAssignments = await s.repos.visualAssets.replaceEverywhere(id, newId);
-    await recordRevision(s, 'visual_assets', newId, createDiff('visual_asset.replace', body.idempotencyKey, { replaces: id, keepFocalPoint: body.keepFocalPoint, keepCrop: body.keepCrop, note: body.note ?? null }));
-    const oldRevision = await recordRevision(s, 'visual_assets', id, { replacedBy: newId, movedAssignments, note: body.note ?? null }, body.note);
+    await recordRestorableRevision(s, 'visual_assets', newId, createDiff('visual_asset.replace', body.idempotencyKey, { replaces: id, keepFocalPoint: body.keepFocalPoint, keepCrop: body.keepCrop, note: body.note ?? null }), { row: created });
+    const oldRevision = await recordRestorableRevision(s, 'visual_assets', id, { replacedBy: newId, movedAssignments, note: body.note ?? null }, { row: { ...before, replaced_by_asset_id: newId }, note: body.note });
     let manifestInvalidated = false;
     for (const a of assignmentsBefore) manifestInvalidated = (await invalidateForTarget(s, { entityTable: a.entityTable, entityId: a.entityId, slot: a.slot }, oldRevision)) || manifestInvalidated;
     s.audit({ action: 'visual_asset.replace', entityTable: 'visual_assets', entityId: id, before: { contentHash: before.content_hash }, after: { replacementId: newId, contentHash: created.content_hash, movedAssignments, manifestInvalidated } });
@@ -308,7 +316,7 @@ export function registerVisualAssetRoutes(define: DefineRoute): void {
     const s = c.get('services')!;
     const asset = await loadVisual(s, id);
     const revision = await currentRevision(s, 'visual_assets', id);
-    if (body.expectedRevision !== undefined && body.expectedRevision !== revision) throw problem.precondition(`Visual asset revision is ${revision}, expected ${body.expectedRevision}`, { currentRevision: revision });
+    if (body.expectedRevision !== undefined && body.expectedRevision !== revision) throw staleRevision('Visual asset', revision, body.expectedRevision);
     if (asset.replaced_by_asset_id) throw problem.precondition('This asset was replaced; assign the replacement instead', { replacedByAssetId: asset.replaced_by_asset_id });
     const target = toRepoTarget({ entityTable: body.entityTable, entityId: body.entityId, slot: body.slot });
     await assertTargetExists(s, target);
@@ -317,9 +325,11 @@ export function registerVisualAssetRoutes(define: DefineRoute): void {
       return respondOk(c, VisualAssetAssignResponseSchema.parse({ assignment: toAssignment(current), replacedAssetId: null, manifestInvalidated: false }), 200);
     }
     if (current && !body.replaceExisting) throw problem.conflict(`Slot ${body.slot} on ${body.entityTable} ${body.entityId} already holds ${current.visualAssetId}; pass replaceExisting to swap it`, { currentAssetId: current.visualAssetId });
-    const assignment = await s.repos.visualAssets.assignVisualSlot(target, id);
-    if (!assignment) throw problem.internal('Assignment did not persist');
-    const next = await recordRevision(s, 'visual_assets', id, { assign: target, replacedAssetId: current?.visualAssetId ?? null, idempotencyKey: body.idempotencyKey });
+    const { result: assignment, revision: next } = await guardedEdit(s, { table: 'visual_assets', id, what: 'Visual asset', expected: body.expectedRevision, current: revision, diff: { assign: target, replacedAssetId: current?.visualAssetId ?? null, idempotencyKey: body.idempotencyKey }, snapshot: restorableSnapshot('visual_assets', asset) }, async () => {
+      const written = await s.repos.visualAssets.assignVisualSlot(target, id);
+      if (!written) throw problem.internal('Assignment did not persist');
+      return written;
+    });
     const manifestInvalidated = await invalidateForTarget(s, target, next);
     s.audit({ action: 'visual_asset.assign', entityTable: body.entityTable, entityId: body.entityId, before: { slot: body.slot, assetId: current?.visualAssetId ?? null }, after: { slot: body.slot, assetId: id, manifestInvalidated } });
     return respondOk(c, VisualAssetAssignResponseSchema.parse({ assignment: toAssignment(assignment), replacedAssetId: current?.visualAssetId ?? null, manifestInvalidated }), 201);
@@ -329,17 +339,16 @@ export function registerVisualAssetRoutes(define: DefineRoute): void {
     const { id } = parseParams(c, IdParams);
     const body = await parseBody(c, VisualAssetUnassignRequestSchema);
     const s = c.get('services')!;
-    await loadVisual(s, id);
+    const asset = await loadVisual(s, id);
     const revision = await currentRevision(s, 'visual_assets', id);
-    if (body.expectedRevision !== undefined && body.expectedRevision !== revision) throw problem.precondition(`Visual asset revision is ${revision}, expected ${body.expectedRevision}`, { currentRevision: revision });
+    if (body.expectedRevision !== undefined && body.expectedRevision !== revision) throw staleRevision('Visual asset', revision, body.expectedRevision);
     const target = toRepoTarget({ entityTable: body.entityTable, entityId: body.entityId, slot: body.slot });
     await assertTargetExists(s, target);
     const current = await s.repos.visualAssets.getSlotAssignment(target);
     if (!current || current.visualAssetId !== id) {
       return respondOk(c, VisualAssetUnassignResponseSchema.parse({ target, removed: false, manifestInvalidated: false }));
     }
-    await s.repos.visualAssets.assignVisualSlot(target, null);
-    const next = await recordRevision(s, 'visual_assets', id, { unassign: target });
+    const { revision: next } = await guardedEdit(s, { table: 'visual_assets', id, what: 'Visual asset', expected: body.expectedRevision, current: revision, diff: { unassign: target }, snapshot: restorableSnapshot('visual_assets', asset) }, () => s.repos.visualAssets.assignVisualSlot(target, null));
     const manifestInvalidated = await invalidateForTarget(s, target, next);
     s.audit({ action: 'visual_asset.unassign', entityTable: body.entityTable, entityId: body.entityId, before: { slot: body.slot, assetId: id }, after: { slot: body.slot, assetId: null, manifestInvalidated } });
     return respondOk(c, VisualAssetUnassignResponseSchema.parse({ target, removed: true, manifestInvalidated }));

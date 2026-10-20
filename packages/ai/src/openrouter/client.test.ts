@@ -126,6 +126,19 @@ describe('OpenRouterClient.audio', () => {
     expect(res.estimatedCostUsd).toBe(0.0000189);
   });
 
+  it('transcriptions: keeps Whisper segment compression_ratio and temperature for the non-speech gate (null when absent or not finite)', async () => {
+    const segments = [
+      { id: 0, seek: 0, start: 0, end: 4, text: ' Thank you. Thank you. Thank you. Thank you.', tokens: [50364, 1044], temperature: 0.4, avg_logprob: -0.31, compression_ratio: 4.6, no_speech_prob: 0.12 },
+      { id: 1, start: 4, end: 5, text: ' Bonjour', avg_logprob: -0.1, no_speech_prob: 0.02 },
+      { id: 2, start: 5, end: 6, text: ' madame', avg_logprob: -0.2, compression_ratio: 'NaN', temperature: null },
+    ];
+    const { client } = makeClient([{ match: (u) => u.endsWith('/audio/transcriptions'), respond: () => jsonResponse({ text: 'Thank you. Thank you. Thank you. Thank you. Bonjour madame', language: 'en', duration: 6, segments }) }]);
+    const res = await client.audio.transcriptions({ model: 'openai/whisper-large-v3', audio: { base64: 'AAAA', format: 'wav' }, responseFormat: 'verbose_json', timestampGranularities: ['segment'] });
+    expect(res.segments[0]).toMatchObject({ compressionRatio: 4.6, temperature: 0.4, avgLogprob: -0.31, noSpeechProb: 0.12 });
+    expect(res.segments[1]).toMatchObject({ compressionRatio: null, temperature: null });
+    expect(res.segments[2]).toMatchObject({ compressionRatio: null, temperature: null });
+  });
+
   it('transcriptions: multipart transport sends a file field', async () => {
     const { client, calls } = makeClient([{ match: (u) => u.endsWith('/audio/transcriptions'), respond: () => jsonResponse({ text: 'hola', usage: { seconds: 1 } }) }]);
     const res = await client.audio.transcriptions({ model: 'google/gemini-3.5-transcribe', audio: { bytes: new Uint8Array([1, 2, 3]), format: 'wav' }, language: 'es' });

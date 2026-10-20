@@ -3,10 +3,14 @@
  * rubric, writes observations → mastery → XP (once, server-validated) → review cards → achievements → planner; a
  * replayed evaluation never double-awards; failed missions award nothing; anticipation steps that were revealed
  * without an attempt count as `revealed` autonomy, not unaided success.
+ *
+ * Step outcomes the client reports are claims: a speaking step is credited only against a grading row the speech route
+ * wrote for one of the learner's takes (`apps/api/src/lib/xp-credit.ts`), so each evaluation first records the takes
+ * (`recordSpeechGradings`), one per speaking step of the mission.
  */
 import { MissionEvaluateResponseSchema } from '@langquest/contracts';
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { call, createApiHarness, createTestUser, describeWithStack, enrol, Seeder, teardown, type ApiHarness, type TestUser } from '../src/harness';
+import { call, createApiHarness, createTestUser, describeWithStack, enrol, recordSpeechGradings, Seeder, teardown, type ApiHarness, type TestUser } from '../src/harness';
 
 const describeStack = describeWithStack('integration.mission');
 
@@ -72,6 +76,8 @@ describeStack('mission attempt → evaluate → progress', () => {
   it('evaluates once: XP 50 canonical, mastery recorded, reviews scheduled, next mission from the planner; replay never double-awards', async () => {
     const attempt = await call(h, `/v1/missions/${missionId}/attempts`, { token: learner.token, body: { enrollmentId, clientAttemptId: crypto.randomUUID(), missionRevision: 0, startedAt: new Date().toISOString() } });
     const attemptId = attempt.json.data.attemptId as string;
+    // Four speaking steps (modeled_expression, anticipation, feedback_retry, review_recall), four graded takes.
+    await recordSpeechGradings(h.service, { userId: learner.id, enrollmentId, missionId, expressionId, outcomes: ['success', 'success', 'success', 'success'] });
     const clientEventId = crypto.randomUUID();
     const body = { attemptId, enrollmentId, completedAt: new Date().toISOString(), clientEventId, stepResults: stepIds.map((id, i) => stepResult(id, i === 2 ? { attemptedBeforeReveal: true } : {})) };
     const res = await call(h, `/v1/missions/${missionId}/evaluate`, { token: learner.token, body });
@@ -106,6 +112,8 @@ describeStack('mission attempt → evaluate → progress', () => {
   it('a failed mission awards nothing and schedules no reviews; a revealed anticipation step is not unaided', async () => {
     const attempt = await call(h, `/v1/missions/${missionId}/attempts`, { token: learner.token, body: { enrollmentId, clientAttemptId: crypto.randomUUID(), missionRevision: 0, startedAt: new Date().toISOString() } });
     const attemptId = attempt.json.data.attemptId as string;
+    // The takes of this attempt were graded as misses (the first attempt's successful takes are already used).
+    await recordSpeechGradings(h.service, { userId: learner.id, enrollmentId, missionId, expressionId, outcomes: ['fail', 'fail', 'fail', 'fail'] });
     const before = await h.service.rpc('user_total_xp', { p_user_id: learner.id });
     const res = await call(h, `/v1/missions/${missionId}/evaluate`, { token: learner.token, body: { attemptId, enrollmentId, completedAt: new Date().toISOString(), clientEventId: crypto.randomUUID(), stepResults: stepIds.map((id) => stepResult(id, { outcome: 'fail', attemptedBeforeReveal: false, hintsUsed: 2 })) } });
     expect(res.status).toBe(200);

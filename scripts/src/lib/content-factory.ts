@@ -420,6 +420,53 @@ export interface ChapterDraftRecord {
   chapter: SeedChapter;
   /** Present for factory runs that carry `ChapterRunResult.quality` (absent for seed exports and older drafts). */
   quality?: ChapterQuality;
+  /** What the reviewer must act on (diversity gate, skipped regeneration, incomplete critic), like a fixture suite's `gaps`. */
+  gaps?: string[];
+}
+
+/** The `gaps` of a chapter run, worded like the fixture suite's: low-diversity missions, skipped regeneration, an incomplete critic. */
+export function chapterRecordGaps(quality: ChapterQuality, options: { regenerateOnLowDiversity: boolean }): string[] {
+  const gaps: string[] = [];
+  const low = quality.diversity.filter((d) => d.verdict === 'needs_regeneration');
+  for (const d of low) gaps.push(`diversity gate: ${d.blueprintKey} needs regeneration (${d.reasons.join(', ')})`);
+  if (low.length && !options.regenerateOnLowDiversity) gaps.push('diversity regeneration skipped: not requested (regenerateOnLowDiversity is off)');
+  const review = quality.secondModelReview;
+  if (review && review.status !== 'complete') gaps.push(`second-model review ${review.status}: ${review.unreviewedRefs.length} item(s) unreviewed${review.aborted ? ` (${review.aborted})` : ''}`);
+  return gaps;
+}
+
+export interface ChapterRecordInput {
+  draftId: string;
+  generatedBy: string;
+  /** Every `ai_requests`-shaped record of the run; `generation` keeps the `content_generation` calls only. */
+  records: readonly AiRequestRecord[];
+  regenerateOnLowDiversity: boolean;
+  importedAt: string;
+  live: boolean;
+}
+
+/**
+ * The chapter draft record of a factory run, written the way the fixture path writes its suite: always
+ * `review_needed` / `nativeReviewed: false`; `generation` holds the generator's calls only (the critic's are in
+ * `quality.secondModelReview.ledger`); per-mission validation; the diversity gate and second-model review as
+ * `quality` (`chapterToExpressionDrafts` turns them into curation flags such as `diversity_needs_regeneration`, which
+ * `--apply` stores and the API publish gate enforces); and `gaps`. Nothing in it is approved or published.
+ */
+export function chapterDraftRecord(result: Pick<ChapterRunResult, 'missions' | 'quality'> & { chapter: SeedChapter }, input: ChapterRecordInput): ChapterDraftRecord {
+  const generation = ledgerFromRecords(input.records.filter((r) => r.task === 'content_generation'));
+  return {
+    formatVersion: 1,
+    kind: 'chapter_draft',
+    draftId: input.draftId,
+    status: 'review_needed',
+    nativeReviewed: false,
+    provenance: { dataset: 'content_factory', snapshotId: `${input.generatedBy}/${generation.models.join('+')}`, inputs: [], evidence: [], importedAt: input.importedAt, importer: `scripts/content-factory@${CONTENT_FACTORY_VERSION}` },
+    generation: { ...generation, promptTemplateVersions: PROMPT_TEMPLATE_VERSIONS, live: input.live },
+    validation: result.missions.map((m) => ({ blueprintKey: m.blueprint.key, ok: m.validation.ok, errors: m.validation.errors, warnings: m.validation.warnings, accepted: m.validation.expressions.filter((e) => e.accepted).length, rejected: m.validation.expressions.filter((e) => !e.accepted).map((e) => ({ index: e.index, reasons: e.reasons })) })),
+    chapter: result.chapter,
+    quality: result.quality,
+    gaps: chapterRecordGaps(result.quality, { regenerateOnLowDiversity: input.regenerateOnLowDiversity }),
+  };
 }
 
 /** Convert an honest seed chapter into generic expression drafts (for `applyExpressionDrafts`). */

@@ -6,10 +6,15 @@
  *
  * Policy (task brief): suites that need the stack SKIP with an explicit warning when it is absent and FAIL when
  * `LANGQUEST_REQUIRE_STACK=1` is set, so CI can insist on a provisioned stack while local runs stay green.
+ *
+ * Stack suites never leave the machine: `describeWithStack` installs the network guard
+ * (`@langquest/db/__tests__/network-guard`), which refuses any request to a non-local host before it is sent and fails
+ * the test that made it. Only `LANGQUEST_LIVE_TESTS=1` lifts it.
  */
 import { spawnSync } from 'node:child_process';
 import { resolve } from 'node:path';
 import { detectLocalStack, type LocalStack } from '@langquest/db/local-stack';
+import { installNetworkGuard, registerNetworkGuardHooks } from '@langquest/db/__tests__/network-guard';
 import { describe } from 'vitest';
 
 export const REPO_ROOT = resolve(import.meta.dirname, '../../..');
@@ -52,6 +57,8 @@ export const STACK_HELP = 'Run `pnpm supabase start` (Docker) at the repo root, 
 export function describeWithStack(suite: string): typeof describe {
   const stack = getStack();
   if (stack) {
+    installNetworkGuard({ allow: [stack.url] });
+    registerNetworkGuardHooks(suite);
     if (!stack.jwtSecret) console.warn(`[${suite}] Local stack found but JWT_SECRET could not be read; the API will verify tokens through GoTrue (slower) and forged-token tests are limited.`);
     return describe;
   }

@@ -3,11 +3,12 @@
  * string (including `"false"` and `"0"`) as `true`, so `?includeTranscript=false` used to include the transcript and
  * `?rightsVerified=false` listed only VERIFIED assets. Every flag now goes through the shared `QueryBooleanSchema`
  * (`common.ts`): `true|1` → true, `false|0` → false, absent → the schema default (or `undefined` = no filter), and
- * any other non-empty value (`yes`, `on`, `2`, `null`, ...) → a validation error. That parser is lenient in two
- * ways, pinned by the last-but-one test so a change to it is noticed here: case and surrounding spaces are ignored
- * (`" TRUE "` → true), and an EMPTY value reads as false (`?rightsVerified=` asks for unverified rights; it is not
- * "no filter" and not a 422). The sweep at the end guards every exported `*QuerySchema` against the coercion coming
- * back.
+ * any other value (`yes`, `on`, `2`, `null`, ...) → a validation error. The last-but-one test pins the two edge
+ * cases so a change to them is noticed here: case and surrounding spaces are ignored (`" TRUE "` → true), and an
+ * EMPTY value (`?rightsVerified=` or a bare `?rightsVerified`) is a validation error, not false and not "no filter"
+ * (decided 2026-10-20: no client sends one, and reading it as false silently flipped the filter to unverified
+ * rights). The route-level counterpart is `apps/api/src/__tests__/unit/query-flags-routes.test.ts`. The sweep at
+ * the end guards every exported `*QuerySchema` against the coercion coming back.
  */
 import { describe, expect, it } from 'vitest';
 import { z } from 'zod';
@@ -57,12 +58,18 @@ describe('strict boolean query flags', () => {
     expect(EnrollmentsListQuerySchema.safeParse({ includeArchived: 'yes' }).success).toBe(false);
   });
 
-  it('the shared parser ignores case and surrounding spaces, and reads an empty value as false (not "no filter")', () => {
+  it('the shared parser ignores case and surrounding spaces, and rejects an empty value (not false, not "no filter")', () => {
     for (const v of ['TRUE', 'True', ' true ', ' 1']) expect(AssetsListQuerySchema.parse({ rightsVerified: v }).rightsVerified, JSON.stringify(v)).toBe(true);
     for (const v of ['FALSE', ' false', '0 ']) expect(AssetsListQuerySchema.parse({ rightsVerified: v }).rightsVerified, JSON.stringify(v)).toBe(false);
-    expect(AssetsListQuerySchema.parse({ rightsVerified: '' }).rightsVerified).toBe(false);
-    expect(LicensesAttributionsQuerySchema.parse({ onlyUnverified: '' }).onlyUnverified).toBe(false);
-    expect(DownloadPackQuerySchema.parse({ deviceId: 'device-1', includeTranscript: '' }).includeTranscript).toBe(false);
+    for (const v of ['', ' ']) {
+      expect(AssetsListQuerySchema.safeParse({ rightsVerified: v }).success, JSON.stringify(v)).toBe(false);
+      expect(LicensesAttributionsQuerySchema.safeParse({ onlyUnverified: v }).success, JSON.stringify(v)).toBe(false);
+      expect(DownloadPackQuerySchema.safeParse({ deviceId: 'device-1', includeTranscript: v }).success, JSON.stringify(v)).toBe(false);
+      expect(EnrollmentsListQuerySchema.safeParse({ includeArchived: v }).success, JSON.stringify(v)).toBe(false);
+    }
+    // A default applies only when the flag is absent.
+    expect(EnrollmentsListQuerySchema.parse({}).includeArchived).toBe(false);
+    expect(DownloadPackQuerySchema.parse({ deviceId: 'device-1' }).includeTranscript).toBe(true);
   });
 
   it('sweep: no exported *QuerySchema reads "false" or "0" as true, and every boolean flag rejects junk', () => {

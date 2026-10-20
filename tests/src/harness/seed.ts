@@ -3,11 +3,13 @@
  * through the CMS) and registered for teardown in reverse insertion order, so suites leave the shared local
  * database as they found it. Rows are honest drafts/published fixtures — nothing here claims native review.
  */
-import type { ReviewCard, ReviewRating } from '@langquest/contracts';
+import type { ObservationOutcome, ReviewCard, ReviewRating, SkillObservationInput } from '@langquest/contracts';
 import { createScheduler, newCard } from '@langquest/curriculum/scheduler/scheduler';
 import type { DbClient } from '@langquest/db/client';
 import type { Insert, Row, TableName } from '@langquest/db/types';
 import { sha256HexSync } from '@langquest/media/hashing';
+import { observationToRow } from '../../../apps/api/src/lib/learning';
+import { SPEECH_EVIDENCE } from '../../../apps/api/src/lib/xp-credit';
 
 const slug = (prefix: string): string => `${prefix}_${crypto.randomUUID().replace(/-/g, '').slice(0, 12)}`;
 
@@ -178,4 +180,58 @@ export class Seeder {
   async conversationSession(input: { userId: string; enrollmentId: string; characterId: string; varietyId: string; sourceLanguageCode: string; missionId?: string | null; rubricOutcomes?: unknown; state?: Row<'conversation_sessions'>['state'] }): Promise<Row<'conversation_sessions'>> {
     return this.insert('conversation_sessions', { user_id: input.userId, enrollment_id: input.enrollmentId, character_id: input.characterId, target_variety_id: input.varietyId, source_language_code: input.sourceLanguageCode, mission_id: input.missionId ?? null, mode: 'text_only', pipeline: 'text_only', state: input.state ?? 'finished', rubric_outcomes: (input.rubricOutcomes ?? null) as never, ended_at: new Date().toISOString() });
   }
+}
+
+// --- server evidence -------------------------------------------------------------------------------------------------
+// `learning_observations` is an append-only, learner-owned ledger: these rows are never tracked by a Seeder (the delete
+// would be refused); they go with the user purge in `teardown`.
+
+const insertObservations = async (service: DbClient, rows: Insert<'learning_observations'>[]): Promise<string[]> => {
+  const res = await service.from('learning_observations').insert(rows).select('id');
+  if (res.error) throw new Error(`seed learning_observations: ${res.error.message}`);
+  return (res.data ?? []).map((row) => row.id);
+};
+
+/**
+ * Grading rows as `POST /v1/speech/pronunciation-assess` writes them, one per take that contained speech
+ * (`speaking.intelligibility` / `semantic_success`, scorer `speech-route@…`, `scenario_id` = the mission, no attempt).
+ * `missionEvaluate` credits a speaking step only against such a row (`apps/api/src/lib/xp-credit.ts`): a client-claimed
+ * outcome without one earns nothing. The route itself needs a speech provider and is covered offline
+ * (`apps/api/src/__tests__/unit/realtime-honesty.test.ts`). Call it after creating the attempt.
+ */
+export function recordSpeechGradings(service: DbClient, input: { userId: string; enrollmentId: string; missionId: string; expressionId: string; outcomes: readonly ObservationOutcome[] }): Promise<string[]> {
+  const observedAt = new Date().toISOString();
+  return insertObservations(
+    service,
+    input.outcomes.map((outcome) => ({
+      user_id: input.userId,
+      enrollment_id: input.enrollmentId,
+      skill_key: SPEECH_EVIDENCE.skillKey,
+      observation_type: SPEECH_EVIDENCE.observationType,
+      scenario_id: input.missionId,
+      mission_id: null,
+      mission_attempt_id: null,
+      conversation_session_id: null,
+      expression_id: input.expressionId,
+      autonomy: 'unaided',
+      hints_used: 0,
+      outcome,
+      utterance_confidence: 0.9,
+      scorer_kind: 'deterministic',
+      scorer_version: `${SPEECH_EVIDENCE.scorerVersionPrefix}2026-10-20.1`,
+      uncertainty: 0.1,
+      observed_at: observedAt,
+    })),
+  );
+}
+
+/**
+ * The conversation evaluator's own rows for a session, recorded the way `evaluateSession` (`apps/api/src/lib/conversation.ts`)
+ * records them: pass `evaluator.toSkillObservations(output, enrollmentId)` of an output evaluated with the session id and
+ * the mission in its context. `missionEvaluate` credits a conversation step, and the session's stored objectives, only
+ * as far as these rows back them; `conversation_sessions.rubric_outcomes` alone is a learner-writable claim.
+ */
+export function recordEvaluatorObservations(service: DbClient, userId: string, observations: readonly SkillObservationInput[]): Promise<string[]> {
+  const now = new Date().toISOString();
+  return insertObservations(service, observations.map((o) => observationToRow(o, userId, now)));
 }

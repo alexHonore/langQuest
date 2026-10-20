@@ -14,6 +14,7 @@ import { ConversationSessionScopeSchema, ConversationSessionStateSchema, UuidSch
 import type { DbClient as LearnerDb } from '@langquest/db/client';
 import type { CharactersRepository } from '@langquest/db/repositories/characters';
 import { sanitizeForMemory } from '@langquest/curriculum/missions/story';
+import { ALL_SKILL_KEYS } from '@langquest/curriculum/skills';
 import type { DbClient } from '@langquest/db/client';
 import type { Row } from '@langquest/db/types';
 import { sourceLanguageTranslator } from '@langquest/locales';
@@ -149,6 +150,8 @@ export function objectivesFromMission(mission: Row<'missions'> | null, source: s
 export async function recentWeaknesses(s: RequestServices, enrollmentId: string): Promise<string[]> {
   const mastery = await s.repos.progress.listMastery(enrollmentId);
   return mastery
+    // Registry skills only: a mastery row left by an evaluator-invented key never reaches a prompt again.
+    .filter((m) => EVALUATOR_SKILL_KEY_SET.has(m.skill_key))
     .filter((m) => m.mastery_state !== 'not_attempted' && m.internal_score < 0.5)
     .sort((a, b) => a.internal_score - b.internal_score)
     .slice(0, 10)
@@ -272,6 +275,45 @@ export async function attachAudio(s: RequestServices, turn: CharacterTurn, audio
 export const encodeBase64 = bytesToBase64;
 
 /**
+ * Speech-only evidence dimensions (`SYSTEM_SKILLS` in `@langquest/curriculum`). They are recorded by the speech routes
+ * only: `speaking.intelligibility` after the non-speech gate and the meaning judge, `speaking.pronunciation` only with
+ * an acoustic assessor score (ADR-006). The conversation evaluator reads text (typed turns, or transcripts), so it
+ * never credits them.
+ */
+export const SPEECH_ONLY_SKILL_KEYS: readonly string[] = ['speaking.intelligibility', 'speaking.pronunciation'];
+
+/**
+ * The skill keys the conversation evaluator may credit: the seeded skill registry (`ALL_SKILL_KEYS`: the communicative
+ * registry plus the system skills, one `skills` row each) minus the speech-only dimensions. The evaluator prompt lists
+ * exactly these (mission skills first); anything else it emits is dropped by `restrictEvaluatorOutputToSkills`.
+ */
+export const EVALUATOR_SKILL_KEYS: readonly string[] = ALL_SKILL_KEYS.filter((k) => !SPEECH_ONLY_SKILL_KEYS.includes(k));
+const EVALUATOR_SKILL_KEY_SET: ReadonlySet<string> = new Set(EVALUATOR_SKILL_KEYS);
+
+/**
+ * Server-side validation of the evaluator's skill keys (the model may still invent some, e.g. "greetings.basic"): every
+ * key outside `allowed` is dropped from `skillsExercised`, `observations` and `reviewTriggers`, and a priority
+ * correction keeps its text but loses the key. Nothing outside the registry is ever credited (observation, mastery,
+ * review card, XP for a skill state). Pure; `dropped` lists the removed keys (sorted, unique) for the log line.
+ */
+export function restrictEvaluatorOutputToSkills(output: EvaluatorOutput, allowed: ReadonlySet<string> = EVALUATOR_SKILL_KEY_SET): { output: EvaluatorOutput; dropped: string[] } {
+  const dropped = new Set<string>();
+  const keep = (key: string): boolean => {
+    if (allowed.has(key)) return true;
+    dropped.add(key);
+    return false;
+  };
+  const restricted: EvaluatorOutput = {
+    ...output,
+    skillsExercised: output.skillsExercised.filter(keep),
+    observations: output.observations.filter((o) => keep(o.skillKey)),
+    reviewTriggers: output.reviewTriggers.filter(keep),
+    priorityCorrections: output.priorityCorrections.map((c) => (c.skillKey !== null && !keep(c.skillKey) ? { ...c, skillKey: null } : c)),
+  };
+  return { output: restricted, dropped: [...dropped].sort() };
+}
+
+/**
  * Run the evaluator on the recent window and persist observations + mastery; update the session's rubric
  * outcomes/objectives. Safe to call repeatedly (each run appends evidence for the NEW turns only when
  * `sinceTurnIndex` is given). Never throws into the request path (callers run it under `waitUntil`).
@@ -280,12 +322,16 @@ export async function evaluateSession(s: RequestServices, ai: AiServices, input:
   const window = turnRecords(input.turns.slice(-EVALUATOR_WINDOW_TURNS));
   if (!window.some((t) => t.role === 'learner')) return null;
   try {
-    const raw = await ai.evaluator.evaluate({ context: input.context, transcriptWindow: window, conversationSessionId: input.session.id, skillCatalog: input.context.objectives.flatMap((o) => o.skillKeys), traceId: input.traceId });
+    // The prompt lists the registry keys the evaluator may use (mission skills first, `evaluatorSkillCatalogLines`).
+    const raw = await ai.evaluator.evaluate({ context: input.context, transcriptWindow: window, conversationSessionId: input.session.id, skillCatalog: EVALUATOR_SKILL_KEYS, traceId: input.traceId });
     // Objective ids are server-known (mission goals in the context). The package evaluator keeps raw ids when the
     // context lists no objectives (free conversation); here nothing outside the context may ever be persisted, so a
     // talked-into "completed g1" can never be matched against a mission goal later (missionEvaluate reads rubric_outcomes).
     const allowed = new Set(input.context.objectives.map((o) => o.id));
-    const output: EvaluatorOutput = { ...raw, objectivesCompleted: raw.objectivesCompleted.filter((id) => allowed.has(id)) };
+    // Skill keys outside the registry are dropped (and logged), never credited; the persisted rubric is the restricted one.
+    const restricted = restrictEvaluatorOutputToSkills({ ...raw, objectivesCompleted: raw.objectivesCompleted.filter((id) => allowed.has(id)) });
+    if (restricted.dropped.length) s.log.warn('conversation.evaluator_unknown_skill_keys', { sessionId: input.session.id, count: restricted.dropped.length, keys: restricted.dropped.slice(0, 20).map((k) => k.slice(0, 64)) });
+    const output: EvaluatorOutput = restricted.output;
     const observations = ai.evaluator.toSkillObservations(output, input.enrollment.id);
     await recordObservations(s, input.enrollment, observations, new Date().toISOString());
     const objectives = [...new Set([...input.session.objectives_completed, ...output.objectivesCompleted])];

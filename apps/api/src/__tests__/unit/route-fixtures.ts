@@ -251,6 +251,8 @@ export class FakePostgrest {
   private readonly tables = new Map<string, DbRow[]>();
   private readonly failures = new Map<string, DbFailure>();
   readonly requests: RecordedDbRequest[] = [];
+  /** Per-request latency in ms, keyed `${METHOD} ${table or rpc:name}`. */
+  readonly delays = new Map<string, number>();
   readonly rpcs: Record<string, RpcHandler> = {
     enqueue_processing_job: (args, ctx) => {
       const key = String(args.p_idempotency_key);
@@ -337,6 +339,10 @@ export class FakePostgrest {
     const isRpc = path.startsWith('rpc/');
     const target = isRpc ? `rpc:${path.slice(4)}` : path;
     this.requests.push({ method, target, client, sub, query: url.search, body });
+    // Simulated network latency for one request kind (e.g. `POST learning_observations`), to expose writes a route
+    // leaves in the background.
+    const delayMs = this.delays.get(`${method} ${target}`);
+    if (delayMs) await new Promise((resolve) => setTimeout(resolve, delayMs));
 
     const failure = this.failures.get(target);
     if (failure) return pgError(failure.status, failure.code, failure.message);

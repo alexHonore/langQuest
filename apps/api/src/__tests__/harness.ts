@@ -2,6 +2,12 @@
  * Shared test harness: offline app factory (fake verifier + role resolver) for unit tests, and a local-stack
  * harness (real Supabase via Docker) for integration tests. Integration suites skip with a clear message when
  * the stack is not reachable (CONVENTIONS §7).
+ *
+ * Stack suites never leave the machine: `describeWithStack` installs the network guard
+ * (`@langquest/db/__tests__/network-guard`) on `globalThis.fetch`, `stackApp` hands the app a guarded fetch, and a
+ * request to any non-local host (e.g. openrouter.ai) is refused before it is sent and fails the test that made it.
+ * Only `LANGQUEST_LIVE_TESTS=1` (the `__tests__/live` suites) lifts the guard. A suite that drives AI routes passes
+ * `aiFactory: async () => fakeAiServices(reasoner)` to `stackApp`.
  */
 import { DefaultCapabilityRegistry } from '@langquest/ai/capability/registry';
 import { CharacterAgent } from '@langquest/ai/conversation/character-agent';
@@ -18,6 +24,7 @@ import { resolve } from 'node:path';
 import { SignJWT } from 'jose';
 import { describe } from 'vitest';
 import { detectLocalStack, type LocalStack } from '@langquest/db/local-stack';
+import { guardFetch, installNetworkGuard, registerNetworkGuardHooks } from '@langquest/db/__tests__/network-guard';
 import { createServiceClient, type DbClient } from '@langquest/db/client';
 import type { TableName } from '@langquest/db/types';
 import type { Role } from '@langquest/contracts';
@@ -100,7 +107,11 @@ export function localJwtSecret(): string | null {
 }
 
 export function describeWithStack(suite: string): typeof describe {
-  if (stack) return describe;
+  if (stack) {
+    installNetworkGuard({ allow: [stack.url] });
+    registerNetworkGuardHooks(suite);
+    return describe;
+  }
   const message = `[${suite}] Local Supabase stack not reachable. Run \`pnpm supabase start\` (Docker) or set SUPABASE_LOCAL_URL + SUPABASE_LOCAL_ANON_KEY + SUPABASE_LOCAL_SERVICE_ROLE_KEY.`;
   if (process.env.LANGQUEST_REQUIRE_LOCAL_STACK === '1') throw new Error(message);
   console.warn(`${message} Skipping stack-bound integration tests.`);
@@ -122,9 +133,13 @@ export interface StackHarness {
   rows: TrackedRow[];
 }
 
-/** App bound to the local stack. Extra env (e.g. OPENROUTER_API_KEY) can be layered for live tests. */
+/**
+ * App bound to the local stack. Extra env (e.g. OPENROUTER_API_KEY) can be layered for live tests. The app's own
+ * fetch (AI adapters, media store, token verifier) is the network-guarded one unless `overrides.fetch` supplies a fake.
+ */
 export function stackApp(extra: Partial<Env> = {}, overrides: Partial<AppOptions> = {}): StackHarness {
   if (!stack) throw new Error('local stack not reachable');
+  installNetworkGuard({ allow: [stack.url] });
   const env: Env = {
     SUPABASE_URL: stack.url,
     SUPABASE_ANON_KEY: stack.anonKey,
@@ -136,7 +151,7 @@ export function stackApp(extra: Partial<Env> = {}, overrides: Partial<AppOptions
     ...extra,
   };
   const lines: string[] = [];
-  const app = createApp({ env, logSink: (l) => lines.push(l), ...overrides });
+  const app = createApp({ env, logSink: (l) => lines.push(l), fetch: guardFetch(globalThis.fetch), ...overrides });
   const service = createServiceClient({ SUPABASE_URL: env.SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY: env.SUPABASE_SERVICE_ROLE_KEY });
   return { app, service, env, users: [], rows: [] };
 }
@@ -145,6 +160,8 @@ export function stackApp(extra: Partial<Env> = {}, overrides: Partial<AppOptions
  * Register a content row the suite inserted (characters, missions, media_assets, …) so `teardownStack` removes it.
  * Track rows in INSERTION order (a parent before the rows that reference it): teardown walks the list backwards, so a
  * child is deleted before a parent that RESTRICTs on it. Returns the id for chaining.
+ * Teardown purges users BEFORE these rows, so a tracked media_asset must not be owned by a stack user: purging the
+ * owner appends an append-only `asset_provenance_events` row whose ON DELETE CASCADE then refuses the asset delete.
  */
 export function trackRow(h: StackHarness, table: TableName, id: string): string {
   h.rows.push({ table, id });

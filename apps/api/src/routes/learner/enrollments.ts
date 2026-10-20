@@ -6,7 +6,7 @@
  * Archiving (status → `archived`) and the destructive DELETE both require an explicit confirmation query
  * (`?confirm=archive` / `?confirm=delete`) so a stray request never erases a course (§15 "User removes a course").
  */
-import { EnrollmentCreateRequestSchema, EnrollmentPatchRequestSchema, EnrollmentsListResponseSchema, UuidSchema, getCourseTrack, type CourseTrackId, type SourceLanguageCode } from '@langquest/contracts';
+import { EnrollmentCreateRequestSchema, EnrollmentPatchRequestSchema, EnrollmentsListQuerySchema, EnrollmentsListResponseSchema, UuidSchema, getCourseTrack, type CourseTrackId, type SourceLanguageCode } from '@langquest/contracts';
 import { DbError } from '@langquest/db/errors';
 import type { Context } from 'hono';
 import { z } from 'zod';
@@ -67,7 +67,8 @@ export function registerEnrollmentRoutes(define: DefineRoute): void {
   define('enrollmentsList', {}, async (c) => {
     const s = svc(c);
     const { repos, principal } = s.requireUser();
-    const includeArchived = parseQuery(c, z.object({ includeArchived: z.coerce.boolean().default(false) })).includeArchived;
+    // Strict flag (`QueryBooleanSchema`): `false` / `0` hide archived courses, an empty or unknown value is a 422.
+    const { includeArchived } = parseQuery(c, EnrollmentsListQuerySchema);
     const rows = await repos.enrollments.listForUser(principal.userId, { includeArchived });
     const coverage = rows.length
       ? ((await s.service.from('course_source_localizations').select(COVERAGE_COLUMNS).in('course_track_id', [...new Set(rows.map((r) => r.course_track_id))])).data as CoverageRow[] | null) ?? []

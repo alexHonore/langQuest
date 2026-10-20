@@ -4,6 +4,15 @@
  * record `approved` / `rejected` (the DB trigger stamps reviewer + time) and, on approval, the API applies the
  * suggested value to the lesson for the kinds it knows how to map — `applied` is true ONLY when a lesson field was
  * actually written and a `content_revisions` row recorded. Confidence is shown as reported, never turned into a score.
+ *
+ * An applied suggestion is a lesson edit like any other (R-7.3-04): the lesson write is conditional on the row version
+ * that was read (`updateIfUnchanged`; a concurrent edit is re-read and the patch recomputed on the current row, never
+ * overwritten), and its `audio_lessons` revision carries the restorable snapshot of the lesson as written, so
+ * `POST /v1/admin/content/:id/rollback` undoes it. Suggestions themselves are not versioned.
+ *
+ * `expectedRevision` on the single decide route holds the apply to THAT lesson revision (`guardedEdit`: revision
+ * `expectedRevision + 1` is claimed before the conditional write). A lesson edited in between is a 412 with nothing
+ * decided and no override stored; there is no re-read, since the editor approved against the revision they saw.
  */
 import {
   AssetSuggestionDecideRequestSchema,
@@ -28,8 +37,9 @@ import { z } from 'zod';
 import type { DefineRoute } from '../../app';
 import { problem, respondOk } from '../../http/envelope';
 import { parseBody, parseParams, parseQuery } from '../../http/validate';
-import { currentRevision, recordRevision } from '../../lib/content';
+import { currentRevision } from '../../lib/content';
 import type { RequestServices } from '../../services/context';
+import { RowChangedError, guardedEdit, recordRestorableRevision, restorableSnapshot, updateIfUnchanged } from './content';
 
 const IdParams = z.object({ id: UuidSchema });
 const PENDING = new Set(['draft', 'review_needed', 'in_review']);
@@ -140,17 +150,48 @@ function lessonPatchFor(kind: string, suggestion: Json, lesson: Row<'audio_lesso
   }
 }
 
-/** Approve + apply one pending suggestion; returns the written revision (null when nothing could be applied). */
-async function applyApproved(s: RequestServices, row: AssetSuggestionRow): Promise<ContentRevisionRef | null> {
+/** Reads of the lesson an approved suggestion is applied to while other writers keep changing it. */
+const APPLY_ATTEMPTS = 3;
+
+/**
+ * Approve + apply one pending suggestion; returns the written revision (null when nothing could be applied). The patch
+ * is computed from the lesson as read and written only if that row is unchanged. The revision snapshot is the lesson as
+ * written.
+ * - Without `expectedRevision`: a concurrent edit makes it re-read the lesson and recompute (tags merge into the
+ *   CURRENT tags), up to `APPLY_ATTEMPTS` reads.
+ * - With `expectedRevision`: `guardedEdit` claims revision `expectedRevision + 1` before the conditional write, so a
+ *   revision recorded or a row written in between is a 412 (the claim is voided); no re-read, no retry.
+ */
+async function applyApproved(s: RequestServices, row: AssetSuggestionRow, expectedRevision?: number): Promise<ContentRevisionRef | null> {
   if (!row.lesson_id) return null;
-  const lesson = (await s.service.from('audio_lessons').select('*').eq('id', row.lesson_id).maybeSingle()).data;
-  if (!lesson) return null;
-  if (lesson.state === 'published') return null; // published content changes only through the publish flow
-  const patch = lessonPatchFor(row.kind, obj(row.suggestion), lesson);
-  if (!patch) return null;
-  await s.repos.audioLibrary.updateLesson(lesson.id, patch);
-  const revision = await recordRevision(s, 'audio_lessons', lesson.id, { suggestionApplied: row.id, kind: row.kind, patch: patch as Record<string, unknown> }, `asset suggestion ${row.id}`);
-  return { entityTable: 'audio_lessons', entityId: lesson.id, revision };
+  for (let attempt = 0; attempt < APPLY_ATTEMPTS; attempt += 1) {
+    const read = await s.service.from('audio_lessons').select('*').eq('id', row.lesson_id).maybeSingle();
+    if (read.error) throw problem.internal(`Could not read the lesson: ${read.error.message}`);
+    const lesson = read.data;
+    if (!lesson) return null;
+    if (lesson.state === 'published') return null; // published content changes only through the publish flow
+    const patch = lessonPatchFor(row.kind, obj(row.suggestion), lesson);
+    if (!patch) return null;
+    const diff = { suggestionApplied: row.id, kind: row.kind, patch: patch as Record<string, unknown> };
+    const note = `asset suggestion ${row.id}`;
+    if (expectedRevision !== undefined) {
+      const snapshot = restorableSnapshot('audio_lessons', { ...lesson, ...patch } as Record<string, unknown>);
+      const { revision } = await guardedEdit(s, { table: 'audio_lessons', id: lesson.id, what: 'Lesson', expected: expectedRevision, diff, snapshot, note }, () => updateIfUnchanged(s, 'audio_lessons', lesson, patch as Record<string, unknown>, 'Lesson'));
+      return { entityTable: 'audio_lessons', entityId: lesson.id, revision };
+    }
+    let written: Row<'audio_lessons'>;
+    try {
+      written = (await updateIfUnchanged(s, 'audio_lessons', lesson, patch as Record<string, unknown>, 'Lesson')) as Row<'audio_lessons'>;
+    } catch (error) {
+      if (error instanceof RowChangedError) continue;
+      throw error;
+    }
+    const revision = await recordRestorableRevision(s, 'audio_lessons', lesson.id, diff, { row: written, note });
+    return { entityTable: 'audio_lessons', entityId: lesson.id, revision };
+  }
+  // The decision stands (it is the reviewer's); the lesson kept changing, so nothing was applied and `applied` says so.
+  s.log.warn('asset_suggestion.apply_contended', { suggestionId: row.id, lessonId: row.lesson_id, attempts: APPLY_ATTEMPTS });
+  return null;
 }
 
 export function registerSuggestionRoutes(define: DefineRoute): void {
@@ -273,11 +314,16 @@ export function registerSuggestionRoutes(define: DefineRoute): void {
       const current = await currentRevision(s, 'audio_lessons', row.lesson_id);
       if (current !== body.expectedRevision) throw problem.precondition(`Lesson revision is ${current}, expected ${body.expectedRevision}`, { currentRevision: current });
     }
-    if (body.overrideSuggestion && body.decision === 'approve') {
+    const approve = body.decision === 'approve';
+    // With `expectedRevision` the lesson write is held to that revision and runs BEFORE anything is recorded: a lesson
+    // edited in between is a 412 with the suggestion still pending and no override stored, so the editor reloads and
+    // decides again. Without it the decision is recorded first and the apply re-reads a lesson that keeps changing.
+    const guarded = approve && body.expectedRevision !== undefined ? await applyApproved(s, body.overrideSuggestion ? { ...row, suggestion: body.overrideSuggestion as AssetSuggestionRow['suggestion'] } : row, body.expectedRevision) : undefined;
+    if (body.overrideSuggestion && approve) {
       row = await s.repos.assetSuggestions.update(id, { suggestion: body.overrideSuggestion as never });
     }
     const decided = await s.repos.assetSuggestions.decide(id, { reviewStatus: status, reviewerId: principal.userId, note: body.note ?? null });
-    const revision = body.decision === 'approve' ? await applyApproved(s, decided) : null;
+    const revision = !approve ? null : guarded !== undefined ? guarded : await applyApproved(s, decided);
     const lessons = await lessonsById(s, [decided]);
     s.audit({ action: 'asset_suggestion.decide', entityTable: 'asset_suggestions', entityId: id, before: { reviewStatus: row.review_status }, after: { idempotencyKey: body.idempotencyKey, decision: body.decision, overridden: Boolean(body.overrideSuggestion), applied: revision !== null, revision } });
     return respondOk(c, AssetSuggestionDecideResponseSchema.parse({ suggestion: toDto(decided, decided.lesson_id ? (lessons.get(decided.lesson_id) ?? null) : null), applied: revision !== null, revision, replayed: false }));

@@ -9,7 +9,8 @@ export default defineConfig({
     },
   },
   test: {
-    include: ['src/**/*.test.ts'],
+    // Pure helpers that live next to their Studio screen (e.g. app/(studio)/library/batch-results.ts) keep their tests there.
+    include: ['src/**/*.test.ts', 'app/**/*.test.ts'],
     environment: 'node',
     testTimeout: 20_000,
   },

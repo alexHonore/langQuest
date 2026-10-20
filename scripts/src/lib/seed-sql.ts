@@ -4,10 +4,11 @@
  * Complements `buildCatalogSeedSql()` from `@langquest/db` (languages, varieties, tracks,
  * model profiles). Every statement is `INSERT … ON CONFLICT DO UPDATE`.
  */
-import { INTENTS, SKILLS, summariseCoverage } from '@langquest/curriculum';
+import { INTENTS, summariseCoverage } from '@langquest/curriculum';
 import { sqlJsonb, sqlLiteral, sqlNullable, sqlTextArray } from '@langquest/db/seed/catalog-sql';
 import { generateCourseSourceLocalizationRows, validateCourseSourceLocalizationRows, type CurriculumSeed } from '@langquest/locales';
 import type { SourceLanguageCode } from '@langquest/contracts';
+import { buildSkillSeedPlan, type SkillSeedPlan } from './skills-seed';
 
 /** `communicative_intents` upserts from the curriculum registry. */
 export function buildIntentsSeedSql(): string {
@@ -22,13 +23,29 @@ export function buildIntentsSeedSql(): string {
   return out.join('\n') + '\n';
 }
 
-/** `skills` upserts from the curriculum registry. */
-export function buildSkillsSeedSql(): string {
-  const out: string[] = ['-- skills (from @langquest/curriculum SKILLS)'];
-  for (const s of SKILLS) {
+/** Columns the skills seed owns; an existing row whose columns all match is not rewritten. */
+const SKILL_SEED_COLUMNS = ['descriptor', 'difficulty', 'target_language_id', 'cefr_can_do', 'can_do_statement', 'prerequisite_skill_keys'] as const;
+
+/**
+ * `skills` upserts: the SAME rows `seed-curriculum` seeds (`buildSkillSeedPlan` in `./skills-seed`, i.e. `ALL_SKILLS` =
+ * the communicative registry, then the system skills), with the same id rule:
+ * - a new row gets the deterministic id `skillSeedId(key)`;
+ * - an existing row keeps its id (`on conflict (skill_key)` never updates `id`; `skill_variants.skill_id` references it);
+ * - an existing row is only rewritten when a seeded column differs (`where … is distinct from …`), so a re-run writes
+ *   nothing;
+ * - rows that are not in the plan (editor-authored skills) are never touched or deleted.
+ * Refuses (throws) while the plan has problems (a referenced key without a row, a missing en/fr name), exactly like
+ * `seed-curriculum`, so neither seed can write a partial skill set.
+ */
+export function buildSkillsSeedSql(plan: SkillSeedPlan = buildSkillSeedPlan()): string {
+  if (plan.problems.length) throw new Error(`skills seed has ${plan.problems.length} problem(s): ${plan.problems.slice(0, 5).join('; ')}`);
+  const system = plan.planned.filter((p) => p.kind === 'system').length;
+  const out: string[] = [`-- skills (from @langquest/curriculum ALL_SKILLS: ${plan.planned.length - system} registry + ${system} system; same rows and ids as seed-curriculum)`];
+  const changed = SKILL_SEED_COLUMNS.map((c) => `public.skills.${c} is distinct from excluded.${c}`).join(' or ');
+  for (const { row } of plan.planned) {
     out.push(
-      `insert into public.skills (skill_key, descriptor, difficulty, target_language_id, cefr_can_do, can_do_statement, prerequisite_skill_keys) values (${sqlLiteral(s.skillKey)}, ${sqlLiteral(s.descriptor)}, ${s.difficulty}, null, ${sqlNullable(s.cefrCanDo)}, ${sqlLiteral(s.canDoStatement)}, ${sqlTextArray(s.prerequisites)})` +
-        ' on conflict (skill_key) do update set descriptor = excluded.descriptor, difficulty = excluded.difficulty, cefr_can_do = excluded.cefr_can_do, can_do_statement = excluded.can_do_statement, prerequisite_skill_keys = excluded.prerequisite_skill_keys;',
+      `insert into public.skills (id, skill_key, descriptor, difficulty, target_language_id, cefr_can_do, can_do_statement, prerequisite_skill_keys) values (${sqlLiteral(row.id)}, ${sqlLiteral(row.skill_key)}, ${sqlLiteral(row.descriptor)}, ${row.difficulty}, null, ${sqlNullable(row.cefr_can_do)}, ${sqlLiteral(row.can_do_statement)}, ${sqlTextArray(row.prerequisite_skill_keys)})` +
+        ` on conflict (skill_key) do update set ${SKILL_SEED_COLUMNS.map((c) => `${c} = excluded.${c}`).join(', ')} where ${changed};`,
     );
   }
   return out.join('\n') + '\n';

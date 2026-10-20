@@ -22,10 +22,13 @@ import type { TableName } from '../types';
 import {
   createTestUser,
   deleteTestUsers,
+  deleteTrackedRows,
   describeWithStack,
   stackEnv,
   testKey,
+  trackRow,
   type TestUser,
+  type TrackedRow,
 } from './stack';
 
 const describeStack = describeWithStack('rls.test');
@@ -244,6 +247,8 @@ describeStack('RLS and invariants (local stack)', () => {
   let anon: DbClient;
   let svc: ReturnType<typeof createRepositories>;
   const createdUserIds: string[] = [];
+  /** Service-role rows the suite creates (the shared asset, processing jobs); removed before the users. */
+  const rows: TrackedRow[] = [];
   let userA: TestUser;
   let userB: TestUser;
   let support: TestUser;
@@ -349,7 +354,7 @@ describeStack('RLS and invariants (local stack)', () => {
       .select('id')
       .single();
     if (session.error) throw session.error;
-    const assetId = randomUUID();
+    const assetId = trackRow(rows, 'media_assets', randomUUID());
     const asset = await service.from('media_assets').insert({
       id: assetId,
       storage_key: `media/${assetId}/${SHA}.mp3`,
@@ -380,12 +385,14 @@ describeStack('RLS and invariants (local stack)', () => {
   }, 90000);
 
   afterAll(async () => {
+    // Tracked rows first: the asset is owned by the editor, and purging its owner first would append
+    // an `asset_provenance_events` row (append-only) that blocks the asset delete for good.
+    await deleteTrackedRows(service, rows);
     await deleteTestUsers(service, createdUserIds);
     if (lessonCourseId) await service.from('lesson_courses').delete().eq('id', lessonCourseId);
     if (collectionId)
       await service.from('audio_course_collections').delete().eq('id', collectionId);
     if (fx?.characterId) await service.from('characters').delete().eq('id', fx.characterId);
-    if (fx?.assetId) await service.from('media_assets').delete().eq('id', fx.assetId);
   });
 
   // -------------------------------------------------------------------------
@@ -1325,6 +1332,7 @@ describeStack('RLS and invariants (local stack)', () => {
       idempotencyKey: key,
       params: { x: 1 },
     });
+    trackRow(rows, 'processing_jobs', job.id);
     const again = await svc.processingJobs.enqueue({ jobType: 'verify', idempotencyKey: key });
     expect(again.id).toBe(job.id);
     const [c1, c2] = await Promise.all([
@@ -1370,6 +1378,7 @@ describeStack('RLS and invariants (local stack)', () => {
       requestedBy: userA.id, // ignored for JWT sessions: the caller is the requester
       maxAttempts: 1,
     });
+    trackRow(rows, 'processing_jobs', enqueued.id);
     expect(enqueued.requested_by).toBe(editor.id);
     expect(
       (await editor.client.rpc('claim_processing_job', { p_worker_id: 'editor' })).error?.code,

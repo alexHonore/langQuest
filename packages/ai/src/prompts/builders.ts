@@ -23,7 +23,7 @@ import { coachingLanguageInstruction, getPromptPack, resolveRegionalPreference, 
 export const PROMPT_VERSIONS = {
   character: '2026-10-14.1',
   explanation: '2026-10-14.1',
-  evaluator: '2026-10-14.1',
+  evaluator: '2026-10-20.1',
   summary: '2026-10-14.1',
 } as const;
 
@@ -191,9 +191,30 @@ export const EvaluatorLlmSchema = z.object({
 });
 export type EvaluatorLlmOutput = z.infer<typeof EvaluatorLlmSchema>;
 
+/**
+ * The skill-catalog lines of the evaluator prompt: the mission's own skills first, then the rest of the catalog. The
+ * catalog is the COMPLETE list of keys the evaluator may emit (the API passes the seeded skill registry); keys it emits
+ * anyway are dropped server-side and never credited (`apps/api` `restrictEvaluatorOutputToSkills`).
+ */
+export function evaluatorSkillCatalogLines(context: ConversationContext, skillCatalog: readonly string[]): string | null {
+  const catalog = [...new Set(skillCatalog)];
+  if (!catalog.length) return null;
+  const objectiveKeys = new Set(context.objectives.flatMap((o) => o.skillKeys));
+  const mission = catalog.filter((k) => objectiveKeys.has(k));
+  const others = catalog.filter((k) => !objectiveKeys.has(k));
+  return [
+    'Skill catalog (the only valid skillKey values, copy them exactly):',
+    mission.length ? `Mission skills: ${mission.join(', ')}` : null,
+    others.length ? `${mission.length ? 'Other skills' : 'Skills'}: ${others.join(', ')}` : null,
+  ]
+    .filter(Boolean)
+    .join('\n');
+}
+
 export function buildEvaluatorPrompt(input: { context: ConversationContext; transcriptWindow: readonly TurnRecord[]; skillCatalog?: readonly string[] }): Prompt {
   const lang = input.context.language;
   const pack = getPromptPack(lang.targetVariety);
+  const catalog = evaluatorSkillCatalogLines(input.context, input.skillCatalog ?? []);
   const system = [
     `You are the learning evaluator for a ${pack.name} conversation. You run after the turn; you never interrupt the learner.`,
     'Extract: which objectives were communicatively completed (meaning over exact words, A11), which skills were exercised, structured observations, and at most TWO priority corrections that would help most (§3.6). Prefer meaning, register and intelligibility over nitpicks. Never penalise low-confidence transcripts: mark outcome "unclear" with high uncertainty instead.',
@@ -202,14 +223,16 @@ export function buildEvaluatorPrompt(input: { context: ConversationContext; tran
     regionalInstruction(lang),
     coachingLanguageInstruction(lang.sourceLanguage),
     `Dialect fidelity: the learner is learning ${pack.name}; a correct ${pack.name} form is never "wrong" because it differs from ${pack.guard.negative.map((n) => n.label).join('/') || 'another variety'}${lang.regionalPreference ? ', and regional wording matching the learner\'s REGION is never "wrong" either' : ''}.`,
-    'skillKey values: lowercase snake_case or dotted keys from the catalog when provided (e.g. "greetings.basic", "ordering.cafe"); invent only when nothing fits, with the same format.',
+    catalog
+      ? 'skillKey values (observations, skillsExercised, reviewTriggers, priorityCorrections[].skillKey) must be copied EXACTLY from the skill catalog in the request: it is the complete list of valid keys. Never invent, rename, translate or reformat a key. When no catalog key fits what you observed, leave that observation out and set that priority correction\'s skillKey to null. Prefer the mission skills.'
+      : 'No skill catalog was provided: return empty "skillsExercised", "observations" and "reviewTriggers", and set every priority correction\'s skillKey to null. Never invent a skill key.',
     '"summary": a concise, safe learning/story summary (no personal data, no full transcript). "relationshipMemoryUpdate": one sentence a character could remember (or null).',
     'Return JSON only.',
   ]
     .filter((p): p is string => p !== null)
     .join('\n\n');
   const transcript = input.transcriptWindow.map((t) => `${t.role === 'learner' ? 'LEARNER' : 'CHARACTER'}${t.command ? ` (command: ${t.command})` : ''}${t.confidence !== undefined && t.confidence !== null ? ` [asr confidence ${t.confidence.toFixed(2)}]` : ''}: ${t.text}`).join('\n');
-  const user = [compactContext(input.context), input.skillCatalog?.length ? `Skill catalog: ${input.skillCatalog.join(', ')}` : null, `Recent turns:\n${transcript || '(no turns)'}`].filter(Boolean).join('\n\n');
+  const user = [compactContext(input.context), catalog, `Recent turns:\n${transcript || '(no turns)'}`].filter(Boolean).join('\n\n');
   return { templateId: 'evaluator.checkpoint', templateVersion: PROMPT_VERSIONS.evaluator, system, user };
 }
 

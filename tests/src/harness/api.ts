@@ -4,6 +4,7 @@
  * can `flush()` audit/telemetry writes before asserting on them.
  */
 import { createServiceClient, type DbClient } from '@langquest/db/client';
+import { guardFetch, installNetworkGuard } from '@langquest/db/__tests__/network-guard';
 import { createApp, type AppContext, type AppOptions } from '../../../apps/api/src/app';
 import type { Env } from '../../../apps/api/src/env';
 import { getStack, type TestStack } from './stack';
@@ -26,10 +27,14 @@ export interface ApiHarness {
 /** Secret shared by every harness app so HMAC media tokens can be forged/verified in tests. */
 export const TEST_TICKET_SECRET = 'tests-ticket-secret-with-at-least-32-characters';
 
-/** Build an app bound to the local stack. Extra env (e.g. OPENROUTER_API_KEY for live tests) can be layered. */
+/**
+ * Build an app bound to the local stack. Extra env (e.g. OPENROUTER_API_KEY for live tests) can be layered. The app's
+ * own fetch is the network-guarded one (non-local hosts are refused) unless `overrides.fetch` supplies a fake.
+ */
 export function createApiHarness(extra: Partial<Env> = {}, overrides: Partial<AppOptions> = {}): ApiHarness {
   const stack = getStack();
   if (!stack) throw new Error('local Supabase stack not reachable (guard the suite with describeWithStack)');
+  installNetworkGuard({ allow: [stack.url] });
   const env: Env = {
     SUPABASE_URL: stack.url,
     SUPABASE_ANON_KEY: stack.anonKey,
@@ -42,7 +47,7 @@ export function createApiHarness(extra: Partial<Env> = {}, overrides: Partial<Ap
     ...extra,
   };
   const logs: string[] = [];
-  const app = createApp({ env, logSink: (line) => logs.push(line), ...overrides });
+  const app = createApp({ env, logSink: (line) => logs.push(line), fetch: guardFetch(globalThis.fetch), ...overrides });
   const service = createServiceClient({ SUPABASE_URL: env.SUPABASE_URL, SUPABASE_SERVICE_ROLE_KEY: env.SUPABASE_SERVICE_ROLE_KEY });
   return { app, service, env, stack, logs, users: [] };
 }

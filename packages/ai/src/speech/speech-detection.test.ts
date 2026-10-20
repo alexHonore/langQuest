@@ -201,6 +201,62 @@ describe('detectSpeech: no false positives on genuine short answers', () => {
   });
 });
 
+describe("detectSpeech: the recognizer's own compression_ratio (Whisper verbose_json)", () => {
+  const LOOP = 'je suis je suis je suis je suis je suis je suis je suis';
+  const crSeg = (text: string, compressionRatio: number | null, noSpeechProb = 0.02, avgLogprob = -0.1): DetectorSegment => ({ text, noSpeechProb, avgLogprob, compressionRatio });
+
+  it('a confidently decoded loop is flagged by compression_ratio > 2.4 even where the text rule needs weak acoustics', () => {
+    // Confident acoustics: the text-only repetition rule lets this through (see the test above)…
+    expect(one(LOOP, 0.02, -0.1)).toMatchObject({ speechDetected: true });
+    // …but the recognizer itself measured the decode as too repetitive (Whisper's compression_ratio_threshold 2.4).
+    const r = detectSpeech({ text: LOOP, segments: [crSeg(LOOP, 4.6)] });
+    expect(r).toMatchObject({ speechDetected: false, reason: 'repetition_loop', text: '', discardedText: LOOP });
+    expect(r.signals).toMatchObject({ maxCompressionRatio: 4.6, loopSegments: 1, silentSegments: 0 });
+  });
+
+  it('at or below 2.4 (ordinary speech) nothing changes, and no ratio reported means the text rules alone apply', () => {
+    const sentence = "Je voudrais un café, s'il vous plaît.";
+    expect(detectSpeech({ text: sentence, segments: [crSeg(sentence, 1.3)] })).toMatchObject({ speechDetected: true, text: sentence });
+    expect(detectSpeech({ text: LOOP, segments: [crSeg(LOOP, 2.4)] })).toMatchObject({ speechDetected: true });
+    expect(detectSpeech({ text: LOOP, segments: [crSeg(LOOP, null)] })).toMatchObject({ speechDetected: true });
+    expect(detectSpeech({ text: LOOP, segments: [crSeg(LOOP, Number.NaN)] }).signals.maxCompressionRatio).toBeNull();
+  });
+
+  it('only the looping segment is dropped when the learner also spoke', () => {
+    const r = detectSpeech({ text: `Bonjour madame. ${LOOP}`, segments: [crSeg('Bonjour madame.', 1.1), crSeg(LOOP, 5.2)] });
+    expect(r).toMatchObject({ speechDetected: true, text: 'Bonjour madame.', droppedSegments: [1], discardedText: LOOP });
+    expect(r.signals).toMatchObject({ maxCompressionRatio: 5.2, loopSegments: 1 });
+  });
+
+  it('a drill whose expected answer is itself repetitive is not a loop by compression_ratio', () => {
+    const drill = 'bonjour bonjour bonjour bonjour bonjour bonjour';
+    expect(detectSpeech({ text: drill, segments: [crSeg(drill, 3.4)] })).toMatchObject({ speechDetected: false, reason: 'repetition_loop' });
+    expect(detectSpeech({ text: drill, segments: [crSeg(drill, 3.4)], expectedText: drill })).toMatchObject({ speechDetected: true, text: drill });
+  });
+
+  it('end to end: the OpenRouter recognizer passes compression_ratio through and the learner take is "no speech" (verdict logged, never the text)', async () => {
+    const text = "I'm going to the store. I'm going to the store. I'm going to the store. I'm going to the store.";
+    const { stt, sink, calls } = sttWith({
+      text,
+      language: 'en',
+      duration: 6,
+      usage: { seconds: 6, cost: 0.00004 },
+      segments: [{ id: 0, seek: 0, start: 0, end: 6, text, tokens: [50364], temperature: 0, avg_logprob: -0.12, compression_ratio: 5.1, no_speech_prob: 0.04 }],
+      words: [],
+    });
+    const res = await stt.transcribe(wav(tone(800)), 'en-US', { screening: 'learner' });
+    expect(calls).toHaveLength(1);
+    expect(res).toMatchObject({ text: '', segments: [], confidence: null });
+    expect(res.speech).toMatchObject({ speechDetected: false, reason: 'repetition_loop', signals: { maxCompressionRatio: 5.1, loopSegments: 1 } });
+    expect(sink.records).toHaveLength(1);
+    expect(sink.records[0]?.redactedLog).toMatchObject({ speechDetected: false, noSpeechReason: 'repetition_loop' });
+    expect(JSON.stringify(sink.records[0]?.redactedLog)).not.toContain('store');
+    // Before the client kept compression_ratio, the same response was graded as speech (confident acoustics).
+    const blind = detectSpeech({ text, segments: [{ text, noSpeechProb: 0.04, avgLogprob: -0.12 }] });
+    expect(blind.speechDetected).toBe(true);
+  });
+});
+
 describe('levels: client metering and PCM/WAV peak', () => {
   it('client metering at or below −50 dBFS is silence; louder metering decides nothing on its own', () => {
     expect(one('Bonjour', 0.02, -0.2, { client: { peakLevelDb: -62 } })).toMatchObject({ speechDetected: false, reason: 'client_silence' });

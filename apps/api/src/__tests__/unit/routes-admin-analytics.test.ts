@@ -4,17 +4,22 @@
  * computed from stored rows only (metrics that are not recorded stay `null`, never estimated), the track / source
  * filters the admin dashboard sends to every panel, honest per-track live capabilities, and operator alerts.
  *
- * The in-memory PostgREST is wrapped (`postgrestSemantics`) with the three behaviours of the real server these panels
+ * The in-memory PostgREST is wrapped (`postgrestSemantics`) with the four behaviours of the real server these panels
  * depend on: an embed between tables linked by two foreign keys (`media_assets` / `content_rights`) must name the
  * relationship or fails with PGRST201, the many-to-one `user_course_enrollments(...)` embed is resolved from the
- * stored enrollments (the FK join), and every response is capped at `max_rows` = 1000 rows whatever `limit` asks for
- * (`supabase/config.toml`).
+ * stored enrollments (the FK join), `alias:column->>key` reads one key of a JSON column as text, and every response is
+ * capped at `max_rows` = 1000 rows whatever `limit` asks for (`supabase/config.toml`).
+ * Staff and job `ai_requests` rows (Studio probes and smoke tests tagged `redacted_log.actor = 'staff'`, benchmark and
+ * content jobs tagged `redacted_log.jobId`) stay in the bill but never count as learners, learner spend, conversation
+ * cost or learner latency. Rows with neither an enrollment nor a tag (a deleted course or account, untagged probes) are
+ * `unattributedUsd`, never passed off as staff spend.
  * The ">1000 rows" block proves the totals stay exact past that cap, and that a read cut by the page bound (or by a
- * lower server cap) is declared in the `x-langquest-analytics-truncated` header instead of passing for a full count.
+ * lower server cap) is declared in the `x-langquest-analytics-truncated` header (CORS-exposed to the Studio) and in
+ * the body's `truncated` list instead of passing for a full count.
  */
 import { AnalyticsCostResponseSchema, AnalyticsErrorsResponseSchema, AnalyticsQualityResponseSchema, AnalyticsUsageResponseSchema, COURSE_TRACKS, apiEnvelope } from '@langquest/contracts';
 import { afterEach, beforeEach, describe, expect, it } from 'vitest';
-import { ANALYTICS_EXTRA_PAGE_BUDGET, ANALYTICS_PAGE_ROWS, ANALYTICS_TRUNCATED_HEADER, allocatePages } from '../../routes/admin/analytics';
+import { ANALYTICS_EXTRA_PAGE_BUDGET, ANALYTICS_PAGE_ROWS, ANALYTICS_TRUNCATED_HEADER, aiRowAttribution, allocatePages, isLearnerAiRow } from '../../routes/admin/analytics';
 import { enrollmentRow, mediaAssetRow, routeHarness, type DbRow, type FakePostgrest, type RouteHarness } from './route-fixtures';
 
 const LEARNER = '11111111-1111-4111-8111-111111111111';
@@ -25,6 +30,8 @@ const ROLES = { [SUPPORT]: ['support_readonly' as const], [ADMIN]: ['admin' as c
 const RANGE = 'from=2026-10-01&to=2026-10-02';
 const PANELS = ['quality', 'cost', 'usage', 'errors'] as const;
 const DAY_MS = 86_400_000;
+/** The Studio origin the offline env allows (`CORS_ALLOWED_ORIGINS`). */
+const STUDIO_ORIGIN = 'https://admin.example.test';
 
 interface PostgrestProbe {
   /** Largest number of rows any single response carried. */
@@ -58,11 +65,28 @@ function ambiguousEmbeds(table: string, select: string): string[] {
 }
 
 /**
- * Gives the in-memory PostgREST the real server's behaviour on the three points the analytics reads rely on:
+ * PostgREST `alias:column->>key` selections read one key of a JSON column as text (null when the column or the key is
+ * missing). The in-memory fake projects plain columns only, so each stored row gets the resolved value under the
+ * selection's own name (`column->>key`) before the request is handled; the fake then projects it under the alias.
+ */
+function resolveJsonPaths(db: FakePostgrest, table: string, select: string): void {
+  for (const m of select.matchAll(/([a-zA-Z0-9_]+)->>([a-zA-Z0-9_]+)/g)) {
+    const [path, column, key] = [m[0], m[1]!, m[2]!];
+    for (const row of db.rows(table)) {
+      const json = row[column];
+      const value = json !== null && typeof json === 'object' && !Array.isArray(json) ? (json as Record<string, unknown>)[key] : undefined;
+      row[path] = value === undefined || value === null ? null : typeof value === 'string' ? value : JSON.stringify(value);
+    }
+  }
+}
+
+/**
+ * Gives the in-memory PostgREST the real server's behaviour on the four points the analytics reads rely on:
  * - an embed between tables linked by two foreign keys must name the relationship, or the read fails with PGRST201
  *   (HTTP 300, no `Content-Range`), exactly as the local stack answers `media_assets?select=id,content_rights(...)`;
  * - `user_course_enrollments(...)` embeds are resolved from the stored enrollments through `enrollment_id` (the FK
  *   join), so a fixture cannot seed an embed that disagrees with the enrollments table;
+ * - `alias:column->>key` selections are resolved from the stored JSON column (`resolveJsonPaths`);
  * - no response carries more than `maxRows` rows (`[api] max_rows`), and `Content-Range` reports the rows actually
  *   served plus the exact total, as PostgREST does.
  */
@@ -83,6 +107,7 @@ function postgrestSemantics(db: FakePostgrest, maxRows: number): PostgrestProbe 
       const byId = new Map(db.rows('user_course_enrollments').map((e) => [e.id, e]));
       for (const row of db.rows(table)) row.user_course_enrollments = typeof row.enrollment_id === 'string' ? (byId.get(row.enrollment_id) ?? null) : null;
     }
+    if (reading) resolveJsonPaths(db, table, url.searchParams.get('select') ?? '');
     const res = await handle(request);
     if (request.method !== 'GET' || !(res.headers.get('content-type') ?? '').includes('json')) return res;
     const offset = Number(url.searchParams.get('offset') ?? '0');
@@ -245,8 +270,109 @@ describe('admin analytics', () => {
       expect(parsed.data.totalUsd).toBeCloseTo(1.75, 10);
       expect(parsed.data.byTask).toEqual(expect.arrayContaining([{ task: 'speech_recognition', requests: 1, tokens: 0, audioSeconds: 4, usd: 0.5 }, { task: 'character_dialogue', requests: 1, tokens: 120, audioSeconds: 0, usd: 0.25 }]));
       expect(parsed.data.timeline).toEqual([{ period: '2026-10-01', value: 0.5 }, { period: '2026-10-02', value: 1.25 }]);
-      expect(parsed.data.estimatedUsdPerActiveLearner).toBeCloseTo(1.75, 10); // one learner-attributed user
+      // Learner spend over the one learner: the $1 content-generation row has no enrollment, so it is not learner spend;
+      // it carries no staff or job tag either, so it is unattributed, not staff spend.
+      expect(parsed.data.estimatedUsdPerActiveLearner).toBeCloseTo(0.75, 10);
+      expect(parsed.data).toMatchObject({ learnerUsd: expect.closeTo(0.75, 10), staffAndJobsUsd: 0, unattributedUsd: expect.closeTo(1, 10), activeLearners: 1, truncated: [] });
       expect(parsed.data.reconciliation).toEqual({ invoicedUsd: null, deltaUsd: null, asOf: null });
+    });
+
+    it('isLearnerAiRow: a learner row has an enrollment and is neither a staff nor a job row', () => {
+      const enrollment = String(frenchEn.id);
+      expect(isLearnerAiRow({ enrollment_id: enrollment, actor: null, job_id: null })).toBe(true);
+      expect(isLearnerAiRow({ enrollment_id: null, actor: null, job_id: null })).toBe(false); // Studio speech probe, operator script
+      expect(isLearnerAiRow({ enrollment_id: '', actor: null, job_id: null })).toBe(false);
+      expect(isLearnerAiRow({ enrollment_id: enrollment, actor: 'staff', job_id: null })).toBe(false);
+      expect(isLearnerAiRow({ enrollment_id: enrollment, actor: null, job_id: crypto.randomUUID() })).toBe(false);
+    });
+
+    it('aiRowAttribution: staff and job rows are identified by their tag, never by a missing enrollment', () => {
+      const enrollment = String(frenchEn.id);
+      expect(aiRowAttribution({ enrollment_id: enrollment, actor: null, job_id: null })).toBe('learner');
+      expect(aiRowAttribution({ enrollment_id: null, actor: 'staff', job_id: null })).toBe('staff_or_job'); // `staffLedgerSink`
+      expect(aiRowAttribution({ enrollment_id: null, actor: null, job_id: crypto.randomUUID() })).toBe('staff_or_job'); // job cost ledger
+      expect(aiRowAttribution({ enrollment_id: enrollment, actor: null, job_id: crypto.randomUUID() })).toBe('staff_or_job');
+      // No enrollment and no tag: a deleted course or account (`on delete set null`), an untagged probe, an older row.
+      expect(aiRowAttribution({ enrollment_id: null, actor: null, job_id: null })).toBe('unattributed');
+      expect(aiRowAttribution({ enrollment_id: '', actor: null, job_id: '' })).toBe('unattributed');
+      expect(aiRowAttribution({ enrollment_id: null, actor: 'learner', job_id: null })).toBe('unattributed'); // only 'staff' is a staff tag
+    });
+
+    it('learner spend whose course or account was deleted is unattributed, never staff spend; the three figures add up to the bill', async () => {
+      // `ai_requests.enrollment_id` is `on delete set null`: deleting a course (`DELETE /v1/me/enrollments/:id`) keeps the
+      // cost row and clears its enrollment; account deletion clears `user_id` and `enrollment_id`. The rows below are
+      // what those two deletes leave behind (the in-memory PostgREST does not run foreign-key actions).
+      const row = (over: DbRow): DbRow => ({ provider: 'openrouter', model: 'fake/model', input_tokens: 10, output_tokens: 10, audio_seconds: null, created_at: '2026-10-01T12:00:00.000Z', redacted_log: null, ...over });
+      h.db.seed('ai_requests', [
+        row({ task: 'character_dialogue', estimated_cost_usd: 6, user_id: LEARNER_2, enrollment_id: null }), // course deleted
+        row({ task: 'speech_recognition', estimated_cost_usd: 2, user_id: null, enrollment_id: null }), // account deleted
+        row({ task: 'character_dialogue', estimated_cost_usd: 3, user_id: ADMIN, enrollment_id: null, redacted_log: { purpose: 'admin_model_test', actor: 'staff' } }),
+      ]);
+      const parsed = apiEnvelope(AnalyticsCostResponseSchema).parse((await get('cost')).json);
+      if (!parsed.ok) throw new Error('expected ok');
+      const d = parsed.data;
+      // Base seed: learner 0.75 (one learner) + untagged content generation 1. Added: 6 + 2 unattributed, 3 staff.
+      expect(d.totalUsd).toBeCloseTo(12.75, 10);
+      expect(d.learnerUsd).toBeCloseTo(0.75, 10);
+      expect(d.staffAndJobsUsd).toBeCloseTo(3, 10); // only the staff-tagged probe: deleting a course does not make it staff spend
+      expect(d.unattributedUsd).toBeCloseTo(1 + 6 + 2, 10);
+      expect((d.learnerUsd ?? 0) + (d.staffAndJobsUsd ?? 0) + (d.unattributedUsd ?? 0)).toBeCloseTo(d.totalUsd, 10);
+      // The deleted course's learner is no longer known: neither numerator nor divisor of the per-learner cost moves.
+      expect(d.activeLearners).toBe(1);
+      expect(d.estimatedUsdPerActiveLearner).toBeCloseTo(0.75, 10);
+      // Under a filter the rows without an enrollment are out of scope and neither figure has an honest scoped value.
+      const french = apiEnvelope(AnalyticsCostResponseSchema).parse((await get('cost', '&trackId=french')).json);
+      if (!french.ok) throw new Error('expected ok');
+      expect(french.data).toMatchObject({ totalUsd: expect.closeTo(0.5, 10), learnerUsd: expect.closeTo(0.5, 10), staffAndJobsUsd: null, unattributedUsd: null });
+    });
+
+    it('staff and job rows are spend, never learners: learner figures use learner rows, the bill keeps every row', async () => {
+      const job = crypto.randomUUID();
+      const row = (over: DbRow): DbRow => ({ provider: 'openrouter', model: 'fake/model', input_tokens: 10, output_tokens: 10, audio_seconds: null, created_at: '2026-10-01T12:00:00.000Z', ...over });
+      h.db.seed('ai_requests', [
+        // Studio prompt probe (`staffLedgerSink`): attributed to the admin, staff-tagged, no enrollment.
+        row({ task: 'character_dialogue', estimated_cost_usd: 2, user_id: ADMIN, enrollment_id: null, redacted_log: { purpose: 'admin_model_test', actor: 'staff' } }),
+        // Model benchmark run by the jobs runner: staff actor and the job id.
+        row({ task: 'character_dialogue', estimated_cost_usd: 3, user_id: ADMIN, enrollment_id: null, redacted_log: { purpose: 'model_benchmark', actor: 'staff', jobId: job, sampleId: 'greeting' } }),
+        // Studio speech probe: names the admin, carries no tag and no enrollment.
+        row({ task: 'speech_synthesis', estimated_cost_usd: 0.5, user_id: ADMIN, enrollment_id: null, redacted_log: null }),
+        // A job row stays a job row even when it names an enrollment.
+        row({ task: 'learner_evaluation', estimated_cost_usd: 4, user_id: LEARNER_2, enrollment_id: frenchEn.id, redacted_log: { jobId: job }, created_at: '2026-10-02T09:00:00.000Z' }),
+      ]);
+      const finished = (enrollment: DbRow) => ({ user_id: enrollment.user_id, enrollment_id: enrollment.id, state: 'finished', turn_count: 3, started_at: '2026-10-01T09:00:00.000Z', ended_at: '2026-10-01T09:10:00.000Z' });
+      h.db.seed('conversation_sessions', [finished(frenchEn), finished(darijaFr)]);
+
+      const res = await get('cost');
+      expect(res.status).toBe(200);
+      const parsed = apiEnvelope(AnalyticsCostResponseSchema).parse(res.json);
+      if (!parsed.ok) throw new Error('expected ok');
+      const d = parsed.data;
+      // The bill keeps every row: learner 0.75 + content generation 1 + probe 2 + benchmark 3 + speech probe 0.5 + job 4.
+      expect(d.totalUsd).toBeCloseTo(11.25, 10);
+      expect(d.byTask).toEqual(expect.arrayContaining([{ task: 'character_dialogue', requests: 3, tokens: 160, audioSeconds: 0, usd: expect.closeTo(5.25, 10) }]));
+      expect(d.timeline).toEqual([{ period: '2026-10-01', value: expect.closeTo(6, 10) }, { period: '2026-10-02', value: expect.closeTo(5.25, 10) }]);
+      // Learner figures: the admin is not an active learner, and LEARNER_2's only row is a job row.
+      expect(d.learnerUsd).toBeCloseTo(0.75, 10);
+      expect(d.staffAndJobsUsd).toBeCloseTo(2 + 3 + 4, 10); // the tagged rows: probe, benchmark, job
+      expect(d.unattributedUsd).toBeCloseTo(1 + 0.5, 10); // untagged and without an enrollment: content generation, speech probe
+      expect(d.activeLearners).toBe(1);
+      expect(d.estimatedUsdPerActiveLearner).toBeCloseTo(0.75, 10);
+      expect(d.usdPerMeaningfulConversation).toBeCloseTo(0.75 / 2, 10); // learner STT 0.5 + dialogue 0.25; no probe, benchmark or job
+      expect(d.truncated).toEqual([]);
+
+      // Under a filter, only rows tied to an in-scope enrollment remain; the staff and job figure has no honest scope.
+      const french = apiEnvelope(AnalyticsCostResponseSchema).parse((await get('cost', '&trackId=french')).json);
+      if (!french.ok) throw new Error('expected ok');
+      expect(french.data).toMatchObject({ totalUsd: expect.closeTo(4.5, 10), learnerUsd: expect.closeTo(0.5, 10), staffAndJobsUsd: null, unattributedUsd: null, activeLearners: 1, estimatedUsdPerActiveLearner: expect.closeTo(0.5, 10), usdPerMeaningfulConversation: expect.closeTo(0.5, 10) });
+
+      // The actor is read from two JSON keys; the whole `redacted_log` is never fetched.
+      const selects = h.db.requests.filter((r) => r.target === 'ai_requests' && r.method === 'GET').map((r) => new URLSearchParams(r.query).get('select') ?? '');
+      expect(selects.length).toBeGreaterThan(0);
+      for (const select of selects) {
+        expect(select).toContain('actor:redacted_log->>actor');
+        expect(select).toContain('job_id:redacted_log->>jobId');
+        expect(select.split(',')).not.toContain('redacted_log');
+      }
     });
 
     it('applies both the track and the source-language filter', async () => {
@@ -269,7 +395,7 @@ describe('admin analytics', () => {
       const fromFrench = (await get('cost', '&sourceLanguage=fr')).json.data;
       expect(fromFrench.usdPerMeaningfulConversation).toBeCloseTo(0.25 / 3, 10);
       const german = (await get('cost', '&trackId=german')).json.data;
-      expect(german).toMatchObject({ totalUsd: 0, usdPerMeaningfulConversation: null, usdPerReviewedLesson: null, estimatedUsdPerActiveLearner: null });
+      expect(german).toMatchObject({ totalUsd: 0, usdPerMeaningfulConversation: null, usdPerReviewedLesson: null, estimatedUsdPerActiveLearner: null, learnerUsd: 0, staffAndJobsUsd: null, unattributedUsd: null, activeLearners: 0 });
     });
 
     it('scopes rows through the embedded enrollment (no per-id lookups) and never reads a failed read as zero', async () => {
@@ -377,9 +503,18 @@ describe('admin analytics', () => {
       expect(d.alerts.find((a) => a.kind === 'provider_outage')?.detail).toContain('6/10');
     });
 
-    it('latency: AI-audio p95 comes from audio-producing requests only; unrecorded latencies stay null', async () => {
-      const { latency } = (await get('errors')).json.data;
-      expect(latency).toEqual({ apiP95Ms: null, timeToFirstAiAudioP95Ms: 900, interruptionLatencyP95Ms: null, mediaStartP99Ms: null });
+    it('latency: AI-audio p95 comes from learner audio-producing requests only (no probes, smoke tests or jobs); unrecorded latencies stay null', async () => {
+      h.db.seed('ai_requests', [
+        { task: 'speech_synthesis', provider: 'openrouter', success: true, error_code: null, fallback_index: 0, latency_ms: 5_000, estimated_cost_usd: 0.001, user_id: ADMIN, enrollment_id: null, redacted_log: { purpose: 'admin_model_test', actor: 'staff' }, created_at: '2026-10-02T11:00:00.000Z' },
+        { task: 'realtime_conversation', provider: 'openrouter', success: true, error_code: null, fallback_index: 0, latency_ms: 7_000, estimated_cost_usd: 0.001, user_id: null, enrollment_id: frenchEn.id, redacted_log: { jobId: crypto.randomUUID() }, created_at: '2026-10-02T11:01:00.000Z' },
+      ]);
+      const d = (await get('errors')).json.data;
+      // Only the learner synthesis (800 ms) counts: the 900 ms row has no enrollment (a Studio speech probe), the 5 s row
+      // is a staff smoke test and the 7 s row a job.
+      expect(d.latency).toEqual({ apiP95Ms: null, timeToFirstAiAudioP95Ms: 800, interruptionLatencyP95Ms: null, mediaStartP99Ms: null });
+      // Provider health still counts every request: 6 failures over the 12 requests of 2026-10-02.
+      expect(d.apiErrorRate).toEqual([{ period: '2026-10-01', value: 0 }, { period: '2026-10-02', value: 0.5 }]);
+      expect(d.truncated).toEqual([]);
     });
 
     it('applies the track and source filters the dashboard sends to every panel', async () => {
@@ -398,10 +533,11 @@ describe('admin analytics', () => {
     const DAY1 = '2026-10-01T10:00:00.000Z';
     const DAY2 = '2026-10-02T10:00:00.000Z';
     const many = (n: number, row: (i: number) => DbRow) => Array.from({ length: n }, (_, i) => row(i));
-    /** No response carried more than max_rows, and no read was cut. */
-    const expectExactReads = (res: { headers: Headers }) => {
+    /** No response carried more than max_rows, and no read was cut (no header, an empty `truncated` list). */
+    const expectExactReads = (res: { headers: Headers; json: { data: { truncated?: unknown } } }) => {
       expect(probe.maxRowsServed).toBeLessThanOrEqual(ANALYTICS_PAGE_ROWS);
       expect(res.headers.get(ANALYTICS_TRUNCATED_HEADER)).toBeNull();
+      expect(res.json.data.truncated).toEqual([]);
     };
 
     it('allocatePages serves the smallest reads in full and never exceeds the budget', () => {
@@ -420,7 +556,8 @@ describe('admin analytics', () => {
             ? { task: 'character_dialogue', provider: 'openrouter', model: 'fake/dialogue', input_tokens: 3, output_tokens: 2, audio_seconds: null, estimated_cost_usd: 0.01, user_id: frenchMany[i % 1_200]!.user_id, enrollment_id: frenchMany[i % 1_200]!.id, created_at: DAY1 }
             : { task: 'speech_recognition', provider: 'other-stt', model: 'fake/stt', input_tokens: null, output_tokens: null, audio_seconds: 2, estimated_cost_usd: 0.02, user_id: LEARNER, enrollment_id: darijaFr.id, created_at: DAY2 },
         ),
-        { task: 'transcription_alignment', provider: 'openrouter', model: 'fake/align', input_tokens: null, output_tokens: null, audio_seconds: 600, estimated_cost_usd: 10.5, user_id: null, enrollment_id: null, created_at: DAY1 },
+        // Alignment runs as a job: the job cost ledger tags it with `redacted_log.jobId`.
+        { task: 'transcription_alignment', provider: 'openrouter', model: 'fake/align', input_tokens: null, output_tokens: null, audio_seconds: 600, estimated_cost_usd: 10.5, user_id: null, enrollment_id: null, redacted_log: { jobId: crypto.randomUUID() }, created_at: DAY1 },
       ]);
       h.db.seed('media_assets', [...many(1_500, () => mediaAssetRow({ byte_length: 2_000_000 })), mediaAssetRow({ byte_length: 9e9, disposition: 'quarantined' })]);
       h.db.seed('conversation_sessions', many(1_100, (i) => ({ user_id: LEARNER_2, enrollment_id: frenchMany[i]!.id, state: 'finished', turn_count: 3, started_at: DAY1, ended_at: DAY1 })));
@@ -443,7 +580,9 @@ describe('admin analytics', () => {
       expect(d.data.storageGb).toBeCloseTo(3, 9); // 1 500 active assets x 2 MB; the quarantined one is not stored media
       expect(d.data.usdPerMeaningfulConversation).toBeCloseTo(39 / 1_100, 9);
       expect(d.data.usdPerReviewedLesson).toBeCloseTo(10.5 / 1_050, 9);
-      expect(d.data.estimatedUsdPerActiveLearner).toBeCloseTo(49.5 / 2, 9);
+      // Learner spend (13 + 26) over the 2 learners; the alignment row is a job row, so it is not learner spend.
+      expect(d.data.estimatedUsdPerActiveLearner).toBeCloseTo(39 / 2, 9);
+      expect(d.data).toMatchObject({ learnerUsd: expect.closeTo(39, 6), staffAndJobsUsd: expect.closeTo(10.5, 6), unattributedUsd: 0, activeLearners: 2 });
       expect([...(probe.offsets.ai_requests ?? [])].sort((a, b) => a - b)).toEqual([0, 1_000, 2_000]); // paged, not one capped read
       // What the former single `.limit(50_000)` read received from this server: the first 1000 rows, total 2601.
       const unpaged = await h.db.handle(new Request('http://fake.supabase/rest/v1/ai_requests?select=id&limit=50000', { headers: { prefer: 'count=exact' } }));
@@ -544,8 +683,25 @@ describe('admin analytics', () => {
       // media_assets needs 1 extra page and gets it; ai_requests gets the rest of the budget on top of its first page.
       const aiPages = 1 + (ANALYTICS_EXTRA_PAGE_BUDGET - 1);
       expect(res.headers.get(ANALYTICS_TRUNCATED_HEADER)).toBe(`ai_requests=${aiPages * ANALYTICS_PAGE_ROWS}/${N}`);
+      expect(res.json.data.truncated).toEqual([{ read: 'ai_requests', fetched: aiPages * ANALYTICS_PAGE_ROWS, total: N }]); // the same cut, in the body
       expect(probe.offsets.ai_requests).toHaveLength(aiPages);
       expect(res.json.data.storageGb).toBeCloseTo(1.5, 9); // the small read is exact
+    });
+
+    it('the Studio in the browser can read the truncation: the header is CORS-exposed and the body lists the same cut', async () => {
+      h.db.seed('ai_requests', many((ANALYTICS_EXTRA_PAGE_BUDGET + 1) * ANALYTICS_PAGE_ROWS + 10, () => ({ task: 'character_dialogue', provider: 'openrouter', model: 'fake/dialogue', input_tokens: 1, output_tokens: 1, audio_seconds: null, estimated_cost_usd: 0.01, user_id: LEARNER, enrollment_id: frenchEn.id, created_at: DAY1 })));
+      const res = await h.call(`/v1/admin/analytics/cost?${RANGE}`, { token: admin, headers: { origin: STUDIO_ORIGIN } });
+      expect(res.status).toBe(200);
+      expect(res.headers.get('access-control-allow-origin')).toBe(STUDIO_ORIGIN);
+      const exposed = (res.headers.get('access-control-expose-headers') ?? '').split(',').map((name) => name.trim().toLowerCase());
+      expect(exposed).toContain(ANALYTICS_TRUNCATED_HEADER);
+      const cut = res.json.data.truncated as { read: string; fetched: number; total: number }[];
+      expect(cut).toHaveLength(1);
+      expect(res.headers.get(ANALYTICS_TRUNCATED_HEADER)).toBe(cut.map((r) => `${r.read}=${r.fetched}/${r.total}`).join(', '));
+      // An origin outside the allowlist gets no CORS headers at all (the exposure is not a way around the allowlist).
+      const elsewhere = await h.call(`/v1/admin/analytics/cost?${RANGE}`, { token: admin, headers: { origin: 'https://evil.example' } });
+      expect(elsewhere.headers.get('access-control-allow-origin')).toBeNull();
+      expect(elsewhere.headers.get('access-control-expose-headers')).toBeNull();
     });
 
     it('a server cap below 1000 rows is detected as a cut, never passed off as a full count', async () => {
@@ -554,6 +710,7 @@ describe('admin analytics', () => {
       const res = await get('cost');
       expect(res.status).toBe(200);
       expect(res.headers.get(ANALYTICS_TRUNCATED_HEADER)).toBe('ai_requests=700/1200');
+      expect(res.json.data.truncated).toEqual([{ read: 'ai_requests', fetched: 700, total: 1_200 }]);
     });
   });
 });

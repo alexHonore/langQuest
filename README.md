@@ -36,12 +36,12 @@ pnpm dev:mobile                 # Expo dev server
 
 ## Status (2026-10-20)
 
-Requirement status (`docs/requirements-traceability.md`, 763 rows): 439 implemented_tested, 249 in_progress,
+Requirement status (`docs/requirements-traceability.md`, 763 rows): 440 implemented_tested, 248 in_progress,
 57 blocked_by_external_dependency, 18 not_started.
 
 | Area | State | Evidence |
 |---|---|---|
-| Shared packages (contracts, db, curriculum, ai, locales, ui, media, telemetry) | implemented, unit-tested | `pnpm -r test` with the local stack on 2026-10-20: 2 076 passed, 6 live-only skips, 0 failures (last recorded run: `docs/evidence/test-run-2026-10-19.md`) |
+| Shared packages (contracts, db, curriculum, ai, locales, ui, media, telemetry) | implemented, unit-tested | `pnpm -r test` with the local stack on 2026-10-20: 2 184 passed, 6 live-only skips, 0 failures (`docs/evidence/test-run-2026-10-20.md`) |
 | Database (15 migrations, RLS on every table, pgTAP suites, catalog + cast + curriculum seeds) | implemented, verified on the local Docker stack | `packages/db` stack tests, `supabase/tests/database/*.sql` |
 | API Worker (106 contract routes, JWT + RLS forwarding, idempotent sync/XP, conversation pipeline, admin routes) | implemented, integration-tested locally; deployed to workers.dev | `docs/evidence/conversation-journey-2026-10-19.md`, `docs/evidence/capabilities-2026-10-19.md` |
 | Admin CMS (all §7.1 sections, direct multipart uploads, Setup page) | implemented, built, browser-verified | `docs/evidence/screenshots/admin-*.jpg` |

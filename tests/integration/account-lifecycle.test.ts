@@ -10,7 +10,7 @@
  */
 import { MeDeleteResponseSchema, MeExportResponseSchema } from '@langquest/contracts';
 import { afterAll, beforeAll, expect, it } from 'vitest';
-import { call, createApiHarness, createTestUser, describeWithStack, enrol, Seeder, syncBody, teardown, type ApiHarness, type TestUser } from '../src/harness';
+import { call, createApiHarness, createTestUser, describeWithStack, enrol, recordSpeechGradings, Seeder, syncBody, teardown, type ApiHarness, type TestUser } from '../src/harness';
 
 const describeStack = describeWithStack('integration.account-lifecycle');
 
@@ -62,6 +62,8 @@ describeStack('account export and deletion (A28) with ledger rows present', () =
     // Ledger rows, produced through the API like a real client would.
     const attempt = await call(h, `/v1/missions/${missionId}/attempts`, { token: learner.token, body: { enrollmentId, clientAttemptId: crypto.randomUUID(), missionRevision: 0, startedAt: new Date().toISOString() } });
     expect(attempt.status, JSON.stringify(attempt.json)).toBe(201);
+    // The two speaking steps' takes, as the speech route grades them (claimed outcomes alone earn nothing).
+    await recordSpeechGradings(h.service, { userId: learner.id, enrollmentId, missionId, expressionId: expr.id, outcomes: ['success', 'success'] });
     const evaluated = await call(h, `/v1/missions/${missionId}/evaluate`, { token: learner.token, body: { attemptId: attempt.json.data.attemptId, enrollmentId, completedAt: new Date().toISOString(), clientEventId: crypto.randomUUID(), stepResults: stepIds.map((stepId) => ({ stepId, outcome: 'success', hintsUsed: 0, replays: 0, durationMs: 30_000, speechAssessmentIds: [], attemptedBeforeReveal: null, selectedIntentId: null, conversationSessionId: null })) } });
     expect(evaluated.status, JSON.stringify(evaluated.json)).toBe(200);
     expect(evaluated.json.data.xpAwarded).toBeGreaterThan(0);

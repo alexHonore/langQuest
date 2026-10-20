@@ -18,6 +18,9 @@
  * 2. After the recognizer, per segment (verbose_json `segments[]`):
  *    - `no_speech_prob` above 0.8 alone (the threshold this adapter already used), or above 0.6 with
  *      `avg_logprob` ≤ −1.0 (Whisper's own skip rule in `openai/whisper` `transcribe()`) marks a segment silent;
+ *    - a recognizer-reported `compression_ratio` above 2.4 (Whisper's `compression_ratio_threshold`: the decode is
+ *      "too repetitive", a hallucination loop) marks a segment a failed decode, unless the expected answer is itself
+ *      repetitive; a take whose every segment is a failed decode is `repetition_loop`;
  *    - a segment that is only a known hallucination phrase (below) or carries a subtitle-credit marker is dropped.
  * 3. On the remaining text:
  *    - empty / punctuation only → `empty_transcript`; only "[Music]" / "♪" style annotations → `non_speech_annotation`;
@@ -30,9 +33,10 @@
  * A phrase that occurs in the text the learner was asked to say (`expectedText`) is never treated as a hallucination,
  * and one-word answers ("oui", "نعم", "はい", "yes") are never on any list.
  *
- * Signals the providers do not give us: the OpenRouter client parser (`openrouter/client.ts`) keeps `no_speech_prob`,
- * `avg_logprob`, `duration` and `language` but drops `compression_ratio`, so the repetition statistic is computed here
- * from the text. Models that reject verbose_json (plain `json`) return no segments: only the text rules then apply.
+ * Signals: the OpenRouter client parser (`openrouter/client.ts`) passes `no_speech_prob`, `avg_logprob`,
+ * `compression_ratio`, `duration` and `language` through. Recognizers that report no `compression_ratio` (and contract
+ * segments, which do not carry it) fall back to the text's own repetition statistic below. Models that reject
+ * verbose_json (plain `json`) return no segments: only the text rules then apply.
  *
  * Phrase list provenance (`HallucinationPhrase.evidence`): `observed` = seen on this project's device QA
  * (`docs/evidence/device-qa-2026-10-19.md`); `reported` = publicly reported Whisper silence hallucinations (openai/whisper
@@ -44,7 +48,7 @@
  */
 import { referenceComparisonAssessment, type NoSpeechReason, type PronunciationAssessment, type RecordingSignals, type SpeechDetection, type TranscriptResult } from '@langquest/contracts';
 
-export const SPEECH_DETECTOR_VERSION = 'speech-gate@2026-10-20.1';
+export const SPEECH_DETECTOR_VERSION = 'speech-gate@2026-10-20.2';
 
 /** Model name reported when the gate answered without calling a recognizer (silent take). */
 export const SPEECH_GATE_MODEL = 'langquest/speech-gate';
@@ -68,6 +72,8 @@ export const SPEECH_GATE_THRESHOLDS = {
   repetitionMinChars: 24,
   repetitionSupportNoSpeechProb: 0.3,
   repetitionSupportLogprob: -0.7,
+  /** Whisper's `compression_ratio_threshold`: a segment above it is a failed (too repetitive) decode. */
+  compressionRatio: 2.4,
 } as const;
 
 // ---------------------------------------------------------------------------
@@ -356,6 +362,8 @@ export interface DetectorSegment {
   text: string;
   noSpeechProb: number | null;
   avgLogprob: number | null;
+  /** Recognizer-reported gzip `compression_ratio` of the segment text (Whisper verbose_json); absent / null when not reported. */
+  compressionRatio?: number | null;
 }
 
 export interface SpeechDetectionInput {
@@ -375,6 +383,10 @@ export interface SpeechSignals {
   maxNoSpeechProb: number | null;
   meanAvgLogprob: number | null;
   repetitionRatio: number | null;
+  /** Highest recognizer-reported `compression_ratio` over the segments (null when none reported one). */
+  maxCompressionRatio: number | null;
+  /** Segments dropped as failed (too repetitive) decodes by their `compression_ratio`. */
+  loopSegments: number;
   durationMs: number | null;
   detectedLanguage: string | null;
   audioPeakDbfs: number | null;
@@ -404,6 +416,8 @@ const emptySignals = (input: Partial<SpeechDetectionInput>): SpeechSignals => ({
   maxNoSpeechProb: null,
   meanAvgLogprob: null,
   repetitionRatio: null,
+  maxCompressionRatio: null,
+  loopSegments: 0,
   durationMs: input.durationMs ?? input.audioLevels?.durationMs ?? null,
   detectedLanguage: input.detectedLanguage ?? null,
   audioPeakDbfs: input.audioLevels?.peakDbfs ?? null,
@@ -421,6 +435,9 @@ const isSilentSegment = (s: DetectorSegment): boolean => {
   if (p > SPEECH_GATE_THRESHOLDS.noSpeechProbAlone) return true;
   return p > SPEECH_GATE_THRESHOLDS.noSpeechProb && (s.avgLogprob === null || s.avgLogprob <= SPEECH_GATE_THRESHOLDS.logprob);
 };
+
+/** A failed decode by the recognizer's own repetition measure (Whisper `compression_ratio` > 2.4). */
+const isLoopSegment = (s: DetectorSegment): boolean => typeof s.compressionRatio === 'number' && Number.isFinite(s.compressionRatio) && s.compressionRatio > SPEECH_GATE_THRESHOLDS.compressionRatio;
 
 const quietTake = (levels: AudioLevels | null | undefined, client: RecordingSignals | null | undefined): boolean =>
   (levels !== null && levels !== undefined && levels.peakDbfs <= QUIET_PEAK_DBFS) || (typeof client?.peakLevelDb === 'number' && client.peakLevelDb <= QUIET_PEAK_DBFS);
@@ -461,12 +478,17 @@ export function detectSpeech(input: SpeechDetectionInput): SpeechScreening {
   const segments = input.segments ?? [];
   const nsp = segments.map((s) => s.noSpeechProb).filter((v): v is number => typeof v === 'number' && Number.isFinite(v));
   const lps = segments.map((s) => s.avgLogprob).filter((v): v is number => typeof v === 'number' && !Number.isNaN(v));
+  const crs = segments.map((s) => s.compressionRatio).filter((v): v is number => typeof v === 'number' && Number.isFinite(v));
   const signals: SpeechSignals = {
     ...emptySignals(input),
     maxNoSpeechProb: nsp.length ? Math.max(...nsp) : null,
     meanAvgLogprob: lps.length ? Math.max(-100, lps.reduce((a, b) => a + b, 0) / lps.length) : null,
+    maxCompressionRatio: crs.length ? Math.max(...crs) : null,
   };
   const expectedCompact = compact(normalizeForScreening(input.expectedText ?? ''));
+  // A repetitive expected answer (a drill that asks for a phrase several times) would legitimately decode with a high
+  // compression ratio, so the recognizer's ratio is then not evidence of a loop.
+  const expectedRepetitive = expectedCompact.length > 0 && repetitionRatio(normalizeForScreening(input.expectedText ?? '')) >= SPEECH_GATE_THRESHOLDS.repetitionRatio;
   const strong = exempt(STRONG, expectedCompact);
   const both = exempt([...STRONG, ...WEAK].sort((a, b) => b.compact.length - a.compact.length), expectedCompact);
   const markers = expectedCompact ? MARKERS.filter((m) => !expectedCompact.includes(m)) : MARKERS;
@@ -484,9 +506,15 @@ export function detectSpeech(input: SpeechDetectionInput): SpeechScreening {
   const dropped = new Set<number>();
   let silent = 0;
   let hallucinated = 0;
+  let loops = 0;
   segments.forEach((s, i) => {
     if (isSilentSegment(s)) {
       silent += 1;
+      dropped.add(i);
+      return;
+    }
+    if (!expectedRepetitive && isLoopSegment(s)) {
+      loops += 1;
       dropped.add(i);
       return;
     }
@@ -503,8 +531,9 @@ export function detectSpeech(input: SpeechDetectionInput): SpeechScreening {
     }
   });
   signals.silentSegments = silent;
+  signals.loopSegments = loops;
   if (segments.length > 0 && dropped.size === segments.length) {
-    const reason: NoSpeechReason = silent === segments.length ? 'no_speech_probability' : hallucinated > 0 ? 'known_hallucination' : 'non_speech_annotation';
+    const reason: NoSpeechReason = silent === segments.length ? 'no_speech_probability' : hallucinated > 0 ? 'known_hallucination' : loops > 0 ? 'repetition_loop' : 'non_speech_annotation';
     return noSpeech(reason, raw, signals, [...new Set(matched)]);
   }
 

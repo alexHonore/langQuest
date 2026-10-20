@@ -114,16 +114,25 @@ export type PaginationQuery = z.infer<typeof PaginationQuerySchema>;
 
 /**
  * Boolean query-string flag. Query values arrive as strings, and `z.coerce.boolean()` would turn the literal
- * `"false"` into `true`; this schema accepts `true|false|1|0` (and a bare boolean) and yields a real boolean.
+ * `"false"` into `true`; this schema accepts `true|false|1|0` (case and surrounding spaces ignored, and a bare
+ * boolean for JSON bodies that reuse a query schema) and yields a real boolean.
+ *
+ * An EMPTY value (`?flag=`, or a bare `?flag`) is a validation error, not `false` and not "no filter": no LangQuest
+ * client sends one (the mobile client and the Studio drop unset filters before building the URL, `buildPath` skips
+ * `undefined`), so an empty flag is a malformed request, and guessing a meaning would silently flip a filter
+ * (`?rightsVerified=` used to list the UNVERIFIED assets). Leave the parameter out to get the default.
  */
-export const QueryBooleanSchema = z.preprocess((v) => {
-  if (typeof v === 'string') {
-    const t = v.trim().toLowerCase();
-    if (t === 'true' || t === '1') return true;
-    if (t === 'false' || t === '0' || t === '') return false;
-  }
-  return v;
-}, z.boolean());
+export const QueryBooleanSchema = z.preprocess(
+  (v) => {
+    if (typeof v === 'string') {
+      const t = v.trim().toLowerCase();
+      if (t === 'true' || t === '1') return true;
+      if (t === 'false' || t === '0') return false;
+    }
+    return v;
+  },
+  z.boolean({ error: 'Expected a boolean flag: true, false, 1 or 0 (an empty value is not accepted; leave the parameter out instead)' }),
+);
 
 export function pageOf<T extends z.ZodType>(item: T) {
   return z.object({

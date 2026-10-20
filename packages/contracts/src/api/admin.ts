@@ -447,6 +447,20 @@ export type AnalyticsQuery = z.infer<typeof AnalyticsQuerySchema>;
 
 const series = <T extends z.ZodType>(value: T) => z.array(z.object({ period: IsoDateSchema, value }));
 
+/**
+ * A read behind an analytics panel that stopped at the panel's page bound (the same reads the
+ * `x-langquest-analytics-truncated` response header names as `read=fetched/total`): only `fetched` of the `total`
+ * matching rows were used, so every figure computed from that read covers those rows only and must be shown as
+ * partial, never as an exact number.
+ */
+export const AnalyticsTruncatedReadSchema = z.object({ read: z.string().min(1), fetched: NonNegativeIntSchema, total: NonNegativeIntSchema });
+export type AnalyticsTruncatedRead = z.infer<typeof AnalyticsTruncatedReadSchema>;
+/**
+ * Every panel response: the reads that were cut. An empty list means every figure used every matching row. Optional
+ * because servers before 2026-10-20 do not send it (they only set the response header).
+ */
+const truncatedReads = z.array(AnalyticsTruncatedReadSchema).optional();
+
 export const AnalyticsQualityResponseSchema = z.object({
   nativeReviewedFraction: UnitIntervalSchema,
   rightsCoverageFraction: UnitIntervalSchema,
@@ -458,20 +472,49 @@ export const AnalyticsQualityResponseSchema = z.object({
   missionCompletionWithoutHints: series(UnitIntervalSchema),
   recall7Day: series(UnitIntervalSchema.nullable()),
   recall30Day: series(UnitIntervalSchema.nullable()),
+  truncated: truncatedReads,
 });
 
+/**
+ * Cost panel. `totalUsd`, `byTask`, `byProvider` and `timeline` are the whole AI bill in view (what provider
+ * reconciliation compares against). The per-learner and per-conversation figures use LEARNER rows only: `ai_requests`
+ * written for an enrollment that are neither staff rows (`redacted_log.actor = 'staff'`: Studio probes, smoke tests,
+ * model benchmarks) nor job rows (`redacted_log.jobId`: content and media jobs). Unscoped, every row is in exactly one
+ * of `learnerUsd`, `staffAndJobsUsd` and `unattributedUsd`, so the three add up to `totalUsd`.
+ */
 export const AnalyticsCostResponseSchema = z.object({
   totalUsd: z.number().min(0),
   byTask: z.array(z.object({ task: AiTaskNameSchema, requests: NonNegativeIntSchema, tokens: NonNegativeIntSchema, audioSeconds: z.number().min(0), usd: z.number().min(0) })),
   byProvider: z.array(z.object({ provider: z.string(), usd: z.number().min(0) })),
   storageGb: z.number().min(0),
   r2Operations: NonNegativeIntSchema,
+  /** Learner spend (`learnerUsd`) over the distinct learners behind it (`activeLearners`); staff and jobs are not learners. */
   estimatedUsdPerActiveLearner: z.number().min(0).nullable(),
+  /** Learner spend on conversation tasks over meaningful learner conversations; staff probes are not conversations. */
   usdPerMeaningfulConversation: z.number().min(0).nullable(),
   usdPerReviewedLesson: z.number().min(0).nullable(),
   timeline: series(z.number().min(0)),
   /** Reconciliation against provider invoices when available. */
   reconciliation: z.object({ invoicedUsd: z.number().min(0).nullable(), deltaUsd: z.number().nullable(), asOf: TimestamptzSchema.nullable() }),
+  /** Spend on learner rows (see the schema comment). Optional: servers before 2026-10-20 do not send it. */
+  learnerUsd: z.number().min(0).optional(),
+  /**
+   * Spend on rows tagged as staff or job rows (`redacted_log.actor = 'staff'` or `redacted_log.jobId`): Studio probes and
+   * smoke tests, model benchmarks, content and media jobs. Only tagged rows count here, never a row merely missing an
+   * enrollment (see `unattributedUsd`). `null` under a track / source filter: there is no honest scoped figure.
+   */
+  staffAndJobsUsd: z.number().min(0).nullable().optional(),
+  /**
+   * Spend on rows with no enrollment and no staff or job tag: learner spend whose course or account was deleted (the
+   * enrollment reference is cleared, the cost row is kept), untagged probes and operator scripts, and older rows. Not
+   * known to be learner or staff spend, so it is in neither figure. Unscoped,
+   * `totalUsd = learnerUsd + staffAndJobsUsd + unattributedUsd`. `null` under a track / source filter. Optional: servers
+   * before 2026-10-20 do not send it.
+   */
+  unattributedUsd: z.number().min(0).nullable().optional(),
+  /** Distinct learners with learner AI rows in range: the divisor of `estimatedUsdPerActiveLearner`. */
+  activeLearners: NonNegativeIntSchema.optional(),
+  truncated: truncatedReads,
 });
 
 export const AnalyticsUsageResponseSchema = z.object({
@@ -484,6 +527,7 @@ export const AnalyticsUsageResponseSchema = z.object({
   retentionD7: UnitIntervalSchema.nullable(),
   retentionD30: UnitIntervalSchema.nullable(),
   byTrack: z.array(z.object({ trackId: CourseTrackIdSchema, activeLearners: NonNegativeIntSchema, enrollmentsBySource: z.array(z.object({ sourceLanguage: SourceLanguageCodeSchema, count: NonNegativeIntSchema })) })),
+  truncated: truncatedReads,
 });
 
 export const AnalyticsErrorsResponseSchema = z.object({
@@ -492,9 +536,11 @@ export const AnalyticsErrorsResponseSchema = z.object({
   mediaFailureRate: UnitIntervalSchema.nullable(),
   downloadFailureRate: UnitIntervalSchema.nullable(),
   timeouts: NonNegativeIntSchema,
+  /** `timeToFirstAiAudioP95Ms` is a learner-experience figure: learner rows only (staff probes and jobs excluded). */
   latency: z.object({ apiP95Ms: MillisSchema.nullable(), timeToFirstAiAudioP95Ms: MillisSchema.nullable(), interruptionLatencyP95Ms: MillisSchema.nullable(), mediaStartP99Ms: MillisSchema.nullable() }),
   sttConfidenceByTrack: z.array(z.object({ trackId: CourseTrackIdSchema, meanConfidence: UnitIntervalSchema.nullable(), languageMismatchRate: UnitIntervalSchema.nullable() })),
   alerts: z.array(z.object({ kind: z.enum(['runaway_cost', 'attack', 'provider_outage', 'rights_expiry']), since: TimestamptzSchema, detail: z.string() })),
+  truncated: truncatedReads,
 });
 
 // --- shared by the §7.3 / §7.5 / §10.2A admin resources ----------------------
