@@ -8,7 +8,14 @@
  * - a take without speech writes no grading row, so it can back nothing;
  * - another learner's grading row (by id) is refused with 403, and other learners' rows never count;
  * - one grading row backs one step and one attempt, ever: learner-writable attempt fields (`created_at`, `mission_id`,
- *   `enrollment_id`), an attempt left open for hours, and two evaluations racing never free a used row again;
+ *   `enrollment_id`), an attempt left open for hours, and evaluations racing never free a used row again. The
+ *   settlement is the database's (`complete_mission_attempt`, migration 161; faked here with the same semantics):
+ *   evidence claims keyed by evidence id, first decision wins, completions counted once per credited attempt. The
+ *   "credit races" block replays the round-3 interleavings (one attempt evaluated twice plus another attempt, the replay
+ *   paying first; parallel completions with a slow write) and checks that no take pays two attempts and every credited
+ *   completion is counted. A settled decision replays only for the mission and enrollment it was made for (a completed
+ *   attempt moved afterwards completes nothing elsewhere), and evaluate refuses a mission of another variety whatever
+ *   the attempt row says;
  * - the credited outcome never exceeds what the server recorded; choice steps are never credited (their answer key
  *   ships to the client); conversation steps need the evaluator's OWN rows for the session, and a session row the
  *   learner wrote or rewrote through PostgREST (RLS full CRUD) is a claim capped by those rows;
@@ -24,23 +31,25 @@ import { afterEach, describe, expect, it } from 'vitest';
 import { observationToRow } from '../../lib/learning';
 import { MissionEvaluateApiResponseSchema } from '../../routes/learner/missions';
 import {
+  MAX_SETTLE_ROUNDS,
   MISSION_CREDIT_VERSION,
   SESSION_EVIDENCE,
   cappedOutcome,
   clientReportedObservation,
   corroboratedSessionOutput,
   decideMissionCredit,
+  decisionMadeFor,
   evidenceIdsOf,
   evidenceWindow,
   hasPositiveEvidence,
   parseSessionOutput,
-  restrictEvidence,
   stepSpecsOf,
   storedMissionCredit,
   storedMissionEvaluation,
+  withoutEvidence,
   type SpeechEvidence,
 } from '../../lib/xp-credit';
-import { enrollmentRow, profileRow, routeHarness, type DbRow, type FakePostgrest, type RouteHarness, type ScriptedResponse } from './route-fixtures';
+import { enrollmentRow, profileRow, routeHarness, type DbRow, type FakePostgrest, type RouteHarness, type RpcHandler, type ScriptedResponse } from './route-fixtures';
 
 const LEARNER = '11111111-1111-4111-8111-111111111111';
 const OTHER = '22222222-2222-4222-8222-222222222222';
@@ -109,7 +118,66 @@ function installRpcs(db: FakePostgrest): void {
       return { client_event_id: ev.clientEventId, resolution: 'applied', reason: null, xp_credited: null, handled_in_db: !ENGINE_TYPES.has(ev.payload.type) };
     });
   db.rpcs.mark_sync_events_applied = (args) => (args.p_client_event_ids as string[]).length;
+  db.rpcs.complete_mission_attempt = completeMissionAttempt;
 }
+
+/** Canonical JSON (sorted keys): jsonb equality for the compare-and-set on the stored evaluation. */
+const canonical = (value: unknown): string => JSON.stringify(value ?? null, (_k, v: unknown) => (v && typeof v === 'object' && !Array.isArray(v) ? Object.fromEntries(Object.entries(v as DbRow).sort(([a], [b]) => a.localeCompare(b))) : v));
+const pgError = (code: string, message: string) => ({ status: code === '22023' ? 400 : 409, code, message });
+
+/**
+ * `public.complete_mission_attempt` (migration 161, `supabase/tests/database/mission_progress_atomic.test.sql`). The
+ * handler runs without an await, so like the SQL function's transaction it is atomic: refuse a second decision (first
+ * write wins), claim the decision's evidence all or nothing (`mission_evidence_claims`, keyed by evidence id), store
+ * the decision, and record the completion with `completions + 1` when it credits the mission.
+ */
+const completeMissionAttempt: RpcHandler = (args, ctx) => {
+  const userId = String(args.p_user_id);
+  const evaluation = args.p_evaluation as { credit?: { missionCredited?: unknown; withoutHints?: unknown; steps?: unknown } } | null;
+  const credit = evaluation?.credit;
+  if (!credit || typeof credit.missionCredited !== 'boolean' || !Array.isArray(credit.steps)) throw pgError('22023', 'p_evaluation must carry a credit decision');
+  const attempt = ctx.db.rows('mission_attempts').find((a) => a.id === args.p_attempt_id && a.user_id === userId);
+  if (!attempt) throw pgError('23503', 'not an attempt of this user');
+  const enrollmentOwned = ctx.db.rows('user_course_enrollments').some((e) => e.id === args.p_enrollment_id && e.user_id === userId);
+  if (attempt.enrollment_id !== args.p_enrollment_id || attempt.mission_id !== args.p_mission_id || !enrollmentOwned) throw pgError('23503', 'not an attempt of this enrollment and mission');
+  const seen = (args.p_seen_evaluation as unknown) ?? null;
+  if (canonical(attempt.evaluation) !== canonical(seen)) return [{ outcome: 'already_decided', contested_ids: [], attempt: { ...attempt } }];
+
+  const steps = credit.steps as Array<{ evidence?: string; evidenceIds?: unknown }>;
+  const idsOf = (kind: string): string[] => [...new Set(steps.filter((st) => st.evidence === kind).flatMap((st) => (Array.isArray(st.evidenceIds) ? st.evidenceIds.map(String) : [])))];
+  const grading = idsOf('speech_evaluation');
+  const sessions = idsOf('conversation_evaluator');
+  if (grading.some((id) => sessions.includes(id))) throw pgError('22023', 'an evidence id cannot be both kinds');
+  const ownsRow = (table: string, id: string) => ctx.db.rows(table).some((r) => r.id === id && r.user_id === userId);
+  if (grading.some((id) => !ownsRow('learning_observations', id)) || sessions.some((id) => !ownsRow('conversation_sessions', id))) throw pgError('23503', 'evidence of another user');
+  const claims = ctx.db.rows('mission_evidence_claims');
+  const wanted = [...grading.map((id) => ({ id, kind: 'grading_row' })), ...sessions.map((id) => ({ id, kind: 'conversation_session' }))].sort((a, b) => a.id.localeCompare(b.id));
+  const contested = wanted.filter((w) => claims.some((c) => c.evidence_id === w.id && c.attempt_id !== attempt.id)).map((w) => w.id);
+  if (contested.length) return [{ outcome: 'contested', contested_ids: contested, attempt: { ...attempt } }];
+  for (const w of wanted) if (!claims.some((c) => c.evidence_id === w.id)) claims.push({ evidence_id: w.id, evidence_kind: w.kind, attempt_id: attempt.id, user_id: userId, claimed_at: NOW() });
+
+  const completedAt = (attempt.completed_at as string | null | undefined) ?? (args.p_completed_at as string | undefined) ?? NOW();
+  Object.assign(attempt, { completed_at: completedAt, step_results: args.p_step_results ?? attempt.step_results, objectives_completed: args.p_objectives_completed ?? [], evaluation, current_step_index: args.p_current_step_index ?? attempt.current_step_index, updated_at: NOW() });
+  const credited = credit.missionCredited === true;
+  const withoutHints = credit.withoutHints === true;
+  const counts = credited && seen === null;
+  const progress = ctx.db.rows('mission_progress');
+  const row = progress.find((p) => p.enrollment_id === args.p_enrollment_id && p.mission_id === args.p_mission_id);
+  if (!row) {
+    progress.push({ id: crypto.randomUUID(), user_id: userId, enrollment_id: args.p_enrollment_id, mission_id: args.p_mission_id, status: 'completed', best_attempt_id: credited ? attempt.id : null, completions: counts ? 1 : 0, completed_without_hints: credited && withoutHints, first_completed_at: credited ? completedAt : null, last_completed_at: completedAt, revision: 0, created_at: NOW(), updated_at: NOW() });
+  } else {
+    Object.assign(row, {
+      status: 'completed',
+      best_attempt_id: credited ? attempt.id : row.best_attempt_id,
+      completions: Number(row.completions) + (counts ? 1 : 0),
+      completed_without_hints: Boolean(row.completed_without_hints) || (credited && withoutHints),
+      first_completed_at: row.first_completed_at ?? (credited ? completedAt : null),
+      last_completed_at: completedAt,
+      updated_at: NOW(),
+    });
+  }
+  return [{ outcome: 'written', contested_ids: [], attempt: { ...attempt } }];
+};
 
 // --- fixture ----------------------------------------------------------------------------------------------------
 
@@ -225,8 +293,95 @@ const allSuccess = (f: Fixture, ids: Partial<Record<'modeled' | 'anticipation' |
 const allSuccessSeeded = (f: Fixture, sessionId: string | null = null): StepResult[] =>
   f.seededSteps.map((st) => result(st, { attemptedBeforeReveal: true, selectedIntentId: st.step_type === 'listen_identify' ? (f.bonjour.id as string) : null, conversationSessionId: st.step_type === 'character_conversation' ? sessionId : null }));
 
-async function evaluate(f: Fixture, attemptId: string, stepResults: StepResult[], opts: { clientEventId?: string; missionId?: string; token?: string; enrollmentId?: string } = {}) {
-  return f.h.call(`/v1/missions/${opts.missionId ?? (f.mission.id as string)}/evaluate`, { token: opts.token ?? f.token, body: { attemptId, enrollmentId: opts.enrollmentId ?? f.enrollment.id, completedAt: NOW(), stepResults, clientEventId: opts.clientEventId ?? crypto.randomUUID() } });
+async function evaluate(f: Fixture, attemptId: string, stepResults: StepResult[], opts: { clientEventId?: string; missionId?: string; token?: string; enrollmentId?: string; completedAt?: string } = {}) {
+  return f.h.call(`/v1/missions/${opts.missionId ?? (f.mission.id as string)}/evaluate`, { token: opts.token ?? f.token, body: { attemptId, enrollmentId: opts.enrollmentId ?? f.enrollment.id, completedAt: opts.completedAt ?? NOW(), stepResults, clientEventId: opts.clientEventId ?? crypto.randomUUID() } });
+}
+
+interface Settlement {
+  attemptId: string;
+  completedAt: string;
+  outcome: string;
+  contested: string[];
+  /** Evidence ids the settled decision named. */
+  evidenceIds: string[];
+  /** One of the `n` held calls (a first decision), not a later re-decision. */
+  gated: boolean;
+}
+
+/**
+ * Hold the first `n` calls to `complete_mission_attempt` until all `n` are pending (so each was decided from the same
+ * evidence, before any of them was settled), then let them through one at a time, each after the previous one
+ * answered, in `order` (attempt ids; a repeated id takes that attempt's next call in arrival order; default: arrival
+ * order). Later calls (re-decisions after `contested`) pass straight through. Every settlement is recorded.
+ */
+function holdSettlements(db: FakePostgrest, n: number, order?: string[]): { settlements: Settlement[]; restore: () => void } {
+  const original = db.handle.bind(db);
+  const settlements: Settlement[] = [];
+  const pending: Array<{ attemptId: string; go: () => void; done: Promise<void> }> = [];
+  let held = 0;
+  const release = async () => {
+    const queue = [...pending];
+    const picks = (order ?? queue.map((p) => p.attemptId)).map((aid) => queue.splice(queue.findIndex((p) => p.attemptId === aid), 1)[0]!);
+    for (const p of picks) {
+      p.go();
+      await p.done;
+    }
+  };
+  const settle = async (req: Request, args: { p_attempt_id: string; p_completed_at: string; p_evaluation: unknown }, gated: boolean) => {
+    const res = await original(req);
+    const [row] = ((await res.clone().json()) as Array<{ outcome?: string; contested_ids?: string[] }> | null) ?? [];
+    settlements.push({ attemptId: args.p_attempt_id, completedAt: args.p_completed_at, outcome: row?.outcome ?? `error ${res.status}`, contested: row?.contested_ids ?? [], evidenceIds: evidenceIdsOf(storedMissionCredit(args.p_evaluation)), gated });
+    return res;
+  };
+  db.handle = async (req: Request) => {
+    const url = new URL(req.url);
+    if (req.method !== 'POST' || !url.pathname.endsWith('/rpc/complete_mission_attempt')) return original(req);
+    const args = (await req.clone().json()) as { p_attempt_id: string; p_completed_at: string; p_evaluation: unknown };
+    if (held >= n) return settle(req, args, false);
+    held += 1;
+    let go!: () => void;
+    let finish!: () => void;
+    const gate = new Promise<void>((resolve) => (go = resolve));
+    const done = new Promise<void>((resolve) => (finish = resolve));
+    pending.push({ attemptId: args.p_attempt_id, go, done });
+    if (pending.length === n) void release();
+    await gate;
+    try {
+      return await settle(req, args, true);
+    } finally {
+      finish();
+    }
+  };
+  return { settlements, restore: () => (db.handle = original) };
+}
+
+/** The final stored decision of an attempt. */
+const storedCredit = (f: Fixture, attemptId: string) => storedMissionCredit(attemptRow(f, attemptId).evaluation);
+/** Who holds each evidence id (`mission_evidence_claims`). */
+const holders = (f: Fixture) => new Map(f.h.db.rows('mission_evidence_claims').map((c) => [c.evidence_id as string, c.attempt_id as string]));
+
+/**
+ * The invariants the database settlement guarantees, whatever the interleaving: every evidence id of a stored decision
+ * is held by that attempt and by no other decision; every mission payment references an attempt whose FINAL decision is
+ * credited, once; completions equal the credited attempts.
+ */
+function expectSettledInvariants(f: Fixture, attemptIds: string[], missionId = f.mission.id as string): void {
+  const held = holders(f);
+  const seen = new Map<string, string>();
+  for (const id of attemptIds) {
+    for (const eid of evidenceIdsOf(storedCredit(f, id))) {
+      expect(held.get(eid), `evidence ${eid} of ${id}`).toBe(id);
+      expect(seen.get(eid), `evidence ${eid} named by two decisions`).toBeUndefined();
+      seen.set(eid, id);
+    }
+  }
+  const paid = payments(f).map((l) => l.reference_id as string);
+  expect(new Set(paid).size).toBe(paid.length);
+  for (const id of paid) expect(storedCredit(f, id)?.missionCredited, `paid attempt ${id}`).toBe(true);
+  const credited = attemptIds.filter((id) => storedCredit(f, id)?.missionCredited === true);
+  expect(paid.filter((id) => attemptIds.includes(id)).sort()).toEqual([...credited].sort());
+  const progress = f.h.db.rows('mission_progress').find((p) => p.mission_id === missionId && p.enrollment_id === f.enrollment.id);
+  expect(Number(progress?.completions ?? 0)).toBe(credited.length);
 }
 
 /** A request the learner's own PostgREST client may send (anon key + own JWT), as RLS allows it. */
@@ -399,12 +554,34 @@ describe('decideMissionCredit (pure): credit comes from server evidence only', (
     expect(clientReportedObservation(o).scorerVersion).toBe('client-sync:speech-route@forged');
   });
 
-  it('restricting the evidence only ever removes rows and sessions', () => {
-    const ev = { pool: [row('a', 'success'), row('b', 'success')], claimed: new Map([[modeled, [row('a', 'success')]]]), sessions: new Map([['s1', []], ['s2', []]]), consumed: new Set<string>(), consumedSince: NOW() };
-    const kept = restrictEvidence(ev, new Set(['b', 's2']));
+  it('a stored decision replays only for the mission and enrollment it was made for (its ids, else its steps)', () => {
+    const M = '00000000-0000-4000-8000-0000000000a1';
+    const N = '00000000-0000-4000-8000-0000000000a2';
+    const credit = storedMissionCredit({ credit: { version: MISSION_CREDIT_VERSION, missionCredited: true, withoutHints: true, gradableSteps: 1, creditedSuccesses: 1, steps: [{ stepId: modeled, claimedOutcome: 'success', evidence: 'speech_evaluation', creditedOutcome: 'success', evidenceIds: ['a'], utteranceConfidence: 0.9 }], missionId: M, enrollmentId: E1 } });
+    expect(credit).toMatchObject({ missionId: M, enrollmentId: E1 });
+    const here = { missionId: M, enrollmentId: E1, stepIds: new Set(specs.map((sp) => sp.id)) };
+    expect(decisionMadeFor(credit, here)).toBe(true);
+    expect(decisionMadeFor(credit, { ...here, missionId: N })).toBe(false);
+    expect(decisionMadeFor(credit, { ...here, enrollmentId: E2 })).toBe(false);
+    // A decision of the previous rules names neither: its step ids tie it to its mission.
+    const older = { ...credit!, missionId: undefined, enrollmentId: undefined };
+    expect(decisionMadeFor(older, { ...here, missionId: N })).toBe(true);
+    expect(decisionMadeFor(older, { ...here, stepIds: new Set([listen]) })).toBe(false);
+    // A pre-credit evaluation carries nothing to check.
+    expect(decisionMadeFor(null, { ...here, stepIds: new Set() })).toBe(true);
+  });
+
+  it('dropping contested evidence only ever removes rows and sessions', () => {
+    const ev = { pool: [row('a', 'success'), row('b', 'success')], claimed: new Map([[modeled, [row('a', 'success')]]]), sessions: new Map([['s1', []], ['s2', []]]), consumed: new Set<string>(['z']) };
+    const kept = withoutEvidence(ev, new Set(['a', 's1']));
     expect(kept.pool.map((x) => x.id)).toEqual(['b']);
     expect(kept.claimed.get(modeled)).toEqual([]);
     expect([...kept.sessions.keys()]).toEqual(['s2']);
+    expect([...kept.consumed].sort()).toEqual(['a', 's1', 'z']);
+    expect(withoutEvidence(ev, new Set())).toBe(ev);
+    // A decision re-made without them cannot use them.
+    const again = decideMissionCredit({ specs, results: [r(modeled), r(shadowing)], pool: kept.pool, claimed: kept.claimed });
+    expect(evidenceIdsOf({ steps: again.steps })).toEqual(['b']);
   });
 });
 
@@ -508,7 +685,8 @@ describe('POST /v1/missions/:id/evaluate — credit is server-authoritative', ()
     await gradeThree(f);
     expect((await evaluate(f, used, allSuccess(f))).json.data.credit.missionCredited).toBe(true);
     expect(payments(f)).toHaveLength(1);
-    // Each write is one RLS allows (owner_update; the guard trigger only protects the outcome columns).
+    // RLS owner_update allows each write. Since migration 161 the guard trigger refuses the mission_id/enrollment_id
+    // ones on a completed attempt like this one; the fake still applies them: the claims must hold without that guard.
     for (const patch of [{ created_at: '2000-01-01T00:00:00.000Z', started_at: '2000-01-01T00:00:00.000Z' }, { mission_id: f.chat.id }, { enrollment_id: f.secondEnrollment.id }]) {
       const write = await asLearner(f, 'PATCH', `mission_attempts?id=eq.${used}`, patch);
       expect(write.status).toBe(200);
@@ -545,35 +723,21 @@ describe('POST /v1/missions/:id/evaluate — credit is server-authoritative', ()
     const a = await startAttempt(f);
     const b = await startAttempt(f);
     await gradeThree(f);
-    // Force the race: both scans of other attempts run before either decision is written.
-    const db = f.h.db;
-    const original = db.handle.bind(db);
-    let scans = 0;
-    const held: Array<() => void> = [];
-    const firstDecisions: string[][] = [];
-    db.handle = async (req: Request) => {
-      const url = new URL(req.url);
-      if (url.pathname.endsWith('/mission_attempts')) {
-        if (req.method === 'GET' && url.searchParams.get('evaluation') === 'not.is.null' && ++scans === 2) held.splice(0).forEach((release) => release());
-        if (req.method === 'PATCH' && url.searchParams.get('completed_at') === 'is.null') {
-          if (scans < 2) await new Promise<void>((resolve) => held.push(resolve));
-          firstDecisions.push(evidenceIdsOf(storedMissionCredit(((await req.clone().json()) as { evaluation: unknown }).evaluation)));
-        }
-      }
-      return original(req);
-    };
+    // Force the race: both decisions are made from the same evidence before either is settled.
+    const gate = holdSettlements(f.h.db, 2);
     const [ra, rb] = await Promise.all([evaluate(f, a, allSuccess(f)), evaluate(f, b, allSuccess(f))]);
-    db.handle = original;
+    gate.restore();
     expect([ra.status, rb.status]).toEqual([200, 200]);
-    // The race really happened: both first decisions were made from an empty scan and named the same three rows.
-    expect(firstDecisions).toHaveLength(2);
-    expect(firstDecisions[0]!.sort()).toEqual(firstDecisions[1]!.sort());
-    expect(firstDecisions[0]).toHaveLength(3);
-    const credited = [ra, rb].filter((r) => r.json.data.credit.missionCredited);
-    expect(credited.length).toBeLessThanOrEqual(1);
-    const [idsA, idsB] = [a, b].map((id) => evidenceIdsOf(storedMissionCredit(attemptRow(f, id).evaluation)));
-    expect(idsA!.filter((x) => idsB!.includes(x))).toEqual([]);
-    expect(payments(f)).toHaveLength(credited.length);
+    // The race really happened: both first decisions named the same three rows; the second was contested on all three.
+    const [first, second, ...rest] = gate.settlements;
+    expect(first!.evidenceIds).toHaveLength(3);
+    expect([...second!.evidenceIds].sort()).toEqual([...first!.evidenceIds].sort());
+    expect([first!.outcome, second!.outcome]).toEqual(['written', 'contested']);
+    expect([...second!.contested].sort()).toEqual([...first!.evidenceIds].sort());
+    // The loser re-decided without them and was settled with nothing.
+    expect(rest).toEqual([expect.objectContaining({ attemptId: second!.attemptId, outcome: 'written', evidenceIds: [] })]);
+    expect([ra, rb].filter((r) => r.json.data.credit.missionCredited)).toHaveLength(1);
+    expectSettledInvariants(f, [a, b]);
     // Whatever the interleaving, the three takes pay one attempt at most, ever.
     await evaluate(f, await startAttempt(f), allSuccess(f));
     expect(payments(f)).toHaveLength(1);
@@ -583,30 +747,19 @@ describe('POST /v1/missions/:id/evaluate — credit is server-authoritative', ()
     f = await setup();
     const attemptId = await startAttempt(f);
     await gradeThree(f);
-    const db = f.h.db;
-    const original = db.handle.bind(db);
-    const held: Array<() => void> = [];
-    const conditionalWrites: number[] = [];
-    db.handle = async (req: Request) => {
-      const url = new URL(req.url);
-      // Hold the first conditional write until the second evaluation has decided too.
-      const conditional = req.method === 'PATCH' && url.pathname.endsWith('/mission_attempts') && url.searchParams.get('completed_at') === 'is.null';
-      if (conditional) {
-        if (held.length === 0) await new Promise<void>((resolve) => held.push(resolve));
-        else held.splice(0).forEach((release) => release());
-      }
-      const res = await original(req);
-      if (conditional) conditionalWrites.push(((await res.clone().json()) as unknown[]).length);
-      return res;
-    };
+    const gate = holdSettlements(f.h.db, 2);
     const [r1, r2] = await Promise.all([evaluate(f, attemptId, allSuccess(f)), evaluate(f, attemptId, allSuccess(f))]);
-    db.handle = original;
+    gate.restore();
     expect([r1.status, r2.status]).toEqual([200, 200]);
-    expect(conditionalWrites.sort()).toEqual([0, 1]); // both decided; only the first write applied
+    // Both decided; only the first settlement applied, the second found the decision and replayed it.
+    expect(gate.settlements.map((st) => st.outcome)).toEqual(['written', 'already_decided']);
     expect([r1, r2].map((r) => r.json.data.credit.missionCredited)).toEqual([true, true]);
+    // What the two answers report as awarded is exactly what the ledger holds (nothing paid twice).
+    expect(r1.json.data.xpAwarded + r2.json.data.xpAwarded).toBe(ledger(f).reduce((n, l) => n + Number(l.amount), 0));
     expect(attemptObservations(f, attemptId)).toHaveLength(3); // one decision recorded: 3 steps × 1 goal skill
     expect(payments(f)).toHaveLength(1);
     expect(f.h.db.rows('mission_progress')).toEqual([expect.objectContaining({ completions: 1 })]);
+    expectSettledInvariants(f, [attemptId]);
   });
 
   it('a take without speech writes no grading row, so a claimed "understood" on it gets nothing', async () => {
@@ -702,6 +855,250 @@ describe('POST /v1/missions/:id/evaluate — credit is server-authoritative', ()
     const ok = await evaluate(f, next, allSuccessSeeded(f), { missionId: seededId });
     expect(ok.json.data).toMatchObject({ credit: { missionCredited: true }, evaluation: { objectivesCompleted: ['g1'] } });
     expect(payments(f)).toEqual([expect.objectContaining({ reference_id: next })]);
+  });
+});
+
+describe('credit races: evidence, decisions and completions are settled by the database (migration 161)', () => {
+  let f: Fixture;
+  afterEach(() => f.h.restore());
+
+  // Round 3 left this interleaving open: A1 and B decided from the same takes, A1 stored a credited decision, A2 (a
+  // second evaluation of A) found it and paid A's mission XP, then A1's post-write check saw B's claim and dropped the
+  // takes, so A was paid on a decision that no longer held them, and B was paid on the same takes (one take, two
+  // missions). Each order below holds all three decisions until all three are made, settles them one at a time, and
+  // lets A's replay pay before the evaluation that stored A's decision reaches its own award.
+  for (const order of [['A', 'A', 'B'], ['A', 'B', 'A'], ['B', 'A', 'A']] as const) {
+    it(`three requests (attempt A twice, attempt B once) on the same takes, settled ${order.join(' → ')}: the takes pay one attempt, once`, async () => {
+      f = await setup();
+      const A = await startAttempt(f);
+      const B = await startAttempt(f);
+      await gradeThree(f);
+      const attemptOf = { A, B } as const;
+      const runs = [
+        { attemptId: A, clientEventId: crypto.randomUUID(), completedAt: ago(3_000) },
+        { attemptId: A, clientEventId: crypto.randomUUID(), completedAt: ago(2_000) },
+        { attemptId: B, clientEventId: crypto.randomUUID(), completedAt: ago(1_000) },
+      ];
+      const gate = holdSettlements(f.h.db, 3, order.map((k) => attemptOf[k]));
+      // The replay of A pays first: an award for A from the evaluation that stored A's decision waits for the replay's.
+      const settled = f.h.db.handle.bind(f.h.db);
+      let replayPaid!: () => void;
+      const replayPaidP = new Promise<void>((resolve) => (replayPaid = resolve));
+      const keyOf = (completedAt: string) => runs.find((r) => r.completedAt === completedAt)!.clientEventId;
+      f.h.db.handle = async (req: Request) => {
+        if (req.method !== 'POST' || !new URL(req.url).pathname.endsWith('/rpc/award_xp')) return settled(req);
+        const args = (await req.clone().json()) as { p_reason: string; p_reference_id?: string; p_idempotency_key: string };
+        if (args.p_reason !== 'mission_completed' || args.p_reference_id !== A) return settled(req);
+        const decider = gate.settlements.find((st) => st.attemptId === A && st.outcome === 'written');
+        if (decider && args.p_idempotency_key === keyOf(decider.completedAt)) {
+          await Promise.race([replayPaidP, new Promise((resolve) => setTimeout(resolve, 500))]);
+          return settled(req);
+        }
+        const res = await settled(req);
+        replayPaid();
+        return res;
+      };
+      const run = (r: (typeof runs)[number]) => evaluate(f, r.attemptId, allSuccess(f), { clientEventId: r.clientEventId, completedAt: r.completedAt });
+      const [rA1, rA2, rB] = await Promise.all([run(runs[0]!), run(runs[1]!), run(runs[2]!)]);
+      gate.restore();
+
+      expect([rA1.status, rA2.status, rB.status], JSON.stringify([rA1.json, rA2.json, rB.json])).toEqual([200, 200, 200]);
+      // The race really happened: three decisions from the same three takes, settled in the requested order.
+      const gated = gate.settlements.filter((st) => st.gated);
+      expect(gated.map((st) => st.attemptId)).toEqual(order.map((k) => attemptOf[k]));
+      for (const st of gated) expect([...st.evidenceIds].sort()).toEqual([...gated[0]!.evidenceIds].sort());
+      expect(gated[0]!.evidenceIds).toHaveLength(3);
+      // The first one settled holds the three takes and is the only attempt paid.
+      const winner = attemptOf[order[0]];
+      const loser = winner === A ? B : A;
+      expect([...holders(f).values()]).toEqual([winner, winner, winner]);
+      expect(payments(f)).toEqual([expect.objectContaining({ reference_id: winner })]);
+      expect(storedCredit(f, winner)?.missionCredited).toBe(true);
+      expect(storedCredit(f, loser)).toMatchObject({ missionCredited: false });
+      expect(evidenceIdsOf(storedCredit(f, loser))).toEqual([]);
+      // Both answers about A say what A's stored decision says; nothing was paid twice or reported twice.
+      expect([rA1, rA2].map((r) => r.json.data.credit.missionCredited)).toEqual([winner === A, winner === A]);
+      expect(rB.json.data.credit.missionCredited).toBe(winner === B);
+      expect([rA1, rA2, rB].reduce((n, r) => n + Number(r.json.data.xpAwarded), 0)).toBe(ledger(f).reduce((n, l) => n + Number(l.amount), 0));
+      if (winner === A) {
+        // The replay paid A (the round-3 interleaving), from a decision that is final: it still holds the takes.
+        const decider = gate.settlements.find((st) => st.attemptId === A && st.outcome === 'written')!;
+        expect(payments(f)[0]!.idempotency_key).not.toBe(keyOf(decider.completedAt));
+      }
+      expectSettledInvariants(f, [A, B]);
+      // And the same takes never pay again.
+      expect((await evaluate(f, await startAttempt(f), allSuccess(f))).json.data.credit.missionCredited).toBe(false);
+      expect(payments(f)).toHaveLength(1);
+    });
+  }
+
+  it('parallel credited completions of one mission count exactly (completions = completions + 1 in the settlement)', async () => {
+    f = await setup();
+    const attempts = [await startAttempt(f), await startAttempt(f), await startAttempt(f), await startAttempt(f)];
+    // Each attempt has its own three graded takes and names them by id.
+    const takes = attempts.map(() => f.h.db.seed('learning_observations', [gradingRow(f), gradingRow(f), gradingRow(f, { expression_id: f.oui.id })]).map((row) => row.id as string));
+    // A read-then-write of mission_progress would lose counts here (round-3 code: 4 credited completions, completions = 1).
+    f.h.db.delays.set('GET mission_progress', 30);
+    f.h.db.delays.set('POST mission_progress', 30);
+    f.h.db.delays.set('POST rpc:complete_mission_attempt', 10);
+    const gate = holdSettlements(f.h.db, attempts.length);
+    const res = await Promise.all(attempts.map((id, i) => evaluate(f, id, allSuccess(f, { modeled: [takes[i]![0]!], anticipation: [takes[i]![1]!], shadowing: [takes[i]![2]!] }))));
+    gate.restore();
+    expect(res.map((r) => r.status)).toEqual([200, 200, 200, 200]);
+    expect(res.map((r) => r.json.data.credit.missionCredited)).toEqual([true, true, true, true]);
+    expect(gate.settlements.map((st) => st.outcome)).toEqual(['written', 'written', 'written', 'written']);
+    expect(f.h.db.rows('mission_progress')).toEqual([expect.objectContaining({ status: 'completed', completions: 4, completed_without_hints: true })]);
+    expect(attempts).toContain(f.h.db.rows('mission_progress')[0]!.best_attempt_id);
+    expect(f.h.db.rows('mission_progress')[0]!.first_completed_at).toBeTruthy();
+    expect(payments(f)).toHaveLength(4);
+    expect(holders(f).size).toBe(12);
+    attempts.forEach((id, i) => expect([...evidenceIdsOf(storedCredit(f, id))].sort()).toEqual([...takes[i]!].sort()));
+    expectSettledInvariants(f, attempts);
+  });
+
+  it('four attempts racing for the same pool of takes: the losers re-decide without the claimed take, every take backs one attempt, every credited completion is counted', async () => {
+    f = await setup();
+    const [solo] = f.h.db.seed('missions', [missionRow()]);
+    const soloId = solo!.id as string;
+    const [soloStep] = f.h.db.seed('mission_steps', [stepRow(soloId, 0, 'modeled_expression', [f.bonjour.id as string])]);
+    const attempts = [];
+    for (let i = 0; i < 4; i += 1) attempts.push(await startAttempt(f, soloId));
+    for (let i = 0; i < 4; i += 1) await gradeTake(f, f.bonjour, whisper('Bonjour'), { missionId: soloId });
+    const gate = holdSettlements(f.h.db, attempts.length);
+    const res = await Promise.all(attempts.map((id) => evaluate(f, id, [result(soloStep!)], { missionId: soloId })));
+    gate.restore();
+    expect(res.map((r) => r.status)).toEqual([200, 200, 200, 200]);
+    // All four first wanted the same (best, earliest) take; three were contested and re-decided, round after round.
+    expect(gate.settlements.filter((st) => st.gated)).toHaveLength(4);
+    expect(new Set(gate.settlements.filter((st) => st.gated).map((st) => st.evidenceIds.join())).size).toBe(1);
+    expect(gate.settlements.filter((st) => st.outcome === 'contested').length).toBeGreaterThanOrEqual(3);
+    expect(gate.settlements.filter((st) => st.outcome === 'written')).toHaveLength(4);
+    expect(res.map((r) => r.json.data.credit.missionCredited)).toEqual([true, true, true, true]);
+    expect(new Set(holders(f).values()).size).toBe(4);
+    expect(f.h.db.rows('mission_progress')).toEqual([expect.objectContaining({ mission_id: soloId, completions: 4 })]);
+    expectSettledInvariants(f, attempts, soloId);
+  });
+
+  it('the settlement loop is bounded: contested every round, the evaluation answers 409 and stores nothing', async () => {
+    f = await setup();
+    const attemptId = await startAttempt(f);
+    await gradeThree(f);
+    let calls = 0;
+    f.h.db.rpcs.complete_mission_attempt = (args, ctx) => {
+      calls += 1;
+      return [{ outcome: 'contested', contested_ids: [crypto.randomUUID()], attempt: { ...ctx.db.rows('mission_attempts').find((a) => a.id === args.p_attempt_id) } }];
+    };
+    const res = await evaluate(f, attemptId, allSuccess(f));
+    expect(res.status).toBe(409);
+    expect(calls).toBe(MAX_SETTLE_ROUNDS);
+    expect(attemptRow(f, attemptId).completed_at ?? null).toBeNull();
+    expect(attemptObservations(f, attemptId)).toEqual([]);
+    expect(ledger(f)).toEqual([]);
+    expect(f.h.db.rows('mission_progress')).toEqual([]);
+  });
+
+  it('an attempt moved to another mission while it is being evaluated is refused (409), never credited to either', async () => {
+    f = await setup();
+    const attemptId = await startAttempt(f);
+    await gradeThree(f);
+    const original = f.h.db.handle.bind(f.h.db);
+    f.h.db.handle = async (req: Request) => {
+      if (req.method === 'POST' && new URL(req.url).pathname.endsWith('/rpc/complete_mission_attempt')) {
+        // RLS owner_update lets the learner rewrite mission_id between the API's checks and the settlement.
+        f.h.db.handle = original;
+        expect((await asLearner(f, 'PATCH', `mission_attempts?id=eq.${attemptId}`, { mission_id: f.chat.id })).status).toBe(200);
+      }
+      return original(req);
+    };
+    const res = await evaluate(f, attemptId, allSuccess(f));
+    f.h.db.handle = original;
+    expect(res.status, JSON.stringify(res.json)).toBe(409);
+    expect(attemptRow(f, attemptId).completed_at ?? null).toBeNull();
+    expect(f.h.db.rows('mission_evidence_claims')).toEqual([]);
+    expect(ledger(f)).toEqual([]);
+    expect(f.h.db.rows('mission_progress')).toEqual([]);
+  });
+
+  it('a settled attempt moved afterwards to another mission or course replays nowhere else (409): no progress row, XP or review there; moved back, it replays as stored', async () => {
+    f = await setup();
+    const attemptId = await startAttempt(f);
+    await gradeThree(f);
+    expect((await evaluate(f, attemptId, allSuccess(f))).json.data.credit.missionCredited).toBe(true);
+    // The decision names the mission and enrollment it was settled for.
+    expect(storedCredit(f, attemptId)).toMatchObject({ missionId: f.mission.id, enrollmentId: f.enrollment.id });
+    const progressBefore = structuredClone(f.h.db.rows('mission_progress'));
+    const reviewsBefore = f.h.db.rows('user_expression_reviews').length;
+    const xpBefore = ledger(f).length;
+    // Since migration 161 the guard trigger refuses these writes on a completed attempt (42501,
+    // mission_progress_atomic.test.sql §9). The fake applies them, so this checks the API on its own.
+    const moves = [
+      { patch: { mission_id: f.seeded.id }, missionId: f.seeded.id as string, enrollmentId: f.enrollment.id as string, body: allSuccessSeeded(f) },
+      { patch: { mission_id: f.mission.id, enrollment_id: f.secondEnrollment.id }, missionId: f.mission.id as string, enrollmentId: f.secondEnrollment.id as string, body: allSuccess(f) },
+    ];
+    for (const m of moves) {
+      expect((await asLearner(f, 'PATCH', `mission_attempts?id=eq.${attemptId}`, m.patch)).status).toBe(200);
+      const res = await evaluate(f, attemptId, m.body, { missionId: m.missionId, enrollmentId: m.enrollmentId });
+      expect(res.status, `${JSON.stringify(m.patch)} ${JSON.stringify(res.json)}`).toBe(409);
+    }
+    expect(f.h.db.rows('mission_progress')).toEqual(progressBefore);
+    expect(ledger(f)).toHaveLength(xpBefore);
+    expect(f.h.db.rows('user_expression_reviews')).toHaveLength(reviewsBefore);
+    // Moved back to where it was decided, it replays as stored.
+    expect((await asLearner(f, 'PATCH', `mission_attempts?id=eq.${attemptId}`, { enrollment_id: f.enrollment.id })).status).toBe(200);
+    const replay = await evaluate(f, attemptId, allSuccess(f));
+    expect(replay.status, JSON.stringify(replay.json)).toBe(200);
+    expect(replay.json.data).toMatchObject({ xpAwarded: 0, xpReplayed: true, credit: { missionCredited: true } });
+    expect(f.h.db.rows('mission_progress')).toEqual(progressBefore);
+  });
+
+  it('a mission of another course variety is refused (422, nothing written), however the attempt reached it: inserted directly or moved', async () => {
+    f = await setup();
+    const [other] = f.h.db.seed('missions', [missionRow({ target_variety_id: 'es' })]);
+    const otherId = other!.id as string;
+    const [otherStep] = f.h.db.seed('mission_steps', [stepRow(otherId, 0, 'modeled_expression', [f.bonjour.id as string])]);
+    // The attempts route refuses it...
+    const create = await f.h.call(`/v1/missions/${otherId}/attempts`, { token: f.token, body: { enrollmentId: f.enrollment.id, clientAttemptId: crypto.randomUUID(), missionRevision: 1, startedAt: NOW() } });
+    expect(create.status).toBe(422);
+    // ...but RLS lets the learner insert an open attempt directly (offline-first) or point an open one at it.
+    const inserted = await asLearner(f, 'POST', 'mission_attempts?select=*', { user_id: LEARNER, enrollment_id: f.enrollment.id, mission_id: otherId, client_attempt_id: crypto.randomUUID(), mission_revision: 1, started_at: NOW() });
+    expect(inserted.status).toBe(201);
+    const moved = await startAttempt(f);
+    expect((await asLearner(f, 'PATCH', `mission_attempts?id=eq.${moved}`, { mission_id: otherId })).status).toBe(200);
+    await gradeTake(f, f.bonjour, whisper('Bonjour'), { missionId: otherId });
+    for (const id of [inserted.rows[0]!.id as string, moved]) {
+      const res = await evaluate(f, id, [result(otherStep!)], { missionId: otherId });
+      expect(res.status, JSON.stringify(res.json)).toBe(422);
+      expect(attemptRow(f, id).completed_at ?? null).toBeNull();
+      expect(attemptObservations(f, id)).toEqual([]);
+    }
+    expect(f.h.db.rows('mission_evidence_claims')).toEqual([]);
+    expect(f.h.db.rows('mission_progress')).toEqual([]);
+    expect(ledger(f)).toEqual([]);
+  });
+
+  it('a decision stored before migration 161 (no claims, no progress row) replays uncounted and still blocks its takes', async () => {
+    f = await setup();
+    const old = await startAttempt(f);
+    await gradeThree(f);
+    const rows = f.h.db.rows('learning_observations').map((o) => o.id as string);
+    // What round-3 code left: a completed, credited decision naming the takes, with no claim (the migration backfills
+    // them; this checks that the API needs the claim, not the scan, to keep the takes out of another attempt).
+    const credit = { version: 'mission-credit@2026-10-20.2', missionCredited: true, withoutHints: true, gradableSteps: 3, creditedSuccesses: 3, steps: [f.steps.modeled, f.steps.anticipation, f.steps.shadowing].map((st, i) => ({ stepId: st.id, claimedOutcome: 'success', evidence: 'speech_evaluation', creditedOutcome: 'success', evidenceIds: [rows[i]], utteranceConfidence: 0.9 })) };
+    Object.assign(attemptRow(f, old), { completed_at: NOW(), evaluation: { rubric: { outcome: 'success' }, evaluator: evaluatorOutput(), evaluatorRan: false, credit } });
+    // The backfill (migration 161 §3) gives each named take to the attempt.
+    f.h.db.seed('mission_evidence_claims', rows.map((id) => ({ evidence_id: id, evidence_kind: 'grading_row', attempt_id: old, user_id: LEARNER, claimed_at: NOW() })));
+    const replay = await evaluate(f, old, allSuccess(f));
+    expect(replay.json.data).toMatchObject({ credit: { missionCredited: true } });
+    expect(payments(f)).toHaveLength(1);
+    // The missing progress row is inserted for navigation, uncounted (it was counted when that decision was made).
+    expect(f.h.db.rows('mission_progress')).toEqual([expect.objectContaining({ status: 'completed', completions: 0, best_attempt_id: old })]);
+    const next = await startAttempt(f);
+    expect((await evaluate(f, next, allSuccess(f))).json.data).toMatchObject({ xpAwarded: 0, credit: { missionCredited: false } });
+    expect(payments(f)).toHaveLength(1);
+    // That decision names no mission or enrollment, but its steps tie it to its mission: moved, it replays nowhere (409).
+    expect((await asLearner(f, 'PATCH', `mission_attempts?id=eq.${old}`, { mission_id: f.seeded.id })).status).toBe(200);
+    expect((await evaluate(f, old, allSuccessSeeded(f), { missionId: f.seeded.id as string })).status).toBe(409);
+    expect(f.h.db.rows('mission_progress').filter((p) => p.mission_id === f.seeded.id)).toEqual([]);
   });
 });
 

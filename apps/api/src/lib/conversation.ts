@@ -10,12 +10,13 @@ import type { CharacterPersona, TurnRecord } from '@langquest/ai/prompts/builder
 import { defaultVoiceFor, findVoice } from '@langquest/ai/speech/voices';
 import { bytesToBase64 } from '@langquest/ai/util';
 import type { AudioOutput, CharacterTurn, ConversationCommand, ConversationContext, ConversationMode, ConversationSessionScope, ConversationSessionState, EvaluatorOutput, LanguageContext, SourceLanguageCode, SpeechRetention, VoiceSessionConfig } from '@langquest/contracts';
-import { ConversationSessionScopeSchema, ConversationSessionStateSchema, UuidSchema } from '@langquest/contracts';
+import { ConversationSessionScopeSchema, ConversationSessionStateSchema, EvaluatorOutputSchema, UuidSchema, emptyEvaluatorOutput, getCourseTrack, isCourseTrackId } from '@langquest/contracts';
 import type { DbClient as LearnerDb } from '@langquest/db/client';
 import type { CharactersRepository } from '@langquest/db/repositories/characters';
 import { sanitizeForMemory } from '@langquest/curriculum/missions/story';
 import { ALL_SKILL_KEYS } from '@langquest/curriculum/skills';
 import type { DbClient } from '@langquest/db/client';
+import { DbError } from '@langquest/db/errors';
 import type { Row } from '@langquest/db/types';
 import { sourceLanguageTranslator } from '@langquest/locales';
 import { sha256Hex } from '@langquest/telemetry/privacy';
@@ -24,7 +25,7 @@ import { problem } from '../http/envelope';
 import type { RequestServices } from '../services/context';
 import type { EnrollmentRow } from './enrollment';
 import { goalDescriptionFor, goalEditorialText, goalsOf } from './goals';
-import { recordObservations, scheduleReviews } from './learning';
+import { recordObservations, scheduleReviews, type ScheduledReview } from './learning';
 
 export type SessionRow = Row<'conversation_sessions'>;
 export type TurnRow = Row<'conversation_turns'>;
@@ -71,10 +72,32 @@ export function sessionScope(row: SessionRow): ConversationSessionScope | null {
   return parsed.success ? parsed.data : null;
 }
 
-/** Facts for an `audio_lesson` scope: the lesson title + its transcript lines (the learner-picked segments when given), read under RLS. */
-export async function audioLessonSceneFacts(db: LearnerDb, scope: Extract<ConversationSessionScope, { kind: 'audio_lesson' }>, source: string): Promise<string[]> {
-  const lesson = (await db.from('audio_lessons').select('id, title_translations, instruction_language_code').eq('id', scope.audioLessonId).maybeSingle()).data;
-  if (!lesson) throw problem.notFound('Audio lesson');
+/** An `audio_lesson` scope as the learner's RLS shows it: the variety the lesson teaches and its scene facts. */
+export interface AudioLessonScene {
+  /** The lesson's own variety, else its collection's, else its collection's course track's; null when none is recorded. */
+  targetVarietyId: string | null;
+  /** The lesson title + its transcript lines (the learner-picked segments when given). */
+  facts: string[];
+}
+
+/** Variety of a lesson that records none itself: its collection's, else the variety of the collection's course track. */
+async function collectionVarietyOf(db: LearnerDb, chapterId: string): Promise<string | null> {
+  const chapter = (await db.from('audio_chapters').select('collection_id').eq('id', chapterId).maybeSingle()).data;
+  if (!chapter) return null;
+  const collection = (await db.from('audio_course_collections').select('target_variety_id, course_track_id').eq('id', chapter.collection_id).maybeSingle()).data;
+  if (!collection) return null;
+  if (collection.target_variety_id) return collection.target_variety_id;
+  return collection.course_track_id && isCourseTrackId(collection.course_track_id) ? getCourseTrack(collection.course_track_id).targetVarietyId : null;
+}
+
+/**
+ * The `audio_lesson` scope read under the learner's RLS: null when the lesson is not visible to them. The caller compares
+ * `targetVarietyId` with the enrollment's variety before any fact reaches a prompt (dialects are never substituted).
+ */
+export async function audioLessonScene(db: LearnerDb, scope: Extract<ConversationSessionScope, { kind: 'audio_lesson' }>, source: string): Promise<AudioLessonScene | null> {
+  const lesson = (await db.from('audio_lessons').select('id, chapter_id, title_translations, instruction_language_code, target_variety_id').eq('id', scope.audioLessonId).maybeSingle()).data;
+  if (!lesson) return null;
+  const targetVarietyId = lesson.target_variety_id ?? (await collectionVarietyOf(db, lesson.chapter_id));
   const titles = (lesson.title_translations ?? {}) as Record<string, string>;
   const title = titles[source] ?? titles[lesson.instruction_language_code ?? ''] ?? Object.values(titles)[0] ?? '';
   const facts: string[] = [];
@@ -91,7 +114,60 @@ export async function audioLessonSceneFacts(db: LearnerDb, scope: Extract<Conver
       facts.push((seg.speaker_label ? `${seg.speaker_label}: ${text}` : text).slice(0, 300));
     }
   }
-  return facts;
+  return { targetVarietyId, facts };
+}
+
+/**
+ * Whether a dialogue scenario belongs to a session of `variety` on `mission` (null: a free conversation). A scenario has
+ * no variety column; it belongs to a course through its mission or, when it has none, its character. Under a mission it
+ * must be one of that mission's scenarios (the mission's own variety is checked by the caller). Otherwise its mission (or
+ * character), as the learner's RLS shows it, must be of `variety`. `unknown` when that mission or character is not visible.
+ */
+export async function scenarioFit(s: RequestServices, scenario: Row<'dialogue_scenarios'>, mission: Row<'missions'> | null, variety: string): Promise<'fits' | 'mismatch' | 'unknown'> {
+  if (mission) return scenario.mission_id === mission.id ? 'fits' : 'mismatch';
+  const { repos } = s.requireUser();
+  if (scenario.mission_id) {
+    const own = await repos.curriculum.getMission(scenario.mission_id);
+    return !own ? 'unknown' : own.target_variety_id === variety ? 'fits' : 'mismatch';
+  }
+  const character = await repos.characters.getById(scenario.character_id);
+  return !character ? 'unknown' : character.target_variety_id === variety ? 'fits' : 'mismatch';
+}
+
+/** The session row as stored now (service role), whatever this request loaded earlier. */
+export async function currentSession(s: RequestServices, sessionId: string): Promise<SessionRow> {
+  const res = await s.service.from('conversation_sessions').select('*').eq('id', sessionId).maybeSingle();
+  if (res.error) throw new DbError(res.error, 'conversation.session');
+  if (!res.data) throw problem.notFound('Conversation session');
+  return res.data;
+}
+
+/** Attempts of {@link updateOpenSession} before it gives up on a session other requests keep writing (a 409 to retry). */
+export const SESSION_WRITE_ATTEMPTS = 5;
+
+/**
+ * Every write to a conversation session that is not its finish, plus the finish itself (`state: 'finished'`): a
+ * compare-and-set on `revision` that never touches a finished session. The patch is computed from the row as stored
+ * at that moment, `revision` goes up by exactly one, and a write that lost a race is retried on the fresh row. Null when
+ * the session is finished (by this request's rival or earlier): nothing may reopen it, append to its counters or replace
+ * the outcome the finishing request recorded.
+ */
+export async function updateOpenSession(s: RequestServices, sessionId: string, patch: (current: SessionRow) => Partial<Omit<SessionRow, 'id' | 'revision'>>): Promise<SessionRow | null> {
+  for (let attempt = 0; attempt < SESSION_WRITE_ATTEMPTS; attempt++) {
+    const current = await currentSession(s, sessionId);
+    if (current.state === 'finished') return null;
+    const res = await s.service
+      .from('conversation_sessions')
+      .update({ ...patch(current), revision: current.revision + 1 })
+      .eq('id', sessionId)
+      .eq('revision', current.revision)
+      .neq('state', 'finished')
+      .select('*');
+    if (res.error) throw new DbError(res.error, 'conversation.session_update');
+    const written = res.data?.[0];
+    if (written) return written;
+  }
+  throw problem.conflict('This conversation session is being updated by another request; retry');
 }
 
 /**
@@ -314,11 +390,51 @@ export function restrictEvaluatorOutputToSkills(output: EvaluatorOutput, allowed
 }
 
 /**
- * Run the evaluator on the recent window and persist observations + mastery; update the session's rubric
- * outcomes/objectives. Safe to call repeatedly (each run appends evidence for the NEW turns only when
- * `sinceTurnIndex` is given). Never throws into the request path (callers run it under `waitUntil`).
+ * The evaluator output stored on a session (`conversation_sessions.rubric_outcomes`), made safe to SHOW again (the end
+ * route's replay of a finished session). It is display only: nothing is ever recorded from it (no observation, review
+ * card, objective or XP), because this request's evaluator did not produce it. It still goes through the same filters
+ * as a fresh output, since rows written before migration 160 (or before the registry rule) may hold anything: a value
+ * that is not an `EvaluatorOutput` becomes the empty output (`confidence: null`, never a fabricated 0), skill keys outside
+ * the registry are dropped (`restrictEvaluatorOutputToSkills`), and objective ids outside `objectiveIds` (the session's
+ * mission goals) are dropped. Pure.
  */
-export async function evaluateSession(s: RequestServices, ai: AiServices, input: { session: SessionRow; enrollment: EnrollmentRow; context: ConversationContext; turns: TurnRow[]; traceId: string }): Promise<EvaluatorOutput | null> {
+export function storedEvaluatorOutput(raw: unknown, objectiveIds: ReadonlySet<string>): { output: EvaluatorOutput; dropped: string[]; valid: boolean } {
+  if (raw === null || raw === undefined) return { output: emptyEvaluatorOutput(), dropped: [], valid: true };
+  const parsed = EvaluatorOutputSchema.safeParse(raw);
+  if (!parsed.success) return { output: emptyEvaluatorOutput(), dropped: [], valid: false };
+  const restricted = restrictEvaluatorOutputToSkills({ ...parsed.data, objectivesCompleted: parsed.data.objectivesCompleted.filter((id) => objectiveIds.has(id)) });
+  return { output: restricted.output, dropped: restricted.dropped, valid: true };
+}
+
+/**
+ * Read-only counterpart of `scheduleReviews` for skill targets: the review cards that already exist for `skillKeys` in
+ * this enrollment (registry keys only), in the order given. Used when a finished session is replayed, so a replay
+ * never creates a card. Keys without a card are omitted.
+ */
+export async function existingSkillReviews(s: RequestServices, enrollmentId: string, skillKeys: readonly string[]): Promise<ScheduledReview[]> {
+  const keys = [...new Set(skillKeys.filter((k) => EVALUATOR_SKILL_KEY_SET.has(k)))];
+  if (!keys.length) return [];
+  const res = await s.service.from('user_expression_reviews').select('id, skill_key, next_due_at').eq('enrollment_id', enrollmentId).is('expression_id', null).in('skill_key', keys);
+  if (res.error) throw problem.internal('Could not read review cards');
+  const byKey = new Map((res.data ?? []).filter((r) => r.skill_key !== null).map((r) => [r.skill_key as string, r]));
+  return keys.flatMap((k) => {
+    const card = byKey.get(k);
+    return card ? [{ cardId: card.id, targetKind: 'skill' as const, targetId: k, due: card.next_due_at }] : [];
+  });
+}
+
+/**
+ * Run the evaluator on the recent window and persist observations + mastery (+ review cards). Never throws into the
+ * request path (the turn route runs it under `waitUntil`).
+ *
+ * `persist` says who owns the session row:
+ * - `open_session` (the asynchronous run every few turns): the rubric and objectives are written only while the session
+ *   is still open (`updateOpenSession`), and when it has been finished meanwhile nothing at all is recorded from this
+ *   run (no observation, no review card): the request that finished the session ran its own evaluator and decides.
+ * - `caller` (the end route, which has won the `finished` transition): observations and review cards are recorded here;
+ *   the caller writes the rubric and objectives onto the finished row itself.
+ */
+export async function evaluateSession(s: RequestServices, ai: AiServices, input: { session: SessionRow; enrollment: EnrollmentRow; context: ConversationContext; turns: TurnRow[]; traceId: string; persist: 'open_session' | 'caller' }): Promise<EvaluatorOutput | null> {
   const window = turnRecords(input.turns.slice(-EVALUATOR_WINDOW_TURNS));
   if (!window.some((t) => t.role === 'learner')) return null;
   try {
@@ -332,10 +448,15 @@ export async function evaluateSession(s: RequestServices, ai: AiServices, input:
     const restricted = restrictEvaluatorOutputToSkills({ ...raw, objectivesCompleted: raw.objectivesCompleted.filter((id) => allowed.has(id)) });
     if (restricted.dropped.length) s.log.warn('conversation.evaluator_unknown_skill_keys', { sessionId: input.session.id, count: restricted.dropped.length, keys: restricted.dropped.slice(0, 20).map((k) => k.slice(0, 64)) });
     const output: EvaluatorOutput = restricted.output;
+    if (input.persist === 'open_session') {
+      const kept = await updateOpenSession(s, input.session.id, (current) => ({ rubric_outcomes: output as unknown as SessionRow['rubric_outcomes'], objectives_completed: [...new Set([...current.objectives_completed, ...output.objectivesCompleted])] }));
+      if (!kept) {
+        s.log.info('conversation.evaluation_after_finish_discarded', { sessionId: input.session.id });
+        return null;
+      }
+    }
     const observations = ai.evaluator.toSkillObservations(output, input.enrollment.id);
     await recordObservations(s, input.enrollment, observations, new Date().toISOString());
-    const objectives = [...new Set([...input.session.objectives_completed, ...output.objectivesCompleted])];
-    await s.service.from('conversation_sessions').update({ rubric_outcomes: output as unknown as SessionRow['rubric_outcomes'], objectives_completed: objectives, revision: input.session.revision + 1 }).eq('id', input.session.id);
     if (output.reviewTriggers.length) await scheduleReviews(s, input.enrollment, output.reviewTriggers.map((k) => ({ kind: 'skill' as const, id: k })), new Date().toISOString(), 'hard');
     return output;
   } catch (error) {

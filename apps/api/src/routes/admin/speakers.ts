@@ -3,18 +3,36 @@
  * `targetVarietyId: null` means "unknown", never an inferred neighbour variety; synthetic voices are flagged as such.
  * Creates are idempotent on `idempotencyKey` (audit-logged key → id); every mutation records a `content_revisions`
  * row (the DTO's `revision`) and an audit entry. Deleting a speaker still linked to lessons needs `reassignToSpeakerId`.
+ *
+ * Revisions and rollback (R-7.3-04), the same rule as `content_rights` (`rights.ts`):
+ * - A speaker row is a consent record (`consent_state`, the `content_rights_id` behind the voice, `synthetic`), so
+ *   `speakers` is intentionally NOT restorable: it is not one of the contracts' `ROLLBACK_ENTITY_TABLES`,
+ *   `POST /v1/admin/content/:id/rollback` refuses it (422), and its revisions carry no snapshot (`snapshot: null`,
+ *   written explicitly through `recordRestorableRevision`: an audit trail only). Restoring an old revision could
+ *   silently bring back a withdrawn consent or a rights grant that was replaced; a speaker changes through PATCH.
+ *   `SPEAKERS_TABLE` stops type-checking if `speakers` is ever added to the rollback tables without revisiting this.
+ * - The PATCH `expectedRevision` guard is atomic (`guardedEdit` claims `expectedRevision + 1` before writing): of two
+ *   editors who loaded the same revision exactly one saves, the other gets 412 with the current revision.
+ * - Concurrent creates and patches without `expectedRevision` take the next free revision number (the unique key
+ *   decides), never a 500.
  */
-import { SpeakerCreateRequestSchema, SpeakerDeleteRequestSchema, SpeakerDeleteResponseSchema, SpeakerPatchRequestSchema, SpeakerResponseSchema, SpeakersListQuerySchema, SpeakersListResponseSchema, UuidSchema, type SpeakerDto, type SpeakerResponse } from '@langquest/contracts';
+import { SpeakerCreateRequestSchema, SpeakerDeleteRequestSchema, SpeakerDeleteResponseSchema, SpeakerPatchRequestSchema, SpeakerResponseSchema, SpeakersListQuerySchema, SpeakersListResponseSchema, UuidSchema, type RollbackEntityTable, type SpeakerDto, type SpeakerResponse } from '@langquest/contracts';
 import type { Insert, Row, Update } from '@langquest/db/types';
 import { z } from 'zod';
 import type { DefineRoute } from '../../app';
 import { problem, respondOk } from '../../http/envelope';
 import { parseBody, parseParams, parseQuery } from '../../http/validate';
-import { currentRevision, recordRevision } from '../../lib/content';
+import { currentRevision, type RevisionTable } from '../../lib/content';
 import { createDiff, findIdempotentCreate } from '../../lib/idempotent-create';
 import type { RequestServices } from '../../services/context';
+import { guardedEdit, recordRestorableRevision, staleRevision } from './content';
 
 const IdParams = z.object({ id: UuidSchema });
+
+/** A revision table that is never a rollback table: this stops type-checking if `speakers` ever becomes one. */
+const SPEAKERS_TABLE = 'speakers' as const satisfies Exclude<RevisionTable, RollbackEntityTable>;
+/** A `speakers` revision: an audit trail entry, never a restorable snapshot (see the module comment). */
+const recordSpeakerRevision = (s: RequestServices, id: string, diff: Record<string, unknown>): Promise<number> => recordRestorableRevision(s, SPEAKERS_TABLE, id, diff, { snapshot: null });
 
 function toDto(row: Row<'speakers'>, lessonCount: number): SpeakerDto {
   return {
@@ -33,8 +51,8 @@ function toDto(row: Row<'speakers'>, lessonCount: number): SpeakerDto {
   };
 }
 
-async function speakerResponse(s: RequestServices, row: Row<'speakers'>): Promise<SpeakerResponse> {
-  const [counts, revision] = await Promise.all([s.repos.speakers.lessonCounts([row.id]), currentRevision(s, 'speakers', row.id)]);
+async function speakerResponse(s: RequestServices, row: Row<'speakers'>, knownRevision?: number): Promise<SpeakerResponse> {
+  const [counts, revision] = await Promise.all([s.repos.speakers.lessonCounts([row.id]), knownRevision === undefined ? currentRevision(s, SPEAKERS_TABLE, row.id) : Promise.resolve(knownRevision)]);
   return SpeakerResponseSchema.parse({ ...toDto(row, counts.get(row.id) ?? 0), revision });
 }
 
@@ -63,9 +81,9 @@ export function registerSpeakerRoutes(define: DefineRoute): void {
     await assertRightsExist(s, body.contentRightsId);
     const row: Insert<'speakers'> = { display_name: body.displayName, pseudonymous: body.pseudonymous, target_variety_id: body.targetVarietyId, region: body.region, consent_state: body.consentState, content_rights_id: body.contentRightsId, voice_description: body.voiceDescription, synthetic: body.synthetic };
     const created = await s.repos.speakers.create(row);
-    await recordRevision(s, 'speakers', created.id, createDiff('speaker.create', body.idempotencyKey));
+    const revision = await recordSpeakerRevision(s, created.id, createDiff('speaker.create', body.idempotencyKey));
     s.audit({ action: 'speaker.create', entityTable: 'speakers', entityId: created.id, after: { idempotencyKey: body.idempotencyKey, displayName: created.display_name, synthetic: created.synthetic, consentState: created.consent_state } });
-    return respondOk(c, await speakerResponse(s, created), 201);
+    return respondOk(c, await speakerResponse(s, created, revision), 201);
   });
 
   define('adminSpeakerGet', {}, async (c) => {
@@ -82,8 +100,8 @@ export function registerSpeakerRoutes(define: DefineRoute): void {
     const s = c.get('services')!;
     const before = await s.repos.speakers.getById(id);
     if (!before) throw problem.notFound('Speaker');
-    const revision = await currentRevision(s, 'speakers', id);
-    if (body.expectedRevision !== undefined && body.expectedRevision !== revision) throw problem.precondition(`Speaker revision is ${revision}, expected ${body.expectedRevision}`, { currentRevision: revision });
+    const revision = await currentRevision(s, SPEAKERS_TABLE, id);
+    if (body.expectedRevision !== undefined && body.expectedRevision !== revision) throw staleRevision('Speaker', revision, body.expectedRevision);
     await assertRightsExist(s, body.contentRightsId);
     const patch: Update<'speakers'> = {};
     if (body.displayName !== undefined) patch.display_name = body.displayName;
@@ -94,11 +112,11 @@ export function registerSpeakerRoutes(define: DefineRoute): void {
     if (body.contentRightsId !== undefined) patch.content_rights_id = body.contentRightsId;
     if (body.voiceDescription !== undefined) patch.voice_description = body.voiceDescription;
     if (body.synthetic !== undefined) patch.synthetic = body.synthetic;
-    const updated = Object.keys(patch).length ? await s.repos.speakers.update(id, patch) : before;
     const { expectedRevision: _expected, ...diff } = body;
-    await recordRevision(s, 'speakers', id, diff as Record<string, unknown>);
-    s.audit({ action: 'speaker.patch', entityTable: 'speakers', entityId: id, before: { consentState: before.consent_state, synthetic: before.synthetic }, after: { fields: Object.keys(patch), consentState: updated.consent_state, synthetic: updated.synthetic } });
-    return respondOk(c, await speakerResponse(s, updated));
+    // Not restorable (module comment): the revision is an audit trail entry; the guard still claims it atomically.
+    const { result: updated, revision: next } = await guardedEdit(s, { table: SPEAKERS_TABLE, id, what: 'Speaker', expected: body.expectedRevision, current: revision, diff: diff as Record<string, unknown>, snapshot: null }, async () => (Object.keys(patch).length ? await s.repos.speakers.update(id, patch) : before));
+    s.audit({ action: 'speaker.patch', entityTable: 'speakers', entityId: id, before: { consentState: before.consent_state, synthetic: before.synthetic }, after: { fields: Object.keys(patch), consentState: updated.consent_state, synthetic: updated.synthetic, revision: next } });
+    return respondOk(c, await speakerResponse(s, updated, next));
   });
 
   define('adminSpeakerDelete', { role: 'contentEditor' }, async (c) => {

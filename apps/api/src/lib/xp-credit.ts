@@ -16,14 +16,21 @@
  * evidence keeps its claim in `mission_attempts.step_results` and the mission still completes for navigation; it writes
  * no observation, no mastery and no XP.
  *
- * One grading row (or session) backs at most one attempt, ever: rows any other evaluated attempt of this learner
- * already used are excluded (the ids are kept in `mission_attempts.evaluation.credit`, a service-only column), and
- * inside an attempt one row backs one step. The scan of other attempts is bounded only by `updated_at`, which the
- * server sets on every write (`set_updated_at`), never by the learner-writable `created_at`, `mission_id` or
- * `enrollment_id`. Two evaluations running in parallel are settled by a check after the decision is written (see
- * `missionEvaluate`). Rows are matched by the assessment ids the client lists when the server persisted them under that
- * id, and otherwise per expression: the best claims are paired with the best rows, so N real takes never credit more
- * than N steps.
+ * One grading row (or session) backs at most one attempt, ever, and the database enforces it: a decision is stored only
+ * through `public.complete_mission_attempt` (migration 161), which, in one transaction under the attempt's row lock,
+ * claims every evidence id the decision names in `mission_evidence_claims` (primary key = the evidence id; service role
+ * only), all or nothing, then stores the decision (first write wins) and counts the completion
+ * (`mission_progress.completions = completions + 1`, once, when the decision credits the mission). An id another attempt
+ * holds comes back `contested` and nothing is written; the decision is re-made without it (`settleMissionDecision`,
+ * `withoutEvidence`). A stored decision is therefore final, and what is paid from it (mission XP through `award_xp`,
+ * once per attempt by `xp_ledger_reference_once`) is backed by evidence no other attempt holds, however many
+ * evaluations of however many attempts run at once. It is replayed only for the mission and enrollment it was settled
+ * for (`decisionMadeFor`; the guard trigger also freezes them on a completed attempt, migration 161), so moving a
+ * settled attempt never completes another mission or course. The claims are also read before deciding
+ * (`evidenceClaimedElsewhere`), by evidence id only, never by the learner-writable `created_at`, `mission_id` or
+ * `enrollment_id`; that read only saves a round, the claim decides. Inside an attempt one row backs one step. Rows are
+ * matched by the assessment ids the client lists when the server persisted them under that id, and otherwise per
+ * expression: the best claims are paired with the best rows, so N real takes never credit more than N steps.
  *
  * Other client-reported award paths go through the same rules: progress-sync `observation` events are recorded as
  * client reports (scorer `client-sync:…`, uncertainty 1, so mastery ignores them and they can never pose as a grading
@@ -31,14 +38,19 @@
  * by the server only.
  */
 import { EvaluatorOutputSchema, ObservationOutcomeSchema, UuidSchema, type EvaluatorOutput, type MissionStepType, type ObservationOutcome, type SkillObservationInput, type StepResult, type XpReason } from '@langquest/contracts';
+import type { Json } from '@langquest/db/database.types';
 import { DbError } from '@langquest/db/errors';
 import type { Row } from '@langquest/db/types';
 import { z } from 'zod';
 import { problem } from '../http/envelope';
 import type { RequestServices } from '../services/context';
 
-/** Version of the credit rules; stored with every decision in `mission_attempts.evaluation.credit`. */
-export const MISSION_CREDIT_VERSION = 'mission-credit@2026-10-20.2';
+/**
+ * Version of the credit rules; stored with every decision in `mission_attempts.evaluation.credit`. `.3`: evidence is
+ * claimed and the decision settled by the database (`complete_mission_attempt`), no longer by scans in the Worker; the
+ * decision names the mission and enrollment it was settled for (`missionId`, `enrollmentId`).
+ */
+export const MISSION_CREDIT_VERSION = 'mission-credit@2026-10-20.3';
 
 /**
  * What backs a step's credit. `none` means the step was not credited. `answer_key` is no longer assigned (choice steps
@@ -76,10 +88,13 @@ export const EVIDENCE_GRACE_MS = 10 * 60_000;
 export const EVIDENCE_MAX_LOOKBACK_MS = 12 * 60 * 60_000;
 /** Server clock tolerance at the upper end of the window. */
 export const EVIDENCE_CLOCK_SKEW_MS = 2 * 60_000;
-/** Margin of the other-attempts scan below the earliest candidate row (Worker vs database clock, transaction start). */
-export const CONSUMED_SCAN_MARGIN_MS = 10 * 60_000;
-/** Page size of the other-attempts scan (paged until empty, so a lower PostgREST `max_rows` never truncates it). */
-export const CONSUMED_SCAN_PAGE = 500;
+/** Evidence ids per claims lookup (`in.(…)` filter; keeps the request URL short). */
+export const CLAIM_LOOKUP_CHUNK = 100;
+/**
+ * Settlement rounds per evaluation. Each `contested` answer removes at least one id from the next decision, so the loop
+ * ends; past this many rounds (many evaluations of one learner racing for the same takes) the request answers 409.
+ */
+export const MAX_SETTLE_ROUNDS = 8;
 /** Assessment ids considered per step result (the latest ones) and per request. */
 export const MAX_CLAIMED_IDS_PER_STEP = 20;
 export const MAX_CLAIMED_IDS = 200;
@@ -264,8 +279,29 @@ export const StoredMissionCreditSchema = z.object({
   gradableSteps: z.number().int().nonnegative(),
   creditedSuccesses: z.number().int().nonnegative(),
   steps: z.array(StoredStepCreditSchema),
+  /**
+   * The mission and enrollment the decision was settled for (`mission-credit@2026-10-20.3` on). `mission_attempts`
+   * `mission_id`/`enrollment_id` are learner-writable on an open attempt, so a replay checks the decision against these,
+   * never against the row alone (`decisionMadeFor`). Absent from older decisions; plain strings, so a stored id can
+   * never make the whole block unreadable.
+   */
+  missionId: z.string().optional(),
+  enrollmentId: z.string().optional(),
 });
 export type StoredMissionCredit = z.infer<typeof StoredMissionCreditSchema>;
+
+/**
+ * True when a stored decision may be replayed for this mission and enrollment. A decision that names them must name
+ * these; an older one (no ids) must have been made on this mission's steps (`mission_steps.id` belongs to one mission;
+ * it cannot tell the enrollment apart). A decision without a credit block (evaluated before server-side credit) carries
+ * nothing to check: it replays as before, and since migration 161 the guard trigger keeps a completed attempt on the
+ * mission and enrollment it was completed for.
+ */
+export function decisionMadeFor(credit: StoredMissionCredit | null, ctx: { missionId: string; enrollmentId: string; stepIds: ReadonlySet<string> }): boolean {
+  if (!credit) return true;
+  if (credit.missionId !== undefined || credit.enrollmentId !== undefined) return credit.missionId === ctx.missionId && credit.enrollmentId === ctx.enrollmentId;
+  return credit.steps.every((st) => ctx.stepIds.has(st.stepId));
+}
 
 /** What a completed attempt's stored evaluation says (`credit` is null for attempts evaluated before these rules). */
 export interface StoredMissionEvaluation {
@@ -360,58 +396,96 @@ export function isSessionEvidenceFor(row: EvidenceRow, ctx: Pick<EvidenceContext
 const toEvidence = (row: EvidenceRow): SpeechEvidence => ({ id: row.id, expressionId: row.expression_id, outcome: row.outcome as ObservationOutcome, utteranceConfidence: row.utterance_confidence, observedAt: row.observed_at });
 
 /**
- * Evidence ids (grading rows, sessions) that the learner's OTHER evaluated attempts were credited with. No filter on
- * `mission_id`, `enrollment_id` or `created_at` (all learner-writable) and no truncating limit: the scan is bounded
- * by `updated_at`, which `set_updated_at` sets to the database clock on every update. An attempt credited with a row
- * observed at T was written at or after T, so `since` just below the earliest candidate row finds every such attempt.
+ * The evidence ids among `ids` that ANOTHER attempt holds in `mission_evidence_claims` (service role). Looked up by id
+ * alone: no learner-writable attempt field (`created_at`, `mission_id`, `enrollment_id`) can hide a claim. Only an
+ * early filter: `complete_mission_attempt` re-checks under its transaction.
  */
-export async function consumedEvidenceIds(s: RequestServices, input: { userId: string; attemptId: string; since: string }): Promise<Set<string>> {
+export async function evidenceClaimedElsewhere(s: RequestServices, attemptId: string, ids: Iterable<string>): Promise<Set<string>> {
   const out = new Set<string>();
-  for (let offset = 0; ; ) {
-    const res = await s.service
-      .from('mission_attempts')
-      .select('id, evaluation')
-      .eq('user_id', input.userId)
-      .neq('id', input.attemptId)
-      .not('evaluation', 'is', null)
-      .gte('updated_at', input.since)
-      .order('id', { ascending: true })
-      .range(offset, offset + CONSUMED_SCAN_PAGE - 1);
-    if (res.error) throw new DbError(res.error, 'credit.consumed');
-    const rows = res.data ?? [];
-    for (const row of rows) for (const id of evidenceIdsOf(storedMissionCredit(row.evaluation))) out.add(id);
-    if (rows.length === 0) return out;
-    offset += rows.length;
+  const all = [...new Set(ids)].filter((id) => UuidSchema.safeParse(id).success);
+  for (let i = 0; i < all.length; i += CLAIM_LOOKUP_CHUNK) {
+    const res = await s.service.from('mission_evidence_claims').select('evidence_id, attempt_id').in('evidence_id', all.slice(i, i + CLAIM_LOOKUP_CHUNK));
+    if (res.error) throw new DbError(res.error, 'credit.claims');
+    for (const row of res.data ?? []) if (row.attempt_id !== attemptId) out.add(row.evidence_id);
   }
+  return out;
 }
 
 export interface MissionEvidence {
-  /** Usable grading rows of the attempt window (not used by another attempt). */
+  /** Usable grading rows of the attempt window (not held by another attempt when loaded). */
   pool: SpeechEvidence[];
   /** Per step id: the usable grading rows its own assessment ids resolved to. */
   claimed: Map<string, SpeechEvidence[]>;
-  /** Per referenced session id (not used by another attempt): the evaluator's own rows for it. */
+  /** Per referenced session id (not held by another attempt when loaded): the evaluator's own rows for it. */
   sessions: Map<string, SessionEvidence[]>;
-  /** Evidence ids other attempts already used. */
+  /** Evidence ids other attempts held when the evidence was loaded. */
   consumed: Set<string>;
-  /** `updated_at` floor of the other-attempts scan (the post-write check reuses it). */
-  consumedSince: string;
 }
 
-/** The evidence restricted to `keep` (a decision may only lose rows, never gain new ones). */
-export function restrictEvidence(ev: MissionEvidence, keep: ReadonlySet<string>): MissionEvidence {
+/** The evidence without the ids in `drop` (ids another attempt turned out to hold): a decision only ever loses rows. */
+export function withoutEvidence(ev: MissionEvidence, drop: ReadonlySet<string>): MissionEvidence {
+  if (drop.size === 0) return ev;
   return {
-    ...ev,
-    pool: ev.pool.filter((row) => keep.has(row.id)),
-    claimed: new Map([...ev.claimed].map(([stepId, rows]) => [stepId, rows.filter((row) => keep.has(row.id))] as const)),
-    sessions: new Map([...ev.sessions].filter(([sid]) => keep.has(sid))),
+    pool: ev.pool.filter((row) => !drop.has(row.id)),
+    claimed: new Map([...ev.claimed].map(([stepId, rows]) => [stepId, rows.filter((row) => !drop.has(row.id))] as const)),
+    sessions: new Map([...ev.sessions].filter(([sid]) => !drop.has(sid))),
+    consumed: new Set([...ev.consumed, ...drop]),
   };
+}
+
+// --- settlement (migration 161) ------------------------------------------------------------------------------------
+
+/** What `complete_mission_attempt` did with one decision. */
+export type MissionSettlement =
+  /** Claims taken, decision stored, completion recorded: `attempt` is the completed row. */
+  | { outcome: 'written'; attempt: Row<'mission_attempts'> }
+  /** Another evaluation stored this attempt's decision first; nothing changed: `attempt` carries that decision. */
+  | { outcome: 'already_decided'; attempt: Row<'mission_attempts'> }
+  /** These evidence ids are held by other attempts; nothing changed. */
+  | { outcome: 'contested'; contestedIds: string[] };
+
+const SettlementRowSchema = z.object({
+  outcome: z.enum(['written', 'already_decided', 'contested']),
+  contested_ids: z.array(z.string()).nullable(),
+  attempt: z.record(z.string(), z.unknown()),
+});
+
+/**
+ * Settle one decision through `public.complete_mission_attempt` (service role): in one transaction under the attempt's
+ * row lock, claim every evidence id the decision's `credit` block names (all or nothing), store the decision if the
+ * attempt still holds `seenEvaluation` (first write wins), and record the completion in `mission_progress`
+ * (`completions + 1` once, when the decision credits the mission). An attempt, enrollment, mission or evidence row that
+ * stopped being the learner's during the request (learner-writable fields, a deleted session) answers 409.
+ */
+export async function settleMissionDecision(
+  s: RequestServices,
+  input: { userId: string; attemptId: string; enrollmentId: string; missionId: string; completedAt: string; stepResults: Json; objectivesCompleted: string[]; evaluation: Json; currentStepIndex: number; seenEvaluation: Json | null },
+): Promise<MissionSettlement> {
+  const res = await s.service.rpc('complete_mission_attempt', {
+    p_user_id: input.userId,
+    p_attempt_id: input.attemptId,
+    p_enrollment_id: input.enrollmentId,
+    p_mission_id: input.missionId,
+    p_completed_at: input.completedAt,
+    p_step_results: input.stepResults,
+    p_objectives_completed: input.objectivesCompleted,
+    p_evaluation: input.evaluation,
+    p_current_step_index: input.currentStepIndex,
+    ...(input.seenEvaluation === null ? {} : { p_seen_evaluation: input.seenEvaluation }),
+  });
+  if (res.error) {
+    if (res.error.code === '23503') throw problem.conflict('The attempt or its evidence changed while it was being evaluated; retry');
+    throw new DbError(res.error, 'credit.settle');
+  }
+  const row = SettlementRowSchema.parse((res.data ?? [])[0]);
+  if (row.outcome === 'contested') return { outcome: 'contested', contestedIds: row.contested_ids ?? [] };
+  return { outcome: row.outcome, attempt: row.attempt as unknown as Row<'mission_attempts'> };
 }
 
 /**
  * Load the server evidence for an attempt: grading rows the step results name by assessment id (another learner's id
  * is refused with 403), the other grading rows of the attempt window, the evaluator's rows for the referenced
- * conversation sessions, and the evidence other attempts already used.
+ * conversation sessions, minus the evidence other attempts already hold (`mission_evidence_claims`).
  */
 export async function loadMissionEvidence(s: RequestServices, ctx: EvidenceContext, results: readonly StepResult[]): Promise<MissionEvidence> {
   const window = evidenceWindow(ctx.attempt, ctx.now);
@@ -443,32 +517,15 @@ export async function loadMissionEvidence(s: RequestServices, ctx: EvidenceConte
     sessionRows = ((res.data ?? []) as EvidenceRow[]).filter((row) => isSessionEvidenceFor(row, ctx) && sessionIds.includes(row.conversation_session_id!));
   }
 
-  // Other attempts' evidence: every candidate row is at or after `window.from`, or is one of these session rows.
-  const earliestSession = Math.min(...sessionRows.map((row) => Date.parse(row.observed_at)).filter(Number.isFinite));
-  const consumedSince = new Date(Math.min(fromMs, earliestSession) - CONSUMED_SCAN_MARGIN_MS).toISOString();
-  const consumed = await consumedEvidenceIds(s, { userId: ctx.userId, attemptId: ctx.attempt.id, since: consumedSince });
-
-  const sessions = new Map<string, SessionEvidence[]>();
-  for (const row of sessionRows) {
-    const sid = row.conversation_session_id!;
-    if (consumed.has(sid)) continue;
-    sessions.set(sid, [...(sessions.get(sid) ?? []), { id: row.id, sessionId: sid, skillKey: row.skill_key, outcome: row.outcome as ObservationOutcome, observedAt: row.observed_at }]);
-  }
-
   const idsByStep = new Map<string, string[]>();
   for (const r of latest) idsByStep.set(r.stepId, [...new Set(r.speechAssessmentIds)].slice(-MAX_CLAIMED_IDS_PER_STEP));
   const allIds = [...new Set([...idsByStep.values()].flat())].slice(0, MAX_CLAIMED_IDS);
-  const claimed = new Map<string, SpeechEvidence[]>();
+  let namedRows: EvidenceRow[] = [];
   if (allIds.length) {
     const res = await s.service.from('learning_observations').select(EVIDENCE_COLUMNS).in('id', allIds);
     if (res.error) throw new DbError(res.error, 'credit.claimed');
-    const rows = (res.data ?? []) as EvidenceRow[];
-    if (rows.some((row) => row.user_id !== ctx.userId)) throw problem.forbidden('A referenced speech assessment is not yours');
-    const usable = new Map(rows.filter((row) => isSpeechEvidenceFor(row, ctx) && inWindow(row) && !consumed.has(row.id)).map((row) => [row.id, toEvidence(row)]));
-    for (const [stepId, ids] of idsByStep) {
-      const own = ids.map((id) => usable.get(id)).filter((e): e is SpeechEvidence => e !== undefined);
-      if (own.length) claimed.set(stepId, own);
-    }
+    namedRows = (res.data ?? []) as EvidenceRow[];
+    if (namedRows.some((row) => row.user_id !== ctx.userId)) throw problem.forbidden('A referenced speech assessment is not yours');
   }
 
   const res = await s.service
@@ -486,9 +543,27 @@ export async function loadMissionEvidence(s: RequestServices, ctx: EvidenceConte
     .order('observed_at', { ascending: true })
     .limit(500);
   if (res.error) throw new DbError(res.error, 'credit.pool');
+  const poolRows = ((res.data ?? []) as EvidenceRow[]).filter((row) => isSpeechEvidenceFor(row, ctx) && inWindow(row));
+  const usableNamed = namedRows.filter((row) => isSpeechEvidenceFor(row, ctx) && inWindow(row));
+
+  // Evidence another attempt already holds (the claims are keyed by evidence id; nothing learner-writable bounds them).
+  const consumed = await evidenceClaimedElsewhere(s, ctx.attempt.id, [...sessionRows.map((row) => row.conversation_session_id!), ...usableNamed.map((row) => row.id), ...poolRows.map((row) => row.id)]);
+
+  const sessions = new Map<string, SessionEvidence[]>();
+  for (const row of sessionRows) {
+    const sid = row.conversation_session_id!;
+    if (consumed.has(sid)) continue;
+    sessions.set(sid, [...(sessions.get(sid) ?? []), { id: row.id, sessionId: sid, skillKey: row.skill_key, outcome: row.outcome as ObservationOutcome, observedAt: row.observed_at }]);
+  }
+  const usable = new Map(usableNamed.filter((row) => !consumed.has(row.id)).map((row) => [row.id, toEvidence(row)]));
+  const claimed = new Map<string, SpeechEvidence[]>();
+  for (const [stepId, ids] of idsByStep) {
+    const own = ids.map((id) => usable.get(id)).filter((e): e is SpeechEvidence => e !== undefined);
+    if (own.length) claimed.set(stepId, own);
+  }
   // Rows named by id stay in the pool too: the decision uses each row once, whichever way it was found.
-  const pool = ((res.data ?? []) as EvidenceRow[]).filter((row) => isSpeechEvidenceFor(row, ctx) && inWindow(row) && !consumed.has(row.id)).map(toEvidence);
-  return { pool, claimed, sessions, consumed, consumedSince };
+  const pool = poolRows.filter((row) => !consumed.has(row.id)).map(toEvidence);
+  return { pool, claimed, sessions, consumed };
 }
 
 // --- other client-reported award paths (progress sync) --------------------------------------------------------------

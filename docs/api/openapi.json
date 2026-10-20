@@ -4586,6 +4586,22 @@
           "note": {
             "maxLength": 1000,
             "type": "string"
+          },
+          "overrideReason": {
+            "maxLength": 1000,
+            "minLength": 10,
+            "type": "string"
+          },
+          "overrideReviewFlags": {
+            "items": {
+              "enum": [
+                "diversity_needs_regeneration"
+              ],
+              "type": "string"
+            },
+            "maxItems": 1,
+            "minItems": 1,
+            "type": "array"
           }
         },
         "required": [

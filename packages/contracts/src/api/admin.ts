@@ -365,11 +365,36 @@ export const PublishChecklistSchema = z.object({
 });
 export type PublishChecklist = z.infer<typeof PublishChecklistSchema>;
 
-export const ContentPublishRequestSchema = z.object({
-  entityTable: z.enum(['audio_lessons', 'audio_course_collections', 'missions', 'lesson_courses', 'expressions', 'characters', 'visual_assets']),
-  expectedRevision: NonNegativeIntSchema,
-  note: z.string().max(1000).optional(),
-});
+/**
+ * The single definition of the review flag the content factory's diversity gate (§9.8, R-9.8-02) sets on drafts whose
+ * dialogue or learner phrasings are too uniform to teach from. Written by `apps/jobs` `generate-content.ts`
+ * (`missions.scoring_rubric.reviewFlags`, `expressions.script_annotations.reviewFlags`) and by the scripts content
+ * factory `--apply` (`expressions.script_annotations.curation.flags`); read by the API publish gate. A regenerated
+ * draft that passes the gate carries none.
+ */
+export const DIVERSITY_REVIEW_FLAG = 'diversity_needs_regeneration';
+/** Review flags that refuse a publish (412) until a regeneration clears them or an editor overrides them (audited). */
+export const PUBLISH_BLOCKING_REVIEW_FLAGS = [DIVERSITY_REVIEW_FLAG] as const;
+export type PublishBlockingReviewFlag = (typeof PUBLISH_BLOCKING_REVIEW_FLAGS)[number];
+
+/**
+ * `POST /v1/admin/content/:id/publish`. `overrideReviewFlags` / `overrideReason` are the editor override of a blocking
+ * review flag (optional; added 2026-10-20, so older clients that never send them are unaffected): each overridden flag
+ * is named explicitly and a reason of at least 10 characters is required, and neither field is accepted without the
+ * other. A publish that goes through records the override in its revision diff, its publication event, the audit log
+ * and on the row itself (`reviewFlagOverrides`, the flag removed from the lists), which clears the flag for later
+ * publishes. On content that carries no review flags the two fields change nothing.
+ */
+export const ContentPublishRequestSchema = z
+  .object({
+    entityTable: z.enum(['audio_lessons', 'audio_course_collections', 'missions', 'lesson_courses', 'expressions', 'characters', 'visual_assets']),
+    expectedRevision: NonNegativeIntSchema,
+    note: z.string().max(1000).optional(),
+    overrideReviewFlags: z.array(z.enum(PUBLISH_BLOCKING_REVIEW_FLAGS)).min(1).max(PUBLISH_BLOCKING_REVIEW_FLAGS.length).optional(),
+    overrideReason: z.string().trim().min(10).max(1000).optional(),
+  })
+  .refine((b) => b.overrideReviewFlags === undefined || b.overrideReason !== undefined, { message: 'overrideReason (at least 10 characters) is required with overrideReviewFlags', path: ['overrideReason'] })
+  .refine((b) => b.overrideReason === undefined || b.overrideReviewFlags !== undefined, { message: 'overrideReason is only accepted together with overrideReviewFlags', path: ['overrideReviewFlags'] });
 export const ContentPublishResponseSchema = z.object({
   contentId: UuidSchema,
   state: ContentStateSchema,

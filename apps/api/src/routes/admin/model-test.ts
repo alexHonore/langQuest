@@ -11,10 +11,16 @@
  * - `synthesize`: the per-variety voice registry (`OpenRouterSpeechSynthesizer`), variety boundary enforced.
  * - `transcribe`: the per-variety STT route (`OpenRouterSpeechRecognizer`).
  * Unsupported varieties answer `capability_unsupported` with the capability reasons; nothing is substituted.
+ * The speech probes are ledgered exactly like the prompt probe: `staffSynthesizer` / `staffRecognizer` rebuild the
+ * request's adapter on the same OpenRouter client (and TTS cache) with the `staffLedgerSink`, so their `ai_requests`
+ * rows carry no enrollment, the admin as `user_id` and `redacted_log.purpose = 'admin_model_test'` /
+ * `redacted_log.actor = 'staff'`: analytics counts them in `staffAndJobsUsd`, never in `unattributedUsd`.
  */
 import type { AiServices } from '@langquest/ai';
 import { ModelProfileRegistry } from '@langquest/ai/profiles';
 import { OpenRouterTextReasoner, type AiRequestSink } from '@langquest/ai/reasoner';
+import { OpenRouterSpeechRecognizer } from '@langquest/ai/speech/stt';
+import { OpenRouterSpeechSynthesizer } from '@langquest/ai/speech/tts';
 import { base64ToBytes, bytesToBase64, pcm16ToWav } from '@langquest/ai/util';
 import { ModelTestRequestSchema, ModelTestResponseSchema, buildLanguageContext, tracksForVariety, type AudioEncoding, type Capability, type TextReasoner, type VarietyId } from '@langquest/contracts';
 import { z } from 'zod';
@@ -22,7 +28,7 @@ import type { DefineRoute } from '../../app';
 import { AI_TIMEOUT_MS } from '../../app';
 import { problem, respondOk } from '../../http/envelope';
 import { parseBody } from '../../http/validate';
-import { loadDbProfiles } from '../../services/ai';
+import { createTtsCache, loadDbProfiles } from '../../services/ai';
 import type { RequestServices } from '../../services/context';
 import { createAiRequestSink } from '../../services/telemetry';
 
@@ -42,17 +48,46 @@ export function staffLedgerSink(inner: AiRequestSink, actor: { userId: string; p
   return { record: (entry) => inner.record({ ...entry, userId: actor.userId, enrollmentId: null, redactedLog: { ...(entry.redactedLog ?? {}), purpose: actor.purpose, actor: 'staff' } }) };
 }
 
+/** The `ai_requests` sink of a staff call (the request's sink wrapped in `staffLedgerSink`); null without a signed-in actor. */
+async function staffSink(s: RequestServices, purpose: StaffAiPurpose): Promise<AiRequestSink | null> {
+  const userId = s.principal?.userId ?? null;
+  if (!userId) return null;
+  const loaded = await loadDbProfiles(s.service, s.log);
+  const sink = createAiRequestSink({ service: s.service, log: s.log, waitUntil: (p) => s.waitUntil(p), knownProfileIds: () => loaded.ids, defaultUserId: userId });
+  return staffLedgerSink(sink, { userId, purpose });
+}
+
 /**
  * The text reasoner for a staff probe: the request's OpenRouter reasoner rebuilt on the same client and profile
  * registry (same routing, pricing and fallbacks), writing its ledger rows through `staffLedgerSink`. A reasoner that
  * is not the OpenRouter one (an injected test double) is returned unchanged: it writes no ledger rows of its own.
  */
 export async function staffReasoner(s: RequestServices, ai: AiServices, purpose: StaffAiPurpose): Promise<TextReasoner> {
-  const userId = s.principal?.userId ?? null;
-  if (!(ai.reasoner instanceof OpenRouterTextReasoner) || !userId) return ai.reasoner;
-  const loaded = await loadDbProfiles(s.service, s.log);
-  const sink = createAiRequestSink({ service: s.service, log: s.log, waitUntil: (p) => s.waitUntil(p), knownProfileIds: () => loaded.ids, defaultUserId: userId });
-  return new OpenRouterTextReasoner({ client: ai.client, profiles: ai.profiles, sink: staffLedgerSink(sink, { userId, purpose }) });
+  if (!(ai.reasoner instanceof OpenRouterTextReasoner)) return ai.reasoner;
+  const sink = await staffSink(s, purpose);
+  return sink ? new OpenRouterTextReasoner({ client: ai.client, profiles: ai.profiles, sink }) : ai.reasoner;
+}
+
+/**
+ * The speech synthesizer for a staff probe: the request's OpenRouter synthesizer rebuilt on the same client and the
+ * same R2 TTS cache (voices, variety boundary and pricing unchanged), writing its ledger rows through
+ * `staffLedgerSink`. Anything else (an injected test double) is returned unchanged.
+ */
+export async function staffSynthesizer(s: RequestServices, ai: AiServices, purpose: StaffAiPurpose): Promise<AiServices['synthesizer']> {
+  if (!(ai.synthesizer instanceof OpenRouterSpeechSynthesizer)) return ai.synthesizer;
+  const sink = await staffSink(s, purpose);
+  return sink ? new OpenRouterSpeechSynthesizer({ client: ai.client, sink, cache: createTtsCache(s.media, s.log) }) : ai.synthesizer;
+}
+
+/**
+ * The speech recognizer for a staff probe: the request's OpenRouter recognizer rebuilt on the same client (per-variety
+ * STT models and language hints unchanged), writing its ledger rows through `staffLedgerSink`. The probe sends inline
+ * audio only, so no asset resolver is needed. Anything else (an injected test double) is returned unchanged.
+ */
+export async function staffRecognizer(s: RequestServices, ai: AiServices, purpose: StaffAiPurpose): Promise<AiServices['recognizer']> {
+  if (!(ai.recognizer instanceof OpenRouterSpeechRecognizer)) return ai.recognizer;
+  const sink = await staffSink(s, purpose);
+  return sink ? new OpenRouterSpeechRecognizer({ client: ai.client, sink }) : ai.recognizer;
 }
 
 /** Inline audio for transcription probes is capped by `AudioInputSchema` (8 MB of base64). */
@@ -105,17 +140,21 @@ export function registerModelTestRoutes(define: DefineRoute): void {
     }
 
     if (body.mode === 'synthesize') {
-      const capability = await ai.synthesizer.supports(body.targetVariety, body.voiceId);
+      // Staff-tagged ledger rows (`staffSynthesizer`), like the prompt probe: never unattributed spend.
+      const synthesizer = await staffSynthesizer(s, ai, 'admin_model_test');
+      const capability = await synthesizer.supports(body.targetVariety, body.voiceId);
       if (!capability.supported) throw unsupported('Speech synthesis', body.targetVariety, capability);
-      const audio = await ai.synthesizer.synthesize(body.text, body.targetVariety, body.voiceId ?? '', { traceId });
+      const audio = await synthesizer.synthesize(body.text, body.targetVariety, body.voiceId ?? '', { traceId });
       if (!audio.base64) throw problem.provider('The speech provider returned no audio. Please retry.');
       const audioBase64 = audio.encoding === 'pcm16' ? bytesToBase64(pcm16ToWav(base64ToBytes(audio.base64), audio.sampleRateHz)) : audio.base64;
       return respondOk(c, ModelTestResponseSchema.parse({ mode: 'synthesize', targetVariety: body.targetVariety, voiceId: audio.voiceId, model: noteValue(capability, 'model'), mimeType: MIME_BY_ENCODING[audio.encoding], audioBase64, durationMs: audio.durationMs, latencyMs: Date.now() - started, cached: audio.cached, synthetic: true, traceId }));
     }
 
-    const capability = await ai.recognizer.supports(body.targetVariety);
+    // Staff-tagged ledger rows (`staffRecognizer`), like the prompt probe: never unattributed spend.
+    const recognizer = await staffRecognizer(s, ai, 'admin_model_test');
+    const capability = await recognizer.supports(body.targetVariety);
     if (!capability.supported) throw unsupported('Speech recognition', body.targetVariety, capability);
-    const transcript = await ai.recognizer.transcribe({ source: 'inline', base64: body.audioBase64, encoding: body.encoding, sampleRateHz: null }, body.targetVariety, { traceId });
+    const transcript = await recognizer.transcribe({ source: 'inline', base64: body.audioBase64, encoding: body.encoding, sampleRateHz: null }, body.targetVariety, { traceId });
     return respondOk(
       c,
       ModelTestResponseSchema.parse({

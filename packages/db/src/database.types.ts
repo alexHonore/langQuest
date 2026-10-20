@@ -3015,6 +3015,39 @@ export type Database = {
           },
         ];
       };
+      mission_evidence_claims: {
+        Row: {
+          attempt_id: string;
+          claimed_at: string;
+          evidence_id: string;
+          evidence_kind: string;
+          user_id: string;
+        };
+        ComputedFields: never;
+        Insert: {
+          attempt_id: string;
+          claimed_at?: string;
+          evidence_id: string;
+          evidence_kind: string;
+          user_id: string;
+        };
+        Update: {
+          attempt_id?: string;
+          claimed_at?: string;
+          evidence_id?: string;
+          evidence_kind?: string;
+          user_id?: string;
+        };
+        Relationships: [
+          {
+            foreignKeyName: 'mission_evidence_claims_attempt_id_fkey';
+            columns: ['attempt_id'];
+            isOneToOne: false;
+            referencedRelation: 'mission_attempts';
+            referencedColumns: ['id'];
+          },
+        ];
+      };
       mission_graph_edges: {
         Row: {
           branch_condition: Json | null;
@@ -5211,6 +5244,25 @@ export type Database = {
           isOneToOne: false;
           isSetofReturn: true;
         };
+      };
+      complete_mission_attempt: {
+        Args: {
+          p_attempt_id: string;
+          p_completed_at: string;
+          p_current_step_index: number;
+          p_enrollment_id: string;
+          p_evaluation: Json;
+          p_mission_id: string;
+          p_objectives_completed: string[];
+          p_seen_evaluation?: Json;
+          p_step_results: Json;
+          p_user_id: string;
+        };
+        Returns: {
+          attempt: Json;
+          contested_ids: string[];
+          outcome: string;
+        }[];
       };
       complete_processing_job: {
         Args: {

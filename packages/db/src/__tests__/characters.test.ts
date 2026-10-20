@@ -1,17 +1,24 @@
 /**
  * Seeded character cast (migration 130) against the LOCAL Supabase stack.
  * Skipped without a stack unless LANGQUEST_REQUIRE_LOCAL_STACK=1 (then the file fails).
+ *
+ * The client is built in `beforeAll`, never in the describe body: vitest runs a skipped describe's body at
+ * collection time, and `stackEnv` holds empty strings without a stack, so an eager `createServiceClient`
+ * would throw ("supabaseUrl is required") and fail the file offline instead of skipping it.
  */
 import { CHARACTER_ROSTER, charactersForVariety } from '@langquest/ui/art/web';
-import { expect, it } from 'vitest';
+import { beforeAll, expect, it } from 'vitest';
 import { characterUuid } from '../character-uuid';
 import { createServiceClient } from '../client';
 import { createRepositories } from '../repositories';
 import { describeWithStack, stackEnv } from './stack';
 
 describeWithStack('characters seed')('seeded character cast (migration 130)', () => {
-  const service = createServiceClient(stackEnv);
-  const repos = createRepositories(service);
+  let repos: ReturnType<typeof createRepositories>;
+
+  beforeAll(() => {
+    repos = createRepositories(createServiceClient(stackEnv));
+  });
 
   it('has one published row per roster character with the deterministic uuid and synthetic voice', async () => {
     for (const c of CHARACTER_ROSTER) {

@@ -4,8 +4,8 @@
  * Publishing records `publication_events` + `content_revisions`, emits `lesson.published` and
  * `manifest.invalidated` (edge cache purge), and is audit-logged. Before the checklist, a mission / expression the
  * content factory's diversity gate marked `diversity_needs_regeneration` is refused (412) until a regeneration clears
- * the flag or an editor overrides it by name with a reason (`PublishReviewFlagOverrideSchema`; audited, and recorded on
- * the row, which clears it).
+ * the flag or an editor overrides it by name with a reason (`overrideReviewFlags` / `overrideReason` of the contract's
+ * `ContentPublishRequestSchema`; audited, and recorded on the row, which clears it).
  *
  * This module also holds the editorial integrity helpers every admin edit route shares (assets, structure,
  * editorial), so each rule has one implementation:
@@ -31,8 +31,10 @@ import {
   ContentRequestReviewResponseSchema,
   ContentUnpublishRequestSchema,
   ContentUnpublishResponseSchema,
+  DIVERSITY_REVIEW_FLAG,
   LicensesAttributionsQuerySchema,
   LicensesAttributionsResponseSchema,
+  PUBLISH_BLOCKING_REVIEW_FLAGS,
   ROLLBACK_ENTITY_TABLES,
   UuidSchema,
   getCourseTrack,
@@ -42,6 +44,7 @@ import {
   type ContentState,
   type ContentUnpublishRequest,
   type CourseTrackId,
+  type PublishBlockingReviewFlag,
   type ReviewStatus,
   type RollbackEntityTable,
 } from '@langquest/contracts';
@@ -347,30 +350,12 @@ export async function takeDownContent(s: RequestServices, content: ContentRow, i
 // --- publish gate ------------------------------------------------------------------------------------------------
 
 /**
- * Set by the content factory's diversity gate (§9.8, R-9.8-02) on drafts whose dialogue or learner phrasings are too
- * uniform to teach from: `apps/jobs` `generate-content.ts` (`DIVERSITY_REVIEW_FLAG`, written to
- * `missions.scoring_rubric.reviewFlags` and `expressions.script_annotations.reviewFlags`) and the scripts content
- * factory `--apply` (`expressions.script_annotations.curation.flags`). A regenerated draft that passes carries none.
+ * The diversity gate's review flag and the flags that block a publish have ONE definition, in the contracts
+ * (`DIVERSITY_REVIEW_FLAG`, `PUBLISH_BLOCKING_REVIEW_FLAGS`, next to `ContentPublishRequestSchema`); the jobs and
+ * scripts writers import the same constant. Re-exported here for the route tests that import them from this module.
+ * The editor override (`overrideReviewFlags` + `overrideReason`) is validated by `ContentPublishRequestSchema` itself.
  */
-export const DIVERSITY_REVIEW_FLAG = 'diversity_needs_regeneration';
-/** Review flags that refuse a publish (412) until a regeneration clears them or an editor overrides them (audited). */
-export const PUBLISH_BLOCKING_REVIEW_FLAGS = [DIVERSITY_REVIEW_FLAG] as const;
-export type PublishBlockingReviewFlag = (typeof PUBLISH_BLOCKING_REVIEW_FLAGS)[number];
-
-/**
- * The editor override of a blocking review flag, sent in the publish body next to the `ContentPublishRequestSchema`
- * fields (that schema strips unknown keys, so these optional fields are read here until the contract carries them).
- * Each overridden flag is named explicitly and the reason is required. A publish that goes through records the
- * override in its revision diff, its publication event and the audit log, and on the row itself
- * (`reviewFlagOverrides`, the flag removed from the lists), which is what clears the flag for later publishes.
- */
-export const PublishReviewFlagOverrideSchema = z
-  .object({
-    overrideReviewFlags: z.array(z.enum(PUBLISH_BLOCKING_REVIEW_FLAGS)).min(1).max(PUBLISH_BLOCKING_REVIEW_FLAGS.length).optional(),
-    overrideReason: z.string().trim().min(10).max(1000).optional(),
-  })
-  .refine((b) => b.overrideReviewFlags === undefined || b.overrideReason !== undefined, { message: 'overrideReason (at least 10 characters) is required with overrideReviewFlags', path: ['overrideReason'] })
-  .refine((b) => b.overrideReason === undefined || b.overrideReviewFlags !== undefined, { message: 'overrideReason is only accepted together with overrideReviewFlags', path: ['overrideReviewFlags'] });
+export { DIVERSITY_REVIEW_FLAG, PUBLISH_BLOCKING_REVIEW_FLAGS, type PublishBlockingReviewFlag };
 
 type JsonRecord = Record<string, unknown>;
 const jsonRecord = (value: unknown): JsonRecord => (value && typeof value === 'object' && !Array.isArray(value) ? (value as JsonRecord) : {});
@@ -489,8 +474,8 @@ export function registerContentRoutes(define: DefineRoute): void {
 
   define('adminContentPublish', { role: 'contentEditor' }, async (c) => {
     const { id } = parseParams(c, IdParams);
+    // One contract schema: the override fields (`overrideReviewFlags`, `overrideReason`) are validated with the rest.
     const body = await parseBody(c, ContentPublishRequestSchema);
-    const override = await parseBody(c, PublishReviewFlagOverrideSchema);
     const s = c.get('services')!;
     const { principal } = s.requireUser();
     const content = await loadContent(s, body.entityTable, id);
@@ -506,7 +491,7 @@ export function registerContentRoutes(define: DefineRoute): void {
     // §9.8 review flags: a draft the diversity gate marked for regeneration is refused until a regeneration clears the
     // flag (a regenerated draft carries none) or an editor overrides it by name, with a reason (audited below).
     const flagState = blockingReviewFlags(content);
-    const overridden = (flagState?.flags ?? []).filter((f) => override.overrideReviewFlags?.includes(f) === true);
+    const overridden = (flagState?.flags ?? []).filter((f) => body.overrideReviewFlags?.includes(f) === true);
     const remaining = (flagState?.flags ?? []).filter((f) => !overridden.includes(f));
     if (flagState && remaining.length) {
       s.audit({ action: 'content.publish_blocked', entityTable: content.table, entityId: id, after: { blockedBy: remaining, reviewFlags: flagState.flags } });
@@ -527,7 +512,7 @@ export function registerContentRoutes(define: DefineRoute): void {
     if (content.table === 'missions' || content.table === 'lesson_courses' || content.table === 'audio_lessons') extra.published_revision = nextRevision;
     if (content.table === 'audio_course_collections') extra.published_version = nextRevision;
     // An override clears the flag in the same write as the publish (`reviewFlagOverrides` keeps who, when and why).
-    const flagOverride = flagState && overridden.length && override.overrideReason ? { flags: overridden, reason: override.overrideReason } : null;
+    const flagOverride = flagState && overridden.length && body.overrideReason ? { flags: overridden, reason: body.overrideReason } : null;
     if (flagState && flagOverride) extra[flagState.column] = withReviewFlagsOverridden(flagState, overridden, { overriddenBy: principal.userId, overriddenAt: new Date().toISOString(), reason: flagOverride.reason, revision: nextRevision });
     await guardedEdit(s, { table: content.table, id, what: 'Content', expected: revision, current: revision, diff: { publish: true, note: body.note ?? null, ...(flagOverride ? { reviewFlagOverride: flagOverride } : {}) }, snapshot: restorableSnapshot(content.table, content.row), note: body.note }, () => transitionContent(s, content, 'published', extra));
     await recordPublicationEvent(s, content.table, id, nextRevision, from, 'published', flagOverride ? `${body.note ? `${body.note} · ` : ''}review flag override (${flagOverride.flags.join(', ')}): ${flagOverride.reason}` : body.note);

@@ -29,7 +29,7 @@
  */
 import { z } from 'zod';
 import type { CourseTrackId, DraftContent, Register, SourceLanguageCode, VarietyId } from '@langquest/contracts';
-import { CourseTrackIdSchema, DraftContentSchema, KeySchema, LearnerLevelSchema, RegisterSchema, SourceLanguageCodeSchema, getCourseTrack } from '@langquest/contracts';
+import { CourseTrackIdSchema, DIVERSITY_REVIEW_FLAG, DraftContentSchema, KeySchema, LearnerLevelSchema, RegisterSchema, SourceLanguageCodeSchema, getCourseTrack } from '@langquest/contracts';
 import { coachingLanguageInstruction, getPromptPack, varietyGuardInstruction, type GuardResult } from '@langquest/ai';
 import { DEFAULT_DIVERSITY_THRESHOLDS, DIALOGUE_TURN_ACTS, MISSION_DIVERSITY_THRESHOLDS, getIntent, isIntentKey, scoreDialogueDiversity, type DialogueSetInput, type DiversityDialogue, type DiversityReport } from '@langquest/curriculum';
 import type { Insert } from '@langquest/db';
@@ -182,7 +182,8 @@ export function buildMissionGoals(input: { objectives: readonly string[]; source
 export const MISSION_GATE_THRESHOLDS = MISSION_DIVERSITY_THRESHOLDS;
 /** Thresholds of the per-batch gate over the dialogues of every drafted mission (free-set defaults). */
 export const BATCH_GATE_THRESHOLDS = DEFAULT_DIVERSITY_THRESHOLDS;
-export const DIVERSITY_REVIEW_FLAG = 'diversity_needs_regeneration';
+/** The diversity gate's review flag: one definition, in the contracts (the API publish gate reads the same constant). */
+export { DIVERSITY_REVIEW_FLAG };
 
 const missionDialogue = (mission: GeneratedMission, id: string): DiversityDialogue => ({ id, turns: mission.dialogue.map((l) => ({ speaker: l.speaker, text: l.targetText, intentKey: l.intentKey, act: l.act })) });
 

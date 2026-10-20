@@ -2,11 +2,13 @@
 /**
  * Analytics (§12.2): quality, cost, usage and errors from the API analytics routes, charted
  * with recharts. Every panel renders an honest "no data"/"API unreachable" state; nothing is
- * synthesised client-side.
+ * synthesised client-side. The cost panel splits the bill into learner, staff-and-jobs and
+ * unattributed spend when the API sends those figures (`spendSplit`), and every panel names the
+ * reads it computed from part of the rows (`truncated`) in one short notice.
  */
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { Bar, BarChart, CartesianGrid, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from 'recharts';
-import { COURSE_TRACKS, LANGUAGES, type AnalyticsQuery } from '@langquest/contracts';
+import { COURSE_TRACKS, LANGUAGES, type AnalyticsQuery, type AnalyticsTruncatedRead } from '@langquest/contracts';
 import { browserApi } from '@/src/lib/api-browser';
 import { describeApiError, isUnreachable, type ResponseOf } from '@/src/lib/api';
 import { useI18n } from '@/src/lib/i18n/client';
@@ -14,6 +16,7 @@ import { formatPercent, formatUsd, isoDate } from '@/src/lib/format';
 import { timelineHasValues, type TimelinePoint } from '@/src/lib/analytics';
 import { Button, Card, Field, Input, Notice, Select, Spinner, Stat } from '@/src/components/ui';
 import { Badge } from '@/src/components/badges';
+import { spendSplit, truncatedReadsOf, type SpendKind } from './analytics-figures';
 
 type Quality = ResponseOf<'adminAnalyticsQuality'>;
 type Cost = ResponseOf<'adminAnalyticsCost'>;
@@ -28,6 +31,8 @@ interface Panel<T> {
 const idle = <T,>(): Panel<T> => ({ data: null, error: null, loading: false });
 
 const CHART_COLORS = ['var(--accent)', 'var(--success)', 'var(--warning)', 'var(--info)'];
+
+const SPEND_LABEL: Record<SpendKind, string> = { learner: 'admin.ui.anLearnerSpend', staffAndJobs: 'admin.ui.anStaffJobsSpend', unattributed: 'admin.ui.anUnattributedSpend' };
 
 export function AnalyticsScreen() {
   const { t, locale } = useI18n();
@@ -120,6 +125,7 @@ export function AnalyticsScreen() {
               <Stat label={t('admin.ui.anCostPerLesson')} value={formatUsd(c.usdPerReviewedLesson, locale)} />
               <Stat label={t('admin.ui.anStorage')} value={`${c.storageGb.toFixed(2)} GB`} hint={`${c.r2Operations} R2 ops`} />
             </div>
+            <SpendSplit cost={c} />
             <TimelineChart data={c.timeline.map((p) => ({ period: p.period, value: p.value }))} label="USD" />
             <div className="grid gap-3 lg:grid-cols-2">
               <table className="w-full text-xs">
@@ -292,12 +298,53 @@ export function AnalyticsScreen() {
   );
 }
 
-function PanelFrame<T>({ title, panel, children }: { title: string; panel: Panel<T>; children: (data: T) => React.ReactNode }) {
+function PanelFrame<T extends { truncated?: readonly AnalyticsTruncatedRead[] }>({ title, panel, children }: { title: string; panel: Panel<T>; children: (data: T) => React.ReactNode }) {
   const { t } = useI18n();
   return (
     <Card title={title}>
-      {panel.loading ? <Spinner label={t('admin.ui.loading')} /> : panel.error ? <Notice tone="warning">{panel.error}</Notice> : panel.data ? children(panel.data) : <p className="text-sm text-fg-muted">{t('admin.analytics.noData')}</p>}
+      {panel.loading ? (
+        <Spinner label={t('admin.ui.loading')} />
+      ) : panel.error ? (
+        <Notice tone="warning">{panel.error}</Notice>
+      ) : panel.data ? (
+        <>
+          <TruncationNotice reads={truncatedReadsOf(panel.data)} />
+          {children(panel.data)}
+        </>
+      ) : (
+        <p className="text-sm text-fg-muted">{t('admin.analytics.noData')}</p>
+      )}
     </Card>
+  );
+}
+
+/** One line naming the reads a panel computed from part of the rows (nothing when every figure is exact). */
+function TruncationNotice({ reads }: { reads: readonly AnalyticsTruncatedRead[] }) {
+  const { t } = useI18n();
+  if (reads.length === 0) return null;
+  const named = reads.map((r) => t('admin.ui.anTruncatedRead', { read: r.read, fetched: r.fetched, total: r.total })).join(' · ');
+  return (
+    <div className="mb-3">
+      <Notice tone="warning">{t('admin.ui.anTruncated', { reads: named })}</Notice>
+    </div>
+  );
+}
+
+/** Learner / staff-and-jobs / unattributed spend: only the figures the API computed (none for an older server). */
+function SpendSplit({ cost }: { cost: Cost }) {
+  const { t, locale } = useI18n();
+  const figures = spendSplit(cost);
+  if (figures.length === 0) return null;
+  const hint = (kind: SpendKind): string | undefined => {
+    if (kind === 'learner') return cost.activeLearners === undefined ? undefined : t('admin.ui.anLearnerSpendHint', { count: cost.activeLearners });
+    return kind === 'staffAndJobs' ? t('admin.ui.anStaffJobsSpendHint') : t('admin.ui.anUnattributedSpendHint');
+  };
+  return (
+    <div className="grid gap-3 sm:grid-cols-3">
+      {figures.map((f) => (
+        <Stat key={f.kind} label={t(SPEND_LABEL[f.kind])} value={formatUsd(f.usd, locale)} hint={hint(f.kind)} />
+      ))}
+    </div>
   );
 }
 

@@ -41,8 +41,8 @@ Requirement status (`docs/requirements-traceability.md`, 763 rows): 440 implemen
 
 | Area | State | Evidence |
 |---|---|---|
-| Shared packages (contracts, db, curriculum, ai, locales, ui, media, telemetry) | implemented, unit-tested | `pnpm -r test` with the local stack on 2026-10-20: 2 184 passed, 6 live-only skips, 0 failures (`docs/evidence/test-run-2026-10-20.md`) |
-| Database (15 migrations, RLS on every table, pgTAP suites, catalog + cast + curriculum seeds) | implemented, verified on the local Docker stack | `packages/db` stack tests, `supabase/tests/database/*.sql` |
+| Shared packages (contracts, db, curriculum, ai, locales, ui, media, telemetry) | implemented, unit-tested | `pnpm -r test` with the local stack on 2026-10-20: 2 245 passed, 6 live-only skips, 0 failures (`docs/evidence/test-run-2026-10-20.md`) |
+| Database (17 migrations, RLS on every table, pgTAP suites, catalog + cast + curriculum seeds) | implemented, verified on the local Docker stack | `packages/db` stack tests, `supabase/tests/database/*.sql` |
 | API Worker (106 contract routes, JWT + RLS forwarding, idempotent sync/XP, conversation pipeline, admin routes) | implemented, integration-tested locally; deployed to workers.dev | `docs/evidence/conversation-journey-2026-10-19.md`, `docs/evidence/capabilities-2026-10-19.md` |
 | Admin CMS (all §7.1 sections, direct multipart uploads, Setup page) | implemented, built, browser-verified | `docs/evidence/screenshots/admin-*.jpg` |
 | Mobile app (onboarding, enrollment with capability disclaimer, lessons, live conversation, pronunciation coach, audio library, progress, account) | implemented, web export + unit tests; native device QA pending | `docs/evidence/screenshots/mobile-web-*.jpg`, `docs/provider-matrix/mobile-audio-qa.md` |

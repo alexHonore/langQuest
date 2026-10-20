@@ -14,14 +14,35 @@
  */
 import { randomUUID } from 'node:crypto';
 import { afterAll, beforeAll, expect, it } from 'vitest';
+import { uuidV5 } from '../character-uuid';
 import { createServiceClient, type DbClient } from '../client';
 import { DbError } from '../errors';
 import { createRepositories } from '../repositories';
+import { SuggestionAlreadyDecidedError } from '../repositories/asset-suggestions';
 import { createTestUser, deleteTestUsers, deleteTrackedRows, describeWithStack, stackEnv, trackRow, type TestUser, type TrackedRow } from './stack';
 
 const describeStack = describeWithStack('app-gaps.test');
 const SHA = 'b'.repeat(64);
 const masterKey = (assetId: string, sha = SHA) => `media/${assetId}/${sha}.mp3`;
+
+/** RFC 4122 §C URL namespace; the name below is a `langquest.test` URL, so the id can never collide with real data. */
+const RFC4122_URL_NAMESPACE = '6ba7b811-9dad-11d1-80b4-00c04fd430c8';
+/**
+ * Fixed id of the opt-in recording that the first `delete_account` test hands over (UUID v5, the same on every run).
+ *
+ * Why fixed: `delete_account` appends a `removed` row to `asset_provenance_events`, that ledger is append-only, and the
+ * asset's `ON DELETE CASCADE` onto it is refused (the `account_deletion_in_progress()` bypass only holds inside the
+ * security-definer lifecycle functions). So this asset can never be deleted, and a random id left one new
+ * `media_assets` row behind per run. With a fixed id, the first run inserts it and every later run upserts the same
+ * row back to an active, owned, private recording, so a full run adds no `media_assets` row.
+ *
+ * What stays append-only (kept by design, never deleted): every run still appends one `removed` provenance event to
+ * this asset, so it carries one event per run, and the test filters its assertion to this run's events. The victim's
+ * `ai_requests` row and its `audit_logs` rows (`gaps.test`, the `account.delete_account` summary) stay too, anonymised.
+ * The random-id assets that runs before this change left (checksum `b…b`) also stay; removing them is the owner's call.
+ * Two runs of this file at the same moment against one stack would share this row (integration runs it once at a time).
+ */
+const OPT_IN_RECORDING_ID = uuidV5(RFC4122_URL_NAMESPACE, 'https://langquest.test/db/app-gaps/delete-account/opt-in-recording');
 
 describeStack('migration 100: account lifecycle, blobs, manifests, suggestions (local stack)', () => {
   let service: DbClient;
@@ -112,9 +133,19 @@ describeStack('migration 100: account lifecycle, blobs, manifests, suggestions (
     for (const s of seeds) if (s.error) throw s.error;
     const turn = await service.from('conversation_turns').insert({ session_id: sessionId, turn_index: 0, speaker: 'learner', text: null });
     if (turn.error) throw turn.error;
-    const recordingId = randomUUID();
-    const recording = await service.from('media_assets').insert({ id: recordingId, storage_key: masterKey(recordingId), bucket: 'media', owner_id: victim.id, kind: 'audio', checksum_sha256: SHA, mime_type: 'audio/mpeg', byte_length: 3, visibility: 'private', state: 'imported_draft' });
+    // Fixed id + upsert (see OPT_IN_RECORDING_ID): the first run inserts it; later runs reset the row the previous run's
+    // delete_account de-owned (disposition 'deleted', owner null) to an active recording owned by this victim. Not tracked:
+    // its provenance event makes the delete fail for good, so `deleteTrackedRows` would only log a refusal.
+    const recordingId = OPT_IN_RECORDING_ID;
+    const recording = await service
+      .from('media_assets')
+      .upsert({ id: recordingId, storage_key: masterKey(recordingId), bucket: 'media', owner_id: victim.id, kind: 'audio', checksum_sha256: SHA, mime_type: 'audio/mpeg', byte_length: 3, visibility: 'private', state: 'imported_draft', disposition: 'active' }, { onConflict: 'id' })
+      .select('updated_at')
+      .single();
     if (recording.error) throw recording.error;
+    // This run's start on the DATABASE clock (insert default or the set_updated_at trigger, both now()): the provenance
+    // events delete_account appends below are written in later transactions, so created_at >= runStart picks only them.
+    const runStart = recording.data.updated_at;
 
     const summary = await svc.accountLifecycle.deleteAccount(victim.id, { deleteOptInRecordings: true });
     expect(summary.userId).toBe(victim.id);
@@ -135,7 +166,8 @@ describeStack('migration 100: account lifecycle, blobs, manifests, suggestions (
       service.from('ai_requests').select('user_id, enrollment_id').eq('trace_id', `trace-${victim.id}`).single(),
       service.from('audit_logs').select('actor_id, ip_hash').eq('action', 'gaps.test').order('created_at', { ascending: false }).limit(1).single(),
       service.from('media_assets_staff').select('disposition, owner_id').eq('id', recordingId).single(),
-      service.from('asset_provenance_events').select('event_type, details').eq('asset_id', recordingId),
+      // Only this run's events: earlier runs' `removed` rows on the same fixed asset are append-only and stay.
+      service.from('asset_provenance_events').select('event_type, details').eq('asset_id', recordingId).gte('created_at', runStart),
       service.from('feedback_reports').select('user_id, enrollment_id').eq('message', `gaps-${victim.id}`).single(),
     ]);
     expect(xp.data).toEqual([]);
@@ -147,7 +179,9 @@ describeStack('migration 100: account lifecycle, blobs, manifests, suggestions (
     expect(ai.data).toEqual({ user_id: null, enrollment_id: null });
     expect(audit.data).toEqual({ actor_id: null, ip_hash: null });
     expect(recordingRow.data).toEqual({ disposition: 'deleted', owner_id: null });
-    expect(provenance.data?.map((p) => p.event_type)).toContain('removed');
+    expect(provenance.error).toBeNull();
+    // Exactly one event this run (delete_account's), whatever earlier runs appended to the same asset.
+    expect(provenance.data?.map((p) => [p.event_type, (p.details as { action?: string } | null)?.action])).toEqual([['removed', 'account_deletion']]);
     expect(feedback.data).toEqual({ user_id: null, enrollment_id: null }); // retained as anonymised product feedback
 
     // The summary itself is audited without an actor.
@@ -160,8 +194,9 @@ describeStack('migration 100: account lifecycle, blobs, manifests, suggestions (
     expect(again.counts.xp_ledger).toBe(0);
     const deleted = await service.auth.admin.deleteUser(victim.id);
     expect(deleted.error).toBeNull();
-    // The recording row stays by design (one per run): delete_account appended its `removed` provenance event, which is
-    // append-only, and the asset's ON DELETE CASCADE onto it is refused. It is de-owned, private and disposition=deleted.
+    // The recording row stays by design: delete_account appended its `removed` provenance event, which is append-only, and
+    // the asset's ON DELETE CASCADE onto it is refused. It is de-owned, private and disposition=deleted until the next run
+    // upserts it again (one row in all, not one per run; its provenance ledger grows by one `removed` event per run).
   });
 
   it('delete_account keeps recordings (owner cleared) when the learner did not opt in to deleting them', async () => {
@@ -320,8 +355,14 @@ describeStack('migration 100: account lifecycle, blobs, manifests, suggestions (
     expect(decided.reviewer_id).toBe(editor.id); // stamped from auth.uid() by the trigger
     expect(decided.decided_at).not.toBeNull();
     expect(decided.decision_note).toBe('ok');
-    const reopened = await asEditor.update(row.id, { review_status: 'in_review' });
-    expect(reopened.decided_at).toBeNull();
+    // A decided suggestion is the record of what was decided: the repository's conditional writes refuse to decide it
+    // again or edit it (409 with the stored status), on real Postgres too. Reopening it is a plain editor UPDATE, which
+    // the trigger un-stamps.
+    await expect(asEditor.decide(row.id, { reviewStatus: 'rejected' })).rejects.toMatchObject({ currentStatus: 'approved' });
+    await expect(asEditor.update(row.id, { review_status: 'in_review' })).rejects.toBeInstanceOf(SuggestionAlreadyDecidedError);
+    const reopened = (await editor.client.from('asset_suggestions').update({ review_status: 'in_review' }).eq('id', row.id).select('*').single()).data;
+    expect(reopened?.review_status).toBe('in_review');
+    expect(reopened?.decided_at).toBeNull();
     const serviceDecision = await svc.assetSuggestions.decide(row.id, { reviewStatus: 'rejected', reviewerId: editor.id });
     expect(serviceDecision.reviewer_id).toBe(editor.id);
     expect(serviceDecision.decided_at).not.toBeNull();

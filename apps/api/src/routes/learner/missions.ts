@@ -10,10 +10,15 @@
  * for conversation steps (the session row is learner-writable, so its stored output is capped by those rows). Choice
  * steps are not credited: their answer key ships to the client. The credited outcome never exceeds the claim or the
  * evidence. Steps without evidence write nothing; the attempt and the mission still complete for navigation, but
- * mission XP, completion counts, achievements and review cards need a credited mission. The decision is stored with
- * the attempt and replayed as stored: a second evaluate of a completed attempt never re-decides or re-awards, and the
- * first write wins when two evaluations of one attempt race. Evidence picked by a parallel evaluation of ANOTHER
- * attempt is detected after the write and dropped from this decision before anything is recorded or paid.
+ * mission XP, completion counts, achievements and review cards need a credited mission. The decision is settled by the
+ * database (`complete_mission_attempt`, migration 161): in one transaction it claims the decision's evidence (one
+ * grading row or session backs one attempt; an id another attempt holds is `contested` and the decision is re-made
+ * without it), stores the decision (the first write wins when two evaluations of one attempt race) and counts the
+ * completion (`completions = completions + 1`, once). A stored decision is final and replayed as stored: a second
+ * evaluate of a completed attempt never re-decides, and its XP is paid at most once per attempt (`award_xp`). It is
+ * replayed only for the mission and enrollment it was settled for (`decisionMadeFor`): a completed attempt moved
+ * elsewhere (learner-writable `mission_id`/`enrollment_id`; frozen by the guard trigger since migration 161) is refused
+ * with 409. The mission must be of the enrollment's variety, whatever the attempt row says (learners can insert one).
  */
 import {
   MissionAttemptCreateRequestSchema,
@@ -41,8 +46,9 @@ import {
 import { earnedAchievements } from '@langquest/curriculum/rubric/xp';
 import { evaluateMissionObjectives } from '@langquest/curriculum/rubric/rubric';
 import { planSession, type PlannerMission } from '@langquest/curriculum/planner/planner';
+import type { Json } from '@langquest/db/database.types';
 import { DbError } from '@langquest/db/errors';
-import type { Row, Update } from '@langquest/db/types';
+import type { Row } from '@langquest/db/types';
 import { sourceLanguageTranslator } from '@langquest/locales';
 import { z } from 'zod';
 import type { DefineRoute } from '../../app';
@@ -53,19 +59,20 @@ import { loadOwnedEnrollment, varietyOf } from '../../lib/enrollment';
 import { goalDescriptionFor, goalsOf } from '../../lib/goals';
 import { awardMasteryAdvances, awardXp, recordObservations, scheduleReviews, scheduler, uuidFrom, type MasteryChange, type XpAwardResult } from '../../lib/learning';
 import {
+  MAX_SETTLE_ROUNDS,
   MISSION_CREDIT_VERSION,
   StepEvidenceSchema,
-  consumedEvidenceIds,
   corroboratedSessionOutput,
   decideMissionCredit,
-  evidenceIdsOf,
+  decisionMadeFor,
   hasPositiveEvidence,
   latestResults,
   loadMissionEvidence,
   parseSessionOutput,
-  restrictEvidence,
+  settleMissionDecision,
   stepSpecsOf,
   storedMissionEvaluation,
+  withoutEvidence,
   type MissionEvidence,
   type StoredMissionCredit,
   type StoredMissionEvaluation,
@@ -205,24 +212,11 @@ export const DETERMINISTIC_SCORER_VERSION = 'mission-rubric@2026-10-20.2';
 /** One evaluation decision, before anything is recorded or paid. */
 interface AttemptDecision {
   decision: StoredMissionEvaluation;
-  storedCredit: StoredMissionCredit;
-  /** The `mission_attempts.evaluation` document. */
+  /** The `mission_attempts.evaluation` document (its `credit` block is what the settlement claims and counts). */
   evaluation: Record<string, unknown>;
   objectivesCompleted: string[];
   /** Deterministic observations of the credited speaking steps. */
   observations: SkillObservationInput[];
-}
-
-/**
- * Write an attempt's decision with the service role (these columns are server-decided). `onlyIfOpen` makes the write
- * conditional on `completed_at` still being null, so of two evaluations racing on one attempt only the first decides;
- * null means another evaluation got there first.
- */
-async function writeAttemptDecision(s: RequestServices, attemptId: string, patch: Update<'mission_attempts'>, onlyIfOpen: boolean): Promise<Row<'mission_attempts'> | null> {
-  const update = s.service.from('mission_attempts').update(patch).eq('id', attemptId);
-  const res = await (onlyIfOpen ? update.is('completed_at', null) : update).select('*');
-  if (res.error) throw new DbError(res.error, 'missions.evaluate_write');
-  return res.data?.[0] ?? null;
 }
 
 export function registerMissionRoutes(define: DefineRoute): void {
@@ -264,6 +258,9 @@ export function registerMissionRoutes(define: DefineRoute): void {
     if (attempt.enrollment_id !== enrollment.id) throw problem.forbidden('Attempt belongs to another enrollment');
     const bundle = await repos.curriculum.getMissionBundle(id, enrollment.source_language_code);
     if (!bundle) throw problem.notFound('Mission');
+    // Never across a variety boundary. The attempts route checks it, but RLS lets the learner insert an open attempt row
+    // (offline-first) and rewrite an open one's mission_id, so the attempt row proves nothing about the course.
+    if (bundle.mission.target_variety_id !== varietyOf(enrollment)) throw problem.validation('This mission belongs to a different course variety');
     const now = new Date().toISOString();
     const stepById = new Map(bundle.steps.map((st) => [st.id, st]));
     for (const r of body.stepResults) if (!stepById.has(r.stepId)) throw problem.validation(`Step ${r.stepId} is not part of this mission`);
@@ -356,52 +353,60 @@ export function registerMissionRoutes(define: DefineRoute): void {
         };
         const rubric = evaluateMissionObjectives({ objectives: goals.map((g) => ({ id: g.id, intentKeys: [], skillKeys: g.skill_keys ?? [], required: true })) }, merged);
         const missionCredited = rubric.outcome !== 'fail' && hasPositiveEvidence(credit.steps);
-        const storedCredit: StoredMissionCredit = { version: MISSION_CREDIT_VERSION, missionCredited, withoutHints: results.every((r) => r.hintsUsed === 0), gradableSteps: credit.gradableSteps, creditedSuccesses: credit.creditedSuccesses, steps: credit.steps };
+        const storedCredit: StoredMissionCredit = { version: MISSION_CREDIT_VERSION, missionCredited, withoutHints: results.every((r) => r.hintsUsed === 0), gradableSteps: credit.gradableSteps, creditedSuccesses: credit.creditedSuccesses, steps: credit.steps, missionId: bundle.mission.id, enrollmentId: enrollment.id };
         return {
           decision: { evaluator: merged, evaluatorRan, rubricOutcome: rubric.outcome, credit: storedCredit },
-          storedCredit,
           evaluation: { rubric: { ...rubric, confidence: merged.confidence }, evaluator: merged, evaluatorRan, credit: storedCredit },
           objectivesCompleted: rubric.objectives.filter((o) => o.completed).map((o) => o.id),
           observations,
         };
       };
-      // 4. Attempt outcome. `step_results` keeps the client's claims.
-      const patchFor = (d: AttemptDecision): Update<'mission_attempts'> => ({
-        completed_at: attempt.completed_at ?? body.completedAt,
-        step_results: body.stepResults as unknown as Row<'mission_attempts'>['step_results'],
-        objectives_completed: d.objectivesCompleted,
-        evaluation: d.evaluation as unknown as Row<'mission_attempts'>['evaluation'],
-        current_step_index: body.stepResults.length,
-      });
-
-      let decided = decide(evidence);
-      const written = await writeAttemptDecision(s, attempt.id, patchFor(decided), !attempt.completed_at);
-      if (!written) {
-        // Another evaluation of this same attempt completed it first: replay what it decided.
-        const fresh = await repos.progress.getAttempt(attempt.id);
-        decision = fresh ? storedMissionEvaluation(fresh.evaluation) : null;
-        if (!fresh || !decision) throw problem.conflict('This attempt is being evaluated; retry shortly');
-        completedAttempt = fresh;
-        replayed = true;
-      } else {
-        completedAttempt = written;
-        // A parallel evaluation of ANOTHER attempt may have picked the same rows (both scans ran before either write).
-        // Each evaluation writes its decision before this check, so of two that raced at least one sees the other here:
-        // any evidence id another attempt also holds is dropped, and the decision is re-made from what is left (it can
-        // lose rows, never gain new ones, so no row ends up backing two attempts; both may lose it, never both keep it).
-        const announced = evidenceIdsOf(decided.storedCredit);
-        const others = announced.length ? await consumedEvidenceIds(s, { userId: principal.userId, attemptId: attempt.id, since: evidence.consumedSince }) : new Set<string>();
-        const contested = announced.filter((eid) => others.has(eid));
-        if (contested.length) {
-          s.log.warn('mission.evidence_contested', { missionId: id, attemptId: attempt.id, contested: contested.length });
-          decided = decide(restrictEvidence(evidence, new Set(announced.filter((eid) => !others.has(eid)))));
-          completedAttempt = (await writeAttemptDecision(s, attempt.id, patchFor(decided), false)) ?? completedAttempt;
+      // 4. Settle the decision in the database (`complete_mission_attempt`): claim its evidence, store it, count the
+      //    completion, in one transaction. `step_results` keeps the client's claims. An id another attempt holds comes
+      //    back contested and the decision is re-made without it (it only ever loses rows). The attempt's stored
+      //    evaluation as read above is the compare-and-set value: if another evaluation stored a decision since, that
+      //    one is replayed.
+      const seenEvaluation = (attempt.evaluation ?? null) as Json | null;
+      const dropped = new Set<string>();
+      for (let round = 0; decision === null; round += 1) {
+        if (round === MAX_SETTLE_ROUNDS) throw problem.conflict('This attempt\'s evidence is being used by another evaluation; retry shortly');
+        const decided = decide(withoutEvidence(evidence, dropped));
+        const settled = await settleMissionDecision(s, {
+          userId: principal.userId,
+          attemptId: attempt.id,
+          enrollmentId: enrollment.id,
+          missionId: bundle.mission.id,
+          completedAt: body.completedAt,
+          stepResults: body.stepResults as unknown as Json,
+          objectivesCompleted: decided.objectivesCompleted,
+          evaluation: decided.evaluation as unknown as Json,
+          currentStepIndex: body.stepResults.length,
+          seenEvaluation,
+        });
+        if (settled.outcome === 'contested') {
+          s.log.warn('mission.evidence_contested', { missionId: id, attemptId: attempt.id, round, contested: settled.contestedIds.length });
+          for (const eid of settled.contestedIds) dropped.add(eid);
+          continue;
+        }
+        completedAttempt = settled.attempt;
+        if (settled.outcome === 'already_decided') {
+          // Another evaluation of this same attempt stored its decision first: replay what it decided.
+          decision = storedMissionEvaluation(settled.attempt.evaluation);
+          if (!decision) throw problem.conflict('This attempt is being evaluated; retry shortly');
+          replayed = true;
+          break;
         }
         decision = decided.decision;
-
-        // 5. Observations → mastery (credited steps only).
+        // 5. Observations → mastery (credited steps only), once: only the evaluation that stored the decision.
         ({ changes, masteryRows } = await recordObservations(s, enrollment, decided.observations, now));
       }
+    }
+    if (!decision) throw problem.conflict('This attempt is being evaluated; retry shortly');
+    // A replayed decision pays, completes and schedules only where it was made: a completed attempt whose mission_id or
+    // enrollment_id the learner rewrote since (RLS owner_update; the guard trigger refuses it since migration 161)
+    // completes no other mission or course. Nothing has been written by this request yet.
+    if (replayed && !decisionMadeFor(decision.credit, { missionId: bundle.mission.id, enrollmentId: enrollment.id, stepIds: new Set(stepById.keys()) })) {
+      throw problem.conflict('This attempt was completed for another mission or course');
     }
     // Attempts evaluated before server-side credit carry no decision: their rubric outcome stands, as it did then.
     const missionCredited = decision.credit ? decision.credit.missionCredited : decision.rubricOutcome !== 'fail';
@@ -415,27 +420,28 @@ export function registerMissionRoutes(define: DefineRoute): void {
     const advanceXp = missionCredited ? await awardMasteryAdvances(s, enrollment, changes, masteryRows, body.clientEventId) : 0;
     let xpAwarded = xp.amount + advanceXp;
 
-    // 7. Mission progress: always completed for navigation; completions only count credited attempts.
-    const progressRows = await s.repos.progress.listMissionProgress(enrollment.id);
-    const prevProgress = progressRows.find((p) => p.mission_id === bundle.mission.id);
-    const progress = {
-      user_id: principal.userId,
-      enrollment_id: enrollment.id,
-      mission_id: bundle.mission.id,
-      status: 'completed',
-      best_attempt_id: missionCredited ? completedAttempt.id : (prevProgress?.best_attempt_id ?? null),
-      completions: (prevProgress?.completions ?? 0) + (missionCredited && !replayed ? 1 : 0),
-      completed_without_hints: Boolean(prevProgress?.completed_without_hints) || (missionCredited && withoutHints),
-      first_completed_at: prevProgress?.first_completed_at ?? (missionCredited ? completedAt : null),
-      last_completed_at: prevProgress?.last_completed_at && replayed ? prevProgress.last_completed_at : completedAt,
-    };
+    // 7. Mission progress: always completed for navigation; completions only count credited attempts. The evaluation
+    //    that stored the decision recorded the completion in the same transaction (`complete_mission_attempt`:
+    //    `completions = completions + 1`, once per credited attempt). A replay never counts and never rewrites the row:
+    //    it only inserts one that is missing, uncounted, for the mission and enrollment the decision was made for (checked
+    //    above). Since migration 161 the settlement always writes that row, so this inserts only for a decision stored
+    //    before it, or after the row was removed.
     if (replayed) {
-      // A replay never counts again and never rewrites the row: it only inserts one the first evaluation has not
-      // written yet (a racing evaluation of the same attempt, or one that stopped before this step), uncounted.
-      const ins = await s.service.from('mission_progress').upsert({ ...progress, completions: 0 }, { onConflict: 'enrollment_id,mission_id', ignoreDuplicates: true });
+      const ins = await s.service.from('mission_progress').upsert(
+        {
+          user_id: principal.userId,
+          enrollment_id: enrollment.id,
+          mission_id: bundle.mission.id,
+          status: 'completed',
+          best_attempt_id: missionCredited ? completedAttempt.id : null,
+          completions: 0,
+          completed_without_hints: missionCredited && withoutHints,
+          first_completed_at: missionCredited ? completedAt : null,
+          last_completed_at: completedAt,
+        },
+        { onConflict: 'enrollment_id,mission_id', ignoreDuplicates: true },
+      );
       if (ins.error) throw new DbError(ins.error, 'missions.progress_replay');
-    } else {
-      await s.repos.progress.upsertMissionProgress(progress);
     }
 
     // 8. Achievements (and their XP), from credited completions only (navigation-only completions have

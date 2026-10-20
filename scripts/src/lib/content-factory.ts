@@ -21,7 +21,7 @@
  * mapping), so the prompt builders, output schemas and validators live here (cross-package gap).
  */
 import { z } from 'zod';
-import { REGISTER_VALUES, buildLanguageContext, getCourseTrack, getVariety, type CourseTrackId, type LanguageContext, type Prompt, type RegisterSchema, type ScriptId, type SourceLanguageCode, type TextReasoner, type TransliterationSchemeId, type VarietyId } from '@langquest/contracts';
+import { DIVERSITY_REVIEW_FLAG, REGISTER_VALUES, buildLanguageContext, getCourseTrack, getVariety, type CourseTrackId, type LanguageContext, type Prompt, type RegisterSchema, type ScriptId, type SourceLanguageCode, type TextReasoner, type TransliterationSchemeId, type VarietyId } from '@langquest/contracts';
 import { CHAPTER_1_BLUEPRINT_KEYS, DEFAULT_STORY_ARC, DIALOGUE_TURN_ACTS, INTENTS, MISSION_DIVERSITY_THRESHOLDS, defineSeedChapter, diversityRegenerationScopes, getBlueprint, getIntent, isIntentKey, scoreDialogueDiversity, type DialogueSetInput, type DiversityReport, type DiversityThresholds, type MissionBlueprint, type SeedChapter, type SeedExpressionInput, type SeedMissionInput } from '@langquest/curriculum';
 import { StructuredOutputError, coachingLanguageInstruction, exemplarGloss, getPromptPack, varietyGuardInstruction, type AiRequestRecord, type GuardResult, type LanguageGuard } from '@langquest/ai';
 import { SECOND_MODEL_REVIEW_TEMPLATE_VERSION, describeSecondModelReview, fixtureItemRefs, modelReviewFlags, runSecondModelReview, unreviewedState, type ItemReviewState, type ModelReviewAnnotation, type NativeVerdict, type NativeVerdictSheetRef, type NativeVerdictSummary, type ReviewItem, type SecondModelReviewSummary } from './content-review';
@@ -504,7 +504,7 @@ export function chapterToExpressionDrafts(record: ChapterDraftRecord): Expressio
           verified: false,
           notes: ['Original material drafted for LangQuest (AI-assisted, unreviewed). Redistribution rights are ours once a native reviewer approves; verified stays false until then.'],
         },
-        curation: { intentKey: e.intentKey, intentConfidence: 1, alternativeIntentKeys: [], scenarioTags: [m.blueprintKey], register: e.register, difficulty: e.difficulty, wordCount: wordCount(e.targetText), flags: [...(e.speaker === 'character' ? ['character_line'] : []), ...(lowDiversity.has(m.key) ? ['diversity_needs_regeneration'] : []), ...modelReviewFlags(reviewByKey.get(`${m.key}:${e.key}`))] },
+        curation: { intentKey: e.intentKey, intentConfidence: 1, alternativeIntentKeys: [], scenarioTags: [m.blueprintKey], register: e.register, difficulty: e.difficulty, wordCount: wordCount(e.targetText), flags: [...(e.speaker === 'character' ? ['character_line'] : []), ...(lowDiversity.has(m.key) ? [DIVERSITY_REVIEW_FLAG] : []), ...modelReviewFlags(reviewByKey.get(`${m.key}:${e.key}`))] },
         checks: { languageSanity: { ok: true, reason: null }, toxicity: { toxic: false, matches: [] }, relevance: { relevant: true, reasons: [] } },
       });
     }

@@ -23,7 +23,7 @@
  *   pnpm --filter @langquest/scripts content-factory -- --track arabic-moroccan --source fr --fixture-suite --live
  */
 import { resolve } from 'node:path';
-import { COURSE_TRACK_IDS, LANGUAGE_CODES, type CourseTrackId, type SourceLanguageCode, type TextReasoner } from '@langquest/contracts';
+import { COURSE_TRACK_IDS, DIVERSITY_REVIEW_FLAG, LANGUAGE_CODES, type CourseTrackId, type SourceLanguageCode, type TextReasoner } from '@langquest/contracts';
 import { CHAPTER_1_BLUEPRINT_KEYS, DRAFT_CHAPTERS } from '@langquest/curriculum';
 import { LanguageGuard, MemoryAiRequestSink, ModelProfileRegistry, OpenRouterClient, type AiRequestRecord } from '@langquest/ai';
 import { flagBool, flagList, flagNumber, flagString, isDirectRun, runCli, CliUsageError, type CliIo, type CliSpec, type ParsedArgs } from './lib/cli';
@@ -206,8 +206,8 @@ async function finishChapter(record: ChapterDraftRecord, args: ParsedArgs, io: C
   writeJsonFileSync(`${base}.json`, record);
   io.log(`wrote ${base}.jsonl (+ .json)`);
   const drafts = chapterToExpressionDrafts(record);
-  const flagged = drafts.filter((d) => d.curation.flags.includes('diversity_needs_regeneration')).length;
-  const describeDrafts = `${drafts.length} expression drafts (state review_needed, never published)${flagged ? `, ${flagged} flagged diversity_needs_regeneration (the publish gate refuses them until regenerated or explicitly overridden)` : ''}`;
+  const flagged = drafts.filter((d) => d.curation.flags.includes(DIVERSITY_REVIEW_FLAG)).length;
+  const describeDrafts = `${drafts.length} expression drafts (state review_needed, never published)${flagged ? `, ${flagged} flagged ${DIVERSITY_REVIEW_FLAG} (the publish gate refuses them until regenerated or explicitly overridden)` : ''}`;
   if (!flagBool(args, 'apply')) {
     io.log(`database: dry run (default) — --apply would upsert ${describeDrafts}; nothing written to the database`);
     return 0;
