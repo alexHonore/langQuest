@@ -277,7 +277,11 @@ Row counts are from `docs/requirements-traceability.md` (status column + Blocker
 
 ## 9. Next steps a session can do without the owner (prioritized)
 
-Items 2, 3, 8 and 9 of the previous list (API route tests, admin through the Worker, docs-only rows, content-factory fixtures) and the round-2 fixes (speech honesty, query flags, analytics cap, editorial integrity, benchmark jobs, skills seed) landed in `b9de208`. What is left, from that work's own reports:
+Items 2, 3, 8 and 9 of the previous list (API route tests, admin through the Worker, docs-only rows, content-factory fixtures) and the round-2 fixes (speech honesty, query flags, analytics cap, editorial integrity, benchmark jobs, skills seed) landed in `b9de208`.
+
+**Items 1-8 below landed in `56bdc42`** (server-authoritative mission credit, test network guard, strict query flags, learner-only analytics, realtime no-speech, skill-key registry, restorable revisions, diversity publish gate; 2,184 tests passed, `docs/evidence/test-run-2026-10-20.md`). Their leftovers are listed in that evidence file under "Known leftovers". Item 9 is partly done (the run record exists). Item 10 is still open.
+
+The list as it stood before `56bdc42`:
 
 | # | Task | Main files | Done when |
 |---|---|---|---|
