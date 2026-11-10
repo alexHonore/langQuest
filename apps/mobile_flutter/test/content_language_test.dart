@@ -18,7 +18,7 @@ void main() {
     expect(localeFromTag('pt_br'), const Locale('pt', 'BR'));
   });
 
-  for (final (trackId, locale) in const [('spanish-spain', Locale('es', 'ES')), ('arabic-moroccan', Locale('ar', 'MA')), ('japanese', Locale('ja', 'JP'))]) {
+  for (final (trackId, locale) in const [('spanish-spain', Locale('es')), ('arabic-moroccan', Locale('ar')), ('japanese', Locale('ja'))]) {
     testWidgets('a $trackId phrase is marked as ${locale.toLanguageTag()} for screen readers, not as the interface language', (tester) async {
       final semantics = tester.ensureSemantics();
       final track = testBundle.track(trackId)!;
@@ -32,6 +32,8 @@ void main() {
         ),
       );
       expect(tester.getSemantics(find.text(expression.text)).getSemanticsData().locale, locale);
+      // The glyph choice keeps the region (Japanese, not Chinese, forms for kanji on iOS and Android).
+      expect(tester.widget<Text>(find.text(expression.text)).locale, localeFromTag(track.defaultLocale));
       semantics.dispose();
     });
   }

@@ -469,7 +469,7 @@ class _OptionTile extends ConsumerWidget {
       button: true,
       selected: selected,
       label: option.romanization == null ? option.text : '${option.text}, ${option.romanization}',
-      localeForSubtree: contentLocaleOf(plan.track),
+      localeForSubtree: contentLanguageOf(plan.track),
       excludeSemantics: true,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 10),

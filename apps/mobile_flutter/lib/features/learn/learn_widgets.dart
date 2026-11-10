@@ -25,9 +25,13 @@ Locale localeFromTag(String tag) {
   return Locale.fromSubtags(languageCode: parts.first.toLowerCase(), scriptCode: script, countryCode: region);
 }
 
-/// The language of a course's phrases, for assistive technology: screen readers switch to that language's voice
-/// (the `lang` attribute on the web) instead of reading a phrase with the interface language's rules.
+/// The locale of a course's phrases (`es-ES`, `ja-JP`, `ar-MA`): picks the font for characters that differ by language.
 Locale contentLocaleOf(CourseTrackInfo track) => localeFromTag(track.defaultLocale);
+
+/// The language of a course's phrases for assistive technology: screen readers switch to that language's voice
+/// instead of reading a phrase with the interface language's rules. Language only (`ja`, not `ja-JP`): the web
+/// engine writes the locale into the `lang` attribute with an underscore (`ja_JP`), which is not a language tag.
+Locale contentLanguageOf(CourseTrackInfo track) => Locale(localeFromTag(track.defaultLocale).languageCode);
 
 /// The painted scene for a blueprint situation (`cafe`, `market`, `directions`, …).
 SceneId sceneIdForSituation(String situation) => switch (situation) {
@@ -89,7 +93,7 @@ class TargetText extends ConsumerWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         Semantics(
-          localeForSubtree: contentLocaleOf(track),
+          localeForSubtree: contentLanguageOf(track),
           child: Text(
             expression.text,
             // Picks the font for characters that differ by language (Japanese kanji are not drawn with Chinese
@@ -103,7 +107,7 @@ class TargetText extends ConsumerWidget {
         if (reading != null) ...[
           const SizedBox(height: 2),
           Semantics(
-            localeForSubtree: contentLocaleOf(track),
+            localeForSubtree: contentLanguageOf(track),
             child: Text(
               reading,
               locale: contentLocaleOf(track),
