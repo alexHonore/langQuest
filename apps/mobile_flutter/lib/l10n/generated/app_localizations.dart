@@ -1129,6 +1129,114 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Clinic'**
   String get sceneClinic;
+
+  /// No description provided for @accountTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Account'**
+  String get accountTitle;
+
+  /// No description provided for @accountPitch.
+  ///
+  /// In en, this message translates to:
+  /// **'Save your courses and completed missions to an account, and pick up where you left off on another device or browser.'**
+  String get accountPitch;
+
+  /// No description provided for @accountDeviceOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice XP and your review schedule stay on this device: the server counts XP only for missions with an assessed spoken attempt, which this app does not record yet.'**
+  String get accountDeviceOnly;
+
+  /// No description provided for @accountEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Email'**
+  String get accountEmail;
+
+  /// No description provided for @accountPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Password'**
+  String get accountPassword;
+
+  /// No description provided for @accountSignIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign in'**
+  String get accountSignIn;
+
+  /// No description provided for @accountCreate.
+  ///
+  /// In en, this message translates to:
+  /// **'Create account'**
+  String get accountCreate;
+
+  /// No description provided for @accountMissingFields.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email and a password.'**
+  String get accountMissingFields;
+
+  /// No description provided for @accountConfirmEmail.
+  ///
+  /// In en, this message translates to:
+  /// **'Check your email to confirm the account, then sign in.'**
+  String get accountConfirmEmail;
+
+  /// No description provided for @accountSignedInAs.
+  ///
+  /// In en, this message translates to:
+  /// **'Signed in as {email}'**
+  String accountSignedInAs(String email);
+
+  /// No description provided for @accountSaving.
+  ///
+  /// In en, this message translates to:
+  /// **'Saving to your account…'**
+  String get accountSaving;
+
+  /// No description provided for @accountSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Your courses and completed missions are saved to your account.'**
+  String get accountSaved;
+
+  /// No description provided for @accountSyncFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t reach your account. Your progress is safe on this device and will be saved later.'**
+  String get accountSyncFailed;
+
+  /// No description provided for @accountTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get accountTryAgain;
+
+  /// No description provided for @accountNotSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Not saved to your account: {courses}. Another instruction language of the same course is already active there.'**
+  String accountNotSaved(String courses);
+
+  /// No description provided for @accountSignOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Sign out'**
+  String get accountSignOut;
+
+  /// No description provided for @yourDataBodyAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Your courses and completed missions are also kept in your account. Everything else — practice XP, reviews, settings — is saved on this device only.'**
+  String get yourDataBodyAccount;
+
+  /// No description provided for @yourDataBodySignedOut.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything is saved on this device only, unless you sign in above to keep your courses and completed missions in an account.'**
+  String get yourDataBodySignedOut;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

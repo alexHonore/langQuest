@@ -50,7 +50,10 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     super.initState();
     _speech = ref.read(speechServiceProvider);
     _wasCompleted = ref.read(appStateProvider).progress.isMissionCompleted(widget.missionKey);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _sayCue());
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      ref.read(appStateProvider.notifier).missionOpened(widget.missionKey);
+      _sayCue();
+    });
   }
 
   @override

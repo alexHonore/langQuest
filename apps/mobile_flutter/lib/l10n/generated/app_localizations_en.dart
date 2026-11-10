@@ -601,4 +601,65 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get sceneClinic => 'Clinic';
+
+  @override
+  String get accountTitle => 'Account';
+
+  @override
+  String get accountPitch => 'Save your courses and completed missions to an account, and pick up where you left off on another device or browser.';
+
+  @override
+  String get accountDeviceOnly =>
+      'Practice XP and your review schedule stay on this device: the server counts XP only for missions with an assessed spoken attempt, which this app does not record yet.';
+
+  @override
+  String get accountEmail => 'Email';
+
+  @override
+  String get accountPassword => 'Password';
+
+  @override
+  String get accountSignIn => 'Sign in';
+
+  @override
+  String get accountCreate => 'Create account';
+
+  @override
+  String get accountMissingFields => 'Enter your email and a password.';
+
+  @override
+  String get accountConfirmEmail => 'Check your email to confirm the account, then sign in.';
+
+  @override
+  String accountSignedInAs(String email) {
+    return 'Signed in as $email';
+  }
+
+  @override
+  String get accountSaving => 'Saving to your account…';
+
+  @override
+  String get accountSaved => 'Your courses and completed missions are saved to your account.';
+
+  @override
+  String get accountSyncFailed => 'Couldn’t reach your account. Your progress is safe on this device and will be saved later.';
+
+  @override
+  String get accountTryAgain => 'Try again';
+
+  @override
+  String accountNotSaved(String courses) {
+    return 'Not saved to your account: $courses. Another instruction language of the same course is already active there.';
+  }
+
+  @override
+  String get accountSignOut => 'Sign out';
+
+  @override
+  String get yourDataBodyAccount =>
+      'Your courses and completed missions are also kept in your account. Everything else — practice XP, reviews, settings — is saved on this device only.';
+
+  @override
+  String get yourDataBodySignedOut =>
+      'Everything is saved on this device only, unless you sign in above to keep your courses and completed missions in an account.';
 }
