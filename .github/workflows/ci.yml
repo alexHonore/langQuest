@@ -25,7 +25,10 @@ jobs:
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
       - run: pnpm lint
-      - run: pnpm test
+      # turbo's default runs up to 10 package suites at once, each with its own vitest worker pool, on a 4-vCPU runner:
+      # CPU-bound suites (packages/ui art rendering) then run ~8x slower and hit the 5 s test timeout. Two at a time takes
+      # the same wall time here and keeps every test far below it.
+      - run: pnpm exec turbo run test --concurrency=2
         env:
           LANGQUEST_LIVE_TESTS: '0'
 
