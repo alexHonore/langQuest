@@ -411,5 +411,37 @@
   "sceneGathering": "Rooftop",
   "sceneStation": "Station",
   "scenePark": "Park",
-  "sceneClinic": "Clinic"
+  "sceneClinic": "Clinic",
+  "accountTitle": "Account",
+  "accountPitch": "Save your courses and completed missions to an account, and pick up where you left off on another device or browser.",
+  "accountDeviceOnly": "Practice XP and your review schedule stay on this device: the server counts XP only for missions with an assessed spoken attempt, which this app does not record yet.",
+  "accountEmail": "Email",
+  "accountPassword": "Password",
+  "accountSignIn": "Sign in",
+  "accountCreate": "Create account",
+  "accountMissingFields": "Enter your email and a password.",
+  "accountConfirmEmail": "Check your email to confirm the account, then sign in.",
+  "accountSignedInAs": "Signed in as {email}",
+  "@accountSignedInAs": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "accountSaving": "Saving to your account…",
+  "accountSaved": "Your courses and completed missions are saved to your account.",
+  "accountSyncFailed": "Couldn’t reach your account. Your progress is safe on this device and will be saved later.",
+  "accountTryAgain": "Try again",
+  "accountNotSaved": "Not saved to your account: {courses}. Another instruction language of the same course is already active there.",
+  "@accountNotSaved": {
+    "placeholders": {
+      "courses": {
+        "type": "String"
+      }
+    }
+  },
+  "accountSignOut": "Sign out",
+  "yourDataBodyAccount": "Your courses and completed missions are also kept in your account. Everything else — practice XP, reviews, settings — is saved on this device only.",
+  "yourDataBodySignedOut": "Everything is saved on this device only, unless you sign in above to keep your courses and completed missions in an account."
 }

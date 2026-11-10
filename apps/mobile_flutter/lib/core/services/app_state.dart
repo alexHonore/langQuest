@@ -3,6 +3,8 @@ import 'dart:ui' show PlatformDispatcher;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../../features/learn/learn_logic.dart';
+import '../backend/account.dart';
+import '../backend/sync_service.dart';
 import '../content/content_bundle.dart';
 import '../content/content_models.dart';
 import '../learning/srs.dart';
@@ -84,7 +86,7 @@ class AppState {
   int streak(DateTime now) => streakDays(learner.xpByDay, now);
 }
 
-class AppStateNotifier extends Notifier<AppState> {
+class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
   static const _scheduler = Scheduler();
 
   @override
@@ -115,8 +117,48 @@ class AppStateNotifier extends Notifier<AppState> {
         ? learner.enrollments
         : [...learner.enrollments, Enrollment(trackId: trackId, source: source, enrolledAt: _now.toUtc())];
     _update(learner.copyWith(enrollments: enrollments, activeCourseId: id));
+    _accountChanged();
     return true;
   }
+
+  // ── Account sync (RestoreTarget) ─────────────────────────────────────────────────────────────────────────────
+
+  @override
+  AppState get current => state;
+
+  /// A course of the learner's account, added on this device; it becomes active only when none is.
+  @override
+  void restoreEnrollment(String trackId, String source) {
+    final learner = state.learner;
+    if (!state.content.isAvailable(trackId, source) || learner.isEnrolled(trackId, source)) return;
+    _update(
+      learner.copyWith(
+        enrollments: [...learner.enrollments, Enrollment(trackId: trackId, source: source, enrolledAt: _now.toUtc())],
+        activeCourseId: learner.activeCourseId ?? courseIdFor(trackId, source),
+      ),
+    );
+  }
+
+  /// Missions completed with this account elsewhere: every stop marked done so the path unlocks — no XP and no
+  /// review cards (those stay with the device that earned them).
+  @override
+  void restoreCompletedMissions(String courseId, Iterable<String> missionKeys) {
+    var progress = state.learner.progressOf(courseId);
+    for (final key in missionKeys) {
+      for (final stop in const [PathStop.learn, PathStop.practise, PathStop.mission]) {
+        progress = progress.withStop(key, stop);
+      }
+    }
+    _update(state.learner.withCourse(courseId, progress));
+  }
+
+  /// When the mission stop opened (sent with its completion, so the server sees a real attempt window).
+  void missionOpened(String missionKey) {
+    final course = state.activeCourse;
+    if (course != null) ref.read(syncLedgerProvider).missionOpened(course.id, missionKey, _now);
+  }
+
+  void _accountChanged() => ref.read(accountProvider.notifier).scheduleSync();
 
   void switchCourse(String courseId) {
     if (!state.learner.enrollments.any((e) => e.courseId == courseId)) return;
@@ -159,6 +201,10 @@ class AppStateNotifier extends Notifier<AppState> {
     var learner = state.learner.withCourse(course.id, progress.withStop(missionKey, PathStop.mission).withCards(newCards));
     if (firstTime) learner = learner.withXp(XpAmounts.missionCompleted, now);
     _update(learner);
+    if (firstTime) {
+      ref.read(syncLedgerProvider).missionCompleted(course.id, missionKey, now, firstTryEverywhere: ratingsByExpressionId.values.every((r) => r == ReviewRating.good));
+      _accountChanged();
+    }
   }
 
   /// Rate one due card (+3 XP).

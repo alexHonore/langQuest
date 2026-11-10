@@ -4,10 +4,12 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
+import '../../core/backend/account.dart';
 import '../../core/content/content_models.dart';
 import '../../core/services/app_state.dart';
 import '../../core/theme/glass.dart';
 import '../../l10n/l10n.dart';
+import 'account_section.dart';
 
 /// Settings: the interface language, the theme, the learner's courses, and the data kept on this device.
 /// Every control here does what it says (CONVENTIONS §8).
@@ -93,6 +95,7 @@ class AccountScreen extends ConsumerWidget {
                 ],
               ),
             ),
+            const AccountSection(),
             section(l10n.appLanguage),
             SegmentedButton<String>(
               segments: [for (final code in supportedInstructionLanguages) ButtonSegment(value: code, label: Text(code == 'en' ? 'English' : 'Français'))],
@@ -189,7 +192,11 @@ class AccountScreen extends ConsumerWidget {
             section(l10n.yourData),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
-              child: Text(l10n.yourDataBody, style: TextStyle(fontSize: 13.5, height: 1.4, color: colors.textSecondary)),
+              child: Text(switch (ref.watch(accountProvider)) {
+                AccountState(available: false) => l10n.yourDataBody,
+                AccountState(user: null) => l10n.yourDataBodySignedOut,
+                _ => l10n.yourDataBodyAccount,
+              }, style: TextStyle(fontSize: 13.5, height: 1.4, color: colors.textSecondary)),
             ),
             const SizedBox(height: 10),
             OutlinedButton.icon(

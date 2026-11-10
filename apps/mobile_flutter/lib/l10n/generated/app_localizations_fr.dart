@@ -612,4 +612,66 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get sceneClinic => 'Clinique';
+
+  @override
+  String get accountTitle => 'Compte';
+
+  @override
+  String get accountPitch =>
+      'Enregistrez vos cours et vos missions terminées dans un compte, et reprenez où vous en étiez sur un autre appareil ou navigateur.';
+
+  @override
+  String get accountDeviceOnly =>
+      'L’XP d’entraînement et vos révisions restent sur cet appareil : le serveur ne compte l’XP que pour les missions avec une prise de parole évaluée, que cette app n’enregistre pas encore.';
+
+  @override
+  String get accountEmail => 'E-mail';
+
+  @override
+  String get accountPassword => 'Mot de passe';
+
+  @override
+  String get accountSignIn => 'Se connecter';
+
+  @override
+  String get accountCreate => 'Créer un compte';
+
+  @override
+  String get accountMissingFields => 'Saisissez votre e-mail et un mot de passe.';
+
+  @override
+  String get accountConfirmEmail => 'Confirmez le compte depuis l’e-mail reçu, puis connectez-vous.';
+
+  @override
+  String accountSignedInAs(String email) {
+    return 'Connecté en tant que $email';
+  }
+
+  @override
+  String get accountSaving => 'Enregistrement dans votre compte…';
+
+  @override
+  String get accountSaved => 'Vos cours et vos missions terminées sont enregistrés dans votre compte.';
+
+  @override
+  String get accountSyncFailed => 'Impossible de joindre votre compte. Votre progression reste sur cet appareil et sera enregistrée plus tard.';
+
+  @override
+  String get accountTryAgain => 'Réessayer';
+
+  @override
+  String accountNotSaved(String courses) {
+    return 'Non enregistré dans votre compte : $courses. Une autre langue d’explication de ce cours y est déjà active.';
+  }
+
+  @override
+  String get accountSignOut => 'Se déconnecter';
+
+  @override
+  String get yourDataBodyAccount =>
+      'Vos cours et vos missions terminées sont aussi conservés dans votre compte. Tout le reste — XP d’entraînement, révisions, réglages — n’est enregistré que sur cet appareil.';
+
+  @override
+  String get yourDataBodySignedOut =>
+      'Tout est enregistré uniquement sur cet appareil, sauf si vous vous connectez ci-dessus pour conserver vos cours et vos missions terminées dans un compte.';
 }
