@@ -914,24 +914,6 @@ abstract class AppLocalizations {
   /// **'App language'**
   String get appLanguage;
 
-  /// No description provided for @darkTheme.
-  ///
-  /// In en, this message translates to:
-  /// **'Dark theme'**
-  String get darkTheme;
-
-  /// No description provided for @darkThemeOn.
-  ///
-  /// In en, this message translates to:
-  /// **'Night Market, dark-first'**
-  String get darkThemeOn;
-
-  /// No description provided for @darkThemeOff.
-  ///
-  /// In en, this message translates to:
-  /// **'Light palette'**
-  String get darkThemeOff;
-
   /// No description provided for @yourCourses.
   ///
   /// In en, this message translates to:
@@ -1387,6 +1369,90 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Recording didn’t work.'**
   String get recordFailed;
+
+  /// No description provided for @display.
+  ///
+  /// In en, this message translates to:
+  /// **'Display'**
+  String get display;
+
+  /// No description provided for @themeDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get themeDark;
+
+  /// No description provided for @themeLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get themeLight;
+
+  /// No description provided for @themeDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Device'**
+  String get themeDevice;
+
+  /// No description provided for @textSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Text size'**
+  String get textSize;
+
+  /// No description provided for @textSizeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'On top of your device\'s text size.'**
+  String get textSizeBody;
+
+  /// No description provided for @reduceMotion.
+  ///
+  /// In en, this message translates to:
+  /// **'Reduce motion'**
+  String get reduceMotion;
+
+  /// No description provided for @reduceMotionBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Scenes, Melo and page changes stay still.'**
+  String get reduceMotionBody;
+
+  /// No description provided for @reduceMotionDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'On in your device\'s settings.'**
+  String get reduceMotionDevice;
+
+  /// No description provided for @showMascot.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Melo, the mascot'**
+  String get showMascot;
+
+  /// No description provided for @showMascotBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Melo cheers you on; hiding it hides nothing else.'**
+  String get showMascotBody;
+
+  /// No description provided for @textSmaller.
+  ///
+  /// In en, this message translates to:
+  /// **'Smaller text'**
+  String get textSmaller;
+
+  /// No description provided for @textLarger.
+  ///
+  /// In en, this message translates to:
+  /// **'Larger text'**
+  String get textLarger;
+
+  /// No description provided for @textSizeValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Text size {percent}'**
+  String textSizeValue(String percent);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../layout/motion.dart';
 import 'accents.dart';
 import 'colors.dart';
 import 'script_fonts.dart';
@@ -37,6 +38,8 @@ ThemeData buildAppTheme(LangQuestColors colors, CourseAccent accent, {required b
     textTheme: LangQuestTypography.createTextTheme(colors),
     appBarTheme: AppBarTheme(backgroundColor: colors.background, elevation: 0),
     dialogTheme: DialogThemeData(backgroundColor: colors.elevated),
+    // The platform's page transitions, standing still under reduced motion.
+    pageTransitionsTheme: MotionAwarePageTransitions.theme(),
     snackBarTheme: SnackBarThemeData(
       backgroundColor: colors.textPrimary,
       contentTextStyle: TextStyle(color: colors.background, fontSize: 14),

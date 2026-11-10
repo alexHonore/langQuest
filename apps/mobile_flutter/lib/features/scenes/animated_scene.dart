@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import '../../core/layout/motion.dart';
 import 'scene_models.dart';
 import 'scene_painter.dart';
 
@@ -41,7 +42,18 @@ class _AnimatedSceneWidgetState extends State<AnimatedSceneWidget>
     _ambientController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 4000),
-    )..repeat();
+    );
+  }
+
+  /// The scene's ambient motion (lanterns, lights) runs unless reduced motion is on.
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (context.reduceMotion) {
+      _ambientController.stop();
+    } else if (!_ambientController.isAnimating) {
+      _ambientController.repeat();
+    }
   }
 
   @override

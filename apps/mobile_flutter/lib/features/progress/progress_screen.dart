@@ -228,39 +228,45 @@ class _WeekCard extends ConsumerWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               for (final d in days)
-                Builder(
-                  builder: (context) {
-                    final active = (xpByDay[dayKey(d)] ?? 0) > 0;
-                    final isToday = d == today;
-                    final label = DateFormat.E(locale).format(d);
-                    return Semantics(
-                      label: '${DateFormat.MMMMEEEEd(locale).format(d)}${active ? ' ✓' : ''}',
-                      excludeSemantics: true,
-                      child: Column(
-                        children: [
-                          Container(
-                            width: 34,
-                            height: 34,
-                            decoration: BoxDecoration(
-                              shape: BoxShape.circle,
-                              color: active ? colors.amber : colors.surfaceMuted,
-                              border: isToday ? Border.all(color: colors.amberText, width: 2) : null,
+                Flexible(
+                  child: Builder(
+                    builder: (context) {
+                      final active = (xpByDay[dayKey(d)] ?? 0) > 0;
+                      final isToday = d == today;
+                      final label = DateFormat.E(locale).format(d);
+                      return Semantics(
+                        label: '${DateFormat.MMMMEEEEd(locale).format(d)}${active ? ' ✓' : ''}',
+                        excludeSemantics: true,
+                        child: Column(
+                          children: [
+                            Container(
+                              width: 34,
+                              height: 34,
+                              decoration: BoxDecoration(
+                                shape: BoxShape.circle,
+                                color: active ? colors.amber : colors.surfaceMuted,
+                                border: isToday ? Border.all(color: colors.amberText, width: 2) : null,
+                              ),
+                              child: Icon(active ? LucideIcons.check : LucideIcons.circle, size: 15, color: active ? colors.onAmber : colors.textMuted),
                             ),
-                            child: Icon(active ? LucideIcons.check : LucideIcons.circle, size: 15, color: active ? colors.onAmber : colors.textMuted),
-                          ),
-                          const SizedBox(height: 6),
-                          Text(
-                            label,
-                            style: TextStyle(
-                              fontSize: 11,
-                              fontWeight: isToday ? FontWeight.w700 : FontWeight.w500,
-                              color: isToday ? colors.textPrimary : colors.textMuted,
+                            const SizedBox(height: 6),
+                            // Large text sizes: the day's name shrinks to fit its seventh of the row.
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Text(
+                                label,
+                                style: TextStyle(
+                                  fontSize: 11,
+                                  fontWeight: isToday ? FontWeight.w700 : FontWeight.w500,
+                                  color: isToday ? colors.textPrimary : colors.textMuted,
+                                ),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                    );
-                  },
+                          ],
+                        ),
+                      );
+                    },
+                  ),
                 ),
             ],
           ),

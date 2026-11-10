@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
+import '../../core/layout/motion.dart';
 import '../../core/content/content_bundle.dart';
 import '../../core/content/content_models.dart';
 import '../../core/learning/srs.dart';
@@ -190,7 +191,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
                                     ),
                                   ),
                               ],
-                            ).animate().fadeIn(duration: 200.ms),
+                            ).withMotion(context, (a) => a.fadeIn(duration: 200.ms)),
                           const SizedBox(height: 16),
                         ],
                       ),

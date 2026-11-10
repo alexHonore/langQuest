@@ -9,6 +9,7 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 import 'core/backend/account.dart';
 import 'core/backend/backend_config.dart';
 import 'core/content/content_bundle.dart';
+import 'core/layout/display_preferences.dart';
 import 'core/layout/phone_frame.dart';
 import 'core/services/app_state.dart';
 import 'core/services/learner_store.dart';
@@ -84,10 +85,13 @@ class LangQuestApp extends ConsumerWidget {
           statusBarColor: Colors.transparent,
           systemNavigationBarColor: colors.background,
         ),
-        child: PhoneFrame(
-          backdrop: Color.alphaBlend(Colors.black.withValues(alpha: appState.isDark ? 0.5 : 0.07), colors.background),
-          outline: colors.border,
-          child: child ?? const SizedBox.shrink(),
+        child: DisplayPreferences(
+          learner: appState.learner,
+          child: PhoneFrame(
+            backdrop: Color.alphaBlend(Colors.black.withValues(alpha: appState.isDark ? 0.5 : 0.07), colors.background),
+            outline: colors.border,
+            child: child ?? const SizedBox.shrink(),
+          ),
         ),
       ),
       theme: buildAppTheme(colors, accent, isDark: appState.isDark),

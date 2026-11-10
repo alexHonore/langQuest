@@ -362,9 +362,6 @@
   "freeTitle": "Free for every learner",
   "freeBody": "LangQuest has no paywalls, subscriptions, credits or usage meters.",
   "appLanguage": "App language",
-  "darkTheme": "Dark theme",
-  "darkThemeOn": "Night Market, dark-first",
-  "darkThemeOff": "Light palette",
   "yourCourses": "Your courses",
   "addCourse": "Add a course",
   "removeCourse": "Remove",
@@ -492,5 +489,26 @@
   "recordSilent": "I didn’t hear anything. Check your microphone and try again.",
   "recordBlocked": "The microphone is blocked. Allow it for this site, then try again.",
   "recordNoMicrophone": "No microphone found.",
-  "recordFailed": "Recording didn’t work."
+  "recordFailed": "Recording didn’t work.",
+  "display": "Display",
+  "themeDark": "Dark",
+  "themeLight": "Light",
+  "themeDevice": "Device",
+  "textSize": "Text size",
+  "textSizeBody": "On top of your device's text size.",
+  "reduceMotion": "Reduce motion",
+  "reduceMotionBody": "Scenes, Melo and page changes stay still.",
+  "reduceMotionDevice": "On in your device's settings.",
+  "showMascot": "Show Melo, the mascot",
+  "showMascotBody": "Melo cheers you on; hiding it hides nothing else.",
+  "textSmaller": "Smaller text",
+  "textLarger": "Larger text",
+  "textSizeValue": "Text size {percent}",
+  "@textSizeValue": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  }
 }

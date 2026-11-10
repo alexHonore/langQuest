@@ -2,6 +2,8 @@
 @TestOn('vm')
 library;
 
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -10,6 +12,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:langquest_mobile/core/learning/srs.dart';
 import 'package:langquest_mobile/core/services/app_state.dart';
 import 'package:langquest_mobile/core/services/learner_state.dart';
+import 'package:langquest_mobile/core/services/learner_store.dart';
 import 'package:langquest_mobile/features/learn/learn_content.dart';
 import 'package:langquest_mobile/features/learn/learn_logic.dart';
 import 'package:langquest_mobile/main.dart';
@@ -83,97 +86,102 @@ void main() {
     expect(find.text('Speak'), findsNothing);
   });
 
-  testWidgets('a whole mission node: scene → cards → pairs → tiles → mission → review queue and XP', (t) async {
-    usePhone(t);
-    final clock = TestClock();
-    await t.pumpWidget(await testApp(clock: clock));
-    await settle(t);
-    final container = containerOf(t);
-    container.read(appStateProvider.notifier).enroll('spanish-spain', 'en');
-    await settle(t);
+  for (final textScale in [1.0, 2.0]) {
+    testWidgets('a whole mission node: scene → cards → pairs → tiles → mission → review queue and XP (text ×$textScale)', (t) async {
+      usePhone(t);
+      // Also at the largest text size a device can ask for (Android's 200%): every step still fits or scrolls.
+      t.platformDispatcher.textScaleFactorTestValue = textScale;
+      addTearDown(t.platformDispatcher.clearTextScaleFactorTestValue);
+      final clock = TestClock();
+      await t.pumpWidget(await testApp(clock: clock));
+      await settle(t);
+      final container = containerOf(t);
+      container.read(appStateProvider.notifier).enroll('spanish-spain', 'en');
+      await settle(t);
 
-    final mission = testBundle.mission('es_greet_and_introduce')!;
-    final plan = buildLearnPlan(mission: mission, track: testBundle.track('spanish-spain')!, source: 'en', character: testBundle.characterOf(mission));
+      final mission = testBundle.mission('es_greet_and_introduce')!;
+      final plan = buildLearnPlan(mission: mission, track: testBundle.track('spanish-spain')!, source: 'en', character: testBundle.characterOf(mission));
 
-    await tapText(t, 'Start: Learn'); // Home card
-    expect(find.text('Lucía'), findsWidgets, reason: 'the mission character is on the path');
-    await tapText(t, 'Start: Learn'); // path primary action
+      await tapText(t, 'Start: Learn'); // Home card
+      expect(find.text('Lucía'), findsWidgets, reason: 'the mission character is on the path');
+      await tapText(t, 'Start: Learn'); // path primary action
 
-    // L1 scene: every line is shown with its meaning; the learner shadows their own lines.
-    for (final line in plan.sceneLines) {
-      expect(find.text(line.expression.text), findsOneWidget);
-      expect(find.text(plan.meaningOf(line.expression)), findsOneWidget);
-      await tapText(t, line.byLearner ? 'I said it' : (line == plan.sceneLines.last ? 'Learn the phrases' : 'Next'));
-    }
-
-    // L3 cards.
-    for (var i = 0; i < plan.phrases.length; i++) {
-      expect(find.text(plan.phrases[i].text), findsOneWidget);
-      await tapText(t, i == plan.phrases.length - 1 ? 'Practise' : 'Next phrase');
-    }
-    expect(container.read(appStateProvider).stopsDone(mission.key), {PathStop.learn});
-
-    // Pairs, round by round.
-    for (var r = 0; r < plan.pairRounds.length; r++) {
-      for (final e in plan.pairRounds[r]) {
-        await tapText(t, e.text);
-        await tapText(t, plan.shortMeaningOf(e));
+      // L1 scene: every line is shown with its meaning; the learner shadows their own lines.
+      for (final line in plan.sceneLines) {
+        expect(find.text(line.expression.text), findsOneWidget);
+        expect(find.text(plan.meaningOf(line.expression)), findsOneWidget);
+        await tapText(t, line.byLearner ? 'I said it' : (line == plan.sceneLines.last ? 'Learn the phrases' : 'Next'));
       }
-      expect(find.text('All matched!'), findsOneWidget);
-      await tapText(t, r < plan.pairRounds.length - 1 ? 'Next round' : 'Build a sentence');
-    }
 
-    // Tiles: a wrong order is refused, the right one accepted.
-    final tiles = plan.tiles!;
-    Finder bankTile(String w) => find.descendant(of: find.byType(Wrap).last, matching: find.text(w)).first;
-    for (final w in tiles.answer.reversed) {
-      await t.tap(bankTile(w));
-      await settle(t, 300);
-    }
-    await tapText(t, 'Check');
-    expect(find.text('Not quite — tap a word to take it back.'), findsOneWidget);
-    for (final w in tiles.answer.reversed) {
-      await t.tap(find.descendant(of: find.byType(Wrap).first, matching: find.text(w)).first);
-      await settle(t, 300);
-    }
-    for (final w in tiles.answer) {
-      await t.tap(bankTile(w));
-      await settle(t, 300);
-    }
-    await tapText(t, 'Check');
-    await tapText(t, 'Start the mission');
-    expect(container.read(appStateProvider).stopsDone(mission.key), {PathStop.learn, PathStop.practise});
-
-    // Mission: pick a wrong option once on the first exchange, then the right ones; say each out loud.
-    for (final (i, x) in plan.exchanges.indexed) {
-      if (i == 0) {
-        final wrong = x.options.firstWhere((o) => o != x.answer);
-        await tapText(t, wrong.text);
-        expect(find.text('Not quite — think of what you practised.'), findsOneWidget);
+      // L3 cards.
+      for (var i = 0; i < plan.phrases.length; i++) {
+        expect(find.text(plan.phrases[i].text), findsOneWidget);
+        await tapText(t, i == plan.phrases.length - 1 ? 'Practise' : 'Next phrase');
       }
-      await tapText(t, x.answer.text);
-      expect(find.text('Say it out loud'), findsOneWidget);
-      await tapText(t, 'I said it');
-    }
-    expect(find.text('What you used'), findsOneWidget);
-    await tapText(t, 'Complete the mission (+50 XP)');
-    expect(find.text('Mission completed!'), findsOneWidget);
-    expect(find.text('+50 XP'), findsOneWidget);
+      expect(container.read(appStateProvider).stopsDone(mission.key), {PathStop.learn});
 
-    final s = container.read(appStateProvider);
-    expect(s.progress.isMissionCompleted(mission.key), isTrue);
-    expect(s.learner.xpTotal, 2 * XpAmounts.stepCompleted + XpAmounts.missionCompleted);
-    expect(s.progress.cards.length, plan.exchanges.length);
-    expect(
-      s.progress.cards[plan.exchanges.first.answer.id]!.difficulty,
-      greaterThan(s.progress.cards[plan.exchanges.last.answer.id]!.difficulty),
-      reason: 'the exchange answered wrong first was rated hard',
-    );
+      // Pairs, round by round.
+      for (var r = 0; r < plan.pairRounds.length; r++) {
+        for (final e in plan.pairRounds[r]) {
+          await tapText(t, e.text);
+          await tapText(t, plan.shortMeaningOf(e));
+        }
+        expect(find.text('All matched!'), findsOneWidget);
+        await tapText(t, r < plan.pairRounds.length - 1 ? 'Next round' : 'Build a sentence');
+      }
 
-    // Next mission is now open.
-    await tapText(t, 'Next mission');
-    expect(find.text('Ordering at the bar'), findsWidgets);
-  });
+      // Tiles: a wrong order is refused, the right one accepted.
+      final tiles = plan.tiles!;
+      Finder bankTile(String w) => find.descendant(of: find.byType(Wrap).last, matching: find.text(w)).first;
+      for (final w in tiles.answer.reversed) {
+        await t.tap(bankTile(w));
+        await settle(t, 300);
+      }
+      await tapText(t, 'Check');
+      expect(find.text('Not quite — tap a word to take it back.'), findsOneWidget);
+      for (final w in tiles.answer.reversed) {
+        await t.tap(find.descendant(of: find.byType(Wrap).first, matching: find.text(w)).first);
+        await settle(t, 300);
+      }
+      for (final w in tiles.answer) {
+        await t.tap(bankTile(w));
+        await settle(t, 300);
+      }
+      await tapText(t, 'Check');
+      await tapText(t, 'Start the mission');
+      expect(container.read(appStateProvider).stopsDone(mission.key), {PathStop.learn, PathStop.practise});
+
+      // Mission: pick a wrong option once on the first exchange, then the right ones; say each out loud.
+      for (final (i, x) in plan.exchanges.indexed) {
+        if (i == 0) {
+          final wrong = x.options.firstWhere((o) => o != x.answer);
+          await tapText(t, wrong.text);
+          expect(find.text('Not quite — think of what you practised.'), findsOneWidget);
+        }
+        await tapText(t, x.answer.text);
+        expect(find.text('Say it out loud'), findsOneWidget);
+        await tapText(t, 'I said it');
+      }
+      expect(find.text('What you used'), findsOneWidget);
+      await tapText(t, 'Complete the mission (+50 XP)');
+      expect(find.text('Mission completed!'), findsOneWidget);
+      expect(find.text('+50 XP'), findsOneWidget);
+
+      final s = container.read(appStateProvider);
+      expect(s.progress.isMissionCompleted(mission.key), isTrue);
+      expect(s.learner.xpTotal, 2 * XpAmounts.stepCompleted + XpAmounts.missionCompleted);
+      expect(s.progress.cards.length, plan.exchanges.length);
+      expect(
+        s.progress.cards[plan.exchanges.first.answer.id]!.difficulty,
+        greaterThan(s.progress.cards[plan.exchanges.last.answer.id]!.difficulty),
+        reason: 'the exchange answered wrong first was rated hard',
+      );
+
+      // Next mission is now open.
+      await tapText(t, 'Next mission');
+      expect(find.text('Ordering at the bar'), findsWidgets);
+    });
+  }
 
   testWidgets('a locked mission says what to finish first', (t) async {
     usePhone(t);
@@ -260,6 +268,39 @@ void main() {
       }
     }
     expect(find.text('Not available yet. Planned.'), findsNothing); // last route is a path
+  });
+
+  testWidgets('every screen holds up at the largest text size (200%) on a small phone', (t) async {
+    usePhone(t, width: 360, height: 690);
+    t.platformDispatcher.textScaleFactorTestValue = 2;
+    addTearDown(t.platformDispatcher.clearTextScaleFactorTestValue);
+    await t.pumpWidget(await testApp(prefs: {LearnerStore.key: jsonEncode(const LearnerState(reduceMotion: true).toJson())}));
+    final container = containerOf(t);
+    Future<void> visit(String route) async {
+      container.read(appRouterProvider).go(route);
+      await t.pumpAndSettle();
+      expect(t.takeException(), isNull, reason: route);
+    }
+
+    await visit('/welcome');
+    await visit('/welcome/courses');
+    container.read(appStateProvider.notifier).enroll('japanese', 'en');
+    for (final route in [
+      '/',
+      '/missions',
+      '/progress',
+      '/account',
+      '/catalog',
+      '/course/arabic-moroccan',
+      '/path/ja_greet_and_introduce',
+      '/learn/ja_greet_and_introduce/scene',
+      '/learn/ja_greet_and_introduce/cards',
+      '/learn/ja_greet_and_introduce/practice',
+      '/mission/ja_greet_and_introduce',
+      '/review',
+    ]) {
+      await visit(route);
+    }
   });
 
   testWidgets('a stale link to a mission outside the course shows a way back, not a crash', (t) async {
