@@ -85,7 +85,7 @@ If the owner has not named a next step, ask which item from docs/HANDOFF.md §9 
 | Content | 4 flagship draft chapters published with disclosure (Darija fr/en, es-ES en, ja en, en fr/ru). Nothing is native-reviewed | `scripts/src/seed-curriculum.ts` |
 | Device | First iOS simulator pass done on iPhone 17 / iOS 27.0 (dev client, local stack, real Nadia conversation for $0.037). Android, a physical iPhone, background/lock-screen audio and Maestro flows are not run | `docs/evidence/device-qa-2026-10-19.md`, `docs/provider-matrix/mobile-audio-qa.md`, `device-ios-*` screenshots |
 | Hosted | Worker `langquest-api.langquest-nsh.workers.dev` answers **503 `provider_unavailable`** (no secrets). Hosted Supabase is self-hosted on Infra Tayoo, instance `languest` (https://sb-languest.tayoo.app): migrations 000–161 applied and curriculum seeded 2026-11-10 (4 published flagship drafts), no `super_admin` yet (`database.md` §6). No R2, admin not deployed, no EAS build | §8 |
-| CI | `.github/workflows/ci.yml` exists but **has never run** (no remote; it also triggers on `main` while the branch is `master`) | §11 |
+| CI | `.github/workflows/ci.yml` runs on every PR and on pushes to `master`: verify (typecheck, lint, unit tests at turbo `--concurrency=2`), database (local Supabase stack; stack-bound suites must run, `LANGQUEST_REQUIRE_LOCAL_STACK=1`), flutter, web-image, secret scan. First runs: 2026-11-10 on alexHonore/langQuest#1 (verify, database and secret scan green at `cd1ebbc`) | §11 |
 
 ---
 
