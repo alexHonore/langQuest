@@ -124,3 +124,19 @@ phrases and native name is in its own script's subset; the interface strings nee
 | File | Shows |
 |---|---|
 | `flutter-v2-40-web-desktop-frame`, `flutter-v2-41-web-iphone-welcome` | The phone frame in a laptop window; the first screen on an emulated iPhone with the readable language switch |
+
+### Account: sign-in and sync (follow-up, local stack)
+
+The owner approved sign-in and progress sync with the instance. What the server allows shaped it: mission credit is
+server-authoritative (XP and review cards only with an assessed spoken attempt), so the Flutter app syncs courses and
+mission completion, and keeps practice XP and its review schedule on the device. Details in the app README.
+
+| Check (local Supabase stack + `wrangler dev`, local test accounts only) | Result |
+|---|---|
+| Learner flow by hand (`signup` → token → `POST /v1/me/enrollments` → mission detail → attempt → evaluate) | 201, then 409 `conflict` on repeat; evaluate 200: `missionCredited=false`, 0 XP, next mission returned; mission ids = UUIDv5 of the bundle keys (checked in the DB) |
+| Browser A (Docker image, `config.json` from env): first run → Settings › Create account → Spanish mission 1 through the UI | Signed in; server: `spanish-spain\|en active`, `mission_progress completed`, not credited |
+| Browser B (fresh): Japanese first run → Settings › Sign in | Spanish course added next to Japanese, mission 1's stops done, 0 review cards, local XP untouched; 0 errors |
+| `flutter test` | 82 passed (UUID vectors, config, sync: send / replay / restore / refused course / signed out, Settings section) |
+
+Live setup still to do: the Worker's secrets (needs the `keys:secret` right on the Infra Tayoo key) and
+`LQ_API_BASE_URL` on the hosted app. Until then the live app shows no account section (the API answers 503).

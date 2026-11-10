@@ -22,7 +22,7 @@ enabled = true
 API_ENV = "production"
 LOG_LEVEL = "info"
 JOBS_BACKEND = "postgres"
-CORS_ALLOWED_ORIGINS = "https://admin.langquest.app,https://app.langquest.app"
+CORS_ALLOWED_ORIGINS = "https://admin.langquest.app,https://app.langquest.app,https://web-languest.tayoo.app"
 R2_BUCKET = "langquest-media"
 R2_PUBLIC_BUCKET = "langquest-public"
 
@@ -60,6 +60,6 @@ workers_dev = true
 API_ENV = "production"
 LOG_LEVEL = "info"
 JOBS_BACKEND = "postgres"
-CORS_ALLOWED_ORIGINS = "https://admin.langquest.app,https://app.langquest.app"
+CORS_ALLOWED_ORIGINS = "https://admin.langquest.app,https://app.langquest.app,https://web-languest.tayoo.app"
 R2_BUCKET = "langquest-media"
 R2_PUBLIC_BUCKET = "langquest-public"
