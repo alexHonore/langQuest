@@ -27,8 +27,12 @@ flutter build web --release
 
 The web build is the same app, laid out for a phone: on a phone browser it fills the screen; in a wider window
 (a computer or a tablet) it is shown as a centered phone (`lib/core/layout/phone_frame.dart`), and a mouse can drag
-lists and card pages like a finger. Progress is kept in the browser's local storage. The device voice is the
-browser's speech synthesis, with the same exact-locale rule as on phones.
+lists and card pages like a finger. Progress is kept in the browser's local storage. After one visit it also opens
+offline (airplane mode, or from the home screen): `web/sw.js` serves the files from its cache when the network fails
+(network first, so a redeploy shows on the next load; same-origin files only — the account API is never cached). The device voice is the
+browser's speech synthesis, with the same exact-locale rule as on phones. On their own lines the learner can record themselves
+(MediaRecorder; the browser asks for the microphone the first time, and only on https or localhost) and hear the take next to
+the reference voice; the take stays in memory and is never uploaded.
 
 The repository's root `Dockerfile` builds it (Flutter 3.47.7, pinned to its release commit) and serves the files with
 Caddy on `$PORT` (default 8080, what the Infra Tayoo hosted app checks); `deploy/Caddyfile` sends `no-cache` so a redeploy shows on the next load. It reads no
@@ -66,7 +70,7 @@ Without a backend the app is offline: progress lives on the device and nothing a
 |---|---|
 | Courses | Enrolled here → `POST /v1/me/enrollments`; enrolled in the account → added here (archived ones are not). One active source per track on the server: a second instruction language of the same track stays on the device and is named in Settings. |
 | Completed missions | Done here → `GET /v1/missions/:id` + attempt + evaluate. Steps built on the learner's own lines are claimed `success`, the others `unclear`: the server records the mission as completed for the path and credits nothing it has no evidence for. Done in the account → their stops are marked done here (read from the learner's own `mission_progress` rows), so the path continues on any device. |
-| Not synced | Practice XP and the review schedule: the server pays XP and creates review cards only for missions with an assessed spoken attempt, which this app does not record yet. |
+| Not synced | Practice XP and the review schedule: the server pays XP and creates review cards only for missions with an assessed spoken attempt, which needs a recognizer on the server (OpenRouter, not configured); takes recorded in the app stay on the device. |
 | Your data | Settings › Account › **Export my data** downloads the server's JSON bundle (`GET /v1/me/export`; web only for now — native needs a file/share plugin). **Delete my account** asks for a typed confirmation word, calls `DELETE /v1/me`, and signs out only once the server has answered (`deleted` / `scheduled`, shown as such); progress on the device stays until the learner resets it. |
 
 Server ids are computed offline: missions and expressions are UUIDv5 of their curriculum keys
@@ -107,11 +111,13 @@ docker build -t langquest-web . && docker run --rm --network host -e PORT=8090 \
 | Review | Phrases used in a mission enter spaced review (first try right = good, otherwise hard). Recall from the meaning, reveal, rate Again / Hard / Good / Easy. The scheduler is a Dart port of the API's FSRS-like scheduler with the same defaults; `test/srs_test.dart` checks it against vectors produced by the TypeScript implementation. |
 | Progress | Only measured numbers: XP (practice, never proficiency — product XP amounts: mission 50, step 5, review 3, each mission paid once), streak from active days, this week, missions completed, phrases met / in review, and review strength from the schedule (not a speech score). |
 | Settings | Account (when a backend answers), app language, dark/light theme, courses (switch, remove with confirmation), reset all local data, open-source licenses. |
+| Record and compare | On the learner's own lines (the Learn scene, the Mission's "say it" card), where the device can record — the web app today (`lib/core/platform/recorder_web.dart`): record yourself, then play your take next to the reference voice, ADR-006's *listen / record / compare*. Nothing is judged: no score or waveform, only the microphone level while recording; a take whose loudest moment stays at or below −50 dBFS (the server's silence floor, `SILENCE_PEAK_DBFS`) is answered "I didn't hear anything". A refused or missing microphone is said plainly. The take stays in memory on the device — never saved or uploaded — and is dropped when the line changes. Without a recorder (the iOS and Android builds, no plugin yet) the control is not shown. |
 | Voice | The phone's synthesizer, only when the device has a voice for the course's **exact** locale (`es-ES` never falls back to a Latin American voice). Colloquial Arabic gets no device voice at all: phone Arabic voices speak MSA, which must never stand in for Darija (ADR-006, variety boundaries). Without a voice, listen buttons are not shown. |
 
 Not shown, because nothing real backs them in an offline build (hidden rather than faked, as the Expo app hides tabs
 per course capability): the **Talk** stop and **Speak** tab (live AI conversation), the **Audio** tab and mini player
-(no licensed audio library), any recording, waveform or pronunciation score (ADR-006).
+(no licensed audio library), any waveform or pronunciation score (ADR-006), and recording in the native builds (no
+recorder plugin yet).
 
 ## Content
 
@@ -149,18 +155,20 @@ lib/
 assets/content/                 generated content bundle
 assets/fonts/                   Outfit + Inter (OFL), bundled: no runtime font downloads
 assets/fonts/scripts/           Noto Sans subsets for other scripts (tool/subset_fonts.py, OFL-NotoSans*.txt)
-web/                            index.html (splash until the first frame), flutter_bootstrap.js, manifest, icons
+web/                            index.html (splash until the first frame), flutter_bootstrap.js, sw.js (offline), manifest, icons
 deploy/Caddyfile, config.json  static server config for the root Dockerfile; the account settings template
 ```
 
 ## Next steps
 
-1. **API wiring, continued** — sign-in, courses and mission completion are wired (above). Next: password reset and
-   email confirmation links (need the web origin in Supabase's redirect URLs), account export/deletion
-   (`GET /v1/me/export`, `DELETE /v1/me`), the course manifest instead of the bundle when online, reviews from the
-   server once missions are credited.
+1. **API wiring, continued** — sign-in, courses, mission completion, export and account deletion are wired (above).
+   Next: password reset and email confirmation links (need the web origin in Supabase's redirect URLs), the course
+   manifest instead of the bundle when online, reviews from the server once missions are credited.
 2. **Talk stop and Speak tab** — live conversation through the API's conversation routes, shown per course capability.
-3. **Recording** — attempts with `peakLevelDb` for the server's speech-detection verdict; reference-comparison feedback
-   (never a numeric score without an acoustic assessor).
+3. **Recording, continued** — record and compare works in the web app, on the device only. Next: a recorder in the
+   iOS and Android builds (a recorder plugin and the microphone permission strings), then — once the server has a
+   recognizer (OpenRouter, a cost decision) — sending takes with `peakLevelDb` for its speech-detection verdict and
+   reference-comparison feedback (never a numeric score without an acoustic assessor).
 4. Device QA on iOS and Android (this build was verified with unit/widget tests and the web build only).
-5. Native launcher icons: `web/` has the LangQuest icons; `ios/` and `android/` still carry Flutter's defaults.
+5. Android adaptive launcher icon: the launcher icons are LangQuest's on every platform, but Android gets the legacy
+   square PNGs only (no `mipmap-anydpi-v26` foreground/background pair yet).

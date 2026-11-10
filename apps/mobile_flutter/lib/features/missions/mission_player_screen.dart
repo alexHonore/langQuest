@@ -13,6 +13,7 @@ import '../../l10n/l10n.dart';
 import '../learn/learn_content.dart';
 import '../learn/learn_providers.dart';
 import '../learn/learn_widgets.dart';
+import '../learn/record_take.dart';
 import '../mascot/melo_model.dart';
 import '../mascot/melo_widget.dart';
 import '../scenes/animated_scene.dart';
@@ -21,9 +22,10 @@ enum _Phase { exchange, recap, completed }
 
 /// The Mission stop of a mission node (N2). Every exchange asks only for a line the Learn stop taught: the
 /// character's cue (or the meaning, when the learner speaks first), the reply chosen among three taught phrases,
-/// then said out loud. This build has no recorder, so nothing is measured and no level, waveform or score is
-/// shown (pronunciation honesty, ADR-006). Completing it credits the mission once and puts each phrase used into
-/// spaced review (first-try right = good, otherwise hard).
+/// then said out loud — where the device can record, the learner can record it and hear their take next to the
+/// reference voice. Nothing is judged: no score, waveform or level after the take (pronunciation honesty, ADR-006).
+/// Completing it credits the mission once and puts each phrase used into spaced review (first-try right = good,
+/// otherwise hard).
 class MissionPlayerScreen extends ConsumerStatefulWidget {
   final String missionKey;
 
@@ -297,6 +299,8 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                     ),
                     const SizedBox(height: 12),
                     ListenButtons(text: exchange.answer.text, locale: plan.voiceLocale),
+                    const SizedBox(height: 10),
+                    RecordTake(key: ValueKey('take-$_exchange'), voiceLocale: plan.voiceLocale, centered: true),
                     const SizedBox(height: 12),
                     MeloWidget(state: MeloState.happy, courseTrackId: appState.activeTrackId, size: 56),
                   ],

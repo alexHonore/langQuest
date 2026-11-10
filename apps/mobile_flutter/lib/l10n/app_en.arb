@@ -414,7 +414,7 @@
   "sceneClinic": "Clinic",
   "accountTitle": "Account",
   "accountPitch": "Save your courses and completed missions to an account, and pick up where you left off on another device or browser.",
-  "accountDeviceOnly": "Practice XP and your review schedule stay on this device: the server counts XP only for missions with an assessed spoken attempt, which this app does not record yet.",
+  "accountDeviceOnly": "Practice XP and your review schedule stay on this device: the server counts XP only for missions with a spoken attempt it has assessed, and recordings made here never leave this device.",
   "accountEmail": "Email",
   "accountPassword": "Password",
   "accountSignIn": "Sign in",
@@ -466,5 +466,31 @@
   },
   "accountDeleteWord": "DELETE",
   "accountDeleted": "Your account was deleted.",
-  "accountDeleteScheduled": "Your account will be deleted within 30 days. Sign in again to cancel."
+  "accountDeleteScheduled": "Your account will be deleted within 30 days. Sign in again to cancel.",
+  "recordYourself": "Record yourself",
+  "recordStop": "Stop",
+  "recordStopSemantics": "Stop recording",
+  "recordingNow": "Recording",
+  "recordMyVoice": "My voice",
+  "recordMyVoiceSemantics": "Play your recording",
+  "recordStopPlayingSemantics": "Stop playing your recording",
+  "recordAgain": "Again",
+  "recordAgainSemantics": "Record again",
+  "recordTryAgain": "Try again",
+  "recordStaysOnDevice": "Your recording stays on this device.",
+  "recordCompare": "Compare: {listen}, then {mine}.",
+  "@recordCompare": {
+    "placeholders": {
+      "listen": {
+        "type": "String"
+      },
+      "mine": {
+        "type": "String"
+      }
+    }
+  },
+  "recordSilent": "I didn’t hear anything. Check your microphone and try again.",
+  "recordBlocked": "The microphone is blocked. Allow it for this site, then try again.",
+  "recordNoMicrophone": "No microphone found.",
+  "recordFailed": "Recording didn’t work."
 }

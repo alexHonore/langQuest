@@ -14,11 +14,13 @@ import '../scenes/animated_scene.dart';
 import 'learn_content.dart';
 import 'learn_providers.dart';
 import 'learn_widgets.dart';
+import 'record_take.dart';
 
 /// L1 — "watch it happen": the mission's dialogue plays line by line. The character's lines are heard (device
 /// voice when one exists for the variety, labelled synthetic), every line shows in the target script with its
-/// romanization and meaning, and on the learner's own lines the learner shadows it out loud. Nothing is scored
-/// and nothing is asked yet. Fits the screen: the scene takes the height left after the line card and button.
+/// romanization and meaning, and on the learner's own lines the learner shadows it out loud (and, where the device
+/// can record, records it to hear next to the reference). Nothing is scored and nothing is asked yet. Fits the
+/// screen: the scene takes the height left after the line card and button.
 class SceneLessonScreen extends ConsumerStatefulWidget {
   final String missionKey;
   const SceneLessonScreen({super.key, required this.missionKey});
@@ -193,6 +195,7 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
                     ],
                     const SizedBox(height: 10),
                     ListenButtons(text: line.expression.text, locale: plan.voiceLocale, compact: true),
+                    if (learnerTurn) ...[const SizedBox(height: 8), RecordTake(key: ValueKey('take-$index'), voiceLocale: plan.voiceLocale)],
                   ],
                 ),
               ).animate().fadeIn(duration: 260.ms).slideY(begin: 0.08, end: 0, duration: 260.ms),

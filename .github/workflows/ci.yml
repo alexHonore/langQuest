@@ -82,6 +82,7 @@ jobs:
           curl -fsS http://localhost:8080/ | grep -q 'flutter_bootstrap.js'
           curl -fsS -o /dev/null http://localhost:8080/main.dart.js
           curl -fsS -o /dev/null http://localhost:8080/assets/assets/content/chapters.json
+          curl -fsS http://localhost:8080/sw.js | grep -q "langquest-v1"   # the offline service worker
           test "$(curl -s -o /dev/null -w '%{content_type}' http://localhost:8080/canvaskit/canvaskit.wasm)" = application/wasm
           test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/missing.js)" = 404
           # No backend variables here: the app's config is empty (offline), and nothing else is published.

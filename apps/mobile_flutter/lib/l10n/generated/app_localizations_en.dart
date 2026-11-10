@@ -610,7 +610,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get accountDeviceOnly =>
-      'Practice XP and your review schedule stay on this device: the server counts XP only for missions with an assessed spoken attempt, which this app does not record yet.';
+      'Practice XP and your review schedule stay on this device: the server counts XP only for missions with a spoken attempt it has assessed, and recordings made here never leave this device.';
 
   @override
   String get accountEmail => 'Email';
@@ -694,4 +694,54 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get accountDeleteScheduled => 'Your account will be deleted within 30 days. Sign in again to cancel.';
+
+  @override
+  String get recordYourself => 'Record yourself';
+
+  @override
+  String get recordStop => 'Stop';
+
+  @override
+  String get recordStopSemantics => 'Stop recording';
+
+  @override
+  String get recordingNow => 'Recording';
+
+  @override
+  String get recordMyVoice => 'My voice';
+
+  @override
+  String get recordMyVoiceSemantics => 'Play your recording';
+
+  @override
+  String get recordStopPlayingSemantics => 'Stop playing your recording';
+
+  @override
+  String get recordAgain => 'Again';
+
+  @override
+  String get recordAgainSemantics => 'Record again';
+
+  @override
+  String get recordTryAgain => 'Try again';
+
+  @override
+  String get recordStaysOnDevice => 'Your recording stays on this device.';
+
+  @override
+  String recordCompare(String listen, String mine) {
+    return 'Compare: $listen, then $mine.';
+  }
+
+  @override
+  String get recordSilent => 'I didn’t hear anything. Check your microphone and try again.';
+
+  @override
+  String get recordBlocked => 'The microphone is blocked. Allow it for this site, then try again.';
+
+  @override
+  String get recordNoMicrophone => 'No microphone found.';
+
+  @override
+  String get recordFailed => 'Recording didn’t work.';
 }

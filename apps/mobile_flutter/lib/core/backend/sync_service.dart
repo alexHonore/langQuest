@@ -97,8 +97,8 @@ abstract class RestoreTarget {
 ///   stops are marked done here, so the next mission unlocks on any device.
 ///
 /// XP and the review schedule stay with the device that earned them: the server credits XP and creates review
-/// cards only for missions it has evidence for (an assessed spoken attempt, which this app does not record yet), so
-/// the step outcomes sent here are claims it records without paying for them. Every call is idempotent on the
+/// cards only for missions it has evidence for (an assessed spoken attempt; takes recorded in the app stay on the
+/// device and are never sent), so the step outcomes sent here are claims it records without paying for them. Every call is idempotent on the
 /// server, so an interrupted sync is simply run again.
 class SyncService {
   SyncService({required this.api, required this.auth, required this.ledger, required this.target, DateTime Function()? now}) : _now = now ?? DateTime.now;

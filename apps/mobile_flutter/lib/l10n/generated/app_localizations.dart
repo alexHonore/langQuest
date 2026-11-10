@@ -1145,7 +1145,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountDeviceOnly.
   ///
   /// In en, this message translates to:
-  /// **'Practice XP and your review schedule stay on this device: the server counts XP only for missions with an assessed spoken attempt, which this app does not record yet.'**
+  /// **'Practice XP and your review schedule stay on this device: the server counts XP only for missions with a spoken attempt it has assessed, and recordings made here never leave this device.'**
   String get accountDeviceOnly;
 
   /// No description provided for @accountEmail.
@@ -1291,6 +1291,102 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your account will be deleted within 30 days. Sign in again to cancel.'**
   String get accountDeleteScheduled;
+
+  /// No description provided for @recordYourself.
+  ///
+  /// In en, this message translates to:
+  /// **'Record yourself'**
+  String get recordYourself;
+
+  /// No description provided for @recordStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get recordStop;
+
+  /// No description provided for @recordStopSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop recording'**
+  String get recordStopSemantics;
+
+  /// No description provided for @recordingNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording'**
+  String get recordingNow;
+
+  /// No description provided for @recordMyVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'My voice'**
+  String get recordMyVoice;
+
+  /// No description provided for @recordMyVoiceSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Play your recording'**
+  String get recordMyVoiceSemantics;
+
+  /// No description provided for @recordStopPlayingSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop playing your recording'**
+  String get recordStopPlayingSemantics;
+
+  /// No description provided for @recordAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Again'**
+  String get recordAgain;
+
+  /// No description provided for @recordAgainSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Record again'**
+  String get recordAgainSemantics;
+
+  /// No description provided for @recordTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get recordTryAgain;
+
+  /// No description provided for @recordStaysOnDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Your recording stays on this device.'**
+  String get recordStaysOnDevice;
+
+  /// No description provided for @recordCompare.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare: {listen}, then {mine}.'**
+  String recordCompare(String listen, String mine);
+
+  /// No description provided for @recordSilent.
+  ///
+  /// In en, this message translates to:
+  /// **'I didn’t hear anything. Check your microphone and try again.'**
+  String get recordSilent;
+
+  /// No description provided for @recordBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'The microphone is blocked. Allow it for this site, then try again.'**
+  String get recordBlocked;
+
+  /// No description provided for @recordNoMicrophone.
+  ///
+  /// In en, this message translates to:
+  /// **'No microphone found.'**
+  String get recordNoMicrophone;
+
+  /// No description provided for @recordFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording didn’t work.'**
+  String get recordFailed;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
