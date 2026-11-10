@@ -2,7 +2,7 @@
 # This is what the Infra Tayoo hosted app runs. In a wide browser window the app is shown at phone size.
 #
 #   docker build -t langquest-web .
-#   docker run --rm -p 8080:3000 langquest-web          # then open http://localhost:8080
+#   docker run --rm -p 8080:8080 langquest-web          # then open http://localhost:8080
 #
 # The app works offline on its bundled content and keeps progress in the browser. It reads no variables: none of the
 # hosted app's variables (or secrets) are used by the build or end up in the files served.
@@ -37,4 +37,5 @@ RUN flutter build web --release --no-web-resources-cdn --no-wasm-dry-run
 FROM caddy:2.11-alpine
 COPY apps/mobile_flutter/deploy/Caddyfile /etc/caddy/Caddyfile
 COPY --from=build /src/build/web /srv
-EXPOSE 3000
+# The Infra Tayoo hosted app health-checks 0.0.0.0:8080 and sets no PORT.
+EXPOSE 8080

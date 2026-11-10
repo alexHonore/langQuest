@@ -30,18 +30,24 @@ lists and card pages like a finger. Progress is kept in the browser's local stor
 browser's speech synthesis, with the same exact-locale rule as on phones.
 
 The repository's root `Dockerfile` builds it (Flutter 3.47.7, pinned to its release commit) and serves the files with
-Caddy on `$PORT` (default 3000); `deploy/Caddyfile` sends `no-cache` so a redeploy shows on the next load. It reads no
+Caddy on `$PORT` (default 8080, what the Infra Tayoo hosted app checks); `deploy/Caddyfile` sends `no-cache` so a redeploy shows on the next load. It reads no
 variables: nothing from the host's environment is built into the files served. CI's `web-image` job builds the image
 and checks that it serves the app.
 
 ```bash
 docker build -t langquest-web .                      # from the repository root
-docker run --rm -p 8080:3000 langquest-web           # http://localhost:8080
+docker run --rm -p 8080:8080 langquest-web           # http://localhost:8080
 ```
 
-On Infra Tayoo (instance `languest`), the hosted app runs this image when its source branch has it: `infra-tayoo
-status` shows the source branch and the app URL, `infra-tayoo deploy` deploys the branch's latest commit (the
-`infra-tayoo` CLI comes from the Infra Tayoo portal; its key must never be committed or printed).
+On Infra Tayoo (instance `languest`), the hosted app builds `master` with this image and health-checks
+`0.0.0.0:8080`: `infra-tayoo status` shows the source and the app URL, `infra-tayoo deploy` deploys `master`'s latest
+commit (the `infra-tayoo` CLI comes from the Infra Tayoo portal; its key must never be committed or printed).
+
+Fonts on the web: the UI fonts are bundled, but characters they lack (Arabic, Japanese, the native names of other
+scripts in the catalog) are drawn with the web engine's fallback fonts, which it downloads from `fonts.gstatic.com`.
+The engine also chooses between Chinese and Japanese forms by the browser's language, not the phrase's, so on an
+English or French browser Japanese kanji take Chinese forms. iOS and Android use the system fonts with each phrase's
+locale and are not affected.
 
 ## What the app does
 

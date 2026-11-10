@@ -5,7 +5,7 @@
 	persist_config off
 }
 
-:{$PORT:3000} {
+:{$PORT:8080} {
 	root * /srv
 	encode zstd gzip
 	header {
