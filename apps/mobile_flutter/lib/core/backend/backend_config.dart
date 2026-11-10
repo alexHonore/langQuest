@@ -19,7 +19,9 @@ class BackendConfig {
   static BackendConfig? from({String? supabaseUrl, String? supabaseAnonKey, String? apiBaseUrl}) {
     String clean(String? v) => (v ?? '').trim();
     final url = clean(supabaseUrl), key = clean(supabaseAnonKey), api = clean(apiBaseUrl).replaceAll(RegExp(r'/+$'), '');
-    if (url.isEmpty || key.isEmpty || api.isEmpty) return null;
+    bool web(String v) => ['http', 'https'].contains(Uri.tryParse(v)?.scheme) && Uri.parse(v).host.isNotEmpty;
+    // An unfilled template or a typo is not a backend: the app stays offline rather than calling it.
+    if (!web(url) || key.isEmpty || key.contains('{') || !web(api)) return null;
     return BackendConfig(supabaseUrl: url, supabaseAnonKey: key, apiBaseUrl: api);
   }
 
@@ -28,8 +30,8 @@ class BackendConfig {
 }
 
 /// Build-time values (`--dart-define=LQ_SUPABASE_URL=… LQ_SUPABASE_ANON_KEY=… LQ_API_BASE_URL=…`) for native builds;
-/// on the web, `config.json` next to `index.html`, which the web image writes from its environment at start-up
-/// (`deploy/entrypoint.sh`), so one image serves any instance.
+/// on the web, `config.json` next to `index.html`, which the web image's server fills from its environment
+/// (`deploy/config.json` + `deploy/Caddyfile`), so one image serves any instance.
 Future<BackendConfig?> loadBackendConfig({http.Client? client}) async {
   final defined = BackendConfig.from(
     supabaseUrl: const String.fromEnvironment('LQ_SUPABASE_URL'),

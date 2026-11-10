@@ -138,5 +138,10 @@ mission completion, and keeps practice XP and its review schedule on the device.
 | Browser B (fresh): Japanese first run → Settings › Sign in | Spanish course added next to Japanese, mission 1's stops done, 0 review cards, local XP untouched; 0 errors |
 | `flutter test` | 82 passed (UUID vectors, config, sync: send / replay / restore / refused course / signed out, Settings section) |
 
-Live setup still to do: the Worker's secrets (needs the `keys:secret` right on the Infra Tayoo key) and
-`LQ_API_BASE_URL` on the hosted app. Until then the live app shows no account section (the API answers 503).
+Live setup (owner granted `keys:secret`, then said merge): the `langquest-api` Worker got `SUPABASE_URL`,
+`SUPABASE_ANON_KEY` and `SUPABASE_SERVICE_ROLE_KEY` (values piped from the Infra Tayoo API into `wrangler secret put`,
+never printed; no OpenRouter key) and was redeployed from `master` with the web origin in CORS: `/healthz` 200, the
+instance's four seeded courses listed, preflight from `https://web-languest.tayoo.app` allowed. `LQ_API_BASE_URL` set
+on the hosted app. The first deployment of the account build served no `/config.json` (404): the start-up script
+that wrote it did not run there (entrypoint overridden or read-only image). It is now a static template that Caddy
+fills from the environment on each request — checked with a read-only root filesystem.
