@@ -1,0 +1,180 @@
+import 'dart:ui' show PlatformDispatcher;
+
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '../../features/learn/learn_logic.dart';
+import '../content/content_bundle.dart';
+import '../content/content_models.dart';
+import '../learning/srs.dart';
+import '../theme/accents.dart';
+import '../theme/colors.dart';
+import 'learner_state.dart';
+import 'learner_store.dart';
+
+/// Clock used for schedules, streaks and XP days (overridden in tests).
+final clockProvider = Provider<DateTime Function()>((ref) => DateTime.now);
+
+/// Language of the device, used until the learner picks one (overridden in tests).
+final deviceLanguageProvider = Provider<String>((ref) => PlatformDispatcher.instance.locale.languageCode);
+
+/// Most reviews offered in one sitting, so new material is never crowded out (`maxReviewsPerSession`).
+const maxReviewsPerSession = 12;
+
+/// Everything the screens read: the learner's saved state plus the content bundle it refers to.
+class AppState {
+  final ContentBundle content;
+  final LearnerState learner;
+  final String deviceLanguage;
+
+  const AppState({required this.content, required this.learner, required this.deviceLanguage});
+
+  /// Interface language: the learner's choice, else the device language when supported, else English.
+  String get uiLanguage {
+    final chosen = learner.uiLanguage;
+    if (chosen != null && supportedInstructionLanguages.contains(chosen)) return chosen;
+    return supportedInstructionLanguages.contains(deviceLanguage) ? deviceLanguage : 'en';
+  }
+
+  bool get isDark => learner.darkMode;
+  LangQuestColors get colors => isDark ? LangQuestColors.dark : LangQuestColors.light;
+
+  bool get hasEnrollment => learner.enrollments.isNotEmpty;
+
+  /// The course being learned (null before the first enrollment).
+  Course? get activeCourse {
+    final e = learner.activeEnrollment;
+    return e == null ? null : content.course(e.trackId, e.source);
+  }
+
+  String? get activeTrackId => activeCourse?.track.id;
+  CourseAccent get accent => CourseAccent.forTrack(activeCourse?.track, isDark: isDark);
+
+  CourseProgress get progress {
+    final course = activeCourse;
+    return course == null ? const CourseProgress() : learner.progressOf(course.id);
+  }
+
+  Set<PathStop> stopsDone(String missionKey) => progress.stopsDone(missionKey);
+
+  /// A mission opens once the one before it is completed (the first is always open).
+  bool isUnlocked(Course course, String missionKey) {
+    final i = course.indexOfMission(missionKey);
+    if (i <= 0) return i == 0;
+    return learner.progressOf(course.id).isMissionCompleted(course.missions[i - 1].key);
+  }
+
+  /// The first mission of the course not completed yet; null when the whole course is done.
+  Mission? nextMission(Course course) {
+    final p = learner.progressOf(course.id);
+    for (final m in course.missions) {
+      if (!p.isMissionCompleted(m.key)) return m;
+    }
+    return null;
+  }
+
+  /// Due review cards of the active course, most fragile first, capped per session.
+  List<ReviewCard> dueCards(DateTime now, {Scheduler scheduler = const Scheduler()}) {
+    final due = [
+      for (final c in progress.cards.values)
+        if (c.isDue(now)) c,
+    ]..sort((a, b) => scheduler.retrievabilityAt(a, now).compareTo(scheduler.retrievabilityAt(b, now)));
+    return due.take(maxReviewsPerSession).toList();
+  }
+
+  int streak(DateTime now) => streakDays(learner.xpByDay, now);
+}
+
+class AppStateNotifier extends Notifier<AppState> {
+  static const _scheduler = Scheduler();
+
+  @override
+  AppState build() =>
+      AppState(content: ref.watch(contentBundleProvider), learner: ref.read(learnerStoreProvider).load(), deviceLanguage: ref.watch(deviceLanguageProvider));
+
+  DateTime get _now => ref.read(clockProvider)();
+
+  void _update(LearnerState learner) {
+    state = AppState(content: state.content, learner: learner, deviceLanguage: state.deviceLanguage);
+    ref.read(learnerStoreProvider).save(learner);
+  }
+
+  void setUiLanguage(String code) {
+    if (!supportedInstructionLanguages.contains(code)) return;
+    _update(state.learner.copyWith(uiLanguage: code));
+  }
+
+  void setDarkMode(bool dark) => _update(state.learner.copyWith(darkMode: dark));
+  void toggleTheme() => setDarkMode(!state.isDark);
+
+  /// Enroll in (track, source) — only when the bundle has content for that pair — and make it the active course.
+  bool enroll(String trackId, String source) {
+    if (!state.content.isAvailable(trackId, source)) return false;
+    final learner = state.learner;
+    final id = courseIdFor(trackId, source);
+    final enrollments = learner.isEnrolled(trackId, source)
+        ? learner.enrollments
+        : [...learner.enrollments, Enrollment(trackId: trackId, source: source, enrolledAt: _now.toUtc())];
+    _update(learner.copyWith(enrollments: enrollments, activeCourseId: id));
+    return true;
+  }
+
+  void switchCourse(String courseId) {
+    if (!state.learner.enrollments.any((e) => e.courseId == courseId)) return;
+    _update(state.learner.copyWith(activeCourseId: courseId));
+  }
+
+  /// Remove one course and its progress (other courses and XP history stay).
+  void unenroll(String courseId) {
+    final learner = state.learner;
+    final enrollments = [
+      for (final e in learner.enrollments)
+        if (e.courseId != courseId) e,
+    ];
+    final courses = {...learner.courses}..remove(courseId);
+    final active = learner.activeCourseId == courseId ? (enrollments.isEmpty ? null : enrollments.first.courseId) : learner.activeCourseId;
+    _update(learner.copyWith(enrollments: enrollments, courses: courses, activeCourseId: active));
+  }
+
+  /// Mark a Learn or Practise stop of [missionKey] done in the active course (+5 XP the first time).
+  void completeStop(String missionKey, PathStop stop) {
+    final course = state.activeCourse;
+    if (course == null || course.indexOfMission(missionKey) < 0) return;
+    final progress = state.learner.progressOf(course.id);
+    if (progress.stopsDone(missionKey).contains(stop)) return;
+    _update(state.learner.withCourse(course.id, progress.withStop(missionKey, stop)).withXp(XpAmounts.stepCompleted, _now));
+  }
+
+  /// The Mission stop is done: +50 XP the first time, and each phrase the learner used enters spaced review with
+  /// the rating its exchange earned (first-try right = good, otherwise hard). Existing schedules are left as they are.
+  void completeMission(String missionKey, Map<String, ReviewRating> ratingsByExpressionId) {
+    final course = state.activeCourse;
+    if (course == null || course.indexOfMission(missionKey) < 0) return;
+    final now = _now.toUtc();
+    final progress = state.learner.progressOf(course.id);
+    final firstTime = !progress.isMissionCompleted(missionKey);
+    final newCards = <String, ReviewCard>{
+      for (final e in ratingsByExpressionId.entries)
+        if (!progress.cards.containsKey(e.key)) e.key: _scheduler.review(ReviewCard.fresh(e.key, now), e.value, now).card,
+    };
+    var learner = state.learner.withCourse(course.id, progress.withStop(missionKey, PathStop.mission).withCards(newCards));
+    if (firstTime) learner = learner.withXp(XpAmounts.missionCompleted, now);
+    _update(learner);
+  }
+
+  /// Rate one due card (+3 XP).
+  void reviewCard(String expressionId, ReviewRating rating) {
+    final course = state.activeCourse;
+    if (course == null) return;
+    final progress = state.learner.progressOf(course.id);
+    final card = progress.cards[expressionId];
+    if (card == null) return;
+    final now = _now.toUtc();
+    final next = _scheduler.review(card, rating, now).card;
+    _update(state.learner.withCourse(course.id, progress.withCards({expressionId: next})).withXp(XpAmounts.reviewCompleted, now));
+  }
+
+  /// Forget everything on this device (settings › reset).
+  void resetAll() => _update(LearnerState(uiLanguage: state.learner.uiLanguage, darkMode: state.learner.darkMode));
+}
+
+final appStateProvider = NotifierProvider<AppStateNotifier, AppState>(AppStateNotifier.new);

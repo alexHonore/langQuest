@@ -1,0 +1,415 @@
+{
+  "@@locale": "en",
+  "appTitle": "LangQuest",
+  "tabHome": "Home",
+  "tabMissions": "Missions",
+  "tabProgress": "Progress",
+  "back": "Back",
+  "close": "Close",
+  "cancel": "Cancel",
+  "next": "Next",
+  "you": "You",
+  "listen": "Listen",
+  "listenSlowly": "Slowly",
+  "listenSlowlySemantics": "Listen slowly",
+  "syntheticVoice": "Synthetic voice",
+  "stepOf": "Step {step} of {total}",
+  "@stepOf": {
+    "placeholders": {
+      "step": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "xpGain": "+{xp} XP",
+  "@xpGain": {
+    "placeholders": {
+      "xp": {
+        "type": "int"
+      }
+    }
+  },
+  "languageName": "{code, select, en{English} fr{French} ru{Russian} other{{code}}}",
+  "@languageName": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "fromLanguage": "{code, select, en{from English} fr{from French} ru{from Russian} other{from {code}}}",
+  "@fromLanguage": {
+    "placeholders": {
+      "code": {
+        "type": "String"
+      }
+    }
+  },
+  "notNativeReviewed": "Not yet reviewed by native speakers",
+  "draftChapterNotice": "AI-drafted chapter, not yet reviewed by native speakers. It may contain mistakes.",
+  "missionsCount": "{count, plural, =1{1 mission} other{{count} missions}}",
+  "@missionsCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "settings": "Settings",
+  "switchCourse": "Switch course",
+  "welcomeTitle": "Learn a language by using it",
+  "welcomeBody": "Real situations and real dialects, taught before you are tested. Free: no subscriptions, credits or paywalls.",
+  "welcomeLanguageLabel": "App and explanations in",
+  "welcomeContinue": "Choose a course",
+  "pickCourseTitle": "What do you want to learn?",
+  "pickCourseReady": "Ready to start",
+  "pickCourseNone": "No course can be taught from this language yet.",
+  "seeAllCourses": "See all 30 courses",
+  "courseIncludesTitle": "What this course includes",
+  "courseIncludesMissions": "Mission pathway ({count, plural, =1{1 mission} other{{count} missions}})",
+  "@courseIncludesMissions": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "courseIncludesLearn": "Before each mission: a scene, phrase cards and two mini-games",
+  "courseIncludesReview": "Spaced review of the phrases you use",
+  "courseIncludesVoice": "Lines read by your phone's synthetic voice, when it has one for this language",
+  "courseMissingTitle": "What this course does not have yet",
+  "courseMissingNativeReview": "Native-speaker review: the content is an AI draft and may contain mistakes",
+  "courseMissingConversation": "Live conversation with AI characters",
+  "courseMissingAudio": "Audio library",
+  "courseMissingPronunciation": "Spoken pronunciation feedback",
+  "courseMissingVoiceDialect": "A voice for this dialect: phone voices speak Modern Standard Arabic, which is not this variety",
+  "courseLearnFrom": "Learn from",
+  "coursePlanned": "Not available yet. Planned.",
+  "courseStart": "Start this course",
+  "courseContinue": "Continue this course",
+  "courseExplanationsIn": "Explanations in {language}",
+  "@courseExplanationsIn": {
+    "placeholders": {
+      "language": {
+        "type": "String"
+      }
+    }
+  },
+  "homeNextMission": "Next mission",
+  "homeNextStop": "Next: {stop}",
+  "@homeNextStop": {
+    "placeholders": {
+      "stop": {
+        "type": "String"
+      }
+    }
+  },
+  "homeChapterDone": "Chapter complete",
+  "homeChapterDoneBody": "You have used every phrase of this chapter. Review keeps them alive.",
+  "homeReviewTitle": "Review",
+  "reviewsDue": "{count, plural, =0{No reviews due} =1{1 review due} other{{count} reviews due}}",
+  "@reviewsDue": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "nextReviewAt": "Next review {when}",
+  "@nextReviewAt": {
+    "placeholders": {
+      "when": {
+        "type": "String"
+      }
+    }
+  },
+  "streakDays": "{count, plural, =1{1 day in a row} other{{count} days in a row}}",
+  "@streakDays": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "streakPaused": "Streak paused. Resume whenever you like.",
+  "pathwayTitle": "Your pathway",
+  "chapterLabel": "Chapter {index}",
+  "@chapterLabel": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "missionLabel": "Mission {index}",
+  "@missionLabel": {
+    "placeholders": {
+      "index": {
+        "type": "int"
+      }
+    }
+  },
+  "missionLocked": "Finish “{title}” first",
+  "@missionLocked": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "lockedSemantics": "locked",
+  "stopLearn": "Learn",
+  "stopPractise": "Practise",
+  "stopMission": "Mission",
+  "stopTalk": "Talk",
+  "stopsDoneSemantics": "{done} of {total} steps done",
+  "@stopsDoneSemantics": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "pathLearnSubtitle": "A scene with {name}, then {count, plural, =1{1 phrase} other{{count} phrases}}",
+  "@pathLearnSubtitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "pathPractiseSubtitle": "Match the pairs, build a sentence",
+  "pathPractisePairsOnly": "Match the pairs",
+  "pathMissionSubtitle": "{count, plural, =1{1 exchange} other{{count} exchanges}} with {name}",
+  "@pathMissionSubtitle": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pathComplete": "Mission path complete",
+  "pathStartStop": "Start: {stop}",
+  "@pathStartStop": {
+    "placeholders": {
+      "stop": {
+        "type": "String"
+      }
+    }
+  },
+  "pathContinueStop": "Continue: {stop}",
+  "@pathContinueStop": {
+    "placeholders": {
+      "stop": {
+        "type": "String"
+      }
+    }
+  },
+  "pathDoneSemantics": "done",
+  "pathNextSemantics": "next",
+  "sceneTitle": "Learn · {title}",
+  "@sceneTitle": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "sceneYourLine": "Your line — say it out loud",
+  "sceneISaidIt": "I said it",
+  "sceneLearnPhrases": "Learn the phrases",
+  "speakingSemantics": "{name} is speaking",
+  "@speakingSemantics": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "cardsTitle": "New phrases · {title}",
+  "@cardsTitle": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "cardsNextPhrase": "Next phrase",
+  "cardsPractise": "Practise",
+  "noteLabel": "Note",
+  "practiseTitle": "Practise · {title}",
+  "@practiseTitle": {
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "pairsPrompt": "Match each phrase with its meaning",
+  "pairsDone": "All matched!",
+  "pairsNextRound": "Next round",
+  "pairsBuildSentence": "Build a sentence",
+  "matchedSemantics": "{label}, matched",
+  "@matchedSemantics": {
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "tilesPrompt": "Build the sentence",
+  "tilesCheck": "Check",
+  "tilesWrong": "Not quite — tap a word to take it back.",
+  "tilesRemoveSemantics": "{word}, remove",
+  "@tilesRemoveSemantics": {
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "startMission": "Start the mission",
+  "missionCue": "{name} says",
+  "@missionCue": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "missionWhatDoYouAnswer": "What do you answer?",
+  "missionHowDoYouSay": "How do you say “{meaning}”?",
+  "@missionHowDoYouSay": {
+    "placeholders": {
+      "meaning": {
+        "type": "String"
+      }
+    }
+  },
+  "missionWrong": "Not quite — think of what you practised.",
+  "missionSayIt": "Say it out loud",
+  "missionRecapTitle": "What you used",
+  "missionComplete": "Complete the mission",
+  "missionCompleted": "Mission completed!",
+  "missionXpOnce": "XP for a mission counts once; this replay is practice.",
+  "missionJoinReview": "{count, plural, =1{1 phrase joins your review} other{{count} phrases join your review}}",
+  "@missionJoinReview": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "missionBackToPath": "Back to the mission path",
+  "missionNext": "Next mission",
+  "missionNotFound": "This mission is not part of your current course.",
+  "backHome": "Back home",
+  "reviewTitle": "Review",
+  "reviewHowDoYouSay": "How do you say…",
+  "reviewSayThenShow": "Say it out loud, then show the answer.",
+  "reviewShowAnswer": "Show answer",
+  "reviewAgain": "Again",
+  "reviewHard": "Hard",
+  "reviewGood": "Good",
+  "reviewEasy": "Easy",
+  "reviewLeft": "{count, plural, =1{1 left} other{{count} left}}",
+  "@reviewLeft": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "reviewAllDone": "All caught up for today.",
+  "reviewEmpty": "Phrases you use in missions come back here, just before you would forget them.",
+  "progressTitle": "Your progress",
+  "xpLabel": "XP",
+  "xpNote": "XP tracks how much you practise, not how well you speak.",
+  "streakTitle": "Streak",
+  "thisWeek": "This week",
+  "missionsDoneTitle": "Missions completed",
+  "countOfTotal": "{done} of {total}",
+  "@countOfTotal": {
+    "placeholders": {
+      "done": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "phrasesTitle": "Phrases",
+  "phrasesMet": "Met in lessons",
+  "phrasesInReview": "In review",
+  "strengthLearning": "Learning",
+  "strengthYoung": "Getting there",
+  "strengthSolid": "Solid",
+  "strengthNote": "From your review schedule — not a score of your speech.",
+  "progressEmpty": "Start a mission to see your progress here.",
+  "freeTitle": "Free for every learner",
+  "freeBody": "LangQuest has no paywalls, subscriptions, credits or usage meters.",
+  "appLanguage": "App language",
+  "darkTheme": "Dark theme",
+  "darkThemeOn": "Night Market, dark-first",
+  "darkThemeOff": "Light palette",
+  "yourCourses": "Your courses",
+  "addCourse": "Add a course",
+  "removeCourse": "Remove",
+  "removeCourseTitle": "Remove {course}?",
+  "@removeCourseTitle": {
+    "placeholders": {
+      "course": {
+        "type": "String"
+      }
+    }
+  },
+  "removeCourseBody": "Its progress and reviews on this device are deleted. Your other courses are not touched.",
+  "yourData": "Your data",
+  "yourDataBody": "Everything is saved on this device only. There is no account in this version.",
+  "resetAll": "Reset all progress",
+  "resetAllTitle": "Reset all progress?",
+  "resetAllBody": "All courses, reviews and XP on this device are deleted.",
+  "resetConfirm": "Reset",
+  "activeCourse": "Active",
+  "openSourceLicenses": "Open-source licenses",
+  "catalogTitle": "Courses",
+  "catalogSubtitle": "30 courses. Real dialects. Free.",
+  "catalogSearch": "Search languages and dialects",
+  "catalogReady": "Ready · draft",
+  "catalogPlanned": "Planned",
+  "catalogEnrolled": "Enrolled",
+  "catalogNoResults": "No course matches “{query}”",
+  "@catalogNoResults": {
+    "placeholders": {
+      "query": {
+        "type": "String"
+      }
+    }
+  },
+  "browseAllCourses": "Browse all 30 courses",
+  "sceneCafe": "Café",
+  "sceneStreet": "Street",
+  "sceneAirport": "Airport",
+  "sceneMarket": "Market",
+  "sceneHome": "Home",
+  "sceneOffice": "Office",
+  "sceneTransit": "On the move",
+  "sceneRestaurant": "Restaurant",
+  "sceneGathering": "Rooftop",
+  "sceneStation": "Station",
+  "scenePark": "Park",
+  "sceneClinic": "Clinic"
+}

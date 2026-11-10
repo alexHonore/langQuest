@@ -544,6 +544,9 @@ importers:
       '@langquest/media':
         specifier: workspace:*
         version: link:../packages/media
+      '@langquest/ui':
+        specifier: workspace:*
+        version: link:../packages/ui
       '@supabase/supabase-js':
         specifier: ^2.117.0
         version: 2.117.3
