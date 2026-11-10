@@ -305,7 +305,7 @@ and `npx wrangler deploy --env production` from `apps/api` → admin on any Node
 
 | Blocked | Why | Owner action |
 |---|---|---|
-| Hosted content + first admin | the Infra Tayoo instance `languest` has the schema but no curriculum seed or `super_admin` yet | `seed-curriculum -- --apply` with the service-role key (`infra-tayoo keys --secret`), then insert the first `super_admin` (`database.md` §6) |
+| Hosted first admin | the Infra Tayoo instance `languest` has the schema and curriculum but no `super_admin` yet | sign up the owner account, then insert the first `super_admin` with the service-role key (`infra-tayoo keys --secret`, `database.md` §6) |
 | Cloudflare R2 | not enabled on the account (`10042`) | enable R2 (payment method), create `langquest-media` + `langquest-public`, create an R2 API token, set Worker secrets |
 | Cloudflare Queues | Workers Paid plan | optional; keep `JOBS_BACKEND=postgres` |
 | Azure Speech | no credentials | optional; only tracks on the 33-locale list get numeric pronunciation scores (ADR-006) |

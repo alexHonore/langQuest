@@ -10,7 +10,7 @@ table refreshes from `GET /api/v1/models`._
 | Provider | Role in LangQuest | Required? | State (2026-10-14) |
 |---|---|---|---|
 | OpenRouter | all LLM text tasks, STT, TTS (single gateway, `packages/ai`) | yes | key valid, $50/month key budget |
-| Supabase | Postgres 17, Auth, RLS, RPC job queue (`packages/db`, `supabase/`) | yes | self-hosted on Infra Tayoo, instance `languest` (https://sb-languest.tayoo.app): migrations applied 2026-11-10, content seed pending; local Docker for development |
+| Supabase | Postgres 17, Auth, RLS, RPC job queue (`packages/db`, `supabase/`) | yes | self-hosted on Infra Tayoo, instance `languest` (https://sb-languest.tayoo.app): migrations and curriculum seed applied 2026-11-10; local Docker for development |
 | Cloudflare Workers | `apps/api` Hono Worker `langquest-api` | yes | account OK, `workers.dev` subdomain `langquest-nsh`; free plan |
 | Cloudflare R2 | master/derived/public media, manifests, TTS cache | yes for media | **not enabled** (`10042`) |
 | Cloudflare Queues | optional job wake-up signal (`JOBS_BACKEND=cloudflare_queues`) | no | not created (needs Workers Paid) |

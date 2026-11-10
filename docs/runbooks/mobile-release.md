@@ -26,7 +26,7 @@ Read in `apps/mobile/src/config/env.ts`. Server secrets (OpenRouter, service rol
 renders an explicit "not configured" state. For EAS, put these in `eas.json` build profiles (`env`) or EAS project secrets —
 they are public by design, so `eas.json` is fine.
 
-**Blocker:** the hosted database exists (Infra Tayoo `languest`) but has no published content until `seed-curriculum` runs, and
+**Blocker:** the hosted database (Infra Tayoo `languest`) has the schema and the 4 published flagship draft chapters, but
 the API is not deployed with secrets yet (`provisioning.md`), so a production build would have no backend. Build against a
 staging deployment first.
 
