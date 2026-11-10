@@ -674,4 +674,36 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get yourDataBodySignedOut =>
       'Tout est enregistré uniquement sur cet appareil, sauf si vous vous connectez ci-dessus pour conserver vos cours et vos missions terminées dans un compte.';
+
+  @override
+  String get accountExport => 'Exporter mes données';
+
+  @override
+  String accountExported(String file) {
+    return 'Enregistré : $file';
+  }
+
+  @override
+  String get accountDelete => 'Supprimer mon compte';
+
+  @override
+  String get accountDeleteTitle => 'Supprimer votre compte ?';
+
+  @override
+  String get accountDeleteBody =>
+      'Supprime définitivement votre compte, ainsi que les cours et la progression qui y sont enregistrés. Cette action est irréversible. La progression sur cet appareil reste jusqu’à ce que vous la réinitialisiez.';
+
+  @override
+  String accountDeleteType(String word) {
+    return 'Tapez $word pour confirmer.';
+  }
+
+  @override
+  String get accountDeleteWord => 'SUPPRIMER';
+
+  @override
+  String get accountDeleted => 'Votre compte a été supprimé.';
+
+  @override
+  String get accountDeleteScheduled => 'Votre compte sera supprimé sous 30 jours. Reconnectez-vous pour annuler.';
 }

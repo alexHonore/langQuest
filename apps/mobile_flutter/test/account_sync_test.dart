@@ -91,6 +91,10 @@ class FakeWorker {
     }
     expect(req.headers['Authorization'], startsWith('Bearer token-of-'));
     if (key == 'GET /v1/me') return json(ok({'enrollments': enrollments}));
+    if (key == 'GET /v1/me/export') {
+      return json(ok({'exportedAt': '2026-11-10T09:00:00Z', 'profile': {'userId': 'u-1'}, 'enrollments': enrollments, 'notes': <String>[]}));
+    }
+    if (key == 'DELETE /v1/me') return json(ok({'status': 'deleted', 'anonymisedTables': <String>[], 'retainedForLegalReasons': <String>[]}));
     if (key == 'POST /v1/me/enrollments') {
       final body = jsonDecode(req.body) as Map;
       if (enrollments.any((e) => e['courseTrackId'] == body['courseTrackId'] && e['status'] == 'active')) {
@@ -294,9 +298,9 @@ void main() {
   });
 
   group('settings', () {
-    Future<void> pumpSection(WidgetTester tester, {required bool healthy}) async {
+    Future<void> pumpSection(WidgetTester tester, {required bool healthy, AccountUser? user}) async {
       worker = FakeWorker()..healthy = healthy;
-      auth = FakeAuth();
+      auth = FakeAuth(user: user);
       final overrides = [
         ...await testOverrides(),
         backendConfigProvider.overrideWithValue(const BackendConfig(supabaseUrl: 'https://sb.test', supabaseAnonKey: 'anon', apiBaseUrl: 'https://api.test')),
@@ -334,6 +338,42 @@ void main() {
       expect(find.text('Signed in as learner@example.test'), findsOneWidget);
       expect(find.text('Sign out'), findsOneWidget);
       expect(find.textContaining('Practice XP and your review schedule stay on this device'), findsOneWidget);
+      await tester.pump(const Duration(seconds: 3));
+    });
+
+    testWidgets('deleting the account takes the typed word, calls the server, then signs out', (tester) async {
+      await pumpSection(tester, healthy: true, user: const AccountUser(id: 'u-1', email: 'learner@example.test'));
+      expect(find.text('Export my data'), findsNothing, reason: 'no file download outside the browser in this build');
+      await tester.tap(find.text('Delete my account'));
+      await tester.pumpAndSettle();
+      expect(find.text('Delete your account?'), findsOneWidget);
+      final confirm = find.descendant(of: find.byType(AlertDialog), matching: find.widgetWithText(TextButton, 'Delete my account'));
+      expect(tester.widget<TextButton>(confirm).onPressed, isNull, reason: 'nothing happens before the word is typed');
+      await tester.enterText(find.descendant(of: find.byType(AlertDialog), matching: find.byType(TextField)), 'delete');
+      await tester.pump();
+      expect(tester.widget<TextButton>(confirm).onPressed, isNotNull);
+      await tester.tap(confirm);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(worker.bodies['DELETE /v1/me']!.single, {'confirmation': 'DELETE', 'deleteOptInRecordings': true});
+      expect(auth.user, isNull, reason: 'signed out only after the server confirmed');
+      expect(find.text('Your account was deleted.'), findsOneWidget);
+      expect(find.text('Sign in'), findsOneWidget);
+    });
+
+    testWidgets('a refused deletion keeps the learner signed in and says why', (tester) async {
+      await pumpSection(tester, healthy: true, user: const AccountUser(id: 'u-1', email: 'learner@example.test'));
+      worker.failNext['DELETE /v1/me'] = 1;
+      await tester.tap(find.text('Delete my account'));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.descendant(of: find.byType(AlertDialog), matching: find.byType(TextField)), 'DELETE');
+      await tester.pump();
+      await tester.tap(find.descendant(of: find.byType(AlertDialog), matching: find.widgetWithText(TextButton, 'Delete my account')));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(auth.user, isNotNull);
+      expect(find.text('Sign out'), findsOneWidget);
+      expect(find.text('boom'), findsOneWidget);
       await tester.pump(const Duration(seconds: 3));
     });
 

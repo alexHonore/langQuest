@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -131,6 +132,46 @@ class AccountController extends Notifier<AccountState> {
     } catch (e) {
       state = state.copyWith(busy: false, error: () => '$e');
       return false;
+    }
+  }
+
+  /// Everything the account holds, as indented JSON (`GET /v1/me/export`); null on failure (see [AccountState.error]).
+  Future<String?> exportData() async {
+    final api = ref.read(apiProvider);
+    if (api == null || state.user == null) return null;
+    state = state.copyWith(busy: true, error: () => null);
+    try {
+      final data = await api.exportData();
+      state = state.copyWith(busy: false);
+      return const JsonEncoder.withIndent('  ').convert(data);
+    } on ApiException catch (e) {
+      state = state.copyWith(busy: false, error: () => e.message.isNotEmpty ? e.message : e.code);
+      return null;
+    }
+  }
+
+  /// Deletes the account on the server. Only once the server has confirmed does this device sign out (and forget what
+  /// it had sent to that account); its own progress stays until the learner resets it. Returns the server's status,
+  /// `deleted` or `scheduled`, or null on failure (see [AccountState.error]).
+  Future<String?> deleteAccount() async {
+    final api = ref.read(apiProvider);
+    final auth = ref.read(authGatewayProvider);
+    final user = state.user;
+    if (api == null || auth == null || user == null) return null;
+    state = state.copyWith(busy: true, error: () => null);
+    try {
+      final status = '${(await api.deleteAccount())['status']}';
+      await ref.read(syncLedgerProvider).forget(user.id);
+      try {
+        await auth.signOut();
+      } catch (_) {
+        // The account is gone; a failed local sign-out must not hide that.
+      }
+      state = AccountState(available: state.available);
+      return status;
+    } on ApiException catch (e) {
+      state = state.copyWith(busy: false, error: () => e.message.isNotEmpty ? e.message : e.code);
+      return null;
     }
   }
 

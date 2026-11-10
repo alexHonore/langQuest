@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/backend/account.dart';
+import '../../core/platform/download.dart';
 import '../../core/services/app_state.dart';
 import '../../core/theme/glass.dart';
 import '../../l10n/l10n.dart';
@@ -26,6 +27,28 @@ class _AccountSectionState extends ConsumerState<AccountSection> {
     _email.dispose();
     _password.dispose();
     super.dispose();
+  }
+
+  void _say(String message) => ScaffoldMessenger.maybeOf(context)
+    ?..hideCurrentSnackBar()
+    ..showSnackBar(SnackBar(content: Text(message)));
+
+  Future<void> _export() async {
+    final json = await ref.read(accountProvider.notifier).exportData();
+    if (json == null || !mounted) return;
+    final file = 'langquest-export-${DateTime.now().toUtc().toIso8601String().substring(0, 10)}.json';
+    await downloadTextFile(file, json);
+    if (mounted) _say(context.l10n.accountExported(file));
+  }
+
+  /// Deleting the account takes typing the confirmation word (localized; the API's own guard is the literal DELETE).
+  Future<void> _delete() async {
+    final l10n = context.l10n;
+    final confirmed = await showDialog<bool>(context: context, builder: (_) => const _DeleteAccountDialog());
+    if (confirmed != true || !mounted) return;
+    final status = await ref.read(accountProvider.notifier).deleteAccount();
+    if (status == null || !mounted) return;
+    _say(status == 'scheduled' ? l10n.accountDeleteScheduled : l10n.accountDeleted);
   }
 
   Future<void> _submit({required bool create}) async {
@@ -148,6 +171,7 @@ class _AccountSectionState extends ConsumerState<AccountSection> {
         const SizedBox(height: 12),
         Wrap(
           spacing: 10,
+          runSpacing: 8,
           children: [
             if (account.phase == SyncPhase.failed)
               FilledButton(
@@ -156,8 +180,23 @@ class _AccountSectionState extends ConsumerState<AccountSection> {
                 child: Text(l10n.accountTryAgain),
               ),
             OutlinedButton(onPressed: account.busy ? null : () => ref.read(accountProvider.notifier).signOut(), child: Text(l10n.accountSignOut)),
+            if (canDownloadFiles)
+              OutlinedButton.icon(
+                onPressed: account.busy ? null : _export,
+                icon: const Icon(LucideIcons.download, size: 16),
+                label: Text(l10n.accountExport),
+              ),
+            TextButton(
+              onPressed: account.busy ? null : _delete,
+              style: TextButton.styleFrom(foregroundColor: colors.error),
+              child: Text(l10n.accountDelete),
+            ),
           ],
         ),
+        if (account.error != null) ...[
+          const SizedBox(height: 8),
+          Text(account.error!, style: TextStyle(fontSize: 13, color: colors.error)),
+        ],
       ]);
     }
 
@@ -172,6 +211,57 @@ class _AccountSectionState extends ConsumerState<AccountSection> {
           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: children),
         ),
       ),
+    );
+  }
+}
+
+/// Asks for the confirmation word before an account deletion; owns its text field's controller, so the field outlives
+/// the dialog's closing animation.
+class _DeleteAccountDialog extends StatefulWidget {
+  const _DeleteAccountDialog();
+
+  @override
+  State<_DeleteAccountDialog> createState() => _DeleteAccountDialogState();
+}
+
+class _DeleteAccountDialogState extends State<_DeleteAccountDialog> {
+  final _typed = TextEditingController();
+
+  @override
+  void dispose() {
+    _typed.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    final l10n = context.l10n;
+    final word = l10n.accountDeleteWord;
+    final matches = _typed.text.trim().toUpperCase() == word;
+    return AlertDialog(
+      title: Text(l10n.accountDeleteTitle),
+      content: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(l10n.accountDeleteBody),
+            const SizedBox(height: 12),
+            Text(l10n.accountDeleteType(word)),
+            const SizedBox(height: 8),
+            TextField(
+              controller: _typed,
+              autofocus: true,
+              decoration: InputDecoration(hintText: word),
+              onChanged: (_) => setState(() {}),
+            ),
+          ],
+        ),
+      ),
+      actions: [
+        TextButton(onPressed: () => Navigator.of(context).pop(false), child: Text(l10n.cancel)),
+        TextButton(onPressed: matches ? () => Navigator.of(context).pop(true) : null, child: Text(l10n.accountDelete)),
+      ],
     );
   }
 }

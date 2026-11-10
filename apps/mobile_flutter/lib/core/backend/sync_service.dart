@@ -53,6 +53,9 @@ class SyncLedger {
 
   Future<void> markSent(String userId, Iterable<String> keys) => _prefs.setStringList(sentKey(userId), {...sent(userId), ...keys}.toList()..sort());
 
+  /// After the account is deleted: nothing of it is remembered on this device.
+  Future<void> forget(String userId) => _prefs.remove(sentKey(userId));
+
   static String enrollmentKey(String courseId) => 'enroll:$courseId';
   static String missionKey(String courseId, String missionKey) => 'mission:${_key(courseId, missionKey)}';
 }

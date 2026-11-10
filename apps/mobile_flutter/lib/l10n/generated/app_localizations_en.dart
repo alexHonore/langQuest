@@ -662,4 +662,36 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get yourDataBodySignedOut =>
       'Everything is saved on this device only, unless you sign in above to keep your courses and completed missions in an account.';
+
+  @override
+  String get accountExport => 'Export my data';
+
+  @override
+  String accountExported(String file) {
+    return 'Saved $file';
+  }
+
+  @override
+  String get accountDelete => 'Delete my account';
+
+  @override
+  String get accountDeleteTitle => 'Delete your account?';
+
+  @override
+  String get accountDeleteBody =>
+      'This permanently removes your account and the courses and progress saved in it. It cannot be undone. The progress on this device stays until you reset it.';
+
+  @override
+  String accountDeleteType(String word) {
+    return 'Type $word to confirm.';
+  }
+
+  @override
+  String get accountDeleteWord => 'DELETE';
+
+  @override
+  String get accountDeleted => 'Your account was deleted.';
+
+  @override
+  String get accountDeleteScheduled => 'Your account will be deleted within 30 days. Sign in again to cancel.';
 }

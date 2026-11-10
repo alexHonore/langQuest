@@ -190,5 +190,14 @@
   "accountNotSaved": "Non enregistré dans votre compte : {courses}. Une autre langue d’explication de ce cours y est déjà active.",
   "accountSignOut": "Se déconnecter",
   "yourDataBodyAccount": "Vos cours et vos missions terminées sont aussi conservés dans votre compte. Tout le reste — XP d’entraînement, révisions, réglages — n’est enregistré que sur cet appareil.",
-  "yourDataBodySignedOut": "Tout est enregistré uniquement sur cet appareil, sauf si vous vous connectez ci-dessus pour conserver vos cours et vos missions terminées dans un compte."
+  "yourDataBodySignedOut": "Tout est enregistré uniquement sur cet appareil, sauf si vous vous connectez ci-dessus pour conserver vos cours et vos missions terminées dans un compte.",
+  "accountExport": "Exporter mes données",
+  "accountExported": "Enregistré : {file}",
+  "accountDelete": "Supprimer mon compte",
+  "accountDeleteTitle": "Supprimer votre compte ?",
+  "accountDeleteBody": "Supprime définitivement votre compte, ainsi que les cours et la progression qui y sont enregistrés. Cette action est irréversible. La progression sur cet appareil reste jusqu’à ce que vous la réinitialisiez.",
+  "accountDeleteType": "Tapez {word} pour confirmer.",
+  "accountDeleteWord": "SUPPRIMER",
+  "accountDeleted": "Votre compte a été supprimé.",
+  "accountDeleteScheduled": "Votre compte sera supprimé sous 30 jours. Reconnectez-vous pour annuler."
 }

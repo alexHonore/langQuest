@@ -443,5 +443,28 @@
   },
   "accountSignOut": "Sign out",
   "yourDataBodyAccount": "Your courses and completed missions are also kept in your account. Everything else — practice XP, reviews, settings — is saved on this device only.",
-  "yourDataBodySignedOut": "Everything is saved on this device only, unless you sign in above to keep your courses and completed missions in an account."
+  "yourDataBodySignedOut": "Everything is saved on this device only, unless you sign in above to keep your courses and completed missions in an account.",
+  "accountExport": "Export my data",
+  "accountExported": "Saved {file}",
+  "@accountExported": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "accountDelete": "Delete my account",
+  "accountDeleteTitle": "Delete your account?",
+  "accountDeleteBody": "This permanently removes your account and the courses and progress saved in it. It cannot be undone. The progress on this device stays until you reset it.",
+  "accountDeleteType": "Type {word} to confirm.",
+  "@accountDeleteType": {
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "accountDeleteWord": "DELETE",
+  "accountDeleted": "Your account was deleted.",
+  "accountDeleteScheduled": "Your account will be deleted within 30 days. Sign in again to cancel."
 }

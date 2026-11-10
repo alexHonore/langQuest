@@ -1237,6 +1237,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Everything is saved on this device only, unless you sign in above to keep your courses and completed missions in an account.'**
   String get yourDataBodySignedOut;
+
+  /// No description provided for @accountExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export my data'**
+  String get accountExport;
+
+  /// No description provided for @accountExported.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved {file}'**
+  String accountExported(String file);
+
+  /// No description provided for @accountDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete my account'**
+  String get accountDelete;
+
+  /// No description provided for @accountDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete your account?'**
+  String get accountDeleteTitle;
+
+  /// No description provided for @accountDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently removes your account and the courses and progress saved in it. It cannot be undone. The progress on this device stays until you reset it.'**
+  String get accountDeleteBody;
+
+  /// No description provided for @accountDeleteType.
+  ///
+  /// In en, this message translates to:
+  /// **'Type {word} to confirm.'**
+  String accountDeleteType(String word);
+
+  /// No description provided for @accountDeleteWord.
+  ///
+  /// In en, this message translates to:
+  /// **'DELETE'**
+  String get accountDeleteWord;
+
+  /// No description provided for @accountDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account was deleted.'**
+  String get accountDeleted;
+
+  /// No description provided for @accountDeleteScheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account will be deleted within 30 days. Sign in again to cancel.'**
+  String get accountDeleteScheduled;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
