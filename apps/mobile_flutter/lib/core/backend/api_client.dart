@@ -88,6 +88,13 @@ class LangQuestApi {
     }),
   );
 
+  /// `GET /v1/me/export` — the portable JSON bundle of everything the account holds (§11).
+  Future<Map<String, Object?>> exportData() async => _object(await _send('GET', '/v1/me/export'));
+
+  /// `DELETE /v1/me` — deletes the account on the server (`deleted`, or `scheduled` when the policy defers it).
+  /// The literal confirmation is the API's own guard against accidental calls.
+  Future<Map<String, Object?>> deleteAccount() async => _object(await _send('DELETE', '/v1/me', {'confirmation': 'DELETE', 'deleteOptInRecordings': true}));
+
   Future<Object?> _send(String method, String path, [Map<String, Object?>? body]) async {
     final token = await accessToken();
     final request = http.Request(method, Uri.parse('$baseUrl$path'))

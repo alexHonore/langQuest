@@ -154,3 +154,10 @@ was then deleted through `DELETE /v1/me` (200 `deleted`). 0 page or console erro
 
 Test learner (owner's request): a confirmed account on the instance from the hosted app's `LOCAL_LEARNER_EMAIL` /
 `LOCAL_LEARNER_PASSWORD` (domain `langquest.test`), so it signs in without an email; checked: sign-in ok, `/v1/me` 200.
+
+Account data (follow-up, local stack): Settings › Account › Export my data downloaded `langquest-export-<date>.json`
+in the browser (the server's bundle: profile, enrollments, progress, …); Delete my account required the typed word,
+called `DELETE /v1/me`, showed "Your account was deleted." and signed out; signing in again was refused. A widget test
+caught the confirmation field's controller being disposed during the dialog's closing animation (fixed: the dialog owns
+it). `flutter test`: 84 passed.
+

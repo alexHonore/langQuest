@@ -67,6 +67,7 @@ Without a backend the app is offline: progress lives on the device and nothing a
 | Courses | Enrolled here → `POST /v1/me/enrollments`; enrolled in the account → added here (archived ones are not). One active source per track on the server: a second instruction language of the same track stays on the device and is named in Settings. |
 | Completed missions | Done here → `GET /v1/missions/:id` + attempt + evaluate. Steps built on the learner's own lines are claimed `success`, the others `unclear`: the server records the mission as completed for the path and credits nothing it has no evidence for. Done in the account → their stops are marked done here (read from the learner's own `mission_progress` rows), so the path continues on any device. |
 | Not synced | Practice XP and the review schedule: the server pays XP and creates review cards only for missions with an assessed spoken attempt, which this app does not record yet. |
+| Your data | Settings › Account › **Export my data** downloads the server's JSON bundle (`GET /v1/me/export`; web only for now — native needs a file/share plugin). **Delete my account** asks for a typed confirmation word, calls `DELETE /v1/me`, and signs out only once the server has answered (`deleted` / `scheduled`, shown as such); progress on the device stays until the learner resets it. |
 
 Server ids are computed offline: missions and expressions are UUIDv5 of their curriculum keys
 (`core/backend/curriculum_ids.dart`, same namespace as `packages/db/src/seed/curriculum-uuid.ts`). Every call is
