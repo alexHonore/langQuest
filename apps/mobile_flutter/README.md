@@ -27,7 +27,9 @@ flutter build web --release
 
 The web build is the same app, laid out for a phone: on a phone browser it fills the screen; in a wider window
 (a computer or a tablet) it is shown as a centered phone (`lib/core/layout/phone_frame.dart`), and a mouse can drag
-lists and card pages like a finger. Progress is kept in the browser's local storage. The device voice is the
+lists and card pages like a finger. Progress is kept in the browser's local storage. After one visit it also opens
+offline (airplane mode, or from the home screen): `web/sw.js` serves the files from its cache when the network fails
+(network first, so a redeploy shows on the next load; same-origin files only — the account API is never cached). The device voice is the
 browser's speech synthesis, with the same exact-locale rule as on phones.
 
 The repository's root `Dockerfile` builds it (Flutter 3.47.7, pinned to its release commit) and serves the files with
@@ -149,7 +151,7 @@ lib/
 assets/content/                 generated content bundle
 assets/fonts/                   Outfit + Inter (OFL), bundled: no runtime font downloads
 assets/fonts/scripts/           Noto Sans subsets for other scripts (tool/subset_fonts.py, OFL-NotoSans*.txt)
-web/                            index.html (splash until the first frame), flutter_bootstrap.js, manifest, icons
+web/                            index.html (splash until the first frame), flutter_bootstrap.js, sw.js (offline), manifest, icons
 deploy/Caddyfile, config.json  static server config for the root Dockerfile; the account settings template
 ```
 
