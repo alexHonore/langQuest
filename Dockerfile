@@ -4,8 +4,9 @@
 #   docker build -t langquest-web .
 #   docker run --rm -p 8080:8080 langquest-web          # then open http://localhost:8080
 #
-# The app works offline on its bundled content and keeps progress in the browser. It reads no variables: none of the
-# hosted app's variables (or secrets) are used by the build or end up in the files served.
+# The app works offline on its bundled content and keeps progress in the browser. /config.json publishes only the account
+# backend's client-safe settings (Supabase URL and anon key, API URL), filled by Caddy from the environment
+# (apps/mobile_flutter/deploy/Caddyfile); no other variable or secret of the host is read or served.
 
 FROM debian:trixie-slim AS build
 
@@ -37,5 +38,6 @@ RUN flutter build web --release --no-web-resources-cdn --no-wasm-dry-run
 FROM caddy:2.11-alpine
 COPY apps/mobile_flutter/deploy/Caddyfile /etc/caddy/Caddyfile
 COPY --from=build /src/build/web /srv
+COPY apps/mobile_flutter/deploy/config.json /srv/config.json
 # The Infra Tayoo hosted app health-checks 0.0.0.0:8080 and sets no PORT.
 EXPOSE 8080

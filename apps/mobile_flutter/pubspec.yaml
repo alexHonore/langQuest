@@ -47,6 +47,8 @@ dependencies:
   lucide_icons_flutter: ^4.0.0
   # On-device speech for the learn path (L1 scene lines, L3 tap-to-hear); no backend voice in this build.
   flutter_tts: ^4.2.3
+  supabase_flutter: ^2.18.3
+  crypto: ^3.0.8
 
 dev_dependencies:
   flutter_test:

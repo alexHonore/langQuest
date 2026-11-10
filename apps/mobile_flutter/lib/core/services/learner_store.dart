@@ -13,6 +13,9 @@ class LearnerStore {
 
   LearnerStore(this._prefs);
 
+  /// The same preferences, for the account sync's own small ledger.
+  SharedPreferences get prefs => _prefs;
+
   LearnerState load() {
     final raw = _prefs.getString(key);
     if (raw == null) return const LearnerState();

@@ -4,7 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:supabase_flutter/supabase_flutter.dart';
 
+import 'core/backend/account.dart';
+import 'core/backend/backend_config.dart';
 import 'core/content/content_bundle.dart';
 import 'core/layout/phone_frame.dart';
 import 'core/services/app_state.dart';
@@ -30,9 +33,29 @@ Future<void> main() async {
   final content = await ContentBundle.load(rootBundle);
   final prefs = await SharedPreferences.getInstance();
 
+  // An account is optional: without a backend in this build (or if it cannot start) the app stays offline.
+  var backend = await loadBackendConfig();
+  if (backend != null) {
+    try {
+      await Supabase.initialize(
+        url: backend.supabaseUrl,
+        publishableKey: backend.supabaseAnonKey,
+        // Password sign-in only: no email links or OAuth redirects to read from the URL (the app routes with #/…).
+        authOptions: const FlutterAuthClientOptions(detectSessionInUri: false),
+      );
+    } catch (e) {
+      debugPrint('Account features off: $e');
+      backend = null;
+    }
+  }
+
   runApp(
     ProviderScope(
-      overrides: [contentBundleProvider.overrideWithValue(content), learnerStoreProvider.overrideWithValue(LearnerStore(prefs))],
+      overrides: [
+        contentBundleProvider.overrideWithValue(content),
+        learnerStoreProvider.overrideWithValue(LearnerStore(prefs)),
+        backendConfigProvider.overrideWithValue(backend),
+      ],
       child: const LangQuestApp(),
     ),
   );
