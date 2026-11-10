@@ -5,6 +5,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/services/app_state.dart';
 import '../../core/theme/accents.dart';
+import '../../core/theme/script_fonts.dart';
 import '../../l10n/l10n.dart';
 
 /// The learner's courses (one per track × instruction language); tap to switch, or browse the catalog.
@@ -106,7 +107,11 @@ class CourseSwitcherSheet extends ConsumerWidget {
                                     ),
                                     Text(
                                       '${track?.nativeName ?? ''} · ${l10n.fromLanguage(e.source)}',
-                                      style: TextStyle(fontSize: 12.5, color: colors.textMuted),
+                                      style: TextStyle(
+                                        fontSize: 12.5,
+                                        color: colors.textMuted,
+                                        fontFamilyFallback: track == null ? null : fontFallbackFor(track),
+                                      ),
                                     ),
                                   ],
                                 ),

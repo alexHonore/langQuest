@@ -8,6 +8,7 @@ import '../../core/content/content_models.dart';
 import '../../core/services/app_state.dart';
 import '../../core/theme/accents.dart';
 import '../../core/theme/glass.dart';
+import '../../core/theme/script_fonts.dart';
 import '../../l10n/l10n.dart';
 import '../learn/learn_widgets.dart';
 import '../mascot/melo_model.dart';
@@ -185,7 +186,7 @@ class _ReadyCourseTile extends ConsumerWidget {
                     Text(
                       track.nativeName,
                       textDirection: track.rtl ? TextDirection.rtl : TextDirection.ltr,
-                      style: TextStyle(fontSize: 14, color: colors.textSecondary),
+                      style: TextStyle(fontSize: 14, color: colors.textSecondary, fontFamilyFallback: fontFallbackFor(track)),
                     ),
                     const SizedBox(height: 4),
                     Text('${l10n.missionsCount(missions)} · ${l10n.notNativeReviewed}', style: TextStyle(fontSize: 12, color: colors.textMuted)),

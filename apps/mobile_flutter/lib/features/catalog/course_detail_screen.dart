@@ -7,6 +7,7 @@ import '../../navigation/nav.dart';
 import '../../core/services/app_state.dart';
 import '../../core/theme/accents.dart';
 import '../../core/theme/glass.dart';
+import '../../core/theme/script_fonts.dart';
 import '../../l10n/l10n.dart';
 import '../learn/learn_widgets.dart';
 
@@ -87,7 +88,12 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                     child: Text(
                       track.nativeName,
                       textDirection: track.rtl ? TextDirection.rtl : TextDirection.ltr,
-                      style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800, color: CourseAccent.readableOn(accent.primary)),
+                      style: TextStyle(
+                        fontSize: 26,
+                        fontWeight: FontWeight.w800,
+                        color: CourseAccent.readableOn(accent.primary),
+                        fontFamilyFallback: fontFallbackFor(track),
+                      ),
                     ),
                   ),
                   const SizedBox(height: 16),
