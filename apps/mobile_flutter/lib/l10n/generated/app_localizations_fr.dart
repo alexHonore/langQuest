@@ -622,7 +622,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get accountDeviceOnly =>
-      'L’XP d’entraînement et vos révisions restent sur cet appareil : le serveur ne compte l’XP que pour les missions avec une prise de parole évaluée, que cette app n’enregistre pas encore.';
+      'L’XP d’entraînement et vos révisions restent sur cet appareil : le serveur ne compte l’XP que pour les missions avec une prise de parole qu’il a évaluée, et les enregistrements faits ici ne quittent jamais cet appareil.';
 
   @override
   String get accountEmail => 'E-mail';
@@ -706,4 +706,54 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get accountDeleteScheduled => 'Votre compte sera supprimé sous 30 jours. Reconnectez-vous pour annuler.';
+
+  @override
+  String get recordYourself => 'Enregistrez-vous';
+
+  @override
+  String get recordStop => 'Arrêter';
+
+  @override
+  String get recordStopSemantics => 'Arrêter l’enregistrement';
+
+  @override
+  String get recordingNow => 'Enregistrement en cours';
+
+  @override
+  String get recordMyVoice => 'Ma voix';
+
+  @override
+  String get recordMyVoiceSemantics => 'Écouter votre enregistrement';
+
+  @override
+  String get recordStopPlayingSemantics => 'Arrêter la lecture de votre enregistrement';
+
+  @override
+  String get recordAgain => 'Recommencer';
+
+  @override
+  String get recordAgainSemantics => 'Enregistrer à nouveau';
+
+  @override
+  String get recordTryAgain => 'Réessayer';
+
+  @override
+  String get recordStaysOnDevice => 'Votre enregistrement reste sur cet appareil.';
+
+  @override
+  String recordCompare(String listen, String mine) {
+    return 'Comparez : $listen, puis $mine.';
+  }
+
+  @override
+  String get recordSilent => 'Je n’ai rien entendu. Vérifiez votre micro et réessayez.';
+
+  @override
+  String get recordBlocked => 'Le micro est bloqué. Autorisez-le pour ce site, puis réessayez.';
+
+  @override
+  String get recordNoMicrophone => 'Aucun micro trouvé.';
+
+  @override
+  String get recordFailed => 'L’enregistrement n’a pas fonctionné.';
 }

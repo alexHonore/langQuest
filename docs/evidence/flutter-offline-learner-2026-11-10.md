@@ -161,3 +161,23 @@ called `DELETE /v1/me`, showed "Your account was deleted." and signed out; signi
 caught the confirmation field's controller being disposed during the dialog's closing animation (fixed: the dialog owns
 it). `flutter test`: 84 passed.
 
+
+Account data, live (after #8 was merged and the hosted app redeployed from `master`): the test learner signed in on
+https://web-languest.tayoo.app, Delete my account was offered, Export my data downloaded the server's bundle
+(`spanish-spain|en`), then signed out; 0 page errors. Read-only: the test learner was not deleted.
+
+### Offline and record-and-compare (follow-up)
+
+Offline: after one online visit (Chromium, against the image), 40 files cached and the page controlled by `sw.js`; with
+the network cut, a reload started the app, and a first run → Japanese → its first lesson worked (こんにちは drawn in the
+bundled Noto Sans JP); 0 errors. CI's image smoke test checks that `sw.js` is served.
+
+Record and compare (Chromium, release build, fake microphone), on the Learn scene's learner line and on the Mission's
+"say it" card: Record yourself → the microphone track is live while recording and ended right after Stop → My voice
+plays the take (a `blob:` URL, nothing uploaded), next to Again. With a silent WAV as the microphone: "I didn't hear
+anything…" and no playback. With getUserMedia refused (`NotAllowedError`): "The microphone is blocked…" and Try again.
+0 page errors (the one 404 was `/config.json`, which only the image's Caddy serves). The first release build took the
+failure path right after a successful start, though the VM widget tests passed: the dart2js output of `_start` read a
+stale variable for the nullable `failure` local (assigned in a catch clause after an `await`, captured by a `setState`
+closure). The start and stop outcomes now come back from small helper functions. `flutter test`: 95 passed (11 for the
+recorder: states, the −50 dBFS silence floor, microphone released on stop and on leaving, French).

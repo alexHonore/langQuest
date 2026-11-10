@@ -213,41 +213,87 @@ class ListenButtons extends ConsumerWidget {
     final voiceLocale = locale;
     final available = ref.watch(voiceAvailableProvider(voiceLocale)).asData?.value ?? false;
     if (!available || voiceLocale == null) return const SizedBox.shrink();
-    final accent = ref.watch(appStateProvider.select((s) => s.accent));
     final speech = ref.read(speechServiceProvider);
     final l10n = context.l10n;
-    Widget chip(IconData icon, String label, String semantics, bool slow) => Semantics(
-      button: true,
-      label: semantics,
-      excludeSemantics: true,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(20),
-        onTap: () => speech.speak(text, locale: voiceLocale, slow: slow),
-        child: Container(
-          constraints: const BoxConstraints(minHeight: 36),
-          padding: EdgeInsets.symmetric(horizontal: compact ? 10 : 14, vertical: compact ? 6 : 9),
-          decoration: BoxDecoration(color: accent.primarySoft, borderRadius: BorderRadius.circular(20)),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(icon, size: 16, color: accent.primaryText),
-              const SizedBox(width: 6),
-              Text(
-                label,
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: accent.primaryText),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        chip(LucideIcons.volume2, l10n.listen, l10n.listen, false),
+        AudioChip(
+          icon: LucideIcons.volume2,
+          label: l10n.listen,
+          compact: compact,
+          onTap: () => speech.speak(text, locale: voiceLocale),
+        ),
         const SizedBox(width: 8),
-        chip(LucideIcons.turtle, l10n.listenSlowly, l10n.listenSlowlySemantics, true),
+        AudioChip(
+          icon: LucideIcons.turtle,
+          label: l10n.listenSlowly,
+          semanticsLabel: l10n.listenSlowlySemantics,
+          compact: compact,
+          onTap: () => speech.speak(text, locale: voiceLocale, slow: true),
+        ),
       ],
+    );
+  }
+}
+
+/// A rounded audio action — listen, record, play back — in the course accent, or in [background] / [foreground].
+class AudioChip extends ConsumerWidget {
+  final IconData icon;
+  final String label;
+
+  /// What a screen reader says, when it differs from [label] ("Slowly" → "Listen slowly").
+  final String? semanticsLabel;
+
+  /// Null disables the chip.
+  final VoidCallback? onTap;
+  final bool compact;
+  final Color? background;
+  final Color? foreground;
+
+  const AudioChip({
+    super.key,
+    required this.icon,
+    required this.label,
+    this.semanticsLabel,
+    this.onTap,
+    this.compact = false,
+    this.background,
+    this.foreground,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final accent = ref.watch(appStateProvider.select((s) => s.accent));
+    final ink = foreground ?? accent.primaryText;
+    return Semantics(
+      button: true,
+      enabled: onTap != null,
+      label: semanticsLabel ?? label,
+      excludeSemantics: true,
+      child: Opacity(
+        opacity: onTap == null ? 0.55 : 1,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(20),
+          onTap: onTap,
+          child: Container(
+            constraints: const BoxConstraints(minHeight: 36),
+            padding: EdgeInsets.symmetric(horizontal: compact ? 10 : 14, vertical: compact ? 6 : 9),
+            decoration: BoxDecoration(color: background ?? accent.primarySoft, borderRadius: BorderRadius.circular(20)),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(icon, size: 16, color: ink),
+                const SizedBox(width: 6),
+                Text(
+                  label,
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: ink),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
