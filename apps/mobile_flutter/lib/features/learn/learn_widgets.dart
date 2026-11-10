@@ -6,6 +6,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../core/content/content_models.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/speech_service.dart';
+import '../../core/theme/script_fonts.dart';
 import '../../l10n/l10n.dart';
 import '../scenes/scene_models.dart';
 import 'learn_logic.dart';
@@ -101,7 +102,13 @@ class TargetText extends ConsumerWidget {
             locale: contentLocaleOf(track),
             textAlign: textAlign,
             textDirection: track.rtl ? TextDirection.rtl : TextDirection.ltr,
-            style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.w700, height: 1.3, color: color ?? colors.textPrimary),
+            style: TextStyle(
+              fontSize: fontSize,
+              fontWeight: FontWeight.w700,
+              height: 1.3,
+              color: color ?? colors.textPrimary,
+              fontFamilyFallback: fontFallbackFor(track),
+            ),
           ),
         ),
         if (reading != null) ...[
@@ -112,7 +119,7 @@ class TargetText extends ConsumerWidget {
               reading,
               locale: contentLocaleOf(track),
               textAlign: textAlign,
-              style: TextStyle(fontSize: fontSize * 0.6, color: colors.textSecondary),
+              style: TextStyle(fontSize: fontSize * 0.6, color: colors.textSecondary, fontFamilyFallback: fontFallbackFor(track)),
             ),
           ),
         ],

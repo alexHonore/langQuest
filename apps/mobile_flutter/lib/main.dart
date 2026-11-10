@@ -21,6 +21,10 @@ Future<void> main() async {
     for (final family in ['Inter', 'Outfit']) {
       yield LicenseEntryWithLineBreaks(['google_fonts: $family'], await rootBundle.loadString('assets/fonts/OFL-$family.txt'));
     }
+    // Subsets of these, bundled for the scripts Inter and Outfit lack (tool/subset_fonts.py).
+    for (final family in ['NotoSansJP', 'NotoSansSC', 'NotoSansTC', 'NotoSansKR', 'NotoSansArabic', 'NotoSansHebrew', 'NotoSansDevanagari']) {
+      yield LicenseEntryWithLineBreaks(['Noto Sans (${family.substring(8)})'], await rootBundle.loadString('assets/fonts/OFL-$family.txt'));
+    }
   });
 
   final content = await ContentBundle.load(rootBundle);

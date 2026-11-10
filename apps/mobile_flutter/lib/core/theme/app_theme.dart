@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'accents.dart';
 import 'colors.dart';
+import 'script_fonts.dart';
 import 'typography.dart';
 
 /// The Material theme for the active course accent and light/dark tokens.
@@ -13,7 +14,7 @@ ThemeData buildAppTheme(LangQuestColors colors, CourseAccent accent, {required b
   final brightness = isDark ? Brightness.dark : Brightness.light;
   final secondary = CourseAccent.readableFill(accent.lantern[1]);
   final onSecondary = CourseAccent.readableOn(secondary);
-  return ThemeData(
+  final theme = ThemeData(
     brightness: brightness,
     scaffoldBackgroundColor: colors.background,
     colorScheme: ColorScheme(
@@ -41,5 +42,10 @@ ThemeData buildAppTheme(LangQuestColors colors, CourseAccent accent, {required b
       contentTextStyle: TextStyle(color: colors.background, fontSize: 14),
       behavior: SnackBarBehavior.floating,
     ),
+  );
+  // Every text style, including the Material defaults this theme does not set, falls back to the bundled script fonts.
+  return theme.copyWith(
+    textTheme: theme.textTheme.apply(fontFamilyFallback: scriptFontFallback),
+    primaryTextTheme: theme.primaryTextTheme.apply(fontFamilyFallback: scriptFontFallback),
   );
 }

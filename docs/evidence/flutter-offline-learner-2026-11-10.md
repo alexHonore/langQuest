@@ -103,7 +103,23 @@ The owner asked for a phone-sized web version to test on the Infra Tayoo instanc
 
 Deployment: the owner had the branch merged into `master` (rebase merge, `8819742`); the hosted app builds `master`.
 The first deployment (`dpl_vrtvimudbb`) built in 7 min 22 s on the platform, then failed its health check: the
-platform checks `0.0.0.0:8080` and sets no `PORT`, and Caddy defaulted to 3000. The default is now 8080.
+platform checks `0.0.0.0:8080` and sets no `PORT`, and Caddy defaulted to 3000. The default is now 8080
+(alexHonore/langQuest#3, squash `973592a`); the second deployment (`dpl_44097390d8`) was ready in 124 s.
+
+**Live: https://web-languest.tayoo.app** (behind Cloudflare). Checked from this container: `no-cache`, `nosniff`,
+`application/wasm`, gzip (main.dart.js 1.05 MB), 404 for a missing file; first frame ≈ 3 s; the full scripted
+walkthrough (three flows) against the live URL with **0 page errors and 0 console errors**; framed at 1280 × 800,
+full screen as an emulated iPhone 15.
+
+### Web fonts (follow-up)
+
+A request log of the Japanese and Darija flows showed the web engine fetching Noto Sans Arabic, **SC** and **TC** from
+`fonts.gstatic.com`: Japanese phrases were drawn with Chinese fonts (the engine picks CJK fallbacks by the browser's
+language). Now: Noto Sans subsets per script (`tool/subset_fonts.py`, sources pinned to a google/fonts commit and
+checked by SHA-256; 428 KB in all), each phrase and course name with its own script's font first, the rest of the
+theme falling back to all of them, licenses registered. Same flows plus the 30-course catalog: **no external
+request**, no errors. `test/script_fonts_test.dart` parses the subsets' cmaps: every character of each course's
+phrases and native name is in its own script's subset; the interface strings need nothing else.
 
 | File | Shows |
 |---|---|

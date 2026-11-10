@@ -43,11 +43,17 @@ On Infra Tayoo (instance `languest`), the hosted app builds `master` with this i
 `0.0.0.0:8080`: `infra-tayoo status` shows the source and the app URL, `infra-tayoo deploy` deploys `master`'s latest
 commit (the `infra-tayoo` CLI comes from the Infra Tayoo portal; its key must never be committed or printed).
 
-Fonts on the web: the UI fonts are bundled, but characters they lack (Arabic, Japanese, the native names of other
-scripts in the catalog) are drawn with the web engine's fallback fonts, which it downloads from `fonts.gstatic.com`.
-The engine also chooses between Chinese and Japanese forms by the browser's language, not the phrase's, so on an
-English or French browser Japanese kanji take Chinese forms. iOS and Android use the system fonts with each phrase's
-locale and are not affected.
+Fonts: Inter and Outfit cover the interface; small Noto Sans subsets (`assets/fonts/scripts/`, 428 KB in all) cover
+the other scripts the bundle uses (Japanese, Arabic, and the Chinese, Korean, Hebrew and Devanagari course names).
+Without them the web engine downloads fallback fonts from `fonts.gstatic.com` and picks Chinese or Japanese kanji
+forms by the browser's language. A phrase or course name puts its own script's font first (`core/theme/script_fonts.dart`),
+so Japanese is drawn with Japanese forms everywhere. `test/script_fonts_test.dart` reads the subsets' character maps
+and fails when the bundle uses a character they lack; then regenerate them (Python with fonttools, network access):
+
+```bash
+python3 -m venv /tmp/fonts-venv && /tmp/fonts-venv/bin/pip install fonttools==4.68.0
+/tmp/fonts-venv/bin/python tool/subset_fonts.py     # from apps/mobile_flutter
+```
 
 ## What the app does
 
@@ -100,6 +106,7 @@ lib/
   features/…                    home, missions, mission player, review, progress, catalog, course page, settings, onboarding
 assets/content/                 generated content bundle
 assets/fonts/                   Outfit + Inter (OFL), bundled: no runtime font downloads
+assets/fonts/scripts/           Noto Sans subsets for other scripts (tool/subset_fonts.py, OFL-NotoSans*.txt)
 web/                            index.html (splash until the first frame), flutter_bootstrap.js, manifest, icons
 deploy/Caddyfile                static server config for the root Dockerfile
 ```
