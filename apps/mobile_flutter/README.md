@@ -1,17 +1,96 @@
-# langquest_mobile
+# LangQuest — Flutter learner app
 
-A new Flutter project.
+The Flutter rewrite of the learner app (`apps/mobile` is the Expo app it replaces). This build runs **offline**:
+it teaches the shared draft curriculum bundled with the app and keeps the learner's progress on the device. It does
+not talk to the LangQuest API yet (see [Next steps](#next-steps)).
 
-## Getting Started
+## Run
 
-This project is a starting point for a Flutter application.
+Flutter **3.47.7** (Dart 3.13.5), the version in `.metadata`.
 
-A few resources to get you started if this is your first Flutter project:
+```bash
+cd apps/mobile_flutter
+flutter pub get
+flutter run                     # a connected device or simulator
+flutter run -d chrome           # web
+```
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+```bash
+flutter analyze                 # expect: No issues found
+flutter test                    # VM: content, learn plans, scheduler, state, widget flows
+flutter test --platform chrome test/srs_test.dart   # the hashing/scheduler port compiled to JavaScript
+flutter build web --release
+```
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## What the app does
+
+| Area | How it works |
+|---|---|
+| First run | Choose the app language (English or French), then a course that can be taught from it. A course page lists what it **includes** and what it **does not have yet** (draft content, no dialect voice, no live conversation, no audio library) before enrolling — CONVENTIONS §8. |
+| Courses | All 30 tracks in the catalog. Startable today (bundled drafts): Arabic (Moroccan) from French or English, Spanish (Spain) from English, Japanese from English, English from French. The rest show as *Planned*. One enrollment per track × instruction language; switch from Home's course chip. |
+| Learn path (approved **L1 + L3 inside N2**) | Each mission is a node: **Learn** (L1 scene: the dialogue line by line, target script + romanization + meaning, the learner shadows their lines; then L3 discovery cards) → **Practise** (pairs in rounds of ≤ 5, then one sentence from tiles — romanized for non-Latin scripts) → **Mission** (each learner line of the dialogue, cued by the character or by its meaning: choose the taught reply, then say it out loud). Everything a mission asks was taught in its own Learn stop. Missions unlock in order. |
+| Review | Phrases used in a mission enter spaced review (first try right = good, otherwise hard). Recall from the meaning, reveal, rate Again / Hard / Good / Easy. The scheduler is a Dart port of the API's FSRS-like scheduler with the same defaults; `test/srs_test.dart` checks it against vectors produced by the TypeScript implementation. |
+| Progress | Only measured numbers: XP (practice, never proficiency — product XP amounts: mission 50, step 5, review 3, each mission paid once), streak from active days, this week, missions completed, phrases met / in review, and review strength from the schedule (not a speech score). |
+| Settings | App language, dark/light theme, courses (switch, remove with confirmation), reset all local data, open-source licenses. |
+| Voice | The phone's synthesizer, only when the device has a voice for the course's **exact** locale (`es-ES` never falls back to a Latin American voice). Colloquial Arabic gets no device voice at all: phone Arabic voices speak MSA, which must never stand in for Darija (ADR-006, variety boundaries). Without a voice, listen buttons are not shown. |
+
+Not shown, because nothing real backs them in an offline build (hidden rather than faked, as the Expo app hides tabs
+per course capability): the **Talk** stop and **Speak** tab (live AI conversation), the **Audio** tab and mini player
+(no licensed audio library), any recording, waveform or pronunciation score (ADR-006).
+
+## Content
+
+`assets/content/catalog.json` and `assets/content/chapters.json` are **generated** — never edit them by hand:
+
+```bash
+pnpm --filter @langquest/scripts export-flutter-content          # rewrite the bundle
+pnpm --filter @langquest/scripts export-flutter-content -- --check
+```
+
+The exporter (`scripts/src/export-flutter-content.ts`) reads `@langquest/contracts` (tracks, varieties),
+`@langquest/ui/art/web` (cover hues for the course accent), the French locale catalog (French course names) and
+`@langquest/curriculum` (`DRAFT_CHAPTERS`). Expression ids are the curriculum seed ids
+(`<chapter>:<mission>:<expression>`), so on-device review cards can later be mapped to the API's.
+`scripts/src/export-flutter-content.test.ts` fails CI when the bundle is stale.
+
+Every bundled chapter is an AI draft (`nativeReviewed: false`); the app says so before enrolling and on the pathway.
+Code-switch and pronunciation notes exist in English only in the curriculum, so they are shown only to learners
+taught from English.
+
+## Layout
+
+```
+lib/
+  main.dart                     bootstrap: content bundle + saved state, bundled fonts, licenses, en/fr
+  l10n/                         app_en.arb, app_fr.arb (gen-l10n → l10n/generated/)
+  navigation/                   go_router: first-run redirect, Home/Missions/Progress shell, learn routes
+  core/content/                 bundle model + loader (Course = track × instruction language)
+  core/learning/                FSRS scheduler port, web-safe FNV-1a / mulberry32
+  core/services/                learner state (JSON v1, SharedPreferences), app state notifier, speech
+  core/theme/                   Night Market tokens, theme-aware glass, course accent (contrast-checked labels)
+  features/learn/               learn plans (pure) + scene, cards, practice, mission path screens
+  features/…                    home, missions, mission player, review, progress, catalog, course page, settings, onboarding
+assets/content/                 generated content bundle
+assets/fonts/                   Outfit + Inter (OFL), bundled: no runtime font downloads
+```
+
+## Parked prototype files
+
+These are no longer reachable from the app. They hold mock data or simulated behaviour from the first prototype
+(canned chat replies with a random "voice level", a fake audio library whose four tracks all played one file with a
+simulated playhead, a hand-copied catalog). They are kept, each with a `PARKED` header, until the owner decides to
+delete or rewrite them:
+
+- `lib/features/speak/speak_screen.dart`, `lib/features/speak/conversation_screen.dart`
+- `lib/features/audio/audio_screen.dart`, `mini_player.dart`, `full_player_sheet.dart`, `lib/core/services/audio_service.dart`
+- `lib/core/constants/catalog.dart` (replaced by `assets/content/catalog.json`)
+- `assets/audio/cafe_*` (no longer bundled)
+
+## Next steps
+
+1. **API wiring** — sign-in (Supabase auth), enrollments, course manifest, mission attempts and progress sync against
+   the Worker (`apps/api`), behind the same `ContentBundle` / `AppState` shapes; the bundle stays as the offline pack.
+2. **Talk stop and Speak tab** — live conversation through the API's conversation routes, shown per course capability.
+3. **Recording** — attempts with `peakLevelDb` for the server's speech-detection verdict; reference-comparison feedback
+   (never a numeric score without an acoustic assessor).
+4. Device QA on iOS and Android (this build was verified with unit/widget tests and the web build only).

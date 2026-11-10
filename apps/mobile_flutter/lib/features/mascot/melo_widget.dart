@@ -169,7 +169,7 @@ class _MeloWidgetState extends State<MeloWidget> with TickerProviderStateMixin {
                 level: GlassLevel.level2,
                 radius: 18,
                 padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
-                customGlow: tint.crest.withOpacity(0.35),
+                customGlow: tint.crest.withValues(alpha: 0.35),
                 child: Row(
                   children: [
                     Expanded(
@@ -178,7 +178,7 @@ class _MeloWidgetState extends State<MeloWidget> with TickerProviderStateMixin {
                         style: TextStyle(
                           fontSize: 13.5,
                           fontWeight: FontWeight.w500,
-                          color: LangQuestColors.dark.textPrimary,
+                          color: (Theme.of(context).brightness == Brightness.dark ? LangQuestColors.dark : LangQuestColors.light).textPrimary,
                           height: 1.35,
                         ),
                       ),

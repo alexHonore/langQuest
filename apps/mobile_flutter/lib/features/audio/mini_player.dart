@@ -1,9 +1,12 @@
+// PARKED — not reachable from the app since the learn path moved to the real curriculum (see README.md,
+// "Parked prototype files"). It holds mock data or simulated behaviour (canned replies, simulated playback or
+// voice levels, hand-copied catalog) that must not ship. Kept until the owner decides to delete or rewrite it.
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/audio_service.dart';
-import '../../core/theme/colors.dart';
 import '../../core/theme/glass.dart';
 import 'full_player_sheet.dart';
 
@@ -38,7 +41,7 @@ class MiniPlayerWidget extends ConsumerWidget {
           level: GlassLevel.level3,
           radius: 20,
           padding: EdgeInsets.zero,
-          customGlow: appState.accent.primary.withOpacity(0.35),
+          customGlow: appState.accent.primary.withValues(alpha: 0.35),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -61,7 +64,7 @@ class MiniPlayerWidget extends ConsumerWidget {
                         boxShadow: isPlaying
                             ? [
                                 BoxShadow(
-                                  color: appState.accent.primary.withOpacity(0.4),
+                                  color: appState.accent.primary.withValues(alpha: 0.4),
                                   blurRadius: 10,
                                   spreadRadius: 1,
                                 ),
@@ -121,7 +124,7 @@ class MiniPlayerWidget extends ConsumerWidget {
                         shape: BoxShape.circle,
                         boxShadow: [
                           BoxShadow(
-                            color: appState.accent.primary.withOpacity(0.4),
+                            color: appState.accent.primary.withValues(alpha: 0.4),
                             blurRadius: 12,
                             spreadRadius: 1,
                           ),

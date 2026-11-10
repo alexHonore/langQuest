@@ -1,10 +1,12 @@
+// PARKED — not reachable from the app since the learn path moved to the real curriculum (see README.md,
+// "Parked prototype files"). It holds mock data or simulated behaviour (canned replies, simulated playback or
+// voice levels, hand-copied catalog) that must not ship. Kept until the owner decides to delete or rewrite it.
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/audio_service.dart';
-import '../../core/theme/colors.dart';
-import '../../core/theme/glass.dart';
 
 class FullPlayerSheet extends ConsumerStatefulWidget {
   const FullPlayerSheet({super.key});
@@ -60,7 +62,7 @@ class _FullPlayerSheetState extends ConsumerState<FullPlayerSheet> {
               height: 240,
               decoration: BoxDecoration(
                 shape: BoxShape.circle,
-                color: appState.accent.primary.withOpacity(0.20),
+                color: appState.accent.primary.withValues(alpha: 0.20),
               ),
             ),
           ),
@@ -127,7 +129,7 @@ class _FullPlayerSheetState extends ConsumerState<FullPlayerSheet> {
                           borderRadius: BorderRadius.circular(28),
                           boxShadow: [
                             BoxShadow(
-                              color: appState.accent.primary.withOpacity(0.35),
+                              color: appState.accent.primary.withValues(alpha: 0.35),
                               blurRadius: 28,
                               spreadRadius: 4,
                             ),
@@ -137,7 +139,7 @@ class _FullPlayerSheetState extends ConsumerState<FullPlayerSheet> {
                           child: Icon(
                             LucideIcons.headphones,
                             size: 64,
-                            color: Colors.white.withOpacity(0.9),
+                            color: Colors.white.withValues(alpha: 0.9),
                           ),
                         ),
                       ),
@@ -250,7 +252,7 @@ class _FullPlayerSheetState extends ConsumerState<FullPlayerSheet> {
                             color: appState.accent.primary,
                             boxShadow: [
                               BoxShadow(
-                                color: appState.accent.primary.withOpacity(0.5),
+                                color: appState.accent.primary.withValues(alpha: 0.5),
                                 blurRadius: 20,
                                 spreadRadius: 3,
                               ),
@@ -306,19 +308,19 @@ class _FullPlayerSheetState extends ConsumerState<FullPlayerSheet> {
                         padding: const EdgeInsets.all(14),
                         decoration: BoxDecoration(
                           color: isActive
-                              ? appState.accent.primary.withOpacity(0.18)
+                              ? appState.accent.primary.withValues(alpha: 0.18)
                               : const Color(0x0EFFFFFF),
                           borderRadius: BorderRadius.circular(16),
                           border: Border.all(
                             color: isActive
-                                ? appState.accent.primary.withOpacity(0.55)
+                                ? appState.accent.primary.withValues(alpha: 0.55)
                                 : Colors.white10,
                             width: isActive ? 1.5 : 1.0,
                           ),
                           boxShadow: isActive
                               ? [
                                   BoxShadow(
-                                    color: appState.accent.primary.withOpacity(0.25),
+                                    color: appState.accent.primary.withValues(alpha: 0.25),
                                     blurRadius: 14,
                                     spreadRadius: 1,
                                   ),
@@ -335,7 +337,7 @@ class _FullPlayerSheetState extends ConsumerState<FullPlayerSheet> {
                                 fontWeight: isActive ? FontWeight.w700 : FontWeight.w500,
                                 color: isActive
                                     ? Colors.white
-                                    : appState.colors.textPrimary.withOpacity(0.75),
+                                    : appState.colors.textPrimary.withValues(alpha: 0.75),
                                 height: 1.4,
                               ),
                             ),

@@ -2,13 +2,19 @@
 /// `test/learn_logic_test.dart`.
 library;
 
+import '../../core/learning/seeded_random.dart';
+
 /// The four stops of a mission node, in teaching order: learn it, practise it, use it, talk freely.
 enum PathStop { learn, practise, mission, talk }
 
-/// Which stops a mission node offers. Learn and Practise exist only when the mission has a teaching
-/// block (`LearnContent.forMission`); a node never shows an empty stop (CONVENTIONS §8).
-List<PathStop> stopsFor({required bool hasLearnPlan}) =>
-    hasLearnPlan ? PathStop.values : const [PathStop.mission, PathStop.talk];
+/// Which stops a mission node offers. Learn and Practise exist only when the mission has a teaching block;
+/// Talk only when a live conversation partner backs it (the offline app has none, so the stop is hidden rather
+/// than faked — CONVENTIONS §8: visible means usable).
+List<PathStop> stopsFor({required bool hasLearnPlan, bool canTalk = false}) => [
+  if (hasLearnPlan) ...[PathStop.learn, PathStop.practise],
+  PathStop.mission,
+  if (canTalk) PathStop.talk,
+];
 
 /// The stop to suggest next: the first one not done yet, or null when the node is finished.
 PathStop? nextStop(List<PathStop> stops, Set<PathStop> done) {
@@ -24,15 +30,9 @@ double nodeProgress(List<PathStop> stops, Set<PathStop> done) {
   return stops.where(done.contains).length / stops.length;
 }
 
-/// Deterministic 32-bit FNV-1a so an order is stable across rebuilds and devices.
-int stableHash(String text) {
-  var h = 0x811c9dc5;
-  for (final unit in text.codeUnits) {
-    h ^= unit;
-    h = (h * 0x01000193) & 0xffffffff;
-  }
-  return h;
-}
+/// Deterministic 32-bit FNV-1a so an order is stable across rebuilds and devices (web included: `fnv1a32`
+/// keeps every product within 32 bits, which a plain `h * prime` does not on JavaScript numbers).
+int stableHash(String text) => fnv1a32(text);
 
 /// A stable, seed-dependent shuffle (never "answer always first").
 List<T> stableShuffle<T>(List<T> items, String seed, String Function(T) keyOf) {
@@ -65,23 +65,12 @@ class PairsState {
   final Set<String> wrongKeys;
   final int mistakes;
 
-  const PairsState({
-    required this.phrases,
-    required this.meanings,
-    this.matched = const {},
-    this.selected,
-    this.wrongKeys = const {},
-    this.mistakes = 0,
-  });
+  const PairsState({required this.phrases, required this.meanings, this.matched = const {}, this.selected, this.wrongKeys = const {}, this.mistakes = 0});
 
   bool get finished => matched.length == phrases.length;
 
   factory PairsState.start(List<({String id, String phrase, String meaning})> pairs, String seed) {
-    final phrases = stableShuffle(
-      [for (final p in pairs) PairsCard(pairId: p.id, side: PairSide.phrase, label: p.phrase)],
-      '$seed/phrase',
-      (c) => c.pairId,
-    );
+    final phrases = stableShuffle([for (final p in pairs) PairsCard(pairId: p.id, side: PairSide.phrase, label: p.phrase)], '$seed/phrase', (c) => c.pairId);
     final meanings = stableShuffle(
       [for (final p in pairs) PairsCard(pairId: p.id, side: PairSide.meaning, label: p.meaning)],
       '$seed/meaning',
@@ -100,13 +89,7 @@ class PairsState {
     if (first.pairId == card.pairId) {
       return PairsState(phrases: phrases, meanings: meanings, matched: {...matched, card.pairId}, mistakes: mistakes);
     }
-    return PairsState(
-      phrases: phrases,
-      meanings: meanings,
-      matched: matched,
-      wrongKeys: {first.key, card.key},
-      mistakes: mistakes + 1,
-    );
+    return PairsState(phrases: phrases, meanings: meanings, matched: matched, wrongKeys: {first.key, card.key}, mistakes: mistakes + 1);
   }
 
   /// Clear the wrong-attempt highlight (after a short delay in the UI).
@@ -154,12 +137,8 @@ class TilesState {
 
   /// Compare the built sentence with the answer, ignoring case and spacing around punctuation.
   TilesState check() {
-    String norm(List<String> words) => words
-        .join(' ')
-        .toLowerCase()
-        .replaceAllMapped(RegExp(r'\s+([?!.,])'), (m) => m.group(1)!)
-        .replaceAll(RegExp(r'\s+'), ' ')
-        .trim();
+    String norm(List<String> words) =>
+        words.join(' ').toLowerCase().replaceAllMapped(RegExp(r'\s+([?!.,])'), (m) => m.group(1)!).replaceAll(RegExp(r'\s+'), ' ').trim();
     final ok = norm(sentence) == norm(answer);
     return TilesState(bank: bank, answer: answer, placed: placed, verdict: ok ? TilesVerdict.correct : TilesVerdict.wrong);
   }

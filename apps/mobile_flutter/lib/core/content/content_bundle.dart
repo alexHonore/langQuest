@@ -1,0 +1,105 @@
+import 'dart:convert';
+
+import 'package:flutter/services.dart' show AssetBundle;
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import 'content_models.dart';
+
+/// A course as the learner takes it: one track taught from one instruction language (CONVENTIONS §2.2). Its content
+/// is the bundle's draft chapters of that track that carry overlays for that language.
+class Course {
+  final CourseTrackInfo track;
+  final String source;
+  final List<Chapter> chapters;
+
+  const Course({required this.track, required this.source, required this.chapters});
+
+  String get id => courseIdFor(track.id, source);
+  List<Mission> get missions => [for (final c in chapters) ...c.missions];
+  bool get hasContent => missions.isNotEmpty;
+
+  /// Every bundled chapter is an unreviewed AI draft; disclosed before enrolling and on the pathway.
+  bool get isDraft => chapters.any((c) => !c.nativeReviewed);
+
+  int indexOfMission(String missionKey) => missions.indexWhere((m) => m.key == missionKey);
+
+  Set<String> get characterKeys => {for (final m in missions) m.characterKey};
+}
+
+String courseIdFor(String trackId, String source) => '$trackId|$source';
+
+/// The offline content bundle: the 30-track catalog and the draft chapters.
+class ContentBundle {
+  final List<CourseTrackInfo> tracks;
+  final List<Chapter> chapters;
+  final Map<String, CourseTrackInfo> _tracksById;
+  final Map<String, Mission> _missionsByKey;
+  final Map<String, Chapter> _chaptersByKey;
+
+  ContentBundle({required this.tracks, required this.chapters})
+    : _tracksById = {for (final t in tracks) t.id: t},
+      _missionsByKey = {
+        for (final c in chapters)
+          for (final m in c.missions) m.key: m,
+      },
+      _chaptersByKey = {for (final c in chapters) c.key: c};
+
+  static const catalogAsset = 'assets/content/catalog.json';
+  static const chaptersAsset = 'assets/content/chapters.json';
+
+  /// Parse the two bundle files; throws [FormatException] on an unsupported schema version.
+  factory ContentBundle.parse({required String catalogJson, required String chaptersJson}) {
+    final catalog = (jsonDecode(catalogJson) as Map).cast<String, Object?>();
+    final chapters = (jsonDecode(chaptersJson) as Map).cast<String, Object?>();
+    for (final doc in [catalog, chapters]) {
+      if (doc['schemaVersion'] != 1) throw FormatException('Unsupported content bundle schemaVersion ${doc['schemaVersion']}');
+    }
+    final tracks = [for (final t in (catalog['tracks'] as List? ?? const [])) CourseTrackInfo.fromJson((t as Map).cast<String, Object?>())]
+      ..sort((a, b) => a.order.compareTo(b.order));
+    return ContentBundle(
+      tracks: tracks,
+      chapters: [for (final c in (chapters['chapters'] as List? ?? const [])) Chapter.fromJson((c as Map).cast<String, Object?>())],
+    );
+  }
+
+  static Future<ContentBundle> load(AssetBundle assets) async =>
+      ContentBundle.parse(catalogJson: await assets.loadString(catalogAsset), chaptersJson: await assets.loadString(chaptersAsset));
+
+  CourseTrackInfo? track(String id) => _tracksById[id];
+  Mission? mission(String key) => _missionsByKey[key];
+  Chapter? chapter(String key) => _chaptersByKey[key];
+  Chapter? chapterOf(Mission mission) => _chaptersByKey[mission.chapterKey];
+
+  StoryCharacter? characterOf(Mission mission) => chapterOf(mission)?.character(mission.characterKey);
+
+  /// The course for (track, source), or null when the track is unknown. Its chapters may be empty (planned course).
+  Course? course(String trackId, String source) {
+    final t = _tracksById[trackId];
+    if (t == null) return null;
+    return Course(
+      track: t,
+      source: source,
+      chapters: [
+        for (final c in chapters)
+          if (c.courseTrackId == trackId && c.sourceLanguages.contains(source)) c,
+      ],
+    );
+  }
+
+  /// Instruction languages (among the interface's) a track can be learned from today.
+  List<String> sourcesFor(String trackId) => [
+    for (final s in supportedInstructionLanguages)
+      if (chapters.any((c) => c.courseTrackId == trackId && c.sourceLanguages.contains(s) && c.missions.isNotEmpty)) s,
+  ];
+
+  bool isAvailable(String trackId, String source) => sourcesFor(trackId).contains(source);
+
+  /// Tracks with content from [source], in catalog order.
+  List<CourseTrackInfo> availableFrom(String source) => [
+    for (final t in tracks)
+      if (isAvailable(t.id, source)) t,
+  ];
+}
+
+/// Overridden in `main()` with the bundle loaded from the app's assets (and in tests with a parsed one).
+final contentBundleProvider = Provider<ContentBundle>((ref) => throw UnimplementedError('contentBundleProvider must be overridden'));

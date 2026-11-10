@@ -78,7 +78,6 @@ class MeloPainter extends CustomPainter {
     final anchor = const Offset(74, 76);
     tailPath.moveTo(anchor.dx, anchor.dy);
 
-    final wagAngle = wag * 0.25;
     final c1 = Offset(88 + wag * 4, 70 - wag * 3);
     final c2 = Offset(94 + wag * 6, 85 + wag * 5);
     final end = Offset(84 + wag * 8, 92 + wag * 2);
@@ -190,7 +189,7 @@ class MeloPainter extends CustomPainter {
 
   void _drawBelly(Canvas canvas, double breathScale, double breathY) {
     final bellyPaint = Paint()
-      ..color = tint.belly.withOpacity(0.85)
+      ..color = tint.belly.withValues(alpha: 0.85)
       ..style = PaintingStyle.fill;
 
     final bellyRect = Rect.fromCenter(
@@ -204,7 +203,7 @@ class MeloPainter extends CustomPainter {
 
   void _drawCheeks(Canvas canvas, double breathY) {
     final cheekPaint = Paint()
-      ..color = tint.cheek.withOpacity(0.55)
+      ..color = tint.cheek.withValues(alpha: 0.55)
       ..style = PaintingStyle.fill;
 
     canvas.drawOval(
@@ -234,7 +233,7 @@ class MeloPainter extends CustomPainter {
     canvas.drawCircle(turretCenter, radius, turretPaint);
 
     final turretShade = Paint()
-      ..color = tint.bodyShade.withOpacity(0.4)
+      ..color = tint.bodyShade.withValues(alpha: 0.4)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.2;
     canvas.drawCircle(turretCenter, radius, turretShade);

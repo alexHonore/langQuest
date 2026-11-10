@@ -1,10 +1,11 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import '../constants/catalog.dart';
+
+import '../content/content_models.dart';
 import 'colors.dart';
 
 /// Dynamic Course Accent tokens (U2 "Night Market").
-/// Derives the 3 lantern hues, action buttons, and glowing rings from the course cover recipe.
+/// Derives the 3 lantern hues, action buttons, and glowing rings from the course cover recipe
+/// (`@langquest/ui` COVER_RECIPES, carried by the content bundle).
 class CourseAccent {
   final String? trackId;
   final List<double> hues;
@@ -34,8 +35,23 @@ class CourseAccent {
     return HSLColor.fromAHSL(a, (h % 360), s.clamp(0.0, 1.0), l.clamp(0.0, 1.0)).toColor();
   }
 
-  static CourseAccent forTrack(String? trackId, {bool isDark = true}) {
-    if (trackId == null) {
+  /// WCAG contrast ratio between two opaque colors.
+  static double contrast(Color a, Color b) {
+    final la = a.computeLuminance();
+    final lb = b.computeLuminance();
+    final hi = la > lb ? la : lb;
+    final lo = la > lb ? lb : la;
+    return (hi + 0.05) / (lo + 0.05);
+  }
+
+  static const _ink = Color(0xFF130F21);
+
+  /// White or Night Market ink, whichever reads better on [background] (labels on course-coloured buttons).
+  static Color readableOn(Color background) => contrast(Colors.white, background) >= contrast(_ink, background) ? Colors.white : _ink;
+
+  /// The accent of [track], or the neutral Night Market accent when no course is active.
+  static CourseAccent forTrack(CourseTrackInfo? track, {bool isDark = true}) {
+    if (track == null) {
       final base = isDark ? LangQuestColors.dark : LangQuestColors.light;
       return CourseAccent(
         trackId: null,
@@ -51,28 +67,23 @@ class CourseAccent {
       );
     }
 
-    final track = CatalogConstants.getTrack(trackId);
-    final h1 = track.hue;
-    final h2 = track.hue2;
-    final h3 = (track.hue + 150.0 + track.variant * 12.0) % 360.0;
+    final h1 = track.cover.hue;
+    final h2 = track.cover.hue2;
+    final h3 = (track.cover.hue + 150.0 + track.cover.variant * 12.0) % 360.0;
 
     final sat = isDark ? 0.95 : 0.82;
     final lit = isDark ? 0.60 : 0.46;
 
-    final lantern = [
-      hslToColor(h1, sat, lit),
-      hslToColor(h2, sat, lit),
-      hslToColor(h3, sat, lit),
-    ];
+    final lantern = [hslToColor(h1, sat, lit), hslToColor(h2, sat, lit), hslToColor(h3, sat, lit)];
 
-    final primary = hslToColor(h1, isDark ? 0.92 : 0.85, isDark ? 0.58 : 0.44);
-    final primaryStrong = hslToColor(h1, isDark ? 0.95 : 0.90, isDark ? 0.65 : 0.38);
+    final primary = hslToColor(h1, isDark ? 0.92 : 0.85, isDark ? 0.58 : 0.40);
+    final primaryStrong = hslToColor(h1, isDark ? 0.95 : 0.90, isDark ? 0.65 : 0.34);
     final primarySoft = hslToColor(h1, isDark ? 0.40 : 0.25, isDark ? 0.16 : 0.92, isDark ? 0.35 : 0.8);
-    final primaryText = hslToColor(h1, isDark ? 0.88 : 0.90, isDark ? 0.72 : 0.36);
-    final onPrimary = isDark ? const Color(0xFF130F21) : Colors.white;
+    final primaryText = hslToColor(h1, isDark ? 0.88 : 0.90, isDark ? 0.72 : 0.32);
+    final onPrimary = readableOn(primary);
 
     return CourseAccent(
-      trackId: trackId,
+      trackId: track.id,
       hues: [h1, h2, h3],
       lantern: lantern,
       primary: primary,

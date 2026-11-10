@@ -1,3 +1,7 @@
+// PARKED — not reachable from the app since the learn path moved to the real curriculum (see README.md,
+// "Parked prototype files"). It holds mock data or simulated behaviour (canned replies, simulated playback or
+// voice levels, hand-copied catalog) that must not ship. Kept until the owner decides to delete or rewrite it.
+
 import 'dart:async';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
@@ -233,7 +237,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
                       padding: const EdgeInsets.all(14),
                       decoration: BoxDecoration(
                         color: isUser
-                            ? const Color(0xFF3EE1E8).withOpacity(0.18)
+                            ? const Color(0xFF3EE1E8).withValues(alpha: 0.18)
                             : colors.elevated,
                         borderRadius: BorderRadius.circular(18).copyWith(
                           bottomRight: isUser ? const Radius.circular(2) : null,
@@ -241,7 +245,7 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
                         ),
                         border: Border.all(
                           color: isUser
-                              ? const Color(0xFF3EE1E8).withOpacity(0.5)
+                              ? const Color(0xFF3EE1E8).withValues(alpha: 0.5)
                               : Colors.white12,
                         ),
                       ),
@@ -299,11 +303,11 @@ class _ConversationScreenState extends ConsumerState<ConversationScreen>
                           height: 100 * waveScale,
                           decoration: BoxDecoration(
                             shape: BoxShape.circle,
-                            color: stateColor.withOpacity(0.16),
+                            color: stateColor.withValues(alpha: 0.16),
                             border: Border.all(color: stateColor, width: 2.5),
                             boxShadow: [
                               BoxShadow(
-                                color: stateColor.withOpacity(0.45),
+                                color: stateColor.withValues(alpha: 0.45),
                                 blurRadius: 28 * waveScale,
                                 spreadRadius: 4,
                               ),

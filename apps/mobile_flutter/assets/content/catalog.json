@@ -1,0 +1,1072 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts",
+  "tracks": [
+    {
+      "id": "arabic-eastern",
+      "order": 1,
+      "names": {
+        "en": "Arabic (Eastern)",
+        "fr": "Arabe (oriental)"
+      },
+      "nativeName": "العربية (الشامية)",
+      "languageCode": "ar",
+      "targetVarietyId": "ar-levant",
+      "varietyName": "Levantine (Eastern) Arabic",
+      "mustNotSubstitute": [
+        "arb",
+        "arz",
+        "ary"
+      ],
+      "defaultLocale": "ar-SY",
+      "voiceLocale": null,
+      "primaryScript": "Arab",
+      "transliterations": [
+        "translit-latn"
+      ],
+      "defaultScriptMode": "both",
+      "tonal": false,
+      "teachingFocus": "Spoken Levantine for everyday situations; regional lexical and phonetic variation surfaced, never flattened.",
+      "regionalOptions": [
+        {
+          "id": "SY",
+          "label": "Syrian",
+          "locale": "ar-SY"
+        },
+        {
+          "id": "LB",
+          "label": "Lebanese",
+          "locale": "ar-LB"
+        },
+        {
+          "id": "PS",
+          "label": "Palestinian",
+          "locale": "ar-PS"
+        },
+        {
+          "id": "JO",
+          "label": "Jordanian",
+          "locale": "ar-JO"
+        }
+      ],
+      "automatedScoringSupport": "limited",
+      "cover": {
+        "hue": 24,
+        "hue2": 44,
+        "motif": "arcs",
+        "variant": 0
+      }
+    },
+    {
+      "id": "arabic-moroccan",
+      "order": 2,
+      "names": {
+        "en": "Arabic (Moroccan)",
+        "fr": "Arabe (marocain)"
+      },
+      "nativeName": "الدارجة المغربية",
+      "languageCode": "ar",
+      "targetVarietyId": "ary",
+      "varietyName": "Moroccan Arabic (Darija)",
+      "mustNotSubstitute": [
+        "arb",
+        "arz",
+        "ar-levant"
+      ],
+      "defaultLocale": "ar-MA",
+      "voiceLocale": null,
+      "primaryScript": "Arab",
+      "transliterations": [
+        "arabizi"
+      ],
+      "defaultScriptMode": "both",
+      "tonal": false,
+      "teachingFocus": "Darija as actually spoken, including natural French code-switching; Arabic and Arabizi both first-class.",
+      "regionalOptions": [
+        {
+          "id": "casablanca",
+          "label": "Casablanca / Rabat",
+          "locale": "ar-MA"
+        },
+        {
+          "id": "fes",
+          "label": "Fes / Meknes",
+          "locale": "ar-MA"
+        },
+        {
+          "id": "marrakech",
+          "label": "Marrakech / South",
+          "locale": "ar-MA"
+        },
+        {
+          "id": "north",
+          "label": "Tangier / North",
+          "locale": "ar-MA"
+        }
+      ],
+      "automatedScoringSupport": "limited",
+      "cover": {
+        "hue": 12,
+        "hue2": 190,
+        "motif": "lattice",
+        "variant": 1
+      }
+    },
+    {
+      "id": "arabic-egyptian",
+      "order": 3,
+      "names": {
+        "en": "Arabic (Egyptian)",
+        "fr": "Arabe (égyptien)"
+      },
+      "nativeName": "العامية المصرية",
+      "languageCode": "ar",
+      "targetVarietyId": "arz",
+      "varietyName": "Egyptian Arabic",
+      "mustNotSubstitute": [
+        "arb",
+        "ary",
+        "ar-levant"
+      ],
+      "defaultLocale": "ar-EG",
+      "voiceLocale": null,
+      "primaryScript": "Arab",
+      "transliterations": [
+        "translit-latn"
+      ],
+      "defaultScriptMode": "both",
+      "tonal": false,
+      "teachingFocus": "Egyptian colloquial, not MSA.",
+      "regionalOptions": [
+        {
+          "id": "cairo",
+          "label": "Cairo",
+          "locale": "ar-EG"
+        }
+      ],
+      "automatedScoringSupport": "full",
+      "cover": {
+        "hue": 36,
+        "hue2": 210,
+        "motif": "bands",
+        "variant": 2
+      }
+    },
+    {
+      "id": "arabic-msa",
+      "order": 4,
+      "names": {
+        "en": "Arabic (Modern Standard)",
+        "fr": "Arabe (standard moderne)"
+      },
+      "nativeName": "العربية الفصحى",
+      "languageCode": "ar",
+      "targetVarietyId": "arb",
+      "varietyName": "Modern Standard Arabic",
+      "mustNotSubstitute": [
+        "ary",
+        "arz",
+        "ar-levant"
+      ],
+      "defaultLocale": "ar",
+      "voiceLocale": "ar",
+      "primaryScript": "Arab",
+      "transliterations": [
+        "translit-latn"
+      ],
+      "defaultScriptMode": "native",
+      "tonal": false,
+      "teachingFocus": "Formal modern register (media, writing, pan-Arab communication).",
+      "regionalOptions": [],
+      "automatedScoringSupport": "partial",
+      "cover": {
+        "hue": 200,
+        "hue2": 36,
+        "motif": "rings",
+        "variant": 0
+      }
+    },
+    {
+      "id": "chinese-cantonese",
+      "order": 5,
+      "names": {
+        "en": "Chinese (Cantonese)",
+        "fr": "Chinois (cantonais)"
+      },
+      "nativeName": "廣東話",
+      "languageCode": "zh",
+      "targetVarietyId": "yue",
+      "varietyName": "Cantonese",
+      "mustNotSubstitute": [
+        "cmn"
+      ],
+      "defaultLocale": "zh-HK",
+      "voiceLocale": "zh-HK",
+      "primaryScript": "Hant",
+      "transliterations": [
+        "jyutping"
+      ],
+      "defaultScriptMode": "both",
+      "tonal": true,
+      "teachingFocus": "Spoken Cantonese with Traditional characters and optional Jyutping; tone-aware coaching.",
+      "regionalOptions": [
+        {
+          "id": "HK",
+          "label": "Hong Kong",
+          "locale": "zh-HK"
+        }
+      ],
+      "automatedScoringSupport": "full",
+      "cover": {
+        "hue": 350,
+        "hue2": 40,
+        "motif": "petals",
+        "variant": 1
+      }
+    },
+    {
+      "id": "chinese-mandarin",
+      "order": 6,
+      "names": {
+        "en": "Chinese (Mandarin)",
+        "fr": "Chinois (mandarin)"
+      },
+      "nativeName": "普通话",
+      "languageCode": "zh",
+      "targetVarietyId": "cmn",
+      "varietyName": "Mandarin",
+      "mustNotSubstitute": [
+        "yue"
+      ],
+      "defaultLocale": "zh-CN",
+      "voiceLocale": "zh-CN",
+      "primaryScript": "Hans",
+      "transliterations": [
+        "pinyin"
+      ],
+      "defaultScriptMode": "both",
+      "tonal": true,
+      "teachingFocus": "Spoken Mandarin; Simplified by default, Traditional optional, Pinyin with tone marks.",
+      "regionalOptions": [
+        {
+          "id": "CN",
+          "label": "Mainland (Simplified)",
+          "locale": "zh-CN"
+        },
+        {
+          "id": "TW",
+          "label": "Taiwan (Traditional)",
+          "locale": "zh-TW"
+        }
+      ],
+      "automatedScoringSupport": "full",
+      "cover": {
+        "hue": 358,
+        "hue2": 48,
+        "motif": "waves",
+        "variant": 0
+      }
+    },
+    {
+      "id": "chinese-simplified",
+      "order": 7,
+      "names": {
+        "en": "Chinese (Simplified)",
+        "fr": "Chinois (simplifié)"
+      },
+      "nativeName": "简体中文",
+      "languageCode": "zh",
+      "targetVarietyId": "cmn",
+      "varietyName": "Mandarin",
+      "mustNotSubstitute": [
+        "yue"
+      ],
+      "defaultLocale": "zh-CN",
+      "voiceLocale": "zh-CN",
+      "primaryScript": "Hans",
+      "transliterations": [
+        "pinyin"
+      ],
+      "defaultScriptMode": "native",
+      "tonal": true,
+      "teachingFocus": "Reading and writing Simplified characters with Mandarin speech; shares Mandarin language/voice assets.",
+      "regionalOptions": [
+        {
+          "id": "CN",
+          "label": "Mainland",
+          "locale": "zh-CN"
+        }
+      ],
+      "automatedScoringSupport": "full",
+      "cover": {
+        "hue": 8,
+        "hue2": 330,
+        "motif": "dots",
+        "variant": 3
+      }
+    },
+    {
+      "id": "english",
+      "order": 8,
+      "names": {
+        "en": "English",
+        "fr": "Anglais"
+      },
+      "nativeName": "English",
+      "languageCode": "en",
+      "targetVarietyId": "en",
+      "varietyName": "English",
+      "mustNotSubstitute": [],
+      "defaultLocale": "en-US",
+      "voiceLocale": "en-US",
+      "primaryScript": "Latn",
+      "transliterations": [],
+      "defaultScriptMode": "native",
+      "tonal": false,
+      "teachingFocus": "English taught FROM French, Spanish, Russian and other source languages; never English-only instructions.",
+      "regionalOptions": [
+        {
+          "id": "US",
+          "label": "American",
+          "locale": "en-US"
+        },
+        {
+          "id": "GB",
+          "label": "British",
+          "locale": "en-GB"
+        }
+      ],
+      "automatedScoringSupport": "full",
+      "cover": {
+        "hue": 214,
+        "hue2": 8,
+        "motif": "steps",
+        "variant": 0
+      }
+    },
+    {
+      "id": "danish",
+      "order": 9,
+      "names": {
+        "en": "Danish",
+        "fr": "Danois"
+      },
+      "nativeName": "Dansk",
+      "languageCode": "da",
+      "targetVarietyId": "da",
+      "varietyName": "Danish",
+      "mustNotSubstitute": [
+        "sv"
+      ],
+      "defaultLocale": "da-DK",
+      "voiceLocale": "da-DK",
+      "primaryScript": "Latn",
+      "transliterations": [],
+      "defaultScriptMode": "native",
+      "tonal": false,
+      "teachingFocus": "Everyday spoken Danish.",
+      "regionalOptions": [],
+      "automatedScoringSupport": "full",
+      "cover": {
+        "hue": 206,
+        "hue2": 30,
+        "motif": "bands",
+        "variant": 0
+      }
+    },
+    {
+      "id": "french",
+      "order": 10,
+      "names": {
+        "en": "French",
+        "fr": "Français"
+      },
+      "nativeName": "Français",
+      "languageCode": "fr",
+      "targetVarietyId": "fr",
+      "varietyName": "French",
+      "mustNotSubstitute": [
+        "ht"
+      ],
+      "defaultLocale": "fr-FR",
+      "voiceLocale": "fr-FR",
+      "primaryScript": "Latn",
+      "transliterations": [],
+      "defaultScriptMode": "native",
+      "tonal": false,
+      "teachingFocus": "Everyday spoken French with regional pronunciation option.",
+      "regionalOptions": [
+        {
+          "id": "FR",
+          "label": "France",
+          "locale": "fr-FR"
+        },
+        {
+          "id": "CA",
+          "label": "Canada (Québec)",
+          "locale": "fr-CA"
+        }
+      ],
+      "automatedScoringSupport": "full",
+      "cover": {
+        "hue": 226,
+        "hue2": 350,
+        "motif": "arcs",
+        "variant": 2
+      }
+    },
+    {
+      "id": "german",
+      "order": 11,
+      "names": {
+        "en": "German",
+        "fr": "Allemand"
+      },
+      "nativeName": "Deutsch",
+      "languageCode": "de",
+      "targetVarietyId": "de",
+      "varietyName": "German",
+      "mustNotSubstitute": [],
+      "defaultLocale": "de-DE",
+      "voiceLocale": "de-DE",
+      "primaryScript": "Latn",
+      "transliterations": [],
+      "defaultScriptMode": "native",
+      "tonal": false,
+      "teachingFocus": "Everyday spoken German.",
+      "regionalOptions": [],
+      "automatedScoringSupport": "full",
+      "cover": {
+        "hue": 44,
+        "hue2": 220,
+        "motif": "chevrons",
+        "variant": 1
+      }
+    },
+    {
+      "id": "greek",
+      "order": 12,
+      "names": {
+        "en": "Greek",
+        "fr": "Grec"
+      },
+      "nativeName": "Ελληνικά",
+      "languageCode": "el",
+      "targetVarietyId": "el",
+      "varietyName": "Greek",
+      "mustNotSubstitute": [],
+      "defaultLocale": "el-GR",
+      "voiceLocale": "el-GR",
+      "primaryScript": "Grek",
+      "transliterations": [
+        "translit-latn"
+      ],
+      "defaultScriptMode": "native",
+      "tonal": false,
+      "teachingFocus": "Everyday spoken Modern Greek with script support.",
+      "regionalOptions": [],
+      "automatedScoringSupport": "partial",
+      "cover": {
+        "hue": 198,
+        "hue2": 50,
+        "motif": "waves",
+        "variant": 2
+      }
+    },
+    {
+      "id": "haitian-creole",
+      "order": 13,
+      "names": {
+        "en": "Haitian Creole",
+        "fr": "Créole haïtien"
+      },
+      "nativeName": "Kreyòl ayisyen",
+      "languageCode": "ht",
+      "targetVarietyId": "ht",
+      "varietyName": "Haitian Creole",
+      "mustNotSubstitute": [
+        "fr"
+      ],
+      "defaultLocale": "ht-HT",
+      "voiceLocale": "ht-HT",
+      "primaryScript": "Latn",
+      "transliterations": [],
+      "defaultScriptMode": "native",
+      "tonal": false,
+      "teachingFocus": "Kreyòl with official Haitian orthography; never replaced by French.",
+      "regionalOptions": [],
+      "automatedScoringSupport": "limited",
+      "cover": {
+        "hue": 160,
+        "hue2": 20,
+        "motif": "petals",
+        "variant": 0
+      }
+    },
+    {
+      "id": "hebrew",
+      "order": 14,
+      "names": {
+        "en": "Hebrew",
+        "fr": "Hébreu"
+      },
+      "nativeName": "עברית",
+      "languageCode": "he",
+      "targetVarietyId": "he",
+      "varietyName": "Hebrew",
+      "mustNotSubstitute": [],
+      "defaultLocale": "he-IL",
+      "voiceLocale": "he-IL",
+      "primaryScript": "Hebr",
+      "transliterations": [
+        "translit-latn",
+        "niqqud"
+      ],
+      "defaultScriptMode": "both",
+      "tonal": false,
+      "teachingFocus": "Spoken Modern Hebrew; transliteration and vowel points where pedagogically useful.",
+      "regionalOptions": [],
+      "automatedScoringSupport": "partial",
+      "cover": {
+        "hue": 232,
+        "hue2": 42,
+        "motif": "lattice",
+        "variant": 3
+      }
+    },
+    {
+      "id": "hindi",
+      "order": 15,
+      "names": {
+        "en": "Hindi",
+        "fr": "Hindi"
+      },
+      "nativeName": "हिन्दी",
+      "languageCode": "hi",
+      "targetVarietyId": "hi",
+      "varietyName": "Hindi",
+      "mustNotSubstitute": [],
+      "defaultLocale": "hi-IN",
+      "voiceLocale": "hi-IN",
+      "primaryScript": "Deva",
+      "transliterations": [
+        "translit-latn"
+      ],
+      "defaultScriptMode": "both",
+      "tonal": false,
+      "teachingFocus": "Spoken Hindi with Devanagari and optional romanization.",
+      "regionalOptions": [],
+      "automatedScoringSupport": "partial",
+      "cover": {
+        "hue": 28,
+        "hue2": 300,
+        "motif": "rings",
+        "variant": 2
+      }
+    },
+    {
+      "id": "italian",
+      "order": 16,
+      "names": {
+        "en": "Italian",
+        "fr": "Italien"
+      },
+      "nativeName": "Italiano",
+      "languageCode": "it",
+      "targetVarietyId": "it",
+      "varietyName": "Italian",
+      "mustNotSubstitute": [],
+      "defaultLocale": "it-IT",
+      "voiceLocale": "it-IT",
+      "primaryScript": "Latn",
+      "transliterations": [],
+      "defaultScriptMode": "native",
+      "tonal": false,
+      "teachingFocus": "Everyday spoken Italian.",
+      "regionalOptions": [],
+      "automatedScoringSupport": "full",
+      "cover": {
+        "hue": 130,
+        "hue2": 10,
+        "motif": "orbits",
+        "variant": 1
+      }
+    },
+    {
+      "id": "japanese",
+      "order": 17,
+      "names": {
+        "en": "Japanese",
+        "fr": "Japonais"
+      },
+      "nativeName": "日本語",
+      "languageCode": "ja",
+      "targetVarietyId": "ja",
+      "varietyName": "Japanese",
+      "mustNotSubstitute": [],
+      "defaultLocale": "ja-JP",
+      "voiceLocale": "ja-JP",
+      "primaryScript": "Jpan",
+      "transliterations": [
+        "romaji",
+        "furigana"
+      ],
+      "defaultScriptMode": "both",
+      "tonal": false,
+      "teachingFocus": "Spoken Japanese; kana/kanji with optional romaji and furigana.",
+      "regionalOptions": [],
+      "automatedScoringSupport": "full",
+      "cover": {
+        "hue": 345,
+        "hue2": 200,
+        "motif": "rings",
+        "variant": 3
+      }
+    },
+    {
+      "id": "korean",
+      "order": 18,
+      "names": {
+        "en": "Korean",
+        "fr": "Coréen"
+      },
+      "nativeName": "한국어",
+      "languageCode": "ko",
+      "targetVarietyId": "ko",
+      "varietyName": "Korean",
+      "mustNotSubstitute": [],
+      "defaultLocale": "ko-KR",
+      "voiceLocale": "ko-KR",
+      "primaryScript": "Kore",
+      "transliterations": [
+        "revised-romanization"
+      ],
+      "defaultScriptMode": "both",
+      "tonal": false,
+      "teachingFocus": "Spoken Korean; Hangul with optional Revised Romanization.",
+      "regionalOptions": [],
+      "automatedScoringSupport": "full",
+      "cover": {
+        "hue": 262,
+        "hue2": 350,
+        "motif": "orbits",
+        "variant": 0
+      }
+    },
+    {
+      "id": "portuguese-brazilian",
+      "order": 19,
+      "names": {
+        "en": "Portuguese (Brazilian)",
+        "fr": "Portugais (brésilien)"
+      },
+      "nativeName": "Português do Brasil",
+      "languageCode": "pt",
+      "targetVarietyId": "pt-BR",
+      "varietyName": "Brazilian Portuguese",
+      "mustNotSubstitute": [
+        "pt-PT"
+      ],
+      "defaultLocale": "pt-BR",
+      "voiceLocale": "pt-BR",
+      "primaryScript": "Latn",
+      "transliterations": [],
+      "defaultScriptMode": "native",
+      "tonal": false,
+      "teachingFocus": "Brazilian voice, diction and lexicon.",
+      "regionalOptions": [],
+      "automatedScoringSupport": "full",
+      "cover": {
+        "hue": 96,
+        "hue2": 46,
+        "motif": "waves",
+        "variant": 3
+      }
+    },
+    {
+      "id": "portuguese-european",
+      "order": 20,
+      "names": {
+        "en": "Portuguese (European)",
+        "fr": "Portugais (européen)"
+      },
+      "nativeName": "Português Europeu",
+      "languageCode": "pt",
+      "targetVarietyId": "pt-PT",
+      "varietyName": "European Portuguese",
+      "mustNotSubstitute": [
+        "pt-BR"
+      ],
+      "defaultLocale": "pt-PT",
+      "voiceLocale": "pt-PT",
+      "primaryScript": "Latn",
+      "transliterations": [],
+      "defaultScriptMode": "native",
+      "tonal": false,
+      "teachingFocus": "European Portuguese speech and lexicon.",
+      "regionalOptions": [],
+      "automatedScoringSupport": "full",
+      "cover": {
+        "hue": 180,
+        "hue2": 30,
+        "motif": "steps",
+        "variant": 2
+      }
+    },
+    {
+      "id": "romanian",
+      "order": 21,
+      "names": {
+        "en": "Romanian",
+        "fr": "Roumain"
+      },
+      "nativeName": "Română",
+      "languageCode": "ro",
+      "targetVarietyId": "ro",
+      "varietyName": "Romanian",
+      "mustNotSubstitute": [],
+      "defaultLocale": "ro-RO",
+      "voiceLocale": "ro-RO",
+      "primaryScript": "Latn",
+      "transliterations": [],
+      "defaultScriptMode": "native",
+      "tonal": false,
+      "teachingFocus": "Everyday spoken Romanian.",
+      "regionalOptions": [],
+      "automatedScoringSupport": "partial",
+      "cover": {
+        "hue": 48,
+        "hue2": 230,
+        "motif": "dots",
+        "variant": 1
+      }
+    },
+    {
+      "id": "russian",
+      "order": 22,
+      "names": {
+        "en": "Russian",
+        "fr": "Russe"
+      },
+      "nativeName": "Русский",
+      "languageCode": "ru",
+      "targetVarietyId": "ru",
+      "varietyName": "Russian",
+      "mustNotSubstitute": [
+        "uk"
+      ],
+      "defaultLocale": "ru-RU",
+      "voiceLocale": "ru-RU",
+      "primaryScript": "Cyrl",
+      "transliterations": [
+        "translit-latn"
+      ],
+      "defaultScriptMode": "both",
+      "tonal": false,
+      "teachingFocus": "Spoken Russian; Cyrillic with optional transliteration and stress marks.",
+      "regionalOptions": [],
+      "automatedScoringSupport": "full",
+      "cover": {
+        "hue": 220,
+        "hue2": 20,
+        "motif": "chevrons",
+        "variant": 3
+      }
+    },
+    {
+      "id": "spanish-latin-american",
+      "order": 23,
+      "names": {
+        "en": "Spanish (Latin American)",
+        "fr": "Espagnol (Amérique latine)"
+      },
+      "nativeName": "Español latinoamericano",
+      "languageCode": "es",
+      "targetVarietyId": "es-419",
+      "varietyName": "Latin American Spanish",
+      "mustNotSubstitute": [
+        "es-ES"
+      ],
+      "defaultLocale": "es-419",
+      "voiceLocale": "es-419",
+      "primaryScript": "Latn",
+      "transliterations": [],
+      "defaultScriptMode": "native",
+      "tonal": false,
+      "teachingFocus": "Neutral pan-Latin American base with regional variation markers; not one universal accent.",
+      "regionalOptions": [
+        {
+          "id": "MX",
+          "label": "Mexico",
+          "locale": "es-MX"
+        },
+        {
+          "id": "CO",
+          "label": "Colombia",
+          "locale": "es-CO"
+        },
+        {
+          "id": "AR",
+          "label": "Argentina",
+          "locale": "es-AR"
+        },
+        {
+          "id": "PE",
+          "label": "Peru",
+          "locale": "es-PE"
+        },
+        {
+          "id": "CL",
+          "label": "Chile",
+          "locale": "es-CL"
+        }
+      ],
+      "automatedScoringSupport": "full",
+      "cover": {
+        "hue": 18,
+        "hue2": 170,
+        "motif": "petals",
+        "variant": 2
+      }
+    },
+    {
+      "id": "spanish-spain",
+      "order": 24,
+      "names": {
+        "en": "Spanish (Spain-Castilian)",
+        "fr": "Espagnol (Espagne, castillan)"
+      },
+      "nativeName": "Español de España",
+      "languageCode": "es",
+      "targetVarietyId": "es-ES",
+      "varietyName": "Castilian Spanish",
+      "mustNotSubstitute": [
+        "es-419"
+      ],
+      "defaultLocale": "es-ES",
+      "voiceLocale": "es-ES",
+      "primaryScript": "Latn",
+      "transliterations": [],
+      "defaultScriptMode": "native",
+      "tonal": false,
+      "teachingFocus": "Castilian voice and lexical preferences, distinguished from Latin American.",
+      "regionalOptions": [],
+      "automatedScoringSupport": "full",
+      "cover": {
+        "hue": 6,
+        "hue2": 44,
+        "motif": "bands",
+        "variant": 3
+      }
+    },
+    {
+      "id": "swahili",
+      "order": 25,
+      "names": {
+        "en": "Swahili",
+        "fr": "Swahili"
+      },
+      "nativeName": "Kiswahili",
+      "languageCode": "sw",
+      "targetVarietyId": "sw",
+      "varietyName": "Swahili",
+      "mustNotSubstitute": [],
+      "defaultLocale": "sw-KE",
+      "voiceLocale": "sw-KE",
+      "primaryScript": "Latn",
+      "transliterations": [],
+      "defaultScriptMode": "native",
+      "tonal": false,
+      "teachingFocus": "Everyday Swahili with Kenyan/Tanzanian usage distinctions.",
+      "regionalOptions": [
+        {
+          "id": "KE",
+          "label": "Kenya",
+          "locale": "sw-KE"
+        },
+        {
+          "id": "TZ",
+          "label": "Tanzania",
+          "locale": "sw-TZ"
+        }
+      ],
+      "automatedScoringSupport": "limited",
+      "cover": {
+        "hue": 150,
+        "hue2": 32,
+        "motif": "steps",
+        "variant": 1
+      }
+    },
+    {
+      "id": "kinyarwanda",
+      "order": 26,
+      "names": {
+        "en": "Kinyarwanda",
+        "fr": "Kinyarwanda"
+      },
+      "nativeName": "Ikinyarwanda",
+      "languageCode": "rw",
+      "targetVarietyId": "rw",
+      "varietyName": "Kinyarwanda",
+      "mustNotSubstitute": [],
+      "defaultLocale": "rw-RW",
+      "voiceLocale": "rw-RW",
+      "primaryScript": "Latn",
+      "transliterations": [],
+      "defaultScriptMode": "native",
+      "tonal": true,
+      "teachingFocus": "Native-validated spoken Kinyarwanda.",
+      "regionalOptions": [],
+      "automatedScoringSupport": "limited",
+      "cover": {
+        "hue": 170,
+        "hue2": 54,
+        "motif": "arcs",
+        "variant": 3
+      }
+    },
+    {
+      "id": "swedish",
+      "order": 27,
+      "names": {
+        "en": "Swedish",
+        "fr": "Suédois"
+      },
+      "nativeName": "Svenska",
+      "languageCode": "sv",
+      "targetVarietyId": "sv",
+      "varietyName": "Swedish",
+      "mustNotSubstitute": [
+        "da"
+      ],
+      "defaultLocale": "sv-SE",
+      "voiceLocale": "sv-SE",
+      "primaryScript": "Latn",
+      "transliterations": [],
+      "defaultScriptMode": "native",
+      "tonal": false,
+      "teachingFocus": "Everyday spoken Swedish.",
+      "regionalOptions": [],
+      "automatedScoringSupport": "partial",
+      "cover": {
+        "hue": 212,
+        "hue2": 52,
+        "motif": "lattice",
+        "variant": 0
+      }
+    },
+    {
+      "id": "lingala",
+      "order": 28,
+      "names": {
+        "en": "Lingala",
+        "fr": "Lingala"
+      },
+      "nativeName": "Lingála",
+      "languageCode": "ln",
+      "targetVarietyId": "ln",
+      "varietyName": "Lingala",
+      "mustNotSubstitute": [
+        "fr"
+      ],
+      "defaultLocale": "ln-CD",
+      "voiceLocale": "ln-CD",
+      "primaryScript": "Latn",
+      "transliterations": [],
+      "defaultScriptMode": "native",
+      "tonal": true,
+      "teachingFocus": "Native-validated spoken Lingala with regional features.",
+      "regionalOptions": [
+        {
+          "id": "CD",
+          "label": "DR Congo (Kinshasa)",
+          "locale": "ln-CD"
+        },
+        {
+          "id": "CG",
+          "label": "Congo (Brazzaville)",
+          "locale": "ln-CG"
+        }
+      ],
+      "automatedScoringSupport": "limited",
+      "cover": {
+        "hue": 40,
+        "hue2": 200,
+        "motif": "chevrons",
+        "variant": 0
+      }
+    },
+    {
+      "id": "ukrainian",
+      "order": 29,
+      "names": {
+        "en": "Ukrainian",
+        "fr": "Ukrainien"
+      },
+      "nativeName": "Українська",
+      "languageCode": "uk",
+      "targetVarietyId": "uk",
+      "varietyName": "Ukrainian",
+      "mustNotSubstitute": [
+        "ru"
+      ],
+      "defaultLocale": "uk-UA",
+      "voiceLocale": "uk-UA",
+      "primaryScript": "Cyrl",
+      "transliterations": [
+        "translit-latn"
+      ],
+      "defaultScriptMode": "both",
+      "tonal": false,
+      "teachingFocus": "Spoken Ukrainian; Cyrillic with optional transliteration.",
+      "regionalOptions": [],
+      "automatedScoringSupport": "partial",
+      "cover": {
+        "hue": 210,
+        "hue2": 50,
+        "motif": "orbits",
+        "variant": 2
+      }
+    },
+    {
+      "id": "vietnamese",
+      "order": 30,
+      "names": {
+        "en": "Vietnamese",
+        "fr": "Vietnamien"
+      },
+      "nativeName": "Tiếng Việt",
+      "languageCode": "vi",
+      "targetVarietyId": "vi",
+      "varietyName": "Vietnamese",
+      "mustNotSubstitute": [],
+      "defaultLocale": "vi-VN",
+      "voiceLocale": "vi-VN",
+      "primaryScript": "Latn",
+      "transliterations": [],
+      "defaultScriptMode": "native",
+      "tonal": true,
+      "teachingFocus": "Tone-rich Vietnamese with northern/southern voice variants.",
+      "regionalOptions": [
+        {
+          "id": "north",
+          "label": "Northern (Hanoi)",
+          "locale": "vi-VN"
+        },
+        {
+          "id": "south",
+          "label": "Southern (Ho Chi Minh City)",
+          "locale": "vi-VN"
+        }
+      ],
+      "automatedScoringSupport": "partial",
+      "cover": {
+        "hue": 140,
+        "hue2": 16,
+        "motif": "dots",
+        "variant": 0
+      }
+    }
+  ]
+}

@@ -1,9 +1,12 @@
+// PARKED — not reachable from the app since the learn path moved to the real curriculum (see README.md,
+// "Parked prototype files"). It holds mock data or simulated behaviour (canned replies, simulated playback or
+// voice levels, hand-copied catalog) that must not ship. Kept until the owner decides to delete or rewrite it.
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/audio_service.dart';
-import '../../core/theme/colors.dart';
 import '../../core/theme/glass.dart';
 import 'full_player_sheet.dart';
 
@@ -120,8 +123,8 @@ class AudioScreen extends ConsumerWidget {
                       decoration: BoxDecoration(
                         gradient: LinearGradient(
                           colors: [
-                            accent.primary.withOpacity(0.3),
-                            const Color(0xFFFFB547).withOpacity(0.2),
+                            accent.primary.withValues(alpha: 0.3),
+                            const Color(0xFFFFB547).withValues(alpha: 0.2),
                           ],
                         ),
                         borderRadius: BorderRadius.circular(24),
@@ -139,7 +142,7 @@ class AudioScreen extends ConsumerWidget {
                               borderRadius: BorderRadius.circular(16),
                               boxShadow: [
                                 BoxShadow(
-                                  color: accent.primary.withOpacity(0.35),
+                                  color: accent.primary.withValues(alpha: 0.35),
                                   blurRadius: 14,
                                 ),
                               ],
@@ -210,7 +213,7 @@ class AudioScreen extends ConsumerWidget {
                           radius: 18,
                           padding: const EdgeInsets.all(14),
                           border: isCurrent
-                              ? Border.all(color: accent.primary.withOpacity(0.6))
+                              ? Border.all(color: accent.primary.withValues(alpha: 0.6))
                               : null,
                           onTap: () {
                             ref.read(audioProvider.notifier).loadTrack(track);

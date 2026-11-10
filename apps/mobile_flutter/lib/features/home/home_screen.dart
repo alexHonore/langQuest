@@ -1,551 +1,68 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+
+import '../../core/content/content_bundle.dart' show Course;
+import '../../core/content/content_models.dart';
 import '../../core/services/app_state.dart';
-import '../../core/theme/colors.dart';
 import '../../core/theme/glass.dart';
+import '../../l10n/l10n.dart';
 import '../course_switcher/course_switcher_sheet.dart';
+import '../learn/learn_logic.dart';
+import '../learn/learn_providers.dart';
+import '../learn/learn_widgets.dart';
+import '../learn/mission_path_screen.dart';
 import '../mascot/melo_model.dart';
 import '../mascot/melo_widget.dart';
+import '../missions/missions_screen.dart';
 import '../scenes/animated_scene.dart';
-import '../scenes/scene_models.dart';
-import '../learn/learn_content.dart';
-import '../learn/learn_logic.dart';
 
+/// Home stays minimal (owner direction from the first device walkthrough): the course, the streak, the one next
+/// thing to do, and the review queue once there is something in it. No greeting heading, no quick-speak.
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appState = ref.watch(appStateProvider);
+    final course = appState.activeCourse;
+    if (course == null) return const SizedBox.shrink();
     final accent = appState.accent;
     final colors = appState.colors;
-    final nextMission = appState.missions.firstWhere(
-      (m) => m.isNext,
-      orElse: () => appState.missions.first,
-    );
+    final now = ref.watch(clockProvider)();
+    final next = appState.nextMission(course);
+    final streak = appState.streak(now);
+    final cards = appState.progress.cards.values.toList();
 
     return Scaffold(
       backgroundColor: colors.background,
       body: Stack(
         children: [
-          // 1. Dynamic Ambient Lantern Bloom Background
+          // Ambient lantern bloom (U2 Night Market), tinted by the course.
           Positioned(
             top: -100,
             left: -80,
-            child: Container(
-              width: 320,
-              height: 320,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: accent.lantern[0].withOpacity(0.18),
-              ),
-            ),
+            child: _Bloom(color: accent.lantern[0].withValues(alpha: appState.isDark ? 0.18 : 0.10), size: 320),
           ),
           Positioned(
             top: 240,
             right: -100,
-            child: Container(
-              width: 280,
-              height: 280,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                color: accent.lantern[1].withOpacity(0.14),
-              ),
-            ),
+            child: _Bloom(color: accent.lantern[1].withValues(alpha: appState.isDark ? 0.14 : 0.08), size: 280),
           ),
-
-          // 2. Main Scrollable View
           SafeArea(
             bottom: false,
-            child: CustomScrollView(
-              physics: const BouncingScrollPhysics(),
-              slivers: [
-                // Top Header App Bar
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        // Active Course Badge (Tap to switch course)
-                        GestureDetector(
-                          onTap: () {
-                            showModalBottomSheet(
-                              context: context,
-                              isScrollControlled: true,
-                              backgroundColor: Colors.transparent,
-                              builder: (_) => const CourseSwitcherSheet(),
-                            );
-                          },
-                          child: GlassContainer(
-                            level: GlassLevel.level2,
-                            radius: 24,
-                            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                            customGlow: accent.primary.withOpacity(0.25),
-                            child: Row(
-                              children: [
-                                Container(
-                                  width: 22,
-                                  height: 22,
-                                  decoration: BoxDecoration(
-                                    color: accent.primary,
-                                    shape: BoxShape.circle,
-                                  ),
-                                  child: const Center(
-                                    child: Icon(
-                                      LucideIcons.globe,
-                                      size: 13,
-                                      color: Colors.white,
-                                    ),
-                                  ),
-                                ),
-                                const SizedBox(width: 8),
-                                Text(
-                                  appState.activeTrack.displayName,
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w700,
-                                    color: colors.textPrimary,
-                                  ),
-                                ),
-                                const SizedBox(width: 6),
-                                Icon(
-                                  LucideIcons.chevronDown,
-                                  size: 15,
-                                  color: colors.textMuted,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-
-                        // Streak and Account Buttons
-                        Row(
-                          children: [
-                            // Daily Streak Flame
-                            GlassContainer(
-                              level: GlassLevel.level1,
-                              radius: 20,
-                              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
-                              child: Row(
-                                children: [
-                                  const Icon(
-                                    LucideIcons.flame,
-                                    color: Color(0xFFFFB547),
-                                    size: 16,
-                                  ),
-                                  const SizedBox(width: 5),
-                                  Text(
-                                    '${appState.streakDays}d',
-                                    style: const TextStyle(
-                                      fontSize: 13,
-                                      fontWeight: FontWeight.w700,
-                                      color: Color(0xFFFFB547),
-                                    ),
-                                  ),
-                                ],
-                              ),
-                            ),
-                            const SizedBox(width: 8),
-                            // Settings / Profile
-                            GestureDetector(
-                              onTap: () => context.push('/account'),
-                              child: GlassContainer(
-                                level: GlassLevel.level1,
-                                radius: 20,
-                                padding: const EdgeInsets.all(8),
-                                child: Icon(
-                                  LucideIcons.settings,
-                                  size: 18,
-                                  color: colors.textSecondary,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                // Melo Companion with Speech Bubble
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-                    child: MeloWidget(
-                      state: MeloState.welcome,
-                      courseTrackId: appState.activeTrackId,
-                      speech: 'Bonjour ! Ready to practice polite café phrases today?',
-                      size: 88,
-                    ),
-                  ),
-                ),
-
-                // Primary Next Mission Card (Glowing Neon Frame)
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Row(
-                          children: [
-                            Icon(LucideIcons.sparkles, size: 16, color: accent.primaryText),
-                            const SizedBox(width: 8),
-                            Text(
-                              'NEXT SPEAKABLE MISSION',
-                              style: TextStyle(
-                                fontSize: 11.5,
-                                fontWeight: FontWeight.w700,
-                                letterSpacing: 1.1,
-                                color: accent.primaryText,
-                              ),
-                            ),
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-
-                        // Glowing Interactive Card
-                        GestureDetector(
-                          onTap: () => context.push('/path/${nextMission.id}'),
-                          child: Container(
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(24),
-                              border: Border.all(
-                                color: accent.primary.withOpacity(0.6),
-                                width: 1.5,
-                              ),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: accent.primary.withOpacity(0.30),
-                                  blurRadius: 24,
-                                  spreadRadius: 2,
-                                ),
-                              ],
-                            ),
-                            child: ClipRRect(
-                              borderRadius: BorderRadius.circular(23),
-                              child: Container(
-                                color: colors.elevated,
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    // Animated Scene Preview
-                                    AnimatedSceneWidget(
-                                      sceneId: SceneId.cafe,
-                                      height: 160,
-                                      showTimeToggle: true,
-                                    ),
-
-                                    // Mission details
-                                    Padding(
-                                      padding: const EdgeInsets.all(16),
-                                      child: Column(
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Row(
-                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                            children: [
-                                              Row(
-                                                children: [
-                                                  Icon(
-                                                    LucideIcons.clock,
-                                                    size: 13,
-                                                    color: colors.textMuted,
-                                                  ),
-                                                  const SizedBox(width: 5),
-                                                  Text(
-                                                    '${nextMission.minutes} mins · Next: ${_nextStopLabel(appState, nextMission.id)}',
-                                                    style: TextStyle(
-                                                      fontSize: 12,
-                                                      fontWeight: FontWeight.w500,
-                                                      color: colors.textMuted,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Container(
-                                                padding: const EdgeInsets.symmetric(
-                                                    horizontal: 8, vertical: 3),
-                                                decoration: BoxDecoration(
-                                                  color: accent.primarySoft,
-                                                  borderRadius: BorderRadius.circular(8),
-                                                ),
-                                                child: Text(
-                                                  '+25 XP',
-                                                  style: TextStyle(
-                                                    fontSize: 11.5,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: accent.primaryText,
-                                                  ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          const SizedBox(height: 8),
-                                          Text(
-                                            nextMission.title,
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w700,
-                                              color: colors.textPrimary,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 4),
-                                          Text(
-                                            nextMission.description,
-                                            style: TextStyle(
-                                              fontSize: 13.5,
-                                              color: colors.textSecondary,
-                                              height: 1.35,
-                                            ),
-                                          ),
-                                          const SizedBox(height: 14),
-
-                                          // Skills tags
-                                          Wrap(
-                                            spacing: 6,
-                                            runSpacing: 6,
-                                            children: nextMission.skills.map((skill) {
-                                              return Container(
-                                                padding: const EdgeInsets.symmetric(
-                                                    horizontal: 8, vertical: 4),
-                                                decoration: BoxDecoration(
-                                                  color: const Color(0x18FFFFFF),
-                                                  borderRadius: BorderRadius.circular(8),
-                                                ),
-                                                child: Text(
-                                                  '# ${skill.replaceAll('_', ' ')}',
-                                                  style: TextStyle(
-                                                    fontSize: 11,
-                                                    fontWeight: FontWeight.w500,
-                                                    color: colors.textSecondary,
-                                                  ),
-                                                ),
-                                              );
-                                            }).toList(),
-                                          ),
-                                          const SizedBox(height: 16),
-
-                                          // Start Mission Glowing Button
-                                          Container(
-                                            width: double.infinity,
-                                            height: 48,
-                                            decoration: BoxDecoration(
-                                              gradient: LinearGradient(
-                                                colors: [
-                                                  accent.primary,
-                                                  accent.primaryStrong,
-                                                ],
-                                              ),
-                                              borderRadius: BorderRadius.circular(16),
-                                              boxShadow: [
-                                                BoxShadow(
-                                                  color: accent.primary.withOpacity(0.45),
-                                                  blurRadius: 16,
-                                                  spreadRadius: 1,
-                                                ),
-                                              ],
-                                            ),
-                                            child: Row(
-                                              mainAxisAlignment: MainAxisAlignment.center,
-                                              children: [
-                                                const Icon(
-                                                  LucideIcons.play,
-                                                  size: 18,
-                                                  color: Colors.white,
-                                                ),
-                                                const SizedBox(width: 8),
-                                                Text(
-                                                  'Start Mission',
-                                                  style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.w700,
-                                                    color: accent.onPrimary,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                // Quick Action Buttons Row (Quick Speak, Reviews Due, Audio)
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 10),
-                    child: Row(
-                      children: [
-                        // Quick Speak
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () => context.push('/speak'),
-                            child: GlassContainer(
-                              level: GlassLevel.level2,
-                              radius: 18,
-                              padding: const EdgeInsets.all(14),
-                              customGlow: const Color(0xFF3EE1E8).withOpacity(0.2),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.all(8),
-                                    decoration: const BoxDecoration(
-                                      color: Color(0x223EE1E8),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: const Icon(
-                                      LucideIcons.mic,
-                                      size: 18,
-                                      color: Color(0xFF3EE1E8),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        'Quick Speak',
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w700,
-                                          color: colors.textPrimary,
-                                        ),
-                                      ),
-                                      Text(
-                                        'Live AI partner',
-                                        style: TextStyle(
-                                          fontSize: 11,
-                                          color: colors.textMuted,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 10),
-                        // Reviews Due Deck
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () => context.push('/review'),
-                            child: GlassContainer(
-                              level: GlassLevel.level2,
-                              radius: 18,
-                              padding: const EdgeInsets.all(14),
-                              customGlow: const Color(0xFFFFB547).withOpacity(0.2),
-                              child: Row(
-                                children: [
-                                  Container(
-                                    padding: const EdgeInsets.all(8),
-                                    decoration: const BoxDecoration(
-                                      color: Color(0x22FFB547),
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: const Icon(
-                                      LucideIcons.layers,
-                                      size: 18,
-                                      color: Color(0xFFFFB547),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        '${appState.reviewsDueCount} Cards Due',
-                                        style: TextStyle(
-                                          fontSize: 13,
-                                          fontWeight: FontWeight.w700,
-                                          color: colors.textPrimary,
-                                        ),
-                                      ),
-                                      Text(
-                                        'SRS Review',
-                                        style: TextStyle(
-                                          fontSize: 11,
-                                          color: colors.textMuted,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-
-                // 7-Day Speaking Minutes Gauge
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 18, vertical: 12),
-                    child: GlassContainer(
-                      level: GlassLevel.level1,
-                      radius: 20,
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                '7-DAY SPEAKING TIME',
-                                style: TextStyle(
-                                  fontSize: 11.5,
-                                  fontWeight: FontWeight.w700,
-                                  letterSpacing: 1.0,
-                                  color: colors.textMuted,
-                                ),
-                              ),
-                              Text(
-                                '${appState.speakingMinutes7d} min',
-                                style: TextStyle(
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w700,
-                                  color: accent.primaryText,
-                                ),
-                              ),
-                            ],
-                          ),
-                          const SizedBox(height: 10),
-                          ClipRRect(
-                            borderRadius: BorderRadius.circular(6),
-                            child: LinearProgressIndicator(
-                              value: (appState.speakingMinutes7d / 60.0).clamp(0.0, 1.0),
-                              minHeight: 6,
-                              backgroundColor: Colors.white12,
-                              valueColor: AlwaysStoppedAnimation<Color>(accent.primary),
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
-                ),
-
-                const SliverToBoxAdapter(
-                  child: SizedBox(height: 100), // padding for mini-player + bottom tab bar
-                ),
+            child: ListView(
+              padding: const EdgeInsets.fromLTRB(18, 12, 18, 110),
+              children: [
+                _TopBar(course: course, streak: streak),
+                const SizedBox(height: 18),
+                if (next != null) _NextMissionCard(course: course, mission: next) else const _ChapterDoneCard(),
+                if (cards.isNotEmpty) ...[
+                  const SizedBox(height: 14),
+                  _ReviewCard(due: appState.dueCards(now).length, nextDue: cards.map((c) => c.due).reduce((a, b) => a.isBefore(b) ? a : b), now: now),
+                ],
               ],
             ),
           ),
@@ -555,15 +72,309 @@ class HomeScreen extends ConsumerWidget {
   }
 }
 
-/// The next learn-path stop of a mission, for Home's card ("Next: Learn").
-String _nextStopLabel(AppState appState, String missionId) {
-  final stops = stopsFor(hasLearnPlan: LearnContent.forMission(missionId) != null);
-  final next = nextStop(stops, appState.stopsDone(missionId));
-  return switch (next) {
-    PathStop.learn => 'Learn',
-    PathStop.practise => 'Practise',
-    PathStop.mission => 'Mission',
-    PathStop.talk => 'Talk',
-    null => 'Review',
-  };
+class _Bloom extends StatelessWidget {
+  final Color color;
+  final double size;
+  const _Bloom({required this.color, required this.size});
+
+  @override
+  Widget build(BuildContext context) => IgnorePointer(
+    child: Container(
+      width: size,
+      height: size,
+      decoration: BoxDecoration(shape: BoxShape.circle, color: color),
+    ),
+  );
+}
+
+class _TopBar extends ConsumerWidget {
+  final Course course;
+  final int streak;
+  const _TopBar({required this.course, required this.streak});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appState = ref.watch(appStateProvider);
+    final colors = appState.colors;
+    final accent = appState.accent;
+    final l10n = context.l10n;
+    return Row(
+      children: [
+        Expanded(
+          child: Align(
+            alignment: AlignmentDirectional.centerStart,
+            child: Semantics(
+              button: true,
+              label: '${l10n.switchCourse}: ${course.track.name(appState.uiLanguage)}',
+              excludeSemantics: true,
+              child: GlassContainer(
+                level: GlassLevel.level2,
+                radius: 24,
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                customGlow: accent.primary.withValues(alpha: 0.25),
+                onTap: () => showCourseSwitcher(context),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Container(
+                      width: 22,
+                      height: 22,
+                      decoration: BoxDecoration(color: accent.primary, shape: BoxShape.circle),
+                      child: Icon(LucideIcons.globe, size: 13, color: accent.onPrimary),
+                    ),
+                    const SizedBox(width: 8),
+                    Flexible(
+                      child: Text(
+                        course.track.name(appState.uiLanguage),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: colors.textPrimary),
+                      ),
+                    ),
+                    const SizedBox(width: 6),
+                    Icon(LucideIcons.chevronDown, size: 15, color: colors.textMuted),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ),
+        const SizedBox(width: 8),
+        if (streak > 0) ...[
+          Semantics(
+            label: l10n.streakDays(streak),
+            excludeSemantics: true,
+            child: GlassContainer(
+              level: GlassLevel.level1,
+              radius: 20,
+              padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 6),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(LucideIcons.flame, color: colors.amber, size: 16),
+                  const SizedBox(width: 5),
+                  Text(
+                    '$streak',
+                    style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, color: colors.amberText),
+                  ),
+                ],
+              ),
+            ),
+          ),
+          const SizedBox(width: 8),
+        ],
+        Semantics(
+          button: true,
+          label: l10n.settings,
+          excludeSemantics: true,
+          child: GlassContainer(
+            level: GlassLevel.level1,
+            radius: 20,
+            padding: const EdgeInsets.all(9),
+            onTap: () => context.push('/account'),
+            child: Icon(LucideIcons.settings, size: 18, color: colors.textSecondary),
+          ),
+        ),
+      ],
+    );
+  }
+}
+
+class _NextMissionCard extends ConsumerWidget {
+  final Course course;
+  final Mission mission;
+  const _NextMissionCard({required this.course, required this.mission});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appState = ref.watch(appStateProvider);
+    final colors = appState.colors;
+    final accent = appState.accent;
+    final l10n = context.l10n;
+    final plan = ref.watch(learnPlanProvider(mission.key));
+    if (plan == null) return const SizedBox.shrink();
+    final stops = stopsFor(hasLearnPlan: planHasLearnStops(plan));
+    final done = appState.stopsDone(mission.key);
+    final nextStopValue = nextStop(stops, done) ?? PathStop.mission;
+    final index = course.indexOfMission(mission.key);
+    final sceneId = sceneIdForSituation(mission.situation);
+    final title = mission.titleIn(course.source) ?? '';
+    void open() => context.push('/path/${mission.key}');
+
+    return Semantics(
+      button: true,
+      label: '${l10n.homeNextMission}. $title. ${l10n.homeNextStop(stopLabel(l10n, nextStopValue))}',
+      excludeSemantics: true,
+      child: GestureDetector(
+        onTap: open,
+        child: Container(
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.circular(24),
+            border: Border.all(color: accent.primary.withValues(alpha: 0.6), width: 1.5),
+            boxShadow: [BoxShadow(color: accent.primary.withValues(alpha: appState.isDark ? 0.30 : 0.16), blurRadius: 24, spreadRadius: 2)],
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(23),
+            child: Container(
+              color: colors.elevated,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AnimatedSceneWidget(
+                    sceneId: sceneId,
+                    title: sceneTitle(l10n, sceneId),
+                    height: 150,
+                    showTimeToggle: false,
+                    child: Positioned(
+                      right: 10,
+                      bottom: 4,
+                      child: MeloWidget(state: MeloState.welcome, courseTrackId: appState.activeTrackId, size: 64),
+                    ),
+                  ),
+                  Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Row(
+                          children: [
+                            Icon(LucideIcons.sparkles, size: 14, color: accent.primaryText),
+                            const SizedBox(width: 6),
+                            Expanded(
+                              child: Text(
+                                '${l10n.homeNextMission.toUpperCase()} · ${l10n.missionLabel(index + 1)}',
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, letterSpacing: 1.0, color: accent.primaryText),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 8),
+                        Text(
+                          title,
+                          style: TextStyle(fontSize: 19, fontWeight: FontWeight.w800, color: colors.textPrimary),
+                        ),
+                        if (mission.sceneNoteIn(course.source) case final note?) ...[
+                          const SizedBox(height: 4),
+                          Text(
+                            note,
+                            maxLines: 2,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 13.5, height: 1.35, color: colors.textSecondary),
+                          ),
+                        ],
+                        const SizedBox(height: 12),
+                        StopDots(stops: stops, done: done),
+                        const SizedBox(height: 14),
+                        LearnPrimaryButton(
+                          label: done.isEmpty ? l10n.pathStartStop(stopLabel(l10n, nextStopValue)) : l10n.pathContinueStop(stopLabel(l10n, nextStopValue)),
+                          icon: LucideIcons.play,
+                          onPressed: open,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+class _ChapterDoneCard extends ConsumerWidget {
+  const _ChapterDoneCard();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appState = ref.watch(appStateProvider);
+    final colors = appState.colors;
+    final l10n = context.l10n;
+    return GlassContainer(
+      level: GlassLevel.level2,
+      radius: 22,
+      padding: const EdgeInsets.all(18),
+      child: Row(
+        children: [
+          MeloWidget(state: MeloState.celebrate, courseTrackId: appState.activeTrackId, size: 72),
+          const SizedBox(width: 14),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l10n.homeChapterDone,
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: colors.textPrimary),
+                ),
+                const SizedBox(height: 4),
+                Text(l10n.homeChapterDoneBody, style: TextStyle(fontSize: 13.5, height: 1.35, color: colors.textSecondary)),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _ReviewCard extends ConsumerWidget {
+  final int due;
+  final DateTime nextDue;
+  final DateTime now;
+  const _ReviewCard({required this.due, required this.nextDue, required this.now});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appState = ref.watch(appStateProvider);
+    final colors = appState.colors;
+    final l10n = context.l10n;
+    final locale = Localizations.localeOf(context).toLanguageTag();
+    final local = nextDue.toLocal();
+    final sameDay = local.year == now.year && local.month == now.month && local.day == now.day;
+    final when = sameDay ? DateFormat.Hm(locale).format(local) : DateFormat.MMMEd(locale).format(local);
+    final subtitle = due > 0 ? l10n.reviewsDue(due) : l10n.nextReviewAt(when);
+    return Semantics(
+      button: due > 0,
+      label: '${l10n.homeReviewTitle}. $subtitle',
+      excludeSemantics: true,
+      child: GlassContainer(
+        level: GlassLevel.level2,
+        radius: 18,
+        padding: const EdgeInsets.all(14),
+        customGlow: due > 0 ? colors.amber.withValues(alpha: 0.5) : null,
+        onTap: due > 0 ? () => context.push('/review') : null,
+        child: Row(
+          children: [
+            Container(
+              padding: const EdgeInsets.all(9),
+              decoration: BoxDecoration(color: colors.amber.withValues(alpha: 0.16), shape: BoxShape.circle),
+              child: Icon(LucideIcons.layers, size: 18, color: colors.amberText),
+            ),
+            const SizedBox(width: 12),
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    l10n.homeReviewTitle,
+                    style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: colors.textPrimary),
+                  ),
+                  Text(subtitle, style: TextStyle(fontSize: 12.5, color: colors.textSecondary)),
+                ],
+              ),
+            ),
+            if (due > 0) Icon(LucideIcons.chevronRight, size: 18, color: colors.textMuted),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Opens the course switcher sheet (Home's course chip).
+void showCourseSwitcher(BuildContext context) {
+  showModalBottomSheet(context: context, isScrollControlled: true, backgroundColor: Colors.transparent, builder: (_) => const CourseSwitcherSheet());
 }

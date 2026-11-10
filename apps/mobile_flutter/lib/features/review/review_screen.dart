@@ -1,14 +1,24 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+
+import '../../navigation/nav.dart';
+import '../../core/content/content_bundle.dart';
+import '../../core/content/content_models.dart';
+import '../../core/learning/srs.dart';
 import '../../core/services/app_state.dart';
-import '../../core/theme/accents.dart';
-import '../../core/theme/colors.dart';
+import '../../l10n/l10n.dart';
+import '../learn/learn_content.dart';
+import '../learn/learn_widgets.dart';
 import '../mascot/melo_model.dart';
 import '../mascot/melo_widget.dart';
 
+/// Spaced review (§3.5): the phrases the learner used in missions come back when the scheduler says they are about
+/// to be forgotten. Production recall: the meaning is shown, the learner says the phrase out loud, then reveals it
+/// and rates how it went (Again / Hard / Good / Easy). The queue is fixed when the screen opens; a card rated
+/// "again" comes back in a later sitting.
 class ReviewScreen extends ConsumerStatefulWidget {
   const ReviewScreen({super.key});
 
@@ -16,433 +26,225 @@ class ReviewScreen extends ConsumerStatefulWidget {
   ConsumerState<ReviewScreen> createState() => _ReviewScreenState();
 }
 
-class _ReviewScreenState extends ConsumerState<ReviewScreen>
-    with SingleTickerProviderStateMixin {
-  late final AnimationController _flipController;
-  late final Animation<double> _flipAnimation;
-  bool _isBack = false;
-  double _cardDragX = 0.0;
+class _ReviewScreenState extends ConsumerState<ReviewScreen> {
+  late final List<String> _queue;
+  int _position = 0;
+  bool _revealed = false;
 
   @override
   void initState() {
     super.initState();
-    _flipController = AnimationController(
-      vsync: this,
-      duration: const Duration(milliseconds: 400),
-    );
-    _flipAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
-      CurvedAnimation(parent: _flipController, curve: Curves.easeInOut),
-    );
+    final now = ref.read(clockProvider)();
+    final appState = ref.read(appStateProvider);
+    final course = appState.activeCourse;
+    final content = ref.read(contentBundleProvider);
+    // A card whose phrase is no longer in the course content (content update) is skipped, not shown blank.
+    _queue = [
+      if (course != null)
+        for (final c in appState.dueCards(now))
+          if (_lookup(content, course, c.id) != null) c.id,
+    ];
   }
 
-  @override
-  void dispose() {
-    _flipController.dispose();
-    super.dispose();
-  }
-
-  void _flipCard() {
-    if (_isBack) {
-      _flipController.reverse();
-    } else {
-      _flipController.forward();
-    }
-    setState(() => _isBack = !_isBack);
-  }
-
-  void _handleReviewDecision(bool remembered, String cardId) {
-    ref.read(appStateProvider.notifier).removeReviewedCard(cardId);
+  void _rate(ReviewRating rating) {
+    ref.read(appStateProvider.notifier).reviewCard(_queue[_position], rating);
     setState(() {
-      _isBack = false;
-      _cardDragX = 0.0;
+      _position++;
+      _revealed = false;
     });
-    _flipController.reset();
   }
 
   @override
   Widget build(BuildContext context) {
     final appState = ref.watch(appStateProvider);
-    final accent = appState.accent;
     final colors = appState.colors;
-    final deck = appState.reviewDeck;
+    final accent = appState.accent;
+    final l10n = context.l10n;
+    final course = appState.activeCourse;
+    final content = ref.watch(contentBundleProvider);
+    final remaining = _queue.length - _position;
+    final current = remaining > 0 && course != null ? _lookup(content, course, _queue[_position]) : null;
 
     return Scaffold(
       backgroundColor: colors.background,
       body: SafeArea(
         child: Column(
           children: [
-            // Header Bar
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+              padding: const EdgeInsets.fromLTRB(8, 4, 16, 4),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   IconButton(
-                    icon: const Icon(LucideIcons.x, color: Colors.white70),
-                    onPressed: () => context.pop(),
+                    icon: Icon(LucideIcons.x, color: colors.textSecondary),
+                    tooltip: l10n.close,
+                    onPressed: () => context.popOrHome(),
                   ),
-                  Text(
-                    'SPACED REPETITION REVIEW',
-                    style: TextStyle(
-                      fontSize: 12,
-                      fontWeight: FontWeight.w700,
-                      letterSpacing: 1.2,
-                      color: accent.primaryText,
+                  Expanded(
+                    child: Text(
+                      l10n.reviewTitle,
+                      style: TextStyle(fontSize: 16, fontWeight: FontWeight.w800, color: colors.textPrimary),
                     ),
                   ),
-                  IconButton(
-                    icon: const Icon(LucideIcons.helpCircle, color: Colors.white70),
-                    onPressed: () {},
-                  ),
+                  if (remaining > 0)
+                    Text(
+                      l10n.reviewLeft(remaining),
+                      style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: colors.textMuted),
+                    ),
                 ],
               ),
             ),
-
-            if (deck.isEmpty) ...[
-              const Spacer(),
-              Center(
-                child: Column(
-                  children: [
-                    MeloWidget(
-                      state: MeloState.celebrate,
-                      speech: 'All done for today! Your memory retention is durable.',
-                      size: 110,
-                    ),
-                    const SizedBox(height: 24),
-                    const Text(
-                      'All Cards Reviewed !',
-                      style: TextStyle(
-                        fontSize: 22,
-                        fontWeight: FontWeight.w800,
-                        color: Colors.white,
-                      ),
-                    ),
-                    const SizedBox(height: 8),
-                    Text(
-                      'Come back tomorrow for your next spaced review cycle.',
-                      style: TextStyle(fontSize: 14, color: colors.textSecondary),
-                    ),
-                    const SizedBox(height: 32),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: accent.primary,
-                        foregroundColor: accent.onPrimary,
-                        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 14),
-                        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                      ),
-                      onPressed: () => context.pop(),
-                      child: const Text('Return Home', style: TextStyle(fontWeight: FontWeight.w700)),
-                    ),
-                  ],
-                ),
-              ),
-              const Spacer(),
-            ] else ...[
-              // Remaining count indicator
-              Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
-                child: Text(
-                  '${deck.length} cards remaining',
-                  style: TextStyle(
-                    fontSize: 13,
-                    fontWeight: FontWeight.w600,
-                    color: colors.textMuted,
-                  ),
-                ),
-              ),
-
-              // Interactive 3D Flip Flashcard with Swipe Physics
-              Expanded(
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 24),
-                    child: GestureDetector(
-                      onTap: _flipCard,
-                      onHorizontalDragUpdate: (details) {
-                        setState(() {
-                          _cardDragX += details.delta.dx;
-                        });
-                      },
-                      onHorizontalDragEnd: (details) {
-                        final currentCard = deck.first;
-                        if (_cardDragX > 80) {
-                          _handleReviewDecision(true, currentCard.id);
-                        } else if (_cardDragX < -80) {
-                          _handleReviewDecision(false, currentCard.id);
-                        } else {
-                          setState(() => _cardDragX = 0.0);
-                        }
-                      },
-                      child: Transform.translate(
-                        offset: Offset(_cardDragX, 0),
-                        child: Transform.rotate(
-                          angle: (_cardDragX / 400.0) * 0.25,
-                          child: AnimatedBuilder(
-                            animation: _flipAnimation,
-                            builder: (context, _) {
-                              final isUnder = _flipAnimation.value > 0.5;
-                              final angle = _flipAnimation.value * math.pi;
-
-                              return Transform(
-                                transform: Matrix4.identity()
-                                  ..setEntry(3, 2, 0.0015)
-                                  ..rotateY(angle),
-                                alignment: Alignment.center,
-                                child: isUnder
-                                    ? Transform(
-                                        transform: Matrix4.identity()..rotateY(math.pi),
-                                        alignment: Alignment.center,
-                                        child: _buildCardBack(deck.first, accent, colors),
-                                      )
-                                    : _buildCardFront(deck.first, accent, colors),
-                              );
-                            },
+            Expanded(
+              child: current == null || course == null
+                  ? _doneView()
+                  : Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 20),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          const SizedBox(height: 12),
+                          Expanded(
+                            child: AnimatedSwitcher(
+                              duration: const Duration(milliseconds: 220),
+                              child: Container(
+                                key: ValueKey('${_queue[_position]}-$_revealed'),
+                                padding: const EdgeInsets.all(22),
+                                decoration: BoxDecoration(
+                                  color: colors.surface,
+                                  borderRadius: BorderRadius.circular(26),
+                                  border: Border.all(color: _revealed ? accent.primary.withValues(alpha: 0.6) : colors.border, width: _revealed ? 1.5 : 1),
+                                  boxShadow: [BoxShadow(color: accent.primary.withValues(alpha: 0.12), blurRadius: 24, offset: const Offset(0, 8))],
+                                ),
+                                child: Center(
+                                  child: SingleChildScrollView(
+                                    child: Column(
+                                      mainAxisSize: MainAxisSize.min,
+                                      children: [
+                                        Text(
+                                          l10n.reviewHowDoYouSay,
+                                          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: colors.textMuted),
+                                        ),
+                                        const SizedBox(height: 10),
+                                        Text(
+                                          current.plan.promptMeaningOf(current.expression),
+                                          textAlign: TextAlign.center,
+                                          style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: colors.textPrimary),
+                                        ),
+                                        const SizedBox(height: 20),
+                                        if (!_revealed)
+                                          Text(
+                                            l10n.reviewSayThenShow,
+                                            textAlign: TextAlign.center,
+                                            style: TextStyle(fontSize: 14, color: colors.textSecondary),
+                                          )
+                                        else ...[
+                                          Divider(color: colors.border),
+                                          const SizedBox(height: 14),
+                                          TargetText(expression: current.expression, track: course.track, fontSize: 28, textAlign: TextAlign.center),
+                                          const SizedBox(height: 14),
+                                          ListenButtons(text: current.expression.text, locale: course.track.voiceLocale),
+                                          if (current.plan.noteOf(current.expression) case final note?) ...[
+                                            const SizedBox(height: 14),
+                                            Text(
+                                              note,
+                                              textAlign: TextAlign.center,
+                                              style: TextStyle(fontSize: 13, height: 1.35, color: colors.textSecondary),
+                                            ),
+                                          ],
+                                        ],
+                                      ],
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
                           ),
-                        ),
+                          const SizedBox(height: 16),
+                          if (!_revealed)
+                            LearnPrimaryButton(label: l10n.reviewShowAnswer, icon: LucideIcons.eye, onPressed: () => setState(() => _revealed = true))
+                          else
+                            Row(
+                              children: [
+                                for (final (rating, label, color) in [
+                                  (ReviewRating.again, l10n.reviewAgain, colors.error),
+                                  (ReviewRating.hard, l10n.reviewHard, colors.warning),
+                                  (ReviewRating.good, l10n.reviewGood, colors.success),
+                                  (ReviewRating.easy, l10n.reviewEasy, colors.info),
+                                ])
+                                  Expanded(
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 4),
+                                      child: OutlinedButton(
+                                        style: OutlinedButton.styleFrom(
+                                          minimumSize: const Size(0, 52),
+                                          padding: const EdgeInsets.symmetric(horizontal: 4),
+                                          foregroundColor: color,
+                                          side: BorderSide(color: color, width: 1.5),
+                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                        ),
+                                        onPressed: () => _rate(rating),
+                                        child: FittedBox(
+                                          fit: BoxFit.scaleDown,
+                                          child: Text(label, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700)),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                              ],
+                            ).animate().fadeIn(duration: 200.ms),
+                          const SizedBox(height: 16),
+                        ],
                       ),
                     ),
-                  ),
-                ),
-              ),
-
-              // Swipe Action Buttons (Review Again / Remembered)
-              Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    // Review Again (Left)
-                    GestureDetector(
-                      onTap: () => _handleReviewDecision(false, deck.first.id),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 14),
-                        decoration: BoxDecoration(
-                          color: const Color(0x22FFB547),
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(color: const Color(0xFFFFB547)),
-                        ),
-                        child: const Row(
-                          children: [
-                            Icon(LucideIcons.rotateCcw, size: 18, color: Color(0xFFFFB547)),
-                            SizedBox(width: 8),
-                            Text(
-                              'Review Again',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFFFFB547),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-
-                    // Remembered (Right)
-                    GestureDetector(
-                      onTap: () => _handleReviewDecision(true, deck.first.id),
-                      child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 28, vertical: 14),
-                        decoration: BoxDecoration(
-                          color: const Color(0xFF45E0A6),
-                          borderRadius: BorderRadius.circular(20),
-                          boxShadow: const [
-                            BoxShadow(
-                              color: Color(0x4045E0A6),
-                              blurRadius: 16,
-                              spreadRadius: 2,
-                            ),
-                          ],
-                        ),
-                        child: const Row(
-                          children: [
-                            Icon(LucideIcons.check, size: 18, color: Color(0xFF0F3328)),
-                            SizedBox(width: 8),
-                            Text(
-                              'Remembered',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w700,
-                                color: Color(0xFF0F3328),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-            ],
+            ),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildCardFront(FlashcardItem card, CourseAccent accent, LangQuestColors colors) {
-    return Container(
-      width: double.infinity,
-      height: 380,
-      padding: const EdgeInsets.all(28),
-      decoration: BoxDecoration(
-        color: colors.elevated,
-        borderRadius: BorderRadius.circular(28),
-        border: Border.all(color: Colors.white12),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.4),
-            blurRadius: 24,
-            spreadRadius: 4,
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-            decoration: BoxDecoration(
-              color: const Color(0x18FFFFFF),
-              borderRadius: BorderRadius.circular(10),
+  Widget _doneView() {
+    final appState = ref.watch(appStateProvider);
+    final colors = appState.colors;
+    final l10n = context.l10n;
+    final hasCards = appState.progress.cards.isNotEmpty;
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            MeloWidget(state: hasCards ? MeloState.celebrate : MeloState.curious, courseTrackId: appState.activeTrackId, size: 100),
+            const SizedBox(height: 20),
+            Text(
+              hasCards ? l10n.reviewAllDone : l10n.reviewEmpty,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 18, fontWeight: FontWeight.w700, color: colors.textPrimary),
             ),
-            child: Text(
-              'TARGET PHRASE',
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 1.0,
-                color: colors.textMuted,
-              ),
-            ),
-          ),
-          const SizedBox(height: 24),
-          Text(
-            card.front,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 24,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-              height: 1.35,
-            ),
-          ),
-          const SizedBox(height: 12),
-          Text(
-            card.phonetic,
-            style: TextStyle(
-              fontSize: 14,
-              fontStyle: FontStyle.italic,
-              color: accent.primaryText,
-            ),
-          ),
-          const SizedBox(height: 32),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(LucideIcons.refreshCw, size: 14, color: colors.textMuted),
-              const SizedBox(width: 6),
-              Text(
-                'Tap to flip card',
-                style: TextStyle(fontSize: 12, color: colors.textMuted),
-              ),
-            ],
-          ),
-        ],
+            const SizedBox(height: 28),
+            LearnPrimaryButton(label: l10n.backHome, icon: LucideIcons.house, onPressed: () => context.go('/')),
+          ],
+        ),
       ),
     );
   }
+}
 
-  Widget _buildCardBack(FlashcardItem card, CourseAccent accent, LangQuestColors colors) {
-    return Container(
-      width: double.infinity,
-      height: 380,
-      padding: const EdgeInsets.all(28),
-      decoration: BoxDecoration(
-        color: const Color(0xFF1B152B),
-        borderRadius: BorderRadius.circular(28),
-        border: Border.all(color: accent.primary.withOpacity(0.5), width: 1.5),
-        boxShadow: [
-          BoxShadow(
-            color: accent.primary.withOpacity(0.25),
-            blurRadius: 28,
-            spreadRadius: 2,
-          ),
-        ],
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
-            decoration: BoxDecoration(
-              color: accent.primarySoft,
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: Text(
-              'TRANSLATION & CONTEXT',
-              style: TextStyle(
-                fontSize: 11,
-                fontWeight: FontWeight.w700,
-                letterSpacing: 1.0,
-                color: accent.primaryText,
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          Text(
-            card.back,
-            textAlign: TextAlign.center,
-            style: const TextStyle(
-              fontSize: 22,
-              fontWeight: FontWeight.w700,
-              color: Colors.white,
-            ),
-          ),
-          const SizedBox(height: 20),
-          Container(
-            padding: const EdgeInsets.all(14),
-            decoration: BoxDecoration(
-              color: const Color(0x12FFFFFF),
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Column(
-              children: [
-                Text(
-                  card.example,
-                  textAlign: TextAlign.center,
-                  style: const TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                Text(
-                  card.translation,
-                  textAlign: TextAlign.center,
-                  style: TextStyle(
-                    fontSize: 12.5,
-                    color: colors.textMuted,
-                  ),
-                ),
-              ],
-            ),
-          ),
-          const SizedBox(height: 24),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Icon(LucideIcons.refreshCw, size: 14, color: colors.textMuted),
-              const SizedBox(width: 6),
-              Text(
-                'Tap to flip back',
-                style: TextStyle(fontSize: 12, color: colors.textMuted),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
+class _ReviewItem {
+  final Expression expression;
+  final MissionLearnPlan plan;
+  const _ReviewItem(this.expression, this.plan);
+}
+
+/// Find a card's expression (ids are `<chapter>:<mission>:<expression>`) with the plan that gives its meaning.
+_ReviewItem? _lookup(ContentBundle content, Course course, String expressionId) {
+  final parts = expressionId.split(':');
+  if (parts.length != 3) return null;
+  final mission = content.mission(parts[1]);
+  if (mission == null || course.indexOfMission(mission.key) < 0) return null;
+  for (final e in mission.expressions) {
+    if (e.id == expressionId) {
+      return _ReviewItem(e, buildLearnPlan(mission: mission, track: course.track, source: course.source, character: content.characterOf(mission)));
+    }
   }
+  return null;
 }

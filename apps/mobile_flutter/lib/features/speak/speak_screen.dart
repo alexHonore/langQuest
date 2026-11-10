@@ -1,3 +1,7 @@
+// PARKED — not reachable from the app since the learn path moved to the real curriculum (see README.md,
+// "Parked prototype files"). It holds mock data or simulated behaviour (canned replies, simulated playback or
+// voice levels, hand-copied catalog) that must not ship. Kept until the owner decides to delete or rewrite it.
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -130,15 +134,15 @@ class SpeakScreen extends ConsumerWidget {
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
                             colors: [
-                              const Color(0xFF3EE1E8).withOpacity(0.25),
-                              accent.primary.withOpacity(0.20),
+                              const Color(0xFF3EE1E8).withValues(alpha: 0.25),
+                              accent.primary.withValues(alpha: 0.20),
                             ],
                           ),
                           borderRadius: BorderRadius.circular(24),
-                          border: Border.all(color: const Color(0xFF3EE1E8).withOpacity(0.6)),
+                          border: Border.all(color: const Color(0xFF3EE1E8).withValues(alpha: 0.6)),
                           boxShadow: [
                             BoxShadow(
-                              color: const Color(0xFF3EE1E8).withOpacity(0.25),
+                              color: const Color(0xFF3EE1E8).withValues(alpha: 0.25),
                               blurRadius: 20,
                               spreadRadius: 2,
                             ),
@@ -232,7 +236,7 @@ class SpeakScreen extends ConsumerWidget {
                                   color: c.themeColor,
                                   boxShadow: [
                                     BoxShadow(
-                                      color: c.themeColor.withOpacity(0.35),
+                                      color: c.themeColor.withValues(alpha: 0.35),
                                       blurRadius: 12,
                                       spreadRadius: 1,
                                     ),
