@@ -80,6 +80,10 @@ Configuration — client-safe values only (URL, anon key), never a secret:
   `NEXT_PUBLIC_SUPABASE_ANON_KEY`) and `LQ_API_BASE_URL`; nothing is written at start-up. The API Worker needs its secrets and the web origin in `CORS_ALLOWED_ORIGINS`
   (`apps/api/wrangler.toml`, `infra/cloudflare/README.md`).
 
+On the live web app (https://web-languest.tayoo.app › Settings › Account), sign in with the test learner whose
+credentials are the hosted app's `LOCAL_LEARNER_EMAIL` / `LOCAL_LEARNER_PASSWORD` variables (confirmed on the
+instance, no email needed). New accounts need email confirmation on that instance.
+
 Try it locally (local stack and local test accounts only):
 
 ```bash

@@ -145,3 +145,12 @@ instance's four seeded courses listed, preflight from `https://web-languest.tayo
 on the hosted app. The first deployment of the account build served no `/config.json` (404): the start-up script
 that wrote it did not run there (entrypoint overridden or read-only image). It is now a static template that Caddy
 fills from the environment on each request — checked with a read-only root filesystem.
+
+Live check (owner approved a temporary account): a confirmed account created through the admin API; browser A on
+https://web-languest.tayoo.app signed in from Settings and completed Spanish mission 1 through the UI; the instance
+then held `spanish-spain|en active` and the mission `completed` (not credited, as designed); a fresh browser B signed
+in and got the Spanish course back next to its own Japanese one, mission 1's stops done, 0 review cards; the account
+was then deleted through `DELETE /v1/me` (200 `deleted`). 0 page or console errors.
+
+Test learner (owner's request): a confirmed account on the instance from the hosted app's `LOCAL_LEARNER_EMAIL` /
+`LOCAL_LEARNER_PASSWORD` (domain `langquest.test`), so it signs in without an email; checked: sign-in ok, `/v1/me` 200.
