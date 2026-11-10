@@ -26,8 +26,8 @@ against the release index), Node 22, Playwright Chromium. No Xcode, Android SDK,
 | Progression stopped after mission 2: `isNext` was a fixed flag, so Home fell back to the finished mission 1 | Next mission and unlocks computed from completion |
 | Switching to any of 5 "enrolled" courses kept the French missions under the new course's name | Content per course × instruction language; only startable courses can be enrolled |
 | Light theme: white text on white (glass panes ignored the theme; ~40 hard-coded white colours) | Theme-aware glass and colour tokens everywhere |
-| Simulated conversation: random "voice level", canned replies, "Hands-free mode active", dead info/keyboard buttons | Unreachable (parked, see the app README) |
-| Audio library: 4 tracks all playing one file with a simulated playhead; seek did not seek; dead download/share buttons | Unreachable (parked); Audio tab hidden |
+| Simulated conversation: random "voice level", canned replies, "Hands-free mode active", dead info/keyboard buttons | Removed (unreachable first, then deleted with the owner's go-ahead, 2026-11-10) |
+| Audio library: 4 tracks all playing one file with a simulated playhead; seek did not seek; dead download/share buttons | Removed (deleted with the owner's go-ahead, 2026-11-10); Audio tab hidden until real audio exists |
 | Invented numbers: "Level 3 Learner", "42 words durable", a Mon–Fri streak, "0 pending events · cache up-to-date" | Progress and settings show measured values only |
 | Nothing persisted (shared_preferences was a dependency but unused) | Versioned JSON state in SharedPreferences, damaged entries fall back safely |
 | Instruction-language switch changed nothing (UI was English-only) | Real en/fr interface |

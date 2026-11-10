@@ -74,18 +74,6 @@ assets/content/                 generated content bundle
 assets/fonts/                   Outfit + Inter (OFL), bundled: no runtime font downloads
 ```
 
-## Parked prototype files
-
-These are no longer reachable from the app. They hold mock data or simulated behaviour from the first prototype
-(canned chat replies with a random "voice level", a fake audio library whose four tracks all played one file with a
-simulated playhead, a hand-copied catalog). They are kept, each with a `PARKED` header, until the owner decides to
-delete or rewrite them:
-
-- `lib/features/speak/speak_screen.dart`, `lib/features/speak/conversation_screen.dart`
-- `lib/features/audio/audio_screen.dart`, `mini_player.dart`, `full_player_sheet.dart`, `lib/core/services/audio_service.dart`
-- `lib/core/constants/catalog.dart` (replaced by `assets/content/catalog.json`)
-- `assets/audio/cafe_*` (no longer bundled)
-
 ## Next steps
 
 1. **API wiring** — sign-in (Supabase auth), enrollments, course manifest, mission attempts and progress sync against
