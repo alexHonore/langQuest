@@ -1,0 +1,1164 @@
+import 'dart:async';
+
+import 'package:flutter/foundation.dart';
+import 'package:flutter/widgets.dart';
+import 'package:flutter_localizations/flutter_localizations.dart';
+import 'package:intl/intl.dart' as intl;
+
+import 'app_localizations_en.dart';
+import 'app_localizations_fr.dart';
+
+// ignore_for_file: type=lint
+
+/// Callers can lookup localized strings with an instance of AppLocalizations
+/// returned by `AppLocalizations.of(context)`.
+///
+/// Applications need to include `AppLocalizations.delegate()` in their app's
+/// `localizationDelegates` list, and the locales they support in the app's
+/// `supportedLocales` list. For example:
+///
+/// ```dart
+/// import 'generated/app_localizations.dart';
+///
+/// return MaterialApp(
+///   localizationsDelegates: AppLocalizations.localizationsDelegates,
+///   supportedLocales: AppLocalizations.supportedLocales,
+///   home: MyApplicationHome(),
+/// );
+/// ```
+///
+/// ## Update pubspec.yaml
+///
+/// Please make sure to update your pubspec.yaml to include the following
+/// packages:
+///
+/// ```yaml
+/// dependencies:
+///   # Internationalization support.
+///   flutter_localizations:
+///     sdk: flutter
+///   intl: any # Use the pinned version from flutter_localizations
+///
+///   # Rest of dependencies
+/// ```
+///
+/// ## iOS Applications
+///
+/// iOS applications define key application metadata, including supported
+/// locales, in an Info.plist file that is built into the application bundle.
+/// To configure the locales supported by your app, you’ll need to edit this
+/// file.
+///
+/// First, open your project’s ios/Runner.xcworkspace Xcode workspace file.
+/// Then, in the Project Navigator, open the Info.plist file under the Runner
+/// project’s Runner folder.
+///
+/// Next, select the Information Property List item, select Add Item from the
+/// Editor menu, then select Localizations from the pop-up menu.
+///
+/// Select and expand the newly-created Localizations item then, for each
+/// locale your application supports, add a new item and select the locale
+/// you wish to add from the pop-up menu in the Value field. This list should
+/// be consistent with the languages listed in the AppLocalizations.supportedLocales
+/// property.
+abstract class AppLocalizations {
+  AppLocalizations(String locale) : localeName = intl.Intl.canonicalizedLocale(locale.toString());
+
+  final String localeName;
+
+  static AppLocalizations of(BuildContext context) {
+    return Localizations.of<AppLocalizations>(context, AppLocalizations)!;
+  }
+
+  static const LocalizationsDelegate<AppLocalizations> delegate = _AppLocalizationsDelegate();
+
+  /// A list of this localizations delegate along with the default localizations
+  /// delegates.
+  ///
+  /// Returns a list of localizations delegates containing this delegate along with
+  /// GlobalMaterialLocalizations.delegate, GlobalCupertinoLocalizations.delegate,
+  /// and GlobalWidgetsLocalizations.delegate.
+  ///
+  /// Additional delegates can be added by appending to this list in
+  /// MaterialApp. This list does not have to be used at all if a custom list
+  /// of delegates is preferred or required.
+  static const List<LocalizationsDelegate<dynamic>> localizationsDelegates = <LocalizationsDelegate<dynamic>>[
+    delegate,
+    GlobalMaterialLocalizations.delegate,
+    GlobalCupertinoLocalizations.delegate,
+    GlobalWidgetsLocalizations.delegate,
+  ];
+
+  /// A list of this localizations delegate's supported locales.
+  static const List<Locale> supportedLocales = <Locale>[Locale('en'), Locale('fr')];
+
+  /// No description provided for @appTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'LangQuest'**
+  String get appTitle;
+
+  /// No description provided for @tabHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get tabHome;
+
+  /// No description provided for @tabMissions.
+  ///
+  /// In en, this message translates to:
+  /// **'Missions'**
+  String get tabMissions;
+
+  /// No description provided for @tabProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'Progress'**
+  String get tabProgress;
+
+  /// No description provided for @back.
+  ///
+  /// In en, this message translates to:
+  /// **'Back'**
+  String get back;
+
+  /// No description provided for @close.
+  ///
+  /// In en, this message translates to:
+  /// **'Close'**
+  String get close;
+
+  /// No description provided for @cancel.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get cancel;
+
+  /// No description provided for @next.
+  ///
+  /// In en, this message translates to:
+  /// **'Next'**
+  String get next;
+
+  /// No description provided for @you.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get you;
+
+  /// No description provided for @listen.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen'**
+  String get listen;
+
+  /// No description provided for @listenSlowly.
+  ///
+  /// In en, this message translates to:
+  /// **'Slowly'**
+  String get listenSlowly;
+
+  /// No description provided for @listenSlowlySemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen slowly'**
+  String get listenSlowlySemantics;
+
+  /// No description provided for @syntheticVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Synthetic voice'**
+  String get syntheticVoice;
+
+  /// No description provided for @stepOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Step {step} of {total}'**
+  String stepOf(int step, int total);
+
+  /// No description provided for @xpGain.
+  ///
+  /// In en, this message translates to:
+  /// **'+{xp} XP'**
+  String xpGain(int xp);
+
+  /// No description provided for @languageName.
+  ///
+  /// In en, this message translates to:
+  /// **'{code, select, en{English} fr{French} ru{Russian} other{{code}}}'**
+  String languageName(String code);
+
+  /// No description provided for @fromLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'{code, select, en{from English} fr{from French} ru{from Russian} other{from {code}}}'**
+  String fromLanguage(String code);
+
+  /// No description provided for @notNativeReviewed.
+  ///
+  /// In en, this message translates to:
+  /// **'Not yet reviewed by native speakers'**
+  String get notNativeReviewed;
+
+  /// No description provided for @draftChapterNotice.
+  ///
+  /// In en, this message translates to:
+  /// **'AI-drafted chapter, not yet reviewed by native speakers. It may contain mistakes.'**
+  String get draftChapterNotice;
+
+  /// No description provided for @missionsCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 mission} other{{count} missions}}'**
+  String missionsCount(int count);
+
+  /// No description provided for @settings.
+  ///
+  /// In en, this message translates to:
+  /// **'Settings'**
+  String get settings;
+
+  /// No description provided for @switchCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Switch course'**
+  String get switchCourse;
+
+  /// No description provided for @welcomeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn a language by using it'**
+  String get welcomeTitle;
+
+  /// No description provided for @welcomeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Real situations and real dialects, taught before you are tested. Free: no subscriptions, credits or paywalls.'**
+  String get welcomeBody;
+
+  /// No description provided for @welcomeLanguageLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'App and explanations in'**
+  String get welcomeLanguageLabel;
+
+  /// No description provided for @welcomeContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a course'**
+  String get welcomeContinue;
+
+  /// No description provided for @pickCourseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What do you want to learn?'**
+  String get pickCourseTitle;
+
+  /// No description provided for @pickCourseReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready to start'**
+  String get pickCourseReady;
+
+  /// No description provided for @pickCourseNone.
+  ///
+  /// In en, this message translates to:
+  /// **'No course can be taught from this language yet.'**
+  String get pickCourseNone;
+
+  /// No description provided for @seeAllCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'See all 30 courses'**
+  String get seeAllCourses;
+
+  /// No description provided for @courseIncludesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What this course includes'**
+  String get courseIncludesTitle;
+
+  /// No description provided for @courseIncludesMissions.
+  ///
+  /// In en, this message translates to:
+  /// **'Mission pathway ({count, plural, =1{1 mission} other{{count} missions}})'**
+  String courseIncludesMissions(int count);
+
+  /// No description provided for @courseIncludesLearn.
+  ///
+  /// In en, this message translates to:
+  /// **'Before each mission: a scene, phrase cards and two mini-games'**
+  String get courseIncludesLearn;
+
+  /// No description provided for @courseIncludesReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Spaced review of the phrases you use'**
+  String get courseIncludesReview;
+
+  /// No description provided for @courseIncludesVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Lines read by your phone\'s synthetic voice, when it has one for this language'**
+  String get courseIncludesVoice;
+
+  /// No description provided for @courseMissingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What this course does not have yet'**
+  String get courseMissingTitle;
+
+  /// No description provided for @courseMissingNativeReview.
+  ///
+  /// In en, this message translates to:
+  /// **'Native-speaker review: the content is an AI draft and may contain mistakes'**
+  String get courseMissingNativeReview;
+
+  /// No description provided for @courseMissingConversation.
+  ///
+  /// In en, this message translates to:
+  /// **'Live conversation with AI characters'**
+  String get courseMissingConversation;
+
+  /// No description provided for @courseMissingAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio library'**
+  String get courseMissingAudio;
+
+  /// No description provided for @courseMissingPronunciation.
+  ///
+  /// In en, this message translates to:
+  /// **'Spoken pronunciation feedback'**
+  String get courseMissingPronunciation;
+
+  /// No description provided for @courseMissingVoiceDialect.
+  ///
+  /// In en, this message translates to:
+  /// **'A voice for this dialect: phone voices speak Modern Standard Arabic, which is not this variety'**
+  String get courseMissingVoiceDialect;
+
+  /// No description provided for @courseLearnFrom.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn from'**
+  String get courseLearnFrom;
+
+  /// No description provided for @coursePlanned.
+  ///
+  /// In en, this message translates to:
+  /// **'Not available yet. Planned.'**
+  String get coursePlanned;
+
+  /// No description provided for @courseStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start this course'**
+  String get courseStart;
+
+  /// No description provided for @courseContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue this course'**
+  String get courseContinue;
+
+  /// No description provided for @courseExplanationsIn.
+  ///
+  /// In en, this message translates to:
+  /// **'Explanations in {language}'**
+  String courseExplanationsIn(String language);
+
+  /// No description provided for @homeNextMission.
+  ///
+  /// In en, this message translates to:
+  /// **'Next mission'**
+  String get homeNextMission;
+
+  /// No description provided for @homeNextStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Next: {stop}'**
+  String homeNextStop(String stop);
+
+  /// No description provided for @homeChapterDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Chapter complete'**
+  String get homeChapterDone;
+
+  /// No description provided for @homeChapterDoneBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You have used every phrase of this chapter. Review keeps them alive.'**
+  String get homeChapterDoneBody;
+
+  /// No description provided for @homeReviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get homeReviewTitle;
+
+  /// No description provided for @reviewsDue.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No reviews due} =1{1 review due} other{{count} reviews due}}'**
+  String reviewsDue(int count);
+
+  /// No description provided for @nextReviewAt.
+  ///
+  /// In en, this message translates to:
+  /// **'Next review {when}'**
+  String nextReviewAt(String when);
+
+  /// No description provided for @streakDays.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 day in a row} other{{count} days in a row}}'**
+  String streakDays(int count);
+
+  /// No description provided for @streakPaused.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak paused. Resume whenever you like.'**
+  String get streakPaused;
+
+  /// No description provided for @pathwayTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your pathway'**
+  String get pathwayTitle;
+
+  /// No description provided for @chapterLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Chapter {index}'**
+  String chapterLabel(int index);
+
+  /// No description provided for @missionLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Mission {index}'**
+  String missionLabel(int index);
+
+  /// No description provided for @missionLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'Finish “{title}” first'**
+  String missionLocked(String title);
+
+  /// No description provided for @lockedSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'locked'**
+  String get lockedSemantics;
+
+  /// No description provided for @stopLearn.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn'**
+  String get stopLearn;
+
+  /// No description provided for @stopPractise.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise'**
+  String get stopPractise;
+
+  /// No description provided for @stopMission.
+  ///
+  /// In en, this message translates to:
+  /// **'Mission'**
+  String get stopMission;
+
+  /// No description provided for @stopTalk.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk'**
+  String get stopTalk;
+
+  /// No description provided for @stopsDoneSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} steps done'**
+  String stopsDoneSemantics(int done, int total);
+
+  /// No description provided for @pathLearnSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A scene with {name}, then {count, plural, =1{1 phrase} other{{count} phrases}}'**
+  String pathLearnSubtitle(String name, int count);
+
+  /// No description provided for @pathPractiseSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Match the pairs, build a sentence'**
+  String get pathPractiseSubtitle;
+
+  /// No description provided for @pathPractisePairsOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Match the pairs'**
+  String get pathPractisePairsOnly;
+
+  /// No description provided for @pathMissionSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 exchange} other{{count} exchanges}} with {name}'**
+  String pathMissionSubtitle(int count, String name);
+
+  /// No description provided for @pathComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Mission path complete'**
+  String get pathComplete;
+
+  /// No description provided for @pathStartStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Start: {stop}'**
+  String pathStartStop(String stop);
+
+  /// No description provided for @pathContinueStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue: {stop}'**
+  String pathContinueStop(String stop);
+
+  /// No description provided for @pathDoneSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'done'**
+  String get pathDoneSemantics;
+
+  /// No description provided for @pathNextSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'next'**
+  String get pathNextSemantics;
+
+  /// No description provided for @sceneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn · {title}'**
+  String sceneTitle(String title);
+
+  /// No description provided for @sceneYourLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Your line — say it out loud'**
+  String get sceneYourLine;
+
+  /// No description provided for @sceneISaidIt.
+  ///
+  /// In en, this message translates to:
+  /// **'I said it'**
+  String get sceneISaidIt;
+
+  /// No description provided for @sceneLearnPhrases.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn the phrases'**
+  String get sceneLearnPhrases;
+
+  /// No description provided for @speakingSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} is speaking'**
+  String speakingSemantics(String name);
+
+  /// No description provided for @cardsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'New phrases · {title}'**
+  String cardsTitle(String title);
+
+  /// No description provided for @cardsNextPhrase.
+  ///
+  /// In en, this message translates to:
+  /// **'Next phrase'**
+  String get cardsNextPhrase;
+
+  /// No description provided for @cardsPractise.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise'**
+  String get cardsPractise;
+
+  /// No description provided for @noteLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Note'**
+  String get noteLabel;
+
+  /// No description provided for @practiseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise · {title}'**
+  String practiseTitle(String title);
+
+  /// No description provided for @pairsPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Match each phrase with its meaning'**
+  String get pairsPrompt;
+
+  /// No description provided for @pairsDone.
+  ///
+  /// In en, this message translates to:
+  /// **'All matched!'**
+  String get pairsDone;
+
+  /// No description provided for @pairsNextRound.
+  ///
+  /// In en, this message translates to:
+  /// **'Next round'**
+  String get pairsNextRound;
+
+  /// No description provided for @pairsBuildSentence.
+  ///
+  /// In en, this message translates to:
+  /// **'Build a sentence'**
+  String get pairsBuildSentence;
+
+  /// No description provided for @matchedSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{label}, matched'**
+  String matchedSemantics(String label);
+
+  /// No description provided for @tilesPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Build the sentence'**
+  String get tilesPrompt;
+
+  /// No description provided for @tilesCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Check'**
+  String get tilesCheck;
+
+  /// No description provided for @tilesWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Not quite — tap a word to take it back.'**
+  String get tilesWrong;
+
+  /// No description provided for @tilesRemoveSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{word}, remove'**
+  String tilesRemoveSemantics(String word);
+
+  /// No description provided for @startMission.
+  ///
+  /// In en, this message translates to:
+  /// **'Start the mission'**
+  String get startMission;
+
+  /// No description provided for @missionCue.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} says'**
+  String missionCue(String name);
+
+  /// No description provided for @missionWhatDoYouAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'What do you answer?'**
+  String get missionWhatDoYouAnswer;
+
+  /// No description provided for @missionHowDoYouSay.
+  ///
+  /// In en, this message translates to:
+  /// **'How do you say “{meaning}”?'**
+  String missionHowDoYouSay(String meaning);
+
+  /// No description provided for @missionWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Not quite — think of what you practised.'**
+  String get missionWrong;
+
+  /// No description provided for @missionSayIt.
+  ///
+  /// In en, this message translates to:
+  /// **'Say it out loud'**
+  String get missionSayIt;
+
+  /// No description provided for @missionRecapTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What you used'**
+  String get missionRecapTitle;
+
+  /// No description provided for @missionComplete.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete the mission'**
+  String get missionComplete;
+
+  /// No description provided for @missionCompleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Mission completed!'**
+  String get missionCompleted;
+
+  /// No description provided for @missionXpOnce.
+  ///
+  /// In en, this message translates to:
+  /// **'XP for a mission counts once; this replay is practice.'**
+  String get missionXpOnce;
+
+  /// No description provided for @missionJoinReview.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 phrase joins your review} other{{count} phrases join your review}}'**
+  String missionJoinReview(int count);
+
+  /// No description provided for @missionBackToPath.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to the mission path'**
+  String get missionBackToPath;
+
+  /// No description provided for @missionNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Next mission'**
+  String get missionNext;
+
+  /// No description provided for @missionNotFound.
+  ///
+  /// In en, this message translates to:
+  /// **'This mission is not part of your current course.'**
+  String get missionNotFound;
+
+  /// No description provided for @backHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Back home'**
+  String get backHome;
+
+  /// No description provided for @reviewTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Review'**
+  String get reviewTitle;
+
+  /// No description provided for @reviewHowDoYouSay.
+  ///
+  /// In en, this message translates to:
+  /// **'How do you say…'**
+  String get reviewHowDoYouSay;
+
+  /// No description provided for @reviewSayThenShow.
+  ///
+  /// In en, this message translates to:
+  /// **'Say it out loud, then show the answer.'**
+  String get reviewSayThenShow;
+
+  /// No description provided for @reviewShowAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Show answer'**
+  String get reviewShowAnswer;
+
+  /// No description provided for @reviewAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Again'**
+  String get reviewAgain;
+
+  /// No description provided for @reviewHard.
+  ///
+  /// In en, this message translates to:
+  /// **'Hard'**
+  String get reviewHard;
+
+  /// No description provided for @reviewGood.
+  ///
+  /// In en, this message translates to:
+  /// **'Good'**
+  String get reviewGood;
+
+  /// No description provided for @reviewEasy.
+  ///
+  /// In en, this message translates to:
+  /// **'Easy'**
+  String get reviewEasy;
+
+  /// No description provided for @reviewLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 left} other{{count} left}}'**
+  String reviewLeft(int count);
+
+  /// No description provided for @reviewAllDone.
+  ///
+  /// In en, this message translates to:
+  /// **'All caught up for today.'**
+  String get reviewAllDone;
+
+  /// No description provided for @reviewEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Phrases you use in missions come back here, just before you would forget them.'**
+  String get reviewEmpty;
+
+  /// No description provided for @progressTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Your progress'**
+  String get progressTitle;
+
+  /// No description provided for @xpLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'XP'**
+  String get xpLabel;
+
+  /// No description provided for @xpNote.
+  ///
+  /// In en, this message translates to:
+  /// **'XP tracks how much you practise, not how well you speak.'**
+  String get xpNote;
+
+  /// No description provided for @streakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Streak'**
+  String get streakTitle;
+
+  /// No description provided for @thisWeek.
+  ///
+  /// In en, this message translates to:
+  /// **'This week'**
+  String get thisWeek;
+
+  /// No description provided for @missionsDoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Missions completed'**
+  String get missionsDoneTitle;
+
+  /// No description provided for @countOfTotal.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total}'**
+  String countOfTotal(int done, int total);
+
+  /// No description provided for @phrasesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Phrases'**
+  String get phrasesTitle;
+
+  /// No description provided for @phrasesMet.
+  ///
+  /// In en, this message translates to:
+  /// **'Met in lessons'**
+  String get phrasesMet;
+
+  /// No description provided for @phrasesInReview.
+  ///
+  /// In en, this message translates to:
+  /// **'In review'**
+  String get phrasesInReview;
+
+  /// No description provided for @strengthLearning.
+  ///
+  /// In en, this message translates to:
+  /// **'Learning'**
+  String get strengthLearning;
+
+  /// No description provided for @strengthYoung.
+  ///
+  /// In en, this message translates to:
+  /// **'Getting there'**
+  String get strengthYoung;
+
+  /// No description provided for @strengthSolid.
+  ///
+  /// In en, this message translates to:
+  /// **'Solid'**
+  String get strengthSolid;
+
+  /// No description provided for @strengthNote.
+  ///
+  /// In en, this message translates to:
+  /// **'From your review schedule — not a score of your speech.'**
+  String get strengthNote;
+
+  /// No description provided for @progressEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Start a mission to see your progress here.'**
+  String get progressEmpty;
+
+  /// No description provided for @freeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Free for every learner'**
+  String get freeTitle;
+
+  /// No description provided for @freeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'LangQuest has no paywalls, subscriptions, credits or usage meters.'**
+  String get freeBody;
+
+  /// No description provided for @appLanguage.
+  ///
+  /// In en, this message translates to:
+  /// **'App language'**
+  String get appLanguage;
+
+  /// No description provided for @darkTheme.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark theme'**
+  String get darkTheme;
+
+  /// No description provided for @darkThemeOn.
+  ///
+  /// In en, this message translates to:
+  /// **'Night Market, dark-first'**
+  String get darkThemeOn;
+
+  /// No description provided for @darkThemeOff.
+  ///
+  /// In en, this message translates to:
+  /// **'Light palette'**
+  String get darkThemeOff;
+
+  /// No description provided for @yourCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'Your courses'**
+  String get yourCourses;
+
+  /// No description provided for @addCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Add a course'**
+  String get addCourse;
+
+  /// No description provided for @removeCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove'**
+  String get removeCourse;
+
+  /// No description provided for @removeCourseTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Remove {course}?'**
+  String removeCourseTitle(String course);
+
+  /// No description provided for @removeCourseBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Its progress and reviews on this device are deleted. Your other courses are not touched.'**
+  String get removeCourseBody;
+
+  /// No description provided for @yourData.
+  ///
+  /// In en, this message translates to:
+  /// **'Your data'**
+  String get yourData;
+
+  /// No description provided for @yourDataBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything is saved on this device only. There is no account in this version.'**
+  String get yourDataBody;
+
+  /// No description provided for @resetAll.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset all progress'**
+  String get resetAll;
+
+  /// No description provided for @resetAllTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset all progress?'**
+  String get resetAllTitle;
+
+  /// No description provided for @resetAllBody.
+  ///
+  /// In en, this message translates to:
+  /// **'All courses, reviews and XP on this device are deleted.'**
+  String get resetAllBody;
+
+  /// No description provided for @resetConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Reset'**
+  String get resetConfirm;
+
+  /// No description provided for @activeCourse.
+  ///
+  /// In en, this message translates to:
+  /// **'Active'**
+  String get activeCourse;
+
+  /// No description provided for @openSourceLicenses.
+  ///
+  /// In en, this message translates to:
+  /// **'Open-source licenses'**
+  String get openSourceLicenses;
+
+  /// No description provided for @catalogTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Courses'**
+  String get catalogTitle;
+
+  /// No description provided for @catalogSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'30 courses. Real dialects. Free.'**
+  String get catalogSubtitle;
+
+  /// No description provided for @catalogSearch.
+  ///
+  /// In en, this message translates to:
+  /// **'Search languages and dialects'**
+  String get catalogSearch;
+
+  /// No description provided for @catalogReady.
+  ///
+  /// In en, this message translates to:
+  /// **'Ready · draft'**
+  String get catalogReady;
+
+  /// No description provided for @catalogPlanned.
+  ///
+  /// In en, this message translates to:
+  /// **'Planned'**
+  String get catalogPlanned;
+
+  /// No description provided for @catalogEnrolled.
+  ///
+  /// In en, this message translates to:
+  /// **'Enrolled'**
+  String get catalogEnrolled;
+
+  /// No description provided for @catalogNoResults.
+  ///
+  /// In en, this message translates to:
+  /// **'No course matches “{query}”'**
+  String catalogNoResults(String query);
+
+  /// No description provided for @browseAllCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'Browse all 30 courses'**
+  String get browseAllCourses;
+
+  /// No description provided for @sceneCafe.
+  ///
+  /// In en, this message translates to:
+  /// **'Café'**
+  String get sceneCafe;
+
+  /// No description provided for @sceneStreet.
+  ///
+  /// In en, this message translates to:
+  /// **'Street'**
+  String get sceneStreet;
+
+  /// No description provided for @sceneAirport.
+  ///
+  /// In en, this message translates to:
+  /// **'Airport'**
+  String get sceneAirport;
+
+  /// No description provided for @sceneMarket.
+  ///
+  /// In en, this message translates to:
+  /// **'Market'**
+  String get sceneMarket;
+
+  /// No description provided for @sceneHome.
+  ///
+  /// In en, this message translates to:
+  /// **'Home'**
+  String get sceneHome;
+
+  /// No description provided for @sceneOffice.
+  ///
+  /// In en, this message translates to:
+  /// **'Office'**
+  String get sceneOffice;
+
+  /// No description provided for @sceneTransit.
+  ///
+  /// In en, this message translates to:
+  /// **'On the move'**
+  String get sceneTransit;
+
+  /// No description provided for @sceneRestaurant.
+  ///
+  /// In en, this message translates to:
+  /// **'Restaurant'**
+  String get sceneRestaurant;
+
+  /// No description provided for @sceneGathering.
+  ///
+  /// In en, this message translates to:
+  /// **'Rooftop'**
+  String get sceneGathering;
+
+  /// No description provided for @sceneStation.
+  ///
+  /// In en, this message translates to:
+  /// **'Station'**
+  String get sceneStation;
+
+  /// No description provided for @scenePark.
+  ///
+  /// In en, this message translates to:
+  /// **'Park'**
+  String get scenePark;
+
+  /// No description provided for @sceneClinic.
+  ///
+  /// In en, this message translates to:
+  /// **'Clinic'**
+  String get sceneClinic;
+}
+
+class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
+  const _AppLocalizationsDelegate();
+
+  @override
+  Future<AppLocalizations> load(Locale locale) {
+    return SynchronousFuture<AppLocalizations>(lookupAppLocalizations(locale));
+  }
+
+  @override
+  bool isSupported(Locale locale) => <String>['en', 'fr'].contains(locale.languageCode);
+
+  @override
+  bool shouldReload(_AppLocalizationsDelegate old) => false;
+}
+
+AppLocalizations lookupAppLocalizations(Locale locale) {
+  // Lookup logic when only language code is specified.
+  switch (locale.languageCode) {
+    case 'en':
+      return AppLocalizationsEn();
+    case 'fr':
+      return AppLocalizationsFr();
+  }
+
+  throw FlutterError(
+    'AppLocalizations.delegate failed to load unsupported locale "$locale". This is likely '
+    'an issue with the localizations generation tool. Please file an issue '
+    'on GitHub with a reproducible sample app and the gen-l10n configuration '
+    'that was used.',
+  );
+}

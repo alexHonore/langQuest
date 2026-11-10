@@ -1,16 +1,100 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
+import '../../core/content/content_models.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/speech_service.dart';
+import '../../l10n/l10n.dart';
 import '../scenes/scene_models.dart';
+import 'learn_logic.dart';
 
-/// Map a mission's scene name ('cafe', 'street', …) to the painted scene.
-SceneId sceneIdFromName(String name) => SceneId.values.firstWhere(
-  (s) => s.name == name,
-  orElse: () => SceneId.cafe,
-);
+/// The painted scene for a blueprint situation (`cafe`, `market`, `directions`, …).
+SceneId sceneIdForSituation(String situation) => switch (situation) {
+  'cafe' => SceneId.cafe,
+  'market' || 'shopping' => SceneId.market,
+  'restaurant' => SceneId.restaurant,
+  'directions' => SceneId.station,
+  'transport' => SceneId.street,
+  'travel' => SceneId.airport,
+  'neighbours' || 'family' || 'daily_life' => SceneId.home,
+  'work' => SceneId.office,
+  'emergencies' => SceneId.clinic,
+  'plans' || 'debates' || 'story' => SceneId.gathering,
+  _ => SceneId.street,
+};
+
+/// Localized name of a painted scene (the badge in its corner).
+String sceneTitle(AppLocalizations l10n, SceneId id) => switch (id) {
+  SceneId.cafe => l10n.sceneCafe,
+  SceneId.street => l10n.sceneStreet,
+  SceneId.airport => l10n.sceneAirport,
+  SceneId.market => l10n.sceneMarket,
+  SceneId.home => l10n.sceneHome,
+  SceneId.office => l10n.sceneOffice,
+  SceneId.transit => l10n.sceneTransit,
+  SceneId.restaurant => l10n.sceneRestaurant,
+  SceneId.gathering => l10n.sceneGathering,
+  SceneId.station => l10n.sceneStation,
+  SceneId.park => l10n.scenePark,
+  SceneId.clinic => l10n.sceneClinic,
+};
+
+String stopLabel(AppLocalizations l10n, PathStop stop) => switch (stop) {
+  PathStop.learn => l10n.stopLearn,
+  PathStop.practise => l10n.stopPractise,
+  PathStop.mission => l10n.stopMission,
+  PathStop.talk => l10n.stopTalk,
+};
+
+/// An expression in the target language: native script (right-to-left when the script is), then the reading aid
+/// (Japanese kana) and the Latin romanization underneath when they differ from it.
+class TargetText extends ConsumerWidget {
+  final Expression expression;
+  final CourseTrackInfo track;
+  final double fontSize;
+  final TextAlign textAlign;
+  final Color? color;
+
+  const TargetText({super.key, required this.expression, required this.track, this.fontSize = 22, this.textAlign = TextAlign.start, this.color});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = ref.watch(appStateProvider.select((s) => s.colors));
+    final align = textAlign == TextAlign.center ? CrossAxisAlignment.center : CrossAxisAlignment.start;
+    final reading = expression.reading;
+    final romanization = expression.romanization;
+    return Column(
+      crossAxisAlignment: align,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Text(
+          expression.text,
+          textAlign: textAlign,
+          textDirection: track.rtl ? TextDirection.rtl : TextDirection.ltr,
+          style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.w700, height: 1.3, color: color ?? colors.textPrimary),
+        ),
+        if (reading != null) ...[
+          const SizedBox(height: 2),
+          Text(
+            reading,
+            textAlign: textAlign,
+            style: TextStyle(fontSize: fontSize * 0.6, color: colors.textSecondary),
+          ),
+        ],
+        if (romanization != null) ...[
+          const SizedBox(height: 2),
+          Text(
+            romanization,
+            textAlign: textAlign,
+            style: TextStyle(fontSize: fontSize * 0.62, fontStyle: FontStyle.italic, color: colors.textMuted),
+          ),
+        ],
+      ],
+    );
+  }
+}
 
 /// Top bar of every learn screen: close, title, and one dot per step of the current screen.
 class LearnTopBar extends ConsumerWidget {
@@ -19,13 +103,7 @@ class LearnTopBar extends ConsumerWidget {
   final int total;
   final VoidCallback onClose;
 
-  const LearnTopBar({
-    super.key,
-    required this.title,
-    required this.step,
-    required this.total,
-    required this.onClose,
-  });
+  const LearnTopBar({super.key, required this.title, required this.step, required this.total, required this.onClose});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -38,7 +116,7 @@ class LearnTopBar extends ConsumerWidget {
         children: [
           IconButton(
             icon: Icon(LucideIcons.x, color: colors.textSecondary),
-            tooltip: 'Close',
+            tooltip: context.l10n.close,
             onPressed: onClose,
           ),
           Expanded(
@@ -49,15 +127,11 @@ class LearnTopBar extends ConsumerWidget {
                   title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(
-                    fontSize: 14,
-                    fontWeight: FontWeight.w700,
-                    color: colors.textPrimary,
-                  ),
+                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: colors.textPrimary),
                 ),
                 const SizedBox(height: 6),
                 Semantics(
-                  label: 'Step $step of $total',
+                  label: context.l10n.stepOf(step, total),
                   child: Row(
                     children: List.generate(total, (i) {
                       final done = i < step - 1;
@@ -68,9 +142,7 @@ class LearnTopBar extends ConsumerWidget {
                           height: 4,
                           margin: const EdgeInsets.symmetric(horizontal: 2),
                           decoration: BoxDecoration(
-                            color: done
-                                ? colors.success
-                                : (current ? accent.primary : colors.border),
+                            color: done ? colors.success : (current ? accent.primary : colors.border),
                             borderRadius: BorderRadius.circular(2),
                           ),
                         ),
@@ -87,43 +159,34 @@ class LearnTopBar extends ConsumerWidget {
   }
 }
 
-/// Replay + slow buttons for one target-language line. Rendered only when the device has a voice for
-/// [locale] (no disabled placeholder when it does not).
+/// Replay + slow buttons for one target-language line. Rendered only when the device has a voice for exactly
+/// [locale] (null: the variety may not be voiced by a device synthesizer) — no disabled placeholder otherwise.
 class ListenButtons extends ConsumerWidget {
   final String text;
-  final String locale;
+  final String? locale;
   final bool compact;
 
-  const ListenButtons({
-    super.key,
-    required this.text,
-    required this.locale,
-    this.compact = false,
-  });
+  const ListenButtons({super.key, required this.text, required this.locale, this.compact = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final available =
-        ref.watch(voiceAvailableProvider(locale)).asData?.value ?? false;
-    if (!available) return const SizedBox.shrink();
-    final appState = ref.watch(appStateProvider);
-    final accent = appState.accent;
+    final voiceLocale = locale;
+    final available = ref.watch(voiceAvailableProvider(voiceLocale)).asData?.value ?? false;
+    if (!available || voiceLocale == null) return const SizedBox.shrink();
+    final accent = ref.watch(appStateProvider.select((s) => s.accent));
     final speech = ref.read(speechServiceProvider);
-    Widget chip(IconData icon, String label, bool slow) => Semantics(
+    final l10n = context.l10n;
+    Widget chip(IconData icon, String label, String semantics, bool slow) => Semantics(
       button: true,
-      label: slow ? 'Listen slowly' : 'Listen',
+      label: semantics,
+      excludeSemantics: true,
       child: InkWell(
         borderRadius: BorderRadius.circular(20),
-        onTap: () => speech.speak(text, locale: locale, slow: slow),
+        onTap: () => speech.speak(text, locale: voiceLocale, slow: slow),
         child: Container(
-          padding: EdgeInsets.symmetric(
-            horizontal: compact ? 10 : 14,
-            vertical: compact ? 6 : 9,
-          ),
-          decoration: BoxDecoration(
-            color: accent.primarySoft,
-            borderRadius: BorderRadius.circular(20),
-          ),
+          constraints: const BoxConstraints(minHeight: 36),
+          padding: EdgeInsets.symmetric(horizontal: compact ? 10 : 14, vertical: compact ? 6 : 9),
+          decoration: BoxDecoration(color: accent.primarySoft, borderRadius: BorderRadius.circular(20)),
           child: Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -131,11 +194,7 @@ class ListenButtons extends ConsumerWidget {
               const SizedBox(width: 6),
               Text(
                 label,
-                style: TextStyle(
-                  fontSize: 13,
-                  fontWeight: FontWeight.w600,
-                  color: accent.primaryText,
-                ),
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: accent.primaryText),
               ),
             ],
           ),
@@ -145,9 +204,9 @@ class ListenButtons extends ConsumerWidget {
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        chip(LucideIcons.volume2, 'Listen', false),
+        chip(LucideIcons.volume2, l10n.listen, l10n.listen, false),
         const SizedBox(width: 8),
-        chip(LucideIcons.turtle, 'Slowly', true),
+        chip(LucideIcons.turtle, l10n.listenSlowly, l10n.listenSlowlySemantics, true),
       ],
     );
   }
@@ -162,19 +221,15 @@ class CharacterBadge extends ConsumerWidget {
   /// Show the name tag under the circle (off when the name is already written next to it).
   final bool showName;
 
-  const CharacterBadge({
-    super.key,
-    required this.name,
-    required this.speaking,
-    this.size = 64,
-    this.showName = true,
-  });
+  const CharacterBadge({super.key, required this.name, required this.speaking, this.size = 64, this.showName = true});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final accent = ref.watch(appStateProvider).accent;
+    final accent = ref.watch(appStateProvider.select((s) => s.accent));
+    final initial = name.isEmpty ? '?' : String.fromCharCode(name.runes.first).toUpperCase();
     return Semantics(
-      label: speaking ? '$name is speaking' : name,
+      label: speaking ? context.l10n.speakingSemantics(name) : name,
+      excludeSemantics: true,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
@@ -185,47 +240,26 @@ class CharacterBadge extends ConsumerWidget {
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: const Color(0xFFF7EFE6),
-              border: Border.all(
-                color: speaking ? accent.primary : Colors.white,
-                width: speaking ? 4 : 3,
-              ),
-              boxShadow: speaking
-                  ? [
-                      BoxShadow(
-                        color: accent.primary.withValues(alpha: 0.55),
-                        blurRadius: 18,
-                        spreadRadius: 2,
-                      ),
-                    ]
-                  : null,
+              border: Border.all(color: speaking ? accent.primary : Colors.white, width: speaking ? 4 : 3),
+              boxShadow: speaking ? [BoxShadow(color: accent.primary.withValues(alpha: 0.55), blurRadius: 18, spreadRadius: 2)] : null,
             ),
             alignment: Alignment.center,
             child: Text(
-              name.isEmpty ? '?' : name.substring(0, 1).toUpperCase(),
-              style: TextStyle(
-                fontSize: size * 0.42,
-                fontWeight: FontWeight.w800,
-                color: const Color(0xFF3A2A22),
-              ),
+              initial,
+              style: TextStyle(fontSize: size * 0.42, fontWeight: FontWeight.w800, color: const Color(0xFF3A2A22)),
             ),
           ),
-          if (showName) const SizedBox(height: 4),
-          if (showName)
+          if (showName) ...[
+            const SizedBox(height: 4),
             Container(
               padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 2),
-              decoration: BoxDecoration(
-                color: const Color(0xB30B0913),
-                borderRadius: BorderRadius.circular(8),
-              ),
+              decoration: BoxDecoration(color: const Color(0xB30B0913), borderRadius: BorderRadius.circular(8)),
               child: Text(
                 name,
-                style: const TextStyle(
-                  fontSize: 12,
-                  fontWeight: FontWeight.w700,
-                  color: Colors.white,
-                ),
+                style: const TextStyle(fontSize: 12, fontWeight: FontWeight.w700, color: Colors.white),
               ),
             ),
+          ],
         ],
       ),
     );
@@ -238,41 +272,64 @@ class LearnPrimaryButton extends ConsumerWidget {
   final VoidCallback? onPressed;
   final IconData? icon;
 
-  const LearnPrimaryButton({
-    super.key,
-    required this.label,
-    required this.onPressed,
-    this.icon,
-  });
+  const LearnPrimaryButton({super.key, required this.label, required this.onPressed, this.icon});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final accent = ref.watch(appStateProvider).accent;
+    final accent = ref.watch(appStateProvider.select((s) => s.accent));
     return SizedBox(
       width: double.infinity,
       height: 52,
       child: FilledButton(
         style: FilledButton.styleFrom(
           backgroundColor: accent.primary,
-          // White on the course accent, as on Home's primary button (onPrimary is near-black in dark mode).
-          foregroundColor: Colors.white,
-          disabledForegroundColor: Colors.white.withValues(alpha: 0.6),
+          foregroundColor: accent.onPrimary,
+          disabledForegroundColor: accent.onPrimary.withValues(alpha: 0.6),
           disabledBackgroundColor: accent.primary.withValues(alpha: 0.35),
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(26),
-          ),
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(26)),
           textStyle: const TextStyle(fontSize: 16, fontWeight: FontWeight.w700),
         ),
         onPressed: onPressed,
         child: Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text(label),
-            if (icon != null) ...[
-              const SizedBox(width: 8),
-              Icon(icon, size: 18),
-            ],
+            Flexible(child: Text(label, maxLines: 1, overflow: TextOverflow.ellipsis)),
+            if (icon != null) ...[const SizedBox(width: 8), Icon(icon, size: 18)],
           ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Shown instead of a learn screen when its mission is not in the active course (stale link, course switched).
+class MissionUnavailable extends ConsumerWidget {
+  const MissionUnavailable({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = ref.watch(appStateProvider.select((s) => s.colors));
+    return Scaffold(
+      backgroundColor: colors.background,
+      body: SafeArea(
+        child: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(24),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(LucideIcons.mapPinOff, size: 40, color: colors.textMuted),
+                const SizedBox(height: 12),
+                Text(
+                  context.l10n.missionNotFound,
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 16, color: colors.textPrimary),
+                ),
+                const SizedBox(height: 20),
+                LearnPrimaryButton(label: context.l10n.backHome, onPressed: () => context.go('/')),
+              ],
+            ),
+          ),
         ),
       ),
     );

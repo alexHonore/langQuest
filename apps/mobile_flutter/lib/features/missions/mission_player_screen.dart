@@ -1,52 +1,56 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
+
+import '../../navigation/nav.dart';
+import '../../core/learning/srs.dart';
 import '../../core/services/app_state.dart';
+import '../../core/services/learner_state.dart';
 import '../../core/services/speech_service.dart';
-import '../../core/theme/accents.dart';
-import '../../core/theme/colors.dart';
-import '../../core/theme/glass.dart';
+import '../../l10n/l10n.dart';
 import '../learn/learn_content.dart';
+import '../learn/learn_providers.dart';
 import '../learn/learn_widgets.dart';
 import '../mascot/melo_model.dart';
 import '../mascot/melo_widget.dart';
 import '../scenes/animated_scene.dart';
 
-enum LessonPhase {
-  listen, // 1. The character speaks (a line from the scene the learner already met)
-  anticipate, // 2. Pick the reply that was taught
-  speak, // 3. Shadow the reply out loud (no recording, no score)
-  compare, // 4. Model line again + the phrases used
-  completed, // 5. Celebration
-}
+enum _Phase { exchange, recap, completed }
 
-/// The Mission stop of a mission node (N2). Since the learn path (L1 + L3) the mission uses the same
-/// plan as the Learn stop, so it only asks for what was taught. This prototype has no recorder: the
-/// learner shadows the model line out loud; nothing is measured, so no level, waveform or score is shown
-/// (pronunciation honesty, ADR-006).
+/// The Mission stop of a mission node (N2). Every exchange asks only for a line the Learn stop taught: the
+/// character's cue (or the meaning, when the learner speaks first), the reply chosen among three taught phrases,
+/// then said out loud. This build has no recorder, so nothing is measured and no level, waveform or score is
+/// shown (pronunciation honesty, ADR-006). Completing it credits the mission once and puts each phrase used into
+/// spaced review (first-try right = good, otherwise hard).
 class MissionPlayerScreen extends ConsumerStatefulWidget {
-  final String missionId;
+  final String missionKey;
 
-  const MissionPlayerScreen({super.key, required this.missionId});
+  const MissionPlayerScreen({super.key, required this.missionKey});
 
   @override
   ConsumerState<MissionPlayerScreen> createState() => _MissionPlayerScreenState();
 }
 
 class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
-  LessonPhase _phase = LessonPhase.listen;
-  int? _selectedOption;
+  _Phase _phase = _Phase.exchange;
+  int _exchange = 0;
+  int? _selected;
+  bool _answered = false;
+  bool _speaking = false;
+  int _utterance = 0;
+  final Map<String, bool> _firstTry = {};
   late final SpeechService _speech;
-
-  MissionScript get _script => missionScriptFor(widget.missionId) ?? missionScriptFor(LearnContent.plans.first.missionId)!;
-  MissionLearnPlan get _plan => LearnContent.forMission(widget.missionId) ?? LearnContent.plans.first;
+  late final bool _wasCompleted;
+  int _newReviewCards = 0;
 
   @override
   void initState() {
     super.initState();
     _speech = ref.read(speechServiceProvider);
-    WidgetsBinding.instance.addPostFrameCallback((_) => _say(_script.characterLine.text));
+    _wasCompleted = ref.read(appStateProvider).progress.isMissionCompleted(widget.missionKey);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _sayCue());
   }
 
   @override
@@ -56,80 +60,155 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
   }
 
   Future<void> _say(String text) async {
-    final locale = _plan.voiceLocale;
-    if (await ref.read(voiceAvailableProvider(locale).future) && mounted) {
-      await _speech.speak(text, locale: locale);
-    }
+    final locale = ref.read(learnPlanProvider(widget.missionKey))?.voiceLocale;
+    if (locale == null || !await ref.read(voiceAvailableProvider(locale).future) || !mounted) return;
+    final token = ++_utterance;
+    setState(() => _speaking = true);
+    await _speech.speak(text, locale: locale);
+    if (mounted && token == _utterance) setState(() => _speaking = false);
   }
 
-  void _finishMission() {
-    ref.read(appStateProvider.notifier).completeMission(widget.missionId);
-    setState(() => _phase = LessonPhase.completed);
+  void _sayCue() {
+    final plan = ref.read(learnPlanProvider(widget.missionKey));
+    if (plan == null || _exchange >= plan.exchanges.length) return;
+    final cue = plan.exchanges[_exchange].cue;
+    if (cue != null) _say(cue.text);
+  }
+
+  void _choose(MissionExchange exchange, int index) {
+    if (_answered) return;
+    final correct = index == exchange.answerIndex;
+    setState(() {
+      _selected = index;
+      _firstTry.putIfAbsent(exchange.answer.id, () => correct);
+      _answered = correct;
+    });
+    if (correct) _say(exchange.answer.text);
+  }
+
+  void _nextExchange(MissionLearnPlan plan) {
+    _utterance++;
+    _speech.stop();
+    setState(() {
+      _selected = null;
+      _answered = false;
+      _speaking = false;
+      if (_exchange < plan.exchanges.length - 1) {
+        _exchange++;
+      } else {
+        _phase = _Phase.recap;
+      }
+    });
+    if (_phase == _Phase.exchange) _sayCue();
+  }
+
+  void _complete(MissionLearnPlan plan) {
+    final before = ref.read(appStateProvider).progress.cards.length;
+    ref.read(appStateProvider.notifier).completeMission(widget.missionKey, {
+      for (final x in plan.exchanges) x.answer.id: (_firstTry[x.answer.id] ?? true) ? ReviewRating.good : ReviewRating.hard,
+    });
+    setState(() {
+      _newReviewCards = ref.read(appStateProvider).progress.cards.length - before;
+      _phase = _Phase.completed;
+    });
   }
 
   @override
   Widget build(BuildContext context) {
+    final plan = ref.watch(learnPlanProvider(widget.missionKey));
+    if (plan == null || plan.exchanges.isEmpty) return const MissionUnavailable();
     final appState = ref.watch(appStateProvider);
-    final accent = appState.accent;
     final colors = appState.colors;
-    final mission = appState.missions.firstWhere(
-      (m) => m.id == widget.missionId,
-      orElse: () => appState.missions.first,
-    );
+    final accent = appState.accent;
+    final l10n = context.l10n;
+    final sceneId = sceneIdForSituation(plan.mission.situation);
+    final segments = plan.exchanges.length + 1;
+    final current = switch (_phase) {
+      _Phase.exchange => _exchange,
+      _Phase.recap => plan.exchanges.length,
+      _Phase.completed => segments,
+    };
 
     return Scaffold(
       backgroundColor: colors.background,
       body: SafeArea(
         child: Column(
           children: [
-            // Top bar: close + one segment per phase
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              padding: const EdgeInsets.fromLTRB(8, 4, 16, 4),
               child: Row(
                 children: [
                   IconButton(
-                    icon: const Icon(LucideIcons.x, color: Colors.white70),
-                    tooltip: 'Close',
-                    onPressed: () => context.pop(),
+                    icon: Icon(LucideIcons.x, color: colors.textSecondary),
+                    tooltip: l10n.close,
+                    onPressed: () => context.popOrHome(),
                   ),
-                  const SizedBox(width: 8),
                   Expanded(
-                    child: Row(
-                      children: List.generate(4, (index) {
-                        final isDone = _phase.index > index;
-                        final isCurrent = _phase.index == index;
-                        return Expanded(
-                          child: Container(
-                            height: 4.5,
-                            margin: const EdgeInsets.symmetric(horizontal: 3),
-                            decoration: BoxDecoration(
-                              color: isDone ? colors.success : isCurrent ? accent.primary : Colors.white12,
-                              borderRadius: BorderRadius.circular(3),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          plan.mission.titleIn(plan.source) ?? '',
+                          maxLines: 1,
+                          overflow: TextOverflow.ellipsis,
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: colors.textPrimary),
+                        ),
+                        const SizedBox(height: 6),
+                        Semantics(
+                          label: l10n.stepOf((current + 1).clamp(1, segments), segments),
+                          child: Row(
+                            children: List.generate(
+                              segments,
+                              (i) => Expanded(
+                                child: Container(
+                                  height: 4,
+                                  margin: const EdgeInsets.symmetric(horizontal: 2),
+                                  decoration: BoxDecoration(
+                                    color: i < current ? colors.success : (i == current ? accent.primary : colors.border),
+                                    borderRadius: BorderRadius.circular(2),
+                                  ),
+                                ),
+                              ),
                             ),
                           ),
-                        );
-                      }),
+                        ),
+                      ],
                     ),
-                  ),
-                  const SizedBox(width: 14),
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 3),
-                    decoration: BoxDecoration(color: accent.primarySoft, borderRadius: BorderRadius.circular(8)),
-                    child: Text('${mission.minutes} min', style: TextStyle(fontSize: 11, fontWeight: FontWeight.w600, color: accent.primaryText)),
                   ),
                 ],
               ),
             ),
-            // The mission's own scene (café, street, transit…), not always the café.
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 18),
-              child: AnimatedSceneWidget(sceneId: sceneIdFromName(mission.sceneId), height: 150, showTimeToggle: false),
-            ),
-            const SizedBox(height: 14),
+            if (_phase != _Phase.completed)
+              Padding(
+                padding: const EdgeInsets.fromLTRB(16, 4, 16, 0),
+                child: LayoutBuilder(
+                  builder: (context, box) {
+                    final height = (MediaQuery.sizeOf(context).height * 0.17).clamp(96.0, 150.0);
+                    return AnimatedSceneWidget(
+                      sceneId: sceneId,
+                      title: sceneTitle(l10n, sceneId),
+                      height: height,
+                      showTimeToggle: false,
+                      child: Center(
+                        child: CharacterBadge(
+                          name: plan.characterName,
+                          speaking: _speaking && _phase == _Phase.exchange && !_answered,
+                          size: (height * 0.45).clamp(40.0, 64.0),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            const SizedBox(height: 12),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 20),
-                child: _buildPhaseContent(accent, colors),
+                padding: const EdgeInsets.symmetric(horizontal: 16),
+                child: switch (_phase) {
+                  _Phase.exchange => _exchangeView(plan, plan.exchanges[_exchange]),
+                  _Phase.recap => _recapView(plan),
+                  _Phase.completed => _completedView(plan),
+                },
               ),
             ),
           ],
@@ -138,221 +217,281 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     );
   }
 
-  Widget _phaseLabel(String text, IconData icon, CourseAccent accent) => Row(children: [
-        Icon(icon, size: 16, color: accent.primaryText),
-        const SizedBox(width: 6),
-        Text(text, style: TextStyle(fontSize: 11.5, fontWeight: FontWeight.w700, letterSpacing: 1.1, color: accent.primaryText)),
-      ]);
+  Widget _exchangeView(MissionLearnPlan plan, MissionExchange exchange) {
+    final appState = ref.watch(appStateProvider);
+    final colors = appState.colors;
+    final accent = appState.accent;
+    final l10n = context.l10n;
+    final cue = exchange.cue;
+    final wrong = _selected != null && _selected != exchange.answerIndex;
 
-  Widget _buildPhaseContent(CourseAccent accent, LangQuestColors colors) {
-    final script = _script;
-    final plan = _plan;
-    switch (_phase) {
-      case LessonPhase.listen:
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _phaseLabel('1. LISTEN', LucideIcons.volume2, accent),
-            const SizedBox(height: 14),
-            GlassContainer(
-              level: GlassLevel.level2,
-              radius: 20,
-              padding: const EdgeInsets.all(18),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(children: [
-                    CharacterBadge(name: script.speaker, speaking: false, size: 36, showName: false),
-                    const SizedBox(width: 12),
-                    Text(script.speaker, style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: colors.textPrimary)),
-                  ]),
-                  const SizedBox(height: 14),
-                  Text('« ${script.characterLine.text} »', style: const TextStyle(fontSize: 18, fontWeight: FontWeight.w600, color: Colors.white, height: 1.4)),
-                  const SizedBox(height: 4),
-                  Text(script.characterLine.pronunciation, style: TextStyle(fontSize: 12.5, fontStyle: FontStyle.italic, color: colors.textMuted)),
-                  const SizedBox(height: 6),
-                  Text('“${script.characterLine.meaning}”', style: TextStyle(fontSize: 13, color: colors.textSecondary)),
-                  const SizedBox(height: 10),
-                  ListenButtons(text: script.characterLine.text, locale: plan.voiceLocale, compact: true),
-                ],
-              ),
-            ),
-            const Spacer(),
-            _buildActionButton(
-              label: 'Continue',
-              icon: LucideIcons.arrowRight,
-              accent: accent,
-              onTap: () => setState(() => _phase = LessonPhase.anticipate),
-            ),
-            const SizedBox(height: 20),
-          ],
-        );
-
-      case LessonPhase.anticipate:
-        final chosen = _selectedOption;
-        final correct = chosen != null && chosen == script.answerIndex;
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _phaseLabel('2. YOUR REPLY', LucideIcons.helpCircle, accent),
-            const SizedBox(height: 8),
-            Text('${script.speaker} said: “${script.characterLine.meaning}” What do you answer?',
-                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: colors.textPrimary)),
-            const SizedBox(height: 14),
-            ...List.generate(script.options.length, (i) {
-              final isChosen = chosen == i;
-              final wrong = isChosen && !correct;
-              final border = wrong ? colors.error : isChosen ? colors.success : Colors.white12;
-              return Semantics(
-                button: true,
-                selected: isChosen,
-                label: script.options[i],
-                child: GestureDetector(
-                  onTap: () => setState(() => _selectedOption = i),
-                  child: AnimatedContainer(
-                    duration: const Duration(milliseconds: 200),
-                    margin: const EdgeInsets.only(bottom: 10),
-                    padding: const EdgeInsets.all(14),
-                    decoration: BoxDecoration(
-                      color: wrong ? colors.errorSoft : isChosen ? colors.successSoft : colors.elevated,
-                      borderRadius: BorderRadius.circular(16),
-                      border: Border.all(color: border, width: isChosen ? 2.0 : 1.0),
-                    ),
-                    child: Row(children: [
-                      Icon(isChosen ? (wrong ? LucideIcons.x : LucideIcons.check) : LucideIcons.circle, size: 18, color: isChosen ? border : Colors.white30),
-                      const SizedBox(width: 12),
-                      Expanded(child: Text(script.options[i], style: TextStyle(fontSize: 15, fontWeight: isChosen ? FontWeight.w700 : FontWeight.w500, color: colors.textPrimary))),
-                    ]),
-                  ),
+    final prompt = Container(
+      width: double.infinity,
+      padding: const EdgeInsets.all(14),
+      decoration: BoxDecoration(
+        color: colors.surface,
+        borderRadius: BorderRadius.circular(18),
+        border: Border.all(color: colors.border),
+      ),
+      child: cue != null
+          ? Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  l10n.missionCue(plan.characterName),
+                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, letterSpacing: 0.4, color: colors.textMuted),
                 ),
-              );
-            }),
-            if (chosen != null && !correct)
-              Text('Not quite — think of what you practised with ${script.speaker}.', style: TextStyle(fontSize: 13, color: colors.error)),
-            const Spacer(),
-            _buildActionButton(
-              label: 'Say it',
-              icon: LucideIcons.mic,
-              accent: accent,
-              enabled: correct,
-              onTap: () {
-                setState(() => _phase = LessonPhase.speak);
-                _say(script.answer.text);
-              },
+                const SizedBox(height: 6),
+                SizedBox(
+                  width: double.infinity,
+                  child: TargetText(expression: cue, track: plan.track, fontSize: 19),
+                ),
+                const SizedBox(height: 4),
+                Text(plan.meaningOf(cue), style: TextStyle(fontSize: 14, color: colors.textSecondary)),
+                const SizedBox(height: 8),
+                ListenButtons(text: cue.text, locale: plan.voiceLocale, compact: true),
+              ],
+            )
+          : Text(
+              l10n.missionHowDoYouSay(plan.promptMeaningOf(exchange.answer)),
+              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colors.textPrimary),
             ),
-            const SizedBox(height: 20),
-          ],
-        );
+    );
 
-      case LessonPhase.speak:
-        return Column(
-          children: [
-            _phaseLabel('3. SAY IT OUT LOUD', LucideIcons.mic, accent),
-            const SizedBox(height: 18),
-            Text('« ${script.answer.text} »', textAlign: TextAlign.center, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.w700, color: Colors.white, height: 1.35)),
-            const SizedBox(height: 6),
-            Text(script.answer.pronunciation, textAlign: TextAlign.center, style: TextStyle(fontSize: 13, fontStyle: FontStyle.italic, color: colors.textMuted)),
-            const SizedBox(height: 18),
-            ListenButtons(text: script.answer.text, locale: plan.voiceLocale),
-            const SizedBox(height: 18),
-            MeloWidget(state: MeloState.curious, courseTrackId: ref.watch(appStateProvider).activeTrackId, size: 64),
-            const Spacer(),
-            _buildActionButton(
-              label: 'I said it',
-              icon: LucideIcons.check,
-              accent: accent,
-              onTap: () => setState(() => _phase = LessonPhase.compare),
-            ),
-            const SizedBox(height: 20),
-          ],
-        );
-
-      case LessonPhase.compare:
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            _phaseLabel('4. WHAT YOU USED', LucideIcons.bookOpen, accent),
-            const SizedBox(height: 14),
-            GlassContainer(
-              level: GlassLevel.level2,
-              radius: 20,
-              padding: const EdgeInsets.all(18),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text('« ${script.answer.text} »', style: const TextStyle(fontSize: 17, fontWeight: FontWeight.w700, color: Colors.white)),
-                  const SizedBox(height: 4),
-                  Text(script.answer.meaning, style: TextStyle(fontSize: 13, color: colors.textSecondary)),
-                  const SizedBox(height: 12),
-                  Wrap(spacing: 6, runSpacing: 6, children: [
-                    for (final p in plan.phrases)
-                      if (script.answer.text.toLowerCase().contains(p.text.replaceAll('…', '').trim().toLowerCase()))
-                        Container(
-                          padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                          decoration: BoxDecoration(color: colors.successSoft, borderRadius: BorderRadius.circular(8), border: Border.all(color: colors.success, width: 0.8)),
-                          child: Text('${p.text} · ${p.meaning}', style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: colors.success)),
-                        ),
-                  ]),
-                  const SizedBox(height: 10),
-                  ListenButtons(text: script.answer.text, locale: plan.voiceLocale, compact: true),
-                ],
-              ),
-            ),
-            const Spacer(),
-            _buildActionButton(label: 'Complete mission (+25 XP)', icon: LucideIcons.sparkles, accent: accent, onTap: _finishMission),
-            const SizedBox(height: 20),
-          ],
-        );
-
-      case LessonPhase.completed:
-        return Center(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
+    if (_answered) {
+      // Say it: the chosen (correct) reply, big, with its meaning and the device voice when there is one.
+      return Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Row(
             children: [
-              MeloWidget(state: MeloState.celebrate, speech: 'Magnifique ! Next: talk freely with ${script.speaker}.', size: 110),
-              const SizedBox(height: 24),
-              const Text('Mission completed!', style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: Colors.white)),
-              const SizedBox(height: 8),
-              Text('+25 XP', style: TextStyle(fontSize: 14, color: accent.primaryText)),
-              const SizedBox(height: 36),
-              _buildActionButton(label: 'Back to the mission path', icon: LucideIcons.check, accent: accent, onTap: () => context.pop()),
+              Icon(LucideIcons.mic, size: 16, color: accent.primaryText),
+              const SizedBox(width: 6),
+              Text(
+                l10n.missionSayIt,
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, letterSpacing: 0.6, color: accent.primaryText),
+              ),
             ],
           ),
-        );
+          const SizedBox(height: 10),
+          Expanded(
+            child: SingleChildScrollView(
+              child: Container(
+                padding: const EdgeInsets.all(18),
+                decoration: BoxDecoration(
+                  color: colors.successSoft,
+                  borderRadius: BorderRadius.circular(18),
+                  border: Border.all(color: colors.success, width: 1.5),
+                ),
+                child: Column(
+                  children: [
+                    TargetText(expression: exchange.answer, track: plan.track, fontSize: 24, textAlign: TextAlign.center),
+                    const SizedBox(height: 8),
+                    Text(
+                      plan.meaningOf(exchange.answer),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 15, color: colors.textSecondary),
+                    ),
+                    const SizedBox(height: 12),
+                    ListenButtons(text: exchange.answer.text, locale: plan.voiceLocale),
+                    const SizedBox(height: 12),
+                    MeloWidget(state: MeloState.happy, courseTrackId: appState.activeTrackId, size: 56),
+                  ],
+                ),
+              ).animate().fadeIn(duration: 220.ms).scale(begin: const Offset(0.97, 0.97), duration: 220.ms),
+            ),
+          ),
+          const SizedBox(height: 10),
+          Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: LearnPrimaryButton(label: l10n.sceneISaidIt, icon: LucideIcons.check, onPressed: () => _nextExchange(plan)),
+          ),
+        ],
+      );
     }
+
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        prompt,
+        const SizedBox(height: 12),
+        if (cue != null)
+          Text(
+            l10n.missionWhatDoYouAnswer,
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: colors.textPrimary),
+          ),
+        if (cue != null) const SizedBox(height: 8),
+        Expanded(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                for (var i = 0; i < exchange.options.length; i++)
+                  _OptionTile(plan: plan, optionIndex: i, exchange: exchange, selected: _selected == i, onTap: () => _choose(exchange, i)),
+                if (wrong) Text(l10n.missionWrong, style: TextStyle(fontSize: 13.5, color: colors.error)).animate().fadeIn(duration: 200.ms),
+              ],
+            ),
+          ),
+        ),
+        const SizedBox(height: 12),
+      ],
+    );
   }
 
-  Widget _buildActionButton({
-    required String label,
-    required IconData icon,
-    required CourseAccent accent,
-    required VoidCallback onTap,
-    bool enabled = true,
-  }) {
+  Widget _recapView(MissionLearnPlan plan) {
+    final colors = ref.watch(appStateProvider.select((s) => s.colors));
+    final l10n = context.l10n;
+    final answers = <String, MissionExchange>{for (final x in plan.exchanges) x.answer.id: x};
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        Text(
+          l10n.missionRecapTitle,
+          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: colors.textPrimary),
+        ),
+        const SizedBox(height: 10),
+        Expanded(
+          child: ListView(
+            children: [
+              for (final x in answers.values)
+                Container(
+                  margin: const EdgeInsets.only(bottom: 8),
+                  padding: const EdgeInsets.all(12),
+                  decoration: BoxDecoration(
+                    color: colors.surface,
+                    borderRadius: BorderRadius.circular(14),
+                    border: Border.all(color: colors.border),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            TargetText(expression: x.answer, track: plan.track, fontSize: 17),
+                            const SizedBox(height: 2),
+                            Text(plan.meaningOf(x.answer), style: TextStyle(fontSize: 13, color: colors.textSecondary)),
+                          ],
+                        ),
+                      ),
+                      ListenButtons(text: x.answer.text, locale: plan.voiceLocale, compact: true),
+                    ],
+                  ),
+                ),
+            ],
+          ),
+        ),
+        const SizedBox(height: 10),
+        Padding(
+          padding: const EdgeInsets.only(bottom: 12),
+          child: LearnPrimaryButton(
+            label: _wasCompleted ? l10n.missionComplete : '${l10n.missionComplete} (${l10n.xpGain(XpAmounts.missionCompleted)})',
+            icon: LucideIcons.sparkles,
+            onPressed: () => _complete(plan),
+          ),
+        ),
+      ],
+    );
+  }
+
+  Widget _completedView(MissionLearnPlan plan) {
+    final appState = ref.watch(appStateProvider);
+    final colors = appState.colors;
+    final accent = appState.accent;
+    final l10n = context.l10n;
+    final course = appState.activeCourse;
+    final next = course == null ? null : appState.nextMission(course);
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            MeloWidget(state: MeloState.celebrate, courseTrackId: appState.activeTrackId, size: 110),
+            const SizedBox(height: 20),
+            Text(
+              l10n.missionCompleted,
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: colors.textPrimary),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              _wasCompleted ? l10n.missionXpOnce : l10n.xpGain(XpAmounts.missionCompleted),
+              textAlign: TextAlign.center,
+              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: accent.primaryText),
+            ),
+            if (_newReviewCards > 0) ...[
+              const SizedBox(height: 6),
+              Text(
+                l10n.missionJoinReview(_newReviewCards),
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 14, color: colors.textSecondary),
+              ),
+            ],
+            const SizedBox(height: 28),
+            if (next != null && next.key != widget.missionKey)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 10),
+                child: LearnPrimaryButton(
+                  label: l10n.missionNext,
+                  icon: LucideIcons.chevronRight,
+                  onPressed: () => context.pushReplacement('/path/${next.key}'),
+                ),
+              ),
+            TextButton(
+              onPressed: () => context.popOrHome(),
+              child: Text(
+                l10n.missionBackToPath,
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: accent.primaryText),
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _OptionTile extends ConsumerWidget {
+  final MissionLearnPlan plan;
+  final MissionExchange exchange;
+  final int optionIndex;
+  final bool selected;
+  final VoidCallback onTap;
+
+  const _OptionTile({required this.plan, required this.exchange, required this.optionIndex, required this.selected, required this.onTap});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = ref.watch(appStateProvider.select((s) => s.colors));
+    final option = exchange.options[optionIndex];
+    final wrong = selected && optionIndex != exchange.answerIndex;
+    final border = wrong ? colors.error : (selected ? colors.success : colors.border);
     return Semantics(
       button: true,
-      enabled: enabled,
-      label: label,
+      selected: selected,
+      label: option.romanization == null ? option.text : '${option.text}, ${option.romanization}',
       excludeSemantics: true,
-      child: GestureDetector(
-        onTap: enabled ? onTap : null,
-        child: AnimatedOpacity(
-          duration: const Duration(milliseconds: 200),
-          opacity: enabled ? 1.0 : 0.45,
-          child: Container(
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: InkWell(
+          borderRadius: BorderRadius.circular(16),
+          onTap: onTap,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
             width: double.infinity,
-            height: 52,
+            constraints: const BoxConstraints(minHeight: 56),
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
             decoration: BoxDecoration(
-              gradient: LinearGradient(colors: [accent.primary, accent.primaryStrong]),
+              color: wrong ? colors.errorSoft : (selected ? colors.successSoft : colors.surface),
               borderRadius: BorderRadius.circular(16),
-              boxShadow: enabled ? [BoxShadow(color: accent.primary.withValues(alpha: 0.4), blurRadius: 18, spreadRadius: 2)] : null,
+              border: Border.all(color: border, width: selected ? 2 : 1),
             ),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(icon, size: 18, color: Colors.white),
-                const SizedBox(width: 8),
-                Text(label, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: Colors.white)),
+                Icon(selected ? (wrong ? LucideIcons.x : LucideIcons.check) : LucideIcons.circle, size: 18, color: selected ? border : colors.textMuted),
+                const SizedBox(width: 12),
+                Expanded(
+                  child: TargetText(expression: option, track: plan.track, fontSize: 17),
+                ),
               ],
             ),
           ),

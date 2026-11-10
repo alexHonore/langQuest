@@ -47,6 +47,22 @@ jobs:
       - if: always()
         run: pnpm supabase stop --no-backup
 
+  flutter:
+    name: Flutter app (analyze · tests)
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: apps/mobile_flutter
+    steps:
+      - uses: actions/checkout@v4
+      - uses: subosito/flutter-action@v2
+        with: { channel: stable, flutter-version: 3.47.7, cache: true }
+      - run: flutter pub get
+      - run: flutter analyze
+      - run: flutter test
+      # The content bundle staying in sync with @langquest/curriculum is checked by the scripts tests (verify job).
+
   security:
     name: Secret scan
     runs-on: ubuntu-latest

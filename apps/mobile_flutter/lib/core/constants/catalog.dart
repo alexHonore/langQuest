@@ -1,3 +1,7 @@
+// PARKED — not reachable from the app since the learn path moved to the real curriculum (see README.md,
+// "Parked prototype files"). It holds mock data or simulated behaviour (canned replies, simulated playback or
+// voice levels, hand-copied catalog) that must not ship. Kept until the owner decides to delete or rewrite it.
+
 /// Course catalog definitions for all 30 language tracks (spec §2, CONVENTIONS §2).
 class CourseTrackInfo {
   final String id;

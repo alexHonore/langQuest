@@ -10,9 +10,13 @@ class AnimatedSceneWidget extends StatefulWidget {
   final Widget? child;
   final bool showTimeToggle;
 
+  /// Localized scene name for the corner badge (defaults to the English scene title).
+  final String? title;
+
   const AnimatedSceneWidget({
     super.key,
     required this.sceneId,
+    this.title,
     this.initialVariant = SceneVariant.evening,
     this.height = 200,
     this.width,
@@ -116,7 +120,7 @@ class _AnimatedSceneWidgetState extends State<AnimatedSceneWidget>
                       ),
                       const SizedBox(width: 6),
                       Text(
-                        sceneDef.title,
+                        widget.title ?? sceneDef.title,
                         style: const TextStyle(
                           fontSize: 11.5,
                           fontWeight: FontWeight.w600,

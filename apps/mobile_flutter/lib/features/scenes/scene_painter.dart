@@ -84,7 +84,7 @@ class ScenePainter extends CustomPainter {
         final sx = (i * 37) % 150 + 5.0;
         final sy = (i * 23) % 40 + 5.0;
         final twinkle = (math.sin(animationProgress * math.pi * 2 + i) + 1.0) / 2.0;
-        starPaint.color = Colors.white.withOpacity(0.2 + twinkle * 0.7);
+        starPaint.color = Colors.white.withValues(alpha: 0.2 + twinkle * 0.7);
         canvas.drawCircle(Offset(sx, sy), 0.7 + twinkle * 0.5, starPaint);
       }
     }
@@ -116,7 +116,7 @@ class ScenePainter extends CustomPainter {
         begin: Alignment.topLeft,
         end: Alignment.bottomRight,
         colors: [
-          (isEvening ? const Color(0xFFFF9F43) : const Color(0xFFFFF9E6)).withOpacity(0.25),
+          (isEvening ? const Color(0xFFFF9F43) : const Color(0xFFFFF9E6)).withValues(alpha: 0.25),
           Colors.transparent,
         ],
       ).createShader(const Rect.fromLTWH(18, 12, 100, 78));
@@ -156,7 +156,7 @@ class ScenePainter extends CustomPainter {
 
     // Rising animated coffee steam!
     final steamPaint = Paint()
-      ..color = Colors.white.withOpacity(0.4)
+      ..color = Colors.white.withValues(alpha: 0.4)
       ..style = PaintingStyle.stroke
       ..strokeWidth = 1.2
       ..strokeCap = StrokeCap.round;
@@ -168,7 +168,7 @@ class ScenePainter extends CustomPainter {
       final steamY = 54.0 - offset * 14.0;
       final sway = math.sin(offset * math.pi * 3.0) * 2.0;
 
-      steamPaint.color = Colors.white.withOpacity((1.0 - offset) * 0.45);
+      steamPaint.color = Colors.white.withValues(alpha: (1.0 - offset) * 0.45);
       steamPath.moveTo(steamX, steamY + 4);
       steamPath.quadraticBezierTo(steamX + sway, steamY + 2, steamX - sway, steamY);
       canvas.drawPath(steamPath, steamPaint);
@@ -194,7 +194,7 @@ class ScenePainter extends CustomPainter {
 
     // Glowing shop windows
     final windowColor = isEvening ? const Color(0xFFFFC048) : const Color(0xFFFFF1C5);
-    final winPaint = Paint()..color = windowColor.withOpacity(isEvening ? 0.85 : 0.45);
+    final winPaint = Paint()..color = windowColor.withValues(alpha: isEvening ? 0.85 : 0.45);
     for (int row = 0; row < 4; row++) {
       canvas.drawRect(Rect.fromLTWH(52, 22.0 + row * 9, 8, 6), winPaint);
       canvas.drawRect(Rect.fromLTWH(68, 22.0 + row * 9, 8, 6), winPaint);
@@ -234,7 +234,7 @@ class ScenePainter extends CustomPainter {
       final glowPaint = Paint()
         ..shader = RadialGradient(
           colors: [
-            (l % 2 == 0 ? const Color(0xFFFF4FA3) : const Color(0xFFFFB547)).withOpacity(0.5),
+            (l % 2 == 0 ? const Color(0xFFFF4FA3) : const Color(0xFFFFB547)).withValues(alpha: 0.5),
             Colors.transparent,
           ],
         ).createShader(const Rect.fromLTWH(-12, 0, 24, 24));
@@ -362,7 +362,7 @@ class ScenePainter extends CustomPainter {
     // Wall picture frame
     canvas.drawRect(
       const Rect.fromLTWH(108, 18, 32, 22),
-      Paint()..color = const Color(0xFFFFB547).withOpacity(0.8),
+      Paint()..color = const Color(0xFFFFB547).withValues(alpha: 0.8),
     );
   }
 
