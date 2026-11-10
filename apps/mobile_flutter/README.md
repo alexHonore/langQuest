@@ -22,6 +22,27 @@ flutter test --platform chrome test/srs_test.dart   # the hashing/scheduler port
 flutter build web --release
 ```
 
+## Web app (phone-sized) and its deployment
+
+The web build is the same app, laid out for a phone: on a phone browser it fills the screen; in a wider window
+(a computer or a tablet) it is shown as a centered phone (`lib/core/layout/phone_frame.dart`), and a mouse can drag
+lists and card pages like a finger. Progress is kept in the browser's local storage. The device voice is the
+browser's speech synthesis, with the same exact-locale rule as on phones.
+
+The repository's root `Dockerfile` builds it (Flutter 3.47.7, pinned to its release commit) and serves the files with
+Caddy on `$PORT` (default 3000); `deploy/Caddyfile` sends `no-cache` so a redeploy shows on the next load. It reads no
+variables: nothing from the host's environment is built into the files served. CI's `web-image` job builds the image
+and checks that it serves the app.
+
+```bash
+docker build -t langquest-web .                      # from the repository root
+docker run --rm -p 8080:3000 langquest-web           # http://localhost:8080
+```
+
+On Infra Tayoo (instance `languest`), the hosted app runs this image when its source branch has it: `infra-tayoo
+status` shows the source branch and the app URL, `infra-tayoo deploy` deploys the branch's latest commit (the
+`infra-tayoo` CLI comes from the Infra Tayoo portal; its key must never be committed or printed).
+
 ## What the app does
 
 | Area | How it works |
@@ -67,11 +88,14 @@ lib/
   core/content/                 bundle model + loader (Course = track × instruction language)
   core/learning/                FSRS scheduler port, web-safe FNV-1a / mulberry32
   core/services/                learner state (JSON v1, SharedPreferences), app state notifier, speech
-  core/theme/                   Night Market tokens, theme-aware glass, course accent (contrast-checked labels)
+  core/theme/                   Night Market tokens, theme-aware glass, course accent (contrast-checked labels), Material theme
+  core/layout/                  phone frame for the web build in wide windows
   features/learn/               learn plans (pure) + scene, cards, practice, mission path screens
   features/…                    home, missions, mission player, review, progress, catalog, course page, settings, onboarding
 assets/content/                 generated content bundle
 assets/fonts/                   Outfit + Inter (OFL), bundled: no runtime font downloads
+web/                            index.html (splash until the first frame), flutter_bootstrap.js, manifest, icons
+deploy/Caddyfile                static server config for the root Dockerfile
 ```
 
 ## Next steps
@@ -82,3 +106,4 @@ assets/fonts/                   Outfit + Inter (OFL), bundled: no runtime font d
 3. **Recording** — attempts with `peakLevelDb` for the server's speech-detection verdict; reference-comparison feedback
    (never a numeric score without an acoustic assessor).
 4. Device QA on iOS and Android (this build was verified with unit/widget tests and the web build only).
+5. Native launcher icons: `web/` has the LangQuest icons; `ios/` and `android/` still carry Flutter's defaults.

@@ -49,6 +49,18 @@ class CourseAccent {
   /// White or Night Market ink, whichever reads better on [background] (labels on course-coloured buttons).
   static Color readableOn(Color background) => contrast(Colors.white, background) >= contrast(_ink, background) ? Colors.white : _ink;
 
+  /// [fill], darkened or lightened just enough (toward the side its label already reads best on) for that label to
+  /// reach [ratio] — WCAG AA for text. Mid-tone hues fall short with both white and ink labels.
+  static Color readableFill(Color fill, {double ratio = 4.5}) {
+    final hsl = HSLColor.fromColor(fill);
+    final darker = readableOn(fill) == Colors.white;
+    var color = fill;
+    for (var step = 1; step <= 50 && contrast(color, readableOn(color)) < ratio; step++) {
+      color = hsl.withLightness((hsl.lightness + (darker ? -0.01 : 0.01) * step).clamp(0.0, 1.0)).toColor();
+    }
+    return color;
+  }
+
   /// The accent of [track], or the neutral Night Market accent when no course is active.
   static CourseAccent forTrack(CourseTrackInfo? track, {bool isDark = true}) {
     if (track == null) {
@@ -76,7 +88,7 @@ class CourseAccent {
 
     final lantern = [hslToColor(h1, sat, lit), hslToColor(h2, sat, lit), hslToColor(h3, sat, lit)];
 
-    final primary = hslToColor(h1, isDark ? 0.92 : 0.85, isDark ? 0.58 : 0.40);
+    final primary = readableFill(hslToColor(h1, isDark ? 0.92 : 0.85, isDark ? 0.58 : 0.40));
     final primaryStrong = hslToColor(h1, isDark ? 0.95 : 0.90, isDark ? 0.65 : 0.34);
     final primarySoft = hslToColor(h1, isDark ? 0.40 : 0.25, isDark ? 0.16 : 0.92, isDark ? 0.35 : 0.8);
     final primaryText = hslToColor(h1, isDark ? 0.88 : 0.90, isDark ? 0.72 : 0.32);
