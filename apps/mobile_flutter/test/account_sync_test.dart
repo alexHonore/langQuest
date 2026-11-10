@@ -193,6 +193,12 @@ void main() {
       expect(BackendConfig.from(supabaseUrl: 'https://sb.test', supabaseAnonKey: 'anon', apiBaseUrl: ''), isNull);
       expect(BackendConfig.fromJson({'supabaseUrl': 'https://sb.test', 'supabaseAnonKey': ' ', 'apiBaseUrl': 'https://api.test'}), isNull);
       expect(BackendConfig.fromJson({'supabaseUrl': 'https://sb.test', 'supabaseAnonKey': 'anon', 'apiBaseUrl': 'https://api.test//'})!.apiBaseUrl, 'https://api.test');
+      // An unfilled server template (served raw by a dev server) is not a backend.
+      expect(
+        BackendConfig.fromJson({'supabaseUrl': '{{or (env `LQ_SUPABASE_URL`) (env `NEXT_PUBLIC_SUPABASE_URL`)}}', 'supabaseAnonKey': '{{env `K`}}', 'apiBaseUrl': '{{env `A`}}'}),
+        isNull,
+      );
+      expect(BackendConfig.from(supabaseUrl: 'sb.test', supabaseAnonKey: 'anon', apiBaseUrl: 'https://api.test'), isNull, reason: 'no scheme');
     });
   });
 

@@ -75,9 +75,9 @@ idempotent (deterministic `clientAttemptId` / `clientEventId`), so an interrupte
 Configuration — client-safe values only (URL, anon key), never a secret:
 
 - native builds: `--dart-define=LQ_SUPABASE_URL=… --dart-define=LQ_SUPABASE_ANON_KEY=… --dart-define=LQ_API_BASE_URL=…`;
-- the web image: `deploy/entrypoint.sh` writes `/config.json` at start-up from `LQ_SUPABASE_URL`,
-  `LQ_SUPABASE_ANON_KEY` (or the hosted app's `NEXT_PUBLIC_SUPABASE_URL` / `NEXT_PUBLIC_SUPABASE_ANON_KEY`) and
-  `LQ_API_BASE_URL`. The API Worker needs its secrets and the web origin in `CORS_ALLOWED_ORIGINS`
+- the web image: Caddy fills `/config.json` (`deploy/config.json`, a template) from the container's environment on
+  each request — `LQ_SUPABASE_URL`, `LQ_SUPABASE_ANON_KEY` (or the hosted app's `NEXT_PUBLIC_SUPABASE_URL` /
+  `NEXT_PUBLIC_SUPABASE_ANON_KEY`) and `LQ_API_BASE_URL`; nothing is written at start-up. The API Worker needs its secrets and the web origin in `CORS_ALLOWED_ORIGINS`
   (`apps/api/wrangler.toml`, `infra/cloudflare/README.md`).
 
 Try it locally (local stack and local test accounts only):
@@ -145,7 +145,7 @@ assets/content/                 generated content bundle
 assets/fonts/                   Outfit + Inter (OFL), bundled: no runtime font downloads
 assets/fonts/scripts/           Noto Sans subsets for other scripts (tool/subset_fonts.py, OFL-NotoSans*.txt)
 web/                            index.html (splash until the first frame), flutter_bootstrap.js, manifest, icons
-deploy/Caddyfile                static server config for the root Dockerfile
+deploy/Caddyfile, config.json  static server config for the root Dockerfile; the account settings template
 ```
 
 ## Next steps
