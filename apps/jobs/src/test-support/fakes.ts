@@ -2,6 +2,7 @@
  * Test doubles: fake STT recogniser / text reasoner (no network), an offline `JobServices` built on
  * `MemoryJobsDb` + `LocalFsObjectStore`, ffmpeg-generated audio fixtures and a direct handler runner.
  */
+import { existsSync } from 'node:fs';
 import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
@@ -111,10 +112,15 @@ export interface TestServices {
   cleanup(): Promise<void>;
 }
 
+/** Homebrew first (macOS dev machines), then the usual Linux locations (CI), else the bare name resolved on `PATH`. */
+function findBinary(name: string): string {
+  return [`/opt/homebrew/bin/${name}`, `/usr/local/bin/${name}`, `/usr/bin/${name}`].find((p) => existsSync(p)) ?? name;
+}
+
 /** Offline services: temp dir, local store, real ffmpeg, memory db, fake AI. */
 export async function createTestServices(options: TestServicesOptions = {}): Promise<TestServices> {
   const root = await mkdtemp(join(tmpdir(), 'lq-jobs-'));
-  const env: JobsEnv = readJobsEnv({ JOBS_WORK_DIR: join(root, 'work'), LOCAL_OBJECT_STORE_DIR: join(root, 'store'), OBJECT_STORE: 'local', JOBS_TELEMETRY: 'none', FFMPEG_PATH: process.env.FFMPEG_PATH ?? '/opt/homebrew/bin/ffmpeg', FFPROBE_PATH: process.env.FFPROBE_PATH ?? '/opt/homebrew/bin/ffprobe', ...(options.env ?? {}) });
+  const env: JobsEnv = readJobsEnv({ JOBS_WORK_DIR: join(root, 'work'), LOCAL_OBJECT_STORE_DIR: join(root, 'store'), OBJECT_STORE: 'local', JOBS_TELEMETRY: 'none', FFMPEG_PATH: process.env.FFMPEG_PATH ?? findBinary('ffmpeg'), FFPROBE_PATH: process.env.FFPROBE_PATH ?? findBinary('ffprobe'), ...(options.env ?? {}) });
   const db = options.db ?? new MemoryJobsDb();
   const store = new LocalFsObjectStore(join(root, 'store'), 'test-bucket');
   const ffmpeg = createFfRunner({ ffmpegPath: env.FFMPEG_PATH, ffprobePath: env.FFPROBE_PATH, timeoutMs: 120_000 });

@@ -16,14 +16,19 @@ jobs:
     timeout-minutes: 30
     steps:
       - uses: actions/checkout@v4
+      # pnpm version comes from package.json "packageManager" (setting it here too makes the action fail)
       - uses: pnpm/action-setup@v4
-        with: { version: 10 }
       - uses: actions/setup-node@v4
         with: { node-version: 24, cache: pnpm }
+      - name: ffmpeg + ffprobe (apps/jobs and packages/media tests)
+        run: command -v ffmpeg && command -v ffprobe || (sudo apt-get update -qq && sudo apt-get install -y -qq ffmpeg)
       - run: pnpm install --frozen-lockfile
       - run: pnpm typecheck
       - run: pnpm lint
-      - run: pnpm test
+      # turbo's default runs up to 10 package suites at once, each with its own vitest worker pool, on a 4-vCPU runner:
+      # CPU-bound suites (packages/ui art rendering) then run ~8x slower and hit the 5 s test timeout. Two at a time takes
+      # the same wall time here and keeps every test far below it.
+      - run: pnpm exec turbo run test --concurrency=2
         env:
           LANGQUEST_LIVE_TESTS: '0'
 
@@ -35,15 +40,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - uses: pnpm/action-setup@v4
-        with: { version: 10 }
       - uses: actions/setup-node@v4
         with: { node-version: 24, cache: pnpm }
       - run: pnpm install --frozen-lockfile
-      - run: pnpm supabase start -x studio,imgproxy,inbucket,edge-runtime,logflare,vector
+      - run: pnpm --filter @langquest/db local:start   # same containers as local development
       - run: pnpm supabase db reset --local
       - run: pnpm --filter @langquest/db test
         env:
-          SUPABASE_LOCAL: '1'
+          LANGQUEST_REQUIRE_LOCAL_STACK: '1'   # a missing stack fails the suites instead of skipping them
       - if: always()
         run: pnpm supabase stop --no-backup
 
