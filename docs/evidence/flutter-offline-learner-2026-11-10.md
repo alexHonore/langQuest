@@ -88,7 +88,7 @@ The owner asked for a phone-sized web version to test on the Infra Tayoo instanc
 |---|---|
 | Phone frame | In a window at least 600 × 560 (computer, tablet), the web build is a centered 430 × ≤ 932 phone; phones are unframed in portrait and landscape. Screens read the frame's size from `MediaQuery`. A mouse drags lists and card pages. |
 | Web shell | LangQuest icons (favicon, PWA, maskable, Apple touch icon) instead of Flutter's; a splash until the first frame (`flutter-first-frame`); no service worker (Flutter's is a self-unregistering stub). |
-| Image | Root `Dockerfile`: Flutter 3.47.7 shallow clone checked against the tag's commit (`abaf9c5`), `flutter build web --release --no-web-resources-cdn` (CanvasKit served from the same host), Caddy 2.11 on `$PORT` (default 3000), `no-cache` + ETag, `nosniff`, admin API off, no SPA fallback (hash routes). `.dockerignore` sends only `apps/mobile_flutter`. Reads no variables. |
+| Image | Root `Dockerfile`: Flutter 3.47.7 shallow clone checked against the tag's commit (`abaf9c5`), `flutter build web --release --no-web-resources-cdn` (CanvasKit served from the same host), Caddy 2.11 on `$PORT` (default 3000; 8080 since the first deployment, see below), `no-cache` + ETag, `nosniff`, admin API off, no SPA fallback (hash routes). `.dockerignore` sends only `apps/mobile_flutter`. Reads no variables. |
 | Contrast fix | Found on the iPhone capture: the selected language segment (and the selected chip on the course page) was white on bright cyan (≈ 1.6:1), because `onSecondary` was the text colour. Labels now use `readableOn` on a `readableFill`; a test checks primary, secondary and selected-segment pairs for all 30 course accents and the neutral one, light and dark (≥ 4.5:1). That test also caught 7 accents at 4.34–4.47 (Hindi, Vietnamese, Arabic MSA light; Russian dark), now nudged to 4.5. |
 | CI | `web-image` job: `docker build`, then checks that the container serves the page, `main.dart.js`, the content bundle, `application/wasm`, and a 404 for a missing file. |
 
@@ -101,8 +101,9 @@ The owner asked for a phone-sized web version to test on the Infra Tayoo instanc
 | Headers | `application/wasm`, `Cache-Control: no-cache`, gzip (main.dart.js 3.4 MB → 1.0 MB), 404 for a missing file, `$PORT` honoured |
 | `flutter analyze` / `flutter test` / Chrome tests | No issues / 59 passed / 18 passed |
 
-Not done here: the deployment itself. The instance's hosted app builds GitHub `master`, which does not have this app;
-the portal is where its source branch is chosen (`refactor/react-to-flutter`) — no key right or API covers it.
+Deployment: the owner had the branch merged into `master` (rebase merge, `8819742`); the hosted app builds `master`.
+The first deployment (`dpl_vrtvimudbb`) built in 7 min 22 s on the platform, then failed its health check: the
+platform checks `0.0.0.0:8080` and sets no `PORT`, and Caddy defaulted to 3000. The default is now 8080.
 
 | File | Shows |
 |---|---|

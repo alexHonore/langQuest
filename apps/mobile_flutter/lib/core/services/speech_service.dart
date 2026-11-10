@@ -10,9 +10,16 @@ import 'package:flutter_tts/flutter_tts.dart';
 /// speak MSA — variety boundaries, ADR-006). Without a matching voice the listen controls are not rendered
 /// (CONVENTIONS §8: visible means usable).
 class SpeechService {
-  final FlutterTts _tts = FlutterTts();
+  SpeechService({FlutterTts? tts, this.voiceRetryDelay = const Duration(milliseconds: 400)}) : _tts = tts ?? FlutterTts();
+
+  final FlutterTts _tts;
   bool _configured = false;
   Future<Set<String>>? _voiceLocales;
+
+  /// Browsers list no voices until they have loaded them (Chrome fills the list asynchronously), and some
+  /// Android engines until they have started: an empty list is asked again a few times before it counts.
+  static const int voiceListAttempts = 6;
+  final Duration voiceRetryDelay;
 
   static const double normalRate = 0.5;
   static const double slowRate = 0.32;
@@ -36,7 +43,8 @@ class SpeechService {
   /// Normalized locale tag (`es_ES` → `es-es`).
   static String normalizeLocale(String tag) => tag.replaceAll('_', '-').toLowerCase();
 
-  Future<Set<String>> _loadVoiceLocales() async {
+  /// The locales of the device's voices; null when there is no speech engine at all (nothing to wait for).
+  Future<Set<String>?> _readVoiceLocales() async {
     try {
       final voices = await _tts.getVoices;
       if (voices is! List) return const {};
@@ -45,7 +53,16 @@ class SpeechService {
           if (v is Map && v['locale'] is String) normalizeLocale(v['locale'] as String),
       };
     } catch (_) {
-      return const {};
+      return null;
+    }
+  }
+
+  Future<Set<String>> _loadVoiceLocales() async {
+    for (var attempt = 1; ; attempt++) {
+      final locales = await _readVoiceLocales();
+      if (locales == null) return const {};
+      if (locales.isNotEmpty || attempt >= voiceListAttempts) return locales;
+      await Future<void>.delayed(voiceRetryDelay);
     }
   }
 
@@ -53,7 +70,7 @@ class SpeechService {
   Future<bool> supports(String? locale) async {
     if (locale == null || locale.isEmpty) return false;
     final locales = await (_voiceLocales ??= _loadVoiceLocales());
-    // Android engines can list no voices until they finish starting: never keep an empty answer.
+    // Never keep an empty answer: the next screen asks again (the engine may have finished starting by then).
     if (locales.isEmpty) _voiceLocales = null;
     return locales.contains(normalizeLocale(locale));
   }

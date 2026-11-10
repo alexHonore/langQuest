@@ -10,6 +10,29 @@ import '../../l10n/l10n.dart';
 import '../scenes/scene_models.dart';
 import 'learn_logic.dart';
 
+/// A BCP-47 tag (`es-ES`, `es-419`, `ar`, `zh-Hant-HK`) as a [Locale].
+Locale localeFromTag(String tag) {
+  final parts = tag.split(RegExp('[-_]'));
+  String? script;
+  String? region;
+  for (final part in parts.skip(1)) {
+    if (part.length == 4 && int.tryParse(part) == null) {
+      script = '${part[0].toUpperCase()}${part.substring(1).toLowerCase()}';
+    } else if (part.length == 2 || (part.length == 3 && int.tryParse(part) != null)) {
+      region = part.toUpperCase();
+    }
+  }
+  return Locale.fromSubtags(languageCode: parts.first.toLowerCase(), scriptCode: script, countryCode: region);
+}
+
+/// The locale of a course's phrases (`es-ES`, `ja-JP`, `ar-MA`): picks the font for characters that differ by language.
+Locale contentLocaleOf(CourseTrackInfo track) => localeFromTag(track.defaultLocale);
+
+/// The language of a course's phrases for assistive technology: screen readers switch to that language's voice
+/// instead of reading a phrase with the interface language's rules. Language only (`ja`, not `ja-JP`): the web
+/// engine writes the locale into the `lang` attribute with an underscore (`ja_JP`), which is not a language tag.
+Locale contentLanguageOf(CourseTrackInfo track) => Locale(localeFromTag(track.defaultLocale).languageCode);
+
 /// The painted scene for a blueprint situation (`cafe`, `market`, `directions`, …).
 SceneId sceneIdForSituation(String situation) => switch (situation) {
   'cafe' => SceneId.cafe,
@@ -69,18 +92,28 @@ class TargetText extends ConsumerWidget {
       crossAxisAlignment: align,
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text(
-          expression.text,
-          textAlign: textAlign,
-          textDirection: track.rtl ? TextDirection.rtl : TextDirection.ltr,
-          style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.w700, height: 1.3, color: color ?? colors.textPrimary),
+        Semantics(
+          localeForSubtree: contentLanguageOf(track),
+          child: Text(
+            expression.text,
+            // Picks the font for characters that differ by language (Japanese kanji are not drawn with Chinese
+            // forms on iOS and Android, whatever the interface language).
+            locale: contentLocaleOf(track),
+            textAlign: textAlign,
+            textDirection: track.rtl ? TextDirection.rtl : TextDirection.ltr,
+            style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.w700, height: 1.3, color: color ?? colors.textPrimary),
+          ),
         ),
         if (reading != null) ...[
           const SizedBox(height: 2),
-          Text(
-            reading,
-            textAlign: textAlign,
-            style: TextStyle(fontSize: fontSize * 0.6, color: colors.textSecondary),
+          Semantics(
+            localeForSubtree: contentLanguageOf(track),
+            child: Text(
+              reading,
+              locale: contentLocaleOf(track),
+              textAlign: textAlign,
+              style: TextStyle(fontSize: fontSize * 0.6, color: colors.textSecondary),
+            ),
           ),
         ],
         if (romanization != null) ...[
