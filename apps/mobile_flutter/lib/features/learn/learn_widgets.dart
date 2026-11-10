@@ -92,6 +92,9 @@ class TargetText extends ConsumerWidget {
           localeForSubtree: contentLocaleOf(track),
           child: Text(
             expression.text,
+            // Picks the font for characters that differ by language (Japanese kanji are not drawn with Chinese
+            // forms on iOS and Android, whatever the interface language).
+            locale: contentLocaleOf(track),
             textAlign: textAlign,
             textDirection: track.rtl ? TextDirection.rtl : TextDirection.ltr,
             style: TextStyle(fontSize: fontSize, fontWeight: FontWeight.w700, height: 1.3, color: color ?? colors.textPrimary),
@@ -103,6 +106,7 @@ class TargetText extends ConsumerWidget {
             localeForSubtree: contentLocaleOf(track),
             child: Text(
               reading,
+              locale: contentLocaleOf(track),
               textAlign: textAlign,
               style: TextStyle(fontSize: fontSize * 0.6, color: colors.textSecondary),
             ),
