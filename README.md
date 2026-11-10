@@ -58,7 +58,8 @@ instruction-language substitution; per-course capability disclaimer before enrol
 ## External blockers (owner actions)
 
 See `docs/runbooks/provisioning.md`: Cloudflare R2 is not enabled (media uploads, playback, downloads stay hidden), a hosted
-Supabase project slot is needed (the org is at its free-project limit), Azure Speech credentials are optional for phoneme
+Supabase runs self-hosted on Infra Tayoo (instance `languest`, migrations applied; content seed and first admin still to do,
+`docs/runbooks/database.md` §6), Azure Speech credentials are optional for phoneme
 scoring on supported locales, and every language track needs native-speaker review before its content can leave draft state.
 
 ## Documentation map

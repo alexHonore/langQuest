@@ -55,4 +55,4 @@ jobs:
         with: { fetch-depth: 0 }
       - name: Fail if a known secret pattern is committed
         run: |
-          ! git grep -nE "(sk-or-v1-[A-Za-z0-9]{20,}|sbp_[a-f0-9]{30,}|AKIA[0-9A-Z]{16}|re_[A-Za-z0-9]{20,})" -- ':!docs/runbooks/provisioning.md' ':!.github/workflows/ci.yml' || (echo "secret-like token found" && exit 1)
+          ! git grep -nE "(sk-or-v1-[A-Za-z0-9]{20,}|sbp_[a-f0-9]{30,}|(infra_tayoo|tops)_[0-9a-f]{12}_[0-9a-f]{64}|AKIA[0-9A-Z]{16}|re_[A-Za-z0-9]{20,})" -- ':!docs/runbooks/provisioning.md' ':!.github/workflows/ci.yml' || (echo "secret-like token found" && exit 1)

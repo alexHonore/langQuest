@@ -109,7 +109,7 @@ export const ADMIN_EXTRA_EN = {
         supabase: {
           title: 'Supabase (database and auth)',
           step: {
-            local: 'Local stack at {detail}. To go hosted: `supabase link`, `pnpm db:migrate`, then point NEXT_PUBLIC_SUPABASE_URL and the anon key at the project (docs/runbooks/provisioning.md).',
+            local: 'Local stack at {detail}. The hosted database is the Infra Tayoo instance `languest` (https://sb-languest.tayoo.app): `pnpm db:migrate` (infra-tayoo db push), then set NEXT_PUBLIC_SUPABASE_URL and the anon key from `infra-tayoo keys` (docs/runbooks/provisioning.md).',
             hosted: 'Hosted project at {detail}. Nothing to do.',
           },
         },
@@ -815,7 +815,7 @@ export const ADMIN_EXTRA_FR = {
         supabase: {
           title: 'Supabase (base de données et auth)',
           step: {
-            local: 'Pile locale sur {detail}. Pour passer en hébergé : `supabase link`, `pnpm db:migrate`, puis pointez NEXT_PUBLIC_SUPABASE_URL et la clé anon vers le projet (docs/runbooks/provisioning.md).',
+            local: 'Pile locale sur {detail}. La base hébergée est l\'instance Infra Tayoo `languest` (https://sb-languest.tayoo.app) : `pnpm db:migrate` (infra-tayoo db push), puis renseignez NEXT_PUBLIC_SUPABASE_URL et la clé anon depuis `infra-tayoo keys` (docs/runbooks/provisioning.md).',
             hosted: 'Projet hébergé sur {detail}. Rien à faire.',
           },
         },

@@ -16,8 +16,9 @@
     "local:start": "supabase start -x realtime,storage-api,imgproxy,edge-runtime,logflare,vector,supavisor",
     "local:stop": "supabase stop",
     "local:reset": "supabase db reset",
-    "gen-types": "supabase gen types typescript --local --schema public > src/database.types.ts",
-    "migrate": "supabase db push",
+    "gen-types": "infra-tayoo db types --schema public --out src/database.types.ts && prettier --write src/database.types.ts",
+    "gen-types:local": "supabase gen types typescript --local --schema public > src/database.types.ts",
+    "migrate": "infra-tayoo db push",
     "seed": "tsx src/seed/run-seed.ts",
     "seed:catalog-sql": "tsx src/seed/write-catalog-sql.ts",
     "seed:characters-sql": "tsx src/seed/write-characters-sql.ts"

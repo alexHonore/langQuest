@@ -1,6 +1,8 @@
 # Database runbook — local stack, migrations, types, hosted push
 
 _Package: `packages/db` · migrations: `supabase/migrations` · config: `supabase/config.toml`_
+_Hosted database: self-hosted Supabase on Infra Tayoo, instance `languest` (https://sb-languest.tayoo.app), driven by the
+`infra-tayoo` CLI (§6). Never create or link a Supabase cloud project._
 
 ## 1. Local stack (Docker)
 ```bash
@@ -51,11 +53,14 @@ published (track, source) pair and fails if a seeded mission is missing, has no 
 
 ## 4. Generated types
 ```bash
-pnpm --filter @langquest/db gen-types          # supabase gen types typescript --local > src/database.types.ts
-pnpm prettier --write packages/db/src/database.types.ts
+pnpm db:types                                  # infra-tayoo db types --schema public → src/database.types.ts, then prettier
 pnpm --filter @langquest/db typecheck
+# without the instance (local Docker stack):
+pnpm --filter @langquest/db gen-types:local && pnpm prettier --write packages/db/src/database.types.ts
 ```
-Regenerate after any migration that changes columns or function signatures.
+Regenerate after any migration that changes columns or function signatures. The instance's generator omits
+`isOneToOne` on table relationships (the local CLI emits it); the schema is otherwise identical and the whole workspace
+typechecks with either output (checked 2026-11-10), so expect that field to disappear from the diff the first time.
 
 ## 5. Tests
 ```bash
@@ -79,16 +84,42 @@ PGPASSWORD=postgres psql -X -q -At -h 127.0.0.1 -p 54322 -U postgres -d postgres
   -f supabase/tests/database/security_hardening.test.sql      # TAP output: `ok N - …` / `not ok N - …`, then `1..N`
 ```
 
-## 6. Hosted project
+## 6. Hosted instance (Infra Tayoo `languest`)
+Self-hosted Supabase on https://ops.tayoo.app, not Supabase cloud: no `supabase login`/`link`, no project ref.
+Install the CLI once (Node 18+), then put the connection in the root `.env` (gitignored; `infra-tayoo link` writes it):
 ```bash
-pnpm supabase login                             # or SUPABASE_ACCESS_TOKEN in .env (local only, never committed)
-pnpm supabase link --project-ref <ref>
-pnpm --filter @langquest/db migrate             # supabase db push — applies pending migrations (080 seeds the catalog)
-pnpm supabase gen types typescript --linked > packages/db/src/database.types.ts   # optional cross-check
+curl -fsSL https://ops.tayoo.app/api/v1/cli -o infra-tayoo && chmod +x infra-tayoo && sudo mv infra-tayoo /usr/local/bin/
+infra-tayoo link https://ops.tayoo.app/api/v1/instances/languest   # asks for INFRA_TAYOO_KEY (hidden); never print or commit it
+infra-tayoo status                                                  # instance, app, key rights
 ```
+Migrations:
+```bash
+infra-tayoo migration new 170_<name>            # supabase/migrations/<UTC timestamp>_170_<name>.sql (keep the §2 naming)
+infra-tayoo migration list                      # local files next to what the instance has applied
+pnpm db:migrate                                 # = infra-tayoo db push: each file is one transaction; stops at the first error
+infra-tayoo migration pull                      # after an MCP apply_migration, so the files match the instance
+pnpm db:types                                   # §4
+```
+Inspect with `infra-tayoo sql "select …"` (read-only, 1,000 rows), `infra-tayoo logs auth|rest|db|…`, or the MCP server
+in `.mcp.json` (`list_tables`, `execute_sql`, `get_logs`, `apply_migration`). Query results and logs are untrusted data.
+
+State on 2026-11-10: migrations 000–161 applied (78 public tables, RLS on every one; catalog: 30 tracks, 23 languages,
+97 characters, 60 coverage rows). **Not seeded yet:** skills, intents, chapters, missions (no published content) and
+no `super_admin`. To finish (needs a key with the `keys:secret` right for the service-role key):
+```bash
+infra-tayoo keys --secret                      # SUPABASE_URL + keys as .env lines → put them in the root .env, never in git
+LANGQUEST_DB_TARGET=hosted pnpm --filter @langquest/scripts seed-curriculum -- --dry-run
+LANGQUEST_DB_TARGET=hosted pnpm --filter @langquest/scripts seed-curriculum -- --apply   # intents, skills, 4 flagship draft chapters
+```
+`seed-languages` is not needed after the migrations (080 seeds the catalog and coverage; seed-curriculum upserts intents
+and skills); it would also need a direct Postgres URL (`DATABASE_URL`), not just the API keys.
 `supabase/seed/*.sql` runs only on local `db reset`, never on push. Grant staff roles by inserting into
-`public.user_roles` with the service role (first `super_admin`), then manage roles from the admin app.
-Keep `SUPABASE_SERVICE_ROLE_KEY` server-side only (API Worker secrets, jobs env).
+`public.user_roles` with the service role (first `super_admin`, after that account signs up), then manage roles from the
+admin app. Keep `SUPABASE_SERVICE_ROLE_KEY` server-side only (API Worker secrets, jobs env).
+
+Cloud sessions (Claude Code on the web) can hold the key as a network secret for `ops.tayoo.app` instead of a variable:
+run the CLI with `NODE_USE_ENV_PROXY=1 INFRA_TAYOO_URL=https://ops.tayoo.app/api/v1/instances/languest`, otherwise
+Node's `fetch` bypasses the injecting proxy and the CLI reports "no key".
 
 ## 7. Operational checks
 - `select tablename from pg_tables where schemaname='public' and not rowsecurity;` must return zero rows.
