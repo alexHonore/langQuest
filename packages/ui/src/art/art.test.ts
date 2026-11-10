@@ -150,8 +150,10 @@ describe('characters', () => {
   it('covers the 9 required expressions', () => {
     expect(CHARACTER_EXPRESSIONS).toEqual(CHARACTER_EXPRESSION_VALUES);
   });
-  it('renders every character × expression', () => {
-    for (const c of CHARACTER_ROSTER) {
+  // One test per character: the whole roster in one test (~1,000 renders) ran past the 5 s timeout on a busy CI runner.
+  it.each(CHARACTER_ROSTER.map((c) => [c.id, c] as const))(
+    'renders %s in every expression',
+    (_id, c) => {
       const variants = new Set<string>();
       for (const e of CHARACTER_EXPRESSIONS) {
         const svg = characterPortraitSvgString(c.id, e, { size: 120 });
@@ -162,8 +164,8 @@ describe('characters', () => {
       }
       expect(variants.size).toBe(CHARACTER_EXPRESSIONS.length);
       expect(isSvg(characterPortraitSvgString(c.id, 'neutral', { theme: 'dark' }))).toBe(true);
-    }
-  });
+    },
+  );
   it('throws for unknown characters', () => {
     expect(() => characterPortraitSvgString('nobody', 'neutral')).toThrow(/Unknown character/);
   });
