@@ -51,6 +51,23 @@ describe('OpenRouterClient.chatCompletions', () => {
     expect(res.attempts).toBe(2);
   });
 
+  it('sends at most three models (OpenRouter rejects more) and slides the fourth in when the head is dropped', async () => {
+    let n = 0;
+    const { client, calls } = makeClient([
+      {
+        match: (u) => u.endsWith('/chat/completions'),
+        respond: () => {
+          n += 1;
+          return n === 1 ? jsonResponse({ error: { message: 'a/one is not a valid model ID', code: 400 } }, 400) : chatResponse('ok', 'b/two');
+        },
+      },
+    ]);
+    const res = await client.chatCompletions({ models: ['a/one', 'b/two', 'c/three', 'd/four'], messages: [{ role: 'user', content: 'x' }] });
+    expect((calls[0]?.body as Record<string, unknown>).models).toEqual(['a/one', 'b/two', 'c/three']);
+    expect((calls[1]?.body as Record<string, unknown>).models).toEqual(['b/two', 'c/three', 'd/four']);
+    expect(res.fallbackIndex).toBe(1);
+  });
+
   it('retries 429/5xx with bounded backoff, then advances to the next model', async () => {
     let n = 0;
     const sleeps: number[] = [];
