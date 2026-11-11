@@ -29,10 +29,11 @@ class AudioListened extends Notifier<Map<String, Set<String>>> {
   Map<String, Set<String>> build() {
     try {
       final raw = jsonDecode(ref.read(learnerStoreProvider).prefs.getString(key) ?? '{}');
-      if (raw is Map)
+      if (raw is Map) {
         return {
           for (final e in raw.entries) '${e.key}': {...(e.value as List).map((v) => '$v')},
         };
+      }
     } catch (_) {}
     return {};
   }
