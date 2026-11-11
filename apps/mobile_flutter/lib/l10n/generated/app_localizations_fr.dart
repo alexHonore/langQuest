@@ -1349,4 +1349,15 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get callRecordMissing => 'Cet appel n’est plus sur cet appareil.';
+
+  @override
+  String pathTalkLocked(String name) {
+    return 'Un appel en direct avec $name : avec un compte gratuit';
+  }
+
+  @override
+  String get pathTalkLockedNoName => 'Un appel en direct : avec un compte gratuit';
+
+  @override
+  String get missionLiveCallAccount => 'Pratiquer en appel direct (compte gratuit)';
 }

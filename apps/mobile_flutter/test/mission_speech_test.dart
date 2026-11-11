@@ -10,6 +10,7 @@ import 'package:langquest_mobile/core/backend/speech_check.dart';
 import 'package:langquest_mobile/core/learning/srs.dart';
 import 'package:langquest_mobile/core/services/app_state.dart';
 import 'package:langquest_mobile/core/services/speaking_stats.dart';
+import 'package:langquest_mobile/features/call/call_screen.dart';
 import 'package:langquest_mobile/features/learn/learn_content.dart';
 import 'package:langquest_mobile/features/learn/learn_logic.dart';
 import 'package:langquest_mobile/features/learn/record_take.dart';
@@ -136,6 +137,8 @@ void main() {
           ...await testOverrides(),
           takeRecorderFactoryProvider.overrideWithValue(() => FakeRecorder(take: FakeTake())),
           speechCheckerProvider.overrideWithValue(checker),
+          // Signed out on a course with live calls: the mission's end invites to a free account.
+          callsNeedAccountProvider.overrideWithValue(true),
         ],
         child: const LangQuestApp(),
       ),
@@ -172,6 +175,7 @@ void main() {
       await tapText(t, 'I said it');
     }
     await tapText(t, 'Complete the mission (+50 XP)');
+    expect(find.text('Practise it in a live call (free account)'), findsOneWidget);
     final cards = container.read(appStateProvider).progress.cards;
     expect(
       cards[plan.exchanges[0].answer.id]!.difficulty,

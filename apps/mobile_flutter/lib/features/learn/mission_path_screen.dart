@@ -134,6 +134,17 @@ class MissionPathScreen extends ConsumerWidget {
                       isNext: stops[i] == next,
                       onTap: () => context.push(routeFor(missionKey, stops[i])),
                     ),
+                  // Signed out on a course with live calls: the Talk stop, locked, opens the account (sign up is free).
+                  if (call == null && ref.watch(callsNeedAccountProvider))
+                    _StopTile(
+                      number: stops.length + 1,
+                      title: l10n.stopTalk,
+                      subtitle: plan.characterName.isEmpty ? l10n.pathTalkLockedNoName : l10n.pathTalkLocked(plan.characterName),
+                      icon: LucideIcons.lock,
+                      done: false,
+                      isNext: false,
+                      onTap: () => context.push('/account'),
+                    ),
                   // Once the phrases are taught: practise saying them (where the device can record).
                   if (canPractiseSaying && done.contains(PathStop.learn) && plan.phrases.isNotEmpty)
                     Align(

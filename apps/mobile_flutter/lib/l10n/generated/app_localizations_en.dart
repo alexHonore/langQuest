@@ -1334,4 +1334,15 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get callRecordMissing => 'This call is no longer on this device.';
+
+  @override
+  String pathTalkLocked(String name) {
+    return 'A live call with $name: with a free account';
+  }
+
+  @override
+  String get pathTalkLockedNoName => 'A live call: with a free account';
+
+  @override
+  String get missionLiveCallAccount => 'Practise it in a live call (free account)';
 }

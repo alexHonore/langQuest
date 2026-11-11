@@ -2449,6 +2449,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'This call is no longer on this device.'**
   String get callRecordMissing;
+
+  /// No description provided for @pathTalkLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'A live call with {name}: with a free account'**
+  String pathTalkLocked(String name);
+
+  /// No description provided for @pathTalkLockedNoName.
+  ///
+  /// In en, this message translates to:
+  /// **'A live call: with a free account'**
+  String get pathTalkLockedNoName;
+
+  /// No description provided for @missionLiveCallAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise it in a live call (free account)'**
+  String get missionLiveCallAccount;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

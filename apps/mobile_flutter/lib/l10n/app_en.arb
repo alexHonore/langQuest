@@ -864,5 +864,15 @@
   "callRecordDeleteTitle": "Delete this call?",
   "callRecordDeleteBody": "Its transcript and corrections are deleted from this device.",
   "callRecordDeleteConfirm": "Delete",
-  "callRecordMissing": "This call is no longer on this device."
+  "callRecordMissing": "This call is no longer on this device.",
+  "pathTalkLocked": "A live call with {name}: with a free account",
+  "@pathTalkLocked": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "pathTalkLockedNoName": "A live call: with a free account",
+  "missionLiveCallAccount": "Practise it in a live call (free account)"
 }
