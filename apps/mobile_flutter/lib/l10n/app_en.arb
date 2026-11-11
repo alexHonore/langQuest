@@ -1076,5 +1076,29 @@
   "adminTask_content_generation": "Content factory: drafting course content",
   "adminTask_transcription_alignment": "Audio library: transcripts",
   "adminTask_pronunciation_assessment": "Acoustic pronunciation score (Azure, not set up)",
-  "adminTask_realtime_conversation": "Voice calls pipeline (speech to text, dialogue, voice)"
+  "adminTask_realtime_conversation": "Voice calls pipeline (speech to text, dialogue, voice)",
+  "practiceListenPrompt": "Listen. What does it mean?",
+  "practiceReadPrompt": "What does it mean?",
+  "practiceReversePrompt": "Which one says this?",
+  "practiceGapPrompt": "Complete the sentence",
+  "practiceTryAgain": "Not this one. Try another.",
+  "practiceRight": "That’s it!",
+  "practiceNext": "Continue",
+  "practiceGapSemantics": "missing word",
+  "practiceWrongSemantics": "{option}, not this one",
+  "@practiceWrongSemantics": {
+    "placeholders": {
+      "option": {
+        "type": "String"
+      }
+    }
+  },
+  "practiceRightSemantics": "{option}, right answer",
+  "@practiceRightSemantics": {
+    "placeholders": {
+      "option": {
+        "type": "String"
+      }
+    }
+  }
 }

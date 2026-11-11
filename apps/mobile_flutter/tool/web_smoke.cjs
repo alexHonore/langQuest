@@ -34,6 +34,14 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
     await button(name, exact).click({ timeout: 15000 });
     await page.waitForTimeout(wait);
   };
+  // Long lists (every course is offered) build only the rows on screen: scroll until the button exists.
+  const scrollTo = async (name) => {
+    for (let i = 0; i < 40 && (await button(name, false).count()) === 0; i++) {
+      await page.mouse.move(195, 500);
+      await page.mouse.wheel(0, 300);
+      await page.waitForTimeout(250);
+    }
+  };
   const expectButton = async (name) => {
     await button(name).waitFor({ timeout: 15000 });
   };
@@ -47,6 +55,7 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
   ok('first frame');
 
   await tap('Choose a course', { exact: false });
+  await scrollTo('Spanish (Spain-Castilian)');
   await tap('Spanish (Spain-Castilian)', { exact: false });
   await tap('Start this course', { exact: false, wait: 1500 });
   ok('enrolled in Spanish (Spain)');

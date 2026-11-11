@@ -143,3 +143,22 @@ class TilesState {
     return TilesState(bank: bank, answer: answer, placed: placed, verdict: ok ? TilesVerdict.correct : TilesVerdict.wrong);
   }
 }
+
+/// A practice choice (three options, one right): a wrong pick is marked and can be followed by another; the right
+/// pick solves it. No score. Immutable.
+class ChoiceState {
+  final int answer;
+  final Set<int> wrong;
+  final bool solved;
+
+  const ChoiceState._(this.answer, this.wrong, this.solved);
+  ChoiceState.start(int answer) : this._(answer, const {}, false);
+
+  ChoiceState pick(int index) {
+    if (solved) return this;
+    if (index == answer) return ChoiceState._(answer, wrong, true);
+    return ChoiceState._(answer, {...wrong, index}, false);
+  }
+
+  bool isWrong(int index) => wrong.contains(index);
+}

@@ -3,7 +3,7 @@
  * the arabic-moroccan seed to the LOCAL Supabase stack and checks the manifest the learner API serves.
  * The stack suite is skipped without a stack unless LANGQUEST_REQUIRE_LOCAL_STACK=1 (then it fails).
  */
-import { CHAPTER_1_BLUEPRINT_KEYS, DRAFT_CHAPTERS, buildAllPlannedSkeletons, getBlueprint } from '@langquest/curriculum';
+import { CHAPTER_1_BLUEPRINT_KEYS, DRAFT_CHAPTERS, HAND_AUTHORED_CHAPTERS, buildAllPlannedSkeletons, getBlueprint } from '@langquest/curriculum';
 import { createRepositories } from '@langquest/db';
 import { CAST_ROSTER } from '@langquest/db/seed/cast-roster';
 import { curriculumSeedKeys, curriculumUuid } from '@langquest/db/seed/curriculum-uuid';
@@ -16,26 +16,31 @@ const UUID = /^[0-9a-f]{8}-[0-9a-f]{4}-5[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{1
 
 describe('buildCurriculumSeedPlan', () => {
   const plan = buildCurriculumSeedPlan();
+  /** The plan as it was with the four hand-authored drafts only: 26 tracks still planned skeletons. */
+  const handAuthored = buildCurriculumSeedPlan({ drafts: HAND_AUTHORED_CHAPTERS });
 
-  it('loads the four flagship drafts as published and every other track as an unpublished skeleton', () => {
+  it('loads every track’s draft chapter as published; the planned skeletons they supersede are not loaded', () => {
     expect(plan.chapters).toHaveLength(30);
     const published = plan.chapters.filter((c) => c.state === 'published');
-    expect(published.map((c) => c.courseTrackId).sort()).toEqual(['arabic-moroccan', 'english', 'japanese', 'spanish-spain']);
+    expect(published).toHaveLength(30);
     expect(published.every((c) => c.kind === 'draft')).toBe(true);
-    expect(plan.chapters.filter((c) => c.kind === 'skeleton').every((c) => c.state === 'review_needed')).toBe(true);
-    expect(plan.supersededSkeletons.map((s) => s.courseTrackId).sort()).toEqual(['arabic-moroccan', 'english', 'japanese', 'spanish-spain']);
+    expect(plan.chapters.filter((c) => c.kind === 'skeleton')).toEqual([]);
+    expect(plan.supersededSkeletons).toHaveLength(30);
     expect(plan.rows.lessonCourses).toHaveLength(30);
-    expect(plan.rows.lessonCourses.filter((c) => c.state === 'published').map((c) => c.course_track_id).sort()).toEqual(['arabic-moroccan', 'english', 'japanese', 'spanish-spain']);
+    expect(plan.rows.lessonCourses.every((c) => c.state === 'published')).toBe(true);
+    // With only the hand-authored drafts, the other tracks are unpublished skeletons.
+    expect(handAuthored.chapters.filter((c) => c.state === 'published').map((c) => c.courseTrackId).sort()).toEqual(['arabic-moroccan', 'english', 'japanese', 'spanish-spain']);
+    expect(handAuthored.chapters.filter((c) => c.kind === 'skeleton').every((c) => c.state === 'review_needed')).toBe(true);
   });
 
   it('never writes placeholder text: skeleton chapters carry no expressions, forms, translations or localizations', () => {
-    const skeletonChapterIds = new Set(plan.rows.chapters.filter((c) => c.state === 'review_needed').map((c) => c.id));
-    const skeletonMissionIds = new Set(plan.rows.missions.filter((m) => skeletonChapterIds.has(m.chapter_id!)).map((m) => m.id));
+    for (const p of [plan, handAuthored]) expect(p.rows.expressions.every((e) => e.canonical_text.trim().length > 0 && !/pending|placeholder|lorem/i.test(e.canonical_text))).toBe(true);
+    const skeletonChapterIds = new Set(handAuthored.rows.chapters.filter((c) => c.state === 'review_needed').map((c) => c.id));
+    const skeletonMissionIds = new Set(handAuthored.rows.missions.filter((m) => skeletonChapterIds.has(m.chapter_id!)).map((m) => m.id));
     expect(skeletonMissionIds.size).toBe(26 * CHAPTER_1_BLUEPRINT_KEYS.length);
-    expect(plan.rows.missionLocalizations.some((l) => skeletonMissionIds.has(l.mission_id))).toBe(false);
-    expect(plan.rows.missionSteps.filter((s) => skeletonMissionIds.has(s.mission_id)).every((s) => (s.target_expression_ids ?? []).length === 0)).toBe(true);
-    expect(plan.rows.expressions.every((e) => e.canonical_text.trim().length > 0 && !/pending|placeholder|lorem/i.test(e.canonical_text))).toBe(true);
-    for (const c of plan.rows.chapters.filter((c) => c.state === 'review_needed')) expect(c.title_translations).toEqual({});
+    expect(handAuthored.rows.missionLocalizations.some((l) => skeletonMissionIds.has(l.mission_id))).toBe(false);
+    expect(handAuthored.rows.missionSteps.filter((s) => skeletonMissionIds.has(s.mission_id)).every((s) => (s.target_expression_ids ?? []).length === 0)).toBe(true);
+    for (const c of handAuthored.rows.chapters.filter((c) => c.state === 'review_needed')) expect(c.title_translations).toEqual({});
   });
 
   it('keeps every draft honestly unreviewed while publishing it for learners', () => {
@@ -89,7 +94,8 @@ describe('buildCurriculumSeedPlan', () => {
   });
 
   it('raises coverage to partial from measured overlay counts, only for sources that have overlays', () => {
-    expect(plan.rows.coverage.map((c) => `${c.course_track_id}|${c.source_language_code}`).sort()).toEqual(['arabic-moroccan|en', 'arabic-moroccan|fr', 'english|fr', 'english|ru', 'japanese|en', 'spanish-spain|en']);
+    expect(plan.rows.coverage.map((c) => `${c.course_track_id}|${c.source_language_code}`).sort()).toEqual(DRAFT_CHAPTERS.flatMap((c) => c.sourceLanguages.map((s) => `${c.courseTrackId}|${s}`)).sort());
+    expect(plan.rows.coverage).toHaveLength(59);
     const fr = plan.rows.coverage.find((c) => c.course_track_id === 'arabic-moroccan' && c.source_language_code === 'fr')!;
     expect(fr.metrics.mission_instructions_pct).toBe(100);
     expect(fr.metrics.explanations_pct).toBe(100);
@@ -129,9 +135,9 @@ describe('buildCurriculumSeedPlan', () => {
       if (c.blueprintKey === 'ask_directions') expect(['elder', 'adult'], c.missionKey).toContain(member.ageBand);
       if (c.fit === 'role') expect(c.reasons.join(' ')).toMatch(/matches/);
     }
-    // Every chapter that has the ice-cream mission (26 skeletons + the Darija draft) casts a kid for it (the roster has ≥ 1 child or teen per track).
+    // Every chapter that has the ice-cream mission (Darija and the 26 generated drafts) casts a kid for it (the roster has ≥ 1 child or teen per track).
     const iceCreams = plan.cast.filter((c) => c.blueprintKey === 'buy_ice_cream');
-    expect(iceCreams).toHaveLength(plan.chapters.filter((c) => c.kind === 'skeleton').length + 1);
+    expect(iceCreams).toHaveLength(DRAFT_CHAPTERS.filter((c) => c.missions.some((m) => m.blueprintKey === 'buy_ice_cream')).length);
     expect(iceCreams.filter((c) => c.character).every((c) => ['child', 'teen'].includes(c.character!.ageBand))).toBe(true);
     // Varieties without a kid who carries the scene (arabic-msa today) stay uncast rather than getting an adult.
     expect(iceCreams.filter((c) => !c.character).length).toBeLessThanOrEqual(2);
@@ -178,10 +184,10 @@ describe('buildCurriculumSeedPlan', () => {
     expect(one.rows.lessonCourses).toHaveLength(1);
     expect(one.rows.missions).toHaveLength(7);
     expect(one.rows.coverage).toHaveLength(2);
-    const noSkeletons = buildCurriculumSeedPlan({ includeSkeletons: false });
+    const noSkeletons = buildCurriculumSeedPlan({ drafts: HAND_AUTHORED_CHAPTERS, includeSkeletons: false });
     expect(noSkeletons.chapters).toHaveLength(4);
     expect(noSkeletons.supersededSkeletons).toHaveLength(0);
-    const onlySkeleton = buildCurriculumSeedPlan({ tracks: ['swahili'], skeletons: buildAllPlannedSkeletons() });
+    const onlySkeleton = buildCurriculumSeedPlan({ drafts: HAND_AUTHORED_CHAPTERS, tracks: ['swahili'], skeletons: buildAllPlannedSkeletons() });
     expect(onlySkeleton.chapters.map((c) => c.kind)).toEqual(['skeleton']);
     expect(onlySkeleton.rows.expressions).toHaveLength(0);
   });

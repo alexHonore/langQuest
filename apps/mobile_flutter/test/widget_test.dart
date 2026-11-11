@@ -9,6 +9,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:go_router/go_router.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:langquest_mobile/core/content/content_models.dart';
 import 'package:langquest_mobile/core/learning/srs.dart';
 import 'package:langquest_mobile/core/services/app_state.dart';
 import 'package:langquest_mobile/core/services/learner_state.dart';
@@ -64,8 +65,12 @@ void main() {
     await tapText(t, 'Choose a course');
     expect(find.text('What do you want to learn?'), findsOneWidget);
     expect(find.text('Arabic (Moroccan)'), findsOneWidget);
-    expect(find.text('Spanish (Spain-Castilian)'), findsOneWidget);
-    expect(find.text('Japanese'), findsOneWidget);
+    // Every course has a chapter from English now (the list is long: scroll to the ones further down).
+    final courses = find.byType(Scrollable).first;
+    for (final name in ['Chinese (Mandarin)', 'Japanese', 'Russian', 'Spanish (Spain-Castilian)']) {
+      await t.scrollUntilVisible(find.text(name), 300, scrollable: courses);
+      expect(find.text(name), findsOneWidget, reason: name);
+    }
     expect(find.text('English'), findsNothing, reason: 'English is taught from French and Russian only');
 
     await tapText(t, 'Spanish (Spain-Castilian)');
@@ -132,7 +137,31 @@ void main() {
           await tapText(t, plan.shortMeaningOf(e));
         }
         expect(find.text('All matched!'), findsOneWidget);
-        await tapText(t, r < plan.pairRounds.length - 1 ? 'Next round' : 'Build a sentence');
+        await tapText(t, r < plan.pairRounds.length - 1 ? 'Next round' : (plan.choices.isEmpty && plan.gap == null ? 'Build a sentence' : 'Continue'));
+      }
+
+      // Choices: hear (or read) a phrase → its meaning; a meaning → its phrase. A wrong pick is marked, then the right one.
+      expect(plan.choices, isNotEmpty);
+      for (var i = 0; i < plan.choices.length; i++) {
+        final q = plan.choices[i];
+        // Listen questions are read instead when no voice can say the phrase (as in this test).
+        expect(find.textContaining(q.kind == ChoiceKind.listen ? 'What does it mean?' : 'Which one says this?'), findsOneWidget);
+        String label(Expression e) => q.kind == ChoiceKind.listen ? plan.shortMeaningOf(e) : e.text;
+        await tapText(t, label(q.options.firstWhere((o) => o != q.expression)));
+        expect(find.text('Not this one. Try another.'), findsOneWidget);
+        await tapText(t, label(q.expression));
+        expect(find.text('That’s it!'), findsOneWidget);
+        final lastChoice = i == plan.choices.length - 1;
+        await tapText(t, lastChoice && plan.gap == null ? 'Build a sentence' : 'Continue');
+      }
+
+      // The gap: the missing word among three.
+      final gap = plan.gap;
+      if (gap != null) {
+        expect(find.text('Complete the sentence'), findsOneWidget);
+        await tapText(t, gap.answer);
+        expect(find.text('That’s it!'), findsOneWidget);
+        await tapText(t, 'Build a sentence');
       }
 
       // Tiles: a wrong order is refused, the right one accepted.
@@ -222,7 +251,10 @@ void main() {
     expect(find.text('Apprenez une langue en la pratiquant'), findsOneWidget);
     await tapText(t, 'Choisir un cours');
     expect(find.text('Arabe (marocain)'), findsOneWidget);
+    await t.scrollUntilVisible(find.text('Anglais'), 300, scrollable: find.byType(Scrollable).first);
     expect(find.text('Anglais'), findsOneWidget);
+    expect(find.text('Français'), findsNothing, reason: 'French is taught from English only');
+    await t.scrollUntilVisible(find.text('Arabe (marocain)'), -300, scrollable: find.byType(Scrollable).first);
     await tapText(t, 'Arabe (marocain)');
     await t.scrollUntilVisible(find.textContaining('Une voix pour ce dialecte'), 200, scrollable: find.byType(Scrollable).first);
     await tapText(t, 'Commencer ce cours');

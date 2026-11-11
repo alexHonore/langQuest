@@ -12,6 +12,7 @@ import * as bulkAudioScan from './bulk-audio-scan';
 import * as contentFactory from './content-factory';
 import * as exportFlutterContent from './export-flutter-content';
 import * as importCorpora from './import-corpora';
+import * as importFactoryChapters from './import-factory-chapters';
 import * as importTaskmaster from './import-taskmaster';
 import * as importTatoeba from './import-tatoeba';
 import * as licenseReport from './license-report';
@@ -21,7 +22,7 @@ import * as synthesizeBundleAudio from './synthesize-bundle-audio';
 import * as validateCoverage from './validate-course-coverage';
 
 const FIX = resolve(__dirname, 'fixtures');
-const ALL = [importTatoeba, importTaskmaster, importCorpora, bulkAudioScan, licenseReport, seedLanguages, validateCoverage, contentFactory, exportFlutterContent, attachTatoebaExamples, synthesizeBundleAudio];
+const ALL = [importTatoeba, importTaskmaster, importCorpora, bulkAudioScan, licenseReport, seedLanguages, validateCoverage, contentFactory, exportFlutterContent, attachTatoebaExamples, synthesizeBundleAudio, importFactoryChapters];
 
 describe('every CLI', () => {
   it('prints --help with usage, flags and --dry-run', async () => {
@@ -142,7 +143,7 @@ describe('dry runs on fixtures', () => {
     expect(await runCli(contentFactory.spec, ['--track', 'arabic-moroccan', '--source', 'fr', '--from-seed', '--out-dir', outDir], contentFactory.main, io3)).toBe(0);
     expect(io3.lines.join('\n')).toMatch(/chapter ary_ch1_arrival_casablanca: 7 missions/);
     const io4 = memoryIo();
-    expect(await runCli(contentFactory.spec, ['--track', 'lingala', '--source', 'fr', '--from-seed', '--out-dir', outDir], contentFactory.main, io4)).toBe(1);
+    expect(await runCli(contentFactory.spec, ['--track', 'lingala', '--source', 'ru', '--from-seed', '--out-dir', outDir], contentFactory.main, io4)).toBe(1);
     const io5 = memoryIo();
     expect(await runCli(contentFactory.spec, ['--track', 'japanese', '--source', 'en', '--fixture-suite', '--dry-run'], contentFactory.main, io5)).toBe(0);
     expect(io5.lines.join('\n')).toMatch(/fixture suite plan/);

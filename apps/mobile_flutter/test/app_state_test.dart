@@ -92,8 +92,8 @@ void main() {
       final c = await testContainer();
       addTearDown(c.dispose);
       final n = c.read(appStateProvider.notifier);
-      expect(n.enroll('french', 'en'), isFalse, reason: 'no French content in the bundle');
-      expect(n.enroll('spanish-spain', 'fr'), isFalse, reason: 'Spanish is drafted from English only');
+      expect(n.enroll('french', 'fr'), isFalse, reason: 'French is taught from English only');
+      expect(n.enroll('english', 'en'), isFalse, reason: 'English is taught from French and Russian only');
       expect(n.enroll('arabic-moroccan', 'fr'), isTrue);
       expect(n.enroll('japanese', 'en'), isTrue);
       final s = c.read(appStateProvider);

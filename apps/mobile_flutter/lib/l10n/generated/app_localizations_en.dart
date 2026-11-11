@@ -1628,4 +1628,38 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get adminTask_realtime_conversation => 'Voice calls pipeline (speech to text, dialogue, voice)';
+
+  @override
+  String get practiceListenPrompt => 'Listen. What does it mean?';
+
+  @override
+  String get practiceReadPrompt => 'What does it mean?';
+
+  @override
+  String get practiceReversePrompt => 'Which one says this?';
+
+  @override
+  String get practiceGapPrompt => 'Complete the sentence';
+
+  @override
+  String get practiceTryAgain => 'Not this one. Try another.';
+
+  @override
+  String get practiceRight => 'That’s it!';
+
+  @override
+  String get practiceNext => 'Continue';
+
+  @override
+  String get practiceGapSemantics => 'missing word';
+
+  @override
+  String practiceWrongSemantics(String option) {
+    return '$option, not this one';
+  }
+
+  @override
+  String practiceRightSemantics(String option) {
+    return '$option, right answer';
+  }
 }

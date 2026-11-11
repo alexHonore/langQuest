@@ -1,0 +1,3162 @@
+{
+ "key": "chinese_cantonese_ch1",
+ "chapterIndex": 1,
+ "courseTrackId": "chinese-cantonese",
+ "targetVarietyId": "yue",
+ "sourceLanguages": [
+  "en",
+  "fr"
+ ],
+ "titles": {
+  "en": "First days in Hong Kong",
+  "fr": "Premiers jours à Hong Kong"
+ },
+ "characters": [
+  {
+   "characterKey": "chinese_cantonese_character_friendly_local_acquaintance",
+   "role": "friendly local acquaintance",
+   "name": "嘉欣",
+   "personality": "kind, busy, chatty neighbour",
+   "homeRegion": "Hong Kong",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "chinese_cantonese_mandy_cafe_server",
+   "role": "café server",
+   "name": "Mandy",
+   "personality": "quick, friendly, upbeat",
+   "homeRegion": "Hong Kong",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "chinese_cantonese_character_market_vendor",
+   "role": "market vendor",
+   "name": "阿芬",
+   "personality": "friendly, chatty, quick-witted",
+   "homeRegion": "Hong Kong",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "chinese_cantonese_ah_keung_passer_by",
+   "role": "passer-by",
+   "name": "阿強 (Ah Keung)",
+   "personality": "Friendly, busy, talks very fast",
+   "homeRegion": "Hong Kong",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "chinese_cantonese_character_neighbour",
+   "role": "neighbour",
+   "name": "陳姨姨",
+   "personality": "warm, chatty, long-time resident",
+   "homeRegion": "Hong Kong",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "chinese_cantonese_character_taxi_driver",
+   "role": "taxi driver",
+   "name": "阿強",
+   "personality": "talkative, friendly, a bit pushy",
+   "homeRegion": "Hong Kong",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "chinese_cantonese_character_child_at_the_ice_cream_stand",
+   "role": "child at the ice-cream stand",
+   "name": "嘉欣",
+   "personality": "cheerful, cheeky, a little greedy",
+   "homeRegion": "Hong Kong",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  }
+ ],
+ "missions": [
+  {
+   "key": "chinese_cantonese_greet_and_introduce",
+   "blueprintKey": "greet_and_introduce",
+   "titles": {
+    "en": "Greeting a New Neighbour",
+    "fr": "Saluer un nouveau voisin"
+   },
+   "sceneNotes": {
+    "en": "It's morning and you meet a friendly neighbour on the street who is in a hurry but stops to say hello and ask where you live.",
+    "fr": "C'est le matin et vous croisez dans la rue une voisine sympathique, pressée mais qui s'arrête pour vous saluer et vous demander où vous habitez."
+   },
+   "characterKey": "chinese_cantonese_character_friendly_local_acquaintance",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "早晨！",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "早晨！"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "zou2 san4!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good morning!",
+       "contextNote": "Used only in the morning, so it fits this scene.",
+       "literalGloss": "early morning"
+      },
+      "fr": {
+       "meaning": "Bonjour !",
+       "contextNote": "S'utilise uniquement le matin, donc parfait pour cette scène. Prononcez san4 sur un ton bas, montant puis descendant, détendu.",
+       "literalGloss": "tôt matin"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "san4 is a low rising-falling tone, like a relaxed 'sun'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "how_are_you",
+     "intentKey": "ask_how_are_you",
+     "slotId": "how_are_you",
+     "speaker": "learner",
+     "targetText": "你今日點呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "你今日點呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "nei5 gam1 jat6 dim2 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How are you today?",
+       "contextNote": "A friendly everyday way to ask after someone.",
+       "literalGloss": "you today how (particle)"
+      },
+      "fr": {
+       "meaning": "Comment vas-tu aujourd'hui ?",
+       "contextNote": "Une façon amicale et courante de prendre des nouvelles de quelqu'un.",
+       "literalGloss": "toi aujourd'hui comment (particule)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "fine",
+     "intentKey": "reply_fine",
+     "slotId": "fine",
+     "speaker": "learner",
+     "targetText": "我好好，多謝。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "我好好，多謝。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "ngo5 hou2 hou2, do1 ze6."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm very well, thanks.",
+       "contextNote": null,
+       "literalGloss": "I very good, thanks"
+      },
+      "fr": {
+       "meaning": "Je vais très bien, merci.",
+       "contextNote": "Ngo5 commence par le son « ng » comme à la fin de « parking ».",
+       "literalGloss": "je très bien, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ngo5 starts with the 'ng' sound of 'sing'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "my_name",
+     "intentKey": "introduce_name",
+     "slotId": "my_name",
+     "speaker": "learner",
+     "targetText": "我叫小明。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "我叫小明。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "ngo5 giu3 siu2 ming4."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "My name is Siu Ming.",
+       "contextNote": "Swap 小明 for your own name.",
+       "literalGloss": "I am called Siu Ming"
+      },
+      "fr": {
+       "meaning": "Je m'appelle Siu Ming.",
+       "contextNote": "Remplacez 小明 par votre propre prénom.",
+       "literalGloss": "je m'appelle Siu Ming"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "your_name",
+     "intentKey": "ask_name",
+     "slotId": "your_name",
+     "speaker": "learner",
+     "targetText": "請問你叫乜嘢名呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "請問你叫乜嘢名呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "cing2 man6 nei5 giu3 mat1 je5 meng2 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "May I ask what your name is?",
+       "contextNote": "請問 makes it polite; fine with someone you've just met.",
+       "literalGloss": "may-ask you called what name (particle)"
+      },
+      "fr": {
+       "meaning": "Puis-je vous demander comment vous vous appelez ?",
+       "contextNote": "請問 rend la question polie ; convient avec quelqu'un que l'on vient de rencontrer. À l'oral, 名 se lit meng2, et non ming4.",
+       "literalGloss": "puis-je-demander tu t'appelles quoi nom (particule)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "meng2 (名) is read meng2 in speech, not ming4.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "nice_to_meet",
+     "intentKey": "say_nice_to_meet",
+     "slotId": "nice_to_meet",
+     "speaker": "learner",
+     "targetText": "好高興認識你。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "好高興認識你。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "hou2 gou1 hing3 jing6 sik1 nei5."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Nice to meet you.",
+       "contextNote": null,
+       "literalGloss": "very happy know you"
+      },
+      "fr": {
+       "meaning": "Enchanté(e).",
+       "contextNote": null,
+       "literalGloss": "très content connaître toi"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "goodbye",
+     "intentKey": "say_goodbye",
+     "slotId": "goodbye",
+     "speaker": "learner",
+     "targetText": "再見！",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "再見！"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "zoi3 gin3!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Goodbye!",
+       "contextNote": "Good for a quick parting when the other person is rushing off.",
+       "literalGloss": "again see"
+      },
+      "fr": {
+       "meaning": "Au revoir !",
+       "contextNote": "Pratique pour un adieu rapide quand l'autre personne est pressée.",
+       "literalGloss": "encore voir"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "greet_hello_variant_8",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "你好！",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "你好！"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "nei5 hou2!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello!",
+       "contextNote": "Works at any time of day.",
+       "literalGloss": "you good"
+      },
+      "fr": {
+       "meaning": "Bonjour !",
+       "contextNote": "Convient à n'importe quel moment de la journée.",
+       "literalGloss": "toi bien"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "reply_fine_variant_9",
+     "intentKey": "reply_fine",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "幾好呀，你呢？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "幾好呀，你呢？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "gei2 hou2 aa3, nei5 ne1?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Pretty good, and you?",
+       "contextNote": "A natural way to answer and return the question.",
+       "literalGloss": "quite good (particle), you (particle)"
+      },
+      "fr": {
+       "meaning": "Plutôt bien, et toi ?",
+       "contextNote": "Une façon naturelle de répondre et de renvoyer la question.",
+       "literalGloss": "assez bien (particule), toi (particule)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "say_goodbye_variant_10",
+     "intentKey": "say_goodbye",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "遲啲見！",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "遲啲見！"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "ci4 di1 gin3!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "See you later!",
+       "contextNote": "Friendly and casual-polite, good for neighbours you'll bump into again.",
+       "literalGloss": "later see"
+      },
+      "fr": {
+       "meaning": "À tout à l'heure !",
+       "contextNote": "Amical et poli sans être guindé, idéal pour des voisins que l'on reverra.",
+       "literalGloss": "plus tard voir"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "chinese_cantonese_cafe_order_drink",
+   "blueprintKey": "cafe_order_drink",
+   "titles": {
+    "en": "Ordering a Drink at a Café",
+    "fr": "Commander une boisson au café"
+   },
+   "sceneNotes": {
+    "en": "You sit down at a busy café terrace in Hong Kong, and the quick, friendly server comes over to take your drink order.",
+    "fr": "Vous vous installez à la terrasse d'un café animé de Hong Kong, et la serveuse, rapide et souriante, vient prendre votre commande."
+   },
+   "characterKey": "chinese_cantonese_mandy_cafe_server",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "下午好！",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "下午好！"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "haa6 ng5 hou2!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good afternoon!",
+       "contextNote": "A polite time-of-day greeting. Swap in 早晨 in the morning.",
+       "literalGloss": "afternoon good"
+      },
+      "fr": {
+       "meaning": "Bonjour ! (l'après-midi)",
+       "contextNote": "Salutation polie selon le moment de la journée. Le matin, remplacez par 早晨. Le 5 est un ton montant grave ; 午 se prononce comme un « ng » presque nasal.",
+       "literalGloss": "après-midi bien"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "5 is a low rising tone. 午 is a syllabic-nasal-like 'ng'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "greet_hello_variant_2",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "哈囉！",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "哈囉！"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "haa1 lou1!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello!",
+       "contextNote": "A relaxed greeting, common with café staff.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Salut !",
+       "contextNote": "Salutation décontractée, courante avec le personnel des cafés.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": "Borrowed from English 'hello'.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "order",
+     "intentKey": "request_drink",
+     "slotId": "order",
+     "speaker": "learner",
+     "targetText": "唔該，我想要一杯凍檸茶。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "唔該，我想要一杯凍檸茶。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "m4 goi1, ngo5 soeng2 jiu3 jat1 bui1 dung3 ning4 caa4."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, I'd like a cold lemon tea.",
+       "contextNote": "Iced lemon tea is a very typical Hong Kong café drink.",
+       "literalGloss": "please, I want-to-have one cup cold lemon tea"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, je voudrais un thé glacé au citron.",
+       "contextNote": "Le thé au citron glacé est une boisson typique des cafés de Hong Kong. Pour 檸 ning4, commencez par n et gardez un ton grave et plat.",
+       "literalGloss": "s'il vous plaît, je veux un verre froid citron thé"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "檸 ning4 starts with n; keep the tone low and level.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "request_drink_variant_4",
+     "intentKey": "request_drink",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "唔該，一杯熱奶茶。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "唔該，一杯熱奶茶。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "m4 goi1, jat1 bui1 jit6 naai5 caa4."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "A hot milk tea, please.",
+       "contextNote": "A shorter, very common way to order at a busy café.",
+       "literalGloss": "please, one cup hot milk tea"
+      },
+      "fr": {
+       "meaning": "Un thé au lait chaud, s'il vous plaît.",
+       "contextNote": "Une façon plus courte et très courante de commander dans un café bondé.",
+       "literalGloss": "s'il vous plaît, un verre chaud lait thé"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "options",
+     "intentKey": "offer_options",
+     "slotId": "options",
+     "speaker": "character",
+     "targetText": "要熱定凍呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "要熱定凍呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "jiu3 jit6 ding6 dung3 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hot or cold?",
+       "contextNote": "定 means 'or' in questions, so you answer with one of the two options.",
+       "literalGloss": "want hot or cold?"
+      },
+      "fr": {
+       "meaning": "Chaud ou froid ?",
+       "contextNote": "定 signifie « ou » dans une question : on répond en choisissant l'une des deux options.",
+       "literalGloss": "vouloir chaud ou froid ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "choice",
+     "intentKey": "choose_option",
+     "slotId": "choice",
+     "speaker": "learner",
+     "targetText": "凍嘅，唔該。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "凍嘅，唔該。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "dung3 ge3, m4 goi1."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Cold, please.",
+       "contextNote": "Use 熱嘅 (jit6 ge3) for hot.",
+       "literalGloss": "cold one, please"
+      },
+      "fr": {
+       "meaning": "Froid, s'il vous plaît.",
+       "contextNote": "Pour chaud, dites 熱嘅 (jit6 ge3). Le début de 熱 n'est pas un « ng » : il commence par j, comme le « y » de « yaourt ».",
+       "literalGloss": "froid (celui-là), s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'ng' at the start of 熱 does not exist; it begins with j, like English 'y'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "choose_option_variant_7",
+     "intentKey": "choose_option",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "唔要糖，唔該。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "唔要糖，唔該。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "m4 jiu3 tong4, m4 goi1."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No sugar, please.",
+       "contextNote": "Useful if the server asks whether you want sugar.",
+       "literalGloss": "not want sugar, please"
+      },
+      "fr": {
+       "meaning": "Sans sucre, s'il vous plaît.",
+       "contextNote": "Utile si la serveuse demande si vous voulez du sucre.",
+       "literalGloss": "ne pas vouloir sucre, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "bill",
+     "intentKey": "ask_for_bill",
+     "slotId": "bill",
+     "speaker": "learner",
+     "targetText": "唔該，我想埋單。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "唔該，我想埋單。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "m4 goi1, ngo5 soeng2 maai4 daan1."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, I'd like to pay.",
+       "contextNote": "埋單 is the everyday word for asking for the bill or paying.",
+       "literalGloss": "excuse me, I want settle-bill"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, je voudrais régler.",
+       "contextNote": "埋單 est le mot courant pour demander l'addition ou payer. 埋 maai4 a une voyelle « aai » longue.",
+       "literalGloss": "excusez-moi, je veux régler-l'addition"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "埋 maai4 has a long 'aai' vowel.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_for_bill_variant_9",
+     "intentKey": "ask_for_bill",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "唔該，幾多錢呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "唔該，幾多錢呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "m4 goi1, gei2 do1 cin2 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, how much is it?",
+       "contextNote": "Good when the server has not brought the bill yet.",
+       "literalGloss": "please, how-much money?"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, ça fait combien ?",
+       "contextNote": "Pratique quand la serveuse n'a pas encore apporté l'addition.",
+       "literalGloss": "s'il vous plaît, combien argent ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "唔該晒！",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "唔該晒！"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "m4 goi1 saai3!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks a lot!",
+       "contextNote": "唔該 thanks someone for a service. 多謝 is for gifts or favours.",
+       "literalGloss": "thank-you all"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup !",
+       "contextNote": "唔該 remercie pour un service rendu. 多謝 s'emploie pour un cadeau ou une faveur.",
+       "literalGloss": "merci tout"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "thank_variant_11",
+     "intentKey": "thank",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "多謝你呀！",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "多謝你呀！"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "do1 ze6 nei5 aa3!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you!",
+       "contextNote": "Uses the same 多謝 as the earlier lesson, with a friendly 呀.",
+       "literalGloss": "many thanks you"
+      },
+      "fr": {
+       "meaning": "Merci à vous !",
+       "contextNote": "Reprend le 多謝 vu précédemment, avec un 呀 chaleureux.",
+       "literalGloss": "beaucoup merci vous"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "chinese_cantonese_market_ask_price",
+   "blueprintKey": "market_ask_price",
+   "titles": {
+    "en": "Asking Prices at the Fruit Stall",
+    "fr": "Demander les prix au étal de fruits"
+   },
+   "sceneNotes": {
+    "en": "You stop at a busy fruit stall in a Hong Kong wet market, and the vendor is weighing grapes and chatting with customers.",
+    "fr": "Vous vous arrêtez devant un étal de fruits très animé dans un marché de Hong Kong, où la vendeuse pèse des raisins et discute avec les clients."
+   },
+   "characterKey": "chinese_cantonese_character_market_vendor",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "老闆，你好呀！",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "老闆，你好呀！"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "lou5 baan2, nei5 hou2 aa3!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello, boss!",
+       "contextNote": "老闆 is a friendly way to address a stall owner, whatever their gender.",
+       "literalGloss": "boss, you good (particle)"
+      },
+      "fr": {
+       "meaning": "Bonjour, patron !",
+       "contextNote": "老闆 est une façon amicale de s'adresser au tenancier d'un étal, homme ou femme. 老 se dit lou5 (ton montant grave) et 闆 baan2 (ton montant moyen).",
+       "literalGloss": "patron, toi bien (particule)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "老 is lou5 (low rising tone), and 闆 is baan2 (mid rising tone).",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "how_much",
+     "intentKey": "ask_price",
+     "slotId": "how_much",
+     "speaker": "learner",
+     "targetText": "呢啲提子幾多錢一斤呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "呢啲提子幾多錢一斤呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "ni1 di1 tai4 zi2 gei2 do1 cin2 jat1 gan1 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much are these grapes per catty?",
+       "contextNote": "Markets in Hong Kong usually price by the 斤 (catty, about 600 g). You can swap in other fruit.",
+       "literalGloss": "these grapes how-much money one catty (particle)"
+      },
+      "fr": {
+       "meaning": "Combien coûtent ces raisins la livre chinoise ?",
+       "contextNote": "Sur les marchés de Hong Kong, on vend généralement au 斤 (livre chinoise, environ 600 g). Vous pouvez remplacer par un autre fruit.",
+       "literalGloss": "ces raisins combien argent une livre (particule)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "price",
+     "intentKey": "state_price",
+     "slotId": "price",
+     "speaker": "character",
+     "targetText": "三十蚊一斤，好甜㗎！",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "三十蚊一斤，好甜㗎！"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "saam1 sap6 man1 jat1 gan1, hou2 tim4 gaa3!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thirty dollars a catty, and they're really sweet!",
+       "contextNote": "蚊 is the everyday word for dollars when speaking. 㗎 adds a reassuring tone.",
+       "literalGloss": "thirty dollars one catty, very sweet (particle)"
+      },
+      "fr": {
+       "meaning": "Trente dollars la livre, et ils sont vraiment sucrés !",
+       "contextNote": "蚊 est le mot courant à l'oral pour dire « dollars ». 㗎 donne un ton rassurant.",
+       "literalGloss": "trente dollars une livre, très sucré (particule)"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "expensive",
+     "intentKey": "say_too_expensive",
+     "slotId": "expensive",
+     "speaker": "learner",
+     "targetText": "太貴啦！",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "太貴啦！"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "taai3 gwai3 laa1!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "That's too expensive!",
+       "contextNote": "Say it with a smile, since bargaining here is light and friendly.",
+       "literalGloss": "too expensive (particle)"
+      },
+      "fr": {
+       "meaning": "C'est trop cher !",
+       "contextNote": "Dites-le en souriant : le marchandage reste léger et amical. Dans 貴 gwai3, le gw se prononce avec les lèvres arrondies.",
+       "literalGloss": "trop cher (particule)"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "貴 gwai3 starts with a rounded gw sound.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "lower",
+     "intentKey": "offer_lower_price",
+     "slotId": "lower",
+     "speaker": "learner",
+     "targetText": "二十五蚊，可唔可以呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "二十五蚊，可唔可以呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "ji6 sap6 ng5 man1, ho2 m4 ho2 ji5 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Twenty-five dollars, is that okay?",
+       "contextNote": null,
+       "literalGloss": "twenty-five dollars, can not can (particle)"
+      },
+      "fr": {
+       "meaning": "Vingt-cinq dollars, c'est possible ?",
+       "contextNote": "Dans 五 ng5, la syllabe commence par un son nasal, sans voyelle devant.",
+       "literalGloss": "vingt-cinq dollars, possible pas possible (particule)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "五 ng5 is a nasal start with no vowel before it.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "deal",
+     "intentKey": "agree_to_price",
+     "slotId": "deal",
+     "speaker": "learner",
+     "targetText": "好，我要兩斤。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "好，我要兩斤。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "hou2, ngo5 jiu3 loeng5 gan1."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "OK, I'll take two catties.",
+       "contextNote": "Use this when you've agreed on the price. You can change the number of catties.",
+       "literalGloss": "good, I want two catties"
+      },
+      "fr": {
+       "meaning": "D'accord, j'en prends deux livres.",
+       "contextNote": "À dire une fois le prix convenu. Vous pouvez changer le nombre de livres.",
+       "literalGloss": "bon, je veux deux livres"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "no_thanks",
+     "intentKey": "decline_purchase",
+     "slotId": "no_thanks",
+     "speaker": "learner",
+     "targetText": "唔使喇，多謝。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "唔使喇，多謝。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "m4 sai2 laa3, do1 ze6."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No need, thank you.",
+       "contextNote": "A polite way to turn down an offer without buying.",
+       "literalGloss": "not need (particle), thanks"
+      },
+      "fr": {
+       "meaning": "Ce n'est pas nécessaire, merci.",
+       "contextNote": "Une façon polie de refuser une offre sans rien acheter.",
+       "literalGloss": "pas besoin (particule), merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "ask_price_variant_8",
+     "intentKey": "ask_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "呢啲點賣呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "呢啲點賣呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "ni1 di1 dim2 maai6 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How do you sell these?",
+       "contextNote": "A casual, very common way to ask for the price at a stall.",
+       "literalGloss": "these how sell (particle)"
+      },
+      "fr": {
+       "meaning": "Comment vendez-vous ça ?",
+       "contextNote": "Une façon décontractée et très courante de demander le prix sur un étal.",
+       "literalGloss": "ça comment vendre (particule)"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "offer_lower_price_variant_9",
+     "intentKey": "offer_lower_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "平啲啦，老闆。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "平啲啦，老闆。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "ping4 di1 laa1, lou5 baan2."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Make it a bit cheaper, boss.",
+       "contextNote": "A casual, friendly request for a small discount.",
+       "literalGloss": "cheaper a-bit (particle), boss"
+      },
+      "fr": {
+       "meaning": "Faites-moi un petit prix, patron.",
+       "contextNote": "Une demande amicale et décontractée pour obtenir une petite réduction.",
+       "literalGloss": "moins cher un peu (particule), patron"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "chinese_cantonese_ask_directions",
+   "blueprintKey": "ask_directions",
+   "titles": {
+    "en": "Asking for the Station",
+    "fr": "Demander la station de métro"
+   },
+   "sceneNotes": {
+    "en": "You are a visitor in Hong Kong looking for the MTR station, and a passer-by gives you directions very quickly.",
+    "fr": "Vous êtes en visite à Hong Kong et vous cherchez la station de métro, mais un passant vous donne des indications très vite."
+   },
+   "characterKey": "chinese_cantonese_ah_keung_passer_by",
+   "expressions": [
+    {
+     "key": "excuse_me",
+     "intentKey": "get_attention",
+     "slotId": "excuse_me",
+     "speaker": "learner",
+     "targetText": "唔好意思，請問下。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "唔好意思，請問下。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "m4 hou2 ji3 si1, cing2 man6 haa5."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, may I ask something?",
+       "contextNote": "Use this before asking a stranger a question.",
+       "literalGloss": "not good meaning, please ask a bit"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, puis-je vous poser une question ?",
+       "contextNote": "À dire avant de poser une question à un inconnu. Le « m4 » de 唔 est un son nasal fredonné, sans voyelle.",
+       "literalGloss": "pas bon sens, s'il vous plaît demander un peu"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'm4' in 唔 is a humming sound with no vowel.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "where_is",
+     "intentKey": "ask_where_is",
+     "slotId": "where_is",
+     "speaker": "learner",
+     "targetText": "請問地鐵站喺邊度呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "請問地鐵站喺邊度呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "cing2 man6 dei6 tit3 zaam6 hai2 bin1 dou6 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, where is the MTR station?",
+       "contextNote": "地鐵站 is the everyday word for an MTR station.",
+       "literalGloss": "may I ask, MTR station is at which place?"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, où est la station de métro ?",
+       "contextNote": "地鐵站 est le mot courant pour désigner une station de métro (MTR).",
+       "literalGloss": "puis-je demander, station de métro être à quel endroit ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "straight",
+     "intentKey": "give_direction_straight",
+     "slotId": "straight",
+     "speaker": "character",
+     "targetText": "你一直行，行到尾。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "你一直行，行到尾。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "nei5 jat1 zik6 haang4, haang4 dou3 mei5."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Go straight, all the way to the end.",
+       "contextNote": "行到尾 means walk to the end of the street.",
+       "literalGloss": "you straight walk, walk to the end"
+      },
+      "fr": {
+       "meaning": "Allez tout droit, jusqu'au bout.",
+       "contextNote": "行到尾 signifie marcher jusqu'au bout de la rue.",
+       "literalGloss": "toi tout droit marcher, marcher jusqu'au bout"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "turn",
+     "intentKey": "give_direction_turn",
+     "slotId": "turn",
+     "speaker": "character",
+     "targetText": "跟住轉左，再轉右。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "跟住轉左，再轉右。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "gan1 zyu6 zyun3 zo2, zoi3 zyun3 jau6."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Then turn left, and then turn right.",
+       "contextNote": "This covers the scene's two turns.",
+       "literalGloss": "next turn left, again turn right"
+      },
+      "fr": {
+       "meaning": "Ensuite, tournez à gauche, puis à droite.",
+       "contextNote": "Cette phrase donne les deux virages de la scène.",
+       "literalGloss": "ensuite tourner gauche, puis tourner droite"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "far",
+     "intentKey": "ask_is_it_far",
+     "slotId": "far",
+     "speaker": "learner",
+     "targetText": "行路去遠唔遠呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "行路去遠唔遠呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "haang4 lou6 heoi3 jyun5 m4 jyun5 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Is it far to walk?",
+       "contextNote": null,
+       "literalGloss": "walk go far not far?"
+      },
+      "fr": {
+       "meaning": "Est-ce loin à pied ?",
+       "contextNote": "Prononcez 遠 (jyun5) avec un « y » initial, comme « you-oune ».",
+       "literalGloss": "marcher aller loin pas loin ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "遠 (jyun5) starts with a 'y' sound, like 'yoo-un'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "near",
+     "intentKey": "say_it_is_near",
+     "slotId": "near",
+     "speaker": "character",
+     "targetText": "唔遠，行路大概十分鐘。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "唔遠，行路大概十分鐘。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "m4 jyun5, haang4 lou6 daai6 koi3 sap6 fan1 zung1."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Not far, about ten minutes on foot.",
+       "contextNote": null,
+       "literalGloss": "not far, walk roughly ten minutes"
+      },
+      "fr": {
+       "meaning": "Non, ce n'est pas loin, environ dix minutes à pied.",
+       "contextNote": null,
+       "literalGloss": "pas loin, marcher environ dix minutes"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "repeat",
+     "intentKey": "ask_repeat",
+     "slotId": "repeat",
+     "speaker": "learner",
+     "targetText": "唔好意思，可唔可以再講一次？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "唔好意思，可唔可以再講一次？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "m4 hou2 ji3 si1, ho2 m4 ho2 ji5 zoi3 gong2 jat1 ci3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Sorry, could you say that again?",
+       "contextNote": null,
+       "literalGloss": "sorry, can or can't again say one time"
+      },
+      "fr": {
+       "meaning": "Désolé(e), pourriez-vous répéter, s'il vous plaît ?",
+       "contextNote": null,
+       "literalGloss": "désolé, pouvoir ou ne pas pouvoir encore dire une fois"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "slower",
+     "intentKey": "ask_slow_down",
+     "slotId": "slower",
+     "speaker": "learner",
+     "targetText": "你講得好快，可唔可以講慢啲？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "你講得好快，可唔可以講慢啲？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "nei5 gong2 dak1 hou2 faai3, ho2 m4 ho2 ji5 gong2 maan6 di1?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "You speak very fast. Could you speak more slowly?",
+       "contextNote": "Key line for this mission's twist.",
+       "literalGloss": "you speak very fast, can or can't speak slower a bit"
+      },
+      "fr": {
+       "meaning": "Vous parlez très vite. Pourriez-vous parler plus lentement ?",
+       "contextNote": "Phrase clé de cette mission.",
+       "literalGloss": "toi parler très vite, pouvoir ou ne pas pouvoir parler plus lent un peu"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "真係多謝你幫手。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "真係多謝你幫手。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "zan1 hai6 do1 ze6 nei5 bong1 sau2."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you so much for your help.",
+       "contextNote": "Fits receiving help; 唔該晒 and 多謝你呀 were used earlier.",
+       "literalGloss": "really thank you help"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup de votre aide.",
+       "contextNote": "Convient quand on vient de recevoir de l'aide ; 唔該晒 et 多謝你呀 ont déjà été vus.",
+       "literalGloss": "vraiment merci toi aider"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "get_attention_variant_10",
+     "intentKey": "get_attention",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "先生，唔該。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "先生，唔該。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "sin1 saang1, m4 goi1."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, sir.",
+       "contextNote": "Use 小姐 (siu2 ze2) for a young woman.",
+       "literalGloss": "sir, excuse me"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, monsieur.",
+       "contextNote": "Pour une jeune femme, on dit 小姐 (siu2 ze2).",
+       "literalGloss": "monsieur, excusez-moi"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "ask_where_is_variant_11",
+     "intentKey": "ask_where_is",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "唔該，呢度附近有冇地鐵站呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "唔該，呢度附近有冇地鐵站呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "m4 goi1, ni1 dou6 fu6 gan6 jau5 mou5 dei6 tit3 zaam6 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, is there an MTR station near here?",
+       "contextNote": null,
+       "literalGloss": "excuse me, this place nearby have not-have MTR station?"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, y a-t-il une station de métro près d'ici ?",
+       "contextNote": null,
+       "literalGloss": "excusez-moi, cet endroit près avoir pas-avoir station de métro ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "ask_slow_down_variant_12",
+     "intentKey": "ask_slow_down",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "講慢啲啦，我聽唔明。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "講慢啲啦，我聽唔明。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "gong2 maan6 di1 laa1, ngo5 teng1 m4 ming4."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Slower please, I can't follow.",
+       "contextNote": "Casual and friendly; fine with a passer-by if said with a smile.",
+       "literalGloss": "speak slower a bit, I listen not understand"
+      },
+      "fr": {
+       "meaning": "Plus lentement, s'il te plaît, je ne comprends pas.",
+       "contextNote": "Ton familier et amical ; passe bien avec un passant si on le dit en souriant.",
+       "literalGloss": "parler plus lent un peu, je écouter pas comprendre"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "chinese_cantonese_meet_neighbour",
+   "blueprintKey": "meet_neighbour",
+   "titles": {
+    "en": "Meeting the Neighbour",
+    "fr": "Rencontrer la voisine"
+   },
+   "sceneNotes": {
+    "en": "You meet an older neighbour in the stairwell of your new building while they carry their shopping bags upstairs.",
+    "fr": "Vous croisez une voisine plus âgée dans la cage d'escalier de votre nouvel immeuble, alors qu'elle monte ses sacs de courses."
+   },
+   "characterKey": "chinese_cantonese_character_neighbour",
+   "expressions": [
+    {
+     "key": "new_neighbour",
+     "intentKey": "say_new_neighbour",
+     "slotId": "new_neighbour",
+     "speaker": "learner",
+     "targetText": "我係新搬嚟嘅鄰居。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "我係新搬嚟嘅鄰居。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "ngo5 hai6 san1 bun1 lai4 ge3 leon4 geoi1."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm the new neighbour who just moved in.",
+       "contextNote": null,
+       "literalGloss": "I am newly-moved-here 's neighbour"
+      },
+      "fr": {
+       "meaning": "Je suis le nouveau voisin, je viens d'emménager.",
+       "contextNote": "Prononcez 嚟 (lai4) avec un l, pas un n.",
+       "literalGloss": "je suis récemment-emménagé-ici de voisin"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "嚟 (lai4) starts with an l sound, not n.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "welcome",
+     "intentKey": "welcome_someone",
+     "slotId": "welcome",
+     "speaker": "character",
+     "targetText": "歡迎你搬嚟呀！",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "歡迎你搬嚟呀！"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "fun1 jing4 nei5 bun1 lai4 aa3!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Welcome, glad you've moved in!",
+       "contextNote": "A friendly neighbour's greeting.",
+       "literalGloss": "welcome you move-here (particle)"
+      },
+      "fr": {
+       "meaning": "Bienvenue, content(e) que vous ayez emménagé !",
+       "contextNote": "Formule d'accueil chaleureuse d'un voisin sympathique.",
+       "literalGloss": "bienvenue toi emménager-ici (particule)"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "where_from_q",
+     "intentKey": "ask_where_from",
+     "slotId": "where_from_q",
+     "speaker": "learner",
+     "targetText": "請問你係邊度人呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "請問你係邊度人呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "cing2 man6 nei5 hai6 bin1 dou6 jan4 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, where are you from?",
+       "contextNote": "Locals often answer with a city or region.",
+       "literalGloss": "may-I-ask you are which-place person"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, vous êtes d'où ?",
+       "contextNote": "On répond souvent par une ville ou une région.",
+       "literalGloss": "puis-je-demander vous être quel-endroit personne"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "from",
+     "intentKey": "say_where_from",
+     "slotId": "from",
+     "speaker": "learner",
+     "targetText": "我係英國人。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "我係英國人。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "ngo5 hai6 jing1 gwok3 jan4."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm from the UK.",
+       "contextNote": "Swap 英國 for your own country.",
+       "literalGloss": "I am UK person"
+      },
+      "fr": {
+       "meaning": "Je viens du Royaume-Uni.",
+       "contextNote": "Remplacez 英國 par votre propre pays. Le ng de ngo5 se prononce comme à la fin de « parking ».",
+       "literalGloss": "je suis Royaume-Uni personne"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ng in ngo5 is like the end of 'sing'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "speak_lang",
+     "intentKey": "ask_if_speaks_language",
+     "slotId": "speak_lang",
+     "speaker": "learner",
+     "targetText": "你識唔識講英文呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "你識唔識講英文呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "nei5 sik1 m4 sik1 gong2 jing1 man2 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you speak English?",
+       "contextNote": null,
+       "literalGloss": "you know not know speak English (particle)"
+      },
+      "fr": {
+       "meaning": "Vous parlez anglais ?",
+       "contextNote": null,
+       "literalGloss": "tu savoir pas savoir parler anglais (particule)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "little",
+     "intentKey": "say_speak_little",
+     "slotId": "little",
+     "speaker": "learner",
+     "targetText": "我識講少少廣東話。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "我識講少少廣東話。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "ngo5 sik1 gong2 siu2 siu2 gwong2 dung1 waa2."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I speak a little Cantonese.",
+       "contextNote": null,
+       "literalGloss": "I know speak a-little Cantonese"
+      },
+      "fr": {
+       "meaning": "Je parle un peu cantonais.",
+       "contextNote": "廣 (gwong2) se prononce avec un gw arrondi des lèvres.",
+       "literalGloss": "je sais parler un-peu cantonais"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "廣 (gwong2) has a lip-rounded gw sound.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "offer_help",
+     "intentKey": "offer_help",
+     "slotId": "offer_help",
+     "speaker": "learner",
+     "targetText": "使唔使我幫你拎呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "使唔使我幫你拎呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "sai2 m4 sai2 ngo5 bong1 nei5 ling1 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you need me to help you carry those?",
+       "contextNote": "Fits the neighbour carrying shopping bags.",
+       "literalGloss": "need not need I help you carry (particle)"
+      },
+      "fr": {
+       "meaning": "Voulez-vous que je vous aide à porter ça ?",
+       "contextNote": "Convient quand la voisine porte ses sacs de courses.",
+       "literalGloss": "besoin pas besoin je aider toi porter (particule)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "真係好多謝你。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "真係好多謝你。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "zan1 hai6 hou2 do1 ze6 nei5."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you so much.",
+       "contextNote": "Good for thanking someone for an invitation, such as the tea.",
+       "literalGloss": "really very thank you"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup.",
+       "contextNote": "Pratique pour remercier d'une invitation, par exemple à prendre le thé.",
+       "literalGloss": "vraiment très merci toi"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "say_new_neighbour_variant_9",
+     "intentKey": "say_new_neighbour",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "我啱啱搬咗入嚟住。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "我啱啱搬咗入嚟住。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "ngo5 ngaam1 ngaam1 bun1 zo2 jap6 lai4 zyu6."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I've just moved in.",
+       "contextNote": "A more casual alternative.",
+       "literalGloss": "I just-now moved in-here live"
+      },
+      "fr": {
+       "meaning": "Je viens d'emménager.",
+       "contextNote": "Variante plus décontractée.",
+       "literalGloss": "je à-l'instant emménager-dedans habiter"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "offer_help_variant_10",
+     "intentKey": "offer_help",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "有咩需要，話我知啦。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "有咩需要，話我知啦。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "jau5 me1 seoi1 jiu3, waa6 ngo5 zi1 laa1."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "If you need anything, just tell me.",
+       "contextNote": "Friendly, general offer of help.",
+       "literalGloss": "have what need, tell me know (particle)"
+      },
+      "fr": {
+       "meaning": "Si vous avez besoin de quoi que ce soit, dites-le-moi.",
+       "contextNote": "Proposition d'aide générale et amicale.",
+       "literalGloss": "avoir quoi besoin, dire moi savoir (particule)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "chinese_cantonese_take_taxi",
+   "blueprintKey": "take_taxi",
+   "titles": {
+    "en": "Taking a Taxi",
+    "fr": "Prendre un taxi"
+   },
+   "sceneNotes": {
+    "en": "You are flagging down a taxi to the old town in heavy traffic, and the chatty driver quotes a price without using the meter.",
+    "fr": "Vous hélez un taxi pour aller dans la vieille ville malgré les embouteillages, et le chauffeur bavard annonce un prix sans utiliser le compteur."
+   },
+   "characterKey": "chinese_cantonese_character_taxi_driver",
+   "expressions": [
+    {
+     "key": "hail",
+     "intentKey": "hail_taxi",
+     "slotId": "hail",
+     "speaker": "learner",
+     "targetText": "師傅，可唔可以載我呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "師傅，可唔可以載我呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "si1 fu6, ho2 m4 ho2 ji5 zoi3 ngo5 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Driver, can you take me?",
+       "contextNote": "師傅 is the normal way to address a taxi driver.",
+       "literalGloss": "master-driver, can-not-can carry me?"
+      },
+      "fr": {
+       "meaning": "Monsieur, pouvez-vous m'emmener ?",
+       "contextNote": "師傅 est la façon habituelle de s'adresser à un chauffeur de taxi. Prononcez zoi3 (載) comme « zoï », avec un ton montant à départ descendant.",
+       "literalGloss": "maître-chauffeur, peut-pas-peut emmener moi ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "zoi3 (載) is a clear 'zoy' with a falling-rising tone.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "where_to",
+     "intentKey": "ask_destination",
+     "slotId": "where_to",
+     "speaker": "character",
+     "targetText": "想去邊度呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "想去邊度呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "soeng2 heoi3 bin1 dou6 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where do you want to go?",
+       "contextNote": null,
+       "literalGloss": "want go where?"
+      },
+      "fr": {
+       "meaning": "Où voulez-vous aller ?",
+       "contextNote": null,
+       "literalGloss": "vouloir aller où ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "destination",
+     "intentKey": "state_destination",
+     "slotId": "destination",
+     "speaker": "learner",
+     "targetText": "唔該，我想去舊城區。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "唔該，我想去舊城區。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "m4 goi1, ngo5 soeng2 heoi3 gau6 sing4 keoi1."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Please, I'd like to go to the old town.",
+       "contextNote": null,
+       "literalGloss": "please, I want go old-town-district"
+      },
+      "fr": {
+       "meaning": "S'il vous plaît, je voudrais aller dans la vieille ville.",
+       "contextNote": "Dans heoi3 (去), le son « oe » est arrondi, comme le « eu » français dans « peur ».",
+       "literalGloss": "s'il vous plaît, je veux aller vieille-ville-quartier"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "heoi3 (去) has a rounded 'oe' sound, like German 'ö'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "meter",
+     "intentKey": "ask_use_meter",
+     "slotId": "meter",
+     "speaker": "learner",
+     "targetText": "唔該，可唔可以跳錶呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "唔該，可唔可以跳錶呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "m4 goi1, ho2 m4 ho2 ji5 tiu3 biu1 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could you use the meter, please?",
+       "contextNote": "跳錶 (the meter 'jumps') is the everyday way to say use the meter.",
+       "literalGloss": "please, can-not-can jump meter?"
+      },
+      "fr": {
+       "meaning": "Pourriez-vous mettre le compteur, s'il vous plaît ?",
+       "contextNote": "跳錶 (le compteur « saute ») est la façon courante de demander d'utiliser le compteur.",
+       "literalGloss": "s'il vous plaît, peut-pas-peut sauter compteur ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "fare",
+     "intentKey": "ask_fare",
+     "slotId": "fare",
+     "speaker": "learner",
+     "targetText": "去舊城區大概幾多錢呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "去舊城區大概幾多錢呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "heoi3 gau6 sing4 keoi1 daai6 koi3 gei2 do1 cin2 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "About how much is it to the old town?",
+       "contextNote": null,
+       "literalGloss": "go old-town roughly how-much money?"
+      },
+      "fr": {
+       "meaning": "Ça coûte environ combien jusqu'à la vieille ville ?",
+       "contextNote": null,
+       "literalGloss": "aller vieille-ville environ combien argent ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "stop",
+     "intentKey": "say_stop_here",
+     "slotId": "stop",
+     "speaker": "learner",
+     "targetText": "唔該，喺呢度停車啦。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "唔該，喺呢度停車啦。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "m4 goi1, hai2 ni1 dou6 ting4 ce1 laa1."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Please stop here.",
+       "contextNote": "Said when you want to get out. 落車 (get off) is also common.",
+       "literalGloss": "please, at here stop car"
+      },
+      "fr": {
+       "meaning": "Arrêtez-vous ici, s'il vous plaît.",
+       "contextNote": "À dire quand vous voulez descendre. 落車 (descendre du véhicule) est aussi très courant.",
+       "literalGloss": "s'il vous plaît, à ici arrêter voiture"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "change",
+     "intentKey": "ask_for_change",
+     "slotId": "change",
+     "speaker": "learner",
+     "targetText": "唔該，搵返錢畀我呀。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "唔該，搵返錢畀我呀。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "m4 goi1, wan2 faan1 cin2 bei2 ngo5 aa3."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Please give me my change.",
+       "contextNote": null,
+       "literalGloss": "please, find back money give me"
+      },
+      "fr": {
+       "meaning": "Rendez-moi la monnaie, s'il vous plaît.",
+       "contextNote": null,
+       "literalGloss": "s'il vous plaît, trouver retour argent donner moi"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "bye",
+     "intentKey": "say_goodbye",
+     "slotId": "bye",
+     "speaker": "learner",
+     "targetText": "師傅，辛苦晒，拜拜！",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "師傅，辛苦晒，拜拜！"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "si1 fu6, san1 fu2 saai3, baai1 baai3!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks for the ride, driver, bye!",
+       "contextNote": "辛苦晒 thanks someone for their effort.",
+       "literalGloss": "driver, worked-hard-all, bye-bye"
+      },
+      "fr": {
+       "meaning": "Merci pour la course, monsieur, au revoir !",
+       "contextNote": "辛苦晒 sert à remercier quelqu'un pour sa peine.",
+       "literalGloss": "chauffeur, peiné-tout, au revoir"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": "拜拜 comes from English 'bye-bye'.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "hail_taxi_variant_9",
+     "intentKey": "hail_taxi",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "師傅，去舊城區得唔得呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "師傅，去舊城區得唔得呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "si1 fu6, heoi3 gau6 sing4 keoi1 dak1 m4 dak1 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Driver, can you go to the old town?",
+       "contextNote": "Useful when you check whether the driver will take the trip.",
+       "literalGloss": "driver, go old-town OK-not-OK?"
+      },
+      "fr": {
+       "meaning": "Monsieur, vous pouvez aller dans la vieille ville ?",
+       "contextNote": "Utile pour vérifier que le chauffeur accepte la course.",
+       "literalGloss": "chauffeur, aller vieille-ville possible-pas-possible ?"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "state_destination_variant_10",
+     "intentKey": "state_destination",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "舊城區，唔該。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "舊城區，唔該。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "gau6 sing4 keoi1, m4 goi1."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Old town, please.",
+       "contextNote": "Shorter and very common in real taxis.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "La vieille ville, s'il vous plaît.",
+       "contextNote": "Plus court et très courant dans les vrais taxis.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "ask_use_meter_variant_11",
+     "intentKey": "ask_use_meter",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "師傅，唔該跳錶呀。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "師傅，唔該跳錶呀。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "si1 fu6, m4 goi1 tiu3 biu1 aa3."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Driver, meter please.",
+       "contextNote": "A firmer way to answer a quoted price.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Monsieur, le compteur, s'il vous plaît.",
+       "contextNote": "Une façon plus ferme de répondre à un prix annoncé d'avance.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "chinese_cantonese_buy_ice_cream",
+   "blueprintKey": "buy_ice_cream",
+   "titles": {
+    "en": "Buying Ice Cream Together",
+    "fr": "Acheter une glace ensemble"
+   },
+   "sceneNotes": {
+    "en": "You are taking a child to the ice-cream cart outside the school, and only two flavours are left.",
+    "fr": "Vous emmenez un enfant au chariot de glaces devant l'école, et il ne reste plus que deux parfums."
+   },
+   "characterKey": "chinese_cantonese_character_child_at_the_ice_cream_stand",
+   "expressions": [
+    {
+     "key": "wants",
+     "intentKey": "request_food",
+     "slotId": "wants",
+     "speaker": "character",
+     "targetText": "我想食雪糕呀！",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "我想食雪糕呀！"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "ngo5 soeng2 sik6 syut3 gou1 aa3!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I want ice cream!",
+       "contextNote": "A child's excited, direct request.",
+       "literalGloss": "I want eat ice-cream (particle)"
+      },
+      "fr": {
+       "meaning": "Je veux une glace !",
+       "contextNote": "Demande directe et enthousiaste d'un enfant. 雪 syut3 est un son court et net : ne perdez pas le t final.",
+       "literalGloss": "Je veux manger glace (particule)"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "雪 syut3 is a short, sharp sound; don't drop the final t.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "which_flavour",
+     "intentKey": "offer_options",
+     "slotId": "which_flavour",
+     "speaker": "learner",
+     "targetText": "你要朱古力定係士多啤梨呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "你要朱古力定係士多啤梨呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "nei5 jiu3 zyu1 gu1 lik1 ding6 hai6 si6 do1 be1 lei2 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you want chocolate or strawberry?",
+       "contextNote": "定係 is how you say 'or' in a question.",
+       "literalGloss": "you want chocolate or-is strawberry (particle)"
+      },
+      "fr": {
+       "meaning": "Tu veux chocolat ou fraise ?",
+       "contextNote": "定係 sert à dire « ou » dans une question.",
+       "literalGloss": "tu veux chocolat ou-est fraise (particule)"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "picks",
+     "intentKey": "choose_option",
+     "slotId": "picks",
+     "speaker": "character",
+     "targetText": "我要朱古力！",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "我要朱古力！"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "ngo5 jiu3 zyu1 gu1 lik1!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I want chocolate!",
+       "contextNote": null,
+       "literalGloss": "I want chocolate"
+      },
+      "fr": {
+       "meaning": "Je veux du chocolat !",
+       "contextNote": null,
+       "literalGloss": "je veux chocolat"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "scoop",
+     "intentKey": "specify_quantity",
+     "slotId": "scoop",
+     "speaker": "learner",
+     "targetText": "一球朱古力，唔該。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "一球朱古力，唔該。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "jat1 kau4 zyu1 gu1 lik1, m4 goi1."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "One scoop of chocolate, please.",
+       "contextNote": "Said to the vendor. 球 is the measure word for scoops.",
+       "literalGloss": "one scoop chocolate, please"
+      },
+      "fr": {
+       "meaning": "Une boule de chocolat, s'il vous plaît.",
+       "contextNote": "À dire au vendeur. 球 est le classificateur des boules de glace ; il se prononce kau4, avec un k net, pas un g.",
+       "literalGloss": "une boule chocolat, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "球 kau4 starts with a clear k, not g.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "asks_two",
+     "intentKey": "ask_permission",
+     "slotId": "asks_two",
+     "speaker": "character",
+     "targetText": "我可唔可以要兩球呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "我可唔可以要兩球呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "ngo5 ho2 m4 ho2 ji5 jiu3 loeng5 kau4 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have two scoops?",
+       "contextNote": "可唔可以 is the standard way to ask 'may I?'. The child is hopeful and a bit cheeky.",
+       "literalGloss": "I can-not-can want two scoops (particle)"
+      },
+      "fr": {
+       "meaning": "Je peux avoir deux boules ?",
+       "contextNote": "可唔可以 est la façon courante de demander « puis-je ? ». L'enfant est plein d'espoir et un peu coquin. 兩 loeng5 se prononce comme « leung », sur un ton bas.",
+       "literalGloss": "je peux-pas-peux vouloir deux boules (particule)"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "兩 loeng5 sounds like 'leung' with a low tone.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "just_one",
+     "intentKey": "refuse_permission",
+     "slotId": "just_one",
+     "speaker": "learner",
+     "targetText": "今日一球就夠啦，下次先啦。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "今日一球就夠啦，下次先啦。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "gam1 jat6 jat1 kau4 zau6 gau3 laa1, haa6 ci3 sin1 laa1."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "One scoop is enough today. Next time.",
+       "contextNote": "A gentle no. 下次先 means 'let's wait until next time'.",
+       "literalGloss": "today one scoop then enough (particle), next time first (particle)"
+      },
+      "fr": {
+       "meaning": "Aujourd'hui, une boule suffit. Ce sera pour la prochaine fois.",
+       "contextNote": "Un non tout en douceur. 下次先 veut dire « attendons la prochaine fois ».",
+       "literalGloss": "aujourd'hui une boule alors suffit (particule), prochaine fois d'abord (particule)"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "okay",
+     "intentKey": "grant_permission",
+     "slotId": "okay",
+     "speaker": "learner",
+     "targetText": "好呀，食啦！",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "好呀，食啦！"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "hou2 aa3, sik6 laa1!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Okay, go ahead and eat!",
+       "contextNote": "Use this when you say yes to the child, e.g. to eating the ice cream now.",
+       "literalGloss": "good (particle), eat (particle)"
+      },
+      "fr": {
+       "meaning": "D'accord, mange !",
+       "contextNote": "Pour dire oui à l'enfant, par exemple pour manger sa glace tout de suite.",
+       "literalGloss": "bon (particule), manger (particule)"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "yummy",
+     "intentKey": "say_delicious",
+     "slotId": "yummy",
+     "speaker": "character",
+     "targetText": "好好食呀！",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "好好食呀！"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "hou2 hou2 sik6 aa3!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "It's so yummy!",
+       "contextNote": null,
+       "literalGloss": "very good-eating (particle)"
+      },
+      "fr": {
+       "meaning": "Elle est trop bonne !",
+       "contextNote": null,
+       "literalGloss": "très bon-à-manger (particule)"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "me_too",
+     "intentKey": "express_like",
+     "slotId": "me_too",
+     "speaker": "learner",
+     "targetText": "我都好鍾意朱古力。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "我都好鍾意朱古力。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "ngo5 dou1 hou2 zung1 ji3 zyu1 gu1 lik1."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I really like chocolate too.",
+       "contextNote": "都 means 'too/also'.",
+       "literalGloss": "I also very like chocolate"
+      },
+      "fr": {
+       "meaning": "Moi aussi, j'aime beaucoup le chocolat.",
+       "contextNote": "都 signifie « aussi ».",
+       "literalGloss": "moi aussi très aimer chocolat"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "character",
+     "targetText": "多謝你請我食雪糕！",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "多謝你請我食雪糕！"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "do1 ze6 nei5 cing2 ngo5 sik6 syut3 gou1!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks for treating me to ice cream!",
+       "contextNote": "請 means 'to treat someone'.",
+       "literalGloss": "thank you treat me eat ice-cream"
+      },
+      "fr": {
+       "meaning": "Merci de m'offrir une glace !",
+       "contextNote": "請 signifie « offrir », « inviter » quelqu'un.",
+       "literalGloss": "merci toi offrir moi manger glace"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "welcome",
+     "intentKey": "respond_to_thanks",
+     "slotId": "welcome",
+     "speaker": "learner",
+     "targetText": "唔使客氣啦。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "唔使客氣啦。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "m4 sai2 haak3 hei3 laa1."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "You're welcome.",
+       "contextNote": null,
+       "literalGloss": "no need polite (particle)"
+      },
+      "fr": {
+       "meaning": "Il n'y a pas de quoi.",
+       "contextNote": null,
+       "literalGloss": "pas besoin poli (particule)"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "refuse_permission_variant_12",
+     "intentKey": "refuse_permission",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "唔得喎，一球就夠啦。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "唔得喎，一球就夠啦。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "m4 dak1 wo3, jat1 kau4 zau6 gau3 laa1."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Sorry, no. One scoop is enough.",
+       "contextNote": "A more direct, still friendly no. 喎 softens it.",
+       "literalGloss": "not allowed (particle), one scoop then enough (particle)"
+      },
+      "fr": {
+       "meaning": "Désolé, non. Une boule suffit.",
+       "contextNote": "Un non plus direct, mais toujours amical. 喎 l'adoucit.",
+       "literalGloss": "pas permis (particule), une boule alors suffit (particule)"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "specify_quantity_variant_13",
+     "intentKey": "specify_quantity",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "一個甜筒，唔該。",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "一個甜筒，唔該。"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "jat1 go3 tim4 tung2, m4 goi1."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "One cone, please.",
+       "contextNote": "An alternative order if you want a cone.",
+       "literalGloss": "one cone, please"
+      },
+      "fr": {
+       "meaning": "Un cornet, s'il vous plaît.",
+       "contextNote": "Une autre façon de commander si vous voulez un cornet.",
+       "literalGloss": "un cornet, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "offer_options_variant_14",
+     "intentKey": "offer_options",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "朱古力定雲呢拿呀？",
+     "forms": [
+      {
+       "script": "Hant",
+       "transliterationScheme": null,
+       "text": "朱古力定雲呢拿呀？"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "jyutping",
+       "text": "zyu1 gu1 lik1 ding6 wan4 ni1 naa4 aa3?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Chocolate or vanilla?",
+       "contextNote": "A shorter version. 定 alone also means 'or'.",
+       "literalGloss": "chocolate or vanilla (particle)"
+      },
+      "fr": {
+       "meaning": "Chocolat ou vanille ?",
+       "contextNote": "Version plus courte. 定 seul signifie aussi « ou ».",
+       "literalGloss": "chocolat ou vanille (particule)"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  }
+ ],
+ "provenance": "ai_draft",
+ "nativeReviewed": false,
+ "reviewStatus": "review_needed",
+ "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+ "notes": [
+  "AI draft generated 2026-11-11T22:39:18.647Z with anthropic/claude-sonnet-5.5; validator accepted 77 expressions; native review required before publishing.",
+  "greet_and_introduce: Please check that 你今日點呀 and 幾好呀，你呢 sit at the right politeness level for a first meeting.",
+  "greet_and_introduce: 認識 is given as jing6; some speakers say ying6, so please confirm the preferred Jyutping.",
+  "greet_and_introduce: 小明 is a placeholder name for the learner; Guangzhou speakers may greet with 早晨 or 你好 similarly.",
+  "cafe_order_drink: Avoided repeating 早晨/你好; used 下午好 and 哈囉 for greetings. Please check that 下午好 is natural when spoken to a server.",
+  "cafe_order_drink: Used 唔該 for service and 多謝 for gifts or favours; please confirm both fit here.",
+  "cafe_order_drink: Drink choices (凍檸茶, 熱奶茶) are Hong Kong style; Guangzhou usage may differ slightly.",
+  "market_ask_price: Prices use 蚊 and 斤 as in Hong Kong markets. Please check that the sample price of 30 per catty for grapes sounds realistic.",
+  "market_ask_price: The vendor's free extra (the twist) is not covered by a required slot, so I did not draft it here.",
+  "market_ask_price: 唔使喇 can sound slightly curt in some contexts. Please confirm it is polite enough for a beginner learner.",
+  "ask_directions: Please check that 地鐵站 versus 港鐵站 is the most natural word for learners in HK today.",
+  "ask_directions: Please check 請問 as cing2 man6 and the politeness of the casual 講慢啲啦 for a stranger.",
+  "ask_directions: Directions use Hong Kong wording; Guangzhou speakers may say 行路 or 睇住 differently.",
+  "meet_neighbour: Used 真係好多謝你 for the thanks slot because 唔該晒 and 多謝你呀 are already drafted; please confirm it is natural for an invitation.",
+  "meet_neighbour: Character name 陳姨姨 is a friendly neighbour address; please check that 姨姨 suits the tone.",
+  "meet_neighbour: Please check that 使唔使我幫你拎呀 and 我係英國人 sound natural for an HK beginner.",
+  "take_taxi: 舊城區 is used for 'old town'; in Guangzhou 老城區 is more typical. Please confirm the natural local term.",
+  "take_taxi: Check that 師傅，辛苦晒 sounds natural as a goodbye to a driver, and whether 跳錶 or 咪錶 is preferred.",
+  "take_taxi: Greetings and thanks follow earlier chapter formulas; 唔該 is used for requests.",
+  "buy_ice_cream: The scene facts don't name the two flavours. I assumed chocolate and strawberry, with vanilla in the extra variant. Please adjust if needed.",
+  "buy_ice_cream: Spellings to check: 雲呢拿 (alternative 雲尼拿), 士多啤梨, and 球 as the scoop measure word.",
+  "buy_ice_cream: The character's second line (多謝你請我食雪糕) avoids repeating the earlier 多謝你呀. The learner-side relation to the child is left neutral.",
+  "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+ ]
+}

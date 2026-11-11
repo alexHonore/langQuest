@@ -1,0 +1,288 @@
+{
+ "source": "fr",
+ "title": "Premiers jours à Madrid",
+ "generatedBy": "anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+ "missions": {
+  "es_greet_and_introduce": {
+   "title": "Saluer et se présenter",
+   "sceneNote": "Vous croisez dans la rue, un matin, une voisine que vous connaissez déjà : elle s'arrête pour vous dire bonjour.",
+   "expressions": {
+    "hola": {
+     "meaning": "Bonjour.",
+     "contextNote": "« Buenas » tout seul est un salut familier très courant, à n'importe quel moment de la journée.",
+     "literalGloss": null
+    },
+    "buenas_tardes": {
+     "meaning": "Bonjour (l'après-midi) / Bonsoir.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "que_tal": {
+     "meaning": "Comment ça va ? / Ça va ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "bien_gracias": {
+     "meaning": "Bien, merci. Et toi ?",
+     "contextNote": "Avec une personne âgée que vous ne connaissez pas ou dans un cadre formel, on dit « ¿y usted? ».",
+     "literalGloss": null
+    },
+    "me_llamo": {
+     "meaning": "Je m'appelle …",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "como_te_llamas": {
+     "meaning": "Comment tu t'appelles ?",
+     "contextNote": "Forme polie : « ¿Cómo se llama usted? ».",
+     "literalGloss": null
+    },
+    "encantado": {
+     "meaning": "Enchanté.",
+     "contextNote": "Une femme dit « encantada ».",
+     "literalGloss": null
+    },
+    "hasta_luego": {
+     "meaning": "À tout à l'heure / Au revoir.",
+     "contextNote": "C'est l'au revoir de tous les jours en Espagne ; « adiós » paraît plus définitif.",
+     "literalGloss": null
+    }
+   }
+  },
+  "es_cafe_order_drink": {
+   "title": "Commander au comptoir",
+   "sceneNote": "Vous êtes dans un bar de quartier à l'heure du petit-déjeuner ; le serveur est rapide et décontracté.",
+   "expressions": {
+    "buenos_dias": {
+     "meaning": "Bonjour.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "cafe_con_leche": {
+     "meaning": "Un café au lait, s'il vous plaît.",
+     "contextNote": "« Ponme un café » est la façon courante et décontractée de commander dans un bar en Espagne.",
+     "literalGloss": null
+    },
+    "solo_o_con_leche": {
+     "meaning": "Noir ou au lait ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "con_leche": {
+     "meaning": "Au lait, s'il vous plaît.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "me_cobras": {
+     "meaning": "Je peux payer, s'il vous plaît ?",
+     "contextNote": "Très typique de l'Espagne ; « la cuenta, por favor » fonctionne aussi partout.",
+     "literalGloss": "Me tu encaisses, s'il te plaît ?"
+    },
+    "la_cuenta": {
+     "meaning": "L'addition, s'il vous plaît.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "gracias": {
+     "meaning": "Merci.",
+     "contextNote": null,
+     "literalGloss": null
+    }
+   }
+  },
+  "es_market_ask_price": {
+   "title": "Demander le prix au marché",
+   "sceneNote": "Vous êtes devant un étal de fruits dans un marché couvert, où les prix sont indiqués au kilo et où l'on marchande rarement.",
+   "expressions": {
+    "hola_buenas": {
+     "meaning": "Bonjour.",
+     "contextNote": "Salutation courte et très courante en Espagne, utilisable à toute heure de la journée.",
+     "literalGloss": null
+    },
+    "cuanto_cuesta": {
+     "meaning": "Combien ça coûte ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "tres_euros_kilo": {
+     "meaning": "C'est trois euros le kilo.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "que_caro": {
+     "meaning": "Oh là là, c'est cher.",
+     "contextNote": "Simple remarque légère ; on ne marchande pas vraiment dans les marchés espagnols.",
+     "literalGloss": null
+    },
+    "mas_barato": {
+     "meaning": "Tu peux me le laisser un peu moins cher ?",
+     "contextNote": "Tutoiement familier ; à utiliser avec parcimonie, car le marchandage n'est pas d'usage.",
+     "literalGloss": null
+    },
+    "me_lo_llevo": {
+     "meaning": "D'accord, je le prends.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "no_gracias": {
+     "meaning": "Non, merci.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "solo_mirando": {
+     "meaning": "Je regarde seulement.",
+     "contextNote": null,
+     "literalGloss": null
+    }
+   }
+  },
+  "es_ask_directions": {
+   "title": "Demander son chemin",
+   "sceneNote": "Vous cherchez la gare et Carmen, une passante, vous répond en parlant vite.",
+   "expressions": {
+    "perdone": {
+     "meaning": "Excusez-moi,",
+     "contextNote": "« Perdone » se dit à des inconnus (vouvoiement) ; avec des jeunes, on dit « perdona ».",
+     "literalGloss": null
+    },
+    "donde_esta_estacion": {
+     "meaning": "où est la gare ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "todo_recto": {
+     "meaning": "Allez tout droit.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "gire_derecha": {
+     "meaning": "Tournez à droite.",
+     "contextNote": "« a la izquierda » signifie « à gauche ».",
+     "literalGloss": null
+    },
+    "esta_lejos": {
+     "meaning": "C'est loin ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "esta_cerca": {
+     "meaning": "C'est près, à cinq minutes à pied.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "puede_repetir": {
+     "meaning": "Pouvez-vous répéter, s'il vous plaît ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "mas_despacio": {
+     "meaning": "Plus lentement, s'il vous plaît.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "no_entiendo": {
+     "meaning": "Je ne comprends pas.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "muchas_gracias": {
+     "meaning": "Merci beaucoup.",
+     "contextNote": null,
+     "literalGloss": null
+    }
+   }
+  },
+  "es_meet_neighbour": {
+   "title": "Rencontrer une voisine",
+   "sceneNote": "Vous êtes dans la cage d'escalier ; la voisine porte des sacs de courses et se montre curieuse envers le nouvel arrivant.",
+   "expressions": {
+    "nuevo_vecino": {
+     "meaning": "Je suis le nouveau voisin.",
+     "contextNote": "Au féminin : « la nueva vecina ».",
+     "literalGloss": null
+    },
+    "bienvenido": {
+     "meaning": "Bienvenue !",
+     "contextNote": "Au féminin : « ¡Bienvenida! ».",
+     "literalGloss": null
+    },
+    "de_donde_eres": {
+     "meaning": "D'où viens-tu ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "soy_de_canada": {
+     "meaning": "Je viens du Canada.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "hablas_ingles": {
+     "meaning": "Tu parles anglais ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "un_poco": {
+     "meaning": "Un peu.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "si_necesitas_algo": {
+     "meaning": "Si tu as besoin de quoi que ce soit, dis-le-moi.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "muy_amable": {
+     "meaning": "Merci, c'est très gentil.",
+     "contextNote": null,
+     "literalGloss": null
+    }
+   }
+  },
+  "es_take_taxi": {
+   "title": "Prendre un taxi",
+   "sceneNote": "Vous montez dans un taxi blanc de Madrid ; le compteur est toujours utilisé, donc le demander n'est qu'une simple vérification.",
+   "expressions": {
+    "taxi": {
+     "meaning": "Taxi !",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "adonde_va": {
+     "meaning": "Où allez-vous ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "al_centro": {
+     "meaning": "Au centre-ville, s'il vous plaît.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "con_taximetro": {
+     "meaning": "Avec le compteur, s'il vous plaît.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "cuanto_aeropuerto": {
+     "meaning": "Combien coûte la course jusqu'à l'aéroport ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "pare_aqui": {
+     "meaning": "Arrêtez-vous ici, s'il vous plaît.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "tiene_cambio": {
+     "meaning": "Avez-vous de la monnaie ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "gracias_adios": {
+     "meaning": "Merci, au revoir.",
+     "contextNote": null,
+     "literalGloss": null
+    }
+   }
+  }
+ }
+}

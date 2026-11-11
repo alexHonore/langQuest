@@ -1,0 +1,2810 @@
+{
+ "key": "kinyarwanda_ch1",
+ "chapterIndex": 1,
+ "courseTrackId": "kinyarwanda",
+ "targetVarietyId": "rw",
+ "sourceLanguages": [
+  "en",
+  "fr"
+ ],
+ "titles": {
+  "en": "First days in Kigali",
+  "fr": "Premiers jours à Kigali"
+ },
+ "characters": [
+  {
+   "characterKey": "kinyarwanda_mutesi_friendly_local_acquaintance",
+   "role": "friendly local acquaintance",
+   "name": "Mutesi",
+   "personality": "kind, busy, warm, curious",
+   "homeRegion": "Kigali",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "kinyarwanda_claudine_cafe_server",
+   "role": "café server",
+   "name": "Claudine",
+   "personality": "quick, cheerful, helpful",
+   "homeRegion": "Kigali",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "kinyarwanda_mukamana_market_vendor",
+   "role": "market vendor",
+   "name": "Mukamana",
+   "personality": "Warm, chatty, generous",
+   "homeRegion": "Kigali",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "kinyarwanda_eric_passer_by",
+   "role": "passer-by",
+   "name": "Eric",
+   "personality": "Friendly, busy, talks fast",
+   "homeRegion": "Kigali",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "kinyarwanda_mukamana_neighbour",
+   "role": "neighbour",
+   "name": "Mukamana",
+   "personality": "warm, chatty, long-time resident",
+   "homeRegion": "Kigali",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "kinyarwanda_emmanuel_taxi_driver",
+   "role": "taxi driver",
+   "name": "Emmanuel",
+   "personality": "talkative, friendly, a bit pushy",
+   "homeRegion": "Kigali",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "kinyarwanda_keza_child_at_the_ice_cream_stand",
+   "role": "child at the ice-cream stand",
+   "name": "Keza",
+   "personality": "Cheerful, curious, a little pushy",
+   "homeRegion": "Kigali",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  }
+ ],
+ "missions": [
+  {
+   "key": "kinyarwanda_greet_and_introduce",
+   "blueprintKey": "greet_and_introduce",
+   "titles": {
+    "en": "Greeting a Neighbour",
+    "fr": "Saluer une voisine"
+   },
+   "sceneNotes": {
+    "en": "It is morning and you meet a friendly neighbour on the street who is in a hurry but stops to say hello.",
+    "fr": "C'est le matin et vous croisez dans la rue une voisine sympathique, pressée, qui s'arrête pourtant pour vous saluer."
+   },
+   "characterKey": "kinyarwanda_mutesi_friendly_local_acquaintance",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Mwaramutse!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mwaramutse!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good morning!",
+       "contextNote": "Used until about midday. The mu- form is polite and also used for one person you don't know well.",
+       "literalGloss": "you have woken up"
+      },
+      "fr": {
+       "meaning": "Bonjour !",
+       "contextNote": "S'emploie jusqu'à midi environ. La forme en mu- est polie, aussi utilisée pour une seule personne qu'on connaît peu. Roulez légèrement le r, proche d'un d rapide.",
+       "literalGloss": "vous vous êtes réveillé(e)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Roll the r lightly, close to a quick d.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "how_are_you",
+     "intentKey": "ask_how_are_you",
+     "slotId": "how_are_you",
+     "speaker": "learner",
+     "targetText": "Amakuru yawe?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Amakuru yawe?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How are you?",
+       "contextNote": "Literally asks for your news.",
+       "literalGloss": "news of-you"
+      },
+      "fr": {
+       "meaning": "Comment allez-vous ?",
+       "contextNote": "Demande littéralement des nouvelles.",
+       "literalGloss": "nouvelles de-toi"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "fine",
+     "intentKey": "reply_fine",
+     "slotId": "fine",
+     "speaker": "learner",
+     "targetText": "Ni meza, murakoze.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ni meza, murakoze."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Fine, thank you.",
+       "contextNote": "Ni meza means 'it is good', a standard reply to Amakuru.",
+       "literalGloss": "it-is good, thank-you"
+      },
+      "fr": {
+       "meaning": "Ça va bien, merci.",
+       "contextNote": "Ni meza signifie « c'est bien », réponse habituelle à Amakuru.",
+       "literalGloss": "c'est bien, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "my_name",
+     "intentKey": "introduce_name",
+     "slotId": "my_name",
+     "speaker": "learner",
+     "targetText": "Nitwa Anna.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nitwa Anna."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "My name is Anna.",
+       "contextNote": "Replace Anna with your own name.",
+       "literalGloss": "I-am-called Anna"
+      },
+      "fr": {
+       "meaning": "Je m'appelle Anna.",
+       "contextNote": "Remplacez Anna par votre prénom.",
+       "literalGloss": "je-m'appelle Anna"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "your_name",
+     "intentKey": "ask_name",
+     "slotId": "your_name",
+     "speaker": "learner",
+     "targetText": "Witwa nde?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Witwa nde?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "What is your name?",
+       "contextNote": "Use Mwitwa nde? for more respect or for several people.",
+       "literalGloss": "you-are-called who"
+      },
+      "fr": {
+       "meaning": "Comment tu t'appelles ?",
+       "contextNote": "Dites Mwitwa nde ? pour plus de respect ou pour plusieurs personnes.",
+       "literalGloss": "tu-t'appelles qui"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "nice_to_meet",
+     "intentKey": "say_nice_to_meet",
+     "slotId": "nice_to_meet",
+     "speaker": "learner",
+     "targetText": "Nishimiye kukumenya.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nishimiye kukumenya."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Nice to meet you.",
+       "contextNote": "Said to one person you have just met.",
+       "literalGloss": "I-am-happy to-know-you"
+      },
+      "fr": {
+       "meaning": "Enchanté(e) de faire votre connaissance.",
+       "contextNote": "Se dit à une personne que l'on vient de rencontrer. Prononcez sh comme dans « chat » : ni-shi-mi-ye.",
+       "literalGloss": "je-suis-heureux(se) de-te-connaître"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say sh as in 'ship': ni-shi-mi-ye.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "goodbye",
+     "intentKey": "say_goodbye",
+     "slotId": "goodbye",
+     "speaker": "learner",
+     "targetText": "Murabeho!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Murabeho!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Goodbye!",
+       "contextNote": "Polite form, fine for one person or several.",
+       "literalGloss": "stay well"
+      },
+      "fr": {
+       "meaning": "Au revoir !",
+       "contextNote": "Forme polie, valable pour une ou plusieurs personnes.",
+       "literalGloss": "restez bien"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "greet_hello_variant_8",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Muraho!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Muraho!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello!",
+       "contextNote": "A general hello that works at any time of day.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Bonjour !",
+       "contextNote": "Salutation générale, utilisable à toute heure de la journée.",
+       "literalGloss": null
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.15
+    },
+    {
+     "key": "ask_how_are_you_variant_9",
+     "intentKey": "ask_how_are_you",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Amakuru?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Amakuru?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How's it going?",
+       "contextNote": "A short, relaxed version, common among neighbours.",
+       "literalGloss": "news?"
+      },
+      "fr": {
+       "meaning": "Ça va ?",
+       "contextNote": "Version courte et décontractée, courante entre voisins.",
+       "literalGloss": "nouvelles ?"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "say_goodbye_variant_10",
+     "intentKey": "say_goodbye",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Murabeho, mugire umunsi mwiza!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Murabeho, mugire umunsi mwiza!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Goodbye, have a good day!",
+       "contextNote": "A friendly way to part with a neighbour in a hurry.",
+       "literalGloss": "stay-well, you-have day good"
+      },
+      "fr": {
+       "meaning": "Au revoir, bonne journée !",
+       "contextNote": "Une façon aimable de quitter un voisin pressé.",
+       "literalGloss": "restez-bien, vous-ayez journée bonne"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "kinyarwanda_cafe_order_drink",
+   "blueprintKey": "cafe_order_drink",
+   "titles": {
+    "en": "Ordering a Drink at Café",
+    "fr": "Commander une boisson au café"
+   },
+   "sceneNotes": {
+    "en": "You sit down at a busy café terrace in Kigali, and a quick, friendly server comes over to take your drink order.",
+    "fr": "Vous vous asseyez à la terrasse animée d'un café de Kigali, et une serveuse rapide et sympathique vient prendre votre commande."
+   },
+   "characterKey": "kinyarwanda_claudine_cafe_server",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Mwiriwe!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mwiriwe!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good afternoon / good evening!",
+       "contextNote": "Use after about noon; use Mwaramutse in the morning.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Bonjour ! / Bonsoir !",
+       "contextNote": "À utiliser à partir de midi environ ; le matin, on dit « Mwaramutse ». Roulez légèrement le r, entre un d et un l.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Roll the r lightly, close to an English d/l blend.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "order",
+     "intentKey": "request_drink",
+     "slotId": "order",
+     "speaker": "learner",
+     "targetText": "Nshaka ikawa, nyabuneka.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nshaka ikawa, nyabuneka."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I would like a coffee, please.",
+       "contextNote": null,
+       "literalGloss": "I want coffee, please"
+      },
+      "fr": {
+       "meaning": "Je voudrais un café, s'il vous plaît.",
+       "contextNote": "Commencez par un « nsh » rapide, sans voyelle entre le n et le sh.",
+       "literalGloss": "Je veux café, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Start with a quick 'nsh' sound, with no vowel between n and sh.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "options",
+     "intentKey": "offer_options",
+     "slotId": "options",
+     "speaker": "character",
+     "targetText": "Ushaka ikawa ifite amata cyangwa idafite?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ushaka ikawa ifite amata cyangwa idafite?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you want coffee with milk or without?",
+       "contextNote": "The server asks the question you must answer next.",
+       "literalGloss": "You-want coffee that-has milk or that-doesn't-have"
+      },
+      "fr": {
+       "meaning": "Vous voulez votre café avec du lait ou sans lait ?",
+       "contextNote": "La serveuse pose la question à laquelle vous devrez répondre ensuite.",
+       "literalGloss": "Tu-veux café qui-a lait ou qui-n'a-pas"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "choice",
+     "intentKey": "choose_option",
+     "slotId": "choice",
+     "speaker": "learner",
+     "targetText": "Idafite amata, nyabuneka.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Idafite amata, nyabuneka."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Without milk, please.",
+       "contextNote": "Short for 'ikawa idafite amata' (coffee without milk).",
+       "literalGloss": "That-doesn't-have milk, please"
+      },
+      "fr": {
+       "meaning": "Sans lait, s'il vous plaît.",
+       "contextNote": "Forme abrégée de « ikawa idafite amata » (café sans lait).",
+       "literalGloss": "Qui-n'a-pas lait, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    },
+    {
+     "key": "bill",
+     "intentKey": "ask_for_bill",
+     "slotId": "bill",
+     "speaker": "learner",
+     "targetText": "Nishyure angahe, nyabuneka?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nishyure angahe, nyabuneka?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much do I owe, please?",
+       "contextNote": null,
+       "literalGloss": "I-should-pay how-much, please"
+      },
+      "fr": {
+       "meaning": "Je vous dois combien, s'il vous plaît ?",
+       "contextNote": "Le « shy » de nishyure est un enchaînement rapide de sh + y.",
+       "literalGloss": "Que-je-paie combien, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'shy' in nishyure is a quick sh + y blend.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.45
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Murakoze cyane!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Murakoze cyane!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much!",
+       "contextNote": "Matches the Murakoze formula from earlier in the chapter.",
+       "literalGloss": "You-thank very"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup !",
+       "contextNote": "Reprend la formule Murakoze vue plus tôt dans le chapitre. Le « cy » se prononce comme « ch » avec un léger glissement vers le y.",
+       "literalGloss": "Vous-remerciez beaucoup"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'cy' is like 'ch' with a soft y glide.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "request_drink_variant_7",
+     "intentKey": "request_drink",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Nshaka icyayi, nyabuneka.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nshaka icyayi, nyabuneka."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I would like tea, please.",
+       "contextNote": "Swap in another drink word the same way.",
+       "literalGloss": "I want tea, please"
+      },
+      "fr": {
+       "meaning": "Je voudrais un thé, s'il vous plaît.",
+       "contextNote": "Remplacez le nom de la boisson de la même façon pour en demander une autre.",
+       "literalGloss": "Je veux thé, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "choose_option_variant_8",
+     "intentKey": "choose_option",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Ifite amata, nyabuneka.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ifite amata, nyabuneka."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "With milk, please.",
+       "contextNote": null,
+       "literalGloss": "That-has milk, please"
+      },
+      "fr": {
+       "meaning": "Avec du lait, s'il vous plaît.",
+       "contextNote": null,
+       "literalGloss": "Qui-a lait, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    },
+    {
+     "key": "ask_for_bill_variant_9",
+     "intentKey": "ask_for_bill",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Ni angahe, nyabuneka?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ni angahe, nyabuneka?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much is it, please?",
+       "contextNote": "A simpler, very common way to ask for the price.",
+       "literalGloss": "It-is how-much, please"
+      },
+      "fr": {
+       "meaning": "Ça fait combien, s'il vous plaît ?",
+       "contextNote": "Une façon plus simple et très courante de demander le prix.",
+       "literalGloss": "C'est combien, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "thank_variant_10",
+     "intentKey": "thank",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Urakoze!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Urakoze!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks! (to one person you know well)",
+       "contextNote": "Singular, more casual than Murakoze.",
+       "literalGloss": "You(sg)-thank"
+      },
+      "fr": {
+       "meaning": "Merci ! (à une seule personne que l'on connaît bien)",
+       "contextNote": "Au singulier, plus familier que Murakoze.",
+       "literalGloss": "Tu-remercies"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "kinyarwanda_market_ask_price",
+   "blueprintKey": "market_ask_price",
+   "titles": {
+    "en": "Asking Prices at the Market",
+    "fr": "Demander les prix au marché"
+   },
+   "sceneNotes": {
+    "en": "You are at a fruit stall in a Rwandan market, greeting the vendor and asking the price per kilo of bananas.",
+    "fr": "Vous êtes devant un étal de fruits sur un marché rwandais : vous saluez la vendeuse et demandez le prix des bananes au kilo."
+   },
+   "characterKey": "kinyarwanda_mukamana_market_vendor",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Muraho, mama!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Muraho, mama!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello, ma'am!",
+       "contextNote": "Calling a woman vendor 'mama' is a friendly, respectful habit.",
+       "literalGloss": "Hello, mother"
+      },
+      "fr": {
+       "meaning": "Bonjour, madame !",
+       "contextNote": "Appeler une vendeuse « mama » est une habitude amicale et respectueuse. Roulez légèrement le r, d'un battement rapide.",
+       "literalGloss": "Bonjour, mère"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Roll the r lightly, as a quick tap.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "how_much",
+     "intentKey": "ask_price",
+     "slotId": "how_much",
+     "speaker": "learner",
+     "targetText": "Imineke ni angahe ku kilo?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Imineke ni angahe ku kilo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much are the bananas per kilo?",
+       "contextNote": "Swap 'imineke' for 'imyembe' (mangoes) or 'inanasi' (pineapples).",
+       "literalGloss": "Bananas are how-much per kilo"
+      },
+      "fr": {
+       "meaning": "Combien coûtent les bananes le kilo ?",
+       "contextNote": "Remplacez « imineke » par « imyembe » (mangues) ou « inanasi » (ananas).",
+       "literalGloss": "Bananes sont combien au kilo"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": "'kilo' is a loanword used everywhere.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "price",
+     "intentKey": "state_price",
+     "slotId": "price",
+     "speaker": "character",
+     "targetText": "Ni amafaranga magana atatu ku kilo.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ni amafaranga magana atatu ku kilo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "It's 300 francs per kilo.",
+       "contextNote": "Vendors often just say 'Magana atatu' (300).",
+       "literalGloss": "It is money hundreds three per kilo"
+      },
+      "fr": {
+       "meaning": "C'est 300 francs le kilo.",
+       "contextNote": "Les vendeurs disent souvent simplement « Magana atatu » (300).",
+       "literalGloss": "C'est argent centaines trois par kilo"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "expensive",
+     "intentKey": "say_too_expensive",
+     "slotId": "expensive",
+     "speaker": "learner",
+     "targetText": "Birahenze cyane!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Birahenze cyane!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "That's very expensive!",
+       "contextNote": "Say it with a smile; bargaining here is light and friendly.",
+       "literalGloss": "They are expensive very"
+      },
+      "fr": {
+       "meaning": "C'est très cher !",
+       "contextNote": "Dites-le en souriant : ici, le marchandage reste léger et amical. « cy » sonne comme un « ch » doux mêlé à un « y ».",
+       "literalGloss": "Elles sont chères très"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'cy' sounds like a soft 'ch' blended with 'y'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "lower",
+     "intentKey": "offer_lower_price",
+     "slotId": "lower",
+     "speaker": "learner",
+     "targetText": "Wagabanya gato, nyabuneka?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Wagabanya gato, nyabuneka?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could you lower it a little, please?",
+       "contextNote": null,
+       "literalGloss": "You could reduce a little, please"
+      },
+      "fr": {
+       "meaning": "Vous pourriez baisser un peu le prix, s'il vous plaît ?",
+       "contextNote": "Le « ny » de « nyabuneka » se prononce comme « gn » dans « agneau ».",
+       "literalGloss": "Vous pourriez réduire un peu, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'ny' in 'nyabuneka' is like 'ni' in 'onion'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "deal",
+     "intentKey": "agree_to_price",
+     "slotId": "deal",
+     "speaker": "learner",
+     "targetText": "Sawa, ndabifata.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Sawa, ndabifata."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "OK, I'll take them.",
+       "contextNote": null,
+       "literalGloss": "OK, I take them"
+      },
+      "fr": {
+       "meaning": "D'accord, je les prends.",
+       "contextNote": null,
+       "literalGloss": "D'accord, je les prends"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": "'Sawa' is a Swahili-origin word widely used in Rwanda.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "no_thanks",
+     "intentKey": "decline_purchase",
+     "slotId": "no_thanks",
+     "speaker": "learner",
+     "targetText": "Oya, murakoze, ntabwo mbikeneye uyu munsi.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Oya, murakoze, ntabwo mbikeneye uyu munsi."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No, thank you, I don't need them today.",
+       "contextNote": null,
+       "literalGloss": "No, thank you, not I-need-them this day"
+      },
+      "fr": {
+       "meaning": "Non, merci, je n'en ai pas besoin aujourd'hui.",
+       "contextNote": null,
+       "literalGloss": "Non, merci, pas je-en-ai-besoin ce jour"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "offer_lower_price_variant_8",
+     "intentKey": "offer_lower_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Magana abiri, ndabifata?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Magana abiri, ndabifata?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "200, and I'll take them?",
+       "contextNote": "A casual counter-offer, used with a smile.",
+       "literalGloss": "Hundreds two, I take them"
+      },
+      "fr": {
+       "meaning": "200, et je les prends ?",
+       "contextNote": "Une contre-offre décontractée, à faire avec le sourire.",
+       "literalGloss": "Centaines deux, je les prends"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "decline_purchase_variant_9",
+     "intentKey": "decline_purchase",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Ndareba gusa, murakoze.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ndareba gusa, murakoze."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm just looking, thank you.",
+       "contextNote": "A gentle way to say no without buying.",
+       "literalGloss": "I look only, thank you"
+      },
+      "fr": {
+       "meaning": "Je regarde seulement, merci.",
+       "contextNote": "Une façon aimable de refuser sans rien acheter.",
+       "literalGloss": "Je regarde seulement, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "state_price_variant_10",
+     "intentKey": "state_price",
+     "slotId": null,
+     "speaker": "character",
+     "targetText": "Ni magana atatu, ndakongeraho umuneke ku buntu.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ni magana atatu, ndakongeraho umuneke ku buntu."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "It's 300, and I'll add a banana for free.",
+       "contextNote": "This is the vendor's friendly twist: a free extra.",
+       "literalGloss": "It is 300, I add-on-to-you a banana for free"
+      },
+      "fr": {
+       "meaning": "C'est 300, et je vous ajoute une banane gratuitement.",
+       "contextNote": "C'est le petit geste sympa de la vendeuse : un extra offert.",
+       "literalGloss": "C'est 300, je ajoute-à-vous une banane gratuitement"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "kinyarwanda_ask_directions",
+   "blueprintKey": "ask_directions",
+   "titles": {
+    "en": "Finding the Station",
+    "fr": "Trouver la gare"
+   },
+   "sceneNotes": {
+    "en": "You are a visitor in Kigali looking for the station, and a passer-by who talks very fast stops to help.",
+    "fr": "Vous êtes en visite à Kigali et cherchez la gare ; un passant qui parle très vite s'arrête pour vous aider."
+   },
+   "characterKey": "kinyarwanda_eric_passer_by",
+   "expressions": [
+    {
+     "key": "excuse_me",
+     "intentKey": "get_attention",
+     "slotId": "excuse_me",
+     "speaker": "learner",
+     "targetText": "Mumbabarire, nyabuneka.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mumbabarire, nyabuneka."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, please.",
+       "contextNote": "Use it to get a stranger's attention politely. The plural form is respectful for one person.",
+       "literalGloss": "Forgive (me), please."
+      },
+      "fr": {
+       "meaning": "Excusez-moi, s'il vous plaît.",
+       "contextNote": "Pour attirer poliment l'attention d'un inconnu. La forme du pluriel est une marque de respect, même pour une seule personne. Prononcez le « mb » de Mumbabarire d'un seul trait.",
+       "literalGloss": "Pardonnez (-moi), s'il vous plaît."
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say the mb in Mumbabarire as one smooth sound.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "where_is",
+     "intentKey": "ask_where_is",
+     "slotId": "where_is",
+     "speaker": "learner",
+     "targetText": "Gare iri hehe, nyabuneka?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Gare iri hehe, nyabuneka?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where is the station, please?",
+       "contextNote": "Gare is the everyday word for a station or bus station.",
+       "literalGloss": "Station it-is where, please?"
+      },
+      "fr": {
+       "meaning": "Où est la gare, s'il vous plaît ?",
+       "contextNote": "Gare est le mot courant pour une gare ou une gare routière.",
+       "literalGloss": "Gare elle-est où, s'il vous plaît ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": "Gare is a French loanword used in everyday Kinyarwanda.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "straight",
+     "intentKey": "give_direction_straight",
+     "slotId": "straight",
+     "speaker": "character",
+     "targetText": "Ukomeza kugenda ugororotse.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ukomeza kugenda ugororotse."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "You keep going straight.",
+       "contextNote": "Said quickly by the passer-by.",
+       "literalGloss": "You continue to go straight."
+      },
+      "fr": {
+       "meaning": "Vous continuez tout droit.",
+       "contextNote": "Dit rapidement par le passant.",
+       "literalGloss": "Tu continues à aller tout droit."
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "turn",
+     "intentKey": "give_direction_turn",
+     "slotId": "turn",
+     "speaker": "character",
+     "targetText": "Ukata iburyo, hanyuma ukata ibumoso.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ukata iburyo, hanyuma ukata ibumoso."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "You turn right, then you turn left.",
+       "contextNote": "These are the two turns on the way to the station.",
+       "literalGloss": "You cut right, then you cut left."
+      },
+      "fr": {
+       "meaning": "Vous tournez à droite, puis vous tournez à gauche.",
+       "contextNote": "Ce sont les deux virages sur le chemin de la gare.",
+       "literalGloss": "Tu coupes à droite, puis tu coupes à gauche."
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "far",
+     "intentKey": "ask_is_it_far",
+     "slotId": "far",
+     "speaker": "learner",
+     "targetText": "Ni kure kuva hano?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ni kure kuva hano?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Is it far from here?",
+       "contextNote": null,
+       "literalGloss": "Is-it far from here?"
+      },
+      "fr": {
+       "meaning": "C'est loin d'ici ?",
+       "contextNote": null,
+       "literalGloss": "C'est loin depuis ici ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "near",
+     "intentKey": "say_it_is_near",
+     "slotId": "near",
+     "speaker": "character",
+     "targetText": "Si kure, ni iminota icumi n'amaguru.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Si kure, ni iminota icumi n'amaguru."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "It's not far, it's ten minutes on foot.",
+       "contextNote": null,
+       "literalGloss": "Not far, it-is minutes ten by-feet."
+      },
+      "fr": {
+       "meaning": "Ce n'est pas loin, c'est à dix minutes à pied.",
+       "contextNote": null,
+       "literalGloss": "Pas loin, c'est minutes dix à-pied."
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "repeat",
+     "intentKey": "ask_repeat",
+     "slotId": "repeat",
+     "speaker": "learner",
+     "targetText": "Wabisubiramo, nyabuneka?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Wabisubiramo, nyabuneka?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could you repeat that, please?",
+       "contextNote": null,
+       "literalGloss": "You-could-repeat-it, please?"
+      },
+      "fr": {
+       "meaning": "Pourriez-vous répéter, s'il vous plaît ?",
+       "contextNote": null,
+       "literalGloss": "Vous-pourriez-le-répéter, s'il vous plaît ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "slower",
+     "intentKey": "ask_slow_down",
+     "slotId": "slower",
+     "speaker": "learner",
+     "targetText": "Washobora kuvuga buhoro, nyabuneka?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Washobora kuvuga buhoro, nyabuneka?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could you speak slowly, please?",
+       "contextNote": "Key phrase for this mission, since the passer-by speaks fast.",
+       "literalGloss": "You-can to-speak slowly, please?"
+      },
+      "fr": {
+       "meaning": "Pourriez-vous parler lentement, s'il vous plaît ?",
+       "contextNote": "Phrase essentielle pour cette mission, car le passant parle vite. Roulez légèrement le r de Washobora et articulez bien le h de buhoro.",
+       "literalGloss": "Vous-pouvez parler lentement, s'il vous plaît ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Roll the r in Washobora lightly, and say the h in buhoro clearly.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Murakoze ku bufasha.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Murakoze ku bufasha."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you for the help.",
+       "contextNote": "Use it after getting directions. It builds on the Murakoze formula from earlier.",
+       "literalGloss": "Thank-you for help."
+      },
+      "fr": {
+       "meaning": "Merci pour votre aide.",
+       "contextNote": "À dire après avoir reçu des indications. Reprend la formule Murakoze vue plus tôt.",
+       "literalGloss": "Merci pour aide."
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_where_is_variant_10",
+     "intentKey": "ask_where_is",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Hari gare hano hafi, nyabuneka?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hari gare hano hafi, nyabuneka?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Is there a station near here, please?",
+       "contextNote": "Use it when you are not sure which station is the right one.",
+       "literalGloss": "There-is station here nearby, please?"
+      },
+      "fr": {
+       "meaning": "Y a-t-il une gare près d'ici, s'il vous plaît ?",
+       "contextNote": "Utile quand vous ne savez pas quelle gare est la bonne.",
+       "literalGloss": "Il-y-a gare ici près, s'il vous plaît ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": "Gare is a French loanword.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "ask_repeat_variant_11",
+     "intentKey": "ask_repeat",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Sinumvise, wabisubiramo buhoro?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Sinumvise, wabisubiramo buhoro?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I didn't understand, could you repeat it slowly?",
+       "contextNote": "Combines asking for a repeat and asking for slower speech.",
+       "literalGloss": "I-didn't-understand, you-could-repeat-it slowly?"
+      },
+      "fr": {
+       "meaning": "Je n'ai pas compris, pourriez-vous répéter lentement ?",
+       "contextNote": "Combine la demande de répétition et celle de parler plus lentement.",
+       "literalGloss": "Je-n'ai-pas-compris, vous-pourriez-le-répéter lentement ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "ask_is_it_far_variant_12",
+     "intentKey": "ask_is_it_far",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Ni iminota ingahe n'amaguru?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ni iminota ingahe n'amaguru?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How many minutes is it on foot?",
+       "contextNote": null,
+       "literalGloss": "It-is minutes how-many by-feet?"
+      },
+      "fr": {
+       "meaning": "C'est à combien de minutes à pied ?",
+       "contextNote": null,
+       "literalGloss": "C'est minutes combien à-pied ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "kinyarwanda_meet_neighbour",
+   "blueprintKey": "meet_neighbour",
+   "titles": {
+    "en": "Meeting Your New Neighbour",
+    "fr": "Rencontrer votre nouvelle voisine"
+   },
+   "sceneNotes": {
+    "en": "You meet your neighbour in the stairwell of your new building as they carry their shopping bags upstairs.",
+    "fr": "Vous croisez votre voisine dans la cage d'escalier de votre nouvel immeuble, alors qu'elle monte ses sacs de courses."
+   },
+   "characterKey": "kinyarwanda_mukamana_neighbour",
+   "expressions": [
+    {
+     "key": "new_neighbour",
+     "intentKey": "say_new_neighbour",
+     "slotId": "new_neighbour",
+     "speaker": "learner",
+     "targetText": "Ndi umuturanyi wanyu mushya.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ndi umuturanyi wanyu mushya."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I am your new neighbour.",
+       "contextNote": "Uses the polite plural 'wanyu' (your) to show respect to an older neighbour.",
+       "literalGloss": "I am neighbour of-you(pl) new"
+      },
+      "fr": {
+       "meaning": "Je suis votre nouveau voisin.",
+       "contextNote": "Le pluriel de politesse « wanyu » (votre) marque le respect envers un voisin plus âgé. Prononcez le « r » de « umuturanyi » d'un léger battement de langue ; « ny » sonne comme « gn » en français.",
+       "literalGloss": "Je suis voisin de-vous(pl) nouveau"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say 'ru' in 'umuturanyi' with a light tap of the tongue; 'ny' sounds like Spanish ñ.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "welcome",
+     "intentKey": "welcome_someone",
+     "slotId": "welcome",
+     "speaker": "character",
+     "targetText": "Murakaza neza! Nishimiye kukubona.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Murakaza neza! Nishimiye kukubona."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Welcome! I'm happy to see you.",
+       "contextNote": "'Murakaza neza' is the standard welcome phrase.",
+       "literalGloss": "You(pl) have arrived well! I am happy to see you"
+      },
+      "fr": {
+       "meaning": "Bienvenue ! Je suis heureuse de vous voir.",
+       "contextNote": "« Murakaza neza » est la formule d'accueil habituelle.",
+       "literalGloss": "Vous(pl) êtes arrivés bien ! Je suis heureuse de te voir"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "where_from_q",
+     "intentKey": "ask_where_from",
+     "slotId": "where_from_q",
+     "speaker": "learner",
+     "targetText": "Muturuka he?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Muturuka he?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where are you from?",
+       "contextNote": "Polite plural 'mu-' form, good for someone older.",
+       "literalGloss": "You(pl) come-from where"
+      },
+      "fr": {
+       "meaning": "D'où venez-vous ?",
+       "contextNote": "Forme de politesse au pluriel en « mu- », adaptée à une personne plus âgée.",
+       "literalGloss": "Vous(pl) venez-de où"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "from",
+     "intentKey": "say_where_from",
+     "slotId": "from",
+     "speaker": "learner",
+     "targetText": "Nturuka muri Amerika.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nturuka muri Amerika."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I am from America.",
+       "contextNote": "Replace 'Amerika' with your own country or city.",
+       "literalGloss": "I come-from in America"
+      },
+      "fr": {
+       "meaning": "Je viens des États-Unis.",
+       "contextNote": "Remplacez « Amerika » par votre pays ou votre ville.",
+       "literalGloss": "Je viens-de dans Amérique"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "speak_lang",
+     "intentKey": "ask_if_speaks_language",
+     "slotId": "speak_lang",
+     "speaker": "learner",
+     "targetText": "Muvuga Icyongereza?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Muvuga Icyongereza?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you speak English?",
+       "contextNote": "Swap 'Icyongereza' for 'Igifaransa' (French) if needed.",
+       "literalGloss": "You(pl) speak English"
+      },
+      "fr": {
+       "meaning": "Parlez-vous anglais ?",
+       "contextNote": "Remplacez « Icyongereza » par « Igifaransa » (français) si besoin.",
+       "literalGloss": "Vous(pl) parlez anglais"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "little",
+     "intentKey": "say_speak_little",
+     "slotId": "little",
+     "speaker": "learner",
+     "targetText": "Mvuga Ikinyarwanda gake.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mvuga Ikinyarwanda gake."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I speak a little Kinyarwanda.",
+       "contextNote": null,
+       "literalGloss": "I speak Kinyarwanda a-little"
+      },
+      "fr": {
+       "meaning": "Je parle un peu le kinyarwanda.",
+       "contextNote": null,
+       "literalGloss": "Je parle kinyarwanda un-peu"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "offer_help",
+     "intentKey": "offer_help",
+     "slotId": "offer_help",
+     "speaker": "learner",
+     "targetText": "Nimukenera ubufasha, mumbwire.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nimukenera ubufasha, mumbwire."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "If you need help, tell me.",
+       "contextNote": null,
+       "literalGloss": "If you(pl) need help, tell me"
+      },
+      "fr": {
+       "meaning": "Si vous avez besoin d'aide, dites-le-moi.",
+       "contextNote": null,
+       "literalGloss": "Si vous(pl) avez-besoin aide, dites-moi"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.45
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Murakoze cyane kunyakira.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Murakoze cyane kunyakira."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much for welcoming me.",
+       "contextNote": "Builds on the 'Murakoze' thanks formula from earlier.",
+       "literalGloss": "Thank-you(pl) very to-welcome-me"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup de m'accueillir.",
+       "contextNote": "Reprend la formule de remerciement « Murakoze » vue plus tôt.",
+       "literalGloss": "Merci(pl) beaucoup de-m'accueillir"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_where_from_variant_9",
+     "intentKey": "ask_where_from",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Uturuka he?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Uturuka he?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where are you from? (to one person, casual)",
+       "contextNote": "Singular, used with peers or younger people.",
+       "literalGloss": "You come-from where"
+      },
+      "fr": {
+       "meaning": "D'où viens-tu ?",
+       "contextNote": "Singulier, utilisé avec des personnes du même âge ou plus jeunes.",
+       "literalGloss": "Tu viens-de où"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "offer_help_variant_10",
+     "intentKey": "offer_help",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Ngufashe gutwara iyo mifuka?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ngufashe gutwara iyo mifuka?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Shall I help you carry those bags?",
+       "contextNote": "Fits the stairwell scene; casual singular.",
+       "literalGloss": "Let-me help-you to-carry those bags"
+      },
+      "fr": {
+       "meaning": "Je t'aide à porter ces sacs ?",
+       "contextNote": "Convient à la scène de la cage d'escalier ; singulier, registre familier.",
+       "literalGloss": "Que-je t'aide à-porter ces sacs"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "thank_variant_11",
+     "intentKey": "thank",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Ndabashimiye.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ndabashimiye."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I thank you.",
+       "contextNote": "A warm, slightly more formal alternative to 'Murakoze'.",
+       "literalGloss": "I thank you(pl)"
+      },
+      "fr": {
+       "meaning": "Je vous remercie.",
+       "contextNote": "Variante chaleureuse et un peu plus soutenue que « Murakoze ».",
+       "literalGloss": "Je vous(pl) remercie"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "kinyarwanda_take_taxi",
+   "blueprintKey": "take_taxi",
+   "titles": {
+    "en": "Taking a Taxi",
+    "fr": "Prendre un taxi"
+   },
+   "sceneNotes": {
+    "en": "You wave down a taxi in busy traffic and ask the talkative driver to take you to the old town.",
+    "fr": "Vous hélez un taxi dans la circulation dense et vous demandez au chauffeur bavard de vous conduire à la vieille ville."
+   },
+   "characterKey": "kinyarwanda_emmanuel_taxi_driver",
+   "expressions": [
+    {
+     "key": "hail",
+     "intentKey": "hail_taxi",
+     "slotId": "hail",
+     "speaker": "learner",
+     "targetText": "Muraho, mushobora kunjyana?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Muraho, mushobora kunjyana?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello, can you take me?",
+       "contextNote": "Said when you stop a taxi, before saying where you are going.",
+       "literalGloss": "Hello, you-are-able to-take-me?"
+      },
+      "fr": {
+       "meaning": "Bonjour, pouvez-vous m'emmener ?",
+       "contextNote": "À dire en arrêtant un taxi, avant d'indiquer votre destination. Le « nj » de kunjyana se prononce comme un seul son.",
+       "literalGloss": "Bonjour, vous-pouvez m'emmener ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'nj' in kunjyana is one blended sound.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "where_to",
+     "intentKey": "ask_destination",
+     "slotId": "where_to",
+     "speaker": "character",
+     "targetText": "Murajya he?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Murajya he?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where are you going?",
+       "contextNote": "The driver uses the polite plural 'mu-' to address one passenger.",
+       "literalGloss": "You-are-going where?"
+      },
+      "fr": {
+       "meaning": "Où allez-vous ?",
+       "contextNote": "Le chauffeur emploie le pluriel de politesse « mu- » pour s'adresser à un seul passager.",
+       "literalGloss": "Vous-allez où ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "destination",
+     "intentKey": "state_destination",
+     "slotId": "destination",
+     "speaker": "learner",
+     "targetText": "Njya mu mujyi wa kera, nyabuneka.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Njya mu mujyi wa kera, nyabuneka."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm going to the old town, please.",
+       "contextNote": null,
+       "literalGloss": "I-go in town of old, please"
+      },
+      "fr": {
+       "meaning": "Je vais à la vieille ville, s'il vous plaît.",
+       "contextNote": "Prononcez le « nj » de Njya comme un seul son.",
+       "literalGloss": "Je-vais dans ville de ancien, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say 'nj' in Njya as one sound.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "meter",
+     "intentKey": "ask_use_meter",
+     "slotId": "meter",
+     "speaker": "learner",
+     "targetText": "Mwakoresha compteur, nyabuneka?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mwakoresha compteur, nyabuneka?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could you use the meter, please?",
+       "contextNote": "Use this when the driver quotes a price without the meter.",
+       "literalGloss": "You-could-use meter, please?"
+      },
+      "fr": {
+       "meaning": "Pourriez-vous utiliser le compteur, s'il vous plaît ?",
+       "contextNote": "À utiliser quand le chauffeur annonce un prix sans mettre le compteur.",
+       "literalGloss": "Vous-pourriez-utiliser compteur, s'il vous plaît ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": "'compteur' is a French loanword, commonly used for the taxi meter.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "fare",
+     "intentKey": "ask_fare",
+     "slotId": "fare",
+     "speaker": "learner",
+     "targetText": "Kugera mu mujyi wa kera ni angahe?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Kugera mu mujyi wa kera ni angahe?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much is it to get to the old town?",
+       "contextNote": null,
+       "literalGloss": "To-arrive in town of old is how-much?"
+      },
+      "fr": {
+       "meaning": "Combien coûte la course jusqu'à la vieille ville ?",
+       "contextNote": null,
+       "literalGloss": "Arriver dans ville de ancien c'est combien ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "stop",
+     "intentKey": "say_stop_here",
+     "slotId": "stop",
+     "speaker": "learner",
+     "targetText": "Mushobora guhagarara hano, nyabuneka?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mushobora guhagarara hano, nyabuneka?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you stop here, please?",
+       "contextNote": null,
+       "literalGloss": "You-are-able to-stop here, please?"
+      },
+      "fr": {
+       "meaning": "Pouvez-vous vous arrêter ici, s'il vous plaît ?",
+       "contextNote": "Roulez légèrement le « r » dans guhagarara.",
+       "literalGloss": "Vous-pouvez vous-arrêter ici, s'il vous plaît ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Roll the 'r' lightly in guhagarara.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "change",
+     "intentKey": "ask_for_change",
+     "slotId": "change",
+     "speaker": "learner",
+     "targetText": "Mufite chenji, nyabuneka?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mufite chenji, nyabuneka?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you have change, please?",
+       "contextNote": null,
+       "literalGloss": "You-have change, please?"
+      },
+      "fr": {
+       "meaning": "Avez-vous de la monnaie, s'il vous plaît ?",
+       "contextNote": null,
+       "literalGloss": "Vous-avez monnaie, s'il vous plaît ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": "'chenji' comes from English 'change' and is very common in everyday speech.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "bye",
+     "intentKey": "say_goodbye",
+     "slotId": "bye",
+     "speaker": "learner",
+     "targetText": "Murakoze, mugire amahoro!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Murakoze, mugire amahoro!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you, go in peace!",
+       "contextNote": "A warm farewell as you get out of the taxi.",
+       "literalGloss": "Thank-you, have peace"
+      },
+      "fr": {
+       "meaning": "Merci, allez en paix !",
+       "contextNote": "Un au revoir chaleureux en descendant du taxi.",
+       "literalGloss": "Merci, ayez paix"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "state_destination_variant_9",
+     "intentKey": "state_destination",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Mu mujyi wa kera, nyabuneka.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mu mujyi wa kera, nyabuneka."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "To the old town, please.",
+       "contextNote": "Shorter version for when the driver is busy or the road is noisy.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "À la vieille ville, s'il vous plaît.",
+       "contextNote": "Version plus courte, quand le chauffeur est occupé ou que la rue est bruyante.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "ask_use_meter_variant_10",
+     "intentKey": "ask_use_meter",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Mukoreshe compteur, nyabuneka.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mukoreshe compteur, nyabuneka."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Please use the meter.",
+       "contextNote": "A firmer but still polite way to ask for the meter.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Utilisez le compteur, s'il vous plaît.",
+       "contextNote": "Une façon plus ferme, mais toujours polie, de demander le compteur.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": "'compteur' is a French loanword.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "say_stop_here_variant_11",
+     "intentKey": "say_stop_here",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Hano ni heza, murakoze.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hano ni heza, murakoze."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Here is fine, thank you.",
+       "contextNote": "Said when you want to get out at the spot you are at now.",
+       "literalGloss": "Here is good, thank-you"
+      },
+      "fr": {
+       "meaning": "Ici, c'est bien, merci.",
+       "contextNote": "À dire quand vous voulez descendre à l'endroit où vous êtes.",
+       "literalGloss": "Ici est bon, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "kinyarwanda_buy_ice_cream",
+   "blueprintKey": "buy_ice_cream",
+   "titles": {
+    "en": "Buying Ice Cream Together",
+    "fr": "Acheter une glace ensemble"
+   },
+   "sceneNotes": {
+    "en": "You are at an ice-cream cart outside the school with a child who wants an ice cream, and only two flavours are left.",
+    "fr": "Vous êtes à un chariot de glaces devant l'école avec une enfant qui veut une glace, et il ne reste que deux parfums."
+   },
+   "characterKey": "kinyarwanda_keza_child_at_the_ice_cream_stand",
+   "expressions": [
+    {
+     "key": "wants",
+     "intentKey": "request_food",
+     "slotId": "wants",
+     "speaker": "character",
+     "targetText": "Nshaka ice cream!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nshaka ice cream!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I want an ice cream!",
+       "contextNote": "A child asking an adult directly.",
+       "literalGloss": "I-want ice cream"
+      },
+      "fr": {
+       "meaning": "Je veux une glace !",
+       "contextNote": "Une enfant s'adresse directement à un adulte.",
+       "literalGloss": "Je-veux glace"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": "\"ice cream\" is the common English loanword used in Kigali.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "which_flavour",
+     "intentKey": "offer_options",
+     "slotId": "which_flavour",
+     "speaker": "learner",
+     "targetText": "Ushaka vanille cyangwa shokola?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ushaka vanille cyangwa shokola?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you want vanilla or chocolate?",
+       "contextNote": "Speaking to the child.",
+       "literalGloss": "You-want vanilla or chocolate"
+      },
+      "fr": {
+       "meaning": "Tu veux vanille ou chocolat ?",
+       "contextNote": "Vous parlez à l'enfant. Le « cy » de cyangwa se prononce comme un « tch » ou « ky » doux.",
+       "literalGloss": "Tu-veux vanille ou chocolat"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": "Flavour names are borrowed from French.",
+     "pronunciationNote": "\"cy\" in cyangwa is like a soft \"ch\"/\"ky\".",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "picks",
+     "intentKey": "choose_option",
+     "slotId": "picks",
+     "speaker": "character",
+     "targetText": "Nshaka shokola, nyabuneka.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nshaka shokola, nyabuneka."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I want chocolate, please.",
+       "contextNote": null,
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Je veux du chocolat, s'il te plaît.",
+       "contextNote": null,
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "scoop",
+     "intentKey": "specify_quantity",
+     "slotId": "scoop",
+     "speaker": "learner",
+     "targetText": "Ice cream imwe, nyabuneka.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ice cream imwe, nyabuneka."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "One ice cream, please.",
+       "contextNote": "Said to the vendor.",
+       "literalGloss": "Ice cream one, please"
+      },
+      "fr": {
+       "meaning": "Une glace, s'il vous plaît.",
+       "contextNote": "À dire au vendeur.",
+       "literalGloss": "Glace une, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": "Loanword \"ice cream\" takes the agreement \"imwe\".",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "asks_two",
+     "intentKey": "ask_permission",
+     "slotId": "asks_two",
+     "speaker": "character",
+     "targetText": "Nshobora kubona indi imwe, nyabuneka?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nshobora kubona indi imwe, nyabuneka?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have another one, please?",
+       "contextNote": "The twist: the child asks for a second scoop.",
+       "literalGloss": "I-can get another one, please"
+      },
+      "fr": {
+       "meaning": "Je peux en avoir une autre, s'il te plaît ?",
+       "contextNote": "Le rebondissement : l'enfant demande une deuxième boule.",
+       "literalGloss": "Je-peux obtenir autre une, s'il te plaît"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "just_one",
+     "intentKey": "refuse_permission",
+     "slotId": "just_one",
+     "speaker": "learner",
+     "targetText": "Oya mwana wanjye, ni imwe gusa.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Oya mwana wanjye, ni imwe gusa."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No, my child, just one.",
+       "contextNote": "A kind, gentle no.",
+       "literalGloss": "No child my, it-is one only"
+      },
+      "fr": {
+       "meaning": "Non, mon enfant, une seule.",
+       "contextNote": "Un non doux et bienveillant.",
+       "literalGloss": "Non enfant mon, c'est une seulement"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "okay",
+     "intentKey": "grant_permission",
+     "slotId": "okay",
+     "speaker": "learner",
+     "targetText": "Yego, nta kibazo.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Yego, nta kibazo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Yes, no problem.",
+       "contextNote": "Use if you decide to allow it.",
+       "literalGloss": "Yes, no problem"
+      },
+      "fr": {
+       "meaning": "Oui, pas de problème.",
+       "contextNote": "À utiliser si vous décidez d'accepter.",
+       "literalGloss": "Oui, pas de problème"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "yummy",
+     "intentKey": "say_delicious",
+     "slotId": "yummy",
+     "speaker": "character",
+     "targetText": "Iraryoshye cyane!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Iraryoshye cyane!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "It's so tasty!",
+       "contextNote": null,
+       "literalGloss": "It-is-tasty very"
+      },
+      "fr": {
+       "meaning": "C'est trop bon !",
+       "contextNote": "Le r se roule légèrement, presque comme un d/l rapide.",
+       "literalGloss": "C'est-bon très"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Roll the r lightly, almost like a quick d/l.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "me_too",
+     "intentKey": "express_like",
+     "slotId": "me_too",
+     "speaker": "learner",
+     "targetText": "Nanjye ndayikunda!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nanjye ndayikunda!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I love it too!",
+       "contextNote": null,
+       "literalGloss": "Me-too I-it-like"
+      },
+      "fr": {
+       "meaning": "Moi aussi, j'adore !",
+       "contextNote": null,
+       "literalGloss": "Moi-aussi je-l'aime"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "character",
+     "targetText": "Urakoze cyane ku ice cream!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Urakoze cyane ku ice cream!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you so much for the ice cream!",
+       "contextNote": "Child uses singular \"urakoze\" to one adult.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Merci beaucoup pour la glace !",
+       "contextNote": "L'enfant utilise « urakoze » au singulier, car elle s'adresse à un seul adulte.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "welcome",
+     "intentKey": "respond_to_thanks",
+     "slotId": "welcome",
+     "speaker": "learner",
+     "targetText": "Ntacyo, mwana wanjye.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ntacyo, mwana wanjye."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "It's nothing, my child.",
+       "contextNote": null,
+       "literalGloss": "Nothing, child my"
+      },
+      "fr": {
+       "meaning": "Il n'y a pas de quoi, mon enfant.",
+       "contextNote": null,
+       "literalGloss": "Rien, enfant mon"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "offer_options_variant_12",
+     "intentKey": "offer_options",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Ushaka iyihe?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ushaka iyihe?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Which one do you want?",
+       "contextNote": "Shorter option when pointing at the flavours.",
+       "literalGloss": "You-want which"
+      },
+      "fr": {
+       "meaning": "Laquelle tu veux ?",
+       "contextNote": "Version plus courte quand vous montrez les parfums du doigt.",
+       "literalGloss": "Tu-veux laquelle"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "refuse_permission_variant_13",
+     "intentKey": "refuse_permission",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Tuzagura indi ejo.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Tuzagura indi ejo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "We'll buy another tomorrow.",
+       "contextNote": "A softer way to say no by offering a later treat.",
+       "literalGloss": "We-will-buy another tomorrow"
+      },
+      "fr": {
+       "meaning": "On en achètera une autre demain.",
+       "contextNote": "Une façon plus douce de dire non en proposant une gourmandise pour plus tard.",
+       "literalGloss": "Nous-achèterons autre demain"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "specify_quantity_variant_14",
+     "intentKey": "specify_quantity",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Nshaka ice cream imwe, nyabuneka.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nshaka ice cream imwe, nyabuneka."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I want one ice cream, please.",
+       "contextNote": "A fuller polite alternative.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Je voudrais une glace, s'il vous plaît.",
+       "contextNote": "Une variante polite plus complète.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  }
+ ],
+ "provenance": "ai_draft",
+ "nativeReviewed": false,
+ "reviewStatus": "review_needed",
+ "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+ "notes": [
+  "AI draft generated 2026-11-11T22:47:19.375Z with anthropic/claude-sonnet-5.5; validator accepted 78 expressions; native review required before publishing.",
+  "greet_and_introduce: Please confirm whether Witwa nde? or Mwitwa nde? sounds more natural for a first meeting with a neighbour.",
+  "greet_and_introduce: Please check whether Ni meza, murakoze. is the most common reply, and whether Meze neza would be a good alternative.",
+  "greet_and_introduce: The follow-up question about where the learner lives is not drafted, because no matching intent was provided.",
+  "cafe_order_drink: Please check whether 'Ushaka' (singular) or 'Mushaka' (polite) is better for a server's line to a customer.",
+  "cafe_order_drink: Check 'Nishyure angahe' versus the usual café phrasing for asking for the bill; 'Ni angahe' is kept as a variant.",
+  "cafe_order_drink: Please confirm the 'idafite amata' / 'ifite amata' agreement with 'ikawa' (class 9) and the spelling of 'nyabuneka'.",
+  "market_ask_price: Please check 'ndakongeraho' (add extra for you) and 'ku buntu' (for free) for natural everyday wording.",
+  "market_ask_price: 'Wagabanya' (singular you) vs 'Mwagabanya' (plural/polite you): which is more natural with a vendor?",
+  "market_ask_price: Confirm the plural 'imineke' and the object prefix 'bi-' in 'ndabifata' (I take them).",
+  "ask_directions: Please check whether to write 'hehe' or 'he' in 'Gare iri hehe', and whether 'gare' takes 'iri' in everyday speech.",
+  "ask_directions: Directions use the 'ukata' (you cut/turn) wording to avoid bare imperatives. Please confirm that is natural, or suggest a more common phrasing.",
+  "ask_directions: 'Murakoze ku bufasha' was chosen to avoid repeating the earlier 'Murakoze cyane!'. Please confirm it is natural.",
+  "meet_neighbour: Please check whether the polite plural (muturuka, muvuga, wanyu) sounds natural for a neighbour, or whether singular is more common.",
+  "meet_neighbour: Country names with prepositions (muri Amerika vs mu Bufaransa) vary; please confirm 'muri Amerika'.",
+  "meet_neighbour: Please confirm the thanks wording 'Murakoze cyane kunyakira' and the verb 'kunyakira' sound natural.",
+  "take_taxi: Please check 'Mwakoresha compteur' and 'Mukoreshe compteur'. Do locals prefer another word for the meter, or just 'compteur'?",
+  "take_taxi: Please check 'guhagarara' versus 'guhagarika' for asking a driver to stop, and whether 'chenji' is the natural word for change.",
+  "take_taxi: Please check the farewell 'Murakoze, mugire amahoro' for a passenger leaving a driver, and whether the hail line sounds natural.",
+  "buy_ice_cream: Please check agreement of the loanword \"ice cream\" (imwe, iraryoshye, indi, ndayikunda) and whether a native word is preferred locally.",
+  "buy_ice_cream: Flavour spellings vanille/shokola are my choice; confirm common spoken forms.",
+  "buy_ice_cream: \"Nta kibazo\" and \"Ntacyo\" are used as casual replies; check they sound natural when speaking to a child.",
+  "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+ ]
+}

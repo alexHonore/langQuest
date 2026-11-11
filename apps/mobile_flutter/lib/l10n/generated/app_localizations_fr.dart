@@ -1644,4 +1644,38 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get adminTask_realtime_conversation => 'Chaîne des appels vocaux (parole en texte, dialogue, voix)';
+
+  @override
+  String get practiceListenPrompt => 'Écoutez. Qu’est-ce que ça veut dire ?';
+
+  @override
+  String get practiceReadPrompt => 'Qu’est-ce que ça veut dire ?';
+
+  @override
+  String get practiceReversePrompt => 'Laquelle dit cela ?';
+
+  @override
+  String get practiceGapPrompt => 'Complétez la phrase';
+
+  @override
+  String get practiceTryAgain => 'Pas celle-ci. Essayez une autre.';
+
+  @override
+  String get practiceRight => 'C’est bien ça !';
+
+  @override
+  String get practiceNext => 'Continuer';
+
+  @override
+  String get practiceGapSemantics => 'mot manquant';
+
+  @override
+  String practiceWrongSemantics(String option) {
+    return '$option, pas celle-ci';
+  }
+
+  @override
+  String practiceRightSemantics(String option) {
+    return '$option, bonne réponse';
+  }
 }

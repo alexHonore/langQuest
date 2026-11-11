@@ -1,0 +1,3162 @@
+{
+ "key": "arabic_msa_ch1",
+ "chapterIndex": 1,
+ "courseTrackId": "arabic-msa",
+ "targetVarietyId": "arb",
+ "sourceLanguages": [
+  "en",
+  "fr"
+ ],
+ "titles": {
+  "en": "First days in Amman",
+  "fr": "Premiers jours à Amman"
+ },
+ "characters": [
+  {
+   "characterKey": "arabic_msa_character_friendly_local_acquaintance",
+   "role": "friendly local acquaintance",
+   "name": "خالد",
+   "personality": "kind, busy, warm, curious",
+   "homeRegion": "Amman, Jordan",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "arabic_msa_character_cafe_server",
+   "role": "café server",
+   "name": "خالد",
+   "personality": "quick, cheerful, helpful",
+   "homeRegion": "Amman, Jordan",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "arabic_msa_character_market_vendor",
+   "role": "market vendor",
+   "name": "خالد",
+   "personality": "friendly, talkative, generous",
+   "homeRegion": "Amman",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "arabic_msa_khalid_passer_by",
+   "role": "passer-by",
+   "name": "Khalid",
+   "personality": "friendly, hurried, helpful",
+   "homeRegion": "Amman",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "arabic_msa_character_neighbour",
+   "role": "neighbour",
+   "name": "خالد",
+   "personality": "warm, chatty, helpful",
+   "homeRegion": "Amman",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "arabic_msa_khalid_taxi_driver",
+   "role": "taxi driver",
+   "name": "Khalid",
+   "personality": "talkative, friendly, a bit pushy",
+   "homeRegion": "Amman, Jordan",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "arabic_msa_character_child_at_the_ice_cream_stand",
+   "role": "child at the ice-cream stand",
+   "name": "يوسف",
+   "personality": "cheerful, eager, a little cheeky",
+   "homeRegion": "Amman, Jordan",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  }
+ ],
+ "missions": [
+  {
+   "key": "arabic_msa_greet_and_introduce",
+   "blueprintKey": "greet_and_introduce",
+   "titles": {
+    "en": "Meeting a Neighbour Outside",
+    "fr": "Rencontre avec un voisin dehors"
+   },
+   "sceneNotes": {
+    "en": "It is morning and you meet a friendly neighbour on the street who is in a hurry but stops to say hello.",
+    "fr": "C'est le matin et vous croisez dans la rue un voisin sympathique, pressé, qui s'arrête pourtant pour vous saluer."
+   },
+   "characterKey": "arabic_msa_character_friendly_local_acquaintance",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "صباح الخير!",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "صباح الخير!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "sabah al-khayr!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good morning!",
+       "contextNote": "The usual reply is صباح النور (sabah an-nur).",
+       "literalGloss": "morning of-the-goodness"
+      },
+      "fr": {
+       "meaning": "Bonjour !",
+       "contextNote": "On répond habituellement صباح النور (sabah an-nur). Le خ de khayr est un son rauque du fond de la gorge, comme le « ch » allemand de « Bach ».",
+       "literalGloss": "matin du bien"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The خ in khayr is a rough sound from the back of the throat, like Scottish 'loch'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "how_are_you",
+     "intentKey": "ask_how_are_you",
+     "slotId": "how_are_you",
+     "speaker": "learner",
+     "targetText": "كيف حالك؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "كيف حالك؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "kayfa haluka?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How are you?",
+       "contextNote": "Addressed to a man. For a woman say كيف حالكِ (kayfa haluki).",
+       "literalGloss": "how state-your"
+      },
+      "fr": {
+       "meaning": "Comment vas-tu ?",
+       "contextNote": "S'adresse à un homme. Pour une femme, on dit كيف حالكِ (kayfa haluki). Le ح de hal est un souffle de gorge, plus fort que le h français.",
+       "literalGloss": "comment état-ton"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ح in hal is a breathy sound from the throat, stronger than English h.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "fine",
+     "intentKey": "reply_fine",
+     "slotId": "fine",
+     "speaker": "learner",
+     "targetText": "أنا بخير، شكراً.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "أنا بخير، شكراً."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ana bi-khayr, shukran."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I am fine, thank you.",
+       "contextNote": null,
+       "literalGloss": "I in-goodness, thanks"
+      },
+      "fr": {
+       "meaning": "Je vais bien, merci.",
+       "contextNote": null,
+       "literalGloss": "je en-bien, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "my_name",
+     "intentKey": "introduce_name",
+     "slotId": "my_name",
+     "speaker": "learner",
+     "targetText": "اسمي سارة.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "اسمي سارة."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ismi sara."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "My name is Sara.",
+       "contextNote": "Replace سارة with your own name.",
+       "literalGloss": "name-my Sara"
+      },
+      "fr": {
+       "meaning": "Je m'appelle Sara.",
+       "contextNote": "Remplacez سارة par votre propre prénom.",
+       "literalGloss": "nom-mon Sara"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "your_name",
+     "intentKey": "ask_name",
+     "slotId": "your_name",
+     "speaker": "learner",
+     "targetText": "ما اسمك؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "ما اسمك؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ma ismuka?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "What is your name?",
+       "contextNote": "Addressed to a man. For a woman say ما اسمكِ؟ (ma ismuki?).",
+       "literalGloss": "what name-your"
+      },
+      "fr": {
+       "meaning": "Comment t'appelles-tu ?",
+       "contextNote": "S'adresse à un homme. Pour une femme, on dit ما اسمكِ؟ (ma ismuki ?).",
+       "literalGloss": "quel nom-ton"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "nice_to_meet",
+     "intentKey": "say_nice_to_meet",
+     "slotId": "nice_to_meet",
+     "speaker": "learner",
+     "targetText": "تشرفنا.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "تشرفنا."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "tasharrafna."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Nice to meet you.",
+       "contextNote": "A short, polite phrase used right after hearing someone's name.",
+       "literalGloss": "we were honoured"
+      },
+      "fr": {
+       "meaning": "Enchanté(e).",
+       "contextNote": "Formule courte et polie, à dire juste après avoir entendu le nom de la personne. Doublez le ر de tasharrafna, avec un net battement de langue.",
+       "literalGloss": "nous avons été honorés"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say the ر in tasharrafna doubled, with a clear tap of the tongue.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "goodbye",
+     "intentKey": "say_goodbye",
+     "slotId": "goodbye",
+     "speaker": "learner",
+     "targetText": "مع السلامة!",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "مع السلامة!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ma3a as-salama!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Goodbye!",
+       "contextNote": "Fits a quick farewell when your neighbour is in a hurry.",
+       "literalGloss": "with the-safety"
+      },
+      "fr": {
+       "meaning": "Au revoir !",
+       "contextNote": "Convient pour un adieu rapide quand votre voisin est pressé. Le ع de ma3a est un son profond de gorge : ouvrez la gorge en la serrant légèrement.",
+       "literalGloss": "avec la sécurité"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ع in ma3a is a deep throat sound. Open your throat and squeeze slightly.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "greet_hello_variant_8",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "السلام عليكم.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "السلام عليكم."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "as-salamu 3alaykum."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Peace be upon you. (Hello.)",
+       "contextNote": "An all-day greeting. The reply is وعليكم السلام (wa 3alaykum as-salam).",
+       "literalGloss": "the-peace upon-you"
+      },
+      "fr": {
+       "meaning": "Que la paix soit sur vous. (Bonjour.)",
+       "contextNote": "Salutation valable à toute heure de la journée. On répond وعليكم السلام (wa 3alaykum as-salam).",
+       "literalGloss": "la paix sur-vous"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_how_are_you_variant_9",
+     "intentKey": "ask_how_are_you",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "كيف حالكِ؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "كيف حالكِ؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "kayfa haluki?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How are you? (to a woman)",
+       "contextNote": "Feminine form for a woman neighbour.",
+       "literalGloss": "how state-your(f)"
+      },
+      "fr": {
+       "meaning": "Comment vas-tu ? (à une femme)",
+       "contextNote": "Forme féminine, pour une voisine.",
+       "literalGloss": "comment état-ton(f)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "reply_fine_variant_10",
+     "intentKey": "reply_fine",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "بخير، والحمد لله.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "بخير، والحمد لله."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "bi-khayr, wa-l-hamdu lillah."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Fine, thank God.",
+       "contextNote": "A very common reply that adds warmth.",
+       "literalGloss": "in-goodness, and the-praise to-God"
+      },
+      "fr": {
+       "meaning": "Bien, Dieu merci.",
+       "contextNote": "Réponse très courante qui ajoute de la chaleur.",
+       "literalGloss": "en-bien, et la louange à-Dieu"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "arabic_msa_cafe_order_drink",
+   "blueprintKey": "cafe_order_drink",
+   "titles": {
+    "en": "Ordering a Drink at the Café",
+    "fr": "Commander une boisson au café"
+   },
+   "sceneNotes": {
+    "en": "You sit down on a busy café terrace where a quick, friendly server comes to take your order and asks you to choose an option.",
+    "fr": "Vous vous asseyez à la terrasse animée d'un café, où un serveur rapide et sympathique vient prendre votre commande et vous demande de choisir une option."
+   },
+   "characterKey": "arabic_msa_character_cafe_server",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "مرحباً!",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "مرحباً!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "marhaban!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello!",
+       "contextNote": "A neutral-to-polite hello that works at any time of day.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Bonjour !",
+       "contextNote": "Salutation neutre à polie, utilisable à toute heure de la journée. Le ح de marhaban est un h soufflé, prononcé au fond de la gorge.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ح in marhaban is a breathy h made deep in the throat.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "order",
+     "intentKey": "request_drink",
+     "slotId": "order",
+     "speaker": "learner",
+     "targetText": "أريد فنجان قهوة، من فضلك.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "أريد فنجان قهوة، من فضلك."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "uridu finjan qahwa, min fadlik."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I would like a cup of coffee, please.",
+       "contextNote": "Use the same sentence for any drink, such as شاي (tea) or عصير (juice).",
+       "literalGloss": "I want / cup / coffee / from your favor"
+      },
+      "fr": {
+       "meaning": "Je voudrais une tasse de café, s'il vous plaît.",
+       "contextNote": "Cette phrase sert pour n'importe quelle boisson, par exemple شاي (thé) ou عصير (jus). Le ق de qahwa se prononce tout au fond de la gorge, pas comme un k.",
+       "literalGloss": "je veux / tasse / café / de ta faveur"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ق in qahwa is pronounced far back in the throat, not like a k.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "options",
+     "intentKey": "offer_options",
+     "slotId": "options",
+     "speaker": "character",
+     "targetText": "مع سكر أم بدون سكر؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "مع سكر أم بدون سكر؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ma'a sukkar am bidun sukkar?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "With sugar or without sugar?",
+       "contextNote": "The server's question. أم means 'or' when choosing between two options.",
+       "literalGloss": "with sugar / or / without sugar"
+      },
+      "fr": {
+       "meaning": "Avec du sucre ou sans sucre ?",
+       "contextNote": "C'est la question du serveur. أم signifie « ou » quand on choisit entre deux options. Le ع de ma'a est un son serré de la gorge : exercez-vous lentement.",
+       "literalGloss": "avec sucre / ou / sans sucre"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ع in ma'a is a tight throat sound; practise it slowly.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "choice",
+     "intentKey": "choose_option",
+     "slotId": "choice",
+     "speaker": "learner",
+     "targetText": "بدون سكر، من فضلك.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "بدون سكر، من فضلك."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "bidun sukkar, min fadlik."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Without sugar, please.",
+       "contextNote": "To say 'with sugar', answer مع سكر، من فضلك.",
+       "literalGloss": "without sugar / from your favor"
+      },
+      "fr": {
+       "meaning": "Sans sucre, s'il vous plaît.",
+       "contextNote": "Pour dire « avec du sucre », répondez مع سكر، من فضلك.",
+       "literalGloss": "sans sucre / de ta faveur"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "bill",
+     "intentKey": "ask_for_bill",
+     "slotId": "bill",
+     "speaker": "learner",
+     "targetText": "الحساب، من فضلك.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "الحساب، من فضلك."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "al-hisab, min fadlik."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "The bill, please.",
+       "contextNote": null,
+       "literalGloss": "the bill / from your favor"
+      },
+      "fr": {
+       "meaning": "L'addition, s'il vous plaît.",
+       "contextNote": "Le ح de al-hisab est un h soufflé, venu de la gorge.",
+       "literalGloss": "l'addition / de ta faveur"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ح in al-hisab is a breathy h from the throat.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "شكراً جزيلاً.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "شكراً جزيلاً."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "shukran jazilan."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much.",
+       "contextNote": "A warmer form of شكراً from the earlier lesson.",
+       "literalGloss": "thanks / abundantly"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup.",
+       "contextNote": "Une forme plus chaleureuse de شكراً, vue dans la leçon précédente.",
+       "literalGloss": "merci / abondamment"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "greet_hello_variant_7",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "مساء الخير!",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "مساء الخير!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "masa' al-khayr!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good evening!",
+       "contextNote": "Use after about midday or in the evening, like صباح الخير in the morning.",
+       "literalGloss": "evening of goodness"
+      },
+      "fr": {
+       "meaning": "Bonsoir !",
+       "contextNote": "À employer à partir du milieu de l'après-midi ou le soir, comme صباح الخير le matin. Le خ de al-khayr est un son rauque, proche de la jota espagnole.",
+       "literalGloss": "soir de bien"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The خ in al-khayr is a rough sound, like the ch in Scottish 'loch'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "request_drink_variant_8",
+     "intentKey": "request_drink",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "هل يمكنني أن آخذ شاياً بالنعناع، من فضلك؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "هل يمكنني أن آخذ شاياً بالنعناع، من فضلك؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "hal yumkinuni an akhudha shayan bil-na'na', min fadlik?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have a mint tea, please?",
+       "contextNote": "A softer, question-style way to order.",
+       "literalGloss": "is it possible for me / to take / tea with mint / please"
+      },
+      "fr": {
+       "meaning": "Puis-je avoir un thé à la menthe, s'il vous plaît ?",
+       "contextNote": "Une façon plus douce de commander, sous forme de question.",
+       "literalGloss": "est-il possible pour moi / de prendre / thé à la menthe / s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "ask_for_bill_variant_9",
+     "intentKey": "ask_for_bill",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "كم الحساب، من فضلك؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "كم الحساب، من فضلك؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "kam al-hisab, min fadlik?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much is the bill, please?",
+       "contextNote": "Use it when you want to know the total.",
+       "literalGloss": "how much / the bill / please"
+      },
+      "fr": {
+       "meaning": "L'addition, c'est combien, s'il vous plaît ?",
+       "contextNote": "À utiliser pour connaître le total à payer.",
+       "literalGloss": "combien / l'addition / s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "arabic_msa_market_ask_price",
+   "blueprintKey": "market_ask_price",
+   "titles": {
+    "en": "Asking Prices at the Market",
+    "fr": "Demander les prix au marché"
+   },
+   "sceneNotes": {
+    "en": "You stop at a fruit stall in a busy market, where the vendor sells apples and oranges by the kilo and is happy to chat about the price.",
+    "fr": "Vous vous arrêtez devant un étal de fruits dans un marché animé, où le vendeur propose des pommes et des oranges au kilo et aime discuter du prix."
+   },
+   "characterKey": "arabic_msa_character_market_vendor",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "أهلاً وسهلاً!",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "أهلاً وسهلاً!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ahlan wa sahlan!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello and welcome!",
+       "contextNote": "A warm greeting that works at any stall.",
+       "literalGloss": "family and ease"
+      },
+      "fr": {
+       "meaning": "Bonjour et bienvenue !",
+       "contextNote": "Une salutation chaleureuse qui convient à n'importe quel étal. Le h de ahlan est un souffle léger.",
+       "literalGloss": "famille et aisance"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The h in ahlan is a soft breathy sound.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.15
+    },
+    {
+     "key": "greet_hello_variant_2",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "أهلاً بك!",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "أهلاً بك!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ahlan bika!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello to you!",
+       "contextNote": "Shorter, to a man. To a woman say أهلاً بكِ (ahlan biki).",
+       "literalGloss": "welcome with you"
+      },
+      "fr": {
+       "meaning": "Bonjour à vous !",
+       "contextNote": "Plus court, à un homme. À une femme, on dit أهلاً بكِ (ahlan biki).",
+       "literalGloss": "bienvenue avec toi"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.15
+    },
+    {
+     "key": "how_much",
+     "intentKey": "ask_price",
+     "slotId": "how_much",
+     "speaker": "learner",
+     "targetText": "كم سعر كيلو التفاح، من فضلك؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "كم سعر كيلو التفاح، من فضلك؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "kam si'r kilu at-tuffah, min fadlik?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much is a kilo of apples, please?",
+       "contextNote": "Swap التفاح for البرتقال (oranges) or الموز (bananas).",
+       "literalGloss": "how much price kilo-of the-apples, from your favor"
+      },
+      "fr": {
+       "meaning": "Combien coûte un kilo de pommes, s'il vous plaît ?",
+       "contextNote": "Remplacez التفاح par البرتقال (les oranges) ou الموز (les bananes). Le ' de si'r est une brève pause, proche du son « ayn ».",
+       "literalGloss": "combien prix kilo-de les-pommes, de ta faveur"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ' in si'r is a short pause (ayn-like sound).",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_price_variant_4",
+     "intentKey": "ask_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "بكم الكيلو من فضلك؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "بكم الكيلو من فضلك؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "bikam al-kilu min fadlik?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much is the kilo, please?",
+       "contextNote": "A shorter, very common way to ask while pointing at the fruit.",
+       "literalGloss": "for how much the kilo, from your favor"
+      },
+      "fr": {
+       "meaning": "Combien le kilo, s'il vous plaît ?",
+       "contextNote": "Une façon plus courte et très courante de demander en montrant les fruits.",
+       "literalGloss": "pour combien le kilo, de ta faveur"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "price",
+     "intentKey": "state_price",
+     "slotId": "price",
+     "speaker": "character",
+     "targetText": "الكيلو بدينارين.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "الكيلو بدينارين."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "al-kilu bidinarayn."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "A kilo is two dinars.",
+       "contextNote": "The dual ending -ayn means exactly two.",
+       "literalGloss": "the kilo for two dinars"
+      },
+      "fr": {
+       "meaning": "Le kilo coûte deux dinars.",
+       "contextNote": "La terminaison duelle -ayn signifie exactement deux.",
+       "literalGloss": "le kilo pour deux dinars"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "expensive",
+     "intentKey": "say_too_expensive",
+     "slotId": "expensive",
+     "speaker": "learner",
+     "targetText": "هذا غالٍ قليلاً.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "هذا غالٍ قليلاً."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "hadha ghalin qalilan."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "This is a bit expensive.",
+       "contextNote": "A soft way to start light bargaining.",
+       "literalGloss": "this expensive a little"
+      },
+      "fr": {
+       "meaning": "C'est un peu cher.",
+       "contextNote": "Une façon douce d'entamer un petit marchandage. Le gh est un son guttural, comme un r grasseyé.",
+       "literalGloss": "ceci cher un peu"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Gh is a throaty sound, like a gargled r.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "lower",
+     "intentKey": "offer_lower_price",
+     "slotId": "lower",
+     "speaker": "learner",
+     "targetText": "هل يمكنك أن تخفض السعر قليلاً، من فضلك؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "هل يمكنك أن تخفض السعر قليلاً، من فضلك؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "hal yumkinuka an tukhaffid as-si'r qalilan, min fadlik?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could you lower the price a little, please?",
+       "contextNote": "Said to a man. To a woman use يمكنكِ (yumkinuki).",
+       "literalGloss": "is it possible for you to reduce the price a little"
+      },
+      "fr": {
+       "meaning": "Pourriez-vous baisser un peu le prix, s'il vous plaît ?",
+       "contextNote": "S'adresse à un homme. À une femme, on dit يمكنكِ (yumkinuki). Le kh est un son rauque du fond de la gorge.",
+       "literalGloss": "est-il possible pour toi de baisser le prix un peu"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Kh is a rough sound from the back of the throat.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "offer_lower_price_variant_8",
+     "intentKey": "offer_lower_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "هل تقبل بدينار ونصف؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "هل تقبل بدينار ونصف؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "hal taqbal bidinar wa nisf?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Will you accept a dinar and a half?",
+       "contextNote": "A direct counter-offer; change the number as needed.",
+       "literalGloss": "do you accept for a dinar and a half"
+      },
+      "fr": {
+       "meaning": "Accepteriez-vous un dinar et demi ?",
+       "contextNote": "Une contre-offre directe ; changez le chiffre selon vos besoins. Le q est un k profond, prononcé au fond de la gorge.",
+       "literalGloss": "acceptes-tu pour un dinar et demi"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Q is a deep k sound made at the back of the throat.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "deal",
+     "intentKey": "agree_to_price",
+     "slotId": "deal",
+     "speaker": "learner",
+     "targetText": "حسناً، سآخذ كيلو واحداً.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "حسناً، سآخذ كيلو واحداً."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "hasanan, sa-akhudh kilu wahidan."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Okay, I'll take one kilo.",
+       "contextNote": "Say كيلوين (kilawayn) for two kilos.",
+       "literalGloss": "fine, I will take kilo one"
+      },
+      "fr": {
+       "meaning": "D'accord, je prends un kilo.",
+       "contextNote": "Dites كيلوين (kilawayn) pour deux kilos.",
+       "literalGloss": "bien, je prendrai kilo un"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    },
+    {
+     "key": "agree_to_price_variant_10",
+     "intentKey": "agree_to_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "اتفقنا!",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "اتفقنا!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ittafaqna!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Deal!",
+       "contextNote": "A quick way to close a bargain.",
+       "literalGloss": "we agreed"
+      },
+      "fr": {
+       "meaning": "Marché conclu !",
+       "contextNote": "Une façon rapide de conclure un marchandage.",
+       "literalGloss": "nous nous sommes mis d'accord"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "no_thanks",
+     "intentKey": "decline_purchase",
+     "slotId": "no_thanks",
+     "speaker": "learner",
+     "targetText": "لا، شكراً. ربما لاحقاً.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "لا، شكراً. ربما لاحقاً."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "la, shukran. rubbama lahiqan."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No, thank you. Maybe later.",
+       "contextNote": null,
+       "literalGloss": "no, thanks. perhaps later"
+      },
+      "fr": {
+       "meaning": "Non, merci. Peut-être plus tard.",
+       "contextNote": null,
+       "literalGloss": "non, merci. peut-être plus tard"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "decline_purchase_variant_12",
+     "intentKey": "decline_purchase",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "ليس اليوم، شكراً.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "ليس اليوم، شكراً."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "laysa al-yawm, shukran."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Not today, thank you.",
+       "contextNote": null,
+       "literalGloss": "not today, thanks"
+      },
+      "fr": {
+       "meaning": "Pas aujourd'hui, merci.",
+       "contextNote": null,
+       "literalGloss": "pas aujourd'hui, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "arabic_msa_ask_directions",
+   "blueprintKey": "ask_directions",
+   "titles": {
+    "en": "Asking Directions to the Station",
+    "fr": "Demander le chemin de la gare"
+   },
+   "sceneNotes": {
+    "en": "You are a visitor outside a busy street looking for the train station, and a passer-by who talks very fast stops to help you.",
+    "fr": "Vous êtes en visite dans une rue animée et vous cherchez la gare ; un passant qui parle très vite s'arrête pour vous aider."
+   },
+   "characterKey": "arabic_msa_khalid_passer_by",
+   "expressions": [
+    {
+     "key": "excuse_me",
+     "intentKey": "get_attention",
+     "slotId": "excuse_me",
+     "speaker": "learner",
+     "targetText": "عذراً يا سيدي.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "عذراً يا سيدي."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "'udhran ya sayyidi."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, sir.",
+       "contextNote": "Use يا سيدتي when addressing a woman.",
+       "literalGloss": "Excuse (me), O my sir"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, monsieur.",
+       "contextNote": "Pour une femme, dites يا سيدتي. Le ع est un son profond de la gorge ; le ذ se prononce comme le « th » anglais de « this ».",
+       "literalGloss": "Excuse (moi), ô mon monsieur"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ع is a deep throat sound; the ذ is like 'th' in 'this'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "where_is",
+     "intentKey": "ask_where_is",
+     "slotId": "where_is",
+     "speaker": "learner",
+     "targetText": "أين محطة القطار، من فضلك؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "أين محطة القطار، من فضلك؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ayna mahattat al-qitar, min fadlik?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where is the train station, please?",
+       "contextNote": null,
+       "literalGloss": "Where station-of the-train, from your favour"
+      },
+      "fr": {
+       "meaning": "Où est la gare, s'il vous plaît ?",
+       "contextNote": "Le ح est un h soufflé depuis la gorge ; le ق est un k profond.",
+       "literalGloss": "Où gare-de le-train, de votre faveur"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ح is a breathy h from the throat; ق is a deep k.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_where_is_variant_3",
+     "intentKey": "ask_where_is",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "هل توجد محطة قريبة من هنا؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "هل توجد محطة قريبة من هنا؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "hal tujad mahatta qariba min huna?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Is there a station near here?",
+       "contextNote": "Useful when you do not know the exact name of the place.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Y a-t-il une gare près d'ici ?",
+       "contextNote": "Utile quand vous ne connaissez pas le nom exact du lieu.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    },
+    {
+     "key": "straight",
+     "intentKey": "give_direction_straight",
+     "slotId": "straight",
+     "speaker": "character",
+     "targetText": "عليك أن تمشي مباشرةً إلى الأمام.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "عليك أن تمشي مباشرةً إلى الأمام."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "'alayka an tamshiya mubasharatan ila al-amam."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "You have to walk straight ahead.",
+       "contextNote": "The character says this quickly, so the learner will need to ask for slower speech.",
+       "literalGloss": "On you that you walk directly to the front"
+      },
+      "fr": {
+       "meaning": "Vous devez aller tout droit.",
+       "contextNote": "Le personnage parle vite : vous devrez lui demander de parler plus lentement.",
+       "literalGloss": "Sur toi que tu marches directement vers l'avant"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "turn",
+     "intentKey": "give_direction_turn",
+     "slotId": "turn",
+     "speaker": "character",
+     "targetText": "ثم تنعطف إلى اليسار عند الإشارة.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "ثم تنعطف إلى اليسار عند الإشارة."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "thumma tan'atifu ila al-yasar 'inda al-isharah."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Then you turn left at the traffic light.",
+       "contextNote": "Replace اليسار with اليمين for 'right'.",
+       "literalGloss": "Then you turn to the left at the signal"
+      },
+      "fr": {
+       "meaning": "Ensuite, vous tournez à gauche au feu.",
+       "contextNote": "Remplacez اليسار par اليمين pour dire « à droite ». Le ث se prononce comme le « th » anglais de « think ».",
+       "literalGloss": "Puis tu tournes vers la gauche au niveau du signal"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ث is like 'th' in 'think'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.45
+    },
+    {
+     "key": "far",
+     "intentKey": "ask_is_it_far",
+     "slotId": "far",
+     "speaker": "learner",
+     "targetText": "هل المحطة بعيدة من هنا؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "هل المحطة بعيدة من هنا؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "hal al-mahatta ba'ida min huna?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Is the station far from here?",
+       "contextNote": null,
+       "literalGloss": "Is the station far from here"
+      },
+      "fr": {
+       "meaning": "La gare est-elle loin d'ici ?",
+       "contextNote": null,
+       "literalGloss": "La gare est-elle loin d'ici"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "near",
+     "intentKey": "say_it_is_near",
+     "slotId": "near",
+     "speaker": "character",
+     "targetText": "ليست بعيدة، عشر دقائق مشياً على الأقدام.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "ليست بعيدة، عشر دقائق مشياً على الأقدام."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "laysat ba'ida, 'ashr daqa'iq mashyan 'ala al-aqdam."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "It is not far, a ten-minute walk.",
+       "contextNote": null,
+       "literalGloss": "Not far, ten minutes walking on the feet"
+      },
+      "fr": {
+       "meaning": "Ce n'est pas loin, dix minutes à pied.",
+       "contextNote": null,
+       "literalGloss": "Pas loin, dix minutes en marchant sur les pieds"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "repeat",
+     "intentKey": "ask_repeat",
+     "slotId": "repeat",
+     "speaker": "learner",
+     "targetText": "هل يمكنك أن تعيد، من فضلك؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "هل يمكنك أن تعيد، من فضلك؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "hal yumkinuka an tu'ida, min fadlik?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you repeat that, please?",
+       "contextNote": "To a woman, say يمكنكِ أن تعيدي.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Pourriez-vous répéter, s'il vous plaît ?",
+       "contextNote": "À une femme, dites يمكنكِ أن تعيدي.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    },
+    {
+     "key": "ask_repeat_variant_9",
+     "intentKey": "ask_repeat",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "عفواً، لم أفهم.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "عفواً، لم أفهم."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "'afwan, lam afham."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Sorry, I did not understand.",
+       "contextNote": "A short way to signal you need the person to say it again.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Pardon, je n'ai pas compris.",
+       "contextNote": "Une façon courte de faire comprendre qu'on a besoin que la personne répète.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "slower",
+     "intentKey": "ask_slow_down",
+     "slotId": "slower",
+     "speaker": "learner",
+     "targetText": "هل يمكنك أن تتكلم ببطء، من فضلك؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "هل يمكنك أن تتكلم ببطء، من فضلك؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "hal yumkinuka an tatakallama bibut', min fadlik?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you speak slowly, please?",
+       "contextNote": "To a woman, say يمكنكِ أن تتكلمي ببطء.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Pourriez-vous parler lentement, s'il vous plaît ?",
+       "contextNote": "À une femme, dites يمكنكِ أن تتكلمي ببطء. Le ط est un t lourd, emphatique.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ط is a heavy, emphatic t.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.45
+    },
+    {
+     "key": "ask_slow_down_variant_11",
+     "intentKey": "ask_slow_down",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "ببطء، من فضلك.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "ببطء، من فضلك."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "bibut', min fadlik."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Slowly, please.",
+       "contextNote": "Short version for when the speaker is going too fast.",
+       "literalGloss": "With slowness, from your favour"
+      },
+      "fr": {
+       "meaning": "Lentement, s'il vous plaît.",
+       "contextNote": "Version courte quand la personne parle trop vite.",
+       "literalGloss": "Avec lenteur, de votre faveur"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "شكراً لك على مساعدتك.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "شكراً لك على مساعدتك."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "shukran laka 'ala musa'adatik."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you for your help.",
+       "contextNote": "To a woman, say شكراً لكِ على مساعدتكِ.",
+       "literalGloss": "Thanks to you for your help"
+      },
+      "fr": {
+       "meaning": "Merci pour votre aide.",
+       "contextNote": "À une femme, dites شكراً لكِ على مساعدتكِ.",
+       "literalGloss": "Merci à vous pour votre aide"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "arabic_msa_meet_neighbour",
+   "blueprintKey": "meet_neighbour",
+   "titles": {
+    "en": "Meeting Your New Neighbour",
+    "fr": "Rencontrer votre nouveau voisin"
+   },
+   "sceneNotes": {
+    "en": "You meet an older neighbour in the stairwell of your new building, carrying shopping bags, and he welcomes you.",
+    "fr": "Vous croisez un voisin plus âgé dans la cage d'escalier de votre nouvel immeuble ; il porte des sacs de courses et vous souhaite la bienvenue."
+   },
+   "characterKey": "arabic_msa_character_neighbour",
+   "expressions": [
+    {
+     "key": "new_neighbour",
+     "intentKey": "say_new_neighbour",
+     "slotId": "new_neighbour",
+     "speaker": "learner",
+     "targetText": "أنا جارك الجديد.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "أنا جارك الجديد."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ana jaruka al-jadid."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I am your new neighbour.",
+       "contextNote": "Said by a man. Women say جارتك الجديدة.",
+       "literalGloss": "I neighbour-your the-new"
+      },
+      "fr": {
+       "meaning": "Je suis votre nouveau voisin.",
+       "contextNote": "Dit par un homme ; une femme dit جارتك الجديدة. Le j de جار se prononce comme le j de « jour ».",
+       "literalGloss": "moi voisin-votre le-nouveau"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The j in جار is like the j in 'jam'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "welcome",
+     "intentKey": "welcome_someone",
+     "slotId": "welcome",
+     "speaker": "character",
+     "targetText": "مرحباً بك في بنايتنا، يا جاري!",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "مرحباً بك في بنايتنا، يا جاري!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "marhaban bika fi binayatina, ya jari!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Welcome to our building, my neighbour!",
+       "contextNote": "A warm greeting from the neighbour. He is a man, so he says بك to a male learner; to a woman he would say بكِ.",
+       "literalGloss": "welcome with-you in building-our, O neighbour-my"
+      },
+      "fr": {
+       "meaning": "Bienvenue dans notre immeuble, mon voisin !",
+       "contextNote": "Accueil chaleureux du voisin. C'est un homme : il dit بك à un apprenant masculin, et بكِ à une femme.",
+       "literalGloss": "bienvenue à-toi dans immeuble-notre, ô voisin-mon"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "where_from_q",
+     "intentKey": "ask_where_from",
+     "slotId": "where_from_q",
+     "speaker": "learner",
+     "targetText": "من أينَ أنتَ؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "من أينَ أنتَ؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "min ayna anta?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where are you from?",
+       "contextNote": "To a woman, say من أينَ أنتِ؟ (min ayna anti?).",
+       "literalGloss": "from where you"
+      },
+      "fr": {
+       "meaning": "D'où venez-vous ?",
+       "contextNote": "À une femme, on dit من أينَ أنتِ؟ (min ayna anti ?).",
+       "literalGloss": "de où toi"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "from",
+     "intentKey": "say_where_from",
+     "slotId": "from",
+     "speaker": "learner",
+     "targetText": "أنا من كندا.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "أنا من كندا."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ana min kanada."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I am from Canada.",
+       "contextNote": "Replace كندا with your own country.",
+       "literalGloss": "I from Canada"
+      },
+      "fr": {
+       "meaning": "Je viens du Canada.",
+       "contextNote": "Remplacez كندا par votre propre pays.",
+       "literalGloss": "moi de Canada"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "speak_lang",
+     "intentKey": "ask_if_speaks_language",
+     "slotId": "speak_lang",
+     "speaker": "learner",
+     "targetText": "هل تتكلم الإنجليزية؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "هل تتكلم الإنجليزية؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "hal tatakallam al-injliziyya?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you speak English?",
+       "contextNote": "To a woman, say هل تتكلمين الإنجليزية؟",
+       "literalGloss": "whether you-speak the-English"
+      },
+      "fr": {
+       "meaning": "Parlez-vous anglais ?",
+       "contextNote": "À une femme, on dit هل تتكلمين الإنجليزية؟ Dans la terminaison -iyya, appuyez bien sur le double y.",
+       "literalGloss": "est-ce-que tu-parles l'anglais"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The q-less ending -iyya: stress the double y.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "little",
+     "intentKey": "say_speak_little",
+     "slotId": "little",
+     "speaker": "learner",
+     "targetText": "أتكلم العربية قليلاً.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "أتكلم العربية قليلاً."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "atakallam al-3arabiyya qalilan."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I speak Arabic a little.",
+       "contextNote": null,
+       "literalGloss": "I-speak the-Arabic little"
+      },
+      "fr": {
+       "meaning": "Je parle un peu arabe.",
+       "contextNote": "ع (3) est un son guttural profond, et ق (q) se prononce plus au fond de la gorge que le k français.",
+       "literalGloss": "je-parle l'arabe un-peu"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ع (3) is a deep throat sound, and ق (q) is made further back than English k.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "offer_help",
+     "intentKey": "offer_help",
+     "slotId": "offer_help",
+     "speaker": "learner",
+     "targetText": "هل أساعدك في الأكياس؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "هل أساعدك في الأكياس؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "hal usa3iduka fi al-akyas?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I help you with the bags?",
+       "contextNote": "Fits the scene, since the neighbour is carrying shopping bags. To a woman, say أساعدكِ.",
+       "literalGloss": "whether I-help-you in the-bags"
+      },
+      "fr": {
+       "meaning": "Puis-je vous aider avec les sacs ?",
+       "contextNote": "Convient à la scène, car le voisin porte des sacs de courses. À une femme, on dit أساعدكِ.",
+       "literalGloss": "est-ce-que j'aide-te dans les sacs"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "شكراً لك، هذا لطف منك.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "شكراً لك، هذا لطف منك."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "shukran laka, hadha lutf minka."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you, that is kind of you.",
+       "contextNote": "To a woman, say لكِ and منكِ.",
+       "literalGloss": "thanks to-you, this kindness from-you"
+      },
+      "fr": {
+       "meaning": "Merci, c'est très gentil à vous.",
+       "contextNote": "À une femme, on dit لكِ et منكِ.",
+       "literalGloss": "merci à-toi, ceci gentillesse de-toi"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "say_new_neighbour_variant_9",
+     "intentKey": "say_new_neighbour",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "أنا جارتك الجديدة.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "أنا جارتك الجديدة."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ana jaratuka al-jadida."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I am your new neighbour (said by a woman).",
+       "contextNote": "Feminine form for a female learner.",
+       "literalGloss": "I neighbour(f)-your the-new(f)"
+      },
+      "fr": {
+       "meaning": "Je suis votre nouvelle voisine.",
+       "contextNote": "Forme féminine, pour une apprenante.",
+       "literalGloss": "moi voisine-votre la-nouvelle"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "thank_variant_10",
+     "intentKey": "thank",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "شكراً على الدعوة.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "شكراً على الدعوة."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "shukran 3ala al-da3wa."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you for the invitation.",
+       "contextNote": "Useful when the neighbour invites you for tea later.",
+       "literalGloss": "thanks for the-invitation"
+      },
+      "fr": {
+       "meaning": "Merci pour l'invitation.",
+       "contextNote": "Utile quand le voisin vous invite à prendre le thé plus tard.",
+       "literalGloss": "merci pour l'invitation"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "arabic_msa_take_taxi",
+   "blueprintKey": "take_taxi",
+   "titles": {
+    "en": "Taking a Taxi",
+    "fr": "Prendre un taxi"
+   },
+   "sceneNotes": {
+    "en": "You are in heavy traffic and hail a talkative taxi driver to go to the old town, but he quotes a price without using the meter.",
+    "fr": "Vous êtes pris dans un embouteillage et vous hélez un chauffeur de taxi bavard pour aller à la vieille ville, mais il annonce un prix sans utiliser le compteur."
+   },
+   "characterKey": "arabic_msa_khalid_taxi_driver",
+   "expressions": [
+    {
+     "key": "hail",
+     "intentKey": "hail_taxi",
+     "slotId": "hail",
+     "speaker": "learner",
+     "targetText": "تاكسي! هل يمكنك أن تأخذني؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "تاكسي! هل يمكنك أن تأخذني؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "taksi! hal yumkinuka an ta'khudhani?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Taxi! Can you take me?",
+       "contextNote": "Said to a male driver; to a woman driver use يمكنكِ.",
+       "literalGloss": "taxi / is it possible for-you that you-take-me"
+      },
+      "fr": {
+       "meaning": "Taxi ! Pouvez-vous m'emmener ?",
+       "contextNote": "S'adresse à un chauffeur homme ; pour une chauffeuse, on dit يمكنكِ. Le خ de تأخذني est un son rauque au fond de la gorge, comme le « ch » allemand de « Bach ».",
+       "literalGloss": "taxi / est-il-possible pour-vous que vous-m'emmeniez"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": "تاكسي is a loanword used everywhere; سيارة أجرة is the strictly formal alternative.",
+     "pronunciationNote": "The خ in تأخذني is a rough sound at the back of the throat, like German 'Bach'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "where_to",
+     "intentKey": "ask_destination",
+     "slotId": "where_to",
+     "speaker": "character",
+     "targetText": "إلى أين تريد الذهاب؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "إلى أين تريد الذهاب؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ila ayna turid adh-dhahab?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where do you want to go?",
+       "contextNote": "The driver speaks to a male passenger; to a woman he would say تريدين.",
+       "literalGloss": "to where you-want the-going"
+      },
+      "fr": {
+       "meaning": "Où voulez-vous aller ?",
+       "contextNote": "Le chauffeur s'adresse à un passager homme ; à une femme, il dirait تريدين.",
+       "literalGloss": "vers où vous-voulez l'aller"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "destination",
+     "intentKey": "state_destination",
+     "slotId": "destination",
+     "speaker": "learner",
+     "targetText": "إلى المدينة القديمة، من فضلك.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "إلى المدينة القديمة، من فضلك."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ila al-madina al-qadima, min fadlik."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "To the old town, please.",
+       "contextNote": "Replace المدينة القديمة with any other destination.",
+       "literalGloss": "to the-city the-old, from your-favour"
+      },
+      "fr": {
+       "meaning": "À la vieille ville, s'il vous plaît.",
+       "contextNote": "Vous pouvez remplacer المدينة القديمة par n'importe quelle autre destination. Le ق se prononce tout au fond de la gorge, plus loin que le « k » français.",
+       "literalGloss": "vers la-ville l'ancienne, de votre-faveur"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ق is pronounced deep in the throat, further back than English k.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "meter",
+     "intentKey": "ask_use_meter",
+     "slotId": "meter",
+     "speaker": "learner",
+     "targetText": "هل يمكنك تشغيل العداد، من فضلك؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "هل يمكنك تشغيل العداد، من فضلك؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "hal yumkinuka tashghil al-addad, min fadlik?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you turn on the meter, please?",
+       "contextNote": "Useful when the driver quotes a price without the meter.",
+       "literalGloss": "is-it-possible-for-you operating the-meter, please"
+      },
+      "fr": {
+       "meaning": "Pouvez-vous mettre le compteur, s'il vous plaît ?",
+       "contextNote": "Utile quand le chauffeur annonce un prix sans compteur. Le ع de العداد est un son serré, produit au fond de la gorge.",
+       "literalGloss": "est-il-possible pour-vous mise-en-marche le-compteur, s'il-vous-plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ع in العداد is a tight, squeezed sound in the throat.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.45
+    },
+    {
+     "key": "fare",
+     "intentKey": "ask_fare",
+     "slotId": "fare",
+     "speaker": "learner",
+     "targetText": "كم الأجرة إلى المدينة القديمة، من فضلك؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "كم الأجرة إلى المدينة القديمة، من فضلك؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "kam al-ujra ila al-madina al-qadima, min fadlik?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much is the fare to the old town, please?",
+       "contextNote": "Ask before you get in if there is no meter.",
+       "literalGloss": "how-much the-fare to the-city the-old, please"
+      },
+      "fr": {
+       "meaning": "Combien coûte la course jusqu'à la vieille ville, s'il vous plaît ?",
+       "contextNote": "À demander avant de monter s'il n'y a pas de compteur.",
+       "literalGloss": "combien le-tarif vers la-ville l'ancienne, s'il-vous-plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    },
+    {
+     "key": "stop",
+     "intentKey": "say_stop_here",
+     "slotId": "stop",
+     "speaker": "learner",
+     "targetText": "هل يمكنك أن تتوقف هنا، من فضلك؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "هل يمكنك أن تتوقف هنا، من فضلك؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "hal yumkinuka an tatawaqqafa huna, min fadlik?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you stop here, please?",
+       "contextNote": null,
+       "literalGloss": "is-it-possible-for-you that you-stop here, please"
+      },
+      "fr": {
+       "meaning": "Pouvez-vous vous arrêter ici, s'il vous plaît ?",
+       "contextNote": "Le q de تتوقف est doublé : ta-ta-waq-qa-fa.",
+       "literalGloss": "est-il-possible pour-vous que vous-arrêtiez ici, s'il-vous-plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Double the q in تتوقف: ta-ta-waq-qa-fa.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.45
+    },
+    {
+     "key": "change",
+     "intentKey": "ask_for_change",
+     "slotId": "change",
+     "speaker": "learner",
+     "targetText": "هل يمكنني أن آخذ الباقي، من فضلك؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "هل يمكنني أن آخذ الباقي، من فضلك؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "hal yumkinuni an akhudha al-baqi, min fadlik?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could I have the change, please?",
+       "contextNote": "الباقي means the remaining money, i.e. your change.",
+       "literalGloss": "is-it-possible-for-me that I-take the-remainder, please"
+      },
+      "fr": {
+       "meaning": "Puis-je avoir la monnaie, s'il vous plaît ?",
+       "contextNote": "الباقي désigne l'argent restant, c'est-à-dire votre monnaie.",
+       "literalGloss": "est-il-possible pour-moi que je-prenne le-reste, s'il-vous-plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "bye",
+     "intentKey": "say_goodbye",
+     "slotId": "bye",
+     "speaker": "learner",
+     "targetText": "شكراً لك، إلى اللقاء.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "شكراً لك، إلى اللقاء."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "shukran laka, ila al-liqa'."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you, see you later.",
+       "contextNote": "Said when getting out of the taxi.",
+       "literalGloss": "thanks to-you, until the-meeting"
+      },
+      "fr": {
+       "meaning": "Merci, à bientôt.",
+       "contextNote": "Se dit en descendant du taxi.",
+       "literalGloss": "merci à-vous, jusqu'à la-rencontre"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "hail_taxi_variant_9",
+     "intentKey": "hail_taxi",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "هل يمكنك أن توصلني إلى المدينة القديمة؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "هل يمكنك أن توصلني إلى المدينة القديمة؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "hal yumkinuka an tuwassilani ila al-madina al-qadima?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you take me to the old town?",
+       "contextNote": "Combines hailing and stating the destination in one line.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Pouvez-vous m'emmener à la vieille ville ?",
+       "contextNote": "Réunit en une seule phrase l'appel du taxi et la destination.",
+       "literalGloss": null
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.45
+    },
+    {
+     "key": "state_destination_variant_10",
+     "intentKey": "state_destination",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "المدينة القديمة، من فضلك.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "المدينة القديمة، من فضلك."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "al-madina al-qadima, min fadlik."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "The old town, please.",
+       "contextNote": "A shorter, very common way to give the destination.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "La vieille ville, s'il vous plaît.",
+       "contextNote": "Une façon plus courte et très courante d'indiquer la destination.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "ask_fare_variant_11",
+     "intentKey": "ask_fare",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "كم سيكون الثمن، من فضلك؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "كم سيكون الثمن، من فضلك؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "kam sayakun ath-thaman, min fadlik?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much will it be, please?",
+       "contextNote": null,
+       "literalGloss": "how-much will-be the-price, please"
+      },
+      "fr": {
+       "meaning": "Combien ça coûtera, s'il vous plaît ?",
+       "contextNote": null,
+       "literalGloss": "combien sera le-prix, s'il-vous-plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "arabic_msa_buy_ice_cream",
+   "blueprintKey": "buy_ice_cream",
+   "titles": {
+    "en": "Buying Ice Cream After School",
+    "fr": "Une glace après l'école"
+   },
+   "sceneNotes": {
+    "en": "You are taking a child to the ice-cream cart outside the school, where only two flavours are left, and the child will ask for a second scoop.",
+    "fr": "Vous accompagnez un enfant au chariot de glaces devant l'école ; il ne reste que deux parfums, et l'enfant va réclamer une seconde boule."
+   },
+   "characterKey": "arabic_msa_character_child_at_the_ice_cream_stand",
+   "expressions": [
+    {
+     "key": "wants",
+     "intentKey": "request_food",
+     "slotId": "wants",
+     "speaker": "character",
+     "targetText": "أريد بوظة، من فضلك!",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "أريد بوظة، من فضلك!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "uridu buza, min fadlik!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I want an ice cream, please!",
+       "contextNote": "The child asks the adult. بوظة is the common word in the Levant; آيس كريم and مثلجات are also understood.",
+       "literalGloss": "I-want ice-cream, from your-favour"
+      },
+      "fr": {
+       "meaning": "Je veux une glace, s'il vous plaît !",
+       "contextNote": "L'enfant s'adresse à l'adulte. « بوظة » est le mot courant au Levant ; « آيس كريم » et « مثلجات » sont aussi compris. Le ض de « فضلك » est un d emphatique, lourd.",
+       "literalGloss": "je veux glace, de ta faveur"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ض in فضلك is a heavy, emphatic d.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "which_flavour",
+     "intentKey": "offer_options",
+     "slotId": "which_flavour",
+     "speaker": "learner",
+     "targetText": "شوكولاتة أم فانيليا؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "شوكولاتة أم فانيليا؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "shukulata am faniliya?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Chocolate or vanilla?",
+       "contextNote": "أم is used for 'or' in a choice question.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Chocolat ou vanille ?",
+       "contextNote": "« أم » sert à dire « ou » dans une question à choix.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "picks",
+     "intentKey": "choose_option",
+     "slotId": "picks",
+     "speaker": "character",
+     "targetText": "الشوكولاتة، من فضلك!",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "الشوكولاتة، من فضلك!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ash-shukulata, min fadlik!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "The chocolate, please!",
+       "contextNote": null,
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Le chocolat, s'il vous plaît !",
+       "contextNote": null,
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "scoop",
+     "intentKey": "specify_quantity",
+     "slotId": "scoop",
+     "speaker": "learner",
+     "targetText": "كرة واحدة من الشوكولاتة، من فضلك.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "كرة واحدة من الشوكولاتة، من فضلك."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "kura wahida min ash-shukulata, min fadlik."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "One scoop of chocolate, please.",
+       "contextNote": "Said to the vendor.",
+       "literalGloss": "scoop one of the-chocolate, please"
+      },
+      "fr": {
+       "meaning": "Une boule de chocolat, s'il vous plaît.",
+       "contextNote": "Se dit au vendeur. Le ح de « واحدة » est un h soufflé, venu de la gorge.",
+       "literalGloss": "boule une de le-chocolat, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ح in واحدة is a breathy h from the throat.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "asks_two",
+     "intentKey": "ask_permission",
+     "slotId": "asks_two",
+     "speaker": "character",
+     "targetText": "هل يمكنني أن آخذ كرة ثانية؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "هل يمكنني أن آخذ كرة ثانية؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "hal yumkinuni an akhudha kura thaniya?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have a second scoop?",
+       "contextNote": "Follows the same pattern as the earlier tea request.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Est-ce que je peux avoir une deuxième boule ?",
+       "contextNote": "Même structure que la demande de thé vue plus tôt. Le ذ de « آخذ » se prononce comme le « th » anglais doux (langue entre les dents).",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ذ in آخذ is like 'th' in 'this'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "just_one",
+     "intentKey": "refuse_permission",
+     "slotId": "just_one",
+     "speaker": "learner",
+     "targetText": "آسف يا حبيبي، كرة واحدة فقط.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "آسف يا حبيبي، كرة واحدة فقط."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "asif ya habibi, kura wahida faqat."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Sorry, sweetheart, just one scoop.",
+       "contextNote": "A kind refusal. A woman says آسفة.",
+       "literalGloss": "sorry O my-dear, scoop one only"
+      },
+      "fr": {
+       "meaning": "Désolé, mon chéri, une seule boule.",
+       "contextNote": "Un refus plein de gentillesse. Une femme dit « آسفة ». Le ق est un k profond, prononcé au fond de la gorge.",
+       "literalGloss": "désolé ô mon-cher, boule une seulement"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ق is a deep k sound made at the back of the throat.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "okay",
+     "intentKey": "grant_permission",
+     "slotId": "okay",
+     "speaker": "learner",
+     "targetText": "حسناً، تفضل.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "حسناً، تفضل."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "hasanan, tafaddal."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Okay, here you go.",
+       "contextNote": "Said when handing over the ice cream. To a girl: تفضلي.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "D'accord, tiens.",
+       "contextNote": "Se dit en tendant la glace. À une fille : « تفضلي ».",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "yummy",
+     "intentKey": "say_delicious",
+     "slotId": "yummy",
+     "speaker": "character",
+     "targetText": "لذيذة جداً!",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "لذيذة جداً!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ladhidha jiddan!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "It's very tasty!",
+       "contextNote": "لذيذة is feminine to agree with بوظة.",
+       "literalGloss": "delicious very"
+      },
+      "fr": {
+       "meaning": "Elle est délicieuse !",
+       "contextNote": "« لذيذة » est au féminin pour s'accorder avec « بوظة ».",
+       "literalGloss": "délicieuse très"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "me_too",
+     "intentKey": "express_like",
+     "slotId": "me_too",
+     "speaker": "learner",
+     "targetText": "وأنا أحب الشوكولاتة أيضاً.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "وأنا أحب الشوكولاتة أيضاً."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "wa-ana uhibbu ash-shukulata aydan."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I like chocolate too.",
+       "contextNote": null,
+       "literalGloss": "and-I like the-chocolate also"
+      },
+      "fr": {
+       "meaning": "Moi aussi, j'aime le chocolat.",
+       "contextNote": "Le ح de « أحب » est un h soufflé.",
+       "literalGloss": "et-moi j'aime le-chocolat aussi"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ح in أحب is a breathy h.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "character",
+     "targetText": "شكراً جزيلاً!",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "شكراً جزيلاً!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "shukran jazilan!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much!",
+       "contextNote": "Same formula as earlier in the chapter.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Merci beaucoup !",
+       "contextNote": "Même formule que plus tôt dans le chapitre.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "welcome",
+     "intentKey": "respond_to_thanks",
+     "slotId": "welcome",
+     "speaker": "learner",
+     "targetText": "عفواً، لا شكر على واجب.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "عفواً، لا شكر على واجب."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "afwan, la shukra ala wajib."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "You're welcome, no thanks needed.",
+       "contextNote": "A common reply to thanks.",
+       "literalGloss": "pardon, no thanks for duty"
+      },
+      "fr": {
+       "meaning": "Je vous en prie, il n'y a pas de quoi.",
+       "contextNote": "Réponse courante à un remerciement. Le ع est un son guttural profond.",
+       "literalGloss": "pardon, pas de remerciement pour un devoir"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ع is a deep throaty sound.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "offer_options_variant_12",
+     "intentKey": "offer_options",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "أي نكهة تريد؟",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "أي نكهة تريد؟"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ayy nakha tureed?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Which flavour do you want?",
+       "contextNote": "To a girl: تريدين.",
+       "literalGloss": "which flavour you-want"
+      },
+      "fr": {
+       "meaning": "Quel parfum veux-tu ?",
+       "contextNote": "À une fille : « تريدين ».",
+       "literalGloss": "quel parfum tu veux"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "refuse_permission_variant_13",
+     "intentKey": "refuse_permission",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "الأفضل ألا نأخذ كرة ثانية.",
+     "forms": [
+      {
+       "script": "Arab",
+       "transliterationScheme": null,
+       "text": "الأفضل ألا نأخذ كرة ثانية."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "al-afdal alla nakhudha kura thaniya."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "It's better not to take a second scoop.",
+       "contextNote": "A gentler refusal that includes the speaker.",
+       "literalGloss": "the-better that-not we-take scoop second"
+      },
+      "fr": {
+       "meaning": "Il vaut mieux ne pas prendre de deuxième boule.",
+       "contextNote": "Un refus plus doux, qui inclut aussi la personne qui parle.",
+       "literalGloss": "le mieux que-ne pas nous prenons boule deuxième"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  }
+ ],
+ "provenance": "ai_draft",
+ "nativeReviewed": false,
+ "reviewStatus": "review_needed",
+ "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+ "notes": [
+  "AI draft generated 2026-11-11T22:38:02.813Z with anthropic/claude-sonnet-5.5; validator accepted 77 expressions; native review required before publishing.",
+  "greet_and_introduce: Learner lines default to masculine address; feminine alternatives are added for كيف حالكِ, but ما اسمكِ is only mentioned in a context note.",
+  "greet_and_introduce: The name سارة is only an example; the app should let learners substitute their own name.",
+  "greet_and_introduce: Please check whether تشرفنا reads as natural and not too formal in a quick street meeting.",
+  "cafe_order_drink: The greeting is مرحباً rather than السلام عليكم or صباح الخير, to avoid duplicating the earlier lines in this chapter.",
+  "cafe_order_drink: Please check that the server's أم question and the answer without أم sound natural for a spoken MSA café scene; a real server would likely use colloquial speech.",
+  "cafe_order_drink: Tashkeel is omitted for readability; add it to new words if wanted. من فضلك is written for a male addressee, so the feminine form is مِن فضلكِ.",
+  "market_ask_price: Prices use the Jordanian dinar; the currency can be swapped for the target market.",
+  "market_ask_price: Learner lines address a male vendor (يمكنك, بك); feminine forms are only noted in contextNote.",
+  "market_ask_price: Tashkeel is omitted from the Arabic text; سآخذ and غالٍ are the forms to check.",
+  "ask_directions: Character lines address a man (masculine); the feminine forms are given in the context notes.",
+  "ask_directions: Fully MSA wording was chosen (تنعطف, مشياً, عفواً) instead of colloquial 'خش' or 'دوّر'. Please check that it still sounds natural.",
+  "ask_directions: Please check whether the tashkeel-free spelling suits beginners, and the case endings (-an) in the transliteration.",
+  "meet_neighbour: The welcome line avoids أهلاً وسهلاً and أهلاً بك, which were already used earlier in the chapter.",
+  "meet_neighbour: Learner lines are given in the masculine form, with feminine variants noted in contextNote. Please confirm the feminine variants are enough.",
+  "meet_neighbour: The Latin transliteration uses 3 for ع, as in the exemplars. Please check the tashkeel on أينَ/أنتَ.",
+  "take_taxi: Passenger is addressed as male (تريد, يمكنك); feminine forms (تريدين, يمكنكِ) are mentioned only in notes.",
+  "take_taxi: MSA المدينة القديمة, الأجرة, الباقي are used instead of colloquial فكة, أجرة/عداد variants; local drivers may say البلد or وسط البلد.",
+  "take_taxi: Goodbye avoids مع السلامة and شكراً جزيلاً because they were already drafted earlier in the chapter.",
+  "buy_ice_cream: The Latin transliteration of 'ayy nakha tureed' in the variant uses a non-standard spelling, so please normalise it (ayyu nakhatin turid)—and check that the tashkeel-free forms read naturally.",
+  "buy_ice_cream: بوظة is Levantine-flavoured vocabulary but understood in MSA contexts; آيس كريم is an alternative if you prefer.",
+  "buy_ice_cream: Gender: آسف/آسفة and تريد/تريدين depend on the speaker and child; please check the chosen defaults.",
+  "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+ ]
+}

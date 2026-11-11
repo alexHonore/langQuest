@@ -31,7 +31,8 @@ describe('coverage report', () => {
     expect(ary.status).toBe('partial');
     expect(ary.missions.drafted).toBeGreaterThan(0);
     const ln = r.rows.find((x) => x.courseTrackId === 'lingala' && x.sourceLanguageCode === 'fr')!;
-    expect(ln.status).toBe('planned');
+    expect(ln.status).toBe('partial');
+    expect(r.rows.find((x) => x.courseTrackId === 'french' && x.sourceLanguageCode === 'fr')!.status).toBe('planned');
     expect(r.locales.en?.status).toBe('complete');
     expect(r.locales.fr?.status).toBe('complete');
     expect(r.curriculumInvariants.noNativeReviewedClaims).toBe(true);
