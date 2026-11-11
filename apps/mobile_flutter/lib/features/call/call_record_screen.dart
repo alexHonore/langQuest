@@ -110,7 +110,9 @@ class CallRecordScreen extends ConsumerWidget {
       );
     }
     final trackId = record.courseId.split('|').first;
-    final track = ref.watch(contentBundleProvider).track(trackId);
+    final bundle = ref.watch(contentBundleProvider);
+    final track = bundle.track(trackId);
+    final role = roleIn(bundle, record.characterId, record.characterRole, appState.uiLanguage);
     // Call again: the same mission, or the same character, while live calls back this (active) course.
     final callable = ref.watch(liveCallCourseProvider) != null && appState.activeCourse?.id == record.courseId;
     final again = !callable
@@ -168,7 +170,7 @@ class CallRecordScreen extends ConsumerWidget {
                                 style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: colors.textPrimary),
                               ),
                             ),
-                            if (record.characterRole.isNotEmpty) Text(record.characterRole, style: TextStyle(fontSize: 13.5, color: colors.textSecondary)),
+                            if (role.isNotEmpty) Text(role, style: TextStyle(fontSize: 13.5, color: colors.textSecondary)),
                             const SizedBox(height: 2),
                             Text(
                               '${callWhen(context, record.at)} · ${callLength(record.seconds)}${record.xp > 0 ? ' · ${l10n.xpGain(record.xp)}' : ''}',

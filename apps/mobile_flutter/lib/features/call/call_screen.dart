@@ -14,6 +14,7 @@ import '../../core/audio/take_recorder.dart';
 import '../../core/backend/account.dart';
 import '../../core/backend/curriculum_ids.dart';
 import '../../core/backend/server_course.dart';
+import '../../core/content/content_bundle.dart';
 import '../../core/content/content_models.dart';
 import '../../core/layout/celebration.dart';
 import '../../core/layout/motion.dart';
@@ -104,11 +105,14 @@ final courseCharactersProvider = FutureProvider.autoDispose<List<CourseCharacter
   final call = ref.watch(liveCallCourseProvider);
   final api = ref.watch(apiProvider);
   final course = ref.watch(appStateProvider.select((s) => s.activeCourse));
+  final language = ref.watch(appStateProvider.select((s) => s.uiLanguage));
+  final bundle = ref.watch(contentBundleProvider);
   if (call == null || api == null || course == null) return const [];
   try {
     return [
       for (final c in await api.courseCharacters(course.track.id, course.source))
-        if (c['id'] is String && c['name'] is String) CourseCharacter(id: c['id'] as String, name: c['name'] as String, role: '${c['role'] ?? ''}'),
+        if (c['id'] is String && c['name'] is String)
+          CourseCharacter(id: c['id'] as String, name: c['name'] as String, role: roleIn(bundle, c['id'] as String, '${c['role'] ?? ''}', language)),
     ];
   } catch (_) {
     return const [];
@@ -487,6 +491,7 @@ class _CallScreenState extends ConsumerState<CallScreen> {
     final l10n = context.l10n;
     final character = session.character!;
     final name = character.name;
+    final role = roleIn(ref.watch(contentBundleProvider), character.id, character.role, appState.uiLanguage);
     final sceneId = topic.sceneId;
     final speaking = _speakingId != null;
     final last = session.lastCharacterLine;
@@ -529,7 +534,7 @@ class _CallScreenState extends ConsumerState<CallScreen> {
                       style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: colors.textPrimary),
                     ),
                     Text(
-                      character.role.isEmpty ? clock : '${character.role} · $clock',
+                      role.isEmpty ? clock : '$role · $clock',
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                       style: TextStyle(fontSize: 12.5, color: colors.textMuted, fontFeatures: const [FontFeature.tabularFigures()]),

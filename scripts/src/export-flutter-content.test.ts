@@ -9,7 +9,7 @@ import { resolve } from 'node:path';
 import { COURSE_TRACKS, LANGUAGE_VARIETIES } from '@langquest/contracts';
 import { ALL_SKILL_KEYS, DRAFT_CHAPTERS } from '@langquest/curriculum';
 import { describe, expect, it } from 'vitest';
-import { BUNDLE_DIR, NATIVE_TRACK_NAMES, buildFlutterBundle, frenchTrackName, main, skillName, spec } from './export-flutter-content';
+import { BUNDLE_DIR, NATIVE_TRACK_NAMES, buildFlutterBundle, castRoles, frenchTrackName, main, skillName, spec } from './export-flutter-content';
 import { memoryIo, runCli } from './lib/cli';
 import { repoRoot } from './lib/io';
 
@@ -22,6 +22,7 @@ const chapters = JSON.parse(files['chapters.json']!) as {
   chapters: { key: string; nativeReviewed: boolean; missions: { key: string; situation: string; slots: unknown[]; expressions: { id: string; text: string; meanings: Record<string, { meaning: string }> }[] }[] }[];
 };
 const skills = JSON.parse(files['skills.json']!) as { skills: { key: string; cefr: string; names: { en: string; fr: string }; system: boolean }[] };
+const cast = JSON.parse(files['cast.json']!) as { roles: Record<string, { en: string; fr: string }> };
 
 describe('export-flutter-content', () => {
   it('the checked-in bundle is current (regenerate with `pnpm --filter @langquest/scripts export-flutter-content`)', () => {
@@ -88,6 +89,14 @@ describe('export-flutter-content', () => {
     expect(byKey.get('greet_politely')?.names).toEqual({ en: 'Greet someone politely', fr: 'Saluer poliment' });
     expect(byKey.get('speaking.intelligibility')).toMatchObject({ system: true, names: { en: 'Be understood when speaking' } });
     expect(byKey.get('greet_politely')?.system).toBe(false);
+  });
+
+  it('exports the cast\'s roles in English and French, keyed by roster id', () => {
+    expect(cast.roles['ary-cafe-staff-nadia']).toEqual({ en: 'Café staff', fr: 'Employée de café' });
+    expect(cast.roles['ja-neighbour-haruka']?.fr).toBe('Voisine');
+    expect(Object.keys(cast.roles).length).toBeGreaterThanOrEqual(14);
+    expect(() => castRoles({ en: { cast: { role: { no_such_character: 'X' } } }, fr: {} })).toThrow(/names no roster character/);
+    expect(() => castRoles({ en: { cast: { role: { es_es_schoolboy_pablo: 'Schoolboy' } } }, fr: { cast: { role: {} } } })).toThrow(/needs an English and a French role/);
   });
 
   it('refuses a skill without a learner-facing name (dotted keys nest)', () => {

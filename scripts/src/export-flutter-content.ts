@@ -13,9 +13,11 @@
  *   chapter is an AI draft with `nativeReviewed: false`; the app discloses that before enrolling.
  * - `ALL_SKILLS` (`@langquest/curriculum`) + `packages/locales/src/catalogs/{en,fr}.json` (`progress.skill.<key>`): the
  *   skills the API reports mastery for (`GET /v1/me/skills`), with their learner-facing names.
+ * - `CHARACTER_ROSTER` (`@langquest/ui/art/web`) + the catalogs' `cast.role.<roster id>`: the cast's roles in English and
+ *   French (the server's characters carry an English role only).
  *
- * Output is deterministic (no timestamps): `catalog.json` (30 tracks), `chapters.json` (draft chapters) and
- * `skills.json` (skill names). Expression ids are `seedExpressionId()` (`<chapter>:<mission>:<expression>`), the same
+ * Output is deterministic (no timestamps): `catalog.json` (30 tracks), `chapters.json` (draft chapters), `skills.json`
+ * (skill names) and `cast.json` (character roles). Expression ids are `seedExpressionId()` (`<chapter>:<mission>:<expression>`), the same
  * keys the database seed derives from.
  *
  * Usage: pnpm --filter @langquest/scripts export-flutter-content [-- --check] [-- --dry-run]
@@ -24,7 +26,7 @@ import { readFileSync } from 'node:fs';
 import { relative, resolve } from 'node:path';
 import { COURSE_TRACKS, LANGUAGE_VARIETIES, type CourseTrack, type CourseTrackId } from '@langquest/contracts';
 import { ALL_SKILLS, DRAFT_CHAPTERS, SYSTEM_SKILL_KEYS, findBlueprint, seedExpressionId, skillNameKey, type SeedChapter, type SeedExpression, type SeedMission, type Skill } from '@langquest/curriculum';
-import { COVER_RECIPES } from '@langquest/ui/art/web';
+import { CHARACTER_ROSTER, COVER_RECIPES } from '@langquest/ui/art/web';
 import { flagBool, isDirectRun, runCli, type CliIo, type CliSpec, type ParsedArgs } from './lib/cli';
 import { fileExists, repoRoot, writeTextFileSync } from './lib/io';
 
@@ -181,6 +183,30 @@ function skillEntry(skill: Skill, catalogs: { en: Record<string, unknown>; fr: R
   };
 }
 
+/**
+ * The cast's learner-facing roles (`cast.role.<roster id>` in the catalogs, hyphens written as underscores), keyed by
+ * roster id. Every entry must name a roster character and have both an English and a French role.
+ */
+export function castRoles(catalogs: { en: Record<string, unknown>; fr: Record<string, unknown> }): Record<string, { en: string; fr: string }> {
+  const rolesOf = (catalog: Record<string, unknown>): Record<string, unknown> => {
+    const cast = catalog.cast as { role?: Record<string, unknown> } | undefined;
+    return cast?.role ?? {};
+  };
+  const en = rolesOf(catalogs.en);
+  const fr = rolesOf(catalogs.fr);
+  const roster = new Set(CHARACTER_ROSTER.map((c) => c.id));
+  const out: Record<string, { en: string; fr: string }> = {};
+  for (const slug of Object.keys(en).sort()) {
+    const id = slug.replace(/_/g, '-');
+    if (!roster.has(id)) throw new Error(`cast.role.${slug} names no roster character (${id})`);
+    const enRole = en[slug];
+    const frRole = fr[slug];
+    if (typeof enRole !== 'string' || !enRole.trim() || typeof frRole !== 'string' || !frRole.trim()) throw new Error(`cast.role.${slug} needs an English and a French role`);
+    out[id] = { en: enRole, fr: frRole };
+  }
+  return out;
+}
+
 /** The bundle files, keyed by file name, as the exact text written to disk. Pure. */
 export function buildFlutterBundle(root: string): Record<string, string> {
   const readCatalog = (lang: 'en' | 'fr') => JSON.parse(readFileSync(resolve(root, `packages/locales/src/catalogs/${lang}.json`), 'utf8')) as Record<string, unknown>;
@@ -190,16 +216,18 @@ export function buildFlutterBundle(root: string): Record<string, string> {
   const catalog = { ...header, tracks: [...COURSE_TRACKS].sort((a, b) => a.order - b.order).map((t) => trackEntry(t, frCatalog as Parameters<typeof frenchTrackName>[0])) };
   const chapters = { ...header, chapters: DRAFT_CHAPTERS.map(chapterEntry) };
   const skills = { ...header, skills: ALL_SKILLS.map((sk) => skillEntry(sk, { en: enCatalog, fr: frCatalog })) };
+  const cast = { ...header, roles: castRoles({ en: enCatalog, fr: frCatalog }) };
   return {
     'catalog.json': `${JSON.stringify(catalog, null, 2)}\n`,
     'chapters.json': `${JSON.stringify(chapters, null, 2)}\n`,
     'skills.json': `${JSON.stringify(skills, null, 2)}\n`,
+    'cast.json': `${JSON.stringify(cast, null, 2)}\n`,
   };
 }
 
 export const spec: CliSpec = {
   name: 'export-flutter-content',
-  summary: 'Writes the Flutter app content bundle (catalog, draft chapters, skill names) from contracts, ui, curriculum and locales.',
+  summary: 'Writes the Flutter app content bundle (catalog, draft chapters, skill names, cast roles) from contracts, ui, curriculum and locales.',
   flags: [{ name: 'check', type: 'boolean', description: 'Do not write; exit 1 when a bundle file differs from a fresh export.' }],
   examples: ['export-flutter-content', 'export-flutter-content -- --check'],
 };
