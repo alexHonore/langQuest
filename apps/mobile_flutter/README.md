@@ -34,6 +34,11 @@ browser's speech synthesis, with the same exact-locale rule as on phones. On the
 (MediaRecorder; the browser asks for the microphone the first time, and only on https or localhost) and hear the take next to
 the reference voice; the take stays in memory and is never uploaded.
 
+First visit: about 4 MB over the wire (the CanvasKit engine, the app, its fonts and content), then served from the
+service worker's cache. The web engine downloads every font in `assets/FontManifest.json` at start-up, so the image
+build prunes the icon package's unused weight variants (`tool/prune_web_fonts.dart`, about 1.4 MB); run it after a
+local `flutter build web` too: `dart tool/prune_web_fonts.dart build/web`.
+
 CI checks the compiled app too: after building and serving the root image, `tool/web_smoke.cjs` drives it in Chromium
 (first run → a lesson → record yourself with a fake microphone → Settings › Display) and fails on any page error —
 the Dart VM tests cannot see what dart2js does (it once broke recording while every VM test passed).
