@@ -34,6 +34,9 @@ RUN flutter pub get --enforce-lockfile
 COPY apps/mobile_flutter/ ./
 # --no-web-resources-cdn: CanvasKit is served from this host, not fetched from a Google CDN.
 RUN flutter build web --release --no-web-resources-cdn --no-wasm-dry-run
+# The web engine downloads every font in the manifest at start-up: drop the icon package's unused weight variants
+# (about 1.4 MB of a first visit). The tool refuses if the app ever imports one of their libraries.
+RUN dart tool/prune_web_fonts.dart build/web
 
 FROM caddy:2.11-alpine
 COPY apps/mobile_flutter/deploy/Caddyfile /etc/caddy/Caddyfile

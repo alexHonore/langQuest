@@ -6,11 +6,14 @@ import 'package:http/http.dart' as http;
 /// An answer of the API that is not `{ok: true}`: [status] is the HTTP status, [code] the API's error code
 /// (`conflict`, `validation_failed`, `unauthorized`, `provider_unavailable`…).
 class ApiException implements Exception {
-  ApiException(this.status, this.code, this.message);
+  ApiException(this.status, this.code, this.message, [this.details = const {}]);
 
   final int status;
   final String code;
   final String message;
+
+  /// The error's `details` (for instance `retryAfterSeconds` of a turn still in progress).
+  final Map<String, Object?> details;
 
   /// Worth retrying later (network trouble, rate limit, server down) rather than a request the server refuses.
   bool get isTransient => status == 0 || status == 408 || status == 429 || status >= 500;
@@ -42,6 +45,16 @@ class LangQuestApi {
   }
 
   Future<Map<String, Object?>> me() async => _object(await _send('GET', '/v1/me'));
+
+  /// `GET /v1/courses?source=` (public): every track with what the server offers it from that instruction language —
+  /// characters, published audio lessons, and its speech capabilities (recognition, synthesis, conversation, scoring).
+  Future<List<Map<String, Object?>>> courses(String source) async {
+    final data = _object(await _send('GET', '/v1/courses?source=$source'));
+    return [
+      for (final c in (data['courses'] as List? ?? const []))
+        if (c is Map) c.cast<String, Object?>(),
+    ];
+  }
 
   /// `POST /v1/me/enrollments` — 409 `conflict` when the track already has an active enrollment.
   Future<Map<String, Object?>> createEnrollment(String trackId, String source) async =>
@@ -88,7 +101,111 @@ class LangQuestApi {
     }),
   );
 
-  Future<Object?> _send(String method, String path, [Map<String, Object?>? body]) async {
+  /// `POST /v1/speech/pronunciation-assess` — did the take say [expressionId] (a published expression of the
+  /// enrollment's variety)? With [scenarioId] = the mission's id, the server's grading row is evidence for that
+  /// mission's speaking steps. A take without speech answers `no_speech_detected` and is never judged.
+  Future<Map<String, Object?>> assessSpeech({
+    required String enrollmentId,
+    required String targetVarietyId,
+    required String expressionId,
+    required String audioBase64,
+    required String encoding,
+    required String clientRequestId,
+    String? scenarioId,
+    double? peakLevelDb,
+  }) async => _object(
+    await _send('POST', '/v1/speech/pronunciation-assess', {
+      'enrollmentId': enrollmentId,
+      'targetVarietyId': targetVarietyId,
+      'expressionId': expressionId,
+      'audio': {'source': 'inline', 'base64': audioBase64, 'encoding': encoding, 'sampleRateHz': null},
+      'clientRequestId': clientRequestId,
+      'scenarioId': ?scenarioId,
+      'recording': {'peakLevelDb': peakLevelDb},
+    }, aiTimeout),
+  );
+
+  /// `POST /v1/speech/synthesize` — the server's synthetic voice for an approved line of the enrollment's variety
+  /// ([expressionId], a server id). The audio comes inline (`base64`) or as a short-lived `url`.
+  Future<Map<String, Object?>> synthesize({
+    required String enrollmentId,
+    required String targetVarietyId,
+    required String expressionId,
+    bool slow = false,
+  }) async => _object(
+    await _send('POST', '/v1/speech/synthesize', {
+      'enrollmentId': enrollmentId,
+      'targetVarietyId': targetVarietyId,
+      'expressionId': expressionId,
+      'speed': slow ? 'slow' : 'normal',
+      'outputEncoding': 'mp3',
+    }, aiTimeout),
+  );
+
+  /// `POST /v1/ai/conversation/session` — a live conversation with one of the course's characters, scoped to a
+  /// mission (its objectives and scene). Idempotent on [clientSessionId]. The answer names the character, the
+  /// objectives and the character's opening line (with its synthesized audio when the session speaks).
+  Future<Map<String, Object?>> startConversation({
+    required String enrollmentId,
+    required String clientSessionId,
+    String? missionId,
+    String? characterId,
+    required bool voice,
+  }) async => _object(
+    await _send('POST', '/v1/ai/conversation/session', {
+      'enrollmentId': enrollmentId,
+      'missionId': ?missionId,
+      'characterId': ?characterId,
+      'clientSessionId': clientSessionId,
+      'mode': voice ? 'push_to_talk' : 'text_only',
+      'inputEncoding': 'webm_opus',
+    }, aiTimeout),
+  );
+
+  /// `GET /v1/courses/:trackId/manifest?source=` — the course's published content as the server holds it; the app
+  /// reads its `characters` (id, name, role): who can be called.
+  Future<List<Map<String, Object?>>> courseCharacters(String trackId, String source) async {
+    final data = _object(await _send('GET', '/v1/courses/$trackId/manifest?source=$source'));
+    return [
+      for (final c in (data['characters'] as List? ?? const []))
+        if (c is Map) c.cast<String, Object?>(),
+    ];
+  }
+
+  /// `POST /v1/ai/conversation/:id/turn` — the learner's turn (audio, text or a command) and the character's reply.
+  /// Idempotent on `clientTurnId`: a retry with the same id replays the reply; one still in flight answers 409
+  /// `turn_in_progress` (retry the same id shortly).
+  Future<Map<String, Object?>> conversationTurn(String sessionId, Map<String, Object?> body) async =>
+      _object(await _send('POST', '/v1/ai/conversation/$sessionId/turn', body, aiTimeout));
+
+  /// `POST /v1/ai/conversation/:id/end` — hangs up: the server evaluates the conversation (objectives met, up to two
+  /// corrections, a summary), awards XP and schedules reviews. Replaying an ended session shows its stored outcome.
+  Future<Map<String, Object?>> endConversation(
+    String sessionId, {
+    required String reason,
+    required int lastSeq,
+    required int turnCount,
+    required String clientEventId,
+  }) async => _object(
+    await _send('POST', '/v1/ai/conversation/$sessionId/end', {
+      'reason': reason,
+      'clientState': {'lastSeq': lastSeq, 'turnCount': turnCount},
+      'clientEventId': clientEventId,
+    }, aiTimeout),
+  );
+
+  /// `GET /v1/me/export` — the portable JSON bundle of everything the account holds (§11).
+  Future<Map<String, Object?>> exportData() async => _object(await _send('GET', '/v1/me/export'));
+
+  /// `DELETE /v1/me` — deletes the account on the server (`deleted`, or `scheduled` when the policy defers it).
+  /// The literal confirmation is the API's own guard against accidental calls.
+  Future<Map<String, Object?>> deleteAccount() async => _object(await _send('DELETE', '/v1/me', {'confirmation': 'DELETE', 'deleteOptInRecordings': true}));
+
+  /// The AI routes (speech recognition, the character, synthesis) answer in a few seconds, at worst in the server's
+  /// own budget; the other routes in well under a second.
+  static const aiTimeout = Duration(seconds: 45);
+
+  Future<Object?> _send(String method, String path, [Map<String, Object?>? body, Duration timeout = const Duration(seconds: 20)]) async {
     final token = await accessToken();
     final request = http.Request(method, Uri.parse('$baseUrl$path'))
       ..headers.addAll({
@@ -99,7 +216,7 @@ class LangQuestApi {
     if (body != null) request.body = jsonEncode(body);
     http.Response res;
     try {
-      res = await http.Response.fromStream(await _client.send(request).timeout(const Duration(seconds: 20)));
+      res = await http.Response.fromStream(await _client.send(request).timeout(timeout));
     } catch (e) {
       throw ApiException(0, 'network', '$e');
     }
@@ -111,7 +228,8 @@ class LangQuestApi {
     }
     if (json is Map && json['ok'] == true) return json['data'];
     final error = json is Map && json['error'] is Map ? json['error'] as Map : const {};
-    throw ApiException(res.statusCode, '${error['code'] ?? 'http_${res.statusCode}'}', '${error['message'] ?? ''}');
+    final details = error['details'] is Map ? (error['details'] as Map).cast<String, Object?>() : const <String, Object?>{};
+    throw ApiException(res.statusCode, '${error['code'] ?? 'http_${res.statusCode}'}', '${error['message'] ?? ''}', details);
   }
 
   static Map<String, Object?> _object(Object? data) => data is Map ? data.cast<String, Object?>() : const {};

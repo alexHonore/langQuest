@@ -502,15 +502,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get appLanguage => 'Langue de l’application';
 
   @override
-  String get darkTheme => 'Thème sombre';
-
-  @override
-  String get darkThemeOn => 'Night Market, sombre par défaut';
-
-  @override
-  String get darkThemeOff => 'Palette claire';
-
-  @override
   String get yourCourses => 'Vos cours';
 
   @override
@@ -622,7 +613,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get accountDeviceOnly =>
-      'L’XP d’entraînement et vos révisions restent sur cet appareil : le serveur ne compte l’XP que pour les missions avec une prise de parole évaluée, que cette app n’enregistre pas encore.';
+      'L’XP d’entraînement et vos révisions restent sur cet appareil : le serveur ne compte l’XP que pour les missions avec une prise de parole qu’il a évaluée, et les enregistrements faits ici ne quittent jamais cet appareil.';
 
   @override
   String get accountEmail => 'E-mail';
@@ -640,7 +631,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get accountMissingFields => 'Saisissez votre e-mail et un mot de passe.';
 
   @override
-  String get accountConfirmEmail => 'Confirmez le compte depuis l’e-mail reçu, puis connectez-vous.';
+  String get accountConfirmEmail => 'Vérifiez vos e-mails : le lien reçu confirme le compte et vous connecte ici.';
 
   @override
   String accountSignedInAs(String email) {
@@ -674,4 +665,554 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get yourDataBodySignedOut =>
       'Tout est enregistré uniquement sur cet appareil, sauf si vous vous connectez ci-dessus pour conserver vos cours et vos missions terminées dans un compte.';
+
+  @override
+  String get accountExport => 'Exporter mes données';
+
+  @override
+  String accountExported(String file) {
+    return 'Enregistré : $file';
+  }
+
+  @override
+  String get accountDelete => 'Supprimer mon compte';
+
+  @override
+  String get accountDeleteTitle => 'Supprimer votre compte ?';
+
+  @override
+  String get accountDeleteBody =>
+      'Supprime définitivement votre compte, ainsi que les cours et la progression qui y sont enregistrés. Cette action est irréversible. La progression sur cet appareil reste jusqu’à ce que vous la réinitialisiez.';
+
+  @override
+  String accountDeleteType(String word) {
+    return 'Tapez $word pour confirmer.';
+  }
+
+  @override
+  String get accountDeleteWord => 'SUPPRIMER';
+
+  @override
+  String get accountDeleted => 'Votre compte a été supprimé.';
+
+  @override
+  String get accountDeleteScheduled => 'Votre compte sera supprimé sous 30 jours. Reconnectez-vous pour annuler.';
+
+  @override
+  String get recordYourself => 'Enregistrez-vous';
+
+  @override
+  String get recordStop => 'Arrêter';
+
+  @override
+  String get recordStopSemantics => 'Arrêter l’enregistrement';
+
+  @override
+  String get recordingNow => 'Enregistrement en cours';
+
+  @override
+  String get recordMyVoice => 'Ma voix';
+
+  @override
+  String get recordMyVoiceSemantics => 'Écouter votre enregistrement';
+
+  @override
+  String get recordStopPlayingSemantics => 'Arrêter la lecture de votre enregistrement';
+
+  @override
+  String get recordAgain => 'Recommencer';
+
+  @override
+  String get recordAgainSemantics => 'Enregistrer à nouveau';
+
+  @override
+  String get recordTryAgain => 'Réessayer';
+
+  @override
+  String get recordStaysOnDevice => 'Votre enregistrement reste sur cet appareil.';
+
+  @override
+  String recordCompare(String listen, String mine) {
+    return 'Comparez : $listen, puis $mine.';
+  }
+
+  @override
+  String get recordSilent => 'Je n’ai rien entendu. Vérifiez votre micro et réessayez.';
+
+  @override
+  String get recordBlocked => 'Le micro est bloqué. Autorisez-le pour ce site, puis réessayez.';
+
+  @override
+  String get recordNoMicrophone => 'Aucun micro trouvé.';
+
+  @override
+  String get recordFailed => 'L’enregistrement n’a pas fonctionné.';
+
+  @override
+  String get display => 'Affichage';
+
+  @override
+  String get themeDark => 'Sombre';
+
+  @override
+  String get themeLight => 'Clair';
+
+  @override
+  String get themeDevice => 'Appareil';
+
+  @override
+  String get textSize => 'Taille du texte';
+
+  @override
+  String get textSizeBody => 'En plus de la taille du texte de votre appareil.';
+
+  @override
+  String get reduceMotion => 'Réduire les animations';
+
+  @override
+  String get reduceMotionBody => 'Les scènes, Melo et les changements de page restent immobiles.';
+
+  @override
+  String get reduceMotionDevice => 'Activé dans les réglages de votre appareil.';
+
+  @override
+  String get showMascot => 'Afficher Melo, la mascotte';
+
+  @override
+  String get showMascotBody => 'Melo vous encourage ; le masquer ne masque rien d’autre.';
+
+  @override
+  String get textSmaller => 'Texte plus petit';
+
+  @override
+  String get textLarger => 'Texte plus grand';
+
+  @override
+  String textSizeValue(String percent) {
+    return 'Taille du texte $percent';
+  }
+
+  @override
+  String get forgotPassword => 'Mot de passe oublié ?';
+
+  @override
+  String get enterEmailFirst => 'Saisissez d’abord votre adresse e-mail.';
+
+  @override
+  String get passwordResetSent => 'Si un compte utilise cette adresse, un e-mail avec un lien pour choisir un nouveau mot de passe arrive.';
+
+  @override
+  String get emailConfirmed => 'Adresse e-mail confirmée. Vous êtes connecté à votre compte.';
+
+  @override
+  String get emailLinkFailed =>
+      'Ce lien ne peut pas être utilisé : il a peut-être expiré, déjà servi, ou été ouvert dans un autre navigateur que celui qui l’a demandé. Demandez-en un nouveau dans les Réglages.';
+
+  @override
+  String get newPasswordTitle => 'Choisissez un nouveau mot de passe';
+
+  @override
+  String newPasswordBody(String email) {
+    return 'Vous avez ouvert un lien de réinitialisation pour $email.';
+  }
+
+  @override
+  String get newPasswordLabel => 'Nouveau mot de passe';
+
+  @override
+  String get newPasswordSave => 'Enregistrer';
+
+  @override
+  String get newPasswordFailed => 'Le mot de passe n’a pas pu être enregistré. Réessayez.';
+
+  @override
+  String get later => 'Plus tard';
+
+  @override
+  String get passwordChanged => 'Votre mot de passe a été modifié.';
+
+  @override
+  String get practiseSayingEntry => 'S’entraîner à dire les phrases';
+
+  @override
+  String practiseSayingTitle(String mission) {
+    return 'S’entraîner à dire · $mission';
+  }
+
+  @override
+  String get practiseSayingNote => 'Écoutez, enregistrez-vous, puis comparez. Pas de note : il faudrait un évaluateur de prononciation que ce cours n’a pas.';
+
+  @override
+  String get practiseSayingDone => 'Terminé';
+
+  @override
+  String get previousPhrase => 'Phrase précédente';
+
+  @override
+  String get warmupTitle => 'Essayez votre première phrase';
+
+  @override
+  String get warmupBody => 'Écoutez, puis dites-la à voix haute. Rien n’est noté ici.';
+
+  @override
+  String get warmupContinue => 'Commencer à apprendre';
+
+  @override
+  String get warmupBodyNoVoice => 'Dites-la à voix haute. Rien n’est noté ici.';
+
+  @override
+  String get recordChecked => 'LangQuest vérifie ce que vous avez dit ; l’enregistrement n’est pas conservé.';
+
+  @override
+  String get recordCheckedKept => 'LangQuest vérifie ce que vous avez dit ; les enregistrements sont conservés selon vos réglages de confidentialité.';
+
+  @override
+  String get recordChecking => 'Vérification de ce que vous avez dit…';
+
+  @override
+  String get recordCheckFailed => 'Impossible de vérifier cette prise.';
+
+  @override
+  String get verdictUnderstood => 'Compris !';
+
+  @override
+  String get verdictNotQuite => 'Pas tout à fait';
+
+  @override
+  String get verdictNotQuiteHint => 'Écoutez le modèle, puis réessayez.';
+
+  @override
+  String get verdictUnsure => 'Je n’ai pas bien compris';
+
+  @override
+  String get verdictUnsureHint => 'Réessayez, un peu plus près du micro.';
+
+  @override
+  String verdictHeard(String heard) {
+    return 'J’ai entendu : « $heard »';
+  }
+
+  @override
+  String missionSpokenSummary(int understood, int checked) {
+    return 'Compris à l’oral : $understood sur $checked';
+  }
+
+  @override
+  String get practiseSayingNoteChecked =>
+      'Écoutez, enregistrez-vous : LangQuest vous dit si ce que vous avez dit a été compris. C’est le sens qui compte ; il n’y a pas de note de prononciation.';
+
+  @override
+  String get callIntroTitle => 'Entraînez-vous dans une vraie conversation';
+
+  @override
+  String get callIntroBody =>
+      'Quelqu’un de cette mission décroche et vous parle dans la langue que vous apprenez. Répondez à voix haute, ou écrivez. Quand vous raccrochez, LangQuest vous dit comment ça s’est passé.';
+
+  @override
+  String get callIntroBodyText =>
+      'Quelqu’un de cette mission discute avec vous dans la langue que vous apprenez. Quand vous terminez, LangQuest vous dit comment ça s’est passé.';
+
+  @override
+  String get callIntroNote => 'Utilise l’IA de LangQuest. Vos enregistrements ne sont pas conservés.';
+
+  @override
+  String get callIntroNoteKept => 'Utilise l’IA de LangQuest. Les enregistrements sont conservés selon vos réglages de confidentialité.';
+
+  @override
+  String get callStart => 'Appeler';
+
+  @override
+  String get callStartText => 'Commencer la discussion';
+
+  @override
+  String get callCalling => 'Appel en cours…';
+
+  @override
+  String get callFailedUnavailable => 'Les appels en direct ne sont pas encore disponibles pour ce cours.';
+
+  @override
+  String get callFailedNetwork => 'L’appel n’a pas abouti. Vérifiez votre connexion et réessayez.';
+
+  @override
+  String get callFailedEnded => 'Cet appel est terminé.';
+
+  @override
+  String get callTryAgain => 'Réessayer';
+
+  @override
+  String callSpeaking(String name) {
+    return '$name parle';
+  }
+
+  @override
+  String callThinking(String name) {
+    return '$name réfléchit…';
+  }
+
+  @override
+  String get callListening => 'Je vous écoute…';
+
+  @override
+  String get callYourTurnVoice => 'À vous : touchez le micro et répondez';
+
+  @override
+  String get callYourTurnText => 'À vous : écrivez votre réponse';
+
+  @override
+  String get callTalk => 'Parler';
+
+  @override
+  String get callSend => 'Envoyer';
+
+  @override
+  String get callCancelTake => 'Annuler';
+
+  @override
+  String get callType => 'Écrire plutôt';
+
+  @override
+  String get callTypeHint => 'Écrivez votre réponse…';
+
+  @override
+  String get callHangUp => 'Raccrocher';
+
+  @override
+  String get callEndChat => 'Terminer la discussion';
+
+  @override
+  String get callHint => 'Indice';
+
+  @override
+  String get callRepeat => 'Répéter';
+
+  @override
+  String get callSlower => 'Plus lentement';
+
+  @override
+  String get callTranslate => 'Traduire';
+
+  @override
+  String get callGoals => 'Objectifs';
+
+  @override
+  String callGoalDone(String goal) {
+    return '$goal : fait';
+  }
+
+  @override
+  String callGoalProbably(String goal) {
+    return '$goal : sans doute fait';
+  }
+
+  @override
+  String callGoalNotYet(String goal) {
+    return '$goal : pas encore';
+  }
+
+  @override
+  String get callNoSpeech => 'Je n’ai rien entendu. Réessayez, un peu plus près du micro.';
+
+  @override
+  String get callTurnFailed => 'Ça n’est pas passé. Réessayez.';
+
+  @override
+  String callSaidGoodbye(String name) {
+    return '$name vous a dit au revoir. Raccrochez pour voir comment ça s’est passé.';
+  }
+
+  @override
+  String get callEnding => 'On raccroche… LangQuest regarde comment ça s’est passé.';
+
+  @override
+  String get callEndedTitle => 'Appel terminé';
+
+  @override
+  String get callChatEndedTitle => 'Discussion terminée';
+
+  @override
+  String callGoalsMet(int met, int total) {
+    return 'Objectifs atteints : $met sur $total';
+  }
+
+  @override
+  String get callNextTime => 'La prochaine fois, essayez';
+
+  @override
+  String callYouSaid(String text) {
+    return 'Vous avez dit : « $text »';
+  }
+
+  @override
+  String get callNotEvaluated => 'LangQuest n’a pas pu évaluer cet appel : rien n’a été compté.';
+
+  @override
+  String get callAgain => 'Rappeler';
+
+  @override
+  String get callYou => 'Vous';
+
+  @override
+  String get callReplayLine => 'Réécouter cette réplique';
+
+  @override
+  String get callHeardYou => 'Écoute de votre réponse…';
+
+  @override
+  String get pathTalkSubtitle => 'Un appel en direct : utilisez ce que vous avez appris, à voix haute';
+
+  @override
+  String get pathTalkSubtitleText => 'Une discussion en direct : utilisez ce que vous avez appris';
+
+  @override
+  String get missionTryLiveCall => 'Essayez-le dans un appel en direct';
+
+  @override
+  String courseIncludesLiveCalls(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count personnages IA', one: 'le personnage IA du cours');
+    return 'Des appels en direct avec $_temp0, à l’oral ou par écrit (avec un compte gratuit)';
+  }
+
+  @override
+  String get courseIncludesSpokenCheck => 'Vos réponses orales vérifiées : LangQuest vous dit si vous avez été compris (avec un compte gratuit)';
+
+  @override
+  String get courseMissingPronunciationScore => 'Une note de prononciation : les réponses orales sont vérifiées pour le sens, pas pour l’accent';
+
+  @override
+  String get courseLimitedForDialect =>
+      'La reconnaissance vocale et les voix IA restent limitées pour ce dialecte (pas encore relues par des locuteurs natifs)';
+
+  @override
+  String get listenAiVoiceSemantics => 'Écouter (voix IA)';
+
+  @override
+  String get listenSlowlyAiVoiceSemantics => 'Écouter lentement (voix IA)';
+
+  @override
+  String get tabAudio => 'Audio';
+
+  @override
+  String get audioLibraryTitle => 'Leçons audio';
+
+  @override
+  String get audioLibraryBody => 'Une par mission : la conversation, puis phrase par phrase avec le temps de dire chacune, puis la conversation à nouveau.';
+
+  @override
+  String get audioReadByAi => 'Lue par une voix IA';
+
+  @override
+  String get audioReadByDevice => 'Lue par la voix de votre appareil';
+
+  @override
+  String audioLessonMeta(int phrases, int minutes) {
+    String _temp0 = intl.Intl.pluralLogic(phrases, locale: localeName, other: '$phrases phrases', one: '1 phrase');
+    return '$_temp0 · environ $minutes min';
+  }
+
+  @override
+  String get audioListened => 'Écoutée';
+
+  @override
+  String get audioLessonLabel => 'Leçon audio';
+
+  @override
+  String audioIntro(String mission) {
+    return '$mission. Écoutez la conversation.';
+  }
+
+  @override
+  String get audioPhrasesIntro => 'Maintenant, phrase par phrase. Écoutez, puis dites-la à voix haute.';
+
+  @override
+  String get audioAgainIntro => 'Encore une fois, toute la conversation.';
+
+  @override
+  String get audioOutro => 'C’est la fin de la leçon. Bravo !';
+
+  @override
+  String get audioSectionConversation => 'La conversation';
+
+  @override
+  String get audioSectionPhrases => 'Phrase par phrase';
+
+  @override
+  String get audioSectionAgain => 'Encore une fois';
+
+  @override
+  String get audioYourTurn => 'À vous : dites-la';
+
+  @override
+  String get audioPlay => 'Lecture';
+
+  @override
+  String get audioPause => 'Pause';
+
+  @override
+  String get audioNextLine => 'Réplique suivante';
+
+  @override
+  String get audioPreviousLine => 'Réplique précédente';
+
+  @override
+  String get audioSlowly => 'Lentement';
+
+  @override
+  String get audioTurns => 'Temps pour répéter';
+
+  @override
+  String get audioFinished => 'Leçon terminée';
+
+  @override
+  String get audioPlayAgain => 'Réécouter';
+
+  @override
+  String get audioYou => 'Vous';
+
+  @override
+  String courseIncludesAudioLessons(String voice) {
+    return 'Des leçons audio tirées de chaque mission, lues par $voice';
+  }
+
+  @override
+  String get courseVoiceAi => 'une voix IA (avec un compte gratuit)';
+
+  @override
+  String get courseVoiceDevice => 'la voix de votre appareil';
+
+  @override
+  String get courseMissingAudioRecorded => 'De l’audio enregistré par des locuteurs natifs';
+
+  @override
+  String get courseIncludesAiVoiceDialect => 'Une voix IA pour ce dialecte (avec un compte gratuit)';
+
+  @override
+  String get tabSpeak => 'Converser';
+
+  @override
+  String get speakTitle => 'Parlez avec les gens d’ici';
+
+  @override
+  String get speakBody =>
+      'Des conversations libres avec les personnages du cours, à l’oral ou par écrit. Utilisez ce que vous avez appris ; demandez un indice quand vous en avez besoin.';
+
+  @override
+  String get speakNoCharacters => 'Aucun personnage n’est encore publié pour ce cours.';
+
+  @override
+  String speakCall(String name) {
+    return 'Appeler $name';
+  }
+
+  @override
+  String callFreeTitle(String name) {
+    return 'Appeler $name';
+  }
+
+  @override
+  String get callFreeBody =>
+      'Une conversation libre, dans la langue que vous apprenez, sur la vie de tous les jours. Répondez à voix haute, ou écrivez. Quand vous raccrochez, LangQuest vous dit comment ça s’est passé.';
+
+  @override
+  String get callFreeBodyText =>
+      'Une discussion libre, dans la langue que vous apprenez, sur la vie de tous les jours. Quand vous terminez, LangQuest vous dit comment ça s’est passé.';
 }

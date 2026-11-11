@@ -169,10 +169,11 @@ class _TopBar extends ConsumerWidget {
           excludeSemantics: true,
           child: GlassContainer(
             level: GlassLevel.level1,
-            radius: 20,
-            padding: const EdgeInsets.all(9),
+            radius: 22,
+            // 44 × 44: a comfortable target for a finger.
+            padding: const EdgeInsets.all(12),
             onTap: () => context.push('/account'),
-            child: Icon(LucideIcons.settings, size: 18, color: colors.textSecondary),
+            child: Icon(LucideIcons.settings, size: 20, color: colors.textSecondary),
           ),
         ),
       ],

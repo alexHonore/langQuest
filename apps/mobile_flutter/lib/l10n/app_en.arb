@@ -362,9 +362,6 @@
   "freeTitle": "Free for every learner",
   "freeBody": "LangQuest has no paywalls, subscriptions, credits or usage meters.",
   "appLanguage": "App language",
-  "darkTheme": "Dark theme",
-  "darkThemeOn": "Night Market, dark-first",
-  "darkThemeOff": "Light palette",
   "yourCourses": "Your courses",
   "addCourse": "Add a course",
   "removeCourse": "Remove",
@@ -414,13 +411,13 @@
   "sceneClinic": "Clinic",
   "accountTitle": "Account",
   "accountPitch": "Save your courses and completed missions to an account, and pick up where you left off on another device or browser.",
-  "accountDeviceOnly": "Practice XP and your review schedule stay on this device: the server counts XP only for missions with an assessed spoken attempt, which this app does not record yet.",
+  "accountDeviceOnly": "Practice XP and your review schedule stay on this device: the server counts XP only for missions with a spoken attempt it has assessed, and recordings made here never leave this device.",
   "accountEmail": "Email",
   "accountPassword": "Password",
   "accountSignIn": "Sign in",
   "accountCreate": "Create account",
   "accountMissingFields": "Enter your email and a password.",
-  "accountConfirmEmail": "Check your email to confirm the account, then sign in.",
+  "accountConfirmEmail": "Check your email: the link in it confirms the account and signs you in here.",
   "accountSignedInAs": "Signed in as {email}",
   "@accountSignedInAs": {
     "placeholders": {
@@ -443,5 +440,336 @@
   },
   "accountSignOut": "Sign out",
   "yourDataBodyAccount": "Your courses and completed missions are also kept in your account. Everything else — practice XP, reviews, settings — is saved on this device only.",
-  "yourDataBodySignedOut": "Everything is saved on this device only, unless you sign in above to keep your courses and completed missions in an account."
+  "yourDataBodySignedOut": "Everything is saved on this device only, unless you sign in above to keep your courses and completed missions in an account.",
+  "accountExport": "Export my data",
+  "accountExported": "Saved {file}",
+  "@accountExported": {
+    "placeholders": {
+      "file": {
+        "type": "String"
+      }
+    }
+  },
+  "accountDelete": "Delete my account",
+  "accountDeleteTitle": "Delete your account?",
+  "accountDeleteBody": "This permanently removes your account and the courses and progress saved in it. It cannot be undone. The progress on this device stays until you reset it.",
+  "accountDeleteType": "Type {word} to confirm.",
+  "@accountDeleteType": {
+    "placeholders": {
+      "word": {
+        "type": "String"
+      }
+    }
+  },
+  "accountDeleteWord": "DELETE",
+  "accountDeleted": "Your account was deleted.",
+  "accountDeleteScheduled": "Your account will be deleted within 30 days. Sign in again to cancel.",
+  "recordYourself": "Record yourself",
+  "recordStop": "Stop",
+  "recordStopSemantics": "Stop recording",
+  "recordingNow": "Recording",
+  "recordMyVoice": "My voice",
+  "recordMyVoiceSemantics": "Play your recording",
+  "recordStopPlayingSemantics": "Stop playing your recording",
+  "recordAgain": "Again",
+  "recordAgainSemantics": "Record again",
+  "recordTryAgain": "Try again",
+  "recordStaysOnDevice": "Your recording stays on this device.",
+  "recordCompare": "Compare: {listen}, then {mine}.",
+  "@recordCompare": {
+    "placeholders": {
+      "listen": {
+        "type": "String"
+      },
+      "mine": {
+        "type": "String"
+      }
+    }
+  },
+  "recordSilent": "I didn’t hear anything. Check your microphone and try again.",
+  "recordBlocked": "The microphone is blocked. Allow it for this site, then try again.",
+  "recordNoMicrophone": "No microphone found.",
+  "recordFailed": "Recording didn’t work.",
+  "display": "Display",
+  "themeDark": "Dark",
+  "themeLight": "Light",
+  "themeDevice": "Device",
+  "textSize": "Text size",
+  "textSizeBody": "On top of your device's text size.",
+  "reduceMotion": "Reduce motion",
+  "reduceMotionBody": "Scenes, Melo and page changes stay still.",
+  "reduceMotionDevice": "On in your device's settings.",
+  "showMascot": "Show Melo, the mascot",
+  "showMascotBody": "Melo cheers you on; hiding it hides nothing else.",
+  "textSmaller": "Smaller text",
+  "textLarger": "Larger text",
+  "textSizeValue": "Text size {percent}",
+  "@textSizeValue": {
+    "placeholders": {
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "forgotPassword": "Forgot password?",
+  "enterEmailFirst": "Enter your email address first.",
+  "passwordResetSent": "If an account uses this address, an email with a link to choose a new password is on its way.",
+  "emailConfirmed": "Email confirmed. You're signed in.",
+  "emailLinkFailed": "This email link can't be used: it may have expired, been used already, or been opened in another browser than the one that asked for it. Ask for a new one in Settings.",
+  "newPasswordTitle": "Choose a new password",
+  "newPasswordBody": "You opened a password reset link for {email}.",
+  "@newPasswordBody": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "newPasswordLabel": "New password",
+  "newPasswordSave": "Save password",
+  "newPasswordFailed": "The password could not be saved. Try again.",
+  "later": "Later",
+  "passwordChanged": "Your password was changed.",
+  "practiseSayingEntry": "Practise saying the phrases",
+  "practiseSayingTitle": "Practise saying · {mission}",
+  "@practiseSayingTitle": {
+    "placeholders": {
+      "mission": {
+        "type": "String"
+      }
+    }
+  },
+  "practiseSayingNote": "Listen, record yourself, then compare. There is no score: a number needs a speech assessor this course does not have.",
+  "practiseSayingDone": "Done",
+  "previousPhrase": "Previous phrase",
+  "warmupTitle": "Try your first phrase",
+  "warmupBody": "Listen, then say it out loud. Nothing is scored here.",
+  "warmupContinue": "Start learning",
+  "warmupBodyNoVoice": "Say it out loud. Nothing is scored here.",
+  "recordChecked": "LangQuest checks what you said; the recording isn’t kept.",
+  "recordCheckedKept": "LangQuest checks what you said; recordings are kept as your privacy settings allow.",
+  "recordChecking": "Checking what you said…",
+  "recordCheckFailed": "Couldn’t check this take.",
+  "verdictUnderstood": "Understood!",
+  "verdictNotQuite": "Not quite",
+  "verdictNotQuiteHint": "Listen to the model, then try again.",
+  "verdictUnsure": "I couldn’t make that out",
+  "verdictUnsureHint": "Try again, a little closer to the microphone.",
+  "verdictHeard": "I heard: “{heard}”",
+  "@verdictHeard": {
+    "placeholders": {
+      "heard": {
+        "type": "String"
+      }
+    }
+  },
+  "missionSpokenSummary": "Understood out loud: {understood} of {checked}",
+  "@missionSpokenSummary": {
+    "placeholders": {
+      "understood": {
+        "type": "int"
+      },
+      "checked": {
+        "type": "int"
+      }
+    }
+  },
+  "practiseSayingNoteChecked": "Listen, record yourself: LangQuest tells you whether what you said came across. That is about meaning; there is no pronunciation score.",
+  "callIntroTitle": "Practise it in a real conversation",
+  "callIntroBody": "Someone from this mission picks up and talks with you in the language you’re learning. Answer out loud, or type. When you hang up, LangQuest tells you how it went.",
+  "callIntroBodyText": "Someone from this mission chats with you in the language you’re learning. When you end the chat, LangQuest tells you how it went.",
+  "callIntroNote": "Uses LangQuest’s AI. Your recordings aren’t kept.",
+  "callIntroNoteKept": "Uses LangQuest’s AI. Recordings are kept as your privacy settings allow.",
+  "callStart": "Call",
+  "callStartText": "Start the chat",
+  "callCalling": "Calling…",
+  "callFailedUnavailable": "Live calls aren’t available for this course yet.",
+  "callFailedNetwork": "The call didn’t go through. Check your connection and try again.",
+  "callFailedEnded": "This call has ended.",
+  "callTryAgain": "Try again",
+  "callSpeaking": "{name} is speaking",
+  "@callSpeaking": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "callThinking": "{name} is thinking…",
+  "@callThinking": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "callListening": "Listening to you…",
+  "callYourTurnVoice": "Your turn: tap the microphone and answer",
+  "callYourTurnText": "Your turn: type your answer",
+  "callTalk": "Talk",
+  "callSend": "Send",
+  "callCancelTake": "Cancel",
+  "callType": "Type instead",
+  "callTypeHint": "Write your answer…",
+  "callHangUp": "Hang up",
+  "callEndChat": "End the chat",
+  "callHint": "Hint",
+  "callRepeat": "Repeat",
+  "callSlower": "Slower",
+  "callTranslate": "Translate",
+  "callGoals": "Goals",
+  "callGoalDone": "{goal}: done",
+  "@callGoalDone": {
+    "placeholders": {
+      "goal": {
+        "type": "String"
+      }
+    }
+  },
+  "callGoalProbably": "{goal}: probably done",
+  "@callGoalProbably": {
+    "placeholders": {
+      "goal": {
+        "type": "String"
+      }
+    }
+  },
+  "callGoalNotYet": "{goal}: not yet",
+  "@callGoalNotYet": {
+    "placeholders": {
+      "goal": {
+        "type": "String"
+      }
+    }
+  },
+  "callNoSpeech": "I didn’t hear anything. Try again, a little closer to the microphone.",
+  "callTurnFailed": "That didn’t go through. Try again.",
+  "callSaidGoodbye": "{name} said goodbye. Hang up to see how it went.",
+  "@callSaidGoodbye": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "callEnding": "Hanging up… LangQuest is looking at how it went.",
+  "callEndedTitle": "Call ended",
+  "callChatEndedTitle": "Chat ended",
+  "callGoalsMet": "Goals met: {met} of {total}",
+  "@callGoalsMet": {
+    "placeholders": {
+      "met": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "callNextTime": "Next time, try",
+  "callYouSaid": "You said: “{text}”",
+  "@callYouSaid": {
+    "placeholders": {
+      "text": {
+        "type": "String"
+      }
+    }
+  },
+  "callNotEvaluated": "LangQuest couldn’t evaluate this call, so nothing was counted.",
+  "callAgain": "Call again",
+  "callYou": "You",
+  "callReplayLine": "Play this line again",
+  "callHeardYou": "Hearing you…",
+  "pathTalkSubtitle": "A live call: use what you learned, out loud",
+  "pathTalkSubtitleText": "A live chat: use what you learned",
+  "missionTryLiveCall": "Try it in a live call",
+  "courseIncludesLiveCalls": "Live calls with {count, plural, =1{the course’s AI character} other{{count} AI characters}}, by voice or in writing (with a free account)",
+  "@courseIncludesLiveCalls": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "courseIncludesSpokenCheck": "Your spoken answers checked: LangQuest tells you whether you were understood (with a free account)",
+  "courseMissingPronunciationScore": "A pronunciation score: spoken answers are checked for meaning, not accent",
+  "courseLimitedForDialect": "Speech recognition and AI voices are still limited for this dialect (not yet reviewed by native speakers)",
+  "listenAiVoiceSemantics": "Listen (AI voice)",
+  "listenSlowlyAiVoiceSemantics": "Listen slowly (AI voice)",
+  "tabAudio": "Audio",
+  "audioLibraryTitle": "Audio lessons",
+  "audioLibraryBody": "One per mission: the conversation, then phrase by phrase with time to say each one, then the conversation again.",
+  "audioReadByAi": "Read by an AI voice",
+  "audioReadByDevice": "Read by your device’s voice",
+  "audioLessonMeta": "{phrases, plural, =1{1 phrase} other{{phrases} phrases}} · about {minutes} min",
+  "@audioLessonMeta": {
+    "placeholders": {
+      "phrases": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "audioListened": "Listened",
+  "audioLessonLabel": "Audio lesson",
+  "audioIntro": "{mission}. Listen to the conversation.",
+  "@audioIntro": {
+    "placeholders": {
+      "mission": {
+        "type": "String"
+      }
+    }
+  },
+  "audioPhrasesIntro": "Now phrase by phrase. Listen, then say it out loud.",
+  "audioAgainIntro": "Once more, the whole conversation.",
+  "audioOutro": "That’s the end of the lesson. Well done!",
+  "audioSectionConversation": "The conversation",
+  "audioSectionPhrases": "Phrase by phrase",
+  "audioSectionAgain": "Once more",
+  "audioYourTurn": "Your turn: say it",
+  "audioPlay": "Play",
+  "audioPause": "Pause",
+  "audioNextLine": "Next line",
+  "audioPreviousLine": "Previous line",
+  "audioSlowly": "Slowly",
+  "audioTurns": "Time to repeat",
+  "audioFinished": "Lesson finished",
+  "audioPlayAgain": "Play again",
+  "audioYou": "You",
+  "courseIncludesAudioLessons": "Audio lessons made from each mission, read by {voice}",
+  "@courseIncludesAudioLessons": {
+    "placeholders": {
+      "voice": {
+        "type": "String"
+      }
+    }
+  },
+  "courseVoiceAi": "an AI voice (with a free account)",
+  "courseVoiceDevice": "your device’s voice",
+  "courseMissingAudioRecorded": "Audio recorded by native speakers",
+  "courseIncludesAiVoiceDialect": "An AI voice for this dialect (with a free account)",
+  "tabSpeak": "Speak",
+  "speakTitle": "Talk with the locals",
+  "speakBody": "Free conversations with the course’s characters, by voice or in writing. Use what you’ve learned; ask for a hint whenever you need one.",
+  "speakNoCharacters": "No characters are published for this course yet.",
+  "speakCall": "Call {name}",
+  "@speakCall": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "callFreeTitle": "Call {name}",
+  "@callFreeTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "callFreeBody": "A free conversation, in the language you’re learning, about everyday things. Answer out loud, or type. When you hang up, LangQuest tells you how it went.",
+  "callFreeBodyText": "A free chat, in the language you’re learning, about everyday things. When you end it, LangQuest tells you how it went."
 }

@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/content/content_models.dart';
+import '../../core/backend/server_voice.dart';
+import '../../core/layout/motion.dart';
 import '../../core/services/app_state.dart';
-import '../../core/services/speech_service.dart';
 import '../../core/theme/script_fonts.dart';
 import '../../l10n/l10n.dart';
 import '../scenes/scene_models.dart';
@@ -204,50 +206,100 @@ class LearnTopBar extends ConsumerWidget {
 class ListenButtons extends ConsumerWidget {
   final String text;
   final String? locale;
+
+  /// The line's bundle id: where the device has no voice for the course, the server's AI voice says it.
+  final String? expressionId;
   final bool compact;
 
-  const ListenButtons({super.key, required this.text, required this.locale, this.compact = false});
+  const ListenButtons({super.key, required this.text, required this.locale, this.expressionId, this.compact = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final voiceLocale = locale;
-    final available = ref.watch(voiceAvailableProvider(voiceLocale)).asData?.value ?? false;
-    if (!available || voiceLocale == null) return const SizedBox.shrink();
-    final accent = ref.watch(appStateProvider.select((s) => s.accent));
-    final speech = ref.read(speechServiceProvider);
+    final voice = ref.watch(lineVoiceProvider(locale)).asData?.value;
+    if (voice == null || !voice.available || (voice.source == LineVoiceSource.server && expressionId == null)) return const SizedBox.shrink();
     final l10n = context.l10n;
-    Widget chip(IconData icon, String label, String semantics, bool slow) => Semantics(
-      button: true,
-      label: semantics,
-      excludeSemantics: true,
-      child: InkWell(
-        borderRadius: BorderRadius.circular(20),
-        onTap: () => speech.speak(text, locale: voiceLocale, slow: slow),
-        child: Container(
-          constraints: const BoxConstraints(minHeight: 36),
-          padding: EdgeInsets.symmetric(horizontal: compact ? 10 : 14, vertical: compact ? 6 : 9),
-          decoration: BoxDecoration(color: accent.primarySoft, borderRadius: BorderRadius.circular(20)),
-          child: Row(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Icon(icon, size: 16, color: accent.primaryText),
-              const SizedBox(width: 6),
-              Text(
-                label,
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: accent.primaryText),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
+    // The server's voice is said to be an AI voice (screen readers hear it; the course page says so too).
+    final ai = voice.source == LineVoiceSource.server;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        chip(LucideIcons.volume2, l10n.listen, l10n.listen, false),
+        AudioChip(
+          icon: ai ? LucideIcons.audioLines : LucideIcons.volume2,
+          label: l10n.listen,
+          semanticsLabel: ai ? l10n.listenAiVoiceSemantics : null,
+          compact: compact,
+          onTap: () => voice.say(text: text, expressionId: expressionId),
+        ),
         const SizedBox(width: 8),
-        chip(LucideIcons.turtle, l10n.listenSlowly, l10n.listenSlowlySemantics, true),
+        AudioChip(
+          icon: LucideIcons.turtle,
+          label: l10n.listenSlowly,
+          semanticsLabel: ai ? l10n.listenSlowlyAiVoiceSemantics : l10n.listenSlowlySemantics,
+          compact: compact,
+          onTap: () => voice.say(text: text, expressionId: expressionId, slow: true),
+        ),
       ],
+    );
+  }
+}
+
+/// A rounded audio action — listen, record, play back — in the course accent, or in [background] / [foreground].
+class AudioChip extends ConsumerWidget {
+  final IconData icon;
+  final String label;
+
+  /// What a screen reader says, when it differs from [label] ("Slowly" → "Listen slowly").
+  final String? semanticsLabel;
+
+  /// Null disables the chip.
+  final VoidCallback? onTap;
+  final bool compact;
+  final Color? background;
+  final Color? foreground;
+
+  const AudioChip({
+    super.key,
+    required this.icon,
+    required this.label,
+    this.semanticsLabel,
+    this.onTap,
+    this.compact = false,
+    this.background,
+    this.foreground,
+  });
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final accent = ref.watch(appStateProvider.select((s) => s.accent));
+    final ink = foreground ?? accent.primaryText;
+    return Semantics(
+      button: true,
+      enabled: onTap != null,
+      label: semanticsLabel ?? label,
+      excludeSemantics: true,
+      child: Opacity(
+        opacity: onTap == null ? 0.55 : 1,
+        child: InkWell(
+          borderRadius: BorderRadius.circular(20),
+          onTap: onTap,
+          child: Container(
+            constraints: const BoxConstraints(minHeight: 36),
+            padding: EdgeInsets.symmetric(horizontal: compact ? 10 : 14, vertical: compact ? 6 : 9),
+            decoration: BoxDecoration(color: background ?? accent.primarySoft, borderRadius: BorderRadius.circular(20)),
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Icon(icon, size: 16, color: ink),
+                const SizedBox(width: 6),
+                Text(
+                  label,
+                  style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: ink),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
     );
   }
 }
@@ -288,6 +340,10 @@ class CharacterBadge extends ConsumerWidget {
               initial,
               style: TextStyle(fontSize: size * 0.42, fontWeight: FontWeight.w800, color: const Color(0xFF3A2A22)),
             ),
+          ).withMotion(
+            context,
+            // A gentle pulse while the character speaks.
+            (a) => speaking ? a.animate(onPlay: (c) => c.repeat(reverse: true)).scaleXY(begin: 1, end: 1.05, duration: 520.ms, curve: Curves.easeInOut) : a,
           ),
           if (showName) ...[
             const SizedBox(height: 4),

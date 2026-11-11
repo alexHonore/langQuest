@@ -1,0 +1,138 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:go_router/go_router.dart';
+import 'package:lucide_icons_flutter/lucide_icons.dart';
+
+import '../../core/layout/motion.dart';
+import '../../core/services/app_state.dart';
+import '../../l10n/l10n.dart';
+import 'call_portrait.dart';
+import 'call_screen.dart';
+
+/// The Speak tab: the course's characters (from the course manifest), each a tap away from a free call — by voice or
+/// in writing, outside any mission. Shown only when live calls back the active course (signed in, the server's
+/// snapshot says so).
+class SpeakScreen extends ConsumerWidget {
+  const SpeakScreen({super.key});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = ref.watch(appStateProvider.select((s) => s.colors));
+    final l10n = context.l10n;
+    final characters = ref.watch(courseCharactersProvider);
+    return SafeArea(
+      bottom: false,
+      child: ListView(
+        padding: const EdgeInsets.fromLTRB(16, 16, 16, 110),
+        children: [
+          Semantics(
+            header: true,
+            child: Text(
+              l10n.speakTitle,
+              style: TextStyle(fontSize: 26, fontWeight: FontWeight.w800, color: colors.textPrimary),
+            ),
+          ),
+          const SizedBox(height: 6),
+          Text(l10n.speakBody, style: TextStyle(fontSize: 14.5, height: 1.4, color: colors.textSecondary)),
+          const SizedBox(height: 18),
+          ...characters.when(
+            loading: () => [
+              Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(24),
+                  child: CircularProgressIndicator(color: colors.textMuted),
+                ),
+              ),
+            ],
+            error: (_, _) => [Text(l10n.speakNoCharacters, style: TextStyle(fontSize: 14, color: colors.textMuted))],
+            data: (list) => list.isEmpty
+                ? [Text(l10n.speakNoCharacters, style: TextStyle(fontSize: 14, color: colors.textMuted))]
+                : [
+                    for (final (i, c) in list.indexed)
+                      _CharacterCard(character: c)
+                          .withMotion(context, (a) => a.fadeIn(delay: (70 * i).ms, duration: 260.ms).slideY(begin: 0.1, delay: (70 * i).ms, duration: 260.ms)),
+                  ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _CharacterCard extends ConsumerWidget {
+  const _CharacterCard({required this.character});
+
+  final CourseCharacter character;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appState = ref.watch(appStateProvider);
+    final colors = appState.colors;
+    final accent = appState.accent;
+    final l10n = context.l10n;
+    final roster = character.rosterId;
+    final initial = character.name.isEmpty ? '?' : String.fromCharCode(character.name.runes.first).toUpperCase();
+    final portrait = roster != null
+        ? SvgPicture.asset(portraitAsset(roster, 'neutral'), width: 72, height: 72, excludeFromSemantics: true)
+        : Container(
+            width: 72,
+            height: 72,
+            decoration: const BoxDecoration(shape: BoxShape.circle, color: Color(0xFFF7EFE6)),
+            alignment: Alignment.center,
+            child: Text(
+              initial,
+              style: const TextStyle(fontSize: 28, fontWeight: FontWeight.w800, color: Color(0xFF3A2A22)),
+            ),
+          );
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 12),
+      // One target for the whole card: "Call Pablo, Schoolboy".
+      child: Semantics(
+        button: true,
+        label: character.role.isEmpty ? l10n.speakCall(character.name) : '${l10n.speakCall(character.name)}, ${character.role}',
+        excludeSemantics: true,
+        child: Material(
+          color: colors.surface,
+          borderRadius: BorderRadius.circular(20),
+          child: InkWell(
+            borderRadius: BorderRadius.circular(20),
+            onTap: () => context.push('/talk/${character.id}'),
+            child: Container(
+              padding: const EdgeInsets.all(14),
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(color: colors.border),
+              ),
+              child: Row(
+                children: [
+                  portrait,
+                  const SizedBox(width: 14),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          character.name,
+                          style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: colors.textPrimary),
+                        ),
+                        if (character.role.isNotEmpty) Text(character.role, style: TextStyle(fontSize: 13.5, color: colors.textSecondary)),
+                      ],
+                    ),
+                  ),
+                  Container(
+                    width: 48,
+                    height: 48,
+                    decoration: BoxDecoration(shape: BoxShape.circle, color: accent.primary),
+                    child: Icon(LucideIcons.phone, color: accent.onPrimary, size: 22),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}

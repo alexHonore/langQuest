@@ -92,6 +92,12 @@ class CourseProgress {
   }
 }
 
+/// The text sizes offered in Settings, as factors on top of the device's own text size (the Expo app's set).
+const textScales = <double>[0.9, 1, 1.15, 1.3, 1.5, 1.8];
+
+/// The offered text size closest to [scale] (a stored value from another version stays usable).
+double nearestTextScale(double scale) => textScales.reduce((a, b) => (a - scale).abs() <= (b - scale).abs() ? a : b);
+
 class LearnerState {
   static const schemaVersion = 1;
 
@@ -100,6 +106,18 @@ class LearnerState {
 
   /// Night Market is dark-first (approved U2); light is opt-in.
   final bool darkMode;
+
+  /// Follow the device's light/dark setting ([darkMode] then mirrors it).
+  final bool followDeviceTheme;
+
+  /// Text size on top of the device's own, one of [textScales].
+  final double textScale;
+
+  /// Still screens: no scene or mascot motion, no slides or page transitions (on top of the device's setting).
+  final bool reduceMotion;
+
+  /// Melo, the mascot, is shown (it never carries information of its own).
+  final bool mascot;
   final List<Enrollment> enrollments;
   final String? activeCourseId;
   final Map<String, CourseProgress> courses;
@@ -111,6 +129,10 @@ class LearnerState {
   const LearnerState({
     this.uiLanguage,
     this.darkMode = true,
+    this.followDeviceTheme = false,
+    this.textScale = 1,
+    this.reduceMotion = false,
+    this.mascot = true,
     this.enrollments = const [],
     this.activeCourseId,
     this.courses = const {},
@@ -132,6 +154,10 @@ class LearnerState {
   LearnerState copyWith({
     Object? uiLanguage = _keep,
     bool? darkMode,
+    bool? followDeviceTheme,
+    double? textScale,
+    bool? reduceMotion,
+    bool? mascot,
     List<Enrollment>? enrollments,
     Object? activeCourseId = _keep,
     Map<String, CourseProgress>? courses,
@@ -140,6 +166,10 @@ class LearnerState {
   }) => LearnerState(
     uiLanguage: identical(uiLanguage, _keep) ? this.uiLanguage : uiLanguage as String?,
     darkMode: darkMode ?? this.darkMode,
+    followDeviceTheme: followDeviceTheme ?? this.followDeviceTheme,
+    textScale: textScale ?? this.textScale,
+    reduceMotion: reduceMotion ?? this.reduceMotion,
+    mascot: mascot ?? this.mascot,
     enrollments: enrollments ?? this.enrollments,
     activeCourseId: identical(activeCourseId, _keep) ? this.activeCourseId : activeCourseId as String?,
     courses: courses ?? this.courses,
@@ -160,6 +190,10 @@ class LearnerState {
     'v': schemaVersion,
     'uiLanguage': uiLanguage,
     'darkMode': darkMode,
+    'followDeviceTheme': followDeviceTheme,
+    'textScale': textScale,
+    'reduceMotion': reduceMotion,
+    'mascot': mascot,
     'enrollments': [for (final e in enrollments) e.toJson()],
     'activeCourseId': activeCourseId,
     'courses': {for (final e in courses.entries) e.key: e.value.toJson()},
@@ -181,6 +215,10 @@ class LearnerState {
     return LearnerState(
       uiLanguage: ui is String ? ui : null,
       darkMode: raw['darkMode'] is bool ? raw['darkMode'] as bool : true,
+      followDeviceTheme: raw['followDeviceTheme'] == true,
+      textScale: nearestTextScale((raw['textScale'] as num?)?.toDouble() ?? 1),
+      reduceMotion: raw['reduceMotion'] == true,
+      mascot: raw['mascot'] != false,
       enrollments: enrollments,
       activeCourseId: active is String ? active : null,
       courses: {

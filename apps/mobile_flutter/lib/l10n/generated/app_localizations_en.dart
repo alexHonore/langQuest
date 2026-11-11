@@ -491,15 +491,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appLanguage => 'App language';
 
   @override
-  String get darkTheme => 'Dark theme';
-
-  @override
-  String get darkThemeOn => 'Night Market, dark-first';
-
-  @override
-  String get darkThemeOff => 'Light palette';
-
-  @override
   String get yourCourses => 'Your courses';
 
   @override
@@ -610,7 +601,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get accountDeviceOnly =>
-      'Practice XP and your review schedule stay on this device: the server counts XP only for missions with an assessed spoken attempt, which this app does not record yet.';
+      'Practice XP and your review schedule stay on this device: the server counts XP only for missions with a spoken attempt it has assessed, and recordings made here never leave this device.';
 
   @override
   String get accountEmail => 'Email';
@@ -628,7 +619,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountMissingFields => 'Enter your email and a password.';
 
   @override
-  String get accountConfirmEmail => 'Check your email to confirm the account, then sign in.';
+  String get accountConfirmEmail => 'Check your email: the link in it confirms the account and signs you in here.';
 
   @override
   String accountSignedInAs(String email) {
@@ -662,4 +653,552 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get yourDataBodySignedOut =>
       'Everything is saved on this device only, unless you sign in above to keep your courses and completed missions in an account.';
+
+  @override
+  String get accountExport => 'Export my data';
+
+  @override
+  String accountExported(String file) {
+    return 'Saved $file';
+  }
+
+  @override
+  String get accountDelete => 'Delete my account';
+
+  @override
+  String get accountDeleteTitle => 'Delete your account?';
+
+  @override
+  String get accountDeleteBody =>
+      'This permanently removes your account and the courses and progress saved in it. It cannot be undone. The progress on this device stays until you reset it.';
+
+  @override
+  String accountDeleteType(String word) {
+    return 'Type $word to confirm.';
+  }
+
+  @override
+  String get accountDeleteWord => 'DELETE';
+
+  @override
+  String get accountDeleted => 'Your account was deleted.';
+
+  @override
+  String get accountDeleteScheduled => 'Your account will be deleted within 30 days. Sign in again to cancel.';
+
+  @override
+  String get recordYourself => 'Record yourself';
+
+  @override
+  String get recordStop => 'Stop';
+
+  @override
+  String get recordStopSemantics => 'Stop recording';
+
+  @override
+  String get recordingNow => 'Recording';
+
+  @override
+  String get recordMyVoice => 'My voice';
+
+  @override
+  String get recordMyVoiceSemantics => 'Play your recording';
+
+  @override
+  String get recordStopPlayingSemantics => 'Stop playing your recording';
+
+  @override
+  String get recordAgain => 'Again';
+
+  @override
+  String get recordAgainSemantics => 'Record again';
+
+  @override
+  String get recordTryAgain => 'Try again';
+
+  @override
+  String get recordStaysOnDevice => 'Your recording stays on this device.';
+
+  @override
+  String recordCompare(String listen, String mine) {
+    return 'Compare: $listen, then $mine.';
+  }
+
+  @override
+  String get recordSilent => 'I didn’t hear anything. Check your microphone and try again.';
+
+  @override
+  String get recordBlocked => 'The microphone is blocked. Allow it for this site, then try again.';
+
+  @override
+  String get recordNoMicrophone => 'No microphone found.';
+
+  @override
+  String get recordFailed => 'Recording didn’t work.';
+
+  @override
+  String get display => 'Display';
+
+  @override
+  String get themeDark => 'Dark';
+
+  @override
+  String get themeLight => 'Light';
+
+  @override
+  String get themeDevice => 'Device';
+
+  @override
+  String get textSize => 'Text size';
+
+  @override
+  String get textSizeBody => 'On top of your device\'s text size.';
+
+  @override
+  String get reduceMotion => 'Reduce motion';
+
+  @override
+  String get reduceMotionBody => 'Scenes, Melo and page changes stay still.';
+
+  @override
+  String get reduceMotionDevice => 'On in your device\'s settings.';
+
+  @override
+  String get showMascot => 'Show Melo, the mascot';
+
+  @override
+  String get showMascotBody => 'Melo cheers you on; hiding it hides nothing else.';
+
+  @override
+  String get textSmaller => 'Smaller text';
+
+  @override
+  String get textLarger => 'Larger text';
+
+  @override
+  String textSizeValue(String percent) {
+    return 'Text size $percent';
+  }
+
+  @override
+  String get forgotPassword => 'Forgot password?';
+
+  @override
+  String get enterEmailFirst => 'Enter your email address first.';
+
+  @override
+  String get passwordResetSent => 'If an account uses this address, an email with a link to choose a new password is on its way.';
+
+  @override
+  String get emailConfirmed => 'Email confirmed. You\'re signed in.';
+
+  @override
+  String get emailLinkFailed =>
+      'This email link can\'t be used: it may have expired, been used already, or been opened in another browser than the one that asked for it. Ask for a new one in Settings.';
+
+  @override
+  String get newPasswordTitle => 'Choose a new password';
+
+  @override
+  String newPasswordBody(String email) {
+    return 'You opened a password reset link for $email.';
+  }
+
+  @override
+  String get newPasswordLabel => 'New password';
+
+  @override
+  String get newPasswordSave => 'Save password';
+
+  @override
+  String get newPasswordFailed => 'The password could not be saved. Try again.';
+
+  @override
+  String get later => 'Later';
+
+  @override
+  String get passwordChanged => 'Your password was changed.';
+
+  @override
+  String get practiseSayingEntry => 'Practise saying the phrases';
+
+  @override
+  String practiseSayingTitle(String mission) {
+    return 'Practise saying · $mission';
+  }
+
+  @override
+  String get practiseSayingNote => 'Listen, record yourself, then compare. There is no score: a number needs a speech assessor this course does not have.';
+
+  @override
+  String get practiseSayingDone => 'Done';
+
+  @override
+  String get previousPhrase => 'Previous phrase';
+
+  @override
+  String get warmupTitle => 'Try your first phrase';
+
+  @override
+  String get warmupBody => 'Listen, then say it out loud. Nothing is scored here.';
+
+  @override
+  String get warmupContinue => 'Start learning';
+
+  @override
+  String get warmupBodyNoVoice => 'Say it out loud. Nothing is scored here.';
+
+  @override
+  String get recordChecked => 'LangQuest checks what you said; the recording isn’t kept.';
+
+  @override
+  String get recordCheckedKept => 'LangQuest checks what you said; recordings are kept as your privacy settings allow.';
+
+  @override
+  String get recordChecking => 'Checking what you said…';
+
+  @override
+  String get recordCheckFailed => 'Couldn’t check this take.';
+
+  @override
+  String get verdictUnderstood => 'Understood!';
+
+  @override
+  String get verdictNotQuite => 'Not quite';
+
+  @override
+  String get verdictNotQuiteHint => 'Listen to the model, then try again.';
+
+  @override
+  String get verdictUnsure => 'I couldn’t make that out';
+
+  @override
+  String get verdictUnsureHint => 'Try again, a little closer to the microphone.';
+
+  @override
+  String verdictHeard(String heard) {
+    return 'I heard: “$heard”';
+  }
+
+  @override
+  String missionSpokenSummary(int understood, int checked) {
+    return 'Understood out loud: $understood of $checked';
+  }
+
+  @override
+  String get practiseSayingNoteChecked =>
+      'Listen, record yourself: LangQuest tells you whether what you said came across. That is about meaning; there is no pronunciation score.';
+
+  @override
+  String get callIntroTitle => 'Practise it in a real conversation';
+
+  @override
+  String get callIntroBody =>
+      'Someone from this mission picks up and talks with you in the language you’re learning. Answer out loud, or type. When you hang up, LangQuest tells you how it went.';
+
+  @override
+  String get callIntroBodyText =>
+      'Someone from this mission chats with you in the language you’re learning. When you end the chat, LangQuest tells you how it went.';
+
+  @override
+  String get callIntroNote => 'Uses LangQuest’s AI. Your recordings aren’t kept.';
+
+  @override
+  String get callIntroNoteKept => 'Uses LangQuest’s AI. Recordings are kept as your privacy settings allow.';
+
+  @override
+  String get callStart => 'Call';
+
+  @override
+  String get callStartText => 'Start the chat';
+
+  @override
+  String get callCalling => 'Calling…';
+
+  @override
+  String get callFailedUnavailable => 'Live calls aren’t available for this course yet.';
+
+  @override
+  String get callFailedNetwork => 'The call didn’t go through. Check your connection and try again.';
+
+  @override
+  String get callFailedEnded => 'This call has ended.';
+
+  @override
+  String get callTryAgain => 'Try again';
+
+  @override
+  String callSpeaking(String name) {
+    return '$name is speaking';
+  }
+
+  @override
+  String callThinking(String name) {
+    return '$name is thinking…';
+  }
+
+  @override
+  String get callListening => 'Listening to you…';
+
+  @override
+  String get callYourTurnVoice => 'Your turn: tap the microphone and answer';
+
+  @override
+  String get callYourTurnText => 'Your turn: type your answer';
+
+  @override
+  String get callTalk => 'Talk';
+
+  @override
+  String get callSend => 'Send';
+
+  @override
+  String get callCancelTake => 'Cancel';
+
+  @override
+  String get callType => 'Type instead';
+
+  @override
+  String get callTypeHint => 'Write your answer…';
+
+  @override
+  String get callHangUp => 'Hang up';
+
+  @override
+  String get callEndChat => 'End the chat';
+
+  @override
+  String get callHint => 'Hint';
+
+  @override
+  String get callRepeat => 'Repeat';
+
+  @override
+  String get callSlower => 'Slower';
+
+  @override
+  String get callTranslate => 'Translate';
+
+  @override
+  String get callGoals => 'Goals';
+
+  @override
+  String callGoalDone(String goal) {
+    return '$goal: done';
+  }
+
+  @override
+  String callGoalProbably(String goal) {
+    return '$goal: probably done';
+  }
+
+  @override
+  String callGoalNotYet(String goal) {
+    return '$goal: not yet';
+  }
+
+  @override
+  String get callNoSpeech => 'I didn’t hear anything. Try again, a little closer to the microphone.';
+
+  @override
+  String get callTurnFailed => 'That didn’t go through. Try again.';
+
+  @override
+  String callSaidGoodbye(String name) {
+    return '$name said goodbye. Hang up to see how it went.';
+  }
+
+  @override
+  String get callEnding => 'Hanging up… LangQuest is looking at how it went.';
+
+  @override
+  String get callEndedTitle => 'Call ended';
+
+  @override
+  String get callChatEndedTitle => 'Chat ended';
+
+  @override
+  String callGoalsMet(int met, int total) {
+    return 'Goals met: $met of $total';
+  }
+
+  @override
+  String get callNextTime => 'Next time, try';
+
+  @override
+  String callYouSaid(String text) {
+    return 'You said: “$text”';
+  }
+
+  @override
+  String get callNotEvaluated => 'LangQuest couldn’t evaluate this call, so nothing was counted.';
+
+  @override
+  String get callAgain => 'Call again';
+
+  @override
+  String get callYou => 'You';
+
+  @override
+  String get callReplayLine => 'Play this line again';
+
+  @override
+  String get callHeardYou => 'Hearing you…';
+
+  @override
+  String get pathTalkSubtitle => 'A live call: use what you learned, out loud';
+
+  @override
+  String get pathTalkSubtitleText => 'A live chat: use what you learned';
+
+  @override
+  String get missionTryLiveCall => 'Try it in a live call';
+
+  @override
+  String courseIncludesLiveCalls(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count AI characters', one: 'the course’s AI character');
+    return 'Live calls with $_temp0, by voice or in writing (with a free account)';
+  }
+
+  @override
+  String get courseIncludesSpokenCheck => 'Your spoken answers checked: LangQuest tells you whether you were understood (with a free account)';
+
+  @override
+  String get courseMissingPronunciationScore => 'A pronunciation score: spoken answers are checked for meaning, not accent';
+
+  @override
+  String get courseLimitedForDialect => 'Speech recognition and AI voices are still limited for this dialect (not yet reviewed by native speakers)';
+
+  @override
+  String get listenAiVoiceSemantics => 'Listen (AI voice)';
+
+  @override
+  String get listenSlowlyAiVoiceSemantics => 'Listen slowly (AI voice)';
+
+  @override
+  String get tabAudio => 'Audio';
+
+  @override
+  String get audioLibraryTitle => 'Audio lessons';
+
+  @override
+  String get audioLibraryBody => 'One per mission: the conversation, then phrase by phrase with time to say each one, then the conversation again.';
+
+  @override
+  String get audioReadByAi => 'Read by an AI voice';
+
+  @override
+  String get audioReadByDevice => 'Read by your device’s voice';
+
+  @override
+  String audioLessonMeta(int phrases, int minutes) {
+    String _temp0 = intl.Intl.pluralLogic(phrases, locale: localeName, other: '$phrases phrases', one: '1 phrase');
+    return '$_temp0 · about $minutes min';
+  }
+
+  @override
+  String get audioListened => 'Listened';
+
+  @override
+  String get audioLessonLabel => 'Audio lesson';
+
+  @override
+  String audioIntro(String mission) {
+    return '$mission. Listen to the conversation.';
+  }
+
+  @override
+  String get audioPhrasesIntro => 'Now phrase by phrase. Listen, then say it out loud.';
+
+  @override
+  String get audioAgainIntro => 'Once more, the whole conversation.';
+
+  @override
+  String get audioOutro => 'That’s the end of the lesson. Well done!';
+
+  @override
+  String get audioSectionConversation => 'The conversation';
+
+  @override
+  String get audioSectionPhrases => 'Phrase by phrase';
+
+  @override
+  String get audioSectionAgain => 'Once more';
+
+  @override
+  String get audioYourTurn => 'Your turn: say it';
+
+  @override
+  String get audioPlay => 'Play';
+
+  @override
+  String get audioPause => 'Pause';
+
+  @override
+  String get audioNextLine => 'Next line';
+
+  @override
+  String get audioPreviousLine => 'Previous line';
+
+  @override
+  String get audioSlowly => 'Slowly';
+
+  @override
+  String get audioTurns => 'Time to repeat';
+
+  @override
+  String get audioFinished => 'Lesson finished';
+
+  @override
+  String get audioPlayAgain => 'Play again';
+
+  @override
+  String get audioYou => 'You';
+
+  @override
+  String courseIncludesAudioLessons(String voice) {
+    return 'Audio lessons made from each mission, read by $voice';
+  }
+
+  @override
+  String get courseVoiceAi => 'an AI voice (with a free account)';
+
+  @override
+  String get courseVoiceDevice => 'your device’s voice';
+
+  @override
+  String get courseMissingAudioRecorded => 'Audio recorded by native speakers';
+
+  @override
+  String get courseIncludesAiVoiceDialect => 'An AI voice for this dialect (with a free account)';
+
+  @override
+  String get tabSpeak => 'Speak';
+
+  @override
+  String get speakTitle => 'Talk with the locals';
+
+  @override
+  String get speakBody =>
+      'Free conversations with the course’s characters, by voice or in writing. Use what you’ve learned; ask for a hint whenever you need one.';
+
+  @override
+  String get speakNoCharacters => 'No characters are published for this course yet.';
+
+  @override
+  String speakCall(String name) {
+    return 'Call $name';
+  }
+
+  @override
+  String callFreeTitle(String name) {
+    return 'Call $name';
+  }
+
+  @override
+  String get callFreeBody =>
+      'A free conversation, in the language you’re learning, about everyday things. Answer out loud, or type. When you hang up, LangQuest tells you how it went.';
+
+  @override
+  String get callFreeBodyText => 'A free chat, in the language you’re learning, about everyday things. When you end it, LangQuest tells you how it went.';
 }

@@ -20,8 +20,10 @@ import 'package:langquest_mobile/core/content/content_models.dart';
 import 'package:langquest_mobile/core/learning/srs.dart';
 import 'package:langquest_mobile/core/services/app_state.dart';
 import 'package:langquest_mobile/features/account/account_section.dart';
+import 'package:langquest_mobile/features/account/email_link_prompt.dart';
 import 'package:langquest_mobile/features/learn/learn_logic.dart';
 import 'package:langquest_mobile/l10n/generated/app_localizations.dart';
+import 'package:langquest_mobile/navigation/app_router.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import 'support.dart';
@@ -49,11 +51,41 @@ class FakeAuth implements AuthGateway {
   }
 
   @override
-  Future<SignUpResult> signUp(String email, String password, {required String uiLocale, required String sourceLanguage}) async => SignUpResult.confirmEmail;
+  Future<SignUpResult> signUp(String email, String password, {required String uiLocale, required String sourceLanguage, String? redirectTo}) async {
+    signUpRedirects.add(redirectTo);
+    return SignUpResult.confirmEmail;
+  }
+
   @override
   Future<void> signOut() async {
     user = null;
     _changes.add(null);
+  }
+
+  /// `email → redirectTo` of each password-reset request.
+  final resets = <String, String?>{};
+  final signUpRedirects = <String?>[];
+  String? newPassword;
+
+  /// What [openEmailLink] does: sign in and answer this kind, or refuse with this message.
+  EmailLink linkKind = EmailLink.confirmed;
+  String? refuseLinkWith;
+
+  @override
+  Future<void> sendPasswordReset(String email, {String? redirectTo}) async => resets[email] = redirectTo;
+
+  @override
+  Future<void> updatePassword(String password) async {
+    if (refuseWith != null) throw AuthFailure(refuseWith!);
+    newPassword = password;
+  }
+
+  @override
+  Future<EmailLink> openEmailLink(Uri uri) async {
+    if (refuseLinkWith != null) throw AuthFailure(refuseLinkWith!);
+    user = const AccountUser(id: 'u-1', email: 'learner@example.test');
+    _changes.add(user);
+    return linkKind;
   }
 
   @override
@@ -91,6 +123,10 @@ class FakeWorker {
     }
     expect(req.headers['Authorization'], startsWith('Bearer token-of-'));
     if (key == 'GET /v1/me') return json(ok({'enrollments': enrollments}));
+    if (key == 'GET /v1/me/export') {
+      return json(ok({'exportedAt': '2026-11-10T09:00:00Z', 'profile': {'userId': 'u-1'}, 'enrollments': enrollments, 'notes': <String>[]}));
+    }
+    if (key == 'DELETE /v1/me') return json(ok({'status': 'deleted', 'anonymisedTables': <String>[], 'retainedForLegalReasons': <String>[]}));
     if (key == 'POST /v1/me/enrollments') {
       final body = jsonDecode(req.body) as Map;
       if (enrollments.any((e) => e['courseTrackId'] == body['courseTrackId'] && e['status'] == 'active')) {
@@ -99,7 +135,18 @@ class FakeWorker {
           'error': {'code': 'conflict', 'message': 'active enrollment exists'},
         }, 409);
       }
-      final created = {'id': 'enr-${enrollments.length + 1}', 'courseTrackId': body['courseTrackId'], 'sourceLanguageCode': body['sourceLanguageCode'], 'status': 'active'};
+      final created = {
+        'id': 'enr-${enrollments.length + 1}',
+        'courseTrackId': body['courseTrackId'],
+        'sourceLanguageCode': body['sourceLanguageCode'],
+        'targetVarietyId': 'variety-of-${body['courseTrackId']}',
+        'status': 'active',
+        'capabilities': {
+          'liveConversation': {'available': true, 'characterCount': 3, 'mode': 'text_and_voice'},
+          'pronunciationScoring': {'mode': 'reference_comparison'},
+          'audioLibrary': {'available': false, 'publishedCollections': 0},
+        },
+      };
       enrollments.add(created);
       return json(ok(created), 201);
     }
@@ -212,10 +259,14 @@ void main() {
       final report = await sync.sync();
       expect(report.coursesSent, 1);
       expect(report.missionsSent, 1);
+      // What the server's AI can do for the course, from its snapshot: the speech check and live calls are offered.
+      final course = report.courses['$spanish|en']!;
+      expect((course.enrollmentId, course.speechCheck, course.liveConversation, course.audioLibrary), ('enr-1', true, true, false));
       final missionId = missionServerId(firstMission(spanish, 'en').chapterKey, firstMission(spanish, 'en').key);
       expect(worker.requests, [
         'GET /v1/me',
         'POST /v1/me/enrollments',
+        'GET /v1/me', // the new course's capability snapshot
         'GET /v1/missions/$missionId',
         'POST /v1/missions/$missionId/attempts',
         'POST /v1/missions/$missionId/evaluate',
@@ -294,9 +345,9 @@ void main() {
   });
 
   group('settings', () {
-    Future<void> pumpSection(WidgetTester tester, {required bool healthy}) async {
+    Future<void> pumpSection(WidgetTester tester, {required bool healthy, AccountUser? user}) async {
       worker = FakeWorker()..healthy = healthy;
-      auth = FakeAuth();
+      auth = FakeAuth(user: user);
       final overrides = [
         ...await testOverrides(),
         backendConfigProvider.overrideWithValue(const BackendConfig(supabaseUrl: 'https://sb.test', supabaseAnonKey: 'anon', apiBaseUrl: 'https://api.test')),
@@ -337,6 +388,57 @@ void main() {
       await tester.pump(const Duration(seconds: 3));
     });
 
+    testWidgets('deleting the account takes the typed word, calls the server, then signs out', (tester) async {
+      await pumpSection(tester, healthy: true, user: const AccountUser(id: 'u-1', email: 'learner@example.test'));
+      expect(find.text('Export my data'), findsNothing, reason: 'no file download outside the browser in this build');
+      await tester.tap(find.text('Delete my account'));
+      await tester.pumpAndSettle();
+      expect(find.text('Delete your account?'), findsOneWidget);
+      final confirm = find.descendant(of: find.byType(AlertDialog), matching: find.widgetWithText(TextButton, 'Delete my account'));
+      expect(tester.widget<TextButton>(confirm).onPressed, isNull, reason: 'nothing happens before the word is typed');
+      await tester.enterText(find.descendant(of: find.byType(AlertDialog), matching: find.byType(TextField)), 'delete');
+      await tester.pump();
+      expect(tester.widget<TextButton>(confirm).onPressed, isNotNull);
+      await tester.tap(confirm);
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(worker.bodies['DELETE /v1/me']!.single, {'confirmation': 'DELETE', 'deleteOptInRecordings': true});
+      expect(auth.user, isNull, reason: 'signed out only after the server confirmed');
+      expect(find.text('Your account was deleted.'), findsOneWidget);
+      expect(find.text('Sign in'), findsOneWidget);
+    });
+
+    testWidgets('a refused deletion keeps the learner signed in and says why', (tester) async {
+      await pumpSection(tester, healthy: true, user: const AccountUser(id: 'u-1', email: 'learner@example.test'));
+      worker.failNext['DELETE /v1/me'] = 1;
+      await tester.tap(find.text('Delete my account'));
+      await tester.pumpAndSettle();
+      await tester.enterText(find.descendant(of: find.byType(AlertDialog), matching: find.byType(TextField)), 'DELETE');
+      await tester.pump();
+      await tester.tap(find.descendant(of: find.byType(AlertDialog), matching: find.widgetWithText(TextButton, 'Delete my account')));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(auth.user, isNotNull);
+      expect(find.text('Sign out'), findsOneWidget);
+      expect(find.text('boom'), findsOneWidget);
+      await tester.pump(const Duration(seconds: 3));
+    });
+
+    testWidgets('forgot password needs the address, then asks the server for a reset link', (tester) async {
+      await pumpSection(tester, healthy: true);
+      await tester.tap(find.text('Forgot password?'));
+      await tester.pump();
+      expect(find.text('Enter your email address first.'), findsOneWidget);
+      expect(auth.resets, isEmpty);
+      await tester.enterText(find.byType(TextField).first, 'learner@example.test');
+      await tester.tap(find.text('Forgot password?'));
+      await tester.pump();
+      await tester.pump(const Duration(milliseconds: 50));
+      expect(auth.resets.keys, ['learner@example.test']);
+      expect(auth.resets['learner@example.test'], isNull, reason: 'no link target outside the web app: the server’s Site URL applies');
+      expect(find.text('If an account uses this address, an email with a link to choose a new password is on its way.'), findsOneWidget);
+    });
+
     testWidgets('a refused sign-in shows the server’s reason and stays signed out', (tester) async {
       await pumpSection(tester, healthy: true);
       auth.refuseWith = 'Invalid login credentials';
@@ -346,6 +448,88 @@ void main() {
       await tester.pump();
       expect(find.text('Invalid login credentials'), findsOneWidget);
       expect(find.text('Sign out'), findsNothing);
+    });
+  });
+
+  group('email links', () {
+    test('a link back from an email is told apart from the app’s own routes', () {
+      expect(isEmailLink(Uri.parse('https://web.test/?code=0b1d')), isTrue);
+      expect(isEmailLink(Uri.parse('https://web.test/?error=access_denied&error_code=otp_expired&error_description=Email+link+is+invalid')), isTrue);
+      expect(isEmailLink(Uri.parse('https://web.test/#error=access_denied&error_code=otp_expired&error_description=expired')), isTrue);
+      expect(isEmailLink(Uri.parse('https://web.test/#access_token=a&expires_in=3600&refresh_token=r&token_type=bearer&type=recovery')), isTrue);
+      expect(isEmailLink(Uri.parse('https://web.test/#/missions')), isFalse);
+      expect(isEmailLink(Uri.parse('https://web.test/')), isFalse);
+      expect(isEmailLink(Uri.parse('https://web.test/#/course/japanese')), isFalse);
+    });
+
+    test('opening a link never throws: a refused one is an outcome with the server’s reason', () async {
+      final refused = await openStartupEmailLink(FakeAuth()..refuseLinkWith = 'Email link is invalid or has expired', Uri.parse('https://web.test/?code=x'));
+      expect([refused.kind, refused.error], [null, 'Email link is invalid or has expired']);
+      final recovery = await openStartupEmailLink(FakeAuth()..linkKind = EmailLink.passwordRecovery, Uri.parse('https://web.test/?code=x'));
+      expect(recovery.kind, EmailLink.passwordRecovery);
+    });
+
+    Future<FakeAuth> pumpWithLink(WidgetTester tester, EmailLinkOutcome outcome, {AccountUser? user}) async {
+      final worker = FakeWorker();
+      final auth = FakeAuth(user: user);
+      await tester.pumpWidget(
+        ProviderScope(
+          overrides: [
+            ...await testOverrides(),
+            backendConfigProvider.overrideWithValue(const BackendConfig(supabaseUrl: 'https://sb.test', supabaseAnonKey: 'anon', apiBaseUrl: 'https://api.test')),
+            authGatewayProvider.overrideWithValue(auth),
+            apiProvider.overrideWithValue(LangQuestApi(baseUrl: 'https://api.test', accessToken: auth.accessToken, client: worker.client)),
+            startupEmailLinkProvider.overrideWithValue(outcome),
+          ],
+          child: MaterialApp(
+            navigatorKey: rootNavigatorKey,
+            localizationsDelegates: AppLocalizations.localizationsDelegates,
+            supportedLocales: AppLocalizations.supportedLocales,
+            builder: (context, child) => EmailLinkPrompt(child: child!),
+            home: const Scaffold(body: SizedBox()),
+          ),
+        ),
+      );
+      await tester.pumpAndSettle();
+      return auth;
+    }
+
+    testWidgets('a confirmation link says the learner is signed in', (tester) async {
+      await pumpWithLink(tester, const EmailLinkOutcome(EmailLink.confirmed), user: const AccountUser(id: 'u-1', email: 'learner@example.test'));
+      expect(find.text('Email confirmed. You\'re signed in.'), findsOneWidget);
+      await tester.pump(const Duration(seconds: 10));
+    });
+
+    testWidgets('a refused link says why and where to ask for a new one', (tester) async {
+      await pumpWithLink(tester, const EmailLinkOutcome.failed('Email link is invalid or has expired'));
+      expect(find.textContaining('This email link can\'t be used'), findsOneWidget);
+      await tester.pump(const Duration(seconds: 10));
+    });
+
+    testWidgets('a password-reset link asks for the new password and saves it', (tester) async {
+      final auth = await pumpWithLink(tester, const EmailLinkOutcome(EmailLink.passwordRecovery), user: const AccountUser(id: 'u-1', email: 'learner@example.test'));
+      expect(find.text('Choose a new password'), findsOneWidget);
+      expect(find.text('You opened a password reset link for learner@example.test.'), findsOneWidget);
+      final save = find.widgetWithText(TextButton, 'Save password');
+      expect(tester.widget<TextButton>(save).onPressed, isNull, reason: 'nothing to save yet');
+
+      auth.refuseWith = 'Password should be at least 6 characters.';
+      await tester.enterText(find.byType(TextField), 'short');
+      await tester.pump();
+      await tester.tap(save);
+      await tester.pumpAndSettle();
+      expect(find.text('Password should be at least 6 characters.'), findsOneWidget, reason: 'the server’s reason, in the dialog');
+      expect(find.text('Choose a new password'), findsOneWidget);
+
+      auth.refuseWith = null;
+      await tester.enterText(find.byType(TextField), 'a much longer password');
+      await tester.pump();
+      await tester.tap(save);
+      await tester.pumpAndSettle();
+      expect(auth.newPassword, 'a much longer password');
+      expect(find.text('Choose a new password'), findsNothing);
+      expect(find.text('Your password was changed.'), findsOneWidget);
+      await tester.pump(const Duration(seconds: 10));
     });
   });
 }

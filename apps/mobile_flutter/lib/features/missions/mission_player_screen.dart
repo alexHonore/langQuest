@@ -5,14 +5,22 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
+import '../../core/backend/server_voice.dart';
+import '../../core/backend/speech_check.dart';
+import '../../core/content/content_models.dart';
+import '../call/call_screen.dart';
+import '../../core/layout/celebration.dart';
+import '../../core/layout/motion.dart';
 import '../../core/learning/srs.dart';
 import '../../core/services/app_state.dart';
+import '../../core/theme/colors.dart';
 import '../../core/services/learner_state.dart';
 import '../../core/services/speech_service.dart';
 import '../../l10n/l10n.dart';
 import '../learn/learn_content.dart';
 import '../learn/learn_providers.dart';
 import '../learn/learn_widgets.dart';
+import '../learn/record_take.dart';
 import '../mascot/melo_model.dart';
 import '../mascot/melo_widget.dart';
 import '../scenes/animated_scene.dart';
@@ -21,9 +29,11 @@ enum _Phase { exchange, recap, completed }
 
 /// The Mission stop of a mission node (N2). Every exchange asks only for a line the Learn stop taught: the
 /// character's cue (or the meaning, when the learner speaks first), the reply chosen among three taught phrases,
-/// then said out loud. This build has no recorder, so nothing is measured and no level, waveform or score is
-/// shown (pronunciation honesty, ADR-006). Completing it credits the mission once and puts each phrase used into
-/// spaced review (first-try right = good, otherwise hard).
+/// then said out loud — where the device can record, the learner can record it and hear their take next to the
+/// reference voice. For a signed-in learner whose course the server can check, the take is checked: was the reply
+/// understood? (Meaning only, never a pronunciation score: ADR-006.) Completing it credits the mission once and puts
+/// each phrase used into spaced review: good when chosen right the first time and, if it was checked, understood the
+/// first time; otherwise hard.
 class MissionPlayerScreen extends ConsumerStatefulWidget {
   final String missionKey;
 
@@ -41,6 +51,12 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
   bool _speaking = false;
   int _utterance = 0;
   final Map<String, bool> _firstTry = {};
+
+  /// Per reply, whether the server understood its first checked take (a take it could not judge does not count).
+  final Map<String, bool> _spoken = {};
+
+  /// The server's latest verdict on the current exchange.
+  SpeechVerdict? _verdict;
   late final SpeechService _speech;
   late final bool _wasCompleted;
   int _newReviewCards = 0;
@@ -62,12 +78,15 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     super.dispose();
   }
 
-  Future<void> _say(String text) async {
-    final locale = ref.read(learnPlanProvider(widget.missionKey))?.voiceLocale;
-    if (locale == null || !await ref.read(voiceAvailableProvider(locale).future) || !mounted) return;
+  Future<void> _say(Expression line) async {
+    final plan = ref.read(learnPlanProvider(widget.missionKey));
+    if (plan == null) return;
+    // The device's voice for the course, else the server's AI voice (signed in), else none.
+    final voice = await ref.read(lineVoiceProvider(plan.voiceLocale).future);
+    if (!voice.available || !mounted) return;
     final token = ++_utterance;
     setState(() => _speaking = true);
-    await _speech.speak(text, locale: locale);
+    await voice.say(text: line.text, expressionId: line.id);
     if (mounted && token == _utterance) setState(() => _speaking = false);
   }
 
@@ -75,7 +94,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     final plan = ref.read(learnPlanProvider(widget.missionKey));
     if (plan == null || _exchange >= plan.exchanges.length) return;
     final cue = plan.exchanges[_exchange].cue;
-    if (cue != null) _say(cue.text);
+    if (cue != null) _say(cue);
   }
 
   void _choose(MissionExchange exchange, int index) {
@@ -86,7 +105,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
       _firstTry.putIfAbsent(exchange.answer.id, () => correct);
       _answered = correct;
     });
-    if (correct) _say(exchange.answer.text);
+    if (correct) _say(exchange.answer);
   }
 
   void _nextExchange(MissionLearnPlan plan) {
@@ -96,6 +115,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
       _selected = null;
       _answered = false;
       _speaking = false;
+      _verdict = null;
       if (_exchange < plan.exchanges.length - 1) {
         _exchange++;
       } else {
@@ -105,10 +125,17 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     if (_phase == _Phase.exchange) _sayCue();
   }
 
+  void _onVerdict(MissionExchange exchange, SpeechVerdict verdict) {
+    if (verdict.kind == SpeechVerdictKind.understood || verdict.kind == SpeechVerdictKind.notUnderstood) {
+      _spoken.putIfAbsent(exchange.answer.id, () => verdict.understood);
+    }
+    setState(() => _verdict = verdict);
+  }
+
   void _complete(MissionLearnPlan plan) {
     final before = ref.read(appStateProvider).progress.cards.length;
     ref.read(appStateProvider.notifier).completeMission(widget.missionKey, {
-      for (final x in plan.exchanges) x.answer.id: (_firstTry[x.answer.id] ?? true) ? ReviewRating.good : ReviewRating.hard,
+      for (final x in plan.exchanges) x.answer.id: (_firstTry[x.answer.id] ?? true) && (_spoken[x.answer.id] ?? true) ? ReviewRating.good : ReviewRating.hard,
     });
     setState(() {
       _newReviewCards = ref.read(appStateProvider).progress.cards.length - before;
@@ -252,7 +279,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                 const SizedBox(height: 4),
                 Text(plan.meaningOf(cue), style: TextStyle(fontSize: 14, color: colors.textSecondary)),
                 const SizedBox(height: 8),
-                ListenButtons(text: cue.text, locale: plan.voiceLocale, compact: true),
+                ListenButtons(text: cue.text, expressionId: cue.id, locale: plan.voiceLocale, compact: true),
               ],
             )
           : Text(
@@ -296,12 +323,24 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                       style: TextStyle(fontSize: 15, color: colors.textSecondary),
                     ),
                     const SizedBox(height: 12),
-                    ListenButtons(text: exchange.answer.text, locale: plan.voiceLocale),
+                    ListenButtons(text: exchange.answer.text, expressionId: exchange.answer.id, locale: plan.voiceLocale),
+                    const SizedBox(height: 10),
+                    RecordTake(
+                      key: ValueKey('take-$_exchange'),
+                      voiceLocale: plan.voiceLocale,
+                      centered: true,
+                      check: SpeechTarget(expressionId: exchange.answer.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
+                      onVerdict: (verdict) => _onVerdict(exchange, verdict),
+                    ),
                     const SizedBox(height: 12),
-                    MeloWidget(state: MeloState.happy, courseTrackId: appState.activeTrackId, size: 56),
+                    MeloWidget(
+                      state: _verdict == null || _verdict!.understood ? MeloState.happy : MeloState.thinking,
+                      courseTrackId: appState.activeTrackId,
+                      size: 56,
+                    ),
                   ],
                 ),
-              ).animate().fadeIn(duration: 220.ms).scale(begin: const Offset(0.97, 0.97), duration: 220.ms),
+              ).withMotion(context, (a) => a.fadeIn(duration: 220.ms).scale(begin: const Offset(0.97, 0.97), duration: 220.ms)),
             ),
           ),
           const SizedBox(height: 10),
@@ -330,7 +369,8 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
               children: [
                 for (var i = 0; i < exchange.options.length; i++)
                   _OptionTile(plan: plan, optionIndex: i, exchange: exchange, selected: _selected == i, onTap: () => _choose(exchange, i)),
-                if (wrong) Text(l10n.missionWrong, style: TextStyle(fontSize: 13.5, color: colors.error)).animate().fadeIn(duration: 200.ms),
+                if (wrong)
+                  Text(l10n.missionWrong, style: TextStyle(fontSize: 13.5, color: colors.error)).withMotion(context, (a) => a.fadeIn(duration: 200.ms)),
               ],
             ),
           ),
@@ -376,7 +416,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                           ],
                         ),
                       ),
-                      ListenButtons(text: x.answer.text, locale: plan.voiceLocale, compact: true),
+                      ListenButtons(text: x.answer.text, expressionId: x.answer.id, locale: plan.voiceLocale, compact: true),
                     ],
                   ),
                 ),
@@ -403,12 +443,16 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     final l10n = context.l10n;
     final course = appState.activeCourse;
     final next = course == null ? null : appState.nextMission(course);
-    return Center(
+    final completed = Center(
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            MeloWidget(state: MeloState.celebrate, courseTrackId: appState.activeTrackId, size: 110),
+            MeloWidget(
+              state: MeloState.celebrate,
+              courseTrackId: appState.activeTrackId,
+              size: 110,
+            ).withMotion(context, (a) => a.scale(begin: const Offset(0.6, 0.6), duration: 650.ms, curve: Curves.elasticOut)),
             const SizedBox(height: 20),
             Text(
               l10n.missionCompleted,
@@ -416,17 +460,44 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: colors.textPrimary),
             ),
             const SizedBox(height: 8),
-            Text(
-              _wasCompleted ? l10n.missionXpOnce : l10n.xpGain(XpAmounts.missionCompleted),
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: accent.primaryText),
-            ),
+            if (_wasCompleted)
+              Text(
+                l10n.missionXpOnce,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: accent.primaryText),
+              )
+            else
+              CountUp(
+                value: XpAmounts.missionCompleted,
+                builder: (context, xp) => Text(
+                  l10n.xpGain(xp),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: accent.primaryText),
+                ),
+              ),
             if (_newReviewCards > 0) ...[
               const SizedBox(height: 6),
               Text(
                 l10n.missionJoinReview(_newReviewCards),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 14, color: colors.textSecondary),
+              ),
+            ],
+            if (_spoken.isNotEmpty) ...[
+              const SizedBox(height: 6),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(LucideIcons.mic, size: 15, color: colors.success),
+                  const SizedBox(width: 6),
+                  Flexible(
+                    child: Text(
+                      l10n.missionSpokenSummary(_spoken.values.where((understood) => understood).length, _spoken.length),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 14, color: colors.textSecondary),
+                    ),
+                  ),
+                ],
               ),
             ],
             const SizedBox(height: 28),
@@ -439,6 +510,20 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                   onPressed: () => context.pushReplacement('/path/${next.key}'),
                 ),
               ),
+            if (ref.watch(liveCallCourseProvider) != null)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: OutlinedButton.icon(
+                  onPressed: () => context.pushReplacement('/call/${widget.missionKey}'),
+                  icon: const Icon(LucideIcons.phoneCall, size: 18),
+                  label: Text(l10n.missionTryLiveCall),
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(0, 48),
+                    foregroundColor: accent.primaryText,
+                    side: BorderSide(color: accent.primary),
+                  ),
+                ),
+              ),
             TextButton(
               onPressed: () => context.popOrHome(),
               child: Text(
@@ -449,6 +534,12 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
           ],
         ),
       ),
+    );
+    return Stack(
+      children: [
+        completed,
+        Positioned.fill(child: ConfettiBurst(colors: [accent.primary, colors.celebrationA, colors.celebrationB, colors.success, colors.amber])),
+      ],
     );
   }
 }
@@ -479,28 +570,41 @@ class _OptionTile extends ConsumerWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
           onTap: onTap,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            width: double.infinity,
-            constraints: const BoxConstraints(minHeight: 56),
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-            decoration: BoxDecoration(
-              color: wrong ? colors.errorSoft : (selected ? colors.successSoft : colors.surface),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: border, width: selected ? 2 : 1),
-            ),
-            child: Row(
-              children: [
-                Icon(selected ? (wrong ? LucideIcons.x : LucideIcons.check) : LucideIcons.circle, size: 18, color: selected ? border : colors.textMuted),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: TargetText(expression: option, track: plan.track, fontSize: 17),
-                ),
-              ],
+          // A wrong pick shakes; the right one pops (the new key replays the effect on each pick).
+          child: KeyedSubtree(
+            key: ValueKey('option-$optionIndex-$selected'),
+            child: _optionBox(colors, option, selected, wrong, border).withMotion(
+              context,
+              (a) => wrong
+                  ? a.shake(hz: 5, offset: const Offset(6, 0), rotation: 0, duration: 420.ms)
+                  : selected
+                  ? a.scaleXY(begin: 1, end: 1.04, duration: 130.ms, curve: Curves.easeOut).then().scaleXY(begin: 1.04, end: 1, duration: 180.ms)
+                  : a,
             ),
           ),
         ),
       ),
     );
   }
+
+  Widget _optionBox(LangQuestColors colors, Expression option, bool selected, bool wrong, Color border) => AnimatedContainer(
+    duration: const Duration(milliseconds: 200),
+    width: double.infinity,
+    constraints: const BoxConstraints(minHeight: 56),
+    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+    decoration: BoxDecoration(
+      color: wrong ? colors.errorSoft : (selected ? colors.successSoft : colors.surface),
+      borderRadius: BorderRadius.circular(16),
+      border: Border.all(color: border, width: selected ? 2 : 1),
+    ),
+    child: Row(
+      children: [
+        Icon(selected ? (wrong ? LucideIcons.x : LucideIcons.check) : LucideIcons.circle, size: 18, color: selected ? border : colors.textMuted),
+        const SizedBox(width: 12),
+        Expanded(
+          child: TargetText(expression: option, track: plan.track, fontSize: 17),
+        ),
+      ],
+    ),
+  );
 }

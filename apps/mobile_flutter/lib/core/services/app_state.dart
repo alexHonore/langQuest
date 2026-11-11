@@ -105,8 +105,21 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
     _update(state.learner.copyWith(uiLanguage: code));
   }
 
-  void setDarkMode(bool dark) => _update(state.learner.copyWith(darkMode: dark));
+  void setDarkMode(bool dark) => _update(state.learner.copyWith(darkMode: dark, followDeviceTheme: false));
   void toggleTheme() => setDarkMode(!state.isDark);
+
+  /// Follow the device's light/dark setting from now on, starting with its current one ([deviceDark]).
+  void followDeviceTheme(bool deviceDark) => _update(state.learner.copyWith(followDeviceTheme: true, darkMode: deviceDark));
+
+  /// The device switched between light and dark: mirrored only while the learner follows the device.
+  void deviceThemeChanged(bool deviceDark) {
+    final learner = state.learner;
+    if (learner.followDeviceTheme && learner.darkMode != deviceDark) _update(learner.copyWith(darkMode: deviceDark));
+  }
+
+  void setTextScale(double scale) => _update(state.learner.copyWith(textScale: nearestTextScale(scale)));
+  void setReduceMotion(bool reduce) => _update(state.learner.copyWith(reduceMotion: reduce));
+  void setMascot(bool shown) => _update(state.learner.copyWith(mascot: shown));
 
   /// Enroll in (track, source) — only when the bundle has content for that pair — and make it the active course.
   bool enroll(String trackId, String source) {
@@ -133,7 +146,10 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
     if (!state.content.isAvailable(trackId, source) || learner.isEnrolled(trackId, source)) return;
     _update(
       learner.copyWith(
-        enrollments: [...learner.enrollments, Enrollment(trackId: trackId, source: source, enrolledAt: _now.toUtc())],
+        enrollments: [
+          ...learner.enrollments,
+          Enrollment(trackId: trackId, source: source, enrolledAt: _now.toUtc()),
+        ],
         activeCourseId: learner.activeCourseId ?? courseIdFor(trackId, source),
       ),
     );
@@ -202,7 +218,9 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
     if (firstTime) learner = learner.withXp(XpAmounts.missionCompleted, now);
     _update(learner);
     if (firstTime) {
-      ref.read(syncLedgerProvider).missionCompleted(course.id, missionKey, now, firstTryEverywhere: ratingsByExpressionId.values.every((r) => r == ReviewRating.good));
+      ref
+          .read(syncLedgerProvider)
+          .missionCompleted(course.id, missionKey, now, firstTryEverywhere: ratingsByExpressionId.values.every((r) => r == ReviewRating.good));
       _accountChanged();
     }
   }
@@ -219,8 +237,20 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
     _update(state.learner.withCourse(course.id, progress.withCards({expressionId: next})).withXp(XpAmounts.reviewCompleted, now));
   }
 
-  /// Forget everything on this device (settings › reset).
-  void resetAll() => _update(LearnerState(uiLanguage: state.learner.uiLanguage, darkMode: state.learner.darkMode));
+  /// Settings › reset: forgets the courses and progress on this device; the interface and display choices stay.
+  void resetAll() {
+    final l = state.learner;
+    _update(
+      LearnerState(
+        uiLanguage: l.uiLanguage,
+        darkMode: l.darkMode,
+        followDeviceTheme: l.followDeviceTheme,
+        textScale: l.textScale,
+        reduceMotion: l.reduceMotion,
+        mascot: l.mascot,
+      ),
+    );
+  }
 }
 
 final appStateProvider = NotifierProvider<AppStateNotifier, AppState>(AppStateNotifier.new);

@@ -914,24 +914,6 @@ abstract class AppLocalizations {
   /// **'App language'**
   String get appLanguage;
 
-  /// No description provided for @darkTheme.
-  ///
-  /// In en, this message translates to:
-  /// **'Dark theme'**
-  String get darkTheme;
-
-  /// No description provided for @darkThemeOn.
-  ///
-  /// In en, this message translates to:
-  /// **'Night Market, dark-first'**
-  String get darkThemeOn;
-
-  /// No description provided for @darkThemeOff.
-  ///
-  /// In en, this message translates to:
-  /// **'Light palette'**
-  String get darkThemeOff;
-
   /// No description provided for @yourCourses.
   ///
   /// In en, this message translates to:
@@ -1145,7 +1127,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountDeviceOnly.
   ///
   /// In en, this message translates to:
-  /// **'Practice XP and your review schedule stay on this device: the server counts XP only for missions with an assessed spoken attempt, which this app does not record yet.'**
+  /// **'Practice XP and your review schedule stay on this device: the server counts XP only for missions with a spoken attempt it has assessed, and recordings made here never leave this device.'**
   String get accountDeviceOnly;
 
   /// No description provided for @accountEmail.
@@ -1181,7 +1163,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountConfirmEmail.
   ///
   /// In en, this message translates to:
-  /// **'Check your email to confirm the account, then sign in.'**
+  /// **'Check your email: the link in it confirms the account and signs you in here.'**
   String get accountConfirmEmail;
 
   /// No description provided for @accountSignedInAs.
@@ -1237,6 +1219,996 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Everything is saved on this device only, unless you sign in above to keep your courses and completed missions in an account.'**
   String get yourDataBodySignedOut;
+
+  /// No description provided for @accountExport.
+  ///
+  /// In en, this message translates to:
+  /// **'Export my data'**
+  String get accountExport;
+
+  /// No description provided for @accountExported.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved {file}'**
+  String accountExported(String file);
+
+  /// No description provided for @accountDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete my account'**
+  String get accountDelete;
+
+  /// No description provided for @accountDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete your account?'**
+  String get accountDeleteTitle;
+
+  /// No description provided for @accountDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'This permanently removes your account and the courses and progress saved in it. It cannot be undone. The progress on this device stays until you reset it.'**
+  String get accountDeleteBody;
+
+  /// No description provided for @accountDeleteType.
+  ///
+  /// In en, this message translates to:
+  /// **'Type {word} to confirm.'**
+  String accountDeleteType(String word);
+
+  /// No description provided for @accountDeleteWord.
+  ///
+  /// In en, this message translates to:
+  /// **'DELETE'**
+  String get accountDeleteWord;
+
+  /// No description provided for @accountDeleted.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account was deleted.'**
+  String get accountDeleted;
+
+  /// No description provided for @accountDeleteScheduled.
+  ///
+  /// In en, this message translates to:
+  /// **'Your account will be deleted within 30 days. Sign in again to cancel.'**
+  String get accountDeleteScheduled;
+
+  /// No description provided for @recordYourself.
+  ///
+  /// In en, this message translates to:
+  /// **'Record yourself'**
+  String get recordYourself;
+
+  /// No description provided for @recordStop.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop'**
+  String get recordStop;
+
+  /// No description provided for @recordStopSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop recording'**
+  String get recordStopSemantics;
+
+  /// No description provided for @recordingNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording'**
+  String get recordingNow;
+
+  /// No description provided for @recordMyVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'My voice'**
+  String get recordMyVoice;
+
+  /// No description provided for @recordMyVoiceSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Play your recording'**
+  String get recordMyVoiceSemantics;
+
+  /// No description provided for @recordStopPlayingSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Stop playing your recording'**
+  String get recordStopPlayingSemantics;
+
+  /// No description provided for @recordAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Again'**
+  String get recordAgain;
+
+  /// No description provided for @recordAgainSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Record again'**
+  String get recordAgainSemantics;
+
+  /// No description provided for @recordTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get recordTryAgain;
+
+  /// No description provided for @recordStaysOnDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Your recording stays on this device.'**
+  String get recordStaysOnDevice;
+
+  /// No description provided for @recordCompare.
+  ///
+  /// In en, this message translates to:
+  /// **'Compare: {listen}, then {mine}.'**
+  String recordCompare(String listen, String mine);
+
+  /// No description provided for @recordSilent.
+  ///
+  /// In en, this message translates to:
+  /// **'I didn’t hear anything. Check your microphone and try again.'**
+  String get recordSilent;
+
+  /// No description provided for @recordBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'The microphone is blocked. Allow it for this site, then try again.'**
+  String get recordBlocked;
+
+  /// No description provided for @recordNoMicrophone.
+  ///
+  /// In en, this message translates to:
+  /// **'No microphone found.'**
+  String get recordNoMicrophone;
+
+  /// No description provided for @recordFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording didn’t work.'**
+  String get recordFailed;
+
+  /// No description provided for @display.
+  ///
+  /// In en, this message translates to:
+  /// **'Display'**
+  String get display;
+
+  /// No description provided for @themeDark.
+  ///
+  /// In en, this message translates to:
+  /// **'Dark'**
+  String get themeDark;
+
+  /// No description provided for @themeLight.
+  ///
+  /// In en, this message translates to:
+  /// **'Light'**
+  String get themeLight;
+
+  /// No description provided for @themeDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Device'**
+  String get themeDevice;
+
+  /// No description provided for @textSize.
+  ///
+  /// In en, this message translates to:
+  /// **'Text size'**
+  String get textSize;
+
+  /// No description provided for @textSizeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'On top of your device\'s text size.'**
+  String get textSizeBody;
+
+  /// No description provided for @reduceMotion.
+  ///
+  /// In en, this message translates to:
+  /// **'Reduce motion'**
+  String get reduceMotion;
+
+  /// No description provided for @reduceMotionBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Scenes, Melo and page changes stay still.'**
+  String get reduceMotionBody;
+
+  /// No description provided for @reduceMotionDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'On in your device\'s settings.'**
+  String get reduceMotionDevice;
+
+  /// No description provided for @showMascot.
+  ///
+  /// In en, this message translates to:
+  /// **'Show Melo, the mascot'**
+  String get showMascot;
+
+  /// No description provided for @showMascotBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Melo cheers you on; hiding it hides nothing else.'**
+  String get showMascotBody;
+
+  /// No description provided for @textSmaller.
+  ///
+  /// In en, this message translates to:
+  /// **'Smaller text'**
+  String get textSmaller;
+
+  /// No description provided for @textLarger.
+  ///
+  /// In en, this message translates to:
+  /// **'Larger text'**
+  String get textLarger;
+
+  /// No description provided for @textSizeValue.
+  ///
+  /// In en, this message translates to:
+  /// **'Text size {percent}'**
+  String textSizeValue(String percent);
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password?'**
+  String get forgotPassword;
+
+  /// No description provided for @enterEmailFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email address first.'**
+  String get enterEmailFirst;
+
+  /// No description provided for @passwordResetSent.
+  ///
+  /// In en, this message translates to:
+  /// **'If an account uses this address, an email with a link to choose a new password is on its way.'**
+  String get passwordResetSent;
+
+  /// No description provided for @emailConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Email confirmed. You\'re signed in.'**
+  String get emailConfirmed;
+
+  /// No description provided for @emailLinkFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'This email link can\'t be used: it may have expired, been used already, or been opened in another browser than the one that asked for it. Ask for a new one in Settings.'**
+  String get emailLinkFailed;
+
+  /// No description provided for @newPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a new password'**
+  String get newPasswordTitle;
+
+  /// No description provided for @newPasswordBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You opened a password reset link for {email}.'**
+  String newPasswordBody(String email);
+
+  /// No description provided for @newPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get newPasswordLabel;
+
+  /// No description provided for @newPasswordSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save password'**
+  String get newPasswordSave;
+
+  /// No description provided for @newPasswordFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The password could not be saved. Try again.'**
+  String get newPasswordFailed;
+
+  /// No description provided for @later.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get later;
+
+  /// No description provided for @passwordChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Your password was changed.'**
+  String get passwordChanged;
+
+  /// No description provided for @practiseSayingEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise saying the phrases'**
+  String get practiseSayingEntry;
+
+  /// No description provided for @practiseSayingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise saying · {mission}'**
+  String practiseSayingTitle(String mission);
+
+  /// No description provided for @practiseSayingNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen, record yourself, then compare. There is no score: a number needs a speech assessor this course does not have.'**
+  String get practiseSayingNote;
+
+  /// No description provided for @practiseSayingDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get practiseSayingDone;
+
+  /// No description provided for @previousPhrase.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous phrase'**
+  String get previousPhrase;
+
+  /// No description provided for @warmupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Try your first phrase'**
+  String get warmupTitle;
+
+  /// No description provided for @warmupBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen, then say it out loud. Nothing is scored here.'**
+  String get warmupBody;
+
+  /// No description provided for @warmupContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Start learning'**
+  String get warmupContinue;
+
+  /// No description provided for @warmupBodyNoVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Say it out loud. Nothing is scored here.'**
+  String get warmupBodyNoVoice;
+
+  /// No description provided for @recordChecked.
+  ///
+  /// In en, this message translates to:
+  /// **'LangQuest checks what you said; the recording isn’t kept.'**
+  String get recordChecked;
+
+  /// No description provided for @recordCheckedKept.
+  ///
+  /// In en, this message translates to:
+  /// **'LangQuest checks what you said; recordings are kept as your privacy settings allow.'**
+  String get recordCheckedKept;
+
+  /// No description provided for @recordChecking.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking what you said…'**
+  String get recordChecking;
+
+  /// No description provided for @recordCheckFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t check this take.'**
+  String get recordCheckFailed;
+
+  /// No description provided for @verdictUnderstood.
+  ///
+  /// In en, this message translates to:
+  /// **'Understood!'**
+  String get verdictUnderstood;
+
+  /// No description provided for @verdictNotQuite.
+  ///
+  /// In en, this message translates to:
+  /// **'Not quite'**
+  String get verdictNotQuite;
+
+  /// No description provided for @verdictNotQuiteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen to the model, then try again.'**
+  String get verdictNotQuiteHint;
+
+  /// No description provided for @verdictUnsure.
+  ///
+  /// In en, this message translates to:
+  /// **'I couldn’t make that out'**
+  String get verdictUnsure;
+
+  /// No description provided for @verdictUnsureHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again, a little closer to the microphone.'**
+  String get verdictUnsureHint;
+
+  /// No description provided for @verdictHeard.
+  ///
+  /// In en, this message translates to:
+  /// **'I heard: “{heard}”'**
+  String verdictHeard(String heard);
+
+  /// No description provided for @missionSpokenSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Understood out loud: {understood} of {checked}'**
+  String missionSpokenSummary(int understood, int checked);
+
+  /// No description provided for @practiseSayingNoteChecked.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen, record yourself: LangQuest tells you whether what you said came across. That is about meaning; there is no pronunciation score.'**
+  String get practiseSayingNoteChecked;
+
+  /// No description provided for @callIntroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise it in a real conversation'**
+  String get callIntroTitle;
+
+  /// No description provided for @callIntroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Someone from this mission picks up and talks with you in the language you’re learning. Answer out loud, or type. When you hang up, LangQuest tells you how it went.'**
+  String get callIntroBody;
+
+  /// No description provided for @callIntroBodyText.
+  ///
+  /// In en, this message translates to:
+  /// **'Someone from this mission chats with you in the language you’re learning. When you end the chat, LangQuest tells you how it went.'**
+  String get callIntroBodyText;
+
+  /// No description provided for @callIntroNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Uses LangQuest’s AI. Your recordings aren’t kept.'**
+  String get callIntroNote;
+
+  /// No description provided for @callIntroNoteKept.
+  ///
+  /// In en, this message translates to:
+  /// **'Uses LangQuest’s AI. Recordings are kept as your privacy settings allow.'**
+  String get callIntroNoteKept;
+
+  /// No description provided for @callStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Call'**
+  String get callStart;
+
+  /// No description provided for @callStartText.
+  ///
+  /// In en, this message translates to:
+  /// **'Start the chat'**
+  String get callStartText;
+
+  /// No description provided for @callCalling.
+  ///
+  /// In en, this message translates to:
+  /// **'Calling…'**
+  String get callCalling;
+
+  /// No description provided for @callFailedUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Live calls aren’t available for this course yet.'**
+  String get callFailedUnavailable;
+
+  /// No description provided for @callFailedNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'The call didn’t go through. Check your connection and try again.'**
+  String get callFailedNetwork;
+
+  /// No description provided for @callFailedEnded.
+  ///
+  /// In en, this message translates to:
+  /// **'This call has ended.'**
+  String get callFailedEnded;
+
+  /// No description provided for @callTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get callTryAgain;
+
+  /// No description provided for @callSpeaking.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} is speaking'**
+  String callSpeaking(String name);
+
+  /// No description provided for @callThinking.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} is thinking…'**
+  String callThinking(String name);
+
+  /// No description provided for @callListening.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening to you…'**
+  String get callListening;
+
+  /// No description provided for @callYourTurnVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Your turn: tap the microphone and answer'**
+  String get callYourTurnVoice;
+
+  /// No description provided for @callYourTurnText.
+  ///
+  /// In en, this message translates to:
+  /// **'Your turn: type your answer'**
+  String get callYourTurnText;
+
+  /// No description provided for @callTalk.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk'**
+  String get callTalk;
+
+  /// No description provided for @callSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get callSend;
+
+  /// No description provided for @callCancelTake.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get callCancelTake;
+
+  /// No description provided for @callType.
+  ///
+  /// In en, this message translates to:
+  /// **'Type instead'**
+  String get callType;
+
+  /// No description provided for @callTypeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your answer…'**
+  String get callTypeHint;
+
+  /// No description provided for @callHangUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Hang up'**
+  String get callHangUp;
+
+  /// No description provided for @callEndChat.
+  ///
+  /// In en, this message translates to:
+  /// **'End the chat'**
+  String get callEndChat;
+
+  /// No description provided for @callHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Hint'**
+  String get callHint;
+
+  /// No description provided for @callRepeat.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat'**
+  String get callRepeat;
+
+  /// No description provided for @callSlower.
+  ///
+  /// In en, this message translates to:
+  /// **'Slower'**
+  String get callSlower;
+
+  /// No description provided for @callTranslate.
+  ///
+  /// In en, this message translates to:
+  /// **'Translate'**
+  String get callTranslate;
+
+  /// No description provided for @callGoals.
+  ///
+  /// In en, this message translates to:
+  /// **'Goals'**
+  String get callGoals;
+
+  /// No description provided for @callGoalDone.
+  ///
+  /// In en, this message translates to:
+  /// **'{goal}: done'**
+  String callGoalDone(String goal);
+
+  /// No description provided for @callGoalProbably.
+  ///
+  /// In en, this message translates to:
+  /// **'{goal}: probably done'**
+  String callGoalProbably(String goal);
+
+  /// No description provided for @callGoalNotYet.
+  ///
+  /// In en, this message translates to:
+  /// **'{goal}: not yet'**
+  String callGoalNotYet(String goal);
+
+  /// No description provided for @callNoSpeech.
+  ///
+  /// In en, this message translates to:
+  /// **'I didn’t hear anything. Try again, a little closer to the microphone.'**
+  String get callNoSpeech;
+
+  /// No description provided for @callTurnFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'That didn’t go through. Try again.'**
+  String get callTurnFailed;
+
+  /// No description provided for @callSaidGoodbye.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} said goodbye. Hang up to see how it went.'**
+  String callSaidGoodbye(String name);
+
+  /// No description provided for @callEnding.
+  ///
+  /// In en, this message translates to:
+  /// **'Hanging up… LangQuest is looking at how it went.'**
+  String get callEnding;
+
+  /// No description provided for @callEndedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Call ended'**
+  String get callEndedTitle;
+
+  /// No description provided for @callChatEndedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat ended'**
+  String get callChatEndedTitle;
+
+  /// No description provided for @callGoalsMet.
+  ///
+  /// In en, this message translates to:
+  /// **'Goals met: {met} of {total}'**
+  String callGoalsMet(int met, int total);
+
+  /// No description provided for @callNextTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Next time, try'**
+  String get callNextTime;
+
+  /// No description provided for @callYouSaid.
+  ///
+  /// In en, this message translates to:
+  /// **'You said: “{text}”'**
+  String callYouSaid(String text);
+
+  /// No description provided for @callNotEvaluated.
+  ///
+  /// In en, this message translates to:
+  /// **'LangQuest couldn’t evaluate this call, so nothing was counted.'**
+  String get callNotEvaluated;
+
+  /// No description provided for @callAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Call again'**
+  String get callAgain;
+
+  /// No description provided for @callYou.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get callYou;
+
+  /// No description provided for @callReplayLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Play this line again'**
+  String get callReplayLine;
+
+  /// No description provided for @callHeardYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Hearing you…'**
+  String get callHeardYou;
+
+  /// No description provided for @pathTalkSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A live call: use what you learned, out loud'**
+  String get pathTalkSubtitle;
+
+  /// No description provided for @pathTalkSubtitleText.
+  ///
+  /// In en, this message translates to:
+  /// **'A live chat: use what you learned'**
+  String get pathTalkSubtitleText;
+
+  /// No description provided for @missionTryLiveCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Try it in a live call'**
+  String get missionTryLiveCall;
+
+  /// No description provided for @courseIncludesLiveCalls.
+  ///
+  /// In en, this message translates to:
+  /// **'Live calls with {count, plural, =1{the course’s AI character} other{{count} AI characters}}, by voice or in writing (with a free account)'**
+  String courseIncludesLiveCalls(int count);
+
+  /// No description provided for @courseIncludesSpokenCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Your spoken answers checked: LangQuest tells you whether you were understood (with a free account)'**
+  String get courseIncludesSpokenCheck;
+
+  /// No description provided for @courseMissingPronunciationScore.
+  ///
+  /// In en, this message translates to:
+  /// **'A pronunciation score: spoken answers are checked for meaning, not accent'**
+  String get courseMissingPronunciationScore;
+
+  /// No description provided for @courseLimitedForDialect.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech recognition and AI voices are still limited for this dialect (not yet reviewed by native speakers)'**
+  String get courseLimitedForDialect;
+
+  /// No description provided for @listenAiVoiceSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen (AI voice)'**
+  String get listenAiVoiceSemantics;
+
+  /// No description provided for @listenSlowlyAiVoiceSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen slowly (AI voice)'**
+  String get listenSlowlyAiVoiceSemantics;
+
+  /// No description provided for @tabAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio'**
+  String get tabAudio;
+
+  /// No description provided for @audioLibraryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio lessons'**
+  String get audioLibraryTitle;
+
+  /// No description provided for @audioLibraryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'One per mission: the conversation, then phrase by phrase with time to say each one, then the conversation again.'**
+  String get audioLibraryBody;
+
+  /// No description provided for @audioReadByAi.
+  ///
+  /// In en, this message translates to:
+  /// **'Read by an AI voice'**
+  String get audioReadByAi;
+
+  /// No description provided for @audioReadByDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Read by your device’s voice'**
+  String get audioReadByDevice;
+
+  /// No description provided for @audioLessonMeta.
+  ///
+  /// In en, this message translates to:
+  /// **'{phrases, plural, =1{1 phrase} other{{phrases} phrases}} · about {minutes} min'**
+  String audioLessonMeta(int phrases, int minutes);
+
+  /// No description provided for @audioListened.
+  ///
+  /// In en, this message translates to:
+  /// **'Listened'**
+  String get audioListened;
+
+  /// No description provided for @audioLessonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio lesson'**
+  String get audioLessonLabel;
+
+  /// No description provided for @audioIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'{mission}. Listen to the conversation.'**
+  String audioIntro(String mission);
+
+  /// No description provided for @audioPhrasesIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Now phrase by phrase. Listen, then say it out loud.'**
+  String get audioPhrasesIntro;
+
+  /// No description provided for @audioAgainIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Once more, the whole conversation.'**
+  String get audioAgainIntro;
+
+  /// No description provided for @audioOutro.
+  ///
+  /// In en, this message translates to:
+  /// **'That’s the end of the lesson. Well done!'**
+  String get audioOutro;
+
+  /// No description provided for @audioSectionConversation.
+  ///
+  /// In en, this message translates to:
+  /// **'The conversation'**
+  String get audioSectionConversation;
+
+  /// No description provided for @audioSectionPhrases.
+  ///
+  /// In en, this message translates to:
+  /// **'Phrase by phrase'**
+  String get audioSectionPhrases;
+
+  /// No description provided for @audioSectionAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Once more'**
+  String get audioSectionAgain;
+
+  /// No description provided for @audioYourTurn.
+  ///
+  /// In en, this message translates to:
+  /// **'Your turn: say it'**
+  String get audioYourTurn;
+
+  /// No description provided for @audioPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get audioPlay;
+
+  /// No description provided for @audioPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get audioPause;
+
+  /// No description provided for @audioNextLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Next line'**
+  String get audioNextLine;
+
+  /// No description provided for @audioPreviousLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous line'**
+  String get audioPreviousLine;
+
+  /// No description provided for @audioSlowly.
+  ///
+  /// In en, this message translates to:
+  /// **'Slowly'**
+  String get audioSlowly;
+
+  /// No description provided for @audioTurns.
+  ///
+  /// In en, this message translates to:
+  /// **'Time to repeat'**
+  String get audioTurns;
+
+  /// No description provided for @audioFinished.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson finished'**
+  String get audioFinished;
+
+  /// No description provided for @audioPlayAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Play again'**
+  String get audioPlayAgain;
+
+  /// No description provided for @audioYou.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get audioYou;
+
+  /// No description provided for @courseIncludesAudioLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio lessons made from each mission, read by {voice}'**
+  String courseIncludesAudioLessons(String voice);
+
+  /// No description provided for @courseVoiceAi.
+  ///
+  /// In en, this message translates to:
+  /// **'an AI voice (with a free account)'**
+  String get courseVoiceAi;
+
+  /// No description provided for @courseVoiceDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'your device’s voice'**
+  String get courseVoiceDevice;
+
+  /// No description provided for @courseMissingAudioRecorded.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio recorded by native speakers'**
+  String get courseMissingAudioRecorded;
+
+  /// No description provided for @courseIncludesAiVoiceDialect.
+  ///
+  /// In en, this message translates to:
+  /// **'An AI voice for this dialect (with a free account)'**
+  String get courseIncludesAiVoiceDialect;
+
+  /// No description provided for @tabSpeak.
+  ///
+  /// In en, this message translates to:
+  /// **'Speak'**
+  String get tabSpeak;
+
+  /// No description provided for @speakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk with the locals'**
+  String get speakTitle;
+
+  /// No description provided for @speakBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Free conversations with the course’s characters, by voice or in writing. Use what you’ve learned; ask for a hint whenever you need one.'**
+  String get speakBody;
+
+  /// No description provided for @speakNoCharacters.
+  ///
+  /// In en, this message translates to:
+  /// **'No characters are published for this course yet.'**
+  String get speakNoCharacters;
+
+  /// No description provided for @speakCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Call {name}'**
+  String speakCall(String name);
+
+  /// No description provided for @callFreeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Call {name}'**
+  String callFreeTitle(String name);
+
+  /// No description provided for @callFreeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A free conversation, in the language you’re learning, about everyday things. Answer out loud, or type. When you hang up, LangQuest tells you how it went.'**
+  String get callFreeBody;
+
+  /// No description provided for @callFreeBodyText.
+  ///
+  /// In en, this message translates to:
+  /// **'A free chat, in the language you’re learning, about everyday things. When you end it, LangQuest tells you how it went.'**
+  String get callFreeBodyText;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

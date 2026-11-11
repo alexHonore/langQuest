@@ -7,12 +7,16 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 import 'core/backend/account.dart';
+import 'core/backend/auth_gateway.dart';
 import 'core/backend/backend_config.dart';
 import 'core/content/content_bundle.dart';
+import 'core/layout/display_preferences.dart';
 import 'core/layout/phone_frame.dart';
+import 'core/platform/browser_url.dart';
 import 'core/services/app_state.dart';
 import 'core/services/learner_store.dart';
 import 'core/theme/app_theme.dart';
+import 'features/account/email_link_prompt.dart';
 import 'l10n/l10n.dart';
 import 'navigation/app_router.dart';
 
@@ -35,19 +39,26 @@ Future<void> main() async {
 
   // An account is optional: without a backend in this build (or if it cannot start) the app stays offline.
   var backend = await loadBackendConfig();
+  // Opened from a confirmation or password-reset email (web): the link's code, or the server's error, is in the address.
+  final fromEmailLink = kIsWeb && isEmailLink(Uri.base);
+  EmailLinkOutcome? emailLink;
   if (backend != null) {
     try {
       await Supabase.initialize(
         url: backend.supabaseUrl,
         publishableKey: backend.supabaseAnonKey,
-        // Password sign-in only: no email links or OAuth redirects to read from the URL (the app routes with #/…).
+        // Email links are read below, once, by the app itself: it routes with #/…, which is not an auth callback.
         authOptions: const FlutterAuthClientOptions(detectSessionInUri: false),
       );
+      if (fromEmailLink) emailLink = await openStartupEmailLink(SupabaseAuthGateway(Supabase.instance.client), Uri.base);
     } catch (e) {
       debugPrint('Account features off: $e');
       backend = null;
     }
   }
+  // The link's code or error leaves the address bar before the router reads it (the app routes with #/…), and a
+  // reload never tries a spent code again.
+  if (fromEmailLink) replaceBrowserUrl('${Uri.base.origin}${Uri.base.path}');
 
   runApp(
     ProviderScope(
@@ -55,6 +66,7 @@ Future<void> main() async {
         contentBundleProvider.overrideWithValue(content),
         learnerStoreProvider.overrideWithValue(LearnerStore(prefs)),
         backendConfigProvider.overrideWithValue(backend),
+        startupEmailLinkProvider.overrideWithValue(emailLink),
       ],
       child: const LangQuestApp(),
     ),
@@ -84,10 +96,13 @@ class LangQuestApp extends ConsumerWidget {
           statusBarColor: Colors.transparent,
           systemNavigationBarColor: colors.background,
         ),
-        child: PhoneFrame(
-          backdrop: Color.alphaBlend(Colors.black.withValues(alpha: appState.isDark ? 0.5 : 0.07), colors.background),
-          outline: colors.border,
-          child: child ?? const SizedBox.shrink(),
+        child: DisplayPreferences(
+          learner: appState.learner,
+          child: PhoneFrame(
+            backdrop: Color.alphaBlend(Colors.black.withValues(alpha: appState.isDark ? 0.5 : 0.07), colors.background),
+            outline: colors.border,
+            child: EmailLinkPrompt(child: child ?? const SizedBox.shrink()),
+          ),
         ),
       ),
       theme: buildAppTheme(colors, accent, isDark: appState.isDark),

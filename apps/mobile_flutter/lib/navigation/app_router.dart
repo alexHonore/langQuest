@@ -5,6 +5,9 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../core/services/app_state.dart';
 import '../core/theme/glass.dart';
+import '../features/audio/audio_screens.dart';
+import '../features/call/call_screen.dart';
+import '../features/call/speak_screen.dart';
 import '../features/account/account_screen.dart';
 import '../features/catalog/catalog_screen.dart';
 import '../features/catalog/course_detail_screen.dart';
@@ -12,9 +15,11 @@ import '../features/home/home_screen.dart';
 import '../features/learn/cards_screen.dart';
 import '../features/learn/mission_path_screen.dart';
 import '../features/learn/practice_screen.dart';
+import '../features/learn/practise_saying_screen.dart';
 import '../features/learn/scene_lesson_screen.dart';
 import '../features/missions/mission_player_screen.dart';
 import '../features/missions/missions_screen.dart';
+import '../features/onboarding/warmup_screen.dart';
 import '../features/onboarding/welcome_screen.dart';
 import '../features/progress/progress_screen.dart';
 import '../features/review/review_screen.dart';
@@ -38,8 +43,11 @@ class _EnrollmentListenable extends ChangeNotifier {
   }
 }
 
+/// The app's top navigator: dialogs that belong to no screen (an email link opening the app) are shown with it.
+final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+
 final appRouterProvider = Provider<GoRouter>((ref) {
-  final rootKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+  final rootKey = rootNavigatorKey;
   final shellKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
   final refresh = _EnrollmentListenable(ref);
   ref.onDispose(refresh.dispose);
@@ -69,6 +77,14 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             path: '/progress',
             pageBuilder: (context, state) => const NoTransitionPage(child: ProgressScreen()),
           ),
+          GoRoute(
+            path: '/audio',
+            pageBuilder: (context, state) => const NoTransitionPage(child: AudioLibraryScreen()),
+          ),
+          GoRoute(
+            path: '/talk',
+            pageBuilder: (context, state) => const NoTransitionPage(child: SpeakScreen()),
+          ),
         ],
       ),
       page('/welcome', (_) => const WelcomeScreen()),
@@ -81,6 +97,11 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       page('/learn/:id/cards', (s) => CardsScreen(missionKey: s.pathParameters['id']!)),
       page('/learn/:id/practice', (s) => PracticeScreen(missionKey: s.pathParameters['id']!)),
       page('/mission/:id', (s) => MissionPlayerScreen(missionKey: s.pathParameters['id']!)),
+      page('/speak/:id', (s) => PractiseSayingScreen(missionKey: s.pathParameters['id']!)),
+      page('/call/:id', (s) => CallScreen(missionKey: s.pathParameters['id']!)),
+      page('/talk/:character', (s) => CallScreen(characterId: s.pathParameters['character']!)),
+      page('/audio/:id', (s) => AudioLessonScreen(missionKey: s.pathParameters['id']!)),
+      page('/warmup', (_) => const WarmupScreen()),
       page('/review', (_) => const ReviewScreen()),
       page('/account', (_) => const AccountScreen()),
     ],
@@ -89,20 +110,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   return router;
 });
 
-/// The tab shell: Home, Missions and Progress. Audio and Speak are not shown in this build — nothing real backs
-/// them yet (no licensed audio library, no live conversation partner), and a tab never opens onto a placeholder
-/// (CONVENTIONS §8, as the Expo app hides them per course capability).
+/// The tab shell: Home, Missions, Progress; Speak when live calls back the course (signed in, the server's snapshot);
+/// Audio when the course's lessons can be heard here (a device voice for it, or the server's AI voice). A tab never
+/// opens onto a placeholder (CONVENTIONS §8).
 class AppScaffold extends ConsumerWidget {
   final Widget child;
 
   const AppScaffold({super.key, required this.child});
 
-  static const _tabs = ['/', '/missions', '/progress'];
-
-  int _selectedIndex(BuildContext context) {
+  int _selectedIndex(BuildContext context, List<String> tabs) {
     final location = GoRouterState.of(context).matchedLocation;
-    if (location.startsWith('/missions')) return 1;
-    if (location.startsWith('/progress')) return 2;
+    for (var i = tabs.length - 1; i > 0; i--) {
+      if (location.startsWith(tabs[i])) return i;
+    }
     return 0;
   }
 
@@ -112,8 +132,17 @@ class AppScaffold extends ConsumerWidget {
     final accent = appState.accent;
     final colors = appState.colors;
     final l10n = context.l10n;
-    final selected = _selectedIndex(context);
-    final items = [(LucideIcons.home, l10n.tabHome), (LucideIcons.target, l10n.tabMissions), (LucideIcons.barChart2, l10n.tabProgress)];
+    final audio = ref.watch(audioLessonsAvailableProvider);
+    final speak = ref.watch(liveCallCourseProvider) != null;
+    final tabs = ['/', '/missions', if (speak) '/talk', if (audio) '/audio', '/progress'];
+    final selected = _selectedIndex(context, tabs);
+    final items = [
+      (LucideIcons.home, l10n.tabHome),
+      (LucideIcons.target, l10n.tabMissions),
+      if (speak) (LucideIcons.messagesSquare, l10n.tabSpeak),
+      if (audio) (LucideIcons.headphones, l10n.tabAudio),
+      (LucideIcons.barChart2, l10n.tabProgress),
+    ];
 
     return Scaffold(
       backgroundColor: colors.background,
@@ -143,18 +172,26 @@ class AppScaffold extends ConsumerWidget {
                             label: items[i].$2,
                             excludeSemantics: true,
                             child: InkWell(
-                              onTap: () => context.go(_tabs[i]),
+                              onTap: () => context.go(tabs[i]),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
                                   Icon(items[i].$1, size: 21, color: i == selected ? accent.primaryText : colors.textMuted),
                                   const SizedBox(height: 4),
-                                  Text(
-                                    items[i].$2,
-                                    style: TextStyle(
-                                      fontSize: 11.5,
-                                      fontWeight: i == selected ? FontWeight.w700 : FontWeight.w500,
-                                      color: i == selected ? accent.primaryText : colors.textMuted,
+                                  // Up to five tabs: a long label shrinks to fit rather than overflowing.
+                                  FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 2),
+                                      child: Text(
+                                        items[i].$2,
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                          fontSize: 11.5,
+                                          fontWeight: i == selected ? FontWeight.w700 : FontWeight.w500,
+                                          color: i == selected ? accent.primaryText : colors.textMuted,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],
