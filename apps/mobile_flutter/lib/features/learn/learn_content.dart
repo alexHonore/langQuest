@@ -174,6 +174,12 @@ const _choicesPerKind = 2;
 const _minGapWords = 3;
 const _maxGapWords = 9;
 
+/// [items] keeping only the first of each intent, in order.
+Iterable<Expression> _distinctIntents(Iterable<Expression> items) {
+  final seen = <String>{};
+  return items.where((e) => seen.add(e.intentKey));
+}
+
 /// Split [items] into the fewest rounds of at most [maxPerRound], as evenly as possible (7 → 4 + 3).
 List<List<T>> evenRounds<T>(List<T> items, int maxPerRound) {
   if (items.isEmpty) return const [];
@@ -255,14 +261,16 @@ MissionLearnPlan buildLearnPlan({required Mission mission, required CourseTrackI
     if (!answer.byLearner) continue;
     final previous = i > 0 ? dialogue[i - 1] : null;
     final cue = previous != null && !previous.byLearner ? previous : null;
+    // A variant of the same intent ("Здравствуйте" / "Привет") would be a right answer too: never a distractor.
     final others = [
       for (final e in phrases)
         if (e != answer &&
+            e.intentKey != answer.intentKey &&
             normalizeForCompare(e.text) != normalizeForCompare(answer.text) &&
             normalizeForCompare(shortMeaning(meaning(e))) != normalizeForCompare(shortMeaning(meaning(answer))))
           e,
     ];
-    final distractors = stableShuffle(others, '${mission.key}/${answer.key}/distract', (e) => e.id).take(2);
+    final distractors = _distinctIntents(stableShuffle(others, '${mission.key}/${answer.key}/distract', (e) => e.id)).take(2);
     final options = stableShuffle([answer, ...distractors], '${mission.key}/${answer.key}/options', (e) => e.id);
     exchanges.add(MissionExchange(cue: cue, answer: answer, options: options));
   }
@@ -271,23 +279,23 @@ MissionLearnPlan buildLearnPlan({required Mission mission, required CourseTrackI
   // the two kinds ask about different phrases; options are two other pair phrases.
   final choices = <ChoiceQuestion>[];
   if (pairPhrases.length >= 3) {
-    ChoiceQuestion question(ChoiceKind kind, Expression e) {
-      final others = stableShuffle(
-        [
-          for (final o in pairPhrases)
-            if (o != e) o,
-        ],
-        '${mission.key}/${e.key}/${kind.name}',
-        (o) => o.id,
-      ).take(2);
+    // Options never share the asked phrase's intent, nor each other's: a variant ("Combien, les pommes ?" next to
+    // "Combien coûtent ces pommes ?") would be a second right answer.
+    ChoiceQuestion? question(ChoiceKind kind, Expression e) {
+      final pool = [
+        for (final o in pairPhrases)
+          if (o != e && o.intentKey != e.intentKey) o,
+      ];
+      final others = _distinctIntents(stableShuffle(pool, '${mission.key}/${e.key}/${kind.name}', (o) => o.id)).take(2).toList();
+      if (others.length < 2) return null;
       return ChoiceQuestion(kind: kind, expression: e, options: stableShuffle([e, ...others], '${mission.key}/${e.key}/${kind.name}/options', (o) => o.id));
     }
 
     final listen = [for (var i = 0; i < pairPhrases.length; i += 2) pairPhrases[i]].take(_choicesPerKind);
     final reverse = [for (var i = 1; i < pairPhrases.length; i += 2) pairPhrases[i]].take(_choicesPerKind);
     choices
-      ..addAll([for (final e in listen) question(ChoiceKind.listen, e)])
-      ..addAll([for (final e in reverse) question(ChoiceKind.reverse, e)]);
+      ..addAll([for (final e in listen) ?question(ChoiceKind.listen, e)])
+      ..addAll([for (final e in reverse) ?question(ChoiceKind.reverse, e)]);
   }
 
   // Gap: a learner line other than the tiles' one, 3–9 words; its longest word (of 2+ letters) is missing.

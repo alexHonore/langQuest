@@ -249,6 +249,7 @@ void main() {
           expect(q.options.map((o) => normalizeForCompare(o.text)).toSet(), hasLength(3), reason: '$at distinct phrases');
           expect(q.options.map((o) => normalizeForCompare(p.shortMeaningOf(o))).toSet(), hasLength(3), reason: '$at distinct meanings');
           expect(p.phrases, containsAll(q.options), reason: '$at: options are taught phrases');
+          expect(q.options.map((o) => o.intentKey).toSet(), hasLength(3), reason: '$at: no option is a variant of another (two right answers)');
         }
       }
       expect(withChoices, greaterThan(plans.length * 0.9));
@@ -288,6 +289,7 @@ void main() {
           expect(x.options, contains(x.answer), reason: at);
           expect(x.options.length, inInclusiveRange(2, 3), reason: at);
           expect(x.options.map((o) => normalizeForCompare(o.text)).toSet().length, x.options.length, reason: '$at distinct options');
+          expect(x.options.map((o) => o.intentKey).toSet().length, x.options.length, reason: '$at: no distractor says what the answer says');
           for (final o in x.options) {
             expect(taught, contains(o.id), reason: '$at option ${o.key} was taught');
           }
