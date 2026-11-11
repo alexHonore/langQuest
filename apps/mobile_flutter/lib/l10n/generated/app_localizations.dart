@@ -1579,6 +1579,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Say it out loud. Nothing is scored here.'**
   String get warmupBodyNoVoice;
+
+  /// No description provided for @recordChecked.
+  ///
+  /// In en, this message translates to:
+  /// **'LangQuest checks what you said; the recording isn’t kept.'**
+  String get recordChecked;
+
+  /// No description provided for @recordCheckedKept.
+  ///
+  /// In en, this message translates to:
+  /// **'LangQuest checks what you said; recordings are kept as your privacy settings allow.'**
+  String get recordCheckedKept;
+
+  /// No description provided for @recordChecking.
+  ///
+  /// In en, this message translates to:
+  /// **'Checking what you said…'**
+  String get recordChecking;
+
+  /// No description provided for @recordCheckFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t check this take.'**
+  String get recordCheckFailed;
+
+  /// No description provided for @verdictUnderstood.
+  ///
+  /// In en, this message translates to:
+  /// **'Understood!'**
+  String get verdictUnderstood;
+
+  /// No description provided for @verdictNotQuite.
+  ///
+  /// In en, this message translates to:
+  /// **'Not quite'**
+  String get verdictNotQuite;
+
+  /// No description provided for @verdictNotQuiteHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen to the model, then try again.'**
+  String get verdictNotQuiteHint;
+
+  /// No description provided for @verdictUnsure.
+  ///
+  /// In en, this message translates to:
+  /// **'I couldn’t make that out'**
+  String get verdictUnsure;
+
+  /// No description provided for @verdictUnsureHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again, a little closer to the microphone.'**
+  String get verdictUnsureHint;
+
+  /// No description provided for @verdictHeard.
+  ///
+  /// In en, this message translates to:
+  /// **'I heard: “{heard}”'**
+  String verdictHeard(String heard);
+
+  /// No description provided for @missionSpokenSummary.
+  ///
+  /// In en, this message translates to:
+  /// **'Understood out loud: {understood} of {checked}'**
+  String missionSpokenSummary(int understood, int checked);
+
+  /// No description provided for @practiseSayingNoteChecked.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen, record yourself: LangQuest tells you whether what you said came across. That is about meaning; there is no pronunciation score.'**
+  String get practiseSayingNoteChecked;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

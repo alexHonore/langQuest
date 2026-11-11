@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
+import '../../core/backend/speech_check.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/speech_service.dart';
 import '../../l10n/l10n.dart';
@@ -11,7 +12,8 @@ import 'learn_widgets.dart';
 import 'record_take.dart';
 
 /// Practise saying a mission's phrases, one at a time: hear the reference, record yourself, play both back. The
-/// listen / record / compare coach of ADR-006 — nothing is scored (no acoustic assessor here) and nothing is credited.
+/// listen / record / compare coach of ADR-006 — no pronunciation score (no acoustic assessor here), nothing credited on
+/// this device; a signed-in learner whose course the server can check is told whether each take was understood.
 /// Opened from the mission path once its Learn stop is done, only where the device can record.
 class PractiseSayingScreen extends ConsumerStatefulWidget {
   final String missionKey;
@@ -100,13 +102,18 @@ class _PractiseSayingScreenState extends ConsumerState<PractiseSayingScreen> {
                           ListenButtons(text: phrase.text, locale: plan.voiceLocale),
                           const SizedBox(height: 12),
                           // A fresh recorder per phrase: the previous take is dropped with it.
-                          RecordTake(key: ValueKey('say-$index'), voiceLocale: plan.voiceLocale, centered: true),
+                          RecordTake(
+                            key: ValueKey('say-$index'),
+                            voiceLocale: plan.voiceLocale,
+                            centered: true,
+                            check: SpeechTarget(expressionId: phrase.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
+                          ),
                         ],
                       ),
                     ),
                     const SizedBox(height: 14),
                     Text(
-                      l10n.practiseSayingNote,
+                      ref.watch(speechCheckerProvider) == null ? l10n.practiseSayingNote : l10n.practiseSayingNoteChecked,
                       textAlign: TextAlign.center,
                       style: TextStyle(fontSize: 12.5, height: 1.4, color: colors.textMuted),
                     ),

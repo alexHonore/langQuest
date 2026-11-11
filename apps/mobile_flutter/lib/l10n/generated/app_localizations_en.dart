@@ -847,4 +847,45 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get warmupBodyNoVoice => 'Say it out loud. Nothing is scored here.';
+
+  @override
+  String get recordChecked => 'LangQuest checks what you said; the recording isn’t kept.';
+
+  @override
+  String get recordCheckedKept => 'LangQuest checks what you said; recordings are kept as your privacy settings allow.';
+
+  @override
+  String get recordChecking => 'Checking what you said…';
+
+  @override
+  String get recordCheckFailed => 'Couldn’t check this take.';
+
+  @override
+  String get verdictUnderstood => 'Understood!';
+
+  @override
+  String get verdictNotQuite => 'Not quite';
+
+  @override
+  String get verdictNotQuiteHint => 'Listen to the model, then try again.';
+
+  @override
+  String get verdictUnsure => 'I couldn’t make that out';
+
+  @override
+  String get verdictUnsureHint => 'Try again, a little closer to the microphone.';
+
+  @override
+  String verdictHeard(String heard) {
+    return 'I heard: “$heard”';
+  }
+
+  @override
+  String missionSpokenSummary(int understood, int checked) {
+    return 'Understood out loud: $understood of $checked';
+  }
+
+  @override
+  String get practiseSayingNoteChecked =>
+      'Listen, record yourself: LangQuest tells you whether what you said came across. That is about meaning; there is no pronunciation score.';
 }

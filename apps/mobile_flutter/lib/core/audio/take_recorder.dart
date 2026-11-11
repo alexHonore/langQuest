@@ -1,8 +1,10 @@
 /// Recording the learner's own voice, to compare with the reference (ADR-006: listen / record / compare, never a
-/// score without an acoustic assessor). A take lives in memory on this device only: nothing is uploaded or saved.
+/// score without an acoustic assessor). A take lives in memory on this device; it leaves it only when a signed-in
+/// learner's course can have takes checked by the server (`core/backend/speech_check.dart`), and is never saved here.
 library;
 
 import 'dart:math' as math;
+import 'dart:typed_data';
 
 /// Why the microphone could not be used.
 enum RecorderFailure {
@@ -47,6 +49,12 @@ abstract class RecordedTake {
   /// The loudest input level of the take in dBFS; null when the level could not be measured.
   double? get peakLevelDb;
 
+  /// The recording's container type, as the recorder made it (`audio/webm;codecs=opus`, `audio/mp4`…).
+  String get mimeType;
+
+  /// The recorded bytes (for a server check of what was said).
+  Future<Uint8List> bytes();
+
   /// Plays the take; completes when it has ended or was stopped.
   Future<void> play();
 
@@ -68,3 +76,15 @@ double peakToDbfs(double peak) => peak <= 0 ? minLevelDbfs : math.max(minLevelDb
 
 /// Whether a take's peak shows it holds no speech (an unmeasured take is not called silent).
 bool isSilentTake(double? peakLevelDb) => peakLevelDb != null && peakLevelDb <= silencePeakDbfs;
+
+/// The API's `AudioEncoding` for a recording's container type; null when the API takes none like it.
+String? apiEncodingFor(String mimeType) {
+  final mime = mimeType.toLowerCase();
+  if (mime.startsWith('audio/webm')) return 'webm_opus';
+  if (mime.startsWith('audio/ogg')) return 'opus';
+  if (mime.startsWith('audio/mp4') || mime.startsWith('audio/x-m4a') || mime.startsWith('audio/aac')) return 'm4a';
+  if (mime.startsWith('audio/mpeg')) return 'mp3';
+  if (mime.startsWith('audio/wav') || mime.startsWith('audio/x-wav') || mime.startsWith('audio/wave')) return 'wav';
+  if (mime.startsWith('audio/flac')) return 'flac';
+  return null;
+}

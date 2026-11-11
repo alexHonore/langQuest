@@ -88,6 +88,30 @@ class LangQuestApi {
     }),
   );
 
+  /// `POST /v1/speech/pronunciation-assess` — did the take say [expressionId] (a published expression of the
+  /// enrollment's variety)? With [scenarioId] = the mission's id, the server's grading row is evidence for that
+  /// mission's speaking steps. A take without speech answers `no_speech_detected` and is never judged.
+  Future<Map<String, Object?>> assessSpeech({
+    required String enrollmentId,
+    required String targetVarietyId,
+    required String expressionId,
+    required String audioBase64,
+    required String encoding,
+    required String clientRequestId,
+    String? scenarioId,
+    double? peakLevelDb,
+  }) async => _object(
+    await _send('POST', '/v1/speech/pronunciation-assess', {
+      'enrollmentId': enrollmentId,
+      'targetVarietyId': targetVarietyId,
+      'expressionId': expressionId,
+      'audio': {'source': 'inline', 'base64': audioBase64, 'encoding': encoding, 'sampleRateHz': null},
+      'clientRequestId': clientRequestId,
+      'scenarioId': ?scenarioId,
+      'recording': {'peakLevelDb': peakLevelDb},
+    }, aiTimeout),
+  );
+
   /// `GET /v1/me/export` — the portable JSON bundle of everything the account holds (§11).
   Future<Map<String, Object?>> exportData() async => _object(await _send('GET', '/v1/me/export'));
 
@@ -95,7 +119,11 @@ class LangQuestApi {
   /// The literal confirmation is the API's own guard against accidental calls.
   Future<Map<String, Object?>> deleteAccount() async => _object(await _send('DELETE', '/v1/me', {'confirmation': 'DELETE', 'deleteOptInRecordings': true}));
 
-  Future<Object?> _send(String method, String path, [Map<String, Object?>? body]) async {
+  /// The AI routes (speech recognition, the character, synthesis) answer in a few seconds, at worst in the server's
+  /// own budget; the other routes in well under a second.
+  static const aiTimeout = Duration(seconds: 45);
+
+  Future<Object?> _send(String method, String path, [Map<String, Object?>? body, Duration timeout = const Duration(seconds: 20)]) async {
     final token = await accessToken();
     final request = http.Request(method, Uri.parse('$baseUrl$path'))
       ..headers.addAll({
@@ -106,7 +134,7 @@ class LangQuestApi {
     if (body != null) request.body = jsonEncode(body);
     http.Response res;
     try {
-      res = await http.Response.fromStream(await _client.send(request).timeout(const Duration(seconds: 20)));
+      res = await http.Response.fromStream(await _client.send(request).timeout(timeout));
     } catch (e) {
       throw ApiException(0, 'network', '$e');
     }

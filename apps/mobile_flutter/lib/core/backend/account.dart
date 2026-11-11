@@ -10,6 +10,7 @@ import '../services/learner_store.dart';
 import 'api_client.dart';
 import 'auth_gateway.dart';
 import 'backend_config.dart';
+import 'server_course.dart';
 import 'sync_service.dart';
 
 /// Null in an offline build (no backend configured): no account features exist. Overridden in `main()`.
@@ -82,6 +83,10 @@ class AccountState {
   final SyncPhase phase;
   final DateTime? lastSyncedAt;
   final SyncReport? lastReport;
+
+  /// The signed-in account's course [courseId] as the server holds it (null signed out, before the first sync, or
+  /// when the account does not have that course): what its AI features can do.
+  ServerCourse? serverCourse(String? courseId) => user == null || !available || courseId == null ? null : lastReport?.courses[courseId];
 
   AccountState copyWith({
     bool? available,
