@@ -74,9 +74,13 @@ export interface OpenRouterClientOptions {
   random?: () => number;
 }
 
+/** One part of a multimodal user message: text, or a recording (`input_audio`, base64; `wav` or `mp3`). */
+export type ChatContentPart = { type: 'text'; text: string } | { type: 'input_audio'; input_audio: { data: string; format: 'wav' | 'mp3' } };
+
 export interface ChatMessage {
   role: 'system' | 'user' | 'assistant';
-  content: string;
+  /** Plain text, or parts (text and audio) for models that listen. */
+  content: string | readonly ChatContentPart[];
 }
 
 export interface JsonSchemaResponseFormat {

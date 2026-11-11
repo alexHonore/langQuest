@@ -15,9 +15,10 @@
 import type { AiServices } from '@langquest/ai';
 import { providerLocaleFor, capabilityFromStatus } from '@langquest/ai/capability/registry';
 import { MEANING_THRESHOLDS, type MeaningScoreResult } from '@langquest/ai/semantic/meaning';
-import { applySpeechScreening, noSpeechAssessment, speechDetectionOf, toSpeechDetection, type SpeechScreening } from '@langquest/ai/speech/speech-detection';
+import { applySpeechScreening, noSpeechAssessment, SILENCE_PEAK_DBFS, speechDetectionOf, toSpeechDetection, type SpeechScreening } from '@langquest/ai/speech/speech-detection';
+import { PRONUNCIATION_JUDGE_VERSION, PronunciationJudgeError } from '@langquest/ai/speech/pronunciation-judge';
 import { base64ToBytes } from '@langquest/ai/util';
-import { AI_TASK_NAME_VALUES, ModelCapabilitiesQuerySchema, ModelCapabilitiesResponseSchema, PronunciationAssessRequestSchema, PronunciationAssessResponseSchema, SynthesizeRequestSchema, SynthesizeResponseSchema, TranscribeRequestSchema, TranscribeResponseSchema, getCourseTrack, isAcousticAssessmentMode, speechObservationOutcome, unsupportedCapability, type AiTaskName, type AudioInput, type Capability, type PronunciationAssessment, type SkillObservationInput, type SourceLanguageCode, type SpeechEvaluationResult, type SpeechRetention, type VarietyId } from '@langquest/contracts';
+import { AI_TASK_NAME_VALUES, ModelCapabilitiesQuerySchema, ModelCapabilitiesResponseSchema, PronunciationAssessRequestSchema, PronunciationAssessResponseSchema, PronunciationFeedbackRequestSchema, PronunciationFeedbackResponseSchema, LANGUAGE_VARIETIES, isCourseTrackId, SynthesizeRequestSchema, SynthesizeResponseSchema, TranscribeRequestSchema, TranscribeResponseSchema, getCourseTrack, isAcousticAssessmentMode, speechObservationOutcome, unsupportedCapability, type AiTaskName, type AudioInput, type Capability, type PronunciationAssessment, type SkillObservationInput, type SourceLanguageCode, type SpeechEvaluationResult, type SpeechRetention, type VarietyId } from '@langquest/contracts';
 import { sha256Hex as mediaSha256 } from '@langquest/media/hashing';
 import { buildMasterKey, extensionForMime } from '@langquest/media/keys';
 import { sha256Hex } from '@langquest/telemetry/privacy';
@@ -210,6 +211,44 @@ export function registerSpeechRoutes(define: DefineRoute): void {
       s.log.warn('speech.grading_row_failed', { route: 'speechPronunciationAssess', enrollmentId: enrollment.id, assessmentId, error: error instanceof Error ? error.message : String(error) });
     }
     return respondOk(c, evaluation);
+  });
+
+  // AI pronunciation feedback: a listening model's estimate for a take of an approved phrase (ADR-006 still holds: no
+  // acoustic score is claimed and nothing is recorded as mastery evidence). A take the recorder metered as silent is
+  // answered `no_speech` without calling the model.
+  define('speechPronunciationFeedback', { rate: 'ai', timeoutMs: AI_TIMEOUT_MS, bodyLimitBytes: SPEECH_BODY_LIMIT_BYTES, idempotent: false }, async (c) => {
+    const body = await parseBody(c, PronunciationFeedbackRequestSchema);
+    const s = c.get('services')!;
+    const { db } = s.requireUser();
+    const enrollment = await loadOwnedEnrollment(db, body.enrollmentId);
+    assertVarietyMatches(enrollment, body.targetVarietyId);
+    if (!s.config.env.OPENROUTER_API_KEY) throw problem.unsupported('AI pronunciation feedback is not available on this deployment', { capability: unsupportedCapability('openrouter', ['provider_disabled']) });
+    const reference = await resolveReference(s, enrollment, { expressionId: body.expressionId });
+    const base = { feedbackId: crypto.randomUUID(), targetVarietyId: body.targetVarietyId, method: 'ai_listening' as const, version: PRONUNCIATION_JUDGE_VERSION };
+    const peak = body.recording?.peakLevelDb;
+    if (typeof peak === 'number' && peak <= SILENCE_PEAK_DBFS) {
+      return respondOk(c, PronunciationFeedbackResponseSchema.parse({ ...base, score: null, band: 'no_speech', matchesTarget: false, heard: '', heardIpa: '', targetIpa: '', words: [], summary: '', tip: '', model: null }));
+    }
+    if (!isCourseTrackId(enrollment.course_track_id)) throw problem.internal('Enrollment references an unknown track');
+    const track = getCourseTrack(enrollment.course_track_id);
+    const variety = LANGUAGE_VARIETIES.find((v) => v.id === track.targetVarietyId);
+    const varietyName = variety && variety.name !== track.displayName ? `${track.displayName} — ${variety.name}` : track.displayName;
+    const ai = await s.ai();
+    let judgement;
+    try {
+      judgement = await ai.pronunciationJudge.judge(
+        { audio: { bytes: base64ToBytes(body.audio.base64), format: body.audio.encoding }, targetText: reference.text, transliteration: null, varietyName, sourceLanguage: enrollment.source_language_code },
+        { traceId: s.requestId, enrollmentId: enrollment.id },
+      );
+    } catch (error) {
+      s.log.warn('speech.pronunciation_feedback_failed', { enrollmentId: enrollment.id, error: error instanceof Error ? error.message : String(error) });
+      if (error instanceof PronunciationJudgeError) throw problem.provider('The pronunciation feedback could not be read this time. Please try again.');
+      throw problem.provider();
+    }
+    return respondOk(
+      c,
+      PronunciationFeedbackResponseSchema.parse({ ...base, score: judgement.score, band: judgement.band, matchesTarget: judgement.matchesTarget, heard: judgement.heard, heardIpa: judgement.heardIpa, targetIpa: judgement.targetIpa, words: judgement.words, summary: judgement.summary, tip: judgement.tip, model: judgement.model }),
+    );
   });
 
   define('speechSynthesize', { rate: 'ai', timeoutMs: AI_TIMEOUT_MS, idempotent: false }, async (c) => {

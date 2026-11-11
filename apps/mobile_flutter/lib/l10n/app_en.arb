@@ -882,5 +882,49 @@
   "micHelpIos": "On iPhone or iPad (Safari): tap “aA” at the left of the address bar, then Website Settings › Microphone › Allow. If Safari never asks: iPhone Settings › Safari › Microphone › Ask. Then tap Record again.",
   "micHelpAndroid": "On Android (Chrome): tap the icon at the left of the address (padlock or sliders), then Permissions › Microphone › Allow. Then tap Record again.",
   "micHelpDesktop": "On a computer: click the icon at the left of the address (padlock or sliders), set Microphone to Allow, then try again.",
-  "callMicBlocked": "The microphone is blocked, so you can write your answers. Allow it to speak."
+  "callMicBlocked": "The microphone is blocked, so you can write your answers. Allow it to speak.",
+  "pronunciationButton": "Pronunciation (AI)",
+  "pronunciationButtonSemantics": "Get AI feedback on your pronunciation",
+  "pronunciationListening": "LangQuest’s AI is listening to your take…",
+  "pronunciationScore": "{score}/100",
+  "@pronunciationScore": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "pronunciationNativeLike": "Native-like",
+  "pronunciationClearAccent": "Clear, with an accent",
+  "pronunciationHard": "Hard to understand",
+  "pronunciationOffTarget": "That wasn’t the phrase",
+  "pronunciationNoSpeech": "I didn’t hear anything. Check your microphone and try again.",
+  "pronunciationWordGood": "good",
+  "pronunciationWordUnclear": "unclear",
+  "pronunciationWordToWork": "to work on",
+  "pronunciationWordMissing": "missing",
+  "pronunciationWordLabel": "{word}: {status}",
+  "@pronunciationWordLabel": {
+    "placeholders": {
+      "word": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "pronunciationSounds": "Heard /{heard}/ · expected /{expected}/",
+  "@pronunciationSounds": {
+    "placeholders": {
+      "heard": {
+        "type": "String"
+      },
+      "expected": {
+        "type": "String"
+      }
+    }
+  },
+  "pronunciationNote": "An AI’s estimate from listening to your take, not a measurement. It isn’t counted in your progress.",
+  "pronunciationFailed": "Couldn’t get pronunciation feedback this time."
 }
