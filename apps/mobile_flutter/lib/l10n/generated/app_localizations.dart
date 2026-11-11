@@ -1649,7 +1649,7 @@ abstract class AppLocalizations {
   /// No description provided for @practiseSayingNoteChecked.
   ///
   /// In en, this message translates to:
-  /// **'Listen, record yourself: LangQuest tells you whether what you said came across. That is about meaning; there is no pronunciation score.'**
+  /// **'Listen, record yourself: LangQuest tells you whether what you said came across, and Pronunciation (AI) estimates how it sounded, word by word.'**
   String get practiseSayingNoteChecked;
 
   /// No description provided for @callIntroTitle.
@@ -1955,13 +1955,13 @@ abstract class AppLocalizations {
   /// No description provided for @courseIncludesSpokenCheck.
   ///
   /// In en, this message translates to:
-  /// **'Your spoken answers checked: LangQuest tells you whether you were understood (with a free account)'**
+  /// **'Your spoken answers checked: LangQuest tells you whether you were understood, and an AI estimates your pronunciation word by word (with a free account)'**
   String get courseIncludesSpokenCheck;
 
   /// No description provided for @courseMissingPronunciationScore.
   ///
   /// In en, this message translates to:
-  /// **'A pronunciation score: spoken answers are checked for meaning, not accent'**
+  /// **'A measured pronunciation score: the AI’s feedback is an estimate, not an acoustic measurement'**
   String get courseMissingPronunciationScore;
 
   /// No description provided for @courseLimitedForDialect.
