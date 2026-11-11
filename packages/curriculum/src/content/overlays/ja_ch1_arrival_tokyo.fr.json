@@ -1,0 +1,181 @@
+{
+ "source": "fr",
+ "title": "Premiers jours à Tokyo",
+ "generatedBy": "anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+ "missions": {
+  "ja_greet_and_introduce": {
+   "title": "Saluer et se présenter",
+   "sceneNote": "Vous croisez une voisine devant votre immeuble, en début d'après-midi, et elle vous salue.",
+   "expressions": {
+    "konnichiwa": {
+     "meaning": "Bonjour (en journée).",
+     "contextNote": "Le matin, on dit « ohayou gozaimasu » ; le soir, « konbanwa ».",
+     "literalGloss": null
+    },
+    "ohayou": {
+     "meaning": "Bonjour (le matin).",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "ogenki_desu_ka": {
+     "meaning": "Comment allez-vous ?",
+     "contextNote": "À réserver aux personnes que l'on connaît déjà ; ce n'est pas une formule d'ouverture habituelle avec des inconnus.",
+     "literalGloss": null
+    },
+    "genki_desu": {
+     "meaning": "Je vais bien.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "watashi_wa_desu": {
+     "meaning": "Je suis… / Je m'appelle…",
+     "contextNote": "Plus formel : « … to moushimasu ».",
+     "literalGloss": null
+    },
+    "onamae_wa": {
+     "meaning": "Comment vous appelez-vous ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "hajimemashite": {
+     "meaning": "Enchanté(e).",
+     "contextNote": null,
+     "literalGloss": "première fois ; je vous prie de bien vouloir m'accueillir favorablement"
+    },
+    "shitsurei_shimasu": {
+     "meaning": "Au revoir (poli, en partant).",
+     "contextNote": "« sayounara » est plus rare et sonne comme un adieu définitif.",
+     "literalGloss": null
+    }
+   }
+  },
+  "ja_cafe_order_drink": {
+   "title": "Commander au café",
+   "sceneNote": "Vous entrez dans un petit café où le serveur, Kenta, emploie des formules de politesse toutes faites.",
+   "expressions": {
+    "konnichiwa_cafe": {
+     "meaning": "Bonjour.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "koohii_onegaishimasu": {
+     "meaning": "Un café, s'il vous plaît.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "hotto_aisu": {
+     "meaning": "Chaud ou glacé, que souhaitez-vous ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "hotto_de": {
+     "meaning": "Chaud, s'il vous plaît.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "okaikei": {
+     "meaning": "L'addition, s'il vous plaît.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "arigatou_gozaimasu": {
+     "meaning": "Merci.",
+     "contextNote": null,
+     "literalGloss": null
+    }
+   }
+  },
+  "ja_ask_directions": {
+   "title": "Demander son chemin",
+   "sceneNote": "Vous cherchez la gare près d'un carrefour très fréquenté et vous demandez votre chemin à Satō-san, un passant.",
+   "expressions": {
+    "sumimasen": {
+     "meaning": "Excusez-moi.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "eki_wa_doko": {
+     "meaning": "Où est la gare, s'il vous plaît ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "massugu": {
+     "meaning": "Allez tout droit.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "migi_ni": {
+     "meaning": "Tournez à droite.",
+     "contextNote": "« hidari » signifie « gauche ».",
+     "literalGloss": null
+    },
+    "tooi_desu_ka": {
+     "meaning": "Est-ce que c'est loin ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "chikai_desu": {
+     "meaning": "C'est tout près. Cinq minutes à pied.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "mou_ichido": {
+     "meaning": "Pourriez-vous répéter, s'il vous plaît ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "yukkuri": {
+     "meaning": "Pourriez-vous parler lentement, s'il vous plaît ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "wakarimasen": {
+     "meaning": "Je ne comprends pas.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "arigatou_gozaimashita": {
+     "meaning": "Merci beaucoup (pour ce que vous venez de faire).",
+     "contextNote": "Le passé indique qu'on remercie pour une aide déjà reçue.",
+     "literalGloss": null
+    }
+   }
+  },
+  "ja_take_taxi": {
+   "title": "Prendre un taxi",
+   "sceneNote": "Vous êtes à Tokyo, dans un taxi : le compteur tourne toujours et les portes s'ouvrent automatiquement.",
+   "expressions": {
+    "takushii": {
+     "meaning": "Taxi !",
+     "contextNote": "Au Japon, on lève généralement la main plutôt que d'appeler à voix haute.",
+     "literalGloss": null
+    },
+    "dochira_made": {
+     "meaning": "Où allez-vous ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "toukyou_eki_made": {
+     "meaning": "À la gare de Tokyo, s'il vous plaît.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "kuukou_made_ikura": {
+     "meaning": "Combien coûte la course jusqu'à l'aéroport ?",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "koko_de_tomete": {
+     "meaning": "Arrêtez-vous ici, s'il vous plaît.",
+     "contextNote": null,
+     "literalGloss": null
+    },
+    "arigatou_taxi": {
+     "meaning": "Merci (au revoir).",
+     "contextNote": "Le remerciement sert ici aussi de formule pour prendre congé.",
+     "literalGloss": null
+    }
+   }
+  }
+ }
+}

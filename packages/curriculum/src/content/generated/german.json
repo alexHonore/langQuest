@@ -1,0 +1,2777 @@
+{
+ "key": "german_ch1",
+ "chapterIndex": 1,
+ "courseTrackId": "german",
+ "targetVarietyId": "de",
+ "sourceLanguages": [
+  "en",
+  "fr"
+ ],
+ "titles": {
+  "en": "First days in Köln and Hamburg",
+  "fr": "Premiers jours à Cologne et Hambourg"
+ },
+ "characters": [
+  {
+   "characterKey": "german_anna_friendly_local_acquaintance",
+   "role": "friendly local acquaintance",
+   "name": "Anna",
+   "personality": "freundlich, eilig, hilfsbereit",
+   "homeRegion": "Köln",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "german_lena_cafe_server",
+   "role": "café server",
+   "name": "Lena",
+   "personality": "quick, friendly, cheerful",
+   "homeRegion": "Hamburg",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "german_monika_market_vendor",
+   "role": "market vendor",
+   "name": "Monika",
+   "personality": "friendly, chatty, generous",
+   "homeRegion": "Köln",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "german_markus_passer_by",
+   "role": "passer-by",
+   "name": "Markus",
+   "personality": "friendly, helpful, talks very fast",
+   "homeRegion": "Köln",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "german_monika_neighbour",
+   "role": "neighbour",
+   "name": "Monika",
+   "personality": "warm, chatty, helpful, curious",
+   "homeRegion": "Köln",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "german_jurgen_taxi_driver",
+   "role": "taxi driver",
+   "name": "Jürgen",
+   "personality": "talkative, friendly, a bit pushy",
+   "homeRegion": "Köln",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "german_lena_child_at_the_ice_cream_stand",
+   "role": "child at the ice-cream stand",
+   "name": "Lena",
+   "personality": "cheeky, eager, sweet-toothed",
+   "homeRegion": "Köln",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  }
+ ],
+ "missions": [
+  {
+   "key": "german_greet_and_introduce",
+   "blueprintKey": "greet_and_introduce",
+   "titles": {
+    "en": "Meeting a Neighbour Outside",
+    "fr": "Croiser une voisine dans la rue"
+   },
+   "sceneNotes": {
+    "en": "It's morning and you meet a friendly neighbour on the street who is in a hurry but stops to say hello.",
+    "fr": "Il est tôt le matin et vous croisez dans la rue une voisine sympathique, pressée, qui s'arrête tout de même pour vous dire bonjour."
+   },
+   "characterKey": "german_anna_friendly_local_acquaintance",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Guten Morgen!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Guten Morgen!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good morning!",
+       "contextNote": "Fits until about 10 or 11 a.m.",
+       "literalGloss": "good morning"
+      },
+      "fr": {
+       "meaning": "Bonjour !",
+       "contextNote": "S'utilise jusqu'à 10 ou 11 heures environ. Prononcez le r de Morgen doucement, au fond de la gorge.",
+       "literalGloss": "bon matin"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say the r in Morgen softly at the back of the throat.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "how_are_you",
+     "intentKey": "ask_how_are_you",
+     "slotId": "how_are_you",
+     "speaker": "learner",
+     "targetText": "Wie geht es Ihnen?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Wie geht es Ihnen?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How are you?",
+       "contextNote": "Polite form for someone you don't know yet. Neighbours often switch to du quickly.",
+       "literalGloss": "how goes it to-you (formal)"
+      },
+      "fr": {
+       "meaning": "Comment allez-vous ?",
+       "contextNote": "Forme de politesse pour quelqu'un que l'on ne connaît pas encore. Entre voisins, on passe souvent vite au tutoiement. Ihnen : un « i » long, comme « I-nen ».",
+       "literalGloss": "comment va-t-il à vous (forme de politesse)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Ihnen: a long ee sound, like 'EE-nen'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "fine",
+     "intentKey": "reply_fine",
+     "slotId": "fine",
+     "speaker": "learner",
+     "targetText": "Gut, danke!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Gut, danke!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Fine, thanks!",
+       "contextNote": null,
+       "literalGloss": "good, thanks"
+      },
+      "fr": {
+       "meaning": "Bien, merci !",
+       "contextNote": null,
+       "literalGloss": "bien, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "my_name",
+     "intentKey": "introduce_name",
+     "slotId": "my_name",
+     "speaker": "learner",
+     "targetText": "Ich heiße Sam.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ich heiße Sam."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "My name is Sam.",
+       "contextNote": "Replace Sam with your own name.",
+       "literalGloss": "I am-called Sam"
+      },
+      "fr": {
+       "meaning": "Je m'appelle Sam.",
+       "contextNote": "Remplacez Sam par votre prénom. Le ß se prononce comme un s net : « HAÏ-sse ».",
+       "literalGloss": "je m'appelle Sam"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ß sounds like a sharp s: 'HY-suh'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "your_name",
+     "intentKey": "ask_name",
+     "slotId": "your_name",
+     "speaker": "learner",
+     "targetText": "Wie heißen Sie?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Wie heißen Sie?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "What is your name?",
+       "contextNote": "Polite form. Among younger people, Wie heißt du? is common.",
+       "literalGloss": "how are-called you (formal)"
+      },
+      "fr": {
+       "meaning": "Comment vous appelez-vous ?",
+       "contextNote": "Forme de politesse. Entre jeunes, on dit plutôt Wie heißt du ?",
+       "literalGloss": "comment s'appellent vous (forme de politesse)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "nice_to_meet",
+     "intentKey": "say_nice_to_meet",
+     "slotId": "nice_to_meet",
+     "speaker": "learner",
+     "targetText": "Freut mich!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Freut mich!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Nice to meet you!",
+       "contextNote": "Short and very common.",
+       "literalGloss": "pleases me"
+      },
+      "fr": {
+       "meaning": "Enchanté(e) !",
+       "contextNote": "Court et très courant. Le eu se prononce « oy » : « FROYT ».",
+       "literalGloss": "cela me réjouit"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "eu sounds like 'oy': 'FROYT'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "goodbye",
+     "intentKey": "say_goodbye",
+     "slotId": "goodbye",
+     "speaker": "learner",
+     "targetText": "Tschüss, einen schönen Tag noch!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Tschüss, einen schönen Tag noch!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Bye, have a nice day!",
+       "contextNote": "Friendly and fits a quick parting on the street.",
+       "literalGloss": "bye, a nice day still"
+      },
+      "fr": {
+       "meaning": "Au revoir, bonne journée !",
+       "contextNote": "Sympathique et adapté pour un au revoir rapide dans la rue. Pour le ü, arrondissez les lèvres comme pour « ou » et dites « i ».",
+       "literalGloss": "salut, une belle journée encore"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ü: round your lips as for 'oo' and say 'ee'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "greet_hello_variant_8",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Hallo!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hallo!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello!",
+       "contextNote": "Works at any time of day and is friendly and neutral.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Salut ! / Bonjour !",
+       "contextNote": "Convient à n'importe quel moment de la journée, amical et neutre.",
+       "literalGloss": null
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "ask_how_are_you_variant_9",
+     "intentKey": "ask_how_are_you",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Wie geht's dir?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Wie geht's dir?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How are you?",
+       "contextNote": "Informal, with du. Use it once the neighbour has offered du.",
+       "literalGloss": "how goes-it to-you"
+      },
+      "fr": {
+       "meaning": "Comment vas-tu ?",
+       "contextNote": "Familier, avec le tutoiement. À utiliser quand la voisine vous a proposé de vous tutoyer.",
+       "literalGloss": "comment va-t-il à toi"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "say_goodbye_variant_10",
+     "intentKey": "say_goodbye",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Bis bald!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Bis bald!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "See you soon!",
+       "contextNote": "A light, friendly goodbye for neighbours.",
+       "literalGloss": "until soon"
+      },
+      "fr": {
+       "meaning": "À bientôt !",
+       "contextNote": "Un au revoir léger et amical entre voisins.",
+       "literalGloss": "jusqu'à bientôt"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "german_cafe_order_drink",
+   "blueprintKey": "cafe_order_drink",
+   "titles": {
+    "en": "Ordering a Drink at a Café",
+    "fr": "Commander une boisson au café"
+   },
+   "sceneNotes": {
+    "en": "You sit down on a busy café terrace, where a quick, friendly server comes over to take your order.",
+    "fr": "Vous vous installez sur la terrasse animée d'un café, où une serveuse rapide et sympathique vient prendre votre commande."
+   },
+   "characterKey": "german_lena_cafe_server",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Guten Tag!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Guten Tag!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello! / Good day!",
+       "contextNote": "A polite all-day greeting when you meet the server. Use it from late morning on; earlier, use Guten Morgen.",
+       "literalGloss": "good day"
+      },
+      "fr": {
+       "meaning": "Bonjour !",
+       "contextNote": "Salutation polie utilisable toute la journée, à partir de la fin de matinée ; plus tôt, dites Guten Morgen. Le « ch » de « Tag » se prononce comme un k dur à la fin : « Tahk ».",
+       "literalGloss": "bon jour"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say the ch in 'Tag' as a hard g/k at the end: 'Tahk'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "order",
+     "intentKey": "request_drink",
+     "slotId": "order",
+     "speaker": "learner",
+     "targetText": "Ich hätte gern einen Kaffee, bitte.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ich hätte gern einen Kaffee, bitte."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'd like a coffee, please.",
+       "contextNote": "The standard polite way to order. Swap in other drinks, e.g. einen Tee, ein Wasser, eine Cola.",
+       "literalGloss": "I would-have gladly a coffee, please"
+      },
+      "fr": {
+       "meaning": "Je voudrais un café, s'il vous plaît.",
+       "contextNote": "La façon polie habituelle de commander. Remplacez par une autre boisson : einen Tee, ein Wasser, eine Cola. Le « ä » de « hätte » est ouvert, comme le è français.",
+       "literalGloss": "je aurais volontiers un café, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'hätte' has an open ä like the e in 'bed'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "options",
+     "intentKey": "offer_options",
+     "slotId": "options",
+     "speaker": "character",
+     "targetText": "Mit Milch oder ohne?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mit Milch oder ohne?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "With milk or without?",
+       "contextNote": "The server offers you a choice, and you need to answer.",
+       "literalGloss": "with milk or without"
+      },
+      "fr": {
+       "meaning": "Avec du lait ou sans ?",
+       "contextNote": "La serveuse vous propose un choix, il faut lui répondre. « Milch » se termine par le « ch » doux de « ich ».",
+       "literalGloss": "avec lait ou sans"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Milch' ends in the soft ch sound, as in 'ich'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "choice",
+     "intentKey": "choose_option",
+     "slotId": "choice",
+     "speaker": "learner",
+     "targetText": "Mit Milch, bitte.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mit Milch, bitte."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "With milk, please.",
+       "contextNote": "You can also say 'Ohne Milch, bitte.' (Without milk, please.)",
+       "literalGloss": "with milk, please"
+      },
+      "fr": {
+       "meaning": "Avec du lait, s'il vous plaît.",
+       "contextNote": "Vous pouvez aussi dire « Ohne Milch, bitte. » (Sans lait, s'il vous plaît.)",
+       "literalGloss": "avec lait, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "bill",
+     "intentKey": "ask_for_bill",
+     "slotId": "bill",
+     "speaker": "learner",
+     "targetText": "Die Rechnung, bitte.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Die Rechnung, bitte."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "The bill, please.",
+       "contextNote": "Very common in cafés. The server often asks 'Zusammen oder getrennt?' (together or separate?).",
+       "literalGloss": "the bill, please"
+      },
+      "fr": {
+       "meaning": "L'addition, s'il vous plaît.",
+       "contextNote": "Très courant dans les cafés. La serveuse demande souvent « Zusammen oder getrennt ? » (ensemble ou séparément ?). Le « ch » de « Rechnung » est le ch doux de « ich ».",
+       "literalGloss": "l'addition, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'ch' in 'Rechnung' is the soft ch, as in 'ich'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Vielen Dank!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vielen Dank!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much!",
+       "contextNote": "Polite and friendly. Use it when you get your drink or after paying.",
+       "literalGloss": "many thanks"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup !",
+       "contextNote": "Poli et aimable. À dire quand on reçoit sa boisson ou après avoir payé. Le « v » de « Vielen » se prononce comme un f : « FI-len ».",
+       "literalGloss": "beaucoup de remerciements"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The v in 'Vielen' sounds like f: 'FEE-len'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "greet_hello_variant_7",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Hallo!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hallo!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello!",
+       "contextNote": "Friendly and widely used in cafés; slightly more casual than Guten Tag.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Salut ! / Bonjour !",
+       "contextNote": "Amical et très courant dans les cafés ; un peu plus décontracté que Guten Tag.",
+       "literalGloss": null
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "request_drink_variant_8",
+     "intentKey": "request_drink",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Einen Kaffee, bitte.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Einen Kaffee, bitte."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "A coffee, please.",
+       "contextNote": "A shorter, very common way to order. It is polite because of 'bitte'.",
+       "literalGloss": "a coffee, please"
+      },
+      "fr": {
+       "meaning": "Un café, s'il vous plaît.",
+       "contextNote": "Une façon plus courte et très courante de commander. Elle reste polie grâce à « bitte ».",
+       "literalGloss": "un café, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "ask_for_bill_variant_9",
+     "intentKey": "ask_for_bill",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Zahlen, bitte!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Zahlen, bitte!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I pay, please? / Check, please!",
+       "contextNote": "Very common in everyday spoken German, short and friendly.",
+       "literalGloss": "to pay, please"
+      },
+      "fr": {
+       "meaning": "Je peux payer, s'il vous plaît ? / L'addition, s'il vous plaît !",
+       "contextNote": "Très courant à l'oral au quotidien, court et aimable. Le « z » se prononce « ts » : « TSA-len ».",
+       "literalGloss": "payer, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'z' sounds like 'ts': 'TSAH-len'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thank_variant_10",
+     "intentKey": "thank",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Danke schön!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Danke schön!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks a lot!",
+       "contextNote": null,
+       "literalGloss": "thanks nicely"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup !",
+       "contextNote": "Le « ö » de « schön » est un son arrondi, proche du « eu » français de « peu ».",
+       "literalGloss": "merci joliment"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'schön' has the rounded ö, like the 'ur' in 'fur' said with rounded lips.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "german_market_ask_price",
+   "blueprintKey": "market_ask_price",
+   "titles": {
+    "en": "Asking Prices at the Market",
+    "fr": "Demander les prix au marché"
+   },
+   "sceneNotes": {
+    "en": "You are at a fruit stall on a German market, where prices are per kilo and the friendly vendor is happy to chat.",
+    "fr": "Vous êtes devant un étal de fruits sur un marché allemand, où les prix s'affichent au kilo et où la vendeuse sympathique aime bavarder."
+   },
+   "characterKey": "german_monika_market_vendor",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Guten Tag! Schöne Erdbeeren!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Guten Tag! Schöne Erdbeeren!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello! Lovely strawberries!",
+       "contextNote": "A greeting plus a small compliment is a friendly way to start at a stall.",
+       "literalGloss": "good day, beautiful strawberries"
+      },
+      "fr": {
+       "meaning": "Bonjour ! Quelles belles fraises !",
+       "contextNote": "Une salutation suivie d'un petit compliment est une manière aimable d'engager la conversation. Dans « Erdbeeren », le « e » de « Erd » est long, comme dans « air ».",
+       "literalGloss": "bonne journée, belles fraises"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Erdbeeren: the 'e' in 'Erd' is long, like 'air'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "how_much",
+     "intentKey": "ask_price",
+     "slotId": "how_much",
+     "speaker": "learner",
+     "targetText": "Was kostet das Kilo Erdbeeren?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Was kostet das Kilo Erdbeeren?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much is a kilo of strawberries?",
+       "contextNote": "Swap Erdbeeren for any fruit.",
+       "literalGloss": "what costs the kilo strawberries"
+      },
+      "fr": {
+       "meaning": "Combien coûte le kilo de fraises ?",
+       "contextNote": "Vous pouvez remplacer Erdbeeren par n'importe quel autre fruit. « kostet » : o court.",
+       "literalGloss": "quoi coûte le kilo fraises"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "kostet: short 'o', as in 'cost'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "price",
+     "intentKey": "state_price",
+     "slotId": "price",
+     "speaker": "character",
+     "targetText": "Vier Euro fünfzig das Kilo.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vier Euro fünfzig das Kilo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Four fifty a kilo.",
+       "contextNote": "Spoken prices usually drop the word 'Cent'.",
+       "literalGloss": "four euro fifty the kilo"
+      },
+      "fr": {
+       "meaning": "Quatre euros cinquante le kilo.",
+       "contextNote": "À l'oral, on omet généralement le mot « Cent ». Pour « fünfzig », arrondissez les lèvres pour le ü.",
+       "literalGloss": "quatre euro cinquante le kilo"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "fünfzig: round your lips for ü.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "expensive",
+     "intentKey": "say_too_expensive",
+     "slotId": "expensive",
+     "speaker": "learner",
+     "targetText": "Das ist ziemlich teuer.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Das ist ziemlich teuer."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "That's pretty expensive.",
+       "contextNote": "Say it with a smile to keep the bargaining light.",
+       "literalGloss": "that is quite expensive"
+      },
+      "fr": {
+       "meaning": "C'est assez cher.",
+       "contextNote": "Dites-le avec le sourire pour garder un ton léger dans la négociation. « teuer » se prononce « TOY-eur ».",
+       "literalGloss": "cela est assez cher"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "teuer: sounds like 'TOY-er'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "lower",
+     "intentKey": "offer_lower_price",
+     "slotId": "lower",
+     "speaker": "learner",
+     "targetText": "Geht es vielleicht etwas günstiger?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Geht es vielleicht etwas günstiger?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could it maybe be a bit cheaper?",
+       "contextNote": "A soft way to ask for a discount.",
+       "literalGloss": "goes it maybe somewhat cheaper"
+      },
+      "fr": {
+       "meaning": "Serait-il possible de faire un peu moins cher ?",
+       "contextNote": "Une façon délicate de demander une réduction. Dans « günstiger », ü comme dans « fünf » et g dur au début.",
+       "literalGloss": "va-t-il peut-être un peu moins cher"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "günstiger: ü as in 'fünf'; the 'g' at the start is hard.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "deal",
+     "intentKey": "agree_to_price",
+     "slotId": "deal",
+     "speaker": "learner",
+     "targetText": "Okay, dann nehme ich zwei Kilo.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Okay, dann nehme ich zwei Kilo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Okay, then I'll take two kilos.",
+       "contextNote": null,
+       "literalGloss": "okay, then take I two kilo"
+      },
+      "fr": {
+       "meaning": "D'accord, alors je prends deux kilos.",
+       "contextNote": "« zwei » commence par « ts » : « tsvaï ».",
+       "literalGloss": "d'accord, alors prends je deux kilo"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": "'Okay' is a common loanword in everyday German.",
+     "pronunciationNote": "zwei: starts with 'ts', like 'tsvai'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "no_thanks",
+     "intentKey": "decline_purchase",
+     "slotId": "no_thanks",
+     "speaker": "learner",
+     "targetText": "Nein danke, heute nicht.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nein danke, heute nicht."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No thank you, not today.",
+       "contextNote": null,
+       "literalGloss": "no thanks, today not"
+      },
+      "fr": {
+       "meaning": "Non merci, pas aujourd'hui.",
+       "contextNote": "« heute » se prononce « HOY-teu ».",
+       "literalGloss": "non merci, aujourd'hui pas"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "heute: 'HOY-teh'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "greet_hello_variant_8",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Moin!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Moin!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hi! (northern German)",
+       "contextNote": "Used all day in northern Germany, mainly informal.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Salut ! (Allemagne du Nord)",
+       "contextNote": "S'emploie à toute heure de la journée dans le nord de l'Allemagne, surtout dans un cadre informel.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "ask_price_variant_9",
+     "intentKey": "ask_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Wie viel kosten die Äpfel?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Wie viel kosten die Äpfel?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much are the apples?",
+       "contextNote": "Plural version for items sold in the plural.",
+       "literalGloss": "how much cost the apples"
+      },
+      "fr": {
+       "meaning": "Combien coûtent les pommes ?",
+       "contextNote": "Version au pluriel, pour les produits vendus au pluriel. Le « ä » de « Äpfel » se prononce comme le « è » de « bec ».",
+       "literalGloss": "combien coûtent les pommes"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Äpfel: ä sounds like 'e' in 'bed'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "offer_lower_price_variant_10",
+     "intentKey": "offer_lower_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Vier Euro, und ich nehme zwei Kilo.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vier Euro, und ich nehme zwei Kilo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Four euros and I'll take two kilos.",
+       "contextNote": "Offering to buy more is the usual way to bargain at a market.",
+       "literalGloss": "four euro, and I take two kilo"
+      },
+      "fr": {
+       "meaning": "Quatre euros, et je prends deux kilos.",
+       "contextNote": "Proposer d'acheter plus est la manière habituelle de marchander sur un marché.",
+       "literalGloss": "quatre euro, et je prends deux kilo"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "decline_purchase_variant_11",
+     "intentKey": "decline_purchase",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Vielleicht später, danke.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vielleicht später, danke."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Maybe later, thanks.",
+       "contextNote": null,
+       "literalGloss": "maybe later, thanks"
+      },
+      "fr": {
+       "meaning": "Peut-être plus tard, merci.",
+       "contextNote": "« später » se prononce « CHPÈ-teur ».",
+       "literalGloss": "peut-être plus tard, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "später: 'SHPAY-ter'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "german_ask_directions",
+   "blueprintKey": "ask_directions",
+   "titles": {
+    "en": "Finding the Station",
+    "fr": "Trouver la gare"
+   },
+   "sceneNotes": {
+    "en": "You are a visitor looking for the train station, and a friendly passer-by gives you quick directions, so you need to ask them to slow down.",
+    "fr": "Vous êtes un visiteur à la recherche de la gare, et un passant sympathique vous donne rapidement le chemin : vous devrez donc lui demander de parler plus lentement."
+   },
+   "characterKey": "german_markus_passer_by",
+   "expressions": [
+    {
+     "key": "excuse_me",
+     "intentKey": "get_attention",
+     "slotId": "excuse_me",
+     "speaker": "learner",
+     "targetText": "Entschuldigung!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Entschuldigung!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me!",
+       "contextNote": "Say it before you speak to a stranger.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Excusez-moi !",
+       "contextNote": "À dire avant d'adresser la parole à un inconnu. Le « sch » se prononce comme « ch » en français ; l'accent tombe sur « schul ».",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'sch' sounds like English 'sh'; stress is on 'schul'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "where_is",
+     "intentKey": "ask_where_is",
+     "slotId": "where_is",
+     "speaker": "learner",
+     "targetText": "Wo ist der Bahnhof, bitte?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Wo ist der Bahnhof, bitte?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where is the train station, please?",
+       "contextNote": null,
+       "literalGloss": "Where is the train-station, please?"
+      },
+      "fr": {
+       "meaning": "Où est la gare, s'il vous plaît ?",
+       "contextNote": "Dans « Bahnhof », le « h » après le « a » est muet et allonge simplement la voyelle.",
+       "literalGloss": "Où est la gare, s'il vous plaît ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "In 'Bahnhof' the 'h' after 'a' is silent and just lengthens the vowel.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "straight",
+     "intentKey": "give_direction_straight",
+     "slotId": "straight",
+     "speaker": "character",
+     "targetText": "Gehen Sie hier geradeaus.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Gehen Sie hier geradeaus."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Go straight ahead here.",
+       "contextNote": "Markus uses the polite 'Sie' with a stranger.",
+       "literalGloss": "Go you here straight-ahead."
+      },
+      "fr": {
+       "meaning": "Allez tout droit ici.",
+       "contextNote": "Markus vouvoie l'inconnu avec « Sie ».",
+       "literalGloss": "Allez vous ici tout droit."
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "turn",
+     "intentKey": "give_direction_turn",
+     "slotId": "turn",
+     "speaker": "character",
+     "targetText": "Dann nehmen Sie die zweite Straße links.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Dann nehmen Sie die zweite Straße links."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Then take the second street on the left.",
+       "contextNote": null,
+       "literalGloss": "Then take you the second street left."
+      },
+      "fr": {
+       "meaning": "Ensuite, prenez la deuxième rue à gauche.",
+       "contextNote": "Le « ß » de « Straße » se prononce comme un « s » sourd, comme dans « sac ».",
+       "literalGloss": "Ensuite prenez vous la deuxième rue gauche."
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'ß' in 'Straße' is a sharp 's'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.45
+    },
+    {
+     "key": "far",
+     "intentKey": "ask_is_it_far",
+     "slotId": "far",
+     "speaker": "learner",
+     "targetText": "Ist es weit von hier?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ist es weit von hier?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Is it far from here?",
+       "contextNote": null,
+       "literalGloss": "Is it far from here?"
+      },
+      "fr": {
+       "meaning": "Est-ce que c'est loin d'ici ?",
+       "contextNote": "Le « w » se prononce comme un « v » français.",
+       "literalGloss": "Est-ce loin d'ici ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'w' is pronounced like English 'v'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "near",
+     "intentKey": "say_it_is_near",
+     "slotId": "near",
+     "speaker": "character",
+     "targetText": "Nein, nur zehn Minuten zu Fuß.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nein, nur zehn Minuten zu Fuß."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No, only ten minutes on foot.",
+       "contextNote": null,
+       "literalGloss": "No, only ten minutes to foot."
+      },
+      "fr": {
+       "meaning": "Non, seulement dix minutes à pied.",
+       "contextNote": null,
+       "literalGloss": "Non, seulement dix minutes à pied."
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "repeat",
+     "intentKey": "ask_repeat",
+     "slotId": "repeat",
+     "speaker": "learner",
+     "targetText": "Können Sie das bitte wiederholen?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Können Sie das bitte wiederholen?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you please repeat that?",
+       "contextNote": null,
+       "literalGloss": "Can you that please repeat?"
+      },
+      "fr": {
+       "meaning": "Pouvez-vous répéter, s'il vous plaît ?",
+       "contextNote": "Le « ö » ressemble au « eu » de « peur », lèvres arrondies.",
+       "literalGloss": "Pouvez vous cela s'il vous plaît répéter ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'ö' is like 'e' in 'her' with rounded lips.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "slower",
+     "intentKey": "ask_slow_down",
+     "slotId": "slower",
+     "speaker": "learner",
+     "targetText": "Langsamer, bitte. Ich lerne Deutsch.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Langsamer, bitte. Ich lerne Deutsch."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Slower, please. I'm learning German.",
+       "contextNote": "Adding that you're learning German helps people adjust.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Plus lentement, s'il vous plaît. J'apprends l'allemand.",
+       "contextNote": "Préciser que vous apprenez l'allemand aide votre interlocuteur à s'adapter. Le « ch » de « ich » est un souffle doux, proche d'un chuintement.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'ch' in 'ich' is a soft hiss, like a cat.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Vielen Dank für die Hilfe!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vielen Dank für die Hilfe!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you so much for the help!",
+       "contextNote": "Extends the earlier 'Vielen Dank!' for this situation.",
+       "literalGloss": "Many thanks for the help!"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup pour votre aide !",
+       "contextNote": "Prolonge le « Vielen Dank ! » vu plus tôt, adapté à cette situation. Le « ü » se prononce comme le « u » français.",
+       "literalGloss": "Beaucoup de merci pour l'aide !"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'ü' is like 'ee' said with rounded lips.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "get_attention_variant_10",
+     "intentKey": "get_attention",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Entschuldigen Sie bitte!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Entschuldigen Sie bitte!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, please!",
+       "contextNote": "A slightly more formal way to get attention.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Excusez-moi, s'il vous plaît !",
+       "contextNote": "Une façon un peu plus formelle d'attirer l'attention.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_slow_down_variant_11",
+     "intentKey": "ask_slow_down",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Bitte etwas langsamer sprechen.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Bitte etwas langsamer sprechen."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Please speak a bit slower.",
+       "contextNote": null,
+       "literalGloss": "Please somewhat slower speak."
+      },
+      "fr": {
+       "meaning": "Parlez un peu plus lentement, s'il vous plaît.",
+       "contextNote": null,
+       "literalGloss": "S'il vous plaît un peu plus lentement parler."
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "ask_repeat_variant_12",
+     "intentKey": "ask_repeat",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Wie bitte?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Wie bitte?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Sorry, what?",
+       "contextNote": "Short, very common way to ask someone to say it again.",
+       "literalGloss": "How please?"
+      },
+      "fr": {
+       "meaning": "Pardon ?",
+       "contextNote": "Formule courte et très courante pour demander de répéter.",
+       "literalGloss": "Comment s'il vous plaît ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "german_meet_neighbour",
+   "blueprintKey": "meet_neighbour",
+   "titles": {
+    "en": "Meeting Your New Neighbour",
+    "fr": "Rencontrer votre nouvelle voisine"
+   },
+   "sceneNotes": {
+    "en": "You meet your neighbour in the stairwell while she carries shopping bags up the stairs.",
+    "fr": "Vous croisez votre voisine dans la cage d'escalier alors qu'elle monte ses sacs de courses."
+   },
+   "characterKey": "german_monika_neighbour",
+   "expressions": [
+    {
+     "key": "new_neighbour",
+     "intentKey": "say_new_neighbour",
+     "slotId": "new_neighbour",
+     "speaker": "learner",
+     "targetText": "Guten Tag! Ich bin Ihr neuer Nachbar.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Guten Tag! Ich bin Ihr neuer Nachbar."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello! I'm your new neighbour.",
+       "contextNote": "A woman would say \"Ihre neue Nachbarin\".",
+       "literalGloss": "I am your new neighbour"
+      },
+      "fr": {
+       "meaning": "Bonjour ! Je suis votre nouveau voisin.",
+       "contextNote": "Une femme dirait « Ihre neue Nachbarin ». Dans « Nachbar », le ch après a est une consonne rauque, au fond de la gorge, comme la jota espagnole.",
+       "literalGloss": "Je suis votre nouveau voisin"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Nachbar: ch after a is a rough sound at the back of the throat, like in Scottish 'loch'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "welcome",
+     "intentKey": "welcome_someone",
+     "slotId": "welcome",
+     "speaker": "character",
+     "targetText": "Herzlich willkommen im Haus!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Herzlich willkommen im Haus!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "A warm welcome to the building!",
+       "contextNote": "The neighbour says this and then mentions she will have tea later.",
+       "literalGloss": "Heartily welcome in the house"
+      },
+      "fr": {
+       "meaning": "Bienvenue dans l'immeuble !",
+       "contextNote": "La voisine dit cela, puis mentionne qu'elle prendra le thé plus tard.",
+       "literalGloss": "Cordialement bienvenue dans l'immeuble"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "where_from_q",
+     "intentKey": "ask_where_from",
+     "slotId": "where_from_q",
+     "speaker": "learner",
+     "targetText": "Woher kommen Sie?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Woher kommen Sie?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where are you from?",
+       "contextNote": "Polite 'Sie' form for someone you've just met.",
+       "literalGloss": "Where-from come you?"
+      },
+      "fr": {
+       "meaning": "D'où venez-vous ?",
+       "contextNote": "Forme de politesse « Sie », adaptée à quelqu'un que l'on vient de rencontrer. Woher : accent sur la seconde syllabe, « wo-HÈR ».",
+       "literalGloss": "D'où venez vous ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Woher: stress the second syllable, 'wo-HEHR'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "from",
+     "intentKey": "say_where_from",
+     "slotId": "from",
+     "speaker": "learner",
+     "targetText": "Ich komme aus Kanada.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ich komme aus Kanada."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm from Canada.",
+       "contextNote": "Swap in your own country or city.",
+       "literalGloss": "I come from Canada"
+      },
+      "fr": {
+       "meaning": "Je viens du Canada.",
+       "contextNote": "Remplacez par votre propre pays ou votre ville. Le ch de « ich » est un souffle doux, la langue haute près du palais.",
+       "literalGloss": "Je viens de Canada"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ch in 'ich' is a soft hiss, like a cat's 'hss' with the tongue high.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "speak_lang",
+     "intentKey": "ask_if_speaks_language",
+     "slotId": "speak_lang",
+     "speaker": "learner",
+     "targetText": "Sprechen Sie Englisch?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Sprechen Sie Englisch?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you speak English?",
+       "contextNote": null,
+       "literalGloss": "Speak you English?"
+      },
+      "fr": {
+       "meaning": "Parlez-vous anglais ?",
+       "contextNote": "Au début d'un mot, « Sp » se prononce « chp ».",
+       "literalGloss": "Parlez vous anglais ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Initial 'Sp' sounds like 'shp'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "little",
+     "intentKey": "say_speak_little",
+     "slotId": "little",
+     "speaker": "learner",
+     "targetText": "Ich spreche nur ein bisschen Deutsch.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ich spreche nur ein bisschen Deutsch."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I only speak a little German.",
+       "contextNote": null,
+       "literalGloss": "I speak only a little German"
+      },
+      "fr": {
+       "meaning": "Je ne parle qu'un peu allemand.",
+       "contextNote": "Bisschen : « BISS-chen », avec le ch doux.",
+       "literalGloss": "Je parle seulement un peu allemand"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "bisschen: 'BISS-chen', with the soft ch.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "offer_help",
+     "intentKey": "offer_help",
+     "slotId": "offer_help",
+     "speaker": "learner",
+     "targetText": "Kann ich Ihnen helfen?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Kann ich Ihnen helfen?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I help you?",
+       "contextNote": "Good to say when the neighbour is carrying heavy bags.",
+       "literalGloss": "Can I you help?"
+      },
+      "fr": {
+       "meaning": "Puis-je vous aider ?",
+       "contextNote": "Idéal quand la voisine porte des sacs lourds.",
+       "literalGloss": "Puis-je à vous aider ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Vielen Dank, das ist sehr nett!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vielen Dank, das ist sehr nett!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you so much, that's very kind!",
+       "contextNote": "Useful when she invites you for tea.",
+       "literalGloss": "Many thanks, that is very nice"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup, c'est très gentil !",
+       "contextNote": "Utile quand elle vous invite à prendre le thé. Le « V » initial de « vielen » se prononce comme un « f ».",
+       "literalGloss": "Beaucoup merci, c'est très gentil"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Initial 'V' in 'vielen' sounds like English 'f'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "say_new_neighbour_variant_9",
+     "intentKey": "say_new_neighbour",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Hallo! Ich bin gerade eingezogen.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hallo! Ich bin gerade eingezogen."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hi! I just moved in.",
+       "contextNote": "Friendly and slightly more casual than the polite version.",
+       "literalGloss": "Hello! I am just moved-in"
+      },
+      "fr": {
+       "meaning": "Salut ! Je viens d'emménager.",
+       "contextNote": "Amical et un peu plus décontracté que la version polie. Eingezogen : « AÏN-gue-tso-guen ».",
+       "literalGloss": "Salut ! Je suis tout juste emménagé"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "eingezogen: 'AIN-ge-tso-gen'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "offer_help_variant_10",
+     "intentKey": "offer_help",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Soll ich die Tasche tragen?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Soll ich die Tasche tragen?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Shall I carry the bag?",
+       "contextNote": "A concrete offer, handy with shopping bags.",
+       "literalGloss": "Shall I the bag carry?"
+      },
+      "fr": {
+       "meaning": "Voulez-vous que je porte le sac ?",
+       "contextNote": "Une proposition concrète, pratique avec des sacs de courses.",
+       "literalGloss": "Dois-je le sac porter ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "german_take_taxi",
+   "blueprintKey": "take_taxi",
+   "titles": {
+    "en": "Taking a Taxi",
+    "fr": "Prendre un taxi"
+   },
+   "sceneNotes": {
+    "en": "You wave down a taxi in a busy street and ask the talkative driver to take you to the old town, even though traffic is heavy.",
+    "fr": "Vous hélez un taxi dans une rue animée et demandez au chauffeur bavard de vous conduire à la vieille ville, malgré la circulation dense."
+   },
+   "characterKey": "german_jurgen_taxi_driver",
+   "expressions": [
+    {
+     "key": "hail",
+     "intentKey": "hail_taxi",
+     "slotId": "hail",
+     "speaker": "learner",
+     "targetText": "Hallo, sind Sie frei?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hallo, sind Sie frei?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello, are you free?",
+       "contextNote": "Said through the car window or when opening the door.",
+       "literalGloss": "Hello, are you free?"
+      },
+      "fr": {
+       "meaning": "Bonjour, vous êtes libre ?",
+       "contextNote": "Se dit par la vitre de la voiture ou en ouvrant la portière. « frei » se prononce comme « fraï ».",
+       "literalGloss": "Bonjour, êtes-vous libre ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "In 'frei', say 'fry'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "where_to",
+     "intentKey": "ask_destination",
+     "slotId": "where_to",
+     "speaker": "character",
+     "targetText": "Hallo! Wo soll's hingehen?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hallo! Wo soll's hingehen?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello! Where to?",
+       "contextNote": "A very common way for drivers to ask the destination.",
+       "literalGloss": "Where shall it go?"
+      },
+      "fr": {
+       "meaning": "Bonjour ! Où allons-nous ?",
+       "contextNote": "Formule très courante chez les chauffeurs pour demander la destination.",
+       "literalGloss": "Où est-ce que ça doit aller ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "destination",
+     "intentKey": "state_destination",
+     "slotId": "destination",
+     "speaker": "learner",
+     "targetText": "In die Altstadt, bitte.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "In die Altstadt, bitte."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "To the old town, please.",
+       "contextNote": null,
+       "literalGloss": "In the old town, please"
+      },
+      "fr": {
+       "meaning": "À la vieille ville, s'il vous plaît.",
+       "contextNote": "Dans « Altstadt », le « st » de la seconde partie se prononce « cht » : « alt-CHTAT ».",
+       "literalGloss": "Dans la vieille ville, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'St' in 'Altstadt' sounds like 'sht' in the second part: 'alt-SHTAT'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "meter",
+     "intentKey": "ask_use_meter",
+     "slotId": "meter",
+     "speaker": "learner",
+     "targetText": "Mit Taxameter, bitte.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mit Taxameter, bitte."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "With the meter, please.",
+       "contextNote": "Use this when the driver names a fixed price instead of using the meter.",
+       "literalGloss": "With taxi meter, please"
+      },
+      "fr": {
+       "meaning": "Avec le compteur, s'il vous plaît.",
+       "contextNote": "À utiliser quand le chauffeur annonce un prix fixe au lieu d'utiliser le compteur.",
+       "literalGloss": "Avec taximètre, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "fare",
+     "intentKey": "ask_fare",
+     "slotId": "fare",
+     "speaker": "learner",
+     "targetText": "Was kostet das ungefähr?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Was kostet das ungefähr?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "About how much will that cost?",
+       "contextNote": "Ask before setting off.",
+       "literalGloss": "What costs that approximately?"
+      },
+      "fr": {
+       "meaning": "Ça coûte environ combien ?",
+       "contextNote": "À demander avant de partir. « ungefähr » se prononce « OUN-gue-fère ».",
+       "literalGloss": "Qu'est-ce que coûte cela approximativement ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'ungefähr' sounds like 'OON-guh-fair'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "stop",
+     "intentKey": "say_stop_here",
+     "slotId": "stop",
+     "speaker": "learner",
+     "targetText": "Hier ist gut, danke.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hier ist gut, danke."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Here is fine, thanks.",
+       "contextNote": "Said when you want to get out at this spot.",
+       "literalGloss": "Here is good, thanks"
+      },
+      "fr": {
+       "meaning": "Ici, c'est bien, merci.",
+       "contextNote": "Se dit quand vous voulez descendre à cet endroit.",
+       "literalGloss": "Ici est bien, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "change",
+     "intentKey": "ask_for_change",
+     "slotId": "change",
+     "speaker": "learner",
+     "targetText": "Haben Sie Wechselgeld?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Haben Sie Wechselgeld?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you have change?",
+       "contextNote": "Useful if you only have a large note.",
+       "literalGloss": "Have you change-money?"
+      },
+      "fr": {
+       "meaning": "Avez-vous de la monnaie ?",
+       "contextNote": "Utile si vous n'avez qu'un gros billet. Le « W » se prononce « v » ; le « ch » comme dans « Bach ».",
+       "literalGloss": "Avez-vous monnaie-d'échange ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'W' is pronounced like English 'v'; 'ch' as in 'Bach'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "bye",
+     "intentKey": "say_goodbye",
+     "slotId": "bye",
+     "speaker": "learner",
+     "targetText": "Danke, auf Wiedersehen!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Danke, auf Wiedersehen!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you, goodbye!",
+       "contextNote": "Said when getting out of the taxi.",
+       "literalGloss": "Thanks, on seeing-again"
+      },
+      "fr": {
+       "meaning": "Merci, au revoir !",
+       "contextNote": "Se dit en descendant du taxi.",
+       "literalGloss": "Merci, à la revoyure"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "hail_taxi_variant_9",
+     "intentKey": "hail_taxi",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Können Sie mich zum Bahnhof fahren?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Können Sie mich zum Bahnhof fahren?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you take me to the station?",
+       "contextNote": "Swap Bahnhof for another place. It is a polite way to ask for a ride.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Pouvez-vous m'emmener à la gare ?",
+       "contextNote": "Remplacez Bahnhof par un autre lieu. C'est une façon polie de demander une course.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "ask_use_meter_variant_10",
+     "intentKey": "ask_use_meter",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Können Sie bitte das Taxameter anmachen?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Können Sie bitte das Taxameter anmachen?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you please turn the meter on?",
+       "contextNote": "More explicit and still polite.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Pouvez-vous mettre le compteur, s'il vous plaît ?",
+       "contextNote": "Plus explicite, et toujours poli.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "ask_fare_variant_11",
+     "intentKey": "ask_fare",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Wie viel kostet es bis zur Altstadt?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Wie viel kostet es bis zur Altstadt?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much is it to the old town?",
+       "contextNote": "Direct way to ask a fixed price.",
+       "literalGloss": "How much costs it until to-the old town?"
+      },
+      "fr": {
+       "meaning": "Combien coûte la course jusqu'à la vieille ville ?",
+       "contextNote": "Façon directe de demander un prix fixe.",
+       "literalGloss": "Combien coûte-t-il jusqu'à la vieille ville ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "german_buy_ice_cream",
+   "blueprintKey": "buy_ice_cream",
+   "titles": {
+    "en": "Buying Ice Cream with a Child",
+    "fr": "Acheter une glace avec un enfant"
+   },
+   "sceneNotes": {
+    "en": "You are at an ice-cream cart outside the school with a child who wants an ice cream, but only two flavours are left and a second scoop is not allowed.",
+    "fr": "Vous êtes à un chariot de glaces devant l'école avec une enfant qui veut une glace, mais il ne reste que deux parfums et une deuxième boule n'est pas permise."
+   },
+   "characterKey": "german_lena_child_at_the_ice_cream_stand",
+   "expressions": [
+    {
+     "key": "wants",
+     "intentKey": "request_food",
+     "slotId": "wants",
+     "speaker": "character",
+     "targetText": "Ich möchte ein Eis, bitte!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ich möchte ein Eis, bitte!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'd like an ice cream, please!",
+       "contextNote": null,
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Je voudrais une glace, s'il te plaît !",
+       "contextNote": "Ich : le « ch » est doux, comme un souffle, pas un « k ».",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Ich: soft 'ch' as in 'hue', not 'k'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "which_flavour",
+     "intentKey": "offer_options",
+     "slotId": "which_flavour",
+     "speaker": "learner",
+     "targetText": "Schoko oder Erdbeere?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Schoko oder Erdbeere?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Chocolate or strawberry?",
+       "contextNote": "Only two flavours are left. 'Schoko' is the everyday short form of 'Schokolade'.",
+       "literalGloss": "choc or strawberry"
+      },
+      "fr": {
+       "meaning": "Chocolat ou fraise ?",
+       "contextNote": "Il ne reste que deux parfums. « Schoko » est la forme courte courante de « Schokolade ». Schoko : « sch » se prononce comme « ch » en français.",
+       "literalGloss": "choco ou fraise"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Schoko: 'sch' like English 'sh'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "picks",
+     "intentKey": "choose_option",
+     "slotId": "picks",
+     "speaker": "character",
+     "targetText": "Erdbeere, bitte!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Erdbeere, bitte!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Strawberry, please!",
+       "contextNote": null,
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "De la fraise, s'il te plaît !",
+       "contextNote": "Erdbeere : accent sur la première syllabe, ERD-bé-ré.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Erdbeere: stress the first syllable, ERD-bay-reh.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "scoop",
+     "intentKey": "specify_quantity",
+     "slotId": "scoop",
+     "speaker": "learner",
+     "targetText": "Eine Kugel Erdbeere, bitte.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Eine Kugel Erdbeere, bitte."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "One scoop of strawberry, please.",
+       "contextNote": "Said to the ice-cream seller.",
+       "literalGloss": "one scoop strawberry, please"
+      },
+      "fr": {
+       "meaning": "Une boule de fraise, s'il vous plaît.",
+       "contextNote": "Se dit au vendeur de glaces. Kugel : le « u » est long, comme « ou » dans « loup ».",
+       "literalGloss": "une boule fraise, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Kugel: the 'u' is long, like 'oo' in 'moon'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "asks_two",
+     "intentKey": "ask_permission",
+     "slotId": "asks_two",
+     "speaker": "character",
+     "targetText": "Darf ich noch eine Kugel haben?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Darf ich noch eine Kugel haben?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have another scoop?",
+       "contextNote": "This is the twist: the child asks for a second scoop.",
+       "literalGloss": "may I still one scoop have"
+      },
+      "fr": {
+       "meaning": "Je peux avoir une autre boule ?",
+       "contextNote": "Voici le rebondissement : l'enfant demande une deuxième boule.",
+       "literalGloss": "puis-je encore une boule avoir"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "just_one",
+     "intentKey": "refuse_permission",
+     "slotId": "just_one",
+     "speaker": "learner",
+     "targetText": "Tut mir leid, heute nur eine Kugel.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Tut mir leid, heute nur eine Kugel."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Sorry, just one scoop today.",
+       "contextNote": "A kind no. 'Tut mir leid' softens the refusal.",
+       "literalGloss": "does to-me sorry, today only one scoop"
+      },
+      "fr": {
+       "meaning": "Désolé, aujourd'hui, une seule boule.",
+       "contextNote": "Un non gentil : « Tut mir leid » adoucit le refus. heute : « eu » se prononce comme « oï » dans « boîte ».",
+       "literalGloss": "ça me fait de la peine, aujourd'hui seulement une boule"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "heute: 'eu' sounds like 'oy' in 'boy'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "okay",
+     "intentKey": "grant_permission",
+     "slotId": "okay",
+     "speaker": "learner",
+     "targetText": "Klar, kein Problem!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Klar, kein Problem!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Sure, no problem!",
+       "contextNote": "For example, when the child asks for a napkin or to sit down.",
+       "literalGloss": "clear, no problem"
+      },
+      "fr": {
+       "meaning": "Bien sûr, pas de problème !",
+       "contextNote": "Par exemple, quand l'enfant demande une serviette ou à s'asseoir.",
+       "literalGloss": "clair, pas de problème"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "yummy",
+     "intentKey": "say_delicious",
+     "slotId": "yummy",
+     "speaker": "character",
+     "targetText": "Mmh, lecker!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mmh, lecker!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Mmm, yummy!",
+       "contextNote": null,
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Mmh, délicieux !",
+       "contextNote": "lecker : « e » court, LÈ-keur.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "lecker: short 'e', LEH-ker.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "me_too",
+     "intentKey": "express_like",
+     "slotId": "me_too",
+     "speaker": "learner",
+     "targetText": "Ich mag Erdbeereis auch!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ich mag Erdbeereis auch!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I like strawberry ice cream too!",
+       "contextNote": null,
+       "literalGloss": "I like strawberry-ice too"
+      },
+      "fr": {
+       "meaning": "Moi aussi, j'aime la glace à la fraise !",
+       "contextNote": "Erdbeereis : dites « Erdbeer-eis » avec une toute petite pause.",
+       "literalGloss": "je aime glace-fraise aussi"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Erdbeereis: say 'Erdbeer-eis' with a tiny pause.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "character",
+     "targetText": "Danke dir!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Danke dir!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you!",
+       "contextNote": "Informal 'you' (dir), used with a familiar adult.",
+       "literalGloss": "thanks to-you"
+      },
+      "fr": {
+       "meaning": "Merci !",
+       "contextNote": "« dir » est le « tu » informel, utilisé avec un adulte familier.",
+       "literalGloss": "merci à-toi"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "welcome",
+     "intentKey": "respond_to_thanks",
+     "slotId": "welcome",
+     "speaker": "learner",
+     "targetText": "Gern geschehen!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Gern geschehen!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "You're welcome!",
+       "contextNote": null,
+       "literalGloss": "gladly happened"
+      },
+      "fr": {
+       "meaning": "Je t'en prie !",
+       "contextNote": "geschehen : « sch » comme « ch » en français, puis un « e » long.",
+       "literalGloss": "avec plaisir arrivé"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "geschehen: 'sch' like 'sh', then a long 'e'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "specify_quantity_variant_12",
+     "intentKey": "specify_quantity",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Eine Kugel Erdbeere in der Waffel, bitte.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Eine Kugel Erdbeere in der Waffel, bitte."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "One scoop of strawberry in a cone, please.",
+       "contextNote": "Alternative: say 'im Becher' (in a cup) instead of 'in der Waffel'.",
+       "literalGloss": "one scoop strawberry in the cone, please"
+      },
+      "fr": {
+       "meaning": "Une boule de fraise dans un cornet, s'il vous plaît.",
+       "contextNote": "Variante : dites « im Becher » (dans un pot) au lieu de « in der Waffel ». Waffel : le « W » se prononce comme un « v » français.",
+       "literalGloss": "une boule fraise dans le cornet, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Waffel: 'W' sounds like English 'v'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "refuse_permission_variant_13",
+     "intentKey": "refuse_permission",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Lieber nicht, eine Kugel reicht.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Lieber nicht, eine Kugel reicht."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Better not, one scoop is enough.",
+       "contextNote": "A gentle, firm alternative to refuse.",
+       "literalGloss": "rather not, one scoop suffices"
+      },
+      "fr": {
+       "meaning": "Plutôt pas, une boule suffit.",
+       "contextNote": "Une autre façon de refuser, douce mais ferme.",
+       "literalGloss": "plutôt pas, une boule suffit"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  }
+ ],
+ "provenance": "ai_draft",
+ "nativeReviewed": false,
+ "reviewStatus": "review_needed",
+ "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+ "notes": [
+  "AI draft generated 2026-11-11T22:39:21.152Z with anthropic/claude-sonnet-5.5; validator accepted 77 expressions; native review required before publishing.",
+  "greet_and_introduce: Slot lines use Sie for the polite register; casual du variants are included as extras. Please confirm the Sie/du balance for neighbours.",
+  "greet_and_introduce: Sam is a placeholder name; Ich heiße Sam could also be Mein Name ist Sam, which is more formal.",
+  "greet_and_introduce: Tschüss is common across Germany; in the south Servus or Auf Wiedersehen may be preferred.",
+  "cafe_order_drink: 'Zahlen, bitte!' is a short elliptical request, not a bare imperative; please confirm it fits the 'polite' register.",
+  "cafe_order_drink: 'Guten Tag' is used instead of 'Guten Morgen' (already in the chapter); regional alternatives like 'Moin' (Hamburg) were not used.",
+  "cafe_order_drink: Wording uses 'Kaffee' with the milk question as a typical case; please check it feels natural on a terrace.",
+  "market_ask_price: Earlier greetings (Guten Tag, Hallo, Guten Morgen) were already used, so the greeting slot adds a compliment to 'Guten Tag'.",
+  "market_ask_price: Polite lines avoid Sie/du forms; please check that the register fits a market stall.",
+  "market_ask_price: The vendor's free extra is not scripted, because no matching intent exists.",
+  "ask_directions: Used polite 'Sie' throughout for a stranger; 'Bahnhof' is generic (Hauptbahnhof could be added).",
+  "ask_directions: 'Langsamer, bitte' with 'Ich lerne Deutsch' is two short sentences in one line; please check it feels natural.",
+  "ask_directions: 'Nein, nur zehn Minuten zu Fuß' answers the 'far' line; 'Nein' may need adjusting if learner skips that line.",
+  "meet_neighbour: Learner uses polite Sie throughout, matching the earlier 'Wie geht es Ihnen?' lines; please confirm that is natural in a stairwell meeting.",
+  "meet_neighbour: Gender: 'neuer Nachbar' is masculine; the feminine 'neue Nachbarin' is only noted in contextNote, no separate line.",
+  "meet_neighbour: Thanks uses 'Vielen Dank' like earlier lines, with 'das ist sehr nett' added for variety; please check it is not too repetitive.",
+  "take_taxi: Taxameter is used in standard speech; 'Taxameter anmachen' is colloquial, and 'einschalten' is a more formal alternative.",
+  "take_taxi: Learner lines use the Sie form with the driver; please check that this suits the scene (some drivers use du).",
+  "take_taxi: Character's 'Wo soll's hingehen?' is colloquial; 'Wohin möchten Sie?' is a more formal option.",
+  "buy_ice_cream: Learner uses informal 'du'/'dir' with the child; the seller line stays polite with 'bitte'.",
+  "buy_ice_cream: 'Waffel' is standard for a cone; 'Hörnchen' is a regional alternative; 'Eistüte' is also common.",
+  "buy_ice_cream: Please check whether 'Ich möchte ein Eis, bitte!' sounds natural for a child, or if 'Ich will ein Eis!' is more typical.",
+  "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+ ]
+}

@@ -1,0 +1,3200 @@
+{
+ "key": "korean_ch1",
+ "chapterIndex": 1,
+ "courseTrackId": "korean",
+ "targetVarietyId": "ko",
+ "sourceLanguages": [
+  "en",
+  "fr"
+ ],
+ "titles": {
+  "en": "First days in Seoul",
+  "fr": "Premiers jours à Séoul"
+ },
+ "characters": [
+  {
+   "characterKey": "korean_character_friendly_local_acquaintance",
+   "role": "friendly local acquaintance",
+   "name": "지수",
+   "personality": "Kind, busy, curious neighbour",
+   "homeRegion": "Seoul",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "korean_character_cafe_server",
+   "role": "café server",
+   "name": "민지",
+   "personality": "quick, cheerful, friendly, efficient",
+   "homeRegion": "Seoul",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "korean_character_market_vendor",
+   "role": "market vendor",
+   "name": "미숙",
+   "personality": "cheerful, chatty, generous",
+   "homeRegion": "Seoul",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "korean_character_passer_by",
+   "role": "passer-by",
+   "name": "민준",
+   "personality": "friendly, busy, talks fast",
+   "homeRegion": "Seoul",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "korean_character_neighbour",
+   "role": "neighbour",
+   "name": "김민정",
+   "personality": "warm, chatty, welcoming",
+   "homeRegion": "Seoul",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "korean_character_taxi_driver",
+   "role": "taxi driver",
+   "name": "민수",
+   "personality": "friendly, chatty, a bit rushed",
+   "homeRegion": "Seoul",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "korean_character_child_at_the_ice_cream_stand",
+   "role": "child at the ice-cream stand",
+   "name": "지우",
+   "personality": "cheerful, curious, a little greedy",
+   "homeRegion": "Seoul",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  }
+ ],
+ "missions": [
+  {
+   "key": "korean_greet_and_introduce",
+   "blueprintKey": "greet_and_introduce",
+   "titles": {
+    "en": "Meeting a Neighbour",
+    "fr": "Rencontrer une voisine"
+   },
+   "sceneNotes": {
+    "en": "It's morning and you bump into a friendly neighbour who is in a hurry but takes a moment to say hello and ask where you live.",
+    "fr": "C'est le matin et vous croisez une voisine sympathique, pressée, qui prend pourtant un instant pour vous saluer et vous demander où vous habitez."
+   },
+   "characterKey": "korean_character_friendly_local_acquaintance",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "안녕하세요!",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "안녕하세요!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "annyeonghaseyo!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello!",
+       "contextNote": "Safe polite greeting at any time of day.",
+       "literalGloss": "Are you at peace?"
+      },
+      "fr": {
+       "meaning": "Bonjour !",
+       "contextNote": "Salutation polie qui convient à tout moment de la journée. Le ㅕ de « nyeong » se prononce comme « yeo » ; dites-le d'un trait.",
+       "literalGloss": "Êtes-vous en paix ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ㅕ in nyeong is like 'yuh'; say it smoothly.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "how_are_you",
+     "intentKey": "ask_how_are_you",
+     "slotId": "how_are_you",
+     "speaker": "learner",
+     "targetText": "잘 지내세요?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "잘 지내세요?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "jal jinaeseyo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How are you doing?",
+       "contextNote": "Common way to ask a neighbour how they have been.",
+       "literalGloss": "Well are-you-getting-along?"
+      },
+      "fr": {
+       "meaning": "Comment allez-vous ?",
+       "contextNote": "Manière courante de demander à un voisin comment il va depuis la dernière fois.",
+       "literalGloss": "Bien vous-vivez ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "fine",
+     "intentKey": "reply_fine",
+     "slotId": "fine",
+     "speaker": "learner",
+     "targetText": "잘 지내요, 감사합니다.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "잘 지내요, 감사합니다."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "jal jinaeyo, gamsahamnida."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm doing well, thank you.",
+       "contextNote": "Natural reply to 잘 지내세요?",
+       "literalGloss": "Well I-get-along, thank you."
+      },
+      "fr": {
+       "meaning": "Je vais bien, merci.",
+       "contextNote": "Réponse naturelle à 잘 지내세요 ? Dans 감사합니다, le ㅂ devant ㄴ se prononce m : « gamsahamnida ».",
+       "literalGloss": "Bien je-vis, merci."
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "감사합니다 sounds like 'gamsahamnida' (the ㅂ before ㄴ becomes m).",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "my_name",
+     "intentKey": "introduce_name",
+     "slotId": "my_name",
+     "speaker": "learner",
+     "targetText": "저는 에밀리예요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "저는 에밀리예요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "jeoneun emillieyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm Emily.",
+       "contextNote": "Replace 에밀리 with your own name. After a vowel use 예요; after a consonant use 이에요.",
+       "literalGloss": "As-for-me Emily-am."
+      },
+      "fr": {
+       "meaning": "Moi, c'est Emily.",
+       "contextNote": "Remplacez 에밀리 par votre prénom. Après une voyelle, on utilise 예요 ; après une consonne, 이에요.",
+       "literalGloss": "Quant-à-moi Emily-suis."
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": "Foreign names are written in Hangul as they sound.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "your_name",
+     "intentKey": "ask_name",
+     "slotId": "your_name",
+     "speaker": "learner",
+     "targetText": "이름이 뭐예요?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "이름이 뭐예요?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "ireumi mwoyeyo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "What's your name?",
+       "contextNote": "Friendly and fine for a neighbour of any age.",
+       "literalGloss": "Name what-is?"
+      },
+      "fr": {
+       "meaning": "Comment vous vous appelez ?",
+       "contextNote": "Amical, convient pour un voisin de n'importe quel âge. 뭐 se prononce « mwo », rapidement.",
+       "literalGloss": "Nom quoi-est ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "뭐 is 'mwo', a quick 'mwuh'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "nice_to_meet",
+     "intentKey": "say_nice_to_meet",
+     "slotId": "nice_to_meet",
+     "speaker": "learner",
+     "targetText": "만나서 반가워요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "만나서 반가워요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "mannaseo bangawoyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Nice to meet you.",
+       "contextNote": "Said after exchanging names.",
+       "literalGloss": "Meeting, I'm glad."
+      },
+      "fr": {
+       "meaning": "Enchantée de vous rencontrer.",
+       "contextNote": "Se dit après avoir échangé les prénoms.",
+       "literalGloss": "En rencontrant, je-suis-contente."
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "goodbye",
+     "intentKey": "say_goodbye",
+     "slotId": "goodbye",
+     "speaker": "learner",
+     "targetText": "안녕히 가세요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "안녕히 가세요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "annyeonghi gaseyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Goodbye. (to someone leaving)",
+       "contextNote": "Use this when the other person is the one leaving, as your hurried neighbour is.",
+       "literalGloss": "Peacefully please-go."
+      },
+      "fr": {
+       "meaning": "Au revoir. (à quelqu'un qui part)",
+       "contextNote": "À utiliser quand c'est l'autre personne qui s'en va, comme votre voisine pressée.",
+       "literalGloss": "Paisiblement veuillez-aller."
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "greet_hello_variant_8",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "좋은 아침이에요!",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "좋은 아침이에요!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "joeun achimieyo!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good morning!",
+       "contextNote": "Friendly morning greeting.",
+       "literalGloss": "Good morning it-is."
+      },
+      "fr": {
+       "meaning": "Bonjour ! (le matin)",
+       "contextNote": "Salutation matinale chaleureuse. Le ㅈ de « joeun » est doux, entre « dj » et « tch ».",
+       "literalGloss": "Bon matin c'est."
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ㅈ in joeun is soft, between 'j' and 'ch'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "say_goodbye_variant_9",
+     "intentKey": "say_goodbye",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "다음에 또 봐요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "다음에 또 봐요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "daeume tto bwayo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "See you next time.",
+       "contextNote": "Casual-friendly way to part with a neighbour.",
+       "literalGloss": "Next-time again let's-see."
+      },
+      "fr": {
+       "meaning": "À la prochaine.",
+       "contextNote": "Façon amicale et détendue de quitter un voisin. 또 a un ㄸ tendu : sans souffle d'air.",
+       "literalGloss": "Prochaine-fois encore voyons-nous."
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "또 has a tense ㄸ: no puff of air.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "korean_cafe_order_drink",
+   "blueprintKey": "cafe_order_drink",
+   "titles": {
+    "en": "Ordering a Drink at a Café",
+    "fr": "Commander une boisson au café"
+   },
+   "sceneNotes": {
+    "en": "You step up to the counter on a busy café terrace, where a quick, friendly server is ready to take your order.",
+    "fr": "Vous vous approchez du comptoir d'une terrasse de café animée, où une serveuse rapide et souriante est prête à prendre votre commande."
+   },
+   "characterKey": "korean_character_cafe_server",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "안녕하세요, 주문할게요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "안녕하세요, 주문할게요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "annyeonghaseyo, jumunhalgeyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello, I'd like to order.",
+       "contextNote": "Reuses 안녕하세요 from earlier in the chapter and adds a natural way to start ordering.",
+       "literalGloss": "hello, (I) will order"
+      },
+      "fr": {
+       "meaning": "Bonjour, je voudrais commander.",
+       "contextNote": "Reprend 안녕하세요 vu plus tôt dans le chapitre et ajoute une façon naturelle de commencer à commander. Prononcez 주문할게요 « ju-mun-hal-gué-yo » : la liaison ㄹ+ㄱ reste douce.",
+       "literalGloss": "bonjour, (je) vais commander"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "주문할게요 is said like 'ju-mun-hal-ge-yo'. The ㄹ+ㄱ link is soft.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "order",
+     "intentKey": "request_drink",
+     "slotId": "order",
+     "speaker": "learner",
+     "targetText": "아메리카노 한 잔 주세요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "아메리카노 한 잔 주세요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "amerikano han jan juseyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "One Americano, please.",
+       "contextNote": "The pattern 'drink + 한 잔 주세요' works for any drink.",
+       "literalGloss": "Americano one cup give-please"
+      },
+      "fr": {
+       "meaning": "Un Americano, s'il vous plaît.",
+       "contextNote": "Le schéma « boisson + 한 잔 주세요 » fonctionne pour n'importe quelle boisson.",
+       "literalGloss": "Americano une tasse donnez-s'il-vous-plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": "아메리카노 is an English/Italian loanword used everywhere in Korea.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "options",
+     "intentKey": "offer_options",
+     "slotId": "options",
+     "speaker": "character",
+     "targetText": "따뜻한 거요, 아이스요?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "따뜻한 거요, 아이스요?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "ttatteutan geoyo, aiseuyo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hot or iced?",
+       "contextNote": "Short and quick, as a busy server would say it. 거 means 'one/thing'.",
+       "literalGloss": "warm one, or iced?"
+      },
+      "fr": {
+       "meaning": "Chaud ou glacé ?",
+       "contextNote": "Phrase courte et rapide, comme la dirait une serveuse pressée. 거 signifie « celui-là / la chose ». Le ㄸ de 따뜻한 est une consonne tendue : prononcez-le fermement, sans souffle d'air.",
+       "literalGloss": "un chaud, ou glacé ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": "아이스 is from English 'ice'. Many people also say 핫 (hot) for the hot option.",
+     "pronunciationNote": "The ㄸ in 따뜻한 is a tense sound: say it firmly with no puff of air.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "choice",
+     "intentKey": "choose_option",
+     "slotId": "choice",
+     "speaker": "learner",
+     "targetText": "아이스로 주세요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "아이스로 주세요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "aiseuro juseyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Iced, please.",
+       "contextNote": "The particle 로 means 'as / in the form of'.",
+       "literalGloss": "as-iced give-please"
+      },
+      "fr": {
+       "meaning": "Glacé, s'il vous plaît.",
+       "contextNote": "La particule 로 signifie « sous la forme de / en ».",
+       "literalGloss": "en-glacé donnez-s'il-vous-plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": "아이스 is a loanword from English 'ice'.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "bill",
+     "intentKey": "ask_for_bill",
+     "slotId": "bill",
+     "speaker": "learner",
+     "targetText": "계산해 주세요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "계산해 주세요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "gyesanhae juseyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'd like to pay, please.",
+       "contextNote": "Used at a counter or table to ask to pay.",
+       "literalGloss": "calculate give-please"
+      },
+      "fr": {
+       "meaning": "Je voudrais payer, s'il vous plaît.",
+       "contextNote": "S'utilise au comptoir ou à table pour demander à payer. 계 se prononce souvent « gué » dans la conversation courante.",
+       "literalGloss": "calculer donnez-s'il-vous-plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "계 is often pronounced 'ge' in everyday speech.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "감사합니다!",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "감사합니다!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "gamsahamnida!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you!",
+       "contextNote": "Polite and safe in any shop or café.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Merci !",
+       "contextNote": "Poli et sans risque dans n'importe quel magasin ou café. Le ㅂ devant ㄴ se prononce m : « gamsahamnida ».",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ㅂ before ㄴ sounds like m: 'gamsahamnida'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "request_drink_variant_7",
+     "intentKey": "request_drink",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "아메리카노 하나 주시겠어요?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "아메리카노 하나 주시겠어요?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "amerikano hana jusigesseoyo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could I have an Americano?",
+       "contextNote": "A slightly softer, more polite way to ask.",
+       "literalGloss": "Americano one would-you-give?"
+      },
+      "fr": {
+       "meaning": "Pourrais-je avoir un Americano ?",
+       "contextNote": "Une façon un peu plus douce et plus polie de demander.",
+       "literalGloss": "Americano un voudriez-vous donner ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": "아메리카노 is a loanword.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "choose_option_variant_8",
+     "intentKey": "choose_option",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "따뜻한 걸로 주세요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "따뜻한 걸로 주세요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "ttatteutan geollo juseyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "The hot one, please.",
+       "contextNote": "Use this if you want the hot drink instead.",
+       "literalGloss": "as-the-warm-one give-please"
+      },
+      "fr": {
+       "meaning": "Le chaud, s'il vous plaît.",
+       "contextNote": "À utiliser si vous préférez la boisson chaude.",
+       "literalGloss": "en-tant-que-chaud donnez-s'il-vous-plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_for_bill_variant_9",
+     "intentKey": "ask_for_bill",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "카드로 할게요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "카드로 할게요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "kadeuro halgeyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'll pay by card.",
+       "contextNote": "Handy at the counter when paying.",
+       "literalGloss": "by-card (I)-will-do"
+      },
+      "fr": {
+       "meaning": "Je paie par carte.",
+       "contextNote": "Pratique au comptoir au moment de payer.",
+       "literalGloss": "par-carte (je)-vais-faire"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": "카드 is a loanword from English 'card'.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thank_variant_10",
+     "intentKey": "thank",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "고마워요!",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "고마워요!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "gomawoyo!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks!",
+       "contextNote": "A softer, friendlier alternative to 감사합니다.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Merci !",
+       "contextNote": "Une alternative plus douce et plus chaleureuse à 감사합니다.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "korean_market_ask_price",
+   "blueprintKey": "market_ask_price",
+   "titles": {
+    "en": "Asking Prices at the Market",
+    "fr": "Demander les prix au marché"
+   },
+   "sceneNotes": {
+    "en": "You walk up to a fruit stall where apples and strawberries are priced per kilo, and the friendly vendor is ready for a little light bargaining.",
+    "fr": "Vous vous approchez d'un étal de fruits où les pommes et les fraises sont vendues au kilo, et la marchande sympathique est prête à négocier un peu."
+   },
+   "characterKey": "korean_character_market_vendor",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "안녕하세요, 사장님!",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "안녕하세요, 사장님!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "annyeonghaseyo, sajangnim!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello, boss!",
+       "contextNote": "사장님 is the friendly, standard way to address a shop or stall owner.",
+       "literalGloss": "hello, (honorable) owner"
+      },
+      "fr": {
+       "meaning": "Bonjour, patron !",
+       "contextNote": "사장님 est la façon courante et amicale de s'adresser au propriétaire d'une boutique ou d'un étal. Le ㅈ de 사장님 est doux ; ㅇ + ㄴ donne « jang-nim ».",
+       "literalGloss": "bonjour, (honorable) patron"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ㅈ in 사장님 is soft; ㅇ + ㄴ makes 'jang-nim'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "how_much",
+     "intentKey": "ask_price",
+     "slotId": "how_much",
+     "speaker": "learner",
+     "targetText": "이 사과 한 킬로에 얼마예요?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "이 사과 한 킬로에 얼마예요?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "i sagwa han killoe eolmayeyo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much are these apples per kilo?",
+       "contextNote": "Swap 사과 for another fruit, e.g. 딸기 (strawberries).",
+       "literalGloss": "this apple one kilo-at how much is it"
+      },
+      "fr": {
+       "meaning": "Combien coûtent ces pommes le kilo ?",
+       "contextNote": "Vous pouvez remplacer 사과 par un autre fruit, par exemple 딸기 (fraises).",
+       "literalGloss": "ces pommes un kilo pour combien c'est"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": "킬로 is a loanword from 'kilo'.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "price",
+     "intentKey": "state_price",
+     "slotId": "price",
+     "speaker": "character",
+     "targetText": "한 킬로에 오천 원이에요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "한 킬로에 오천 원이에요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "han killoe ocheon wonieyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "It's 5,000 won per kilo.",
+       "contextNote": null,
+       "literalGloss": "one kilo-at 5,000 won is"
+      },
+      "fr": {
+       "meaning": "C'est 5 000 wons le kilo.",
+       "contextNote": null,
+       "literalGloss": "un kilo pour 5 000 wons c'est"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "expensive",
+     "intentKey": "say_too_expensive",
+     "slotId": "expensive",
+     "speaker": "learner",
+     "targetText": "너무 비싸요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "너무 비싸요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "neomu bissayo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "It's too expensive.",
+       "contextNote": "Said with a smile, it sounds like light bargaining, not rude.",
+       "literalGloss": "too expensive"
+      },
+      "fr": {
+       "meaning": "C'est trop cher.",
+       "contextNote": "Dit avec le sourire, cela sonne comme une négociation légère, pas comme une impolitesse. Le double ㅆ de 비싸요 se prononce comme un « s » tendu.",
+       "literalGloss": "trop cher"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The double ㅆ in 비싸요 is a tense 's'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "lower",
+     "intentKey": "offer_lower_price",
+     "slotId": "lower",
+     "speaker": "learner",
+     "targetText": "조금만 깎아 주세요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "조금만 깎아 주세요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "jogeumman kkakka juseyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Please give me a little discount.",
+       "contextNote": "깎다 means to haggle down a price. A polite request that is common at markets.",
+       "literalGloss": "just a little cut-for-me please"
+      },
+      "fr": {
+       "meaning": "Faites-moi un petit rabais, s'il vous plaît.",
+       "contextNote": "깎다 signifie marchander pour faire baisser un prix. Demande polie très courante au marché. Prononcez 깎 avec un « kk » tendu, sans souffle.",
+       "literalGloss": "juste un peu baisser pour moi s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say 깎 with a tense, unaspirated 'kk'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "deal",
+     "intentKey": "agree_to_price",
+     "slotId": "deal",
+     "speaker": "learner",
+     "targetText": "좋아요, 그걸로 살게요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "좋아요, 그걸로 살게요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "joayo, geugeollo salgeyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "OK, I'll take that one.",
+       "contextNote": null,
+       "literalGloss": "good, that-one-with I will buy"
+      },
+      "fr": {
+       "meaning": "D'accord, je prends celui-là.",
+       "contextNote": "Le ㅎ de 좋아요 est presque muet : « jo-a-yo ».",
+       "literalGloss": "bien, avec celui-là j'achèterai"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ㅎ in 좋아요 is almost silent: 'jo-a-yo'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "no_thanks",
+     "intentKey": "decline_purchase",
+     "slotId": "no_thanks",
+     "speaker": "learner",
+     "targetText": "아니요, 오늘은 괜찮아요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "아니요, 오늘은 괜찮아요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "aniyo, oneureun gwaenchanayo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No, I'm good for today.",
+       "contextNote": "괜찮아요 is a soft, common way to turn down an offer.",
+       "literalGloss": "no, today-as-for okay"
+      },
+      "fr": {
+       "meaning": "Non, ça ira pour aujourd'hui.",
+       "contextNote": "괜찮아요 est une façon douce et courante de refuser une offre. Il se prononce à peu près « gwen-cha-na-yo ».",
+       "literalGloss": "non, quant à aujourd'hui ça va"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "괜찮아요 is said roughly 'gwen-cha-na-yo'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "greet_hello_variant_8",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "안녕하세요, 구경 좀 할게요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "안녕하세요, 구경 좀 할게요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "annyeonghaseyo, gugyeong jom halgeyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello, I'll just take a look around.",
+       "contextNote": "Useful when you want to browse first.",
+       "literalGloss": "hello, sightseeing a bit I will do"
+      },
+      "fr": {
+       "meaning": "Bonjour, je vais juste jeter un œil.",
+       "contextNote": "Utile quand vous voulez d'abord regarder tranquillement.",
+       "literalGloss": "bonjour, un peu visite je ferai"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "ask_price_variant_9",
+     "intentKey": "ask_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "이거 두 개에 얼마예요?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "이거 두 개에 얼마예요?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "igeo du gaee eolmayeyo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much for two of these?",
+       "contextNote": "Good for pointing at items you can't name.",
+       "literalGloss": "this two pieces-for how much"
+      },
+      "fr": {
+       "meaning": "Combien pour deux de ceux-ci ?",
+       "contextNote": "Pratique pour montrer du doigt des articles dont vous ne connaissez pas le nom.",
+       "literalGloss": "ceci deux pièces pour combien"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "offer_lower_price_variant_10",
+     "intentKey": "offer_lower_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "사천 원에 안 돼요?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "사천 원에 안 돼요?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "sacheon wone an dwaeyo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can't you do 4,000 won?",
+       "contextNote": "A typical casual market way to propose a lower price.",
+       "literalGloss": "4,000 won-at not possible"
+      },
+      "fr": {
+       "meaning": "Ce n'est pas possible à 4 000 wons ?",
+       "contextNote": "Façon courante et décontractée de proposer un prix plus bas au marché.",
+       "literalGloss": "à 4 000 wons ce n'est pas possible"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "agree_to_price_variant_11",
+     "intentKey": "agree_to_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "좋아요, 주세요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "좋아요, 주세요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "joayo, juseyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "OK, I'll take it, please.",
+       "contextNote": "A shorter option for agreeing to the price.",
+       "literalGloss": "good, please give"
+      },
+      "fr": {
+       "meaning": "D'accord, je le prends, s'il vous plaît.",
+       "contextNote": "Une option plus courte pour accepter le prix.",
+       "literalGloss": "bien, donnez s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "decline_purchase_variant_12",
+     "intentKey": "decline_purchase",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "다음에 올게요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "다음에 올게요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "daeume olgeyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'll come next time.",
+       "contextNote": "A friendly way to leave without buying.",
+       "literalGloss": "next-time I will come"
+      },
+      "fr": {
+       "meaning": "Je reviendrai une prochaine fois.",
+       "contextNote": "Une façon aimable de partir sans rien acheter.",
+       "literalGloss": "prochaine fois je viendrai"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "korean_ask_directions",
+   "blueprintKey": "ask_directions",
+   "titles": {
+    "en": "Asking the Way to the Station",
+    "fr": "Demander le chemin de la gare"
+   },
+   "sceneNotes": {
+    "en": "You are visiting Seoul and looking for the subway station, so you stop a passer-by who talks very fast and ask for help.",
+    "fr": "Vous visitez Séoul et cherchez la station de métro : vous interpellez un passant qui parle très vite pour lui demander de l'aide."
+   },
+   "characterKey": "korean_character_passer_by",
+   "expressions": [
+    {
+     "key": "excuse_me",
+     "intentKey": "get_attention",
+     "slotId": "excuse_me",
+     "speaker": "learner",
+     "targetText": "저기요, 죄송한데요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "저기요, 죄송한데요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "jeogiyo, joesonghandeyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, sorry to bother you.",
+       "contextNote": "저기요 is the everyday way to call someone's attention; 죄송한데요 softens the interruption.",
+       "literalGloss": "over there + I'm sorry but"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, désolé de vous déranger.",
+       "contextNote": "저기요 sert à attirer l'attention de quelqu'un au quotidien ; 죄송한데요 adoucit l'interruption. Prononcez 죄 à peu près « djoué ».",
+       "literalGloss": "là-bas + je suis désolé mais"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "죄 is said roughly like 'jweh'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "where_is",
+     "intentKey": "ask_where_is",
+     "slotId": "where_is",
+     "speaker": "learner",
+     "targetText": "지하철역이 어디예요?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "지하철역이 어디예요?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "jihacheollyeogi eodiyeyo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where is the subway station?",
+       "contextNote": "You can swap in another place name, e.g. 화장실 (restroom).",
+       "literalGloss": "subway station + where is"
+      },
+      "fr": {
+       "meaning": "Où est la station de métro ?",
+       "contextNote": "Vous pouvez remplacer par un autre lieu, par ex. 화장실 (toilettes). Dans 지하철역, le ㄱ final se lie et donne un son « l » : jihacheollyeok.",
+       "literalGloss": "station de métro + où est"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "In 지하철역, ㅊ+ㅕㄱ links into a 'l' sound: jihacheollyeok.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "straight",
+     "intentKey": "give_direction_straight",
+     "slotId": "straight",
+     "speaker": "character",
+     "targetText": "이 길로 쭉 가세요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "이 길로 쭉 가세요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "i gillo jjuk gaseyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Go straight along this road.",
+       "contextNote": "쭉 means 'straight on, all the way' and is very common in spoken directions.",
+       "literalGloss": "this road-by + straight + please go"
+      },
+      "fr": {
+       "meaning": "Allez tout droit par cette rue.",
+       "contextNote": "쭉 signifie « tout droit, jusqu'au bout » et revient très souvent dans les indications orales. Le 쭉 est une consonne tendue, sans souffle d'air.",
+       "literalGloss": "cette rue-par + tout droit + allez"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "쭉 is a tense sound, with no puff of air.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "turn",
+     "intentKey": "give_direction_turn",
+     "slotId": "turn",
+     "speaker": "character",
+     "targetText": "두 번째 골목에서 오른쪽으로 가세요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "두 번째 골목에서 오른쪽으로 가세요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "du beonjjae golmogeseo oreunjjogeuro gaseyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Turn right at the second alley.",
+       "contextNote": "Swap 오른쪽 for 왼쪽 (oenjjok) to say left.",
+       "literalGloss": "second alley-at + right-toward + please go"
+      },
+      "fr": {
+       "meaning": "Tournez à droite à la deuxième ruelle.",
+       "contextNote": "Remplacez 오른쪽 par 왼쪽 (oenjjok) pour dire « à gauche ».",
+       "literalGloss": "deuxième ruelle-à + droite-vers + allez"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "far",
+     "intentKey": "ask_is_it_far",
+     "slotId": "far",
+     "speaker": "learner",
+     "targetText": "여기서 멀어요?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "여기서 멀어요?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "yeogiseo meoreoyo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Is it far from here?",
+       "contextNote": null,
+       "literalGloss": "here-from + far"
+      },
+      "fr": {
+       "meaning": "C'est loin d'ici ?",
+       "contextNote": "La voyelle de 멀 est « eo » : un « o » ouvert, proche du « eu » de « peur » prononcé bouche bien ouverte.",
+       "literalGloss": "d'ici + loin"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The vowel in 멀 is 'eo', like the 'u' in 'cut' said with an open mouth.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "near",
+     "intentKey": "say_it_is_near",
+     "slotId": "near",
+     "speaker": "character",
+     "targetText": "걸어서 십 분쯤 걸려요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "걸어서 십 분쯤 걸려요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "georeoseo sip bunjjeum geollyeoyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "It takes about ten minutes on foot.",
+       "contextNote": "Ten minutes is fairly near, and the character says it as 'not far'.",
+       "literalGloss": "walking + ten minutes or so + it takes"
+      },
+      "fr": {
+       "meaning": "Il faut environ dix minutes à pied.",
+       "contextNote": "Dix minutes, c'est assez près : le personnage le dit pour dire que ce n'est pas loin.",
+       "literalGloss": "en marchant + dix minutes environ + ça prend"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "repeat",
+     "intentKey": "ask_repeat",
+     "slotId": "repeat",
+     "speaker": "learner",
+     "targetText": "다시 말해 주세요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "다시 말해 주세요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "dasi malhae juseyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Please say that again.",
+       "contextNote": null,
+       "literalGloss": "again + please say"
+      },
+      "fr": {
+       "meaning": "Pouvez-vous répéter, s'il vous plaît ?",
+       "contextNote": "Dans 말해, le ㅎ est très léger : malhae sonne presque « mal-é ».",
+       "literalGloss": "encore + dites, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "In 말해, the ㅎ is very soft: malhae sounds like 'mal-ae'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "slower",
+     "intentKey": "ask_slow_down",
+     "slotId": "slower",
+     "speaker": "learner",
+     "targetText": "천천히 말해 주세요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "천천히 말해 주세요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "cheoncheonhi malhae juseyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Please speak slowly.",
+       "contextNote": "Key phrase for this scene, since the passer-by talks fast.",
+       "literalGloss": "slowly + please say"
+      },
+      "fr": {
+       "meaning": "Parlez lentement, s'il vous plaît.",
+       "contextNote": "Phrase clé de cette scène, puisque le passant parle vite. 천 commence par un ㅊ aspiré, avec un souffle d'air.",
+       "literalGloss": "lentement + dites, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "천 starts with an aspirated ㅊ, with a puff of air.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "감사합니다!",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "감사합니다!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "gamsahamnida!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you!",
+       "contextNote": "Same formula as used earlier in the chapter.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Merci !",
+       "contextNote": "C'est la même formule que celle vue plus tôt dans le chapitre.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "ask_slow_down_variant_10",
+     "intentKey": "ask_slow_down",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "조금만 천천히요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "조금만 천천히요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "jogeumman cheoncheonhiyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "A little slower, please.",
+       "contextNote": "A short, natural spoken alternative.",
+       "literalGloss": "just a little + slowly"
+      },
+      "fr": {
+       "meaning": "Un peu plus lentement, s'il vous plaît.",
+       "contextNote": "Variante courte et naturelle à l'oral.",
+       "literalGloss": "juste un peu + lentement"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_repeat_variant_11",
+     "intentKey": "ask_repeat",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "네? 다시 한번요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "네? 다시 한번요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "ne? dasi hanbeonyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Sorry? One more time, please.",
+       "contextNote": "Quick and casual-polite when you didn't catch something.",
+       "literalGloss": "yes? + again once"
+      },
+      "fr": {
+       "meaning": "Pardon ? Encore une fois, s'il vous plaît.",
+       "contextNote": "Rapide et poli sans être cérémonieux, quand vous n'avez pas bien entendu.",
+       "literalGloss": "oui ? + encore une fois"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_where_is_variant_12",
+     "intentKey": "ask_where_is",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "근처에 지하철역 있어요?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "근처에 지하철역 있어요?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "geuncheoe jihacheollyeok isseoyo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Is there a subway station nearby?",
+       "contextNote": null,
+       "literalGloss": "nearby-at + subway station + is there"
+      },
+      "fr": {
+       "meaning": "Y a-t-il une station de métro près d'ici ?",
+       "contextNote": null,
+       "literalGloss": "près d'ici-à + station de métro + il y a"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "korean_meet_neighbour",
+   "blueprintKey": "meet_neighbour",
+   "titles": {
+    "en": "Meeting Your New Neighbour",
+    "fr": "Rencontrer votre nouveau voisin"
+   },
+   "sceneNotes": {
+    "en": "You run into your neighbour in the stairwell while they carry shopping bags, and you introduce yourself.",
+    "fr": "Vous croisez votre voisine dans la cage d'escalier alors qu'elle porte des sacs de courses, et vous vous présentez."
+   },
+   "characterKey": "korean_character_neighbour",
+   "expressions": [
+    {
+     "key": "new_neighbour",
+     "intentKey": "say_new_neighbour",
+     "slotId": "new_neighbour",
+     "speaker": "learner",
+     "targetText": "안녕하세요, 새로 이사 왔어요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "안녕하세요, 새로 이사 왔어요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "annyeonghaseyo, saero isa wasseoyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello, I just moved in.",
+       "contextNote": "A natural way to introduce yourself to a neighbour you meet for the first time.",
+       "literalGloss": "hello, newly moving-in came"
+      },
+      "fr": {
+       "meaning": "Bonjour, je viens d'emménager.",
+       "contextNote": "Une façon naturelle de se présenter à un voisin que l'on rencontre pour la première fois. Dans 왔어요, le ㅆ final est un « s » tendu : wa-sseo-yo.",
+       "literalGloss": "bonjour, nouvellement emménager être venu"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "In 왔어요, the final ㅆ is a tense 's' sound: wa-sseo-yo.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "welcome",
+     "intentKey": "welcome_someone",
+     "slotId": "welcome",
+     "speaker": "character",
+     "targetText": "어서 와요! 잘 오셨어요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "어서 와요! 잘 오셨어요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "eoseo wayo! jal osyeosseoyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Welcome! Glad you came.",
+       "contextNote": "A warm welcome from a friendly neighbour. 잘 오셨어요 literally means 'you came well'.",
+       "literalGloss": "quickly come! well came (honorific)"
+      },
+      "fr": {
+       "meaning": "Bienvenue ! Je suis contente que vous soyez venu.",
+       "contextNote": "Un accueil chaleureux d'une voisine sympathique. 잘 오셨어요 signifie littéralement « vous êtes bien venu ».",
+       "literalGloss": "vite viens ! bien êtes venu (honorifique)"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "where_from_q",
+     "intentKey": "ask_where_from",
+     "slotId": "where_from_q",
+     "speaker": "learner",
+     "targetText": "어디에서 오셨어요?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "어디에서 오셨어요?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "eodieseo osyeosseoyo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where are you from?",
+       "contextNote": "Literally 'where did you come from?'. Polite and common for asking about origin.",
+       "literalGloss": "where-from came (honorific)?"
+      },
+      "fr": {
+       "meaning": "D'où venez-vous ?",
+       "contextNote": "Littéralement « d'où êtes-vous venu ? ». Poli et courant pour demander l'origine de quelqu'un.",
+       "literalGloss": "d'où êtes venu (honorifique) ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "from",
+     "intentKey": "say_where_from",
+     "slotId": "from",
+     "speaker": "learner",
+     "targetText": "저는 미국에서 왔어요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "저는 미국에서 왔어요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "jeoneun migugeseo wasseoyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm from the USA.",
+       "contextNote": "Swap 미국 for your own country, e.g. 영국 (UK), 캐나다 (Canada).",
+       "literalGloss": "I-topic USA-from came"
+      },
+      "fr": {
+       "meaning": "Je viens des États-Unis.",
+       "contextNote": "Remplacez 미국 par votre pays, par ex. 영국 (Royaume-Uni), 캐나다 (Canada). 미국에서 se lie à l'oral : migugeseo.",
+       "literalGloss": "moi (thème) États-Unis-de suis venu"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "미국에서 flows together: migugeseo.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "speak_lang",
+     "intentKey": "ask_if_speaks_language",
+     "slotId": "speak_lang",
+     "speaker": "learner",
+     "targetText": "영어 하세요?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "영어 하세요?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "yeongeo haseyo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you speak English?",
+       "contextNote": "Short and natural. Swap in another language name if needed.",
+       "literalGloss": "English do (honorific)?"
+      },
+      "fr": {
+       "meaning": "Vous parlez anglais ?",
+       "contextNote": "Court et naturel. Remplacez par le nom d'une autre langue si besoin.",
+       "literalGloss": "anglais faites (honorifique) ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "little",
+     "intentKey": "say_speak_little",
+     "slotId": "little",
+     "speaker": "learner",
+     "targetText": "한국어를 조금 해요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "한국어를 조금 해요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "hangugeoreul jogeum haeyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I speak a little Korean.",
+       "contextNote": null,
+       "literalGloss": "Korean-object a little do"
+      },
+      "fr": {
+       "meaning": "Je parle un peu coréen.",
+       "contextNote": null,
+       "literalGloss": "coréen (objet) un peu fais"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "offer_help",
+     "intentKey": "offer_help",
+     "slotId": "offer_help",
+     "speaker": "learner",
+     "targetText": "가방 들어 드릴까요?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "가방 들어 드릴까요?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "gabang deureo deurilkkayo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Shall I carry your bags?",
+       "contextNote": "Fits the scene, since the neighbour is carrying shopping bags.",
+       "literalGloss": "bag lift-for-you shall I?"
+      },
+      "fr": {
+       "meaning": "Je vous aide à porter vos sacs ?",
+       "contextNote": "Convient bien à la scène, puisque la voisine porte des sacs de courses. Dans 드릴까요, ㄹ + ㄲ donne un « kk » tendu.",
+       "literalGloss": "sac soulever-pour vous dois-je ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "In 드릴까요, ㄹ+ㄲ gives a tense 'kk'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "감사합니다. 정말 고마워요!",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "감사합니다. 정말 고마워요!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "gamsahamnida. jeongmal gomawoyo!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you. Thanks so much!",
+       "contextNote": "Use after the neighbour invites you for tea or accepts your help.",
+       "literalGloss": "thank you. really thankful"
+      },
+      "fr": {
+       "meaning": "Merci. Merci beaucoup !",
+       "contextNote": "À dire quand la voisine vous invite à prendre le thé ou accepte votre aide.",
+       "literalGloss": "merci. vraiment reconnaissant"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "say_new_neighbour_variant_9",
+     "intentKey": "say_new_neighbour",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "위층에 이사 왔어요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "위층에 이사 왔어요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "wicheunge isa wasseoyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I moved in upstairs.",
+       "contextNote": "Useful if you live on a higher floor than the neighbour.",
+       "literalGloss": "upstairs-at moving came"
+      },
+      "fr": {
+       "meaning": "J'ai emménagé à l'étage au-dessus.",
+       "contextNote": "Utile si vous habitez à un étage plus haut que votre voisine.",
+       "literalGloss": "étage-du-dessus-à emménager suis venu"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "say_speak_little_variant_10",
+     "intentKey": "say_speak_little",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "한국어 공부하고 있어요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "한국어 공부하고 있어요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "hangugeo gongbuhago isseoyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm studying Korean.",
+       "contextNote": "A friendly way to explain why your Korean is limited.",
+       "literalGloss": "Korean studying am"
+      },
+      "fr": {
+       "meaning": "J'étudie le coréen.",
+       "contextNote": "Une façon sympathique d'expliquer pourquoi votre coréen est limité.",
+       "literalGloss": "coréen étudiant suis"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "korean_take_taxi",
+   "blueprintKey": "take_taxi",
+   "titles": {
+    "en": "Taking a Taxi",
+    "fr": "Prendre un taxi"
+   },
+   "sceneNotes": {
+    "en": "You get into a taxi in heavy traffic, heading to the old town, and the chatty driver may offer a flat price instead of using the meter.",
+    "fr": "Vous montez dans un taxi en pleine circulation dense pour aller à la vieille ville, et le chauffeur bavard pourrait vous proposer un prix fixe au lieu d'utiliser le compteur."
+   },
+   "characterKey": "korean_character_taxi_driver",
+   "expressions": [
+    {
+     "key": "hail",
+     "intentKey": "hail_taxi",
+     "slotId": "hail",
+     "speaker": "learner",
+     "targetText": "안녕하세요, 택시 타도 돼요?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "안녕하세요, 택시 타도 돼요?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "annyeonghaseyo, taeksi tado dwaeyo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello, can I take this taxi?",
+       "contextNote": "Said when opening the door or leaning to the window.",
+       "literalGloss": "hello, taxi ride-okay?"
+      },
+      "fr": {
+       "meaning": "Bonjour, je peux monter dans ce taxi ?",
+       "contextNote": "À dire en ouvrant la portière ou en vous penchant vers la vitre.",
+       "literalGloss": "bonjour, taxi monter-d'accord ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": "택시 is an English loanword (taxi).",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "where_to",
+     "intentKey": "ask_destination",
+     "slotId": "where_to",
+     "speaker": "character",
+     "targetText": "어디로 갈까요?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "어디로 갈까요?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "eodiro galkkayo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where shall we go?",
+       "contextNote": null,
+       "literalGloss": "to-where shall-we-go?"
+      },
+      "fr": {
+       "meaning": "Où allons-nous ?",
+       "contextNote": "Le ㄲ de 갈까요 est une consonne tendue : prononcez-le fermement.",
+       "literalGloss": "vers-où on-va-aller ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ㄲ in 갈까요 is a tense sound: say it firmly.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "destination",
+     "intentKey": "state_destination",
+     "slotId": "destination",
+     "speaker": "learner",
+     "targetText": "구시가지로 가 주세요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "구시가지로 가 주세요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "gusigajiro ga juseyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Please take me to the old town.",
+       "contextNote": "In real life, swap in the actual place name, e.g. 북촌.",
+       "literalGloss": "to-old-town go please"
+      },
+      "fr": {
+       "meaning": "Emmenez-moi à la vieille ville, s'il vous plaît.",
+       "contextNote": "Dans la vraie vie, remplacez par le nom du lieu exact, par ex. 북촌.",
+       "literalGloss": "vers-vieille-ville aller s'il-vous-plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "meter",
+     "intentKey": "ask_use_meter",
+     "slotId": "meter",
+     "speaker": "learner",
+     "targetText": "미터기 켜 주시겠어요?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "미터기 켜 주시겠어요?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "miteogi kyeo jusigesseoyo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could you turn on the meter?",
+       "contextNote": "Use this when the driver quotes a flat price.",
+       "literalGloss": "meter turn-on would-you-please?"
+      },
+      "fr": {
+       "meaning": "Pourriez-vous mettre le compteur, s'il vous plaît ?",
+       "contextNote": "À utiliser quand le chauffeur annonce un prix fixe.",
+       "literalGloss": "compteur allumer voudriez-vous-bien ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": "미터기 is built from the English loanword 'meter'.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "fare",
+     "intentKey": "ask_fare",
+     "slotId": "fare",
+     "speaker": "learner",
+     "targetText": "구시가지까지 얼마예요?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "구시가지까지 얼마예요?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "gusigajikkaji eolmayeyo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much is it to the old town?",
+       "contextNote": null,
+       "literalGloss": "until-old-town how-much-is-it?"
+      },
+      "fr": {
+       "meaning": "Combien coûte la course jusqu'à la vieille ville ?",
+       "contextNote": "Dans 까지, le k est tendu : on prononce « kkaji ».",
+       "literalGloss": "jusqu'à-vieille-ville combien-c'est ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "까지 is pronounced 'kkaji' with a tense k.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "stop",
+     "intentKey": "say_stop_here",
+     "slotId": "stop",
+     "speaker": "learner",
+     "targetText": "여기서 세워 주세요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "여기서 세워 주세요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "yeogiseo sewo juseyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Please stop here.",
+       "contextNote": null,
+       "literalGloss": "here-at stop please"
+      },
+      "fr": {
+       "meaning": "Arrêtez-vous ici, s'il vous plaît.",
+       "contextNote": null,
+       "literalGloss": "ici-à arrêter s'il-vous-plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "change",
+     "intentKey": "ask_for_change",
+     "slotId": "change",
+     "speaker": "learner",
+     "targetText": "잔돈 주세요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "잔돈 주세요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "jandon juseyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "My change, please.",
+       "contextNote": null,
+       "literalGloss": "small-money please"
+      },
+      "fr": {
+       "meaning": "Ma monnaie, s'il vous plaît.",
+       "contextNote": null,
+       "literalGloss": "petite-monnaie s'il-vous-plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "bye",
+     "intentKey": "say_goodbye",
+     "slotId": "bye",
+     "speaker": "learner",
+     "targetText": "수고하세요!",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "수고하세요!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "sugohaseyo!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Take care! (Thanks for your work.)",
+       "contextNote": "A common parting phrase when leaving a driver or shop worker.",
+       "literalGloss": "work-hard (honorific)"
+      },
+      "fr": {
+       "meaning": "Bon courage ! (Merci pour votre travail.)",
+       "contextNote": "Formule courante pour prendre congé d'un chauffeur ou d'un commerçant.",
+       "literalGloss": "travaillez-dur (honorifique)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_use_meter_variant_9",
+     "intentKey": "ask_use_meter",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "미터기로 가 주세요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "미터기로 가 주세요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "miteogiro ga juseyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Please go by the meter.",
+       "contextNote": "A short, firm but polite alternative.",
+       "literalGloss": "by-meter go please"
+      },
+      "fr": {
+       "meaning": "Allez-y au compteur, s'il vous plaît.",
+       "contextNote": "Une variante courte, ferme mais polie.",
+       "literalGloss": "par-compteur aller s'il-vous-plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "say_stop_here_variant_10",
+     "intentKey": "say_stop_here",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "여기서 내릴게요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "여기서 내릴게요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "yeogiseo naerilgeyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'll get out here.",
+       "contextNote": "Very common and natural in heavy traffic.",
+       "literalGloss": "here-at I'll-get-off"
+      },
+      "fr": {
+       "meaning": "Je descends ici.",
+       "contextNote": "Très courant et naturel quand la circulation est dense.",
+       "literalGloss": "ici-à je-descends"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_fare_variant_11",
+     "intentKey": "ask_fare",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "얼마나 나와요?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "얼마나 나와요?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "eolmana nawayo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much will it come to?",
+       "contextNote": "Good when you ask before or during the ride.",
+       "literalGloss": "how-much come-out?"
+      },
+      "fr": {
+       "meaning": "Ça va faire combien ?",
+       "contextNote": "Pratique pour demander avant ou pendant la course.",
+       "literalGloss": "combien sortir ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "korean_buy_ice_cream",
+   "blueprintKey": "buy_ice_cream",
+   "titles": {
+    "en": "Buying Ice Cream Together",
+    "fr": "Acheter une glace ensemble"
+   },
+   "sceneNotes": {
+    "en": "You take a child to the ice-cream cart outside the school, where only two flavours are left, and kindly say no when they ask for a second scoop.",
+    "fr": "Vous emmenez un enfant au camion de glaces devant l'école, où il ne reste que deux parfums, et vous refusez gentiment une deuxième boule quand il en demande une."
+   },
+   "characterKey": "korean_character_child_at_the_ice_cream_stand",
+   "expressions": [
+    {
+     "key": "wants",
+     "intentKey": "request_food",
+     "slotId": "wants",
+     "speaker": "character",
+     "targetText": "나 아이스크림 먹고 싶어!",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "나 아이스크림 먹고 싶어!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "na aiseukrim meokgo sipeo!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I want to eat ice cream!",
+       "contextNote": "A child speaking casually to a grown-up they know.",
+       "literalGloss": "I ice-cream eat-want"
+      },
+      "fr": {
+       "meaning": "J'ai envie de manger une glace !",
+       "contextNote": "Un enfant qui parle familièrement à un adulte qu'il connaît.",
+       "literalGloss": "moi glace manger-avoir envie"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": "아이스크림 is an English loanword.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "which_flavour",
+     "intentKey": "offer_options",
+     "slotId": "which_flavour",
+     "speaker": "learner",
+     "targetText": "딸기랑 초코, 뭐 먹을래?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "딸기랑 초코, 뭐 먹을래?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "ttalgirang choko, mwo meogeullae?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Strawberry or chocolate, which one do you want?",
+       "contextNote": "Said to a child. 초코 is the everyday short form of 초콜릿.",
+       "literalGloss": "strawberry-and chocolate, what will-you-eat"
+      },
+      "fr": {
+       "meaning": "Fraise ou chocolat, tu veux quoi ?",
+       "contextNote": "Se dit à un enfant. 초코 est la forme courte et courante de 초콜릿.",
+       "literalGloss": "fraise-et chocolat, quoi tu-mangeras"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "딸 is a tense sound: say 'tt' with a firm, tight tongue.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "picks",
+     "intentKey": "choose_option",
+     "slotId": "picks",
+     "speaker": "character",
+     "targetText": "나는 초코로 할래!",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "나는 초코로 할래!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "naneun chokoro hallae!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'll go with chocolate!",
+       "contextNote": null,
+       "literalGloss": "I-as-for chocolate-with will-do"
+      },
+      "fr": {
+       "meaning": "Moi, je prends chocolat !",
+       "contextNote": null,
+       "literalGloss": "moi-quant à chocolat-avec je-ferai"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "scoop",
+     "intentKey": "specify_quantity",
+     "slotId": "scoop",
+     "speaker": "learner",
+     "targetText": "초코 한 스쿱 주세요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "초코 한 스쿱 주세요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "choko han seukup juseyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "One scoop of chocolate, please.",
+       "contextNote": "Said politely to the ice-cream seller.",
+       "literalGloss": "chocolate one scoop please-give"
+      },
+      "fr": {
+       "meaning": "Une boule de chocolat, s'il vous plaît.",
+       "contextNote": "Se dit poliment au vendeur de glaces.",
+       "literalGloss": "chocolat une boule donnez-moi s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": "스쿱 is an English loanword (scoop).",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "asks_two",
+     "intentKey": "ask_permission",
+     "slotId": "asks_two",
+     "speaker": "character",
+     "targetText": "한 스쿱 더 먹어도 돼?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "한 스쿱 더 먹어도 돼?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "han seukup deo meogeodo dwae?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have one more scoop?",
+       "contextNote": "This is the twist. The child asks for a second scoop.",
+       "literalGloss": "one scoop more eat-even-if okay?"
+      },
+      "fr": {
+       "meaning": "Je peux reprendre une boule ?",
+       "contextNote": "C'est le rebondissement : l'enfant demande une deuxième boule.",
+       "literalGloss": "une boule de plus manger-même si d'accord ?"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": "스쿱 is an English loanword.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "just_one",
+     "intentKey": "refuse_permission",
+     "slotId": "just_one",
+     "speaker": "learner",
+     "targetText": "미안, 오늘은 하나만 먹자.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "미안, 오늘은 하나만 먹자."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "mian, oneureun hanaman meokja."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Sorry, let's just have one today.",
+       "contextNote": "A kind no. The 'let's' ending (-자) sounds gentle, not like an order.",
+       "literalGloss": "sorry, today-as-for one-only let's-eat"
+      },
+      "fr": {
+       "meaning": "Désolé(e), aujourd'hui on n'en prend qu'une.",
+       "contextNote": "Un refus gentil. La terminaison -자 (« allons-y, faisons ») paraît douce, pas autoritaire.",
+       "literalGloss": "désolé, aujourd'hui-quant à un-seulement mangeons"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "okay",
+     "intentKey": "grant_permission",
+     "slotId": "okay",
+     "speaker": "learner",
+     "targetText": "그래, 먹어도 돼.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "그래, 먹어도 돼."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "geurae, meogeodo dwae."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Okay, you can have it.",
+       "contextNote": "Optional alternative if the grown-up says yes to the second scoop.",
+       "literalGloss": "okay, eat-even-if fine"
+      },
+      "fr": {
+       "meaning": "D'accord, tu peux en reprendre.",
+       "contextNote": "Variante possible si l'adulte accepte la deuxième boule.",
+       "literalGloss": "d'accord, manger-même si c'est bon"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "yummy",
+     "intentKey": "say_delicious",
+     "slotId": "yummy",
+     "speaker": "character",
+     "targetText": "와, 진짜 맛있어!",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "와, 진짜 맛있어!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "wa, jinjja masisseo!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Wow, it's really good!",
+       "contextNote": null,
+       "literalGloss": "wow, really delicious"
+      },
+      "fr": {
+       "meaning": "Waouh, c'est trop bon !",
+       "contextNote": "맛있어 se prononce « ma-chi-sso ».",
+       "literalGloss": "waouh, vraiment délicieux"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "맛있어 is pronounced like 'ma-si-sseo'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "me_too",
+     "intentKey": "express_like",
+     "slotId": "me_too",
+     "speaker": "learner",
+     "targetText": "나도 초코 좋아해!",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "나도 초코 좋아해!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "nado choko joahae!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I like chocolate too!",
+       "contextNote": null,
+       "literalGloss": "I-also chocolate like"
+      },
+      "fr": {
+       "meaning": "Moi aussi, j'aime le chocolat !",
+       "contextNote": null,
+       "literalGloss": "moi-aussi chocolat aimer"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "character",
+     "targetText": "고마워! 최고야!",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "고마워! 최고야!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "gomawo! choegoya!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks! You're the best!",
+       "contextNote": "Casual form of the 고마워요 used earlier in the chapter.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Merci ! T'es le meilleur !",
+       "contextNote": "Forme familière du 고마워요 vu plus tôt dans le chapitre.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "welcome",
+     "intentKey": "respond_to_thanks",
+     "slotId": "welcome",
+     "speaker": "learner",
+     "targetText": "응, 맛있게 먹어.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "응, 맛있게 먹어."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "eung, masitge meogeo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Sure, enjoy it.",
+       "contextNote": "A common way to answer thanks when someone is about to eat.",
+       "literalGloss": "yes, deliciously eat"
+      },
+      "fr": {
+       "meaning": "Oui, bon appétit.",
+       "contextNote": "Une façon courante de répondre à un merci quand quelqu'un va manger.",
+       "literalGloss": "oui, délicieusement mange"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "offer_options_variant_12",
+     "intentKey": "offer_options",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "딸기 아니면 초코?",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "딸기 아니면 초코?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "ttalgi animyeon choko?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Strawberry or chocolate?",
+       "contextNote": "A shorter casual way to offer the choice.",
+       "literalGloss": "strawberry if-not chocolate"
+      },
+      "fr": {
+       "meaning": "Fraise ou chocolat ?",
+       "contextNote": "Une façon plus courte et familière de proposer le choix.",
+       "literalGloss": "fraise sinon chocolat"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "specify_quantity_variant_13",
+     "intentKey": "specify_quantity",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "초코 하나 주세요.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "초코 하나 주세요."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "choko hana juseyo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "One chocolate, please.",
+       "contextNote": "A simpler polite alternative that doesn't use the word 'scoop'.",
+       "literalGloss": "chocolate one please-give"
+      },
+      "fr": {
+       "meaning": "Un chocolat, s'il vous plaît.",
+       "contextNote": "Une variante polie plus simple, sans le mot « boule ».",
+       "literalGloss": "chocolat un donnez-moi s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "refuse_permission_variant_14",
+     "intentKey": "refuse_permission",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "오늘은 하나만. 다음에 또 먹자.",
+     "forms": [
+      {
+       "script": "Kore",
+       "transliterationScheme": null,
+       "text": "오늘은 하나만. 다음에 또 먹자."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "revised-romanization",
+       "text": "oneureun hanaman. daeume tto meokja."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Just one today. Let's have more next time.",
+       "contextNote": "A softer no that promises another treat.",
+       "literalGloss": "today-as-for one-only. next-time again let's-eat"
+      },
+      "fr": {
+       "meaning": "Juste une aujourd'hui. On en reprendra la prochaine fois.",
+       "contextNote": "Un refus plus doux qui promet une autre gourmandise.",
+       "literalGloss": "aujourd'hui-quant à un-seulement. prochaine fois encore mangeons"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  }
+ ],
+ "provenance": "ai_draft",
+ "nativeReviewed": false,
+ "reviewStatus": "review_needed",
+ "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+ "notes": [
+  "AI draft generated 2026-11-11T22:45:23.455Z with anthropic/claude-sonnet-5.5; validator accepted 78 expressions; native review required before publishing.",
+  "greet_and_introduce: 안녕히 가세요 is chosen because the character is leaving in a hurry; 안녕히 계세요 is for when the learner leaves.",
+  "greet_and_introduce: 에밀리 is a placeholder name; the 예요/이에요 choice depends on the learner's name.",
+  "greet_and_introduce: 만나서 반가워요 is used instead of 반갑습니다 to stay in 해요체.",
+  "cafe_order_drink: The greeting slot adds 주문할게요 to avoid repeating the earlier plain 안녕하세요. Please check it sounds natural.",
+  "cafe_order_drink: The server's 따뜻한 거요, 아이스요? is deliberately short and informal-polite. Check the register against 'neutral'.",
+  "cafe_order_drink: Café-style loanwords (아이스, 카드) follow common usage. Check whether 핫 or 따뜻한 is the more natural hot option.",
+  "market_ask_price: Prices are written with Sino-Korean numbers (오천, 사천); please check they sound natural for a fruit stall.",
+  "market_ask_price: The twist (vendor adds a free item) has no required slot, so it will need follow-up character lines later.",
+  "market_ask_price: '사장님' may be replaced by '아주머니' or '이모' depending on the vendor's age and local habit; please check.",
+  "ask_directions: Used 저기요 + 죄송한데요 for attention; please confirm it is natural for a visitor, as 실례합니다 is more formal.",
+  "ask_directions: '감사합니다' reused from earlier chapter lines for consistency; 지하철역 chosen as the station word.",
+  "ask_directions: Character lines deliberately a bit longer to fit the 'fast talker' twist; please check the 걸려요 phrasing for say_it_is_near.",
+  "meet_neighbour: The earlier thanks formulas 감사합니다 and 고마워요 are reused inside one line; please check that it isn't too repetitive.",
+  "meet_neighbour: '미국' is a placeholder origin; the learner should swap in their own country.",
+  "meet_neighbour: The character name 김민정 is a common female name; please confirm the neighbour's lines suit the intended gender.",
+  "take_taxi: 구시가지 is generic for 'old town'; consider a real Seoul place such as 북촌 or 종로.",
+  "take_taxi: 수고하세요 is used as a taxi farewell, though some say it is more for service staff; please confirm. 감사합니다 and 안녕히 가세요 were already used earlier in the chapter, so they were skipped.",
+  "take_taxi: Please check whether 택시 타도 돼요? is the most natural hailing line, or whether 기사님, 가능해요? is better.",
+  "buy_ice_cream: Casual (banmal) is used for the child's lines and the grown-up's lines to the child, as the brief requires. Please check that this feels natural for a child speaking to an adult.",
+  "buy_ice_cream: The 'okay' slot contradicts the 'just_one' refusal, so it is meant as an optional alternative branch.",
+  "buy_ice_cream: Please confirm that 스쿱 is what a Korean cart seller would say, versus 한 개 or 하나.",
+  "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+ ]
+}

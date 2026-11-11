@@ -26,34 +26,61 @@ const GEMINI = 'google/gemini-3.8-flash-tts';
 
 const gemini = (id: string, voice: string, instructions: string, label: string): BundleVoice => ({ id, model: GEMINI, voice, instructions, format: 'pcm', label });
 
-const CASTILIAN = 'Speak in natural Castilian Spanish from Madrid, Spain, as in an everyday conversation: relaxed, warm, native pace and intonation.';
-const TOKYO = 'Speak in natural Tokyo Japanese, as in an everyday conversation: polite, warm, native pace and intonation.';
-const AMERICAN = 'Speak in natural American English, as in an everyday conversation: relaxed, warm, native pace and intonation.';
-const DARIJA = 'Speak in Moroccan Darija as spoken in Casablanca, never Modern Standard Arabic, as in an everyday conversation: warm, native pace and intonation.';
+/** How each course's lines are spoken: the variety (and where the course's characters live), never a neighbouring one. */
+export const VOICE_INSTRUCTIONS: Readonly<Record<string, string>> = {
+  'arabic-eastern': 'Levantine Arabic as spoken in Damascus, never Modern Standard Arabic',
+  'arabic-moroccan': 'Moroccan Darija as spoken in Casablanca, never Modern Standard Arabic',
+  'arabic-egyptian': 'Egyptian Arabic as spoken in Cairo, never Modern Standard Arabic',
+  'arabic-msa': 'Modern Standard Arabic with a clear, natural standard pronunciation',
+  'chinese-cantonese': 'Hong Kong Cantonese, never Mandarin',
+  'chinese-mandarin': 'standard Mandarin Chinese (Putonghua) as spoken in Beijing',
+  'chinese-simplified': 'standard Mandarin Chinese (Putonghua) as spoken in Beijing',
+  english: 'natural American English',
+  danish: 'natural standard Danish as spoken in Copenhagen',
+  french: 'natural French from France',
+  german: 'natural standard German from Germany',
+  greek: 'natural standard Modern Greek as spoken in Athens',
+  'haitian-creole': 'Haitian Creole (Kreyòl ayisyen) as spoken in Port-au-Prince, never French',
+  hebrew: 'natural modern Israeli Hebrew',
+  hindi: 'natural standard Hindi as spoken in Delhi',
+  italian: 'natural standard Italian',
+  japanese: 'natural Tokyo Japanese',
+  korean: 'natural standard Seoul Korean',
+  'portuguese-brazilian': 'natural Brazilian Portuguese, never European Portuguese',
+  'portuguese-european': 'natural European Portuguese from Lisbon, never Brazilian Portuguese',
+  romanian: 'natural standard Romanian',
+  russian: 'natural standard Russian as spoken in Moscow',
+  'spanish-latin-american': 'natural Latin American Spanish as spoken in Mexico City, never Castilian Spanish',
+  'spanish-spain': 'natural Castilian Spanish from Madrid, Spain',
+  swahili: 'natural Swahili as spoken in Nairobi',
+  kinyarwanda: 'natural Kinyarwanda as spoken in Kigali',
+  swedish: 'natural standard Swedish as spoken in Stockholm',
+  lingala: 'natural Lingala as spoken in Kinshasa',
+  ukrainian: 'natural standard Ukrainian as spoken in Kyiv, never Russian',
+  vietnamese: 'natural Vietnamese as spoken in Hanoi',
+};
+
+const say = (variety: string): string => `Speak in ${variety}, as in an everyday conversation: relaxed, warm, native pace and intonation.`;
+
+/** Instructions of the first four courses, verbatim: they are part of each clip's name, so the shipped clips keep matching. */
+const LEGACY_INSTRUCTIONS: Readonly<Record<string, string>> = {
+  japanese: 'Speak in natural Tokyo Japanese, as in an everyday conversation: polite, warm, native pace and intonation.',
+  'arabic-moroccan': 'Speak in Moroccan Darija as spoken in Casablanca, never Modern Standard Arabic, as in an everyday conversation: warm, native pace and intonation.',
+};
+
+/** The course's voice ids (`<track>-<voice>`, lowercase) are stable: they name the bundled clips. */
+const ID_PREFIX: Readonly<Record<string, string>> = { 'spanish-spain': 'es-es', japanese: 'ja', 'arabic-moroccan': 'ary', english: 'en-us' };
+const LEGACY_VOICES: Readonly<Record<string, { female: string; male: string }>> = { japanese: { female: 'Kore', male: 'Charon' }, 'arabic-moroccan': { female: 'Kore', male: 'Charon' } };
 
 /** Per course: the character voices by casting, and the learner's voice. */
-export const BUNDLE_VOICES: Readonly<Record<string, { female: BundleVoice; male: BundleVoice; learner: BundleVoice }>> = {
-  'spanish-spain': {
-    female: gemini('es-es-aoede', 'Aoede', CASTILIAN, 'Aoede (Gemini TTS, instructed Castilian)'),
-    male: gemini('es-es-orus', 'Orus', CASTILIAN, 'Orus (Gemini TTS, instructed Castilian)'),
-    learner: gemini('es-es-puck', 'Puck', CASTILIAN, 'Puck (Gemini TTS, instructed Castilian)'),
-  },
-  japanese: {
-    female: gemini('ja-kore', 'Kore', TOKYO, 'Kore (Gemini TTS, instructed Tokyo Japanese)'),
-    male: gemini('ja-charon', 'Charon', TOKYO, 'Charon (Gemini TTS, instructed Tokyo Japanese)'),
-    learner: gemini('ja-puck', 'Puck', TOKYO, 'Puck (Gemini TTS, instructed Tokyo Japanese)'),
-  },
-  'arabic-moroccan': {
-    female: gemini('ary-kore', 'Kore', DARIJA, 'Kore (Gemini TTS, instructed Darija)'),
-    male: gemini('ary-charon', 'Charon', DARIJA, 'Charon (Gemini TTS, instructed Darija)'),
-    learner: gemini('ary-puck', 'Puck', DARIJA, 'Puck (Gemini TTS, instructed Darija)'),
-  },
-  english: {
-    female: gemini('en-us-aoede', 'Aoede', AMERICAN, 'Aoede (Gemini TTS, instructed American English)'),
-    male: gemini('en-us-orus', 'Orus', AMERICAN, 'Orus (Gemini TTS, instructed American English)'),
-    learner: gemini('en-us-puck', 'Puck', AMERICAN, 'Puck (Gemini TTS, instructed American English)'),
-  },
-};
+export const BUNDLE_VOICES: Readonly<Record<string, { female: BundleVoice; male: BundleVoice; learner: BundleVoice }>> = Object.fromEntries(
+  Object.entries(VOICE_INSTRUCTIONS).map(([track, variety]) => {
+    const prefix = ID_PREFIX[track] ?? track;
+    const names = LEGACY_VOICES[track] ?? { female: 'Aoede', male: 'Orus' };
+    const voice = (name: string): BundleVoice => gemini(`${prefix}-${name.toLowerCase()}`, name, LEGACY_INSTRUCTIONS[track] ?? say(variety), `${name} (Gemini TTS, instructed ${variety.replace(/^natural /, '').replace(/,.*$/, '')})`);
+    return [track, { female: voice(names.female), male: voice(names.male), learner: voice('Puck') }];
+  }),
+);
 
 /** The voice of one line: the learner's role, or the character cast female or male (female when not cast). */
 export function voiceForLine(trackId: string, speaker: 'learner' | 'character', characterVoice: 'female' | 'male' | null): BundleVoice | null {

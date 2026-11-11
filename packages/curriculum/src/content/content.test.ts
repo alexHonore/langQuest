@@ -3,7 +3,8 @@ import { describe, expect, it } from 'vitest';
 import { getBlueprint } from '../missions/scenarios';
 import { realise } from '../missions/realise';
 import { ARABIC_MOROCCAN_CHAPTER_1 } from './arabic-moroccan';
-import { DRAFT_CHAPTERS, summariseCoverage } from './coverage';
+import { DRAFT_CHAPTERS, HAND_AUTHORED_CHAPTERS, summariseCoverage } from './coverage';
+import { GENERATED_CHAPTERS } from './generated';
 import { ENGLISH_CHAPTER_1 } from './english';
 import { JAPANESE_CHAPTER_1 } from './japanese';
 import { CHAPTER_1_BLUEPRINT_KEYS, buildAllPlannedSkeletons, buildPlannedSkeleton } from './skeletons';
@@ -16,13 +17,43 @@ const KANA_OR_KANJI = /[぀-ヿ一-鿿]/;
 const LATIN_ONLY = /^[\p{Script=Latin}\p{N}\p{P}\s]+$/u;
 
 describe('draft chapters are honestly labelled', () => {
-  it('ships the four flagship drafts with the requested mission counts', () => {
-    expect(DRAFT_CHAPTERS.map((c) => [c.courseTrackId, c.sourceLanguages, c.missions.length])).toEqual([
+  it('ships the four hand-authored drafts with the requested mission counts (Spanish and Japanese with a French overlay)', () => {
+    expect(HAND_AUTHORED_CHAPTERS.map((c) => [c.courseTrackId, c.sourceLanguages, c.missions.length])).toEqual([
       ['arabic-moroccan', ['fr', 'en'], 7],
-      ['spanish-spain', ['en'], 6],
-      ['japanese', ['en'], 4],
+      ['spanish-spain', ['en', 'fr'], 6],
+      ['japanese', ['en', 'fr'], 4],
       ['english', ['fr', 'ru'], 4],
     ]);
+  });
+
+  it('every track has a chapter 1 for learners from English and from French (the French course from English, the English course from French)', () => {
+    expect(DRAFT_CHAPTERS).toHaveLength(30);
+    for (const track of COURSE_TRACKS) {
+      const chapters = DRAFT_CHAPTERS.filter((c) => c.courseTrackId === track.id);
+      expect(chapters, track.id).toHaveLength(1);
+      const sources = chapters[0]!.sourceLanguages;
+      if (track.id === 'english') expect(sources).toContain('fr');
+      else if (track.id === 'french') expect(sources).toEqual(['en']);
+      else expect([...sources].sort(), track.id).toEqual(expect.arrayContaining(['en', 'fr']));
+    }
+    for (const c of GENERATED_CHAPTERS) {
+      expect(c.missions.map((m) => m.blueprintKey), c.key).toEqual(CHAPTER_1_BLUEPRINT_KEYS);
+      expect(Object.values(c.titles).every((t) => !t.startsWith('story.')), `${c.key} shows a real chapter title`).toBe(true);
+      for (const ch of c.characters) expect(ch.voice, `${c.key}/${ch.characterKey}`).not.toBeNull();
+    }
+  });
+
+  it('generated drafts are written in the course script, with its transliteration', () => {
+    const script: Record<string, RegExp> = { Cyrl: /[Ѐ-ӿ]/, Grek: /[Ͱ-Ͽ]/, Hebr: /[֐-׿]/, Deva: /[ऀ-ॿ]/, Kore: /[가-힯]/, Hans: /[一-鿿]/, Hant: /[一-鿿]/, Arab: ARABIC };
+    for (const c of GENERATED_CHAPTERS) {
+      const track = getCourseTrack(c.courseTrackId);
+      const want = script[track.scriptFocus ?? track.scripts.primary];
+      for (const e of c.missions.flatMap((m) => m.expressions)) {
+        if (want) expect(e.targetText, `${c.key}: ${e.key}`).toMatch(want);
+        else expect(e.targetText, `${c.key}: ${e.key}`).toMatch(LATIN_ONLY);
+        for (const scheme of track.scripts.transliterations) expect(e.forms.some((f) => f.transliterationScheme === scheme), `${c.key}: ${e.key} ${scheme}`).toBe(true);
+      }
+    }
   });
 
   it.each(DRAFT_CHAPTERS.map((c) => [c.key, c] as const))('%s: every expression is an unreviewed ai_draft with target text and overlays for every chapter source', (_key, chapter) => {
@@ -84,6 +115,8 @@ describe('draft chapters are honestly labelled', () => {
 
   it('Spanish is Castilian only and English carries French and Russian overlays', () => {
     expect(SPANISH_SPAIN_CHAPTER_1.targetVarietyId).toBe('es-ES');
+    expect(SPANISH_SPAIN_CHAPTER_1.titles.fr).toBeTruthy();
+    for (const e of [...SPANISH_SPAIN_CHAPTER_1.missions, ...JAPANESE_CHAPTER_1.missions].flatMap((m) => m.expressions)) expect(e.meanings.fr?.meaning).toBeTruthy();
     expect(ENGLISH_CHAPTER_1.targetVarietyId).toBe('en');
     for (const e of ENGLISH_CHAPTER_1.missions.flatMap((m) => m.expressions)) {
       expect(e.meanings.fr?.meaning).toBeTruthy();
@@ -189,16 +222,19 @@ describe('coverage summary', () => {
     expect(summary.invariants).toEqual({ everyTrackHasSkeleton: true, noPublishedContent: true, noNativeReviewedClaims: true, noSkeletonTargetText: true });
     expect(summary.totals.complete).toBe(0);
     expect(summary.totals.unavailable).toBe(0);
-    expect(summary.totals.partial).toBe(6);
-    expect(summary.totals.planned).toBe(summary.rows.length - 6);
+    // 4 hand-authored chapters (8 pairs) + 24 generated (en+fr) + French (en) + the Simplified copy (en+fr).
+    expect(summary.totals.partial).toBe(8 + 24 * 2 + 1 + 2);
+    expect(summary.totals.planned).toBe(summary.rows.length - summary.totals.partial);
     const row = (track: string, source: SourceLanguageCode) => summary.rows.find((r) => r.courseTrackId === track && r.sourceLanguageCode === source)!;
     expect(row('arabic-moroccan', 'fr')).toMatchObject({ status: 'partial', nativeReviewed: false, draftedMissionCount: 7, nativeReviewedExpressionCount: 0 });
     expect(row('arabic-moroccan', 'fr').metrics.mission_instructions_pct).toBe(100);
     expect(row('arabic-moroccan', 'ru').status).toBe('planned');
     expect(row('english', 'ru')).toMatchObject({ status: 'partial', draftedMissionCount: 4 });
     expect(row('english', 'ru').metrics.mission_instructions_pct).toBeCloseTo(57.1, 1);
-    expect(row('lingala', 'en')).toMatchObject({ status: 'planned', expressionsWithTargetText: 0 });
-    expect(row('lingala', 'en').reason).toMatch(/no target text/);
-    expect(row('chinese-simplified', 'en').plannedChapterKeys).toEqual(['chinese_simplified_ch1_planned']);
+    expect(row('lingala', 'fr')).toMatchObject({ status: 'partial', draftedMissionCount: 7, nativeReviewedExpressionCount: 0 });
+    expect(row('russian', 'fr')).toMatchObject({ status: 'partial', draftedMissionCount: 7 });
+    expect(row('lingala', 'ru')).toMatchObject({ status: 'planned', expressionsWithTargetText: 0 });
+    expect(row('lingala', 'ru').reason).toMatch(/no target text/);
+    expect(row('chinese-simplified', 'ru').plannedChapterKeys).toEqual(['chinese_simplified_ch1_planned']);
   });
 });

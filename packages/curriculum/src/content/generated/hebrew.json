@@ -1,0 +1,3289 @@
+{
+ "key": "hebrew_ch1",
+ "chapterIndex": 1,
+ "courseTrackId": "hebrew",
+ "targetVarietyId": "he",
+ "sourceLanguages": [
+  "en",
+  "fr"
+ ],
+ "titles": {
+  "en": "First days in Israel",
+  "fr": "Premiers jours en Israël"
+ },
+ "characters": [
+  {
+   "characterKey": "hebrew_yossi_friendly_local_acquaintance",
+   "role": "friendly local acquaintance",
+   "name": "Yossi",
+   "personality": "warm, rushed, curious, kind",
+   "homeRegion": "Tel Aviv",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "hebrew_noa_cafe_server",
+   "role": "café server",
+   "name": "Noa",
+   "personality": "quick, friendly, upbeat",
+   "homeRegion": "Tel Aviv",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "hebrew_character_market_vendor",
+   "role": "market vendor",
+   "name": "יוסי",
+   "personality": "Warm, chatty, jokes with customers",
+   "homeRegion": "Jerusalem (Mahane Yehuda market)",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "hebrew_character_passer_by",
+   "role": "passer-by",
+   "name": "יוסי",
+   "personality": "friendly, in a hurry, talks fast",
+   "homeRegion": "Tel Aviv",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "hebrew_character_neighbour",
+   "role": "neighbour",
+   "name": "יוסי",
+   "personality": "warm, chatty, long-time resident",
+   "homeRegion": "Haifa",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "hebrew_character_taxi_driver",
+   "role": "taxi driver",
+   "name": "יוסי",
+   "personality": "talkative, friendly, a bit pushy",
+   "homeRegion": "Jerusalem",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "hebrew_character_child_at_the_ice_cream_stand",
+   "role": "child at the ice-cream stand",
+   "name": "נועה",
+   "personality": "playful, curious, a bit cheeky",
+   "homeRegion": "Tel Aviv",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  }
+ ],
+ "missions": [
+  {
+   "key": "hebrew_greet_and_introduce",
+   "blueprintKey": "greet_and_introduce",
+   "titles": {
+    "en": "Meeting a Neighbour",
+    "fr": "Rencontre avec un voisin"
+   },
+   "sceneNotes": {
+    "en": "It's morning and a friendly neighbour, rushing along the street, stops for a quick hello and asks where you live.",
+    "fr": "C'est le matin et un voisin sympathique, pressé dans la rue, s'arrête pour vous saluer rapidement et vous demande où vous habitez."
+   },
+   "characterKey": "hebrew_yossi_friendly_local_acquaintance",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "שלום!",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "שלום!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "shalom!"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "שָׁלוֹם!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello!",
+       "contextNote": "Works any time of day, with anyone.",
+       "literalGloss": "peace"
+      },
+      "fr": {
+       "meaning": "Bonjour !",
+       "contextNote": "Convient à toute heure du jour et avec tout le monde. Accent sur la dernière syllabe : cha-LOM.",
+       "literalGloss": "paix"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Stress the last syllable: sha-LOM.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "how_are_you",
+     "intentKey": "ask_how_are_you",
+     "slotId": "how_are_you",
+     "speaker": "learner",
+     "targetText": "מה שלומך?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "מה שלומך?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ma shlomkha?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "מָה שְׁלוֹמְךָ?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How are you?",
+       "contextNote": "Said to a man. To a woman, say 'ma shlomekh'.",
+       "literalGloss": "what [is] your well-being"
+      },
+      "fr": {
+       "meaning": "Comment vas-tu ?",
+       "contextNote": "À dire à un homme. À une femme, on dit « ma shlomekh ». Le « kh » est un son guttural, comme la jota espagnole.",
+       "literalGloss": "quel [est] ton bien-être"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'kh' is a throaty sound like Scottish 'loch'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "fine",
+     "intentKey": "reply_fine",
+     "slotId": "fine",
+     "speaker": "learner",
+     "targetText": "אני בסדר, תודה.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "אני בסדר, תודה."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ani beseder, toda."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֲנִי בְּסֵדֶר, תּוֹדָה."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm fine, thanks.",
+       "contextNote": "The same for men and women.",
+       "literalGloss": "I in-order, thanks"
+      },
+      "fr": {
+       "meaning": "Je vais bien, merci.",
+       "contextNote": "Identique pour un homme et pour une femme.",
+       "literalGloss": "moi en ordre, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "my_name",
+     "intentKey": "introduce_name",
+     "slotId": "my_name",
+     "speaker": "learner",
+     "targetText": "קוראים לי דן.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "קוראים לי דן."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "korim li Dan."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "קוֹרְאִים לִי דָּן."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "My name is Dan.",
+       "contextNote": "Replace 'Dan' with your own name.",
+       "literalGloss": "they-call to-me Dan"
+      },
+      "fr": {
+       "meaning": "Je m'appelle Dan.",
+       "contextNote": "Remplacez « Dan » par votre propre prénom.",
+       "literalGloss": "ils-appellent à-moi Dan"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "your_name",
+     "intentKey": "ask_name",
+     "slotId": "your_name",
+     "speaker": "learner",
+     "targetText": "ואיך קוראים לך?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "ואיך קוראים לך?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ve-eikh korim lekha?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "וְאֵיךְ קוֹרְאִים לְךָ?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "And what's your name?",
+       "contextNote": "Said to a man. To a woman, say 'lakh'.",
+       "literalGloss": "and how they-call to-you"
+      },
+      "fr": {
+       "meaning": "Et toi, comment t'appelles-tu ?",
+       "contextNote": "À dire à un homme. À une femme, on dit « lakh ».",
+       "literalGloss": "et comment ils-appellent à-toi"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "nice_to_meet",
+     "intentKey": "say_nice_to_meet",
+     "slotId": "nice_to_meet",
+     "speaker": "learner",
+     "targetText": "נעים להכיר.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "נעים להכיר."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "na'im lehakir."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "נָעִים לְהַכִּיר."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Nice to meet you.",
+       "contextNote": null,
+       "literalGloss": "pleasant to-know"
+      },
+      "fr": {
+       "meaning": "Enchanté.",
+       "contextNote": "Le ' de na'im est une courte pause entre les deux voyelles.",
+       "literalGloss": "agréable de-connaître"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ' in na'im is a brief pause between the vowels.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "goodbye",
+     "intentKey": "say_goodbye",
+     "slotId": "goodbye",
+     "speaker": "learner",
+     "targetText": "להתראות!",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "להתראות!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "lehitra'ot!"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "לְהִתְרָאוֹת!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Goodbye! / See you!",
+       "contextNote": "The standard everyday goodbye.",
+       "literalGloss": "to be-seen"
+      },
+      "fr": {
+       "meaning": "Au revoir !",
+       "contextNote": "Le au revoir courant de tous les jours. Roulez ou graseyez légèrement le r ; accent sur la dernière syllabe.",
+       "literalGloss": "à se-voir"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Roll or gargle the r lightly; stress the last syllable.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "greet_hello_variant_8",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "בוקר טוב!",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "בוקר טוב!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "boker tov!"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "בֹּקֶר טוֹב!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good morning!",
+       "contextNote": "A time-of-day greeting that fits this scene.",
+       "literalGloss": "morning good"
+      },
+      "fr": {
+       "meaning": "Bonjour ! (le matin)",
+       "contextNote": "Une salutation selon le moment de la journée, adaptée à cette scène.",
+       "literalGloss": "matin bon"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "ask_how_are_you_variant_9",
+     "intentKey": "ask_how_are_you",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "מה נשמע?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "מה נשמע?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ma nishma?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "מָה נִשְׁמָע?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "What's up? / How's it going?",
+       "contextNote": "Very common and casual; works for anyone, men or women.",
+       "literalGloss": "what is heard"
+      },
+      "fr": {
+       "meaning": "Quoi de neuf ? / Ça va ?",
+       "contextNote": "Très courant et familier ; convient à tout le monde, hommes comme femmes.",
+       "literalGloss": "quoi s'entend"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "say_goodbye_variant_10",
+     "intentKey": "say_goodbye",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "יום טוב!",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "יום טוב!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "yom tov!"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "יוֹם טוֹב!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Have a good day!",
+       "contextNote": "A friendly way to part, often right after 'lehitra'ot'.",
+       "literalGloss": "day good"
+      },
+      "fr": {
+       "meaning": "Bonne journée !",
+       "contextNote": "Une façon aimable de prendre congé, souvent juste après « lehitra'ot ».",
+       "literalGloss": "jour bon"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "hebrew_cafe_order_drink",
+   "blueprintKey": "cafe_order_drink",
+   "titles": {
+    "en": "Ordering a Café Drink",
+    "fr": "Commander un café en terrasse"
+   },
+   "sceneNotes": {
+    "en": "You sit down on a busy café terrace and a quick, friendly server comes to take your order.",
+    "fr": "Vous vous installez à la terrasse animée d'un café, et une serveuse souriante et rapide vient prendre votre commande."
+   },
+   "characterKey": "hebrew_noa_cafe_server",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "צהריים טובים!",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "צהריים טובים!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "tsohorayim tovim!"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "צָהֳרַיִם טוֹבִים!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good afternoon!",
+       "contextNote": "Use from about noon until late afternoon. Use בוקר טוב in the morning.",
+       "literalGloss": "afternoon good"
+      },
+      "fr": {
+       "meaning": "Bonjour ! (en début d'après-midi)",
+       "contextNote": "À utiliser de midi jusqu'en fin d'après-midi ; le matin, on dit בוקר טוב. Le « ts » initial se prononce d'un seul son, comme dans « tsar ».",
+       "literalGloss": "après-midi bon"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ח-like sound is not here; say the 'ts' at the start as one sound, like in 'cats'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "order",
+     "intentKey": "request_drink",
+     "slotId": "order",
+     "speaker": "learner",
+     "targetText": "אפשר קפה הפוך, בבקשה?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "אפשר קפה הפוך, בבקשה?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "efshar kafe hafukh, bevakasha?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֶפְשָׁר קָפֶה הָפוּךְ, בְּבַקָּשָׁה?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have a latte, please?",
+       "contextNote": "קפה הפוך (literally 'upside-down coffee') is the everyday Israeli café latte.",
+       "literalGloss": "possible coffee upside-down, please"
+      },
+      "fr": {
+       "meaning": "Je pourrais avoir un café au lait, s'il vous plaît ?",
+       "contextNote": "קפה הפוך (littéralement « café à l'envers ») est le café latte courant dans les cafés israéliens. Le ך final est un « kh » guttural, comme la jota espagnole.",
+       "literalGloss": "possible café renversé, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The final ך in הפוך is a throaty 'kh', like Scottish 'loch'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "options",
+     "intentKey": "offer_options",
+     "slotId": "options",
+     "speaker": "character",
+     "targetText": "קפה קטן או גדול?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "קפה קטן או גדול?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "kafe katan o gadol?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "קָפֶה קָטָן אוֹ גָּדוֹל?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "A small or a large coffee?",
+       "contextNote": "The server asks this to find out which size you want.",
+       "literalGloss": "coffee small or large"
+      },
+      "fr": {
+       "meaning": "Un petit ou un grand café ?",
+       "contextNote": "La serveuse vous demande quelle taille vous voulez.",
+       "literalGloss": "café petit ou grand"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "choice",
+     "intentKey": "choose_option",
+     "slotId": "choice",
+     "speaker": "learner",
+     "targetText": "קטן, בבקשה.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "קטן, בבקשה."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "katan, bevakasha."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "קָטָן, בְּבַקָּשָׁה."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "A small one, please.",
+       "contextNote": "Say גדול (gadol) if you want the large one.",
+       "literalGloss": "small, please"
+      },
+      "fr": {
+       "meaning": "Un petit, s'il vous plaît.",
+       "contextNote": "Dites גדול (gadol) si vous préférez un grand.",
+       "literalGloss": "petit, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "bill",
+     "intentKey": "ask_for_bill",
+     "slotId": "bill",
+     "speaker": "learner",
+     "targetText": "אפשר חשבון, בבקשה?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "אפשר חשבון, בבקשה?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "efshar kheshbon, bevakasha?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֶפְשָׁר חֶשְׁבּוֹן, בְּבַקָּשָׁה?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have the bill, please?",
+       "contextNote": null,
+       "literalGloss": "possible bill, please"
+      },
+      "fr": {
+       "meaning": "Je pourrais avoir l'addition, s'il vous plaît ?",
+       "contextNote": "Le ח de חשבון est un « kh » rauque, prononcé au fond de la gorge.",
+       "literalGloss": "possible addition, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ח in חשבון is a rough 'kh' from the back of the throat.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "תודה רבה!",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "תודה רבה!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "toda raba!"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "תּוֹדָה רַבָּה!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much!",
+       "contextNote": "Works for any person and any situation.",
+       "literalGloss": "thanks much"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup !",
+       "contextNote": "Convient à toute personne et dans toute situation. Le ר se prononce dans la gorge, comme le « r » français.",
+       "literalGloss": "merci beaucoup"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ר is pronounced in the throat in most Israeli speech, like a soft French 'r'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "greet_hello_variant_7",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "היי!",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "היי!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "hei!"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "הֵי!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hi!",
+       "contextNote": "A very common casual greeting, especially with younger servers.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Salut !",
+       "contextNote": "Salutation décontractée très courante, surtout avec les serveurs plus jeunes.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": "Borrowed from English 'hi'; used everywhere in Israel.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "ask_for_bill_variant_8",
+     "intentKey": "ask_for_bill",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "אפשר לשלם?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "אפשר לשלם?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "efshar leshalem?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֶפְשָׁר לְשַׁלֵּם?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I pay?",
+       "contextNote": "Handy when you want to pay at the counter or to the server directly.",
+       "literalGloss": "possible to pay"
+      },
+      "fr": {
+       "meaning": "Je peux payer ?",
+       "contextNote": "Pratique pour payer directement à la serveuse ou au comptoir.",
+       "literalGloss": "possible de payer"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "hebrew_market_ask_price",
+   "blueprintKey": "market_ask_price",
+   "titles": {
+    "en": "Asking Prices at the Market",
+    "fr": "Demander les prix au marché"
+   },
+   "sceneNotes": {
+    "en": "You stop at a fruit stall in the market, ask how much the apples cost per kilo, and see whether the vendor throws in something extra for free.",
+    "fr": "Vous vous arrêtez devant un étal de fruits au marché, vous demandez le prix des pommes au kilo et vous voyez si le vendeur vous offre un petit extra."
+   },
+   "characterKey": "hebrew_character_market_vendor",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "ערב טוב!",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "ערב טוב!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "erev tov!"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "עֶרֶב טוֹב!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good evening!",
+       "contextNote": "Time-of-day greeting; use it when the market is busy in the late afternoon or evening.",
+       "literalGloss": "evening good"
+      },
+      "fr": {
+       "meaning": "Bonsoir !",
+       "contextNote": "Salutation pour la fin d'après-midi ou la soirée, quand le marché est animé. Le r se prononce au fond de la gorge, comme le r français.",
+       "literalGloss": "soir bon"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The r is usually pronounced in the throat, like French r.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "greet_hello_variant_2",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "אהלן!",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "אהלן!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ahalan!"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אַהֲלָן!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hey! / Hi there!",
+       "contextNote": "Casual, friendly hello that comes from Arabic. Very common with market vendors.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Salut ! / Coucou !",
+       "contextNote": "Salutation décontractée et amicale, venue de l'arabe. Très courante chez les vendeurs du marché.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "how_much",
+     "intentKey": "ask_price",
+     "slotId": "how_much",
+     "speaker": "learner",
+     "targetText": "כמה עולים התפוחים?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "כמה עולים התפוחים?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "kama olim ha-tapukhim?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "כַּמָּה עוֹלִים הַתַּפּוּחִים?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much are the apples?",
+       "contextNote": "Swap in any fruit: התפוזים (oranges), הבננות (bananas).",
+       "literalGloss": "how-much cost the-apples"
+      },
+      "fr": {
+       "meaning": "Combien coûtent les pommes ?",
+       "contextNote": "Remplacez par un autre fruit : התפוזים (les oranges), הבננות (les bananes). Le kh de תפוחים est un son rauque, comme la jota espagnole.",
+       "literalGloss": "combien coûtent les-pommes"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The kh in תפוחים is a scratchy sound, like Scottish loch.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "price",
+     "intentKey": "state_price",
+     "slotId": "price",
+     "speaker": "character",
+     "targetText": "שמונה שקלים לקילו.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "שמונה שקלים לקילו."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "shmone shkalim la-kilo."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "שְׁמוֹנֶה שְׁקָלִים לַקִּילוֹ."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Eight shekels a kilo.",
+       "contextNote": "Prices at stalls are almost always quoted per kilo.",
+       "literalGloss": "eight shekels to-the-kilo"
+      },
+      "fr": {
+       "meaning": "Huit shekels le kilo.",
+       "contextNote": "Sur les étals, les prix sont presque toujours indiqués au kilo.",
+       "literalGloss": "huit shekels au-kilo"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "expensive",
+     "intentKey": "say_too_expensive",
+     "slotId": "expensive",
+     "speaker": "learner",
+     "targetText": "זה קצת יקר.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "זה קצת יקר."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ze ktsat yakar."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "זֶה קְצָת יָקָר."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "That's a bit expensive.",
+       "contextNote": "Softer and friendlier than just saying זה יקר!",
+       "literalGloss": "this a-little expensive"
+      },
+      "fr": {
+       "meaning": "C'est un peu cher.",
+       "contextNote": "Plus doux et plus aimable que de dire simplement זה יקר ! Commencez קצת par un ts rapide : ktsat.",
+       "literalGloss": "ça un-peu cher"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Start קצת with a quick ts sound: ktsat.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "lower",
+     "intentKey": "offer_lower_price",
+     "slotId": "lower",
+     "speaker": "learner",
+     "targetText": "אפשר קצת פחות, בבקשה?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "אפשר קצת פחות, בבקשה?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "efshar ktsat pakhot, bevakasha?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֶפְשָׁר קְצָת פָּחוֹת, בְּבַקָּשָׁה?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you do a bit less, please?",
+       "contextNote": "Light bargaining, not hard haggling.",
+       "literalGloss": "possible a-little less, please"
+      },
+      "fr": {
+       "meaning": "Vous pouvez faire un peu moins, s'il vous plaît ?",
+       "contextNote": "Un marchandage léger, pas un vrai bras de fer.",
+       "literalGloss": "possible un-peu moins, s'il-vous-plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "deal",
+     "intentKey": "agree_to_price",
+     "slotId": "deal",
+     "speaker": "learner",
+     "targetText": "סגור, אני לוקח.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "סגור, אני לוקח."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "sagur, ani lokeakh."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "סָגוּר, אֲנִי לוֹקֵחַ."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Deal, I'll take it.",
+       "contextNote": "Said by a man. A woman says לוקחת.",
+       "literalGloss": "closed, I take"
+      },
+      "fr": {
+       "meaning": "Marché conclu, je le prends.",
+       "contextNote": "Dit par un homme ; une femme dit לוקחת. Le ח final de לוקח se prononce avec un court a avant lui : lokeakh.",
+       "literalGloss": "fermé, je prends"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Final ח in לוקח is pronounced with a short a sound before it: lokeakh.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "agree_to_price_variant_8",
+     "intentKey": "agree_to_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "סגור, אני לוקחת.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "סגור, אני לוקחת."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "sagur, ani lokakhat."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "סָגוּר, אֲנִי לוֹקַחַת."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Deal, I'll take it. (said by a woman)",
+       "contextNote": "Feminine form of the same line.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Marché conclu, je le prends. (dit par une femme)",
+       "contextNote": "Forme féminine de la même phrase.",
+       "literalGloss": null
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "no_thanks",
+     "intentKey": "decline_purchase",
+     "slotId": "no_thanks",
+     "speaker": "learner",
+     "targetText": "לא, תודה. אולי אחר כך.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "לא, תודה. אולי אחר כך."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "lo, toda. ulai akhar kakh."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "לֹא, תּוֹדָה. אוּלַי אַחַר כָּךְ."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No, thanks. Maybe later.",
+       "contextNote": "A polite way to walk away from a stall.",
+       "literalGloss": "no, thanks. maybe after that"
+      },
+      "fr": {
+       "meaning": "Non, merci. Peut-être plus tard.",
+       "contextNote": "Une façon polie de s'éloigner d'un étal.",
+       "literalGloss": "non, merci. peut-être après ça"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "hebrew_ask_directions",
+   "blueprintKey": "ask_directions",
+   "titles": {
+    "en": "Asking Directions to the Station",
+    "fr": "Demander son chemin vers la gare"
+   },
+   "sceneNotes": {
+    "en": "You are a visitor looking for the train station, and a friendly passer-by tells you it is a ten-minute walk with two turns, but he talks fast.",
+    "fr": "Vous êtes un visiteur à la recherche de la gare, et un passant sympathique vous explique qu'elle est à dix minutes à pied avec deux virages, mais il parle vite."
+   },
+   "characterKey": "hebrew_character_passer_by",
+   "expressions": [
+    {
+     "key": "excuse_me",
+     "intentKey": "get_attention",
+     "slotId": "excuse_me",
+     "speaker": "learner",
+     "targetText": "סליחה, אפשר לשאול?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "סליחה, אפשר לשאול?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "slikha, efshar lish'ol?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "סְלִיחָה, אֶפְשָׁר לִשְׁאוֹל?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, may I ask something?",
+       "contextNote": "Use it to stop a stranger politely before asking.",
+       "literalGloss": "sorry, possible to ask?"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, puis-je vous poser une question ?",
+       "contextNote": "Pour aborder poliment un inconnu avant de lui demander quelque chose. Le « kh » de slikha est un h guttural, comme le « j » espagnol de « jamón ».",
+       "literalGloss": "pardon, possible de demander ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The kh in slikha is a throaty h, like Scottish 'loch'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "where_is",
+     "intentKey": "ask_where_is",
+     "slotId": "where_is",
+     "speaker": "learner",
+     "targetText": "איפה תחנת הרכבת, בבקשה?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "איפה תחנת הרכבת, בבקשה?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "eifo takhanat ha-rakevet, bevakasha?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֵיפֹה תַּחֲנַת הָרַכֶּבֶת, בְּבַקָּשָׁה?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where is the train station, please?",
+       "contextNote": "Swap in another place name to ask for something else.",
+       "literalGloss": "where station-of the-train, please"
+      },
+      "fr": {
+       "meaning": "Où est la gare, s'il vous plaît ?",
+       "contextNote": "Remplacez par un autre nom de lieu pour demander autre chose. Le « kh » de takhanat est guttural ; le r est généralement guttural aussi.",
+       "literalGloss": "où gare-de le train, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The kh in takhanat is a throaty h; the r is usually guttural.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "straight",
+     "intentKey": "give_direction_straight",
+     "slotId": "straight",
+     "speaker": "character",
+     "targetText": "ממשיכים ישר ברחוב הזה.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "ממשיכים ישר ברחוב הזה."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "mamshikhim yashar ba-rekhov ha-ze."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "מַמְשִׁיכִים יָשָׁר בָּרְחוֹב הַזֶּה."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "You keep going straight along this street.",
+       "contextNote": "The plural 'we continue' is an impersonal form locals use for directions, so it works for any listener.",
+       "literalGloss": "continuing straight in-the street this"
+      },
+      "fr": {
+       "meaning": "Vous continuez tout droit dans cette rue.",
+       "contextNote": "Ce pluriel (« nous continuons ») est une forme impersonnelle courante pour donner un itinéraire ; il convient à n'importe quel interlocuteur.",
+       "literalGloss": "continuant tout droit dans la rue celle-ci"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "turn",
+     "intentKey": "give_direction_turn",
+     "slotId": "turn",
+     "speaker": "character",
+     "targetText": "בפנייה השנייה פונים שמאלה.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "בפנייה השנייה פונים שמאלה."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ba-pniya ha-shniya ponim smola."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "בַּפְּנִיָּה הַשְּׁנִיָּה פּוֹנִים שְׂמֹאלָה."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "At the second turn, you turn left.",
+       "contextNote": "Same impersonal plural as above. 'Yamina' means to the right.",
+       "literalGloss": "in-the turn the second turning left"
+      },
+      "fr": {
+       "meaning": "À la deuxième rue, vous tournez à gauche.",
+       "contextNote": "Même pluriel impersonnel que ci-dessus. « Yamina » signifie à droite.",
+       "literalGloss": "dans le virage le deuxième tournant à gauche"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "far",
+     "intentKey": "ask_is_it_far",
+     "slotId": "far",
+     "speaker": "learner",
+     "targetText": "זה רחוק מפה?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "זה רחוק מפה?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ze rakhok mipo?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "זֶה רָחוֹק מִפֹּה?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Is it far from here?",
+       "contextNote": "Rising intonation turns it into a question.",
+       "literalGloss": "it far from-here"
+      },
+      "fr": {
+       "meaning": "C'est loin d'ici ?",
+       "contextNote": "L'intonation montante suffit à en faire une question.",
+       "literalGloss": "c'est loin d'ici"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "near",
+     "intentKey": "say_it_is_near",
+     "slotId": "near",
+     "speaker": "character",
+     "targetText": "לא רחוק, עשר דקות ברגל.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "לא רחוק, עשר דקות ברגל."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "lo rakhok, eser dakot baregel."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "לֹא רָחוֹק, עֶשֶׂר דַּקּוֹת בָּרֶגֶל."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Not far, ten minutes on foot.",
+       "contextNote": null,
+       "literalGloss": "not far, ten minutes on-the foot"
+      },
+      "fr": {
+       "meaning": "Pas loin, dix minutes à pied.",
+       "contextNote": null,
+       "literalGloss": "pas loin, dix minutes à le pied"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "repeat",
+     "intentKey": "ask_repeat",
+     "slotId": "repeat",
+     "speaker": "learner",
+     "targetText": "אפשר שוב, בבקשה?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "אפשר שוב, בבקשה?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "efshar shuv, bevakasha?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֶפְשָׁר שׁוּב, בְּבַקָּשָׁה?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you say that again, please?",
+       "contextNote": null,
+       "literalGloss": "possible again, please"
+      },
+      "fr": {
+       "meaning": "Pouvez-vous répéter, s'il vous plaît ?",
+       "contextNote": null,
+       "literalGloss": "possible encore, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "slower",
+     "intentKey": "ask_slow_down",
+     "slotId": "slower",
+     "speaker": "learner",
+     "targetText": "אפשר לדבר יותר לאט, בבקשה?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "אפשר לדבר יותר לאט, בבקשה?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "efshar ledaber yoter le'at, bevakasha?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֶפְשָׁר לְדַבֵּר יוֹתֵר לְאַט, בְּבַקָּשָׁה?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could you speak a bit slower, please?",
+       "contextNote": "Useful with fast speakers. It works for any gender.",
+       "literalGloss": "possible to speak more slowly, please"
+      },
+      "fr": {
+       "meaning": "Pourriez-vous parler plus lentement, s'il vous plaît ?",
+       "contextNote": "Pratique avec les personnes qui parlent vite. Convient à tous, hommes comme femmes. Dans le-at, marquez un court arrêt (coup de glotte) avant le « at ».",
+       "literalGloss": "possible de parler plus lentement, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The le'at has a short pause (glottal stop) before the 'at'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "תודה על העזרה!",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "תודה על העזרה!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "toda al ha-ezra!"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "תּוֹדָה עַל הָעֶזְרָה!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks for the help!",
+       "contextNote": "Adds a reason to the plain 'toda' taught earlier.",
+       "literalGloss": "thanks for the help"
+      },
+      "fr": {
+       "meaning": "Merci pour votre aide !",
+       "contextNote": "Ajoute la raison au simple « toda » vu précédemment.",
+       "literalGloss": "merci pour l'aide"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "ask_slow_down_variant_10",
+     "intentKey": "ask_slow_down",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "לאט, בבקשה?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "לאט, בבקשה?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "le'at, bevakasha?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "לְאַט, בְּבַקָּשָׁה?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Slowly, please?",
+       "contextNote": "A shorter, quick way to ask when the speaker is racing.",
+       "literalGloss": "slowly, please"
+      },
+      "fr": {
+       "meaning": "Plus lentement, s'il vous plaît ?",
+       "contextNote": "Version courte et rapide, utile quand la personne parle très vite.",
+       "literalGloss": "lentement, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "ask_where_is_variant_11",
+     "intentKey": "ask_where_is",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "איך מגיעים לתחנת הרכבת?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "איך מגיעים לתחנת הרכבת?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "eikh magi'im litkhanat ha-rakevet?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֵיךְ מַגִּיעִים לְתַחֲנַת הָרַכֶּבֶת?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How do you get to the train station?",
+       "contextNote": "Asks for the route, not just the location.",
+       "literalGloss": "how arrive-(we) to-station-of the-train"
+      },
+      "fr": {
+       "meaning": "Comment va-t-on à la gare ?",
+       "contextNote": "Demande le chemin à suivre, pas seulement l'emplacement.",
+       "literalGloss": "comment arrive-(on) à-gare-de le train"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "hebrew_meet_neighbour",
+   "blueprintKey": "meet_neighbour",
+   "titles": {
+    "en": "Meeting Your New Neighbour",
+    "fr": "Rencontrer votre nouveau voisin"
+   },
+   "sceneNotes": {
+    "en": "You meet your neighbour Yossi in the stairwell as he carries shopping bags up to his flat.",
+    "fr": "Vous croisez votre voisin Yossi dans la cage d'escalier, tandis qu'il monte ses sacs de courses jusqu'à son appartement."
+   },
+   "characterKey": "hebrew_character_neighbour",
+   "expressions": [
+    {
+     "key": "new_neighbour",
+     "intentKey": "say_new_neighbour",
+     "slotId": "new_neighbour",
+     "speaker": "learner",
+     "targetText": "שלום, אני השכן החדש.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "שלום, אני השכן החדש."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "shalom, ani ha-shakhen ha-khadash."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "שָׁלוֹם, אֲנִי הַשָּׁכֵן הֶחָדָשׁ."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello, I'm the new neighbour.",
+       "contextNote": "A woman would say הַשְּׁכֵנָה הֶחָדָשָׁה (ha-shkhena ha-khadasha).",
+       "literalGloss": "hello, I the-neighbour the-new"
+      },
+      "fr": {
+       "meaning": "Bonjour, je suis le nouveau voisin.",
+       "contextNote": "Une femme dirait הַשְּׁכֵנָה הֶחָדָשָׁה (ha-shkhena ha-khadasha). Le « kh » de shakhen et khadash est un son rauque, prononcé au fond de la gorge.",
+       "literalGloss": "bonjour, moi le-voisin le-nouveau"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The kh in shakhen and khadash is a raspy sound from the throat.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "welcome",
+     "intentKey": "welcome_someone",
+     "slotId": "welcome",
+     "speaker": "character",
+     "targetText": "ברוך הבא לבניין!",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "ברוך הבא לבניין!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "barukh haba la-binyan!"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "בָּרוּךְ הַבָּא לַבִּנְיָן!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Welcome to the building!",
+       "contextNote": "Said to a man. To a woman: ברוכה הבאה (brukha haba'a).",
+       "literalGloss": "blessed the-coming to-the-building"
+      },
+      "fr": {
+       "meaning": "Bienvenue dans l'immeuble !",
+       "contextNote": "S'adresse à un homme. À une femme, on dit : ברוכה הבאה (brukha haba'a).",
+       "literalGloss": "béni le-venant à-l'immeuble"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "where_from_q",
+     "intentKey": "ask_where_from",
+     "slotId": "where_from_q",
+     "speaker": "learner",
+     "targetText": "סליחה, מאיפה אתה?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "סליחה, מאיפה אתה?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "slikha, me'eifo ata?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "סְלִיחָה, מֵאֵיפֹה אַתָּה?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, where are you from?",
+       "contextNote": "Use מאיפה את? when speaking to a woman.",
+       "literalGloss": "sorry, from-where you"
+      },
+      "fr": {
+       "meaning": "Excuse-moi, tu viens d'où ?",
+       "contextNote": "À une femme, on dit : מאיפה את ? Prononcez me-ei-fo avec trois syllabes bien distinctes.",
+       "literalGloss": "pardon, d'où tu"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say me-ei-fo with three clear syllables.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "from",
+     "intentKey": "say_where_from",
+     "slotId": "from",
+     "speaker": "learner",
+     "targetText": "אני מאנגליה.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "אני מאנגליה."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ani me-anglia."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֲנִי מֵאַנְגְּלִיָּה."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm from England.",
+       "contextNote": "Swap in your own country, e.g. מארצות הברית (me-artsot ha-brit).",
+       "literalGloss": "I from-England"
+      },
+      "fr": {
+       "meaning": "Je viens d'Angleterre.",
+       "contextNote": "Remplacez par votre propre pays, par exemple מארצות הברית (me-artsot ha-brit), « des États-Unis ».",
+       "literalGloss": "je d'Angleterre"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "speak_lang",
+     "intentKey": "ask_if_speaks_language",
+     "slotId": "speak_lang",
+     "speaker": "learner",
+     "targetText": "סליחה, אתה מדבר אנגלית?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "סליחה, אתה מדבר אנגלית?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "slikha, ata medaber anglit?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "סְלִיחָה, אַתָּה מְדַבֵּר אַנְגְּלִית?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, do you speak English?",
+       "contextNote": "Use אַתְּ מְדַבֶּרֶת (at medaberet) for a woman.",
+       "literalGloss": "sorry, you speak English"
+      },
+      "fr": {
+       "meaning": "Excuse-moi, tu parles anglais ?",
+       "contextNote": "À une femme, on dit : אַתְּ מְדַבֶּרֶת (at medaberet).",
+       "literalGloss": "pardon, tu parles anglais"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "little",
+     "intentKey": "say_speak_little",
+     "slotId": "little",
+     "speaker": "learner",
+     "targetText": "אני מדבר קצת עברית.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "אני מדבר קצת עברית."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ani medaber ktsat ivrit."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֲנִי מְדַבֵּר קְצָת עִבְרִית."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I speak a little Hebrew.",
+       "contextNote": null,
+       "literalGloss": "I speak a-little Hebrew"
+      },
+      "fr": {
+       "meaning": "Je parle un peu hébreu.",
+       "contextNote": "Dans ktsat, le « k » et le « ts » s'enchaînent vite, sans voyelle entre les deux.",
+       "literalGloss": "je parle un-peu hébreu"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ktsat starts with a quick k-ts cluster, with no vowel between them.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "offer_help",
+     "intentKey": "offer_help",
+     "slotId": "offer_help",
+     "speaker": "learner",
+     "targetText": "אפשר לעזור לך עם השקיות?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "אפשר לעזור לך עם השקיות?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "efshar la'azor lekha im ha-sakiyot?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֶפְשָׁר לַעֲזֹר לְךָ עִם הַשְּׂקִיּוֹת?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I help you with the bags?",
+       "contextNote": "Use לך (lakh) when speaking to a woman.",
+       "literalGloss": "possible to-help to-you with the-bags"
+      },
+      "fr": {
+       "meaning": "Je peux t'aider avec les sacs ?",
+       "contextNote": "À une femme, on dit : לך (lakh). L'apostrophe dans la'azor marque une brève pause avant la voyelle.",
+       "literalGloss": "possible d'aider à-toi avec les-sacs"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ' in la'azor is a brief pause before the vowel.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "תודה, אתה ממש נחמד.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "תודה, אתה ממש נחמד."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "toda, ata mamash nekhmad."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "תּוֹדָה, אַתָּה מַמָּשׁ נֶחְמָד."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks, you're really nice.",
+       "contextNote": "Use את ממש נחמדה (at mamash nekhmada) for a woman.",
+       "literalGloss": "thanks, you really nice"
+      },
+      "fr": {
+       "meaning": "Merci, tu es vraiment gentil.",
+       "contextNote": "À une femme, on dit : את ממש נחמדה (at mamash nekhmada).",
+       "literalGloss": "merci, tu vraiment gentil"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "say_new_neighbour_variant_9",
+     "intentKey": "say_new_neighbour",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "הרגע עברתי לפה.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "הרגע עברתי לפה."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ha-rega avarti le-po."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "הָרֶגַע עָבַרְתִּי לְפֹּה."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I just moved in.",
+       "contextNote": "A relaxed way to introduce yourself. It is the same for men and women.",
+       "literalGloss": "the-moment I-moved to-here"
+      },
+      "fr": {
+       "meaning": "Je viens juste d'emménager.",
+       "contextNote": "Une façon décontractée de se présenter. C'est identique pour un homme et pour une femme.",
+       "literalGloss": "à-l'instant j'ai-déménagé ici"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "say_speak_little_variant_10",
+     "intentKey": "say_speak_little",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "אני מדברת קצת עברית.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "אני מדברת קצת עברית."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ani medaberet ktsat ivrit."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֲנִי מְדַבֶּרֶת קְצָת עִבְרִית."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I speak a little Hebrew. (said by a woman)",
+       "contextNote": "The feminine form of the line above.",
+       "literalGloss": "I speak(f) a-little Hebrew"
+      },
+      "fr": {
+       "meaning": "Je parle un peu hébreu. (dit par une femme)",
+       "contextNote": "C'est la forme féminine de la phrase précédente.",
+       "literalGloss": "je parle(f) un-peu hébreu"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "hebrew_take_taxi",
+   "blueprintKey": "take_taxi",
+   "titles": {
+    "en": "Taking a Taxi",
+    "fr": "Prendre un taxi"
+   },
+   "sceneNotes": {
+    "en": "You hail a taxi in heavy traffic to reach the old town, and the talkative driver quotes a price without turning on the meter.",
+    "fr": "Vous hélez un taxi dans les embouteillages pour aller à la vieille ville, et le chauffeur bavard annonce un prix sans mettre le compteur."
+   },
+   "characterKey": "hebrew_character_taxi_driver",
+   "expressions": [
+    {
+     "key": "hail",
+     "intentKey": "hail_taxi",
+     "slotId": "hail",
+     "speaker": "learner",
+     "targetText": "סליחה, אתה פנוי?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "סליחה, אתה פנוי?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "slikha, ata panui?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "סְלִיחָה, אַתָּה פָּנוּי?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, are you free?",
+       "contextNote": "Said through the window or at the door. Use אַתְּ (at) if the driver is a woman.",
+       "literalGloss": "sorry, you free?"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, vous êtes libre ?",
+       "contextNote": "À dire par la fenêtre ou à la portière. Si la chauffeuse est une femme, dites אַתְּ (at). Le « kh » de slikha est un son guttural, comme la jota espagnole.",
+       "literalGloss": "pardon, toi libre ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The kh in slikha is a throaty sound, like the ch in Scottish loch.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "where_to",
+     "intentKey": "ask_destination",
+     "slotId": "where_to",
+     "speaker": "character",
+     "targetText": "לאן נוסעים?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "לאן נוסעים?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "le'an nos'im?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "לְאָן נוֹסְעִים?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where are we going?",
+       "contextNote": "The standard driver question. It uses the plural 'we' even though it is addressed to you.",
+       "literalGloss": "to-where travelling (plural)?"
+      },
+      "fr": {
+       "meaning": "On va où ?",
+       "contextNote": "La question habituelle des chauffeurs. Elle est au pluriel (« nous ») même si elle s'adresse à vous.",
+       "literalGloss": "vers-où voyageant (pluriel) ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "destination",
+     "intentKey": "state_destination",
+     "slotId": "destination",
+     "speaker": "learner",
+     "targetText": "לעיר העתיקה, בבקשה.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "לעיר העתיקה, בבקשה."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "la'ir ha'atika, bevakasha."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "לָעִיר הָעַתִּיקָה, בְּבַקָּשָׁה."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "To the old town, please.",
+       "contextNote": null,
+       "literalGloss": "to-the-city the-old, please"
+      },
+      "fr": {
+       "meaning": "À la vieille ville, s'il vous plaît.",
+       "contextNote": "Le ' de la'ir est une petite pause entre les deux voyelles.",
+       "literalGloss": "à-la-ville l'ancienne, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ' in la'ir is a tiny pause between the vowels.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "meter",
+     "intentKey": "ask_use_meter",
+     "slotId": "meter",
+     "speaker": "learner",
+     "targetText": "אפשר עם מונה, בבקשה?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "אפשר עם מונה, בבקשה?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "efshar im moneh, bevakasha?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֶפְשָׁר עִם מוֹנֶה, בְּבַקָּשָׁה?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can we go with the meter, please?",
+       "contextNote": "Use this when the driver quotes a flat price and you would rather pay by the meter.",
+       "literalGloss": "possible with meter, please?"
+      },
+      "fr": {
+       "meaning": "On peut y aller avec le compteur, s'il vous plaît ?",
+       "contextNote": "À utiliser quand le chauffeur annonce un prix fixe et que vous préférez payer au compteur.",
+       "literalGloss": "possible avec compteur, s'il vous plaît ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "fare",
+     "intentKey": "ask_fare",
+     "slotId": "fare",
+     "speaker": "learner",
+     "targetText": "כמה זה יעלה לעיר העתיקה?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "כמה זה יעלה לעיר העתיקה?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "kama ze ya'ale la'ir ha'atika?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "כַּמָּה זֶה יַעֲלֶה לָעִיר הָעַתִּיקָה?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much will it cost to the old town?",
+       "contextNote": "Ask this before the ride starts.",
+       "literalGloss": "how-much it will-cost to-the-city the-old"
+      },
+      "fr": {
+       "meaning": "Ça coûtera combien jusqu'à la vieille ville ?",
+       "contextNote": "À demander avant le début de la course.",
+       "literalGloss": "combien ça coûtera à-la-ville l'ancienne"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "stop",
+     "intentKey": "say_stop_here",
+     "slotId": "stop",
+     "speaker": "learner",
+     "targetText": "אפשר לעצור כאן, בבקשה?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "אפשר לעצור כאן, בבקשה?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "efshar la'atsor kan, bevakasha?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֶפְשָׁר לַעֲצֹר כָּאן, בְּבַקָּשָׁה?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you stop here, please?",
+       "contextNote": null,
+       "literalGloss": "possible to-stop here, please?"
+      },
+      "fr": {
+       "meaning": "Vous pouvez vous arrêter ici, s'il vous plaît ?",
+       "contextNote": "Le « ts » de la'atsor est un seul son, comme dans « tsar ».",
+       "literalGloss": "possible s'arrêter ici, s'il vous plaît ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ts in la'atsor is one sound, like the ts in cats.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "change",
+     "intentKey": "ask_for_change",
+     "slotId": "change",
+     "speaker": "learner",
+     "targetText": "אפשר לקבל עודף, בבקשה?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "אפשר לקבל עודף, בבקשה?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "efshar lekabel odef, bevakasha?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֶפְשָׁר לְקַבֵּל עוֹדֶף, בְּבַקָּשָׁה?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I get my change, please?",
+       "contextNote": "Say it when you hand over a large bill.",
+       "literalGloss": "possible to-receive change, please?"
+      },
+      "fr": {
+       "meaning": "Je peux avoir la monnaie, s'il vous plaît ?",
+       "contextNote": "À dire quand vous tendez un gros billet.",
+       "literalGloss": "possible recevoir monnaie, s'il vous plaît ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "bye",
+     "intentKey": "say_goodbye",
+     "slotId": "bye",
+     "speaker": "learner",
+     "targetText": "תודה, שיהיה לך יום נעים!",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "תודה, שיהיה לך יום נעים!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "toda, sheyihye lekha yom na'im!"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "תּוֹדָה, שֶׁיִּהְיֶה לְךָ יוֹם נָעִים!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks, have a nice day!",
+       "contextNote": "Use לָךְ (lakh) if the driver is a woman.",
+       "literalGloss": "thanks, that-will-be to-you day pleasant"
+      },
+      "fr": {
+       "meaning": "Merci, bonne journée !",
+       "contextNote": "Dites לָךְ (lakh) si la chauffeuse est une femme.",
+       "literalGloss": "merci, que-sera à-toi jour agréable"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "ask_use_meter_variant_9",
+     "intentKey": "ask_use_meter",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "עם מונה, נכון?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "עם מונה, נכון?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "im moneh, nakhon?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "עִם מוֹנֶה, נָכוֹן?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "With the meter, right?",
+       "contextNote": "A shorter, more casual way to check that the meter will be on.",
+       "literalGloss": "with meter, right?"
+      },
+      "fr": {
+       "meaning": "Avec le compteur, c'est bien ça ?",
+       "contextNote": "Une façon plus courte et plus familière de vérifier que le compteur sera allumé.",
+       "literalGloss": "avec compteur, n'est-ce pas ?"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "say_stop_here_variant_10",
+     "intentKey": "say_stop_here",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "פה בסדר, תודה.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "פה בסדר, תודה."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "po beseder, toda."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "פֹּה בְּסֵדֶר, תּוֹדָה."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Here is fine, thanks.",
+       "contextNote": "A casual way to say 'drop me off here'.",
+       "literalGloss": "here okay, thanks"
+      },
+      "fr": {
+       "meaning": "Ici, c'est bon, merci.",
+       "contextNote": "Une façon familière de dire « déposez-moi ici ».",
+       "literalGloss": "ici bien, merci"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "hebrew_buy_ice_cream",
+   "blueprintKey": "buy_ice_cream",
+   "titles": {
+    "en": "Buying Ice Cream",
+    "fr": "Acheter une glace"
+   },
+   "sceneNotes": {
+    "en": "You are at an ice-cream cart outside the school with a child who wants a treat, but only two flavours are left.",
+    "fr": "Vous êtes devant un chariot de glaces à la sortie de l'école avec une enfant qui veut se faire plaisir, mais il ne reste que deux parfums."
+   },
+   "characterKey": "hebrew_character_child_at_the_ice_cream_stand",
+   "expressions": [
+    {
+     "key": "wants",
+     "intentKey": "request_food",
+     "slotId": "wants",
+     "speaker": "character",
+     "targetText": "אני רוצה גלידה!",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "אני רוצה גלידה!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "ani rotsa glida!"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֲנִי רוֹצָה גְּלִידָה!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I want an ice cream!",
+       "contextNote": "A girl says rotsa; a boy would say rotse.",
+       "literalGloss": "I want ice-cream"
+      },
+      "fr": {
+       "meaning": "Je veux une glace !",
+       "contextNote": "Une fille dit « rotsa », un garçon dirait « rotse ». Le r hébreu se prononce au fond de la gorge, comme le r français.",
+       "literalGloss": "je veux glace"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The Hebrew r is made at the back of the throat, like the French r.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "which_flavour",
+     "intentKey": "offer_options",
+     "slotId": "which_flavour",
+     "speaker": "learner",
+     "targetText": "שוקולד או וניל?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "שוקולד או וניל?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "shokolad o vanil?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "שׁוֹקוֹלָד אוֹ וָנִיל?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Chocolate or vanilla?",
+       "contextNote": "The two flavours left at the cart.",
+       "literalGloss": "chocolate or vanilla"
+      },
+      "fr": {
+       "meaning": "Chocolat ou vanille ?",
+       "contextNote": "Les deux parfums qui restent au chariot. Accent sur la dernière syllabe : shokoLAD.",
+       "literalGloss": "chocolat ou vanille"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": "Both flavour names are international loanwords used as-is in Hebrew.",
+     "pronunciationNote": "Stress the last syllable: shokoLAD.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "picks",
+     "intentKey": "choose_option",
+     "slotId": "picks",
+     "speaker": "character",
+     "targetText": "שוקולד, בבקשה!",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "שוקולד, בבקשה!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "shokolad, bevakasha!"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "שׁוֹקוֹלָד, בְּבַקָּשָׁה!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Chocolate, please!",
+       "contextNote": null,
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Chocolat, s'il te plaît !",
+       "contextNote": "Le kh de « bevakasha » se prononce k ; l'accent tombe sur la dernière syllabe.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say the kh in bevakasha as k; the stress is on the last syllable.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "scoop",
+     "intentKey": "specify_quantity",
+     "slotId": "scoop",
+     "speaker": "learner",
+     "targetText": "כדור אחד, בבקשה.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "כדור אחד, בבקשה."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "kadur ehad, bevakasha."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "כַּדּוּר אֶחָד, בְּבַקָּשָׁה."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "One scoop, please.",
+       "contextNote": "Said to the ice-cream seller. Ice-cream scoops are called kadur, literally 'ball'.",
+       "literalGloss": "ball one, please"
+      },
+      "fr": {
+       "meaning": "Une boule, s'il vous plaît.",
+       "contextNote": "Se dit au vendeur de glaces. La boule de glace se dit « kadur », littéralement « balle ». Le ח de « ehad » est un h rauque, venu de la gorge.",
+       "literalGloss": "boule une, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ח in ehad is a rough, throaty h.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "asks_two",
+     "intentKey": "ask_permission",
+     "slotId": "asks_two",
+     "speaker": "character",
+     "targetText": "אפשר עוד כדור?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "אפשר עוד כדור?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "efshar od kadur?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֶפְשָׁר עוֹד כַּדּוּר?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have another scoop?",
+       "contextNote": "The twist: the child asks for more.",
+       "literalGloss": "possible more ball?"
+      },
+      "fr": {
+       "meaning": "Je peux avoir une autre boule ?",
+       "contextNote": "Le rebondissement : l'enfant en réclame plus.",
+       "literalGloss": "possible encore boule ?"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "just_one",
+     "intentKey": "refuse_permission",
+     "slotId": "just_one",
+     "speaker": "learner",
+     "targetText": "לא הפעם. רק כדור אחד, בסדר?",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "לא הפעם. רק כדור אחד, בסדר?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "lo hapa'am. rak kadur ehad, beseder?"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "לֹא הַפַּעַם. רַק כַּדּוּר אֶחָד, בְּסֵדֶר?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Not this time. Just one scoop, okay?",
+       "contextNote": "A kind no. Ending with beseder? softens it.",
+       "literalGloss": "not this-time. only ball one, okay?"
+      },
+      "fr": {
+       "meaning": "Pas cette fois. Juste une boule, d'accord ?",
+       "contextNote": "Un refus bienveillant : finir par « beseder ? » l'adoucit. Le ע de « hapa'am » est un léger coup de glotte ; on marque simplement une petite pause.",
+       "literalGloss": "pas cette-fois. seulement boule une, d'accord ?"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ע in hapa'am is a light glottal stop; most people just pause slightly.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "okay",
+     "intentKey": "grant_permission",
+     "slotId": "okay",
+     "speaker": "learner",
+     "targetText": "בסדר, אין בעיה.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "בסדר, אין בעיה."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "beseder, ein be'aya."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "בְּסֵדֶר, אֵין בְּעָיָה."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Okay, no problem.",
+       "contextNote": "Use this when the child asks for something you are happy to allow.",
+       "literalGloss": "okay, there-isn't problem"
+      },
+      "fr": {
+       "meaning": "D'accord, pas de problème.",
+       "contextNote": "À utiliser quand l'enfant demande quelque chose que vous voulez bien lui accorder.",
+       "literalGloss": "d'accord, il-n'y-a-pas problème"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "yummy",
+     "intentKey": "say_delicious",
+     "slotId": "yummy",
+     "speaker": "character",
+     "targetText": "איזה טעים!",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "איזה טעים!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "eize ta'im!"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "אֵיזֶה טָעִים!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How tasty!",
+       "contextNote": null,
+       "literalGloss": "what tasty"
+      },
+      "fr": {
+       "meaning": "Que c'est bon !",
+       "contextNote": null,
+       "literalGloss": "quel délicieux"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "me_too",
+     "intentKey": "express_like",
+     "slotId": "me_too",
+     "speaker": "learner",
+     "targetText": "גם אני אוהב שוקולד.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "גם אני אוהב שוקולד."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "gam ani ohev shokolad."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "גַּם אֲנִי אוֹהֵב שׁוֹקוֹלָד."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I love chocolate too.",
+       "contextNote": "A man says ohev; a woman says ohevet (see the variant).",
+       "literalGloss": "also I love chocolate"
+      },
+      "fr": {
+       "meaning": "Moi aussi, j'adore le chocolat.",
+       "contextNote": "Un homme dit « ohev », une femme dit « ohevet » (voir la variante).",
+       "literalGloss": "aussi je aime chocolat"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "character",
+     "targetText": "תודה על הגלידה!",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "תודה על הגלידה!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "toda al haglida!"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "תּוֹדָה עַל הַגְּלִידָה!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks for the ice cream!",
+       "contextNote": null,
+       "literalGloss": "thanks for the ice-cream"
+      },
+      "fr": {
+       "meaning": "Merci pour la glace !",
+       "contextNote": null,
+       "literalGloss": "merci pour la glace"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "welcome",
+     "intentKey": "respond_to_thanks",
+     "slotId": "welcome",
+     "speaker": "learner",
+     "targetText": "בבקשה!",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "בבקשה!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "bevakasha!"
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "בְּבַקָּשָׁה!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "You're welcome!",
+       "contextNote": "Hebrew uses the same word for 'please' and 'you're welcome'.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Je t'en prie !",
+       "contextNote": "En hébreu, le même mot signifie « s'il te plaît » et « de rien ».",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "express_like_variant_12",
+     "intentKey": "express_like",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "גם אני אוהבת שוקולד.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "גם אני אוהבת שוקולד."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "gam ani ohevet shokolad."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "גַּם אֲנִי אוֹהֶבֶת שׁוֹקוֹלָד."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I love chocolate too. (a woman speaking)",
+       "contextNote": "Feminine form for a woman speaking.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Moi aussi, j'adore le chocolat. (une femme qui parle)",
+       "contextNote": "Forme féminine, pour une femme qui parle.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "refuse_permission_variant_13",
+     "intentKey": "refuse_permission",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "לא הפעם, מתוקה. רק כדור אחד.",
+     "forms": [
+      {
+       "script": "Hebr",
+       "transliterationScheme": null,
+       "text": "לא הפעם, מתוקה. רק כדור אחד."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "lo hapa'am, metuka. rak kadur ehad."
+      },
+      {
+       "script": "Hebr",
+       "transliterationScheme": "niqqud",
+       "text": "לֹא הַפַּעַם, מְתוּקָה. רַק כַּדּוּר אֶחָד."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Not this time, sweetie. Just one scoop.",
+       "contextNote": "Warmer wording for a girl. For a boy, use מתוק (matok).",
+       "literalGloss": "not this-time, sweet. only ball one"
+      },
+      "fr": {
+       "meaning": "Pas cette fois, ma puce. Juste une boule.",
+       "contextNote": "Formulation plus tendre pour une fille. Pour un garçon, on dit מתוק (matok).",
+       "literalGloss": "pas cette-fois, douce. seulement boule une"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  }
+ ],
+ "provenance": "ai_draft",
+ "nativeReviewed": false,
+ "reviewStatus": "review_needed",
+ "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+ "notes": [
+  "AI draft generated 2026-11-11T22:42:14.753Z with anthropic/claude-sonnet-5.5; validator accepted 71 expressions; native review required before publishing.",
+  "greet_and_introduce: The pointed forms for 'ma shlomkha' and 've-eikh korim lekha' are masculine; the feminine variants are 'shlomekh' and 'lakh'.",
+  "greet_and_introduce: 'Dan' is a placeholder name in 'korim li Dan'.",
+  "greet_and_introduce: Please check whether 'yom tov' as a plain 'have a good day' sounds natural, or whether 'yom na'im' or 'sof shavua na'im' would be better.",
+  "cafe_order_drink: Greeting uses צהריים טובים to avoid repeating the already drafted שלום and בוקר טוב; please check it sounds natural for a café.",
+  "cafe_order_drink: קטן/גדול agree with masculine קפה; with a feminine item (e.g. כוס) they would be קטנה/גדולה.",
+  "cafe_order_drink: Please check the niqqud, especially צָהֳרַיִם and הֵי, and the choice of קפה הפוך for 'latte'.",
+  "market_ask_price: Used ערב טוב and אהלן to avoid repeating greetings already drafted earlier in the chapter.",
+  "market_ask_price: Price phrase uses שקלים לקילו; please check that the number and gender agreement sound natural, as vendors may shorten it to just 'שמונה לקילו'.",
+  "market_ask_price: Niqqud was added for all forms; please check the pointing, especially כַּמָּה and לוֹקֵחַ.",
+  "ask_directions: Directions use impersonal plural forms (ממשיכים, פונים) to avoid choosing masculine or feminine for the learner; please confirm they sound natural.",
+  "ask_directions: 'Ha-rakevet' (the train) was chosen over 'takhana merkazit'; please confirm which fits for a visitor.",
+  "ask_directions: Niqqud is fully pointed on every line as the schema requires; please check the vowels, especially in שְׂמֹאלָה and אֵיפֹה.",
+  "meet_neighbour: The learner is written as male, matching the earlier line 'קוראים לי דן'. Feminine variants are given in the notes and as extras.",
+  "meet_neighbour: Please check the niqqud, especially הָרֶגַע and לְפֹּה. Spoken Hebrew often says פה without a dagesh.",
+  "meet_neighbour: אנגליה is a placeholder country. The thank line avoids repeating תודה רבה, which was used earlier.",
+  "take_taxi: Check that כאן and פה are both natural for 'here' in a taxi. I used כאן in the polite line and פה in the casual one.",
+  "take_taxi: Lines assume a male driver (אתה, לך). The feminine forms are given in the context notes.",
+  "take_taxi: אפשר עם מונה is my wording for asking for the meter. Please confirm it, or suggest a more idiomatic phrase.",
+  "buy_ice_cream: The child is written as a girl (Noa), so rotsa is feminine. Please check the gender agreement, or change the character to a boy if you prefer.",
+  "buy_ice_cream: The learner's lines are gender-neutral wherever possible. The only exception is ohev/ohevet, which has a feminine variant.",
+  "buy_ice_cream: Please check whether בכיף! would be a more natural reply than בבקשה! for welcome. The word גלידה is spelled without niqqud ligatures, and the pointed form uses the standard gelida/glida variants.",
+  "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+ ]
+}
