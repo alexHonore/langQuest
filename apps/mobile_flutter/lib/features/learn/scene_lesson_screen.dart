@@ -39,6 +39,9 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
   int _utterance = 0;
   late final SpeechService _speech;
 
+  /// The learner's line has to be said (with a microphone) before moving on.
+  final _step = SpeakingStep();
+
   @override
   void initState() {
     super.initState();
@@ -78,6 +81,7 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
 
   void _next(MissionLearnPlan plan) {
     if (_index < plan.sceneLines.length - 1) {
+      _step.reset();
       setState(() => _index++);
       _speakCurrent();
     } else {
@@ -103,6 +107,8 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
     final sceneId = sceneIdForSituation(plan.mission.situation);
     final isLast = index == plan.sceneLines.length - 1;
     final note = plan.noteOf(line.expression);
+    // The learner's line waits for a take (understood where the server checks), unless speaking is paused.
+    final waiting = learnerTurn && speakingRequired(ref) && !_step.done;
 
     return Scaffold(
       backgroundColor: colors.background,
@@ -217,6 +223,7 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
                             key: ValueKey('take-$index'),
                             voiceLocale: plan.voiceLocale,
                             check: SpeechTarget(expressionId: line.expression.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
+                            onTake: (outcome) => setState(() => _step.take(outcome)),
                           ),
                         ],
                       ],
@@ -230,10 +237,20 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
             const SizedBox(height: 12),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-              child: LearnPrimaryButton(
-                label: learnerTurn ? l10n.sceneISaidIt : (isLast ? l10n.sceneLearnPhrases : l10n.next),
-                icon: LucideIcons.chevronRight,
-                onPressed: () => _next(plan),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (waiting)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 4),
+                      child: SpeakingHint(tries: _step.tries),
+                    ),
+                  LearnPrimaryButton(
+                    label: learnerTurn ? l10n.sceneISaidIt : (isLast ? l10n.sceneLearnPhrases : l10n.next),
+                    icon: LucideIcons.chevronRight,
+                    onPressed: waiting ? null : () => _next(plan),
+                  ),
+                ],
               ),
             ),
           ],

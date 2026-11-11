@@ -61,6 +61,9 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
 
   /// The current reply was given out loud and understood (no option was chosen).
   bool _answeredByVoice = false;
+
+  /// The chosen reply has to be said (with a microphone) before the next exchange.
+  final _sayStep = SpeakingStep();
   late final SpeechService _speech;
   late final bool _wasCompleted;
   int _newReviewCards = 0;
@@ -143,6 +146,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
   void _nextExchange(MissionLearnPlan plan) {
     _utterance++;
     _speech.stop();
+    _sayStep.reset();
     setState(() {
       _selected = null;
       _answered = false;
@@ -357,6 +361,8 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     );
 
     if (_answered) {
+      // Said out loud already (understood), or waits for a take of the chosen reply.
+      final waitingForTake = !_answeredByVoice && speakingRequired(ref) && !_sayStep.done;
       // Say it: the chosen (correct) reply, big, with its meaning and the device voice when there is one.
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -407,6 +413,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                         centered: true,
                         check: SpeechTarget(expressionId: exchange.answer.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
                         onVerdict: (verdict) => _onVerdict(exchange, verdict),
+                        onTake: (outcome) => setState(() => _sayStep.take(outcome)),
                       ),
                     const SizedBox(height: 12),
                     MeloWidget(
@@ -422,10 +429,20 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.only(bottom: 12),
-            child: LearnPrimaryButton(
-              label: _answeredByVoice ? l10n.next : l10n.sceneISaidIt,
-              icon: _answeredByVoice ? LucideIcons.chevronRight : LucideIcons.check,
-              onPressed: () => _nextExchange(plan),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (waitingForTake)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: SpeakingHint(tries: _sayStep.tries),
+                  ),
+                LearnPrimaryButton(
+                  label: _answeredByVoice ? l10n.next : l10n.sceneISaidIt,
+                  icon: _answeredByVoice ? LucideIcons.chevronRight : LucideIcons.check,
+                  onPressed: waitingForTake ? null : () => _nextExchange(plan),
+                ),
+              ],
             ),
           ),
         ],

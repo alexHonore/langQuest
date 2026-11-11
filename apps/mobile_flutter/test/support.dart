@@ -16,6 +16,7 @@ final ContentBundle testBundle = ContentBundle.parse(
   skillsJson: File('assets/content/skills.json').readAsStringSync(),
   castJson: File('assets/content/cast.json').readAsStringSync(),
   examplesJson: File('assets/content/examples.json').readAsStringSync(),
+  voicesJson: File('assets/content/voices.json').readAsStringSync(),
 );
 
 /// Fixed local clock for schedules, streaks and XP days.

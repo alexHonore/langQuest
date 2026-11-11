@@ -221,7 +221,7 @@ void main() {
         tip: 'Keep the h silent.',
       );
 
-      testWidgets('on demand after a take: the score, each word, the tip, what was heard, and that it is an AI estimate', (tester) async {
+      testWidgets('by itself after each checked take: the score, each word, the tip, what was heard, and that it is an AI estimate', (tester) async {
         final semantics = tester.ensureSemantics();
         recorders = [FakeRecorder(take: FakeTake())];
         final coach = FakeCoach([silentH]);
@@ -234,9 +234,7 @@ void main() {
         await tap(tester, 'Record yourself');
         await tap(tester, 'Stop recording');
         await tester.pumpAndSettle();
-        expect(coach.listened, isEmpty, reason: 'only when asked: each listen is a model call');
-        await tap(tester, 'Get AI feedback on your pronunciation');
-        await tester.pumpAndSettle();
+        // Realtime review: no tap needed, the AI listens as soon as the take is checked.
         expect(coach.listened.single.$2.expressionId, 'ch:m:hola');
         expect(find.bySemanticsLabel('75/100, Clear, with an accent'), findsOneWidget);
         expect(find.text('Easy to understand; the h of “Hola” is pronounced.'), findsOneWidget);

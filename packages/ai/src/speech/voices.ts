@@ -57,6 +57,8 @@ const kokoro = (varietyId: VarietyId, voiceId: string, providerVoice: string, lo
   voiceId, varietyId, model: KOKORO, providerVoice, locale, gender, responseFormat: 'mp3', encoding: 'mp3', sampleRateHz: 24_000, synthetic: true, status, regionalOptionId: null, instructions: null, evidence,
 });
 
+/** Blind listening check (a listening model transcribed and rated naturalness without being told the text first). */
+const LISTENED_2026_11_11 = 'Live 2026-11-11: a narration read by this voice was transcribed exactly and rated 10/10 natural by a blind listening check; MAI-Voice en-US-Harper read the same text at 7/10 ("non-native accent").';
 const MAI_CATALOG = 'listed in the live OpenRouter catalog for microsoft/mai-voice-2.1-flash on 2026-10-14';
 const ELEVEN_DOC = 'ElevenLabs flash v2.5 documents this language (32-language list); multilingual voice reads the text; not native-reviewed';
 const GEMINI_DOC = 'Gemini TTS documents this locale; voice name from the live catalog; not native-reviewed';
@@ -91,6 +93,7 @@ export const VOICE_REGISTRY: Readonly<Record<VarietyId, readonly VoiceEntry[] | 
     gemini('cmn', 'cmn-tw-f-1', 'Kore', 'zh-TW', 'female', 'limited', 'Speak in Taiwanese Mandarin.', 'No MAI zh-TW voice; Gemini reads Traditional text. Unverified.', 'TW'),
   ],
   en: [
+    gemini('en', 'en-us-f-2', 'Kore', 'en-US', 'female', 'verified', 'Speak in natural American English, warm and clear.', LISTENED_2026_11_11, 'US'),
     mai('en', 'en-us-f-1', 'en-US-Harper', 'en-US', 'female', 'vendor_documented', MAI_CATALOG, 'US'),
     mai('en', 'en-us-m-1', 'en-US-Ethan', 'en-US', 'male', 'vendor_documented', MAI_CATALOG, 'US'),
     mai('en', 'en-gb-f-1', 'en-GB-Emily', 'en-GB', 'female', 'vendor_documented', MAI_CATALOG, 'GB'),
@@ -126,7 +129,11 @@ export const VOICE_REGISTRY: Readonly<Record<VarietyId, readonly VoiceEntry[] | 
     mai('es-419', 'es-mx-m-1', 'es-MX-Alejo', 'es-MX', 'male', 'vendor_documented', MAI_CATALOG, 'MX'),
     gemini('es-419', 'es-419-f-2', 'Kore', 'es-419', 'female', 'vendor_documented', 'Speak in neutral Latin American Spanish.', 'Gemini TTS documents es-US (Latin American Spanish).'),
   ],
-  'es-ES': [mai('es-ES', 'es-es-f-1', 'es-ES-Marta', 'es-ES', 'female', 'vendor_documented', MAI_CATALOG), gemini('es-ES', 'es-es-m-1', 'Charon', 'es-ES', 'male', 'limited', 'Speak in Castilian Spanish from Spain (distinción, vosotros).', 'Gemini documents es-US only; Castilian accent via instruction is unverified.')],
+  'es-ES': [
+    gemini('es-ES', 'es-es-f-2', 'Aoede', 'es-ES', 'female', 'verified', 'Speak in natural Castilian Spanish from Madrid, Spain (distinción, vosotros), warm and conversational.', 'Live 2026-11-11: the same voice and instruction on gemini-3.8-flash-tts read the Spanish course lines; a blind listening check heard Spanish (Spain) and rated them 9–10/10 natural.'),
+    mai('es-ES', 'es-es-f-1', 'es-ES-Marta', 'es-ES', 'female', 'vendor_documented', MAI_CATALOG),
+    gemini('es-ES', 'es-es-m-1', 'Charon', 'es-ES', 'male', 'limited', 'Speak in Castilian Spanish from Spain (distinción, vosotros).', 'Gemini documents es-US only; Castilian accent via instruction is unverified.'),
+  ],
   sw: [gemini('sw', 'sw-f-1', 'Kore', 'sw-KE', 'female', 'limited', 'Speak in Kiswahili.', 'Live 2026-10-14: synthesised Swahili text; Whisper(sw) partially recognised it. No vendor documents Swahili for Gemini TTS; not native-reviewed.')],
   rw: 'unsupported',
   sv: [mai('sv', 'sv-f-1', 'sv-SE-Harper', 'sv-SE', 'female', 'vendor_documented', MAI_CATALOG), mai('sv', 'sv-m-1', 'sv-SE-Grant', 'sv-SE', 'male', 'vendor_documented', MAI_CATALOG)],

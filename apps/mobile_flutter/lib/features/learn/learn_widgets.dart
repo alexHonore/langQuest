@@ -220,7 +220,7 @@ class ListenButtons extends ConsumerWidget {
     if (voice == null || !voice.canSay(expressionId: expressionId)) return const SizedBox.shrink();
     final l10n = context.l10n;
     // The server's voice is said to be an AI voice (screen readers hear it; the course page says so too).
-    final ai = voice.source == LineVoiceSource.server;
+    final ai = voice.aiFor(expressionId);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [

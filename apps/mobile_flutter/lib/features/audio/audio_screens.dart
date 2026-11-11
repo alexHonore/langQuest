@@ -9,6 +9,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/backend/narrator.dart';
 import '../../core/backend/server_voice.dart';
+import '../../core/backend/speech_check.dart';
 import '../../core/layout/celebration.dart';
 import '../../core/layout/motion.dart';
 import '../../core/services/app_state.dart';
@@ -19,6 +20,7 @@ import '../../navigation/nav.dart';
 import '../learn/learn_content.dart';
 import '../learn/learn_providers.dart';
 import '../learn/learn_widgets.dart';
+import '../learn/record_take.dart';
 import '../scenes/animated_scene.dart';
 import 'audio_lesson.dart';
 import 'audio_lesson_player.dart';
@@ -104,10 +106,10 @@ class AudioLibraryScreen extends ConsumerWidget {
             const SizedBox(height: 8),
             Row(
               children: [
-                Icon(voice.source == LineVoiceSource.server ? LucideIcons.audioLines : LucideIcons.volume2, size: 15, color: accent.primaryText),
+                Icon(voice.ai ? LucideIcons.audioLines : LucideIcons.volume2, size: 15, color: accent.primaryText),
                 const SizedBox(width: 6),
                 Text(
-                  voice.source == LineVoiceSource.server ? l10n.audioReadByAi : l10n.audioReadByDevice,
+                  voice.ai ? l10n.audioReadByAi : l10n.audioReadByDevice,
                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: accent.primaryText),
                 ),
               ],
@@ -225,12 +227,16 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
     super.dispose();
   }
 
+  /// The learner's turn in progress: its takes so far (a turn waits for the phrase, as speaking steps do).
+  final _turn = SpeakingStep();
+
   void _onPlayer() {
     if (!mounted) return;
     final player = _player!;
     setState(() {});
     if (player.index != _shownIndex) {
       _shownIndex = player.index;
+      _turn.reset();
       // Keep the line being said in view.
       final key = _keys[player.index];
       final target = key?.currentContext;
@@ -247,14 +253,17 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
     final narrates = narrator != null && (narrator.ai || await ref.read(speechServiceProvider).voiceForLanguage(plan.source) != null);
     if (!mounted) return null;
     final courseId = ref.read(appStateProvider).activeCourse?.id;
-    final player = AudioLessonPlayer(
-      lesson: buildAudioLesson(plan, narrationOf(words)),
-      voice: voice,
-      narrate: narrates ? narrator.say : null,
-      onFinished: () {
-        if (courseId != null) ref.read(audioListenedProvider.notifier).markListened(courseId, widget.missionKey);
-      },
-    )..addListener(_onPlayer);
+    final player =
+        AudioLessonPlayer(
+            lesson: buildAudioLesson(plan, narrationOf(words)),
+            voice: voice,
+            narrate: narrates ? narrator.say : null,
+            onFinished: () {
+              if (courseId != null) ref.read(audioListenedProvider.notifier).markListened(courseId, widget.missionKey);
+            },
+          )
+          ..speakAtTurns = speakingRequiredNow(ref)
+          ..addListener(_onPlayer);
     return player;
   }
 
@@ -277,6 +286,8 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
     final accent = appState.accent;
     final l10n = context.l10n;
     final player = _player;
+    // "Can't speak now" (or its end) changes whether turns wait for the phrase.
+    ref.listen(speakingPauseProvider, (_, _) => _player?.setSpeakAtTurns(speakingRequiredNow(ref)));
     final lesson = player?.lesson ?? buildAudioLesson(plan, narrationOf(l10n));
     final index = player?.index ?? 0;
     final step = lesson.steps[index];
@@ -334,7 +345,9 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
                           label: label,
                           active: step.section == section,
                           done: step.section.index > section.index,
-                          onTap: player == null || lesson.startOf(section) < 0 ? null : () => player.seek(lesson.startOf(section)),
+                          onTap: player == null || lesson.startOf(section) < 0 || (player.awaitingSpeech && lesson.startOf(section) > index)
+                              ? null
+                              : () => player.seek(lesson.startOf(section)),
                         ),
                       ),
                     ),
@@ -355,7 +368,23 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.fromLTRB(14, 44, 14, 14),
-                          child: _NowPlaying(plan: plan, step: step, playing: playing, waited: player?.waited ?? 0, finished: player?.finished ?? false),
+                          child: _NowPlaying(
+                            plan: plan,
+                            step: step,
+                            playing: playing,
+                            waited: player?.waited ?? 0,
+                            finished: player?.finished ?? false,
+                            // The turn waits for the phrase: a take, checked where the server can.
+                            speak: player != null && player.awaitingSpeech
+                                ? (
+                                    index: index,
+                                    tries: _turn.tries,
+                                    onTake: (TakeOutcome outcome) => setState(() {
+                                      if (_turn.take(outcome)) player.spoke();
+                                    }),
+                                  )
+                                : null,
+                          ),
                         ),
                         if (player?.finished ?? false)
                           Positioned.fill(
@@ -384,7 +413,7 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
                         plan: plan,
                         step: lesson.steps[i],
                         current: i == index || (lesson.steps[index].kind != AudioStepKind.say && i == _lineBefore(lesson, index)),
-                        onTap: player == null ? null : () => player.seek(i),
+                        onTap: player == null || (player.awaitingSpeech && i > index) ? null : () => player.seek(i),
                       ),
                 ],
               ),
@@ -431,7 +460,8 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
                   ),
                   IconButton(
                     tooltip: l10n.audioNextLine,
-                    onPressed: player?.next,
+                    // Not past a turn that waits for the phrase (say it, or "Can't speak now").
+                    onPressed: player == null || player.awaitingSpeech ? null : player.next,
                     icon: Icon(LucideIcons.skipForward, color: colors.textSecondary),
                   ),
                   _Toggle(icon: LucideIcons.mic, label: l10n.audioTurns, value: player?.turns ?? true, onChanged: player?.setTurns),
@@ -499,7 +529,10 @@ class _SectionTab extends ConsumerWidget {
 /// What is being said now: a line (big, with its meaning and who says it), the narration, or the learner's turn
 /// with its countdown.
 class _NowPlaying extends ConsumerWidget {
-  const _NowPlaying({required this.plan, required this.step, required this.playing, required this.waited, required this.finished});
+  const _NowPlaying({required this.plan, required this.step, required this.playing, required this.waited, required this.finished, this.speak});
+
+  /// The turn waits for the learner to say the phrase: the step's index, the takes so far, and what each take came to.
+  final ({int index, int tries, ValueChanged<TakeOutcome> onTake})? speak;
 
   final MissionLearnPlan plan;
   final AudioStep step;
@@ -590,6 +623,19 @@ class _NowPlaying extends ConsumerWidget {
                 style: TextStyle(fontSize: 15, color: colors.textSecondary),
               ),
               if (playing && !turn) ...[const SizedBox(height: 10), _Equalizer(color: accent.primary)],
+              if (turn && speak != null) ...[
+                const SizedBox(height: 12),
+                RecordTake(
+                  key: ValueKey('turn-${speak!.index}'),
+                  voiceLocale: plan.voiceLocale,
+                  centered: true,
+                  autoFeedback: false,
+                  check: SpeechTarget(expressionId: line.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
+                  onTake: speak!.onTake,
+                ),
+                const SizedBox(height: 6),
+                SpeakingHint(tries: speak!.tries),
+              ],
             ],
           );
       }

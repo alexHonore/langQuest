@@ -84,8 +84,11 @@ class CallLine {
   final bool viaVoice;
   final String? transliteration;
 
-  /// The line in the learner's instruction language, when the server wrote one.
-  final String? gloss;
+  /// The line in the learner's instruction language, when the server wrote one (or was asked for it: Translate).
+  String? gloss;
+
+  /// The learner asked to see this line's translation.
+  bool translationShown = false;
 
   /// The character's stage direction (`greeting`, `confusion`, `friendly_success`…): the portrait shows it.
   final String expression;
@@ -290,6 +293,30 @@ class CallSession extends ChangeNotifier {
     });
   }
 
+  /// Translate: the character's last line in the learner's language, under that line. The server's gloss when it wrote
+  /// one (nothing asked); otherwise the server is asked once (`translate`) and its answer is attached to the line
+  /// rather than added as a new one (the line is not said again). False when there is nothing to translate.
+  Future<bool> translateLast() async {
+    final last = lastCharacterLine;
+    if (last == null) return false;
+    if (last.gloss != null) {
+      last.translationShown = !last.translationShown;
+      _changed();
+      return true;
+    }
+    if (!_canTurn) return false;
+    final reply = await _turn(null, {
+      'input': {'kind': 'command', 'command': 'translate'},
+    }, addReply: false);
+    final gloss = reply?.gloss;
+    if (gloss == null) return false;
+    last
+      ..gloss = gloss
+      ..translationShown = true;
+    _changed();
+    return true;
+  }
+
   /// Asks the character for help (`hint`, `repeat`, `slower`, `translate`, `example`, `meaning`, `skip`).
   Future<CallLine?> sendCommand(String command) async {
     if (!_canTurn) return null;
@@ -300,7 +327,7 @@ class CallSession extends ChangeNotifier {
 
   bool get _canTurn => phase == CallPhase.active && !thinking && _sessionId != null;
 
-  Future<CallLine?> _turn(CallLine? mine, Map<String, Object?> body) async {
+  Future<CallLine?> _turn(CallLine? mine, Map<String, Object?> body, {bool addReply = true}) async {
     thinking = true;
     notice = null;
     if (mine != null) lines.add(mine);
@@ -344,7 +371,7 @@ class CallSession extends ChangeNotifier {
     }
     _markObjectives(data['objectivesCompleted'], done: true);
     final reply = data['characterTurn'] is Map ? _characterLine(_map(data['characterTurn'])) : null;
-    if (reply != null) lines.add(reply);
+    if (reply != null && addReply) lines.add(reply);
     _changed();
     return reply;
   }

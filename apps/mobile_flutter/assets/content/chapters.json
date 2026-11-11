@@ -33,7 +33,8 @@
           "role": "friendly local acquaintance",
           "personality": "warm, curious, patient with learners",
           "homeRegion": "Casablanca",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "female"
         },
         {
           "key": "ary_youssef_cafe",
@@ -41,7 +42,8 @@
           "role": "café server",
           "personality": "quick, cheerful, likes to joke",
           "homeRegion": "Casablanca",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "male"
         },
         {
           "key": "ary_lalla_fatima_souk",
@@ -49,7 +51,8 @@
           "role": "market vendor",
           "personality": "sharp bargainer with a soft heart",
           "homeRegion": "Casablanca",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "female"
         },
         {
           "key": "ary_omar_passerby",
@@ -57,7 +60,8 @@
           "role": "passer-by",
           "personality": "helpful, speaks fast, slows down when asked",
           "homeRegion": "Casablanca",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "male"
         },
         {
           "key": "ary_nadia_neighbour",
@@ -65,7 +69,8 @@
           "role": "neighbour",
           "personality": "hospitable, chatty, insists on tea",
           "homeRegion": "Casablanca",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "female"
         },
         {
           "key": "ary_hamid_taxi",
@@ -73,7 +78,8 @@
           "role": "taxi driver",
           "personality": "talkative, knows every street",
           "homeRegion": "Casablanca",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "male"
         },
         {
           "key": "ary_salma_kid",
@@ -81,7 +87,8 @@
           "role": "child at the ice-cream stand",
           "personality": "nine years old, decisive about flavours, negotiates for a second scoop",
           "homeRegion": "Casablanca",
-          "ageBand": "child"
+          "ageBand": "child",
+          "voice": "female"
         }
       ],
       "missions": [
@@ -2577,7 +2584,8 @@
           "role": "friendly local acquaintance",
           "personality": "open, chatty, laughs easily",
           "homeRegion": "Madrid",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "female"
         },
         {
           "key": "es_javi_camarero",
@@ -2585,7 +2593,8 @@
           "role": "café server",
           "personality": "fast, informal, friendly",
           "homeRegion": "Madrid",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "male"
         },
         {
           "key": "es_paco_mercado",
@@ -2593,7 +2602,8 @@
           "role": "market vendor",
           "personality": "loud, generous, proud of his produce",
           "homeRegion": "Madrid",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "male"
         },
         {
           "key": "es_carmen_passerby",
@@ -2601,7 +2611,8 @@
           "role": "passer-by",
           "personality": "helpful, precise with directions",
           "homeRegion": "Madrid",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "female"
         },
         {
           "key": "es_marta_vecina",
@@ -2609,7 +2620,8 @@
           "role": "neighbour",
           "personality": "curious, welcoming, offers help",
           "homeRegion": "Madrid",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "female"
         },
         {
           "key": "es_antonio_taxista",
@@ -2617,7 +2629,8 @@
           "role": "taxi driver",
           "personality": "talkative, football fan",
           "homeRegion": "Madrid",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "male"
         }
       ],
       "missions": [
@@ -4163,7 +4176,8 @@
           "role": "friendly local acquaintance",
           "personality": "polite, gently curious, encouraging",
           "homeRegion": "Tokyo",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "female"
         },
         {
           "key": "ja_kenta_cafe",
@@ -4171,7 +4185,8 @@
           "role": "café server",
           "personality": "efficient, courteous, uses set phrases",
           "homeRegion": "Tokyo",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "male"
         },
         {
           "key": "ja_sato_passerby",
@@ -4179,7 +4194,8 @@
           "role": "passer-by",
           "personality": "helpful office worker, slightly hurried",
           "homeRegion": "Tokyo",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "female"
         },
         {
           "key": "ja_tanaka_taxi",
@@ -4187,7 +4203,8 @@
           "role": "taxi driver",
           "personality": "formal, calm, knows the city",
           "homeRegion": "Tokyo",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "male"
         }
       ],
       "missions": [
@@ -5463,7 +5480,8 @@
           "role": "friendly local acquaintance",
           "personality": "easy-going, encouraging",
           "homeRegion": "US (neutral)",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "female"
         },
         {
           "key": "en_sam_barista",
@@ -5471,7 +5489,8 @@
           "role": "café server",
           "personality": "quick, friendly, asks follow-ups",
           "homeRegion": "US (neutral)",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "male"
         },
         {
           "key": "en_dana_passerby",
@@ -5479,7 +5498,8 @@
           "role": "passer-by",
           "personality": "helpful, talks fast",
           "homeRegion": "US (neutral)",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "female"
         },
         {
           "key": "en_ray_taxi",
@@ -5487,7 +5507,8 @@
           "role": "taxi driver",
           "personality": "chatty, practical",
           "homeRegion": "US (neutral)",
-          "ageBand": null
+          "ageBand": null,
+          "voice": "male"
         }
       ],
       "missions": [

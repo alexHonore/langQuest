@@ -17,10 +17,11 @@ import * as importTatoeba from './import-tatoeba';
 import * as licenseReport from './license-report';
 import { memoryIo, runCli } from './lib/cli';
 import * as seedLanguages from './seed-languages';
+import * as synthesizeBundleAudio from './synthesize-bundle-audio';
 import * as validateCoverage from './validate-course-coverage';
 
 const FIX = resolve(__dirname, 'fixtures');
-const ALL = [importTatoeba, importTaskmaster, importCorpora, bulkAudioScan, licenseReport, seedLanguages, validateCoverage, contentFactory, exportFlutterContent, attachTatoebaExamples];
+const ALL = [importTatoeba, importTaskmaster, importCorpora, bulkAudioScan, licenseReport, seedLanguages, validateCoverage, contentFactory, exportFlutterContent, attachTatoebaExamples, synthesizeBundleAudio];
 
 describe('every CLI', () => {
   it('prints --help with usage, flags and --dry-run', async () => {

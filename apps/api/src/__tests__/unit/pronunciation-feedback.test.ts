@@ -74,7 +74,7 @@ describe('POST /v1/speech/pronunciation-feedback (AI pronunciation feedback)', (
     expect(f.h.db.rows('learning_observations')).toHaveLength(0);
     expect(f.h.db.rows('user_skill_mastery')).toHaveLength(0);
     expect(f.h.db.rows('xp_ledger')).toHaveLength(0);
-    expect(f.h.db.rows('ai_requests').at(-1)).toMatchObject({ task: 'pronunciation_assessment', success: true });
+    expect(f.h.db.rows('ai_requests').at(-1)).toMatchObject({ task: 'pronunciation_feedback', success: true });
   });
 
   it('a take metered as silent: no_speech, and the model is not called', async () => {

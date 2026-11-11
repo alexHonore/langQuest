@@ -53,10 +53,10 @@ export const JAPANESE_CHAPTER_1: SeedChapter = defineSeedChapter({
   generatedBy: 'curriculum-seed/japanese@2026-10',
   notes: ['Polite (desu/masu) register throughout, as appropriate for strangers; casual forms are deliberately absent from chapter 1.', 'Pitch accent is not annotated; a reviewer should flag words where accent matters for intelligibility.', 'Furigana forms are full-kana readings (not ruby markup).'],
   characters: [
-    { characterKey: 'ja_aoi_acquaintance', role: 'friendly local acquaintance', name: 'Aoi', personality: 'polite, gently curious, encouraging', homeRegion: 'Tokyo', regionalOption: null },
-    { characterKey: 'ja_kenta_cafe', role: 'café server', name: 'Kenta', personality: 'efficient, courteous, uses set phrases', homeRegion: 'Tokyo', regionalOption: null },
-    { characterKey: 'ja_sato_passerby', role: 'passer-by', name: 'Satō-san', personality: 'helpful office worker, slightly hurried', homeRegion: 'Tokyo', regionalOption: null },
-    { characterKey: 'ja_tanaka_taxi', role: 'taxi driver', name: 'Tanaka-san', personality: 'formal, calm, knows the city', homeRegion: 'Tokyo', regionalOption: null },
+    { characterKey: 'ja_aoi_acquaintance', role: 'friendly local acquaintance', name: 'Aoi', personality: 'polite, gently curious, encouraging', homeRegion: 'Tokyo', regionalOption: null, voice: 'female' },
+    { characterKey: 'ja_kenta_cafe', role: 'café server', name: 'Kenta', personality: 'efficient, courteous, uses set phrases', homeRegion: 'Tokyo', regionalOption: null, voice: 'male' },
+    { characterKey: 'ja_sato_passerby', role: 'passer-by', name: 'Satō-san', personality: 'helpful office worker, slightly hurried', homeRegion: 'Tokyo', regionalOption: null, voice: 'female' },
+    { characterKey: 'ja_tanaka_taxi', role: 'taxi driver', name: 'Tanaka-san', personality: 'formal, calm, knows the city', homeRegion: 'Tokyo', regionalOption: null, voice: 'male' },
   ],
   missions: [
     {

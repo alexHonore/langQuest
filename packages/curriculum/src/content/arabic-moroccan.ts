@@ -65,13 +65,13 @@ export const ARABIC_MOROCCAN_CHAPTER_1: SeedChapter = defineSeedChapter({
     'Ice-cream mission: flavour words (chocolat, fraise, boule) are French loans in everyday Darija; reviewer should confirm the spelling of « غلاص » and whether « بول » is written or only spoken.',
   ],
   characters: [
-    { characterKey: 'ary_sara_acquaintance', role: 'friendly local acquaintance', name: 'Sara', personality: 'warm, curious, patient with learners', homeRegion: 'Casablanca', regionalOption: 'casablanca' },
-    { characterKey: 'ary_youssef_cafe', role: 'café server', name: 'Youssef', personality: 'quick, cheerful, likes to joke', homeRegion: 'Casablanca', regionalOption: 'casablanca' },
-    { characterKey: 'ary_lalla_fatima_souk', role: 'market vendor', name: 'Lalla Fatima', personality: 'sharp bargainer with a soft heart', homeRegion: 'Casablanca', regionalOption: 'casablanca' },
-    { characterKey: 'ary_omar_passerby', role: 'passer-by', name: 'Omar', personality: 'helpful, speaks fast, slows down when asked', homeRegion: 'Casablanca', regionalOption: 'casablanca' },
-    { characterKey: 'ary_nadia_neighbour', role: 'neighbour', name: 'Nadia', personality: 'hospitable, chatty, insists on tea', homeRegion: 'Casablanca', regionalOption: 'casablanca' },
-    { characterKey: 'ary_hamid_taxi', role: 'taxi driver', name: 'Hamid', personality: 'talkative, knows every street', homeRegion: 'Casablanca', regionalOption: 'casablanca' },
-    { characterKey: 'ary_salma_kid', role: 'child at the ice-cream stand', name: 'Salma', personality: 'nine years old, decisive about flavours, negotiates for a second scoop', homeRegion: 'Casablanca', regionalOption: 'casablanca', ageBand: 'child' },
+    { characterKey: 'ary_sara_acquaintance', role: 'friendly local acquaintance', name: 'Sara', personality: 'warm, curious, patient with learners', homeRegion: 'Casablanca', regionalOption: 'casablanca', voice: 'female' },
+    { characterKey: 'ary_youssef_cafe', role: 'café server', name: 'Youssef', personality: 'quick, cheerful, likes to joke', homeRegion: 'Casablanca', regionalOption: 'casablanca', voice: 'male' },
+    { characterKey: 'ary_lalla_fatima_souk', role: 'market vendor', name: 'Lalla Fatima', personality: 'sharp bargainer with a soft heart', homeRegion: 'Casablanca', regionalOption: 'casablanca', voice: 'female' },
+    { characterKey: 'ary_omar_passerby', role: 'passer-by', name: 'Omar', personality: 'helpful, speaks fast, slows down when asked', homeRegion: 'Casablanca', regionalOption: 'casablanca', voice: 'male' },
+    { characterKey: 'ary_nadia_neighbour', role: 'neighbour', name: 'Nadia', personality: 'hospitable, chatty, insists on tea', homeRegion: 'Casablanca', regionalOption: 'casablanca', voice: 'female' },
+    { characterKey: 'ary_hamid_taxi', role: 'taxi driver', name: 'Hamid', personality: 'talkative, knows every street', homeRegion: 'Casablanca', regionalOption: 'casablanca', voice: 'male' },
+    { characterKey: 'ary_salma_kid', role: 'child at the ice-cream stand', name: 'Salma', personality: 'nine years old, decisive about flavours, negotiates for a second scoop', homeRegion: 'Casablanca', regionalOption: 'casablanca', ageBand: 'child', voice: 'female' },
   ],
   missions: [
     {

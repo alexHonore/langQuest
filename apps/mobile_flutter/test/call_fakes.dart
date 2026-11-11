@@ -156,6 +156,7 @@ class FakeConversationServer {
               'hint' => _characterTurn('Puedes decir: «Me llamo…»', respondsTo: command),
               'meaning' => _characterTurn('¡Hola! Soy Pablo. ¿Cómo te llamas?', respondsTo: command, gloss: 'Pablo says hello, gives his name and asks yours.'),
               'example' => _characterTurn('Hola, me llamo Ana. ¿Y tú?', respondsTo: command, gloss: 'Another way to answer: say your name, then ask theirs.'),
+              'translate' => _characterTurn('Vale.', respondsTo: command, gloss: 'Okay.'),
               _ => _characterTurn('Más despacio: ¿Cómo te llamas?', respondsTo: command),
             },
             'replayed': false,
@@ -247,6 +248,9 @@ class FakeClipPlayer implements ClipPlayer {
 
   final bool instant;
   final played = <String>[];
+
+  /// The rate of each clip played (1 = normal, below 1 = slower).
+  final rates = <double>[];
   var primed = 0;
   var stops = 0;
   Completer<void>? _playing;
@@ -259,8 +263,9 @@ class FakeClipPlayer implements ClipPlayer {
   void prime() => primed++;
 
   @override
-  Future<void> play(String url) {
+  Future<void> play(String url, {double rate = 1}) {
     played.add(url);
+    rates.add(rate);
     _playing = Completer<void>();
     if (instant) _playing!.complete();
     _levels.add(0.6);

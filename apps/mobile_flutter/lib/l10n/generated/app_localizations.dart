@@ -2713,6 +2713,258 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{attested} of {total} phrases found as written in Tatoeba, a collection of real sentences, with real examples to read'**
   String courseIncludesRealExamples(int attested, int total);
+
+  /// No description provided for @recordSignInToCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Have LangQuest check what you said and how it sounded: create a free account'**
+  String get recordSignInToCheck;
+
+  /// No description provided for @speakToContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Say it out loud to continue'**
+  String get speakToContinue;
+
+  /// No description provided for @speakTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Not quite yet: try again ({tries} of {max})'**
+  String speakTryAgain(int tries, int max);
+
+  /// No description provided for @speakCantNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Can’t speak now'**
+  String get speakCantNow;
+
+  /// No description provided for @speakCantNowDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaking steps are paused for 15 minutes.'**
+  String get speakCantNowDone;
+
+  /// No description provided for @speakSignUpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Call the people of this course'**
+  String get speakSignUpTitle;
+
+  /// No description provided for @speakSignUpBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Live calls with the course’s AI characters, by voice or in writing, with corrections after each call. Free: it only needs an account, so your calls and progress are kept.'**
+  String get speakSignUpBody;
+
+  /// No description provided for @speakSignUpButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a free account to call'**
+  String get speakSignUpButton;
+
+  /// No description provided for @speakSignUpAlready.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have one? Sign in'**
+  String get speakSignUpAlready;
+
+  /// No description provided for @adminModelsEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'AI models (admin)'**
+  String get adminModelsEntry;
+
+  /// No description provided for @adminModelsEntryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Which model does what, and change it'**
+  String get adminModelsEntryBody;
+
+  /// No description provided for @adminModelsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI models'**
+  String get adminModelsTitle;
+
+  /// No description provided for @adminModelsIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Each task the AI does, the model that does it (then its fallbacks, tried in order), and for which courses. A change is tested on the spot before it is saved, and takes effect within a minute.'**
+  String get adminModelsIntro;
+
+  /// No description provided for @adminModelsAllCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'All courses'**
+  String get adminModelsAllCourses;
+
+  /// No description provided for @adminModelsDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'built-in'**
+  String get adminModelsDefault;
+
+  /// No description provided for @adminModelsChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'changed by an admin'**
+  String get adminModelsChanged;
+
+  /// No description provided for @adminModelsFallbacks.
+  ///
+  /// In en, this message translates to:
+  /// **'Then: {models}'**
+  String adminModelsFallbacks(String models);
+
+  /// No description provided for @adminModelsVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice: {voice}'**
+  String adminModelsVoice(String voice);
+
+  /// No description provided for @adminModelsChange.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get adminModelsChange;
+
+  /// No description provided for @adminModelsReadOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Not changeable here'**
+  String get adminModelsReadOnly;
+
+  /// No description provided for @adminModelsScope.
+  ///
+  /// In en, this message translates to:
+  /// **'For'**
+  String get adminModelsScope;
+
+  /// No description provided for @adminModelsPrimary.
+  ///
+  /// In en, this message translates to:
+  /// **'Model'**
+  String get adminModelsPrimary;
+
+  /// No description provided for @adminModelsFallbacksField.
+  ///
+  /// In en, this message translates to:
+  /// **'Fallbacks (comma-separated, in order)'**
+  String get adminModelsFallbacksField;
+
+  /// No description provided for @adminModelsVoiceField.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice'**
+  String get adminModelsVoiceField;
+
+  /// No description provided for @adminModelsVoiceDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'The course’s default voice'**
+  String get adminModelsVoiceDefault;
+
+  /// No description provided for @adminModelsSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Test and save'**
+  String get adminModelsSave;
+
+  /// No description provided for @adminModelsSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved: tests passed.'**
+  String get adminModelsSaved;
+
+  /// No description provided for @adminModelsFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Not saved: {reason}'**
+  String adminModelsFailed(String reason);
+
+  /// No description provided for @adminModelsLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t load the models. Are you signed in as an admin?'**
+  String get adminModelsLoadFailed;
+
+  /// No description provided for @adminTask_character_dialogue.
+  ///
+  /// In en, this message translates to:
+  /// **'Calls: what the character says'**
+  String get adminTask_character_dialogue;
+
+  /// No description provided for @adminTask_learner_evaluation.
+  ///
+  /// In en, this message translates to:
+  /// **'Calls: the report after hanging up'**
+  String get adminTask_learner_evaluation;
+
+  /// No description provided for @adminTask_source_explanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Calls: Translate, Hint, Explain, Example'**
+  String get adminTask_source_explanation;
+
+  /// No description provided for @adminTask_scene_planning.
+  ///
+  /// In en, this message translates to:
+  /// **'Calls: planning the scene'**
+  String get adminTask_scene_planning;
+
+  /// No description provided for @adminTask_meaning_assessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Spoken answers: was the meaning understood?'**
+  String get adminTask_meaning_assessment;
+
+  /// No description provided for @adminTask_pronunciation_feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Pronunciation score (AI listening)'**
+  String get adminTask_pronunciation_feedback;
+
+  /// No description provided for @adminTask_speech_recognition.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech to text (your takes, calls)'**
+  String get adminTask_speech_recognition;
+
+  /// No description provided for @adminTask_speech_synthesis.
+  ///
+  /// In en, this message translates to:
+  /// **'Server AI voice (narrator, calls, lines without a bundled clip)'**
+  String get adminTask_speech_synthesis;
+
+  /// No description provided for @adminTask_language_quality_check.
+  ///
+  /// In en, this message translates to:
+  /// **'Checks each AI line is in the right language'**
+  String get adminTask_language_quality_check;
+
+  /// No description provided for @adminTask_content_generation.
+  ///
+  /// In en, this message translates to:
+  /// **'Content factory: drafting course content'**
+  String get adminTask_content_generation;
+
+  /// No description provided for @adminTask_transcription_alignment.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio library: transcripts'**
+  String get adminTask_transcription_alignment;
+
+  /// No description provided for @adminTask_pronunciation_assessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Acoustic pronunciation score (Azure, not set up)'**
+  String get adminTask_pronunciation_assessment;
+
+  /// No description provided for @adminTask_realtime_conversation.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice calls pipeline (speech to text, dialogue, voice)'**
+  String get adminTask_realtime_conversation;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

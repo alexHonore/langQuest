@@ -161,7 +161,6 @@ class _CallScreenState extends ConsumerState<CallScreen> {
 
   final _text = TextEditingController();
   bool _typing = false;
-  bool _showGloss = false;
   final _scroll = ScrollController();
   Timer? _clock;
   Duration _elapsed = Duration.zero;
@@ -408,14 +407,12 @@ class _CallScreenState extends ConsumerState<CallScreen> {
     }
   }
 
-  /// Translate: the server's gloss, when it wrote one; otherwise the character is asked.
-  void _translate() {
-    final hasGloss = _session?.lines.any((l) => !l.fromLearner && l.gloss != null) ?? false;
-    if (hasGloss) {
-      setState(() => _showGloss = !_showGloss);
-    } else {
-      unawaited(_command('translate'));
-    }
+  /// Translate: the character's last line in the learner's language, shown under it (asked of the server only when it
+  /// did not write one; the line is not said again).
+  Future<void> _translate() async {
+    final session = _session;
+    if (session == null || session.thinking || _recording) return;
+    await session.translateLast();
   }
 
   Future<void> _hangUp() async {
@@ -627,7 +624,7 @@ class _CallScreenState extends ConsumerState<CallScreen> {
                           speaking: _speakingId == line.id,
                           progress: _voiceProgress,
                           // Help (a hint, a translation, an example) is written in the learner's language: always shown.
-                          showGloss: _showGloss || line.respondsTo != null,
+                          showGloss: line.respondsTo != null || line.translationShown,
                           onReplay: line.audioUrl == null || _player == null ? null : () => _play(line),
                         ),
               ],
@@ -679,6 +676,8 @@ class _CallScreenState extends ConsumerState<CallScreen> {
     final missionKey = widget.missionKey;
     final plan = missionKey == null ? null : ref.watch(learnPlanProvider(missionKey));
     final help = [
+      // First: the most asked for, "what did they just say?".
+      (LucideIcons.languages, l10n.callTranslate, _translate),
       (LucideIcons.lightbulb, l10n.callHint, () => _command('hint')),
       if (plan != null && plan.phrases.isNotEmpty) (LucideIcons.bookOpen, l10n.callPhrases, () => _showPhrases(plan)),
       // The server explains the character's last line, or gives another sentence using it (in the learner's language).
@@ -686,7 +685,6 @@ class _CallScreenState extends ConsumerState<CallScreen> {
       (LucideIcons.quote, l10n.callExample, () => _command('example')),
       (LucideIcons.rotateCcw, l10n.callRepeat, _repeat),
       (LucideIcons.snail, l10n.callSlower, () => _command('slower')),
-      (LucideIcons.languages, l10n.callTranslate, _translate),
     ];
     return Padding(
       padding: const EdgeInsets.fromLTRB(12, 0, 12, 10),

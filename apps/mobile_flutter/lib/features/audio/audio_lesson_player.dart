@@ -26,6 +26,14 @@ class AudioLessonPlayer extends ChangeNotifier {
   /// The pauses to say each phrase (off: the phrases follow each other).
   bool turns = true;
 
+  /// At each turn the lesson waits for the learner to say the phrase (a take, checked where the server can) instead
+  /// of a timed pause; the screen sets it where the device records and speaking is not paused.
+  bool speakAtTurns = false;
+
+  /// The lesson is waiting for the learner to say the current phrase ([spoke] goes on).
+  bool awaitingSpeech = false;
+  Completer<void>? _speech;
+
   /// How much of the current turn or pause has passed, 0–1.
   double waited = 0;
 
@@ -92,10 +100,41 @@ class AudioLessonPlayer extends ChangeNotifier {
         }
         await voice.say(text: line.text, expressionId: line.id, slow: step.slow || slow);
       case AudioStepKind.yourTurn:
-        if (turns) await _sleep(step.duration, run);
+        if (speakAtTurns) {
+          await _awaitSpeech(run);
+        } else if (turns) {
+          await _sleep(step.duration, run);
+        }
       case AudioStepKind.pause:
         await _sleep(step.duration, run);
     }
+  }
+
+  /// Waits until the learner said the phrase ([spoke]), or a pause or a jump ends the turn.
+  Future<void> _awaitSpeech(int run) async {
+    _finishWait();
+    final done = Completer<void>();
+    _speech = done;
+    awaitingSpeech = true;
+    _changed();
+    await done.future;
+    if (identical(_speech, done)) _speech = null;
+    awaitingSpeech = false;
+    _changed();
+  }
+
+  /// The learner said the phrase of this turn (or chose to go on): the lesson continues.
+  void spoke() {
+    final speech = _speech;
+    if (speech != null && !speech.isCompleted) speech.complete();
+  }
+
+  /// Speaking at turns switched on or off (paused with "Can't speak now"): a turn waiting for speech goes on.
+  void setSpeakAtTurns(bool value) {
+    if (speakAtTurns == value) return;
+    speakAtTurns = value;
+    if (!value) spoke();
+    _changed();
   }
 
   /// Waits [duration] (ended early by a pause or a jump), counting [waited] up.
@@ -127,6 +166,9 @@ class AudioLessonPlayer extends ChangeNotifier {
   void _finishWait() {
     _ticker?.cancel();
     _ticker = null;
+    final speech = _speech;
+    _speech = null;
+    if (speech != null && !speech.isCompleted) speech.complete();
     final wait = _wait;
     _wait = null;
     if (wait != null && !wait.isCompleted) wait.complete();
@@ -154,8 +196,9 @@ class AudioLessonPlayer extends ChangeNotifier {
     if (wasPlaying) unawaited(play());
   }
 
-  /// The next line (or the end).
+  /// The next line (or the end). Not while the lesson waits for the learner to say the phrase.
   void next() {
+    if (awaitingSpeech) return;
     final after = lineIndexes.where((i) => i > index);
     seek(after.isEmpty ? lesson.steps.length - 1 : after.first);
   }

@@ -3,9 +3,11 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart' show Bidi;
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
+import '../../core/backend/account.dart';
 import '../../core/backend/pronunciation_coach.dart';
 import '../../core/backend/server_voice.dart';
 import '../../core/audio/take_recorder.dart';
@@ -24,6 +26,46 @@ import 'learn_widgets.dart';
 final takeRecorderFactoryProvider = Provider<TakeRecorder Function()?>((ref) => canRecordTakes ? createTakeRecorder : null);
 
 enum _Take { idle, starting, recording, recorded, silent, blocked, noMicrophone, failed }
+
+/// What a take of a speaking step came to: [recorded] (nothing could check it), [understood] or [notUnderstood] by the
+/// server (a take it was unsure about counts as not understood: try again), or [unchecked] (the check failed).
+enum TakeOutcome { recorded, understood, notUnderstood, unchecked }
+
+/// "Can't speak now": speaking steps stop asking for a take for 15 minutes (a noisy place, no microphone at hand).
+class SpeakingPause extends Notifier<DateTime?> {
+  static const length = Duration(minutes: 15);
+
+  @override
+  DateTime? build() => null;
+
+  void pause() => state = ref.read(clockProvider)().add(length);
+
+  bool get active => state != null && ref.read(clockProvider)().isBefore(state!);
+}
+
+final speakingPauseProvider = NotifierProvider<SpeakingPause, DateTime?>(SpeakingPause.new);
+
+/// A speaking step's rule: with a microphone (and not paused), the learner has to say the line before moving on: a
+/// take the server understood, or any real take where nothing can check it, or [maxTries] takes not understood (the
+/// line then goes to review as hard).
+class SpeakingStep {
+  static const maxTries = 3;
+
+  int tries = 0;
+  bool done = false;
+
+  void reset() {
+    tries = 0;
+    done = false;
+  }
+
+  /// Records [outcome]; true when the step is now done.
+  bool take(TakeOutcome outcome) {
+    tries++;
+    done = done || outcome != TakeOutcome.notUnderstood || tries >= maxTries;
+    return done;
+  }
+}
 
 /// Record yourself saying the line, then hear your take next to the reference voice: listen / record / compare
 /// (ADR-006). No score, no level after the take, only the microphone level while recording, and a take whose loudest
@@ -46,7 +88,13 @@ class RecordTake extends ConsumerStatefulWidget {
   /// Each verdict of the server on a take of this line.
   final ValueChanged<SpeechVerdict>? onVerdict;
 
-  const RecordTake({super.key, this.voiceLocale, this.centered = false, this.check, this.onVerdict});
+  /// What each take came to (a speaking step moves on with it).
+  final ValueChanged<TakeOutcome>? onTake;
+
+  /// The AI's pronunciation feedback comes by itself after each take (signed in), not only on request.
+  final bool autoFeedback;
+
+  const RecordTake({super.key, this.voiceLocale, this.centered = false, this.check, this.onVerdict, this.onTake, this.autoFeedback = true});
 
   /// A take stops by itself after this long: a line takes a few seconds; this ends a forgotten recording.
   static const maxTake = Duration(seconds: 15);
@@ -194,7 +242,11 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
     } else {
       _take = take;
       setState(() => _state = _Take.recorded);
+      final checked = widget.check != null && ref.read(speechCheckerProvider) != null;
+      if (!checked) widget.onTake?.call(TakeOutcome.recorded);
       unawaited(_check(take));
+      // Realtime feedback: how it sounded, without asking (a model call per take, signed in only).
+      if (widget.autoFeedback && checked) unawaited(_coach());
     }
   }
 
@@ -212,9 +264,16 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
       _take = null;
       setState(() {
         _checking = false;
+        _coaching = false;
+        _feedback = null;
         _state = _Take.silent;
       });
     } else {
+      widget.onTake?.call(switch (verdict?.kind) {
+        null => TakeOutcome.unchecked,
+        SpeechVerdictKind.understood => TakeOutcome.understood,
+        _ => TakeOutcome.notUnderstood,
+      });
       setState(() {
         _checking = false;
         _verdict = verdict;
@@ -376,7 +435,17 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
                   child: Text(message, textAlign: widget.centered ? TextAlign.center : TextAlign.start, style: note),
                 ),
         ),
-        // AI pronunciation feedback, once asked for.
+        // Signed out on a course the server checks: say what an account adds, right where it would help.
+        if (_state == _Take.recorded && widget.check != null && checker == null && _checkableWithAccount(ref))
+          Padding(
+            padding: const EdgeInsets.only(top: 6),
+            child: TextButton.icon(
+              icon: const Icon(LucideIcons.sparkles, size: 16),
+              label: Text(l10n.recordSignInToCheck, textAlign: widget.centered ? TextAlign.center : TextAlign.start),
+              onPressed: () => context.push('/account'),
+            ),
+          ),
+        // AI pronunciation feedback: by itself after each take (signed in), or once asked for.
         if (_state == _Take.recorded && (_coaching || _feedback != null || _feedbackFailed))
           Padding(
             padding: const EdgeInsets.only(top: 10),
@@ -407,7 +476,59 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
     );
   }
 
+  /// Signed out, on a course whose takes the server checks once signed in.
+  static bool _checkableWithAccount(WidgetRef ref) {
+    final account = ref.watch(accountProvider);
+    final course = ref.watch(appStateProvider.select((s) => s.activeCourse));
+    if (!account.available || account.user != null || course == null) return false;
+    return ref.watch(serverOffersProvider(course.source)).asData?.value[course.track.id]?.spokenCheck ?? false;
+  }
+
   static String _clock(Duration d) => '${d.inMinutes}:${(d.inSeconds % 60).toString().padLeft(2, '0')}';
+}
+
+/// [speakingRequired] outside a build (nothing watched).
+bool speakingRequiredNow(WidgetRef ref) => ref.read(takeRecorderFactoryProvider) != null && !ref.read(speakingPauseProvider.notifier).active;
+
+/// Whether speaking steps ask for a take here: the device records and the learner has not paused them.
+bool speakingRequired(WidgetRef ref) {
+  ref.watch(speakingPauseProvider);
+  return ref.watch(takeRecorderFactoryProvider) != null && !ref.read(speakingPauseProvider.notifier).active;
+}
+
+/// Under a speaking step's continue button while it waits for the line: what to do, and "Can't speak now".
+class SpeakingHint extends ConsumerWidget {
+  const SpeakingHint({super.key, required this.tries});
+
+  /// Takes not understood so far.
+  final int tries;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = ref.watch(appStateProvider.select((s) => s.colors));
+    final l10n = context.l10n;
+    return Semantics(
+      container: true,
+      liveRegion: true,
+      child: Wrap(
+        alignment: WrapAlignment.center,
+        crossAxisAlignment: WrapCrossAlignment.center,
+        spacing: 4,
+        children: [
+          Text(
+            tries == 0 ? l10n.speakToContinue : l10n.speakTryAgain(tries, SpeakingStep.maxTries),
+            textAlign: TextAlign.center,
+            style: TextStyle(fontSize: 13, color: colors.textSecondary),
+          ),
+          TextButton(
+            // The continue button comes alive at once (a snackbar here would cover it).
+            onPressed: () => ref.read(speakingPauseProvider.notifier).pause(),
+            child: Semantics(hint: l10n.speakCantNowDone, child: Text(l10n.speakCantNow)),
+          ),
+        ],
+      ),
+    );
+  }
 }
 
 /// The browser the app runs in (for device-specific help); overridden in tests.

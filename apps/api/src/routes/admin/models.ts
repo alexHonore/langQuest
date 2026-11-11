@@ -13,6 +13,8 @@
  */
 import { trackForVariety } from '@langquest/ai/capability/registry';
 import { getPromptPack } from '@langquest/ai/prompts/packs';
+import { DEFAULT_PROFILES } from '@langquest/ai/profiles';
+import { VOICE_REGISTRY } from '@langquest/ai/speech/voices';
 import { AiTaskNameSchema, ModelBenchmarkRequestSchema, ModelBenchmarkResponseSchema, ModelConfigPutRequestSchema, ModelConfigPutResponseSchema, ModelsListQuerySchema, ModelsListResponseSchema, UuidSchema, buildLanguageContext, type AiTaskName, type JsonValue, type ModelProfile, type VarietyId } from '@langquest/contracts';
 import type { Insert } from '@langquest/db/types';
 import { z } from 'zod';
@@ -109,7 +111,9 @@ export function registerModelRoutes(define: DefineRoute): void {
         s.log.warn('models.catalog_failed', { error });
       }
     }
-    return respondOk(c, ModelsListResponseSchema.parse({ profiles, availableModels }));
+    // The synthetic voices of each variety, for the voice picker (a variety's `speech_synthesis` profile may name one).
+    const voices = Object.values(VOICE_REGISTRY).flatMap((list) => (list === 'unsupported' ? [] : list.map((v) => ({ voiceId: v.voiceId, varietyId: v.varietyId, model: v.model, providerVoice: v.providerVoice, locale: v.locale, gender: v.gender, status: v.status }))));
+    return respondOk(c, ModelsListResponseSchema.parse({ profiles, availableModels, defaults: DEFAULT_PROFILES.filter((p) => !q.task || p.task === q.task), voices }));
   });
 
   define('adminModelConfigPut', { role: 'admin', timeoutMs: AI_TIMEOUT_MS }, async (c) => {

@@ -51,6 +51,14 @@ export const DEFAULT_MODEL_PROFILES: readonly DefaultModelProfile[] = [
   { task: 'language_quality_check', provider: 'openrouter', primaryModel: 'anthropic/claude-sonnet-5.5', fallbackModels: ['google/gemini-3.8-flash'], latencyClass: 'batch', params: { temperature: 0, maxOutputTokens: 2000, timeoutMs: 60000, maxRetries: 2 }, capabilities: { structuredOutput: true } },
 ];
 
+/**
+ * Tasks added after this catalog migration (080) ran everywhere: their default row is seeded by the migration that
+ * widened the `ai_task_name` domain for them (this file runs first on a fresh stack, before the domain allows them).
+ */
+export const TASKS_SEEDED_LATER: Readonly<Partial<Record<(typeof AI_TASK_NAME_VALUES)[number], string>>> = {
+  pronunciation_feedback: 'supabase/migrations/20261111210000_170_ai_task_pronunciation_feedback.sql',
+};
+
 /** Source languages seeded into course_source_localizations (priority tiers 1 and 2). */
 export const SEEDED_SOURCE_LANGUAGES = ['en', 'fr'] as const;
 
@@ -140,6 +148,7 @@ export function buildCatalogSeedSql(): string {
     );
   }
   for (const task of AI_TASK_NAME_VALUES) {
+    if (TASKS_SEEDED_LATER[task]) continue;
     if (!DEFAULT_MODEL_PROFILES.some((p) => p.task === task)) throw new Error(`Missing default model profile for task ${task}`);
   }
   out.push('');
