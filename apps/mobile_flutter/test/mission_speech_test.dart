@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:langquest_mobile/core/backend/speech_check.dart';
+import 'package:langquest_mobile/core/learning/srs.dart';
 import 'package:langquest_mobile/core/services/app_state.dart';
 import 'package:langquest_mobile/features/learn/learn_content.dart';
 import 'package:langquest_mobile/features/learn/learn_logic.dart';
@@ -106,6 +107,121 @@ void main() {
       greaterThan(cards[plan.exchanges.last.answer.id]!.difficulty),
       reason: 'the reply not understood at first was rated hard, though chosen right the first time',
     );
+    semantics.dispose();
+  });
+
+  testWidgets('a reply said out loud before choosing: understood answers it; not understood keeps the options', (t) async {
+    t.view.physicalSize = const Size(390 * 3, 844 * 3);
+    t.view.devicePixelRatio = 3;
+    addTearDown(t.view.reset);
+    final semantics = t.ensureSemantics();
+    final mission = testBundle.mission(missionKey)!;
+    final plan = buildLearnPlan(mission: mission, track: testBundle.track('spanish-spain')!, source: 'en', character: testBundle.characterOf(mission));
+    final checker = FakeChecker([
+      const SpeechVerdict(SpeechVerdictKind.notUnderstood, heard: '¿Cómo te llamas?'),
+      SpeechVerdict(SpeechVerdictKind.understood, heard: plan.exchanges[0].answer.text),
+      SpeechVerdict(SpeechVerdictKind.understood, heard: plan.exchanges[1].answer.text),
+    ]);
+    await t.pumpWidget(
+      ProviderScope(
+        overrides: [
+          ...await testOverrides(),
+          takeRecorderFactoryProvider.overrideWithValue(() => FakeRecorder(take: FakeTake())),
+          speechCheckerProvider.overrideWithValue(checker),
+        ],
+        child: const LangQuestApp(),
+      ),
+    );
+    final container = ProviderScope.containerOf(t.element(find.byType(LangQuestApp)));
+    final notifier = container.read(appStateProvider.notifier)..setReduceMotion(true);
+    notifier.enroll('spanish-spain', 'en');
+    container.read(appRouterProvider).go('/mission/$missionKey');
+    await settle(t, 1500);
+
+    // Exchange 1: the wrong reply out loud keeps the options; the right one answers it, no option chosen.
+    expect(find.text('Answer out loud'), findsOneWidget);
+    await tapLabel(t, 'Record yourself');
+    await tapLabel(t, 'Stop recording');
+    expect(find.text('Not quite'), findsOneWidget);
+    expect(find.text('I heard: “¿Cómo te llamas?”'), findsOneWidget);
+    expect(find.text(plan.exchanges[0].options.first.text), findsWidgets, reason: 'the options stay');
+    await tapLabel(t, 'Record again');
+    await tapLabel(t, 'Stop recording');
+    expect(find.text('Answered out loud'), findsOneWidget);
+    expect(find.text('I heard: “${plan.exchanges[0].answer.text}”'), findsOneWidget);
+    expect(checker.checked.map((c) => c.$2.expressionId), everyElement(plan.exchanges[0].answer.id), reason: 'checked against the expected reply');
+    await tapText(t, 'Next');
+
+    // Exchange 2: right the first time, out loud.
+    await tapLabel(t, 'Record yourself');
+    await tapLabel(t, 'Stop recording');
+    expect(find.text('Answered out loud'), findsOneWidget);
+    await tapText(t, 'Next');
+
+    // The rest by choosing, as before.
+    for (final x in plan.exchanges.skip(2)) {
+      await tapText(t, x.answer.text);
+      await tapText(t, 'I said it');
+    }
+    await tapText(t, 'Complete the mission (+50 XP)');
+    final cards = container.read(appStateProvider).progress.cards;
+    expect(
+      cards[plan.exchanges[0].answer.id]!.difficulty,
+      greaterThan(cards[plan.exchanges[1].answer.id]!.difficulty),
+      reason: 'not understood out loud at first: hard',
+    );
+    expect(
+      cards[plan.exchanges[1].answer.id]!.difficulty,
+      cards[plan.exchanges.last.answer.id]!.difficulty,
+      reason: 'out loud first time = chosen right first time: good',
+    );
+    semantics.dispose();
+  });
+
+  testWidgets('a review said out loud: the answer is revealed with the verdict and a suggested rating', (t) async {
+    t.view.physicalSize = const Size(390 * 3, 844 * 3);
+    t.view.devicePixelRatio = 3;
+    addTearDown(t.view.reset);
+    final semantics = t.ensureSemantics();
+    final clock = TestClock();
+    final mission = testBundle.mission(missionKey)!;
+    final plan = buildLearnPlan(mission: mission, track: testBundle.track('spanish-spain')!, source: 'en', character: testBundle.characterOf(mission));
+    final checker = FakeChecker([
+      const SpeechVerdict(SpeechVerdictKind.understood, heard: 'hola'),
+      const SpeechVerdict(SpeechVerdictKind.notUnderstood, heard: 'adiós'),
+    ]);
+    await t.pumpWidget(
+      ProviderScope(
+        overrides: [
+          ...await testOverrides(clock: clock),
+          takeRecorderFactoryProvider.overrideWithValue(() => FakeRecorder(take: FakeTake())),
+          speechCheckerProvider.overrideWithValue(checker),
+        ],
+        child: const LangQuestApp(),
+      ),
+    );
+    final container = ProviderScope.containerOf(t.element(find.byType(LangQuestApp)));
+    final notifier = container.read(appStateProvider.notifier)..setReduceMotion(true);
+    notifier.enroll('spanish-spain', 'en');
+    notifier.completeMission(missionKey, {for (final x in plan.exchanges) x.answer.id: ReviewRating.good});
+    clock.advance(const Duration(days: 60));
+    container.read(appRouterProvider).go('/review');
+    await settle(t, 1200);
+
+    expect(find.text('Say it out loud: LangQuest checks it, then shows the answer. Or show it yourself.'), findsOneWidget);
+    await tapLabel(t, 'Record yourself');
+    await tapLabel(t, 'Stop recording');
+    expect(find.text('Understood! · I heard: “hola”'), findsOneWidget);
+    expect(find.bySemanticsLabel('Good, suggested'), findsOneWidget);
+    // The phrase checked was this card's, for its mission.
+    final (_, target) = checker.checked.single;
+    expect((target.chapterKey, target.missionKey), (mission.chapterKey, mission.key));
+    await tapText(t, 'Good');
+
+    await tapLabel(t, 'Record yourself');
+    await tapLabel(t, 'Stop recording');
+    expect(find.text('Not quite · I heard: “adiós”'), findsOneWidget);
+    expect(find.bySemanticsLabel('Again, suggested'), findsOneWidget);
     semantics.dispose();
   });
 }

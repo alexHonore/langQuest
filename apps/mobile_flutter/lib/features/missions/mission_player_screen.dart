@@ -57,6 +57,9 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
 
   /// The server's latest verdict on the current exchange.
   SpeechVerdict? _verdict;
+
+  /// The current reply was given out loud and understood (no option was chosen).
+  bool _answeredByVoice = false;
   late final SpeechService _speech;
   late final bool _wasCompleted;
   int _newReviewCards = 0;
@@ -116,6 +119,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
       _answered = false;
       _speaking = false;
       _verdict = null;
+      _answeredByVoice = false;
       if (_exchange < plan.exchanges.length - 1) {
         _exchange++;
       } else {
@@ -123,6 +127,26 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
       }
     });
     if (_phase == _Phase.exchange) _sayCue();
+  }
+
+  /// The learner answered out loud before choosing: understood is the right reply given unaided (first try, good);
+  /// not understood keeps the options, and the reply goes to review as hard.
+  void _onSpokenAnswer(MissionExchange exchange, SpeechVerdict verdict) {
+    if (_answered) return;
+    if (verdict.kind == SpeechVerdictKind.understood) {
+      _firstTry.putIfAbsent(exchange.answer.id, () => true);
+      _spoken.putIfAbsent(exchange.answer.id, () => true);
+      setState(() {
+        _answered = true;
+        _answeredByVoice = true;
+        _selected = exchange.answerIndex;
+        _verdict = verdict;
+      });
+      _say(exchange.answer);
+    } else if (verdict.kind == SpeechVerdictKind.notUnderstood) {
+      _spoken.putIfAbsent(exchange.answer.id, () => false);
+      setState(() => _verdict = verdict);
+    }
   }
 
   void _onVerdict(MissionExchange exchange, SpeechVerdict verdict) {
@@ -254,6 +278,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     final l10n = context.l10n;
     final cue = exchange.cue;
     final wrong = _selected != null && _selected != exchange.answerIndex;
+    final canAnswerOutLoud = ref.watch(speechCheckerProvider) != null && ref.watch(takeRecorderFactoryProvider) != null;
 
     final prompt = Container(
       width: double.infinity,
@@ -295,11 +320,11 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
         children: [
           Row(
             children: [
-              Icon(LucideIcons.mic, size: 16, color: accent.primaryText),
+              Icon(_answeredByVoice ? LucideIcons.circleCheck : LucideIcons.mic, size: 16, color: _answeredByVoice ? colors.success : accent.primaryText),
               const SizedBox(width: 6),
               Text(
-                l10n.missionSayIt,
-                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, letterSpacing: 0.6, color: accent.primaryText),
+                _answeredByVoice ? l10n.missionAnsweredOutLoud : l10n.missionSayIt,
+                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, letterSpacing: 0.6, color: _answeredByVoice ? colors.success : accent.primaryText),
               ),
             ],
           ),
@@ -325,13 +350,21 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                     const SizedBox(height: 12),
                     ListenButtons(text: exchange.answer.text, expressionId: exchange.answer.id, locale: plan.voiceLocale),
                     const SizedBox(height: 10),
-                    RecordTake(
-                      key: ValueKey('take-$_exchange'),
-                      voiceLocale: plan.voiceLocale,
-                      centered: true,
-                      check: SpeechTarget(expressionId: exchange.answer.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
-                      onVerdict: (verdict) => _onVerdict(exchange, verdict),
-                    ),
+                    // Said out loud and understood already: what was heard; otherwise, say it now.
+                    if (_answeredByVoice && _verdict?.heard != null)
+                      Text(
+                        l10n.verdictHeard(_verdict!.heard!),
+                        textAlign: TextAlign.center,
+                        style: TextStyle(fontSize: 13.5, color: colors.textSecondary),
+                      )
+                    else if (!_answeredByVoice)
+                      RecordTake(
+                        key: ValueKey('take-$_exchange'),
+                        voiceLocale: plan.voiceLocale,
+                        centered: true,
+                        check: SpeechTarget(expressionId: exchange.answer.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
+                        onVerdict: (verdict) => _onVerdict(exchange, verdict),
+                      ),
                     const SizedBox(height: 12),
                     MeloWidget(
                       state: _verdict == null || _verdict!.understood ? MeloState.happy : MeloState.thinking,
@@ -346,7 +379,11 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.only(bottom: 12),
-            child: LearnPrimaryButton(label: l10n.sceneISaidIt, icon: LucideIcons.check, onPressed: () => _nextExchange(plan)),
+            child: LearnPrimaryButton(
+              label: _answeredByVoice ? l10n.next : l10n.sceneISaidIt,
+              icon: _answeredByVoice ? LucideIcons.chevronRight : LucideIcons.check,
+              onPressed: () => _nextExchange(plan),
+            ),
           ),
         ],
       );
@@ -367,6 +404,49 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
           child: SingleChildScrollView(
             child: Column(
               children: [
+                // With a server that checks speech: answer out loud first, the options are the fallback.
+                if (canAnswerOutLoud)
+                  Container(
+                    width: double.infinity,
+                    margin: const EdgeInsets.only(bottom: 12),
+                    padding: const EdgeInsets.all(14),
+                    decoration: BoxDecoration(
+                      color: accent.primarySoft,
+                      borderRadius: BorderRadius.circular(16),
+                      border: Border.all(color: accent.primary.withValues(alpha: 0.5)),
+                    ),
+                    child: Column(
+                      children: [
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Icon(LucideIcons.mic, size: 16, color: accent.primaryText),
+                            const SizedBox(width: 6),
+                            Flexible(
+                              child: Text(
+                                l10n.missionAnswerOutLoud,
+                                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w800, color: accent.primaryText),
+                              ),
+                            ),
+                          ],
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          l10n.missionAnswerOutLoudHint,
+                          textAlign: TextAlign.center,
+                          style: TextStyle(fontSize: 13, height: 1.35, color: colors.textSecondary),
+                        ),
+                        const SizedBox(height: 10),
+                        RecordTake(
+                          key: ValueKey('answer-$_exchange'),
+                          voiceLocale: plan.voiceLocale,
+                          centered: true,
+                          check: SpeechTarget(expressionId: exchange.answer.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
+                          onVerdict: (verdict) => _onSpokenAnswer(exchange, verdict),
+                        ),
+                      ],
+                    ),
+                  ),
                 for (var i = 0; i < exchange.options.length; i++)
                   _OptionTile(plan: plan, optionIndex: i, exchange: exchange, selected: _selected == i, onTap: () => _choose(exchange, i)),
                 if (wrong)

@@ -1201,4 +1201,19 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get callFreeBodyText => 'A free chat, in the language you’re learning, about everyday things. When you end it, LangQuest tells you how it went.';
+
+  @override
+  String get missionAnswerOutLoud => 'Answer out loud';
+
+  @override
+  String get missionAnswerOutLoudHint => 'Say your reply: LangQuest checks it. Or choose it below.';
+
+  @override
+  String get missionAnsweredOutLoud => 'Answered out loud';
+
+  @override
+  String get reviewSayItChecked => 'Say it out loud: LangQuest checks it, then shows the answer. Or show it yourself.';
+
+  @override
+  String get reviewSuggested => 'suggested';
 }

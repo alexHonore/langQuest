@@ -277,3 +277,12 @@ mission completes (checked in Chromium on the release build: the burst, Melo's p
 call ends with goals met, or an audio lesson is heard to the end; a wrong option shakes and the right one pops; scene
 lines arrive from their speaker's side; a speaking character's badge pulses. All decorative and absent with reduced
 motion. `flutter test`: 162 passed.
+
+### Answer out loud, and spoken review (follow-up, 2026-11-11)
+
+Missions take a spoken reply before any option is chosen; reviews check the phrase said. Live (release build, test
+learner, the fake microphone saying "Hola, buenos días."): exchange 1 of *Greet and introduce yourself* was **answered
+out loud** (`pronunciation-assess` → understood, "I heard: Hola, buenos días."; the model reply then played in the AI
+voice); exchange 2 (expects "¿Qué tal?") with the same audio: **Not quite**, options kept. 0 page errors.
+`flutter test`: 164 passed (a reply not understood then understood out loud, rated hard; one understood at once, rated
+good; a spoken review revealing the answer with "Good, suggested" / "Again, suggested").
