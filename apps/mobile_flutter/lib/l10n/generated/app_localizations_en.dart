@@ -835,4 +835,16 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get previousPhrase => 'Previous phrase';
+
+  @override
+  String get warmupTitle => 'Try your first phrase';
+
+  @override
+  String get warmupBody => 'Listen, then say it out loud. Nothing is scored here.';
+
+  @override
+  String get warmupContinue => 'Start learning';
+
+  @override
+  String get warmupBodyNoVoice => 'Say it out loud. Nothing is scored here.';
 }

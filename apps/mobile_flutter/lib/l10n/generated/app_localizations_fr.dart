@@ -847,4 +847,16 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get previousPhrase => 'Phrase précédente';
+
+  @override
+  String get warmupTitle => 'Essayez votre première phrase';
+
+  @override
+  String get warmupBody => 'Écoutez, puis dites-la à voix haute. Rien n’est noté ici.';
+
+  @override
+  String get warmupContinue => 'Commencer à apprendre';
+
+  @override
+  String get warmupBodyNoVoice => 'Dites-la à voix haute. Rien n’est noté ici.';
 }

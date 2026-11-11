@@ -16,6 +16,7 @@ import '../features/learn/practise_saying_screen.dart';
 import '../features/learn/scene_lesson_screen.dart';
 import '../features/missions/mission_player_screen.dart';
 import '../features/missions/missions_screen.dart';
+import '../features/onboarding/warmup_screen.dart';
 import '../features/onboarding/welcome_screen.dart';
 import '../features/progress/progress_screen.dart';
 import '../features/review/review_screen.dart';
@@ -86,6 +87,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       page('/learn/:id/practice', (s) => PracticeScreen(missionKey: s.pathParameters['id']!)),
       page('/mission/:id', (s) => MissionPlayerScreen(missionKey: s.pathParameters['id']!)),
       page('/speak/:id', (s) => PractiseSayingScreen(missionKey: s.pathParameters['id']!)),
+      page('/warmup', (_) => const WarmupScreen()),
       page('/review', (_) => const ReviewScreen()),
       page('/account', (_) => const AccountScreen()),
     ],

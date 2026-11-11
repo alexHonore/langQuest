@@ -214,3 +214,12 @@ Done returns to the path; 0 page errors. Widget tests: the entry needs a recorde
 through every phrase, back, Done. `tool/web_smoke.cjs` passed locally and against https://web-languest.tayoo.app
 (first run, a lesson, record yourself with the microphone released after the take, Settings › Display, 0 errors) before
 joining the CI image job.
+
+### First-run warm-up, and spaced pages without intrinsics (follow-up)
+
+After the first course is chosen, **Try your first phrase** shows the course's first taught phrase (Chromium, release
+build, fake microphone: shown, a take recorded and offered for playback, Start learning → Home; a second course opens
+Home directly; 0 errors). The 200 % text test failed when run on its own (it passed in the full file): the welcome
+screen's Column inside an IntrinsicHeight was 28 px taller than its intrinsic estimate with the test font. The welcome
+and warm-up screens now use `SpacedPage` (min-height column with `spaceBetween`, no intrinsic pass); the test passes on
+its own and in the suite. `flutter test`: 114 passed.

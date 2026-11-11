@@ -1555,6 +1555,30 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Previous phrase'**
   String get previousPhrase;
+
+  /// No description provided for @warmupTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Try your first phrase'**
+  String get warmupTitle;
+
+  /// No description provided for @warmupBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen, then say it out loud. Nothing is scored here.'**
+  String get warmupBody;
+
+  /// No description provided for @warmupContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Start learning'**
+  String get warmupContinue;
+
+  /// No description provided for @warmupBodyNoVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Say it out loud. Nothing is scored here.'**
+  String get warmupBodyNoVoice;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
