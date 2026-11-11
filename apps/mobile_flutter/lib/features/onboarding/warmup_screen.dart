@@ -3,9 +3,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
+import '../../core/backend/server_voice.dart';
 import '../../core/layout/spaced_page.dart';
 import '../../core/services/app_state.dart';
-import '../../core/services/speech_service.dart';
 import '../../l10n/l10n.dart';
 import '../learn/learn_providers.dart';
 import '../learn/learn_widgets.dart';
@@ -29,7 +29,7 @@ class WarmupScreen extends ConsumerWidget {
     final phrase = plan == null || plan.phrases.isEmpty ? null : plan.phrases.first;
     // "Listen" only when there is something to listen to (no device voice for Darija, nor in some browsers).
     final voiceLocale = plan?.voiceLocale;
-    final hasVoice = voiceLocale != null && (ref.watch(voiceAvailableProvider(voiceLocale)).asData?.value ?? false);
+    final hasVoice = ref.watch(lineVoiceProvider(voiceLocale)).asData?.value.available ?? false;
 
     return Scaffold(
       backgroundColor: colors.background,
@@ -71,7 +71,7 @@ class WarmupScreen extends ConsumerWidget {
                       style: TextStyle(fontSize: 16, color: colors.textSecondary),
                     ),
                     const SizedBox(height: 16),
-                    ListenButtons(text: phrase.text, locale: plan.voiceLocale),
+                    ListenButtons(text: phrase.text, expressionId: phrase.id, locale: plan.voiceLocale),
                     const SizedBox(height: 12),
                     RecordTake(voiceLocale: plan.voiceLocale, centered: true),
                   ],

@@ -5,7 +5,9 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
+import '../../core/backend/server_voice.dart';
 import '../../core/backend/speech_check.dart';
+import '../../core/content/content_models.dart';
 import '../call/call_screen.dart';
 import '../../core/layout/motion.dart';
 import '../../core/learning/srs.dart';
@@ -74,12 +76,15 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     super.dispose();
   }
 
-  Future<void> _say(String text) async {
-    final locale = ref.read(learnPlanProvider(widget.missionKey))?.voiceLocale;
-    if (locale == null || !await ref.read(voiceAvailableProvider(locale).future) || !mounted) return;
+  Future<void> _say(Expression line) async {
+    final plan = ref.read(learnPlanProvider(widget.missionKey));
+    if (plan == null) return;
+    // The device's voice for the course, else the server's AI voice (signed in), else none.
+    final voice = await ref.read(lineVoiceProvider(plan.voiceLocale).future);
+    if (!voice.available || !mounted) return;
     final token = ++_utterance;
     setState(() => _speaking = true);
-    await _speech.speak(text, locale: locale);
+    await voice.say(text: line.text, expressionId: line.id);
     if (mounted && token == _utterance) setState(() => _speaking = false);
   }
 
@@ -87,7 +92,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     final plan = ref.read(learnPlanProvider(widget.missionKey));
     if (plan == null || _exchange >= plan.exchanges.length) return;
     final cue = plan.exchanges[_exchange].cue;
-    if (cue != null) _say(cue.text);
+    if (cue != null) _say(cue);
   }
 
   void _choose(MissionExchange exchange, int index) {
@@ -98,7 +103,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
       _firstTry.putIfAbsent(exchange.answer.id, () => correct);
       _answered = correct;
     });
-    if (correct) _say(exchange.answer.text);
+    if (correct) _say(exchange.answer);
   }
 
   void _nextExchange(MissionLearnPlan plan) {
@@ -272,7 +277,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                 const SizedBox(height: 4),
                 Text(plan.meaningOf(cue), style: TextStyle(fontSize: 14, color: colors.textSecondary)),
                 const SizedBox(height: 8),
-                ListenButtons(text: cue.text, locale: plan.voiceLocale, compact: true),
+                ListenButtons(text: cue.text, expressionId: cue.id, locale: plan.voiceLocale, compact: true),
               ],
             )
           : Text(
@@ -316,7 +321,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                       style: TextStyle(fontSize: 15, color: colors.textSecondary),
                     ),
                     const SizedBox(height: 12),
-                    ListenButtons(text: exchange.answer.text, locale: plan.voiceLocale),
+                    ListenButtons(text: exchange.answer.text, expressionId: exchange.answer.id, locale: plan.voiceLocale),
                     const SizedBox(height: 10),
                     RecordTake(
                       key: ValueKey('take-$_exchange'),
@@ -409,7 +414,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                           ],
                         ),
                       ),
-                      ListenButtons(text: x.answer.text, locale: plan.voiceLocale, compact: true),
+                      ListenButtons(text: x.answer.text, expressionId: x.answer.id, locale: plan.voiceLocale, compact: true),
                     ],
                   ),
                 ),

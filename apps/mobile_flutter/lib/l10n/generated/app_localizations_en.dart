@@ -1068,4 +1068,107 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get courseLimitedForDialect => 'Speech recognition and AI voices are still limited for this dialect (not yet reviewed by native speakers)';
+
+  @override
+  String get listenAiVoiceSemantics => 'Listen (AI voice)';
+
+  @override
+  String get listenSlowlyAiVoiceSemantics => 'Listen slowly (AI voice)';
+
+  @override
+  String get tabAudio => 'Audio';
+
+  @override
+  String get audioLibraryTitle => 'Audio lessons';
+
+  @override
+  String get audioLibraryBody => 'One per mission: the conversation, then phrase by phrase with time to say each one, then the conversation again.';
+
+  @override
+  String get audioReadByAi => 'Read by an AI voice';
+
+  @override
+  String get audioReadByDevice => 'Read by your device’s voice';
+
+  @override
+  String audioLessonMeta(int phrases, int minutes) {
+    String _temp0 = intl.Intl.pluralLogic(phrases, locale: localeName, other: '$phrases phrases', one: '1 phrase');
+    return '$_temp0 · about $minutes min';
+  }
+
+  @override
+  String get audioListened => 'Listened';
+
+  @override
+  String get audioLessonLabel => 'Audio lesson';
+
+  @override
+  String audioIntro(String mission) {
+    return '$mission. Listen to the conversation.';
+  }
+
+  @override
+  String get audioPhrasesIntro => 'Now phrase by phrase. Listen, then say it out loud.';
+
+  @override
+  String get audioAgainIntro => 'Once more, the whole conversation.';
+
+  @override
+  String get audioOutro => 'That’s the end of the lesson. Well done!';
+
+  @override
+  String get audioSectionConversation => 'The conversation';
+
+  @override
+  String get audioSectionPhrases => 'Phrase by phrase';
+
+  @override
+  String get audioSectionAgain => 'Once more';
+
+  @override
+  String get audioYourTurn => 'Your turn: say it';
+
+  @override
+  String get audioPlay => 'Play';
+
+  @override
+  String get audioPause => 'Pause';
+
+  @override
+  String get audioNextLine => 'Next line';
+
+  @override
+  String get audioPreviousLine => 'Previous line';
+
+  @override
+  String get audioSlowly => 'Slowly';
+
+  @override
+  String get audioTurns => 'Time to repeat';
+
+  @override
+  String get audioFinished => 'Lesson finished';
+
+  @override
+  String get audioPlayAgain => 'Play again';
+
+  @override
+  String get audioYou => 'You';
+
+  @override
+  String courseIncludesAudioLessons(String voice) {
+    return 'Audio lessons made from each mission, read by $voice';
+  }
+
+  @override
+  String get courseVoiceAi => 'an AI voice (with a free account)';
+
+  @override
+  String get courseVoiceDevice => 'your device’s voice';
+
+  @override
+  String get courseMissingAudioRecorded => 'Audio recorded by native speakers';
+
+  @override
+  String get courseIncludesAiVoiceDialect => 'An AI voice for this dialect (with a free account)';
 }

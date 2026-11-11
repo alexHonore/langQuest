@@ -142,7 +142,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
                                           const SizedBox(height: 14),
                                           TargetText(expression: current.expression, track: course.track, fontSize: 28, textAlign: TextAlign.center),
                                           const SizedBox(height: 14),
-                                          ListenButtons(text: current.expression.text, locale: course.track.voiceLocale),
+                                          ListenButtons(text: current.expression.text, expressionId: current.expression.id, locale: course.track.voiceLocale),
                                           if (current.plan.noteOf(current.expression) case final note?) ...[
                                             const SizedBox(height: 14),
                                             Text(

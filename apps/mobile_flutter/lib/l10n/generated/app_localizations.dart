@@ -1969,6 +1969,198 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Speech recognition and AI voices are still limited for this dialect (not yet reviewed by native speakers)'**
   String get courseLimitedForDialect;
+
+  /// No description provided for @listenAiVoiceSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen (AI voice)'**
+  String get listenAiVoiceSemantics;
+
+  /// No description provided for @listenSlowlyAiVoiceSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen slowly (AI voice)'**
+  String get listenSlowlyAiVoiceSemantics;
+
+  /// No description provided for @tabAudio.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio'**
+  String get tabAudio;
+
+  /// No description provided for @audioLibraryTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio lessons'**
+  String get audioLibraryTitle;
+
+  /// No description provided for @audioLibraryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'One per mission: the conversation, then phrase by phrase with time to say each one, then the conversation again.'**
+  String get audioLibraryBody;
+
+  /// No description provided for @audioReadByAi.
+  ///
+  /// In en, this message translates to:
+  /// **'Read by an AI voice'**
+  String get audioReadByAi;
+
+  /// No description provided for @audioReadByDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'Read by your device’s voice'**
+  String get audioReadByDevice;
+
+  /// No description provided for @audioLessonMeta.
+  ///
+  /// In en, this message translates to:
+  /// **'{phrases, plural, =1{1 phrase} other{{phrases} phrases}} · about {minutes} min'**
+  String audioLessonMeta(int phrases, int minutes);
+
+  /// No description provided for @audioListened.
+  ///
+  /// In en, this message translates to:
+  /// **'Listened'**
+  String get audioListened;
+
+  /// No description provided for @audioLessonLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio lesson'**
+  String get audioLessonLabel;
+
+  /// No description provided for @audioIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'{mission}. Listen to the conversation.'**
+  String audioIntro(String mission);
+
+  /// No description provided for @audioPhrasesIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Now phrase by phrase. Listen, then say it out loud.'**
+  String get audioPhrasesIntro;
+
+  /// No description provided for @audioAgainIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Once more, the whole conversation.'**
+  String get audioAgainIntro;
+
+  /// No description provided for @audioOutro.
+  ///
+  /// In en, this message translates to:
+  /// **'That’s the end of the lesson. Well done!'**
+  String get audioOutro;
+
+  /// No description provided for @audioSectionConversation.
+  ///
+  /// In en, this message translates to:
+  /// **'The conversation'**
+  String get audioSectionConversation;
+
+  /// No description provided for @audioSectionPhrases.
+  ///
+  /// In en, this message translates to:
+  /// **'Phrase by phrase'**
+  String get audioSectionPhrases;
+
+  /// No description provided for @audioSectionAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Once more'**
+  String get audioSectionAgain;
+
+  /// No description provided for @audioYourTurn.
+  ///
+  /// In en, this message translates to:
+  /// **'Your turn: say it'**
+  String get audioYourTurn;
+
+  /// No description provided for @audioPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get audioPlay;
+
+  /// No description provided for @audioPause.
+  ///
+  /// In en, this message translates to:
+  /// **'Pause'**
+  String get audioPause;
+
+  /// No description provided for @audioNextLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Next line'**
+  String get audioNextLine;
+
+  /// No description provided for @audioPreviousLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous line'**
+  String get audioPreviousLine;
+
+  /// No description provided for @audioSlowly.
+  ///
+  /// In en, this message translates to:
+  /// **'Slowly'**
+  String get audioSlowly;
+
+  /// No description provided for @audioTurns.
+  ///
+  /// In en, this message translates to:
+  /// **'Time to repeat'**
+  String get audioTurns;
+
+  /// No description provided for @audioFinished.
+  ///
+  /// In en, this message translates to:
+  /// **'Lesson finished'**
+  String get audioFinished;
+
+  /// No description provided for @audioPlayAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Play again'**
+  String get audioPlayAgain;
+
+  /// No description provided for @audioYou.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get audioYou;
+
+  /// No description provided for @courseIncludesAudioLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio lessons made from each mission, read by {voice}'**
+  String courseIncludesAudioLessons(String voice);
+
+  /// No description provided for @courseVoiceAi.
+  ///
+  /// In en, this message translates to:
+  /// **'an AI voice (with a free account)'**
+  String get courseVoiceAi;
+
+  /// No description provided for @courseVoiceDevice.
+  ///
+  /// In en, this message translates to:
+  /// **'your device’s voice'**
+  String get courseVoiceDevice;
+
+  /// No description provided for @courseMissingAudioRecorded.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio recorded by native speakers'**
+  String get courseMissingAudioRecorded;
+
+  /// No description provided for @courseIncludesAiVoiceDialect.
+  ///
+  /// In en, this message translates to:
+  /// **'An AI voice for this dialect (with a free account)'**
+  String get courseIncludesAiVoiceDialect;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

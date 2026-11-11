@@ -2,8 +2,8 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
 /// On-device speech for the learn path: the scene character's lines (L1), tap-to-hear on cards and games (L3),
-/// the mission's model lines and review answers. The phone's synthesizer is used because this build has no
-/// backend voice; the UI labels it as synthetic.
+/// the mission's model lines and review answers. Where the device has no voice for the course, a signed-in learner
+/// hears the server's AI voice instead (`core/backend/server_voice.dart`).
 ///
 /// A voice is used only when the device has one for the course's exact locale (`es-ES` never falls back to a
 /// Latin American voice; colloquial Arabic courses carry no voice locale at all, because phone Arabic voices
@@ -14,6 +14,11 @@ class SpeechService {
 
   final FlutterTts _tts;
   bool _configured = false;
+  final _stopListeners = <void Function()>{};
+
+  /// Also stopped whenever the device voice is (the server's AI voice, which stands in for it).
+  void addStopListener(void Function() listener) => _stopListeners.add(listener);
+  void removeStopListener(void Function() listener) => _stopListeners.remove(listener);
   Future<Set<String>>? _voiceLocales;
 
   /// Browsers list no voices until they have loaded them (Chrome fills the list asynchronously), and some
@@ -75,6 +80,21 @@ class SpeechService {
     return locales.contains(normalizeLocale(locale));
   }
 
+  /// A device voice for [language] in any region (`en` → `en-US`), for narration in the learner's own language;
+  /// null when the device has none.
+  Future<String?> voiceForLanguage(String language) async {
+    final locales = await (_voiceLocales ??= _loadVoiceLocales());
+    if (locales.isEmpty) _voiceLocales = null;
+    const preferred = {
+      'en': ['en-us', 'en-gb'],
+      'fr': ['fr-fr', 'fr-ca'],
+    };
+    final match = [...?preferred[language], ...locales.where((l) => l == language || l.startsWith('$language-')).toList()..sort()].where(locales.contains);
+    if (match.isEmpty) return null;
+    final parts = match.first.split('-');
+    return parts.length < 2 ? parts.first : '${parts.first}-${parts.sublist(1).join('-').toUpperCase()}';
+  }
+
   /// Speak [text]; completes when the utterance ends (or is stopped).
   Future<void> speak(String text, {required String locale, bool slow = false}) async {
     await _configure();
@@ -89,6 +109,9 @@ class SpeechService {
   }
 
   Future<void> stop() async {
+    for (final listener in [..._stopListeners]) {
+      listener();
+    }
     try {
       await _tts.stop();
     } catch (_) {}

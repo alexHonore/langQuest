@@ -693,5 +693,61 @@
   },
   "courseIncludesSpokenCheck": "Your spoken answers checked: LangQuest tells you whether you were understood (with a free account)",
   "courseMissingPronunciationScore": "A pronunciation score: spoken answers are checked for meaning, not accent",
-  "courseLimitedForDialect": "Speech recognition and AI voices are still limited for this dialect (not yet reviewed by native speakers)"
+  "courseLimitedForDialect": "Speech recognition and AI voices are still limited for this dialect (not yet reviewed by native speakers)",
+  "listenAiVoiceSemantics": "Listen (AI voice)",
+  "listenSlowlyAiVoiceSemantics": "Listen slowly (AI voice)",
+  "tabAudio": "Audio",
+  "audioLibraryTitle": "Audio lessons",
+  "audioLibraryBody": "One per mission: the conversation, then phrase by phrase with time to say each one, then the conversation again.",
+  "audioReadByAi": "Read by an AI voice",
+  "audioReadByDevice": "Read by your device’s voice",
+  "audioLessonMeta": "{phrases, plural, =1{1 phrase} other{{phrases} phrases}} · about {minutes} min",
+  "@audioLessonMeta": {
+    "placeholders": {
+      "phrases": {
+        "type": "int"
+      },
+      "minutes": {
+        "type": "int"
+      }
+    }
+  },
+  "audioListened": "Listened",
+  "audioLessonLabel": "Audio lesson",
+  "audioIntro": "{mission}. Listen to the conversation.",
+  "@audioIntro": {
+    "placeholders": {
+      "mission": {
+        "type": "String"
+      }
+    }
+  },
+  "audioPhrasesIntro": "Now phrase by phrase. Listen, then say it out loud.",
+  "audioAgainIntro": "Once more, the whole conversation.",
+  "audioOutro": "That’s the end of the lesson. Well done!",
+  "audioSectionConversation": "The conversation",
+  "audioSectionPhrases": "Phrase by phrase",
+  "audioSectionAgain": "Once more",
+  "audioYourTurn": "Your turn: say it",
+  "audioPlay": "Play",
+  "audioPause": "Pause",
+  "audioNextLine": "Next line",
+  "audioPreviousLine": "Previous line",
+  "audioSlowly": "Slowly",
+  "audioTurns": "Time to repeat",
+  "audioFinished": "Lesson finished",
+  "audioPlayAgain": "Play again",
+  "audioYou": "You",
+  "courseIncludesAudioLessons": "Audio lessons made from each mission, read by {voice}",
+  "@courseIncludesAudioLessons": {
+    "placeholders": {
+      "voice": {
+        "type": "String"
+      }
+    }
+  },
+  "courseVoiceAi": "an AI voice (with a free account)",
+  "courseVoiceDevice": "your device’s voice",
+  "courseMissingAudioRecorded": "Audio recorded by native speakers",
+  "courseIncludesAiVoiceDialect": "An AI voice for this dialect (with a free account)"
 }

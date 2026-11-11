@@ -4,8 +4,8 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/content/content_models.dart';
+import '../../core/backend/server_voice.dart';
 import '../../core/services/app_state.dart';
-import '../../core/services/speech_service.dart';
 import '../../core/theme/script_fonts.dart';
 import '../../l10n/l10n.dart';
 import '../scenes/scene_models.dart';
@@ -204,33 +204,37 @@ class LearnTopBar extends ConsumerWidget {
 class ListenButtons extends ConsumerWidget {
   final String text;
   final String? locale;
+
+  /// The line's bundle id: where the device has no voice for the course, the server's AI voice says it.
+  final String? expressionId;
   final bool compact;
 
-  const ListenButtons({super.key, required this.text, required this.locale, this.compact = false});
+  const ListenButtons({super.key, required this.text, required this.locale, this.expressionId, this.compact = false});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final voiceLocale = locale;
-    final available = ref.watch(voiceAvailableProvider(voiceLocale)).asData?.value ?? false;
-    if (!available || voiceLocale == null) return const SizedBox.shrink();
-    final speech = ref.read(speechServiceProvider);
+    final voice = ref.watch(lineVoiceProvider(locale)).asData?.value;
+    if (voice == null || !voice.available || (voice.source == LineVoiceSource.server && expressionId == null)) return const SizedBox.shrink();
     final l10n = context.l10n;
+    // The server's voice is said to be an AI voice (screen readers hear it; the course page says so too).
+    final ai = voice.source == LineVoiceSource.server;
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
         AudioChip(
-          icon: LucideIcons.volume2,
+          icon: ai ? LucideIcons.audioLines : LucideIcons.volume2,
           label: l10n.listen,
+          semanticsLabel: ai ? l10n.listenAiVoiceSemantics : null,
           compact: compact,
-          onTap: () => speech.speak(text, locale: voiceLocale),
+          onTap: () => voice.say(text: text, expressionId: expressionId),
         ),
         const SizedBox(width: 8),
         AudioChip(
           icon: LucideIcons.turtle,
           label: l10n.listenSlowly,
-          semanticsLabel: l10n.listenSlowlySemantics,
+          semanticsLabel: ai ? l10n.listenSlowlyAiVoiceSemantics : l10n.listenSlowlySemantics,
           compact: compact,
-          onTap: () => speech.speak(text, locale: voiceLocale, slow: true),
+          onTap: () => voice.say(text: text, expressionId: expressionId, slow: true),
         ),
       ],
     );

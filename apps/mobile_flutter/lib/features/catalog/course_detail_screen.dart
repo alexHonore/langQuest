@@ -6,6 +6,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../navigation/nav.dart';
 import '../../core/backend/account.dart';
 import '../../core/services/app_state.dart';
+import '../../core/services/speech_service.dart';
 import '../../core/theme/accents.dart';
 import '../../core/theme/glass.dart';
 import '../../core/theme/script_fonts.dart';
@@ -45,6 +46,10 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
     final spokenCheck = offer?.spokenCheck ?? false;
     // A dialect without a device voice (Darija): the server's recognizer and voices are rated "limited" for it too.
     final dialect = track.voiceLocale == null;
+    final aiVoice = offer?.aiVoice ?? false;
+    final deviceVoice = ref.watch(voiceAvailableProvider(track.voiceLocale)).asData?.value ?? false;
+    // Audio lessons are made on the device from each mission; they need a voice to read them.
+    final audioLessons = deviceVoice || aiVoice;
 
     Widget bullet(IconData icon, Color color, String text) => Padding(
       padding: const EdgeInsets.only(bottom: 10),
@@ -174,6 +179,13 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                           bullet(LucideIcons.check, colors.success, l10n.courseIncludesLearn),
                           bullet(LucideIcons.check, colors.success, l10n.courseIncludesReview),
                           if (track.voiceLocale != null) bullet(LucideIcons.check, colors.success, l10n.courseIncludesVoice),
+                          if (dialect && aiVoice) bullet(LucideIcons.audioLines, colors.success, l10n.courseIncludesAiVoiceDialect),
+                          if (audioLessons)
+                            bullet(
+                              LucideIcons.headphones,
+                              colors.success,
+                              l10n.courseIncludesAudioLessons(deviceVoice ? l10n.courseVoiceDevice : l10n.courseVoiceAi),
+                            ),
                           if (liveCalls) bullet(LucideIcons.phoneCall, colors.success, l10n.courseIncludesLiveCalls(offer!.characters)),
                           if (spokenCheck) bullet(LucideIcons.mic, colors.success, l10n.courseIncludesSpokenCheck),
                         ],
@@ -193,11 +205,11 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                           ),
                           const SizedBox(height: 12),
                           if (course.isDraft) bullet(LucideIcons.triangleAlert, colors.warning, l10n.courseMissingNativeReview),
-                          if (dialect && (liveCalls || spokenCheck)) bullet(LucideIcons.triangleAlert, colors.warning, l10n.courseLimitedForDialect),
-                          if (track.voiceLocale == null) bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingVoiceDialect),
+                          if (dialect && (liveCalls || spokenCheck || aiVoice)) bullet(LucideIcons.triangleAlert, colors.warning, l10n.courseLimitedForDialect),
+                          if (dialect && !aiVoice) bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingVoiceDialect),
                           if (!liveCalls) bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingConversation),
                           bullet(LucideIcons.minus, colors.textMuted, spokenCheck ? l10n.courseMissingPronunciationScore : l10n.courseMissingPronunciation),
-                          bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingAudio),
+                          bullet(LucideIcons.minus, colors.textMuted, audioLessons ? l10n.courseMissingAudioRecorded : l10n.courseMissingAudio),
                         ],
                       ),
                     ),

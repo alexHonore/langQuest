@@ -38,6 +38,11 @@ void main() {
     expect(find.text('A pronunciation score: spoken answers are checked for meaning, not accent'), findsOneWidget);
     expect(find.text('Live conversation with AI characters'), findsNothing);
     expect(find.text('Spoken pronunciation feedback'), findsNothing);
+    // Darija has no device voice: the server's AI voice reads it, and its audio lessons.
+    expect(find.text('An AI voice for this dialect (with a free account)'), findsOneWidget);
+    expect(find.text('Audio lessons made from each mission, read by an AI voice (with a free account)'), findsOneWidget);
+    expect(find.textContaining('phone voices speak Modern Standard Arabic'), findsNothing);
+    expect(find.text('Audio recorded by native speakers'), findsOneWidget);
   });
 
   testWidgets('offline (no offer): nothing an account would add is promised', (t) async {
@@ -46,5 +51,8 @@ void main() {
     expect(find.text('Live conversation with AI characters'), findsOneWidget);
     expect(find.text('Spoken pronunciation feedback'), findsOneWidget);
     expect(find.textContaining('still limited for this dialect'), findsNothing);
+    expect(find.textContaining('phone voices speak Modern Standard Arabic'), findsOneWidget);
+    expect(find.textContaining('Audio lessons'), findsNothing, reason: 'no voice can read them');
+    expect(find.text('Audio library'), findsOneWidget);
   });
 }

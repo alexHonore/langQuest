@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
+import '../../core/backend/server_voice.dart';
 import '../../core/backend/speech_check.dart';
 import '../../core/layout/motion.dart';
 import '../../core/services/app_state.dart';
@@ -52,13 +53,14 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
 
   Future<void> _speakCurrent({bool slow = false}) async {
     final plan = ref.read(learnPlanProvider(widget.missionKey));
-    final locale = plan?.voiceLocale;
-    if (plan == null || locale == null) return;
-    final available = await ref.read(voiceAvailableProvider(locale).future);
-    if (!available || !mounted) return;
+    if (plan == null) return;
+    // The device's voice for the course, else the server's AI voice (signed in), else none.
+    final voice = await ref.read(lineVoiceProvider(plan.voiceLocale).future);
+    if (!voice.available || !mounted) return;
     final token = ++_utterance;
     setState(() => _speaking = true);
-    await _speech.speak(plan.sceneLines[_index].expression.text, locale: locale, slow: slow);
+    final line = plan.sceneLines[_index].expression;
+    await voice.say(text: line.text, expressionId: line.id, slow: slow);
     // A newer line may have started meanwhile; only the latest utterance clears the speaking state.
     if (mounted && token == _utterance) setState(() => _speaking = false);
   }
@@ -84,7 +86,7 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
     final l10n = context.l10n;
     final index = _index.clamp(0, plan.sceneLines.length - 1);
     final line = plan.sceneLines[index];
-    final hasVoice = plan.voiceLocale != null && (ref.watch(voiceAvailableProvider(plan.voiceLocale)).asData?.value ?? false);
+    final hasVoice = ref.watch(lineVoiceProvider(plan.voiceLocale)).asData?.value.available ?? false;
     final learnerTurn = line.byLearner;
     final meloState = _speaking ? MeloState.curious : (learnerTurn ? MeloState.welcome : MeloState.companion);
     final sceneId = sceneIdForSituation(plan.mission.situation);
@@ -196,7 +198,7 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
                       ),
                     ],
                     const SizedBox(height: 10),
-                    ListenButtons(text: line.expression.text, locale: plan.voiceLocale, compact: true),
+                    ListenButtons(text: line.expression.text, expressionId: line.expression.id, locale: plan.voiceLocale, compact: true),
                     if (learnerTurn) ...[
                       const SizedBox(height: 8),
                       RecordTake(
