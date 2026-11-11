@@ -417,7 +417,7 @@
   "accountSignIn": "Sign in",
   "accountCreate": "Create account",
   "accountMissingFields": "Enter your email and a password.",
-  "accountConfirmEmail": "Check your email to confirm the account, then sign in.",
+  "accountConfirmEmail": "Check your email: the link in it confirms the account and signs you in here.",
   "accountSignedInAs": "Signed in as {email}",
   "@accountSignedInAs": {
     "placeholders": {
@@ -510,5 +510,24 @@
         "type": "String"
       }
     }
-  }
+  },
+  "forgotPassword": "Forgot password?",
+  "enterEmailFirst": "Enter your email address first.",
+  "passwordResetSent": "If an account uses this address, an email with a link to choose a new password is on its way.",
+  "emailConfirmed": "Email confirmed. You're signed in.",
+  "emailLinkFailed": "This email link can't be used: it may have expired, been used already, or been opened in another browser than the one that asked for it. Ask for a new one in Settings.",
+  "newPasswordTitle": "Choose a new password",
+  "newPasswordBody": "You opened a password reset link for {email}.",
+  "@newPasswordBody": {
+    "placeholders": {
+      "email": {
+        "type": "String"
+      }
+    }
+  },
+  "newPasswordLabel": "New password",
+  "newPasswordSave": "Save password",
+  "newPasswordFailed": "The password could not be saved. Try again.",
+  "later": "Later",
+  "passwordChanged": "Your password was changed."
 }

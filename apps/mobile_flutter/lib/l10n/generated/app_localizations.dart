@@ -1163,7 +1163,7 @@ abstract class AppLocalizations {
   /// No description provided for @accountConfirmEmail.
   ///
   /// In en, this message translates to:
-  /// **'Check your email to confirm the account, then sign in.'**
+  /// **'Check your email: the link in it confirms the account and signs you in here.'**
   String get accountConfirmEmail;
 
   /// No description provided for @accountSignedInAs.
@@ -1453,6 +1453,78 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Text size {percent}'**
   String textSizeValue(String percent);
+
+  /// No description provided for @forgotPassword.
+  ///
+  /// In en, this message translates to:
+  /// **'Forgot password?'**
+  String get forgotPassword;
+
+  /// No description provided for @enterEmailFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Enter your email address first.'**
+  String get enterEmailFirst;
+
+  /// No description provided for @passwordResetSent.
+  ///
+  /// In en, this message translates to:
+  /// **'If an account uses this address, an email with a link to choose a new password is on its way.'**
+  String get passwordResetSent;
+
+  /// No description provided for @emailConfirmed.
+  ///
+  /// In en, this message translates to:
+  /// **'Email confirmed. You\'re signed in.'**
+  String get emailConfirmed;
+
+  /// No description provided for @emailLinkFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'This email link can\'t be used: it may have expired, been used already, or been opened in another browser than the one that asked for it. Ask for a new one in Settings.'**
+  String get emailLinkFailed;
+
+  /// No description provided for @newPasswordTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Choose a new password'**
+  String get newPasswordTitle;
+
+  /// No description provided for @newPasswordBody.
+  ///
+  /// In en, this message translates to:
+  /// **'You opened a password reset link for {email}.'**
+  String newPasswordBody(String email);
+
+  /// No description provided for @newPasswordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'New password'**
+  String get newPasswordLabel;
+
+  /// No description provided for @newPasswordSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Save password'**
+  String get newPasswordSave;
+
+  /// No description provided for @newPasswordFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'The password could not be saved. Try again.'**
+  String get newPasswordFailed;
+
+  /// No description provided for @later.
+  ///
+  /// In en, this message translates to:
+  /// **'Later'**
+  String get later;
+
+  /// No description provided for @passwordChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'Your password was changed.'**
+  String get passwordChanged;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

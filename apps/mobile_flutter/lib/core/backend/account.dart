@@ -15,6 +15,37 @@ import 'sync_service.dart';
 /// Null in an offline build (no backend configured): no account features exist. Overridden in `main()`.
 final backendConfigProvider = Provider<BackendConfig?>((ref) => null);
 
+/// What the email link the app was opened from did (sign-up confirmation, password reset, or a refused link); null
+/// when the app was opened normally. Set once in `main()`, before the router reads the address.
+final startupEmailLinkProvider = Provider<EmailLinkOutcome?>((ref) => null);
+
+@immutable
+class EmailLinkOutcome {
+  const EmailLinkOutcome(EmailLink this.kind) : error = null;
+  const EmailLinkOutcome.failed(this.error) : kind = null;
+
+  /// Null when the link was refused.
+  final EmailLink? kind;
+
+  /// The server's reason for refusing the link, when it gave one.
+  final String? error;
+}
+
+/// Opens the email link the app was started from, never throwing: a refused or unreachable link is an outcome too.
+Future<EmailLinkOutcome> openStartupEmailLink(AuthGateway auth, Uri uri) async {
+  try {
+    return EmailLinkOutcome(await auth.openEmailLink(uri).timeout(const Duration(seconds: 15)));
+  } on AuthFailure catch (e) {
+    return EmailLinkOutcome.failed(e.message);
+  } catch (_) {
+    return const EmailLinkOutcome.failed(null);
+  }
+}
+
+/// Where email links (confirmation, password reset) open the app: this web app's own address. Null in the phone
+/// builds, which have no link handling yet, so the server's Site URL applies.
+String? emailLinkTarget() => kIsWeb ? '${Uri.base.origin}${Uri.base.path}' : null;
+
 final authGatewayProvider = Provider<AuthGateway?>((ref) => ref.watch(backendConfigProvider) == null ? null : SupabaseAuthGateway(Supabase.instance.client));
 
 final apiProvider = Provider<LangQuestApi?>((ref) {
@@ -106,7 +137,40 @@ class AccountController extends Notifier<AccountState> {
   /// False when the account waits for an email confirmation (nothing is signed in yet).
   Future<bool> signUp(String email, String password) {
     final ui = ref.read(appStateProvider).uiLanguage;
-    return _auth((auth) async => await auth.signUp(email, password, uiLocale: ui, sourceLanguage: ui) == SignUpResult.signedIn);
+    return _auth((auth) async => await auth.signUp(email, password, uiLocale: ui, sourceLanguage: ui, redirectTo: emailLinkTarget()) == SignUpResult.signedIn);
+  }
+
+  /// Emails [email] a link to choose a new password. True once asked (whether an account uses that address is not
+  /// said, by the server or here); false on failure (see [AccountState.error]).
+  Future<bool> sendPasswordReset(String email) async {
+    final auth = ref.read(authGatewayProvider);
+    if (auth == null) return false;
+    state = state.copyWith(busy: true, error: () => null);
+    try {
+      await auth.sendPasswordReset(email, redirectTo: emailLinkTarget());
+      state = state.copyWith(busy: false);
+      return true;
+    } on AuthFailure catch (e) {
+      state = state.copyWith(busy: false, error: () => e.message);
+      return false;
+    } catch (e) {
+      state = state.copyWith(busy: false, error: () => '$e');
+      return false;
+    }
+  }
+
+  /// Sets the signed-in learner's new password (after a password-reset link). Null on success, else the reason.
+  Future<String?> updatePassword(String password) async {
+    final auth = ref.read(authGatewayProvider);
+    if (auth == null) return '';
+    try {
+      await auth.updatePassword(password);
+      return null;
+    } on AuthFailure catch (e) {
+      return e.message;
+    } catch (e) {
+      return '$e';
+    }
   }
 
   Future<void> signOut() async {

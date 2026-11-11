@@ -38,8 +38,11 @@ class _EnrollmentListenable extends ChangeNotifier {
   }
 }
 
+/// The app's top navigator: dialogs that belong to no screen (an email link opening the app) are shown with it.
+final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+
 final appRouterProvider = Provider<GoRouter>((ref) {
-  final rootKey = GlobalKey<NavigatorState>(debugLabel: 'root');
+  final rootKey = rootNavigatorKey;
   final shellKey = GlobalKey<NavigatorState>(debugLabel: 'shell');
   final refresh = _EnrollmentListenable(ref);
   ref.onDispose(refresh.dispose);

@@ -619,7 +619,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get accountMissingFields => 'Enter your email and a password.';
 
   @override
-  String get accountConfirmEmail => 'Check your email to confirm the account, then sign in.';
+  String get accountConfirmEmail => 'Check your email: the link in it confirms the account and signs you in here.';
 
   @override
   String accountSignedInAs(String email) {
@@ -779,4 +779,43 @@ class AppLocalizationsEn extends AppLocalizations {
   String textSizeValue(String percent) {
     return 'Text size $percent';
   }
+
+  @override
+  String get forgotPassword => 'Forgot password?';
+
+  @override
+  String get enterEmailFirst => 'Enter your email address first.';
+
+  @override
+  String get passwordResetSent => 'If an account uses this address, an email with a link to choose a new password is on its way.';
+
+  @override
+  String get emailConfirmed => 'Email confirmed. You\'re signed in.';
+
+  @override
+  String get emailLinkFailed =>
+      'This email link can\'t be used: it may have expired, been used already, or been opened in another browser than the one that asked for it. Ask for a new one in Settings.';
+
+  @override
+  String get newPasswordTitle => 'Choose a new password';
+
+  @override
+  String newPasswordBody(String email) {
+    return 'You opened a password reset link for $email.';
+  }
+
+  @override
+  String get newPasswordLabel => 'New password';
+
+  @override
+  String get newPasswordSave => 'Save password';
+
+  @override
+  String get newPasswordFailed => 'The password could not be saved. Try again.';
+
+  @override
+  String get later => 'Later';
+
+  @override
+  String get passwordChanged => 'Your password was changed.';
 }
