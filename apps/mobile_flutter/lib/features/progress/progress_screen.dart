@@ -5,6 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
+import '../../core/backend/server_skills.dart';
 import '../../core/content/content_bundle.dart';
 import '../../core/learning/srs.dart';
 import '../../core/services/app_state.dart';
@@ -16,9 +17,10 @@ import '../audio/audio_screens.dart';
 import '../learn/learn_content.dart';
 import '../learn/learn_logic.dart';
 
-/// Progress shows only what was measured on this device: XP (practice, never proficiency), active days, missions
-/// completed, phrases met and how firmly the review schedule holds them, and — once there is any — what was done out
-/// loud: takes the server understood, live calls, audio lessons heard. No invented word counts or levels.
+/// Progress shows only what was measured: XP (practice, never proficiency), active days, missions completed, phrases
+/// met and how firmly the review schedule holds them, and — once there is any — what was done out loud: takes the
+/// server understood, live calls, audio lessons heard. For a course on the learner's account, "What you can do" lists
+/// the skills the server has evidence for, on its mastery ladder. No invented word counts or levels.
 class ProgressScreen extends ConsumerWidget {
   const ProgressScreen({super.key});
 
@@ -42,7 +44,9 @@ class ProgressScreen extends ConsumerWidget {
     };
     final cards = progress.cards.values.toList();
     int count(PhraseStrength s) => cards.where((c) => strengthOf(c) == s).length;
-    final hasActivity = appState.learner.xpTotal > 0 || cards.isNotEmpty || met.isNotEmpty;
+    // On a new device the server may already know what the learner can do: then Progress is not "empty".
+    final measured = ref.watch(skillsEnrollmentProvider) != null && (ref.watch(serverSkillsProvider).value?.isNotEmpty ?? false);
+    final hasActivity = appState.learner.xpTotal > 0 || cards.isNotEmpty || met.isNotEmpty || measured;
     final speaking = ref.watch(speakingStatsProvider)[course.id] ?? const SpeakingStat();
     final lessons = ref.watch(audioListenedProvider)[course.id]?.length ?? 0;
 
@@ -104,6 +108,7 @@ class ProgressScreen extends ConsumerWidget {
                 Text(l10n.xpNote, style: TextStyle(fontSize: 12, color: colors.textMuted)),
                 const SizedBox(height: 16),
                 _WeekCard(xpByDay: appState.learner.xpByDay, now: now),
+                const _CanDoCard(),
                 const SizedBox(height: 14),
                 GlassContainer(
                   level: GlassLevel.level1,
@@ -189,6 +194,268 @@ class ProgressScreen extends ConsumerWidget {
               ],
             ),
           ),
+        ],
+      ),
+    );
+  }
+}
+
+/// "What you can do": the skills the server measured for the active course, strongest first, each on the four-step
+/// mastery ladder (emerging → practised → independent → durable) with the number of observations behind it. Shown
+/// only for a course on the learner's account; nothing while signed out.
+class _CanDoCard extends ConsumerStatefulWidget {
+  const _CanDoCard();
+
+  @override
+  ConsumerState<_CanDoCard> createState() => _CanDoCardState();
+}
+
+class _CanDoCardState extends ConsumerState<_CanDoCard> {
+  var _explained = false;
+
+  static String levelOf(AppLocalizations l10n, Mastery m) => switch (m) {
+    Mastery.notAttempted => '',
+    Mastery.emerging => l10n.masteryEmerging,
+    Mastery.practiced => l10n.masteryPracticed,
+    Mastery.independent => l10n.masteryIndependent,
+    Mastery.durable => l10n.masteryDurable,
+  };
+
+  static String hintOf(AppLocalizations l10n, Mastery m) => switch (m) {
+    Mastery.notAttempted => '',
+    Mastery.emerging => l10n.masteryHintEmerging,
+    Mastery.practiced => l10n.masteryHintPracticed,
+    Mastery.independent => l10n.masteryHintIndependent,
+    Mastery.durable => l10n.masteryHintDurable,
+  };
+
+  @override
+  Widget build(BuildContext context) {
+    // Signed out, or a course not on the account: nothing to show (no empty card, no loading row).
+    if (ref.watch(skillsEnrollmentProvider) == null) return const SizedBox.shrink();
+    final skills = ref.watch(serverSkillsProvider);
+    final appState = ref.watch(appStateProvider);
+    final colors = appState.colors;
+    final accent = appState.accent;
+    final l10n = context.l10n;
+    final content = ref.watch(contentBundleProvider);
+    final language = appState.uiLanguage;
+    final muted = TextStyle(fontSize: 13, height: 1.4, color: colors.textMuted);
+
+    final list = skills.value;
+    final List<Widget> body;
+    if (list != null) {
+      body = list.isEmpty
+          ? [Text(l10n.progressCanDoEmpty, style: muted)]
+          : [
+              for (final skill in list)
+                _SkillRow(
+                  name: content.skill(skill.key)?.name(language) ?? skill.key,
+                  cefr: content.skill(skill.key)?.cefr ?? '',
+                  level: levelOf(l10n, skill.mastery),
+                  step: skill.step,
+                  evidence: l10n.progressEvidenceCount(skill.evidence),
+                ),
+            ];
+    } else if (skills.hasError && (!skills.isLoading || skills.retrying)) {
+      // Failed: said at once, while the provider keeps retrying on its own; Try again reloads now.
+      body = [
+        Text(l10n.progressCanDoFailed, style: muted),
+        Align(
+          alignment: AlignmentDirectional.centerStart,
+          child: TextButton(
+            onPressed: () => ref.invalidate(serverSkillsProvider),
+            child: Text(
+              l10n.callTryAgain,
+              style: TextStyle(fontWeight: FontWeight.w700, color: accent.primaryText),
+            ),
+          ),
+        ),
+      ];
+    } else {
+      body = [
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 12),
+          child: Center(
+            child: SizedBox(width: 22, height: 22, child: CircularProgressIndicator(strokeWidth: 2.5, color: colors.textMuted)),
+          ),
+        ),
+      ];
+    }
+
+    return Padding(
+      padding: const EdgeInsets.only(top: 14),
+      child: GlassContainer(
+        level: GlassLevel.level1,
+        radius: 20,
+        padding: const EdgeInsets.all(18),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Semantics(
+              container: true,
+              header: true,
+              child: Text(
+                l10n.progressCanDoTitle,
+                style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: colors.textPrimary),
+              ),
+            ),
+            const SizedBox(height: 4),
+            Text(l10n.progressCanDoNote, style: TextStyle(fontSize: 12.5, height: 1.4, color: colors.textSecondary)),
+            const SizedBox(height: 12),
+            ...body,
+            if (skills.value?.isNotEmpty ?? false) ...[
+              const SizedBox(height: 2),
+              Semantics(
+                container: true,
+                button: true,
+                expanded: _explained,
+                child: InkWell(
+                  borderRadius: BorderRadius.circular(10),
+                  onTap: () => setState(() => _explained = !_explained),
+                  child: ConstrainedBox(
+                    constraints: const BoxConstraints(minHeight: 44),
+                    child: Row(
+                      children: [
+                        Expanded(
+                          child: Text(
+                            l10n.progressHowMeasured,
+                            style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.w700, color: accent.primaryText),
+                          ),
+                        ),
+                        Icon(_explained ? LucideIcons.chevronUp : LucideIcons.chevronDown, size: 18, color: accent.primaryText),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+              if (_explained) ...[
+                for (final m in Mastery.values.skip(1))
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 8),
+                    child: Row(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(top: 3),
+                          child: _Ladder(step: m.index),
+                        ),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: Text.rich(
+                            TextSpan(
+                              children: [
+                                TextSpan(
+                                  text: '${levelOf(l10n, m)} · ',
+                                  style: TextStyle(fontWeight: FontWeight.w700, color: colors.textPrimary),
+                                ),
+                                TextSpan(text: hintOf(l10n, m)),
+                              ],
+                            ),
+                            style: TextStyle(fontSize: 13, height: 1.4, color: colors.textSecondary),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                Text(l10n.progressHowMeasuredNote, style: muted),
+              ],
+            ],
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// One skill: its name and CEFR band, then the ladder, the level and the evidence. One semantics node.
+class _SkillRow extends ConsumerWidget {
+  const _SkillRow({required this.name, required this.cefr, required this.level, required this.step, required this.evidence});
+
+  final String name;
+  final String cefr;
+  final String level;
+  final int step;
+  final String evidence;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appState = ref.watch(appStateProvider);
+    final colors = appState.colors;
+    // Its own node (the card is one list item, which would otherwise merge every row into one label).
+    return Semantics(
+      container: true,
+      label: context.l10n.progressSkillLabel(name, level, step, evidence),
+      excludeSemantics: true,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 12),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  child: Text(
+                    name,
+                    style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.w700, height: 1.3, color: colors.textPrimary),
+                  ),
+                ),
+                if (cefr.isNotEmpty) ...[
+                  const SizedBox(width: 8),
+                  Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 2),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(6),
+                      border: Border.all(color: colors.border),
+                    ),
+                    child: Text(
+                      cefr,
+                      style: TextStyle(fontSize: 11, fontWeight: FontWeight.w700, color: colors.textMuted),
+                    ),
+                  ),
+                ],
+              ],
+            ),
+            const SizedBox(height: 6),
+            Row(
+              children: [
+                _Ladder(step: step),
+                const SizedBox(width: 10),
+                Flexible(
+                  child: Text('$level · $evidence', style: TextStyle(fontSize: 12.5, color: colors.textSecondary)),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+/// Four segments, the first [step] lit: emerging, practised, independent, durable.
+class _Ladder extends ConsumerWidget {
+  const _Ladder({required this.step});
+
+  final int step;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appState = ref.watch(appStateProvider);
+    final colors = appState.colors;
+    final lit = [colors.amber, colors.cyan, colors.success, colors.success];
+    return ExcludeSemantics(
+      child: Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          for (var i = 0; i < 4; i++)
+            Container(
+              width: 16,
+              height: 6,
+              margin: EdgeInsetsDirectional.only(end: i == 3 ? 0 : 3),
+              decoration: BoxDecoration(borderRadius: BorderRadius.circular(3), color: i < step ? lit[step - 1] : colors.surfaceMuted),
+            ),
         ],
       ),
     );

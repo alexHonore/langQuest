@@ -46,6 +46,23 @@ class LangQuestApi {
 
   Future<Map<String, Object?>> me() async => _object(await _send('GET', '/v1/me'));
 
+  /// `GET /v1/me/skills?enrollmentId=` — the server's mastery estimate of each skill it has evidence for, from speech
+  /// checks, missions and calls. Follows the cursor (pages of 200) so every skill comes back.
+  Future<List<Map<String, Object?>>> skills(String enrollmentId) async {
+    final items = <Map<String, Object?>>[];
+    String? cursor;
+    do {
+      final page = _object(
+        await _send('GET', '/v1/me/skills?enrollmentId=$enrollmentId&limit=200${cursor == null ? '' : '&cursor=${Uri.encodeQueryComponent(cursor)}'}'),
+      );
+      for (final i in (page['items'] as List? ?? const [])) {
+        if (i is Map) items.add(i.cast<String, Object?>());
+      }
+      cursor = page['nextCursor'] as String?;
+    } while (cursor != null && items.length < 1000);
+    return items;
+  }
+
   /// `GET /v1/courses?source=` (public): every track with what the server offers it from that instruction language —
   /// characters, published audio lessons, and its speech capabilities (recognition, synthesis, conversation, scoring).
   Future<List<Map<String, Object?>>> courses(String source) async {

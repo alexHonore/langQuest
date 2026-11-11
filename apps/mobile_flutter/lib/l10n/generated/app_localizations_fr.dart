@@ -1247,4 +1247,62 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get progressLessons => 'Leçons audio écoutées jusqu’au bout';
+
+  @override
+  String get progressCanDoTitle => 'Ce que vous savez faire';
+
+  @override
+  String get progressCanDoNote => 'Mesuré par LangQuest à partir de vos réponses à voix haute, de vos missions et de vos appels.';
+
+  @override
+  String get progressCanDoEmpty =>
+      'Rien de mesuré pour l’instant. Répondez à voix haute dans une mission ou appelez un personnage : ce que vous savez faire apparaîtra ici.';
+
+  @override
+  String get progressCanDoFailed => 'Impossible de charger ce que vous savez faire.';
+
+  @override
+  String get masteryEmerging => 'En émergence';
+
+  @override
+  String get masteryPracticed => 'Pratiqué';
+
+  @override
+  String get masteryIndependent => 'Autonome';
+
+  @override
+  String get masteryDurable => 'Acquis durablement';
+
+  @override
+  String get masteryHintEmerging => 'Vous l’avez essayé avec de l’aide.';
+
+  @override
+  String get masteryHintPracticed => 'Vous y arrivez avec quelques indices.';
+
+  @override
+  String get masteryHintIndependent => 'Vous l’avez fait sans aide en conversation.';
+
+  @override
+  String get masteryHintDurable => 'Vous l’avez fait sans aide plusieurs fois, sur plusieurs semaines.';
+
+  @override
+  String progressEvidenceCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count observations', one: '1 observation');
+    return '$_temp0';
+  }
+
+  @override
+  String progressSkillLabel(String skill, String level, int step, String evidence) {
+    return '$skill : $level, étape $step sur 4, $evidence';
+  }
+
+  @override
+  String get progressHowMeasured => 'Comment c’est mesuré';
+
+  @override
+  String get progressHowMeasuredNote =>
+      'Chaque niveau repose sur ce que LangQuest a observé, et sur la fréquence et la date des observations. Moins d’observations, moins de certitude. Les niveaux du CECR (A1, A2…) décrivent la compétence, pas votre niveau : ce n’est pas un certificat.';
+
+  @override
+  String get callNothingSaid => 'Vous avez raccroché avant de répondre : il n’y avait rien à évaluer. Rappelez quand vous voulez.';
 }

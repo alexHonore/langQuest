@@ -28,15 +28,16 @@ class Course {
 
 String courseIdFor(String trackId, String source) => '$trackId|$source';
 
-/// The offline content bundle: the 30-track catalog and the draft chapters.
+/// The offline content bundle: the 30-track catalog, the draft chapters and the names of the skills the server tracks.
 class ContentBundle {
   final List<CourseTrackInfo> tracks;
   final List<Chapter> chapters;
+  final Map<String, SkillInfo> skills;
   final Map<String, CourseTrackInfo> _tracksById;
   final Map<String, Mission> _missionsByKey;
   final Map<String, Chapter> _chaptersByKey;
 
-  ContentBundle({required this.tracks, required this.chapters})
+  ContentBundle({required this.tracks, required this.chapters, this.skills = const {}})
     : _tracksById = {for (final t in tracks) t.id: t},
       _missionsByKey = {
         for (final c in chapters)
@@ -46,12 +47,14 @@ class ContentBundle {
 
   static const catalogAsset = 'assets/content/catalog.json';
   static const chaptersAsset = 'assets/content/chapters.json';
+  static const skillsAsset = 'assets/content/skills.json';
 
-  /// Parse the two bundle files; throws [FormatException] on an unsupported schema version.
-  factory ContentBundle.parse({required String catalogJson, required String chaptersJson}) {
+  /// Parse the bundle files; throws [FormatException] on an unsupported schema version.
+  factory ContentBundle.parse({required String catalogJson, required String chaptersJson, String? skillsJson}) {
     final catalog = (jsonDecode(catalogJson) as Map).cast<String, Object?>();
     final chapters = (jsonDecode(chaptersJson) as Map).cast<String, Object?>();
-    for (final doc in [catalog, chapters]) {
+    final skills = skillsJson == null ? null : (jsonDecode(skillsJson) as Map).cast<String, Object?>();
+    for (final doc in [catalog, chapters, ?skills]) {
       if (doc['schemaVersion'] != 1) throw FormatException('Unsupported content bundle schemaVersion ${doc['schemaVersion']}');
     }
     final tracks = [for (final t in (catalog['tracks'] as List? ?? const [])) CourseTrackInfo.fromJson((t as Map).cast<String, Object?>())]
@@ -59,11 +62,24 @@ class ContentBundle {
     return ContentBundle(
       tracks: tracks,
       chapters: [for (final c in (chapters['chapters'] as List? ?? const [])) Chapter.fromJson((c as Map).cast<String, Object?>())],
+      skills: {
+        for (final s in [
+          for (final e in (skills?['skills'] as List? ?? const []))
+            if (e is Map) SkillInfo.fromJson(e.cast<String, Object?>()),
+        ])
+          s.key: s,
+      },
     );
   }
 
-  static Future<ContentBundle> load(AssetBundle assets) async =>
-      ContentBundle.parse(catalogJson: await assets.loadString(catalogAsset), chaptersJson: await assets.loadString(chaptersAsset));
+  static Future<ContentBundle> load(AssetBundle assets) async => ContentBundle.parse(
+    catalogJson: await assets.loadString(catalogAsset),
+    chaptersJson: await assets.loadString(chaptersAsset),
+    skillsJson: await assets.loadString(skillsAsset),
+  );
+
+  /// The skill's names, or null for a key this bundle does not know (a newer server).
+  SkillInfo? skill(String key) => skills[key];
 
   CourseTrackInfo? track(String id) => _tracksById[id];
   Mission? mission(String key) => _missionsByKey[key];

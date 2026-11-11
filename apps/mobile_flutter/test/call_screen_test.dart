@@ -262,6 +262,39 @@ void main() {
     semantics.dispose();
   });
 
+  testWidgets('hanging up before saying anything: a plain message, no summary or corrections, nothing credited', (t) async {
+    final semantics = t.ensureSemantics();
+    final container = await pump(t, player: FakeClipPlayer(instant: true));
+    final xpBefore = container.read(appStateProvider).learner.xpTotal;
+    await tapLabel(t, 'Call', ms: 1500);
+    expect(find.text('¡Hola! Soy Pablo. ¿Cómo te llamas?'), findsOneWidget);
+    await tapLabel(t, 'Hang up', ms: 1500);
+    expect(find.textContaining('Call ended'), findsOneWidget);
+    expect(find.text('You hung up before answering, so there was nothing to evaluate. Call again when you’re ready.'), findsOneWidget);
+    expect(find.text('You greeted Pablo and said your name.'), findsNothing, reason: 'the server\'s summary would describe only Pablo\'s lines');
+    expect(find.text('LangQuest couldn’t evaluate this call, so nothing was counted.'), findsNothing);
+    expect(find.text('Next time, try'), findsNothing);
+    expect(find.text('Goals met: 0 of 2'), findsOneWidget, reason: 'the goals stay, as what to aim for next time');
+    expect(find.text('Call again'), findsOneWidget);
+    expect(container.read(appStateProvider).learner.xpTotal, xpBefore);
+    expect(container.read(appStateProvider).stopsDone(missionKey), isNot(contains(PathStop.talk)));
+    expect(container.read(speakingStatsProvider)['spanish-spain|en']?.calls ?? 0, 0);
+    semantics.dispose();
+  });
+
+  testWidgets('a call where the learner only asked for help: the server\'s XP counts, but no Talk stop', (t) async {
+    final semantics = t.ensureSemantics();
+    final container = await pump(t, player: FakeClipPlayer(instant: true));
+    final xpBefore = container.read(appStateProvider).learner.xpTotal;
+    await tapLabel(t, 'Call', ms: 1500);
+    await tapLabel(t, 'Hint', ms: 1500);
+    await tapLabel(t, 'Hang up', ms: 1500);
+    expect(find.text('+30 XP'), findsOneWidget);
+    expect(container.read(appStateProvider).learner.xpTotal, xpBefore + 30, reason: 'the summary\'s XP is the total\'s');
+    expect(container.read(appStateProvider).stopsDone(missionKey), isNot(contains(PathStop.talk)));
+    semantics.dispose();
+  });
+
   testWidgets('without live calls there is no Speak tab', (t) async {
     await pump(t, call: null, route: '/');
     expect(find.text('Speak'), findsNothing);

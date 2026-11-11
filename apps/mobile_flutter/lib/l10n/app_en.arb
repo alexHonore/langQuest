@@ -791,5 +791,45 @@
       }
     }
   },
-  "progressLessons": "Audio lessons heard to the end"
+  "progressLessons": "Audio lessons heard to the end",
+  "progressCanDoTitle": "What you can do",
+  "progressCanDoNote": "Measured by LangQuest from your spoken answers, missions and live calls.",
+  "progressCanDoEmpty": "Nothing measured yet. Answer out loud in a mission or call a character: what you can do appears here.",
+  "progressCanDoFailed": "Couldn’t load what you can do.",
+  "masteryEmerging": "Emerging",
+  "masteryPracticed": "Practised",
+  "masteryIndependent": "Independent",
+  "masteryDurable": "Durable",
+  "masteryHintEmerging": "You have tried it with help.",
+  "masteryHintPracticed": "You can do it with occasional hints.",
+  "masteryHintIndependent": "You did it on your own in conversation.",
+  "masteryHintDurable": "You have done it on your own several times, over weeks.",
+  "progressEvidenceCount": "{count, plural, =1{1 observation} other{{count} observations}}",
+  "@progressEvidenceCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "progressSkillLabel": "{skill}: {level}, step {step} of 4, {evidence}",
+  "@progressSkillLabel": {
+    "placeholders": {
+      "skill": {
+        "type": "String"
+      },
+      "level": {
+        "type": "String"
+      },
+      "step": {
+        "type": "int"
+      },
+      "evidence": {
+        "type": "String"
+      }
+    }
+  },
+  "progressHowMeasured": "How this is measured",
+  "progressHowMeasuredNote": "Each level rests on what LangQuest observed, and on how often and how recently. Fewer observations means less certainty. CEFR bands (A1, A2…) describe the skill, not your level: this is not a certificate.",
+  "callNothingSaid": "You hung up before answering, so there was nothing to evaluate. Call again when you’re ready."
 }

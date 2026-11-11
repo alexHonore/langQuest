@@ -1,0 +1,564 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts",
+  "skills": [
+    {
+      "key": "greet_politely",
+      "cefr": "A1",
+      "names": {
+        "en": "Greet someone politely",
+        "fr": "Saluer poliment"
+      },
+      "system": false
+    },
+    {
+      "key": "respond_to_greeting",
+      "cefr": "A1",
+      "names": {
+        "en": "Respond to a greeting",
+        "fr": "Répondre à une salutation"
+      },
+      "system": false
+    },
+    {
+      "key": "introduce_self",
+      "cefr": "A1",
+      "names": {
+        "en": "Introduce yourself",
+        "fr": "Se présenter"
+      },
+      "system": false
+    },
+    {
+      "key": "ask_name",
+      "cefr": "A1",
+      "names": {
+        "en": "Ask someone their name",
+        "fr": "Demander son nom à quelqu'un"
+      },
+      "system": false
+    },
+    {
+      "key": "say_where_from",
+      "cefr": "A1",
+      "names": {
+        "en": "Say where you are from",
+        "fr": "Dire d'où l'on vient"
+      },
+      "system": false
+    },
+    {
+      "key": "ask_where_from",
+      "cefr": "A1",
+      "names": {
+        "en": "Ask where someone is from",
+        "fr": "Demander d'où vient quelqu'un"
+      },
+      "system": false
+    },
+    {
+      "key": "take_leave",
+      "cefr": "A1",
+      "names": {
+        "en": "Say goodbye appropriately",
+        "fr": "Prendre congé comme il faut"
+      },
+      "system": false
+    },
+    {
+      "key": "thank_and_respond",
+      "cefr": "A1",
+      "names": {
+        "en": "Thank someone and respond to thanks",
+        "fr": "Remercier et répondre à un merci"
+      },
+      "system": false
+    },
+    {
+      "key": "apologise",
+      "cefr": "A1",
+      "names": {
+        "en": "Apologise or get attention politely",
+        "fr": "S'excuser ou interpeller poliment"
+      },
+      "system": false
+    },
+    {
+      "key": "use_appropriate_register",
+      "cefr": "A2",
+      "names": {
+        "en": "Choose polite or casual forms",
+        "fr": "Choisir entre formes polies et familières"
+      },
+      "system": false
+    },
+    {
+      "key": "ask_to_repeat",
+      "cefr": "A1",
+      "names": {
+        "en": "Ask someone to repeat",
+        "fr": "Demander de répéter"
+      },
+      "system": false
+    },
+    {
+      "key": "ask_to_slow_down",
+      "cefr": "A1",
+      "names": {
+        "en": "Ask someone to speak more slowly",
+        "fr": "Demander de parler plus lentement"
+      },
+      "system": false
+    },
+    {
+      "key": "say_dont_understand",
+      "cefr": "A1",
+      "names": {
+        "en": "Say you did not understand",
+        "fr": "Dire qu'on n'a pas compris"
+      },
+      "system": false
+    },
+    {
+      "key": "ask_meaning",
+      "cefr": "A1",
+      "names": {
+        "en": "Ask what a word means",
+        "fr": "Demander le sens d'un mot"
+      },
+      "system": false
+    },
+    {
+      "key": "confirm_understanding",
+      "cefr": "A2",
+      "names": {
+        "en": "Confirm you understood",
+        "fr": "Confirmer qu'on a compris"
+      },
+      "system": false
+    },
+    {
+      "key": "repair_misunderstanding",
+      "cefr": "A2",
+      "names": {
+        "en": "Repair a misunderstanding",
+        "fr": "Dissiper un malentendu"
+      },
+      "system": false
+    },
+    {
+      "key": "ask_clarifying_question",
+      "cefr": "A2",
+      "names": {
+        "en": "Ask a clarifying question",
+        "fr": "Poser une question pour clarifier"
+      },
+      "system": false
+    },
+    {
+      "key": "respond_to_unexpected_question",
+      "cefr": "A2",
+      "names": {
+        "en": "Handle an unexpected question",
+        "fr": "Réagir à une question inattendue"
+      },
+      "system": false
+    },
+    {
+      "key": "handle_code_switch",
+      "cefr": "A2",
+      "names": {
+        "en": "Handle natural code-switching",
+        "fr": "Suivre le mélange naturel des langues"
+      },
+      "system": false
+    },
+    {
+      "key": "request_item",
+      "cefr": "A1",
+      "names": {
+        "en": "Request an item politely",
+        "fr": "Demander quelque chose poliment"
+      },
+      "system": false
+    },
+    {
+      "key": "request_drink",
+      "cefr": "A1",
+      "names": {
+        "en": "Order a drink",
+        "fr": "Commander une boisson"
+      },
+      "system": false
+    },
+    {
+      "key": "order_food",
+      "cefr": "A1",
+      "names": {
+        "en": "Order food",
+        "fr": "Commander à manger"
+      },
+      "system": false
+    },
+    {
+      "key": "specify_quantity",
+      "cefr": "A1",
+      "names": {
+        "en": "Specify a quantity or size",
+        "fr": "Préciser une quantité ou une taille"
+      },
+      "system": false
+    },
+    {
+      "key": "express_preference",
+      "cefr": "A1",
+      "names": {
+        "en": "Express a simple preference",
+        "fr": "Exprimer une préférence simple"
+      },
+      "system": false
+    },
+    {
+      "key": "ask_for_bill",
+      "cefr": "A1",
+      "names": {
+        "en": "Ask for the bill",
+        "fr": "Demander l'addition"
+      },
+      "system": false
+    },
+    {
+      "key": "pay_and_check_change",
+      "cefr": "A2",
+      "names": {
+        "en": "Pay and check your change",
+        "fr": "Payer et vérifier la monnaie"
+      },
+      "system": false
+    },
+    {
+      "key": "ask_recommendation",
+      "cefr": "A2",
+      "names": {
+        "en": "Ask for a recommendation",
+        "fr": "Demander une recommandation"
+      },
+      "system": false
+    },
+    {
+      "key": "ask_price",
+      "cefr": "A1",
+      "names": {
+        "en": "Ask the price",
+        "fr": "Demander le prix"
+      },
+      "system": false
+    },
+    {
+      "key": "negotiate_price",
+      "cefr": "A2",
+      "names": {
+        "en": "Negotiate a price",
+        "fr": "Négocier un prix"
+      },
+      "system": false
+    },
+    {
+      "key": "decline_politely",
+      "cefr": "A1",
+      "names": {
+        "en": "Decline politely",
+        "fr": "Refuser poliment"
+      },
+      "system": false
+    },
+    {
+      "key": "accept_offer",
+      "cefr": "A1",
+      "names": {
+        "en": "Accept an offer",
+        "fr": "Accepter une proposition"
+      },
+      "system": false
+    },
+    {
+      "key": "ask_for_variant",
+      "cefr": "A2",
+      "names": {
+        "en": "Ask for another size, colour or kind",
+        "fr": "Demander une autre taille, couleur ou sorte"
+      },
+      "system": false
+    },
+    {
+      "key": "ask_location",
+      "cefr": "A1",
+      "names": {
+        "en": "Ask where something is",
+        "fr": "Demander où se trouve un lieu"
+      },
+      "system": false
+    },
+    {
+      "key": "follow_directions",
+      "cefr": "A1",
+      "names": {
+        "en": "Follow simple directions",
+        "fr": "Suivre des indications simples"
+      },
+      "system": false
+    },
+    {
+      "key": "give_directions",
+      "cefr": "A2",
+      "names": {
+        "en": "Give simple directions",
+        "fr": "Donner des indications simples"
+      },
+      "system": false
+    },
+    {
+      "key": "ask_distance_or_time",
+      "cefr": "A1",
+      "names": {
+        "en": "Ask how far or how long",
+        "fr": "Demander la distance ou la durée"
+      },
+      "system": false
+    },
+    {
+      "key": "use_taxi",
+      "cefr": "A2",
+      "names": {
+        "en": "Take a taxi",
+        "fr": "Prendre un taxi"
+      },
+      "system": false
+    },
+    {
+      "key": "buy_ticket",
+      "cefr": "A2",
+      "names": {
+        "en": "Buy a ticket",
+        "fr": "Acheter un billet"
+      },
+      "system": false
+    },
+    {
+      "key": "ask_opening_hours",
+      "cefr": "A2",
+      "names": {
+        "en": "Ask about opening hours",
+        "fr": "Demander les horaires d'ouverture"
+      },
+      "system": false
+    },
+    {
+      "key": "tell_time",
+      "cefr": "A1",
+      "names": {
+        "en": "Tell and ask the time",
+        "fr": "Dire et demander l'heure"
+      },
+      "system": false
+    },
+    {
+      "key": "make_plans",
+      "cefr": "A2",
+      "names": {
+        "en": "Make simple plans",
+        "fr": "Organiser un projet simple"
+      },
+      "system": false
+    },
+    {
+      "key": "accept_decline_invitation",
+      "cefr": "A2",
+      "names": {
+        "en": "Accept or decline an invitation",
+        "fr": "Accepter ou refuser une invitation"
+      },
+      "system": false
+    },
+    {
+      "key": "offer_help",
+      "cefr": "A2",
+      "names": {
+        "en": "Offer or ask for a small favour",
+        "fr": "Proposer ou demander un petit service"
+      },
+      "system": false
+    },
+    {
+      "key": "describe_daily_routine",
+      "cefr": "A2",
+      "names": {
+        "en": "Describe your daily routine",
+        "fr": "Décrire sa journée type"
+      },
+      "system": false
+    },
+    {
+      "key": "talk_about_family",
+      "cefr": "A2",
+      "names": {
+        "en": "Talk about family",
+        "fr": "Parler de sa famille"
+      },
+      "system": false
+    },
+    {
+      "key": "describe_job",
+      "cefr": "A2",
+      "names": {
+        "en": "Talk about work or study",
+        "fr": "Parler de son travail ou de ses études"
+      },
+      "system": false
+    },
+    {
+      "key": "make_small_talk_weather",
+      "cefr": "A1",
+      "names": {
+        "en": "Make small talk about the weather",
+        "fr": "Parler de la pluie et du beau temps"
+      },
+      "system": false
+    },
+    {
+      "key": "compliment_and_respond",
+      "cefr": "A2",
+      "names": {
+        "en": "Give and receive a compliment",
+        "fr": "Faire et recevoir un compliment"
+      },
+      "system": false
+    },
+    {
+      "key": "ask_about_availability",
+      "cefr": "A2",
+      "names": {
+        "en": "Ask whether something is available",
+        "fr": "Demander si quelque chose est disponible"
+      },
+      "system": false
+    },
+    {
+      "key": "reserve_or_book",
+      "cefr": "A2",
+      "names": {
+        "en": "Make a reservation",
+        "fr": "Faire une réservation"
+      },
+      "system": false
+    },
+    {
+      "key": "express_feeling",
+      "cefr": "A2",
+      "names": {
+        "en": "Say how you feel",
+        "fr": "Dire comment on se sent"
+      },
+      "system": false
+    },
+    {
+      "key": "express_opinion",
+      "cefr": "B1",
+      "names": {
+        "en": "Give your opinion",
+        "fr": "Donner son avis"
+      },
+      "system": false
+    },
+    {
+      "key": "agree_disagree",
+      "cefr": "B1",
+      "names": {
+        "en": "Agree or disagree politely",
+        "fr": "Exprimer poliment son accord ou son désaccord"
+      },
+      "system": false
+    },
+    {
+      "key": "justify_opinion",
+      "cefr": "B1",
+      "names": {
+        "en": "Justify an opinion",
+        "fr": "Justifier son avis"
+      },
+      "system": false
+    },
+    {
+      "key": "narrate_past_experience",
+      "cefr": "B1",
+      "names": {
+        "en": "Tell about a past experience",
+        "fr": "Raconter une expérience passée"
+      },
+      "system": false
+    },
+    {
+      "key": "express_future_plan",
+      "cefr": "A2",
+      "names": {
+        "en": "Talk about future plans",
+        "fr": "Parler de ses projets"
+      },
+      "system": false
+    },
+    {
+      "key": "ask_for_help_emergency",
+      "cefr": "A1",
+      "names": {
+        "en": "Ask for help in an emergency",
+        "fr": "Demander de l'aide en cas d'urgence"
+      },
+      "system": false
+    },
+    {
+      "key": "describe_symptom",
+      "cefr": "A2",
+      "names": {
+        "en": "Describe a simple symptom",
+        "fr": "Décrire un symptôme simple"
+      },
+      "system": false
+    },
+    {
+      "key": "report_problem",
+      "cefr": "A2",
+      "names": {
+        "en": "Report a problem or a lost item",
+        "fr": "Signaler un problème ou un objet perdu"
+      },
+      "system": false
+    },
+    {
+      "key": "speaking.intelligibility",
+      "cefr": "A1",
+      "names": {
+        "en": "Be understood when speaking",
+        "fr": "Se faire comprendre à l'oral"
+      },
+      "system": true
+    },
+    {
+      "key": "speaking.pronunciation",
+      "cefr": "A1",
+      "names": {
+        "en": "Pronunciation",
+        "fr": "Prononciation"
+      },
+      "system": true
+    },
+    {
+      "key": "general.participation",
+      "cefr": "A1",
+      "names": {
+        "en": "Take part in the conversation",
+        "fr": "Participer à la conversation"
+      },
+      "system": true
+    }
+  ]
+}

@@ -2269,6 +2269,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Audio lessons heard to the end'**
   String get progressLessons;
+
+  /// No description provided for @progressCanDoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What you can do'**
+  String get progressCanDoTitle;
+
+  /// No description provided for @progressCanDoNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Measured by LangQuest from your spoken answers, missions and live calls.'**
+  String get progressCanDoNote;
+
+  /// No description provided for @progressCanDoEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing measured yet. Answer out loud in a mission or call a character: what you can do appears here.'**
+  String get progressCanDoEmpty;
+
+  /// No description provided for @progressCanDoFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t load what you can do.'**
+  String get progressCanDoFailed;
+
+  /// No description provided for @masteryEmerging.
+  ///
+  /// In en, this message translates to:
+  /// **'Emerging'**
+  String get masteryEmerging;
+
+  /// No description provided for @masteryPracticed.
+  ///
+  /// In en, this message translates to:
+  /// **'Practised'**
+  String get masteryPracticed;
+
+  /// No description provided for @masteryIndependent.
+  ///
+  /// In en, this message translates to:
+  /// **'Independent'**
+  String get masteryIndependent;
+
+  /// No description provided for @masteryDurable.
+  ///
+  /// In en, this message translates to:
+  /// **'Durable'**
+  String get masteryDurable;
+
+  /// No description provided for @masteryHintEmerging.
+  ///
+  /// In en, this message translates to:
+  /// **'You have tried it with help.'**
+  String get masteryHintEmerging;
+
+  /// No description provided for @masteryHintPracticed.
+  ///
+  /// In en, this message translates to:
+  /// **'You can do it with occasional hints.'**
+  String get masteryHintPracticed;
+
+  /// No description provided for @masteryHintIndependent.
+  ///
+  /// In en, this message translates to:
+  /// **'You did it on your own in conversation.'**
+  String get masteryHintIndependent;
+
+  /// No description provided for @masteryHintDurable.
+  ///
+  /// In en, this message translates to:
+  /// **'You have done it on your own several times, over weeks.'**
+  String get masteryHintDurable;
+
+  /// No description provided for @progressEvidenceCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 observation} other{{count} observations}}'**
+  String progressEvidenceCount(int count);
+
+  /// No description provided for @progressSkillLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{skill}: {level}, step {step} of 4, {evidence}'**
+  String progressSkillLabel(String skill, String level, int step, String evidence);
+
+  /// No description provided for @progressHowMeasured.
+  ///
+  /// In en, this message translates to:
+  /// **'How this is measured'**
+  String get progressHowMeasured;
+
+  /// No description provided for @progressHowMeasuredNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Each level rests on what LangQuest observed, and on how often and how recently. Fewer observations means less certainty. CEFR bands (A1, A2…) describe the skill, not your level: this is not a certificate.'**
+  String get progressHowMeasuredNote;
+
+  /// No description provided for @callNothingSaid.
+  ///
+  /// In en, this message translates to:
+  /// **'You hung up before answering, so there was nothing to evaluate. Call again when you’re ready.'**
+  String get callNothingSaid;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
