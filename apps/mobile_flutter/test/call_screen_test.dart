@@ -133,6 +133,20 @@ void main() {
     player.finish();
     await settle(t);
 
+    // Explain: the server explains his last line, in the learner's language; Example: another sentence using it.
+    await tapLabel(t, 'Explain', ms: 1500);
+    expect(server.turnBodies().last['input'], {'kind': 'command', 'command': 'meaning'});
+    expect(find.text('Explanation'), findsOneWidget);
+    expect(find.text('Pablo says hello, gives his name and asks yours.'), findsOneWidget);
+    player.finish();
+    await settle(t);
+    await tapLabel(t, 'Example', ms: 1500);
+    expect(server.turnBodies().last['input'], {'kind': 'command', 'command': 'example'});
+    expect(find.text('Hola, me llamo Ana. ¿Y tú?'), findsOneWidget);
+    expect(find.text('Another way to answer: say your name, then ask theirs.'), findsOneWidget);
+    player.finish();
+    await settle(t);
+
     // Hang up: the server's evaluation.
     await tapLabel(t, 'Hang up', ms: 1500);
     expect(find.textContaining('Call ended'), findsOneWidget);

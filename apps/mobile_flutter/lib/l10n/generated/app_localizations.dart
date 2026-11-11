@@ -2467,6 +2467,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Practise it in a live call (free account)'**
   String get missionLiveCallAccount;
+
+  /// No description provided for @callExplain.
+  ///
+  /// In en, this message translates to:
+  /// **'Explain'**
+  String get callExplain;
+
+  /// No description provided for @callExample.
+  ///
+  /// In en, this message translates to:
+  /// **'Example'**
+  String get callExample;
+
+  /// No description provided for @callExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Explanation'**
+  String get callExplanation;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
