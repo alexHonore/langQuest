@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
+import '../../core/backend/speech_check.dart';
 import '../../core/layout/motion.dart';
 import '../../core/content/content_bundle.dart';
 import '../../core/content/content_models.dart';
@@ -13,13 +14,16 @@ import '../../core/services/app_state.dart';
 import '../../l10n/l10n.dart';
 import '../learn/learn_content.dart';
 import '../learn/learn_widgets.dart';
+import '../learn/record_take.dart';
 import '../mascot/melo_model.dart';
 import '../mascot/melo_widget.dart';
 
 /// Spaced review (§3.5): the phrases the learner used in missions come back when the scheduler says they are about
 /// to be forgotten. Production recall: the meaning is shown, the learner says the phrase out loud, then reveals it
-/// and rates how it went (Again / Hard / Good / Easy). The queue is fixed when the screen opens; a card rated
-/// "again" comes back in a later sitting.
+/// and rates how it went (Again / Hard / Good / Easy). Signed in on a course the server can check, the spoken phrase
+/// is checked: the answer is revealed with the verdict and a suggested rating (Good when understood, Again when not),
+/// which the learner still chooses. The queue is fixed when the screen opens; a card rated "again" comes back in a
+/// later sitting.
 class ReviewScreen extends ConsumerStatefulWidget {
   const ReviewScreen({super.key});
 
@@ -31,6 +35,10 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
   late final List<String> _queue;
   int _position = 0;
   bool _revealed = false;
+
+  /// The server's verdict on the spoken phrase of the current card, and the rating it suggests.
+  SpeechVerdict? _verdict;
+  ReviewRating? _suggested;
 
   @override
   void initState() {
@@ -52,6 +60,23 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
     setState(() {
       _position++;
       _revealed = false;
+      _verdict = null;
+      _suggested = null;
+    });
+  }
+
+  /// A checked spoken answer reveals the phrase, with the rating its verdict suggests.
+  void _onVerdict(SpeechVerdict verdict) {
+    final suggested = switch (verdict.kind) {
+      SpeechVerdictKind.understood => ReviewRating.good,
+      SpeechVerdictKind.notUnderstood => ReviewRating.again,
+      _ => null,
+    };
+    if (suggested == null) return;
+    setState(() {
+      _verdict = verdict;
+      _suggested = suggested;
+      _revealed = true;
     });
   }
 
@@ -65,6 +90,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
     final content = ref.watch(contentBundleProvider);
     final remaining = _queue.length - _position;
     final current = remaining > 0 && course != null ? _lookup(content, course, _queue[_position]) : null;
+    final checkable = ref.watch(speechCheckerProvider) != null && ref.watch(takeRecorderFactoryProvider) != null;
 
     return Scaffold(
       backgroundColor: colors.background,
@@ -131,13 +157,46 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
                                           style: TextStyle(fontSize: 22, fontWeight: FontWeight.w700, color: colors.textPrimary),
                                         ),
                                         const SizedBox(height: 20),
-                                        if (!_revealed)
+                                        if (!_revealed) ...[
                                           Text(
-                                            l10n.reviewSayThenShow,
+                                            checkable ? l10n.reviewSayItChecked : l10n.reviewSayThenShow,
                                             textAlign: TextAlign.center,
                                             style: TextStyle(fontSize: 14, color: colors.textSecondary),
-                                          )
-                                        else ...[
+                                          ),
+                                          if (checkable) ...[
+                                            const SizedBox(height: 14),
+                                            RecordTake(
+                                              key: ValueKey('review-take-${_queue[_position]}'),
+                                              voiceLocale: course.track.voiceLocale,
+                                              centered: true,
+                                              check: _targetOf(current.expression.id),
+                                              onVerdict: _onVerdict,
+                                            ),
+                                          ],
+                                        ] else ...[
+                                          if (_verdict case final verdict?)
+                                            Padding(
+                                              padding: const EdgeInsets.only(bottom: 12),
+                                              child: Row(
+                                                mainAxisSize: MainAxisSize.min,
+                                                children: [
+                                                  Icon(
+                                                    verdict.understood ? LucideIcons.circleCheck : LucideIcons.circleAlert,
+                                                    size: 18,
+                                                    color: verdict.understood ? colors.success : colors.warning,
+                                                  ),
+                                                  const SizedBox(width: 6),
+                                                  Flexible(
+                                                    child: Text(
+                                                      verdict.heard == null
+                                                          ? (verdict.understood ? l10n.verdictUnderstood : l10n.verdictNotQuite)
+                                                          : '${verdict.understood ? l10n.verdictUnderstood : l10n.verdictNotQuite} · ${l10n.verdictHeard(verdict.heard!)}',
+                                                      style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.w600, color: colors.textSecondary),
+                                                    ),
+                                                  ),
+                                                ],
+                                              ),
+                                            ),
                                           Divider(color: colors.border),
                                           const SizedBox(height: 14),
                                           TargetText(expression: current.expression, track: course.track, fontSize: 28, textAlign: TextAlign.center),
@@ -174,18 +233,23 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
                                   Expanded(
                                     child: Padding(
                                       padding: const EdgeInsets.symmetric(horizontal: 4),
-                                      child: OutlinedButton(
-                                        style: OutlinedButton.styleFrom(
-                                          minimumSize: const Size(0, 52),
-                                          padding: const EdgeInsets.symmetric(horizontal: 4),
-                                          foregroundColor: color,
-                                          side: BorderSide(color: color, width: 1.5),
-                                          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-                                        ),
-                                        onPressed: () => _rate(rating),
-                                        child: FittedBox(
-                                          fit: BoxFit.scaleDown,
-                                          child: Text(label, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700)),
+                                      // The rating the server's verdict suggests is filled; the learner still chooses.
+                                      child: Semantics(
+                                        label: rating == _suggested ? '$label, ${l10n.reviewSuggested}' : null,
+                                        child: OutlinedButton(
+                                          style: OutlinedButton.styleFrom(
+                                            minimumSize: const Size(0, 52),
+                                            padding: const EdgeInsets.symmetric(horizontal: 4),
+                                            foregroundColor: rating == _suggested ? colors.background : color,
+                                            backgroundColor: rating == _suggested ? color : null,
+                                            side: BorderSide(color: color, width: 1.5),
+                                            shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+                                          ),
+                                          onPressed: () => _rate(rating),
+                                          child: FittedBox(
+                                            fit: BoxFit.scaleDown,
+                                            child: Text(label, style: const TextStyle(fontSize: 14, fontWeight: FontWeight.w700)),
+                                          ),
                                         ),
                                       ),
                                     ),
@@ -248,4 +312,10 @@ _ReviewItem? _lookup(ContentBundle content, Course course, String expressionId) 
     }
   }
   return null;
+}
+
+/// The phrase a review card's take should say, and the mission it comes from (ids are `<chapter>:<mission>:<expr>`).
+SpeechTarget _targetOf(String expressionId) {
+  final parts = expressionId.split(':');
+  return SpeechTarget(expressionId: expressionId, chapterKey: parts.isNotEmpty ? parts[0] : null, missionKey: parts.length > 1 ? parts[1] : null);
 }

@@ -2209,6 +2209,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A free chat, in the language you’re learning, about everyday things. When you end it, LangQuest tells you how it went.'**
   String get callFreeBodyText;
+
+  /// No description provided for @missionAnswerOutLoud.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer out loud'**
+  String get missionAnswerOutLoud;
+
+  /// No description provided for @missionAnswerOutLoudHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Say your reply: LangQuest checks it. Or choose it below.'**
+  String get missionAnswerOutLoudHint;
+
+  /// No description provided for @missionAnsweredOutLoud.
+  ///
+  /// In en, this message translates to:
+  /// **'Answered out loud'**
+  String get missionAnsweredOutLoud;
+
+  /// No description provided for @reviewSayItChecked.
+  ///
+  /// In en, this message translates to:
+  /// **'Say it out loud: LangQuest checks it, then shows the answer. Or show it yourself.'**
+  String get reviewSayItChecked;
+
+  /// No description provided for @reviewSuggested.
+  ///
+  /// In en, this message translates to:
+  /// **'suggested'**
+  String get reviewSuggested;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
