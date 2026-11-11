@@ -88,7 +88,7 @@ inferred, not measured, and the adapter advertises `features.tone=true` only for
 
 | Task | Primary | Fallbacks | Notes |
 |---|---|---|---|
-| character_dialogue | anthropic/claude-haiku-5.5 | gemini-3.8-flash, deepseek-v4.1-flash | ary/arz/ar-levant/yue/ht/rw/ln/sw use claude-sonnet-5.5 primary |
+| character_dialogue | openai/gpt-6-luna | claude-sonnet-5.5, gemini-3.8-flash | ary/arz/ar-levant/yue/ht/rw/ln/sw: claude-sonnet-5.5 primary, then gpt-6-luna, gemini-3.8-flash (since 2026-11-11, see `dialogue-models-2026-11-11.md`) |
 | learner_evaluation | google/gemini-3.8-flash | haiku-5.5, deepseek-v4.1-flash | same low-resource override → sonnet-5.5 |
 | meaning_assessment | google/gemini-3.8-flash | haiku-5.5, deepseek-v4.1-flash | temperature 0 |
 | source_explanation / scene_planning | anthropic/claude-haiku-5.5 | gemini-3.8-flash, deepseek-v4.1-flash | |

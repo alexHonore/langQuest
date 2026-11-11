@@ -67,6 +67,15 @@ describe('ModelProfileRegistry resolution', () => {
     expect(r.list('meaning_assessment').find((p) => p.targetVariety === 'yue')?.resolvedSource).toBe('db');
   });
 
+  it('calls default to GPT 6 Luna then Sonnet; dialect courses to Sonnet then Luna (three models at most, for OpenRouter)', () => {
+    const r = new ModelProfileRegistry();
+    const call = r.resolve({ task: 'character_dialogue', targetVariety: 'es-ES', sourceLanguage: 'en' });
+    expect([call.primaryModel, ...call.fallbackModels]).toEqual(['openai/gpt-6-luna', 'anthropic/claude-sonnet-5.5', 'google/gemini-3.8-flash']);
+    const dialect = r.resolve({ task: 'character_dialogue', targetVariety: 'ary', sourceLanguage: 'fr' });
+    expect([dialect.primaryModel, ...dialect.fallbackModels]).toEqual(['anthropic/claude-sonnet-5.5', 'openai/gpt-6-luna', 'google/gemini-3.8-flash']);
+    for (const p of DEFAULT_PROFILES) expect(1 + p.fallbackModels.length, `${p.task} ${p.targetVariety ?? '*'}`).toBeLessThanOrEqual(3);
+  });
+
   it('refresh ignores disabled DB rows so the package default for the same scope stays in force', async () => {
     const r = new ModelProfileRegistry();
     const packageDefault = r.resolve({ task: 'character_dialogue', targetVariety: 'fr', sourceLanguage: 'en' });

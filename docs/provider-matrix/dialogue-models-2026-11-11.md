@@ -47,6 +47,12 @@ No model failed the JSON schema or the language guard in 24 turns.
 - GPT 6 Luna (Haiku's list price, fewer tokens per turn) scored second overall, above Haiku, in both runs.
 - Small sample (12 judged lines per model, one judge, one afternoon): treat differences under about one point as noise.
 
+## Decision (owner, 2026-11-11)
+
+Calls default to `openai/gpt-6-luna`, then `anthropic/claude-sonnet-5.5`, then `google/gemini-3.8-flash`. The dialect
+and low-resource courses (ary, arz, ar-levant, yue, ht, rw, ln, sw) keep `anthropic/claude-sonnet-5.5` first, then
+`openai/gpt-6-luna`, then `google/gemini-3.8-flash`. An admin can still change either route from the admin page.
+
 ## Also found
 
 OpenRouter rejects a request whose `models` fallback array has more than three entries ("'models' array must have 3
