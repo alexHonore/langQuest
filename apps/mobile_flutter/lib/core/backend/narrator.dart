@@ -94,8 +94,9 @@ class ServerNarrator implements Narrator {
         durationMs: (audio['durationMs'] as num?)?.toInt(),
       );
     } on ApiException catch (e) {
-      // No narrator voice on this deployment (or for this language): the device narrates from now on.
-      if (e.status == 501) _unsupported = true;
+      // No narrator voice on this deployment or for this language (501), or a server without the route (404): the
+      // device narrates from now on.
+      if (e.status == 501 || e.status == 404) _unsupported = true;
       return null;
     }
   }
