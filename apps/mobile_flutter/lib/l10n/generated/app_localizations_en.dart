@@ -1216,4 +1216,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get reviewSuggested => 'suggested';
+
+  @override
+  String get progressSpeakingTitle => 'Out loud';
+
+  @override
+  String get progressUnderstood => 'Takes understood (checked by LangQuest)';
+
+  @override
+  String get progressCalls => 'Live calls';
+
+  @override
+  String progressCallsValue(int calls, int minutes) {
+    return '$calls · $minutes min';
+  }
+
+  @override
+  String get progressLessons => 'Audio lessons heard to the end';
 }

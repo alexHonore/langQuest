@@ -9,6 +9,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:langquest_mobile/core/backend/speech_check.dart';
 import 'package:langquest_mobile/core/learning/srs.dart';
 import 'package:langquest_mobile/core/services/app_state.dart';
+import 'package:langquest_mobile/core/services/speaking_stats.dart';
 import 'package:langquest_mobile/features/learn/learn_content.dart';
 import 'package:langquest_mobile/features/learn/learn_logic.dart';
 import 'package:langquest_mobile/features/learn/record_take.dart';
@@ -107,6 +108,13 @@ void main() {
       greaterThan(cards[plan.exchanges.last.answer.id]!.difficulty),
       reason: 'the reply not understood at first was rated hard, though chosen right the first time',
     );
+    // Progress counts the takes the server judged.
+    final stat = container.read(speakingStatsProvider)['spanish-spain|en']!;
+    expect((stat.understood, stat.checked), (plan.exchanges.length, plan.exchanges.length + 1));
+    container.read(appRouterProvider).go('/progress');
+    await settle(t);
+    expect(find.text('Takes understood (checked by LangQuest)'), findsOneWidget);
+    expect(find.text('${plan.exchanges.length} of ${plan.exchanges.length + 1}'), findsOneWidget);
     semantics.dispose();
   });
 

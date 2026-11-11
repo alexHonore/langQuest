@@ -11,6 +11,7 @@ import '../../core/backend/speech_check.dart';
 import '../../core/layout/motion.dart';
 import '../../core/platform/recorder.dart';
 import '../../core/services/app_state.dart';
+import '../../core/services/speaking_stats.dart';
 import '../../core/services/speech_service.dart';
 import '../../l10n/l10n.dart';
 import 'learn_widgets.dart';
@@ -209,7 +210,14 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
         _checkFailed = verdict == null;
       });
     }
-    if (verdict != null) widget.onVerdict?.call(verdict);
+    if (verdict != null) {
+      // Progress counts the takes the server judged, and how many it understood.
+      final courseId = ref.read(appStateProvider).activeCourse?.id;
+      if (courseId != null && (verdict.kind == SpeechVerdictKind.understood || verdict.kind == SpeechVerdictKind.notUnderstood)) {
+        ref.read(speakingStatsProvider.notifier).recordCheck(courseId, understood: verdict.understood);
+      }
+      widget.onVerdict?.call(verdict);
+    }
   }
 
   /// The server's verdict on [take], or null when it could not be checked (a helper returning the outcome; see [_open]).

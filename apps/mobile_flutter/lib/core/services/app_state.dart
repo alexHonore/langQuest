@@ -225,6 +225,13 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
     }
   }
 
+  /// XP the server awarded for something done on this device (a live call's evaluation), so the learner's total
+  /// shows what the call summary said.
+  void addServerXp(int amount) {
+    if (amount <= 0) return;
+    _update(state.learner.withXp(amount, _now));
+  }
+
   /// Rate one due card (+3 XP).
   void reviewCard(String expressionId, ReviewRating rating) {
     final course = state.activeCourse;
