@@ -1360,4 +1360,13 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get missionLiveCallAccount => 'Pratiquer en appel direct (compte gratuit)';
+
+  @override
+  String get callExplain => 'Expliquer';
+
+  @override
+  String get callExample => 'Exemple';
+
+  @override
+  String get callExplanation => 'Explication';
 }

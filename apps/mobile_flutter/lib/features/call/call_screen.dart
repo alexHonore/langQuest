@@ -681,6 +681,9 @@ class _CallScreenState extends ConsumerState<CallScreen> {
     final help = [
       (LucideIcons.lightbulb, l10n.callHint, () => _command('hint')),
       if (plan != null && plan.phrases.isNotEmpty) (LucideIcons.bookOpen, l10n.callPhrases, () => _showPhrases(plan)),
+      // The server explains the character's last line, or gives another sentence using it (in the learner's language).
+      (LucideIcons.messageCircleQuestionMark, l10n.callExplain, () => _command('meaning')),
+      (LucideIcons.quote, l10n.callExample, () => _command('example')),
       (LucideIcons.rotateCcw, l10n.callRepeat, _repeat),
       (LucideIcons.snail, l10n.callSlower, () => _command('slower')),
       (LucideIcons.languages, l10n.callTranslate, _translate),
@@ -1457,6 +1460,14 @@ class _CharacterBubble extends ConsumerWidget {
             },
           )
         : Text(line.text!, style: style, textDirection: direction, locale: locale);
+    // Help is labelled, so it reads as help and not as the conversation.
+    final help = switch (line.respondsTo) {
+      'hint' => (LucideIcons.lightbulb, l10n.callHint),
+      'meaning' => (LucideIcons.messageCircleQuestionMark, l10n.callExplanation),
+      'example' => (LucideIcons.quote, l10n.callExample),
+      'slower' => (LucideIcons.snail, l10n.callSlower),
+      _ => null,
+    };
     final bubble = Container(
       margin: const EdgeInsets.only(bottom: 8, right: 40),
       padding: const EdgeInsets.fromLTRB(14, 10, 6, 10),
@@ -1474,25 +1485,45 @@ class _CharacterBubble extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Expanded(
-            child: Semantics(
-              localeForSubtree: contentLanguageOf(track),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  words,
-                  if (line.transliteration != null) ...[
-                    const SizedBox(height: 2),
-                    Text(
-                      line.transliteration!,
-                      style: TextStyle(fontSize: 13.5, fontStyle: FontStyle.italic, color: colors.textSecondary),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (help != null)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(help.$1, size: 14, color: accent.primaryText),
+                        const SizedBox(width: 5),
+                        Text(
+                          help.$2,
+                          style: TextStyle(fontSize: 12, fontWeight: FontWeight.w800, letterSpacing: 0.3, color: accent.primaryText),
+                        ),
+                      ],
                     ),
-                  ],
-                  if (showGloss && line.gloss != null) ...[
-                    const SizedBox(height: 4),
-                    Text(line.gloss!, style: TextStyle(fontSize: 13.5, color: accent.primaryText)),
-                  ],
-                ],
-              ),
+                  ),
+                Semantics(
+                  localeForSubtree: contentLanguageOf(track),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      words,
+                      if (line.transliteration != null) ...[
+                        const SizedBox(height: 2),
+                        Text(
+                          line.transliteration!,
+                          style: TextStyle(fontSize: 13.5, fontStyle: FontStyle.italic, color: colors.textSecondary),
+                        ),
+                      ],
+                      if (showGloss && line.gloss != null) ...[
+                        const SizedBox(height: 4),
+                        Text(line.gloss!, style: TextStyle(fontSize: 13.5, color: accent.primaryText)),
+                      ],
+                    ],
+                  ),
+                ),
+              ],
             ),
           ),
           if (onReplay != null)

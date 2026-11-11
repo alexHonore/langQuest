@@ -150,7 +150,14 @@ class FakeConversationServer {
           'data': {
             'session': _session(),
             'learnerTranscript': null,
-            'characterTurn': _characterTurn(command == 'hint' ? 'Puedes decir: «Me llamo…»' : 'Más despacio: ¿Cómo te llamas?', respondsTo: command),
+            // As the server: a hint suggests a line; "meaning" repeats the last line with an explanation; "example"
+            // gives another sentence with a note; "slower" says it again, slowly.
+            'characterTurn': switch (command) {
+              'hint' => _characterTurn('Puedes decir: «Me llamo…»', respondsTo: command),
+              'meaning' => _characterTurn('¡Hola! Soy Pablo. ¿Cómo te llamas?', respondsTo: command, gloss: 'Pablo says hello, gives his name and asks yours.'),
+              'example' => _characterTurn('Hola, me llamo Ana. ¿Y tú?', respondsTo: command, gloss: 'Another way to answer: say your name, then ask theirs.'),
+              _ => _characterTurn('Más despacio: ¿Cómo te llamas?', respondsTo: command),
+            },
             'replayed': false,
             'evaluationPending': false,
             'objectivesCompleted': [..._done],
