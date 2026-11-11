@@ -502,15 +502,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get appLanguage => 'Langue de l’application';
 
   @override
-  String get darkTheme => 'Thème sombre';
-
-  @override
-  String get darkThemeOn => 'Night Market, sombre par défaut';
-
-  @override
-  String get darkThemeOff => 'Palette claire';
-
-  @override
   String get yourCourses => 'Vos cours';
 
   @override
@@ -756,4 +747,48 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get recordFailed => 'L’enregistrement n’a pas fonctionné.';
+
+  @override
+  String get display => 'Affichage';
+
+  @override
+  String get themeDark => 'Sombre';
+
+  @override
+  String get themeLight => 'Clair';
+
+  @override
+  String get themeDevice => 'Appareil';
+
+  @override
+  String get textSize => 'Taille du texte';
+
+  @override
+  String get textSizeBody => 'En plus de la taille du texte de votre appareil.';
+
+  @override
+  String get reduceMotion => 'Réduire les animations';
+
+  @override
+  String get reduceMotionBody => 'Les scènes, Melo et les changements de page restent immobiles.';
+
+  @override
+  String get reduceMotionDevice => 'Activé dans les réglages de votre appareil.';
+
+  @override
+  String get showMascot => 'Afficher Melo, la mascotte';
+
+  @override
+  String get showMascotBody => 'Melo vous encourage ; le masquer ne masque rien d’autre.';
+
+  @override
+  String get textSmaller => 'Texte plus petit';
+
+  @override
+  String get textLarger => 'Texte plus grand';
+
+  @override
+  String textSizeValue(String percent) {
+    return 'Taille du texte $percent';
+  }
 }

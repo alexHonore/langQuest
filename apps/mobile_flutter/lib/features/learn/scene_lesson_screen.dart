@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
+import '../../core/layout/motion.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/speech_service.dart';
 import '../../l10n/l10n.dart';
@@ -198,7 +199,7 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
                     if (learnerTurn) ...[const SizedBox(height: 8), RecordTake(key: ValueKey('take-$index'), voiceLocale: plan.voiceLocale)],
                   ],
                 ),
-              ).animate().fadeIn(duration: 260.ms).slideY(begin: 0.08, end: 0, duration: 260.ms),
+              ).withMotion(context, (a) => a.fadeIn(duration: 260.ms).slideY(begin: 0.08, end: 0, duration: 260.ms)),
             ),
             const SizedBox(height: 12),
             Padding(

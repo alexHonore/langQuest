@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
+import '../../core/layout/motion.dart';
 import '../../core/learning/srs.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/learner_state.dart';
@@ -305,7 +306,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                     MeloWidget(state: MeloState.happy, courseTrackId: appState.activeTrackId, size: 56),
                   ],
                 ),
-              ).animate().fadeIn(duration: 220.ms).scale(begin: const Offset(0.97, 0.97), duration: 220.ms),
+              ).withMotion(context, (a) => a.fadeIn(duration: 220.ms).scale(begin: const Offset(0.97, 0.97), duration: 220.ms)),
             ),
           ),
           const SizedBox(height: 10),
@@ -334,7 +335,8 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
               children: [
                 for (var i = 0; i < exchange.options.length; i++)
                   _OptionTile(plan: plan, optionIndex: i, exchange: exchange, selected: _selected == i, onTap: () => _choose(exchange, i)),
-                if (wrong) Text(l10n.missionWrong, style: TextStyle(fontSize: 13.5, color: colors.error)).animate().fadeIn(duration: 200.ms),
+                if (wrong)
+                  Text(l10n.missionWrong, style: TextStyle(fontSize: 13.5, color: colors.error)).withMotion(context, (a) => a.fadeIn(duration: 200.ms)),
               ],
             ),
           ),

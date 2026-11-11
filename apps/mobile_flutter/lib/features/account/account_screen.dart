@@ -10,6 +10,7 @@ import '../../core/services/app_state.dart';
 import '../../core/theme/glass.dart';
 import '../../l10n/l10n.dart';
 import 'account_section.dart';
+import 'display_settings.dart';
 
 /// Settings: the interface language, the theme, the learner's courses, and the data kept on this device.
 /// Every control here does what it says (CONVENTIONS §8).
@@ -84,9 +85,11 @@ class AccountScreen extends ConsumerWidget {
                     children: [
                       Icon(LucideIcons.heartHandshake, size: 20, color: accent.primaryText),
                       const SizedBox(width: 10),
-                      Text(
-                        l10n.freeTitle,
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: colors.textPrimary),
+                      Expanded(
+                        child: Text(
+                          l10n.freeTitle,
+                          style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: colors.textPrimary),
+                        ),
                       ),
                     ],
                   ),
@@ -103,28 +106,8 @@ class AccountScreen extends ConsumerWidget {
               showSelectedIcon: false,
               onSelectionChanged: (s) => notifier.setUiLanguage(s.first),
             ),
-            const SizedBox(height: 12),
-            GlassContainer(
-              level: GlassLevel.level1,
-              radius: 18,
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              // ListTile ink needs a Material between it and the glass decoration.
-              child: Material(
-                type: MaterialType.transparency,
-                child: SwitchListTile(
-                  contentPadding: EdgeInsets.zero,
-                  secondary: Icon(appState.isDark ? LucideIcons.moon : LucideIcons.sun, size: 20, color: colors.textSecondary),
-                  title: Text(
-                    l10n.darkTheme,
-                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: colors.textPrimary),
-                  ),
-                  subtitle: Text(appState.isDark ? l10n.darkThemeOn : l10n.darkThemeOff, style: TextStyle(fontSize: 12.5, color: colors.textMuted)),
-                  value: appState.isDark,
-                  activeThumbColor: accent.primary,
-                  onChanged: notifier.setDarkMode,
-                ),
-              ),
-            ),
+            section(l10n.display),
+            const DisplaySettings(),
             section(l10n.yourCourses),
             for (final e in appState.learner.enrollments)
               Padding(

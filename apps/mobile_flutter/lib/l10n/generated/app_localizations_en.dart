@@ -491,15 +491,6 @@ class AppLocalizationsEn extends AppLocalizations {
   String get appLanguage => 'App language';
 
   @override
-  String get darkTheme => 'Dark theme';
-
-  @override
-  String get darkThemeOn => 'Night Market, dark-first';
-
-  @override
-  String get darkThemeOff => 'Light palette';
-
-  @override
   String get yourCourses => 'Your courses';
 
   @override
@@ -744,4 +735,48 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get recordFailed => 'Recording didn’t work.';
+
+  @override
+  String get display => 'Display';
+
+  @override
+  String get themeDark => 'Dark';
+
+  @override
+  String get themeLight => 'Light';
+
+  @override
+  String get themeDevice => 'Device';
+
+  @override
+  String get textSize => 'Text size';
+
+  @override
+  String get textSizeBody => 'On top of your device\'s text size.';
+
+  @override
+  String get reduceMotion => 'Reduce motion';
+
+  @override
+  String get reduceMotionBody => 'Scenes, Melo and page changes stay still.';
+
+  @override
+  String get reduceMotionDevice => 'On in your device\'s settings.';
+
+  @override
+  String get showMascot => 'Show Melo, the mascot';
+
+  @override
+  String get showMascotBody => 'Melo cheers you on; hiding it hides nothing else.';
+
+  @override
+  String get textSmaller => 'Smaller text';
+
+  @override
+  String get textLarger => 'Larger text';
+
+  @override
+  String textSizeValue(String percent) {
+    return 'Text size $percent';
+  }
 }

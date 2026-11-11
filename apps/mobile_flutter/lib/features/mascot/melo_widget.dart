@@ -2,12 +2,17 @@ import 'dart:async';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+import '../../core/layout/motion.dart';
+import '../../core/services/app_state.dart';
 import '../../core/theme/colors.dart';
 import '../../core/theme/glass.dart';
 import 'melo_model.dart';
 import 'melo_painter.dart';
 
-class MeloWidget extends StatefulWidget {
+/// Melo, the mascot: shown unless the learner turned it off (Settings › Display; it never carries information of its
+/// own), and still under reduced motion.
+class MeloWidget extends ConsumerWidget {
   final MeloState state;
   final String? courseTrackId;
   final String? speech;
@@ -24,10 +29,26 @@ class MeloWidget extends StatefulWidget {
   });
 
   @override
-  State<MeloWidget> createState() => _MeloWidgetState();
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (!ref.watch(appStateProvider.select((s) => s.learner.mascot))) return const SizedBox.shrink();
+    return _MeloAnimated(state: state, courseTrackId: courseTrackId, speech: speech, size: size, onTap: onTap);
+  }
 }
 
-class _MeloWidgetState extends State<MeloWidget> with TickerProviderStateMixin {
+class _MeloAnimated extends StatefulWidget {
+  final MeloState state;
+  final String? courseTrackId;
+  final String? speech;
+  final double size;
+  final VoidCallback? onTap;
+
+  const _MeloAnimated({required this.state, required this.courseTrackId, required this.speech, required this.size, required this.onTap});
+
+  @override
+  State<_MeloAnimated> createState() => _MeloAnimatedState();
+}
+
+class _MeloAnimatedState extends State<_MeloAnimated> with TickerProviderStateMixin {
   late final AnimationController _breathController;
   late final AnimationController _blinkController;
   late final AnimationController _tailController;
@@ -48,7 +69,7 @@ class _MeloWidgetState extends State<MeloWidget> with TickerProviderStateMixin {
     _breathController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2800),
-    )..repeat(reverse: true);
+    );
 
     // 2. Quick eyelid blink (180ms)
     _blinkController = AnimationController(
@@ -60,7 +81,7 @@ class _MeloWidgetState extends State<MeloWidget> with TickerProviderStateMixin {
     _tailController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 2200),
-    )..repeat(reverse: true);
+    );
 
     // 4. Tap reaction jump
     _jumpController = AnimationController(
@@ -68,8 +89,31 @@ class _MeloWidgetState extends State<MeloWidget> with TickerProviderStateMixin {
       duration: const Duration(milliseconds: 400),
     );
 
-    _scheduleNextBlink();
-    _startEyeWander();
+  }
+
+  /// Reduced motion (the device's setting or the learner's): Melo stands still, eyes ahead, mid-breath.
+  bool? _still;
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final still = context.reduceMotion;
+    if (still == _still) return;
+    _still = still;
+    _blinkTimer?.cancel();
+    _eyeWanderTimer?.cancel();
+    if (still) {
+      _breathController.value = 0.5;
+      _tailController.value = 0.5;
+      _blinkController.value = 0;
+      _leftGaze = Offset.zero;
+      _rightGaze = Offset.zero;
+    } else {
+      _breathController.repeat(reverse: true);
+      _tailController.repeat(reverse: true);
+      _scheduleNextBlink();
+      _startEyeWander();
+    }
   }
 
   void _scheduleNextBlink() {
@@ -113,9 +157,11 @@ class _MeloWidgetState extends State<MeloWidget> with TickerProviderStateMixin {
 
   void _handleTap() {
     HapticFeedback.lightImpact();
-    _jumpController.forward().then((_) {
-      if (mounted) _jumpController.reverse();
-    });
+    if (_still != true) {
+      _jumpController.forward().then((_) {
+        if (mounted) _jumpController.reverse();
+      });
+    }
     widget.onTap?.call();
   }
 

@@ -7,6 +7,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
+import '../../core/layout/motion.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/speech_service.dart';
 import '../../l10n/l10n.dart';
@@ -325,7 +326,8 @@ class _PracticeScreenState extends ConsumerState<PracticeScreen> {
             child: Wrap(spacing: 8, runSpacing: 8, children: [for (final t in placed) tile(t, inSentence: true)]),
           ),
           const SizedBox(height: 8),
-          if (verdict == TilesVerdict.wrong) Text(l10n.tilesWrong, style: TextStyle(fontSize: 14, color: colors.error)).animate().fadeIn(duration: 200.ms),
+          if (verdict == TilesVerdict.wrong)
+            Text(l10n.tilesWrong, style: TextStyle(fontSize: 14, color: colors.error)).withMotion(context, (a) => a.fadeIn(duration: 200.ms)),
           if (verdict == TilesVerdict.correct)
             Row(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -340,7 +342,7 @@ class _PracticeScreenState extends ConsumerState<PracticeScreen> {
                 ),
                 ListenButtons(text: challenge.expression.text, locale: plan.voiceLocale, compact: true),
               ],
-            ).animate().fadeIn(duration: 200.ms),
+            ).withMotion(context, (a) => a.fadeIn(duration: 200.ms)),
           const SizedBox(height: 14),
           // Once solved, the leftover distractors disappear: only the sentence remains.
           if (verdict != TilesVerdict.correct)
