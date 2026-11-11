@@ -93,12 +93,19 @@ void main() {
 
   test('each course draws its phrases and its native name with its own script font (the web downloads nothing)', () {
     final chapters = (jsonDecode(File('assets/content/chapters.json').readAsStringSync()) as Map)['chapters'] as List;
+    // The real examples (Tatoeba) of a course's phrases are drawn with its font too.
+    final examples = (jsonDecode(File('assets/content/examples.json').readAsStringSync()) as Map)['phrases'] as Map;
     final problems = <String>[];
     for (final track in testBundle.tracks) {
+      final phraseIds = {
+        for (final c in testBundle.chapters.where((c) => c.courseTrackId == track.id)) ...c.missions.expand((m) => m.expressions).map((e) => e.id),
+      };
       final texts = [
         track.nativeName,
         for (final c in chapters)
           if ((c as Map)['courseTrackId'] == track.id) ...stringsIn(c),
+        for (final e in examples.entries)
+          if (phraseIds.contains(e.key)) ...stringsIn(e.value),
       ];
       final own = scriptFontFamilies[track.primaryScript];
       final available = {...interfaceFonts, if (own != null) ...scriptFonts[own]!};

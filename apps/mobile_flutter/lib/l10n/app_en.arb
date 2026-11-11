@@ -929,5 +929,79 @@
   "pronunciationFailed": "Couldn’t get pronunciation feedback this time.",
   "readAloud": "Read aloud",
   "readAloudSetting": "Read exercises aloud",
-  "readAloudSettingBody": "As each exercise appears: its context and question in your language, then the phrase in the course's voice. Signed in, an AI voice reads them."
+  "readAloudSettingBody": "As each exercise appears: its context and question in your language, then the phrase in the course's voice. Signed in, an AI voice reads them.",
+  "realExamplesButton": "Real examples",
+  "realExamplesButtonSemantics": "Real examples of this phrase, from Tatoeba",
+  "realExamplesTitle": "Real examples",
+  "realExamplesIntro": "Sentences written by Tatoeba contributors that use “{phrase}”.",
+  "@realExamplesIntro": {
+    "placeholders": {
+      "phrase": {
+        "type": "String"
+      }
+    }
+  },
+  "realExamplesAttested": "“{phrase}” is itself a Tatoeba sentence: people really say it this way.",
+  "@realExamplesAttested": {
+    "placeholders": {
+      "phrase": {
+        "type": "String"
+      }
+    }
+  },
+  "realExamplesRecording": "Native recording",
+  "realExamplesRecordingSemantics": "Play a native speaker’s recording",
+  "realExamplesBy": "Tatoeba #{id} by {author}",
+  "@realExamplesBy": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      },
+      "author": {
+        "type": "String"
+      }
+    }
+  },
+  "realExamplesById": "Tatoeba #{id}",
+  "@realExamplesById": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "realExamplesRecordingBy": "Recording by {author} · {license}",
+  "@realExamplesRecordingBy": {
+    "placeholders": {
+      "author": {
+        "type": "String"
+      },
+      "license": {
+        "type": "String"
+      }
+    }
+  },
+  "realExamplesRegion": "Tatoeba doesn’t record which country a sentence comes from: an example may use another region’s wording.",
+  "realExamplesCredit": "From Tatoeba (tatoeba.org), sentences under {license}, export of {date}.",
+  "@realExamplesCredit": {
+    "placeholders": {
+      "license": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "courseIncludesRealExamples": "{attested} of {total} phrases found as written in Tatoeba, a collection of real sentences, with real examples to read",
+  "@courseIncludesRealExamples": {
+    "placeholders": {
+      "attested": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  }
 }

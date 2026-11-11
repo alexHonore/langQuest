@@ -4,6 +4,7 @@ import 'package:flutter/services.dart' show AssetBundle;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'content_models.dart';
+import 'real_examples.dart';
 
 /// A course as the learner takes it: one track taught from one instruction language (CONVENTIONS §2.2). Its content
 /// is the bundle's draft chapters of that track that carry overlays for that language.
@@ -36,11 +37,14 @@ class ContentBundle {
 
   /// The cast's roles by roster id, then by language (`cast.json`; the server's characters carry an English role).
   final Map<String, Map<String, String>> roles;
+
+  /// Real examples from Tatoeba for the phrases (`examples.json`).
+  final RealExamples examples;
   final Map<String, CourseTrackInfo> _tracksById;
   final Map<String, Mission> _missionsByKey;
   final Map<String, Chapter> _chaptersByKey;
 
-  ContentBundle({required this.tracks, required this.chapters, this.skills = const {}, this.roles = const {}})
+  ContentBundle({required this.tracks, required this.chapters, this.skills = const {}, this.roles = const {}, this.examples = RealExamples.empty})
     : _tracksById = {for (final t in tracks) t.id: t},
       _missionsByKey = {
         for (final c in chapters)
@@ -52,9 +56,10 @@ class ContentBundle {
   static const chaptersAsset = 'assets/content/chapters.json';
   static const skillsAsset = 'assets/content/skills.json';
   static const castAsset = 'assets/content/cast.json';
+  static const examplesAsset = 'assets/content/examples.json';
 
   /// Parse the bundle files; throws [FormatException] on an unsupported schema version.
-  factory ContentBundle.parse({required String catalogJson, required String chaptersJson, String? skillsJson, String? castJson}) {
+  factory ContentBundle.parse({required String catalogJson, required String chaptersJson, String? skillsJson, String? castJson, String? examplesJson}) {
     final catalog = (jsonDecode(catalogJson) as Map).cast<String, Object?>();
     final chapters = (jsonDecode(chaptersJson) as Map).cast<String, Object?>();
     final skills = skillsJson == null ? null : (jsonDecode(skillsJson) as Map).cast<String, Object?>();
@@ -78,6 +83,7 @@ class ContentBundle {
         for (final e in ((cast?['roles'] as Map?) ?? const {}).entries)
           if (e.value is Map) '${e.key}': {for (final r in (e.value as Map).entries) '${r.key}': '${r.value}'},
       },
+      examples: examplesJson == null ? RealExamples.empty : RealExamples.parse(examplesJson),
     );
   }
 
@@ -86,6 +92,7 @@ class ContentBundle {
     chaptersJson: await assets.loadString(chaptersAsset),
     skillsJson: await assets.loadString(skillsAsset),
     castJson: await assets.loadString(castAsset),
+    examplesJson: await assets.loadString(examplesAsset),
   );
 
   /// A roster character's role in [language], when the bundle translates it.

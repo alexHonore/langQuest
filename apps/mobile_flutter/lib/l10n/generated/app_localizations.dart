@@ -2635,6 +2635,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'As each exercise appears: its context and question in your language, then the phrase in the course\'s voice. Signed in, an AI voice reads them.'**
   String get readAloudSettingBody;
+
+  /// No description provided for @realExamplesButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Real examples'**
+  String get realExamplesButton;
+
+  /// No description provided for @realExamplesButtonSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Real examples of this phrase, from Tatoeba'**
+  String get realExamplesButtonSemantics;
+
+  /// No description provided for @realExamplesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Real examples'**
+  String get realExamplesTitle;
+
+  /// No description provided for @realExamplesIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Sentences written by Tatoeba contributors that use “{phrase}”.'**
+  String realExamplesIntro(String phrase);
+
+  /// No description provided for @realExamplesAttested.
+  ///
+  /// In en, this message translates to:
+  /// **'“{phrase}” is itself a Tatoeba sentence: people really say it this way.'**
+  String realExamplesAttested(String phrase);
+
+  /// No description provided for @realExamplesRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Native recording'**
+  String get realExamplesRecording;
+
+  /// No description provided for @realExamplesRecordingSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Play a native speaker’s recording'**
+  String get realExamplesRecordingSemantics;
+
+  /// No description provided for @realExamplesBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Tatoeba #{id} by {author}'**
+  String realExamplesBy(String id, String author);
+
+  /// No description provided for @realExamplesById.
+  ///
+  /// In en, this message translates to:
+  /// **'Tatoeba #{id}'**
+  String realExamplesById(String id);
+
+  /// No description provided for @realExamplesRecordingBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording by {author} · {license}'**
+  String realExamplesRecordingBy(String author, String license);
+
+  /// No description provided for @realExamplesRegion.
+  ///
+  /// In en, this message translates to:
+  /// **'Tatoeba doesn’t record which country a sentence comes from: an example may use another region’s wording.'**
+  String get realExamplesRegion;
+
+  /// No description provided for @realExamplesCredit.
+  ///
+  /// In en, this message translates to:
+  /// **'From Tatoeba (tatoeba.org), sentences under {license}, export of {date}.'**
+  String realExamplesCredit(String license, String date);
+
+  /// No description provided for @courseIncludesRealExamples.
+  ///
+  /// In en, this message translates to:
+  /// **'{attested} of {total} phrases found as written in Tatoeba, a collection of real sentences, with real examples to read'**
+  String courseIncludesRealExamples(int attested, int total);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

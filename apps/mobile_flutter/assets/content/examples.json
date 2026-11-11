@@ -1,0 +1,3231 @@
+{
+ "schemaVersion": 1,
+ "generatedBy": "scripts/src/attach-tatoeba-examples.ts",
+ "source": {
+  "name": "Tatoeba",
+  "url": "https://tatoeba.org",
+  "downloads": "https://tatoeba.org/en/downloads",
+  "terms": "https://tatoeba.org/en/terms_of_use",
+  "snapshot": "2026-11-07",
+  "textLicense": "CC BY 2.0 FR",
+  "audio": "Native recordings only under a license allowing redistribution (CC BY, CC BY-SA, CC0), each with its own license and contributor; files in apps/mobile_flutter/assets/audio/tatoeba/<audio id>.mp3, from https://tatoeba.org/audio/download/<audio id>."
+ },
+ "courses": {
+  "arabic-moroccan": {
+   "tatoeba": "ary",
+   "varietyTagged": true,
+   "varietyNote": "Moroccan Arabic export (small).",
+   "inputs": [
+    {
+     "file": "ary_sentences_detailed.tsv.bz2",
+     "sha256": "d09ee6b556be3424587c8d4607bfd240d5e16a114fad75334b420041872ab9cc",
+     "byteLength": 2801
+    },
+    {
+     "file": "ary-fra_links.tsv.bz2",
+     "sha256": "8a0a95b08e3edbe9b0d738f1fdc1fc44014e51fd5999b748da41aadd0cbe5ac9",
+     "byteLength": 643
+    },
+    {
+     "file": "ary-eng_links.tsv.bz2",
+     "sha256": "279d912ac4618e7428eec429ddcfce179ceee2a03f35f3f84b9f22eb17314578",
+     "byteLength": 469
+    },
+    {
+     "file": "fra_sentences_detailed.tsv.bz2",
+     "sha256": "4aaf0c891cb2f99797230c32ac2ff4d2a3e255d7077bd87f8775b5eee9e6e6e4",
+     "byteLength": 14891972
+    },
+    {
+     "file": "eng_sentences_detailed.tsv.bz2",
+     "sha256": "afec98e4c44a72f8fc709ce4d672fd3ab7f9ca731402f5d35e384b0b21b207c5",
+     "byteLength": 34983679
+    }
+   ],
+   "summary": {
+    "phrases": 60,
+    "attested": 4,
+    "withExamples": 2,
+    "examples": 2,
+    "recordings": 0,
+    "withoutTranslation": 0
+   }
+  },
+  "english": {
+   "tatoeba": "eng",
+   "varietyTagged": true,
+   "varietyNote": "US/GB not distinguished by Tatoeba; the English track treats both as one variety.",
+   "inputs": [
+    {
+     "file": "eng_sentences_detailed.tsv.bz2",
+     "sha256": "afec98e4c44a72f8fc709ce4d672fd3ab7f9ca731402f5d35e384b0b21b207c5",
+     "byteLength": 34983679
+    },
+    {
+     "file": "eng-fra_links.tsv.bz2",
+     "sha256": "d212149f572cb6d914e1eee427bacbeace7bbea24a9709df57af4e674d5fbe3b",
+     "byteLength": 2675177
+    },
+    {
+     "file": "eng-rus_links.tsv.bz2",
+     "sha256": "8fbe8dd78ea888793d4c8784820f1f93f544639ef07dc824d26dc5ec7824a0f3",
+     "byteLength": 5020658
+    },
+    {
+     "file": "fra_sentences_detailed.tsv.bz2",
+     "sha256": "4aaf0c891cb2f99797230c32ac2ff4d2a3e255d7077bd87f8775b5eee9e6e6e4",
+     "byteLength": 14891972
+    },
+    {
+     "file": "rus_sentences_detailed.tsv.bz2",
+     "sha256": "8a45411121cb51651e03141417d3d0b17fa954331eeda239541ca552e28bc419",
+     "byteLength": 23658531
+    },
+    {
+     "file": "eng_sentences_with_audio.tsv.bz2",
+     "sha256": "9f821f7e400e7fc546417e1fd2879114bdf82215f52b4725d61b9bb4d3fc36a1",
+     "byteLength": 4091673
+    }
+   ],
+   "summary": {
+    "phrases": 31,
+    "attested": 16,
+    "withExamples": 16,
+    "examples": 31,
+    "recordings": 4,
+    "withoutTranslation": 1542
+   }
+  },
+  "japanese": {
+   "tatoeba": "jpn",
+   "varietyTagged": true,
+   "varietyNote": "Kanji/kana as written by contributors; furigana/romaji must be generated and reviewed.",
+   "inputs": [
+    {
+     "file": "jpn_sentences_detailed.tsv.bz2",
+     "sha256": "14e7b047fca3721291bc16c4e9a3b5f967ebdb9b34f704aff9a8b50d0d1d1501",
+     "byteLength": 4462852
+    },
+    {
+     "file": "jpn-eng_links.tsv.bz2",
+     "sha256": "383e72a90aa9415b7e84844227878171500bf4b570c03f8288624166f52cd6e8",
+     "byteLength": 1455385
+    },
+    {
+     "file": "eng_sentences_detailed.tsv.bz2",
+     "sha256": "afec98e4c44a72f8fc709ce4d672fd3ab7f9ca731402f5d35e384b0b21b207c5",
+     "byteLength": 34983679
+    },
+    {
+     "file": "jpn_sentences_with_audio.tsv.bz2",
+     "sha256": "35ca5449d1215e5aef998283bf05cd26796592b89c974aa51579b79756302c90",
+     "byteLength": 33990
+    }
+   ],
+   "summary": {
+    "phrases": 30,
+    "attested": 17,
+    "withExamples": 20,
+    "examples": 39,
+    "recordings": 0,
+    "withoutTranslation": 37
+   }
+  },
+  "spanish-spain": {
+   "tatoeba": "spa",
+   "varietyTagged": false,
+   "varietyNote": "Tatoeba does not tag Spain vs Latin American Spanish; pass --variety and let reviewers reject cross-variety rows.",
+   "inputs": [
+    {
+     "file": "spa_sentences_detailed.tsv.bz2",
+     "sha256": "64cbff601e4d0e59eeedd450624944482b3598c67cc787e9780d63ce12dccf8a",
+     "byteLength": 9525238
+    },
+    {
+     "file": "spa-eng_links.tsv.bz2",
+     "sha256": "1b671807152d2a47c2448d5cbb9688e2345e3363376dd7f076db32958e35a7b4",
+     "byteLength": 1760147
+    },
+    {
+     "file": "eng_sentences_detailed.tsv.bz2",
+     "sha256": "afec98e4c44a72f8fc709ce4d672fd3ab7f9ca731402f5d35e384b0b21b207c5",
+     "byteLength": 34983679
+    },
+    {
+     "file": "spa_sentences_with_audio.tsv.bz2",
+     "sha256": "cf0aefcd80d4267c9491bf5bc6aa181bd5b6139aa1f61e729760a7494d2973fd",
+     "byteLength": 636976
+    }
+   ],
+   "summary": {
+    "phrases": 49,
+    "attested": 27,
+    "withExamples": 29,
+    "examples": 55,
+    "recordings": 0,
+    "withoutTranslation": 947
+   }
+  }
+ },
+ "phrases": {
+  "ary_ch1_arrival_casablanca:ary_ask_directions:ma_fhemtch": {
+   "attested": {
+    "id": "6576928",
+    "text": "ما فهمتش",
+    "author": "User77813",
+    "translations": {
+     "fr": {
+      "id": "3528",
+      "text": "Je ne comprends pas.",
+      "author": "le_petit_ane_gris"
+     },
+     "en": {
+      "id": "376611",
+      "text": "I don't understand.",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": []
+  },
+  "ary_ch1_arrival_casablanca:ary_ask_directions:sme7_liya": {
+   "attested": {
+    "id": "6576975",
+    "text": "سمح ليا",
+    "author": "User77813",
+    "translations": {
+     "fr": {
+      "id": "10459",
+      "text": "Excuse-moi.",
+      "author": "sacredceltic"
+     },
+     "en": {
+      "id": "433504",
+      "text": "Excuse me.",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "6576354",
+     "text": "سمح ليا حيث ماجاوبتك ضغيا حيث كنت مشغول.",
+     "author": "User77813",
+     "translations": {
+      "en": {
+       "id": "6565672",
+       "text": "Sorry I didn't reply to your message earlier, I was busy.",
+       "author": "User77813"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ary_ch1_arrival_casablanca:ary_buy_ice_cream:wakha": {
+   "attested": {
+    "id": "6576969",
+    "text": "واخا.",
+    "author": "User77813",
+    "translations": {
+     "fr": {
+      "id": "134977",
+      "text": "C'est entendu.",
+      "author": "sacredceltic"
+     },
+     "en": {
+      "id": "268108",
+      "text": "All right.",
+      "author": "menaud"
+     }
+    },
+    "audio": null
+   },
+   "examples": []
+  },
+  "ary_ch1_arrival_casablanca:ary_greet_and_introduce:labas_q": {
+   "attested": null,
+   "examples": [
+    {
+     "id": "6576902",
+     "text": "لاباس عليك؟",
+     "author": "User77813",
+     "translations": {
+      "fr": {
+       "id": "14970",
+       "text": "Ça va ?",
+       "author": "sacredceltic"
+      },
+      "en": {
+       "id": "373320",
+       "text": "How are you?",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ary_ch1_arrival_casablanca:ary_greet_and_introduce:metcharfin": {
+   "attested": {
+    "id": "6576922",
+    "text": "متشرفين.",
+    "author": "User77813",
+    "translations": {
+     "fr": {
+      "id": "3557547",
+      "text": "Bonjour.",
+      "author": "fleur74"
+     },
+     "en": {
+      "id": "499689",
+      "text": "Good afternoon.",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": []
+  },
+  "en_ch1_arrival_city:en_ask_directions:dont_understand": {
+   "attested": {
+    "id": "1159735",
+    "text": "Sorry, I don't understand.",
+    "author": "tinytina",
+    "translations": {
+     "fr": {
+      "id": "2373339",
+      "text": "Je suis désolé, je ne comprends pas.",
+      "author": "sacredceltic"
+     },
+     "ru": {
+      "id": "2098904",
+      "text": "Простите, я не понимаю.",
+      "author": "gleki"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "2361918",
+     "text": "I'm sorry, I don't understand.",
+     "author": "CK",
+     "translations": {
+      "fr": {
+       "id": "2373339",
+       "text": "Je suis désolé, je ne comprends pas.",
+       "author": "sacredceltic"
+      },
+      "ru": {
+       "id": "2098904",
+       "text": "Простите, я не понимаю.",
+       "author": "gleki"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "10503063",
+     "text": "Sorry, I don't understand the sentence.",
+     "author": "DJ_Saidez",
+     "translations": {
+      "fr": {
+       "id": "10503013",
+       "text": "Excuse-moi, je ne comprends pas la phrase.",
+       "author": "pkill"
+      },
+      "ru": {
+       "id": "12676687",
+       "text": "Простите, я не понимаю это предложение.",
+       "author": "marafon"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "en_ch1_arrival_city:en_ask_directions:excuse_me": {
+   "attested": {
+    "id": "433504",
+    "text": "Excuse me.",
+    "author": "CK",
+    "translations": {
+     "fr": {
+      "id": "10459",
+      "text": "Excuse-moi.",
+      "author": "sacredceltic"
+     },
+     "ru": {
+      "id": "472310",
+      "text": "Извините меня.",
+      "author": "Gruzilkin"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "2249786",
+     "text": "Please excuse me.",
+     "author": "CK",
+     "translations": {
+      "fr": {
+       "id": "12784",
+       "text": "Pardonne-moi s'il te plaît.",
+       "author": "mouche"
+      },
+      "ru": {
+       "id": "351535",
+       "text": "Прости меня, пожалуйста.",
+       "author": "Ann74"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "298103",
+     "text": "He will excuse me.",
+     "author": "CK",
+     "translations": {
+      "fr": {
+       "id": "4696128",
+       "text": "Il m'excusera.",
+       "author": "sacredceltic"
+      },
+      "ru": {
+       "id": "5004508",
+       "text": "Он меня простит.",
+       "author": "marafon"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "en_ch1_arrival_city:en_ask_directions:go_straight": {
+   "attested": {
+    "id": "269559",
+    "text": "Go straight ahead.",
+    "author": "CK",
+    "translations": {
+     "fr": {
+      "id": "13455",
+      "text": "Va tout droit.",
+      "author": "nimfeo"
+     },
+     "ru": {
+      "id": "1681770",
+      "text": "Иди прямо.",
+      "author": "marafon"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "57615",
+     "text": "Go straight ahead along this street.",
+     "author": "papabear",
+     "translations": {
+      "fr": {
+       "id": "2139683",
+       "text": "Allez tout droit le long de cette rue.",
+       "author": "GLOBULE38"
+      },
+      "ru": {
+       "id": "645844",
+       "text": "Идите прямо по этой улице.",
+       "author": "vlad2k"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "3258699",
+     "text": "Go straight ahead and you will see the bank.",
+     "author": "CM",
+     "translations": {
+      "fr": {
+       "id": "3258698",
+       "text": "Allez tout droit et vous verrez la banque.",
+       "author": "Aiji"
+      },
+      "ru": {
+       "id": "10632851",
+       "text": "Идите прямо и увидите банк.",
+       "author": "marafon"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "en_ch1_arrival_city:en_ask_directions:is_it_far": {
+   "attested": {
+    "id": "1308427",
+    "text": "Is it far?",
+    "author": "CK",
+    "translations": {
+     "fr": {
+      "id": "4547291",
+      "text": "Est-ce éloigné ?",
+      "author": "sacredceltic"
+     },
+     "ru": {
+      "id": "1997818",
+      "text": "Это далеко?",
+      "author": "mrtaistoi"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "1651",
+     "text": "Is it far from here?",
+     "author": "CK",
+     "translations": {
+      "fr": {
+       "id": "3470",
+       "text": "C'est loin d'ici ?",
+       "author": "SUZIE"
+      },
+      "ru": {
+       "id": "1775962",
+       "text": "Это далеко отсюда?",
+       "author": "marafon"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "3273069",
+     "text": "Is it far from your place?",
+     "author": "CM",
+     "translations": {
+      "fr": {
+       "id": "3273070",
+       "text": "Est-ce loin de chez toi ?",
+       "author": "Nyans"
+      },
+      "ru": {
+       "id": "10813163",
+       "text": "Это далеко от твоего дома?",
+       "author": "marafon"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "en_ch1_arrival_city:en_ask_directions:more_slowly": {
+   "attested": {
+    "id": "30493",
+    "text": "Could you speak more slowly, please?",
+    "author": "CK",
+    "translations": {
+     "fr": {
+      "id": "510705",
+      "text": "Pouvez-vous parler plus lentement, s'il vous plait ?",
+      "author": "SUZIE"
+     },
+     "ru": {
+      "id": "611532",
+      "text": "Могли бы Вы говорить помедленнее, пожалуйста?",
+      "author": "papersaltserver"
+     }
+    },
+    "audio": null
+   },
+   "examples": []
+  },
+  "en_ch1_arrival_city:en_ask_directions:say_again": {
+   "attested": {
+    "id": "8355332",
+    "text": "Could you say that again, please?",
+    "author": "CK",
+    "translations": {},
+    "audio": null
+   },
+   "examples": []
+  },
+  "en_ch1_arrival_city:en_ask_directions:thanks_a_lot": {
+   "attested": {
+    "id": "534970",
+    "text": "Thanks a lot!",
+    "author": "Snout",
+    "translations": {
+     "fr": {
+      "id": "3381",
+      "text": "Merci beaucoup !",
+      "author": "kurisutofu"
+     },
+     "ru": {
+      "id": "401105",
+      "text": "Большое спасибо!",
+      "author": "Dorenda"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "1492037",
+     "text": "Thanks a lot for your help.",
+     "author": "CK",
+     "translations": {
+      "fr": {
+       "id": "10808",
+       "text": "Merci beaucoup pour votre aide.",
+       "author": "sacredceltic"
+      },
+      "ru": {
+       "id": "1913038",
+       "text": "Большое вам спасибо за помощь.",
+       "author": "marafon"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "5768330",
+     "text": "Thanks a lot for the invitation.",
+     "author": "Cainntear",
+     "translations": {
+      "fr": {
+       "id": "14116",
+       "text": "Merci beaucoup pour l'invitation.",
+       "author": "Julien_PDC"
+      },
+      "ru": {
+       "id": "825692",
+       "text": "Большое спасибо за приглашение.",
+       "author": "ae5s"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "en_ch1_arrival_city:en_ask_directions:where_is_station": {
+   "attested": {
+    "id": "638544",
+    "text": "Where is the train station?",
+    "author": "CM",
+    "translations": {
+     "fr": {
+      "id": "136614",
+      "text": "Où est la gare ?",
+      "author": "Aiji"
+     },
+     "ru": {
+      "id": "675942",
+      "text": "Где железнодорожная станция?",
+      "author": "aruhito"
+     }
+    },
+    "audio": null
+   },
+   "examples": []
+  },
+  "en_ch1_arrival_city:en_cafe_order_drink:good_morning": {
+   "attested": {
+    "id": "329713",
+    "text": "Good morning!",
+    "author": "YURY0608",
+    "translations": {
+     "fr": {
+      "id": "373345",
+      "text": "Bonjour !",
+      "author": "Aiji"
+     },
+     "ru": {
+      "id": "329715",
+      "text": "Доброе утро!",
+      "author": "YURY0608"
+     }
+    },
+    "audio": {
+     "id": "1285296",
+     "author": "rul",
+     "license": "CC BY 4.0",
+     "attributionUrl": null
+    }
+   },
+   "examples": [
+    {
+     "id": "64918",
+     "text": "Good morning, Mike.",
+     "author": "CN",
+     "translations": {
+      "fr": {
+       "id": "10829",
+       "text": "Bonjour, Mike.",
+       "author": "pjer"
+      },
+      "ru": {
+       "id": "466959",
+       "text": "Доброе утро, Мике.",
+       "author": "katjka"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "2405823",
+     "text": "I said good morning.",
+     "author": "CK",
+     "translations": {
+      "fr": {
+       "id": "8738911",
+       "text": "J'ai dit bonjour.",
+       "author": "Micsmithel"
+      },
+      "ru": {
+       "id": "10854590",
+       "text": "Я сказал \"доброе утро\".",
+       "author": "marafon"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "en_ch1_arrival_city:en_cafe_order_drink:thank_you_very_much": {
+   "attested": {
+    "id": "1564",
+    "text": "Thank you very much!",
+    "author": "adjusting",
+    "translations": {
+     "fr": {
+      "id": "3381",
+      "text": "Merci beaucoup !",
+      "author": "kurisutofu"
+     },
+     "ru": {
+      "id": "401105",
+      "text": "Большое спасибо!",
+      "author": "Dorenda"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "855385",
+     "text": "We thank you very much!",
+     "author": "piksea",
+     "translations": {
+      "fr": {
+       "id": "859113",
+       "text": "Nous vous remercions beaucoup !",
+       "author": "sacredceltic"
+      },
+      "ru": {
+       "id": "4230190",
+       "text": "Мы очень вам благодарны!",
+       "author": "astru"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "272773",
+     "text": "Thank you very much, doctor.",
+     "author": "CK",
+     "translations": {
+      "fr": {
+       "id": "354383",
+       "text": "Merci beaucoup, Docteur.",
+       "author": "bourdu"
+      },
+      "ru": {
+       "id": "2584939",
+       "text": "Большое спасибо, доктор.",
+       "author": "Balamax"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "en_ch1_arrival_city:en_cafe_order_drink:with_milk": {
+   "attested": null,
+   "examples": [
+    {
+     "id": "484733",
+     "text": "Two coffees with milk, please.",
+     "author": "FeuDRenais",
+     "translations": {
+      "fr": {
+       "id": "484731",
+       "text": "Deux cafés au lait, je vous prie.",
+       "author": "Julien_PDC"
+      },
+      "ru": {
+       "id": "1681937",
+       "text": "Две чашки кофе с молоком, пожалуйста.",
+       "author": "marafon"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "en_ch1_arrival_city:en_greet_and_introduce:hello": {
+   "attested": {
+    "id": "373330",
+    "text": "Hello!",
+    "author": "CK",
+    "translations": {
+     "fr": {
+      "id": "373345",
+      "text": "Bonjour !",
+      "author": "Aiji"
+     },
+     "ru": {
+      "id": "402127",
+      "text": "Здравствуйте.",
+      "author": "odexed"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "1619718",
+     "text": "Hello there!",
+     "author": "Spamster",
+     "translations": {
+      "fr": {
+       "id": "1623695",
+       "text": "Salut là-bas !",
+       "author": "sacredceltic"
+      },
+      "ru": {
+       "id": "11840832",
+       "text": "Ну привет!",
+       "author": "Ooneykcall"
+      }
+     },
+     "audio": {
+      "id": "1099982",
+      "author": "Them",
+      "license": "CC BY 4.0",
+      "attributionUrl": null
+     }
+    },
+    {
+     "id": "644712",
+     "text": "Hello sir!",
+     "author": "Quonpi",
+     "translations": {
+      "fr": {
+       "id": "482478",
+       "text": "Bonjour Monsieur !",
+       "author": "sacredceltic"
+      },
+      "ru": {
+       "id": "8881971",
+       "text": "Здравствуйте, сэр!",
+       "author": "TheBaget"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "en_ch1_arrival_city:en_greet_and_introduce:how_are_you": {
+   "attested": {
+    "id": "373320",
+    "text": "How are you?",
+    "author": "CK",
+    "translations": {
+     "fr": {
+      "id": "8742",
+      "text": "Comment vas-tu ?",
+      "author": "sacredceltic"
+     },
+     "ru": {
+      "id": "400924",
+      "text": "Как поживаете?",
+      "author": "odexed"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "30316",
+     "text": "Hi! How are you?",
+     "author": "Zifre",
+     "translations": {
+      "fr": {
+       "id": "330355",
+       "text": "Salut ! Comment ça va ?",
+       "author": "hortusdei"
+      },
+      "ru": {
+       "id": "466963",
+       "text": "Привет, как дела?",
+       "author": "katjka"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "914019",
+     "text": "How are you all?",
+     "author": "Jane_Austen",
+     "translations": {
+      "fr": {
+       "id": "1521314",
+       "text": "Comment allez-vous tous ?",
+       "author": "sacredceltic"
+      },
+      "ru": {
+       "id": "400924",
+       "text": "Как поживаете?",
+       "author": "odexed"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "en_ch1_arrival_city:en_greet_and_introduce:my_name_is": {
+   "attested": null,
+   "examples": [
+    {
+     "id": "1646",
+     "text": "My name is Jack.",
+     "author": "CN",
+     "translations": {
+      "fr": {
+       "id": "3464",
+       "text": "Je m'appelle Jack.",
+       "author": "bourdu"
+      },
+      "ru": {
+       "id": "5633",
+       "text": "Меня зовут Джек.",
+       "author": "al_ex_an_der"
+      }
+     },
+     "audio": {
+      "id": "1112877",
+      "author": "Them",
+      "license": "CC BY 4.0",
+      "attributionUrl": null
+     }
+    },
+    {
+     "id": "1173265",
+     "text": "My name is Tom.",
+     "author": "cntrational",
+     "translations": {
+      "fr": {
+       "id": "1850474",
+       "text": "Mon nom est Tom.",
+       "author": "nimfeo"
+      },
+      "ru": {
+       "id": "2140601",
+       "text": "Меня зовут Том.",
+       "author": "sismic"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "en_ch1_arrival_city:en_greet_and_introduce:nice_to_meet_you": {
+   "attested": {
+    "id": "499617",
+    "text": "Nice to meet you.",
+    "author": "Shishir",
+    "translations": {
+     "fr": {
+      "id": "139848",
+      "text": "Je suis heureux de vous rencontrer.",
+      "author": "sysko"
+     },
+     "ru": {
+      "id": "426019",
+      "text": "Очень приятно.",
+      "author": "al_ex_an_der"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "6075506",
+     "text": "Hi, nice to meet you.",
+     "author": "Hybrid",
+     "translations": {
+      "fr": {
+       "id": "12444036",
+       "text": "Bonjour, je suis ravi de vous rencontrer.",
+       "author": "lbdx"
+      },
+      "ru": {
+       "id": "12444040",
+       "text": "Привет, рад познакомиться.",
+       "author": "marafon"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "64723",
+     "text": "It's nice to meet you.",
+     "author": "CK",
+     "translations": {
+      "fr": {
+       "id": "10853",
+       "text": "Je suis heureuse de vous rencontrer.",
+       "author": "sacredceltic"
+      },
+      "ru": {
+       "id": "3431771",
+       "text": "Приятно познакомиться!",
+       "author": "Balamax"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "en_ch1_arrival_city:en_greet_and_introduce:whats_your_name": {
+   "attested": {
+    "id": "408293",
+    "text": "What's your name?",
+    "author": "CK",
+    "translations": {
+     "fr": {
+      "id": "3476",
+      "text": "Comment est-ce que tu t'appelles ?",
+      "author": "bourdu"
+     },
+     "ru": {
+      "id": "370366",
+      "text": "Как тебя зовут?",
+      "author": "reiji"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "2745375",
+     "text": "So, what's your name?",
+     "author": "Hybrid",
+     "translations": {
+      "fr": {
+       "id": "3586631",
+       "text": "Donc, quel est votre nom ?",
+       "author": "sacredceltic"
+      },
+      "ru": {
+       "id": "3580070",
+       "text": "Ну и как тебя зовут?",
+       "author": "marafon"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "1886671",
+     "text": "What's your name again?",
+     "author": "CK",
+     "translations": {
+      "fr": {
+       "id": "2041078",
+       "text": "Quel est encore votre nom ?",
+       "author": "sacredceltic"
+      },
+      "ru": {
+       "id": "6672354",
+       "text": "Как Вас зовут, ещё раз?",
+       "author": "marafon"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "en_ch1_arrival_city:en_take_taxi:have_change": {
+   "attested": {
+    "id": "6532361",
+    "text": "Do you have change?",
+    "author": "CK",
+    "translations": {
+     "ru": {
+      "id": "12381407",
+      "text": "У вас есть сдача?",
+      "author": "marafon"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "502621",
+     "text": "Do you have change for a dollar?",
+     "author": "CK",
+     "translations": {
+      "fr": {
+       "id": "1353118",
+       "text": "As-tu la monnaie d'un dollar ?",
+       "author": "sacredceltic"
+      },
+      "ru": {
+       "id": "4910086",
+       "text": "Есть у тебя сдача с доллара?",
+       "author": "venticello"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "2503217",
+     "text": "Do you have change for this bill?",
+     "author": "BoriQa",
+     "translations": {
+      "fr": {
+       "id": "2503272",
+       "text": "Avez-vous la monnaie pour ce billet ?",
+       "author": "BoriQa"
+      },
+      "ru": {
+       "id": "4150464",
+       "text": "У вас есть сдача с этой купюры?",
+       "author": "odexed"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "en_ch1_arrival_city:en_take_taxi:taxi": {
+   "attested": null,
+   "examples": [
+    {
+     "id": "16523",
+     "text": "You needn't have taken a taxi.",
+     "author": "CM",
+     "translations": {
+      "fr": {
+       "id": "470138",
+       "text": "Tu n'avais pas besoin de prendre un taxi.",
+       "author": "sacredceltic"
+      },
+      "ru": {
+       "id": "2343123",
+       "text": "Тебе не нужно было брать такси.",
+       "author": "Lenin_1917"
+      }
+     },
+     "audio": {
+      "id": "961976",
+      "author": "Auride",
+      "license": "CC BY-SA 4.0",
+      "attributionUrl": null
+     }
+    },
+    {
+     "id": "9648058",
+     "text": "Go by taxi.",
+     "author": "abburns",
+     "translations": {
+      "fr": {
+       "id": "14025013",
+       "text": "Vas-y en taxi.",
+       "author": "zogwarg"
+      },
+      "ru": {
+       "id": "9134293",
+       "text": "Поезжай на такси.",
+       "author": "marafon"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "en_ch1_arrival_city:en_take_taxi:where_to": {
+   "attested": {
+    "id": "6575452",
+    "text": "Where to?",
+    "author": "Eccles17",
+    "translations": {
+     "ru": {
+      "id": "4615281",
+      "text": "Куда?",
+      "author": "marafon"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "9741167",
+     "text": "Where to start?",
+     "author": "traeton",
+     "translations": {
+      "fr": {
+       "id": "8732228",
+       "text": "Par où commencer ?",
+       "author": "Julien_PDC"
+      },
+      "ru": {
+       "id": "6367007",
+       "text": "С чего начать?",
+       "author": "marafon"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "13269027",
+     "text": "Where to begin?",
+     "author": "glossboss",
+     "translations": {
+      "fr": {
+       "id": "8732228",
+       "text": "Par où commencer ?",
+       "author": "Julien_PDC"
+      },
+      "ru": {
+       "id": "6367007",
+       "text": "С чего начать?",
+       "author": "marafon"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_ask_directions:donde_esta_estacion": {
+   "attested": {
+    "id": "730471",
+    "text": "¿Dónde está la estación?",
+    "author": "Shishir",
+    "translations": {
+     "en": {
+      "id": "544611",
+      "text": "Where is the station?",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "549015",
+     "text": "¿Dónde está la estación de tren?",
+     "author": "Shishir",
+     "translations": {
+      "en": {
+       "id": "544540",
+       "text": "Where is the railway station?",
+       "author": "jakov"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "687663",
+     "text": "¿Dónde está la estación del tren?",
+     "author": "lukaszpp",
+     "translations": {
+      "en": {
+       "id": "638544",
+       "text": "Where is the train station?",
+       "author": "CM"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_ask_directions:esta_lejos": {
+   "attested": {
+    "id": "1308724",
+    "text": "¿Está lejos?",
+    "author": "Shishir",
+    "translations": {
+     "en": {
+      "id": "1308427",
+      "text": "Is it far?",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "1131246",
+     "text": "¿Está lejos París?",
+     "author": "FiRez",
+     "translations": {
+      "en": {
+       "id": "1131247",
+       "text": "Is Paris far away?",
+       "author": "FiRez"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "456110",
+     "text": "Está lejos de aquí.",
+     "author": "lukaszpp",
+     "translations": {
+      "en": {
+       "id": "456109",
+       "text": "It is far away from here.",
+       "author": "lukaszpp"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_ask_directions:gire_derecha": {
+   "attested": {
+    "id": "497399",
+    "text": "Gire a la derecha.",
+    "author": "lukaszpp",
+    "translations": {
+     "en": {
+      "id": "27067",
+      "text": "Turn to the right.",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "1999978",
+     "text": "Camine dos cuadras y gire a la derecha.",
+     "author": "marcelostockle",
+     "translations": {
+      "en": {
+       "id": "9289856",
+       "text": "Walk two blocks and turn right.",
+       "author": "AlanF_US"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "1136803",
+     "text": "Gire a la derecha en el siguiente cruce.",
+     "author": "nancy",
+     "translations": {
+      "en": {
+       "id": "658059",
+       "text": "Turn right at the next intersection.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_ask_directions:mas_despacio": {
+   "attested": {
+    "id": "1547201",
+    "text": "Más despacio, por favor.",
+    "author": "lost",
+    "translations": {
+     "en": {
+      "id": "9868473",
+      "text": "More slowly, please.",
+      "author": "eeyinn"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "357257",
+     "text": "Hable más despacio, por favor.",
+     "author": "tatoerique",
+     "translations": {
+      "en": {
+       "id": "456627",
+       "text": "Please speak more slowly.",
+       "author": "lukaszpp"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "513194",
+     "text": "¿Puede hablar más despacio, por favor?",
+     "author": "Shishir",
+     "translations": {
+      "en": {
+       "id": "30493",
+       "text": "Could you speak more slowly, please?",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_ask_directions:muchas_gracias": {
+   "attested": {
+    "id": "2755",
+    "text": "¡Muchas gracias!",
+    "author": "Raimondi",
+    "translations": {
+     "en": {
+      "id": "1564",
+      "text": "Thank you very much!",
+      "author": "adjusting"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "347363",
+     "text": "Muchas gracias, doctor.",
+     "author": "tatoerique",
+     "translations": {
+      "en": {
+       "id": "272773",
+       "text": "Thank you very much, doctor.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "1621056",
+     "text": "Muchas gracias a todos.",
+     "author": "marcelostockle",
+     "translations": {
+      "en": {
+       "id": "1620956",
+       "text": "Thank you all so much.",
+       "author": "Spamster"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_ask_directions:no_entiendo": {
+   "attested": {
+    "id": "2874",
+    "text": "No entiendo.",
+    "author": "Shishir",
+    "translations": {
+     "en": {
+      "id": "38392",
+      "text": "I don't get it.",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "1468396",
+     "text": "No, no entiendo.",
+     "author": "marcelostockle",
+     "translations": {
+      "en": {
+       "id": "1468397",
+       "text": "No, I don't understand.",
+       "author": "AMIKEMA"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "4392333",
+     "text": "No entiendo eso.",
+     "author": "pchamorro",
+     "translations": {
+      "en": {
+       "id": "2271927",
+       "text": "I don't understand that.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_ask_directions:perdone": {
+   "attested": {
+    "id": "514802",
+    "text": "Perdone.",
+    "author": "cueyayotl",
+    "translations": {
+     "en": {
+      "id": "433504",
+      "text": "Excuse me.",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "614824",
+     "text": "Perdone mi torpeza.",
+     "author": "Shishir",
+     "translations": {
+      "en": {
+       "id": "264979",
+       "text": "Excuse my clumsiness.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "10097413",
+     "text": "Que Dios me perdone.",
+     "author": "manufrutos",
+     "translations": {
+      "en": {
+       "id": "9230833",
+       "text": "Astaghfirullah.",
+       "author": "shekitten"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_ask_directions:puede_repetir": {
+   "attested": null,
+   "examples": [
+    {
+     "id": "963985",
+     "text": "Lo siento, ¿puede repetir, por favor?",
+     "author": "hundo",
+     "translations": {
+      "en": {
+       "id": "51456",
+       "text": "I'm sorry, could you repeat that please?",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_cafe_order_drink:buenos_dias": {
+   "attested": {
+    "id": "403913",
+    "text": "¡Buenos días!",
+    "author": "cueyayotl",
+    "translations": {
+     "en": {
+      "id": "329713",
+      "text": "Good morning!",
+      "author": "YURY0608"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "8844842",
+     "text": "Buenos días, Tom.",
+     "author": "Sabir",
+     "translations": {
+      "en": {
+       "id": "2549163",
+       "text": "Good morning, Tom.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "519812",
+     "text": "Buenos días, Mike.",
+     "author": "Espi",
+     "translations": {
+      "en": {
+       "id": "64918",
+       "text": "Good morning, Mike.",
+       "author": "CN"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_cafe_order_drink:con_leche": {
+   "attested": null,
+   "examples": [
+    {
+     "id": "602672",
+     "text": "Dos cafés con leche, por favor.",
+     "author": "Shishir",
+     "translations": {
+      "en": {
+       "id": "484733",
+       "text": "Two coffees with milk, please.",
+       "author": "FeuDRenais"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_cafe_order_drink:gracias": {
+   "attested": {
+    "id": "382058",
+    "text": "¡Gracias!",
+    "author": "hayastan",
+    "translations": {
+     "en": {
+      "id": "374827",
+      "text": "Thank you!",
+      "author": "sysko"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "465492",
+     "text": "No, gracias.",
+     "author": "Espi",
+     "translations": {
+      "en": {
+       "id": "31390",
+       "text": "No, thank you.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "1876015",
+     "text": "Gracias a ti.",
+     "author": "Shishir",
+     "translations": {
+      "en": {
+       "id": "1876041",
+       "text": "Thank you.",
+       "author": "Asma"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_cafe_order_drink:la_cuenta": {
+   "attested": {
+    "id": "2876",
+    "text": "La cuenta, por favor.",
+    "author": "Shishir",
+    "translations": {
+     "en": {
+      "id": "1710",
+      "text": "The check, please.",
+      "author": "brauliobezerra"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "702724",
+     "text": "Deme la cuenta, por favor.",
+     "author": "andresevargas",
+     "translations": {
+      "en": {
+       "id": "21103",
+       "text": "Give me the bill, please.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "570743",
+     "text": "¿Me da la cuenta, por favor?",
+     "author": "darinmex",
+     "translations": {
+      "en": {
+       "id": "21104",
+       "text": "May I have the check, please?",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_cafe_order_drink:solo_o_con_leche": {
+   "attested": null,
+   "examples": [
+    {
+     "id": "7468950",
+     "text": "¿Lo quiere solo o con leche?",
+     "author": "arh",
+     "translations": {
+      "en": {
+       "id": "8292494",
+       "text": "Do you want it by itself or with milk?",
+       "author": "lunchmeat317"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_greet_and_introduce:bien_gracias": {
+   "attested": {
+    "id": "532246",
+    "text": "Bien, gracias. ¿Y tú?",
+    "author": "cueyayotl",
+    "translations": {
+     "en": {
+      "id": "239430",
+      "text": "Fine, thank you. And you?",
+      "author": "sundown"
+     }
+    },
+    "audio": null
+   },
+   "examples": []
+  },
+  "es_es_ch1_arrival_madrid:es_greet_and_introduce:buenas_tardes": {
+   "attested": {
+    "id": "778583",
+    "text": "¡Buenas tardes!",
+    "author": "marloncori",
+    "translations": {
+     "en": {
+      "id": "499689",
+      "text": "Good afternoon.",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "745023",
+     "text": "Buenas tardes, ¿cómo estás?",
+     "author": "Shishir",
+     "translations": {
+      "en": {
+       "id": "413820",
+       "text": "Good evening, how are you?",
+       "author": "Dorenda"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "745024",
+     "text": "Buenas tardes, ¿cómo están?",
+     "author": "Shishir",
+     "translations": {
+      "en": {
+       "id": "413820",
+       "text": "Good evening, how are you?",
+       "author": "Dorenda"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_greet_and_introduce:como_te_llamas": {
+   "attested": {
+    "id": "449153",
+    "text": "¿Cómo te llamas?",
+    "author": "naikodemus",
+    "translations": {
+     "en": {
+      "id": "70623",
+      "text": "What is your name?",
+      "author": "frpzzd"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "2693731",
+     "text": "Saben cómo te llamas.",
+     "author": "Shishir",
+     "translations": {
+      "en": {
+       "id": "2548153",
+       "text": "They know your name.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "435081",
+     "text": "Hola, ¿cómo te llamas?",
+     "author": "lukaszpp",
+     "translations": {
+      "en": {
+       "id": "435080",
+       "text": "Hello, what's your name?",
+       "author": "lukaszpp"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_greet_and_introduce:encantado": {
+   "attested": {
+    "id": "456636",
+    "text": "Encantado.",
+    "author": "lukaszpp",
+    "translations": {
+     "en": {
+      "id": "456635",
+      "text": "Pleased to meet you.",
+      "author": "lukaszpp"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "852990",
+     "text": "Encantado de verte.",
+     "author": "artukai",
+     "translations": {
+      "en": {
+       "id": "32688",
+       "text": "Nice to see you.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "5684912",
+     "text": "Tom estará encantado.",
+     "author": "albrusgher",
+     "translations": {
+      "en": {
+       "id": "1867716",
+       "text": "Tom will be thrilled.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_greet_and_introduce:hasta_luego": {
+   "attested": {
+    "id": "427036",
+    "text": "¡Hasta luego!",
+    "author": "hayastan",
+    "translations": {
+     "en": {
+      "id": "32672",
+      "text": "See you soon!",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "9446985",
+     "text": "Hasta luego, Tom.",
+     "author": "ignacio",
+     "translations": {
+      "en": {
+       "id": "2648052",
+       "text": "See you later, Tom.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "7305893",
+     "text": "Bueno, hasta luego.",
+     "author": "arh",
+     "translations": {
+      "en": {
+       "id": "9026067",
+       "text": "OK, see you later.",
+       "author": "mccarras"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_greet_and_introduce:hola": {
+   "attested": {
+    "id": "435083",
+    "text": "¡Hola! ¡Buenos días!",
+    "author": "lukaszpp",
+    "translations": {
+     "en": {
+      "id": "435082",
+      "text": "Hello! Good morning!",
+      "author": "lukaszpp"
+     }
+    },
+    "audio": null
+   },
+   "examples": []
+  },
+  "es_es_ch1_arrival_madrid:es_greet_and_introduce:me_llamo": {
+   "attested": null,
+   "examples": [
+    {
+     "id": "2351587",
+     "text": "Me llamo Tom.",
+     "author": "Shishir",
+     "translations": {
+      "en": {
+       "id": "1173265",
+       "text": "My name is Tom.",
+       "author": "cntrational"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "11832256",
+     "text": "Me llamo Che.",
+     "author": "shekitten",
+     "translations": {
+      "en": {
+       "id": "11832252",
+       "text": "My name is Che.",
+       "author": "shekitten"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_greet_and_introduce:que_tal": {
+   "attested": {
+    "id": "436132",
+    "text": "¿Qué tal?",
+    "author": "lukaszpp",
+    "translations": {
+     "en": {
+      "id": "25164",
+      "text": "What's up?",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "1195817",
+     "text": "¿Qué tal tú?",
+     "author": "marcelostockle",
+     "translations": {
+      "en": {
+       "id": "16491",
+       "text": "How about you?",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "8691306",
+     "text": "¿Qué tal eso?",
+     "author": "ajje",
+     "translations": {
+      "en": {
+       "id": "2574460",
+       "text": "How about that?",
+       "author": "VirtuOZ"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_market_ask_price:cuanto_cuesta": {
+   "attested": {
+    "id": "436200",
+    "text": "¿Cuánto cuesta esto?",
+    "author": "lukaszpp",
+    "translations": {
+     "en": {
+      "id": "432824",
+      "text": "How much does this cost?",
+      "author": "aliene"
+     }
+    },
+    "audio": null
+   },
+   "examples": []
+  },
+  "es_es_ch1_arrival_madrid:es_market_ask_price:hola_buenas": {
+   "attested": {
+    "id": "1244487",
+    "text": "Hola, buenas.",
+    "author": "wallebot",
+    "translations": {},
+    "audio": null
+   },
+   "examples": []
+  },
+  "es_es_ch1_arrival_madrid:es_market_ask_price:no_gracias": {
+   "attested": {
+    "id": "465492",
+    "text": "No, gracias.",
+    "author": "Espi",
+    "translations": {
+     "en": {
+      "id": "31390",
+      "text": "No, thank you.",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "5058128",
+     "text": "No gracias, ya comí.",
+     "author": "don_ramon",
+     "translations": {
+      "en": {
+       "id": "5057521",
+       "text": "No, thank you. I already ate.",
+       "author": "AlanF_US"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "1387024",
+     "text": "No gracias. Estoy lleno.",
+     "author": "marcelostockle",
+     "translations": {
+      "en": {
+       "id": "65670",
+       "text": "No, thank you. I'm full.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_market_ask_price:solo_mirando": {
+   "attested": {
+    "id": "2406604",
+    "text": "Solo estoy mirando.",
+    "author": "hayastan",
+    "translations": {
+     "en": {
+      "id": "2248053",
+      "text": "I'm just watching.",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "1123354",
+     "text": "No, gracias. Solo estoy mirando.",
+     "author": "Ephraim",
+     "translations": {
+      "en": {
+       "id": "65829",
+       "text": "No, thank you. I am just looking.",
+       "author": "Swift"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "3028866",
+     "text": "\"¿Puedo ayudarlo?\" \"No, gracias. Solo estoy mirando.\"",
+     "author": "marcelostockle",
+     "translations": {
+      "en": {
+       "id": "73749",
+       "text": "\"May I help you?\" \"No, thank you. I'm just looking.\"",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_meet_neighbour:bienvenido": {
+   "attested": {
+    "id": "375833",
+    "text": "¡Bienvenido!",
+    "author": "megamanenm",
+    "translations": {
+     "en": {
+      "id": "138919",
+      "text": "Welcome.",
+      "author": "CM"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "1701773",
+     "text": "Fui bienvenido.",
+     "author": "marcelostockle",
+     "translations": {
+      "en": {
+       "id": "1701377",
+       "text": "I was welcomed.",
+       "author": "mookeee"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "1448331",
+     "text": "Eres bienvenido.",
+     "author": "peibolvig",
+     "translations": {
+      "en": {
+       "id": "324995",
+       "text": "You are kind to come.",
+       "author": null
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_meet_neighbour:de_donde_eres": {
+   "attested": {
+    "id": "3071",
+    "text": "¿De dónde eres?",
+    "author": "Shishir",
+    "translations": {
+     "en": {
+      "id": "17150",
+      "text": "Where do you come from?",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "5027460",
+     "text": "¿De dónde eres tú?",
+     "author": "al_ex_an_der",
+     "translations": {
+      "en": {
+       "id": "370703",
+       "text": "Where are you from?",
+       "author": "saeb"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "541867",
+     "text": "¿De dónde eres, Karen?",
+     "author": "Shishir",
+     "translations": {
+      "en": {
+       "id": "63478",
+       "text": "Where are you from, Karen?",
+       "author": "CN"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_meet_neighbour:hablas_ingles": {
+   "attested": {
+    "id": "927361",
+    "text": "¿Hablas...inglés?",
+    "author": "mrc3306",
+    "translations": {
+     "en": {
+      "id": "378270",
+      "text": "Do you speak English?",
+      "author": "saeb"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "12885001",
+     "text": "¿Hablas inglés fluido?",
+     "author": "ecorralest101",
+     "translations": {
+      "en": {
+       "id": "1230579",
+       "text": "Do you speak English fluently?",
+       "author": "falcons84"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "347507",
+     "text": "Qué bien hablas inglés.",
+     "author": "tatoerique",
+     "translations": {
+      "en": {
+       "id": "69609",
+       "text": "What a good speaker of English you are!",
+       "author": null
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_meet_neighbour:si_necesitas_algo": {
+   "attested": {
+    "id": "11710346",
+    "text": "Si necesitas algo, dímelo.",
+    "author": "MrJuice",
+    "translations": {
+     "en": {
+      "id": "9096245",
+      "text": "If you need anything at all, just let me know.",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": []
+  },
+  "es_es_ch1_arrival_madrid:es_meet_neighbour:soy_de_canada": {
+   "attested": {
+    "id": "1283182",
+    "text": "Soy de Canadá.",
+    "author": "marcelostockle",
+    "translations": {
+     "en": {
+      "id": "63638",
+      "text": "I'm from Canada.",
+      "author": "CN"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "1294292",
+     "text": "Dijo: \"Soy de Canadá.\"",
+     "author": "Shishir",
+     "translations": {
+      "en": {
+       "id": "288326",
+       "text": "He said, \"I'm from Canada.\"",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "342638",
+     "text": "Él dijo: \"soy de Canadá\".",
+     "author": "tatoerique",
+     "translations": {
+      "en": {
+       "id": "288326",
+       "text": "He said, \"I'm from Canada.\"",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_meet_neighbour:un_poco": {
+   "attested": null,
+   "examples": [
+    {
+     "id": "1248458",
+     "text": "Un poco más.",
+     "author": "Shishir",
+     "translations": {
+      "en": {
+       "id": "1349791",
+       "text": "A little more.",
+       "author": "marcelostockle"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "2973555",
+     "text": "Hay un poco.",
+     "author": "hayastan",
+     "translations": {
+      "en": {
+       "id": "9154054",
+       "text": "There's some.",
+       "author": "rafaeldejesus8199"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_take_taxi:adonde_va": {
+   "attested": {
+    "id": "689170",
+    "text": "¿Adónde va?",
+    "author": "lukaszpp",
+    "translations": {
+     "en": {
+      "id": "416367",
+      "text": "Where are you going?",
+      "author": "phrasemix"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "4861637",
+     "text": "¿Adónde va ella?",
+     "author": "ecorralest101",
+     "translations": {
+      "en": {
+       "id": "1996913",
+       "text": "Where is she going?",
+       "author": "Spamster"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "1128257",
+     "text": "¿Adónde va, señor?",
+     "author": "cueyayotl",
+     "translations": {
+      "en": {
+       "id": "1128178",
+       "text": "Where, Sir, are you going to?",
+       "author": "shanghainese"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_take_taxi:taxi": {
+   "attested": null,
+   "examples": [
+    {
+     "id": "2817637",
+     "text": "Iré en taxi.",
+     "author": "marcelostockle",
+     "translations": {
+      "en": {
+       "id": "2549527",
+       "text": "I'll go by taxi.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "356828",
+     "text": "Bajé del taxi.",
+     "author": "tatoerique",
+     "translations": {
+      "en": {
+       "id": "254926",
+       "text": "I got out of the taxi.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "es_es_ch1_arrival_madrid:es_take_taxi:tiene_cambio": {
+   "attested": null,
+   "examples": [
+    {
+     "id": "6592099",
+     "text": "Su coche tiene cambio manual.",
+     "author": "arh",
+     "translations": {
+      "en": {
+       "id": "9023335",
+       "text": "Your car has a manual transmission.",
+       "author": "mccarras"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "2494249",
+     "text": "¿Tiene cambio para este billete?",
+     "author": "Ankio",
+     "translations": {
+      "en": {
+       "id": "2503217",
+       "text": "Do you have change for this bill?",
+       "author": "BoriQa"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_ask_directions:arigatou_gozaimashita": {
+   "attested": null,
+   "examples": [
+    {
+     "id": "137276",
+     "text": "大変ありがとうございました。",
+     "author": "arnab",
+     "translations": {
+      "en": {
+       "id": "275960",
+       "text": "Thank you ever so much.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "147759",
+     "text": "出荷ありがとうございました。",
+     "author": null,
+     "translations": {
+      "en": {
+       "id": "266801",
+       "text": "Thank you for the shipment.",
+       "author": null
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_ask_directions:eki_wa_doko": {
+   "attested": {
+    "id": "188894",
+    "text": "駅はどこですか。",
+    "author": "bunbuku",
+    "translations": {
+     "en": {
+      "id": "26041",
+      "text": "Where is the railroad station?",
+      "author": "CM"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "2458802",
+     "text": "南駅はどこですか？",
+     "author": "saturo",
+     "translations": {
+      "en": {
+       "id": "2592737",
+       "text": "Where is the South Station?",
+       "author": "WestofEden"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "424927",
+     "text": "博多駅はどこですか？",
+     "author": "phiz",
+     "translations": {
+      "en": {
+       "id": "424804",
+       "text": "Where is Hakata station located?",
+       "author": "sysko"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_ask_directions:massugu": {
+   "attested": null,
+   "examples": [
+    {
+     "id": "220292",
+     "text": "この道をまっすぐ行ってください。",
+     "author": "tommy_san",
+     "translations": {
+      "en": {
+       "id": "57612",
+       "text": "Go straight ahead on this street.",
+       "author": "papabear"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "467298",
+     "text": "この通りに沿って、まっすぐ行ってください。",
+     "author": "Namikaze",
+     "translations": {
+      "en": {
+       "id": "474090",
+       "text": "Go straight on down this street.",
+       "author": "blay_paul"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_ask_directions:migi_ni": {
+   "attested": {
+    "id": "2349244",
+    "text": "右に曲がってください。",
+    "author": "hutian",
+    "translations": {
+     "en": {
+      "id": "2355815",
+      "text": "Please turn right.",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "4769881",
+     "text": "次の角を右に曲がってください。",
+     "author": "tommy_san",
+     "translations": {
+      "en": {
+       "id": "264257",
+       "text": "Turn right at the next corner.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "138734",
+     "text": "その交差点を右に曲がってください。",
+     "author": "small_snow",
+     "translations": {
+      "en": {
+       "id": "6047",
+       "text": "Turn right at the crossroad.",
+       "author": "shortiiboy"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_ask_directions:mou_ichido": {
+   "attested": {
+    "id": "214165",
+    "text": "もう一度お願いします。",
+    "author": "bunbuku",
+    "translations": {
+     "en": {
+      "id": "24940",
+      "text": "I beg your pardon?",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "226808",
+     "text": "お店の名前をもう一度お願いします。",
+     "author": "bunbuku",
+     "translations": {
+      "en": {
+       "id": "64156",
+       "text": "What's the name of that store again, please?",
+       "author": "CM"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "10815537",
+     "text": "ごめんなさい、もう一度お願いします。",
+     "author": "bunbuku",
+     "translations": {
+      "en": {
+       "id": "51494",
+       "text": "Sorry. I beg your pardon?",
+       "author": "Zifre"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_ask_directions:sumimasen": {
+   "attested": {
+    "id": "408301",
+    "text": "すみません。",
+    "author": "bunbuku",
+    "translations": {
+     "en": {
+      "id": "38387",
+      "text": "I'm sorry.",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "10910321",
+     "text": "すみませんね。",
+     "author": "small_snow",
+     "translations": {
+      "en": {
+       "id": "38387",
+       "text": "I'm sorry.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "10193299",
+     "text": "度々すみません。",
+     "author": "small_snow",
+     "translations": {
+      "en": {
+       "id": "10193143",
+       "text": "Sorry for asking so many questions.",
+       "author": "DJ_Saidez"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_ask_directions:tooi_desu_ka": {
+   "attested": null,
+   "examples": [
+    {
+     "id": "83205",
+     "text": "歩くと遠いですか。",
+     "author": "small_snow",
+     "translations": {
+      "en": {
+       "id": "320512",
+       "text": "Is it too far to walk?",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "8692025",
+     "text": "街まで遠いですか？",
+     "author": "small_snow",
+     "translations": {
+      "en": {
+       "id": "3071668",
+       "text": "Is it far to town?",
+       "author": "sharptoothed"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_ask_directions:wakarimasen": {
+   "attested": {
+    "id": "2270779",
+    "text": "わかりません。",
+    "author": "Ianagisacos",
+    "translations": {
+     "en": {
+      "id": "273786",
+      "text": "I have no idea.",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "140787",
+     "text": "全然わかりません。",
+     "author": "bunbuku",
+     "translations": {
+      "en": {
+       "id": "273786",
+       "text": "I have no idea.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "10985084",
+     "text": "やっぱりわかりません。",
+     "author": "small_snow",
+     "translations": {
+      "en": {
+       "id": "2271939",
+       "text": "I still don't understand.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_ask_directions:yukkuri": {
+   "attested": {
+    "id": "8795518",
+    "text": "ゆっくり話してください。",
+    "author": "dotheduyet1999",
+    "translations": {
+     "en": {
+      "id": "403059",
+      "text": "Please speak slowly.",
+      "author": "Ramses"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "5109",
+     "text": "もっとゆっくり話してください！",
+     "author": "bunbuku",
+     "translations": {
+      "en": {
+       "id": "1707",
+       "text": "Speak more slowly, please!",
+       "author": "Swift"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_cafe_order_drink:arigatou_gozaimasu": {
+   "attested": {
+    "id": "4971",
+    "text": "ありがとうございます！",
+    "author": "bunbuku",
+    "translations": {
+     "en": {
+      "id": "1564",
+      "text": "Thank you very much!",
+      "author": "adjusting"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "9734109",
+     "text": "大変ありがとうございます。",
+     "author": "Sim5634",
+     "translations": {
+      "en": {
+       "id": "2648441",
+       "text": "Thank you so much.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "146045",
+     "text": "情報をありがとうございます。",
+     "author": "small_snow",
+     "translations": {
+      "en": {
+       "id": "19143",
+       "text": "Thank you for the information.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_cafe_order_drink:konnichiwa_cafe": {
+   "attested": {
+    "id": "373351",
+    "text": "こんにちは。",
+    "author": "tommy_san",
+    "translations": {
+     "en": {
+      "id": "138919",
+      "text": "Welcome.",
+      "author": "CM"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "217296",
+     "text": "こんにちは、トム。",
+     "author": "bunbuku",
+     "translations": {
+      "en": {
+       "id": "54604",
+       "text": "Hello, Tom.",
+       "author": "Zifre"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "538094",
+     "text": "世界、こんにちは！",
+     "author": "tomkun01",
+     "translations": {
+      "en": {
+       "id": "398746",
+       "text": "Hello, world!",
+       "author": "AlanF_US"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_cafe_order_drink:koohii_onegaishimasu": {
+   "attested": {
+    "id": "1906087",
+    "text": "コーヒーをお願いします。",
+    "author": "bunbuku",
+    "translations": {
+     "en": {
+      "id": "62269",
+      "text": "I'd like to have a coffee.",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "9547057",
+     "text": "紅茶かコーヒーをお願いします。",
+     "author": "bunbuku",
+     "translations": {
+      "en": {
+       "id": "627403",
+       "text": "I'd like to drink some tea or coffee.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "11741914",
+     "text": "もう少しコーヒーをお願いします。",
+     "author": "small_snow",
+     "translations": {
+      "en": {
+       "id": "11158994",
+       "text": "A little more coffee, please.",
+       "author": "ddnktr"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_cafe_order_drink:okaikei": {
+   "attested": {
+    "id": "12890072",
+    "text": "お会計をお願いします。",
+    "author": "small_snow",
+    "translations": {
+     "en": {
+      "id": "21098",
+      "text": "Check, please.",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": []
+  },
+  "ja_ch1_arrival_tokyo:ja_greet_and_introduce:genki_desu": {
+   "attested": {
+    "id": "3495032",
+    "text": "元気です。",
+    "author": "arnab",
+    "translations": {
+     "en": {
+      "id": "239432",
+      "text": "I'm doing fine.",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "175038",
+     "text": "元気ですか。",
+     "author": "wat",
+     "translations": {
+      "en": {
+       "id": "38926",
+       "text": "How are you doing?",
+       "author": "Zifre"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "84594",
+     "text": "父は元気です。",
+     "author": "bunbuku",
+     "translations": {
+      "en": {
+       "id": "319120",
+       "text": "My father is in good health.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_greet_and_introduce:konnichiwa": {
+   "attested": {
+    "id": "373351",
+    "text": "こんにちは。",
+    "author": "tommy_san",
+    "translations": {
+     "en": {
+      "id": "138919",
+      "text": "Welcome.",
+      "author": "CM"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "217296",
+     "text": "こんにちは、トム。",
+     "author": "bunbuku",
+     "translations": {
+      "en": {
+       "id": "54604",
+       "text": "Hello, Tom.",
+       "author": "Zifre"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "538094",
+     "text": "世界、こんにちは！",
+     "author": "tomkun01",
+     "translations": {
+      "en": {
+       "id": "398746",
+       "text": "Hello, world!",
+       "author": "AlanF_US"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_greet_and_introduce:ogenki_desu_ka": {
+   "attested": {
+    "id": "400933",
+    "text": "お元気ですか。",
+    "author": "e4zh1nmcz",
+    "translations": {
+     "en": {
+      "id": "38308",
+      "text": "How is it going?",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "188545",
+     "text": "奥様はお元気ですか。",
+     "author": "bunbuku",
+     "translations": {
+      "en": {
+       "id": "25690",
+       "text": "How's your wife?",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "217191",
+     "text": "ご家族はお元気ですか。",
+     "author": "bunbuku",
+     "translations": {
+      "en": {
+       "id": "24081",
+       "text": "How is your family?",
+       "author": "CM"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_greet_and_introduce:ohayou": {
+   "attested": {
+    "id": "335372",
+    "text": "おはようございます。",
+    "author": "Aurix",
+    "translations": {
+     "en": {
+      "id": "329713",
+      "text": "Good morning!",
+      "author": "YURY0608"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "778267",
+     "text": "皆様、おはようございます。",
+     "author": "kenken",
+     "translations": {
+      "en": {
+       "id": "22122",
+       "text": "Good morning, everybody.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "10726826",
+     "text": "先生、おはようございます！",
+     "author": "small_snow",
+     "translations": {
+      "en": {
+       "id": "1388921",
+       "text": "Good morning, doctor!",
+       "author": "marcelostockle"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_greet_and_introduce:onamae_wa": {
+   "attested": {
+    "id": "12889995",
+    "text": "お名前は何ですか？",
+    "author": "small_snow",
+    "translations": {
+     "en": {
+      "id": "70623",
+      "text": "What is your name?",
+      "author": "frpzzd"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "3475201",
+     "text": "おたくの馬のお名前は何ですか？",
+     "author": "arnab",
+     "translations": {
+      "en": {
+       "id": "3343807",
+       "text": "What's your horse's name?",
+       "author": "Hybrid"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "10242795",
+     "text": "「お名前は何ですか？」「ヤニー」",
+     "author": "small_snow",
+     "translations": {
+      "en": {
+       "id": "10064755",
+       "text": "\"What's your name?\" \"Yanni.\"",
+       "author": "Amastan"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_greet_and_introduce:shitsurei_shimasu": {
+   "attested": {
+    "id": "507553",
+    "text": "失礼します。",
+    "author": "orzage",
+    "translations": {
+     "en": {
+      "id": "31346",
+      "text": "May I be excused?",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": [
+    {
+     "id": "10911484",
+     "text": "では失礼します。",
+     "author": "small_snow",
+     "translations": {
+      "en": {
+       "id": "433504",
+       "text": "Excuse me.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "226501",
+     "text": "お話中失礼します。",
+     "author": "bunbuku",
+     "translations": {
+      "en": {
+       "id": "63846",
+       "text": "I'm sorry to interrupt you.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_take_taxi:arigatou_taxi": {
+   "attested": null,
+   "examples": [
+    {
+     "id": "137276",
+     "text": "大変ありがとうございました。",
+     "author": "arnab",
+     "translations": {
+      "en": {
+       "id": "275960",
+       "text": "Thank you ever so much.",
+       "author": "CK"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "147759",
+     "text": "出荷ありがとうございました。",
+     "author": null,
+     "translations": {
+      "en": {
+       "id": "266801",
+       "text": "Thank you for the shipment.",
+       "author": null
+      }
+     },
+     "audio": null
+    }
+   ]
+  },
+  "ja_ch1_arrival_tokyo:ja_take_taxi:koko_de_tomete": {
+   "attested": {
+    "id": "224556",
+    "text": "ここで止めてください。",
+    "author": "small_snow",
+    "translations": {
+     "en": {
+      "id": "6358139",
+      "text": "Please stop here.",
+      "author": "CK"
+     }
+    },
+    "audio": null
+   },
+   "examples": []
+  },
+  "ja_ch1_arrival_tokyo:ja_take_taxi:takushii": {
+   "attested": null,
+   "examples": [
+    {
+     "id": "11535695",
+     "text": "タクシーを拾って。",
+     "author": "small_snow",
+     "translations": {
+      "en": {
+       "id": "6614348",
+       "text": "Hail a taxi.",
+       "author": "Eccles17"
+      }
+     },
+     "audio": null
+    },
+    {
+     "id": "11535697",
+     "text": "タクシーを呼んで。",
+     "author": "small_snow",
+     "translations": {
+      "en": {
+       "id": "9770427",
+       "text": "Call a taxi.",
+       "author": "DJ_Saidez"
+      }
+     },
+     "audio": null
+    }
+   ]
+  }
+ }
+}

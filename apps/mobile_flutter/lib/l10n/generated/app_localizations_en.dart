@@ -1439,4 +1439,57 @@ class AppLocalizationsEn extends AppLocalizations {
   @override
   String get readAloudSettingBody =>
       'As each exercise appears: its context and question in your language, then the phrase in the course\'s voice. Signed in, an AI voice reads them.';
+
+  @override
+  String get realExamplesButton => 'Real examples';
+
+  @override
+  String get realExamplesButtonSemantics => 'Real examples of this phrase, from Tatoeba';
+
+  @override
+  String get realExamplesTitle => 'Real examples';
+
+  @override
+  String realExamplesIntro(String phrase) {
+    return 'Sentences written by Tatoeba contributors that use “$phrase”.';
+  }
+
+  @override
+  String realExamplesAttested(String phrase) {
+    return '“$phrase” is itself a Tatoeba sentence: people really say it this way.';
+  }
+
+  @override
+  String get realExamplesRecording => 'Native recording';
+
+  @override
+  String get realExamplesRecordingSemantics => 'Play a native speaker’s recording';
+
+  @override
+  String realExamplesBy(String id, String author) {
+    return 'Tatoeba #$id by $author';
+  }
+
+  @override
+  String realExamplesById(String id) {
+    return 'Tatoeba #$id';
+  }
+
+  @override
+  String realExamplesRecordingBy(String author, String license) {
+    return 'Recording by $author · $license';
+  }
+
+  @override
+  String get realExamplesRegion => 'Tatoeba doesn’t record which country a sentence comes from: an example may use another region’s wording.';
+
+  @override
+  String realExamplesCredit(String license, String date) {
+    return 'From Tatoeba (tatoeba.org), sentences under $license, export of $date.';
+  }
+
+  @override
+  String courseIncludesRealExamples(int attested, int total) {
+    return '$attested of $total phrases found as written in Tatoeba, a collection of real sentences, with real examples to read';
+  }
 }

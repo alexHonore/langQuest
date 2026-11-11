@@ -293,7 +293,9 @@ class AudioChip extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final accent = ref.watch(appStateProvider.select((s) => s.accent));
     final ink = foreground ?? accent.primaryText;
+    // Its own node: next to a phrase's meaning, the chip would otherwise merge with that text into one button.
     return Semantics(
+      container: true,
       button: true,
       enabled: onTap != null,
       label: semanticsLabel ?? label,

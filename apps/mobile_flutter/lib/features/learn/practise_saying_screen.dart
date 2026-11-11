@@ -9,6 +9,7 @@ import '../../l10n/l10n.dart';
 import '../../navigation/nav.dart';
 import 'learn_providers.dart';
 import 'learn_widgets.dart';
+import 'real_examples_sheet.dart';
 import 'record_take.dart';
 
 /// Practise saying a mission's phrases, one at a time: hear the reference, record yourself, play both back. The
@@ -100,6 +101,7 @@ class _PractiseSayingScreenState extends ConsumerState<PractiseSayingScreen> {
                           ],
                           const SizedBox(height: 16),
                           ListenButtons(text: phrase.text, expressionId: phrase.id, locale: plan.voiceLocale),
+                          RealExamplesButton(expression: phrase, track: plan.track, source: plan.source),
                           const SizedBox(height: 12),
                           // A fresh recorder per phrase: the previous take is dropped with it.
                           RecordTake(
