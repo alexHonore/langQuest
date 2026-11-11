@@ -5,7 +5,9 @@
 /// - a scene (L1): the mission's dialogue lines in blueprint-slot order; the character's lines are heard (device
 ///   voice when one exists for the variety), the learner's lines are shadowed out loud — no score;
 /// - discovery cards (L3): every phrase the learner will say in this mission, one per card;
-/// - practice (L3): pairs (phrase ↔ meaning) in rounds that fit the screen, then one sentence rebuilt from tiles;
+/// - practice (L3): pairs (phrase ↔ meaning) in rounds that fit the screen; then listen and choose the meaning
+///   (hearing a phrase in the course's voice); read a meaning and choose the phrase that says it; complete a phrase
+///   with its missing word; then one sentence rebuilt from tiles;
 /// - the mission stop: each learner line of the dialogue as an exchange (the character's cue, or the meaning when
 ///   nobody speaks first), answered by choosing the taught reply, then saying it out loud.
 /// Everything a mission asks for was taught in its own Learn stop first (owner direction "teach before test").
@@ -78,6 +80,43 @@ class TileChallenge {
   const TileChallenge({required this.expression, required this.answer, required this.distractors});
 }
 
+/// What a practice choice question asks.
+enum ChoiceKind {
+  /// Hear a phrase (read it when no voice can say it) and choose its meaning.
+  listen,
+
+  /// Read a meaning and choose the phrase that says it.
+  reverse,
+}
+
+/// A practice question about one taught phrase: three options (phrases of the same mission), one right. The
+/// options are shown by their meaning ([ChoiceKind.listen]) or their text ([ChoiceKind.reverse]).
+class ChoiceQuestion {
+  final ChoiceKind kind;
+  final Expression expression;
+
+  /// The options, the right one among them, in a stable shuffled order.
+  final List<Expression> options;
+
+  const ChoiceQuestion({required this.kind, required this.expression, required this.options});
+
+  int get answerIndex => options.indexOf(expression);
+}
+
+/// A taught phrase with one word missing ([words] is the phrase split into words: the romanization for non-Latin
+/// scripts, like the tiles), and three words to choose from: the missing one and two from other taught phrases.
+class GapChallenge {
+  final Expression expression;
+  final List<String> words;
+  final int gap;
+  final List<String> options;
+
+  const GapChallenge({required this.expression, required this.words, required this.gap, required this.options});
+
+  String get answer => words[gap];
+  int get answerIndex => options.indexOf(answer);
+}
+
 class MissionLearnPlan {
   final Mission mission;
   final CourseTrackInfo track;
@@ -95,6 +134,12 @@ class MissionLearnPlan {
   final TileChallenge? tiles;
   final List<MissionExchange> exchanges;
 
+  /// Practice choice questions, after the pairs: listen (hear → meaning), then reverse (meaning → phrase).
+  final List<ChoiceQuestion> choices;
+
+  /// Practice: complete a phrase with its missing word (before the tiles), when the mission has one to offer.
+  final GapChallenge? gap;
+
   const MissionLearnPlan({
     required this.mission,
     required this.track,
@@ -105,6 +150,8 @@ class MissionLearnPlan {
     required this.pairRounds,
     required this.tiles,
     required this.exchanges,
+    this.choices = const [],
+    this.gap,
   });
 
   String? get voiceLocale => track.voiceLocale;
@@ -123,6 +170,9 @@ class MissionLearnPlan {
 const _maxPairsPerRound = 5;
 const _minTileWords = 3;
 const _maxTileWords = 7;
+const _choicesPerKind = 2;
+const _minGapWords = 3;
+const _maxGapWords = 9;
 
 /// Split [items] into the fewest rounds of at most [maxPerRound], as evenly as possible (7 → 4 + 3).
 List<List<T>> evenRounds<T>(List<T> items, int maxPerRound) {
@@ -217,6 +267,70 @@ MissionLearnPlan buildLearnPlan({required Mission mission, required CourseTrackI
     exchanges.add(MissionExchange(cue: cue, answer: answer, options: options));
   }
 
+  // Choice questions: phrases with distinct meanings and texts (the pair phrases), alternating listen / reverse so
+  // the two kinds ask about different phrases; options are two other pair phrases.
+  final choices = <ChoiceQuestion>[];
+  if (pairPhrases.length >= 3) {
+    ChoiceQuestion question(ChoiceKind kind, Expression e) {
+      final others = stableShuffle(
+        [
+          for (final o in pairPhrases)
+            if (o != e) o,
+        ],
+        '${mission.key}/${e.key}/${kind.name}',
+        (o) => o.id,
+      ).take(2);
+      return ChoiceQuestion(kind: kind, expression: e, options: stableShuffle([e, ...others], '${mission.key}/${e.key}/${kind.name}/options', (o) => o.id));
+    }
+
+    final listen = [for (var i = 0; i < pairPhrases.length; i += 2) pairPhrases[i]].take(_choicesPerKind);
+    final reverse = [for (var i = 1; i < pairPhrases.length; i += 2) pairPhrases[i]].take(_choicesPerKind);
+    choices
+      ..addAll([for (final e in listen) question(ChoiceKind.listen, e)])
+      ..addAll([for (final e in reverse) question(ChoiceKind.reverse, e)]);
+  }
+
+  // Gap: a learner line other than the tiles' one, 3–9 words; its longest word (of 2+ letters) is missing.
+  GapChallenge? gap;
+  final gapCandidates = [
+    for (final e in phrases)
+      if (e != tiles?.expression &&
+          !e.text.contains('…') &&
+          !e.text.contains('...') &&
+          tileTokens(tileSource(e)).length >= _minGapWords &&
+          tileTokens(tileSource(e)).length <= _maxGapWords)
+        e,
+  ];
+  for (final e in gapCandidates) {
+    final words = tileTokens(tileSource(e));
+    var at = -1;
+    for (var i = 0; i < words.length; i++) {
+      if (normalizeForCompare(words[i]).length < 2) continue;
+      if (at < 0 || words[i].length > words[at].length) at = i;
+    }
+    if (at < 0) continue;
+    final inPhrase = {for (final w in words) normalizeForCompare(w)};
+    // One candidate per word whatever its case or punctuation ("de" / "De"), none of the phrase's own words.
+    final byForm = <String, String>{};
+    for (final o in phrases) {
+      if (o == e) continue;
+      for (final w in tileTokens(tileSource(o))) {
+        final form = normalizeForCompare(w);
+        if (form.length >= 2 && !inPhrase.contains(form)) byForm.putIfAbsent(form, () => w);
+      }
+    }
+    final pool = byForm.values.toList();
+    if (pool.length < 2) continue;
+    final distractors = stableShuffle(pool, '${mission.key}/${e.key}/gap', (w) => w).take(2);
+    gap = GapChallenge(
+      expression: e,
+      words: words,
+      gap: at,
+      options: stableShuffle([words[at], ...distractors], '${mission.key}/${e.key}/gap/options', (w) => w),
+    );
+    break;
+  }
+
   return MissionLearnPlan(
     mission: mission,
     track: track,
@@ -227,5 +341,7 @@ MissionLearnPlan buildLearnPlan({required Mission mission, required CourseTrackI
     pairRounds: pairRounds,
     tiles: tiles,
     exchanges: exchanges,
+    choices: choices,
+    gap: gap,
   );
 }

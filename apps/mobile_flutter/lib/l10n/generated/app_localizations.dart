@@ -2965,6 +2965,66 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Voice calls pipeline (speech to text, dialogue, voice)'**
   String get adminTask_realtime_conversation;
+
+  /// No description provided for @practiceListenPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen. What does it mean?'**
+  String get practiceListenPrompt;
+
+  /// No description provided for @practiceReadPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'What does it mean?'**
+  String get practiceReadPrompt;
+
+  /// No description provided for @practiceReversePrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Which one says this?'**
+  String get practiceReversePrompt;
+
+  /// No description provided for @practiceGapPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete the sentence'**
+  String get practiceGapPrompt;
+
+  /// No description provided for @practiceTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Not this one. Try another.'**
+  String get practiceTryAgain;
+
+  /// No description provided for @practiceRight.
+  ///
+  /// In en, this message translates to:
+  /// **'That’s it!'**
+  String get practiceRight;
+
+  /// No description provided for @practiceNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get practiceNext;
+
+  /// No description provided for @practiceGapSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'missing word'**
+  String get practiceGapSemantics;
+
+  /// No description provided for @practiceWrongSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{option}, not this one'**
+  String practiceWrongSemantics(String option);
+
+  /// No description provided for @practiceRightSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{option}, right answer'**
+  String practiceRightSemantics(String option);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

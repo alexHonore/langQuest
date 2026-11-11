@@ -134,16 +134,35 @@ void main() {
     });
   });
 
+  group('choice state', () {
+    test('a wrong pick is marked and another can follow; the right pick solves it, and nothing changes after', () {
+      var s = ChoiceState.start(2);
+      s = s.pick(0);
+      expect(s.isWrong(0), isTrue);
+      expect(s.solved, isFalse);
+      s = s.pick(2);
+      expect(s.solved, isTrue);
+      expect(s.pick(1).isWrong(1), isFalse);
+    });
+  });
+
   group('learn plans built from the real draft curriculum', () {
     final plans = allPlans().toList();
 
-    test('the bundle teaches Darija (fr, en), Spanish (en), Japanese (en) and English (fr)', () {
-      expect(testBundle.sourcesFor('arabic-moroccan'), ['en', 'fr']);
-      expect(testBundle.sourcesFor('spanish-spain'), ['en']);
-      expect(testBundle.sourcesFor('japanese'), ['en']);
-      expect(testBundle.sourcesFor('english'), ['fr']);
-      expect(testBundle.sourcesFor('french'), isEmpty);
-      expect(plans.length, 7 * 2 + 6 + 4 + 4);
+    test('the bundle teaches every course from English and French (French from English, English from French)', () {
+      for (final track in testBundle.tracks) {
+        final sources = testBundle.sourcesFor(track.id);
+        if (track.id == 'english') {
+          expect(sources, ['fr'], reason: 'the UI languages are en and fr: English is offered from French');
+        } else if (track.id == 'french') {
+          expect(sources, ['en']);
+        } else {
+          expect(sources, ['en', 'fr'], reason: track.id);
+        }
+      }
+      expect(testBundle.tracks, hasLength(30));
+      // Darija 7 + Spanish 6 + Japanese 4 (each from en and fr), English 4 (fr), French 7 (en), 25 more courses × 7 (en, fr).
+      expect(plans.length, (7 + 6 + 4) * 2 + 4 + 7 + 25 * 7 * 2);
     });
 
     test('every plan has a scene with a line to shadow, cards, pairs and exchanges', () {
@@ -188,7 +207,8 @@ void main() {
         expect(t.answer.length, inInclusiveRange(3, 7), reason: p.mission.key);
         expect(t.expression.byLearner, isTrue);
         if (p.track.usesRomanization) {
-          expect(t.answer.join(' '), matches(RegExp(r'^[\x00-\x7F]+$')), reason: '${p.mission.key} romanized tiles');
+          // Latin letters, with the diacritics a romanization needs (pinyin tones, jyutping, translit-latn).
+          expect(t.answer.join(' '), matches(RegExp(r'^[\p{Script=Latin}\p{M}\p{N}\p{P}\p{Zs}]+$', unicode: true)), reason: '${p.mission.key} romanized tiles');
         }
         final answerWords = {for (final w in t.answer) normalizeForCompare(w)};
         for (final d in t.distractors) {
@@ -201,6 +221,58 @@ void main() {
         expect(s.check().verdict, TilesVerdict.correct, reason: p.mission.key);
       }
       expect(withTiles, greaterThan(plans.length ~/ 2));
+    });
+
+    test('practice asks listen and reverse questions about different phrases, three distinct options each', () {
+      var withChoices = 0;
+      for (final p in plans) {
+        final at = '${p.mission.key}/${p.source}';
+        if (p.pairRounds.expand((r) => r).length < 3) {
+          expect(p.choices, isEmpty, reason: at);
+          continue;
+        }
+        withChoices++;
+        final listen = [
+          for (final q in p.choices)
+            if (q.kind == ChoiceKind.listen) q.expression.id,
+        ];
+        final reverse = [
+          for (final q in p.choices)
+            if (q.kind == ChoiceKind.reverse) q.expression.id,
+        ];
+        expect(listen, isNotEmpty, reason: at);
+        expect(reverse, isNotEmpty, reason: at);
+        expect(listen.toSet().intersection(reverse.toSet()), isEmpty, reason: '$at: each phrase is asked once');
+        for (final q in p.choices) {
+          expect(q.options, hasLength(3), reason: at);
+          expect(q.answerIndex, isNonNegative, reason: at);
+          expect(q.options.map((o) => normalizeForCompare(o.text)).toSet(), hasLength(3), reason: '$at distinct phrases');
+          expect(q.options.map((o) => normalizeForCompare(p.shortMeaningOf(o))).toSet(), hasLength(3), reason: '$at distinct meanings');
+          expect(p.phrases, containsAll(q.options), reason: '$at: options are taught phrases');
+        }
+      }
+      expect(withChoices, greaterThan(plans.length * 0.9));
+    });
+
+    test('the gap hides a word of 2+ letters; the other words to choose from are not in the phrase', () {
+      var withGap = 0;
+      for (final p in plans) {
+        final g = p.gap;
+        if (g == null) continue;
+        withGap++;
+        final at = '${p.mission.key}/${p.source}';
+        expect(g.words, tileTokens(p.tileSourceOf(g.expression)), reason: at);
+        expect(g.words.length, inInclusiveRange(3, 9), reason: at);
+        expect(normalizeForCompare(g.answer).length, greaterThanOrEqualTo(2), reason: at);
+        expect(g.options, hasLength(3), reason: at);
+        expect(g.options.map(normalizeForCompare).toSet(), hasLength(3), reason: '$at distinct words');
+        final inPhrase = {for (final w in g.words) normalizeForCompare(w)};
+        for (final o in g.options) {
+          if (o != g.answer) expect(inPhrase.contains(normalizeForCompare(o)), isFalse, reason: '$at distractor $o');
+        }
+        expect(g.expression, isNot(p.tiles?.expression), reason: '$at: not the tiles sentence');
+      }
+      expect(withGap, greaterThan(plans.length * 0.5));
     });
 
     test('the mission asks only for taught lines, cued by the character line before them', () {

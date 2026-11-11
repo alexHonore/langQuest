@@ -478,5 +478,15 @@
   "adminTask_content_generation": "Usine à contenu : rédaction des cours",
   "adminTask_transcription_alignment": "Audiothèque : transcriptions",
   "adminTask_pronunciation_assessment": "Note acoustique de prononciation (Azure, non configuré)",
-  "adminTask_realtime_conversation": "Chaîne des appels vocaux (parole en texte, dialogue, voix)"
+  "adminTask_realtime_conversation": "Chaîne des appels vocaux (parole en texte, dialogue, voix)",
+  "practiceListenPrompt": "Écoutez. Qu’est-ce que ça veut dire ?",
+  "practiceReadPrompt": "Qu’est-ce que ça veut dire ?",
+  "practiceReversePrompt": "Laquelle dit cela ?",
+  "practiceGapPrompt": "Complétez la phrase",
+  "practiceTryAgain": "Pas celle-ci. Essayez une autre.",
+  "practiceRight": "C’est bien ça !",
+  "practiceNext": "Continuer",
+  "practiceGapSemantics": "mot manquant",
+  "practiceWrongSemantics": "{option}, pas celle-ci",
+  "practiceRightSemantics": "{option}, bonne réponse"
 }
