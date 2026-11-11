@@ -71,3 +71,34 @@ bool accountKeepsRecordings(Map<String, Object?> me) {
   final retention = privacy['store_speech_recordings'] ?? privacy['storeSpeechRecordings'];
   return retention == 'opt_in_30_days' || retention == 'opt_in_until_deleted';
 }
+
+/// What the server offers one course before enrolling (`GET /v1/courses` summary): the course page says it.
+@immutable
+class ServerTrackOffer {
+  const ServerTrackOffer({this.characters = 0, this.liveCalls = false, this.spokenCheck = false, this.aiVoice = false, this.audioLessons = 0});
+
+  final int characters;
+
+  /// Live conversation with the course's characters (with an account).
+  final bool liveCalls;
+
+  /// Spoken answers checked for meaning (with an account).
+  final bool spokenCheck;
+
+  /// Server synthesis of the course's lines.
+  final bool aiVoice;
+  final int audioLessons;
+
+  static ServerTrackOffer fromSummary(Map<String, Object?> course) {
+    final caps = course['capabilities'] is Map ? course['capabilities'] as Map : const {};
+    final characters = (course['characterCount'] as num?)?.toInt() ?? 0;
+    final scoring = '${caps['pronunciationScoring'] ?? 'none'}';
+    return ServerTrackOffer(
+      characters: characters,
+      liveCalls: caps['realtimeConversation'] == true && characters > 0,
+      spokenCheck: caps['speechRecognition'] == true && scoring != 'none',
+      aiVoice: caps['speechSynthesis'] == true,
+      audioLessons: (course['publishedAudioLessonCount'] as num?)?.toInt() ?? 0,
+    );
+  }
+}

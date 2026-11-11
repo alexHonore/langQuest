@@ -5,6 +5,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
 import '../../core/services/app_state.dart';
+import '../call/call_screen.dart';
 import '../../l10n/l10n.dart';
 import '../scenes/animated_scene.dart';
 import 'learn_content.dart';
@@ -13,9 +14,9 @@ import 'learn_providers.dart';
 import 'learn_widgets.dart';
 import 'record_take.dart';
 
-/// N2 — one mission node: learn → practise → mission, on the pathway. The learner can open any stop, but the
-/// primary action is always the next one, so the curve is the default path. (Talk appears once a live
-/// conversation partner backs it; this offline build has none, so the stop is not shown.)
+/// N2 — one mission node: learn → practise → mission → talk, on the pathway. The learner can open any stop, but the
+/// primary action is always the next one, so the curve is the default path. Talk (a live call with a character of the
+/// mission) appears only when a signed-in learner's course has live conversation on the server.
 class MissionPathScreen extends ConsumerWidget {
   final String missionKey;
   const MissionPathScreen({super.key, required this.missionKey});
@@ -24,7 +25,7 @@ class MissionPathScreen extends ConsumerWidget {
     PathStop.learn => '/learn/$missionKey/scene',
     PathStop.practise => '/learn/$missionKey/practice',
     PathStop.mission => '/mission/$missionKey',
-    PathStop.talk => '/path/$missionKey',
+    PathStop.talk => '/call/$missionKey',
   };
 
   @override
@@ -34,7 +35,8 @@ class MissionPathScreen extends ConsumerWidget {
     final appState = ref.watch(appStateProvider);
     final colors = appState.colors;
     final l10n = context.l10n;
-    final stops = stopsFor(hasLearnPlan: planHasLearnStops(plan));
+    final call = ref.watch(liveCallCourseProvider);
+    final stops = stopsFor(hasLearnPlan: planHasLearnStops(plan), canTalk: call != null);
     final done = appState.stopsDone(missionKey);
     final canPractiseSaying = ref.watch(takeRecorderFactoryProvider) != null;
     final next = nextStop(stops, done);
@@ -49,7 +51,11 @@ class MissionPathScreen extends ConsumerWidget {
         icon: LucideIcons.gamepad2,
       ),
       PathStop.mission => (title: l10n.stopMission, subtitle: l10n.pathMissionSubtitle(plan.exchanges.length, plan.characterName), icon: LucideIcons.flag),
-      PathStop.talk => (title: l10n.stopTalk, subtitle: '', icon: LucideIcons.messageCircle),
+      PathStop.talk => (
+        title: l10n.stopTalk,
+        subtitle: call != null && call.voiceConversation && canPractiseSaying ? l10n.pathTalkSubtitle : l10n.pathTalkSubtitleText,
+        icon: LucideIcons.phoneCall,
+      ),
     };
 
     return Scaffold(

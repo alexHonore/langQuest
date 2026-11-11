@@ -81,6 +81,7 @@ Without a backend the app is offline: progress lives on the device and nothing a
 | Completed missions | Done here → `GET /v1/missions/:id` + attempt + evaluate. Steps built on the learner's own lines are claimed `success`, the others `unclear`: the server records the mission as completed for the path and credits nothing it has no evidence for. Done in the account → their stops are marked done here (read from the learner's own `mission_progress` rows), so the path continues on any device. |
 | Not synced | Practice XP and the review schedule stay with the device that earned them. The server pays mission XP and creates review cards only for steps it holds evidence for: a take it checked itself (below) is that evidence for the mission's speaking steps, so a mission whose replies were checked while signed in is credited on the server when it syncs. |
 | Speech check | Signed in, on a course whose capability snapshot (`GET /v1/me` → `capabilities.pronunciationScoring.mode`) is not `none` (`lib/core/backend/speech_check.dart`): each take of a phrase — the Mission's "say it" card, the scene's lines, Practise saying — goes to `POST /v1/speech/pronunciation-assess` with the phrase's server id and the mission's id as `scenarioId`, and the app shows the server's verdict on its **meaning**: *Understood!*, *Not quite* (with what it heard), or *I couldn't make that out* (the recognizer was unsure, never blamed). Never a pronunciation score (reference comparison only, ADR-006). A silent take is not sent; a check that fails falls back to comparing by ear. The take is sent inline and, unless the learner opted in to keeping recordings (said on screen), not kept. In a mission, a reply not understood on its first checked take goes to review as *hard*. |
+| Live call (Talk stop) | Signed in, on a course whose snapshot has live conversation (`capabilities.liveConversation`), each mission path gets a fourth stop, **Talk**, and the mission's completion screen offers **Try it in a live call** (`/call/:mission`, `lib/features/call/`). Nothing starts until the learner taps **Call** (a call costs model calls): the phone rings, then the mission's character picks up through `/v1/ai/conversation/session` (mission scope: its goals and scene) and speaks their opening line. The caller is the art roster's clay portrait (`assets/characters`, mapped from the server's `characters.id`, a UUIDv5 of the roster id) in the mission's animated scene: their mouth follows the voice's level (`talking` ↔ `lip_sync` frames, the level read from Web Audio), rings swell with the voice, the expression changes with each line (greeting, follow-up question, confusion…) and a small reaction floats up. Subtitles highlight the words as the voice reaches them; **Translate** shows the server's gloss. The learner answers by voice (tap to talk, tap to send: the take goes inline to `/turn`, the server transcribes it and the bubble shows what it heard) or in writing; **Hint**, **Slower** and **Translate** are the API's commands, **Repeat** replays the line on the device. Goals tick off as the server counts them (dots, when the mission's goals have no description in the learner's language). Turns are replay-safe (same `clientTurnId` on retry, 409 `turn_in_progress` waited out). **Hang up** shows the server's evaluation: goals met, its summary, at most two corrections ("Next time, try"), XP; without an evaluator nothing is claimed. Without a recorder (or for a text-only course) the call is a written chat. |
 | Your data | Settings › Account › **Export my data** downloads the server's JSON bundle (`GET /v1/me/export`; web only for now — native needs a file/share plugin). **Delete my account** asks for a typed confirmation word, calls `DELETE /v1/me`, and signs out only once the server has answered (`deleted` / `scheduled`, shown as such); progress on the device stays until the learner resets it. |
 
 Server ids are computed offline: missions and expressions are UUIDv5 of their curriculum keys
@@ -137,57 +138,18 @@ docker build -t langquest-web . && docker run --rm --network host -e PORT=8090 \
 | Practise saying | Once a mission's Learn stop is done, its path offers **Practise saying the phrases** (`/speak/:mission`, where the device can record): each taught phrase big, with Listen / Slowly and Record yourself → My voice — the *listen / record / compare* coach of ADR-006, the offline counterpart of the Expo app's pronunciation coach. No score (no acoustic assessor) and no XP. |
 | Voice | The phone's synthesizer, only when the device has a voice for the course's **exact** locale (`es-ES` never falls back to a Latin American voice). Colloquial Arabic gets no device voice at all: phone Arabic voices speak MSA, which must never stand in for Darija (ADR-006, variety boundaries). Without a voice, listen buttons are not shown. |
 
-Not shown, because nothing real backs them in an offline build (hidden rather than faked, as the Expo app hides tabs
-per course capability): the **Talk** stop and **Speak** tab (live AI conversation), the **Audio** tab and mini player
-(no licensed audio library), any waveform or pronunciation score (ADR-006), and recording in the native builds (no
-recorder plugin yet).
-
-## Content
-
-`assets/content/catalog.json` and `assets/content/chapters.json` are **generated** — never edit them by hand:
-
-```bash
-pnpm --filter @langquest/scripts export-flutter-content          # rewrite the bundle
-pnpm --filter @langquest/scripts export-flutter-content -- --check
-```
-
-The exporter (`scripts/src/export-flutter-content.ts`) reads `@langquest/contracts` (tracks, varieties),
-`@langquest/ui/art/web` (cover hues for the course accent), the French locale catalog (French course names) and
-`@langquest/curriculum` (`DRAFT_CHAPTERS`). Expression ids are the curriculum seed ids
-(`<chapter>:<mission>:<expression>`), so on-device review cards can later be mapped to the API's.
-`scripts/src/export-flutter-content.test.ts` fails CI when the bundle is stale.
-
-Every bundled chapter is an AI draft (`nativeReviewed: false`); the app says so before enrolling and on the pathway.
-Code-switch and pronunciation notes exist in English only in the curriculum, so they are shown only to learners
-taught from English.
-
-## Layout
-
-```
-lib/
-  main.dart                     bootstrap: content bundle + saved state, bundled fonts, licenses, en/fr
-  l10n/                         app_en.arb, app_fr.arb (gen-l10n → l10n/generated/)
-  navigation/                   go_router: first-run redirect, Home/Missions/Progress shell, learn routes
-  core/content/                 bundle model + loader (Course = track × instruction language)
-  core/learning/                FSRS scheduler port, web-safe FNV-1a / mulberry32
-  core/services/                learner state (JSON v1, SharedPreferences), app state notifier, speech
-  core/theme/                   Night Market tokens, theme-aware glass, course accent (contrast-checked labels), Material theme
-  core/layout/                  phone frame for the web build in wide windows
-  features/learn/               learn plans (pure) + scene, cards, practice, mission path screens
-  features/…                    home, missions, mission player, review, progress, catalog, course page, settings, onboarding
-assets/content/                 generated content bundle
-assets/fonts/                   Outfit + Inter (OFL), bundled: no runtime font downloads
-assets/fonts/scripts/           Noto Sans subsets for other scripts (tool/subset_fonts.py, OFL-NotoSans*.txt)
-web/                            index.html (splash until the first frame), flutter_bootstrap.js, sw.js (offline), manifest, icons
-deploy/Caddyfile, config.json  static server config for the root Dockerfile; the account settings template
-```
+Not shown, because nothing real backs them (hidden rather than faked, as the Expo app hides tabs per course
+capability): the **Speak** tab (free conversation outside a mission), the **Audio** tab and mini player (no audio
+library published on the server), any pronunciation score (ADR-006: answers are checked for meaning only), and
+recording in the native builds (no recorder plugin yet). The Talk stop shows only for a signed-in learner whose course
+has live conversation on the server.
 
 ## Next steps
 
 1. **API wiring, continued** — sign-in, courses, mission completion, export, account deletion, email confirmation
    and password reset are wired (above; the instance must accept the web origin as a redirect and send email). Next:
    the course manifest instead of the bundle when online, reviews from the server once missions are credited.
-2. **Talk stop and Speak tab** — live conversation through the API's conversation routes, shown per course capability.
+2. **Speak tab** — free conversation outside missions (`scope: free`), and the course's characters to choose from.
 3. **Recording, continued** — record and compare works in the web app, and signed-in takes are checked by the
    server (meaning, never a score). Next: a recorder in the iOS and Android builds (a recorder plugin and the
    microphone permission strings).

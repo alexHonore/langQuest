@@ -1651,6 +1651,324 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Listen, record yourself: LangQuest tells you whether what you said came across. That is about meaning; there is no pronunciation score.'**
   String get practiseSayingNoteChecked;
+
+  /// No description provided for @callIntroTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise it in a real conversation'**
+  String get callIntroTitle;
+
+  /// No description provided for @callIntroBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Someone from this mission picks up and talks with you in the language you’re learning. Answer out loud, or type. When you hang up, LangQuest tells you how it went.'**
+  String get callIntroBody;
+
+  /// No description provided for @callIntroBodyText.
+  ///
+  /// In en, this message translates to:
+  /// **'Someone from this mission chats with you in the language you’re learning. When you end the chat, LangQuest tells you how it went.'**
+  String get callIntroBodyText;
+
+  /// No description provided for @callIntroNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Uses LangQuest’s AI. Your recordings aren’t kept.'**
+  String get callIntroNote;
+
+  /// No description provided for @callIntroNoteKept.
+  ///
+  /// In en, this message translates to:
+  /// **'Uses LangQuest’s AI. Recordings are kept as your privacy settings allow.'**
+  String get callIntroNoteKept;
+
+  /// No description provided for @callStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Call'**
+  String get callStart;
+
+  /// No description provided for @callStartText.
+  ///
+  /// In en, this message translates to:
+  /// **'Start the chat'**
+  String get callStartText;
+
+  /// No description provided for @callCalling.
+  ///
+  /// In en, this message translates to:
+  /// **'Calling…'**
+  String get callCalling;
+
+  /// No description provided for @callFailedUnavailable.
+  ///
+  /// In en, this message translates to:
+  /// **'Live calls aren’t available for this course yet.'**
+  String get callFailedUnavailable;
+
+  /// No description provided for @callFailedNetwork.
+  ///
+  /// In en, this message translates to:
+  /// **'The call didn’t go through. Check your connection and try again.'**
+  String get callFailedNetwork;
+
+  /// No description provided for @callFailedEnded.
+  ///
+  /// In en, this message translates to:
+  /// **'This call has ended.'**
+  String get callFailedEnded;
+
+  /// No description provided for @callTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get callTryAgain;
+
+  /// No description provided for @callSpeaking.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} is speaking'**
+  String callSpeaking(String name);
+
+  /// No description provided for @callThinking.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} is thinking…'**
+  String callThinking(String name);
+
+  /// No description provided for @callListening.
+  ///
+  /// In en, this message translates to:
+  /// **'Listening to you…'**
+  String get callListening;
+
+  /// No description provided for @callYourTurnVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Your turn: tap the microphone and answer'**
+  String get callYourTurnVoice;
+
+  /// No description provided for @callYourTurnText.
+  ///
+  /// In en, this message translates to:
+  /// **'Your turn: type your answer'**
+  String get callYourTurnText;
+
+  /// No description provided for @callTalk.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk'**
+  String get callTalk;
+
+  /// No description provided for @callSend.
+  ///
+  /// In en, this message translates to:
+  /// **'Send'**
+  String get callSend;
+
+  /// No description provided for @callCancelTake.
+  ///
+  /// In en, this message translates to:
+  /// **'Cancel'**
+  String get callCancelTake;
+
+  /// No description provided for @callType.
+  ///
+  /// In en, this message translates to:
+  /// **'Type instead'**
+  String get callType;
+
+  /// No description provided for @callTypeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Write your answer…'**
+  String get callTypeHint;
+
+  /// No description provided for @callHangUp.
+  ///
+  /// In en, this message translates to:
+  /// **'Hang up'**
+  String get callHangUp;
+
+  /// No description provided for @callEndChat.
+  ///
+  /// In en, this message translates to:
+  /// **'End the chat'**
+  String get callEndChat;
+
+  /// No description provided for @callHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Hint'**
+  String get callHint;
+
+  /// No description provided for @callRepeat.
+  ///
+  /// In en, this message translates to:
+  /// **'Repeat'**
+  String get callRepeat;
+
+  /// No description provided for @callSlower.
+  ///
+  /// In en, this message translates to:
+  /// **'Slower'**
+  String get callSlower;
+
+  /// No description provided for @callTranslate.
+  ///
+  /// In en, this message translates to:
+  /// **'Translate'**
+  String get callTranslate;
+
+  /// No description provided for @callGoals.
+  ///
+  /// In en, this message translates to:
+  /// **'Goals'**
+  String get callGoals;
+
+  /// No description provided for @callGoalDone.
+  ///
+  /// In en, this message translates to:
+  /// **'{goal}: done'**
+  String callGoalDone(String goal);
+
+  /// No description provided for @callGoalProbably.
+  ///
+  /// In en, this message translates to:
+  /// **'{goal}: probably done'**
+  String callGoalProbably(String goal);
+
+  /// No description provided for @callGoalNotYet.
+  ///
+  /// In en, this message translates to:
+  /// **'{goal}: not yet'**
+  String callGoalNotYet(String goal);
+
+  /// No description provided for @callNoSpeech.
+  ///
+  /// In en, this message translates to:
+  /// **'I didn’t hear anything. Try again, a little closer to the microphone.'**
+  String get callNoSpeech;
+
+  /// No description provided for @callTurnFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'That didn’t go through. Try again.'**
+  String get callTurnFailed;
+
+  /// No description provided for @callSaidGoodbye.
+  ///
+  /// In en, this message translates to:
+  /// **'{name} said goodbye. Hang up to see how it went.'**
+  String callSaidGoodbye(String name);
+
+  /// No description provided for @callEnding.
+  ///
+  /// In en, this message translates to:
+  /// **'Hanging up… LangQuest is looking at how it went.'**
+  String get callEnding;
+
+  /// No description provided for @callEndedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Call ended'**
+  String get callEndedTitle;
+
+  /// No description provided for @callChatEndedTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Chat ended'**
+  String get callChatEndedTitle;
+
+  /// No description provided for @callGoalsMet.
+  ///
+  /// In en, this message translates to:
+  /// **'Goals met: {met} of {total}'**
+  String callGoalsMet(int met, int total);
+
+  /// No description provided for @callNextTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Next time, try'**
+  String get callNextTime;
+
+  /// No description provided for @callYouSaid.
+  ///
+  /// In en, this message translates to:
+  /// **'You said: “{text}”'**
+  String callYouSaid(String text);
+
+  /// No description provided for @callNotEvaluated.
+  ///
+  /// In en, this message translates to:
+  /// **'LangQuest couldn’t evaluate this call, so nothing was counted.'**
+  String get callNotEvaluated;
+
+  /// No description provided for @callAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Call again'**
+  String get callAgain;
+
+  /// No description provided for @callYou.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get callYou;
+
+  /// No description provided for @callReplayLine.
+  ///
+  /// In en, this message translates to:
+  /// **'Play this line again'**
+  String get callReplayLine;
+
+  /// No description provided for @callHeardYou.
+  ///
+  /// In en, this message translates to:
+  /// **'Hearing you…'**
+  String get callHeardYou;
+
+  /// No description provided for @pathTalkSubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'A live call: use what you learned, out loud'**
+  String get pathTalkSubtitle;
+
+  /// No description provided for @pathTalkSubtitleText.
+  ///
+  /// In en, this message translates to:
+  /// **'A live chat: use what you learned'**
+  String get pathTalkSubtitleText;
+
+  /// No description provided for @missionTryLiveCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Try it in a live call'**
+  String get missionTryLiveCall;
+
+  /// No description provided for @courseIncludesLiveCalls.
+  ///
+  /// In en, this message translates to:
+  /// **'Live calls with {count, plural, =1{the course’s AI character} other{{count} AI characters}}, by voice or in writing (with a free account)'**
+  String courseIncludesLiveCalls(int count);
+
+  /// No description provided for @courseIncludesSpokenCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Your spoken answers checked: LangQuest tells you whether you were understood (with a free account)'**
+  String get courseIncludesSpokenCheck;
+
+  /// No description provided for @courseMissingPronunciationScore.
+  ///
+  /// In en, this message translates to:
+  /// **'A pronunciation score: spoken answers are checked for meaning, not accent'**
+  String get courseMissingPronunciationScore;
+
+  /// No description provided for @courseLimitedForDialect.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech recognition and AI voices are still limited for this dialect (not yet reviewed by native speakers)'**
+  String get courseLimitedForDialect;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

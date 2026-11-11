@@ -244,3 +244,16 @@ mission's id as `scenarioId`; verdict **Understood!**, *I heard: "Hola, buenos d
 tal?") with the same audio: **Not quite**, *I heard: "Hola, buenos días."*. 0 page errors. Verdicts are about meaning
 (the course's scorer is reference comparison: no number is shown). `flutter test`: 132 passed (verdict mapping, the
 request's ids and encoding, capability snapshots, the widget states, a mission walked with checked replies).
+
+### Live call with a mission's character (follow-up, 2026-11-11)
+
+Release build, test learner, live Worker (CORS added by a test route), Chromium fake microphone saying "Hola, buenos
+días.": the path of *Greet and introduce yourself* showed the Talk stop; **Call** → Pablo (the server's character for
+the mission; his roster portrait) picked up in 6.4 s with "¡Buenos días! Voy con prisa, pero ¿qué tal estás?" (voice,
+gloss, `greeting`); the spoken turn was heard as "Hola, buenos días." and answered with a follow-up question (6.2 s);
+**Hint** answered with an example and an English explanation; **Hang up** showed the evaluation (+4 XP, goals met 1 of 5,
+one correction: "Bien, ¿y tú?") after 17 s. 0 page errors. The mission's five goals came with empty descriptions (the
+seeded goals have no English description), so the app shows them as progress dots and lists none by name.
+`flutter test`: 153 passed (session, turns, retries, no-speech, commands, end and failures against a fake API; the call
+screen walked by voice and in writing, at 200 % text, with Flutter's tap-target and label guidelines; portraits
+byte-identical to the art roster).

@@ -5,6 +5,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../core/services/app_state.dart';
 import '../core/theme/glass.dart';
+import '../features/call/call_screen.dart';
 import '../features/account/account_screen.dart';
 import '../features/catalog/catalog_screen.dart';
 import '../features/catalog/course_detail_screen.dart';
@@ -87,6 +88,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       page('/learn/:id/practice', (s) => PracticeScreen(missionKey: s.pathParameters['id']!)),
       page('/mission/:id', (s) => MissionPlayerScreen(missionKey: s.pathParameters['id']!)),
       page('/speak/:id', (s) => PractiseSayingScreen(missionKey: s.pathParameters['id']!)),
+      page('/call/:id', (s) => CallScreen(missionKey: s.pathParameters['id']!)),
       page('/warmup', (_) => const WarmupScreen()),
       page('/review', (_) => const ReviewScreen()),
       page('/account', (_) => const AccountScreen()),

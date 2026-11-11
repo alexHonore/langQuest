@@ -322,6 +322,7 @@ void main() {
       '/learn/ja_greet_and_introduce/practice',
       '/mission/ja_greet_and_introduce',
       '/speak/ja_greet_and_introduce',
+      '/call/ja_greet_and_introduce',
       '/review',
       '/warmup',
     ]) {
