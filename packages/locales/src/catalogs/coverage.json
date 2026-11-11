@@ -16,14 +16,11 @@
     "errors",
     "mascot",
     "admin",
-    "legal"
+    "legal",
+    "curriculum"
   ],
-  "sections": [
-    "admin.ui",
-    "catalog.cover",
-    "audio.listen"
-  ],
-  "keyCount": 1571,
+  "sections": ["admin.ui", "catalog.cover", "audio.listen"],
+  "keyCount": 1604,
   "locales": {
     "en": {
       "status": "complete",
@@ -43,15 +40,12 @@
         "errors",
         "mascot",
         "admin",
-        "legal"
+        "legal",
+        "curriculum"
       ],
       "usable": true,
-      "sections": [
-        "admin.ui",
-        "catalog.cover",
-        "audio.listen"
-      ],
-      "keyCount": 1571,
+      "sections": ["admin.ui", "catalog.cover", "audio.listen"],
+      "keyCount": 1604,
       "pct": 100
     },
     "fr": {
@@ -72,40 +66,29 @@
         "errors",
         "mascot",
         "admin",
-        "legal"
+        "legal",
+        "curriculum"
       ],
       "usable": true,
-      "sections": [
-        "admin.ui",
-        "catalog.cover",
-        "audio.listen"
-      ],
-      "keyCount": 1571,
+      "sections": ["admin.ui", "catalog.cover", "audio.listen"],
+      "keyCount": 1604,
       "pct": 100
     },
     "es": {
       "status": "partial",
-      "namespaces": [
-        "common",
-        "onboarding",
-        "enrollment"
-      ],
+      "namespaces": ["common", "onboarding", "enrollment"],
       "usable": true,
       "sections": [],
       "keyCount": 192,
-      "pct": 12.22
+      "pct": 11.97
     },
     "ru": {
       "status": "partial",
-      "namespaces": [
-        "common",
-        "onboarding",
-        "enrollment"
-      ],
+      "namespaces": ["common", "onboarding", "enrollment"],
       "usable": true,
       "sections": [],
       "keyCount": 192,
-      "pct": 12.22
+      "pct": 11.97
     }
   }
 }
