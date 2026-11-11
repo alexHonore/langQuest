@@ -180,9 +180,11 @@ class _MeloAnimatedState extends State<_MeloAnimated> with TickerProviderStateMi
         final double jumpY = -math.sin(_jumpController.value * math.pi) * 14.0;
         final double tongueFlick = math.sin(_jumpController.value * math.pi);
 
+        // Decorative unless the caller gives Melo something to do: no unnamed "button" for screen readers.
         Widget melo = Transform.translate(
           offset: Offset(0, jumpY),
           child: GestureDetector(
+            excludeFromSemantics: widget.onTap == null,
             onTap: _handleTap,
             child: CustomPaint(
               size: Size(widget.size, widget.size),

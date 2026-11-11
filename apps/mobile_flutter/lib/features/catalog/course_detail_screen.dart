@@ -202,12 +202,14 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                   icon: LucideIcons.chevronRight,
                   onPressed: () {
                     final notifier = ref.read(appStateProvider.notifier);
+                    // The very first course ends the first run with a warm-up phrase; later ones open Home.
+                    final firstCourse = !ref.read(appStateProvider).hasEnrollment;
                     if (enrolled) {
                       notifier.switchCourse(course.id);
                     } else {
                       notifier.enroll(track.id, course.source);
                     }
-                    context.go('/');
+                    context.go(firstCourse ? '/warmup' : '/');
                   },
                 ),
               ),

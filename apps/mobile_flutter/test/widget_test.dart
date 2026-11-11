@@ -76,6 +76,11 @@ void main() {
 
     await tapText(t, 'Start this course');
     expect(containerOf(t).read(appStateProvider).activeCourse?.id, 'spanish-spain|en');
+    // The first run ends with a warm-up: the course's first phrase, unscored.
+    expect(find.text('Try your first phrase'), findsOneWidget);
+    expect(find.text('Hola, buenos días.'), findsOneWidget);
+    expect(find.text('Hello, good morning.'), findsOneWidget);
+    await tapText(t, 'Start learning');
     expect(find.text('Greet and introduce yourself'), findsWidgets);
     expect(find.text('Start: Learn'), findsOneWidget);
     // Only tabs backed by something real: no Audio, no Speak.
@@ -183,6 +188,20 @@ void main() {
     });
   }
 
+  testWidgets('a second course opens Home directly: the warm-up belongs to the first run', (t) async {
+    usePhone(t);
+    await t.pumpWidget(await testApp());
+    await settle(t);
+    containerOf(t).read(appStateProvider.notifier).enroll('spanish-spain', 'en');
+    await settle(t);
+    containerOf(t).read(appRouterProvider).go('/course/japanese');
+    await settle(t);
+    await tapText(t, 'Start this course');
+    expect(containerOf(t).read(appStateProvider).activeCourse?.id, 'japanese|en');
+    expect(find.text('Try your first phrase'), findsNothing);
+    expect(find.text('Start: Learn'), findsOneWidget);
+  });
+
   testWidgets('a locked mission says what to finish first', (t) async {
     usePhone(t);
     await t.pumpWidget(await testApp());
@@ -207,6 +226,11 @@ void main() {
     await tapText(t, 'Arabe (marocain)');
     await t.scrollUntilVisible(find.textContaining('Une voix pour ce dialecte'), 200, scrollable: find.byType(Scrollable).first);
     await tapText(t, 'Commencer ce cours');
+    // The warm-up phrase, in French, without voice controls (no Darija voice).
+    expect(find.text('Essayez votre première phrase'), findsOneWidget);
+    expect(find.text('Écouter'), findsNothing);
+    expect(find.text('Dites-la à voix haute. Rien n’est noté ici.'), findsOneWidget, reason: 'no "listen" without a voice');
+    await tapText(t, 'Commencer à apprendre');
     expect(find.text('Commencer : Apprendre'), findsOneWidget);
     await tapText(t, 'Commencer : Apprendre');
     await tapText(t, 'Commencer : Apprendre');
@@ -297,7 +321,9 @@ void main() {
       '/learn/ja_greet_and_introduce/cards',
       '/learn/ja_greet_and_introduce/practice',
       '/mission/ja_greet_and_introduce',
+      '/speak/ja_greet_and_introduce',
       '/review',
+      '/warmup',
     ]) {
       await visit(route);
     }
