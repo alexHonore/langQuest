@@ -298,3 +298,20 @@ the fake microphone saying «السلام عليكم» (the server's own voice):
 listed Nadia, Omar, Salma, Youssef; a call with Nadia opened with «صباح الخير! مرحبا بيك. شنو بغيتي تشرب؟» (heard
 3.8 s), the learner's «السلام عليكم» was heard and answered («وعليكم السلام! لاباس عليك؟ …»), +2 XP on hanging up. 0
 page errors. Arabic lines in calls now run right to left with the script's fonts. `flutter test`: 170 passed.
+
+### Call goals by name, and "What you can do" (follow-up, 2026-11-11)
+
+Goals: the locale catalogs now word the seeded missions' goals (`curriculum.objective.<blueprint>.<goal>`, English and
+French, merged as #22) and the API Worker was redeployed. Live, test learner, "Greet and introduce yourself" (Spanish
+from English): `POST /v1/ai/conversation/session` returned the goals "Say hello", "Ask how they are, and answer", "Say
+your name", "Ask their name", "Say goodbye"; on web-languest.tayoo.app the call showed them as chips and the summary as
+"Goals met: 0 of 5" with each goal listed. That call was hung up at once, which showed the server's summary of the
+character's lines and "couldn't evaluate": such a call now shows "You hung up before answering, so there was nothing to
+evaluate" instead, and credits nothing.
+
+What you can do: Progress lists the skills the server measured (`GET /v1/me/skills`), named from the bundle's new
+`skills.json` (exported from `packages/locales` `progress.skill.*`, 62 skills, English and French). Live, local build
+against the live Worker, signed out: no section; signed in as the test learner on Spanish: "Be understood when
+speaking: Independent, step 3 of 4, 6 observations", "Respond to a greeting: Independent, 3", "Introduce yourself:
+Practised, 1", "Greet someone politely: Emerging, 1" (one `GET /v1/me/skills`, 0 page errors); **How this is
+measured** opened on the four levels. `flutter test`: 182 passed; scripts `export-flutter-content` tests: 8 passed.

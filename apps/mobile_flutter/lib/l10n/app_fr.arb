@@ -362,5 +362,22 @@
   "progressUnderstood": "Prises comprises (vérifiées par LangQuest)",
   "progressCalls": "Appels en direct",
   "progressCallsValue": "{calls} · {minutes} min",
-  "progressLessons": "Leçons audio écoutées jusqu’au bout"
+  "progressLessons": "Leçons audio écoutées jusqu’au bout",
+  "progressCanDoTitle": "Ce que vous savez faire",
+  "progressCanDoNote": "Mesuré par LangQuest à partir de vos réponses à voix haute, de vos missions et de vos appels.",
+  "progressCanDoEmpty": "Rien de mesuré pour l’instant. Répondez à voix haute dans une mission ou appelez un personnage : ce que vous savez faire apparaîtra ici.",
+  "progressCanDoFailed": "Impossible de charger ce que vous savez faire.",
+  "masteryEmerging": "En émergence",
+  "masteryPracticed": "Pratiqué",
+  "masteryIndependent": "Autonome",
+  "masteryDurable": "Acquis durablement",
+  "masteryHintEmerging": "Vous l’avez essayé avec de l’aide.",
+  "masteryHintPracticed": "Vous y arrivez avec quelques indices.",
+  "masteryHintIndependent": "Vous l’avez fait sans aide en conversation.",
+  "masteryHintDurable": "Vous l’avez fait sans aide plusieurs fois, sur plusieurs semaines.",
+  "progressEvidenceCount": "{count, plural, =1{1 observation} other{{count} observations}}",
+  "progressSkillLabel": "{skill} : {level}, étape {step} sur 4, {evidence}",
+  "progressHowMeasured": "Comment c’est mesuré",
+  "progressHowMeasuredNote": "Chaque niveau repose sur ce que LangQuest a observé, et sur la fréquence et la date des observations. Moins d’observations, moins de certitude. Les niveaux du CECR (A1, A2…) décrivent la compétence, pas votre niveau : ce n’est pas un certificat.",
+  "callNothingSaid": "Vous avez raccroché avant de répondre : il n’y avait rien à évaluer. Rappelez quand vous voulez."
 }

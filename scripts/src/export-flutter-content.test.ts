@@ -1,14 +1,15 @@
 /**
  * export-flutter-content: the checked-in Flutter bundle matches a fresh export (so a curriculum edit without a
  * re-export fails here), every track has names, a cover and a native name, colloquial Arabic never gets a device
- * voice, and every exported expression keeps its seed id and draft honesty. Offline: reads source files only.
+ * voice, every exported expression keeps its seed id and draft honesty, and every skill the API may report has an
+ * English and a French name. Offline: reads source files only.
  */
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { COURSE_TRACKS, LANGUAGE_VARIETIES } from '@langquest/contracts';
-import { DRAFT_CHAPTERS } from '@langquest/curriculum';
+import { ALL_SKILL_KEYS, DRAFT_CHAPTERS } from '@langquest/curriculum';
 import { describe, expect, it } from 'vitest';
-import { BUNDLE_DIR, NATIVE_TRACK_NAMES, buildFlutterBundle, frenchTrackName, main, spec } from './export-flutter-content';
+import { BUNDLE_DIR, NATIVE_TRACK_NAMES, buildFlutterBundle, frenchTrackName, main, skillName, spec } from './export-flutter-content';
 import { memoryIo, runCli } from './lib/cli';
 import { repoRoot } from './lib/io';
 
@@ -20,6 +21,7 @@ const catalog = JSON.parse(files['catalog.json']!) as {
 const chapters = JSON.parse(files['chapters.json']!) as {
   chapters: { key: string; nativeReviewed: boolean; missions: { key: string; situation: string; slots: unknown[]; expressions: { id: string; text: string; meanings: Record<string, { meaning: string }> }[] }[] }[];
 };
+const skills = JSON.parse(files['skills.json']!) as { skills: { key: string; cefr: string; names: { en: string; fr: string }; system: boolean }[] };
 
 describe('export-flutter-content', () => {
   it('the checked-in bundle is current (regenerate with `pnpm --filter @langquest/scripts export-flutter-content`)', () => {
@@ -73,5 +75,23 @@ describe('export-flutter-content', () => {
 
   it('refuses a catalog without a parsable French name', () => {
     expect(() => frenchTrackName({ catalog: { cover: {} } }, 'japanese')).toThrow(/no French course name/);
+  });
+
+  it('exports every skill the API may report, with its CEFR band and English and French names', () => {
+    expect(skills.skills.map((s) => s.key)).toEqual([...ALL_SKILL_KEYS]);
+    for (const s of skills.skills) {
+      expect(s.cefr, s.key).toMatch(/^[ABC][12]$/);
+      expect(s.names.en.length, s.key).toBeGreaterThan(1);
+      expect(s.names.fr.length, s.key).toBeGreaterThan(1);
+    }
+    const byKey = new Map(skills.skills.map((s) => [s.key, s]));
+    expect(byKey.get('greet_politely')?.names).toEqual({ en: 'Greet someone politely', fr: 'Saluer poliment' });
+    expect(byKey.get('speaking.intelligibility')).toMatchObject({ system: true, names: { en: 'Be understood when speaking' } });
+    expect(byKey.get('greet_politely')?.system).toBe(false);
+  });
+
+  it('refuses a skill without a learner-facing name (dotted keys nest)', () => {
+    expect(skillName({ progress: { skill: { speaking: { intelligibility: 'Be understood' } } } }, 'speaking.intelligibility')).toBe('Be understood');
+    expect(() => skillName({ progress: { skill: {} } }, 'greet_politely')).toThrow(/no learner-facing name for skill greet_politely/);
   });
 });

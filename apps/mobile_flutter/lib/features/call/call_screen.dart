@@ -188,14 +188,19 @@ class _CallScreenState extends ConsumerState<CallScreen> {
     if (session.phase == CallPhase.ended || session.phase == CallPhase.failed) {
       _clock?.cancel();
       final missionKey = widget.missionKey;
-      if (session.phase == CallPhase.ended && !_credited && session.learnerTurns > 0) {
+      if (session.phase == CallPhase.ended && !_credited) {
         _credited = true;
         final notifier = ref.read(appStateProvider.notifier);
-        if (missionKey != null) notifier.completeStop(missionKey, PathStop.talk);
-        // The XP the server awarded for the call counts in the learner's total, as the summary says.
-        notifier.addServerXp(session.summary?.xp ?? 0);
-        final courseId = ref.read(appStateProvider).activeCourse?.id;
-        if (courseId != null) ref.read(speakingStatsProvider.notifier).recordCall(courseId, _elapsed);
+        // The XP the server awarded for the call counts in the learner's total, as the summary says (a call where the
+        // learner only asked for help can earn some too).
+        final xp = session.summary?.xp ?? 0;
+        if (xp > 0) notifier.addServerXp(xp);
+        // The Talk stop and the call statistics need the learner to have said something.
+        if (session.learnerTurns > 0) {
+          if (missionKey != null) notifier.completeStop(missionKey, PathStop.talk);
+          final courseId = ref.read(appStateProvider).activeCourse?.id;
+          if (courseId != null) ref.read(speakingStatsProvider.notifier).recordCall(courseId, _elapsed);
+        }
       }
     }
     setState(() {});
@@ -976,6 +981,8 @@ class _SummaryView extends ConsumerWidget {
     }
 
     final celebrate = summary != null && (summary.objectivesMet.isNotEmpty || summary.xp > 0);
+    // Hung up without a word (nor a request for help the server credited): nothing was evaluated.
+    final silent = session.learnerTurns == 0 && (summary?.xp ?? 0) == 0;
     final view = Column(
       children: [
         Expanded(
@@ -1050,7 +1057,17 @@ class _SummaryView extends ConsumerWidget {
                     ),
                   ),
                 ),
-              if (summary != null && summary.summary.isNotEmpty) ...[
+              // Hung up before saying anything: the server's summary would describe only the character's lines.
+              if (silent) ...[
+                const SizedBox(height: 12),
+                enter(
+                  Text(
+                    l10n.callNothingSaid,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14, height: 1.45, color: colors.textSecondary),
+                  ),
+                ),
+              ] else if (summary != null && summary.summary.isNotEmpty) ...[
                 const SizedBox(height: 12),
                 enter(
                   Container(
@@ -1102,7 +1119,7 @@ class _SummaryView extends ConsumerWidget {
                     ),
                   ),
               ],
-              if (summary == null || !summary.evaluated) ...[
+              if (!silent && (summary == null || !summary.evaluated)) ...[
                 const SizedBox(height: 12),
                 Text(
                   l10n.callNotEvaluated,

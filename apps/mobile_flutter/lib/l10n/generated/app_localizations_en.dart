@@ -1233,4 +1233,61 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get progressLessons => 'Audio lessons heard to the end';
+
+  @override
+  String get progressCanDoTitle => 'What you can do';
+
+  @override
+  String get progressCanDoNote => 'Measured by LangQuest from your spoken answers, missions and live calls.';
+
+  @override
+  String get progressCanDoEmpty => 'Nothing measured yet. Answer out loud in a mission or call a character: what you can do appears here.';
+
+  @override
+  String get progressCanDoFailed => 'Couldn’t load what you can do.';
+
+  @override
+  String get masteryEmerging => 'Emerging';
+
+  @override
+  String get masteryPracticed => 'Practised';
+
+  @override
+  String get masteryIndependent => 'Independent';
+
+  @override
+  String get masteryDurable => 'Durable';
+
+  @override
+  String get masteryHintEmerging => 'You have tried it with help.';
+
+  @override
+  String get masteryHintPracticed => 'You can do it with occasional hints.';
+
+  @override
+  String get masteryHintIndependent => 'You did it on your own in conversation.';
+
+  @override
+  String get masteryHintDurable => 'You have done it on your own several times, over weeks.';
+
+  @override
+  String progressEvidenceCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count observations', one: '1 observation');
+    return '$_temp0';
+  }
+
+  @override
+  String progressSkillLabel(String skill, String level, int step, String evidence) {
+    return '$skill: $level, step $step of 4, $evidence';
+  }
+
+  @override
+  String get progressHowMeasured => 'How this is measured';
+
+  @override
+  String get progressHowMeasuredNote =>
+      'Each level rests on what LangQuest observed, and on how often and how recently. Fewer observations means less certainty. CEFR bands (A1, A2…) describe the skill, not your level: this is not a certificate.';
+
+  @override
+  String get callNothingSaid => 'You hung up before answering, so there was nothing to evaluate. Call again when you’re ready.';
 }
