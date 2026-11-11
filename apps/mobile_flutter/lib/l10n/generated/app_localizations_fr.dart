@@ -531,7 +531,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get resetAllTitle => 'Tout réinitialiser ?';
 
   @override
-  String get resetAllBody => 'Tous les cours, révisions et XP de cet appareil sont supprimés.';
+  String get resetAllBody => 'Tous les cours, révisions, XP et appels de cet appareil sont supprimés.';
 
   @override
   String get resetConfirm => 'Réinitialiser';
@@ -1305,4 +1305,48 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get callNothingSaid => 'Vous avez raccroché avant de répondre : il n’y avait rien à évaluer. Rappelez quand vous voulez.';
+
+  @override
+  String get callPhrasesTitle => 'Des phrases qui peuvent servir';
+
+  @override
+  String get callPhrases => 'Phrases';
+
+  @override
+  String get speakRecentCalls => 'Appels récents';
+
+  @override
+  String speakRecordLabel(String name, String date, String duration) {
+    return 'Appel avec $name, $date, $duration';
+  }
+
+  @override
+  String speakRecordCorrections(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count corrections', one: '1 correction');
+    return '$_temp0';
+  }
+
+  @override
+  String get callRecordConversation => 'La conversation';
+
+  @override
+  String get callRecordYou => 'Vous';
+
+  @override
+  String get callRecordKept => 'Gardé sur cet appareil seulement. « Tout réinitialiser » le supprime.';
+
+  @override
+  String get callRecordDelete => 'Supprimer cet appel';
+
+  @override
+  String get callRecordDeleteTitle => 'Supprimer cet appel ?';
+
+  @override
+  String get callRecordDeleteBody => 'Sa transcription et ses corrections sont supprimées de cet appareil.';
+
+  @override
+  String get callRecordDeleteConfirm => 'Supprimer';
+
+  @override
+  String get callRecordMissing => 'Cet appel n’est plus sur cet appareil.';
 }

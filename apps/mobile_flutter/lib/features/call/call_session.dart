@@ -191,6 +191,9 @@ class CallSession extends ChangeNotifier {
   bool _characterEnded = false;
   bool _disposed = false;
 
+  /// The server's id of the conversation (null before it picks up).
+  String? get sessionId => _sessionId;
+
   /// The learner's lines the server heard.
   int get learnerTurns => lines.where((l) => l.fromLearner && !l.pending && l.text != null).length;
 

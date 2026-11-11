@@ -378,7 +378,7 @@
   "yourDataBody": "Everything is saved on this device only. There is no account in this version.",
   "resetAll": "Reset all progress",
   "resetAllTitle": "Reset all progress?",
-  "resetAllBody": "All courses, reviews and XP on this device are deleted.",
+  "resetAllBody": "All courses, reviews, XP and calls on this device are deleted.",
   "resetConfirm": "Reset",
   "activeCourse": "Active",
   "openSourceLicenses": "Open-source licenses",
@@ -831,5 +831,38 @@
   },
   "progressHowMeasured": "How this is measured",
   "progressHowMeasuredNote": "Each level rests on what LangQuest observed, and on how often and how recently. Fewer observations means less certainty. CEFR bands (A1, A2…) describe the skill, not your level: this is not a certificate.",
-  "callNothingSaid": "You hung up before answering, so there was nothing to evaluate. Call again when you’re ready."
+  "callNothingSaid": "You hung up before answering, so there was nothing to evaluate. Call again when you’re ready.",
+  "callPhrasesTitle": "Phrases you might need",
+  "callPhrases": "Phrases",
+  "speakRecentCalls": "Recent calls",
+  "speakRecordLabel": "Call with {name}, {date}, {duration}",
+  "@speakRecordLabel": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      },
+      "duration": {
+        "type": "String"
+      }
+    }
+  },
+  "speakRecordCorrections": "{count, plural, =1{1 correction} other{{count} corrections}}",
+  "@speakRecordCorrections": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "callRecordConversation": "The conversation",
+  "callRecordYou": "You",
+  "callRecordKept": "Kept on this device only. “Reset all progress” deletes it.",
+  "callRecordDelete": "Delete this call",
+  "callRecordDeleteTitle": "Delete this call?",
+  "callRecordDeleteBody": "Its transcript and corrections are deleted from this device.",
+  "callRecordDeleteConfirm": "Delete",
+  "callRecordMissing": "This call is no longer on this device."
 }

@@ -8,12 +8,14 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../core/layout/motion.dart';
 import '../../core/services/app_state.dart';
 import '../../l10n/l10n.dart';
+import 'call_history.dart';
 import 'call_portrait.dart';
+import 'call_record_screen.dart';
 import 'call_screen.dart';
 
 /// The Speak tab: the course's characters (from the course manifest), each a tap away from a free call — by voice or
-/// in writing, outside any mission. Shown only when live calls back the active course (signed in, the server's
-/// snapshot says so).
+/// in writing, outside any mission — then the learner's recent calls on this device (their goals, corrections and
+/// transcript). Shown only when live calls back the active course (signed in, the server's snapshot says so).
 class SpeakScreen extends ConsumerWidget {
   const SpeakScreen({super.key});
 
@@ -22,6 +24,8 @@ class SpeakScreen extends ConsumerWidget {
     final colors = ref.watch(appStateProvider.select((s) => s.colors));
     final l10n = context.l10n;
     final characters = ref.watch(courseCharactersProvider);
+    final courseId = ref.watch(appStateProvider.select((s) => s.activeCourse?.id));
+    final calls = courseId == null ? const <CallRecord>[] : ref.watch(courseCallsProvider(courseId));
     return SafeArea(
       bottom: false,
       child: ListView(
@@ -55,6 +59,18 @@ class SpeakScreen extends ConsumerWidget {
                           .withMotion(context, (a) => a.fadeIn(delay: (70 * i).ms, duration: 260.ms).slideY(begin: 0.1, delay: (70 * i).ms, duration: 260.ms)),
                   ],
           ),
+          if (calls.isNotEmpty) ...[
+            const SizedBox(height: 18),
+            Semantics(
+              header: true,
+              child: Text(
+                l10n.speakRecentCalls,
+                style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: colors.textPrimary),
+              ),
+            ),
+            const SizedBox(height: 10),
+            for (final r in calls.take(10)) CallRecordTile(record: r),
+          ],
         ],
       ),
     );

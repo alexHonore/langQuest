@@ -7,6 +7,7 @@ import 'package:flutter/painting.dart' show TextDirection;
 import 'package:langquest_mobile/features/call/call_portrait.dart';
 import 'package:langquest_mobile/features/call/call_screen.dart' show directionOf;
 import 'package:langquest_mobile/features/call/call_session.dart';
+import 'package:langquest_mobile/features/scenes/scene_models.dart';
 
 import 'call_fakes.dart';
 import 'recording_fakes.dart';
@@ -193,6 +194,20 @@ void main() {
     expect(rosterIdFor('00000000-0000-4000-8000-000000000000'), isNull);
     expect(portraitAsset('es-es-schoolboy-pablo', 'confusion'), 'assets/characters/es-es-schoolboy-pablo.confusion.svg');
     expect(portraitAsset('es-es-schoolboy-pablo', 'shrug'), 'assets/characters/es-es-schoolboy-pablo.neutral.svg', reason: 'an unknown expression falls back');
+  });
+
+  test('a free call happens where the character works or lives, when their role says so', () {
+    expect(sceneForRoster('ary-cafe-staff-nadia'), SceneId.cafe);
+    expect(sceneForRoster('ary-neighbour-youssef'), SceneId.home);
+    expect(sceneForRoster('es-es-coworker-marta'), SceneId.office);
+    expect(sceneForRoster('es-es-retired-bus-driver-antonio'), SceneId.transit);
+    expect(sceneForRoster('ja-retired-stationmaster-kenji'), SceneId.station);
+    expect(sceneForRoster('en-retired-postwoman-margaret'), SceneId.street);
+    expect(sceneForRoster('es-es-schoolboy-pablo'), isNull, reason: 'no one place: the next mission\'s scene');
+    expect(sceneForRoster('ary-student-omar'), isNull);
+    for (final r in portraitRoster.where((r) => sceneForRoster(r) == null)) {
+      expect(r, matches(RegExp(r'-(schoolboy|schoolgirl|student)-')), reason: 'every other role has a place');
+    }
   });
 
   test('a line runs right to left when it is Arabic script; Arabizi and English stay left to right', () {

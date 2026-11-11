@@ -29,6 +29,7 @@ import '../learn/learn_widgets.dart';
 import '../learn/record_take.dart';
 import '../scenes/animated_scene.dart';
 import '../scenes/scene_models.dart';
+import 'call_history.dart';
 import 'call_portrait.dart';
 import 'call_session.dart';
 
@@ -195,11 +196,26 @@ class _CallScreenState extends ConsumerState<CallScreen> {
         // learner only asked for help can earn some too).
         final xp = session.summary?.xp ?? 0;
         if (xp > 0) notifier.addServerXp(xp);
-        // The Talk stop and the call statistics need the learner to have said something.
+        // The Talk stop, the call statistics and the call's record need the learner to have said something.
         if (session.learnerTurns > 0) {
           if (missionKey != null) notifier.completeStop(missionKey, PathStop.talk);
           final courseId = ref.read(appStateProvider).activeCourse?.id;
-          if (courseId != null) ref.read(speakingStatsProvider.notifier).recordCall(courseId, _elapsed);
+          if (courseId != null) {
+            ref.read(speakingStatsProvider.notifier).recordCall(courseId, _elapsed);
+            final plan = missionKey == null ? null : ref.read(learnPlanProvider(missionKey));
+            ref
+                .read(callHistoryProvider.notifier)
+                .add(
+                  CallRecord.fromSession(
+                    session,
+                    courseId: courseId,
+                    at: ref.read(clockProvider)(),
+                    seconds: _elapsed.inSeconds,
+                    missionKey: missionKey,
+                    title: plan?.mission.titleIn(plan.source) ?? '',
+                  ),
+                );
+          }
         }
       }
     }
@@ -405,11 +421,13 @@ class _CallScreenState extends ConsumerState<CallScreen> {
     final course = appState.activeCourse;
     if (course == null) return null;
     final who = ref.watch(courseCharactersProvider).asData?.value.where((c) => c.id == widget.characterId).firstOrNull;
-    // A free call happens where the learner's next mission does.
+    // A free call happens where the character works or lives (the café for café staff), else where the learner's next
+    // mission does.
     final next = appState.nextMission(course) ?? (course.missions.isEmpty ? null : course.missions.first);
+    final roster = widget.characterId == null ? null : rosterIdFor(widget.characterId!);
     return CallTopic(
       title: who?.name ?? '',
-      sceneId: sceneIdForSituation(next?.situation ?? 'street'),
+      sceneId: (roster == null ? null : sceneForRoster(roster)) ?? sceneIdForSituation(next?.situation ?? 'street'),
       track: course.track,
       characterId: widget.characterId,
       characterName: who?.name,
@@ -606,6 +624,36 @@ class _CallScreenState extends ConsumerState<CallScreen> {
     );
   }
 
+  /// The mission's phrases over the call, to peek at (text and meaning only: nothing plays over the call's audio).
+  void _showPhrases(MissionLearnPlan plan) {
+    final colors = ref.read(appStateProvider).colors;
+    final l10n = context.l10n;
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      showDragHandle: true,
+      backgroundColor: colors.background,
+      builder: (context) => ConstrainedBox(
+        constraints: BoxConstraints(maxHeight: MediaQuery.sizeOf(context).height * 0.75),
+        child: ListView(
+          shrinkWrap: true,
+          padding: const EdgeInsets.fromLTRB(16, 0, 16, 24),
+          children: [
+            Semantics(
+              header: true,
+              child: Text(
+                l10n.callPhrasesTitle,
+                style: TextStyle(fontSize: 17, fontWeight: FontWeight.w800, color: colors.textPrimary),
+              ),
+            ),
+            const SizedBox(height: 10),
+            CallPhrases(plan: plan, listen: false, limit: 12),
+          ],
+        ),
+      ),
+    );
+  }
+
   Widget _controls(CallSession session) {
     final appState = ref.watch(appStateProvider);
     final colors = appState.colors;
@@ -613,8 +661,11 @@ class _CallScreenState extends ConsumerState<CallScreen> {
     final l10n = context.l10n;
     final busy = session.thinking;
     final canSpeak = session.voice && _canRecord;
+    final missionKey = widget.missionKey;
+    final plan = missionKey == null ? null : ref.watch(learnPlanProvider(missionKey));
     final help = [
       (LucideIcons.lightbulb, l10n.callHint, () => _command('hint')),
+      if (plan != null && plan.phrases.isNotEmpty) (LucideIcons.bookOpen, l10n.callPhrases, () => _showPhrases(plan)),
       (LucideIcons.rotateCcw, l10n.callRepeat, _repeat),
       (LucideIcons.snail, l10n.callSlower, () => _command('slower')),
       (LucideIcons.languages, l10n.callTranslate, _translate),
@@ -741,6 +792,7 @@ class _IntroView extends ConsumerWidget {
     final voice = course != null && course!.voiceConversation && ref.watch(takeRecorderFactoryProvider) != null && ref.watch(clipPlayerFactoryProvider) != null;
     final sceneId = topic.sceneId;
     final roster = topic.characterId == null ? null : rosterIdFor(topic.characterId!);
+    final plan = topic.missionKey == null ? null : ref.watch(learnPlanProvider(topic.missionKey!));
     return Column(
       children: [
         Align(
@@ -804,6 +856,23 @@ class _IntroView extends ConsumerWidget {
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 12.5, height: 1.35, color: colors.textMuted),
                 ),
+                // The mission's own phrases, to go into the call prepared (no AI: the bundle's cards).
+                if (plan != null && plan.phrases.isNotEmpty) ...[
+                  const SizedBox(height: 22),
+                  Align(
+                    alignment: AlignmentDirectional.centerStart,
+                    child: Semantics(
+                      header: true,
+                      child: Text(
+                        l10n.callPhrasesTitle,
+                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: colors.textPrimary),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  CallPhrases(plan: plan),
+                  const SizedBox(height: 8),
+                ],
               ],
             ),
           ),
@@ -816,6 +885,47 @@ class _IntroView extends ConsumerWidget {
             onPressed: onCall,
           ),
         ),
+      ],
+    );
+  }
+}
+
+/// A mission's phrases (its discovery cards'): each in the target script with its reading aids and meaning, and, before
+/// the call, Listen. What the learner may need on the call; read from the bundle, no AI.
+class CallPhrases extends ConsumerWidget {
+  const CallPhrases({super.key, required this.plan, this.listen = true, this.limit = 6});
+
+  final MissionLearnPlan plan;
+
+  /// Listen buttons (before the call only: nothing plays over the call's own audio).
+  final bool listen;
+  final int limit;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = ref.watch(appStateProvider.select((s) => s.colors));
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        for (final e in plan.phrases.take(limit))
+          Container(
+            margin: const EdgeInsets.only(bottom: 8),
+            padding: const EdgeInsets.fromLTRB(14, 10, 14, 10),
+            decoration: BoxDecoration(
+              color: colors.surface,
+              borderRadius: BorderRadius.circular(14),
+              border: Border.all(color: colors.border),
+            ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                TargetText(expression: e, track: plan.track, fontSize: 17),
+                const SizedBox(height: 2),
+                Text(plan.meaningOf(e), style: TextStyle(fontSize: 13.5, height: 1.35, color: colors.textSecondary)),
+                if (listen) ...[const SizedBox(height: 6), ListenButtons(text: e.text, locale: plan.voiceLocale, expressionId: e.id, compact: true)],
+              ],
+            ),
+          ),
       ],
     );
   }

@@ -520,7 +520,7 @@ class AppLocalizationsEn extends AppLocalizations {
   String get resetAllTitle => 'Reset all progress?';
 
   @override
-  String get resetAllBody => 'All courses, reviews and XP on this device are deleted.';
+  String get resetAllBody => 'All courses, reviews, XP and calls on this device are deleted.';
 
   @override
   String get resetConfirm => 'Reset';
@@ -1290,4 +1290,48 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get callNothingSaid => 'You hung up before answering, so there was nothing to evaluate. Call again when you’re ready.';
+
+  @override
+  String get callPhrasesTitle => 'Phrases you might need';
+
+  @override
+  String get callPhrases => 'Phrases';
+
+  @override
+  String get speakRecentCalls => 'Recent calls';
+
+  @override
+  String speakRecordLabel(String name, String date, String duration) {
+    return 'Call with $name, $date, $duration';
+  }
+
+  @override
+  String speakRecordCorrections(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count corrections', one: '1 correction');
+    return '$_temp0';
+  }
+
+  @override
+  String get callRecordConversation => 'The conversation';
+
+  @override
+  String get callRecordYou => 'You';
+
+  @override
+  String get callRecordKept => 'Kept on this device only. “Reset all progress” deletes it.';
+
+  @override
+  String get callRecordDelete => 'Delete this call';
+
+  @override
+  String get callRecordDeleteTitle => 'Delete this call?';
+
+  @override
+  String get callRecordDeleteBody => 'Its transcript and corrections are deleted from this device.';
+
+  @override
+  String get callRecordDeleteConfirm => 'Delete';
+
+  @override
+  String get callRecordMissing => 'This call is no longer on this device.';
 }

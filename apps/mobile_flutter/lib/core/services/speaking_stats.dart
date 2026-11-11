@@ -50,6 +50,12 @@ class SpeakingStats extends Notifier<Map<String, SpeakingStat>> {
     _set(courseId, SpeakingStat(checked: s.checked, understood: s.understood, calls: s.calls + 1, seconds: s.seconds + length.inSeconds));
   }
 
+  /// Everything, for "Reset all progress".
+  void clear() {
+    state = {};
+    unawaited(ref.read(learnerStoreProvider).prefs.remove(key));
+  }
+
   void _set(String courseId, SpeakingStat stat) {
     state = {...state, courseId: stat};
     unawaited(ref.read(learnerStoreProvider).prefs.setString(key, jsonEncode({for (final e in state.entries) e.key: e.value.toJson()})));
