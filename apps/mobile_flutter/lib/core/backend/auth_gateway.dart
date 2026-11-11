@@ -19,6 +19,18 @@ class AccountUser {
 /// How a sign-up ended: signed in straight away, or waiting for the learner to confirm their email.
 enum SignUpResult { signedIn, confirmEmail }
 
+/// The kind of email link the app was opened from: a sign-up confirmation, or a password reset.
+enum EmailLink { confirmed, passwordRecovery }
+
+/// Whether [uri] is an email link's way back into the app: a PKCE `code`, implicit-flow tokens, or the error the
+/// server puts there instead (expired or used link). App routes (`#/missions`) never match.
+bool isEmailLink(Uri uri) {
+  final query = uri.queryParameters;
+  if (query.containsKey('code') || query.containsKey('error_description') || query.containsKey('error_code')) return true;
+  final fragment = uri.fragment;
+  return fragment.contains('access_token=') || fragment.contains('error_description=') || fragment.contains('error_code=');
+}
+
 /// A sign-in or sign-up refused by the server, with its message (wrong password, email taken, weak password…).
 class AuthFailure implements Exception {
   AuthFailure(this.message);
@@ -39,8 +51,20 @@ abstract class AuthGateway {
   Future<String?> accessToken();
 
   Future<void> signIn(String email, String password);
-  Future<SignUpResult> signUp(String email, String password, {required String uiLocale, required String sourceLanguage});
+
+  /// [redirectTo]: where the confirmation link opens the app (the server falls back to its Site URL).
+  Future<SignUpResult> signUp(String email, String password, {required String uiLocale, required String sourceLanguage, String? redirectTo});
   Future<void> signOut();
+
+  /// Emails a link to choose a new password; [redirectTo] is where the link opens the app.
+  Future<void> sendPasswordReset(String email, {String? redirectTo});
+
+  /// The signed-in learner's new password (after a password-reset link).
+  Future<void> updatePassword(String password);
+
+  /// Signs in from the email link the app was opened from ([uri], see [isEmailLink]) and says which kind it was.
+  /// Throws [AuthFailure] when the link is invalid, expired, already used, or was asked for in another browser.
+  Future<EmailLink> openEmailLink(Uri uri);
 
   /// Server ids of the missions [enrollmentId] has completed (`mission_progress`, owner-readable under RLS).
   Future<Set<String>> completedMissionIds(String enrollmentId);
@@ -83,12 +107,13 @@ class SupabaseAuthGateway implements AuthGateway {
   }
 
   @override
-  Future<SignUpResult> signUp(String email, String password, {required String uiLocale, required String sourceLanguage}) async {
+  Future<SignUpResult> signUp(String email, String password, {required String uiLocale, required String sourceLanguage, String? redirectTo}) async {
     try {
       // The `handle_new_user` trigger reads these to create the profile and account settings.
       final res = await _client.auth.signUp(
         email: email.trim(),
         password: password,
+        emailRedirectTo: redirectTo,
         data: {'ui_locale': uiLocale, 'default_source_language_code': sourceLanguage},
       );
       return res.session == null ? SignUpResult.confirmEmail : SignUpResult.signedIn;
@@ -99,6 +124,35 @@ class SupabaseAuthGateway implements AuthGateway {
 
   @override
   Future<void> signOut() => _client.auth.signOut();
+
+  @override
+  Future<void> sendPasswordReset(String email, {String? redirectTo}) async {
+    try {
+      await _client.auth.resetPasswordForEmail(email.trim(), redirectTo: redirectTo);
+    } on AuthException catch (e) {
+      throw AuthFailure(e.message);
+    }
+  }
+
+  @override
+  Future<void> updatePassword(String password) async {
+    try {
+      await _client.auth.updateUser(UserAttributes(password: password));
+    } on AuthException catch (e) {
+      throw AuthFailure(e.message);
+    }
+  }
+
+  @override
+  Future<EmailLink> openEmailLink(Uri uri) async {
+    try {
+      final res = await _client.auth.getSessionFromUrl(uri);
+      // PKCE links name the event their code was asked for with; implicit ones carry `type=recovery`.
+      return const {'passwordRecovery', 'recovery'}.contains(res.redirectType) ? EmailLink.passwordRecovery : EmailLink.confirmed;
+    } on AuthException catch (e) {
+      throw AuthFailure(e.message);
+    }
+  }
 
   @override
   Future<Set<String>> completedMissionIds(String enrollmentId) async {

@@ -181,3 +181,27 @@ failure path right after a successful start, though the VM widget tests passed: 
 stale variable for the nullable `failure` local (assigned in a catch clause after an `await`, captured by a `setState`
 closure). The start and stop outcomes now come back from small helper functions. `flutter test`: 95 passed (11 for the
 recorder: states, the −50 dBFS silence floor, microphone released on stop and on leaving, French).
+
+### Display settings and large text (follow-up, merged as #10)
+
+Settings › Display: theme (dark, light, the device's — followed live), text size 90–180 % in − / + steps, reduce
+motion, show or hide Melo. Probing every route at 130–200 % text on a 360 × 690 phone found three overflows (welcome
+screen, a Settings card header, the Progress week row), fixed; a widget test now visits every screen at 200 %, and the
+whole mission-node walk runs at 100 % and 200 %. In Chromium (release build): Device followed the browser into dark,
+text size stepped to 130 %, Home ran 0 animation frames per second under reduced motion (about 15 before), Melo
+hidden. A Material `Slider` was replaced by the steps: its value bubble's overlay showed as an empty full-screen node
+with `pointer-events: auto` on top of the page in the web accessibility tree.
+
+### Email confirmation and password reset (follow-up, local stack)
+
+Release web build against the local Supabase (emails caught by Mailpit) and the local API:
+- Forgot password? → "a link to choose a new password is on its way" (announced: the account notices are now live
+  regions) → the email's link redirects to the app → address cleaned, **Choose a new password** → saved: the server
+  accepts the new password and refuses the old one. The same link again: "This email link can't be used…". A link
+  asked for in one browser and opened in another (no PKCE verifier there): the same explanation, no dialog.
+- With confirmations turned on locally (config restored afterwards): Create account → "Check your email…" → the
+  confirmation link → back in the app, "Email confirmed. You're signed in.", the course saved to the new account;
+  the server shows the email confirmed and `ui_locale` from the sign-up metadata. 0 page errors.
+- The Infra Tayoo instance's auth logs show GoTrue answering with `referer: http://localhost:3000`: its Site URL is
+  still the default and the web origin is not an allowed redirect, so links from it would not reach the web app until
+  the owner sets them (not reachable through the instance API).

@@ -51,6 +51,19 @@ class _AccountSectionState extends ConsumerState<AccountSection> {
     _say(status == 'scheduled' ? l10n.accountDeleteScheduled : l10n.accountDeleted);
   }
 
+  /// A link to choose a new password, emailed to the address typed above.
+  Future<void> _forgotPassword() async {
+    final l10n = context.l10n;
+    final email = _email.text.trim();
+    if (email.isEmpty) {
+      setState(() => _notice = l10n.enterEmailFirst);
+      return;
+    }
+    setState(() => _notice = null);
+    final sent = await ref.read(accountProvider.notifier).sendPasswordReset(email);
+    if (mounted && sent) setState(() => _notice = l10n.passwordResetSent);
+  }
+
   Future<void> _submit({required bool create}) async {
     final l10n = context.l10n;
     final email = _email.text.trim(), password = _password.text;
@@ -135,7 +148,12 @@ class _AccountSectionState extends ConsumerState<AccountSection> {
         ),
         if (account.error != null || _notice != null) ...[
           const SizedBox(height: 8),
-          Text(account.error ?? _notice!, style: TextStyle(fontSize: 13, color: account.error != null ? colors.error : colors.textSecondary)),
+          // Its own node, announced when it appears (a status message, not part of the card's description).
+          Semantics(
+            container: true,
+            liveRegion: true,
+            child: Text(account.error ?? _notice!, style: TextStyle(fontSize: 13, color: account.error != null ? colors.error : colors.textSecondary)),
+          ),
         ],
         const SizedBox(height: 12),
         Wrap(
@@ -149,6 +167,7 @@ class _AccountSectionState extends ConsumerState<AccountSection> {
               child: Text(l10n.accountSignIn),
             ),
             OutlinedButton(onPressed: account.busy ? null : () => _submit(create: true), child: Text(l10n.accountCreate)),
+            TextButton(onPressed: account.busy ? null : _forgotPassword, child: Text(l10n.forgotPassword)),
             if (account.busy) const SizedBox.square(dimension: 18, child: CircularProgressIndicator(strokeWidth: 2)),
           ],
         ),
@@ -195,7 +214,11 @@ class _AccountSectionState extends ConsumerState<AccountSection> {
         ),
         if (account.error != null) ...[
           const SizedBox(height: 8),
-          Text(account.error!, style: TextStyle(fontSize: 13, color: colors.error)),
+          Semantics(
+            container: true,
+            liveRegion: true,
+            child: Text(account.error!, style: TextStyle(fontSize: 13, color: colors.error)),
+          ),
         ],
       ]);
     }

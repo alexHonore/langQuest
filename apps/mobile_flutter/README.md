@@ -85,6 +85,16 @@ Configuration — client-safe values only (URL, anon key), never a secret:
   `NEXT_PUBLIC_SUPABASE_ANON_KEY`) and `LQ_API_BASE_URL`; nothing is written at start-up. The API Worker needs its secrets and the web origin in `CORS_ALLOWED_ORIGINS`
   (`apps/api/wrangler.toml`, `infra/cloudflare/README.md`).
 
+Email links (web): **Create account** asks the server to send the confirmation link back to this web app
+(`emailRedirectTo` = the app's own address), and **Forgot password?** emails a link to choose a new password. When the
+app is opened from such a link (`?code=…`, PKCE), `main()` signs in from it once, takes the code out of the address
+bar before the router reads it, and says what happened: confirmed and signed in, a **Choose a new password** dialog
+after a reset link (`updateUser`), or why a link cannot be used (expired, already used, or opened in another browser
+than the one that asked for it, which holds the PKCE verifier). Checked end to end against the local stack, emails
+read from Mailpit. For this to work on an instance, its auth settings must send email (SMTP) and accept the web
+origin as a redirect: Site URL or *Additional redirect URLs* containing `https://web-languest.tayoo.app` — otherwise
+GoTrue falls back to its Site URL (on the Infra Tayoo instance, still `http://localhost:3000`).
+
 On the live web app (https://web-languest.tayoo.app › Settings › Account), sign in with the test learner whose
 credentials are the hosted app's `LOCAL_LEARNER_EMAIL` / `LOCAL_LEARNER_PASSWORD` variables (confirmed on the
 instance, no email needed). New accounts need email confirmation on that instance.
@@ -162,9 +172,9 @@ deploy/Caddyfile, config.json  static server config for the root Dockerfile; the
 
 ## Next steps
 
-1. **API wiring, continued** — sign-in, courses, mission completion, export and account deletion are wired (above).
-   Next: password reset and email confirmation links (need the web origin in Supabase's redirect URLs), the course
-   manifest instead of the bundle when online, reviews from the server once missions are credited.
+1. **API wiring, continued** — sign-in, courses, mission completion, export, account deletion, email confirmation
+   and password reset are wired (above; the instance must accept the web origin as a redirect and send email). Next:
+   the course manifest instead of the bundle when online, reviews from the server once missions are credited.
 2. **Talk stop and Speak tab** — live conversation through the API's conversation routes, shown per course capability.
 3. **Recording, continued** — record and compare works in the web app, on the device only. Next: a recorder in the
    iOS and Android builds (a recorder plugin and the microphone permission strings), then — once the server has a

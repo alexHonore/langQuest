@@ -631,7 +631,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get accountMissingFields => 'Saisissez votre e-mail et un mot de passe.';
 
   @override
-  String get accountConfirmEmail => 'Confirmez le compte depuis l’e-mail reçu, puis connectez-vous.';
+  String get accountConfirmEmail => 'Vérifiez vos e-mails : le lien reçu confirme le compte et vous connecte ici.';
 
   @override
   String accountSignedInAs(String email) {
@@ -791,4 +791,43 @@ class AppLocalizationsFr extends AppLocalizations {
   String textSizeValue(String percent) {
     return 'Taille du texte $percent';
   }
+
+  @override
+  String get forgotPassword => 'Mot de passe oublié ?';
+
+  @override
+  String get enterEmailFirst => 'Saisissez d’abord votre adresse e-mail.';
+
+  @override
+  String get passwordResetSent => 'Si un compte utilise cette adresse, un e-mail avec un lien pour choisir un nouveau mot de passe arrive.';
+
+  @override
+  String get emailConfirmed => 'Adresse e-mail confirmée. Vous êtes connecté à votre compte.';
+
+  @override
+  String get emailLinkFailed =>
+      'Ce lien ne peut pas être utilisé : il a peut-être expiré, déjà servi, ou été ouvert dans un autre navigateur que celui qui l’a demandé. Demandez-en un nouveau dans les Réglages.';
+
+  @override
+  String get newPasswordTitle => 'Choisissez un nouveau mot de passe';
+
+  @override
+  String newPasswordBody(String email) {
+    return 'Vous avez ouvert un lien de réinitialisation pour $email.';
+  }
+
+  @override
+  String get newPasswordLabel => 'Nouveau mot de passe';
+
+  @override
+  String get newPasswordSave => 'Enregistrer';
+
+  @override
+  String get newPasswordFailed => 'Le mot de passe n’a pas pu être enregistré. Réessayez.';
+
+  @override
+  String get later => 'Plus tard';
+
+  @override
+  String get passwordChanged => 'Votre mot de passe a été modifié.';
 }

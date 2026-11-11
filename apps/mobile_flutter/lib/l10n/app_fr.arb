@@ -178,7 +178,7 @@
   "accountSignIn": "Se connecter",
   "accountCreate": "Créer un compte",
   "accountMissingFields": "Saisissez votre e-mail et un mot de passe.",
-  "accountConfirmEmail": "Confirmez le compte depuis l’e-mail reçu, puis connectez-vous.",
+  "accountConfirmEmail": "Vérifiez vos e-mails : le lien reçu confirme le compte et vous connecte ici.",
   "accountSignedInAs": "Connecté en tant que {email}",
   "accountSaving": "Enregistrement dans votre compte…",
   "accountSaved": "Vos cours et vos missions terminées sont enregistrés dans votre compte.",
@@ -226,5 +226,17 @@
   "showMascotBody": "Melo vous encourage ; le masquer ne masque rien d’autre.",
   "textSmaller": "Texte plus petit",
   "textLarger": "Texte plus grand",
-  "textSizeValue": "Taille du texte {percent}"
+  "textSizeValue": "Taille du texte {percent}",
+  "forgotPassword": "Mot de passe oublié ?",
+  "enterEmailFirst": "Saisissez d’abord votre adresse e-mail.",
+  "passwordResetSent": "Si un compte utilise cette adresse, un e-mail avec un lien pour choisir un nouveau mot de passe arrive.",
+  "emailConfirmed": "Adresse e-mail confirmée. Vous êtes connecté à votre compte.",
+  "emailLinkFailed": "Ce lien ne peut pas être utilisé : il a peut-être expiré, déjà servi, ou été ouvert dans un autre navigateur que celui qui l’a demandé. Demandez-en un nouveau dans les Réglages.",
+  "newPasswordTitle": "Choisissez un nouveau mot de passe",
+  "newPasswordBody": "Vous avez ouvert un lien de réinitialisation pour {email}.",
+  "newPasswordLabel": "Nouveau mot de passe",
+  "newPasswordSave": "Enregistrer",
+  "newPasswordFailed": "Le mot de passe n’a pas pu être enregistré. Réessayez.",
+  "later": "Plus tard",
+  "passwordChanged": "Votre mot de passe a été modifié."
 }
