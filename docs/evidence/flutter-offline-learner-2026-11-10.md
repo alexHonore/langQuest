@@ -315,3 +315,20 @@ against the live Worker, signed out: no section; signed in as the test learner o
 speaking: Independent, step 3 of 4, 6 observations", "Respond to a greeting: Independent, 3", "Introduce yourself:
 Practised, 1", "Greet someone politely: Emerging, 1" (one `GET /v1/me/skills`, 0 page errors); **How this is
 measured** opened on the four levels. `flutter test`: 182 passed; scripts `export-flutter-content` tests: 8 passed.
+
+### Recent calls, phrases before the call, and where a free call happens (follow-up, 2026-11-11)
+
+Calls the learner took part in are kept on the device (`lib/features/call/call_history.dart`) and listed under
+**Recent calls** in the Speak tab; a call's page has its goals, the server's summary, the corrections, the conversation,
+Call again and Delete. A mission call's lobby lists **Phrases you might need** (the mission's discovery cards, with
+Listen), and a **Phrases** chip opens them during the call. A free call happens where the character works or lives
+(café staff at the café, a coworker at the office…). **Reset all progress** now also deletes the calls, the Out-loud
+counts and the lessons heard (before, those two stayed after a reset).
+
+Live, local build against the live Worker, test learner on Spanish, Chromium's fake microphone saying "Hola, buenos
+días.": the lobby listed "Hola, buenos días." (Hello, good morning), "¿Qué tal?", "Bien, gracias. ¿Y tú?", "Me llamo …"
+with Listen; Pablo picked up, the spoken turn was heard and answered, the Phrases sheet opened over the call, and the
+call was hung up (session 201, turn 200, end 200). The Speak tab then listed "Call with Pablo, Wed, Nov 11 04:47, 0:25,
+Greet and introduce yourself, Goals met: 1 of 5, 1 correction"; its page showed "Goals met: 1 of 5" (Say hello met),
+the server's summary, "Next time, try: Hola, buenos días. Muy bien, ¿y tú?" (said: "Hola, buenos días.") and the
+conversation with Pablo's glosses. 0 page errors. `flutter test`: 191 passed.

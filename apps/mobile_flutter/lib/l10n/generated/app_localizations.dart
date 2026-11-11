@@ -971,7 +971,7 @@ abstract class AppLocalizations {
   /// No description provided for @resetAllBody.
   ///
   /// In en, this message translates to:
-  /// **'All courses, reviews and XP on this device are deleted.'**
+  /// **'All courses, reviews, XP and calls on this device are deleted.'**
   String get resetAllBody;
 
   /// No description provided for @resetConfirm.
@@ -2371,6 +2371,84 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'You hung up before answering, so there was nothing to evaluate. Call again when you’re ready.'**
   String get callNothingSaid;
+
+  /// No description provided for @callPhrasesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Phrases you might need'**
+  String get callPhrasesTitle;
+
+  /// No description provided for @callPhrases.
+  ///
+  /// In en, this message translates to:
+  /// **'Phrases'**
+  String get callPhrases;
+
+  /// No description provided for @speakRecentCalls.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent calls'**
+  String get speakRecentCalls;
+
+  /// No description provided for @speakRecordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Call with {name}, {date}, {duration}'**
+  String speakRecordLabel(String name, String date, String duration);
+
+  /// No description provided for @speakRecordCorrections.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 correction} other{{count} corrections}}'**
+  String speakRecordCorrections(int count);
+
+  /// No description provided for @callRecordConversation.
+  ///
+  /// In en, this message translates to:
+  /// **'The conversation'**
+  String get callRecordConversation;
+
+  /// No description provided for @callRecordYou.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get callRecordYou;
+
+  /// No description provided for @callRecordKept.
+  ///
+  /// In en, this message translates to:
+  /// **'Kept on this device only. “Reset all progress” deletes it.'**
+  String get callRecordKept;
+
+  /// No description provided for @callRecordDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this call'**
+  String get callRecordDelete;
+
+  /// No description provided for @callRecordDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this call?'**
+  String get callRecordDeleteTitle;
+
+  /// No description provided for @callRecordDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Its transcript and corrections are deleted from this device.'**
+  String get callRecordDeleteBody;
+
+  /// No description provided for @callRecordDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get callRecordDeleteConfirm;
+
+  /// No description provided for @callRecordMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'This call is no longer on this device.'**
+  String get callRecordMissing;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

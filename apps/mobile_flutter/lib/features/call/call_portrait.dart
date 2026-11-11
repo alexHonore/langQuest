@@ -6,6 +6,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../core/backend/curriculum_ids.dart';
 import '../../core/layout/motion.dart';
+import '../scenes/scene_models.dart';
 
 /// `characters.id` of an art roster id: UUIDv5 of `langquest.character:<roster id>` in the roster's namespace
 /// (`packages/db/src/character-uuid.ts`, shared by the art, the seed and every client).
@@ -39,6 +40,20 @@ final Map<String, String> _rosterByServerId = {for (final r in portraitRoster) c
 
 /// The roster id of a server character, when its portrait ships with this build.
 String? rosterIdFor(String characterId) => _rosterByServerId[characterId];
+
+/// Where a roster character works or lives, read from the role in their roster id (`ary-cafe-staff-nadia` → the café,
+/// `es-es-coworker-marta` → the office): the backdrop of a free call with them. Null for a role without one place
+/// (a student, a schoolboy): the call then happens where the learner's next mission does.
+SceneId? sceneForRoster(String rosterId) {
+  final id = '-$rosterId-';
+  if (id.contains('-cafe-')) return SceneId.cafe;
+  if (id.contains('-neighbour-')) return SceneId.home;
+  if (id.contains('-coworker-')) return SceneId.office;
+  if (id.contains('-bus-driver-')) return SceneId.transit;
+  if (id.contains('-stationmaster-')) return SceneId.station;
+  if (id.contains('-postwoman-') || id.contains('-postman-')) return SceneId.street;
+  return null;
+}
 
 String portraitAsset(String rosterId, String expression) =>
     'assets/characters/$rosterId.${portraitExpressions.contains(expression) ? expression : 'neutral'}.svg';

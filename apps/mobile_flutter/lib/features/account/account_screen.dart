@@ -7,8 +7,11 @@ import '../../navigation/nav.dart';
 import '../../core/backend/account.dart';
 import '../../core/content/content_models.dart';
 import '../../core/services/app_state.dart';
+import '../../core/services/speaking_stats.dart';
 import '../../core/theme/glass.dart';
 import '../../l10n/l10n.dart';
+import '../audio/audio_screens.dart';
+import '../call/call_history.dart';
 import 'account_section.dart';
 import 'display_settings.dart';
 
@@ -191,7 +194,13 @@ class AccountScreen extends ConsumerWidget {
               icon: const Icon(LucideIcons.trash2, size: 18),
               label: Text(l10n.resetAll),
               onPressed: () async {
-                if (await _confirm(context, title: l10n.resetAllTitle, body: l10n.resetAllBody, confirm: l10n.resetConfirm)) notifier.resetAll();
+                if (await _confirm(context, title: l10n.resetAllTitle, body: l10n.resetAllBody, confirm: l10n.resetConfirm)) {
+                  // Everything this device keeps about the learning: progress, what was said out loud, lessons heard, calls.
+                  notifier.resetAll();
+                  ref.read(speakingStatsProvider.notifier).clear();
+                  ref.read(audioListenedProvider.notifier).clear();
+                  ref.read(callHistoryProvider.notifier).clear();
+                }
               },
             ),
             const SizedBox(height: 10),

@@ -13,8 +13,10 @@ import 'package:langquest_mobile/core/backend/api_client.dart';
 import 'package:langquest_mobile/core/backend/server_course.dart';
 import 'package:langquest_mobile/core/services/app_state.dart';
 import 'package:langquest_mobile/core/services/speaking_stats.dart';
+import 'package:langquest_mobile/features/call/call_portrait.dart';
 import 'package:langquest_mobile/features/call/call_screen.dart';
 import 'package:langquest_mobile/features/learn/learn_logic.dart';
+import 'package:langquest_mobile/features/learn/learn_providers.dart';
 import 'package:langquest_mobile/features/learn/record_take.dart';
 import 'package:langquest_mobile/main.dart';
 import 'package:langquest_mobile/navigation/app_router.dart';
@@ -92,7 +94,7 @@ void main() {
     // Nothing is called until the learner taps Call.
     expect(find.text('Practise it in a real conversation'), findsOneWidget);
     expect(find.text('Uses LangQuest’s AI. Your recordings aren’t kept.'), findsOneWidget);
-    expect(server.requests, isEmpty);
+    expect(server.requests.where((r) => r.contains('/ai/')), isEmpty, reason: 'no AI call before Call (the lobby may read the public catalog)');
     await tapLabel(t, 'Call', ms: 1500);
     expect(player.primed, 1, reason: 'audio is readied inside the tap');
 
@@ -247,12 +249,15 @@ void main() {
     await t.tap(find.text('Pablo'));
     await settle(t);
     expect(find.text('Call Pablo'), findsWidgets);
+    expect(find.text('Street'), findsWidgets, reason: 'a schoolboy has no one place: the next mission\'s scene');
+    expect(find.text('Phrases you might need'), findsNothing, reason: 'a free call has no mission phrases');
     expect(find.text('Schoolboy'), findsOneWidget);
     await tapLabel(t, 'Call', ms: 1500);
     final start = server.bodies['POST /v1/ai/conversation/session']!.single;
     expect(start['characterId'], pabloId);
     expect(start.containsKey('missionId'), isFalse);
     expect(find.textContaining('Goals'), findsNothing, reason: 'a free call has no goals');
+    expect(find.bySemanticsLabel('Phrases'), findsNothing);
     await tapLabel(t, 'Talk');
     await tapLabel(t, 'Send', ms: 1500);
     expect(find.text('¡Hola! ¿Qué tal?'), findsOneWidget);
@@ -260,6 +265,34 @@ void main() {
     expect(find.textContaining('Call ended'), findsOneWidget);
     expect(container.read(appStateProvider).stopsDone(missionKey), isNot(contains(PathStop.talk)), reason: 'no mission stop for a free call');
     semantics.dispose();
+  });
+
+  testWidgets('before a mission call, the mission\'s phrases; during it, a Phrases sheet (no request)', (t) async {
+    final semantics = t.ensureSemantics();
+    final server = FakeConversationServer();
+    final container = await pump(t, server: server, player: FakeClipPlayer(instant: true));
+    final plan = container.read(learnPlanProvider(missionKey))!;
+    final first = plan.phrases.first;
+    expect(find.text('Phrases you might need'), findsOneWidget);
+    await t.ensureVisible(find.text(first.text).first);
+    expect(find.text(plan.meaningOf(first)), findsWidgets);
+    expect(find.text(plan.phrases[1].text), findsWidgets);
+    await tapLabel(t, 'Call', ms: 1500);
+    final before = server.requests.length;
+    await tapLabel(t, 'Phrases');
+    expect(find.text('Phrases you might need'), findsOneWidget);
+    expect(find.text(first.text), findsWidgets);
+    expect(find.text(plan.meaningOf(first)), findsWidgets);
+    expect(server.requests, hasLength(before), reason: 'the bundle\'s phrases: no request');
+    semantics.dispose();
+  });
+
+  testWidgets('a free call with a coworker happens at the office', (t) async {
+    final marta = CourseCharacter(id: characterServerId('es-es-coworker-marta'), name: 'Marta', role: 'Coworker');
+    await pump(t, route: '/talk/${marta.id}', characters: [marta], player: FakeClipPlayer());
+    expect(find.text('Call Marta'), findsWidgets);
+    expect(find.text('Office'), findsWidgets);
+    expect(find.text('Street'), findsNothing);
   });
 
   testWidgets('hanging up before saying anything: a plain message, no summary or corrections, nothing credited', (t) async {

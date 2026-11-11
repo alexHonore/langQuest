@@ -146,7 +146,7 @@
   "yourDataBody": "Tout est enregistré sur cet appareil uniquement. Cette version n’a pas de compte.",
   "resetAll": "Tout réinitialiser",
   "resetAllTitle": "Tout réinitialiser ?",
-  "resetAllBody": "Tous les cours, révisions et XP de cet appareil sont supprimés.",
+  "resetAllBody": "Tous les cours, révisions, XP et appels de cet appareil sont supprimés.",
   "resetConfirm": "Réinitialiser",
   "activeCourse": "Actif",
   "openSourceLicenses": "Licences open source",
@@ -379,5 +379,18 @@
   "progressSkillLabel": "{skill} : {level}, étape {step} sur 4, {evidence}",
   "progressHowMeasured": "Comment c’est mesuré",
   "progressHowMeasuredNote": "Chaque niveau repose sur ce que LangQuest a observé, et sur la fréquence et la date des observations. Moins d’observations, moins de certitude. Les niveaux du CECR (A1, A2…) décrivent la compétence, pas votre niveau : ce n’est pas un certificat.",
-  "callNothingSaid": "Vous avez raccroché avant de répondre : il n’y avait rien à évaluer. Rappelez quand vous voulez."
+  "callNothingSaid": "Vous avez raccroché avant de répondre : il n’y avait rien à évaluer. Rappelez quand vous voulez.",
+  "callPhrasesTitle": "Des phrases qui peuvent servir",
+  "callPhrases": "Phrases",
+  "speakRecentCalls": "Appels récents",
+  "speakRecordLabel": "Appel avec {name}, {date}, {duration}",
+  "speakRecordCorrections": "{count, plural, =1{1 correction} other{{count} corrections}}",
+  "callRecordConversation": "La conversation",
+  "callRecordYou": "Vous",
+  "callRecordKept": "Gardé sur cet appareil seulement. « Tout réinitialiser » le supprime.",
+  "callRecordDelete": "Supprimer cet appel",
+  "callRecordDeleteTitle": "Supprimer cet appel ?",
+  "callRecordDeleteBody": "Sa transcription et ses corrections sont supprimées de cet appareil.",
+  "callRecordDeleteConfirm": "Supprimer",
+  "callRecordMissing": "Cet appel n’est plus sur cet appareil."
 }

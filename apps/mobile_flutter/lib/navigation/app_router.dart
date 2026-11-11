@@ -6,6 +6,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../core/services/app_state.dart';
 import '../core/theme/glass.dart';
 import '../features/audio/audio_screens.dart';
+import '../features/call/call_record_screen.dart';
 import '../features/call/call_screen.dart';
 import '../features/call/speak_screen.dart';
 import '../features/account/account_screen.dart';
@@ -100,6 +101,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       page('/speak/:id', (s) => PractiseSayingScreen(missionKey: s.pathParameters['id']!)),
       page('/call/:id', (s) => CallScreen(missionKey: s.pathParameters['id']!)),
       page('/talk/:character', (s) => CallScreen(characterId: s.pathParameters['character']!)),
+      page('/calls/:id', (s) => CallRecordScreen(recordId: s.pathParameters['id']!)),
       page('/audio/:id', (s) => AudioLessonScreen(missionKey: s.pathParameters['id']!)),
       page('/warmup', (_) => const WarmupScreen()),
       page('/review', (_) => const ReviewScreen()),
