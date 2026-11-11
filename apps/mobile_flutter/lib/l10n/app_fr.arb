@@ -423,5 +423,17 @@
   "pronunciationFailed": "Impossible d’obtenir l’avis sur la prononciation cette fois-ci.",
   "readAloud": "Lire à voix haute",
   "readAloudSetting": "Lire les exercices à voix haute",
-  "readAloudSettingBody": "À chaque exercice : son contexte et sa question dans votre langue, puis la phrase avec la voix du cours. Connecté, une voix IA les lit."
+  "readAloudSettingBody": "À chaque exercice : son contexte et sa question dans votre langue, puis la phrase avec la voix du cours. Connecté, une voix IA les lit.",
+  "realExamplesButton": "Exemples réels",
+  "realExamplesButtonSemantics": "Exemples réels de cette phrase, tirés de Tatoeba",
+  "realExamplesTitle": "Exemples réels",
+  "realExamplesIntro": "Des phrases écrites par des contributeurs de Tatoeba qui utilisent « {phrase} ».",
+  "realExamplesAttested": "« {phrase} » est elle-même une phrase de Tatoeba : on la dit vraiment ainsi.",
+  "realExamplesRecording": "Enregistrement natif",
+  "realExamplesRecordingSemantics": "Écouter l’enregistrement d’un locuteur natif",
+  "realExamplesBy": "Tatoeba nº {id} par {author}",
+  "realExamplesById": "Tatoeba nº {id}",
+  "realExamplesRecordingBy": "Enregistrement : {author} · {license}",
+  "realExamplesRegion": "Tatoeba n’indique pas de quel pays vient une phrase : un exemple peut employer les mots d’une autre région.",
+  "realExamplesCredit": "Tiré de Tatoeba (tatoeba.org), phrases sous licence {license}, export du {date}."
 }

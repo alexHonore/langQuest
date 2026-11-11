@@ -7,6 +7,7 @@ import { mkdtempSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
+import * as attachTatoebaExamples from './attach-tatoeba-examples';
 import * as bulkAudioScan from './bulk-audio-scan';
 import * as contentFactory from './content-factory';
 import * as exportFlutterContent from './export-flutter-content';
@@ -19,7 +20,7 @@ import * as seedLanguages from './seed-languages';
 import * as validateCoverage from './validate-course-coverage';
 
 const FIX = resolve(__dirname, 'fixtures');
-const ALL = [importTatoeba, importTaskmaster, importCorpora, bulkAudioScan, licenseReport, seedLanguages, validateCoverage, contentFactory, exportFlutterContent];
+const ALL = [importTatoeba, importTaskmaster, importCorpora, bulkAudioScan, licenseReport, seedLanguages, validateCoverage, contentFactory, exportFlutterContent, attachTatoebaExamples];
 
 describe('every CLI', () => {
   it('prints --help with usage, flags and --dry-run', async () => {

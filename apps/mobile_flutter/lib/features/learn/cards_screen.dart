@@ -11,6 +11,7 @@ import 'learn_content.dart';
 import 'learn_logic.dart';
 import 'learn_providers.dart';
 import 'learn_widgets.dart';
+import 'real_examples_sheet.dart';
 
 /// L3 — discovery cards: every phrase the learner says in this mission, one per swipeable card (target script,
 /// romanization, meaning, usage note), tap to hear when the device has a voice for the variety. Finishing the
@@ -115,6 +116,7 @@ class _CardsScreenState extends ConsumerState<CardsScreen> {
                                 ),
                                 const SizedBox(height: 16),
                                 ListenButtons(text: phrase.text, expressionId: phrase.id, locale: plan.voiceLocale),
+                                RealExamplesButton(expression: phrase, track: plan.track, source: plan.source),
                                 for (final n in [?note, ...extraNotes]) ...[const SizedBox(height: 12), _NoteBox(text: n, label: l10n.noteLabel)],
                               ],
                             ),
