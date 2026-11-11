@@ -1171,4 +1171,34 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get courseIncludesAiVoiceDialect => 'An AI voice for this dialect (with a free account)';
+
+  @override
+  String get tabSpeak => 'Speak';
+
+  @override
+  String get speakTitle => 'Talk with the locals';
+
+  @override
+  String get speakBody =>
+      'Free conversations with the course’s characters, by voice or in writing. Use what you’ve learned; ask for a hint whenever you need one.';
+
+  @override
+  String get speakNoCharacters => 'No characters are published for this course yet.';
+
+  @override
+  String speakCall(String name) {
+    return 'Call $name';
+  }
+
+  @override
+  String callFreeTitle(String name) {
+    return 'Call $name';
+  }
+
+  @override
+  String get callFreeBody =>
+      'A free conversation, in the language you’re learning, about everyday things. Answer out loud, or type. When you hang up, LangQuest tells you how it went.';
+
+  @override
+  String get callFreeBodyText => 'A free chat, in the language you’re learning, about everyday things. When you end it, LangQuest tells you how it went.';
 }

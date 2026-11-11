@@ -7,6 +7,7 @@ import '../core/services/app_state.dart';
 import '../core/theme/glass.dart';
 import '../features/audio/audio_screens.dart';
 import '../features/call/call_screen.dart';
+import '../features/call/speak_screen.dart';
 import '../features/account/account_screen.dart';
 import '../features/catalog/catalog_screen.dart';
 import '../features/catalog/course_detail_screen.dart';
@@ -80,6 +81,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             path: '/audio',
             pageBuilder: (context, state) => const NoTransitionPage(child: AudioLibraryScreen()),
           ),
+          GoRoute(
+            path: '/talk',
+            pageBuilder: (context, state) => const NoTransitionPage(child: SpeakScreen()),
+          ),
         ],
       ),
       page('/welcome', (_) => const WelcomeScreen()),
@@ -94,6 +99,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       page('/mission/:id', (s) => MissionPlayerScreen(missionKey: s.pathParameters['id']!)),
       page('/speak/:id', (s) => PractiseSayingScreen(missionKey: s.pathParameters['id']!)),
       page('/call/:id', (s) => CallScreen(missionKey: s.pathParameters['id']!)),
+      page('/talk/:character', (s) => CallScreen(characterId: s.pathParameters['character']!)),
       page('/audio/:id', (s) => AudioLessonScreen(missionKey: s.pathParameters['id']!)),
       page('/warmup', (_) => const WarmupScreen()),
       page('/review', (_) => const ReviewScreen()),
@@ -104,9 +110,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   return router;
 });
 
-/// The tab shell: Home, Missions, Progress, and Audio when the course's audio lessons can be heard here (a device voice
-/// for it, or the server's AI voice). Speak is not shown in this build: live conversation is reached from each
-/// mission's Talk stop, and a tab never opens onto a placeholder (CONVENTIONS §8).
+/// The tab shell: Home, Missions, Progress; Speak when live calls back the course (signed in, the server's snapshot);
+/// Audio when the course's lessons can be heard here (a device voice for it, or the server's AI voice). A tab never
+/// opens onto a placeholder (CONVENTIONS §8).
 class AppScaffold extends ConsumerWidget {
   final Widget child;
 
@@ -127,11 +133,13 @@ class AppScaffold extends ConsumerWidget {
     final colors = appState.colors;
     final l10n = context.l10n;
     final audio = ref.watch(audioLessonsAvailableProvider);
-    final tabs = ['/', '/missions', if (audio) '/audio', '/progress'];
+    final speak = ref.watch(liveCallCourseProvider) != null;
+    final tabs = ['/', '/missions', if (speak) '/talk', if (audio) '/audio', '/progress'];
     final selected = _selectedIndex(context, tabs);
     final items = [
       (LucideIcons.home, l10n.tabHome),
       (LucideIcons.target, l10n.tabMissions),
+      if (speak) (LucideIcons.messagesSquare, l10n.tabSpeak),
       if (audio) (LucideIcons.headphones, l10n.tabAudio),
       (LucideIcons.barChart2, l10n.tabProgress),
     ];
@@ -170,12 +178,20 @@ class AppScaffold extends ConsumerWidget {
                                 children: [
                                   Icon(items[i].$1, size: 21, color: i == selected ? accent.primaryText : colors.textMuted),
                                   const SizedBox(height: 4),
-                                  Text(
-                                    items[i].$2,
-                                    style: TextStyle(
-                                      fontSize: 11.5,
-                                      fontWeight: i == selected ? FontWeight.w700 : FontWeight.w500,
-                                      color: i == selected ? accent.primaryText : colors.textMuted,
+                                  // Up to five tabs: a long label shrinks to fit rather than overflowing.
+                                  FittedBox(
+                                    fit: BoxFit.scaleDown,
+                                    child: Padding(
+                                      padding: const EdgeInsets.symmetric(horizontal: 2),
+                                      child: Text(
+                                        items[i].$2,
+                                        maxLines: 1,
+                                        style: TextStyle(
+                                          fontSize: 11.5,
+                                          fontWeight: i == selected ? FontWeight.w700 : FontWeight.w500,
+                                          color: i == selected ? accent.primaryText : colors.textMuted,
+                                        ),
+                                      ),
                                     ),
                                   ),
                                 ],

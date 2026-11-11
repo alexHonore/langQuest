@@ -124,10 +124,13 @@ class FakeConversationServer {
           'provider': {'pipeline': 'stt_llm_tts'},
           'character': {'id': pabloId, 'name': 'Pablo', 'role': 'Schoolboy', 'targetVarietyId': 'es-ES', 'syntheticVoice': true, 'portraitAssetId': null},
           'capabilities': {},
-          'objectives': [
-            {'id': 'greet', 'description': describedGoals ? 'Greet Pablo' : '', 'skillKeys': <String>[]},
-            {'id': 'name', 'description': describedGoals ? 'Say your name' : '', 'skillKeys': <String>[]},
-          ],
+          // A free call (no mission) has no goals.
+          'objectives': bodies[key]!.last['missionId'] == null
+              ? <Object>[]
+              : [
+                  {'id': 'greet', 'description': describedGoals ? 'Greet Pablo' : '', 'skillKeys': <String>[]},
+                  {'id': 'name', 'description': describedGoals ? 'Say your name' : '', 'skillKeys': <String>[]},
+                ],
           'openingTurn': _characterTurn('¡Hola! Soy Pablo. ¿Cómo te llamas?', expression: 'greeting', gloss: gloss),
         },
       }, 201);

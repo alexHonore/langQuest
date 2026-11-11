@@ -149,16 +149,28 @@ class LangQuestApi {
     required String enrollmentId,
     required String clientSessionId,
     String? missionId,
+    String? characterId,
     required bool voice,
   }) async => _object(
     await _send('POST', '/v1/ai/conversation/session', {
       'enrollmentId': enrollmentId,
       'missionId': ?missionId,
+      'characterId': ?characterId,
       'clientSessionId': clientSessionId,
       'mode': voice ? 'push_to_talk' : 'text_only',
       'inputEncoding': 'webm_opus',
     }, aiTimeout),
   );
+
+  /// `GET /v1/courses/:trackId/manifest?source=` — the course's published content as the server holds it; the app
+  /// reads its `characters` (id, name, role): who can be called.
+  Future<List<Map<String, Object?>>> courseCharacters(String trackId, String source) async {
+    final data = _object(await _send('GET', '/v1/courses/$trackId/manifest?source=$source'));
+    return [
+      for (final c in (data['characters'] as List? ?? const []))
+        if (c is Map) c.cast<String, Object?>(),
+    ];
+  }
 
   /// `POST /v1/ai/conversation/:id/turn` — the learner's turn (audio, text or a command) and the character's reply.
   /// Idempotent on `clientTurnId`: a retry with the same id replays the reply; one still in flight answers 409

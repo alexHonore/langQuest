@@ -1184,4 +1184,35 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get courseIncludesAiVoiceDialect => 'Une voix IA pour ce dialecte (avec un compte gratuit)';
+
+  @override
+  String get tabSpeak => 'Converser';
+
+  @override
+  String get speakTitle => 'Parlez avec les gens d’ici';
+
+  @override
+  String get speakBody =>
+      'Des conversations libres avec les personnages du cours, à l’oral ou par écrit. Utilisez ce que vous avez appris ; demandez un indice quand vous en avez besoin.';
+
+  @override
+  String get speakNoCharacters => 'Aucun personnage n’est encore publié pour ce cours.';
+
+  @override
+  String speakCall(String name) {
+    return 'Appeler $name';
+  }
+
+  @override
+  String callFreeTitle(String name) {
+    return 'Appeler $name';
+  }
+
+  @override
+  String get callFreeBody =>
+      'Une conversation libre, dans la langue que vous apprenez, sur la vie de tous les jours. Répondez à voix haute, ou écrivez. Quand vous raccrochez, LangQuest vous dit comment ça s’est passé.';
+
+  @override
+  String get callFreeBodyText =>
+      'Une discussion libre, dans la langue que vous apprenez, sur la vie de tous les jours. Quand vous terminez, LangQuest vous dit comment ça s’est passé.';
 }

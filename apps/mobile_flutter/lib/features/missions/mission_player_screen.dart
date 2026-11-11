@@ -9,9 +9,11 @@ import '../../core/backend/server_voice.dart';
 import '../../core/backend/speech_check.dart';
 import '../../core/content/content_models.dart';
 import '../call/call_screen.dart';
+import '../../core/layout/celebration.dart';
 import '../../core/layout/motion.dart';
 import '../../core/learning/srs.dart';
 import '../../core/services/app_state.dart';
+import '../../core/theme/colors.dart';
 import '../../core/services/learner_state.dart';
 import '../../core/services/speech_service.dart';
 import '../../l10n/l10n.dart';
@@ -441,12 +443,16 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     final l10n = context.l10n;
     final course = appState.activeCourse;
     final next = course == null ? null : appState.nextMission(course);
-    return Center(
+    final completed = Center(
       child: SingleChildScrollView(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            MeloWidget(state: MeloState.celebrate, courseTrackId: appState.activeTrackId, size: 110),
+            MeloWidget(
+              state: MeloState.celebrate,
+              courseTrackId: appState.activeTrackId,
+              size: 110,
+            ).withMotion(context, (a) => a.scale(begin: const Offset(0.6, 0.6), duration: 650.ms, curve: Curves.elasticOut)),
             const SizedBox(height: 20),
             Text(
               l10n.missionCompleted,
@@ -454,11 +460,21 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.w800, color: colors.textPrimary),
             ),
             const SizedBox(height: 8),
-            Text(
-              _wasCompleted ? l10n.missionXpOnce : l10n.xpGain(XpAmounts.missionCompleted),
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: accent.primaryText),
-            ),
+            if (_wasCompleted)
+              Text(
+                l10n.missionXpOnce,
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 15, fontWeight: FontWeight.w600, color: accent.primaryText),
+              )
+            else
+              CountUp(
+                value: XpAmounts.missionCompleted,
+                builder: (context, xp) => Text(
+                  l10n.xpGain(xp),
+                  textAlign: TextAlign.center,
+                  style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, color: accent.primaryText),
+                ),
+              ),
             if (_newReviewCards > 0) ...[
               const SizedBox(height: 6),
               Text(
@@ -519,6 +535,12 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
         ),
       ),
     );
+    return Stack(
+      children: [
+        completed,
+        Positioned.fill(child: ConfettiBurst(colors: [accent.primary, colors.celebrationA, colors.celebrationB, colors.success, colors.amber])),
+      ],
+    );
   }
 }
 
@@ -548,28 +570,41 @@ class _OptionTile extends ConsumerWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(16),
           onTap: onTap,
-          child: AnimatedContainer(
-            duration: const Duration(milliseconds: 200),
-            width: double.infinity,
-            constraints: const BoxConstraints(minHeight: 56),
-            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
-            decoration: BoxDecoration(
-              color: wrong ? colors.errorSoft : (selected ? colors.successSoft : colors.surface),
-              borderRadius: BorderRadius.circular(16),
-              border: Border.all(color: border, width: selected ? 2 : 1),
-            ),
-            child: Row(
-              children: [
-                Icon(selected ? (wrong ? LucideIcons.x : LucideIcons.check) : LucideIcons.circle, size: 18, color: selected ? border : colors.textMuted),
-                const SizedBox(width: 12),
-                Expanded(
-                  child: TargetText(expression: option, track: plan.track, fontSize: 17),
-                ),
-              ],
+          // A wrong pick shakes; the right one pops (the new key replays the effect on each pick).
+          child: KeyedSubtree(
+            key: ValueKey('option-$optionIndex-$selected'),
+            child: _optionBox(colors, option, selected, wrong, border).withMotion(
+              context,
+              (a) => wrong
+                  ? a.shake(hz: 5, offset: const Offset(6, 0), rotation: 0, duration: 420.ms)
+                  : selected
+                  ? a.scaleXY(begin: 1, end: 1.04, duration: 130.ms, curve: Curves.easeOut).then().scaleXY(begin: 1.04, end: 1, duration: 180.ms)
+                  : a,
             ),
           ),
         ),
       ),
     );
   }
+
+  Widget _optionBox(LangQuestColors colors, Expression option, bool selected, bool wrong, Color border) => AnimatedContainer(
+    duration: const Duration(milliseconds: 200),
+    width: double.infinity,
+    constraints: const BoxConstraints(minHeight: 56),
+    padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 12),
+    decoration: BoxDecoration(
+      color: wrong ? colors.errorSoft : (selected ? colors.successSoft : colors.surface),
+      borderRadius: BorderRadius.circular(16),
+      border: Border.all(color: border, width: selected ? 2 : 1),
+    ),
+    child: Row(
+      children: [
+        Icon(selected ? (wrong ? LucideIcons.x : LucideIcons.check) : LucideIcons.circle, size: 18, color: selected ? border : colors.textMuted),
+        const SizedBox(width: 12),
+        Expanded(
+          child: TargetText(expression: option, track: plan.track, fontSize: 17),
+        ),
+      ],
+    ),
+  );
 }

@@ -160,56 +160,61 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
             // The line: who says it, target text (+ romanization), meaning, and the note when there is one.
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 16),
-              child: Container(
-                key: ValueKey(index),
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: colors.surface,
-                  borderRadius: BorderRadius.circular(18),
-                  border: Border.all(color: learnerTurn ? accent.primary.withValues(alpha: 0.6) : colors.border),
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      learnerTurn ? l10n.sceneYourLine : line.speakerName,
-                      style: TextStyle(
-                        fontSize: 12,
-                        fontWeight: FontWeight.w700,
-                        letterSpacing: 0.4,
-                        color: learnerTurn ? accent.primaryText : colors.textMuted,
-                      ),
+              child:
+                  Container(
+                    key: ValueKey(index),
+                    width: double.infinity,
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: colors.surface,
+                      borderRadius: BorderRadius.circular(18),
+                      border: Border.all(color: learnerTurn ? accent.primary.withValues(alpha: 0.6) : colors.border),
                     ),
-                    const SizedBox(height: 6),
-                    SizedBox(
-                      width: double.infinity,
-                      child: TargetText(expression: line.expression, track: plan.track),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          learnerTurn ? l10n.sceneYourLine : line.speakerName,
+                          style: TextStyle(
+                            fontSize: 12,
+                            fontWeight: FontWeight.w700,
+                            letterSpacing: 0.4,
+                            color: learnerTurn ? accent.primaryText : colors.textMuted,
+                          ),
+                        ),
+                        const SizedBox(height: 6),
+                        SizedBox(
+                          width: double.infinity,
+                          child: TargetText(expression: line.expression, track: plan.track),
+                        ),
+                        const SizedBox(height: 6),
+                        Text(plan.meaningOf(line.expression), style: TextStyle(fontSize: 15, color: colors.textSecondary)),
+                        if (note != null) ...[
+                          const SizedBox(height: 4),
+                          Text(
+                            note,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(fontSize: 12.5, color: colors.textMuted),
+                          ),
+                        ],
+                        const SizedBox(height: 10),
+                        ListenButtons(text: line.expression.text, expressionId: line.expression.id, locale: plan.voiceLocale, compact: true),
+                        if (learnerTurn) ...[
+                          const SizedBox(height: 8),
+                          RecordTake(
+                            key: ValueKey('take-$index'),
+                            voiceLocale: plan.voiceLocale,
+                            check: SpeechTarget(expressionId: line.expression.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
+                          ),
+                        ],
+                      ],
                     ),
-                    const SizedBox(height: 6),
-                    Text(plan.meaningOf(line.expression), style: TextStyle(fontSize: 15, color: colors.textSecondary)),
-                    if (note != null) ...[
-                      const SizedBox(height: 4),
-                      Text(
-                        note,
-                        maxLines: 3,
-                        overflow: TextOverflow.ellipsis,
-                        style: TextStyle(fontSize: 12.5, color: colors.textMuted),
-                      ),
-                    ],
-                    const SizedBox(height: 10),
-                    ListenButtons(text: line.expression.text, expressionId: line.expression.id, locale: plan.voiceLocale, compact: true),
-                    if (learnerTurn) ...[
-                      const SizedBox(height: 8),
-                      RecordTake(
-                        key: ValueKey('take-$index'),
-                        voiceLocale: plan.voiceLocale,
-                        check: SpeechTarget(expressionId: line.expression.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
-                      ),
-                    ],
-                  ],
-                ),
-              ).withMotion(context, (a) => a.fadeIn(duration: 260.ms).slideY(begin: 0.08, end: 0, duration: 260.ms)),
+                    // Each line arrives from its speaker's side, as in a conversation.
+                  ).withMotion(
+                    context,
+                    (a) => a.fadeIn(duration: 260.ms).slideX(begin: learnerTurn ? 0.1 : -0.1, end: 0, duration: 300.ms, curve: Curves.easeOutCubic),
+                  ),
             ),
             const SizedBox(height: 12),
             Padding(

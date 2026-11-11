@@ -50,6 +50,7 @@ void main() {
     bool canRecord = true,
     ServerCourse? call = course,
     String route = '/call/$missionKey',
+    List<CourseCharacter> characters = const [],
   }) async {
     t.view.physicalSize = const Size(390 * 3, 844 * 3);
     t.view.devicePixelRatio = 3;
@@ -63,6 +64,7 @@ void main() {
           apiProvider.overrideWithValue(api),
           takeRecorderFactoryProvider.overrideWithValue(canRecord ? () => FakeRecorder(take: FakeTake()) : null),
           clipPlayerFactoryProvider.overrideWithValue(player == null ? null : () => player),
+          courseCharactersProvider.overrideWith((ref) async => characters),
         ],
         child: const LangQuestApp(),
       ),
@@ -201,6 +203,58 @@ void main() {
     await tapLabel(t, 'Hang up', ms: 1500);
     expect(find.text('Goals met: 1 of 2'), findsOneWidget);
     semantics.dispose();
+  });
+
+  testWidgets('the Speak tab lists the course\'s characters; a free call names the character, has no goals and credits no stop', (t) async {
+    final semantics = t.ensureSemantics();
+    final server = FakeConversationServer(
+      turns: [const ScriptedTurn(heard: 'Hola', reply: '¡Hola! ¿Qué tal?')],
+    );
+    final pablo = CourseCharacter(id: pabloId, name: 'Pablo', role: 'Schoolboy');
+    final container = await pump(
+      t,
+      server: server,
+      player: FakeClipPlayer(instant: true),
+      route: '/',
+      characters: [
+        pablo,
+        const CourseCharacter(id: '00000000-0000-4000-8000-0000000000aa', name: 'Marta', role: 'Coworker'),
+      ],
+    );
+    expect(find.text('Speak'), findsOneWidget, reason: 'live calls back the course');
+    await t.tap(find.text('Speak'));
+    await settle(t);
+    expect(find.text('Talk with the locals'), findsOneWidget);
+    expect(find.text('Pablo'), findsOneWidget);
+    expect(find.text('Marta'), findsOneWidget);
+    expect(find.bySemanticsLabel('Call Marta, Coworker'), findsOneWidget);
+    // Pablo's portrait is the art roster's; Marta (no art in this build) gets her initial.
+    expect(
+      t.widgetList<SvgPicture>(find.byType(SvgPicture)).map((p) => (p.bytesLoader as SvgAssetLoader).assetName),
+      contains('assets/characters/es-es-schoolboy-pablo.neutral.svg'),
+    );
+
+    await t.tap(find.text('Pablo'));
+    await settle(t);
+    expect(find.text('Call Pablo'), findsWidgets);
+    expect(find.text('Schoolboy'), findsOneWidget);
+    await tapLabel(t, 'Call', ms: 1500);
+    final start = server.bodies['POST /v1/ai/conversation/session']!.single;
+    expect(start['characterId'], pabloId);
+    expect(start.containsKey('missionId'), isFalse);
+    expect(find.textContaining('Goals'), findsNothing, reason: 'a free call has no goals');
+    await tapLabel(t, 'Talk');
+    await tapLabel(t, 'Send', ms: 1500);
+    expect(find.text('¡Hola! ¿Qué tal?'), findsOneWidget);
+    await tapLabel(t, 'Hang up', ms: 1500);
+    expect(find.textContaining('Call ended'), findsOneWidget);
+    expect(container.read(appStateProvider).stopsDone(missionKey), isNot(contains(PathStop.talk)), reason: 'no mission stop for a free call');
+    semantics.dispose();
+  });
+
+  testWidgets('without live calls there is no Speak tab', (t) async {
+    await pump(t, call: null, route: '/');
+    expect(find.text('Speak'), findsNothing);
   });
 
   testWidgets('a course without conversation says so, and offers no retry', (t) async {
