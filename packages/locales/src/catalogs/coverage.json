@@ -17,10 +17,11 @@
     "mascot",
     "admin",
     "legal",
-    "curriculum"
+    "curriculum",
+    "cast"
   ],
   "sections": ["admin.ui", "catalog.cover", "audio.listen"],
-  "keyCount": 1604,
+  "keyCount": 1618,
   "locales": {
     "en": {
       "status": "complete",
@@ -41,11 +42,12 @@
         "mascot",
         "admin",
         "legal",
-        "curriculum"
+        "curriculum",
+        "cast"
       ],
       "usable": true,
       "sections": ["admin.ui", "catalog.cover", "audio.listen"],
-      "keyCount": 1604,
+      "keyCount": 1618,
       "pct": 100
     },
     "fr": {
@@ -67,11 +69,12 @@
         "mascot",
         "admin",
         "legal",
-        "curriculum"
+        "curriculum",
+        "cast"
       ],
       "usable": true,
       "sections": ["admin.ui", "catalog.cover", "audio.listen"],
-      "keyCount": 1604,
+      "keyCount": 1618,
       "pct": 100
     },
     "es": {
@@ -80,7 +83,7 @@
       "usable": true,
       "sections": [],
       "keyCount": 192,
-      "pct": 11.97
+      "pct": 11.87
     },
     "ru": {
       "status": "partial",
@@ -88,7 +91,7 @@
       "usable": true,
       "sections": [],
       "keyCount": 192,
-      "pct": 11.97
+      "pct": 11.87
     }
   }
 }

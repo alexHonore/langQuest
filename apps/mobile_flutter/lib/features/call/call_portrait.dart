@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 
 import '../../core/backend/curriculum_ids.dart';
+import '../../core/content/content_bundle.dart';
 import '../../core/layout/motion.dart';
 import '../scenes/scene_models.dart';
 
@@ -53,6 +54,13 @@ SceneId? sceneForRoster(String rosterId) {
   if (id.contains('-stationmaster-')) return SceneId.station;
   if (id.contains('-postwoman-') || id.contains('-postman-')) return SceneId.street;
   return null;
+}
+
+/// A character's role in [language]: the bundle's translation of their roster role when there is one, else the
+/// server's (English) role.
+String roleIn(ContentBundle bundle, String? characterId, String serverRole, String language) {
+  final roster = characterId == null ? null : rosterIdFor(characterId);
+  return (roster == null ? null : bundle.roleOf(roster, language)) ?? serverRole;
 }
 
 String portraitAsset(String rosterId, String expression) =>

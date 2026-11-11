@@ -332,3 +332,21 @@ call was hung up (session 201, turn 200, end 200). The Speak tab then listed "Ca
 Greet and introduce yourself, Goals met: 1 of 5, 1 correction"; its page showed "Goals met: 1 of 5" (Say hello met),
 the server's summary, "Next time, try: Hola, buenos días. Muy bien, ¿y tú?" (said: "Hola, buenos días.") and the
 conversation with Pablo's glosses. 0 page errors. `flutter test`: 191 passed.
+
+### Japanese and the French interface, live (follow-up, 2026-11-11)
+
+Japanese (test learner enrolled from English; the fake microphone saying the server's own こんにちは): the server's
+Japanese voice is raw PCM too (`pcm16`, 24 kHz) and played with the WAV header (Listen: 1.16 s clips, ended); the
+mission's first reply was **answered out loud** ("I heard: こんにちはこんにちは", the fake microphone loops); the Speak
+tab listed Haruka, Kenji, Sota; Haruka (a neighbour) picked up at home with «こんにちは。はるかです。今日は元気ですか？»
+(romaji under each line, gloss "Hello. I'm Haruka. How are you today?"), heard the take and answered; hanging up gave
++2 XP and one correction («こんにちは！元気です。»). 0 page errors.
+
+French interface (browser in French; English taught from French, the fake microphone saying the server's own
+"Hello!"): course page, answer out loud ("Répondu à voix haute · J’ai entendu : « Hello! Hello! »"), the call lobby
+("Des phrases qui peuvent servir"), a call with Dev (goals in French: "Dire bonjour"…; the summary and the correction
+explained in French), "Appels récents" and "Ce que vous savez faire" all read in French. One defect: the characters'
+roles came in English ("Sixth-form student", "Bus driver"): the server's characters carry an English role only. The
+catalogs now hold English and French roles for the 14 shipped portraits (`cast.role.*`, gendered: "Employée de café",
+"Voisine", "Factrice à la retraite"…), exported to the bundle's `cast.json` and shown in the interface's language.
+`flutter test`: 195 passed.

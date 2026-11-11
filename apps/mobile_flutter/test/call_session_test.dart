@@ -11,6 +11,7 @@ import 'package:langquest_mobile/features/scenes/scene_models.dart';
 
 import 'call_fakes.dart';
 import 'recording_fakes.dart';
+import 'support.dart';
 
 const course = ServerCourse(enrollmentId: 'enr-1', targetVarietyId: 'es-ES', speechCheck: true, liveConversation: true, voiceConversation: true);
 const missionId = '4e4a1d03-3dd3-5585-82c9-7c148a551e9e';
@@ -207,6 +208,21 @@ void main() {
     expect(sceneForRoster('ary-student-omar'), isNull);
     for (final r in portraitRoster.where((r) => sceneForRoster(r) == null)) {
       expect(r, matches(RegExp(r'-(schoolboy|schoolgirl|student)-')), reason: 'every other role has a place');
+    }
+  });
+
+  test('a character\'s role in the interface language: the bundle\'s translation, else the server\'s', () {
+    expect(testBundle.roleOf('ary-cafe-staff-nadia', 'fr'), 'Employée de café');
+    expect(roleIn(testBundle, characterServerId('ja-neighbour-haruka'), 'Neighbour', 'fr'), 'Voisine', reason: 'gendered: Haruka');
+    expect(roleIn(testBundle, characterServerId('ary-neighbour-youssef'), 'Neighbour', 'fr'), 'Voisin');
+    expect(roleIn(testBundle, characterServerId('es-es-schoolboy-pablo'), 'Schoolboy', 'en'), 'Schoolboy');
+    expect(
+      roleIn(testBundle, '00000000-0000-4000-8000-000000000000', 'Market vendor', 'fr'),
+      'Market vendor',
+      reason: 'no portrait, no translation: the server\'s',
+    );
+    for (final r in portraitRoster) {
+      expect(testBundle.roleOf(r, 'fr'), isNotNull, reason: 'every shipped portrait has a French role: $r');
     }
   });
 

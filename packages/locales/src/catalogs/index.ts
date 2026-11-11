@@ -44,6 +44,7 @@ export const CATALOG_NAMESPACES = [
   'admin',
   'legal',
   'curriculum',
+  'cast',
 ] as const;
 export type CatalogNamespace = (typeof CATALOG_NAMESPACES)[number];
 

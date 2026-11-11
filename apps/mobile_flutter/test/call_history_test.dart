@@ -236,6 +236,27 @@ void main() {
       expect(container.read(audioListenedProvider), isEmpty);
     });
 
+    testWidgets('in French, the character\'s role is French', (t) async {
+      t.view.physicalSize = const Size(390 * 3, 844 * 3);
+      t.view.devicePixelRatio = 3;
+      addTearDown(t.view.reset);
+      await t.pumpWidget(
+        ProviderScope(
+          overrides: await testOverrides(device: 'fr'),
+          child: const LangQuestApp(),
+        ),
+      );
+      final container = ProviderScope.containerOf(t.element(find.byType(LangQuestApp)));
+      container.read(appStateProvider.notifier)
+        ..setReduceMotion(true)
+        ..enroll('arabic-moroccan', 'fr');
+      container.read(callHistoryProvider.notifier).add(record('ary-1', DateTime.utc(2026, 11, 10), course: 'arabic-moroccan|fr'));
+      container.read(appRouterProvider).go('/calls/ary-1');
+      await settle(t);
+      expect(find.text('Écolier'), findsOneWidget, reason: 'Pablo, a schoolboy');
+      expect(find.text('Schoolboy'), findsNothing);
+    });
+
     testWidgets('a record that is gone says so', (t) async {
       await pump(t, route: '/calls/nothing-here');
       expect(find.text('This call is no longer on this device.'), findsOneWidget);
