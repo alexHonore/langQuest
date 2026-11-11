@@ -830,4 +830,21 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get passwordChanged => 'Votre mot de passe a été modifié.';
+
+  @override
+  String get practiseSayingEntry => 'S’entraîner à dire les phrases';
+
+  @override
+  String practiseSayingTitle(String mission) {
+    return 'S’entraîner à dire · $mission';
+  }
+
+  @override
+  String get practiseSayingNote => 'Écoutez, enregistrez-vous, puis comparez. Pas de note : il faudrait un évaluateur de prononciation que ce cours n’a pas.';
+
+  @override
+  String get practiseSayingDone => 'Terminé';
+
+  @override
+  String get previousPhrase => 'Phrase précédente';
 }

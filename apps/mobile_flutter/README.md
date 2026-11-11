@@ -34,6 +34,10 @@ browser's speech synthesis, with the same exact-locale rule as on phones. On the
 (MediaRecorder; the browser asks for the microphone the first time, and only on https or localhost) and hear the take next to
 the reference voice; the take stays in memory and is never uploaded.
 
+CI checks the compiled app too: after building and serving the root image, `tool/web_smoke.cjs` drives it in Chromium
+(first run → a lesson → record yourself with a fake microphone → Settings › Display) and fails on any page error —
+the Dart VM tests cannot see what dart2js does (it once broke recording while every VM test passed).
+
 The repository's root `Dockerfile` builds it (Flutter 3.47.7, pinned to its release commit) and serves the files with
 Caddy on `$PORT` (default 8080, what the Infra Tayoo hosted app checks); `deploy/Caddyfile` sends `no-cache` so a redeploy shows on the next load. It reads no
 variables: nothing from the host's environment is built into the files served. CI's `web-image` job builds the image
@@ -123,6 +127,7 @@ docker build -t langquest-web . && docker run --rm --network host -e PORT=8090 \
 | Settings | Account (when a backend answers), app language, **display** (below), courses (switch, remove with confirmation), reset all progress (display choices stay), open-source licenses. |
 | Display and accessibility | The Expo app's choices that apply here (`lib/features/account/display_settings.dart`, `lib/core/layout/display_preferences.dart`): theme — dark (default), light, or the device's, followed live; text size 90–180 % on top of the device's own, in steps (a slider's value bubble left an empty full-screen node in the web accessibility tree); reduce motion — scenes, Melo, slides and page transitions stand still, also when the device asks for it; show or hide Melo, who never carries information of its own. Every screen holds up at 200 % text on a 360 × 690 phone, and a whole mission node is walked at 200 % in the widget tests. |
 | Record and compare | On the learner's own lines (the Learn scene, the Mission's "say it" card), where the device can record — the web app today (`lib/core/platform/recorder_web.dart`): record yourself, then play your take next to the reference voice, ADR-006's *listen / record / compare*. Nothing is judged: no score or waveform, only the microphone level while recording; a take whose loudest moment stays at or below −50 dBFS (the server's silence floor, `SILENCE_PEAK_DBFS`) is answered "I didn't hear anything". A refused or missing microphone is said plainly. The take stays in memory on the device — never saved or uploaded — and is dropped when the line changes. Without a recorder (the iOS and Android builds, no plugin yet) the control is not shown. |
+| Practise saying | Once a mission's Learn stop is done, its path offers **Practise saying the phrases** (`/speak/:mission`, where the device can record): each taught phrase big, with Listen / Slowly and Record yourself → My voice — the *listen / record / compare* coach of ADR-006, the offline counterpart of the Expo app's pronunciation coach. No score (no acoustic assessor) and no XP. |
 | Voice | The phone's synthesizer, only when the device has a voice for the course's **exact** locale (`es-ES` never falls back to a Latin American voice). Colloquial Arabic gets no device voice at all: phone Arabic voices speak MSA, which must never stand in for Darija (ADR-006, variety boundaries). Without a voice, listen buttons are not shown. |
 
 Not shown, because nothing real backs them in an offline build (hidden rather than faked, as the Expo app hides tabs

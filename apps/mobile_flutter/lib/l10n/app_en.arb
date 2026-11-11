@@ -529,5 +529,17 @@
   "newPasswordSave": "Save password",
   "newPasswordFailed": "The password could not be saved. Try again.",
   "later": "Later",
-  "passwordChanged": "Your password was changed."
+  "passwordChanged": "Your password was changed.",
+  "practiseSayingEntry": "Practise saying the phrases",
+  "practiseSayingTitle": "Practise saying · {mission}",
+  "@practiseSayingTitle": {
+    "placeholders": {
+      "mission": {
+        "type": "String"
+      }
+    }
+  },
+  "practiseSayingNote": "Listen, record yourself, then compare. There is no score: a number needs a speech assessor this course does not have.",
+  "practiseSayingDone": "Done",
+  "previousPhrase": "Previous phrase"
 }
