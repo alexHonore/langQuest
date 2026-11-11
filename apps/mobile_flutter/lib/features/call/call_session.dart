@@ -146,15 +146,25 @@ class CallSummary {
 /// The screen plays the character's audio and records the learner; this holds the conversation and talks to the
 /// server. Turns are replay-safe: a retry reuses its `clientTurnId`, so the server never answers twice.
 class CallSession extends ChangeNotifier {
-  CallSession({required this.api, required this.course, this.missionId, required this.voice, String Function()? newId, DateTime Function()? now})
-    : _newId = newId ?? randomUuid,
-      _now = now ?? DateTime.now;
+  CallSession({
+    required this.api,
+    required this.course,
+    this.missionId,
+    this.characterId,
+    required this.voice,
+    String Function()? newId,
+    DateTime Function()? now,
+  }) : _newId = newId ?? randomUuid,
+       _now = now ?? DateTime.now;
 
   final LangQuestApi api;
   final ServerCourse course;
 
   /// The server mission the call practises (its objectives and scene); null for a free conversation.
   final String? missionId;
+
+  /// The character called (`characters.id`); null lets the server pick the mission's.
+  final String? characterId;
 
   /// Spoken (push to talk, the character's voice) or written only.
   final bool voice;
@@ -208,7 +218,13 @@ class CallSession extends ChangeNotifier {
     _changed();
     final Map<String, Object?> data;
     try {
-      data = await api.startConversation(enrollmentId: course.enrollmentId, clientSessionId: _newId(), missionId: missionId, voice: voice);
+      data = await api.startConversation(
+        enrollmentId: course.enrollmentId,
+        clientSessionId: _newId(),
+        missionId: missionId,
+        characterId: characterId,
+        voice: voice,
+      );
     } on ApiException catch (e) {
       phase = CallPhase.failed;
       // 501 `capability_unsupported` says the course has no conversation yet: not something a retry fixes.

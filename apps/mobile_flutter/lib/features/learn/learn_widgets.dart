@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/content/content_models.dart';
 import '../../core/backend/server_voice.dart';
+import '../../core/layout/motion.dart';
 import '../../core/services/app_state.dart';
 import '../../core/theme/script_fonts.dart';
 import '../../l10n/l10n.dart';
@@ -338,6 +340,10 @@ class CharacterBadge extends ConsumerWidget {
               initial,
               style: TextStyle(fontSize: size * 0.42, fontWeight: FontWeight.w800, color: const Color(0xFF3A2A22)),
             ),
+          ).withMotion(
+            context,
+            // A gentle pulse while the character speaks.
+            (a) => speaking ? a.animate(onPlay: (c) => c.repeat(reverse: true)).scaleXY(begin: 1, end: 1.05, duration: 520.ms, curve: Curves.easeInOut) : a,
           ),
           if (showName) ...[
             const SizedBox(height: 4),

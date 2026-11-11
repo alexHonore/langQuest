@@ -2161,6 +2161,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'An AI voice for this dialect (with a free account)'**
   String get courseIncludesAiVoiceDialect;
+
+  /// No description provided for @tabSpeak.
+  ///
+  /// In en, this message translates to:
+  /// **'Speak'**
+  String get tabSpeak;
+
+  /// No description provided for @speakTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Talk with the locals'**
+  String get speakTitle;
+
+  /// No description provided for @speakBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Free conversations with the course’s characters, by voice or in writing. Use what you’ve learned; ask for a hint whenever you need one.'**
+  String get speakBody;
+
+  /// No description provided for @speakNoCharacters.
+  ///
+  /// In en, this message translates to:
+  /// **'No characters are published for this course yet.'**
+  String get speakNoCharacters;
+
+  /// No description provided for @speakCall.
+  ///
+  /// In en, this message translates to:
+  /// **'Call {name}'**
+  String speakCall(String name);
+
+  /// No description provided for @callFreeTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Call {name}'**
+  String callFreeTitle(String name);
+
+  /// No description provided for @callFreeBody.
+  ///
+  /// In en, this message translates to:
+  /// **'A free conversation, in the language you’re learning, about everyday things. Answer out loud, or type. When you hang up, LangQuest tells you how it went.'**
+  String get callFreeBody;
+
+  /// No description provided for @callFreeBodyText.
+  ///
+  /// In en, this message translates to:
+  /// **'A free chat, in the language you’re learning, about everyday things. When you end it, LangQuest tells you how it went.'**
+  String get callFreeBodyText;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

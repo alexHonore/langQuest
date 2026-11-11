@@ -8,6 +8,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/backend/server_voice.dart';
+import '../../core/layout/celebration.dart';
 import '../../core/layout/motion.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/learner_store.dart';
@@ -341,9 +342,21 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
                     title: sceneTitle(l10n, sceneId),
                     height: box.maxHeight,
                     showTimeToggle: false,
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(14, 44, 14, 14),
-                      child: _NowPlaying(plan: plan, step: step, playing: playing, waited: player?.waited ?? 0, finished: player?.finished ?? false),
+                    child: Stack(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.fromLTRB(14, 44, 14, 14),
+                          child: _NowPlaying(plan: plan, step: step, playing: playing, waited: player?.waited ?? 0, finished: player?.finished ?? false),
+                        ),
+                        if (player?.finished ?? false)
+                          Positioned.fill(
+                            child: ConfettiBurst(
+                              colors: [accent.primary, colors.celebrationA, colors.celebrationB, colors.success],
+                              count: 50,
+                              origin: const Alignment(0, 0),
+                            ),
+                          ),
+                      ],
                     ),
                   ),
                 ),

@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/audio/clip_player.dart';
@@ -12,6 +13,8 @@ import '../../core/audio/take_recorder.dart';
 import '../../core/backend/account.dart';
 import '../../core/backend/curriculum_ids.dart';
 import '../../core/backend/server_course.dart';
+import '../../core/content/content_models.dart';
+import '../../core/layout/celebration.dart';
 import '../../core/layout/motion.dart';
 import '../../core/services/app_state.dart';
 import '../../l10n/l10n.dart';
@@ -22,6 +25,7 @@ import '../learn/learn_providers.dart';
 import '../learn/learn_widgets.dart';
 import '../learn/record_take.dart';
 import '../scenes/animated_scene.dart';
+import '../scenes/scene_models.dart';
 import 'call_portrait.dart';
 import 'call_session.dart';
 
@@ -33,15 +37,83 @@ final liveCallCourseProvider = Provider<ServerCourse?>((ref) {
   return course != null && course.liveConversation && ref.watch(apiProvider) != null ? course : null;
 });
 
+/// What a call is about: a mission (its goals and scene), or a free conversation with one of the course's characters.
+@immutable
+class CallTopic {
+  const CallTopic({
+    required this.title,
+    required this.sceneId,
+    required this.track,
+    this.missionKey,
+    this.missionId,
+    this.characterId,
+    this.characterName,
+    this.characterRole,
+  });
+
+  /// A mission's call: the server gives it the mission's character, goals and scene.
+  factory CallTopic.mission(MissionLearnPlan plan) => CallTopic(
+    title: plan.mission.titleIn(plan.source) ?? '',
+    sceneId: sceneIdForSituation(plan.mission.situation),
+    track: plan.track,
+    missionKey: plan.mission.key,
+    missionId: missionServerId(plan.mission.chapterKey, plan.mission.key),
+  );
+
+  final String title;
+  final SceneId sceneId;
+  final CourseTrackInfo track;
+  final String? missionKey;
+  final String? missionId;
+  final String? characterId;
+  final String? characterName;
+  final String? characterRole;
+
+  bool get free => missionId == null;
+}
+
+/// One of the course's characters, as the course manifest lists them.
+@immutable
+class CourseCharacter {
+  const CourseCharacter({required this.id, required this.name, required this.role});
+
+  final String id;
+  final String name;
+  final String role;
+
+  /// The art roster id, when the portrait ships with this build.
+  String? get rosterId => rosterIdFor(id);
+}
+
+/// The active course's characters (`GET /v1/courses/:trackId/manifest`), when live calls back the course.
+final courseCharactersProvider = FutureProvider.autoDispose<List<CourseCharacter>>((ref) async {
+  final call = ref.watch(liveCallCourseProvider);
+  final api = ref.watch(apiProvider);
+  final course = ref.watch(appStateProvider.select((s) => s.activeCourse));
+  if (call == null || api == null || course == null) return const [];
+  try {
+    return [
+      for (final c in await api.courseCharacters(course.track.id, course.source))
+        if (c['id'] is String && c['name'] is String) CourseCharacter(id: c['id'] as String, name: c['name'] as String, role: '${c['role'] ?? ''}'),
+    ];
+  } catch (_) {
+    return const [];
+  }
+});
+
 /// The Talk stop: a live phone call with a character of the mission (`/v1/ai/conversation/*`). The learner taps Call
 /// (a call costs model calls, so it never starts by itself); the character picks up in the mission's scene, speaks
 /// with a lip-synced portrait and subtitles that follow the voice; the learner answers by voice (push to talk) or in
 /// writing, can ask for a hint, a repeat, slower speech or a translation, and sees the mission's goals tick off.
 /// Hanging up shows the server's evaluation: goals met, at most two corrections, XP. Nothing is invented locally.
 class CallScreen extends ConsumerStatefulWidget {
-  const CallScreen({super.key, required this.missionKey});
+  const CallScreen({super.key, this.missionKey, this.characterId}) : assert(missionKey != null || characterId != null);
 
-  final String missionKey;
+  /// The mission the call practises (its Talk stop); null for a free call with [characterId].
+  final String? missionKey;
+
+  /// The character called freely (the Speak tab).
+  final String? characterId;
 
   /// A spoken turn stops by itself after this long.
   static const maxTake = Duration(seconds: 20);
@@ -112,9 +184,10 @@ class _CallScreenState extends ConsumerState<CallScreen> {
     }
     if (session.phase == CallPhase.ended || session.phase == CallPhase.failed) {
       _clock?.cancel();
-      if (session.phase == CallPhase.ended && !_credited && session.learnerTurns > 0) {
+      final missionKey = widget.missionKey;
+      if (session.phase == CallPhase.ended && !_credited && session.learnerTurns > 0 && missionKey != null) {
         _credited = true;
-        ref.read(appStateProvider.notifier).completeStop(widget.missionKey, PathStop.talk);
+        ref.read(appStateProvider.notifier).completeStop(missionKey, PathStop.talk);
       }
     }
     setState(() {});
@@ -123,7 +196,7 @@ class _CallScreenState extends ConsumerState<CallScreen> {
     });
   }
 
-  Future<void> _call(MissionLearnPlan plan, ServerCourse course) async {
+  Future<void> _call(CallTopic topic, ServerCourse course) async {
     final api = ref.read(apiProvider);
     if (api == null) return;
     final voice = _voiceFor(course);
@@ -138,8 +211,7 @@ class _CallScreenState extends ConsumerState<CallScreen> {
     final previous = _session;
     previous?.removeListener(_onSession);
     previous?.dispose();
-    final session = CallSession(api: api, course: course, missionId: missionServerId(plan.mission.chapterKey, plan.mission.key), voice: voice)
-      ..addListener(_onSession);
+    final session = CallSession(api: api, course: course, missionId: topic.missionId, characterId: topic.characterId, voice: voice)..addListener(_onSession);
     _clock?.cancel();
     _clock = null;
     setState(() {
@@ -309,11 +381,34 @@ class _CallScreenState extends ConsumerState<CallScreen> {
     await _session?.hangUp();
   }
 
+  /// The mission's call, or the free call with the character (its name and role from the course's manifest).
+  CallTopic? _topic() {
+    final missionKey = widget.missionKey;
+    if (missionKey != null) {
+      final plan = ref.watch(learnPlanProvider(missionKey));
+      return plan == null ? null : CallTopic.mission(plan);
+    }
+    final appState = ref.watch(appStateProvider);
+    final course = appState.activeCourse;
+    if (course == null) return null;
+    final who = ref.watch(courseCharactersProvider).asData?.value.where((c) => c.id == widget.characterId).firstOrNull;
+    // A free call happens where the learner's next mission does.
+    final next = appState.nextMission(course) ?? (course.missions.isEmpty ? null : course.missions.first);
+    return CallTopic(
+      title: who?.name ?? '',
+      sceneId: sceneIdForSituation(next?.situation ?? 'street'),
+      track: course.track,
+      characterId: widget.characterId,
+      characterName: who?.name,
+      characterRole: who?.role,
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final plan = ref.watch(learnPlanProvider(widget.missionKey));
+    final topic = _topic();
     final course = ref.watch(liveCallCourseProvider);
-    if (plan == null) return const MissionUnavailable();
+    if (topic == null) return const MissionUnavailable();
     final colors = ref.watch(appStateProvider.select((s) => s.colors));
     final session = _session;
     final phase = session?.phase ?? CallPhase.idle;
@@ -326,32 +421,32 @@ class _CallScreenState extends ConsumerState<CallScreen> {
         backgroundColor: colors.background,
         body: SafeArea(
           child: switch (phase) {
-            CallPhase.idle => _IntroView(plan: plan, course: course, onCall: course == null ? null : () => _call(plan, course)),
-            CallPhase.connecting => _RingingView(plan: plan),
-            CallPhase.failed => _FailedView(failure: session!.failure, onRetry: course == null ? null : () => _call(plan, course)),
+            CallPhase.idle => _IntroView(topic: topic, course: course, onCall: course == null ? null : () => _call(topic, course)),
+            CallPhase.connecting => _RingingView(topic: topic),
+            CallPhase.failed => _FailedView(failure: session!.failure, onRetry: course == null ? null : () => _call(topic, course)),
             CallPhase.ending => const _EndingView(),
             CallPhase.ended => _SummaryView(
               session: session!,
               elapsed: _elapsed,
               voice: session.voice,
-              onAgain: course == null ? null : () => _call(plan, course),
+              onAgain: course == null ? null : () => _call(topic, course),
               onBack: () => context.popOrHome(),
             ),
-            CallPhase.active => _activeView(plan, session!),
+            CallPhase.active => _activeView(topic, session!),
           },
         ),
       ),
     );
   }
 
-  Widget _activeView(MissionLearnPlan plan, CallSession session) {
+  Widget _activeView(CallTopic topic, CallSession session) {
     final appState = ref.watch(appStateProvider);
     final colors = appState.colors;
     final accent = appState.accent;
     final l10n = context.l10n;
     final character = session.character!;
     final name = character.name;
-    final sceneId = sceneIdForSituation(plan.mission.situation);
+    final sceneId = topic.sceneId;
     final speaking = _speakingId != null;
     final last = session.lastCharacterLine;
     final expression = _recording ? 'listening' : (session.thinking ? 'listening' : (last?.expression ?? 'greeting'));
@@ -482,7 +577,7 @@ class _CallScreenState extends ConsumerState<CallScreen> {
                       : _CharacterBubble(
                           key: ValueKey(line.id),
                           line: line,
-                          plan: plan,
+                          track: topic.track,
                           speaking: _speakingId == line.id,
                           progress: _voiceProgress,
                           // Help (a hint, a translation, an example) is written in the learner's language: always shown.
@@ -617,9 +712,9 @@ class _CallScreenState extends ConsumerState<CallScreen> {
 
 /// Before the call: what it is, what it costs the learner (nothing; it uses the AI), and the Call button.
 class _IntroView extends ConsumerWidget {
-  const _IntroView({required this.plan, required this.course, required this.onCall});
+  const _IntroView({required this.topic, required this.course, required this.onCall});
 
-  final MissionLearnPlan plan;
+  final CallTopic topic;
   final ServerCourse? course;
   final VoidCallback? onCall;
 
@@ -631,7 +726,8 @@ class _IntroView extends ConsumerWidget {
     final l10n = context.l10n;
     final keeps = ref.watch(accountProvider).lastReport?.keepsRecordings ?? false;
     final voice = course != null && course!.voiceConversation && ref.watch(takeRecorderFactoryProvider) != null && ref.watch(clipPlayerFactoryProvider) != null;
-    final sceneId = sceneIdForSituation(plan.mission.situation);
+    final sceneId = topic.sceneId;
+    final roster = topic.characterId == null ? null : rosterIdFor(topic.characterId!);
     return Column(
       children: [
         Align(
@@ -656,32 +752,36 @@ class _IntroView extends ConsumerWidget {
                   height: 170,
                   showTimeToggle: false,
                   child: Center(
-                    child: Container(
-                      width: 72,
-                      height: 72,
-                      decoration: BoxDecoration(shape: BoxShape.circle, color: accent.primary),
-                      child: Icon(voice ? LucideIcons.phoneCall : LucideIcons.messageCircle, color: accent.onPrimary, size: 32),
-                    ).withMotion(context, (a) => a.scale(begin: const Offset(0.8, 0.8), duration: 420.ms, curve: Curves.easeOutBack)),
+                    child:
+                        (roster != null
+                                ? SvgPicture.asset(portraitAsset(roster, 'greeting'), width: 120, height: 120, excludeFromSemantics: true)
+                                : Container(
+                                    width: 72,
+                                    height: 72,
+                                    decoration: BoxDecoration(shape: BoxShape.circle, color: accent.primary),
+                                    child: Icon(voice ? LucideIcons.phoneCall : LucideIcons.messageCircle, color: accent.onPrimary, size: 32),
+                                  ))
+                            .withMotion(context, (a) => a.scale(begin: const Offset(0.8, 0.8), duration: 420.ms, curve: Curves.easeOutBack)),
                   ),
                 ),
                 const SizedBox(height: 20),
                 Semantics(
                   header: true,
                   child: Text(
-                    l10n.callIntroTitle,
+                    topic.free ? l10n.callFreeTitle(topic.characterName ?? '') : l10n.callIntroTitle,
                     textAlign: TextAlign.center,
                     style: TextStyle(fontSize: 22, fontWeight: FontWeight.w800, height: 1.2, color: colors.textPrimary),
                   ),
                 ),
                 const SizedBox(height: 6),
                 Text(
-                  plan.mission.titleIn(plan.source) ?? '',
+                  topic.free ? (topic.characterRole ?? '') : topic.title,
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: accent.primaryText),
                 ),
                 const SizedBox(height: 12),
                 Text(
-                  voice ? l10n.callIntroBody : l10n.callIntroBodyText,
+                  topic.free ? (voice ? l10n.callFreeBody : l10n.callFreeBodyText) : (voice ? l10n.callIntroBody : l10n.callIntroBodyText),
                   textAlign: TextAlign.center,
                   style: TextStyle(fontSize: 15, height: 1.45, color: colors.textSecondary),
                 ),
@@ -710,9 +810,9 @@ class _IntroView extends ConsumerWidget {
 
 /// The phone rings: rings pulse out from the call icon while the character picks up.
 class _RingingView extends ConsumerWidget {
-  const _RingingView({required this.plan});
+  const _RingingView({required this.topic});
 
-  final MissionLearnPlan plan;
+  final CallTopic topic;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -763,7 +863,7 @@ class _RingingView extends ConsumerWidget {
           ),
         ),
         const SizedBox(height: 6),
-        Text(plan.mission.titleIn(plan.source) ?? '', style: TextStyle(fontSize: 14, color: colors.textSecondary)),
+        Text(topic.title, style: TextStyle(fontSize: 14, color: colors.textSecondary)),
       ],
     );
   }
@@ -867,7 +967,8 @@ class _SummaryView extends ConsumerWidget {
       return child.withMotion(context, (a) => a.fadeIn(delay: delay.ms, duration: 260.ms).slideY(begin: 0.12, delay: delay.ms, duration: 260.ms));
     }
 
-    return Column(
+    final celebrate = summary != null && (summary.objectivesMet.isNotEmpty || summary.xp > 0);
+    final view = Column(
       children: [
         Expanded(
           child: ListView(
@@ -893,9 +994,12 @@ class _SummaryView extends ConsumerWidget {
                     ),
                     if (summary != null && summary.xp > 0) ...[
                       const SizedBox(height: 6),
-                      Text(
-                        l10n.xpGain(summary.xp),
-                        style: TextStyle(fontSize: 16, fontWeight: FontWeight.w700, color: accent.primaryText),
+                      CountUp(
+                        value: summary.xp,
+                        builder: (context, xp) => Text(
+                          l10n.xpGain(xp),
+                          style: TextStyle(fontSize: 18, fontWeight: FontWeight.w800, color: accent.primaryText),
+                        ),
                       ),
                     ],
                   ],
@@ -1014,6 +1118,18 @@ class _SummaryView extends ConsumerWidget {
                 ),
               ),
             ],
+          ),
+        ),
+      ],
+    );
+    if (!celebrate) return view;
+    return Stack(
+      children: [
+        view,
+        Positioned.fill(
+          child: ConfettiBurst(
+            colors: [accent.primary, colors.celebrationA, colors.celebrationB, colors.success, colors.amber],
+            origin: const Alignment(0, -0.6),
           ),
         ),
       ],
@@ -1143,7 +1259,7 @@ class _CharacterBubble extends ConsumerWidget {
   const _CharacterBubble({
     super.key,
     required this.line,
-    required this.plan,
+    required this.track,
     required this.speaking,
     required this.progress,
     required this.showGloss,
@@ -1151,7 +1267,7 @@ class _CharacterBubble extends ConsumerWidget {
   });
 
   final CallLine line;
-  final MissionLearnPlan plan;
+  final CourseTrackInfo track;
   final bool speaking;
   final ValueListenable<double> progress;
   final bool showGloss;
@@ -1204,7 +1320,7 @@ class _CharacterBubble extends ConsumerWidget {
         children: [
           Expanded(
             child: Semantics(
-              localeForSubtree: contentLanguageOf(plan.track),
+              localeForSubtree: contentLanguageOf(track),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [

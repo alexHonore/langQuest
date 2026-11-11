@@ -749,5 +749,27 @@
   "courseVoiceAi": "an AI voice (with a free account)",
   "courseVoiceDevice": "your device’s voice",
   "courseMissingAudioRecorded": "Audio recorded by native speakers",
-  "courseIncludesAiVoiceDialect": "An AI voice for this dialect (with a free account)"
+  "courseIncludesAiVoiceDialect": "An AI voice for this dialect (with a free account)",
+  "tabSpeak": "Speak",
+  "speakTitle": "Talk with the locals",
+  "speakBody": "Free conversations with the course’s characters, by voice or in writing. Use what you’ve learned; ask for a hint whenever you need one.",
+  "speakNoCharacters": "No characters are published for this course yet.",
+  "speakCall": "Call {name}",
+  "@speakCall": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "callFreeTitle": "Call {name}",
+  "@callFreeTitle": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "callFreeBody": "A free conversation, in the language you’re learning, about everyday things. Answer out loud, or type. When you hang up, LangQuest tells you how it went.",
+  "callFreeBodyText": "A free chat, in the language you’re learning, about everyday things. When you end it, LangQuest tells you how it went."
 }

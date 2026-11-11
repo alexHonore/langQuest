@@ -268,3 +268,12 @@ The lesson now prefetches the next two lines while one plays. The course page li
 voice (with a free account)") and, for Darija, an AI voice for the dialect with the server's "limited" caveat.
 `flutter test`: 158 passed (lesson structure, the player's order / pause / next / previous / slow / turn countdown, the
 Audio tab and a lesson heard to the end, no tab without a voice, the course page).
+
+### Speak tab and immersive motion (follow-up, 2026-11-11)
+
+**Speak** tab (when live calls back the course): the course's characters from its manifest, each opening a free call
+(`characterId`, no mission: no goals, no path stop). Motion, where it is on: confetti and a counting-up XP when a
+mission completes (checked in Chromium on the release build: the burst, Melo's pop and "+50 XP" counting, 0 errors), a
+call ends with goals met, or an audio lesson is heard to the end; a wrong option shakes and the right one pops; scene
+lines arrive from their speaker's side; a speaking character's badge pulses. All decorative and absent with reduced
+motion. `flutter test`: 162 passed.
