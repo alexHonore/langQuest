@@ -1387,4 +1387,61 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get callMicBlocked => 'Le micro est bloqué : vous pouvez écrire vos réponses. Autorisez-le pour parler.';
+
+  @override
+  String get pronunciationButton => 'Prononciation (IA)';
+
+  @override
+  String get pronunciationButtonSemantics => 'Obtenir l’avis de l’IA sur votre prononciation';
+
+  @override
+  String get pronunciationListening => 'L’IA de LangQuest écoute votre enregistrement…';
+
+  @override
+  String pronunciationScore(int score) {
+    return '$score/100';
+  }
+
+  @override
+  String get pronunciationNativeLike => 'Comme un natif';
+
+  @override
+  String get pronunciationClearAccent => 'Clair, avec un accent';
+
+  @override
+  String get pronunciationHard => 'Difficile à comprendre';
+
+  @override
+  String get pronunciationOffTarget => 'Ce n’était pas la phrase';
+
+  @override
+  String get pronunciationNoSpeech => 'Je n’ai rien entendu. Vérifiez votre micro et réessayez.';
+
+  @override
+  String get pronunciationWordGood => 'bien';
+
+  @override
+  String get pronunciationWordUnclear => 'pas clair';
+
+  @override
+  String get pronunciationWordToWork => 'à travailler';
+
+  @override
+  String get pronunciationWordMissing => 'manquant';
+
+  @override
+  String pronunciationWordLabel(String word, String status) {
+    return '$word : $status';
+  }
+
+  @override
+  String pronunciationSounds(String heard, String expected) {
+    return 'Entendu /$heard/ · attendu /$expected/';
+  }
+
+  @override
+  String get pronunciationNote => 'Une estimation de l’IA qui a écouté votre enregistrement, pas une mesure. Elle ne compte pas dans votre progression.';
+
+  @override
+  String get pronunciationFailed => 'Impossible d’obtenir l’avis sur la prononciation cette fois-ci.';
 }

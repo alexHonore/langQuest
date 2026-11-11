@@ -3,8 +3,10 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart' show Bidi;
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
+import '../../core/backend/pronunciation_coach.dart';
 import '../../core/backend/server_voice.dart';
 import '../../core/audio/take_recorder.dart';
 import '../../core/backend/speech_check.dart';
@@ -78,6 +80,11 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
   /// The check could not be made: the learner compares by ear.
   bool _checkFailed = false;
 
+  /// AI pronunciation feedback on the current take: being fetched, the result, or that it failed.
+  bool _coaching = false;
+  PronunciationFeedback? _feedback;
+  bool _feedbackFailed = false;
+
   @override
   void dispose() {
     _endRecording();
@@ -112,6 +119,9 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
       _checking = false;
       _verdict = null;
       _checkFailed = false;
+      _coaching = false;
+      _feedback = null;
+      _feedbackFailed = false;
     });
     final failure = await _open(recorder);
     // Closed meanwhile, or another take started: this one must not keep the microphone.
@@ -221,6 +231,34 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
     }
   }
 
+  /// Asks the AI how the current take sounded (on demand: each listen is a model call).
+  Future<void> _coach() async {
+    final coach = ref.read(pronunciationCoachProvider);
+    final target = widget.check;
+    final take = _take;
+    if (coach == null || target == null || take == null || _coaching) return;
+    setState(() {
+      _coaching = true;
+      _feedbackFailed = false;
+    });
+    final feedback = await _listen(coach, take, target);
+    if (!mounted || _take != take) return;
+    setState(() {
+      _coaching = false;
+      _feedback = feedback;
+      _feedbackFailed = feedback == null;
+    });
+  }
+
+  /// The AI's feedback on [take], or null when it could not be had (a helper returning the outcome; see [_open]).
+  static Future<PronunciationFeedback?> _listen(PronunciationCoach coach, RecordedTake take, SpeechTarget target) async {
+    try {
+      return await coach.listen(take, target);
+    } catch (_) {
+      return null;
+    }
+  }
+
   /// The server's verdict on [take], or null when it could not be checked (a helper returning the outcome; see [_open]).
   static Future<SpeechVerdict?> _assess(SpeechChecker checker, RecordedTake take, SpeechTarget target) async {
     try {
@@ -252,6 +290,7 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
     final hasVoice = ref.watch(lineVoiceProvider(voiceLocale)).asData?.value.available ?? false;
     final note = TextStyle(fontSize: 12.5, height: 1.35, color: colors.textMuted);
     final checker = widget.check == null ? null : ref.watch(speechCheckerProvider);
+    final coach = widget.check == null ? null : ref.watch(pronunciationCoachProvider);
     final idleNote = checker == null ? l10n.recordStaysOnDevice : (checker.keepsRecordings ? l10n.recordCheckedKept : l10n.recordChecked);
 
     final record = AudioChip(icon: LucideIcons.mic, label: l10n.recordYourself, onTap: _state == _Take.starting ? null : _start);
@@ -294,6 +333,13 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
             onTap: _play,
           ),
           AudioChip(icon: LucideIcons.rotateCcw, label: l10n.recordAgain, semanticsLabel: l10n.recordAgainSemantics, onTap: _start),
+          if (coach != null && _feedback == null)
+            AudioChip(
+              icon: LucideIcons.sparkles,
+              label: l10n.pronunciationButton,
+              semanticsLabel: l10n.pronunciationButtonSemantics,
+              onTap: _coaching ? null : _coach,
+            ),
         ],
         // A checked take shows the verdict instead; a failed check falls back to comparing by ear.
         _checking || _verdict != null
@@ -330,6 +376,19 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
                   child: Text(message, textAlign: widget.centered ? TextAlign.center : TextAlign.start, style: note),
                 ),
         ),
+        // AI pronunciation feedback, once asked for.
+        if (_state == _Take.recorded && (_coaching || _feedback != null || _feedbackFailed))
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Semantics(
+              liveRegion: true,
+              child: _coaching
+                  ? _Checking(centered: widget.centered, label: l10n.pronunciationListening)
+                  : _feedback != null
+                  ? PronunciationPanel(feedback: _feedback!, centered: widget.centered)
+                  : Text(l10n.pronunciationFailed, style: note),
+            ),
+          ),
         // Blocked: the steps to allow it, on this device.
         if (_state == _Take.blocked)
           Padding(
@@ -456,9 +515,10 @@ class _LevelBars extends StatelessWidget {
 
 /// The server is listening to the take.
 class _Checking extends ConsumerWidget {
-  const _Checking({required this.centered});
+  const _Checking({required this.centered, this.label});
 
   final bool centered;
+  final String? label;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -470,11 +530,179 @@ class _Checking extends ConsumerWidget {
         SizedBox.square(dimension: 14, child: CircularProgressIndicator(strokeWidth: 2, color: colors.textMuted)),
         const SizedBox(width: 8),
         Flexible(
-          child: Text(context.l10n.recordChecking, style: TextStyle(fontSize: 13, color: colors.textSecondary)),
+          child: Text(label ?? context.l10n.recordChecking, style: TextStyle(fontSize: 13, color: colors.textSecondary)),
         ),
       ],
     );
   }
+}
+
+/// AI pronunciation feedback on a take: the score and its band, each word of the phrase coloured by how it sounded
+/// (with its tip), the one thing to practise, what was heard next to what was expected (IPA), and a plain note that
+/// this is an AI's estimate that does not count as progress.
+class PronunciationPanel extends ConsumerWidget {
+  const PronunciationPanel({super.key, required this.feedback, this.centered = false});
+
+  final PronunciationFeedback feedback;
+  final bool centered;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = ref.watch(appStateProvider.select((s) => s.colors));
+    final l10n = context.l10n;
+    if (feedback.band == PronunciationBand.noSpeech) {
+      return Text(l10n.pronunciationNoSpeech, style: TextStyle(fontSize: 13, color: colors.textMuted));
+    }
+    final (Color tone, Color soft, String band) = switch (feedback.band) {
+      PronunciationBand.nativeLike => (colors.success, colors.successSoft, l10n.pronunciationNativeLike),
+      PronunciationBand.clearAccent => (colors.info, colors.infoSoft, l10n.pronunciationClearAccent),
+      PronunciationBand.hardToUnderstand => (colors.warning, colors.warningSoft, l10n.pronunciationHard),
+      _ => (colors.error, colors.errorSoft, l10n.pronunciationOffTarget),
+    };
+    (Color, String) sound(WordSound s) => switch (s) {
+      WordSound.good => (colors.success, l10n.pronunciationWordGood),
+      WordSound.unclear => (colors.warning, l10n.pronunciationWordUnclear),
+      WordSound.mispronounced => (colors.error, l10n.pronunciationWordToWork),
+      WordSound.missing => (colors.textMuted, l10n.pronunciationWordMissing),
+    };
+    final score = feedback.score;
+    final tips = [
+      for (final w in feedback.words)
+        if (w.sound != WordSound.good && w.tip != null) w,
+    ];
+    final panel = Container(
+      padding: const EdgeInsets.all(12),
+      decoration: BoxDecoration(
+        color: soft,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: tone.withValues(alpha: 0.6)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (score != null)
+                Semantics(
+                  container: true,
+                  label: '${l10n.pronunciationScore(score)}, $band',
+                  excludeSemantics: true,
+                  child: SizedBox.square(
+                    dimension: 46,
+                    child: Stack(
+                      alignment: Alignment.center,
+                      children: [
+                        CircularProgressIndicator(value: score / 100, strokeWidth: 4, color: tone, backgroundColor: tone.withValues(alpha: 0.18)),
+                        Text(
+                          '$score',
+                          style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: colors.textPrimary),
+                        ),
+                      ],
+                    ),
+                  ),
+                ).withMotion(context, (a) => a.scale(begin: const Offset(0.6, 0.6), duration: 360.ms, curve: Curves.easeOutBack)),
+              const SizedBox(width: 10),
+              Flexible(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    ExcludeSemantics(
+                      child: Text(
+                        band,
+                        style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.w800, color: colors.textPrimary),
+                      ),
+                    ),
+                    if (feedback.summary.isNotEmpty) Text(feedback.summary, style: TextStyle(fontSize: 13, height: 1.35, color: colors.textSecondary)),
+                  ],
+                ),
+              ),
+            ],
+          ),
+          if (feedback.words.isNotEmpty) ...[
+            const SizedBox(height: 10),
+            Wrap(
+              spacing: 6,
+              runSpacing: 6,
+              children: [
+                for (final w in feedback.words)
+                  Semantics(
+                    container: true,
+                    label: l10n.pronunciationWordLabel(w.word, sound(w.sound).$2),
+                    excludeSemantics: true,
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(horizontal: 9, vertical: 4),
+                      decoration: BoxDecoration(
+                        color: sound(w.sound).$1.withValues(alpha: 0.14),
+                        borderRadius: BorderRadius.circular(999),
+                        border: Border.all(color: sound(w.sound).$1.withValues(alpha: 0.7)),
+                      ),
+                      child: Text(
+                        w.word,
+                        textDirection: Bidi.detectRtlDirectionality(w.word) ? TextDirection.rtl : TextDirection.ltr,
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w700,
+                          color: colors.textPrimary,
+                          decoration: w.sound == WordSound.missing ? TextDecoration.lineThrough : null,
+                        ),
+                      ),
+                    ),
+                  ),
+              ],
+            ),
+          ],
+          for (final w in tips)
+            Padding(
+              padding: const EdgeInsets.only(top: 6),
+              child: Text.rich(
+                TextSpan(
+                  children: [
+                    TextSpan(
+                      text: '${w.word} · ',
+                      style: TextStyle(fontWeight: FontWeight.w800, color: sound(w.sound).$1),
+                    ),
+                    TextSpan(text: w.tip),
+                  ],
+                ),
+                style: TextStyle(fontSize: 13, height: 1.35, color: colors.textSecondary),
+              ),
+            ),
+          if (feedback.tip.isNotEmpty) ...[
+            const SizedBox(height: 8),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Icon(LucideIcons.lightbulb, size: 16, color: colors.amberText),
+                const SizedBox(width: 6),
+                Expanded(
+                  child: Text(
+                    feedback.tip,
+                    style: TextStyle(fontSize: 13.5, height: 1.35, fontWeight: FontWeight.w600, color: colors.textPrimary),
+                  ),
+                ),
+              ],
+            ),
+          ],
+          if (feedback.heardIpa.isNotEmpty && feedback.targetIpa.isNotEmpty) ...[
+            const SizedBox(height: 6),
+            Text(l10n.pronunciationSounds(_ipa(feedback.heardIpa), _ipa(feedback.targetIpa)), style: TextStyle(fontSize: 12, color: colors.textMuted)),
+          ],
+          const SizedBox(height: 6),
+          Text(l10n.pronunciationNote, style: TextStyle(fontSize: 11.5, height: 1.35, color: colors.textMuted)),
+        ],
+      ),
+    );
+    return Align(
+      alignment: centered ? Alignment.center : AlignmentDirectional.centerStart,
+      child: panel.withMotion(context, (a) => a.fadeIn(duration: 200.ms).slideY(begin: 0.15, duration: 220.ms)),
+    );
+  }
+
+  /// IPA without the slashes or brackets a model may already have put around it.
+  static String _ipa(String ipa) => ipa.replaceAll(RegExp(r'^[\s/\[]+|[\s/\]]+$'), '');
 }
 
 /// The server's verdict on the take: understood, not quite (with what it heard), or unsure. About meaning only.

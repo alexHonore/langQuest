@@ -1371,4 +1371,61 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get callMicBlocked => 'The microphone is blocked, so you can write your answers. Allow it to speak.';
+
+  @override
+  String get pronunciationButton => 'Pronunciation (AI)';
+
+  @override
+  String get pronunciationButtonSemantics => 'Get AI feedback on your pronunciation';
+
+  @override
+  String get pronunciationListening => 'LangQuest’s AI is listening to your take…';
+
+  @override
+  String pronunciationScore(int score) {
+    return '$score/100';
+  }
+
+  @override
+  String get pronunciationNativeLike => 'Native-like';
+
+  @override
+  String get pronunciationClearAccent => 'Clear, with an accent';
+
+  @override
+  String get pronunciationHard => 'Hard to understand';
+
+  @override
+  String get pronunciationOffTarget => 'That wasn’t the phrase';
+
+  @override
+  String get pronunciationNoSpeech => 'I didn’t hear anything. Check your microphone and try again.';
+
+  @override
+  String get pronunciationWordGood => 'good';
+
+  @override
+  String get pronunciationWordUnclear => 'unclear';
+
+  @override
+  String get pronunciationWordToWork => 'to work on';
+
+  @override
+  String get pronunciationWordMissing => 'missing';
+
+  @override
+  String pronunciationWordLabel(String word, String status) {
+    return '$word: $status';
+  }
+
+  @override
+  String pronunciationSounds(String heard, String expected) {
+    return 'Heard /$heard/ · expected /$expected/';
+  }
+
+  @override
+  String get pronunciationNote => 'An AI’s estimate from listening to your take, not a measurement. It isn’t counted in your progress.';
+
+  @override
+  String get pronunciationFailed => 'Couldn’t get pronunciation feedback this time.';
 }

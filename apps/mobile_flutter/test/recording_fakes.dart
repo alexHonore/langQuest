@@ -3,6 +3,8 @@ import 'dart:async';
 import 'dart:typed_data';
 
 import 'package:langquest_mobile/core/audio/take_recorder.dart';
+import 'package:langquest_mobile/core/audio/wav.dart';
+import 'package:langquest_mobile/core/backend/pronunciation_coach.dart';
 import 'package:langquest_mobile/core/backend/speech_check.dart';
 
 class FakeTake implements RecordedTake {
@@ -16,6 +18,11 @@ class FakeTake implements RecordedTake {
   String get mimeType => 'audio/webm;codecs=opus';
   @override
   Future<Uint8List> bytes() async => Uint8List.fromList(const [26, 69, 223, 163]);
+
+  /// The take as WAV (0.1 s of silence at 16 kHz; null to simulate a take the device cannot decode).
+  Uint8List? wavBytes = pcm16ToWav(Uint8List(3200), 16000);
+  @override
+  Future<Uint8List?> wav({int sampleRate = 16000}) async => wavBytes;
   int plays = 0;
   bool disposed = false;
   Completer<void>? _playing;
@@ -91,5 +98,21 @@ class FakeChecker implements SpeechChecker {
     final verdict = verdicts.removeAt(0);
     if (verdict == null) throw const SpeechCheckUnavailable('offline');
     return verdict;
+  }
+}
+
+/// Answers each listen with the next of [feedback] (null = the feedback could not be had).
+class FakeCoach implements PronunciationCoach {
+  FakeCoach(this.feedback);
+
+  final List<PronunciationFeedback?> feedback;
+  final listened = <(RecordedTake, SpeechTarget)>[];
+
+  @override
+  Future<PronunciationFeedback> listen(RecordedTake take, SpeechTarget target) async {
+    listened.add((take, target));
+    final next = feedback.removeAt(0);
+    if (next == null) throw const PronunciationFeedbackUnavailable('offline');
+    return next;
   }
 }

@@ -11527,6 +11527,187 @@
         ],
         "type": "string"
       },
+      "PronunciationFeedbackRequest": {
+        "properties": {
+          "audio": {
+            "properties": {
+              "base64": {
+                "minLength": 1,
+                "type": "string"
+              },
+              "encoding": {
+                "enum": [
+                  "wav",
+                  "mp3"
+                ],
+                "type": "string"
+              },
+              "sampleRateHz": {
+                "anyOf": [
+                  {
+                    "exclusiveMinimum": 0,
+                    "maximum": 9007199254740991,
+                    "type": "integer"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "source": {
+                "const": "inline",
+                "type": "string"
+              }
+            },
+            "required": [
+              "source",
+              "base64",
+              "encoding",
+              "sampleRateHz"
+            ],
+            "type": "object"
+          },
+          "clientRequestId": {
+            "$ref": "#/components/schemas/Uuid"
+          },
+          "enrollmentId": {
+            "$ref": "#/components/schemas/Uuid"
+          },
+          "expressionId": {
+            "$ref": "#/components/schemas/Uuid"
+          },
+          "recording": {
+            "$ref": "#/components/schemas/RecordingSignals"
+          },
+          "targetVarietyId": {
+            "$ref": "#/components/schemas/VarietyId"
+          }
+        },
+        "required": [
+          "enrollmentId",
+          "targetVarietyId",
+          "expressionId",
+          "audio",
+          "clientRequestId"
+        ],
+        "type": "object"
+      },
+      "PronunciationFeedbackResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "band": {
+            "enum": [
+              "native_like",
+              "clear_accent",
+              "hard_to_understand",
+              "off_target",
+              "no_speech"
+            ],
+            "type": "string"
+          },
+          "feedbackId": {
+            "$ref": "#/components/schemas/Uuid"
+          },
+          "heard": {
+            "type": "string"
+          },
+          "heardIpa": {
+            "type": "string"
+          },
+          "matchesTarget": {
+            "type": "boolean"
+          },
+          "method": {
+            "const": "ai_listening",
+            "type": "string"
+          },
+          "model": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "score": {
+            "anyOf": [
+              {
+                "maximum": 100,
+                "minimum": 0,
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "summary": {
+            "type": "string"
+          },
+          "targetIpa": {
+            "type": "string"
+          },
+          "targetVarietyId": {
+            "$ref": "#/components/schemas/VarietyId"
+          },
+          "tip": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "words": {
+            "items": {
+              "$ref": "#/components/schemas/PronunciationFeedbackWord"
+            },
+            "type": "array"
+          }
+        },
+        "required": [
+          "feedbackId",
+          "targetVarietyId",
+          "method",
+          "score",
+          "band",
+          "matchesTarget",
+          "heard",
+          "heardIpa",
+          "targetIpa",
+          "words",
+          "summary",
+          "tip",
+          "model",
+          "version"
+        ],
+        "type": "object"
+      },
+      "PronunciationFeedbackWord": {
+        "additionalProperties": false,
+        "properties": {
+          "status": {
+            "enum": [
+              "good",
+              "unclear",
+              "mispronounced",
+              "missing"
+            ],
+            "type": "string"
+          },
+          "tip": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "word": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "word",
+          "status",
+          "tip"
+        ],
+        "type": "object"
+      },
       "PronunciationScoringMode": {
         "enum": [
           "acoustic",
@@ -25858,6 +26039,76 @@
         "x-langquest-handler": "apps/api/src/routes/speech/speech.ts",
         "x-langquest-rate-class": "ai",
         "x-langquest-route-key": "speechPronunciationAssess",
+        "x-langquest-schema-source": "table"
+      }
+    },
+    "/v1/speech/pronunciation-feedback": {
+      "post": {
+        "description": "Contract auth class: `learner`. Rate-limit class: `ai` (90/min, burst 30), after the per-client `ingress` bucket. AI pronunciation feedback: a listening model's estimate (`method: ai_listening`), never an acoustic score and never mastery evidence. The take is WAV or MP3.",
+        "operationId": "speechPronunciationFeedback",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/PronunciationFeedbackRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/PronunciationFeedbackResponse"
+                    },
+                    "ok": {
+                      "const": true
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Success envelope `{ ok: true, data }`."
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error"
+          },
+          "503": {
+            "$ref": "#/components/responses/NotConfigured"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "POST /v1/speech/pronunciation-feedback",
+        "tags": [
+          "speech"
+        ],
+        "x-langquest-auth": "learner",
+        "x-langquest-handler": "apps/api/src/routes/speech/speech.ts",
+        "x-langquest-rate-class": "ai",
+        "x-langquest-route-key": "speechPronunciationFeedback",
         "x-langquest-schema-source": "table"
       }
     },

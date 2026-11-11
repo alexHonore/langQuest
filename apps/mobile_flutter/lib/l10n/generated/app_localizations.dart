@@ -2515,6 +2515,108 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'The microphone is blocked, so you can write your answers. Allow it to speak.'**
   String get callMicBlocked;
+
+  /// No description provided for @pronunciationButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Pronunciation (AI)'**
+  String get pronunciationButton;
+
+  /// No description provided for @pronunciationButtonSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Get AI feedback on your pronunciation'**
+  String get pronunciationButtonSemantics;
+
+  /// No description provided for @pronunciationListening.
+  ///
+  /// In en, this message translates to:
+  /// **'LangQuest’s AI is listening to your take…'**
+  String get pronunciationListening;
+
+  /// No description provided for @pronunciationScore.
+  ///
+  /// In en, this message translates to:
+  /// **'{score}/100'**
+  String pronunciationScore(int score);
+
+  /// No description provided for @pronunciationNativeLike.
+  ///
+  /// In en, this message translates to:
+  /// **'Native-like'**
+  String get pronunciationNativeLike;
+
+  /// No description provided for @pronunciationClearAccent.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear, with an accent'**
+  String get pronunciationClearAccent;
+
+  /// No description provided for @pronunciationHard.
+  ///
+  /// In en, this message translates to:
+  /// **'Hard to understand'**
+  String get pronunciationHard;
+
+  /// No description provided for @pronunciationOffTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'That wasn’t the phrase'**
+  String get pronunciationOffTarget;
+
+  /// No description provided for @pronunciationNoSpeech.
+  ///
+  /// In en, this message translates to:
+  /// **'I didn’t hear anything. Check your microphone and try again.'**
+  String get pronunciationNoSpeech;
+
+  /// No description provided for @pronunciationWordGood.
+  ///
+  /// In en, this message translates to:
+  /// **'good'**
+  String get pronunciationWordGood;
+
+  /// No description provided for @pronunciationWordUnclear.
+  ///
+  /// In en, this message translates to:
+  /// **'unclear'**
+  String get pronunciationWordUnclear;
+
+  /// No description provided for @pronunciationWordToWork.
+  ///
+  /// In en, this message translates to:
+  /// **'to work on'**
+  String get pronunciationWordToWork;
+
+  /// No description provided for @pronunciationWordMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'missing'**
+  String get pronunciationWordMissing;
+
+  /// No description provided for @pronunciationWordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{word}: {status}'**
+  String pronunciationWordLabel(String word, String status);
+
+  /// No description provided for @pronunciationSounds.
+  ///
+  /// In en, this message translates to:
+  /// **'Heard /{heard}/ · expected /{expected}/'**
+  String pronunciationSounds(String heard, String expected);
+
+  /// No description provided for @pronunciationNote.
+  ///
+  /// In en, this message translates to:
+  /// **'An AI’s estimate from listening to your take, not a measurement. It isn’t counted in your progress.'**
+  String get pronunciationNote;
+
+  /// No description provided for @pronunciationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t get pronunciation feedback this time.'**
+  String get pronunciationFailed;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

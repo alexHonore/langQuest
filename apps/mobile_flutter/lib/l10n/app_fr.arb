@@ -403,5 +403,22 @@
   "micHelpIos": "Sur iPhone ou iPad (Safari) : touchez « aA » à gauche de l’adresse, puis Réglages du site web › Microphone › Autoriser. Si Safari ne demande jamais : Réglages de l’iPhone › Safari › Microphone › Demander. Puis touchez de nouveau Enregistrer.",
   "micHelpAndroid": "Sur Android (Chrome) : touchez l’icône à gauche de l’adresse (cadenas ou réglages), puis Autorisations › Micro › Autoriser. Puis touchez de nouveau Enregistrer.",
   "micHelpDesktop": "Sur un ordinateur : cliquez sur l’icône à gauche de l’adresse (cadenas ou réglages), mettez Micro sur Autoriser, puis réessayez.",
-  "callMicBlocked": "Le micro est bloqué : vous pouvez écrire vos réponses. Autorisez-le pour parler."
+  "callMicBlocked": "Le micro est bloqué : vous pouvez écrire vos réponses. Autorisez-le pour parler.",
+  "pronunciationButton": "Prononciation (IA)",
+  "pronunciationButtonSemantics": "Obtenir l’avis de l’IA sur votre prononciation",
+  "pronunciationListening": "L’IA de LangQuest écoute votre enregistrement…",
+  "pronunciationScore": "{score}/100",
+  "pronunciationNativeLike": "Comme un natif",
+  "pronunciationClearAccent": "Clair, avec un accent",
+  "pronunciationHard": "Difficile à comprendre",
+  "pronunciationOffTarget": "Ce n’était pas la phrase",
+  "pronunciationNoSpeech": "Je n’ai rien entendu. Vérifiez votre micro et réessayez.",
+  "pronunciationWordGood": "bien",
+  "pronunciationWordUnclear": "pas clair",
+  "pronunciationWordToWork": "à travailler",
+  "pronunciationWordMissing": "manquant",
+  "pronunciationWordLabel": "{word} : {status}",
+  "pronunciationSounds": "Entendu /{heard}/ · attendu /{expected}/",
+  "pronunciationNote": "Une estimation de l’IA qui a écouté votre enregistrement, pas une mesure. Elle ne compte pas dans votre progression.",
+  "pronunciationFailed": "Impossible d’obtenir l’avis sur la prononciation cette fois-ci."
 }
