@@ -179,6 +179,13 @@ class LangQuestApi {
     }, aiTimeout),
   );
 
+  /// `GET /v1/admin/models` (admin): the model routes in effect, the defaults, the router's models and the voices.
+  Future<Map<String, Object?>> adminModels() async => _object(await _send('GET', '/v1/admin/models', null, aiTimeout));
+
+  /// `PUT /v1/admin/models/:task/config` (admin): saves a task's route after its smoke tests pass.
+  Future<Map<String, Object?>> adminModelConfig(String task, Map<String, Object?> body) async =>
+      _object(await _send('PUT', '/v1/admin/models/$task/config', body, aiTimeout));
+
   /// `POST /v1/speech/narrate` — an exercise's instruction or context read aloud in the enrollment's instruction
   /// language (never target-language content: that is [synthesize], by approved expression id).
   Future<Map<String, Object?>> narrate({required String enrollmentId, required String text, bool slow = false}) async =>

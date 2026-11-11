@@ -1538,4 +1538,110 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get speakSignUpAlready => 'Vous en avez un ? Connectez-vous';
+
+  @override
+  String get adminModelsEntry => 'Modèles d’IA (admin)';
+
+  @override
+  String get adminModelsEntryBody => 'Quel modèle fait quoi, et le changer';
+
+  @override
+  String get adminModelsTitle => 'Modèles d’IA';
+
+  @override
+  String get adminModelsIntro =>
+      'Chaque tâche de l’IA, le modèle qui la fait (puis ses remplaçants, essayés dans l’ordre), et pour quels cours. Un changement est testé sur-le-champ avant d’être enregistré, et s’applique en une minute.';
+
+  @override
+  String get adminModelsAllCourses => 'Tous les cours';
+
+  @override
+  String get adminModelsDefault => 'par défaut';
+
+  @override
+  String get adminModelsChanged => 'changé par un admin';
+
+  @override
+  String adminModelsFallbacks(String models) {
+    return 'Ensuite : $models';
+  }
+
+  @override
+  String adminModelsVoice(String voice) {
+    return 'Voix : $voice';
+  }
+
+  @override
+  String get adminModelsChange => 'Changer';
+
+  @override
+  String get adminModelsReadOnly => 'Non modifiable ici';
+
+  @override
+  String get adminModelsScope => 'Pour';
+
+  @override
+  String get adminModelsPrimary => 'Modèle';
+
+  @override
+  String get adminModelsFallbacksField => 'Remplaçants (séparés par des virgules, dans l’ordre)';
+
+  @override
+  String get adminModelsVoiceField => 'Voix';
+
+  @override
+  String get adminModelsVoiceDefault => 'La voix par défaut du cours';
+
+  @override
+  String get adminModelsSave => 'Tester et enregistrer';
+
+  @override
+  String get adminModelsSaved => 'Enregistré : tests réussis.';
+
+  @override
+  String adminModelsFailed(String reason) {
+    return 'Non enregistré : $reason';
+  }
+
+  @override
+  String get adminModelsLoadFailed => 'Impossible de charger les modèles. Êtes-vous connecté en tant qu’admin ?';
+
+  @override
+  String get adminTask_character_dialogue => 'Appels : ce que dit le personnage';
+
+  @override
+  String get adminTask_learner_evaluation => 'Appels : le bilan après l’appel';
+
+  @override
+  String get adminTask_source_explanation => 'Appels : Traduire, Indice, Expliquer, Exemple';
+
+  @override
+  String get adminTask_scene_planning => 'Appels : préparer la scène';
+
+  @override
+  String get adminTask_meaning_assessment => 'Réponses orales : le sens a-t-il été compris ?';
+
+  @override
+  String get adminTask_pronunciation_feedback => 'Note de prononciation (écoute par IA)';
+
+  @override
+  String get adminTask_speech_recognition => 'Parole en texte (vos prises, les appels)';
+
+  @override
+  String get adminTask_speech_synthesis => 'Voix IA du serveur (narrateur, appels, phrases sans clip intégré)';
+
+  @override
+  String get adminTask_language_quality_check => 'Vérifie que chaque phrase de l’IA est dans la bonne langue';
+
+  @override
+  String get adminTask_content_generation => 'Usine à contenu : rédaction des cours';
+
+  @override
+  String get adminTask_transcription_alignment => 'Audiothèque : transcriptions';
+
+  @override
+  String get adminTask_pronunciation_assessment => 'Note acoustique de prononciation (Azure, non configuré)';
+
+  @override
+  String get adminTask_realtime_conversation => 'Chaîne des appels vocaux (parole en texte, dialogue, voix)';
 }

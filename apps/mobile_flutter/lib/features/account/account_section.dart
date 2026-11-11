@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/backend/account.dart';
+import '../../core/backend/admin_models.dart';
 import '../../core/platform/download.dart';
 import '../../core/services/app_state.dart';
 import '../../core/theme/glass.dart';
@@ -98,8 +100,14 @@ class _AccountSectionState extends ConsumerState<AccountSection> {
       prefixIcon: Icon(icon, size: 18, color: colors.textMuted),
       filled: true,
       fillColor: colors.surface,
-      border: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide(color: colors.border)),
-      enabledBorder: OutlineInputBorder(borderRadius: BorderRadius.circular(14), borderSide: BorderSide(color: colors.border)),
+      border: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(14),
+        borderSide: BorderSide(color: colors.border),
+      ),
+      enabledBorder: OutlineInputBorder(
+        borderRadius: BorderRadius.circular(14),
+        borderSide: BorderSide(color: colors.border),
+      ),
     );
 
     final children = <Widget>[
@@ -187,6 +195,21 @@ class _AccountSectionState extends ConsumerState<AccountSection> {
         if (notSaved.isNotEmpty) ...[const SizedBox(height: 6), Text(l10n.accountNotSaved(notSaved.join(', ')), style: body)],
         const SizedBox(height: 6),
         Text(l10n.accountDeviceOnly, style: TextStyle(fontSize: 12.5, height: 1.4, color: colors.textMuted)),
+        // Admins: which AI model does what, and changing it.
+        if (ref.watch(isAdminProvider).asData?.value ?? false) ...[
+          const SizedBox(height: 10),
+          ListTile(
+            contentPadding: EdgeInsets.zero,
+            leading: Icon(LucideIcons.cpu, color: accent.primaryText),
+            title: Text(
+              l10n.adminModelsEntry,
+              style: TextStyle(fontWeight: FontWeight.w700, color: colors.textPrimary),
+            ),
+            subtitle: Text(l10n.adminModelsEntryBody, style: TextStyle(fontSize: 12.5, color: colors.textMuted)),
+            trailing: Icon(LucideIcons.chevronRight, color: colors.textMuted),
+            onTap: () => context.push('/admin/models'),
+          ),
+        ],
         const SizedBox(height: 12),
         Wrap(
           spacing: 10,
@@ -200,11 +223,7 @@ class _AccountSectionState extends ConsumerState<AccountSection> {
               ),
             OutlinedButton(onPressed: account.busy ? null : () => ref.read(accountProvider.notifier).signOut(), child: Text(l10n.accountSignOut)),
             if (canDownloadFiles)
-              OutlinedButton.icon(
-                onPressed: account.busy ? null : _export,
-                icon: const Icon(LucideIcons.download, size: 16),
-                label: Text(l10n.accountExport),
-              ),
+              OutlinedButton.icon(onPressed: account.busy ? null : _export, icon: const Icon(LucideIcons.download, size: 16), label: Text(l10n.accountExport)),
             TextButton(
               onPressed: account.busy ? null : _delete,
               style: TextButton.styleFrom(foregroundColor: colors.error),

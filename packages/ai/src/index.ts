@@ -144,6 +144,6 @@ export async function createAiServices(envSource: AiEnv | Record<string, string 
     evaluator: new Evaluator({ reasoner }),
     summariser: new SessionSummariser(reasoner),
     meaning: new MeaningMatcher({ reasoner }),
-    pronunciationJudge: new LlmPronunciationJudge({ client, sink: deps.requestSink ?? null, attribution }),
+    pronunciationJudge: new LlmPronunciationJudge({ client, sink: deps.requestSink ?? null, attribution, profiles }),
   };
 }

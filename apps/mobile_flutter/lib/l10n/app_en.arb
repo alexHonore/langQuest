@@ -1022,5 +1022,59 @@
   "speakSignUpTitle": "Call the people of this course",
   "speakSignUpBody": "Live calls with the course’s AI characters, by voice or in writing, with corrections after each call. Free: it only needs an account, so your calls and progress are kept.",
   "speakSignUpButton": "Create a free account to call",
-  "speakSignUpAlready": "Already have one? Sign in"
+  "speakSignUpAlready": "Already have one? Sign in",
+  "adminModelsEntry": "AI models (admin)",
+  "adminModelsEntryBody": "Which model does what, and change it",
+  "adminModelsTitle": "AI models",
+  "adminModelsIntro": "Each task the AI does, the model that does it (then its fallbacks, tried in order), and for which courses. A change is tested on the spot before it is saved, and takes effect within a minute.",
+  "adminModelsAllCourses": "All courses",
+  "adminModelsDefault": "built-in",
+  "adminModelsChanged": "changed by an admin",
+  "adminModelsFallbacks": "Then: {models}",
+  "@adminModelsFallbacks": {
+    "placeholders": {
+      "models": {
+        "type": "String"
+      }
+    }
+  },
+  "adminModelsVoice": "Voice: {voice}",
+  "@adminModelsVoice": {
+    "placeholders": {
+      "voice": {
+        "type": "String"
+      }
+    }
+  },
+  "adminModelsChange": "Change",
+  "adminModelsReadOnly": "Not changeable here",
+  "adminModelsScope": "For",
+  "adminModelsPrimary": "Model",
+  "adminModelsFallbacksField": "Fallbacks (comma-separated, in order)",
+  "adminModelsVoiceField": "Voice",
+  "adminModelsVoiceDefault": "The course’s default voice",
+  "adminModelsSave": "Test and save",
+  "adminModelsSaved": "Saved: tests passed.",
+  "adminModelsFailed": "Not saved: {reason}",
+  "@adminModelsFailed": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "adminModelsLoadFailed": "Couldn’t load the models. Are you signed in as an admin?",
+  "adminTask_character_dialogue": "Calls: what the character says",
+  "adminTask_learner_evaluation": "Calls: the report after hanging up",
+  "adminTask_source_explanation": "Calls: Translate, Hint, Explain, Example",
+  "adminTask_scene_planning": "Calls: planning the scene",
+  "adminTask_meaning_assessment": "Spoken answers: was the meaning understood?",
+  "adminTask_pronunciation_feedback": "Pronunciation score (AI listening)",
+  "adminTask_speech_recognition": "Speech to text (your takes, calls)",
+  "adminTask_speech_synthesis": "Server AI voice (narrator, calls, lines without a bundled clip)",
+  "adminTask_language_quality_check": "Checks each AI line is in the right language",
+  "adminTask_content_generation": "Content factory: drafting course content",
+  "adminTask_transcription_alignment": "Audio library: transcripts",
+  "adminTask_pronunciation_assessment": "Acoustic pronunciation score (Azure, not set up)",
+  "adminTask_realtime_conversation": "Voice calls pipeline (speech to text, dialogue, voice)"
 }

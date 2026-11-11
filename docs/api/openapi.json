@@ -286,7 +286,8 @@
           "realtime_conversation",
           "pronunciation_assessment",
           "transcription_alignment",
-          "language_quality_check"
+          "language_quality_check",
+          "pronunciation_feedback"
         ],
         "type": "string"
       },
@@ -10156,15 +10157,64 @@
             },
             "type": "array"
           },
+          "defaults": {
+            "default": [],
+            "items": {
+              "$ref": "#/components/schemas/ModelProfile"
+            },
+            "type": "array"
+          },
           "profiles": {
             "items": {
               "$ref": "#/components/schemas/ModelProfile"
+            },
+            "type": "array"
+          },
+          "voices": {
+            "default": [],
+            "items": {
+              "additionalProperties": false,
+              "properties": {
+                "gender": {
+                  "type": "string"
+                },
+                "locale": {
+                  "type": "string"
+                },
+                "model": {
+                  "type": "string"
+                },
+                "providerVoice": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "varietyId": {
+                  "type": "string"
+                },
+                "voiceId": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "voiceId",
+                "varietyId",
+                "model",
+                "providerVoice",
+                "locale",
+                "gender",
+                "status"
+              ],
+              "type": "object"
             },
             "type": "array"
           }
         },
         "required": [
           "profiles",
+          "defaults",
+          "voices",
           "availableModels"
         ],
         "type": "object"
@@ -20358,7 +20408,8 @@
                 "realtime_conversation",
                 "pronunciation_assessment",
                 "transcription_alignment",
-                "language_quality_check"
+                "language_quality_check",
+                "pronunciation_feedback"
               ],
               "type": "string"
             }
@@ -20530,7 +20581,8 @@
                 "realtime_conversation",
                 "pronunciation_assessment",
                 "transcription_alignment",
-                "language_quality_check"
+                "language_quality_check",
+                "pronunciation_feedback"
               ],
               "type": "string"
             }
@@ -20656,7 +20708,8 @@
                 "realtime_conversation",
                 "pronunciation_assessment",
                 "transcription_alignment",
-                "language_quality_check"
+                "language_quality_check",
+                "pronunciation_feedback"
               ],
               "type": "string"
             }

@@ -156,6 +156,7 @@ class FakeConversationServer {
               'hint' => _characterTurn('Puedes decir: «Me llamo…»', respondsTo: command),
               'meaning' => _characterTurn('¡Hola! Soy Pablo. ¿Cómo te llamas?', respondsTo: command, gloss: 'Pablo says hello, gives his name and asks yours.'),
               'example' => _characterTurn('Hola, me llamo Ana. ¿Y tú?', respondsTo: command, gloss: 'Another way to answer: say your name, then ask theirs.'),
+              'translate' => _characterTurn('Vale.', respondsTo: command, gloss: 'Okay.'),
               _ => _characterTurn('Más despacio: ¿Cómo te llamas?', respondsTo: command),
             },
             'replayed': false,

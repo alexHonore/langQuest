@@ -10,7 +10,9 @@
  * English-accented take 62, the silent-h error 75 with the right tip, another language 0).
  */
 import { z } from 'zod';
+import type { SourceLanguageCode, VarietyId } from '@langquest/contracts';
 import type { ChatCompletionResult, OpenRouterClient } from '../openrouter/client';
+import type { ModelProfileRegistry } from '../profiles';
 import type { AiAttribution, AiAttributionSource, AiRequestSink } from '../reasoner';
 import { resolveAttribution } from '../reasoner';
 import { bytesToBase64, newId, nowIso } from '../util';
@@ -34,6 +36,8 @@ export interface PronunciationJudgeInput {
   varietyName: string;
   /** The learner's instruction language (ISO 639-1): tips are written in it. */
   sourceLanguage: string;
+  /** The course's variety: the `pronunciation_feedback` model profile is resolved for it (an admin may override it). */
+  targetVariety?: VarietyId;
 }
 
 export const JudgedWordSchema = z.object({
@@ -122,12 +126,15 @@ export interface LlmPronunciationJudgeOptions {
   sink?: AiRequestSink | null;
   attribution?: AiAttributionSource | null;
   models?: readonly string[];
+  /** Model profiles: the `pronunciation_feedback` profile (an admin's override, else the package default) picks the models. */
+  profiles?: Pick<ModelProfileRegistry, 'find'> | null;
 }
 
 export class LlmPronunciationJudge {
   private readonly client: Pick<OpenRouterClient, 'chatCompletions'>;
   private readonly sink: AiRequestSink | null;
   private readonly attribution: AiAttributionSource | null;
+  private readonly profiles: Pick<ModelProfileRegistry, 'find'> | null;
   readonly models: readonly string[];
 
   constructor(options: LlmPronunciationJudgeOptions) {
@@ -135,17 +142,26 @@ export class LlmPronunciationJudge {
     this.sink = options.sink ?? null;
     this.attribution = options.attribution ?? null;
     this.models = options.models ?? PRONUNCIATION_JUDGE_MODELS;
+    this.profiles = options.profiles ?? null;
+  }
+
+  /** The listening models for [input]: its profile's primary and fallbacks, else the built-in list. */
+  modelsFor(input: Pick<PronunciationJudgeInput, 'targetVariety' | 'sourceLanguage'>): readonly string[] {
+    if (!this.profiles || !input.targetVariety) return this.models;
+    const profile = this.profiles.find({ task: 'pronunciation_feedback', targetVariety: input.targetVariety, sourceLanguage: input.sourceLanguage as SourceLanguageCode });
+    return profile ? [profile.primaryModel, ...profile.fallbackModels] : this.models;
   }
 
   async judge(input: PronunciationJudgeInput, options: { traceId?: string; enrollmentId?: string | null; signal?: AbortSignal } = {}): Promise<PronunciationJudgement> {
     const traceId = options.traceId ?? newId();
     const attribution = resolveAttribution(this.attribution, options.enrollmentId !== undefined ? { enrollmentId: options.enrollmentId } : null);
     const started = Date.now();
+    const models = this.modelsFor(input);
     let result: ChatCompletionResult;
     try {
       result = await this.client.chatCompletions(
         {
-          models: this.models,
+          models,
           temperature: 0,
           responseFormat: { type: 'json_object' },
           maxTokens: 1200,
@@ -162,7 +178,7 @@ export class LlmPronunciationJudge {
         { timeoutMs: 25_000, maxRetries: 1, signal: options.signal, requestId: traceId, tags: { task: 'pronunciation_feedback', traceId } },
       );
     } catch (error) {
-      await this.record({ traceId, attribution, model: this.models[0] ?? 'unknown', latencyMs: Date.now() - started, success: false, errorCode: (error as { kind?: string }).kind ?? 'unknown', cost: null, usage: null });
+      await this.record({ traceId, attribution, model: models[0] ?? 'unknown', latencyMs: Date.now() - started, success: false, errorCode: (error as { kind?: string }).kind ?? 'unknown', cost: null, usage: null });
       throw error;
     }
     const output = parseJudgement(result.content);
@@ -201,7 +217,7 @@ export class LlmPronunciationJudge {
       occurredAt: nowIso(),
       userId: input.attribution.userId,
       enrollmentId: input.attribution.enrollmentId,
-      task: 'pronunciation_assessment',
+      task: 'pronunciation_feedback',
       provider: 'openrouter',
       model: input.model,
       profileId: null,

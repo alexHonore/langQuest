@@ -1522,4 +1522,110 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get speakSignUpAlready => 'Already have one? Sign in';
+
+  @override
+  String get adminModelsEntry => 'AI models (admin)';
+
+  @override
+  String get adminModelsEntryBody => 'Which model does what, and change it';
+
+  @override
+  String get adminModelsTitle => 'AI models';
+
+  @override
+  String get adminModelsIntro =>
+      'Each task the AI does, the model that does it (then its fallbacks, tried in order), and for which courses. A change is tested on the spot before it is saved, and takes effect within a minute.';
+
+  @override
+  String get adminModelsAllCourses => 'All courses';
+
+  @override
+  String get adminModelsDefault => 'built-in';
+
+  @override
+  String get adminModelsChanged => 'changed by an admin';
+
+  @override
+  String adminModelsFallbacks(String models) {
+    return 'Then: $models';
+  }
+
+  @override
+  String adminModelsVoice(String voice) {
+    return 'Voice: $voice';
+  }
+
+  @override
+  String get adminModelsChange => 'Change';
+
+  @override
+  String get adminModelsReadOnly => 'Not changeable here';
+
+  @override
+  String get adminModelsScope => 'For';
+
+  @override
+  String get adminModelsPrimary => 'Model';
+
+  @override
+  String get adminModelsFallbacksField => 'Fallbacks (comma-separated, in order)';
+
+  @override
+  String get adminModelsVoiceField => 'Voice';
+
+  @override
+  String get adminModelsVoiceDefault => 'The course’s default voice';
+
+  @override
+  String get adminModelsSave => 'Test and save';
+
+  @override
+  String get adminModelsSaved => 'Saved: tests passed.';
+
+  @override
+  String adminModelsFailed(String reason) {
+    return 'Not saved: $reason';
+  }
+
+  @override
+  String get adminModelsLoadFailed => 'Couldn’t load the models. Are you signed in as an admin?';
+
+  @override
+  String get adminTask_character_dialogue => 'Calls: what the character says';
+
+  @override
+  String get adminTask_learner_evaluation => 'Calls: the report after hanging up';
+
+  @override
+  String get adminTask_source_explanation => 'Calls: Translate, Hint, Explain, Example';
+
+  @override
+  String get adminTask_scene_planning => 'Calls: planning the scene';
+
+  @override
+  String get adminTask_meaning_assessment => 'Spoken answers: was the meaning understood?';
+
+  @override
+  String get adminTask_pronunciation_feedback => 'Pronunciation score (AI listening)';
+
+  @override
+  String get adminTask_speech_recognition => 'Speech to text (your takes, calls)';
+
+  @override
+  String get adminTask_speech_synthesis => 'Server AI voice (narrator, calls, lines without a bundled clip)';
+
+  @override
+  String get adminTask_language_quality_check => 'Checks each AI line is in the right language';
+
+  @override
+  String get adminTask_content_generation => 'Content factory: drafting course content';
+
+  @override
+  String get adminTask_transcription_alignment => 'Audio library: transcripts';
+
+  @override
+  String get adminTask_pronunciation_assessment => 'Acoustic pronunciation score (Azure, not set up)';
+
+  @override
+  String get adminTask_realtime_conversation => 'Voice calls pipeline (speech to text, dialogue, voice)';
 }

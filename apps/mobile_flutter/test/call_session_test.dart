@@ -123,6 +123,24 @@ void main() {
     expect(call.lines.where((l) => l.fromLearner), isEmpty);
   });
 
+  test('translate: the last line in the learner\'s language, under that line (asked only when the server wrote none)', () async {
+    final server = FakeConversationServer(turns: [const ScriptedTurn(reply: 'Vale.')]);
+    final call = sessionWith(server);
+    final opening = await call.start();
+    // The opening line came with its translation: shown, nothing asked.
+    expect(await call.translateLast(), isTrue);
+    expect(opening!.translationShown, isTrue);
+    expect(server.turnBodies(), isEmpty);
+    await call.sendText('Hola, me llamo Alex');
+    final reply = call.lastCharacterLine!;
+    expect(reply.gloss, isNull);
+    final before = call.lines.length;
+    expect(await call.translateLast(), isTrue);
+    expect(server.turnBodies().last['input'], {'kind': 'command', 'command': 'translate'});
+    expect((reply.gloss, reply.translationShown), ('Okay.', true));
+    expect(call.lines, hasLength(before), reason: 'attached to the line, not said again as a new one');
+  });
+
   test('hanging up: the server\'s evaluation, corrections and XP', () async {
     final server = FakeConversationServer(
       turns: [

@@ -487,6 +487,9 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
   static String _clock(Duration d) => '${d.inMinutes}:${(d.inSeconds % 60).toString().padLeft(2, '0')}';
 }
 
+/// [speakingRequired] outside a build (nothing watched).
+bool speakingRequiredNow(WidgetRef ref) => ref.read(takeRecorderFactoryProvider) != null && !ref.read(speakingPauseProvider.notifier).active;
+
 /// Whether speaking steps ask for a take here: the device records and the learner has not paused them.
 bool speakingRequired(WidgetRef ref) {
   ref.watch(speakingPauseProvider);

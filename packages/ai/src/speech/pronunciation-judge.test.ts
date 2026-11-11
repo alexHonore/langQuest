@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest';
 import type { ChatCompletionRequest, ChatCompletionResult } from '../openrouter/client';
+import { ModelProfileRegistry } from '../profiles';
 import { MemoryAiRequestSink } from '../reasoner';
 import { LlmPronunciationJudge, PronunciationJudgeError, bandFor, judgePrompt, parseJudgement } from './pronunciation-judge';
 
@@ -77,7 +78,18 @@ describe('AI pronunciation feedback (a listening model)', () => {
       ['buenos', 'good', null],
       ['días', 'good', null],
     ]);
-    expect(sink.records[0]).toMatchObject({ task: 'pronunciation_assessment', success: true, estimatedCostUsd: 0.002, enrollmentId: 'e-1', redactedLog: { method: 'ai_listening' } });
+    expect(sink.records[0]).toMatchObject({ task: 'pronunciation_feedback', success: true, estimatedCostUsd: 0.002, enrollmentId: 'e-1', redactedLog: { method: 'ai_listening' } });
+  });
+
+  it('listens with the pronunciation_feedback profile an admin set for the variety, else the built-in models', async () => {
+    const sent: ChatCompletionRequest[] = [];
+    const profiles = new ModelProfileRegistry();
+    const judge = new LlmPronunciationJudge({ client: { chatCompletions: async (req) => (sent.push(req), answer(silentH)) }, profiles });
+    await judge.judge({ ...input, targetVariety: 'es-ES' });
+    expect(sent[0]!.models, 'the package default profile').toEqual(['google/gemini-3.8-flash', 'google/gemini-3.5-flash-lite']);
+    await profiles.refresh({ load: async () => [{ ...profiles.listDefaults('pronunciation_feedback')[0]!, id: crypto.randomUUID(), targetVariety: 'es-ES', primaryModel: 'openai/gpt-audio-mini', fallbackModels: [] }] });
+    await judge.judge({ ...input, targetVariety: 'es-ES' });
+    expect(sent[1]!.models).toEqual(['openai/gpt-audio-mini']);
   });
 
   it('clamps a score out of range; an unusable answer is an error (and recorded as failed)', async () => {

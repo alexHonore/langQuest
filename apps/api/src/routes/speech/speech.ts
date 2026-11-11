@@ -13,7 +13,7 @@
  * no observation, no skill or XP credit, no retained recording.
  */
 import type { AiServices } from '@langquest/ai';
-import { providerLocaleFor, capabilityFromStatus } from '@langquest/ai/capability/registry';
+import { providerLocaleFor, capabilityFromStatus, resolveVariety } from '@langquest/ai/capability/registry';
 import { MEANING_THRESHOLDS, type MeaningScoreResult } from '@langquest/ai/semantic/meaning';
 import { applySpeechScreening, noSpeechAssessment, SILENCE_PEAK_DBFS, speechDetectionOf, toSpeechDetection, type SpeechScreening } from '@langquest/ai/speech/speech-detection';
 import { PRONUNCIATION_JUDGE_VERSION, PronunciationJudgeError } from '@langquest/ai/speech/pronunciation-judge';
@@ -237,7 +237,7 @@ export function registerSpeechRoutes(define: DefineRoute): void {
     let judgement;
     try {
       judgement = await ai.pronunciationJudge.judge(
-        { audio: { bytes: base64ToBytes(body.audio.base64), format: body.audio.encoding }, targetText: reference.text, transliteration: null, varietyName, sourceLanguage: enrollment.source_language_code },
+        { audio: { bytes: base64ToBytes(body.audio.base64), format: body.audio.encoding }, targetText: reference.text, transliteration: null, varietyName, sourceLanguage: enrollment.source_language_code, targetVariety: body.targetVarietyId },
         { traceId: s.requestId, enrollmentId: enrollment.id },
       );
     } catch (error) {
@@ -269,7 +269,7 @@ export function registerSpeechRoutes(define: DefineRoute): void {
     }
     const ai = await s.ai();
     const locale = providerLocaleFor(body.targetVarietyId, body.regionalOption ?? enrollment.regional_preference);
-    const resolved = ai.synthesizer.resolveVoice(locale, body.voiceId);
+    const resolved = resolveVoiceWithAdminChoice(ai, locale, body.voiceId, enrollment.source_language_code as SourceLanguageCode);
     if (!resolved.voice || !resolved.capability.supported) throw problem.unsupported(`No verified synthetic voice exists for ${body.targetVarietyId} yet`, { capability: resolved.capability });
     const audio = await ai.synthesizer.synthesize(text, locale, resolved.voice.voiceId, { cacheScope: shared ? 'shared_approved' : 'none', rate: body.speed === 'slow' ? 0.75 : 1, traceId: s.requestId, enrollmentId: enrollment.id });
     let out = audio;
@@ -301,7 +301,7 @@ export function registerSpeechRoutes(define: DefineRoute): void {
     const locale = narratorLocaleFor(language);
     if (!locale) throw problem.unsupported(`No narrator voice for ${language} yet`);
     const ai = await s.ai();
-    const resolved = ai.synthesizer.resolveVoice(locale);
+    const resolved = resolveVoiceWithAdminChoice(ai, locale, undefined, language);
     if (!resolved.voice || !resolved.capability.supported) throw problem.unsupported(`No narrator voice for ${language} yet`, { capability: resolved.capability });
     const text = body.text;
     const audio = await ai.synthesizer.synthesize(text, locale, resolved.voice.voiceId, { cacheScope: 'shared_approved', rate: body.speed === 'slow' ? 0.75 : 1, traceId: s.requestId, enrollmentId: enrollment.id });
@@ -389,4 +389,21 @@ const NARRATOR_LOCALE_OVERRIDES: Partial<Record<SourceLanguageCode, string>> = {
 /** The locale the narrator speaks for an instruction language (the first course of that language otherwise). */
 export function narratorLocaleFor(language: SourceLanguageCode): string | null {
   return NARRATOR_LOCALE_OVERRIDES[language] ?? COURSE_TRACKS.find((t) => t.languageCode === language)?.defaultLocale ?? null;
+}
+
+/**
+ * The voice for [locale]: the one asked for, else the one an admin chose for its variety (an enabled `speech_synthesis`
+ * model profile of that variety with `params.voiceId`, set in the admin screen), else the registry's default. An admin
+ * voice that does not belong to the variety is ignored (the registry refuses cross-variety voices).
+ */
+export function resolveVoiceWithAdminChoice(ai: AiServices, locale: string, requested: string | undefined, source: SourceLanguageCode): ReturnType<AiServices['synthesizer']['resolveVoice']> {
+  if (requested) return ai.synthesizer.resolveVoice(locale, requested);
+  const variety = resolveVariety(locale);
+  const profile = variety ? ai.profiles.find({ task: 'speech_synthesis', targetVariety: variety, sourceLanguage: source }) : null;
+  const chosen = profile && profile.resolvedSource === 'db' ? profile.params.voiceId : undefined;
+  if (chosen) {
+    const resolved = ai.synthesizer.resolveVoice(locale, chosen);
+    if (resolved.voice && resolved.capability.supported) return resolved;
+  }
+  return ai.synthesizer.resolveVoice(locale);
 }
