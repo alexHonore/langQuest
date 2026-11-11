@@ -47,6 +47,12 @@ class AudioListened extends Notifier<Map<String, Set<String>>> {
     };
     unawaited(ref.read(learnerStoreProvider).prefs.setString(key, jsonEncode({for (final e in state.entries) e.key: e.value.toList()..sort()})));
   }
+
+  /// Everything, for "Reset all progress".
+  void clear() {
+    state = {};
+    unawaited(ref.read(learnerStoreProvider).prefs.remove(key));
+  }
 }
 
 final audioListenedProvider = NotifierProvider<AudioListened, Map<String, Set<String>>>(AudioListened.new);

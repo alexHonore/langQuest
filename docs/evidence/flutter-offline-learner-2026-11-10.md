@@ -277,3 +277,76 @@ mission completes (checked in Chromium on the release build: the burst, Melo's p
 call ends with goals met, or an audio lesson is heard to the end; a wrong option shakes and the right one pops; scene
 lines arrive from their speaker's side; a speaking character's badge pulses. All decorative and absent with reduced
 motion. `flutter test`: 162 passed.
+
+### Answer out loud, and spoken review (follow-up, 2026-11-11)
+
+Missions take a spoken reply before any option is chosen; reviews check the phrase said. Live (release build, test
+learner, the fake microphone saying "Hola, buenos días."): exchange 1 of *Greet and introduce yourself* was **answered
+out loud** (`pronunciation-assess` → understood, "I heard: Hola, buenos días."; the model reply then played in the AI
+voice); exchange 2 (expects "¿Qué tal?") with the same audio: **Not quite**, options kept. 0 page errors.
+`flutter test`: 164 passed (a reply not understood then understood out loud, rated hard; one understood at once, rated
+good; a spoken review revealing the answer with "Good, suggested" / "Again, suggested").
+
+### Darija with AI: the voice played silent, fixed (follow-up, 2026-11-11)
+
+The server's voice for Darija (`ary`) answers raw 16-bit PCM (`encoding: pcm16`, 24 kHz, e.g. 57,600 bytes for
+1.2 s), and a conversation turn sends it as `data:audio/wav;base64,…` with no WAV header: a browser cannot decode
+that, so every Darija line (Listen in AI voice, auto-played lines, audio lessons, a call's character) would have been
+silent. The app now adds the header (`lib/core/audio/wav.dart`). Live, test learner enrolled in Darija from English,
+the fake microphone saying «السلام عليكم» (the server's own voice): the scene's line and **Listen (AI voice)** played
+(WAV clips of 1.5 s, ended); the mission's first reply **answered out loud** ("I heard: السلام عليكم"); the Speak tab
+listed Nadia, Omar, Salma, Youssef; a call with Nadia opened with «صباح الخير! مرحبا بيك. شنو بغيتي تشرب؟» (heard
+3.8 s), the learner's «السلام عليكم» was heard and answered («وعليكم السلام! لاباس عليك؟ …»), +2 XP on hanging up. 0
+page errors. Arabic lines in calls now run right to left with the script's fonts. `flutter test`: 170 passed.
+
+### Call goals by name, and "What you can do" (follow-up, 2026-11-11)
+
+Goals: the locale catalogs now word the seeded missions' goals (`curriculum.objective.<blueprint>.<goal>`, English and
+French, merged as #22) and the API Worker was redeployed. Live, test learner, "Greet and introduce yourself" (Spanish
+from English): `POST /v1/ai/conversation/session` returned the goals "Say hello", "Ask how they are, and answer", "Say
+your name", "Ask their name", "Say goodbye"; on web-languest.tayoo.app the call showed them as chips and the summary as
+"Goals met: 0 of 5" with each goal listed. That call was hung up at once, which showed the server's summary of the
+character's lines and "couldn't evaluate": such a call now shows "You hung up before answering, so there was nothing to
+evaluate" instead, and credits nothing.
+
+What you can do: Progress lists the skills the server measured (`GET /v1/me/skills`), named from the bundle's new
+`skills.json` (exported from `packages/locales` `progress.skill.*`, 62 skills, English and French). Live, local build
+against the live Worker, signed out: no section; signed in as the test learner on Spanish: "Be understood when
+speaking: Independent, step 3 of 4, 6 observations", "Respond to a greeting: Independent, 3", "Introduce yourself:
+Practised, 1", "Greet someone politely: Emerging, 1" (one `GET /v1/me/skills`, 0 page errors); **How this is
+measured** opened on the four levels. `flutter test`: 182 passed; scripts `export-flutter-content` tests: 8 passed.
+
+### Recent calls, phrases before the call, and where a free call happens (follow-up, 2026-11-11)
+
+Calls the learner took part in are kept on the device (`lib/features/call/call_history.dart`) and listed under
+**Recent calls** in the Speak tab; a call's page has its goals, the server's summary, the corrections, the conversation,
+Call again and Delete. A mission call's lobby lists **Phrases you might need** (the mission's discovery cards, with
+Listen), and a **Phrases** chip opens them during the call. A free call happens where the character works or lives
+(café staff at the café, a coworker at the office…). **Reset all progress** now also deletes the calls, the Out-loud
+counts and the lessons heard (before, those two stayed after a reset).
+
+Live, local build against the live Worker, test learner on Spanish, Chromium's fake microphone saying "Hola, buenos
+días.": the lobby listed "Hola, buenos días." (Hello, good morning), "¿Qué tal?", "Bien, gracias. ¿Y tú?", "Me llamo …"
+with Listen; Pablo picked up, the spoken turn was heard and answered, the Phrases sheet opened over the call, and the
+call was hung up (session 201, turn 200, end 200). The Speak tab then listed "Call with Pablo, Wed, Nov 11 04:47, 0:25,
+Greet and introduce yourself, Goals met: 1 of 5, 1 correction"; its page showed "Goals met: 1 of 5" (Say hello met),
+the server's summary, "Next time, try: Hola, buenos días. Muy bien, ¿y tú?" (said: "Hola, buenos días.") and the
+conversation with Pablo's glosses. 0 page errors. `flutter test`: 191 passed.
+
+### Japanese and the French interface, live (follow-up, 2026-11-11)
+
+Japanese (test learner enrolled from English; the fake microphone saying the server's own こんにちは): the server's
+Japanese voice is raw PCM too (`pcm16`, 24 kHz) and played with the WAV header (Listen: 1.16 s clips, ended); the
+mission's first reply was **answered out loud** ("I heard: こんにちはこんにちは", the fake microphone loops); the Speak
+tab listed Haruka, Kenji, Sota; Haruka (a neighbour) picked up at home with «こんにちは。はるかです。今日は元気ですか？»
+(romaji under each line, gloss "Hello. I'm Haruka. How are you today?"), heard the take and answered; hanging up gave
++2 XP and one correction («こんにちは！元気です。»). 0 page errors.
+
+French interface (browser in French; English taught from French, the fake microphone saying the server's own
+"Hello!"): course page, answer out loud ("Répondu à voix haute · J’ai entendu : « Hello! Hello! »"), the call lobby
+("Des phrases qui peuvent servir"), a call with Dev (goals in French: "Dire bonjour"…; the summary and the correction
+explained in French), "Appels récents" and "Ce que vous savez faire" all read in French. One defect: the characters'
+roles came in English ("Sixth-form student", "Bus driver"): the server's characters carry an English role only. The
+catalogs now hold English and French roles for the 14 shipped portraits (`cast.role.*`, gendered: "Employée de café",
+"Voisine", "Factrice à la retraite"…), exported to the bundle's `cast.json` and shown in the interface's language.
+`flutter test`: 195 passed.

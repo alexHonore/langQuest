@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import '../audio/clip_player.dart';
+import '../audio/wav.dart';
 import '../audio/clip_player_provider.dart';
 import '../services/app_state.dart';
 import '../services/speech_service.dart';
@@ -48,14 +49,13 @@ class ServerVoice {
       if (url is String && url.isNotEmpty) return url;
       final base64 = audio['base64'];
       if (base64 is! String || base64.isEmpty) return null;
-      final mime = switch (audio['encoding']) {
-        'mp3' => 'audio/mpeg',
-        'wav' || 'pcm16' => 'audio/wav',
-        'opus' => 'audio/ogg',
-        'aac' || 'm4a' => 'audio/mp4',
-        _ => 'audio/mpeg',
-      };
-      return 'data:$mime;base64,$base64';
+      // Raw PCM (some varieties' voice, e.g. Darija) gets the WAV header a browser needs.
+      return audioDataUrl(
+        base64,
+        encoding: '${audio['encoding'] ?? 'mp3'}',
+        sampleRateHz: (audio['sampleRateHz'] as num?)?.toInt(),
+        durationMs: (audio['durationMs'] as num?)?.toInt(),
+      );
     } on ApiException {
       return null;
     }

@@ -4,6 +4,7 @@ import 'dart:convert';
 import 'package:flutter/foundation.dart';
 
 import '../../core/audio/take_recorder.dart';
+import '../../core/audio/wav.dart';
 import '../../core/backend/api_client.dart';
 import '../../core/backend/curriculum_ids.dart';
 import '../../core/backend/server_course.dart';
@@ -189,6 +190,9 @@ class CallSession extends ChangeNotifier {
   String? _lastCharacterTurnId;
   bool _characterEnded = false;
   bool _disposed = false;
+
+  /// The server's id of the conversation (null before it picks up).
+  String? get sessionId => _sessionId;
 
   /// The learner's lines the server heard.
   int get learnerTurns => lines.where((l) => l.fromLearner && !l.pending && l.text != null).length;
@@ -442,7 +446,8 @@ class CallSession extends ChangeNotifier {
     _markObjectives(turn['tentativeObjectiveIds'], done: false);
     if (turn['endsConversation'] == true) _characterEnded = true;
     final audio = _map(turn['audio']);
-    final url = audio['url'];
+    // A `data:audio/wav` URL holding raw PCM (Darija's voice) gets its WAV header, or the browser plays nothing.
+    final url = audio['url'] is String ? playableTurnAudio(audio['url'] as String, durationMs: (audio['durationMs'] as num?)?.toInt()) : null;
     String? optional(Object? v) => v is String && v.trim().isNotEmpty ? v.trim() : null;
     return CallLine.character(
       id: '${turn['turnId'] ?? _newId()}',

@@ -16,6 +16,28 @@ String? _strOrNull(Object? v) => v is String && v.isNotEmpty ? v : null;
 Map<String, String> _strMap(Object? v) => v is Map ? {for (final e in v.entries) '${e.key}': _str(e.value)} : const {};
 List<String> _strList(Object? v) => v is List ? [for (final e in v) _str(e)] : const [];
 
+/// A skill the server tracks mastery of (`GET /v1/me/skills`), with its learner-facing names (`skills.json`, exported
+/// from `packages/locales` `progress.skill.<key>`).
+class SkillInfo {
+  /// Stable key (`greet_politely`, `speaking.intelligibility`).
+  final String key;
+
+  /// CEFR can-do band (descriptive only, never a certificate).
+  final String cefr;
+  final Map<String, String> names;
+
+  /// An evidence dimension recorded outside mission goals (`speaking.intelligibility`), not a can-do skill.
+  final bool system;
+
+  const SkillInfo({required this.key, required this.cefr, required this.names, this.system = false});
+
+  factory SkillInfo.fromJson(Map<String, Object?> json) =>
+      SkillInfo(key: _str(json['key']), cefr: _str(json['cefr']), names: _strMap(json['names']), system: json['system'] == true);
+
+  /// The name in [language], else English, else the key.
+  String name(String language) => names[language] ?? names['en'] ?? key;
+}
+
 /// One written form of an expression: the native script (`scheme == null`) or a transliteration / reading aid.
 class ExpressionForm {
   /// ISO 15924 script of the text (`Latn` for romanizations).

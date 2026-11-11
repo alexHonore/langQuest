@@ -971,7 +971,7 @@ abstract class AppLocalizations {
   /// No description provided for @resetAllBody.
   ///
   /// In en, this message translates to:
-  /// **'All courses, reviews and XP on this device are deleted.'**
+  /// **'All courses, reviews, XP and calls on this device are deleted.'**
   String get resetAllBody;
 
   /// No description provided for @resetConfirm.
@@ -2209,6 +2209,282 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'A free chat, in the language you’re learning, about everyday things. When you end it, LangQuest tells you how it went.'**
   String get callFreeBodyText;
+
+  /// No description provided for @missionAnswerOutLoud.
+  ///
+  /// In en, this message translates to:
+  /// **'Answer out loud'**
+  String get missionAnswerOutLoud;
+
+  /// No description provided for @missionAnswerOutLoudHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Say your reply: LangQuest checks it. Or choose it below.'**
+  String get missionAnswerOutLoudHint;
+
+  /// No description provided for @missionAnsweredOutLoud.
+  ///
+  /// In en, this message translates to:
+  /// **'Answered out loud'**
+  String get missionAnsweredOutLoud;
+
+  /// No description provided for @reviewSayItChecked.
+  ///
+  /// In en, this message translates to:
+  /// **'Say it out loud: LangQuest checks it, then shows the answer. Or show it yourself.'**
+  String get reviewSayItChecked;
+
+  /// No description provided for @reviewSuggested.
+  ///
+  /// In en, this message translates to:
+  /// **'suggested'**
+  String get reviewSuggested;
+
+  /// No description provided for @progressSpeakingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Out loud'**
+  String get progressSpeakingTitle;
+
+  /// No description provided for @progressUnderstood.
+  ///
+  /// In en, this message translates to:
+  /// **'Takes understood (checked by LangQuest)'**
+  String get progressUnderstood;
+
+  /// No description provided for @progressCalls.
+  ///
+  /// In en, this message translates to:
+  /// **'Live calls'**
+  String get progressCalls;
+
+  /// No description provided for @progressCallsValue.
+  ///
+  /// In en, this message translates to:
+  /// **'{calls} · {minutes} min'**
+  String progressCallsValue(int calls, int minutes);
+
+  /// No description provided for @progressLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio lessons heard to the end'**
+  String get progressLessons;
+
+  /// No description provided for @progressCanDoTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'What you can do'**
+  String get progressCanDoTitle;
+
+  /// No description provided for @progressCanDoNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Measured by LangQuest from your spoken answers, missions and live calls.'**
+  String get progressCanDoNote;
+
+  /// No description provided for @progressCanDoEmpty.
+  ///
+  /// In en, this message translates to:
+  /// **'Nothing measured yet. Answer out loud in a mission or call a character: what you can do appears here.'**
+  String get progressCanDoEmpty;
+
+  /// No description provided for @progressCanDoFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t load what you can do.'**
+  String get progressCanDoFailed;
+
+  /// No description provided for @masteryEmerging.
+  ///
+  /// In en, this message translates to:
+  /// **'Emerging'**
+  String get masteryEmerging;
+
+  /// No description provided for @masteryPracticed.
+  ///
+  /// In en, this message translates to:
+  /// **'Practised'**
+  String get masteryPracticed;
+
+  /// No description provided for @masteryIndependent.
+  ///
+  /// In en, this message translates to:
+  /// **'Independent'**
+  String get masteryIndependent;
+
+  /// No description provided for @masteryDurable.
+  ///
+  /// In en, this message translates to:
+  /// **'Durable'**
+  String get masteryDurable;
+
+  /// No description provided for @masteryHintEmerging.
+  ///
+  /// In en, this message translates to:
+  /// **'You have tried it with help.'**
+  String get masteryHintEmerging;
+
+  /// No description provided for @masteryHintPracticed.
+  ///
+  /// In en, this message translates to:
+  /// **'You can do it with occasional hints.'**
+  String get masteryHintPracticed;
+
+  /// No description provided for @masteryHintIndependent.
+  ///
+  /// In en, this message translates to:
+  /// **'You did it on your own in conversation.'**
+  String get masteryHintIndependent;
+
+  /// No description provided for @masteryHintDurable.
+  ///
+  /// In en, this message translates to:
+  /// **'You have done it on your own several times, over weeks.'**
+  String get masteryHintDurable;
+
+  /// No description provided for @progressEvidenceCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 observation} other{{count} observations}}'**
+  String progressEvidenceCount(int count);
+
+  /// No description provided for @progressSkillLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{skill}: {level}, step {step} of 4, {evidence}'**
+  String progressSkillLabel(String skill, String level, int step, String evidence);
+
+  /// No description provided for @progressHowMeasured.
+  ///
+  /// In en, this message translates to:
+  /// **'How this is measured'**
+  String get progressHowMeasured;
+
+  /// No description provided for @progressHowMeasuredNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Each level rests on what LangQuest observed, and on how often and how recently. Fewer observations means less certainty. CEFR bands (A1, A2…) describe the skill, not your level: this is not a certificate.'**
+  String get progressHowMeasuredNote;
+
+  /// No description provided for @callNothingSaid.
+  ///
+  /// In en, this message translates to:
+  /// **'You hung up before answering, so there was nothing to evaluate. Call again when you’re ready.'**
+  String get callNothingSaid;
+
+  /// No description provided for @callPhrasesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Phrases you might need'**
+  String get callPhrasesTitle;
+
+  /// No description provided for @callPhrases.
+  ///
+  /// In en, this message translates to:
+  /// **'Phrases'**
+  String get callPhrases;
+
+  /// No description provided for @speakRecentCalls.
+  ///
+  /// In en, this message translates to:
+  /// **'Recent calls'**
+  String get speakRecentCalls;
+
+  /// No description provided for @speakRecordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Call with {name}, {date}, {duration}'**
+  String speakRecordLabel(String name, String date, String duration);
+
+  /// No description provided for @speakRecordCorrections.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 correction} other{{count} corrections}}'**
+  String speakRecordCorrections(int count);
+
+  /// No description provided for @callRecordConversation.
+  ///
+  /// In en, this message translates to:
+  /// **'The conversation'**
+  String get callRecordConversation;
+
+  /// No description provided for @callRecordYou.
+  ///
+  /// In en, this message translates to:
+  /// **'You'**
+  String get callRecordYou;
+
+  /// No description provided for @callRecordKept.
+  ///
+  /// In en, this message translates to:
+  /// **'Kept on this device only. “Reset all progress” deletes it.'**
+  String get callRecordKept;
+
+  /// No description provided for @callRecordDelete.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this call'**
+  String get callRecordDelete;
+
+  /// No description provided for @callRecordDeleteTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete this call?'**
+  String get callRecordDeleteTitle;
+
+  /// No description provided for @callRecordDeleteBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Its transcript and corrections are deleted from this device.'**
+  String get callRecordDeleteBody;
+
+  /// No description provided for @callRecordDeleteConfirm.
+  ///
+  /// In en, this message translates to:
+  /// **'Delete'**
+  String get callRecordDeleteConfirm;
+
+  /// No description provided for @callRecordMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'This call is no longer on this device.'**
+  String get callRecordMissing;
+
+  /// No description provided for @pathTalkLocked.
+  ///
+  /// In en, this message translates to:
+  /// **'A live call with {name}: with a free account'**
+  String pathTalkLocked(String name);
+
+  /// No description provided for @pathTalkLockedNoName.
+  ///
+  /// In en, this message translates to:
+  /// **'A live call: with a free account'**
+  String get pathTalkLockedNoName;
+
+  /// No description provided for @missionLiveCallAccount.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise it in a live call (free account)'**
+  String get missionLiveCallAccount;
+
+  /// No description provided for @callExplain.
+  ///
+  /// In en, this message translates to:
+  /// **'Explain'**
+  String get callExplain;
+
+  /// No description provided for @callExample.
+  ///
+  /// In en, this message translates to:
+  /// **'Example'**
+  String get callExample;
+
+  /// No description provided for @callExplanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Explanation'**
+  String get callExplanation;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

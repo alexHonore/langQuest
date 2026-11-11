@@ -531,7 +531,7 @@ class AppLocalizationsFr extends AppLocalizations {
   String get resetAllTitle => 'Tout réinitialiser ?';
 
   @override
-  String get resetAllBody => 'Tous les cours, révisions et XP de cet appareil sont supprimés.';
+  String get resetAllBody => 'Tous les cours, révisions, XP et appels de cet appareil sont supprimés.';
 
   @override
   String get resetConfirm => 'Réinitialiser';
@@ -1215,4 +1215,158 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get callFreeBodyText =>
       'Une discussion libre, dans la langue que vous apprenez, sur la vie de tous les jours. Quand vous terminez, LangQuest vous dit comment ça s’est passé.';
+
+  @override
+  String get missionAnswerOutLoud => 'Répondez à voix haute';
+
+  @override
+  String get missionAnswerOutLoudHint => 'Dites votre réponse : LangQuest la vérifie. Ou choisissez-la ci-dessous.';
+
+  @override
+  String get missionAnsweredOutLoud => 'Répondu à voix haute';
+
+  @override
+  String get reviewSayItChecked => 'Dites-la à voix haute : LangQuest la vérifie, puis montre la réponse. Ou affichez-la vous-même.';
+
+  @override
+  String get reviewSuggested => 'suggéré';
+
+  @override
+  String get progressSpeakingTitle => 'À l’oral';
+
+  @override
+  String get progressUnderstood => 'Prises comprises (vérifiées par LangQuest)';
+
+  @override
+  String get progressCalls => 'Appels en direct';
+
+  @override
+  String progressCallsValue(int calls, int minutes) {
+    return '$calls · $minutes min';
+  }
+
+  @override
+  String get progressLessons => 'Leçons audio écoutées jusqu’au bout';
+
+  @override
+  String get progressCanDoTitle => 'Ce que vous savez faire';
+
+  @override
+  String get progressCanDoNote => 'Mesuré par LangQuest à partir de vos réponses à voix haute, de vos missions et de vos appels.';
+
+  @override
+  String get progressCanDoEmpty =>
+      'Rien de mesuré pour l’instant. Répondez à voix haute dans une mission ou appelez un personnage : ce que vous savez faire apparaîtra ici.';
+
+  @override
+  String get progressCanDoFailed => 'Impossible de charger ce que vous savez faire.';
+
+  @override
+  String get masteryEmerging => 'En émergence';
+
+  @override
+  String get masteryPracticed => 'Pratiqué';
+
+  @override
+  String get masteryIndependent => 'Autonome';
+
+  @override
+  String get masteryDurable => 'Acquis durablement';
+
+  @override
+  String get masteryHintEmerging => 'Vous l’avez essayé avec de l’aide.';
+
+  @override
+  String get masteryHintPracticed => 'Vous y arrivez avec quelques indices.';
+
+  @override
+  String get masteryHintIndependent => 'Vous l’avez fait sans aide en conversation.';
+
+  @override
+  String get masteryHintDurable => 'Vous l’avez fait sans aide plusieurs fois, sur plusieurs semaines.';
+
+  @override
+  String progressEvidenceCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count observations', one: '1 observation');
+    return '$_temp0';
+  }
+
+  @override
+  String progressSkillLabel(String skill, String level, int step, String evidence) {
+    return '$skill : $level, étape $step sur 4, $evidence';
+  }
+
+  @override
+  String get progressHowMeasured => 'Comment c’est mesuré';
+
+  @override
+  String get progressHowMeasuredNote =>
+      'Chaque niveau repose sur ce que LangQuest a observé, et sur la fréquence et la date des observations. Moins d’observations, moins de certitude. Les niveaux du CECR (A1, A2…) décrivent la compétence, pas votre niveau : ce n’est pas un certificat.';
+
+  @override
+  String get callNothingSaid => 'Vous avez raccroché avant de répondre : il n’y avait rien à évaluer. Rappelez quand vous voulez.';
+
+  @override
+  String get callPhrasesTitle => 'Des phrases qui peuvent servir';
+
+  @override
+  String get callPhrases => 'Phrases';
+
+  @override
+  String get speakRecentCalls => 'Appels récents';
+
+  @override
+  String speakRecordLabel(String name, String date, String duration) {
+    return 'Appel avec $name, $date, $duration';
+  }
+
+  @override
+  String speakRecordCorrections(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count corrections', one: '1 correction');
+    return '$_temp0';
+  }
+
+  @override
+  String get callRecordConversation => 'La conversation';
+
+  @override
+  String get callRecordYou => 'Vous';
+
+  @override
+  String get callRecordKept => 'Gardé sur cet appareil seulement. « Tout réinitialiser » le supprime.';
+
+  @override
+  String get callRecordDelete => 'Supprimer cet appel';
+
+  @override
+  String get callRecordDeleteTitle => 'Supprimer cet appel ?';
+
+  @override
+  String get callRecordDeleteBody => 'Sa transcription et ses corrections sont supprimées de cet appareil.';
+
+  @override
+  String get callRecordDeleteConfirm => 'Supprimer';
+
+  @override
+  String get callRecordMissing => 'Cet appel n’est plus sur cet appareil.';
+
+  @override
+  String pathTalkLocked(String name) {
+    return 'Un appel en direct avec $name : avec un compte gratuit';
+  }
+
+  @override
+  String get pathTalkLockedNoName => 'Un appel en direct : avec un compte gratuit';
+
+  @override
+  String get missionLiveCallAccount => 'Pratiquer en appel direct (compte gratuit)';
+
+  @override
+  String get callExplain => 'Expliquer';
+
+  @override
+  String get callExample => 'Exemple';
+
+  @override
+  String get callExplanation => 'Explication';
 }

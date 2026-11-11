@@ -10,10 +10,14 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:langquest_mobile/core/audio/clip_player_provider.dart';
 import 'package:langquest_mobile/core/backend/account.dart';
 import 'package:langquest_mobile/core/backend/api_client.dart';
+import 'package:langquest_mobile/core/backend/auth_gateway.dart';
 import 'package:langquest_mobile/core/backend/server_course.dart';
 import 'package:langquest_mobile/core/services/app_state.dart';
+import 'package:langquest_mobile/core/services/speaking_stats.dart';
+import 'package:langquest_mobile/features/call/call_portrait.dart';
 import 'package:langquest_mobile/features/call/call_screen.dart';
 import 'package:langquest_mobile/features/learn/learn_logic.dart';
+import 'package:langquest_mobile/features/learn/learn_providers.dart';
 import 'package:langquest_mobile/features/learn/record_take.dart';
 import 'package:langquest_mobile/main.dart';
 import 'package:langquest_mobile/navigation/app_router.dart';
@@ -87,10 +91,11 @@ void main() {
     final player = FakeClipPlayer();
     final container = await pump(t, server: server, player: player);
 
+    final xpBefore = container.read(appStateProvider).learner.xpTotal;
     // Nothing is called until the learner taps Call.
     expect(find.text('Practise it in a real conversation'), findsOneWidget);
     expect(find.text('Uses LangQuest’s AI. Your recordings aren’t kept.'), findsOneWidget);
-    expect(server.requests, isEmpty);
+    expect(server.requests.where((r) => r.contains('/ai/')), isEmpty, reason: 'no AI call before Call (the lobby may read the public catalog)');
     await tapLabel(t, 'Call', ms: 1500);
     expect(player.primed, 1, reason: 'audio is readied inside the tap');
 
@@ -128,6 +133,20 @@ void main() {
     player.finish();
     await settle(t);
 
+    // Explain: the server explains his last line, in the learner's language; Example: another sentence using it.
+    await tapLabel(t, 'Explain', ms: 1500);
+    expect(server.turnBodies().last['input'], {'kind': 'command', 'command': 'meaning'});
+    expect(find.text('Explanation'), findsOneWidget);
+    expect(find.text('Pablo says hello, gives his name and asks yours.'), findsOneWidget);
+    player.finish();
+    await settle(t);
+    await tapLabel(t, 'Example', ms: 1500);
+    expect(server.turnBodies().last['input'], {'kind': 'command', 'command': 'example'});
+    expect(find.text('Hola, me llamo Ana. ¿Y tú?'), findsOneWidget);
+    expect(find.text('Another way to answer: say your name, then ask theirs.'), findsOneWidget);
+    player.finish();
+    await settle(t);
+
     // Hang up: the server's evaluation.
     await tapLabel(t, 'Hang up', ms: 1500);
     expect(find.textContaining('Call ended'), findsOneWidget);
@@ -138,6 +157,14 @@ void main() {
     expect(find.text('Me llamo Alex.'), findsOneWidget);
     expect(find.text('You said: “Yo llamo Alex”'), findsOneWidget);
     expect(container.read(appStateProvider).stopsDone(missionKey), contains(PathStop.talk));
+    // The server's XP for the call counts in the learner's total; the call is counted for Progress.
+    expect(container.read(appStateProvider).learner.xpTotal, xpBefore + 30 + 5, reason: 'the call\'s 30 XP and the Talk stop\'s 5');
+    expect(container.read(speakingStatsProvider)['spanish-spain|en']!.calls, 1);
+    container.read(appRouterProvider).go('/progress');
+    await settle(t);
+    expect(find.text('Out loud'), findsOneWidget);
+    expect(find.text('Live calls'), findsOneWidget);
+    expect(find.text('1 · 1 min'), findsOneWidget);
     semantics.dispose();
   });
 
@@ -237,18 +264,82 @@ void main() {
     await t.tap(find.text('Pablo'));
     await settle(t);
     expect(find.text('Call Pablo'), findsWidgets);
+    expect(find.text('Street'), findsWidgets, reason: 'a schoolboy has no one place: the next mission\'s scene');
+    expect(find.text('Phrases you might need'), findsNothing, reason: 'a free call has no mission phrases');
     expect(find.text('Schoolboy'), findsOneWidget);
     await tapLabel(t, 'Call', ms: 1500);
     final start = server.bodies['POST /v1/ai/conversation/session']!.single;
     expect(start['characterId'], pabloId);
     expect(start.containsKey('missionId'), isFalse);
     expect(find.textContaining('Goals'), findsNothing, reason: 'a free call has no goals');
+    expect(find.bySemanticsLabel('Phrases'), findsNothing);
     await tapLabel(t, 'Talk');
     await tapLabel(t, 'Send', ms: 1500);
     expect(find.text('¡Hola! ¿Qué tal?'), findsOneWidget);
     await tapLabel(t, 'Hang up', ms: 1500);
     expect(find.textContaining('Call ended'), findsOneWidget);
     expect(container.read(appStateProvider).stopsDone(missionKey), isNot(contains(PathStop.talk)), reason: 'no mission stop for a free call');
+    semantics.dispose();
+  });
+
+  testWidgets('before a mission call, the mission\'s phrases; during it, a Phrases sheet (no request)', (t) async {
+    final semantics = t.ensureSemantics();
+    final server = FakeConversationServer();
+    final container = await pump(t, server: server, player: FakeClipPlayer(instant: true));
+    final plan = container.read(learnPlanProvider(missionKey))!;
+    final first = plan.phrases.first;
+    expect(find.text('Phrases you might need'), findsOneWidget);
+    await t.ensureVisible(find.text(first.text).first);
+    expect(find.text(plan.meaningOf(first)), findsWidgets);
+    expect(find.text(plan.phrases[1].text), findsWidgets);
+    await tapLabel(t, 'Call', ms: 1500);
+    final before = server.requests.length;
+    await tapLabel(t, 'Phrases');
+    expect(find.text('Phrases you might need'), findsOneWidget);
+    expect(find.text(first.text), findsWidgets);
+    expect(find.text(plan.meaningOf(first)), findsWidgets);
+    expect(server.requests, hasLength(before), reason: 'the bundle\'s phrases: no request');
+    semantics.dispose();
+  });
+
+  testWidgets('a free call with a coworker happens at the office', (t) async {
+    final marta = CourseCharacter(id: characterServerId('es-es-coworker-marta'), name: 'Marta', role: 'Coworker');
+    await pump(t, route: '/talk/${marta.id}', characters: [marta], player: FakeClipPlayer());
+    expect(find.text('Call Marta'), findsWidgets);
+    expect(find.text('Office'), findsWidgets);
+    expect(find.text('Street'), findsNothing);
+  });
+
+  testWidgets('hanging up before saying anything: a plain message, no summary or corrections, nothing credited', (t) async {
+    final semantics = t.ensureSemantics();
+    final container = await pump(t, player: FakeClipPlayer(instant: true));
+    final xpBefore = container.read(appStateProvider).learner.xpTotal;
+    await tapLabel(t, 'Call', ms: 1500);
+    expect(find.text('¡Hola! Soy Pablo. ¿Cómo te llamas?'), findsOneWidget);
+    await tapLabel(t, 'Hang up', ms: 1500);
+    expect(find.textContaining('Call ended'), findsOneWidget);
+    expect(find.text('You hung up before answering, so there was nothing to evaluate. Call again when you’re ready.'), findsOneWidget);
+    expect(find.text('You greeted Pablo and said your name.'), findsNothing, reason: 'the server\'s summary would describe only Pablo\'s lines');
+    expect(find.text('LangQuest couldn’t evaluate this call, so nothing was counted.'), findsNothing);
+    expect(find.text('Next time, try'), findsNothing);
+    expect(find.text('Goals met: 0 of 2'), findsOneWidget, reason: 'the goals stay, as what to aim for next time');
+    expect(find.text('Call again'), findsOneWidget);
+    expect(container.read(appStateProvider).learner.xpTotal, xpBefore);
+    expect(container.read(appStateProvider).stopsDone(missionKey), isNot(contains(PathStop.talk)));
+    expect(container.read(speakingStatsProvider)['spanish-spain|en']?.calls ?? 0, 0);
+    semantics.dispose();
+  });
+
+  testWidgets('a call where the learner only asked for help: the server\'s XP counts, but no Talk stop', (t) async {
+    final semantics = t.ensureSemantics();
+    final container = await pump(t, player: FakeClipPlayer(instant: true));
+    final xpBefore = container.read(appStateProvider).learner.xpTotal;
+    await tapLabel(t, 'Call', ms: 1500);
+    await tapLabel(t, 'Hint', ms: 1500);
+    await tapLabel(t, 'Hang up', ms: 1500);
+    expect(find.text('+30 XP'), findsOneWidget);
+    expect(container.read(appStateProvider).learner.xpTotal, xpBefore + 30, reason: 'the summary\'s XP is the total\'s');
+    expect(container.read(appStateProvider).stopsDone(missionKey), isNot(contains(PathStop.talk)));
     semantics.dispose();
   });
 
@@ -266,6 +357,69 @@ void main() {
     semantics.dispose();
   });
 
+  group('signed out, on a course with live calls', () {
+    Future<ProviderContainer> containerWith(AccountState account, {bool liveCalls = true}) async {
+      final c = ProviderContainer(
+        overrides: [
+          ...await testOverrides(),
+          accountProvider.overrideWith(() => _FixedAccount(account)),
+          serverOffersProvider.overrideWith((ref, source) async => {'spanish-spain': ServerTrackOffer(characters: 4, liveCalls: liveCalls)}),
+        ],
+      );
+      addTearDown(c.dispose);
+      return c;
+    }
+
+    test('the invitation shows only signed out, with a backend, on a course whose characters can be called', () async {
+      Future<bool> needs(AccountState account, {bool liveCalls = true}) async {
+        final c = await containerWith(account, liveCalls: liveCalls);
+        c.read(appStateProvider.notifier).enroll('spanish-spain', 'en');
+        c.listen(callsNeedAccountProvider, (_, _) {});
+        await c.read(serverOffersProvider('en').future);
+        return c.read(callsNeedAccountProvider);
+      }
+
+      expect(await needs(const AccountState(available: true)), isTrue);
+      expect(
+        await needs(
+          const AccountState(
+            available: true,
+            user: AccountUser(id: 'u', email: 'a@b.c'),
+          ),
+        ),
+        isFalse,
+        reason: 'signed in: the real Talk stop',
+      );
+      expect(await needs(const AccountState()), isFalse, reason: 'no backend: no account to make');
+      expect(await needs(const AccountState(available: true), liveCalls: false), isFalse, reason: 'nothing to unlock');
+    });
+
+    testWidgets('the path shows Talk locked, and it opens the account', (t) async {
+      final semantics = t.ensureSemantics();
+      t.view.physicalSize = const Size(390 * 3, 844 * 3);
+      t.view.devicePixelRatio = 3;
+      addTearDown(t.view.reset);
+      await t.pumpWidget(
+        ProviderScope(
+          overrides: [...await testOverrides(), liveCallCourseProvider.overrideWithValue(null), callsNeedAccountProvider.overrideWithValue(true)],
+          child: const LangQuestApp(),
+        ),
+      );
+      final container = ProviderScope.containerOf(t.element(find.byType(LangQuestApp)));
+      container.read(appStateProvider.notifier)
+        ..setReduceMotion(true)
+        ..enroll('spanish-spain', 'en');
+      container.read(appRouterProvider).go('/path/$missionKey');
+      await settle(t, 1200);
+      final locked = find.bySemanticsLabel('4. Talk. A live call with Lucía: with a free account');
+      expect(locked, findsOneWidget);
+      await t.tap(locked);
+      await settle(t, 1200);
+      expect(find.text('Settings'), findsOneWidget, reason: 'the account screen, where signing up is');
+      semantics.dispose();
+    });
+  });
+
   testWidgets('the path offers the Talk stop only when a live call backs it', (t) async {
     await pump(t, call: null, route: '/path/$missionKey');
     expect(find.text('Talk'), findsNothing);
@@ -275,4 +429,13 @@ void main() {
     expect(find.text('Talk'), findsOneWidget);
     expect(find.text('A live call: use what you learned, out loud'), findsOneWidget);
   });
+}
+
+class _FixedAccount extends AccountController {
+  _FixedAccount(this.fixed);
+
+  final AccountState fixed;
+
+  @override
+  AccountState build() => fixed;
 }

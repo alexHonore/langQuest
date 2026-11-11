@@ -62,6 +62,9 @@ class FakeConversationServer {
   final bodies = <String, List<Map<String, Object?>>>{};
   var _seq = 1;
   var _turn = 0;
+
+  /// Turns the server credits (said something, or asked for help): none means a silent call (no XP, no corrections).
+  var _creditedTurns = 0;
   final _inProgressDone = <String>{};
   final _done = <String>[];
 
@@ -140,13 +143,21 @@ class FakeConversationServer {
       final input = body['input'] as Map;
       if (input['kind'] == 'command') {
         _seq += 2;
+        _creditedTurns++;
         final command = input['command'] as String;
         return _json({
           ...ok,
           'data': {
             'session': _session(),
             'learnerTranscript': null,
-            'characterTurn': _characterTurn(command == 'hint' ? 'Puedes decir: «Me llamo…»' : 'Más despacio: ¿Cómo te llamas?', respondsTo: command),
+            // As the server: a hint suggests a line; "meaning" repeats the last line with an explanation; "example"
+            // gives another sentence with a note; "slower" says it again, slowly.
+            'characterTurn': switch (command) {
+              'hint' => _characterTurn('Puedes decir: «Me llamo…»', respondsTo: command),
+              'meaning' => _characterTurn('¡Hola! Soy Pablo. ¿Cómo te llamas?', respondsTo: command, gloss: 'Pablo says hello, gives his name and asks yours.'),
+              'example' => _characterTurn('Hola, me llamo Ana. ¿Y tú?', respondsTo: command, gloss: 'Another way to answer: say your name, then ask theirs.'),
+              _ => _characterTurn('Más despacio: ¿Cómo te llamas?', respondsTo: command),
+            },
             'replayed': false,
             'evaluationPending': false,
             'objectivesCompleted': [..._done],
@@ -176,6 +187,7 @@ class FakeConversationServer {
         });
       }
       _seq += 2;
+      _creditedTurns++;
       _done.addAll(script.objectives);
       final heard = script.heard ?? (input['kind'] == 'text' ? input['text'] : null);
       return _json({
@@ -203,20 +215,22 @@ class FakeConversationServer {
             'skillsExercised': <String>[],
             'observations': <Object>[],
             'priorityCorrections': [
-              {
-                'skillKey': null,
-                'learnerUtterance': 'Yo llamo Alex',
-                'suggestedUtterance': 'Me llamo Alex.',
-                'explanation': 'Use “me llamo” to say your name.',
-                'category': 'grammar',
-              },
+              if (_creditedTurns > 0)
+                {
+                  'skillKey': null,
+                  'learnerUtterance': 'Yo llamo Alex',
+                  'suggestedUtterance': 'Me llamo Alex.',
+                  'explanation': 'Use “me llamo” to say your name.',
+                  'category': 'grammar',
+                },
             ],
             'summary': 'You greeted Pablo.',
             'reviewTriggers': <String>[],
             'relationshipMemoryUpdate': null,
             'confidence': evaluated ? 0.8 : null,
           },
-          'xpAwarded': 30,
+          // As the server: XP only for credited turns (a silent call earns nothing).
+          'xpAwarded': _creditedTurns > 0 ? 30 : 0,
           'scheduledReviews': <Object>[],
           'summary': 'You greeted Pablo and said your name.',
           'transcriptRetained': false,
