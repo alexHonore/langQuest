@@ -10,6 +10,7 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:langquest_mobile/core/audio/take_recorder.dart';
 import 'package:langquest_mobile/core/backend/speech_check.dart';
 import 'package:langquest_mobile/core/services/speech_service.dart';
+import 'package:langquest_mobile/core/platform/browser_kind.dart';
 import 'package:langquest_mobile/features/learn/record_take.dart';
 import 'package:langquest_mobile/l10n/l10n.dart';
 
@@ -55,6 +56,7 @@ void main() {
       SpeechChecker? checker,
       SpeechTarget? check,
       ValueChanged<SpeechVerdict>? onVerdict,
+      BrowserKind browser = BrowserKind.other,
     }) async {
       made = [];
       speech = FakeSpeech();
@@ -64,6 +66,7 @@ void main() {
             ...await testOverrides(device: device),
             speechServiceProvider.overrideWithValue(speech),
             speechCheckerProvider.overrideWithValue(checker),
+            browserKindProvider.overrideWithValue(browser),
             takeRecorderFactoryProvider.overrideWithValue(
               canRecord
                   ? () {
@@ -176,6 +179,25 @@ void main() {
       await tap(tester, 'Try again');
       expect(made.last.started, isTrue);
       expect(find.bySemanticsLabel('Stop recording'), findsOneWidget);
+    });
+
+    testWidgets('a blocked microphone: the steps to allow it, for this device', (tester) async {
+      for (final (browser, steps, others) in [
+        (BrowserKind.iosSafari, 'Website Settings › Microphone › Allow', 'Permissions › Microphone'),
+        (BrowserKind.android, 'Permissions › Microphone › Allow', 'Website Settings'),
+        (BrowserKind.desktop, 'set Microphone to Allow', 'Website Settings'),
+      ]) {
+        recorders = [FakeRecorder(failure: RecorderFailure.blocked)];
+        await pump(tester, browser: browser);
+        await tap(tester, 'Record yourself');
+        expect(find.text('How to allow the microphone'), findsOneWidget);
+        expect(find.textContaining(steps), findsNothing, reason: 'closed until asked');
+        await tester.tap(find.text('How to allow the microphone'));
+        await tester.pump();
+        expect(find.textContaining(steps), findsOneWidget, reason: '$browser');
+        expect(find.textContaining(others), findsNothing, reason: 'only this device\'s steps');
+        await tester.pumpWidget(const SizedBox());
+      }
     });
 
     testWidgets('a forgotten recording stops by itself', (tester) async {

@@ -9,6 +9,7 @@ import '../../core/backend/server_voice.dart';
 import '../../core/audio/take_recorder.dart';
 import '../../core/backend/speech_check.dart';
 import '../../core/layout/motion.dart';
+import '../../core/platform/browser_kind.dart';
 import '../../core/platform/recorder.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/speaking_stats.dart';
@@ -329,6 +330,12 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
                   child: Text(message, textAlign: widget.centered ? TextAlign.center : TextAlign.start, style: note),
                 ),
         ),
+        // Blocked: the steps to allow it, on this device.
+        if (_state == _Take.blocked)
+          Padding(
+            padding: const EdgeInsets.only(top: 6),
+            child: MicHelp(centered: widget.centered),
+          ),
         if (_state == _Take.recorded && (_checking || _verdict != null))
           Padding(
             padding: const EdgeInsets.only(top: 10),
@@ -342,6 +349,81 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
   }
 
   static String _clock(Duration d) => '${d.inMinutes}:${(d.inSeconds % 60).toString().padLeft(2, '0')}';
+}
+
+/// The browser the app runs in (for device-specific help); overridden in tests.
+final browserKindProvider = Provider<BrowserKind>((ref) => currentBrowserKind());
+
+/// "How to allow the microphone": a toggle that opens the steps for this device (iPhone/iPad Safari, Android Chrome,
+/// a computer). The browser remembers a refusal per site, so the learner has to allow it there.
+class MicHelp extends ConsumerStatefulWidget {
+  const MicHelp({super.key, this.centered = false, this.initiallyOpen = false});
+
+  final bool centered;
+  final bool initiallyOpen;
+
+  @override
+  ConsumerState<MicHelp> createState() => _MicHelpState();
+}
+
+class _MicHelpState extends ConsumerState<MicHelp> {
+  late bool _open = widget.initiallyOpen;
+
+  @override
+  Widget build(BuildContext context) {
+    final appState = ref.watch(appStateProvider);
+    final colors = appState.colors;
+    final accent = appState.accent;
+    final l10n = context.l10n;
+    final steps = switch (ref.watch(browserKindProvider)) {
+      BrowserKind.iosSafari => [l10n.micHelpIos],
+      BrowserKind.android => [l10n.micHelpAndroid],
+      BrowserKind.desktop => [l10n.micHelpDesktop],
+      BrowserKind.other => [l10n.micHelpIos, l10n.micHelpAndroid, l10n.micHelpDesktop],
+    };
+    return Column(
+      crossAxisAlignment: widget.centered ? CrossAxisAlignment.center : CrossAxisAlignment.start,
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Semantics(
+          container: true,
+          button: true,
+          expanded: _open,
+          child: InkWell(
+            borderRadius: BorderRadius.circular(10),
+            onTap: () => setState(() => _open = !_open),
+            child: ConstrainedBox(
+              constraints: const BoxConstraints(minHeight: 44),
+              child: Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(LucideIcons.micOff, size: 16, color: accent.primaryText),
+                  const SizedBox(width: 6),
+                  Flexible(
+                    child: Text(
+                      l10n.micHelpTitle,
+                      style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.w700, color: accent.primaryText),
+                    ),
+                  ),
+                  Icon(_open ? LucideIcons.chevronUp : LucideIcons.chevronDown, size: 16, color: accent.primaryText),
+                ],
+              ),
+            ),
+          ),
+        ),
+        if (_open)
+          for (final step in steps)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: Text(
+                step,
+                textAlign: widget.centered ? TextAlign.center : TextAlign.start,
+                style: TextStyle(fontSize: 13, height: 1.4, color: colors.textSecondary),
+              ),
+            ),
+      ],
+    );
+  }
 }
 
 /// The microphone's level while recording, as five bars (decorative: the Stop button says what is happening).

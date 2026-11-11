@@ -1354,4 +1354,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get callExplanation => 'Explanation';
+
+  @override
+  String get micHelpTitle => 'How to allow the microphone';
+
+  @override
+  String get micHelpIos =>
+      'On iPhone or iPad (Safari): tap “aA” at the left of the address bar, then Website Settings › Microphone › Allow. If Safari never asks: iPhone Settings › Safari › Microphone › Ask. Then tap Record again.';
+
+  @override
+  String get micHelpAndroid =>
+      'On Android (Chrome): tap the icon at the left of the address (padlock or sliders), then Permissions › Microphone › Allow. Then tap Record again.';
+
+  @override
+  String get micHelpDesktop => 'On a computer: click the icon at the left of the address (padlock or sliders), set Microphone to Allow, then try again.';
+
+  @override
+  String get callMicBlocked => 'The microphone is blocked, so you can write your answers. Allow it to speak.';
 }

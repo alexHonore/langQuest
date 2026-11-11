@@ -877,5 +877,10 @@
   "missionLiveCallAccount": "Practise it in a live call (free account)",
   "callExplain": "Explain",
   "callExample": "Example",
-  "callExplanation": "Explanation"
+  "callExplanation": "Explanation",
+  "micHelpTitle": "How to allow the microphone",
+  "micHelpIos": "On iPhone or iPad (Safari): tap “aA” at the left of the address bar, then Website Settings › Microphone › Allow. If Safari never asks: iPhone Settings › Safari › Microphone › Ask. Then tap Record again.",
+  "micHelpAndroid": "On Android (Chrome): tap the icon at the left of the address (padlock or sliders), then Permissions › Microphone › Allow. Then tap Record again.",
+  "micHelpDesktop": "On a computer: click the icon at the left of the address (padlock or sliders), set Microphone to Allow, then try again.",
+  "callMicBlocked": "The microphone is blocked, so you can write your answers. Allow it to speak."
 }

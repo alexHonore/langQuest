@@ -1369,4 +1369,22 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get callExplanation => 'Explication';
+
+  @override
+  String get micHelpTitle => 'Comment autoriser le micro';
+
+  @override
+  String get micHelpIos =>
+      'Sur iPhone ou iPad (Safari) : touchez « aA » à gauche de l’adresse, puis Réglages du site web › Microphone › Autoriser. Si Safari ne demande jamais : Réglages de l’iPhone › Safari › Microphone › Demander. Puis touchez de nouveau Enregistrer.';
+
+  @override
+  String get micHelpAndroid =>
+      'Sur Android (Chrome) : touchez l’icône à gauche de l’adresse (cadenas ou réglages), puis Autorisations › Micro › Autoriser. Puis touchez de nouveau Enregistrer.';
+
+  @override
+  String get micHelpDesktop =>
+      'Sur un ordinateur : cliquez sur l’icône à gauche de l’adresse (cadenas ou réglages), mettez Micro sur Autoriser, puis réessayez.';
+
+  @override
+  String get callMicBlocked => 'Le micro est bloqué : vous pouvez écrire vos réponses. Autorisez-le pour parler.';
 }

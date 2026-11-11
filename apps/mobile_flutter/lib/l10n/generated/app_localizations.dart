@@ -2485,6 +2485,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Explanation'**
   String get callExplanation;
+
+  /// No description provided for @micHelpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How to allow the microphone'**
+  String get micHelpTitle;
+
+  /// No description provided for @micHelpIos.
+  ///
+  /// In en, this message translates to:
+  /// **'On iPhone or iPad (Safari): tap “aA” at the left of the address bar, then Website Settings › Microphone › Allow. If Safari never asks: iPhone Settings › Safari › Microphone › Ask. Then tap Record again.'**
+  String get micHelpIos;
+
+  /// No description provided for @micHelpAndroid.
+  ///
+  /// In en, this message translates to:
+  /// **'On Android (Chrome): tap the icon at the left of the address (padlock or sliders), then Permissions › Microphone › Allow. Then tap Record again.'**
+  String get micHelpAndroid;
+
+  /// No description provided for @micHelpDesktop.
+  ///
+  /// In en, this message translates to:
+  /// **'On a computer: click the icon at the left of the address (padlock or sliders), set Microphone to Allow, then try again.'**
+  String get micHelpDesktop;
+
+  /// No description provided for @callMicBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'The microphone is blocked, so you can write your answers. Allow it to speak.'**
+  String get callMicBlocked;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

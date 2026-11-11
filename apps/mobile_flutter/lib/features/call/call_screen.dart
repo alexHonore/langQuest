@@ -706,6 +706,18 @@ class _CallScreenState extends ConsumerState<CallScreen> {
             ),
           ),
           const SizedBox(height: 10),
+          // The microphone was refused: say so, and how to allow it (the call goes on in writing).
+          if (_micRefused && session.voice)
+            Padding(
+              padding: const EdgeInsets.only(bottom: 6),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(l10n.callMicBlocked, style: TextStyle(fontSize: 13, height: 1.35, color: colors.textSecondary)),
+                  const MicHelp(),
+                ],
+              ),
+            ),
           if (_typing || !canSpeak)
             Padding(
               padding: const EdgeInsets.only(bottom: 10),

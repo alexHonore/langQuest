@@ -398,5 +398,10 @@
   "missionLiveCallAccount": "Pratiquer en appel direct (compte gratuit)",
   "callExplain": "Expliquer",
   "callExample": "Exemple",
-  "callExplanation": "Explication"
+  "callExplanation": "Explication",
+  "micHelpTitle": "Comment autoriser le micro",
+  "micHelpIos": "Sur iPhone ou iPad (Safari) : touchez « aA » à gauche de l’adresse, puis Réglages du site web › Microphone › Autoriser. Si Safari ne demande jamais : Réglages de l’iPhone › Safari › Microphone › Demander. Puis touchez de nouveau Enregistrer.",
+  "micHelpAndroid": "Sur Android (Chrome) : touchez l’icône à gauche de l’adresse (cadenas ou réglages), puis Autorisations › Micro › Autoriser. Puis touchez de nouveau Enregistrer.",
+  "micHelpDesktop": "Sur un ordinateur : cliquez sur l’icône à gauche de l’adresse (cadenas ou réglages), mettez Micro sur Autoriser, puis réessayez.",
+  "callMicBlocked": "Le micro est bloqué : vous pouvez écrire vos réponses. Autorisez-le pour parler."
 }
