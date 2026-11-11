@@ -46,12 +46,12 @@ export const SPANISH_SPAIN_CHAPTER_1: SeedChapter = defineSeedChapter({
   generatedBy: 'curriculum-seed/spanish-spain@2026-10',
   notes: ['Castilian usage (tú/usted, "vale", "¿me cobras?") to be confirmed by a reviewer from Spain; no Latin American substitutions.', 'Gendered adjectives (encantado/a, el nuevo vecino / la nueva vecina) need feminine variants recorded.'],
   characters: [
-    { characterKey: 'es_lucia_acquaintance', role: 'friendly local acquaintance', name: 'Lucía', personality: 'open, chatty, laughs easily', homeRegion: 'Madrid', regionalOption: null },
-    { characterKey: 'es_javi_camarero', role: 'café server', name: 'Javi', personality: 'fast, informal, friendly', homeRegion: 'Madrid', regionalOption: null },
-    { characterKey: 'es_paco_mercado', role: 'market vendor', name: 'Paco', personality: 'loud, generous, proud of his produce', homeRegion: 'Madrid', regionalOption: null },
-    { characterKey: 'es_carmen_passerby', role: 'passer-by', name: 'Carmen', personality: 'helpful, precise with directions', homeRegion: 'Madrid', regionalOption: null },
-    { characterKey: 'es_marta_vecina', role: 'neighbour', name: 'Marta', personality: 'curious, welcoming, offers help', homeRegion: 'Madrid', regionalOption: null },
-    { characterKey: 'es_antonio_taxista', role: 'taxi driver', name: 'Antonio', personality: 'talkative, football fan', homeRegion: 'Madrid', regionalOption: null },
+    { characterKey: 'es_lucia_acquaintance', role: 'friendly local acquaintance', name: 'Lucía', personality: 'open, chatty, laughs easily', homeRegion: 'Madrid', regionalOption: null, voice: 'female' },
+    { characterKey: 'es_javi_camarero', role: 'café server', name: 'Javi', personality: 'fast, informal, friendly', homeRegion: 'Madrid', regionalOption: null, voice: 'male' },
+    { characterKey: 'es_paco_mercado', role: 'market vendor', name: 'Paco', personality: 'loud, generous, proud of his produce', homeRegion: 'Madrid', regionalOption: null, voice: 'male' },
+    { characterKey: 'es_carmen_passerby', role: 'passer-by', name: 'Carmen', personality: 'helpful, precise with directions', homeRegion: 'Madrid', regionalOption: null, voice: 'female' },
+    { characterKey: 'es_marta_vecina', role: 'neighbour', name: 'Marta', personality: 'curious, welcoming, offers help', homeRegion: 'Madrid', regionalOption: null, voice: 'female' },
+    { characterKey: 'es_antonio_taxista', role: 'taxi driver', name: 'Antonio', personality: 'talkative, football fan', homeRegion: 'Madrid', regionalOption: null, voice: 'male' },
   ],
   missions: [
     {

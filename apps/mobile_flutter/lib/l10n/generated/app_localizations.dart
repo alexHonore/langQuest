@@ -2713,6 +2713,60 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{attested} of {total} phrases found as written in Tatoeba, a collection of real sentences, with real examples to read'**
   String courseIncludesRealExamples(int attested, int total);
+
+  /// No description provided for @recordSignInToCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Have LangQuest check what you said and how it sounded: create a free account'**
+  String get recordSignInToCheck;
+
+  /// No description provided for @speakToContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Say it out loud to continue'**
+  String get speakToContinue;
+
+  /// No description provided for @speakTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Not quite yet: try again ({tries} of {max})'**
+  String speakTryAgain(int tries, int max);
+
+  /// No description provided for @speakCantNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Can’t speak now'**
+  String get speakCantNow;
+
+  /// No description provided for @speakCantNowDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaking steps are paused for 15 minutes.'**
+  String get speakCantNowDone;
+
+  /// No description provided for @speakSignUpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Call the people of this course'**
+  String get speakSignUpTitle;
+
+  /// No description provided for @speakSignUpBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Live calls with the course’s AI characters, by voice or in writing, with corrections after each call. Free: it only needs an account, so your calls and progress are kept.'**
+  String get speakSignUpBody;
+
+  /// No description provided for @speakSignUpButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a free account to call'**
+  String get speakSignUpButton;
+
+  /// No description provided for @speakSignUpAlready.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have one? Sign in'**
+  String get speakSignUpAlready;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

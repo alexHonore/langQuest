@@ -160,7 +160,7 @@ function chapterEntry(chapter: SeedChapter) {
     reviewStatus: chapter.reviewStatus,
     generatedBy: chapter.generatedBy,
     notes: chapter.notes,
-    characters: chapter.characters.map((c) => ({ key: c.characterKey, name: c.name, role: c.role, personality: c.personality, homeRegion: c.homeRegion, ageBand: c.ageBand })),
+    characters: chapter.characters.map((c) => ({ key: c.characterKey, name: c.name, role: c.role, personality: c.personality, homeRegion: c.homeRegion, ageBand: c.ageBand, voice: c.voice })),
     missions: chapter.missions.map((m) => missionEntry(chapter, m)),
   };
 }

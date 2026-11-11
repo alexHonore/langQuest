@@ -247,6 +247,9 @@ class FakeClipPlayer implements ClipPlayer {
 
   final bool instant;
   final played = <String>[];
+
+  /// The rate of each clip played (1 = normal, below 1 = slower).
+  final rates = <double>[];
   var primed = 0;
   var stops = 0;
   Completer<void>? _playing;
@@ -259,8 +262,9 @@ class FakeClipPlayer implements ClipPlayer {
   void prime() => primed++;
 
   @override
-  Future<void> play(String url) {
+  Future<void> play(String url, {double rate = 1}) {
     played.add(url);
+    rates.add(rate);
     _playing = Completer<void>();
     if (instant) _playing!.complete();
     _levels.add(0.6);

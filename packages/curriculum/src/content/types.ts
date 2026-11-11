@@ -66,6 +66,8 @@ export const SeedCharacterSchema = z.object({
   regionalOption: z.string().nullable().default(null),
   /** Casting age band of the seed persona (documentation for the resolver; `null` = unspecified). */
   ageBand: AgeBandSchema.nullable().default(null),
+  /** Casting voice of the persona: which synthetic voice reads their lines (`null` = the course's default voice). */
+  voice: z.enum(['female', 'male']).nullable().default(null),
 });
 export type SeedCharacter = z.infer<typeof SeedCharacterSchema>;
 

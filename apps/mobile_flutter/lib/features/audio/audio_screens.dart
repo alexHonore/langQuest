@@ -104,10 +104,10 @@ class AudioLibraryScreen extends ConsumerWidget {
             const SizedBox(height: 8),
             Row(
               children: [
-                Icon(voice.source == LineVoiceSource.server ? LucideIcons.audioLines : LucideIcons.volume2, size: 15, color: accent.primaryText),
+                Icon(voice.ai ? LucideIcons.audioLines : LucideIcons.volume2, size: 15, color: accent.primaryText),
                 const SizedBox(width: 6),
                 Text(
-                  voice.source == LineVoiceSource.server ? l10n.audioReadByAi : l10n.audioReadByDevice,
+                  voice.ai ? l10n.audioReadByAi : l10n.audioReadByDevice,
                   style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: accent.primaryText),
                 ),
               ],

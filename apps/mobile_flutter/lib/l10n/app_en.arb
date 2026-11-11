@@ -1003,5 +1003,24 @@
         "type": "int"
       }
     }
-  }
+  },
+  "recordSignInToCheck": "Have LangQuest check what you said and how it sounded: create a free account",
+  "speakToContinue": "Say it out loud to continue",
+  "speakTryAgain": "Not quite yet: try again ({tries} of {max})",
+  "@speakTryAgain": {
+    "placeholders": {
+      "tries": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "speakCantNow": "Can’t speak now",
+  "speakCantNowDone": "Speaking steps are paused for 15 minutes.",
+  "speakSignUpTitle": "Call the people of this course",
+  "speakSignUpBody": "Live calls with the course’s AI characters, by voice or in writing, with corrections after each call. Free: it only needs an account, so your calls and progress are kept.",
+  "speakSignUpButton": "Create a free account to call",
+  "speakSignUpAlready": "Already have one? Sign in"
 }

@@ -78,6 +78,9 @@ flutter:
     # Native recordings of Tatoeba sentences whose own license allows redistribution (CC BY / CC BY-SA / CC0), next to
     # the examples that use them (`assets/content/examples.json`; scripts/src/attach-tatoeba-examples.ts).
     - assets/audio/tatoeba/
+    # The course lines read by natural AI voices (character and learner in different voices), so every learner hears
+    # them, signed in or not, offline too (scripts/src/synthesize-bundle-audio.ts; assets/content/voices.json).
+    - assets/audio/lines/
     # The art roster's clay portraits (repo `assets/characters`, owner-approved C2) of the bundled courses'
     # characters, one SVG per conversation expression: `<roster id>.<expression>.svg`. Loaded only when shown.
     - assets/characters/

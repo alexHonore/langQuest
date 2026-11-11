@@ -135,7 +135,8 @@ class AppScaffold extends ConsumerWidget {
     final colors = appState.colors;
     final l10n = context.l10n;
     final audio = ref.watch(audioLessonsAvailableProvider);
-    final speak = ref.watch(liveCallCourseProvider) != null;
+    // Signed out on a course with calls, the tab says how to unlock them (a free account) rather than hiding them.
+    final speak = ref.watch(liveCallCourseProvider) != null || ref.watch(callsNeedAccountProvider);
     final tabs = ['/', '/missions', if (speak) '/talk', if (audio) '/audio', '/progress'];
     final selected = _selectedIndex(context, tabs);
     final items = [

@@ -1508,4 +1508,34 @@ class AppLocalizationsFr extends AppLocalizations {
   String courseIncludesRealExamples(int attested, int total) {
     return '$attested phrases sur $total trouvées telles quelles dans Tatoeba, un recueil de phrases réelles, avec des exemples réels à lire';
   }
+
+  @override
+  String get recordSignInToCheck => 'Faites vérifier ce que vous avez dit et votre prononciation : créez un compte gratuit';
+
+  @override
+  String get speakToContinue => 'Dites-le à voix haute pour continuer';
+
+  @override
+  String speakTryAgain(int tries, int max) {
+    return 'Pas encore tout à fait : réessayez ($tries sur $max)';
+  }
+
+  @override
+  String get speakCantNow => 'Impossible de parler maintenant';
+
+  @override
+  String get speakCantNowDone => 'Les étapes orales sont en pause pendant 15 minutes.';
+
+  @override
+  String get speakSignUpTitle => 'Appelez les personnages de ce cours';
+
+  @override
+  String get speakSignUpBody =>
+      'Des appels en direct avec les personnages IA du cours, à la voix ou par écrit, avec des corrections après chaque appel. Gratuit : il suffit d’un compte, pour garder vos appels et vos progrès.';
+
+  @override
+  String get speakSignUpButton => 'Créer un compte gratuit pour appeler';
+
+  @override
+  String get speakSignUpAlready => 'Vous en avez un ? Connectez-vous';
 }

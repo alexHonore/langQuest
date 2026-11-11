@@ -1492,4 +1492,34 @@ class AppLocalizationsEn extends AppLocalizations {
   String courseIncludesRealExamples(int attested, int total) {
     return '$attested of $total phrases found as written in Tatoeba, a collection of real sentences, with real examples to read';
   }
+
+  @override
+  String get recordSignInToCheck => 'Have LangQuest check what you said and how it sounded: create a free account';
+
+  @override
+  String get speakToContinue => 'Say it out loud to continue';
+
+  @override
+  String speakTryAgain(int tries, int max) {
+    return 'Not quite yet: try again ($tries of $max)';
+  }
+
+  @override
+  String get speakCantNow => 'Can’t speak now';
+
+  @override
+  String get speakCantNowDone => 'Speaking steps are paused for 15 minutes.';
+
+  @override
+  String get speakSignUpTitle => 'Call the people of this course';
+
+  @override
+  String get speakSignUpBody =>
+      'Live calls with the course’s AI characters, by voice or in writing, with corrections after each call. Free: it only needs an account, so your calls and progress are kept.';
+
+  @override
+  String get speakSignUpButton => 'Create a free account to call';
+
+  @override
+  String get speakSignUpAlready => 'Already have one? Sign in';
 }
