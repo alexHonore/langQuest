@@ -18,7 +18,7 @@ import { MEANING_THRESHOLDS, type MeaningScoreResult } from '@langquest/ai/seman
 import { applySpeechScreening, noSpeechAssessment, SILENCE_PEAK_DBFS, speechDetectionOf, toSpeechDetection, type SpeechScreening } from '@langquest/ai/speech/speech-detection';
 import { PRONUNCIATION_JUDGE_VERSION, PronunciationJudgeError } from '@langquest/ai/speech/pronunciation-judge';
 import { base64ToBytes } from '@langquest/ai/util';
-import { AI_TASK_NAME_VALUES, ModelCapabilitiesQuerySchema, ModelCapabilitiesResponseSchema, PronunciationAssessRequestSchema, PronunciationAssessResponseSchema, PronunciationFeedbackRequestSchema, PronunciationFeedbackResponseSchema, LANGUAGE_VARIETIES, isCourseTrackId, SynthesizeRequestSchema, SynthesizeResponseSchema, TranscribeRequestSchema, TranscribeResponseSchema, getCourseTrack, isAcousticAssessmentMode, speechObservationOutcome, unsupportedCapability, type AiTaskName, type AudioInput, type Capability, type PronunciationAssessment, type SkillObservationInput, type SourceLanguageCode, type SpeechEvaluationResult, type SpeechRetention, type VarietyId } from '@langquest/contracts';
+import { AI_TASK_NAME_VALUES, ModelCapabilitiesQuerySchema, ModelCapabilitiesResponseSchema, PronunciationAssessRequestSchema, PronunciationAssessResponseSchema, PronunciationFeedbackRequestSchema, PronunciationFeedbackResponseSchema, LANGUAGE_VARIETIES, isCourseTrackId, SynthesizeRequestSchema, SynthesizeResponseSchema, NarrateRequestSchema, NarrateResponseSchema, COURSE_TRACKS, TranscribeRequestSchema, TranscribeResponseSchema, getCourseTrack, isAcousticAssessmentMode, speechObservationOutcome, unsupportedCapability, type AiTaskName, type AudioInput, type Capability, type PronunciationAssessment, type SkillObservationInput, type SourceLanguageCode, type SpeechEvaluationResult, type SpeechRetention, type VarietyId } from '@langquest/contracts';
 import { sha256Hex as mediaSha256 } from '@langquest/media/hashing';
 import { buildMasterKey, extensionForMime } from '@langquest/media/keys';
 import { sha256Hex } from '@langquest/telemetry/privacy';
@@ -285,6 +285,39 @@ export function registerSpeechRoutes(define: DefineRoute): void {
     return respondOk(c, SynthesizeResponseSchema.parse({ audio: out, capability: resolved.capability }));
   });
 
+  /**
+   * The narrator: an exercise's instruction or context ("At the café. Karim greets you. What do you answer?") read in
+   * the learner's instruction language, with a voice of that language. Never target-language content (that is
+   * `speechSynthesize`, approved lines only, in the variety's own voice), so a narration can never be taken as a
+   * model to imitate. Instruction text is generic: identical text gives identical audio, so clips are cached and
+   * shared (the requester already knows the text).
+   */
+  define('speechNarrate', { rate: 'ai', timeoutMs: AI_TIMEOUT_MS, idempotent: false }, async (c) => {
+    const body = await parseBody(c, NarrateRequestSchema);
+    const s = c.get('services')!;
+    const { db } = s.requireUser();
+    const enrollment = await loadOwnedEnrollment(db, body.enrollmentId);
+    const language = enrollment.source_language_code as SourceLanguageCode;
+    const locale = narratorLocaleFor(language);
+    if (!locale) throw problem.unsupported(`No narrator voice for ${language} yet`);
+    const ai = await s.ai();
+    const resolved = ai.synthesizer.resolveVoice(locale);
+    if (!resolved.voice || !resolved.capability.supported) throw problem.unsupported(`No narrator voice for ${language} yet`, { capability: resolved.capability });
+    const text = body.text;
+    const audio = await ai.synthesizer.synthesize(text, locale, resolved.voice.voiceId, { cacheScope: 'shared_approved', rate: body.speed === 'slow' ? 0.75 : 1, traceId: s.requestId, enrollmentId: enrollment.id });
+    let out = audio;
+    if (audio.base64 && !audio.url && s.media.canPresign) {
+      try {
+        const key = `tts/narration/${sha256Hex(`${text}|${resolved.voice.voiceId}|${body.speed}`)}.${audio.encoding === 'mp3' ? 'mp3' : 'wav'}`;
+        await s.media.put(key, base64ToBytes(audio.base64), audio.encoding === 'mp3' ? 'audio/mpeg' : 'audio/wav');
+        out = { ...audio, url: await s.media.presignGet(key, 900), base64: null };
+      } catch (error) {
+        s.log.warn('tts.r2_store_failed', { error });
+      }
+    }
+    return respondOk(c, NarrateResponseSchema.parse({ audio: out, capability: resolved.capability, language }));
+  });
+
   define('modelCapabilities', {}, async (c) => {
     const query = parseQuery(c, ModelCapabilitiesApiQuerySchema);
     const s = c.get('services')!;
@@ -348,4 +381,12 @@ export function registerSpeechRoutes(define: DefineRoute): void {
     const azure = Boolean(s.config.env.AZURE_SPEECH_KEY && s.config.env.AZURE_SPEECH_REGION);
     return respondOk(c, ModelCapabilitiesResponseSchema.parse({ trackId: track.id, targetVarietyId: track.targetVarietyId, tasks, pronunciationScoring: openRouter ? pronunciationScoringLevel(track.id, azure) : 'none', realtimeLatencyEstimateMs: null, checkedAt: new Date().toISOString() }), 200, { 'Cache-Control': 'private, max-age=60' });
   });
+}
+
+/** Where a language has several course varieties, the narrator speaks its most widely understood one. */
+const NARRATOR_LOCALE_OVERRIDES: Partial<Record<SourceLanguageCode, string>> = { ar: 'ar', es: 'es-ES', pt: 'pt-BR', zh: 'zh-CN' };
+
+/** The locale the narrator speaks for an instruction language (the first course of that language otherwise). */
+export function narratorLocaleFor(language: SourceLanguageCode): string | null {
+  return NARRATOR_LOCALE_OVERRIDES[language] ?? COURSE_TRACKS.find((t) => t.languageCode === language)?.defaultLocale ?? null;
 }

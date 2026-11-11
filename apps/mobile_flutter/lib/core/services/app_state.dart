@@ -120,6 +120,7 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
   void setTextScale(double scale) => _update(state.learner.copyWith(textScale: nearestTextScale(scale)));
   void setReduceMotion(bool reduce) => _update(state.learner.copyWith(reduceMotion: reduce));
   void setMascot(bool shown) => _update(state.learner.copyWith(mascot: shown));
+  void setReadAloud(bool on) => _update(state.learner.copyWith(readAloud: on));
 
   /// Enroll in (track, source) — only when the bundle has content for that pair — and make it the active course.
   bool enroll(String trackId, String source) {
@@ -255,6 +256,7 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
         textScale: l.textScale,
         reduceMotion: l.reduceMotion,
         mascot: l.mascot,
+        readAloud: l.readAloud,
       ),
     );
   }

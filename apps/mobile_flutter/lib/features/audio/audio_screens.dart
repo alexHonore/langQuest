@@ -7,6 +7,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
+import '../../core/backend/narrator.dart';
 import '../../core/backend/server_voice.dart';
 import '../../core/layout/celebration.dart';
 import '../../core/layout/motion.dart';
@@ -240,14 +241,16 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
   Future<AudioLessonPlayer?> _make(MissionLearnPlan plan) async {
     final voice = await ref.read(lineVoiceProvider(plan.voiceLocale).future);
     if (!voice.available || !mounted) return null;
-    final speech = ref.read(speechServiceProvider);
-    final narratorLocale = await speech.voiceForLanguage(plan.source);
+    // The narration in the course's instruction language (the AI narrator signed in, else the device's voice for it).
+    final narrator = ref.read(narratorProvider);
+    final words = narrationWords(plan.source) ?? context.l10n;
+    final narrates = narrator != null && (narrator.ai || await ref.read(speechServiceProvider).voiceForLanguage(plan.source) != null);
     if (!mounted) return null;
     final courseId = ref.read(appStateProvider).activeCourse?.id;
     final player = AudioLessonPlayer(
-      lesson: buildAudioLesson(plan, narrationOf(context.l10n)),
+      lesson: buildAudioLesson(plan, narrationOf(words)),
       voice: voice,
-      narrate: narratorLocale == null ? null : (text) => speech.speak(text, locale: narratorLocale),
+      narrate: narrates ? narrator.say : null,
       onFinished: () {
         if (courseId != null) ref.read(audioListenedProvider.notifier).markListened(courseId, widget.missionKey);
       },

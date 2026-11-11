@@ -118,6 +118,10 @@ class LearnerState {
 
   /// Melo, the mascot, is shown (it never carries information of its own).
   final bool mascot;
+
+  /// Exercises are read aloud as they appear: the context and the question in the instruction language, then the
+  /// phrase in the course's voice.
+  final bool readAloud;
   final List<Enrollment> enrollments;
   final String? activeCourseId;
   final Map<String, CourseProgress> courses;
@@ -133,6 +137,7 @@ class LearnerState {
     this.textScale = 1,
     this.reduceMotion = false,
     this.mascot = true,
+    this.readAloud = true,
     this.enrollments = const [],
     this.activeCourseId,
     this.courses = const {},
@@ -158,6 +163,7 @@ class LearnerState {
     double? textScale,
     bool? reduceMotion,
     bool? mascot,
+    bool? readAloud,
     List<Enrollment>? enrollments,
     Object? activeCourseId = _keep,
     Map<String, CourseProgress>? courses,
@@ -170,6 +176,7 @@ class LearnerState {
     textScale: textScale ?? this.textScale,
     reduceMotion: reduceMotion ?? this.reduceMotion,
     mascot: mascot ?? this.mascot,
+    readAloud: readAloud ?? this.readAloud,
     enrollments: enrollments ?? this.enrollments,
     activeCourseId: identical(activeCourseId, _keep) ? this.activeCourseId : activeCourseId as String?,
     courses: courses ?? this.courses,
@@ -194,6 +201,7 @@ class LearnerState {
     'textScale': textScale,
     'reduceMotion': reduceMotion,
     'mascot': mascot,
+    'readAloud': readAloud,
     'enrollments': [for (final e in enrollments) e.toJson()],
     'activeCourseId': activeCourseId,
     'courses': {for (final e in courses.entries) e.key: e.value.toJson()},
@@ -219,6 +227,7 @@ class LearnerState {
       textScale: nearestTextScale((raw['textScale'] as num?)?.toDouble() ?? 1),
       reduceMotion: raw['reduceMotion'] == true,
       mascot: raw['mascot'] != false,
+      readAloud: raw['readAloud'] != false,
       enrollments: enrollments,
       activeCourseId: active is String ? active : null,
       courses: {

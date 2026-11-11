@@ -899,7 +899,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get practiseSayingNoteChecked =>
-      'Écoutez, enregistrez-vous : LangQuest vous dit si ce que vous avez dit a été compris. C’est le sens qui compte ; il n’y a pas de note de prononciation.';
+      'Écoutez, enregistrez-vous : LangQuest vous dit si ce que vous avez dit a été compris, et Prononciation (IA) estime comment cela sonnait, mot par mot.';
 
   @override
   String get callIntroTitle => 'Entraînez-vous dans une vraie conversation';
@@ -1073,10 +1073,11 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get courseIncludesSpokenCheck => 'Vos réponses orales vérifiées : LangQuest vous dit si vous avez été compris (avec un compte gratuit)';
+  String get courseIncludesSpokenCheck =>
+      'Vos réponses orales vérifiées : LangQuest vous dit si vous avez été compris, et une IA estime votre prononciation mot par mot (avec un compte gratuit)';
 
   @override
-  String get courseMissingPronunciationScore => 'Une note de prononciation : les réponses orales sont vérifiées pour le sens, pas pour l’accent';
+  String get courseMissingPronunciationScore => 'Une note de prononciation mesurée : l’avis de l’IA est une estimation, pas une mesure acoustique';
 
   @override
   String get courseLimitedForDialect =>
@@ -1444,4 +1445,14 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get pronunciationFailed => 'Impossible d’obtenir l’avis sur la prononciation cette fois-ci.';
+
+  @override
+  String get readAloud => 'Lire à voix haute';
+
+  @override
+  String get readAloudSetting => 'Lire les exercices à voix haute';
+
+  @override
+  String get readAloudSettingBody =>
+      'À chaque exercice : son contexte et sa question dans votre langue, puis la phrase avec la voix du cours. Connecté, une voix IA les lit.';
 }

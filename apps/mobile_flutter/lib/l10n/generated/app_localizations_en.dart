@@ -887,7 +887,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get practiseSayingNoteChecked =>
-      'Listen, record yourself: LangQuest tells you whether what you said came across. That is about meaning; there is no pronunciation score.';
+      'Listen, record yourself: LangQuest tells you whether what you said came across, and Pronunciation (AI) estimates how it sounded, word by word.';
 
   @override
   String get callIntroTitle => 'Practise it in a real conversation';
@@ -1061,10 +1061,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get courseIncludesSpokenCheck => 'Your spoken answers checked: LangQuest tells you whether you were understood (with a free account)';
+  String get courseIncludesSpokenCheck =>
+      'Your spoken answers checked: LangQuest tells you whether you were understood, and an AI estimates your pronunciation word by word (with a free account)';
 
   @override
-  String get courseMissingPronunciationScore => 'A pronunciation score: spoken answers are checked for meaning, not accent';
+  String get courseMissingPronunciationScore => 'A measured pronunciation score: the AI’s feedback is an estimate, not an acoustic measurement';
 
   @override
   String get courseLimitedForDialect => 'Speech recognition and AI voices are still limited for this dialect (not yet reviewed by native speakers)';
@@ -1428,4 +1429,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pronunciationFailed => 'Couldn’t get pronunciation feedback this time.';
+
+  @override
+  String get readAloud => 'Read aloud';
+
+  @override
+  String get readAloudSetting => 'Read exercises aloud';
+
+  @override
+  String get readAloudSettingBody =>
+      'As each exercise appears: its context and question in your language, then the phrase in the course\'s voice. Signed in, an AI voice reads them.';
 }

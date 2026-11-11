@@ -179,6 +179,11 @@ class LangQuestApi {
     }, aiTimeout),
   );
 
+  /// `POST /v1/speech/narrate` — an exercise's instruction or context read aloud in the enrollment's instruction
+  /// language (never target-language content: that is [synthesize], by approved expression id).
+  Future<Map<String, Object?>> narrate({required String enrollmentId, required String text, bool slow = false}) async =>
+      _object(await _send('POST', '/v1/speech/narrate', {'enrollmentId': enrollmentId, 'text': text, 'speed': slow ? 'slow' : 'normal'}, aiTimeout));
+
   /// `POST /v1/ai/conversation/session` — a live conversation with one of the course's characters, scoped to a
   /// mission (its objectives and scene). Idempotent on [clientSessionId]. The answer names the character, the
   /// objectives and the character's opening line (with its synthesized audio when the session speaks).
