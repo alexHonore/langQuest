@@ -41,6 +41,16 @@ final liveCallCourseProvider = Provider<ServerCourse?>((ref) {
   return course != null && course.liveConversation && ref.watch(apiProvider) != null ? course : null;
 });
 
+/// Signed out, on a course whose characters can be called with an account (the public catalog says so; nothing is
+/// called): the mission path and the end of a mission invite the learner to create a free account.
+final callsNeedAccountProvider = Provider<bool>((ref) {
+  final account = ref.watch(accountProvider);
+  if (!account.available || account.user != null) return false;
+  final course = ref.watch(appStateProvider.select((s) => s.activeCourse));
+  if (course == null) return false;
+  return ref.watch(serverOffersProvider(course.source)).asData?.value[course.track.id]?.liveCalls ?? false;
+});
+
 /// What a call is about: a mission (its goals and scene), or a free conversation with one of the course's characters.
 @immutable
 class CallTopic {

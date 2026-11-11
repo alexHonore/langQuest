@@ -10,6 +10,7 @@ import 'package:google_fonts/google_fonts.dart';
 import 'package:langquest_mobile/core/audio/clip_player_provider.dart';
 import 'package:langquest_mobile/core/backend/account.dart';
 import 'package:langquest_mobile/core/backend/api_client.dart';
+import 'package:langquest_mobile/core/backend/auth_gateway.dart';
 import 'package:langquest_mobile/core/backend/server_course.dart';
 import 'package:langquest_mobile/core/services/app_state.dart';
 import 'package:langquest_mobile/core/services/speaking_stats.dart';
@@ -342,6 +343,69 @@ void main() {
     semantics.dispose();
   });
 
+  group('signed out, on a course with live calls', () {
+    Future<ProviderContainer> containerWith(AccountState account, {bool liveCalls = true}) async {
+      final c = ProviderContainer(
+        overrides: [
+          ...await testOverrides(),
+          accountProvider.overrideWith(() => _FixedAccount(account)),
+          serverOffersProvider.overrideWith((ref, source) async => {'spanish-spain': ServerTrackOffer(characters: 4, liveCalls: liveCalls)}),
+        ],
+      );
+      addTearDown(c.dispose);
+      return c;
+    }
+
+    test('the invitation shows only signed out, with a backend, on a course whose characters can be called', () async {
+      Future<bool> needs(AccountState account, {bool liveCalls = true}) async {
+        final c = await containerWith(account, liveCalls: liveCalls);
+        c.read(appStateProvider.notifier).enroll('spanish-spain', 'en');
+        c.listen(callsNeedAccountProvider, (_, _) {});
+        await c.read(serverOffersProvider('en').future);
+        return c.read(callsNeedAccountProvider);
+      }
+
+      expect(await needs(const AccountState(available: true)), isTrue);
+      expect(
+        await needs(
+          const AccountState(
+            available: true,
+            user: AccountUser(id: 'u', email: 'a@b.c'),
+          ),
+        ),
+        isFalse,
+        reason: 'signed in: the real Talk stop',
+      );
+      expect(await needs(const AccountState()), isFalse, reason: 'no backend: no account to make');
+      expect(await needs(const AccountState(available: true), liveCalls: false), isFalse, reason: 'nothing to unlock');
+    });
+
+    testWidgets('the path shows Talk locked, and it opens the account', (t) async {
+      final semantics = t.ensureSemantics();
+      t.view.physicalSize = const Size(390 * 3, 844 * 3);
+      t.view.devicePixelRatio = 3;
+      addTearDown(t.view.reset);
+      await t.pumpWidget(
+        ProviderScope(
+          overrides: [...await testOverrides(), liveCallCourseProvider.overrideWithValue(null), callsNeedAccountProvider.overrideWithValue(true)],
+          child: const LangQuestApp(),
+        ),
+      );
+      final container = ProviderScope.containerOf(t.element(find.byType(LangQuestApp)));
+      container.read(appStateProvider.notifier)
+        ..setReduceMotion(true)
+        ..enroll('spanish-spain', 'en');
+      container.read(appRouterProvider).go('/path/$missionKey');
+      await settle(t, 1200);
+      final locked = find.bySemanticsLabel('4. Talk. A live call with Lucía: with a free account');
+      expect(locked, findsOneWidget);
+      await t.tap(locked);
+      await settle(t, 1200);
+      expect(find.text('Settings'), findsOneWidget, reason: 'the account screen, where signing up is');
+      semantics.dispose();
+    });
+  });
+
   testWidgets('the path offers the Talk stop only when a live call backs it', (t) async {
     await pump(t, call: null, route: '/path/$missionKey');
     expect(find.text('Talk'), findsNothing);
@@ -351,4 +415,13 @@ void main() {
     expect(find.text('Talk'), findsOneWidget);
     expect(find.text('A live call: use what you learned, out loud'), findsOneWidget);
   });
+}
+
+class _FixedAccount extends AccountController {
+  _FixedAccount(this.fixed);
+
+  final AccountState fixed;
+
+  @override
+  AccountState build() => fixed;
 }

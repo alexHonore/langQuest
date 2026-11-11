@@ -603,6 +603,21 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                     side: BorderSide(color: accent.primary),
                   ),
                 ),
+              )
+            // Signed out on a course with live calls: the same practice, behind a free account.
+            else if (ref.watch(callsNeedAccountProvider))
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: OutlinedButton.icon(
+                  onPressed: () => context.push('/account'),
+                  icon: const Icon(LucideIcons.phoneCall, size: 18),
+                  label: Text(l10n.missionLiveCallAccount),
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(0, 48),
+                    foregroundColor: accent.primaryText,
+                    side: BorderSide(color: accent.primary),
+                  ),
+                ),
               ),
             TextButton(
               onPressed: () => context.popOrHome(),
