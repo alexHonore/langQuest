@@ -56,6 +56,21 @@ final apiProvider = Provider<LangQuestApi?>((ref) {
   return LangQuestApi(baseUrl: config.apiBaseUrl, accessToken: auth.accessToken);
 });
 
+/// What the server offers each course taught from [source] (public `GET /v1/courses?source=`), by track id: the course
+/// page says what an account adds (live calls, spoken answers checked). Empty offline or when the server is down.
+final serverOffersProvider = FutureProvider.family<Map<String, ServerTrackOffer>, String>((ref, source) async {
+  final api = ref.watch(apiProvider);
+  if (api == null) return const {};
+  try {
+    return {
+      for (final c in await api.courses(source))
+        if (c['track'] is Map && (c['track'] as Map)['id'] is String) (c['track'] as Map)['id'] as String: ServerTrackOffer.fromSummary(c),
+    };
+  } catch (_) {
+    return const {};
+  }
+});
+
 final syncLedgerProvider = Provider<SyncLedger>((ref) => SyncLedger(ref.watch(learnerStoreProvider).prefs));
 
 final syncServiceProvider = Provider<SyncService?>((ref) {

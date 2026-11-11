@@ -4,6 +4,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
+import '../../core/backend/account.dart';
 import '../../core/services/app_state.dart';
 import '../../core/theme/accents.dart';
 import '../../core/theme/glass.dart';
@@ -13,6 +14,8 @@ import '../learn/learn_widgets.dart';
 
 /// One course before enrolling (CONVENTIONS §8 disclosure): what it includes from the chosen instruction
 /// language, and what it does not have yet — the draft status first. Learners only enroll where content exists.
+/// What an account adds (live calls, spoken answers checked) is listed only when the server offers it for this course
+/// (`GET /v1/courses`); offline, those stay under "not yet".
 class CourseDetailScreen extends ConsumerStatefulWidget {
   final String trackId;
   const CourseDetailScreen({super.key, required this.trackId});
@@ -37,6 +40,11 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
     final source = _source != null && sources.contains(_source) ? _source! : defaultSourceFor(sources, ui);
     final course = source == null ? null : appState.content.course(track.id, source);
     final enrolled = source != null && appState.learner.isEnrolled(track.id, source);
+    final offer = source == null ? null : ref.watch(serverOffersProvider(source)).asData?.value[track.id];
+    final liveCalls = offer?.liveCalls ?? false;
+    final spokenCheck = offer?.spokenCheck ?? false;
+    // A dialect without a device voice (Darija): the server's recognizer and voices are rated "limited" for it too.
+    final dialect = track.voiceLocale == null;
 
     Widget bullet(IconData icon, Color color, String text) => Padding(
       padding: const EdgeInsets.only(bottom: 10),
@@ -166,6 +174,8 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                           bullet(LucideIcons.check, colors.success, l10n.courseIncludesLearn),
                           bullet(LucideIcons.check, colors.success, l10n.courseIncludesReview),
                           if (track.voiceLocale != null) bullet(LucideIcons.check, colors.success, l10n.courseIncludesVoice),
+                          if (liveCalls) bullet(LucideIcons.phoneCall, colors.success, l10n.courseIncludesLiveCalls(offer!.characters)),
+                          if (spokenCheck) bullet(LucideIcons.mic, colors.success, l10n.courseIncludesSpokenCheck),
                         ],
                       ),
                     ),
@@ -183,9 +193,10 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                           ),
                           const SizedBox(height: 12),
                           if (course.isDraft) bullet(LucideIcons.triangleAlert, colors.warning, l10n.courseMissingNativeReview),
+                          if (dialect && (liveCalls || spokenCheck)) bullet(LucideIcons.triangleAlert, colors.warning, l10n.courseLimitedForDialect),
                           if (track.voiceLocale == null) bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingVoiceDialect),
-                          bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingConversation),
-                          bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingPronunciation),
+                          if (!liveCalls) bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingConversation),
+                          bullet(LucideIcons.minus, colors.textMuted, spokenCheck ? l10n.courseMissingPronunciationScore : l10n.courseMissingPronunciation),
                           bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingAudio),
                         ],
                       ),

@@ -53,6 +53,7 @@ void main() {
       '/learn/es_greet_and_introduce/cards',
       '/learn/es_greet_and_introduce/practice',
       '/mission/es_greet_and_introduce',
+      '/call/es_greet_and_introduce',
       '/review',
     ]) {
       await check(route);

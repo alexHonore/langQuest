@@ -900,4 +900,185 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get practiseSayingNoteChecked =>
       'Écoutez, enregistrez-vous : LangQuest vous dit si ce que vous avez dit a été compris. C’est le sens qui compte ; il n’y a pas de note de prononciation.';
+
+  @override
+  String get callIntroTitle => 'Entraînez-vous dans une vraie conversation';
+
+  @override
+  String get callIntroBody =>
+      'Quelqu’un de cette mission décroche et vous parle dans la langue que vous apprenez. Répondez à voix haute, ou écrivez. Quand vous raccrochez, LangQuest vous dit comment ça s’est passé.';
+
+  @override
+  String get callIntroBodyText =>
+      'Quelqu’un de cette mission discute avec vous dans la langue que vous apprenez. Quand vous terminez, LangQuest vous dit comment ça s’est passé.';
+
+  @override
+  String get callIntroNote => 'Utilise l’IA de LangQuest. Vos enregistrements ne sont pas conservés.';
+
+  @override
+  String get callIntroNoteKept => 'Utilise l’IA de LangQuest. Les enregistrements sont conservés selon vos réglages de confidentialité.';
+
+  @override
+  String get callStart => 'Appeler';
+
+  @override
+  String get callStartText => 'Commencer la discussion';
+
+  @override
+  String get callCalling => 'Appel en cours…';
+
+  @override
+  String get callFailedUnavailable => 'Les appels en direct ne sont pas encore disponibles pour ce cours.';
+
+  @override
+  String get callFailedNetwork => 'L’appel n’a pas abouti. Vérifiez votre connexion et réessayez.';
+
+  @override
+  String get callFailedEnded => 'Cet appel est terminé.';
+
+  @override
+  String get callTryAgain => 'Réessayer';
+
+  @override
+  String callSpeaking(String name) {
+    return '$name parle';
+  }
+
+  @override
+  String callThinking(String name) {
+    return '$name réfléchit…';
+  }
+
+  @override
+  String get callListening => 'Je vous écoute…';
+
+  @override
+  String get callYourTurnVoice => 'À vous : touchez le micro et répondez';
+
+  @override
+  String get callYourTurnText => 'À vous : écrivez votre réponse';
+
+  @override
+  String get callTalk => 'Parler';
+
+  @override
+  String get callSend => 'Envoyer';
+
+  @override
+  String get callCancelTake => 'Annuler';
+
+  @override
+  String get callType => 'Écrire plutôt';
+
+  @override
+  String get callTypeHint => 'Écrivez votre réponse…';
+
+  @override
+  String get callHangUp => 'Raccrocher';
+
+  @override
+  String get callEndChat => 'Terminer la discussion';
+
+  @override
+  String get callHint => 'Indice';
+
+  @override
+  String get callRepeat => 'Répéter';
+
+  @override
+  String get callSlower => 'Plus lentement';
+
+  @override
+  String get callTranslate => 'Traduire';
+
+  @override
+  String get callGoals => 'Objectifs';
+
+  @override
+  String callGoalDone(String goal) {
+    return '$goal : fait';
+  }
+
+  @override
+  String callGoalProbably(String goal) {
+    return '$goal : sans doute fait';
+  }
+
+  @override
+  String callGoalNotYet(String goal) {
+    return '$goal : pas encore';
+  }
+
+  @override
+  String get callNoSpeech => 'Je n’ai rien entendu. Réessayez, un peu plus près du micro.';
+
+  @override
+  String get callTurnFailed => 'Ça n’est pas passé. Réessayez.';
+
+  @override
+  String callSaidGoodbye(String name) {
+    return '$name vous a dit au revoir. Raccrochez pour voir comment ça s’est passé.';
+  }
+
+  @override
+  String get callEnding => 'On raccroche… LangQuest regarde comment ça s’est passé.';
+
+  @override
+  String get callEndedTitle => 'Appel terminé';
+
+  @override
+  String get callChatEndedTitle => 'Discussion terminée';
+
+  @override
+  String callGoalsMet(int met, int total) {
+    return 'Objectifs atteints : $met sur $total';
+  }
+
+  @override
+  String get callNextTime => 'La prochaine fois, essayez';
+
+  @override
+  String callYouSaid(String text) {
+    return 'Vous avez dit : « $text »';
+  }
+
+  @override
+  String get callNotEvaluated => 'LangQuest n’a pas pu évaluer cet appel : rien n’a été compté.';
+
+  @override
+  String get callAgain => 'Rappeler';
+
+  @override
+  String get callYou => 'Vous';
+
+  @override
+  String get callReplayLine => 'Réécouter cette réplique';
+
+  @override
+  String get callHeardYou => 'Écoute de votre réponse…';
+
+  @override
+  String get pathTalkSubtitle => 'Un appel en direct : utilisez ce que vous avez appris, à voix haute';
+
+  @override
+  String get pathTalkSubtitleText => 'Une discussion en direct : utilisez ce que vous avez appris';
+
+  @override
+  String get missionTryLiveCall => 'Essayez-le dans un appel en direct';
+
+  @override
+  String courseIncludesLiveCalls(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count personnages IA', one: 'le personnage IA du cours');
+    return 'Des appels en direct avec $_temp0, à l’oral ou par écrit (avec un compte gratuit)';
+  }
+
+  @override
+  String get courseIncludesSpokenCheck => 'Vos réponses orales vérifiées : LangQuest vous dit si vous avez été compris (avec un compte gratuit)';
+
+  @override
+  String get courseMissingPronunciationScore => 'Une note de prononciation : les réponses orales sont vérifiées pour le sens, pas pour l’accent';
+
+  @override
+  String get courseLimitedForDialect =>
+      'La reconnaissance vocale et les voix IA restent limitées pour ce dialecte (pas encore relues par des locuteurs natifs)';
 }

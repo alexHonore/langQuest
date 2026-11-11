@@ -6,6 +6,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
 import '../../core/backend/speech_check.dart';
+import '../call/call_screen.dart';
 import '../../core/layout/motion.dart';
 import '../../core/learning/srs.dart';
 import '../../core/services/app_state.dart';
@@ -486,6 +487,20 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                   label: l10n.missionNext,
                   icon: LucideIcons.chevronRight,
                   onPressed: () => context.pushReplacement('/path/${next.key}'),
+                ),
+              ),
+            if (ref.watch(liveCallCourseProvider) != null)
+              Padding(
+                padding: const EdgeInsets.only(bottom: 4),
+                child: OutlinedButton.icon(
+                  onPressed: () => context.pushReplacement('/call/${widget.missionKey}'),
+                  icon: const Icon(LucideIcons.phoneCall, size: 18),
+                  label: Text(l10n.missionTryLiveCall),
+                  style: OutlinedButton.styleFrom(
+                    minimumSize: const Size(0, 48),
+                    foregroundColor: accent.primaryText,
+                    side: BorderSide(color: accent.primary),
+                  ),
                 ),
               ),
             TextButton(
