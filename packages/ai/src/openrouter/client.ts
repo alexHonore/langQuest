@@ -265,6 +265,9 @@ const parsePcmContentType = (ct: string | null): { sampleRateHz: number | null; 
   return { sampleRateHz: rate ? Number(rate[1]) : null, channels: ch ? Number(ch[1]) : null };
 };
 
+/** Most models OpenRouter accepts in one request's `models` fallback array (live 400 above this, 2026-11-11). */
+export const OPENROUTER_MAX_MODELS = 3;
+
 export class OpenRouterClient {
   readonly pricing: PricingTable;
   private readonly apiKey: string;
@@ -316,9 +319,12 @@ export class OpenRouterClient {
 
     while (candidates.length > 0) {
       attempts += 1;
+      // OpenRouter refuses a `models` array longer than three ("'models' array must have 3 items or fewer"): send the
+      // first three; the rest stay queued and slide in when a head model is dropped below.
+      const sent = candidates.slice(0, OPENROUTER_MAX_MODELS);
       const body: Record<string, unknown> = {
         messages: req.messages,
-        ...(candidates.length > 1 ? { models: candidates } : { model: candidates[0] }),
+        ...(sent.length > 1 ? { models: sent } : { model: sent[0] }),
         ...(req.responseFormat ? { response_format: req.responseFormat } : {}),
         ...(req.temperature !== undefined ? { temperature: req.temperature } : {}),
         ...(req.maxTokens !== undefined ? { max_tokens: req.maxTokens } : {}),

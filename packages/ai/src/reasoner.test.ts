@@ -25,7 +25,7 @@ describe('OpenRouterTextReasoner', () => {
     expect(out).toEqual({ reply: 'صباح الخير', variety: 'ary' });
     const body = calls[0]?.body as Record<string, unknown>;
     // ary has a variety-scoped dialogue profile: sonnet primary with fallbacks
-    expect(body.models).toEqual(['anthropic/claude-sonnet-5.5', 'anthropic/claude-haiku-5.5', 'google/gemini-3.8-flash']);
+    expect(body.models).toEqual(['anthropic/claude-sonnet-5.5', 'openai/gpt-6-luna', 'google/gemini-3.8-flash']);
     const rf = body.response_format as { type: string; json_schema: { strict: boolean; schema: Record<string, unknown> } };
     expect(rf.type).toBe('json_schema');
     expect(rf.json_schema.strict).toBe(true);
