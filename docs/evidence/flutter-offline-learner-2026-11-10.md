@@ -286,3 +286,15 @@ out loud** (`pronunciation-assess` → understood, "I heard: Hola, buenos días.
 voice); exchange 2 (expects "¿Qué tal?") with the same audio: **Not quite**, options kept. 0 page errors.
 `flutter test`: 164 passed (a reply not understood then understood out loud, rated hard; one understood at once, rated
 good; a spoken review revealing the answer with "Good, suggested" / "Again, suggested").
+
+### Darija with AI: the voice played silent, fixed (follow-up, 2026-11-11)
+
+The server's voice for Darija (`ary`) answers raw 16-bit PCM (`encoding: pcm16`, 24 kHz, e.g. 57,600 bytes for
+1.2 s), and a conversation turn sends it as `data:audio/wav;base64,…` with no WAV header: a browser cannot decode
+that, so every Darija line (Listen in AI voice, auto-played lines, audio lessons, a call's character) would have been
+silent. The app now adds the header (`lib/core/audio/wav.dart`). Live, test learner enrolled in Darija from English,
+the fake microphone saying «السلام عليكم» (the server's own voice): the scene's line and **Listen (AI voice)** played
+(WAV clips of 1.5 s, ended); the mission's first reply **answered out loud** ("I heard: السلام عليكم"); the Speak tab
+listed Nadia, Omar, Salma, Youssef; a call with Nadia opened with «صباح الخير! مرحبا بيك. شنو بغيتي تشرب؟» (heard
+3.8 s), the learner's «السلام عليكم» was heard and answered («وعليكم السلام! لاباس عليك؟ …»), +2 XP on hanging up. 0
+page errors. Arabic lines in calls now run right to left with the script's fonts. `flutter test`: 170 passed.

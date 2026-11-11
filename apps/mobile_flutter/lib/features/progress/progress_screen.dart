@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/intl.dart';
@@ -7,13 +9,16 @@ import '../../core/content/content_bundle.dart';
 import '../../core/learning/srs.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/learner_state.dart';
+import '../../core/services/speaking_stats.dart';
 import '../../core/theme/glass.dart';
 import '../../l10n/l10n.dart';
+import '../audio/audio_screens.dart';
 import '../learn/learn_content.dart';
 import '../learn/learn_logic.dart';
 
 /// Progress shows only what was measured on this device: XP (practice, never proficiency), active days, missions
-/// completed, phrases met and how firmly the review schedule holds them. No invented word counts or levels.
+/// completed, phrases met and how firmly the review schedule holds them, and — once there is any — what was done out
+/// loud: takes the server understood, live calls, audio lessons heard. No invented word counts or levels.
 class ProgressScreen extends ConsumerWidget {
   const ProgressScreen({super.key});
 
@@ -38,6 +43,8 @@ class ProgressScreen extends ConsumerWidget {
     final cards = progress.cards.values.toList();
     int count(PhraseStrength s) => cards.where((c) => strengthOf(c) == s).length;
     final hasActivity = appState.learner.xpTotal > 0 || cards.isNotEmpty || met.isNotEmpty;
+    final speaking = ref.watch(speakingStatsProvider)[course.id] ?? const SpeakingStat();
+    final lessons = ref.watch(audioListenedProvider)[course.id]?.length ?? 0;
 
     return Scaffold(
       backgroundColor: colors.background,
@@ -150,6 +157,35 @@ class ProgressScreen extends ConsumerWidget {
                     ],
                   ),
                 ),
+                // Out loud: what the server judged and the calls made, as measured on this device.
+                if (speaking.checked > 0 || speaking.calls > 0 || lessons > 0) ...[
+                  const SizedBox(height: 14),
+                  GlassContainer(
+                    level: GlassLevel.level1,
+                    radius: 20,
+                    padding: const EdgeInsets.all(18),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          l10n.progressSpeakingTitle,
+                          style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: colors.textPrimary),
+                        ),
+                        const SizedBox(height: 12),
+                        if (speaking.checked > 0) ...[
+                          _TextRow(label: l10n.progressUnderstood, value: l10n.countOfTotal(speaking.understood, speaking.checked)),
+                          Padding(
+                            padding: const EdgeInsets.only(bottom: 8),
+                            child: _Bar(fraction: speaking.understood / speaking.checked, color: colors.success),
+                          ),
+                        ],
+                        if (speaking.calls > 0)
+                          _TextRow(label: l10n.progressCalls, value: l10n.progressCallsValue(speaking.calls, math.max(1, (speaking.seconds / 60).ceil()))),
+                        if (lessons > 0) _CountRow(label: l10n.progressLessons, value: lessons),
+                      ],
+                    ),
+                  ),
+                ],
               ],
             ),
           ),
@@ -313,6 +349,31 @@ class _CountRow extends ConsumerWidget {
           ),
           Text(
             '$value',
+            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: colors.textPrimary),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _TextRow extends ConsumerWidget {
+  final String label;
+  final String value;
+  const _TextRow({required this.label, required this.value});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = ref.watch(appStateProvider.select((s) => s.colors));
+    return Padding(
+      padding: const EdgeInsets.only(bottom: 6),
+      child: Row(
+        children: [
+          Expanded(
+            child: Text(label, style: TextStyle(fontSize: 13.5, color: colors.textSecondary)),
+          ),
+          Text(
+            value,
             style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: colors.textPrimary),
           ),
         ],

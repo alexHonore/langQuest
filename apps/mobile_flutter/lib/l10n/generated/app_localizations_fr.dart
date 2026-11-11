@@ -1230,4 +1230,21 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get reviewSuggested => 'suggéré';
+
+  @override
+  String get progressSpeakingTitle => 'À l’oral';
+
+  @override
+  String get progressUnderstood => 'Prises comprises (vérifiées par LangQuest)';
+
+  @override
+  String get progressCalls => 'Appels en direct';
+
+  @override
+  String progressCallsValue(int calls, int minutes) {
+    return '$calls · $minutes min';
+  }
+
+  @override
+  String get progressLessons => 'Leçons audio écoutées jusqu’au bout';
 }

@@ -12,6 +12,7 @@ import 'package:langquest_mobile/core/backend/account.dart';
 import 'package:langquest_mobile/core/backend/api_client.dart';
 import 'package:langquest_mobile/core/backend/server_course.dart';
 import 'package:langquest_mobile/core/services/app_state.dart';
+import 'package:langquest_mobile/core/services/speaking_stats.dart';
 import 'package:langquest_mobile/features/call/call_screen.dart';
 import 'package:langquest_mobile/features/learn/learn_logic.dart';
 import 'package:langquest_mobile/features/learn/record_take.dart';
@@ -87,6 +88,7 @@ void main() {
     final player = FakeClipPlayer();
     final container = await pump(t, server: server, player: player);
 
+    final xpBefore = container.read(appStateProvider).learner.xpTotal;
     // Nothing is called until the learner taps Call.
     expect(find.text('Practise it in a real conversation'), findsOneWidget);
     expect(find.text('Uses LangQuest’s AI. Your recordings aren’t kept.'), findsOneWidget);
@@ -138,6 +140,14 @@ void main() {
     expect(find.text('Me llamo Alex.'), findsOneWidget);
     expect(find.text('You said: “Yo llamo Alex”'), findsOneWidget);
     expect(container.read(appStateProvider).stopsDone(missionKey), contains(PathStop.talk));
+    // The server's XP for the call counts in the learner's total; the call is counted for Progress.
+    expect(container.read(appStateProvider).learner.xpTotal, xpBefore + 30 + 5, reason: 'the call\'s 30 XP and the Talk stop\'s 5');
+    expect(container.read(speakingStatsProvider)['spanish-spain|en']!.calls, 1);
+    container.read(appRouterProvider).go('/progress');
+    await settle(t);
+    expect(find.text('Out loud'), findsOneWidget);
+    expect(find.text('Live calls'), findsOneWidget);
+    expect(find.text('1 · 1 min'), findsOneWidget);
     semantics.dispose();
   });
 

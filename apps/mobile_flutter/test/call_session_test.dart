@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:langquest_mobile/core/backend/api_client.dart';
 import 'package:langquest_mobile/core/backend/server_course.dart';
+import 'package:flutter/painting.dart' show TextDirection;
 import 'package:langquest_mobile/features/call/call_portrait.dart';
+import 'package:langquest_mobile/features/call/call_screen.dart' show directionOf;
 import 'package:langquest_mobile/features/call/call_session.dart';
 
 import 'call_fakes.dart';
@@ -191,5 +193,18 @@ void main() {
     expect(rosterIdFor('00000000-0000-4000-8000-000000000000'), isNull);
     expect(portraitAsset('es-es-schoolboy-pablo', 'confusion'), 'assets/characters/es-es-schoolboy-pablo.confusion.svg');
     expect(portraitAsset('es-es-schoolboy-pablo', 'shrug'), 'assets/characters/es-es-schoolboy-pablo.neutral.svg', reason: 'an unknown expression falls back');
+  });
+
+  test('a line runs right to left when it is Arabic script; Arabizi and English stay left to right', () {
+    expect(directionOf('وعليكم السلام! لاباس عليك؟'), TextDirection.rtl);
+    expect(directionOf('w 3alaykum salam! labas 3lik?'), TextDirection.ltr);
+    expect(directionOf('Hola, buenos días.'), TextDirection.ltr);
+  });
+
+  test('a turn\'s raw-PCM audio (Darija\'s voice) is made playable', () async {
+    final server = FakeConversationServer();
+    final call = sessionWith(server);
+    final opening = await call.start();
+    expect(opening!.audioUrl, startsWith('data:audio/mpeg'), reason: 'mp3 stays as it is');
   });
 }

@@ -2239,6 +2239,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'suggested'**
   String get reviewSuggested;
+
+  /// No description provided for @progressSpeakingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Out loud'**
+  String get progressSpeakingTitle;
+
+  /// No description provided for @progressUnderstood.
+  ///
+  /// In en, this message translates to:
+  /// **'Takes understood (checked by LangQuest)'**
+  String get progressUnderstood;
+
+  /// No description provided for @progressCalls.
+  ///
+  /// In en, this message translates to:
+  /// **'Live calls'**
+  String get progressCalls;
+
+  /// No description provided for @progressCallsValue.
+  ///
+  /// In en, this message translates to:
+  /// **'{calls} · {minutes} min'**
+  String progressCallsValue(int calls, int minutes);
+
+  /// No description provided for @progressLessons.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio lessons heard to the end'**
+  String get progressLessons;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

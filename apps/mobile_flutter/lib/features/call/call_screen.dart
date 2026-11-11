@@ -4,6 +4,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:intl/intl.dart' show Bidi;
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
@@ -17,6 +18,8 @@ import '../../core/content/content_models.dart';
 import '../../core/layout/celebration.dart';
 import '../../core/layout/motion.dart';
 import '../../core/services/app_state.dart';
+import '../../core/services/speaking_stats.dart';
+import '../../core/theme/script_fonts.dart';
 import '../../l10n/l10n.dart';
 import '../../navigation/nav.dart';
 import '../learn/learn_content.dart';
@@ -185,9 +188,14 @@ class _CallScreenState extends ConsumerState<CallScreen> {
     if (session.phase == CallPhase.ended || session.phase == CallPhase.failed) {
       _clock?.cancel();
       final missionKey = widget.missionKey;
-      if (session.phase == CallPhase.ended && !_credited && session.learnerTurns > 0 && missionKey != null) {
+      if (session.phase == CallPhase.ended && !_credited && session.learnerTurns > 0) {
         _credited = true;
-        ref.read(appStateProvider.notifier).completeStop(missionKey, PathStop.talk);
+        final notifier = ref.read(appStateProvider.notifier);
+        if (missionKey != null) notifier.completeStop(missionKey, PathStop.talk);
+        // The XP the server awarded for the call counts in the learner's total, as the summary says.
+        notifier.addServerXp(session.summary?.xp ?? 0);
+        final courseId = ref.read(appStateProvider).activeCourse?.id;
+        if (courseId != null) ref.read(speakingStatsProvider.notifier).recordCall(courseId, _elapsed);
       }
     }
     setState(() {});
@@ -1280,7 +1288,10 @@ class _CharacterBubble extends ConsumerWidget {
     final accent = appState.accent;
     final l10n = context.l10n;
     final still = context.reduceMotion;
-    final style = TextStyle(fontSize: 18, height: 1.35, fontWeight: FontWeight.w600, color: colors.textPrimary);
+    final style = TextStyle(fontSize: 18, height: 1.35, fontWeight: FontWeight.w600, color: colors.textPrimary, fontFamilyFallback: fontFallbackFor(track));
+    // Arabic or Hebrew runs right to left; the script's own fonts draw it (the bundle's subsets, then the system's).
+    final direction = directionOf(line.text!);
+    final locale = contentLocaleOf(track);
     final words = speaking && !still
         ? ValueListenableBuilder<double>(
             valueListenable: progress,
@@ -1298,10 +1309,12 @@ class _CharacterBubble extends ConsumerWidget {
                   ],
                 ),
                 style: style,
+                textDirection: direction,
+                locale: locale,
               );
             },
           )
-        : Text(line.text!, style: style);
+        : Text(line.text!, style: style, textDirection: direction, locale: locale);
     final bubble = Container(
       margin: const EdgeInsets.only(bottom: 8, right: 40),
       padding: const EdgeInsets.fromLTRB(14, 10, 6, 10),
@@ -1401,6 +1414,7 @@ class _LearnerBubble extends ConsumerWidget {
               excludeSemantics: true,
               child: Text(
                 line.text ?? '',
+                textDirection: directionOf(line.text ?? ''),
                 style: TextStyle(fontSize: 16, height: 1.35, fontWeight: FontWeight.w600, color: accent.onPrimary),
               ),
             ),
@@ -1556,3 +1570,7 @@ class _Reaction extends ConsumerWidget {
     );
   }
 }
+
+/// Right to left when the text is mostly Arabic or Hebrew script (a reply typed in the learner's language, or a
+/// romanized line, stays left to right).
+TextDirection directionOf(String text) => Bidi.detectRtlDirectionality(text) ? TextDirection.rtl : TextDirection.ltr;
