@@ -2,7 +2,7 @@ import { COURSE_TRACKS, AI_TASK_NAME_VALUES, LANGUAGES, LANGUAGE_VARIETIES, WRIT
 import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { buildCatalogSeedSql, DEFAULT_MODEL_PROFILES, sqlJsonb, sqlLiteral, sqlTextArray } from './catalog-sql';
+import { buildCatalogSeedSql, DEFAULT_MODEL_PROFILES, TASKS_SEEDED_LATER, sqlJsonb, sqlLiteral, sqlTextArray } from './catalog-sql';
 
 describe('sql helpers', () => {
   it('escapes single quotes and keeps unicode', () => {
@@ -30,9 +30,18 @@ describe('buildCatalogSeedSql', () => {
   it('seeds en + fr coverage rows as planned for every track and one disabled profile per AI task', () => {
     expect((sql.match(/insert into public\.course_source_localizations /g) ?? []).length).toBe(60);
     expect(sql).not.toMatch(/course_source_localizations[^\n]*'complete'/);
-    expect((sql.match(/insert into public\.ai_model_profiles /g) ?? []).length).toBe(AI_TASK_NAME_VALUES.length);
+    const seededHere = AI_TASK_NAME_VALUES.filter((t) => !TASKS_SEEDED_LATER[t]);
+    expect((sql.match(/insert into public\.ai_model_profiles /g) ?? []).length).toBe(seededHere.length);
     expect(sql).not.toMatch(/ai_model_profiles[^\n]*\btrue, 1, 'unbenchmarked'/);
-    expect(DEFAULT_MODEL_PROFILES.map((p) => p.task).sort()).toEqual([...AI_TASK_NAME_VALUES].sort());
+    expect(DEFAULT_MODEL_PROFILES.map((p) => p.task).sort()).toEqual([...seededHere].sort());
+  });
+
+  it('a task added later is seeded, disabled, by the migration that widened the task domain for it', () => {
+    for (const [task, file] of Object.entries(TASKS_SEEDED_LATER)) {
+      const migration = readFileSync(resolve(__dirname, '../../../../', file!), 'utf8');
+      expect(migration).toContain(`'${task}'));`);
+      expect(migration).toMatch(new RegExp(`insert into public\\.ai_model_profiles [^\\n]*values \\('${task}'[^\\n]*, false, 1, 'unbenchmarked'\\)`));
+    }
   });
 
   it('is idempotent SQL (every insert carries on conflict) and inserts shared-asset tracks after their targets', () => {
