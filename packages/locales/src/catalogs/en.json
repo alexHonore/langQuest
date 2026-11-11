@@ -1785,5 +1785,56 @@
     "noAds": "No ads, no selling your data.",
     "contact": "Contact",
     "version": "Version {version}"
+  },
+  "curriculum": {
+    "objective": {
+      "ask_directions": {
+        "attention": "Get someone's attention politely",
+        "ask_where": "Ask where the place is",
+        "understand": "Check you understood the way",
+        "distance": "Ask whether it is far",
+        "thank": "Thank them"
+      },
+      "buy_ice_cream": {
+        "offer_choice": "Offer the child a choice of flavours",
+        "order_scoop": "Order the ice cream",
+        "permission": "Say yes or no to what the child asks",
+        "enjoy": "Say it is delicious",
+        "thanks": "Answer a thank-you"
+      },
+      "cafe_order_drink": {
+        "greet": "Greet the server",
+        "request_drink": "Ask for a drink",
+        "choose_option": "Choose the size or how many",
+        "pay": "Ask for the bill and pay",
+        "thank": "Say thank you"
+      },
+      "greet_and_introduce": {
+        "greet": "Say hello",
+        "wellbeing": "Ask how they are, and answer",
+        "introduce": "Say your name",
+        "ask_name": "Ask their name",
+        "take_leave": "Say goodbye"
+      },
+      "market_ask_price": {
+        "greet": "Greet the vendor",
+        "ask_price": "Ask the price",
+        "react_price": "React to the price, or bargain",
+        "decide": "Buy it, or politely decline"
+      },
+      "meet_neighbour": {
+        "introduce": "Introduce yourself: you just moved in",
+        "origin": "Say where you are from, and ask them",
+        "language": "Ask if they speak your language, or say you speak a little",
+        "help": "Offer or accept help, and say thanks"
+      },
+      "take_taxi": {
+        "hail": "Stop a taxi and greet the driver",
+        "destination": "Say where you are going",
+        "fare": "Ask the fare, or for the meter",
+        "stop": "Ask to stop here",
+        "pay": "Pay, get your change, and say thanks"
+      }
+    }
   }
 }

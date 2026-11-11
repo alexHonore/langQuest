@@ -1785,5 +1785,56 @@
     "noAds": "Pas de publicité, pas de revente de vos données.",
     "contact": "Contact",
     "version": "Version {version}"
+  },
+  "curriculum": {
+    "objective": {
+      "ask_directions": {
+        "attention": "Attirer poliment l’attention de quelqu’un",
+        "ask_where": "Demander où se trouve l’endroit",
+        "understand": "Vérifier que vous avez compris le chemin",
+        "distance": "Demander si c’est loin",
+        "thank": "Remercier"
+      },
+      "buy_ice_cream": {
+        "offer_choice": "Proposer à l’enfant de choisir un parfum",
+        "order_scoop": "Commander la glace",
+        "permission": "Dire oui ou non à ce que l’enfant demande",
+        "enjoy": "Dire que c’est délicieux",
+        "thanks": "Répondre à un merci"
+      },
+      "cafe_order_drink": {
+        "greet": "Saluer en arrivant",
+        "request_drink": "Demander une boisson",
+        "choose_option": "Choisir la taille ou la quantité",
+        "pay": "Demander l’addition et payer",
+        "thank": "Dire merci"
+      },
+      "greet_and_introduce": {
+        "greet": "Dire bonjour",
+        "wellbeing": "Demander comment ça va, et répondre",
+        "introduce": "Dire votre prénom",
+        "ask_name": "Demander son prénom",
+        "take_leave": "Dire au revoir"
+      },
+      "market_ask_price": {
+        "greet": "Saluer en arrivant au stand",
+        "ask_price": "Demander le prix",
+        "react_price": "Réagir au prix, ou marchander",
+        "decide": "Acheter, ou refuser poliment"
+      },
+      "meet_neighbour": {
+        "introduce": "Vous présenter : vous venez d’emménager",
+        "origin": "Dire d’où vous venez, et le demander",
+        "language": "Demander si la personne parle votre langue, ou dire que vous parlez un peu",
+        "help": "Proposer ou accepter de l’aide, et remercier"
+      },
+      "take_taxi": {
+        "hail": "Arrêter un taxi et saluer",
+        "destination": "Dire où vous allez",
+        "fare": "Demander le prix, ou le compteur",
+        "stop": "Demander de s’arrêter ici",
+        "pay": "Payer, récupérer la monnaie, et remercier"
+      }
+    }
   }
 }
