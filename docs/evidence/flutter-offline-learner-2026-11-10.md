@@ -223,3 +223,12 @@ Home directly; 0 errors). The 200 % text test failed when run on its own (it pas
 screen's Column inside an IntrinsicHeight was 28 px taller than its intrinsic estimate with the test font. The welcome
 and warm-up screens now use `SpacedPage` (min-height column with `spaceBetween`, no intrinsic pass); the test passes on
 its own and in the suite. `flutter test`: 114 passed.
+
+### First visit lighter by about 1.4 MB (follow-up)
+
+Measured on the live site (Chromium, CDP encoded sizes): a first visit downloaded 5.7 MB in 41 responses, of which
+1.44 MB were six `LucideVariable-w100…w600.ttf` files. lucide_icons_flutter declares them for its
+`lucide_icons_<weight>.dart` libraries, which the app never imports (its icons use the tree-shaken `Lucide` family),
+and the web engine downloads every font in `FontManifest.json` at start-up. `tool/prune_web_fonts.dart` removes the
+six families after the build (refusing if `lib/` imports a weight library); on the pruned release build the smoke test
+passes, icons render, and no LucideVariable file is requested. CI checks the image's manifest.

@@ -83,6 +83,9 @@ jobs:
           curl -fsS -o /dev/null http://localhost:8080/main.dart.js
           curl -fsS -o /dev/null http://localhost:8080/assets/assets/content/chapters.json
           curl -fsS http://localhost:8080/sw.js | grep -q "langquest-v1"   # the offline service worker
+          # Unused icon-weight fonts are pruned from the build (the engine would download them on every first visit).
+          ! curl -fsS http://localhost:8080/assets/FontManifest.json | grep -q 'Lucide[1-6]00'
+          curl -fsS http://localhost:8080/assets/FontManifest.json | grep -q 'packages/lucide_icons_flutter/Lucide"'
           test "$(curl -s -o /dev/null -w '%{content_type}' http://localhost:8080/canvaskit/canvaskit.wasm)" = application/wasm
           test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/missing.js)" = 404
           # No backend variables here: the app's config is empty (offline), and nothing else is published.
