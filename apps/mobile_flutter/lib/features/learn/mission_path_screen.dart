@@ -11,6 +11,7 @@ import 'learn_content.dart';
 import 'learn_logic.dart';
 import 'learn_providers.dart';
 import 'learn_widgets.dart';
+import 'record_take.dart';
 
 /// N2 — one mission node: learn → practise → mission, on the pathway. The learner can open any stop, but the
 /// primary action is always the next one, so the curve is the default path. (Talk appears once a live
@@ -35,6 +36,7 @@ class MissionPathScreen extends ConsumerWidget {
     final l10n = context.l10n;
     final stops = stopsFor(hasLearnPlan: planHasLearnStops(plan));
     final done = appState.stopsDone(missionKey);
+    final canPractiseSaying = ref.watch(takeRecorderFactoryProvider) != null;
     final next = nextStop(stops, done);
     final title = plan.mission.titleIn(plan.source) ?? '';
     final sceneId = sceneIdForSituation(plan.mission.situation);
@@ -125,6 +127,16 @@ class MissionPathScreen extends ConsumerWidget {
                       done: done.contains(stops[i]),
                       isNext: stops[i] == next,
                       onTap: () => context.push(routeFor(missionKey, stops[i])),
+                    ),
+                  // Once the phrases are taught: practise saying them (where the device can record).
+                  if (canPractiseSaying && done.contains(PathStop.learn) && plan.phrases.isNotEmpty)
+                    Align(
+                      alignment: Alignment.centerLeft,
+                      child: TextButton.icon(
+                        onPressed: () => context.push('/speak/$missionKey'),
+                        icon: const Icon(LucideIcons.mic, size: 18),
+                        label: Text(l10n.practiseSayingEntry),
+                      ),
                     ),
                 ],
               ),

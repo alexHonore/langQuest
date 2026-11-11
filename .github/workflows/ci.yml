@@ -87,6 +87,16 @@ jobs:
           test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/missing.js)" = 404
           # No backend variables here: the app's config is empty (offline), and nothing else is published.
           curl -fsS http://localhost:8080/config.json | grep -qx '{"supabaseUrl":"","supabaseAnonKey":"","apiBaseUrl":""}'
+      - uses: actions/setup-node@v4
+        with: { node-version: 24 }
+      # The Flutter tests run on the Dart VM; only the compiled web app shows what dart2js does (it once broke
+      # recording while every VM test passed). Playwright as pinned in pnpm-lock.yaml.
+      - name: Browser smoke (first run, a lesson, record yourself with a fake microphone, display settings)
+        run: |
+          mkdir -p "$RUNNER_TEMP/smoke" && cp apps/mobile_flutter/tool/web_smoke.cjs "$RUNNER_TEMP/smoke/"
+          cd "$RUNNER_TEMP/smoke" && npm init -y > /dev/null && npm install --no-audit --no-fund playwright@1.64.1 > /dev/null
+          npx playwright install --with-deps chromium > /dev/null
+          node web_smoke.cjs http://localhost:8080/
       - if: always()
         run: docker logs web || true
 

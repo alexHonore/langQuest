@@ -205,3 +205,12 @@ Release web build against the local Supabase (emails caught by Mailpit) and the 
 - The Infra Tayoo instance's auth logs show GoTrue answering with `referer: http://localhost:3000`: its Site URL is
   still the default and the web origin is not an allowed redirect, so links from it would not reach the web app until
   the owner sets them (not reachable through the instance API).
+
+### Practise saying, and a browser smoke test in CI (follow-up)
+
+Practise saying (Chromium, release build, fake microphone): before the Learn stop no entry on the path; after it,
+**Practise saying the phrases** → each phrase with Record yourself → My voice; the next phrase drops the previous take;
+Done returns to the path; 0 page errors. Widget tests: the entry needs a recorder and a done Learn stop; the walk
+through every phrase, back, Done. `tool/web_smoke.cjs` passed locally and against https://web-languest.tayoo.app
+(first run, a lesson, record yourself with the microphone released after the take, Settings › Display, 0 errors) before
+joining the CI image job.

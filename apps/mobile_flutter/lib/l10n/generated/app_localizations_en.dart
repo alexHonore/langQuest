@@ -818,4 +818,21 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get passwordChanged => 'Your password was changed.';
+
+  @override
+  String get practiseSayingEntry => 'Practise saying the phrases';
+
+  @override
+  String practiseSayingTitle(String mission) {
+    return 'Practise saying · $mission';
+  }
+
+  @override
+  String get practiseSayingNote => 'Listen, record yourself, then compare. There is no score: a number needs a speech assessor this course does not have.';
+
+  @override
+  String get practiseSayingDone => 'Done';
+
+  @override
+  String get previousPhrase => 'Previous phrase';
 }

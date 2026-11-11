@@ -1525,6 +1525,36 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Your password was changed.'**
   String get passwordChanged;
+
+  /// No description provided for @practiseSayingEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise saying the phrases'**
+  String get practiseSayingEntry;
+
+  /// No description provided for @practiseSayingTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Practise saying · {mission}'**
+  String practiseSayingTitle(String mission);
+
+  /// No description provided for @practiseSayingNote.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen, record yourself, then compare. There is no score: a number needs a speech assessor this course does not have.'**
+  String get practiseSayingNote;
+
+  /// No description provided for @practiseSayingDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Done'**
+  String get practiseSayingDone;
+
+  /// No description provided for @previousPhrase.
+  ///
+  /// In en, this message translates to:
+  /// **'Previous phrase'**
+  String get previousPhrase;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
