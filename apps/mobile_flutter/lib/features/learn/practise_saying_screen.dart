@@ -99,7 +99,7 @@ class _PractiseSayingScreenState extends ConsumerState<PractiseSayingScreen> {
                             ),
                           ],
                           const SizedBox(height: 16),
-                          ListenButtons(text: phrase.text, locale: plan.voiceLocale),
+                          ListenButtons(text: phrase.text, expressionId: phrase.id, locale: plan.voiceLocale),
                           const SizedBox(height: 12),
                           // A fresh recorder per phrase: the previous take is dropped with it.
                           RecordTake(

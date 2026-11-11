@@ -5,6 +5,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../core/services/app_state.dart';
 import '../core/theme/glass.dart';
+import '../features/audio/audio_screens.dart';
 import '../features/call/call_screen.dart';
 import '../features/account/account_screen.dart';
 import '../features/catalog/catalog_screen.dart';
@@ -75,6 +76,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             path: '/progress',
             pageBuilder: (context, state) => const NoTransitionPage(child: ProgressScreen()),
           ),
+          GoRoute(
+            path: '/audio',
+            pageBuilder: (context, state) => const NoTransitionPage(child: AudioLibraryScreen()),
+          ),
         ],
       ),
       page('/welcome', (_) => const WelcomeScreen()),
@@ -89,6 +94,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       page('/mission/:id', (s) => MissionPlayerScreen(missionKey: s.pathParameters['id']!)),
       page('/speak/:id', (s) => PractiseSayingScreen(missionKey: s.pathParameters['id']!)),
       page('/call/:id', (s) => CallScreen(missionKey: s.pathParameters['id']!)),
+      page('/audio/:id', (s) => AudioLessonScreen(missionKey: s.pathParameters['id']!)),
       page('/warmup', (_) => const WarmupScreen()),
       page('/review', (_) => const ReviewScreen()),
       page('/account', (_) => const AccountScreen()),
@@ -98,20 +104,19 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   return router;
 });
 
-/// The tab shell: Home, Missions and Progress. Audio and Speak are not shown in this build — nothing real backs
-/// them yet (no licensed audio library, no live conversation partner), and a tab never opens onto a placeholder
-/// (CONVENTIONS §8, as the Expo app hides them per course capability).
+/// The tab shell: Home, Missions, Progress, and Audio when the course's audio lessons can be heard here (a device voice
+/// for it, or the server's AI voice). Speak is not shown in this build: live conversation is reached from each
+/// mission's Talk stop, and a tab never opens onto a placeholder (CONVENTIONS §8).
 class AppScaffold extends ConsumerWidget {
   final Widget child;
 
   const AppScaffold({super.key, required this.child});
 
-  static const _tabs = ['/', '/missions', '/progress'];
-
-  int _selectedIndex(BuildContext context) {
+  int _selectedIndex(BuildContext context, List<String> tabs) {
     final location = GoRouterState.of(context).matchedLocation;
-    if (location.startsWith('/missions')) return 1;
-    if (location.startsWith('/progress')) return 2;
+    for (var i = tabs.length - 1; i > 0; i--) {
+      if (location.startsWith(tabs[i])) return i;
+    }
     return 0;
   }
 
@@ -121,8 +126,15 @@ class AppScaffold extends ConsumerWidget {
     final accent = appState.accent;
     final colors = appState.colors;
     final l10n = context.l10n;
-    final selected = _selectedIndex(context);
-    final items = [(LucideIcons.home, l10n.tabHome), (LucideIcons.target, l10n.tabMissions), (LucideIcons.barChart2, l10n.tabProgress)];
+    final audio = ref.watch(audioLessonsAvailableProvider);
+    final tabs = ['/', '/missions', if (audio) '/audio', '/progress'];
+    final selected = _selectedIndex(context, tabs);
+    final items = [
+      (LucideIcons.home, l10n.tabHome),
+      (LucideIcons.target, l10n.tabMissions),
+      if (audio) (LucideIcons.headphones, l10n.tabAudio),
+      (LucideIcons.barChart2, l10n.tabProgress),
+    ];
 
     return Scaffold(
       backgroundColor: colors.background,
@@ -152,7 +164,7 @@ class AppScaffold extends ConsumerWidget {
                             label: items[i].$2,
                             excludeSemantics: true,
                             child: InkWell(
-                              onTap: () => context.go(_tabs[i]),
+                              onTap: () => context.go(tabs[i]),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [

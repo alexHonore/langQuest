@@ -257,3 +257,14 @@ seeded goals have no English description), so the app shows them as progress dot
 `flutter test`: 153 passed (session, turns, retries, no-speech, commands, end and failures against a fake API; the call
 screen walked by voice and in writing, at 200 % text, with Flutter's tap-target and label guidelines; portraits
 byte-identical to the art roster).
+
+### Audio lessons and the AI voice (follow-up, 2026-11-11)
+
+Release build, test learner, live Worker. Headless Chromium has no speech voices at all, so the course is read by the
+server's AI voice: the **Audio** tab appeared ("Read by an AI voice"), the lesson of *Greet and introduce yourself*
+played (intro as a caption, then each line synthesized by `/v1/speech/synthesize` — 0.6 s per line once warm, clips of
+about 1.9 s, distinct per line), paused at once, and the scene's Listen button became "Listen (AI voice)". 0 page errors.
+The lesson now prefetches the next two lines while one plays. The course page lists the audio lessons ("read by an AI
+voice (with a free account)") and, for Darija, an AI voice for the dialect with the server's "limited" caveat.
+`flutter test`: 158 passed (lesson structure, the player's order / pause / next / previous / slow / turn countdown, the
+Audio tab and a lesson heard to the end, no tab without a voice, the course page).

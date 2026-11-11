@@ -340,7 +340,7 @@ class _PracticeScreenState extends ConsumerState<PracticeScreen> {
                 Expanded(
                   child: TargetText(expression: challenge.expression, track: plan.track, fontSize: 18, color: colors.success),
                 ),
-                ListenButtons(text: challenge.expression.text, locale: plan.voiceLocale, compact: true),
+                ListenButtons(text: challenge.expression.text, expressionId: challenge.expression.id, locale: plan.voiceLocale, compact: true),
               ],
             ).withMotion(context, (a) => a.fadeIn(duration: 200.ms)),
           const SizedBox(height: 14),

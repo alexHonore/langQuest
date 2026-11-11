@@ -7,12 +7,12 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/audio/clip_player.dart';
+import '../../core/audio/clip_player_provider.dart';
 import '../../core/audio/take_recorder.dart';
 import '../../core/backend/account.dart';
 import '../../core/backend/curriculum_ids.dart';
 import '../../core/backend/server_course.dart';
 import '../../core/layout/motion.dart';
-import '../../core/platform/clip_player.dart';
 import '../../core/services/app_state.dart';
 import '../../l10n/l10n.dart';
 import '../../navigation/nav.dart';
@@ -24,9 +24,6 @@ import '../learn/record_take.dart';
 import '../scenes/animated_scene.dart';
 import 'call_portrait.dart';
 import 'call_session.dart';
-
-/// Makes the player of the character's voice; null where clips cannot be played (the call is then written).
-final clipPlayerFactoryProvider = Provider<ClipPlayer Function()?>((ref) => canPlayClips ? createClipPlayer : null);
 
 /// Whether a live call backs the Talk stop of the active course: signed in, and the course's capability snapshot
 /// says its characters take calls (visible means usable).

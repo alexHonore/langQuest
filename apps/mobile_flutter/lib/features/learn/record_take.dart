@@ -5,6 +5,7 @@ import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
+import '../../core/backend/server_voice.dart';
 import '../../core/audio/take_recorder.dart';
 import '../../core/backend/speech_check.dart';
 import '../../core/layout/motion.dart';
@@ -239,7 +240,7 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
     final colors = ref.watch(appStateProvider.select((s) => s.colors));
     final l10n = context.l10n;
     final voiceLocale = widget.voiceLocale;
-    final hasVoice = voiceLocale != null && (ref.watch(voiceAvailableProvider(voiceLocale)).asData?.value ?? false);
+    final hasVoice = ref.watch(lineVoiceProvider(voiceLocale)).asData?.value.available ?? false;
     final note = TextStyle(fontSize: 12.5, height: 1.35, color: colors.textMuted);
     final checker = widget.check == null ? null : ref.watch(speechCheckerProvider);
     final idleNote = checker == null ? l10n.recordStaysOnDevice : (checker.keepsRecordings ? l10n.recordCheckedKept : l10n.recordChecked);

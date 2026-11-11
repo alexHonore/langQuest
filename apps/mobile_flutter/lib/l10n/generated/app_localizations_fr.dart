@@ -1081,4 +1081,107 @@ class AppLocalizationsFr extends AppLocalizations {
   @override
   String get courseLimitedForDialect =>
       'La reconnaissance vocale et les voix IA restent limitées pour ce dialecte (pas encore relues par des locuteurs natifs)';
+
+  @override
+  String get listenAiVoiceSemantics => 'Écouter (voix IA)';
+
+  @override
+  String get listenSlowlyAiVoiceSemantics => 'Écouter lentement (voix IA)';
+
+  @override
+  String get tabAudio => 'Audio';
+
+  @override
+  String get audioLibraryTitle => 'Leçons audio';
+
+  @override
+  String get audioLibraryBody => 'Une par mission : la conversation, puis phrase par phrase avec le temps de dire chacune, puis la conversation à nouveau.';
+
+  @override
+  String get audioReadByAi => 'Lue par une voix IA';
+
+  @override
+  String get audioReadByDevice => 'Lue par la voix de votre appareil';
+
+  @override
+  String audioLessonMeta(int phrases, int minutes) {
+    String _temp0 = intl.Intl.pluralLogic(phrases, locale: localeName, other: '$phrases phrases', one: '1 phrase');
+    return '$_temp0 · environ $minutes min';
+  }
+
+  @override
+  String get audioListened => 'Écoutée';
+
+  @override
+  String get audioLessonLabel => 'Leçon audio';
+
+  @override
+  String audioIntro(String mission) {
+    return '$mission. Écoutez la conversation.';
+  }
+
+  @override
+  String get audioPhrasesIntro => 'Maintenant, phrase par phrase. Écoutez, puis dites-la à voix haute.';
+
+  @override
+  String get audioAgainIntro => 'Encore une fois, toute la conversation.';
+
+  @override
+  String get audioOutro => 'C’est la fin de la leçon. Bravo !';
+
+  @override
+  String get audioSectionConversation => 'La conversation';
+
+  @override
+  String get audioSectionPhrases => 'Phrase par phrase';
+
+  @override
+  String get audioSectionAgain => 'Encore une fois';
+
+  @override
+  String get audioYourTurn => 'À vous : dites-la';
+
+  @override
+  String get audioPlay => 'Lecture';
+
+  @override
+  String get audioPause => 'Pause';
+
+  @override
+  String get audioNextLine => 'Réplique suivante';
+
+  @override
+  String get audioPreviousLine => 'Réplique précédente';
+
+  @override
+  String get audioSlowly => 'Lentement';
+
+  @override
+  String get audioTurns => 'Temps pour répéter';
+
+  @override
+  String get audioFinished => 'Leçon terminée';
+
+  @override
+  String get audioPlayAgain => 'Réécouter';
+
+  @override
+  String get audioYou => 'Vous';
+
+  @override
+  String courseIncludesAudioLessons(String voice) {
+    return 'Des leçons audio tirées de chaque mission, lues par $voice';
+  }
+
+  @override
+  String get courseVoiceAi => 'une voix IA (avec un compte gratuit)';
+
+  @override
+  String get courseVoiceDevice => 'la voix de votre appareil';
+
+  @override
+  String get courseMissingAudioRecorded => 'De l’audio enregistré par des locuteurs natifs';
+
+  @override
+  String get courseIncludesAiVoiceDialect => 'Une voix IA pour ce dialecte (avec un compte gratuit)';
 }

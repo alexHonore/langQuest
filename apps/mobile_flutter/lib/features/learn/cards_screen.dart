@@ -114,7 +114,7 @@ class _CardsScreenState extends ConsumerState<CardsScreen> {
                                   style: TextStyle(fontSize: 19, fontWeight: FontWeight.w600, color: accent.primaryText),
                                 ),
                                 const SizedBox(height: 16),
-                                ListenButtons(text: phrase.text, locale: plan.voiceLocale),
+                                ListenButtons(text: phrase.text, expressionId: phrase.id, locale: plan.voiceLocale),
                                 for (final n in [?note, ...extraNotes]) ...[const SizedBox(height: 12), _NoteBox(text: n, label: l10n.noteLabel)],
                               ],
                             ),
