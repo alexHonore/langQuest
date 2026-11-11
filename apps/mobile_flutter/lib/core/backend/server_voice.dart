@@ -61,11 +61,14 @@ class ServerVoice {
     }
   }
 
-  /// Says [expressionId]; completes when the clip ends (or at once when there is none).
-  Future<void> speak(String expressionId, {bool slow = false}) async {
+  /// Says [expressionId]; completes when the clip ends (or at once when there is none). False when the server had
+  /// no clip for it.
+  Future<bool> speak(String expressionId, {bool slow = false}) async {
     player.stop();
     final url = await clip(expressionId, slow: slow);
-    if (url != null) await player.play(url);
+    if (url == null) return false;
+    await player.play(url);
+    return true;
   }
 
   void stop() => player.stop();
@@ -93,8 +96,8 @@ final serverVoiceProvider = Provider<ServerVoice?>((ref) {
   return voice;
 });
 
-/// How a line is voiced on this device for the active course: the device's own voice for the exact variety, else
-/// the server's AI voice, else none (listen controls are then not shown).
+/// How a line is voiced on this device for the active course: the server's AI voice (signed in, on a course it
+/// voices), else the device's own voice for the exact variety, else none (listen controls are then not shown).
 enum LineVoiceSource { device, server, none }
 
 @immutable
@@ -102,6 +105,8 @@ class LineVoice {
   const LineVoice({required this.source, this.locale, this.server, required this.speech});
 
   final LineVoiceSource source;
+
+  /// The device's voice locale for the exact variety, when it has one (with the server's voice: its fallback).
   final String? locale;
   final ServerVoice? server;
   final SpeechService speech;
@@ -113,13 +118,22 @@ class LineVoice {
     if (source == LineVoiceSource.server && expressionId != null) unawaited(server!.clip(expressionId, slow: slow));
   }
 
-  /// Says a line: [text] with the device voice, or the approved line [expressionId] with the server's voice.
+  /// Whether [expressionId] (or, without one, [text]) can be said: the server says approved lines only.
+  bool canSay({String? expressionId}) => switch (source) {
+    LineVoiceSource.device => true,
+    LineVoiceSource.server => expressionId != null || locale != null,
+    LineVoiceSource.none => false,
+  };
+
+  /// Says a line: the approved line [expressionId] with the server's AI voice, else [text] with the device voice
+  /// (also when the server has no clip for it).
   Future<void> say({required String text, String? expressionId, bool slow = false}) async {
     switch (source) {
       case LineVoiceSource.device:
         await speech.speak(text, locale: locale!, slow: slow);
       case LineVoiceSource.server:
-        if (expressionId != null) await server!.speak(expressionId, slow: slow);
+        final said = expressionId != null && await server!.speak(expressionId, slow: slow);
+        if (!said && locale != null) await speech.speak(text, locale: locale!, slow: slow);
       case LineVoiceSource.none:
         return;
     }
@@ -127,12 +141,14 @@ class LineVoice {
 }
 
 /// The voice for lines of the course whose device locale is [locale] (the course's `voiceLocale`, null for a
-/// dialect with no device voice). Auto-disposed: a screen opened later asks the device again.
+/// dialect with no device voice). The AI voice comes first (a natural voice of the exact variety, fetched once per
+/// line and cached on the server); the device's voice is its fallback and the voice offline or signed out.
+/// Auto-disposed: a screen opened later asks the device again.
 final lineVoiceProvider = FutureProvider.autoDispose.family<LineVoice, String?>((ref, locale) async {
   final speech = ref.watch(speechServiceProvider);
   final server = ref.watch(serverVoiceProvider);
   final device = locale != null && await ref.watch(voiceAvailableProvider(locale).future);
+  if (server != null) return LineVoice(source: LineVoiceSource.server, server: server, locale: device ? locale : null, speech: speech);
   if (device) return LineVoice(source: LineVoiceSource.device, locale: locale, speech: speech);
-  if (server != null) return LineVoice(source: LineVoiceSource.server, server: server, speech: speech);
   return LineVoice(source: LineVoiceSource.none, speech: speech);
 });

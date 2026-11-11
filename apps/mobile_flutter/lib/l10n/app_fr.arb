@@ -420,5 +420,8 @@
   "pronunciationWordLabel": "{word} : {status}",
   "pronunciationSounds": "Entendu /{heard}/ · attendu /{expected}/",
   "pronunciationNote": "Une estimation de l’IA qui a écouté votre enregistrement, pas une mesure. Elle ne compte pas dans votre progression.",
-  "pronunciationFailed": "Impossible d’obtenir l’avis sur la prononciation cette fois-ci."
+  "pronunciationFailed": "Impossible d’obtenir l’avis sur la prononciation cette fois-ci.",
+  "readAloud": "Lire à voix haute",
+  "readAloudSetting": "Lire les exercices à voix haute",
+  "readAloudSettingBody": "À chaque exercice : son contexte et sa question dans votre langue, puis la phrase avec la voix du cours. Connecté, une voix IA les lit."
 }

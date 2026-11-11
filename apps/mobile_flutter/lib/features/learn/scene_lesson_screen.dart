@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
+import '../../core/backend/narrator.dart';
 import '../../core/backend/server_voice.dart';
 import '../../core/backend/speech_check.dart';
 import '../../core/layout/motion.dart';
@@ -54,10 +55,20 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
   Future<void> _speakCurrent({bool slow = false}) async {
     final plan = ref.read(learnPlanProvider(widget.missionKey));
     if (plan == null) return;
-    // The device's voice for the course, else the server's AI voice (signed in), else none.
-    final voice = await ref.read(lineVoiceProvider(plan.voiceLocale).future);
-    if (!voice.available || !mounted) return;
     final token = ++_utterance;
+    ref.read(narratorProvider)?.stop();
+    // Read aloud: the scene's context before its first line, and "Your line — say it out loud" before the learner's.
+    final read = readAloudFor(ref);
+    if (read != null) {
+      final note = _index == 0 ? plan.mission.sceneNoteIn(plan.source) : null;
+      if (note != null) await read.narrator.say(note);
+      if (!mounted || token != _utterance) return;
+      if (plan.sceneLines[_index].byLearner) await read.narrator.say(read.words.sceneYourLine);
+      if (!mounted || token != _utterance) return;
+    }
+    // The course's voice: the server's AI voice (signed in), else the device's, else none.
+    final voice = await ref.read(lineVoiceProvider(plan.voiceLocale).future);
+    if (!voice.available || !mounted || token != _utterance) return;
     setState(() => _speaking = true);
     final line = plan.sceneLines[_index].expression;
     await voice.say(text: line.text, expressionId: line.id, slow: slow);

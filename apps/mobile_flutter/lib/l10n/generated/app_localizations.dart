@@ -2617,6 +2617,24 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Couldn’t get pronunciation feedback this time.'**
   String get pronunciationFailed;
+
+  /// No description provided for @readAloud.
+  ///
+  /// In en, this message translates to:
+  /// **'Read aloud'**
+  String get readAloud;
+
+  /// No description provided for @readAloudSetting.
+  ///
+  /// In en, this message translates to:
+  /// **'Read exercises aloud'**
+  String get readAloudSetting;
+
+  /// No description provided for @readAloudSettingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'As each exercise appears: its context and question in your language, then the phrase in the course\'s voice. Signed in, an AI voice reads them.'**
+  String get readAloudSettingBody;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

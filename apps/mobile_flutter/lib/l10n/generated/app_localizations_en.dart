@@ -1428,4 +1428,14 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get pronunciationFailed => 'Couldn’t get pronunciation feedback this time.';
+
+  @override
+  String get readAloud => 'Read aloud';
+
+  @override
+  String get readAloudSetting => 'Read exercises aloud';
+
+  @override
+  String get readAloudSettingBody =>
+      'As each exercise appears: its context and question in your language, then the phrase in the course\'s voice. Signed in, an AI voice reads them.';
 }

@@ -222,6 +222,7 @@ export const ROUTES = {
   /** AI pronunciation feedback (a listening model's estimate; never an acoustic score, never mastery evidence). */
   speechPronunciationFeedback: route('POST', '/v1/speech/pronunciation-feedback', 'learner'),
   speechSynthesize: route('POST', '/v1/speech/synthesize', 'learner'),
+  speechNarrate: route('POST', '/v1/speech/narrate', 'learner'),
   modelCapabilities: route('GET', '/v1/ai/model-capabilities', 'learner'),
   // §6.3 audio library
   audioCollections: route('GET', '/v1/audio/collections', 'learner'),

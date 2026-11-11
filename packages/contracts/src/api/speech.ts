@@ -283,6 +283,20 @@ export type SynthesizeRequest = z.infer<typeof SynthesizeRequestSchema>;
 export const SynthesizeResponseSchema = z.object({ audio: AudioOutputSchema, capability: CapabilitySchema });
 export type SynthesizeResponse = z.infer<typeof SynthesizeResponseSchema>;
 
+/**
+ * The narrator: an exercise's instruction or context read aloud in the learner's instruction language (the
+ * enrollment's source language), e.g. "At the café. Karim greets you. What do you answer?". Target-language lines are
+ * never narrated here: they go through `speechSynthesize` with an approved expression id, in the variety's voice.
+ */
+export const NarrateRequestSchema = z.object({
+  enrollmentId: UuidSchema,
+  text: z.string().trim().min(1).max(400),
+  speed: z.enum(['slow', 'normal']).default('normal'),
+});
+export type NarrateRequest = z.infer<typeof NarrateRequestSchema>;
+export const NarrateResponseSchema = z.object({ audio: AudioOutputSchema, capability: CapabilitySchema, language: SourceLanguageCodeSchema });
+export type NarrateResponse = z.infer<typeof NarrateResponseSchema>;
+
 // --- capabilities -----------------------------------------------------------
 
 export const ModelCapabilitiesQuerySchema = z.object({

@@ -10169,6 +10169,51 @@
         ],
         "type": "object"
       },
+      "NarrateRequest": {
+        "properties": {
+          "enrollmentId": {
+            "$ref": "#/components/schemas/Uuid"
+          },
+          "speed": {
+            "default": "normal",
+            "enum": [
+              "slow",
+              "normal"
+            ],
+            "type": "string"
+          },
+          "text": {
+            "maxLength": 400,
+            "minLength": 1,
+            "type": "string"
+          }
+        },
+        "required": [
+          "enrollmentId",
+          "text"
+        ],
+        "type": "object"
+      },
+      "NarrateResponse": {
+        "additionalProperties": false,
+        "properties": {
+          "audio": {
+            "$ref": "#/components/schemas/AudioOutput"
+          },
+          "capability": {
+            "$ref": "#/components/schemas/Capability"
+          },
+          "language": {
+            "$ref": "#/components/schemas/LanguageCode"
+          }
+        },
+        "required": [
+          "audio",
+          "capability",
+          "language"
+        ],
+        "type": "object"
+      },
       "NoSpeechReason": {
         "enum": [
           "empty_transcript",
@@ -25969,6 +26014,76 @@
         "x-langquest-handler": "apps/api/src/routes/learner/missions.ts",
         "x-langquest-rate-class": "learner",
         "x-langquest-route-key": "missionEvaluate",
+        "x-langquest-schema-source": "table"
+      }
+    },
+    "/v1/speech/narrate": {
+      "post": {
+        "description": "Contract auth class: `learner`. Rate-limit class: `ai` (90/min, burst 30), after the per-client `ingress` bucket. The narrator: an exercise instruction or context read in the enrollment's instruction language (never target-language content, which goes through speechSynthesize by approved expression id).",
+        "operationId": "speechNarrate",
+        "parameters": [],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/NarrateRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "content": {
+              "application/json": {
+                "schema": {
+                  "properties": {
+                    "data": {
+                      "$ref": "#/components/schemas/NarrateResponse"
+                    },
+                    "ok": {
+                      "const": true
+                    }
+                  },
+                  "required": [
+                    "ok",
+                    "data"
+                  ],
+                  "type": "object"
+                }
+              }
+            },
+            "description": "Success envelope `{ ok: true, data }`."
+          },
+          "401": {
+            "$ref": "#/components/responses/Error"
+          },
+          "422": {
+            "$ref": "#/components/responses/Error"
+          },
+          "429": {
+            "$ref": "#/components/responses/Error"
+          },
+          "503": {
+            "$ref": "#/components/responses/NotConfigured"
+          },
+          "default": {
+            "$ref": "#/components/responses/Error"
+          }
+        },
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "summary": "POST /v1/speech/narrate",
+        "tags": [
+          "speech"
+        ],
+        "x-langquest-auth": "learner",
+        "x-langquest-handler": "apps/api/src/routes/speech/speech.ts",
+        "x-langquest-rate-class": "ai",
+        "x-langquest-route-key": "speechNarrate",
         "x-langquest-schema-source": "table"
       }
     },

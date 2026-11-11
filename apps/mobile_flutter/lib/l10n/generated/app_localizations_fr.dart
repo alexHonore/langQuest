@@ -1444,4 +1444,14 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get pronunciationFailed => 'Impossible d’obtenir l’avis sur la prononciation cette fois-ci.';
+
+  @override
+  String get readAloud => 'Lire à voix haute';
+
+  @override
+  String get readAloudSetting => 'Lire les exercices à voix haute';
+
+  @override
+  String get readAloudSettingBody =>
+      'À chaque exercice : son contexte et sa question dans votre langue, puis la phrase avec la voix du cours. Connecté, une voix IA les lit.';
 }
