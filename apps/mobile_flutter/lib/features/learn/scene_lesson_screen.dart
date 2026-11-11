@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
+import '../../core/backend/speech_check.dart';
 import '../../core/layout/motion.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/speech_service.dart';
@@ -196,7 +197,14 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
                     ],
                     const SizedBox(height: 10),
                     ListenButtons(text: line.expression.text, locale: plan.voiceLocale, compact: true),
-                    if (learnerTurn) ...[const SizedBox(height: 8), RecordTake(key: ValueKey('take-$index'), voiceLocale: plan.voiceLocale)],
+                    if (learnerTurn) ...[
+                      const SizedBox(height: 8),
+                      RecordTake(
+                        key: ValueKey('take-$index'),
+                        voiceLocale: plan.voiceLocale,
+                        check: SpeechTarget(expressionId: line.expression.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
+                      ),
+                    ],
                   ],
                 ),
               ).withMotion(context, (a) => a.fadeIn(duration: 260.ms).slideY(begin: 0.08, end: 0, duration: 260.ms)),

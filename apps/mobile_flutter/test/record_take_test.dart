@@ -8,75 +8,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:langquest_mobile/core/audio/take_recorder.dart';
+import 'package:langquest_mobile/core/backend/speech_check.dart';
 import 'package:langquest_mobile/core/services/speech_service.dart';
 import 'package:langquest_mobile/features/learn/record_take.dart';
 import 'package:langquest_mobile/l10n/l10n.dart';
 
+import 'recording_fakes.dart';
 import 'support.dart';
-
-class FakeTake implements RecordedTake {
-  FakeTake({this.duration = const Duration(seconds: 2), this.peakLevelDb = -14});
-
-  @override
-  final Duration duration;
-  @override
-  final double? peakLevelDb;
-  int plays = 0;
-  bool disposed = false;
-  Completer<void>? _playing;
-
-  @override
-  Future<void> play() {
-    plays++;
-    _playing = Completer<void>();
-    return _playing!.future;
-  }
-
-  @override
-  void stop() {
-    if (_playing != null && !_playing!.isCompleted) _playing!.complete();
-  }
-
-  @override
-  void dispose() {
-    disposed = true;
-    stop();
-  }
-}
-
-class FakeRecorder implements TakeRecorder {
-  FakeRecorder({this.failure, this.take});
-
-  final RecorderFailure? failure;
-  final RecordedTake? take;
-  final _levels = StreamController<double>.broadcast();
-  bool started = false;
-  bool stopped = false;
-  bool disposed = false;
-
-  void level(double dbfs) => _levels.add(dbfs);
-
-  @override
-  Future<void> start() async {
-    if (failure != null) throw RecorderException(failure!);
-    started = true;
-  }
-
-  @override
-  Stream<double> get levels => _levels.stream;
-
-  @override
-  Future<RecordedTake?> stop() async {
-    stopped = true;
-    return take;
-  }
-
-  @override
-  Future<void> dispose() async {
-    disposed = true;
-    await _levels.close();
-  }
-}
 
 /// The device voice, without a synthesizer: every locale has a voice; stops are counted.
 class FakeSpeech extends SpeechService {
@@ -109,7 +47,15 @@ void main() {
     late List<FakeRecorder> made;
     late FakeSpeech speech;
 
-    Future<void> pump(WidgetTester tester, {bool canRecord = true, String? voiceLocale = 'es-ES', String device = 'en'}) async {
+    Future<void> pump(
+      WidgetTester tester, {
+      bool canRecord = true,
+      String? voiceLocale = 'es-ES',
+      String device = 'en',
+      SpeechChecker? checker,
+      SpeechTarget? check,
+      ValueChanged<SpeechVerdict>? onVerdict,
+    }) async {
       made = [];
       speech = FakeSpeech();
       await tester.pumpWidget(
@@ -117,6 +63,7 @@ void main() {
           overrides: [
             ...await testOverrides(device: device),
             speechServiceProvider.overrideWithValue(speech),
+            speechCheckerProvider.overrideWithValue(checker),
             takeRecorderFactoryProvider.overrideWithValue(
               canRecord
                   ? () {
@@ -132,7 +79,9 @@ void main() {
             localizationsDelegates: AppLocalizations.localizationsDelegates,
             supportedLocales: AppLocalizations.supportedLocales,
             home: Scaffold(
-              body: Center(child: RecordTake(voiceLocale: voiceLocale, centered: true)),
+              body: Center(
+                child: RecordTake(voiceLocale: voiceLocale, centered: true, check: check, onVerdict: onVerdict),
+              ),
             ),
           ),
         ),
@@ -263,6 +212,118 @@ void main() {
       await tap(tester, 'Enregistrez-vous');
       await tap(tester, 'Arrêter l’enregistrement');
       expect(find.text('Comparez : Écouter, puis Ma voix.'), findsOneWidget);
+    });
+
+    group('checked by the server', () {
+      const target = SpeechTarget(expressionId: 'ch:m:hola', chapterKey: 'ch', missionKey: 'm');
+
+      testWidgets('a take is checked: understood, with what was heard, and the verdict is reported', (tester) async {
+        final take = FakeTake();
+        final checker = FakeChecker([const SpeechVerdict(SpeechVerdictKind.understood, heard: 'hola buenos días')])..gate = Completer<void>();
+        final verdicts = <SpeechVerdict>[];
+        recorders = [FakeRecorder(take: take)];
+        await pump(tester, checker: checker, check: target, onVerdict: verdicts.add);
+        expect(find.text('LangQuest checks what you said; the recording isn’t kept.'), findsOneWidget);
+        expect(find.text('Your recording stays on this device.'), findsNothing);
+
+        await tap(tester, 'Record yourself');
+        await tap(tester, 'Stop recording');
+        expect(find.text('Checking what you said…'), findsOneWidget);
+        expect(checker.checked.single.$1, same(take));
+        expect(checker.checked.single.$2.expressionId, 'ch:m:hola');
+        expect(find.textContaining('Compare'), findsNothing, reason: 'the verdict replaces the comparison hint');
+
+        checker.gate!.complete();
+        await tester.pumpAndSettle();
+        expect(find.text('Understood!'), findsOneWidget);
+        expect(find.text('I heard: “hola buenos días”'), findsOneWidget);
+        expect(verdicts.single.understood, isTrue);
+        expect(find.text('My voice'), findsOneWidget, reason: 'the take can still be played back');
+        expect(find.textContaining('%'), findsNothing, reason: 'meaning, never a score');
+      });
+
+      testWidgets('not quite: what was heard, a hint, and another try is checked again', (tester) async {
+        final checker = FakeChecker([
+          const SpeechVerdict(SpeechVerdictKind.notUnderstood, heard: 'ola'),
+          const SpeechVerdict(SpeechVerdictKind.understood, heard: 'hola'),
+        ]);
+        recorders = [FakeRecorder(take: FakeTake()), FakeRecorder(take: FakeTake())];
+        await pump(tester, checker: checker, check: target);
+        await tap(tester, 'Record yourself');
+        await tap(tester, 'Stop recording');
+        await tester.pumpAndSettle();
+        expect(find.text('Not quite'), findsOneWidget);
+        expect(find.text('I heard: “ola”'), findsOneWidget);
+        expect(find.text('Listen to the model, then try again.'), findsOneWidget);
+
+        await tap(tester, 'Record again');
+        expect(find.text('Not quite'), findsNothing, reason: 'a new take clears the old verdict');
+        await tap(tester, 'Stop recording');
+        await tester.pumpAndSettle();
+        expect(find.text('Understood!'), findsOneWidget);
+        expect(checker.checked, hasLength(2));
+      });
+
+      testWidgets('the server heard no speech: said like a silent take, no playback', (tester) async {
+        final take = FakeTake();
+        recorders = [FakeRecorder(take: take)];
+        await pump(tester, checker: FakeChecker([const SpeechVerdict(SpeechVerdictKind.noSpeech)]), check: target);
+        await tap(tester, 'Record yourself');
+        await tap(tester, 'Stop recording');
+        await tester.pump();
+        expect(find.text('I didn’t hear anything. Check your microphone and try again.'), findsOneWidget);
+        expect(find.text('My voice'), findsNothing);
+        expect(take.disposed, isTrue);
+      });
+
+      testWidgets('a check that fails falls back to comparing by ear', (tester) async {
+        recorders = [FakeRecorder(take: FakeTake())];
+        await pump(tester, checker: FakeChecker([null]), check: target);
+        await tap(tester, 'Record yourself');
+        await tap(tester, 'Stop recording');
+        await tester.pump();
+        expect(find.text('Couldn’t check this take. Compare: Listen, then My voice.'), findsOneWidget);
+        expect(find.text('Understood!'), findsNothing);
+      });
+
+      testWidgets('a silent take is never sent; a line without a target is never checked', (tester) async {
+        final checker = FakeChecker([]);
+        recorders = [FakeRecorder(take: FakeTake(peakLevelDb: -70)), FakeRecorder(take: FakeTake())];
+        await pump(tester, checker: checker, check: target);
+        await tap(tester, 'Record yourself');
+        await tap(tester, 'Stop recording');
+        expect(checker.checked, isEmpty);
+        await tester.pumpWidget(const SizedBox());
+
+        recorders = [FakeRecorder(take: FakeTake())];
+        await pump(tester, checker: checker);
+        expect(find.text('Your recording stays on this device.'), findsOneWidget);
+        await tap(tester, 'Record yourself');
+        await tap(tester, 'Stop recording');
+        expect(checker.checked, isEmpty);
+        expect(find.text('Compare: Listen, then My voice.'), findsOneWidget);
+      });
+
+      testWidgets('an account that keeps recordings says so', (tester) async {
+        recorders = [];
+        await pump(tester, checker: FakeChecker([], keepsRecordings: true), check: target);
+        expect(find.text('LangQuest checks what you said; recordings are kept as your privacy settings allow.'), findsOneWidget);
+      });
+
+      testWidgets('in French', (tester) async {
+        recorders = [FakeRecorder(take: FakeTake())];
+        await pump(
+          tester,
+          device: 'fr',
+          checker: FakeChecker([const SpeechVerdict(SpeechVerdictKind.notUnderstood, heard: 'ola')]),
+          check: target,
+        );
+        await tap(tester, 'Enregistrez-vous');
+        await tap(tester, 'Arrêter l’enregistrement');
+        await tester.pumpAndSettle();
+        expect(find.text('Pas tout à fait'), findsOneWidget);
+        expect(find.text('J’ai entendu : « ola »'), findsOneWidget);
+      });
     });
   });
 }

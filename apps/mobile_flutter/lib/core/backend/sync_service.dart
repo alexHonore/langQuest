@@ -8,6 +8,7 @@ import '../services/app_state.dart';
 import 'api_client.dart';
 import 'auth_gateway.dart';
 import 'curriculum_ids.dart';
+import 'server_course.dart';
 
 /// What this device knows that the account may not: when each mission was done (recorded signed in or not, so a
 /// later sign-in sends real times), and per account what has been sent already.
@@ -69,6 +70,8 @@ class SyncReport {
     this.missionsRestored = 0,
     this.coursesNotSaved = const [],
     this.missionsRefused = 0,
+    this.courses = const {},
+    this.keepsRecordings = false,
   });
 
   final int coursesSent;
@@ -81,6 +84,12 @@ class SyncReport {
 
   /// Missions the server refused for good (for instance not in the server's curriculum); not retried.
   final int missionsRefused;
+
+  /// The account's active courses by course id, with what the server's AI can do for each.
+  final Map<String, ServerCourse> courses;
+
+  /// The account keeps the learner's recordings (they opted in): said where a take is sent to be checked.
+  final bool keepsRecordings;
 }
 
 /// Where restored data lands on this device ([AppStateNotifier] in the app).
@@ -97,9 +106,9 @@ abstract class RestoreTarget {
 ///   stops are marked done here, so the next mission unlocks on any device.
 ///
 /// XP and the review schedule stay with the device that earned them: the server credits XP and creates review
-/// cards only for missions it has evidence for (an assessed spoken attempt; takes recorded in the app stay on the
-/// device and are never sent), so the step outcomes sent here are claims it records without paying for them. Every call is idempotent on the
-/// server, so an interrupted sync is simply run again.
+/// cards only for steps it has evidence for — a take it checked itself (`speech_check.dart`, signed in), never a
+/// claim — so the step outcomes sent here are claims it pays only where it holds that evidence. Every call is
+/// idempotent on the server, so an interrupted sync is simply run again.
 class SyncService {
   SyncService({required this.api, required this.auth, required this.ledger, required this.target, DateTime Function()? now}) : _now = now ?? DateTime.now;
 
@@ -122,7 +131,7 @@ class SyncService {
     final notSaved = <String>[];
 
     // Server enrollments by course id (track|source), active ones only.
-    final me = await api.me();
+    var me = await api.me();
     final server = <String, String>{};
     for (final e in (me['enrollments'] as List? ?? const [])) {
       if (e is! Map || e['status'] != 'active') continue;
@@ -150,6 +159,8 @@ class SyncService {
       }
     }
     await ledger.markSent(user.id, [for (final id in server.keys) SyncLedger.enrollmentKey(id)]);
+    // The capability snapshots of the courses just created come with the account's next read.
+    if (coursesSent > 0) me = await api.me();
 
     for (final MapEntry(key: courseId, value: enrollmentId) in server.entries) {
       final (trackId, source) = _split(courseId);
@@ -195,8 +206,16 @@ class SyncService {
       missionsRestored: missionsRestored,
       coursesNotSaved: notSaved,
       missionsRefused: missionsRefused,
+      courses: serverCourses(me),
+      keepsRecordings: accountKeepsRecordings(me),
     );
   }
+
+  /// The account's active courses (from `GET /v1/me`) by course id.
+  static Map<String, ServerCourse> serverCourses(Map<String, Object?> me) => {
+    for (final e in (me['enrollments'] as List? ?? const []))
+      if (ServerCourse.fromEnrollment(e) case final course? when e is Map) courseIdFor('${e['courseTrackId']}', '${e['sourceLanguageCode']}'): course,
+  };
 
   Future<void> _reportMission(AccountUser user, String courseId, String source, String enrollmentId, Mission mission) async {
     final missionId = missionServerId(mission.chapterKey, mission.key);

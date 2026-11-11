@@ -545,5 +545,34 @@
   "warmupTitle": "Try your first phrase",
   "warmupBody": "Listen, then say it out loud. Nothing is scored here.",
   "warmupContinue": "Start learning",
-  "warmupBodyNoVoice": "Say it out loud. Nothing is scored here."
+  "warmupBodyNoVoice": "Say it out loud. Nothing is scored here.",
+  "recordChecked": "LangQuest checks what you said; the recording isn’t kept.",
+  "recordCheckedKept": "LangQuest checks what you said; recordings are kept as your privacy settings allow.",
+  "recordChecking": "Checking what you said…",
+  "recordCheckFailed": "Couldn’t check this take.",
+  "verdictUnderstood": "Understood!",
+  "verdictNotQuite": "Not quite",
+  "verdictNotQuiteHint": "Listen to the model, then try again.",
+  "verdictUnsure": "I couldn’t make that out",
+  "verdictUnsureHint": "Try again, a little closer to the microphone.",
+  "verdictHeard": "I heard: “{heard}”",
+  "@verdictHeard": {
+    "placeholders": {
+      "heard": {
+        "type": "String"
+      }
+    }
+  },
+  "missionSpokenSummary": "Understood out loud: {understood} of {checked}",
+  "@missionSpokenSummary": {
+    "placeholders": {
+      "understood": {
+        "type": "int"
+      },
+      "checked": {
+        "type": "int"
+      }
+    }
+  },
+  "practiseSayingNoteChecked": "Listen, record yourself: LangQuest tells you whether what you said came across. That is about meaning; there is no pronunciation score."
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:js_interop';
 import 'dart:js_interop_unsafe';
+import 'dart:typed_data';
 
 import 'package:web/web.dart' as web;
 
@@ -142,9 +143,11 @@ class _WebTakeRecorder implements TakeRecorder {
     final peak = _measured ? peakToDbfs(_peak) : null;
     _release();
     if (_chunks.isEmpty) return null;
-    final blob = web.Blob(_chunks.toJS, web.BlobPropertyBag(type: recorder.mimeType));
+    // Chrome names the codec (`audio/webm;codecs=opus`), Safari `audio/mp4`; an empty type is Chrome's WebM.
+    final mime = recorder.mimeType.isEmpty ? (_chunks.first.type.isEmpty ? 'audio/webm' : _chunks.first.type) : recorder.mimeType;
+    final blob = web.Blob(_chunks.toJS, web.BlobPropertyBag(type: mime));
     _chunks.clear();
-    return _WebTake(web.URL.createObjectURL(blob), _clock.elapsed, peak);
+    return _WebTake(blob, web.URL.createObjectURL(blob), _clock.elapsed, peak);
   }
 
   /// Stops the microphone (the browser's recording indicator goes off) and the level analyser.
@@ -178,13 +181,20 @@ class _WebTakeRecorder implements TakeRecorder {
 }
 
 class _WebTake implements RecordedTake {
-  _WebTake(this._url, this.duration, this.peakLevelDb);
+  _WebTake(this._blob, this._url, this.duration, this.peakLevelDb);
 
+  final web.Blob _blob;
   final String _url;
   @override
   final Duration duration;
   @override
   final double? peakLevelDb;
+
+  @override
+  String get mimeType => _blob.type;
+
+  @override
+  Future<Uint8List> bytes() async => (await _blob.arrayBuffer().toDart).toDart.asUint8List();
   web.HTMLAudioElement? _audio;
   Completer<void>? _done;
   bool _disposed = false;

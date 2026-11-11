@@ -859,4 +859,45 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get warmupBodyNoVoice => 'Dites-la à voix haute. Rien n’est noté ici.';
+
+  @override
+  String get recordChecked => 'LangQuest vérifie ce que vous avez dit ; l’enregistrement n’est pas conservé.';
+
+  @override
+  String get recordCheckedKept => 'LangQuest vérifie ce que vous avez dit ; les enregistrements sont conservés selon vos réglages de confidentialité.';
+
+  @override
+  String get recordChecking => 'Vérification de ce que vous avez dit…';
+
+  @override
+  String get recordCheckFailed => 'Impossible de vérifier cette prise.';
+
+  @override
+  String get verdictUnderstood => 'Compris !';
+
+  @override
+  String get verdictNotQuite => 'Pas tout à fait';
+
+  @override
+  String get verdictNotQuiteHint => 'Écoutez le modèle, puis réessayez.';
+
+  @override
+  String get verdictUnsure => 'Je n’ai pas bien compris';
+
+  @override
+  String get verdictUnsureHint => 'Réessayez, un peu plus près du micro.';
+
+  @override
+  String verdictHeard(String heard) {
+    return 'J’ai entendu : « $heard »';
+  }
+
+  @override
+  String missionSpokenSummary(int understood, int checked) {
+    return 'Compris à l’oral : $understood sur $checked';
+  }
+
+  @override
+  String get practiseSayingNoteChecked =>
+      'Écoutez, enregistrez-vous : LangQuest vous dit si ce que vous avez dit a été compris. C’est le sens qui compte ; il n’y a pas de note de prononciation.';
 }

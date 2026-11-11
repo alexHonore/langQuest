@@ -247,5 +247,17 @@
   "warmupTitle": "Essayez votre première phrase",
   "warmupBody": "Écoutez, puis dites-la à voix haute. Rien n’est noté ici.",
   "warmupContinue": "Commencer à apprendre",
-  "warmupBodyNoVoice": "Dites-la à voix haute. Rien n’est noté ici."
+  "warmupBodyNoVoice": "Dites-la à voix haute. Rien n’est noté ici.",
+  "recordChecked": "LangQuest vérifie ce que vous avez dit ; l’enregistrement n’est pas conservé.",
+  "recordCheckedKept": "LangQuest vérifie ce que vous avez dit ; les enregistrements sont conservés selon vos réglages de confidentialité.",
+  "recordChecking": "Vérification de ce que vous avez dit…",
+  "recordCheckFailed": "Impossible de vérifier cette prise.",
+  "verdictUnderstood": "Compris !",
+  "verdictNotQuite": "Pas tout à fait",
+  "verdictNotQuiteHint": "Écoutez le modèle, puis réessayez.",
+  "verdictUnsure": "Je n’ai pas bien compris",
+  "verdictUnsureHint": "Réessayez, un peu plus près du micro.",
+  "verdictHeard": "J’ai entendu : « {heard} »",
+  "missionSpokenSummary": "Compris à l’oral : {understood} sur {checked}",
+  "practiseSayingNoteChecked": "Écoutez, enregistrez-vous : LangQuest vous dit si ce que vous avez dit a été compris. C’est le sens qui compte ; il n’y a pas de note de prononciation."
 }

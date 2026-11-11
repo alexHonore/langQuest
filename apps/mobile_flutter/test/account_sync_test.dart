@@ -135,7 +135,18 @@ class FakeWorker {
           'error': {'code': 'conflict', 'message': 'active enrollment exists'},
         }, 409);
       }
-      final created = {'id': 'enr-${enrollments.length + 1}', 'courseTrackId': body['courseTrackId'], 'sourceLanguageCode': body['sourceLanguageCode'], 'status': 'active'};
+      final created = {
+        'id': 'enr-${enrollments.length + 1}',
+        'courseTrackId': body['courseTrackId'],
+        'sourceLanguageCode': body['sourceLanguageCode'],
+        'targetVarietyId': 'variety-of-${body['courseTrackId']}',
+        'status': 'active',
+        'capabilities': {
+          'liveConversation': {'available': true, 'characterCount': 3, 'mode': 'text_and_voice'},
+          'pronunciationScoring': {'mode': 'reference_comparison'},
+          'audioLibrary': {'available': false, 'publishedCollections': 0},
+        },
+      };
       enrollments.add(created);
       return json(ok(created), 201);
     }
@@ -248,10 +259,14 @@ void main() {
       final report = await sync.sync();
       expect(report.coursesSent, 1);
       expect(report.missionsSent, 1);
+      // What the server's AI can do for the course, from its snapshot: the speech check and live calls are offered.
+      final course = report.courses['$spanish|en']!;
+      expect((course.enrollmentId, course.speechCheck, course.liveConversation, course.audioLibrary), ('enr-1', true, true, false));
       final missionId = missionServerId(firstMission(spanish, 'en').chapterKey, firstMission(spanish, 'en').key);
       expect(worker.requests, [
         'GET /v1/me',
         'POST /v1/me/enrollments',
+        'GET /v1/me', // the new course's capability snapshot
         'GET /v1/missions/$missionId',
         'POST /v1/missions/$missionId/attempts',
         'POST /v1/missions/$missionId/evaluate',

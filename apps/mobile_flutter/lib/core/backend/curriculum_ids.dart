@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 
 import 'package:crypto/crypto.dart';
 
@@ -19,6 +20,20 @@ String uuidV5(String namespace, String name) {
   final hash = sha1.convert([...ns, ...utf8.encode(name)]).bytes.sublist(0, 16);
   hash[6] = (hash[6] & 0x0f) | 0x50;
   hash[8] = (hash[8] & 0x3f) | 0x80;
-  final hex = hash.map((b) => b.toRadixString(16).padLeft(2, '0')).join();
+  return _format(hash);
+}
+
+final _random = Random.secure();
+
+/// A random (version-4) UUID: the client ids of requests the API replays on retry.
+String randomUuid() {
+  final bytes = [for (var i = 0; i < 16; i++) _random.nextInt(256)];
+  bytes[6] = (bytes[6] & 0x0f) | 0x40;
+  bytes[8] = (bytes[8] & 0x3f) | 0x80;
+  return _format(bytes);
+}
+
+String _format(List<int> bytes) {
+  final hex = bytes.map((b) => b.toRadixString(16).padLeft(2, '0')).join();
   return '${hex.substring(0, 8)}-${hex.substring(8, 12)}-${hex.substring(12, 16)}-${hex.substring(16, 20)}-${hex.substring(20)}';
 }

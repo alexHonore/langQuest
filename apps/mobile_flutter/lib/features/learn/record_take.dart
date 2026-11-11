@@ -1,10 +1,13 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/audio/take_recorder.dart';
+import '../../core/backend/speech_check.dart';
+import '../../core/layout/motion.dart';
 import '../../core/platform/recorder.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/speech_service.dart';
@@ -18,9 +21,13 @@ final takeRecorderFactoryProvider = Provider<TakeRecorder Function()?>((ref) => 
 enum _Take { idle, starting, recording, recorded, silent, blocked, noMicrophone, failed }
 
 /// Record yourself saying the line, then hear your take next to the reference voice: listen / record / compare
-/// (ADR-006). Nothing is judged: no score, no level after the take, only the microphone level while recording, and a
-/// take whose loudest moment stays under the server's silence floor is called what it is ("I didn't hear anything").
-/// The take stays in memory on this device and is dropped when the line changes or the screen closes.
+/// (ADR-006). No score, no level after the take, only the microphone level while recording, and a take whose loudest
+/// moment stays under the server's silence floor is called what it is ("I didn't hear anything").
+///
+/// With a [check] and a signed-in learner whose course the server can check ([speechCheckerProvider]), the take is
+/// sent to the server, which says whether its meaning came across: understood, not quite (with what it heard), or
+/// unsure. That is a verdict on meaning, never a pronunciation score. Otherwise the take stays in memory on this device.
+/// Either way it is dropped here when the line changes or the screen closes.
 class RecordTake extends ConsumerStatefulWidget {
   /// The reference voice's locale: the comparison hint names Listen only when the device has that voice.
   final String? voiceLocale;
@@ -28,7 +35,13 @@ class RecordTake extends ConsumerStatefulWidget {
   /// Centered (the mission's answer card) or aligned to the start (the scene's line card).
   final bool centered;
 
-  const RecordTake({super.key, this.voiceLocale, this.centered = false});
+  /// The phrase the take should say: checked by the server where it can.
+  final SpeechTarget? check;
+
+  /// Each verdict of the server on a take of this line.
+  final ValueChanged<SpeechVerdict>? onVerdict;
+
+  const RecordTake({super.key, this.voiceLocale, this.centered = false, this.check, this.onVerdict});
 
   /// A take stops by itself after this long: a line takes a few seconds; this ends a forgotten recording.
   static const maxTake = Duration(seconds: 15);
@@ -52,6 +65,15 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
   int _tenths = 0;
   double _level = minLevelDbfs;
   bool _playing = false;
+
+  /// The server is checking the take.
+  bool _checking = false;
+
+  /// The server's verdict on the take; null before (or without) a check.
+  SpeechVerdict? _verdict;
+
+  /// The check could not be made: the learner compares by ear.
+  bool _checkFailed = false;
 
   @override
   void dispose() {
@@ -84,6 +106,9 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
       _state = _Take.starting;
       _playing = false;
       _level = minLevelDbfs;
+      _checking = false;
+      _verdict = null;
+      _checkFailed = false;
     });
     final failure = await _open(recorder);
     // Closed meanwhile, or another take started: this one must not keep the microphone.
@@ -156,6 +181,42 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
     } else {
       _take = take;
       setState(() => _state = _Take.recorded);
+      unawaited(_check(take));
+    }
+  }
+
+  /// Has the server check [take] when this line has a target and the course can be checked.
+  Future<void> _check(RecordedTake take) async {
+    final checker = ref.read(speechCheckerProvider);
+    final target = widget.check;
+    if (checker == null || target == null) return;
+    setState(() => _checking = true);
+    final verdict = await _assess(checker, take, target);
+    // Another take started meanwhile, or the line closed: this verdict is about nothing on screen.
+    if (!mounted || _take != take) return;
+    if (verdict?.kind == SpeechVerdictKind.noSpeech) {
+      take.dispose();
+      _take = null;
+      setState(() {
+        _checking = false;
+        _state = _Take.silent;
+      });
+    } else {
+      setState(() {
+        _checking = false;
+        _verdict = verdict;
+        _checkFailed = verdict == null;
+      });
+    }
+    if (verdict != null) widget.onVerdict?.call(verdict);
+  }
+
+  /// The server's verdict on [take], or null when it could not be checked (a helper returning the outcome; see [_open]).
+  static Future<SpeechVerdict?> _assess(SpeechChecker checker, RecordedTake take, SpeechTarget target) async {
+    try {
+      return await checker.check(take, target);
+    } catch (_) {
+      return null;
     }
   }
 
@@ -180,12 +241,14 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
     final voiceLocale = widget.voiceLocale;
     final hasVoice = voiceLocale != null && (ref.watch(voiceAvailableProvider(voiceLocale)).asData?.value ?? false);
     final note = TextStyle(fontSize: 12.5, height: 1.35, color: colors.textMuted);
+    final checker = widget.check == null ? null : ref.watch(speechCheckerProvider);
+    final idleNote = checker == null ? l10n.recordStaysOnDevice : (checker.keepsRecordings ? l10n.recordCheckedKept : l10n.recordChecked);
 
     final record = AudioChip(icon: LucideIcons.mic, label: l10n.recordYourself, onTap: _state == _Take.starting ? null : _start);
     final tryAgain = AudioChip(icon: LucideIcons.rotateCcw, label: l10n.recordTryAgain, onTap: _start);
 
     final (List<Widget> chips, String? message) = switch (_state) {
-      _Take.idle || _Take.starting => ([record], l10n.recordStaysOnDevice),
+      _Take.idle || _Take.starting => ([record], idleNote),
       _Take.recording => (
         [
           AudioChip(
@@ -222,7 +285,12 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
           ),
           AudioChip(icon: LucideIcons.rotateCcw, label: l10n.recordAgain, semanticsLabel: l10n.recordAgainSemantics, onTap: _start),
         ],
-        hasVoice ? l10n.recordCompare(l10n.listen, l10n.recordMyVoice) : null,
+        // A checked take shows the verdict instead; a failed check falls back to comparing by ear.
+        _checking || _verdict != null
+            ? null
+            : _checkFailed
+            ? (hasVoice ? '${l10n.recordCheckFailed} ${l10n.recordCompare(l10n.listen, l10n.recordMyVoice)}' : l10n.recordCheckFailed)
+            : (hasVoice ? l10n.recordCompare(l10n.listen, l10n.recordMyVoice) : null),
       ),
       _Take.silent => ([tryAgain], l10n.recordSilent),
       _Take.blocked => ([tryAgain], l10n.recordBlocked),
@@ -252,6 +320,14 @@ class _RecordTakeState extends ConsumerState<RecordTake> {
                   child: Text(message, textAlign: widget.centered ? TextAlign.center : TextAlign.start, style: note),
                 ),
         ),
+        if (_state == _Take.recorded && (_checking || _verdict != null))
+          Padding(
+            padding: const EdgeInsets.only(top: 10),
+            child: Semantics(
+              liveRegion: true,
+              child: _checking ? _Checking(centered: widget.centered) : _VerdictPanel(verdict: _verdict!, centered: widget.centered),
+            ),
+          ),
       ],
     );
   }
@@ -283,6 +359,90 @@ class _LevelBars extends StatelessWidget {
             decoration: BoxDecoration(color: amount > i / 5 ? color : idle, borderRadius: BorderRadius.circular(2)),
           ),
       ],
+    );
+  }
+}
+
+/// The server is listening to the take.
+class _Checking extends ConsumerWidget {
+  const _Checking({required this.centered});
+
+  final bool centered;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = ref.watch(appStateProvider.select((s) => s.colors));
+    return Row(
+      mainAxisSize: MainAxisSize.min,
+      mainAxisAlignment: centered ? MainAxisAlignment.center : MainAxisAlignment.start,
+      children: [
+        SizedBox.square(dimension: 14, child: CircularProgressIndicator(strokeWidth: 2, color: colors.textMuted)),
+        const SizedBox(width: 8),
+        Flexible(
+          child: Text(context.l10n.recordChecking, style: TextStyle(fontSize: 13, color: colors.textSecondary)),
+        ),
+      ],
+    );
+  }
+}
+
+/// The server's verdict on the take: understood, not quite (with what it heard), or unsure. About meaning only.
+class _VerdictPanel extends ConsumerWidget {
+  const _VerdictPanel({required this.verdict, required this.centered});
+
+  final SpeechVerdict verdict;
+  final bool centered;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final colors = ref.watch(appStateProvider.select((s) => s.colors));
+    final l10n = context.l10n;
+    final (IconData icon, Color tone, Color soft, String title, String? body) = switch (verdict.kind) {
+      SpeechVerdictKind.understood => (LucideIcons.circleCheck, colors.success, colors.successSoft, l10n.verdictUnderstood, null),
+      SpeechVerdictKind.notUnderstood => (LucideIcons.circleAlert, colors.warning, colors.warningSoft, l10n.verdictNotQuite, l10n.verdictNotQuiteHint),
+      SpeechVerdictKind.unsure ||
+      SpeechVerdictKind.noSpeech => (LucideIcons.circleHelp, colors.info, colors.infoSoft, l10n.verdictUnsure, l10n.verdictUnsureHint),
+    };
+    final heard = verdict.heard;
+    final panel = Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      decoration: BoxDecoration(
+        color: soft,
+        borderRadius: BorderRadius.circular(14),
+        border: Border.all(color: tone.withValues(alpha: 0.6)),
+      ),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Icon(icon, size: 20, color: tone).withMotion(
+            context,
+            (a) => verdict.understood ? a.scale(begin: const Offset(0.4, 0.4), duration: 380.ms, curve: Curves.elasticOut) : a.shake(hz: 3, duration: 380.ms),
+          ),
+          const SizedBox(width: 8),
+          Flexible(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(fontSize: 14.5, fontWeight: FontWeight.w800, color: colors.textPrimary),
+                ),
+                if (heard != null) ...[
+                  const SizedBox(height: 2),
+                  Text(l10n.verdictHeard(heard), style: TextStyle(fontSize: 13, height: 1.35, color: colors.textSecondary)),
+                ],
+                if (body != null) ...[const SizedBox(height: 2), Text(body, style: TextStyle(fontSize: 12.5, height: 1.35, color: colors.textMuted))],
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+    return Align(
+      alignment: centered ? Alignment.center : AlignmentDirectional.centerStart,
+      child: panel.withMotion(context, (a) => a.fadeIn(duration: 200.ms).slideY(begin: 0.15, duration: 220.ms)),
     );
   }
 }

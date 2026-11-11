@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
+import '../../core/backend/speech_check.dart';
 import '../../core/layout/motion.dart';
 import '../../core/learning/srs.dart';
 import '../../core/services/app_state.dart';
@@ -24,9 +25,10 @@ enum _Phase { exchange, recap, completed }
 /// The Mission stop of a mission node (N2). Every exchange asks only for a line the Learn stop taught: the
 /// character's cue (or the meaning, when the learner speaks first), the reply chosen among three taught phrases,
 /// then said out loud — where the device can record, the learner can record it and hear their take next to the
-/// reference voice. Nothing is judged: no score, waveform or level after the take (pronunciation honesty, ADR-006).
-/// Completing it credits the mission once and puts each phrase used into spaced review (first-try right = good,
-/// otherwise hard).
+/// reference voice. For a signed-in learner whose course the server can check, the take is checked: was the reply
+/// understood? (Meaning only, never a pronunciation score: ADR-006.) Completing it credits the mission once and puts
+/// each phrase used into spaced review: good when chosen right the first time and, if it was checked, understood the
+/// first time; otherwise hard.
 class MissionPlayerScreen extends ConsumerStatefulWidget {
   final String missionKey;
 
@@ -44,6 +46,12 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
   bool _speaking = false;
   int _utterance = 0;
   final Map<String, bool> _firstTry = {};
+
+  /// Per reply, whether the server understood its first checked take (a take it could not judge does not count).
+  final Map<String, bool> _spoken = {};
+
+  /// The server's latest verdict on the current exchange.
+  SpeechVerdict? _verdict;
   late final SpeechService _speech;
   late final bool _wasCompleted;
   int _newReviewCards = 0;
@@ -99,6 +107,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
       _selected = null;
       _answered = false;
       _speaking = false;
+      _verdict = null;
       if (_exchange < plan.exchanges.length - 1) {
         _exchange++;
       } else {
@@ -108,10 +117,17 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     if (_phase == _Phase.exchange) _sayCue();
   }
 
+  void _onVerdict(MissionExchange exchange, SpeechVerdict verdict) {
+    if (verdict.kind == SpeechVerdictKind.understood || verdict.kind == SpeechVerdictKind.notUnderstood) {
+      _spoken.putIfAbsent(exchange.answer.id, () => verdict.understood);
+    }
+    setState(() => _verdict = verdict);
+  }
+
   void _complete(MissionLearnPlan plan) {
     final before = ref.read(appStateProvider).progress.cards.length;
     ref.read(appStateProvider.notifier).completeMission(widget.missionKey, {
-      for (final x in plan.exchanges) x.answer.id: (_firstTry[x.answer.id] ?? true) ? ReviewRating.good : ReviewRating.hard,
+      for (final x in plan.exchanges) x.answer.id: (_firstTry[x.answer.id] ?? true) && (_spoken[x.answer.id] ?? true) ? ReviewRating.good : ReviewRating.hard,
     });
     setState(() {
       _newReviewCards = ref.read(appStateProvider).progress.cards.length - before;
@@ -301,9 +317,19 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                     const SizedBox(height: 12),
                     ListenButtons(text: exchange.answer.text, locale: plan.voiceLocale),
                     const SizedBox(height: 10),
-                    RecordTake(key: ValueKey('take-$_exchange'), voiceLocale: plan.voiceLocale, centered: true),
+                    RecordTake(
+                      key: ValueKey('take-$_exchange'),
+                      voiceLocale: plan.voiceLocale,
+                      centered: true,
+                      check: SpeechTarget(expressionId: exchange.answer.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
+                      onVerdict: (verdict) => _onVerdict(exchange, verdict),
+                    ),
                     const SizedBox(height: 12),
-                    MeloWidget(state: MeloState.happy, courseTrackId: appState.activeTrackId, size: 56),
+                    MeloWidget(
+                      state: _verdict == null || _verdict!.understood ? MeloState.happy : MeloState.thinking,
+                      courseTrackId: appState.activeTrackId,
+                      size: 56,
+                    ),
                   ],
                 ),
               ).withMotion(context, (a) => a.fadeIn(duration: 220.ms).scale(begin: const Offset(0.97, 0.97), duration: 220.ms)),
@@ -433,6 +459,23 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                 l10n.missionJoinReview(_newReviewCards),
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 14, color: colors.textSecondary),
+              ),
+            ],
+            if (_spoken.isNotEmpty) ...[
+              const SizedBox(height: 6),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(LucideIcons.mic, size: 15, color: colors.success),
+                  const SizedBox(width: 6),
+                  Flexible(
+                    child: Text(
+                      l10n.missionSpokenSummary(_spoken.values.where((understood) => understood).length, _spoken.length),
+                      textAlign: TextAlign.center,
+                      style: TextStyle(fontSize: 14, color: colors.textSecondary),
+                    ),
+                  ),
+                ],
               ),
             ],
             const SizedBox(height: 28),

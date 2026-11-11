@@ -232,3 +232,15 @@ Measured on the live site (Chromium, CDP encoded sizes): a first visit downloade
 and the web engine downloads every font in `FontManifest.json` at start-up. `tool/prune_web_fonts.dart` removes the
 six families after the build (refusing if `lib/` imports a weight library); on the pruned release build the smoke test
 passes, icons render, and no LucideVariable file is requested. CI checks the image's manifest.
+
+### Speech check against the live server (follow-up, 2026-11-11)
+
+The owner enabled the Worker's AI (OpenRouter) on the instance. Release build served locally, signed in as the
+instance's test learner, Chromium's fake microphone playing the server's own voice saying "Hola, buenos días."
+(`--use-file-for-fake-audio-capture`); API calls to the live Worker through a route adding CORS for the local origin.
+Mission *Greet and introduce yourself*, exchange 1 (asks for "Hola, buenos días."): the take went to
+`POST /v1/speech/pronunciation-assess` as `webm_opus` with expression id `bf0c634b-…` (the seed's UUIDv5) and the
+mission's id as `scenarioId`; verdict **Understood!**, *I heard: "Hola, buenos días."*. Exchange 2 (asks for "¿Qué
+tal?") with the same audio: **Not quite**, *I heard: "Hola, buenos días."*. 0 page errors. Verdicts are about meaning
+(the course's scorer is reference comparison: no number is shown). `flutter test`: 132 passed (verdict mapping, the
+request's ids and encoding, capability snapshots, the widget states, a mission walked with checked replies).
