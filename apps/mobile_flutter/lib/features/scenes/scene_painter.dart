@@ -235,70 +235,180 @@ class ScenePainter extends CustomPainter {
     }
   }
 
+  /// Terminal: the glass wall on the runway, a plane rolling then taking off, strobes, a departure board.
   void _drawAirport(Canvas canvas, bool isEvening) {
-    // Vast glass curtain wall
-    final glassPaint = Paint()..color = isEvening ? const Color(0xFF131A33) : const Color(0xFF81B0E8);
-    canvas.drawRect(const Rect.fromLTWH(0, 0, 160, 68), glassPaint);
-
-    // Distant runway
-    final runwayPaint = Paint()..color = const Color(0xFF263238);
-    canvas.drawRect(const Rect.fromLTWH(0, 52, 160, 16), runwayPaint);
-
-    // Runway strobe lights
+    // Vast glass curtain wall.
+    canvas.drawRect(const Rect.fromLTWH(0, 0, 160, 68), Paint()..color = isEvening ? const Color(0xFF131A33) : const Color(0xFF81B0E8));
+    if (!isEvening) {
+      canvas.drawOval(const Rect.fromLTWH(20, 12, 22, 5), Paint()..color = Colors.white.withValues(alpha: 0.7));
+      canvas.drawOval(const Rect.fromLTWH(96, 20, 18, 4), Paint()..color = Colors.white.withValues(alpha: 0.6));
+    }
+    // Distant runway.
+    canvas.drawRect(const Rect.fromLTWH(0, 52, 160, 16), Paint()..color = const Color(0xFF263238));
+    final dash = Paint()..color = Colors.white.withValues(alpha: 0.5);
+    for (int d = 0; d < 10; d++) {
+      canvas.drawRect(Rect.fromLTWH(4.0 + d * 16, 59.5, 7, 0.8), dash);
+    }
+    // A plane rolls along the runway, then lifts off and climbs away.
+    final t = animationProgress;
+    final px = -30 + t * 220;
+    final lift = t < 0.45 ? 0.0 : (t - 0.45) * 60;
+    final py = 55 - lift;
+    canvas.save();
+    canvas.translate(px, py);
+    canvas.rotate(t < 0.45 ? 0 : -0.18);
+    final body = Paint()..color = isEvening ? const Color(0xFFB0BEC5) : const Color(0xFFFAFAFA);
+    canvas.drawRRect(RRect.fromRectAndRadius(const Rect.fromLTWH(-12, -2, 24, 4), const Radius.circular(2)), body);
+    canvas.drawPath(
+      Path()
+        ..moveTo(-2, 0)
+        ..lineTo(4, 0)
+        ..lineTo(-4, 6)
+        ..lineTo(-7, 6)
+        ..close(),
+      body,
+    );
+    canvas.drawPath(
+      Path()
+        ..moveTo(-12, -2)
+        ..lineTo(-9, -2)
+        ..lineTo(-13, -7)
+        ..lineTo(-15, -7)
+        ..close(),
+      Paint()..color = const Color(0xFFFF4FA3),
+    );
+    for (int w = 0; w < 4; w++) {
+      canvas.drawRect(Rect.fromLTWH(-6.0 + w * 3.4, -1, 1.6, 1.2), Paint()..color = const Color(0xFF455A64));
+    }
+    if (isEvening) canvas.drawCircle(const Offset(12, 0), 0.9, Paint()..color = const Color(0xFFFF5252));
+    canvas.restore();
+    // Runway strobe lights.
     final lightColor = (animationProgress * 3).toInt() % 2 == 0 ? const Color(0xFF45E0A6) : const Color(0xFFFFB547);
     for (int i = 0; i < 10; i++) {
-      canvas.drawCircle(Offset(16.0 + i * 14.0, 56), 1.5, Paint()..color = lightColor);
+      canvas.drawCircle(Offset(16.0 + i * 14.0, 66), 1.1, Paint()..color = lightColor);
     }
-
-    // Terminal pillars
+    // Terminal pillars.
     final pillarPaint = Paint()..color = const Color(0xFF455A64);
     for (int p = 0; p < 4; p++) {
       canvas.drawRect(Rect.fromLTWH(12.0 + p * 44.0, 0, 6, 68), pillarPaint);
     }
-
-    // Polished terminal floor reflection
-    final floorPaint = Paint()
-      ..shader = LinearGradient(
-        begin: Alignment.topCenter,
-        end: Alignment.bottomCenter,
-        colors: isEvening ? [const Color(0xFF1C2237), const Color(0xFF0F1424)] : [const Color(0xFFECEFF1), const Color(0xFFCFD8DC)],
-      ).createShader(const Rect.fromLTWH(0, 68, 160, 22));
-    canvas.drawRect(const Rect.fromLTWH(0, 68, 160, 22), floorPaint);
+    // Departure board on the right pillar.
+    canvas.drawRRect(RRect.fromRectAndRadius(const Rect.fromLTWH(120, 24, 34, 14), const Radius.circular(1.5)), Paint()..color = const Color(0xFF1B1B1B));
+    final flip = (animationProgress * 4).floor();
+    for (int row = 0; row < 3; row++) {
+      final w = 8.0 + ((row + flip) * 3 % 7);
+      canvas.drawRect(Rect.fromLTWH(123, 27.0 + row * 3.6, w, 1.5), Paint()..color = const Color(0xFFFFB300));
+      canvas.drawRect(Rect.fromLTWH(144, 27.0 + row * 3.6, 6, 1.5), Paint()..color = row == flip % 3 ? const Color(0xFF69F0AE) : const Color(0xFFFFE082));
+    }
+    // Polished terminal floor reflection.
+    canvas.drawRect(
+      const Rect.fromLTWH(0, 68, 160, 22),
+      Paint()
+        ..shader = LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: isEvening ? [const Color(0xFF1C2237), const Color(0xFF0F1424)] : [const Color(0xFFECEFF1), const Color(0xFFCFD8DC)],
+        ).createShader(const Rect.fromLTWH(0, 68, 160, 22)),
+    );
   }
 
+  /// Covered souk: a horseshoe arch, rugs on the walls, copper lamps swaying and glowing, stalls of fruit and spice cones.
   void _drawMarket(Canvas canvas, bool isEvening) {
-    // Stalls & awnings
-    final stallPaint = Paint()..color = const Color(0xFF5D4037);
-    canvas.drawRect(const Rect.fromLTWH(8, 48, 54, 32), stallPaint);
-    canvas.drawRect(const Rect.fromLTWH(98, 48, 54, 32), stallPaint);
-
-    // Fluttering fabric awnings
-    final wave = math.sin(animationProgress * math.pi * 2) * 1.5;
-    final awningPath = Path()
-      ..moveTo(6, 48)
-      ..lineTo(64, 48)
-      ..lineTo(68 + wave, 56)
-      ..lineTo(2 + wave, 56)
+    // Souk walls and a horseshoe arch on a bright lane.
+    canvas.drawRect(const Rect.fromLTWH(0, 0, 160, 90), Paint()..color = isEvening ? const Color(0xFF2B1D24) : const Color(0xFFE8C9A0));
+    final arch = Path()
+      ..moveTo(62, 60)
+      ..lineTo(62, 30)
+      ..arcToPoint(const Offset(98, 30), radius: const Radius.circular(18))
+      ..lineTo(98, 60)
       ..close();
-    canvas.drawPath(awningPath, Paint()..color = const Color(0xFFFF6B6B));
-
-    final awning2Path = Path()
-      ..moveTo(96, 48)
-      ..lineTo(154, 48)
-      ..lineTo(158 + wave, 56)
-      ..lineTo(92 + wave, 56)
-      ..close();
-    canvas.drawPath(awning2Path, Paint()..color = const Color(0xFF4ECDC4));
-
-    // Fruit and spice baskets
-    for (int b = 0; b < 3; b++) {
-      canvas.drawOval(
-        Rect.fromLTWH(14.0 + b * 14.0, 58, 11, 7),
-        Paint()..color = [const Color(0xFFFF9F43), const Color(0xFFEE5253), const Color(0xFF10AC84)][b],
+    canvas.drawPath(arch, Paint()..color = isEvening ? const Color(0xFF151027) : const Color(0xFFFFF3D6));
+    canvas.drawPath(
+      arch,
+      Paint()
+        ..color = isEvening ? const Color(0xFF6D4C41) : const Color(0xFFB98552)
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 2,
+    );
+    // Rugs hanging on the walls, with simple patterns.
+    for (final (x, color, accent) in [(6.0, const Color(0xFFB71C1C), const Color(0xFFFFCA28)), (136.0, const Color(0xFF1A237E), const Color(0xFFFF7043))]) {
+      canvas.drawRect(Rect.fromLTWH(x, 8, 18, 30), Paint()..color = color.withValues(alpha: isEvening ? 0.75 : 1));
+      final pattern = Paint()
+        ..color = accent
+        ..style = PaintingStyle.stroke
+        ..strokeWidth = 0.8;
+      canvas.drawPath(
+        Path()
+          ..moveTo(x + 9, 12)
+          ..lineTo(x + 15, 23)
+          ..lineTo(x + 9, 34)
+          ..lineTo(x + 3, 23)
+          ..close(),
+        pattern,
       );
+      canvas.drawRect(Rect.fromLTWH(x + 1.5, 9.5, 15, 27), pattern);
+    }
+    // Copper lamps swaying, glowing warm.
+    for (int l = 0; l < 4; l++) {
+      final lx = 34.0 + l * 30.0;
+      final sway = math.sin(animationProgress * math.pi * 2 + l * 1.1) * 0.1;
+      canvas.save();
+      canvas.translate(lx, 0);
+      canvas.rotate(sway);
+      canvas.drawLine(
+        Offset.zero,
+        const Offset(0, 8),
+        Paint()
+          ..color = const Color(0xFF6D4C41)
+          ..strokeWidth = 0.7,
+      );
+      _glow(canvas, const Offset(0, 12), isEvening ? 13 : 7, const Color(0xFFFFB547), pulse: 0.8 + 0.2 * math.sin(animationProgress * math.pi * 4 + l));
+      canvas.drawPath(
+        Path()
+          ..moveTo(-3.5, 9)
+          ..lineTo(3.5, 9)
+          ..lineTo(2, 15)
+          ..lineTo(-2, 15)
+          ..close(),
+        Paint()..color = const Color(0xFFC77C3D),
+      );
+      canvas.drawCircle(const Offset(0, 12), 1.2, Paint()..color = const Color(0xFFFFE082));
+      canvas.restore();
+    }
+    // Stalls with fluttering awnings.
+    final stallPaint = Paint()..color = const Color(0xFF5D4037);
+    canvas.drawRect(const Rect.fromLTWH(4, 54, 52, 26), stallPaint);
+    canvas.drawRect(const Rect.fromLTWH(104, 54, 52, 26), stallPaint);
+    final wave = math.sin(animationProgress * math.pi * 2) * 1.5;
+    for (final (x, color) in [(2.0, const Color(0xFFFF6B6B)), (102.0, const Color(0xFF4ECDC4))]) {
+      canvas.drawPath(
+        Path()
+          ..moveTo(x, 48)
+          ..lineTo(x + 56, 48)
+          ..lineTo(x + 60 + wave, 55)
+          ..lineTo(x - 4 + wave, 55)
+          ..close(),
+        Paint()..color = color,
+      );
+      for (int stripe = 0; stripe < 4; stripe++) {
+        canvas.drawRect(Rect.fromLTWH(x + 4 + stripe * 14, 48, 6, 7), Paint()..color = Colors.white.withValues(alpha: 0.25));
+      }
+    }
+    // Spice cones and fruit baskets.
+    for (int b = 0; b < 3; b++) {
+      final color = [const Color(0xFFFF9F43), const Color(0xFFEE5253), const Color(0xFFFFD32A)][b];
+      canvas.drawPath(
+        Path()
+          ..moveTo(10.0 + b * 15, 64)
+          ..lineTo(15.5 + b * 15, 56)
+          ..lineTo(21.0 + b * 15, 64)
+          ..close(),
+        Paint()..color = color,
+      );
+      canvas.drawRect(Rect.fromLTWH(9.0 + b * 15, 64, 13, 3), Paint()..color = const Color(0xFF8D6E63));
       canvas.drawOval(
-        Rect.fromLTWH(104.0 + b * 14.0, 58, 11, 7),
-        Paint()..color = [const Color(0xFFF368E0), const Color(0xFFFF9F43), const Color(0xFFFFD32A)][b],
+        Rect.fromLTWH(108.0 + b * 15, 58, 11, 7),
+        Paint()..color = [const Color(0xFFF368E0), const Color(0xFFFF9F43), const Color(0xFF10AC84)][b],
       );
     }
   }
