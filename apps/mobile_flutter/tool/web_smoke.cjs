@@ -1,7 +1,7 @@
 // Browser smoke test of the release web build, as CI serves it from the root Dockerfile's image. The widget tests run
 // on the Dart VM; this catches what only the compiled web app does (a dart2js miscompile once broke recording there
-// while every VM test passed). First run → a lesson → record yourself with Chromium's fake microphone → Settings ›
-// Display. Any page error fails it.
+// while every VM test passed). First run → the warm-up → a lesson → record yourself with Chromium's fake microphone →
+// Settings › Display. Any page error fails it.
 //
 // Usage: node web_smoke.cjs <url>   (needs the `playwright` package and its Chromium)
 const { chromium } = require('playwright');
@@ -50,6 +50,11 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
   await tap('Spanish (Spain-Castilian)', { exact: false });
   await tap('Start this course', { exact: false, wait: 1500 });
   ok('enrolled in Spanish (Spain)');
+
+  // The first course ends the first run with a warm-up phrase.
+  await expectButton('Record yourself');
+  await tap('Start learning', { wait: 1500 });
+  ok('the first-run warm-up offers the first phrase, then Home');
 
   await tap('Next mission', { exact: false, wait: 1500 });
   await tap('Start: Learn', { exact: false, wait: 1500 });
