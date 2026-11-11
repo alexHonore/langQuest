@@ -192,5 +192,5 @@ deploy/Caddyfile, config.json  static server config for the root Dockerfile; the
    recognizer (OpenRouter, a cost decision) — sending takes with `peakLevelDb` for its speech-detection verdict and
    reference-comparison feedback (never a numeric score without an acoustic assessor).
 4. Device QA on iOS and Android (this build was verified with unit/widget tests and the web build only).
-5. Android adaptive launcher icon: the launcher icons are LangQuest's on every platform, but Android gets the legacy
-   square PNGs only (no `mipmap-anydpi-v26` foreground/background pair yet).
+5. Device QA of the Android adaptive launcher icon (Android 8+, themed on 13+; layers from the Expo app's
+   `android-icon-*.png`): generated and previewed under the launcher's circle mask, not yet seen on a device.
