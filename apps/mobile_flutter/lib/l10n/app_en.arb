@@ -992,5 +992,16 @@
         "type": "String"
       }
     }
+  },
+  "courseIncludesRealExamples": "{attested} of {total} phrases found as written in Tatoeba, a collection of real sentences, with real examples to read",
+  "@courseIncludesRealExamples": {
+    "placeholders": {
+      "attested": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
   }
 }

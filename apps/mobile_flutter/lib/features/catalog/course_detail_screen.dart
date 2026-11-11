@@ -5,6 +5,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
 import '../../core/backend/account.dart';
+import '../../core/content/content_models.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/speech_service.dart';
 import '../../core/theme/accents.dart';
@@ -44,6 +45,10 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
     final offer = source == null ? null : ref.watch(serverOffersProvider(source)).asData?.value[track.id];
     final liveCalls = offer?.liveCalls ?? false;
     final spokenCheck = offer?.spokenCheck ?? false;
+    // Phrases Tatoeba has as written (real examples, scripts/src/attach-tatoeba-examples.ts).
+    final phraseIds = {for (final m in course?.missions ?? const <Mission>[]) ...m.expressions.map((e) => e.id)};
+    final realExamples = appState.content.examples;
+    final attested = phraseIds.where((id) => realExamples.of(id)?.attested != null).length;
     // A dialect without a device voice (Darija): the server's recognizer and voices are rated "limited" for it too.
     final dialect = track.voiceLocale == null;
     final aiVoice = offer?.aiVoice ?? false;
@@ -188,6 +193,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                             ),
                           if (liveCalls) bullet(LucideIcons.phoneCall, colors.success, l10n.courseIncludesLiveCalls(offer!.characters)),
                           if (spokenCheck) bullet(LucideIcons.mic, colors.success, l10n.courseIncludesSpokenCheck),
+                          if (attested > 0) bullet(LucideIcons.badgeCheck, colors.success, l10n.courseIncludesRealExamples(attested, phraseIds.length)),
                         ],
                       ),
                     ),

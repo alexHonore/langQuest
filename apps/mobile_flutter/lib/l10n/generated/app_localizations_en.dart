@@ -1487,4 +1487,9 @@ class AppLocalizationsEn extends AppLocalizations {
   String realExamplesCredit(String license, String date) {
     return 'From Tatoeba (tatoeba.org), sentences under $license, export of $date.';
   }
+
+  @override
+  String courseIncludesRealExamples(int attested, int total) {
+    return '$attested of $total phrases found as written in Tatoeba, a collection of real sentences, with real examples to read';
+  }
 }

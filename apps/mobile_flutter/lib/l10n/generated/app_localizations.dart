@@ -2707,6 +2707,12 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'From Tatoeba (tatoeba.org), sentences under {license}, export of {date}.'**
   String realExamplesCredit(String license, String date);
+
+  /// No description provided for @courseIncludesRealExamples.
+  ///
+  /// In en, this message translates to:
+  /// **'{attested} of {total} phrases found as written in Tatoeba, a collection of real sentences, with real examples to read'**
+  String courseIncludesRealExamples(int attested, int total);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {
