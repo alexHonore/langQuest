@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { Providers, bundleLines, clipName, googleModelId, listenPrompt, speechPrompt, type BundleChapter } from '../synthesize-bundle-audio';
+import { Providers, bundleLines, clipName, googleModelId, googleRetryDelay, listenPrompt, speechPrompt, type BundleChapter } from '../synthesize-bundle-audio';
 import { BUNDLE_VOICES, voiceForLine } from './bundle-voices';
 import { readBundleChapters } from './flutter-bundle';
 import { repoRoot } from './io';
@@ -69,5 +69,11 @@ describe('the providers of the voices', () => {
     const prompt = speechPrompt('Speak in natural Swedish.', 'Hej!');
     expect(prompt.endsWith('\nHej!')).toBe(true);
     expect(speechPrompt(null, 'Hej!')).toBe('Hej!');
+  });
+
+  it('reads how long Google asks to wait after a rate limit', () => {
+    expect(googleRetryDelay('{"error":{"details":[{"retryDelay": "38s"}]}}')).toBe(38_000);
+    expect(googleRetryDelay('{"retryDelay":"1.5s"}')).toBe(1500);
+    expect(googleRetryDelay('{"error":{"code":500}}')).toBeNull();
   });
 });

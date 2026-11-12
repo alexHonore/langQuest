@@ -49,6 +49,7 @@ export const spec: CliSpec = {
     { name: 'no-verify', type: 'boolean', description: 'Keep clips without the listening check.', default: false },
     { name: 'attempts', type: 'number', description: 'Takes tried per clip before giving up.', default: 3 },
     { name: 'provider', type: 'string', description: 'auto (Google, then OpenRouter on failure), google or openrouter.', default: 'auto' },
+    { name: 'google-rpm', type: 'number', description: "Voice requests per minute on Google's API (its limit per model; 10 by default).", default: 10 },
   ],
   examples: ['synthesize-bundle-audio -- --dry-run', 'synthesize-bundle-audio -- --track spanish-spain --limit 3'],
 };
@@ -137,17 +138,49 @@ export class Providers {
   }
 }
 
+/** Requests per minute allowed per Google voice model (`--google-rpm`): the run paces itself under it. */
+export const googlePace = { voiceRpm: 10 };
+const nextGoogleSlot = new Map<string, number>();
+const wait = (ms: number): Promise<void> => new Promise((done) => setTimeout(done, ms));
+
+/** Waits for [model]'s next free slot: voice models are paced at `googlePace.voiceRpm`; others only back off on 429. */
+async function paceGoogle(model: string): Promise<void> {
+  if (!model.endsWith('-tts')) return;
+  const gap = 60_000 / Math.max(1, googlePace.voiceRpm);
+  const now = Date.now();
+  const slot = Math.max(now, nextGoogleSlot.get(model) ?? 0);
+  nextGoogleSlot.set(model, slot + gap);
+  if (slot > now) await wait(slot - now);
+}
+
+/** How long Google asks to wait before retrying (`retryDelay` of a 429), in ms. */
+export function googleRetryDelay(body: string): number | null {
+  const m = /"retryDelay":\s*"(\d+(?:\.\d+)?)s"/.exec(body);
+  return m ? Math.ceil(Number(m[1]) * 1000) : null;
+}
+
 const googleKey = (): string => process.env.LANG_GEMINI_API_KEY || process.env.GEMINI_API_KEY || 'proxy-injected';
 const openRouterKey = (): string => process.env.OPENROUTER_API_KEY || 'proxy-injected';
 
 async function google(model: string, body: unknown): Promise<{ candidates?: { content?: { parts?: { text?: string; inlineData?: { mimeType?: string; data?: string } }[] } }[] }> {
-  const res = await fetch(`${GOOGLE_API}/${googleModelId(model)}:generateContent`, {
-    method: 'POST',
-    headers: { 'x-goog-api-key': googleKey(), 'content-type': 'application/json' },
-    body: JSON.stringify(body),
-  });
-  if (!res.ok) throw new Error(`Google ${googleModelId(model)}: HTTP ${res.status} ${(await res.text()).slice(0, 200)}`);
-  return (await res.json()) as never;
+  // A rate limit (429) is waited out and retried on Google, as Google says; only a lasting failure goes to OpenRouter.
+  for (let attempt = 1; ; attempt++) {
+    await paceGoogle(model);
+    const res = await fetch(`${GOOGLE_API}/${googleModelId(model)}:generateContent`, {
+      method: 'POST',
+      headers: { 'x-goog-api-key': googleKey(), 'content-type': 'application/json' },
+      body: JSON.stringify(body),
+    });
+    if (res.ok) return (await res.json()) as never;
+    const text = await res.text();
+    const delay = res.status === 429 ? googleRetryDelay(text) ?? 30_000 : null;
+    // A daily quota names no short delay worth waiting for: give up on Google then.
+    if (delay !== null && attempt < 5 && !/PerDay/.test(text)) {
+      await wait(delay + 1000);
+      continue;
+    }
+    throw new Error(`Google ${googleModelId(model)}: HTTP ${res.status} ${text.replace(/\s+/g, ' ').slice(0, 300)}`);
+  }
 }
 
 /**
@@ -249,6 +282,7 @@ export async function main(args: ParsedArgs, io: CliIo): Promise<number> {
     return 2;
   }
   const providers = new Providers(mode);
+  googlePace.voiceRpm = flagNumber(args, 'google-rpm') ?? 10;
   mkdirSync(dir, { recursive: true });
   const limit = flagNumber(args, 'limit') ?? 0;
   const verify = !flagBool(args, 'no-verify');

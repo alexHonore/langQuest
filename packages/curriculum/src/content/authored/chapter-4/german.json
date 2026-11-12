@@ -162,7 +162,7 @@
       },
       "lines": [
         { "key": "hello", "slot": "hello", "by": "learner", "intent": "greet_time_of_day", "register": "polite", "text": "Guten Tag, Frau Doktor.", "difficulty": 0.2,
-          "en": { "m": "Good afternoon, doctor.", "n": "Patients say Frau Doktor or Herr Doktor; with the name: Frau Doktor Neumann.", "l": "good day, Mrs doctor" },
+          "en": { "m": "Hello, doctor.", "n": "Patients say Frau Doktor or Herr Doktor; with the name: Frau Doktor Neumann.", "l": "good day, Mrs doctor" },
           "fr": { "m": "Bonjour, docteur.", "n": "On dit « Frau Doktor » à une femme médecin, « Herr Doktor » à un homme ; avec le nom : Frau Doktor Neumann.", "l": "bonne journée, madame docteur" } },
         { "key": "whats_wrong", "slot": "+", "by": "character", "intent": "ask_how_are_you", "register": "polite", "text": "Guten Tag. Was fehlt Ihnen denn?", "difficulty": 0.4,
           "en": { "m": "Hello. What seems to be the problem?", "n": "Was fehlt Ihnen? (literally 'what is missing to you?') is the doctor's classic opening question.", "l": "good day. what lacks to-you then" },
