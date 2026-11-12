@@ -12,7 +12,7 @@
   "notes": [
     "Check the pronouns first: tôi with the counter staff (chị Hằng, anh Đức, chị Vy) and with bác sĩ Hương, em with the running coach anh Tùng (as with the colleagues of chapter 3), cháu with the landlord chú Hải. Each character calls the learner em, cháu or, at the airline desk, the formal quý khách, all of which fit a man or a woman.",
     "Wordings chosen as plain and safe rather than certain: \"Tôi gửi tiền chị ạ\" to pay at a counter, \"Gói này hai cân\", \"Không sao anh ạ. Hóa đơn đây.\", \"Chào bác sĩ ạ. Tôi có hẹn lúc chín giờ sáng\" standing in for a time-of-day greeting (Vietnamese hardly greets by the time of day), \"Em uống đủ năm ngày nhé\", \"Bao giờ tôi nhận lại được ạ?\", and the spellings va li, ba lô, các-tông.",
-    "Prices and facts to verify for 2026: 5 million dong a month for a small room in Ba Đình; 900,000 dong standard and 1.5 million express for 2 kg to France, about 10 and 4 to 5 days; 200,000 dong a month for a running group; Trấn Quốc as Hanoi's oldest pagoda; 115 for an ambulance. The address (number 8, lane 12, Đội Cấn street) is invented, on a real street.",
+    "Prices and facts to verify for 2026: 5 million dong a month for a small room in Ba Đình; 900,000 dong standard and 1.5 million express for 2 kg to France, about 10 and 4 to 5 days; 200,000 dong a month for a running group; Trấn Quốc as Hanoi's oldest pagoda; 115 for an ambulance. The address (number 8, lane 12, Đội Cấn street) is invented, on a real street; Ba Đình and Đống Đa are used as everyday area names, Hanoi's districts having become wards in 2025.",
     "Northern usage throughout (cân, mùng một, ngõ, tầng một for the ground floor, vâng, nghìn), with the Southern word mentioned only in the notes."
   ],
   "missions": [
@@ -28,7 +28,7 @@
         { "key": "climb", "slot": "+", "by": "character", "intent": "welcome_someone", "register": "casual", "text": "Cháu vào đi! Leo lên tầng bốn mệt nhỉ?", "difficulty": 0.45,
           "en": { "m": "Come in! Quite a climb, three floors up, isn't it?", "n": "Chú, 'younger uncle', is for a man of your parents' generation: he calls you cháu. In the North tầng một is the ground floor, so tầng bốn is three flights up. Nhỉ asks you to agree.", "l": "nephew/niece enter go-on! climb up floor four tired (tag)" },
           "fr": { "m": "Entre ! Trois étages à monter, c'est fatigant, hein ?", "n": "« Chú » (oncle cadet) : un homme de la génération de vos parents ; il vous appelle « cháu ». Dans le Nord, tầng một est le rez-de-chaussée : tầng bốn = 3e étage. « Nhỉ » sollicite l'accord : « hein ? ».", "l": "neveu/nièce entrer vas-y ! grimper monter étage quatre fatigué (hein)" } },
-        { "key": "opinion", "slot": "opinion", "by": "learner", "intent": "state_opinion", "register": "neutral", "text": "Cháu thấy phòng này sáng và thoáng quá!", "difficulty": 0.4,
+        { "key": "opinion", "slot": "opinion", "by": "learner", "intent": "state_opinion", "register": "neutral", "text": "Cháu thấy phòng này sáng và thoáng quá ạ!", "difficulty": 0.4,
           "pron": "Thoáng is twahng, rising; sáng rises too: sahng.",
           "en": { "m": "This room feels so bright and airy!", "n": "Cháu thấy … = 'I find …': a polite way to give your opinion. Thoáng = airy, well ventilated, a real plus in Hanoi's humid summers.", "l": "nephew/niece find room this bright and airy so" },
           "fr": { "m": "Je trouve cette pièce très claire et bien aérée !", "n": "« Cháu thấy… » = « je trouve que… » : donner son avis poliment. « Thoáng » = aéré, ventilé, un vrai atout dans l'été humide de Hanoï. « thoáng » : t soufflé, « toang », ton montant.", "l": "neveu/nièce trouver pièce ce clair et aéré tellement" } },
@@ -163,8 +163,8 @@
       "character": "huong_doctor",
       "titles": { "en": "At the doctor's", "fr": "Chez le médecin" },
       "scene": {
-        "en": "A small private clinic in Đống Đa district on a Tuesday morning; you have had a sore throat and a slight fever for two days, and Dr Hương sees you.",
-        "fr": "Un mardi matin, dans une petite clinique privée de l'arrondissement de Đống Đa ; vous avez mal à la gorge et un peu de fièvre depuis deux jours, et la docteure Hương vous reçoit."
+        "en": "A small private clinic in Đống Đa on a Tuesday morning; you have had a sore throat and a slight fever for two days, and Dr Hương sees you.",
+        "fr": "Un mardi matin, dans une petite clinique privée du quartier de Đống Đa ; vous avez mal à la gorge et un peu de fièvre depuis deux jours, et la docteure Hương vous reçoit."
       },
       "lines": [
         { "key": "hello", "slot": "hello", "by": "learner", "intent": "greet_time_of_day", "register": "polite", "text": "Chào bác sĩ ạ. Tôi có hẹn lúc chín giờ sáng.", "difficulty": 0.4,
