@@ -12,7 +12,7 @@
   "notes": [
     "Vous with the landlord, the post office clerk, the shop assistant, the doctor and the airline agent; the running coach says tu, as is normal in French sports clubs, and the learner's lines to him avoid both tu and vous. Please confirm.",
     "The learner's lines keep the masculine default of chapters 1–3 (arrivé); feminine forms are in the notes. The learner now lives on the slopes of the Croix-Rousse (rue Burdeau), where the flat of mission 1 is.",
-    "Wordings to check first: « Dès le premier du mois », « Je vous règle par carte. », « Je vous la rembourse ? », « C’est bien clair ? », « Que se passe-t-il ? » from an airline agent.",
+    "Wordings to check first: « Dès le premier du mois », « Je vous règle par carte. », « Je vous la rembourse ? », « C’est clair pour vous ? », « Que se passe-t-il ? » from an airline agent.",
     "Facts to verify: 800 euros a month charges comprises for a flat in the Croix-Rousse, Colissimo prices and delays to Canada (42 euros, 65 euros express, for 2 kg), the 30-euro GP visit, a running club at 100 euros a year, the London–Lyon flight."
   ],
   "missions": [
@@ -33,7 +33,7 @@
           "en": { "m": "And how much is the rent a month?", "n": "Le loyer = the rent. Naming the topic first, then asking c’est combien ?, is the natural spoken order.", "l": "and the rent, it is how-much by month" } },
         { "key": "price", "slot": "price", "by": "character", "intent": "state_price", "register": "neutral", "text": "Huit cents euros, charges comprises.", "forms": {}, "difficulty": 0.4,
           "pron": "Huit cents euros: wee sahn-zuh-ROH. Comprises: kon-PREEZ.",
-          "en": { "m": "Eight hundred euros, including service charges.", "n": "Charges comprises = service charges included (building upkeep, often water and heating). Expect a deposit, le dépôt de garantie, of one month's rent.", "l": "eight hundreds euros, charges included" } },
+          "en": { "m": "Eight hundred euros, including service charges.", "n": "Charges comprises = service charges included (building upkeep, often water and heating); charges en plus = on top of the rent.", "l": "eight hundreds euros, charges included" } },
         { "key": "where_is", "slot": "where_is", "by": "learner", "intent": "ask_where_is", "register": "polite", "text": "Où est la machine à laver ?", "forms": {}, "difficulty": 0.3,
           "pron": "Machine à laver: mah-SHEEN ah lah-VAY.",
           "en": { "m": "Where's the washing machine?", "n": "Une machine à laver (a machine to wash). À + infinitive says what a thing is for: une salle à manger, a dining room.", "l": "where is the machine to wash" } },
@@ -166,9 +166,9 @@
         { "key": "question", "slot": "question", "by": "learner", "intent": "ask_clarification", "register": "polite", "text": "Je le prends combien de fois par jour ?", "forms": {}, "difficulty": 0.4,
           "pron": "Fois: fwah. Par jour: par ZHOOR.",
           "en": { "m": "How many times a day do I take it?", "n": "Combien de fois = how many times. Une fois, deux fois counts occasions; une heure is the time on the clock.", "l": "I it take how-much of times by day" } },
-        { "key": "check", "slot": "check", "by": "character", "intent": "check_comprehension", "register": "polite", "text": "Trois fois par jour, après les repas. C’est bien clair ?", "forms": {}, "difficulty": 0.4,
+        { "key": "check", "slot": "check", "by": "character", "intent": "check_comprehension", "register": "polite", "text": "Trois fois par jour, après les repas. C’est clair pour vous ?", "forms": {}, "difficulty": 0.4,
           "pron": "Repas: ruh-PAH. Clair: klair.",
-          "en": { "m": "Three times a day, after meals. Is that clear?", "n": "Doctors and pharmacists check that you have understood a dosage; don't be shy to ask again.", "l": "three times by day, after the meals. it is well clear" } },
+          "en": { "m": "Three times a day, after meals. Is that clear for you?", "n": "C’est clair pour vous ? = is that clear? Doctors and pharmacists check that you have understood a dosage; don't be shy to ask again.", "l": "three times by day, after the meals. it is clear for you" } },
         { "key": "understood", "slot": "understood", "by": "learner", "intent": "confirm_understood", "register": "polite", "text": "Oui, c’est clair. Trois fois par jour.", "forms": {}, "difficulty": 0.3,
           "pron": "C’est clair: seh KLAIR.",
           "en": { "m": "Yes, that's clear. Three times a day.", "n": "Repeating the key information back is the best way to show, and to check, that you have understood.", "l": "yes, it is clear. three times by day" } },

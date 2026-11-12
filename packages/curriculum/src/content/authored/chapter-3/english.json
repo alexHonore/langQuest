@@ -131,7 +131,7 @@
         { "key": "bus", "slot": "+", "by": "character", "intent": "give_direction_straight", "register": "neutral", "text": "It's a bit far. Take the number six bus, four stops.", "forms": {}, "difficulty": 0.5,
           "fr": { "m": "C'est un peu loin. Prenez le bus numéro six, c'est à quatre arrêts.", "n": "« The number six bus » = le bus numéro six : le numéro se place avant « bus ». « Stops » = arrêts. Dans beaucoup de bus américains, on paie à bord, avec l'appoint (« exact change »).", "l": "c'est un peu loin. prenez le numéro six bus, quatre arrêts" } },
         { "key": "thanks", "slot": "thanks", "by": "learner", "intent": "thank", "register": "polite", "text": "Thanks so much for the tip!", "forms": {}, "difficulty": 0.25,
-          "fr": { "m": "Merci beaucoup pour le tuyau !", "n": "« Tip » = un conseil, un tuyau, et aussi le pourboire ! « Thanks for » + nom. Au diner, laissez un « tip » d'environ 15 à 20 %.", "l": "merci tellement pour le conseil" } },
+          "fr": { "m": "Merci beaucoup pour le tuyau !", "n": "« Tip » = un conseil, un tuyau, et aussi le pourboire ! « Thanks for » + nom. Au diner, laissez un « tip » de 18 à 20 %, comme au restaurant.", "l": "merci tellement pour le conseil" } },
         { "key": "weekend_tips", "slot": null, "by": "learner", "intent": "ask_recommendation", "register": "neutral", "text": "Do you have any tips for this weekend?", "forms": {}, "difficulty": 0.45,
           "fr": { "m": "Vous avez des idées pour ce week-end ?", "n": "Moins formel que « What would you recommend? ». « Any » dans une question : any tips, any ideas.", "l": "est-ce-que vous avez des conseils pour ce week-end" } }
       ]
