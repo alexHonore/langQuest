@@ -5,7 +5,7 @@
     { "id": "huda_colleague", "role": "colleague", "name": "Huda", "voice": "female", "personality": "chatty, an early riser, always has the coffee ready", "homeRegion": "Amman" },
     { "id": "ziad_team_lead", "role": "team lead", "name": "Ziad", "voice": "male", "personality": "friendly but busy, full of office words", "homeRegion": "Amman" },
     { "id": "nour_friend", "role": "friend", "name": "Nour", "voice": "female", "personality": "sporty, curious, plays basketball every Thursday", "homeRegion": "Amman" },
-    { "id": "abu_salim_local", "role": "local", "name": "Abu Salim", "voice": "male", "personality": "runs a small café, has lived in Jabal al-Weibdeh all his life, loves giving tips", "homeRegion": "Amman" },
+    { "id": "abu_salim_local", "role": "local", "name": "Abu Salim", "voice": "male", "personality": "runs a small café downtown, has lived in Amman all his life, loves giving tips", "homeRegion": "Amman" },
     { "id": "omar_friend_c3", "role": "friend", "name": "Omar", "voice": "male", "personality": "the easy-going friend of chapter 2, dreams of a quiet life in the hills", "homeRegion": "Amman" },
     { "id": "dana_friend", "role": "friend", "name": "Dana", "voice": "female", "personality": "curious, teasing, loves a good story", "homeRegion": "Amman" }
   ],
@@ -154,8 +154,8 @@
       "character": "abu_salim_local",
       "titles": { "en": "A local's tip", "fr": "Le bon plan d'un habitant" },
       "scene": {
-        "en": "In his little café in Jabal al-Weibdeh, Abu Salim, who has lived in the neighbourhood all his life, tells you about a place visitors often miss.",
-        "fr": "Dans son petit café de Jabal al-Weibdeh, Abu Salim, qui a toujours vécu dans le quartier, vous indique un lieu que les visiteurs manquent souvent."
+        "en": "In his little café in downtown Amman, Abu Salim, who has lived in the city all his life, tells you about a place visitors often miss.",
+        "fr": "Dans son petit café du centre d'Amman, Abu Salim, qui a toujours vécu dans la ville, vous indique un lieu que les visiteurs manquent souvent."
       },
       "lines": [
         { "key": "excuse_me", "slot": "excuse_me", "by": "learner", "intent": "get_attention", "register": "polite", "text": "عفواً يا سيدي، هل لي بسؤال؟", "forms": { "translit-latn": "3afwan ya sayyidi, hal li bi-su'al?" }, "difficulty": 0.35,
@@ -174,15 +174,15 @@
         { "key": "paintings_garden", "slot": "+", "by": "character", "intent": "give_reason", "register": "neutral", "text": "فيها لوحات جميلة وحديقة هادئة، والدخول مجاني.", "forms": { "translit-latn": "fiha lawhat jamila wa hadiqa hadi'a, wa ad-dukhul majjani." }, "difficulty": 0.5,
           "en": { "m": "There are beautiful paintings and a quiet garden, and entry is free.", "n": "Fiha ('in it') = there is, for a place. Majjani = free of charge.", "l": "in-it paintings beautiful and garden quiet, and the-entry free" },
           "fr": { "m": "Il y a de beaux tableaux et un jardin calme, et l'entrée est gratuite.", "n": "« Fiha » (« en elle ») = il y a, pour un lieu. « Majjani » = gratuit.", "l": "en-elle tableaux beaux et jardin calme, et l'entrée gratuite" } },
-        { "key": "how_to_get", "slot": "how_to_get", "by": "learner", "intent": "ask_how_to_get", "register": "polite", "text": "كيف أصل إلى هناك من وسط البلد؟", "forms": { "translit-latn": "kayfa asil ila hunak min wasat al-balad?" }, "difficulty": 0.4,
-          "en": { "m": "How do I get there from downtown?", "n": "Kayfa asil ila…? = how do I get to…? The handiest question for finding any place.", "l": "how I-arrive to there from middle-of the-town" },
-          "fr": { "m": "Comment j'y vais depuis le centre-ville ?", "n": "« Kayfa asil ila… ? » = comment arriver à… ? La question la plus utile pour trouver n'importe quel lieu.", "l": "comment j'arrive vers là-bas depuis milieu-de la-ville" } },
+        { "key": "how_to_get", "slot": "how_to_get", "by": "learner", "intent": "ask_how_to_get", "register": "polite", "text": "كيف أصل إلى هناك من هنا؟", "forms": { "translit-latn": "kayfa asil ila hunak min huna?" }, "difficulty": 0.4,
+          "en": { "m": "How do I get there from here?", "n": "Kayfa asil ila…? = how do I get to…? The handiest question for finding any place.", "l": "how I-arrive to there from here" },
+          "fr": { "m": "Comment j'y vais, d'ici ?", "n": "« Kayfa asil ila… ? » = comment arriver à… ? La question la plus utile pour trouver n'importe quel lieu.", "l": "comment j'arrive vers là-bas depuis ici" } },
         { "key": "is_it_far", "slot": "is_it_far", "by": "learner", "intent": "ask_is_it_far", "register": "polite", "text": "وهل الطريق طويل؟", "forms": { "translit-latn": "wa hal at-tariq tawil?" }, "difficulty": 0.3,
           "en": { "m": "And is it a long way?", "n": "At-tariq = the road, the way. Tawil = long; qasir = short.", "l": "and is-it-that the-road long" },
           "fr": { "m": "Et c'est loin ?", "n": "« At-tariq » = la route, le chemin. Tawil = long ; qasir = court.", "l": "et est-ce-que la-route longue" } },
-        { "key": "climb_stairs", "slot": "+", "by": "character", "intent": "give_direction_straight", "register": "neutral", "text": "اصعد الدرج من وسط البلد، عشرون دقيقة مشياً.", "forms": { "translit-latn": "is3ad ad-daraj min wasat al-balad, 3ishrun daqiqa mashyan." }, "difficulty": 0.5,
-          "en": { "m": "Go up the steps from downtown: twenty minutes on foot.", "n": "Is3ad = go up (to a woman: is3adi). Mashyan = on foot. Weibdeh sits on a hill above downtown.", "l": "climb the-stairs from middle-of the-town, twenty minute walking" },
-          "fr": { "m": "Montez l'escalier depuis le centre : vingt minutes à pied.", "n": "« Is3ad » = monte (à une femme : is3adi). « Mashyan » = à pied. Après vingt, « daqiqa » (minute) reste au singulier.", "l": "monte l'escalier depuis milieu-de la-ville, vingt minute en-marchant" } },
+        { "key": "climb_stairs", "slot": "+", "by": "character", "intent": "give_direction_straight", "register": "neutral", "text": "اصعد الدرج إلى اللويبدة، عشرون دقيقة مشياً.", "forms": { "translit-latn": "is3ad ad-daraj ila al-luwaybida, 3ishrun daqiqa mashyan." }, "difficulty": 0.5,
+          "en": { "m": "Go up the steps to Weibdeh: twenty minutes on foot.", "n": "Is3ad = go up (to a woman: is3adi). Mashyan = on foot. Weibdeh sits on a hill above downtown.", "l": "climb the-stairs to the-Weibdeh, twenty minute walking" },
+          "fr": { "m": "Montez l'escalier jusqu'à Weibdeh : vingt minutes à pied.", "n": "« Is3ad » = monte (à une femme : is3adi). « Mashyan » = à pied. Après vingt, « daqiqa » (minute) reste au singulier.", "l": "monte l'escalier vers la-Weibdeh, vingt minute en-marchant" } },
         { "key": "hours", "slot": "hours", "by": "learner", "intent": "ask_opening_hours", "register": "polite", "text": "هل هي مفتوحة يوم الجمعة؟", "forms": { "translit-latn": "hal hiya maftuha yawm al-jum3a?" }, "difficulty": 0.35,
           "en": { "m": "Is it open on Friday?", "n": "Hiya (she) stands for ad-dara, a feminine noun. Maftuha = open; mughlaqa = closed.", "l": "is-it-that she open day the-Friday" },
           "fr": { "m": "Elle est ouverte le vendredi ?", "n": "« Hiya » (elle) reprend « ad-dara », féminin. Maftuha = ouverte ; mughlaqa = fermée.", "l": "est-ce-que elle ouverte jour le-vendredi" } },
