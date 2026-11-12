@@ -1,0 +1,3176 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts",
+  "courseTrackId": "hindi",
+  "chapters": [
+    {
+      "key": "hindi_ch1",
+      "chapterIndex": 1,
+      "courseTrackId": "hindi",
+      "targetVarietyId": "hi",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "First days in Delhi",
+        "fr": "Premiers jours à Delhi"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+      "notes": [
+        "AI draft generated 2026-11-11T22:41:54.952Z with anthropic/claude-sonnet-5.5; validator accepted 77 expressions; native review required before publishing.",
+        "greet_and_introduce: 'खुशी' vs 'ख़ुशी' (with nukta): I used the plain spelling, as is common in everyday writing.",
+        "greet_and_introduce: Names and all learner lines are gender-neutral; only 'मिलते हैं' and 'हूँ' appear, and neither changes by gender.",
+        "greet_and_introduce: 'सुप्रभात' is a bit bookish for a street greeting; please confirm whether to keep it or prefer 'गुड मॉर्निंग' for naturalness.",
+        "cafe_order_drink: The greeting नमस्ते भैया! reuses the earlier नमस्ते and adds भैया to avoid duplicating the chapter's greeting; please confirm it suits any server.",
+        "cafe_order_drink: Gender agreement: सकता/सकती depends on the speaker. The main line uses the masculine form, and the note flags the feminine.",
+        "cafe_order_drink: The 'options' line has the server ask about sugar, to match the 'choice' answer. The server could also ask ठंडी या गरम.",
+        "market_ask_price: I used भैया for a male vendor; please check whether आंटी/दीदी is wanted for a female vendor.",
+        "market_ask_price: I wrote 'महँगे' (plural) to match 'सेब'; singular 'महँगा' is also fine for a generic item.",
+        "market_ask_price: Prices are spelled out in words for beginners; please confirm 'सौ' and 'एक सौ बीस' are the most natural spoken forms.",
+        "ask_directions: Learner lines use the masculine addressee (सकते हैं); a female passer-by would be सकती हैं. Please confirm.",
+        "ask_directions: Character lines use imperative -इए forms (जाइए, मुड़ जाइए), which are polite, not bare commands. Please check the tone.",
+        "ask_directions: Check बाएँ/बायें spelling and whether मदद के लिए धन्यवाद is natural, or whether शुक्रिया is better for street thanks.",
+        "meet_neighbour: Learner lines are gender-neutral where possible; the feminine variant of शिफ़्ट हुई/हुआ is given as an extra.",
+        "meet_neighbour: कनाडा is a placeholder country; the app may need to swap it for the learner's own.",
+        "meet_neighbour: The character is written as female (Sunita); adjust the name if the app uses a male neighbour.",
+        "take_taxi: The driver's price quote without the meter is not scripted as a line; please check that the fare and meter lines fit the twist.",
+        "take_taxi: चलोगे in the casual hail variant is informal (तुम form) toward a stranger; please confirm it is acceptable or prefer चलेंगे.",
+        "take_taxi: Place name is generic (पुराने शहर); a real city might use a specific name such as पुरानी दिल्ली.",
+        "buy_ice_cream: The 'okay' line is generic because the scene gives no specific thing to grant; please check it fits.",
+        "buy_ice_cream: Learner uses the 'tum' form (loge, तुम्हें) with the child and 'भैया' for the seller; confirm.",
+        "buy_ice_cream: Loanwords are spelled in Devanagari (आइसक्रीम, स्कूप, चॉकलेट, फ़्लेवर); the Latin transliteration keeps English spelling for common loanwords.",
+        "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+      ],
+      "characters": [
+        {
+          "key": "hindi_character_friendly_local_acquaintance",
+          "name": "राहुल",
+          "role": "friendly local acquaintance",
+          "personality": "friendly, busy, warm, curious",
+          "homeRegion": "Delhi",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "hindi_character_cafe_server",
+          "name": "रोहन",
+          "role": "café server",
+          "personality": "quick, friendly, cheerful",
+          "homeRegion": "Delhi",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "hindi_ramesh_market_vendor",
+          "name": "Ramesh",
+          "role": "market vendor",
+          "personality": "friendly, chatty, quick with a joke",
+          "homeRegion": "Delhi",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "hindi_character_passer_by",
+          "name": "राहुल",
+          "role": "passer-by",
+          "personality": "friendly, in a hurry, talks fast",
+          "homeRegion": "Delhi",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "hindi_character_neighbour",
+          "name": "सुनीता",
+          "role": "neighbour",
+          "personality": "warm, chatty, welcoming",
+          "homeRegion": "Lucknow",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "hindi_character_taxi_driver",
+          "name": "राजेश",
+          "role": "taxi driver",
+          "personality": "talkative, friendly, a bit pushy",
+          "homeRegion": "Delhi",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "hindi_character_child_at_the_ice_cream_stand",
+          "name": "आरव",
+          "role": "child at the ice-cream stand",
+          "personality": "cheerful, curious, a little cheeky",
+          "homeRegion": "Delhi",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "hindi_greet_and_introduce",
+          "blueprintKey": "greet_and_introduce",
+          "missionType": "standard",
+          "level": "beginner",
+          "situation": "introductions",
+          "characterKey": "hindi_character_friendly_local_acquaintance",
+          "titles": {
+            "en": "Meeting a Neighbour Outside",
+            "fr": "Croiser un voisin dehors"
+          },
+          "sceneNotes": {
+            "en": "It's morning, and a friendly neighbour on your street is rushing off but stops to say hello and chat briefly.",
+            "fr": "C'est le matin, un voisin sympathique de votre rue est pressé, mais il s'arrête pour vous saluer et bavarder un instant."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_are_you",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fine",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "your_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "nice_to_meet",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "goodbye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hindi_ch1:hindi_greet_and_introduce:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "नमस्ते!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "नमस्ते!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "namaste!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello!",
+                  "note": "Works at any time of day and with anyone; a safe, polite greeting.",
+                  "literal": "I bow to you"
+                },
+                "fr": {
+                  "meaning": "Bonjour !",
+                  "note": "Convient à tout moment de la journée et avec tout le monde ; une salutation polie et sûre. Le « t » est dental, léger : la langue touche les dents.",
+                  "literal": "Je m'incline devant vous"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 't' is a soft dental sound, with the tongue touching the teeth."
+            },
+            {
+              "id": "hindi_ch1:hindi_greet_and_introduce:how_are_you",
+              "key": "how_are_you",
+              "intentKey": "ask_how_are_you",
+              "slotId": "how_are_you",
+              "speaker": "learner",
+              "text": "आप कैसे हैं?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "आप कैसे हैं?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "aap kaise hain?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How are you?",
+                  "note": "'Aap' is the respectful 'you', good for someone you've just met.",
+                  "literal": "you how are"
+                },
+                "fr": {
+                  "meaning": "Comment allez-vous ?",
+                  "note": "« Aap » est le « vous » de politesse, idéal pour quelqu'un que vous venez de rencontrer. « Hain » est nasalisé : ne prononcez pas de « n » dur.",
+                  "literal": "vous comment êtes"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'Hain' is nasal, so don't pronounce a hard 'n'."
+            },
+            {
+              "id": "hindi_ch1:hindi_greet_and_introduce:fine",
+              "key": "fine",
+              "intentKey": "reply_fine",
+              "slotId": "fine",
+              "speaker": "learner",
+              "text": "मैं ठीक हूँ, धन्यवाद।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "मैं ठीक हूँ, धन्यवाद।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "main theek hoon, dhanyavaad."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm fine, thank you.",
+                  "note": "The same sentence works for men and women.",
+                  "literal": "I fine am, thanks"
+                },
+                "fr": {
+                  "meaning": "Je vais bien, merci.",
+                  "note": "La même phrase convient aux hommes comme aux femmes. Le « th » de « theek » est un « t » aspiré, avec un souffle d'air, sans le « th » anglais.",
+                  "literal": "moi bien suis, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'Th' in 'theek' is an aspirated t, with a puff of air and no English 'th' sound."
+            },
+            {
+              "id": "hindi_ch1:hindi_greet_and_introduce:my_name",
+              "key": "my_name",
+              "intentKey": "introduce_name",
+              "slotId": "my_name",
+              "speaker": "learner",
+              "text": "मेरा नाम अनिल है।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "मेरा नाम अनिल है।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "mera naam Anil hai."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My name is Anil.",
+                  "note": "Replace 'अनिल' with your own name.",
+                  "literal": "my name Anil is"
+                },
+                "fr": {
+                  "meaning": "Je m'appelle Anil.",
+                  "note": "Remplacez « अनिल » par votre propre prénom.",
+                  "literal": "mon nom Anil est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_greet_and_introduce:your_name",
+              "key": "your_name",
+              "intentKey": "ask_name",
+              "slotId": "your_name",
+              "speaker": "learner",
+              "text": "आपका नाम क्या है?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "आपका नाम क्या है?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "aapka naam kya hai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What is your name?",
+                  "note": null,
+                  "literal": "your name what is"
+                },
+                "fr": {
+                  "meaning": "Comment vous appelez-vous ?",
+                  "note": null,
+                  "literal": "votre nom quoi est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_greet_and_introduce:nice_to_meet",
+              "key": "nice_to_meet",
+              "intentKey": "say_nice_to_meet",
+              "slotId": "nice_to_meet",
+              "speaker": "learner",
+              "text": "आपसे मिलकर खुशी हुई।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "आपसे मिलकर खुशी हुई।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "aapse milkar khushi hui."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Nice to meet you.",
+                  "note": "Often said right after exchanging names.",
+                  "literal": "you-with meeting happiness happened"
+                },
+                "fr": {
+                  "meaning": "Enchanté(e).",
+                  "note": "Se dit souvent juste après avoir échangé les prénoms. Le « kh » de « khushi » est un son râpé au fond de la gorge, comme la « jota » espagnole.",
+                  "literal": "vous-avec rencontre joie a eu lieu"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'Kh' in 'khushi' is a scraped sound at the back of the throat, like 'ch' in Scottish 'loch'."
+            },
+            {
+              "id": "hindi_ch1:hindi_greet_and_introduce:goodbye",
+              "key": "goodbye",
+              "intentKey": "say_goodbye",
+              "slotId": "goodbye",
+              "speaker": "learner",
+              "text": "ठीक है, फिर मिलते हैं।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "ठीक है, फिर मिलते हैं।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "theek hai, phir milte hain."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Okay, see you again.",
+                  "note": "A friendly, natural way to part, especially when the other person is in a hurry.",
+                  "literal": "okay is, again we meet"
+                },
+                "fr": {
+                  "meaning": "D'accord, à bientôt.",
+                  "note": "Une manière amicale et naturelle de se quitter, surtout quand l'autre est pressé.",
+                  "literal": "bien est, de nouveau nous nous rencontrons"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_greet_and_introduce:greet_hello_variant_8",
+              "key": "greet_hello_variant_8",
+              "intentKey": "greet_hello",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "सुप्रभात!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "सुप्रभात!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "suprabhaat!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning!",
+                  "note": "A time-of-day greeting; a bit formal, and friends often say 'good morning' in English instead.",
+                  "literal": "good dawn"
+                },
+                "fr": {
+                  "meaning": "Bonjour !",
+                  "note": "Salutation propre au matin, assez soutenue ; entre amis, on dit souvent plutôt « good morning » à l'anglaise.",
+                  "literal": "bonne aube"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "Many urban speakers simply say 'गुड मॉर्निंग' (good morning).",
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_greet_and_introduce:ask_how_are_you_variant_9",
+              "key": "ask_how_are_you_variant_9",
+              "intentKey": "ask_how_are_you",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "सब ठीक है?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "सब ठीक है?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "sab theek hai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is everything fine?",
+                  "note": "A relaxed, friendly check-in; fine for a neighbour you'll see often.",
+                  "literal": "all fine is"
+                },
+                "fr": {
+                  "meaning": "Tout va bien ?",
+                  "note": "Une façon décontractée et amicale de prendre des nouvelles ; parfait pour un voisin que vous verrez souvent.",
+                  "literal": "tout bien est"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_greet_and_introduce:reply_fine_variant_10",
+              "key": "reply_fine_variant_10",
+              "intentKey": "reply_fine",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "सब बढ़िया है, आप बताइए?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "सब बढ़िया है, आप बताइए?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "sab badhiya hai, aap bataiye?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "All great, and you?",
+                  "note": "A warm reply that also turns the question back to the other person.",
+                  "literal": "all excellent is, you tell"
+                },
+                "fr": {
+                  "meaning": "Tout va très bien, et vous ?",
+                  "note": "Une réponse chaleureuse qui renvoie aussi la question à l'autre. Le « ढ़ » de « बढ़िया » est un battement rapide de la langue, un peu comme un « r » rapide.",
+                  "literal": "tout excellent est, vous dites"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'ढ़' in 'बढ़िया' is a quick flap of the tongue, a bit like a fast 'r'."
+            },
+            {
+              "id": "hindi_ch1:hindi_greet_and_introduce:say_goodbye_variant_11",
+              "key": "say_goodbye_variant_11",
+              "intentKey": "say_goodbye",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "आपका दिन शुभ हो!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "आपका दिन शुभ हो!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "aapka din shubh ho!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Have a good day!",
+                  "note": "A kind closing wish, slightly formal; in casual speech people also say 'Have a good day' in English.",
+                  "literal": "your day auspicious be"
+                },
+                "fr": {
+                  "meaning": "Bonne journée !",
+                  "note": "Un gentil vœu de fin de conversation, un peu soutenu ; à l'oral décontracté, on dit aussi « Have a good day » en anglais.",
+                  "literal": "votre jour de bon augure soit"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "Often replaced by the English 'Have a nice day' in urban speech.",
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "hindi_cafe_order_drink",
+          "blueprintKey": "cafe_order_drink",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "cafe",
+          "characterKey": "hindi_character_cafe_server",
+          "titles": {
+            "en": "Ordering a Drink at the Café",
+            "fr": "Commander une boisson au café"
+          },
+          "sceneNotes": {
+            "en": "You are at a busy café terrace, and the quick, friendly server comes over to take your order.",
+            "fr": "Vous êtes sur la terrasse animée d'un café, et le serveur, rapide et sympathique, vient prendre votre commande."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "options",
+              "speaker": "character"
+            },
+            {
+              "slotId": "choice",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hindi_ch1:hindi_cafe_order_drink:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "नमस्ते भैया!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "नमस्ते भैया!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "namaste bhaiya!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, brother!",
+                  "note": "भैया is a common, friendly way to address a male server.",
+                  "literal": "hello brother"
+                },
+                "fr": {
+                  "meaning": "Bonjour, mon frère !",
+                  "note": "भैया est une façon courante et amicale de s'adresser à un serveur.",
+                  "literal": "bonjour frère"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_cafe_order_drink:order",
+              "key": "order",
+              "intentKey": "request_drink",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "मुझे एक कोल्ड कॉफ़ी चाहिए, प्लीज़।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "मुझे एक कोल्ड कॉफ़ी चाहिए, प्लीज़।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "mujhe ek cold coffee chaahiye, please."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I would like a cold coffee, please.",
+                  "note": null,
+                  "literal": "to-me one cold coffee needed, please"
+                },
+                "fr": {
+                  "meaning": "Je voudrais un café froid, s'il vous plaît.",
+                  "note": "Le फ़ de कॉफ़ी se prononce comme un « f » doux.",
+                  "literal": "à moi un café froid nécessaire, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "'Cold coffee' and 'please' are English words commonly used in urban Hindi.",
+              "pronunciationNote": "फ़ in कॉफ़ी is a soft 'f' sound."
+            },
+            {
+              "id": "hindi_ch1:hindi_cafe_order_drink:options",
+              "key": "options",
+              "intentKey": "offer_options",
+              "slotId": "options",
+              "speaker": "character",
+              "text": "ठीक है! चीनी के साथ या बिना चीनी?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "ठीक है! चीनी के साथ या बिना चीनी?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "theek hai! cheeni ke saath ya bina cheeni?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Okay! With sugar or without sugar?",
+                  "note": "The server asks you to choose.",
+                  "literal": "okay! sugar with or without sugar"
+                },
+                "fr": {
+                  "meaning": "D'accord ! Avec du sucre ou sans sucre ?",
+                  "note": "Le serveur vous demande de choisir.",
+                  "literal": "d'accord ! sucre avec ou sans sucre"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_cafe_order_drink:choice",
+              "key": "choice",
+              "intentKey": "choose_option",
+              "slotId": "choice",
+              "speaker": "learner",
+              "text": "बिना चीनी, प्लीज़।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "बिना चीनी, प्लीज़।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "bina cheeni, please."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Without sugar, please.",
+                  "note": "Say चीनी के साथ to choose 'with sugar'.",
+                  "literal": "without sugar, please"
+                },
+                "fr": {
+                  "meaning": "Sans sucre, s'il vous plaît.",
+                  "note": "Dites चीनी के साथ pour choisir « avec du sucre ». चीनी se prononce avec un « i » long et un « tch » initial.",
+                  "literal": "sans sucre, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "चीनी has a long 'ee' sound and a 'ch' as in 'chair'."
+            },
+            {
+              "id": "hindi_ch1:hindi_cafe_order_drink:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "क्या मुझे बिल मिल सकता है?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "क्या मुझे बिल मिल सकता है?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kya mujhe bill mil sakta hai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I get the bill?",
+                  "note": "A woman would say सकती instead of सकता.",
+                  "literal": "what/question to-me bill get can is"
+                },
+                "fr": {
+                  "meaning": "Puis-je avoir l'addition ?",
+                  "note": "Une femme dirait सकती à la place de सकता.",
+                  "literal": "quoi/question à moi addition obtenir peut est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "'Bill' is the usual word in everyday Hindi.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_cafe_order_drink:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "बहुत धन्यवाद!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "बहुत धन्यवाद!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "bahut dhanyavaad!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much!",
+                  "note": null,
+                  "literal": "very thanks"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup !",
+                  "note": "Le ध de धन्यवाद est un « d » aspiré.",
+                  "literal": "très merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The ध in धन्यवाद is a breathy 'dh'."
+            },
+            {
+              "id": "hindi_ch1:hindi_cafe_order_drink:greet_hello_variant_7",
+              "key": "greet_hello_variant_7",
+              "intentKey": "greet_hello",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "हेलो, एक्सक्यूज़ मी!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "हेलो, एक्सक्यूज़ मी!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "hello, excuse me!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, excuse me!",
+                  "note": "A casual way to get the server's attention.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bonjour, excusez-moi !",
+                  "note": "Une façon décontractée d'attirer l'attention du serveur.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "Fully English-based; very common in cities.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_cafe_order_drink:request_drink_variant_8",
+              "key": "request_drink_variant_8",
+              "intentKey": "request_drink",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "एक चाय मिलेगी, प्लीज़?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "एक चाय मिलेगी, प्लीज़?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ek chai milegi, please?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could I get a tea, please?",
+                  "note": "A softer, more casual way to order. मिलेगी agrees with चाय, which is feminine.",
+                  "literal": "one tea will-be-available, please"
+                },
+                "fr": {
+                  "meaning": "Je pourrais avoir un thé, s'il vous plaît ?",
+                  "note": "Une façon plus douce et décontractée de commander. मिलेगी s'accorde avec चाय, qui est féminin.",
+                  "literal": "un thé sera disponible, s'il vous plaît"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_cafe_order_drink:ask_for_bill_variant_9",
+              "key": "ask_for_bill_variant_9",
+              "intentKey": "ask_for_bill",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "कितना हुआ, भैया?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "कितना हुआ, भैया?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kitna hua, bhaiya?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is it, brother?",
+                  "note": "A quick, casual way to ask how much you owe.",
+                  "literal": "how-much happened, brother"
+                },
+                "fr": {
+                  "meaning": "Ça fait combien, mon frère ?",
+                  "note": "Une façon rapide et décontractée de demander combien vous devez.",
+                  "literal": "combien s'est passé, frère"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_cafe_order_drink:thank_variant_10",
+              "key": "thank_variant_10",
+              "intentKey": "thank",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "थैंक्यू!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "थैंक्यू!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "thank you!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you!",
+                  "note": "Very common in casual city speech.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci !",
+                  "note": "Très courant dans le parler décontracté des villes.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "English loanword used as everyday Hindi.",
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "hindi_market_ask_price",
+          "blueprintKey": "market_ask_price",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "market",
+          "characterKey": "hindi_ramesh_market_vendor",
+          "titles": {
+            "en": "Asking Prices at a Fruit Stall",
+            "fr": "Demander les prix à l'étal de fruits"
+          },
+          "sceneNotes": {
+            "en": "You are at a busy fruit stall, and the vendor is weighing apples for you and is happy to bargain a little.",
+            "fr": "Vous êtes devant un étal de fruits très animé, et le vendeur vous pèse des pommes tout en étant prêt à marchander un peu."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_much",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "character"
+            },
+            {
+              "slotId": "expensive",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "lower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "deal",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "no_thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hindi_ch1:hindi_market_ask_price:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "नमस्कार भैया, कैसे हैं?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "नमस्कार भैया, कैसे हैं?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "namaskaar bhaiya, kaise hain?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, brother, how are you?",
+                  "note": "Calling a male vendor 'bhaiya' is friendly and polite.",
+                  "literal": "greetings brother, how are-(you)?"
+                },
+                "fr": {
+                  "meaning": "Bonjour, frère, comment allez-vous ?",
+                  "note": "Appeler « bhaiya » un vendeur est amical et poli. Le « bh » est aspiré : soufflez en le prononçant.",
+                  "literal": "salutations frère, comment êtes-(vous) ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'bhaiya' has an aspirated 'bh': breathe out as you say it."
+            },
+            {
+              "id": "hindi_ch1:hindi_market_ask_price:how_much",
+              "key": "how_much",
+              "intentKey": "ask_price",
+              "slotId": "how_much",
+              "speaker": "learner",
+              "text": "सेब कितने के किलो हैं?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "सेब कितने के किलो हैं?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "seb kitne ke kilo hain?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much are the apples per kilo?",
+                  "note": "Swap 'seb' for 'aam' (mango), 'kela' (banana) or 'angoor' (grapes).",
+                  "literal": "apples how-much-for kilo are?"
+                },
+                "fr": {
+                  "meaning": "Combien coûtent les pommes le kilo ?",
+                  "note": "Remplacez « seb » par « aam » (mangue), « kela » (banane) ou « angoor » (raisin).",
+                  "literal": "pommes combien-pour kilo sont ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_market_ask_price:price",
+              "key": "price",
+              "intentKey": "state_price",
+              "slotId": "price",
+              "speaker": "character",
+              "text": "सेब एक सौ बीस रुपये किलो हैं।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "सेब एक सौ बीस रुपये किलो हैं।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "seb ek sau bees rupaye kilo hain."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The apples are 120 rupees a kilo.",
+                  "note": null,
+                  "literal": "apples one hundred twenty rupees kilo are"
+                },
+                "fr": {
+                  "meaning": "Les pommes sont à 120 roupies le kilo.",
+                  "note": null,
+                  "literal": "pommes un cent vingt roupies kilo sont"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_market_ask_price:expensive",
+              "key": "expensive",
+              "intentKey": "say_too_expensive",
+              "slotId": "expensive",
+              "speaker": "learner",
+              "text": "ये तो बहुत महँगे हैं, भैया!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "ये तो बहुत महँगे हैं, भैया!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ye to bahut mahange hain, bhaiya!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "These are really expensive, brother!",
+                  "note": "Said lightly with a smile, this is the start of friendly bargaining.",
+                  "literal": "these indeed very expensive are, brother"
+                },
+                "fr": {
+                  "meaning": "Elles sont vraiment chères, frère !",
+                  "note": "Dit avec le sourire, cela lance un marchandage amical. « mahange » a un « n » nasal : fredonnez doucement par le nez.",
+                  "literal": "celles-ci justement très chères sont, frère"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'mahange' has a nasal 'ं'; hum softly through the nose."
+            },
+            {
+              "id": "hindi_ch1:hindi_market_ask_price:lower",
+              "key": "lower",
+              "intentKey": "offer_lower_price",
+              "slotId": "lower",
+              "speaker": "learner",
+              "text": "सौ रुपये में दे दीजिए, प्लीज़।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "सौ रुपये में दे दीजिए, प्लीज़।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "sau rupaye mein de deejiye, please."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please give it to me for 100 rupees.",
+                  "note": null,
+                  "literal": "hundred rupees in give-(polite), please"
+                },
+                "fr": {
+                  "meaning": "Donnez-les-moi à 100 roupies, s'il vous plaît.",
+                  "note": null,
+                  "literal": "cent roupies à donnez-(poli), s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "'प्लीज़' is a common English loanword in urban speech.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_market_ask_price:deal",
+              "key": "deal",
+              "intentKey": "agree_to_price",
+              "slotId": "deal",
+              "speaker": "learner",
+              "text": "ठीक है, दो किलो दे दीजिए।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "ठीक है, दो किलो दे दीजिए।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "theek hai, do kilo de deejiye."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Okay, give me two kilos.",
+                  "note": "Works as 'deal' and also tells the vendor how much you want.",
+                  "literal": "fine is, two kilo give-(polite)"
+                },
+                "fr": {
+                  "meaning": "D'accord, donnez-m'en deux kilos.",
+                  "note": "Sert à conclure le marché et indique aussi la quantité souhaitée.",
+                  "literal": "bien est, deux kilos donnez-(poli)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_market_ask_price:no_thanks",
+              "key": "no_thanks",
+              "intentKey": "decline_purchase",
+              "slotId": "no_thanks",
+              "speaker": "learner",
+              "text": "आज रहने दीजिए, धन्यवाद।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "आज रहने दीजिए, धन्यवाद।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "aaj rahne deejiye, dhanyavaad."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Let's leave it for today, thank you.",
+                  "note": "A soft, polite way to say no without offending the vendor.",
+                  "literal": "today stay let-(polite), thank-you"
+                },
+                "fr": {
+                  "meaning": "Laissons cela pour aujourd'hui, merci.",
+                  "note": "Une façon douce et polie de refuser sans froisser le vendeur.",
+                  "literal": "aujourd'hui rester laissez-(poli), merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_market_ask_price:ask_price_variant_8",
+              "key": "ask_price_variant_8",
+              "intentKey": "ask_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "इसका भाव क्या है, भैया?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "इसका भाव क्या है, भैया?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "iska bhaav kya hai, bhaiya?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's the rate for this, brother?",
+                  "note": "'Bhaav' (rate) is a very common market word. Use it while pointing at an item.",
+                  "literal": "this-of rate what is, brother"
+                },
+                "fr": {
+                  "meaning": "C'est à combien, frère ?",
+                  "note": "« Bhaav » (le prix) est un mot très courant au marché. Dites-le en montrant l'article du doigt.",
+                  "literal": "de-ceci prix quoi est, frère ?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_market_ask_price:offer_lower_price_variant_9",
+              "key": "offer_lower_price_variant_9",
+              "intentKey": "offer_lower_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "थोड़ा कम कर दीजिए ना, भैया।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "थोड़ा कम कर दीजिए ना, भैया।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "thoda kam kar deejiye na, bhaiya."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please lower it a little, brother.",
+                  "note": "The 'ना' makes it sound friendly and coaxing.",
+                  "literal": "a-little less do give-(polite) na, brother"
+                },
+                "fr": {
+                  "meaning": "Baissez un peu le prix, frère, s'il vous plaît.",
+                  "note": "Le « ना » rend la demande amicale et enjôleuse. Le « ड़ » de « थोड़ा » est battu : faites claquer rapidement la langue.",
+                  "literal": "un-peu moins faites donnez-(poli) na, frère"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'थोड़ा' has a flapped 'ड़'; flick the tongue quickly."
+            }
+          ]
+        },
+        {
+          "key": "hindi_ask_directions",
+          "blueprintKey": "ask_directions",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "directions",
+          "characterKey": "hindi_character_passer_by",
+          "titles": {
+            "en": "स्टेशन का रास्ता पूछना",
+            "fr": "Demander le chemin de la gare"
+          },
+          "sceneNotes": {
+            "en": "You are visiting a new city and stop a passer-by on the street to ask the way to the station, but he talks very fast.",
+            "fr": "Vous visitez une nouvelle ville et vous arrêtez un passant dans la rue pour demander le chemin de la gare, mais il parle très vite."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_is",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "straight",
+              "speaker": "character"
+            },
+            {
+              "slotId": "turn",
+              "speaker": "character"
+            },
+            {
+              "slotId": "far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "near",
+              "speaker": "character"
+            },
+            {
+              "slotId": "repeat",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "slower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hindi_ch1:hindi_ask_directions:excuse_me",
+              "key": "excuse_me",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "माफ़ कीजिए, सुनिए।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "माफ़ कीजिए, सुनिए।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "maaf kijiye, suniye."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, (could you) listen?",
+                  "note": "Polite way to stop a stranger before asking something.",
+                  "literal": "forgive-do, listen"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, pourriez-vous m'écouter ?",
+                  "note": "Manière polie d'interpeller un inconnu avant de poser une question. Le फ़ de माफ़ se prononce comme un « f » français.",
+                  "literal": "pardonnez, écoutez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The क़/फ़ sound in माफ़ is like English f."
+            },
+            {
+              "id": "hindi_ch1:hindi_ask_directions:where_is",
+              "key": "where_is",
+              "intentKey": "ask_where_is",
+              "slotId": "where_is",
+              "speaker": "learner",
+              "text": "स्टेशन कहाँ है, प्लीज़?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "स्टेशन कहाँ है, प्लीज़?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "station kahaan hai, please?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where is the station, please?",
+                  "note": null,
+                  "literal": "station where is, please"
+                },
+                "fr": {
+                  "meaning": "Où est la gare, s'il vous plaît ?",
+                  "note": "Dans कहाँ, la fin est nasale : le son passe doucement par le nez.",
+                  "literal": "gare où est, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "स्टेशन and प्लीज़ are English loanwords, very natural in urban Hindi.",
+              "pronunciationNote": "कहाँ has a nasal ending, like a soft 'n' through the nose."
+            },
+            {
+              "id": "hindi_ch1:hindi_ask_directions:straight",
+              "key": "straight",
+              "intentKey": "give_direction_straight",
+              "slotId": "straight",
+              "speaker": "character",
+              "text": "यहाँ से बस सीधे जाइए।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "यहाँ से बस सीधे जाइए।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "yahaan se bas seedhe jaaiye."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Just go straight from here.",
+                  "note": "The passer-by says this quickly.",
+                  "literal": "here from just straight go"
+                },
+                "fr": {
+                  "meaning": "D'ici, allez simplement tout droit.",
+                  "note": "Le passant le dit rapidement.",
+                  "literal": "ici de simplement droit allez"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_ask_directions:turn",
+              "key": "turn",
+              "intentKey": "give_direction_turn",
+              "slotId": "turn",
+              "speaker": "character",
+              "text": "फिर दूसरे मोड़ पर बाएँ मुड़ जाइए।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "फिर दूसरे मोड़ पर बाएँ मुड़ जाइए।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "phir doosre mod par baayen mud jaaiye."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Then turn left at the second turn.",
+                  "note": "This is the second of the two turns in the directions.",
+                  "literal": "then second turn at left turn go"
+                },
+                "fr": {
+                  "meaning": "Ensuite, tournez à gauche au deuxième carrefour.",
+                  "note": "C'est le second des deux changements de direction indiqués. Le ड़ de मोड़ et मुड़ est un battement rapide, avec la pointe de la langue recourbée vers l'arrière.",
+                  "literal": "ensuite deuxième tournant à gauche tournez allez"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The ड़ in मोड़/मुड़ is a quick flap, tongue tip curled back."
+            },
+            {
+              "id": "hindi_ch1:hindi_ask_directions:far",
+              "key": "far",
+              "intentKey": "ask_is_it_far",
+              "slotId": "far",
+              "speaker": "learner",
+              "text": "क्या यह यहाँ से दूर है?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "क्या यह यहाँ से दूर है?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kya yah yahaan se door hai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it far from here?",
+                  "note": null,
+                  "literal": "what/question this here from far is"
+                },
+                "fr": {
+                  "meaning": "Est-ce que c'est loin d'ici ?",
+                  "note": null,
+                  "literal": "quoi/question ceci ici de loin est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_ask_directions:near",
+              "key": "near",
+              "intentKey": "say_it_is_near",
+              "slotId": "near",
+              "speaker": "character",
+              "text": "ज़्यादा दूर नहीं है, दस मिनट पैदल।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "ज़्यादा दूर नहीं है, दस मिनट पैदल।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "zyaada door nahin hai, das minute paidal."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's not very far, ten minutes on foot.",
+                  "note": null,
+                  "literal": "much far not is, ten minutes on-foot"
+                },
+                "fr": {
+                  "meaning": "Ce n'est pas très loin, dix minutes à pied.",
+                  "note": null,
+                  "literal": "beaucoup loin pas est, dix minutes à-pied"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": "मिनट is a loanword and is fully natural.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_ask_directions:repeat",
+              "key": "repeat",
+              "intentKey": "ask_repeat",
+              "slotId": "repeat",
+              "speaker": "learner",
+              "text": "क्या आप फिर से बता सकते हैं?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "क्या आप फिर से बता सकते हैं?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kya aap phir se bata sakte hain?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you tell me again?",
+                  "note": null,
+                  "literal": "what you again from tell can"
+                },
+                "fr": {
+                  "meaning": "Pourriez-vous me le redire ?",
+                  "note": null,
+                  "literal": "quoi vous encore de dire pouvez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_ask_directions:slower",
+              "key": "slower",
+              "intentKey": "ask_slow_down",
+              "slotId": "slower",
+              "speaker": "learner",
+              "text": "क्या आप थोड़ा धीरे बोल सकते हैं?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "क्या आप थोड़ा धीरे बोल सकते हैं?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kya aap thoda dheere bol sakte hain?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you speak a little slower?",
+                  "note": "Key phrase for the twist: the passer-by speaks fast.",
+                  "literal": "what you a-little slowly speak can"
+                },
+                "fr": {
+                  "meaning": "Pourriez-vous parler un peu plus lentement ?",
+                  "note": "Phrase clé pour la suite : le passant parle vite. Le थ est un « t » aspiré, avec un souffle d'air.",
+                  "literal": "quoi vous un-peu lentement parler pouvez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "थ is an aspirated t, with a puff of air."
+            },
+            {
+              "id": "hindi_ch1:hindi_ask_directions:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "मदद के लिए धन्यवाद!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "मदद के लिए धन्यवाद!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "madad ke liye dhanyavaad!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you for the help!",
+                  "note": null,
+                  "literal": "help for thanks"
+                },
+                "fr": {
+                  "meaning": "Merci pour votre aide !",
+                  "note": "Le ध est un « d » aspiré, avec un souffle d'air.",
+                  "literal": "aide pour merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ध is an aspirated d, with a puff of air."
+            },
+            {
+              "id": "hindi_ch1:hindi_ask_directions:get_attention_variant_10",
+              "key": "get_attention_variant_10",
+              "intentKey": "get_attention",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "सुनिए भैया, एक्सक्यूज़ मी!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "सुनिए भैया, एक्सक्यूज़ मी!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "suniye bhaiya, excuse me!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, brother!",
+                  "note": "Casual, friendly way to stop a man; भैया is used for men about your age or older.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Excuse-moi, grand frère !",
+                  "note": "Manière familière et amicale d'interpeller un homme ; भैया s'emploie pour un homme de votre âge ou plus âgé.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "एक्सक्यूज़ मी is common urban code-switching.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_ask_directions:ask_where_is_variant_11",
+              "key": "ask_where_is_variant_11",
+              "intentKey": "ask_where_is",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "यहाँ पास में स्टेशन है क्या?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "यहाँ पास में स्टेशन है क्या?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "yahaan paas mein station hai kya?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a station nearby?",
+                  "note": "Spoken Hindi often puts क्या at the end of a question.",
+                  "literal": "here near in station is what"
+                },
+                "fr": {
+                  "meaning": "Il y a une gare près d'ici ?",
+                  "note": "À l'oral, en hindi, क्या se place souvent à la fin de la question.",
+                  "literal": "ici près dans gare est quoi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_ask_directions:ask_slow_down_variant_12",
+              "key": "ask_slow_down_variant_12",
+              "intentKey": "ask_slow_down",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "थोड़ा धीरे बोलेंगे, प्लीज़?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "थोड़ा धीरे बोलेंगे, प्लीज़?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "thoda dheere bolenge, please?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Would you speak a bit slower, please?",
+                  "note": "A shorter, softer request.",
+                  "literal": "a-little slowly will-speak, please"
+                },
+                "fr": {
+                  "meaning": "Vous pourriez parler un peu plus lentement, s'il vous plaît ?",
+                  "note": "Une demande plus courte et plus douce.",
+                  "literal": "un-peu lentement parlerez, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "प्लीज़ is a natural loanword.",
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "hindi_meet_neighbour",
+          "blueprintKey": "meet_neighbour",
+          "missionType": "story",
+          "level": "beginner",
+          "situation": "neighbours",
+          "characterKey": "hindi_character_neighbour",
+          "titles": {
+            "en": "Meeting Your Neighbour",
+            "fr": "Rencontrer votre voisine"
+          },
+          "sceneNotes": {
+            "en": "You run into your neighbour Sunita on the stairs of your building as she carries her shopping bags up.",
+            "fr": "Vous croisez votre voisine Sunita dans l'escalier de votre immeuble, alors qu'elle monte ses sacs de courses."
+          },
+          "slots": [
+            {
+              "slotId": "new_neighbour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "character"
+            },
+            {
+              "slotId": "where_from_q",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "from",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "speak_lang",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "little",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "offer_help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hindi_ch1:hindi_meet_neighbour:new_neighbour",
+              "key": "new_neighbour",
+              "intentKey": "say_new_neighbour",
+              "slotId": "new_neighbour",
+              "speaker": "learner",
+              "text": "मैं आपका नया पड़ोसी हूँ।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "मैं आपका नया पड़ोसी हूँ।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "main aapka naya padosi hoon."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm your new neighbour.",
+                  "note": "पड़ोसी works for any gender in speech.",
+                  "literal": "I your new neighbour am"
+                },
+                "fr": {
+                  "meaning": "Je suis votre nouveau voisin / nouvelle voisine.",
+                  "note": "पड़ोसी s'emploie à l'oral pour un homme comme pour une femme. Le ड़ de पड़ोसी est un battement rapide de la langue, pas un vrai d.",
+                  "literal": "Je votre nouveau voisin suis"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The ड़ in पड़ोसी is a quick flap of the tongue, not a clear d."
+            },
+            {
+              "id": "hindi_ch1:hindi_meet_neighbour:say_new_neighbour_variant_2",
+              "key": "say_new_neighbour_variant_2",
+              "intentKey": "say_new_neighbour",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "मैं अभी यहाँ शिफ़्ट हुई हूँ।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "मैं अभी यहाँ शिफ़्ट हुई हूँ।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "main abhi yahaan shift hui hoon."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I've just moved in here. (female speaker)",
+                  "note": "A male speaker says हुआ हूँ instead of हुई हूँ.",
+                  "literal": "I just here shifted have-become am"
+                },
+                "fr": {
+                  "meaning": "Je viens d'emménager ici. (locutrice)",
+                  "note": "Un homme dit हुआ हूँ au lieu de हुई हूँ.",
+                  "literal": "Je à l'instant ici installée devenue suis"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": "शिफ़्ट होना (to shift/move house) is a common urban English loan.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_meet_neighbour:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "आपका स्वागत है, हमारी बिल्डिंग में!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "आपका स्वागत है, हमारी बिल्डिंग में!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "aapka swaagat hai, hamaari building mein!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome to our building!",
+                  "note": null,
+                  "literal": "Your welcome is, our building in"
+                },
+                "fr": {
+                  "meaning": "Bienvenue dans notre immeuble !",
+                  "note": null,
+                  "literal": "Votre bienvenue est, notre immeuble dans"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": "बिल्डिंग is a natural English loanword.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_meet_neighbour:where_from_q",
+              "key": "where_from_q",
+              "intentKey": "ask_where_from",
+              "slotId": "where_from_q",
+              "speaker": "learner",
+              "text": "आप कहाँ से हैं?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "आप कहाँ से हैं?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "aap kahaan se hain?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where are you from?",
+                  "note": null,
+                  "literal": "You where from are"
+                },
+                "fr": {
+                  "meaning": "D'où êtes-vous ?",
+                  "note": "कहाँ a une voyelle nasale : ne prononcez pas un n net.",
+                  "literal": "Vous où de êtes"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "कहाँ has a nasal vowel; do not pronounce a clear n."
+            },
+            {
+              "id": "hindi_ch1:hindi_meet_neighbour:from",
+              "key": "from",
+              "intentKey": "say_where_from",
+              "slotId": "from",
+              "speaker": "learner",
+              "text": "मैं कनाडा से हूँ।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "मैं कनाडा से हूँ।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "main kanaada se hoon."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm from Canada.",
+                  "note": "Swap in your own country or city.",
+                  "literal": "I Canada from am"
+                },
+                "fr": {
+                  "meaning": "Je viens du Canada.",
+                  "note": "Remplacez par votre pays ou votre ville.",
+                  "literal": "Je Canada de suis"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_meet_neighbour:speak_lang",
+              "key": "speak_lang",
+              "intentKey": "ask_if_speaks_language",
+              "slotId": "speak_lang",
+              "speaker": "learner",
+              "text": "क्या हम अंग्रेज़ी में बात कर सकते हैं?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "क्या हम अंग्रेज़ी में बात कर सकते हैं?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kya hum angrezi mein baat kar sakte hain?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can we talk in English?",
+                  "note": "Gender-neutral, so it suits any speaker and listener.",
+                  "literal": "Q we English in talk do can"
+                },
+                "fr": {
+                  "meaning": "Pouvons-nous parler en anglais ?",
+                  "note": "Phrase neutre quant au genre : elle convient à tout locuteur et interlocuteur. ज़ se prononce comme le z de « zéro ».",
+                  "literal": "Est-ce que nous anglais en parler faire pouvons"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ज़ is like the z in 'zoo'."
+            },
+            {
+              "id": "hindi_ch1:hindi_meet_neighbour:little",
+              "key": "little",
+              "intentKey": "say_speak_little",
+              "slotId": "little",
+              "speaker": "learner",
+              "text": "मुझे थोड़ी हिंदी आती है।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "मुझे थोड़ी हिंदी आती है।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "mujhe thodi hindi aati hai."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I know a little Hindi.",
+                  "note": "आती है is the same for any speaker, so no gender change is needed.",
+                  "literal": "To-me little Hindi comes"
+                },
+                "fr": {
+                  "meaning": "Je parle un peu hindi.",
+                  "note": "आती है est identique pour tous, aucun accord au féminin ou au masculin. थ est un t aspiré, avec un souffle ; ड़ est un battement de langue.",
+                  "literal": "À-moi un-peu hindi vient"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "थ is an aspirated t with a puff of breath; ड़ is a flap."
+            },
+            {
+              "id": "hindi_ch1:hindi_meet_neighbour:offer_help",
+              "key": "offer_help",
+              "intentKey": "offer_help",
+              "slotId": "offer_help",
+              "speaker": "learner",
+              "text": "क्या मैं आपकी मदद करूँ?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "क्या मैं आपकी मदद करूँ?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kya main aapki madad karoon?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I help you?",
+                  "note": "Good to say when she is carrying bags.",
+                  "literal": "Q I your help do"
+                },
+                "fr": {
+                  "meaning": "Puis-je vous aider ?",
+                  "note": "Idéal quand elle porte des sacs.",
+                  "literal": "Est-ce que je votre aide fasse"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_meet_neighbour:offer_help_variant_9",
+              "key": "offer_help_variant_9",
+              "intentKey": "offer_help",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "कुछ ज़रूरत हो तो बताइए।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "कुछ ज़रूरत हो तो बताइए।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kuchh zaroorat ho to bataiye."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "If you need anything, let me know.",
+                  "note": null,
+                  "literal": "Some need be then tell"
+                },
+                "fr": {
+                  "meaning": "Si vous avez besoin de quoi que ce soit, dites-le-moi.",
+                  "note": null,
+                  "literal": "Quelque besoin soit alors dites"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_meet_neighbour:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "आपका बहुत-बहुत शुक्रिया!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "आपका बहुत-बहुत शुक्रिया!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "aapka bahut-bahut shukriya!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you so much!",
+                  "note": "Warmer than the plain धन्यवाद used earlier; handy for the tea invitation.",
+                  "literal": "Your very-very thanks"
+                },
+                "fr": {
+                  "meaning": "Merci infiniment !",
+                  "note": "Plus chaleureux que le simple धन्यवाद vu plus tôt ; pratique pour l'invitation à prendre le thé.",
+                  "literal": "Votre beaucoup-beaucoup merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "hindi_take_taxi",
+          "blueprintKey": "take_taxi",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "transport",
+          "characterKey": "hindi_character_taxi_driver",
+          "titles": {
+            "en": "Taking a Taxi",
+            "fr": "Prendre un taxi"
+          },
+          "sceneNotes": {
+            "en": "You hail a taxi on a busy street and ask to go to the old town, while the chatty driver quotes a price without using the meter.",
+            "fr": "Vous hélez un taxi dans une rue animée et vous demandez à aller dans la vieille ville, tandis que le chauffeur bavard annonce un prix sans utiliser le compteur."
+          },
+          "slots": [
+            {
+              "slotId": "hail",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_to",
+              "speaker": "character"
+            },
+            {
+              "slotId": "destination",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "meter",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fare",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "change",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hindi_ch1:hindi_take_taxi:hail",
+              "key": "hail",
+              "intentKey": "hail_taxi",
+              "slotId": "hail",
+              "speaker": "learner",
+              "text": "भैया, टैक्सी खाली है?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "भैया, टैक्सी खाली है?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "bhaiya, taxi khaali hai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Brother, is the taxi free?",
+                  "note": "Common way to get a driver's attention; भैया is a friendly address for men.",
+                  "literal": "brother, taxi empty is?"
+                },
+                "fr": {
+                  "meaning": "Frère, le taxi est libre ?",
+                  "note": "Façon courante d'attirer l'attention d'un chauffeur ; भैया est une appellation amicale pour un homme. Dans खाली, « kh » est un k aspiré, un k bien appuyé comme dans « kilo ».",
+                  "literal": "frère, taxi vide est ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": "टैक्सी is an English loanword, used universally.",
+              "pronunciationNote": "खाली: 'kh' is a breathy k, like a strong k in 'kite'."
+            },
+            {
+              "id": "hindi_ch1:hindi_take_taxi:where_to",
+              "key": "where_to",
+              "intentKey": "ask_destination",
+              "slotId": "where_to",
+              "speaker": "character",
+              "text": "जी, बैठिए। कहाँ जाना है?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "जी, बैठिए। कहाँ जाना है?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "jee, baithiye. kahaan jaana hai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, please sit. Where do you want to go?",
+                  "note": null,
+                  "literal": "yes, sit. where to go is?"
+                },
+                "fr": {
+                  "meaning": "Oui, installez-vous. Où voulez-vous aller ?",
+                  "note": "Dans कहाँ, le « aan » est nasalisé : ne prononcez pas un n dur.",
+                  "literal": "oui, asseyez-vous. où aller est ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "कहाँ: nasal 'aan', do not pronounce a hard n."
+            },
+            {
+              "id": "hindi_ch1:hindi_take_taxi:destination",
+              "key": "destination",
+              "intentKey": "state_destination",
+              "slotId": "destination",
+              "speaker": "learner",
+              "text": "मुझे पुराने शहर जाना है, प्लीज़।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "मुझे पुराने शहर जाना है, प्लीज़।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "mujhe puraane shehar jaana hai, please."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I need to go to the old town, please.",
+                  "note": "In Delhi the real place name (e.g. पुरानी दिल्ली) would be used.",
+                  "literal": "to me old city to-go is, please"
+                },
+                "fr": {
+                  "meaning": "Je dois aller dans la vieille ville, s'il vous plaît.",
+                  "note": "À Delhi, on utiliserait le vrai nom du lieu (par ex. पुरानी दिल्ली).",
+                  "literal": "à moi vieille ville aller est, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "प्लीज़ is a common English mix-in, as in the earlier lines.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_take_taxi:meter",
+              "key": "meter",
+              "intentKey": "ask_use_meter",
+              "slotId": "meter",
+              "speaker": "learner",
+              "text": "मीटर से चलेंगे, भैया?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "मीटर से चलेंगे, भैया?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "meter se chalenge, bhaiya?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Will we go by the meter, brother?",
+                  "note": "A polite, indirect way to ask the driver to use the meter.",
+                  "literal": "meter by will-go, brother?"
+                },
+                "fr": {
+                  "meaning": "On y va au compteur, frère ?",
+                  "note": "Façon polie et indirecte de demander au chauffeur d'utiliser le compteur.",
+                  "literal": "compteur par irons, frère ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "मीटर is an English loanword.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_take_taxi:fare",
+              "key": "fare",
+              "intentKey": "ask_fare",
+              "slotId": "fare",
+              "speaker": "learner",
+              "text": "पुराने शहर तक कितना लगेगा?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "पुराने शहर तक कितना लगेगा?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "puraane shehar tak kitna lagega?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much will it cost to the old town?",
+                  "note": "कितना लगेगा is the usual way to ask a fare before the ride.",
+                  "literal": "old city up-to how-much will-take?"
+                },
+                "fr": {
+                  "meaning": "Combien ça coûtera jusqu'à la vieille ville ?",
+                  "note": "कितना लगेगा est la façon habituelle de demander le prix avant la course. Dans लगेगा, appuyez sur le « ge » du milieu.",
+                  "literal": "vieille ville jusqu'à combien prendra ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "लगेगा: stress the middle 'ge'."
+            },
+            {
+              "id": "hindi_ch1:hindi_take_taxi:stop",
+              "key": "stop",
+              "intentKey": "say_stop_here",
+              "slotId": "stop",
+              "speaker": "learner",
+              "text": "यहीं रोक दीजिए, प्लीज़।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "यहीं रोक दीजिए, प्लीज़।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "yaheen rok deejiye, please."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please stop right here.",
+                  "note": "The -इए ending (दीजिए) makes the request polite.",
+                  "literal": "right-here stop give-please, please"
+                },
+                "fr": {
+                  "meaning": "Arrêtez-vous ici, s'il vous plaît.",
+                  "note": "La terminaison -इए (दीजिए) rend la demande polie. Dans यहीं, le « ee » est long et la fin est nasalisée.",
+                  "literal": "ici-même arrêter donnez-s'il-vous-plaît, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "यहीं: long 'ee', nasal ending."
+            },
+            {
+              "id": "hindi_ch1:hindi_take_taxi:change",
+              "key": "change",
+              "intentKey": "ask_for_change",
+              "slotId": "change",
+              "speaker": "learner",
+              "text": "आपके पास छुट्टे हैं?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "आपके पास छुट्टे हैं?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "aapke paas chhutte hain?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have change?",
+                  "note": "छुट्टे means small change (coins and small notes).",
+                  "literal": "your near small-change are?"
+                },
+                "fr": {
+                  "meaning": "Vous avez de la monnaie ?",
+                  "note": "छुट्टे désigne la petite monnaie (pièces et petits billets). Dans छुट्टे, « chh » est un ch aspiré ; le double t est tenu un peu plus longtemps.",
+                  "literal": "votre près monnaie sont ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "छुट्टे: 'chh' is a breathy ch; double t is held slightly longer."
+            },
+            {
+              "id": "hindi_ch1:hindi_take_taxi:bye",
+              "key": "bye",
+              "intentKey": "say_goodbye",
+              "slotId": "bye",
+              "speaker": "learner",
+              "text": "धन्यवाद, भैया! फिर मिलते हैं।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "धन्यवाद, भैया! फिर मिलते हैं।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "dhanyavaad, bhaiya! phir milte hain."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, brother! See you again.",
+                  "note": "Reuses the earlier 'thanks' and 'see you' formulas.",
+                  "literal": "thanks, brother! again meet"
+                },
+                "fr": {
+                  "meaning": "Merci, frère ! À bientôt.",
+                  "note": "Reprend les formules de remerciement et d'au revoir déjà vues. Dans धन्यवाद, « dh » est un d aspiré.",
+                  "literal": "merci, frère ! de nouveau nous rencontrons"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "धन्यवाद: 'dh' is a breathy d."
+            },
+            {
+              "id": "hindi_ch1:hindi_take_taxi:hail_taxi_variant_9",
+              "key": "hail_taxi_variant_9",
+              "intentKey": "hail_taxi",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "टैक्सी! पुराने शहर चलोगे?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "टैक्सी! पुराने शहर चलोगे?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "taxi! puraane shehar chaloge?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Taxi! Will you go to the old town?",
+                  "note": "Casual street style; चलोगे is informal, so keep it for drivers in a quick street exchange.",
+                  "literal": "taxi! old city will-you-go?"
+                },
+                "fr": {
+                  "meaning": "Taxi ! Vous allez dans la vieille ville ?",
+                  "note": "Style familier de la rue ; चलोगे est informel, à réserver aux échanges rapides avec les chauffeurs.",
+                  "literal": "taxi ! vieille ville irez-tu ?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "टैक्सी is a loanword.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_take_taxi:ask_fare_variant_10",
+              "key": "ask_fare_variant_10",
+              "intentKey": "ask_fare",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "कितना हुआ, भैया?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "कितना हुआ, भैया?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kitna hua, bhaiya?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is it, brother?",
+                  "note": "Used at the end of the ride to ask the amount due; same phrase as in the earlier chapter.",
+                  "literal": "how-much happened, brother?"
+                },
+                "fr": {
+                  "meaning": "C'est combien, frère ?",
+                  "note": "Sert à demander la somme due à la fin de la course ; même phrase que dans le chapitre précédent.",
+                  "literal": "combien est-arrivé, frère ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_take_taxi:say_stop_here_variant_11",
+              "key": "say_stop_here_variant_11",
+              "intentKey": "say_stop_here",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "बस, यहीं ठीक है।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "बस, यहीं ठीक है।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "bas, yaheen theek hai."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "That's it, right here is fine.",
+                  "note": "A softer, casual way to say you want to get off.",
+                  "literal": "enough, right-here fine is"
+                },
+                "fr": {
+                  "meaning": "Ça va, ici c'est bien.",
+                  "note": "Façon plus douce et familière de dire que vous voulez descendre. Dans ठीक, « th » est un t aspiré, pas le « th » anglais.",
+                  "literal": "assez, ici-même bien est"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ठीक: 'th' is a breathy t, not English 'th'."
+            }
+          ]
+        },
+        {
+          "key": "hindi_buy_ice_cream",
+          "blueprintKey": "buy_ice_cream",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "shopping",
+          "characterKey": "hindi_character_child_at_the_ice_cream_stand",
+          "titles": {
+            "en": "Buying Ice Cream Together",
+            "fr": "Acheter une glace ensemble"
+          },
+          "sceneNotes": {
+            "en": "You are at an ice-cream cart outside the school with a child who wants ice cream, and only two flavours are left.",
+            "fr": "Vous êtes devant le chariot de glaces à la sortie de l'école avec un enfant qui veut une glace, mais il ne reste que deux parfums."
+          },
+          "slots": [
+            {
+              "slotId": "wants",
+              "speaker": "character"
+            },
+            {
+              "slotId": "which_flavour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "picks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "scoop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "asks_two",
+              "speaker": "character"
+            },
+            {
+              "slotId": "just_one",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "okay",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "yummy",
+              "speaker": "character"
+            },
+            {
+              "slotId": "me_too",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "hindi_ch1:hindi_buy_ice_cream:wants",
+              "key": "wants",
+              "intentKey": "request_food",
+              "slotId": "wants",
+              "speaker": "character",
+              "text": "मुझे आइसक्रीम चाहिए!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "मुझे आइसक्रीम चाहिए!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "mujhe aaisakreem chaahiye!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want an ice cream!",
+                  "note": null,
+                  "literal": "to-me ice cream needed"
+                },
+                "fr": {
+                  "meaning": "Je veux une glace !",
+                  "note": null,
+                  "literal": "à-moi glace nécessaire"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "आइसक्रीम is an English loanword, fully natural.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_buy_ice_cream:which_flavour",
+              "key": "which_flavour",
+              "intentKey": "offer_options",
+              "slotId": "which_flavour",
+              "speaker": "learner",
+              "text": "वनीला लोगे या चॉकलेट?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "वनीला लोगे या चॉकलेट?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "vaneela loge ya chocolate?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Will you have vanilla or chocolate?",
+                  "note": "Uses the friendly 'tum' form, suitable for talking to a child.",
+                  "literal": "vanilla will-take or chocolate"
+                },
+                "fr": {
+                  "meaning": "Tu prends vanille ou chocolat ?",
+                  "note": "On emploie le « tum » amical, adapté pour parler à un enfant.",
+                  "literal": "vanille tu-prendras ou chocolat"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "Flavour names are English loanwords.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_buy_ice_cream:picks",
+              "key": "picks",
+              "intentKey": "choose_option",
+              "slotId": "picks",
+              "speaker": "character",
+              "text": "चॉकलेट वाली, प्लीज़!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "चॉकलेट वाली, प्लीज़!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "chocolate vaali, please!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The chocolate one, please!",
+                  "note": "वाली agrees with the feminine आइसक्रीम.",
+                  "literal": "chocolate-one, please"
+                },
+                "fr": {
+                  "meaning": "Celle au chocolat, s'il te plaît !",
+                  "note": "वाली s'accorde avec आइसक्रीम, qui est féminin.",
+                  "literal": "chocolat-celle, s'il-te-plaît"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "प्लीज़ is a common English insertion.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_buy_ice_cream:scoop",
+              "key": "scoop",
+              "intentKey": "specify_quantity",
+              "slotId": "scoop",
+              "speaker": "learner",
+              "text": "भैया, एक स्कूप चॉकलेट मिलेगा, प्लीज़?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "भैया, एक स्कूप चॉकलेट मिलेगा, प्लीज़?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "bhaiya, ek scoop chocolate milega, please?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Brother, could we get one scoop of chocolate, please?",
+                  "note": "Said to the ice-cream seller.",
+                  "literal": "brother, one scoop chocolate will-be-available, please?"
+                },
+                "fr": {
+                  "meaning": "Grand frère, on pourrait avoir une boule de chocolat, s'il vous plaît ?",
+                  "note": "Se dit au vendeur de glaces. Prononcez « skoop » en une seule syllabe.",
+                  "literal": "grand-frère, une boule chocolat sera-disponible, s'il-vous-plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "स्कूप and चॉकलेट are loanwords.",
+              "pronunciationNote": "Say 'skoop' as one syllable."
+            },
+            {
+              "id": "hindi_ch1:hindi_buy_ice_cream:asks_two",
+              "key": "asks_two",
+              "intentKey": "ask_permission",
+              "slotId": "asks_two",
+              "speaker": "character",
+              "text": "क्या मैं दो स्कूप ले लूँ?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "क्या मैं दो स्कूप ले लूँ?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kya main do scoop le loon?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I take two scoops?",
+                  "note": null,
+                  "literal": "? I two scoop take-take"
+                },
+                "fr": {
+                  "meaning": "Je peux prendre deux boules ?",
+                  "note": null,
+                  "literal": "? je deux boules prendre-prendre"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_buy_ice_cream:just_one",
+              "key": "just_one",
+              "intentKey": "refuse_permission",
+              "slotId": "just_one",
+              "speaker": "learner",
+              "text": "सॉरी बेटा, आज बस एक स्कूप।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "सॉरी बेटा, आज बस एक स्कूप।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "sorry beta, aaj bas ek scoop."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, dear, just one scoop today.",
+                  "note": "बेटा is an affectionate word for a child of either gender.",
+                  "literal": "sorry child, today only one scoop"
+                },
+                "fr": {
+                  "meaning": "Désolé, mon grand, aujourd'hui une seule boule.",
+                  "note": "बेटा est un mot affectueux pour un enfant, garçon ou fille.",
+                  "literal": "désolé enfant, aujourd'hui seulement une boule"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "सॉरी is a common English insertion.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_buy_ice_cream:okay",
+              "key": "okay",
+              "intentKey": "grant_permission",
+              "slotId": "okay",
+              "speaker": "learner",
+              "text": "हाँ बेटा, ज़रूर!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "हाँ बेटा, ज़रूर!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "haan beta, zaroor!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, dear, of course!",
+                  "note": "Use it to say yes to small requests, such as the child asking to hold the cone.",
+                  "literal": "yes child, certainly"
+                },
+                "fr": {
+                  "meaning": "Oui, mon grand, bien sûr !",
+                  "note": "Pratique pour accepter une petite demande, par exemple si l'enfant veut tenir le cornet. ज़ se prononce comme le « z » français.",
+                  "literal": "oui enfant, certainement"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ज़ is like English 'z'."
+            },
+            {
+              "id": "hindi_ch1:hindi_buy_ice_cream:yummy",
+              "key": "yummy",
+              "intentKey": "say_delicious",
+              "slotId": "yummy",
+              "speaker": "character",
+              "text": "वाह, बहुत टेस्टी है!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "वाह, बहुत टेस्टी है!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "waah, bahut tasty hai!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Wow, it's so tasty!",
+                  "note": null,
+                  "literal": "wow, very tasty is"
+                },
+                "fr": {
+                  "meaning": "Waouh, c'est trop bon !",
+                  "note": null,
+                  "literal": "waouh, très délicieux est"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "टेस्टी is very common in everyday speech, especially among kids.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_buy_ice_cream:me_too",
+              "key": "me_too",
+              "intentKey": "express_like",
+              "slotId": "me_too",
+              "speaker": "learner",
+              "text": "मुझे भी चॉकलेट बहुत पसंद है।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "मुझे भी चॉकलेट बहुत पसंद है।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "mujhe bhi chocolate bahut pasand hai."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I like chocolate a lot too.",
+                  "note": null,
+                  "literal": "to-me also chocolate very liked is"
+                },
+                "fr": {
+                  "meaning": "Moi aussi, j'adore le chocolat.",
+                  "note": null,
+                  "literal": "à-moi aussi chocolat beaucoup aimé est"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_buy_ice_cream:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "character",
+              "text": "बहुत शुक्रिया!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "बहुत शुक्रिया!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "bahut shukriya!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks a lot!",
+                  "note": "शुक्रिया is a friendly everyday alternative to the धन्यवाद used earlier.",
+                  "literal": "very thanks"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup !",
+                  "note": "शुक्रिया est une façon amicale et courante de remercier, à côté de धन्यवाद vu plus tôt.",
+                  "literal": "beaucoup merci"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_buy_ice_cream:welcome",
+              "key": "welcome",
+              "intentKey": "respond_to_thanks",
+              "slotId": "welcome",
+              "speaker": "learner",
+              "text": "अरे, कोई बात नहीं, बेटा!",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "अरे, कोई बात नहीं, बेटा!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "are, koi baat nahin, beta!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Oh, no problem, dear!",
+                  "note": null,
+                  "literal": "oh, any matter no, child"
+                },
+                "fr": {
+                  "meaning": "Oh, pas de souci, mon grand !",
+                  "note": null,
+                  "literal": "oh, aucune affaire non, enfant"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_buy_ice_cream:offer_options_variant_12",
+              "key": "offer_options_variant_12",
+              "intentKey": "offer_options",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "तुम्हें कौन सा फ़्लेवर चाहिए?",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "तुम्हें कौन सा फ़्लेवर चाहिए?"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "tumhein kaun sa flavour chaahiye?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which flavour do you want?",
+                  "note": "Open question alternative to offering two named flavours.",
+                  "literal": "to-you which flavour needed"
+                },
+                "fr": {
+                  "meaning": "Tu veux quel parfum ?",
+                  "note": "Question ouverte, une alternative à la proposition de deux parfums précis.",
+                  "literal": "à-toi quel parfum nécessaire"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "फ़्लेवर is a loanword.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "hindi_ch1:hindi_buy_ice_cream:refuse_permission_variant_13",
+              "key": "refuse_permission_variant_13",
+              "intentKey": "refuse_permission",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "नहीं बेटा, गला ख़राब हो जाएगा।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "नहीं बेटा, गला ख़राब हो जाएगा।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "nahin beta, gala kharaab ho jaayega."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, dear, you'll get a sore throat.",
+                  "note": "A kind, typical parent-style reason for refusing.",
+                  "literal": "no child, throat bad will-become"
+                },
+                "fr": {
+                  "meaning": "Non, mon grand, tu vas avoir mal à la gorge.",
+                  "note": "Une raison gentille, typique d'un parent, pour refuser. ख़ est un « kh » guttural, comme la « jota » espagnole.",
+                  "literal": "non enfant, gorge mauvaise deviendra"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ख़ is a throaty 'kh', like Scottish 'loch'."
+            },
+            {
+              "id": "hindi_ch1:hindi_buy_ice_cream:specify_quantity_variant_14",
+              "key": "specify_quantity_variant_14",
+              "intentKey": "specify_quantity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "एक चॉकलेट स्कूप, प्लीज़।",
+              "forms": [
+                {
+                  "script": "Deva",
+                  "scheme": null,
+                  "text": "एक चॉकलेट स्कूप, प्लीज़।"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ek chocolate scoop, please."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One chocolate scoop, please.",
+                  "note": "Shorter, very common way to order at a stall.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Une boule de chocolat, s'il vous plaît.",
+                  "note": "Une façon plus courte et très courante de commander à un stand.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": "Nearly all English words; the frame is still natural.",
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,1858 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts",
+  "courseTrackId": "spanish-spain",
+  "chapters": [
+    {
+      "key": "es_es_ch1_arrival_madrid",
+      "chapterIndex": 1,
+      "courseTrackId": "spanish-spain",
+      "targetVarietyId": "es-ES",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "First days in Madrid",
+        "fr": "Premiers jours à Madrid"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "curriculum-seed/spanish-spain@2026-10",
+      "notes": [
+        "Castilian usage (tú/usted, \"vale\", \"¿me cobras?\") to be confirmed by a reviewer from Spain; no Latin American substitutions.",
+        "Gendered adjectives (encantado/a, el nuevo vecino / la nueva vecina) need feminine variants recorded.",
+        "fr learner text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+      ],
+      "characters": [
+        {
+          "key": "es_lucia_acquaintance",
+          "name": "Lucía",
+          "role": "friendly local acquaintance",
+          "personality": "open, chatty, laughs easily",
+          "homeRegion": "Madrid",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "es_javi_camarero",
+          "name": "Javi",
+          "role": "café server",
+          "personality": "fast, informal, friendly",
+          "homeRegion": "Madrid",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "es_paco_mercado",
+          "name": "Paco",
+          "role": "market vendor",
+          "personality": "loud, generous, proud of his produce",
+          "homeRegion": "Madrid",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "es_carmen_passerby",
+          "name": "Carmen",
+          "role": "passer-by",
+          "personality": "helpful, precise with directions",
+          "homeRegion": "Madrid",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "es_marta_vecina",
+          "name": "Marta",
+          "role": "neighbour",
+          "personality": "curious, welcoming, offers help",
+          "homeRegion": "Madrid",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "es_antonio_taxista",
+          "name": "Antonio",
+          "role": "taxi driver",
+          "personality": "talkative, football fan",
+          "homeRegion": "Madrid",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "es_greet_and_introduce",
+          "blueprintKey": "greet_and_introduce",
+          "missionType": "standard",
+          "level": "beginner",
+          "situation": "introductions",
+          "characterKey": "es_lucia_acquaintance",
+          "titles": {
+            "en": "Greet and introduce yourself",
+            "fr": "Saluer et se présenter"
+          },
+          "sceneNotes": {
+            "en": "Morning in the street; a neighbour you have seen before stops to say hello.",
+            "fr": "Vous croisez dans la rue, un matin, une voisine que vous connaissez déjà : elle s'arrête pour vous dire bonjour."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_are_you",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fine",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "your_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "nice_to_meet",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "goodbye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "es_es_ch1_arrival_madrid:es_greet_and_introduce:hola",
+              "key": "hola",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Hola, buenos días.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hola, buenos días."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, good morning.",
+                  "note": "\"Buenas\" alone is a very common casual greeting at any time of day.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bonjour.",
+                  "note": "« Buenas » tout seul est un salut familier très courant, à n'importe quel moment de la journée.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_greet_and_introduce:buenas_tardes",
+              "key": "buenas_tardes",
+              "intentKey": "greet_time_of_day",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Buenas tardes.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Buenas tardes."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good afternoon / good evening.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bonjour (l'après-midi) / Bonsoir.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_greet_and_introduce:que_tal",
+              "key": "que_tal",
+              "intentKey": "ask_how_are_you",
+              "slotId": "how_are_you",
+              "speaker": "learner",
+              "text": "¿Qué tal?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Qué tal?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How are you? / How is it going?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Comment ça va ? / Ça va ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_greet_and_introduce:bien_gracias",
+              "key": "bien_gracias",
+              "intentKey": "reply_fine",
+              "slotId": "fine",
+              "speaker": "learner",
+              "text": "Bien, gracias. ¿Y tú?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bien, gracias. ¿Y tú?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Fine, thanks. And you?",
+                  "note": "Use \"¿y usted?\" with older strangers or in formal settings.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bien, merci. Et toi ?",
+                  "note": "Avec une personne âgée que vous ne connaissez pas ou dans un cadre formel, on dit « ¿y usted? ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_greet_and_introduce:me_llamo",
+              "key": "me_llamo",
+              "intentKey": "introduce_name",
+              "slotId": "my_name",
+              "speaker": "learner",
+              "text": "Me llamo …",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Me llamo …"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My name is …",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Je m'appelle …",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_greet_and_introduce:como_te_llamas",
+              "key": "como_te_llamas",
+              "intentKey": "ask_name",
+              "slotId": "your_name",
+              "speaker": "learner",
+              "text": "¿Cómo te llamas?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Cómo te llamas?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's your name?",
+                  "note": "Formal: \"¿Cómo se llama usted?\".",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Comment tu t'appelles ?",
+                  "note": "Forme polie : « ¿Cómo se llama usted? ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_greet_and_introduce:encantado",
+              "key": "encantado",
+              "intentKey": "say_nice_to_meet",
+              "slotId": "nice_to_meet",
+              "speaker": "learner",
+              "text": "Encantado.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Encantado."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Nice to meet you.",
+                  "note": "A woman says \"encantada\".",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Enchanté.",
+                  "note": "Une femme dit « encantada ».",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_greet_and_introduce:hasta_luego",
+              "key": "hasta_luego",
+              "intentKey": "say_goodbye",
+              "slotId": "goodbye",
+              "speaker": "learner",
+              "text": "Hasta luego.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hasta luego."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "See you later / bye.",
+                  "note": "The everyday goodbye in Spain; \"adiós\" sounds more final.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "À tout à l'heure / Au revoir.",
+                  "note": "C'est l'au revoir de tous les jours en Espagne ; « adiós » paraît plus définitif.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "es_cafe_order_drink",
+          "blueprintKey": "cafe_order_drink",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "cafe",
+          "characterKey": "es_javi_camarero",
+          "titles": {
+            "en": "Ordering at the bar",
+            "fr": "Commander au comptoir"
+          },
+          "sceneNotes": {
+            "en": "A neighbourhood bar at breakfast time; the waiter is quick and informal.",
+            "fr": "Vous êtes dans un bar de quartier à l'heure du petit-déjeuner ; le serveur est rapide et décontracté."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "options",
+              "speaker": "character"
+            },
+            {
+              "slotId": "choice",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "es_es_ch1_arrival_madrid:es_cafe_order_drink:buenos_dias",
+              "key": "buenos_dias",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Buenos días.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Buenos días."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bonjour.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_cafe_order_drink:cafe_con_leche",
+              "key": "cafe_con_leche",
+              "intentKey": "request_drink",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Un café con leche, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Un café con leche, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A coffee with milk, please.",
+                  "note": "\"Ponme un café\" is the normal casual way to order at a bar in Spain.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Un café au lait, s'il vous plaît.",
+                  "note": "« Ponme un café » est la façon courante et décontractée de commander dans un bar en Espagne.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_cafe_order_drink:solo_o_con_leche",
+              "key": "solo_o_con_leche",
+              "intentKey": "offer_options",
+              "slotId": "options",
+              "speaker": "character",
+              "text": "¿Solo o con leche?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Solo o con leche?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Black or with milk?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Noir ou au lait ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_cafe_order_drink:con_leche",
+              "key": "con_leche",
+              "intentKey": "choose_option",
+              "slotId": "choice",
+              "speaker": "learner",
+              "text": "Con leche, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Con leche, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "With milk, please.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Au lait, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_cafe_order_drink:me_cobras",
+              "key": "me_cobras",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "¿Me cobras, por favor?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Me cobras, por favor?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay, please? (lit. \"will you charge me?\")",
+                  "note": "Very Spain-specific; \"la cuenta, por favor\" also works everywhere.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Je peux payer, s'il vous plaît ?",
+                  "note": "Très typique de l'Espagne ; « la cuenta, por favor » fonctionne aussi partout.",
+                  "literal": "Me tu encaisses, s'il te plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_cafe_order_drink:la_cuenta",
+              "key": "la_cuenta",
+              "intentKey": "ask_for_bill",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "La cuenta, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "La cuenta, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The bill, please.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "L'addition, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_cafe_order_drink:gracias",
+              "key": "gracias",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Gracias.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Gracias."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "es_market_ask_price",
+          "blueprintKey": "market_ask_price",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "market",
+          "characterKey": "es_paco_mercado",
+          "titles": {
+            "en": "Asking the price at the market",
+            "fr": "Demander le prix au marché"
+          },
+          "sceneNotes": {
+            "en": "A fruit stall at a covered market; prices are per kilo and bargaining is unusual.",
+            "fr": "Vous êtes devant un étal de fruits dans un marché couvert, où les prix sont indiqués au kilo et où l'on marchande rarement."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_much",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "character"
+            },
+            {
+              "slotId": "expensive",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "lower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "deal",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "no_thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "es_es_ch1_arrival_madrid:es_market_ask_price:hola_buenas",
+              "key": "hola_buenas",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Hola, buenas.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hola, buenas."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bonjour.",
+                  "note": "Salutation courte et très courante en Espagne, utilisable à toute heure de la journée.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_market_ask_price:cuanto_cuesta",
+              "key": "cuanto_cuesta",
+              "intentKey": "ask_price",
+              "slotId": "how_much",
+              "speaker": "learner",
+              "text": "¿Cuánto cuesta esto?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Cuánto cuesta esto?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is this?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Combien ça coûte ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_market_ask_price:tres_euros_kilo",
+              "key": "tres_euros_kilo",
+              "intentKey": "state_price",
+              "slotId": "price",
+              "speaker": "character",
+              "text": "Son tres euros el kilo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Son tres euros el kilo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's three euros a kilo.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "C'est trois euros le kilo.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_market_ask_price:que_caro",
+              "key": "que_caro",
+              "intentKey": "say_too_expensive",
+              "slotId": "expensive",
+              "speaker": "learner",
+              "text": "Uy, qué caro.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Uy, qué caro."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Oh, that's expensive.",
+                  "note": "Light comment; bargaining is not expected at Spanish markets.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Oh là là, c'est cher.",
+                  "note": "Simple remarque légère ; on ne marchande pas vraiment dans les marchés espagnols.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_market_ask_price:mas_barato",
+              "key": "mas_barato",
+              "intentKey": "offer_lower_price",
+              "slotId": "lower",
+              "speaker": "learner",
+              "text": "¿Me lo dejas un poco más barato?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Me lo dejas un poco más barato?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you give it to me a bit cheaper?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Tu peux me le laisser un peu moins cher ?",
+                  "note": "Tutoiement familier ; à utiliser avec parcimonie, car le marchandage n'est pas d'usage.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_market_ask_price:me_lo_llevo",
+              "key": "me_lo_llevo",
+              "intentKey": "agree_to_price",
+              "slotId": "deal",
+              "speaker": "learner",
+              "text": "Vale, me lo llevo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vale, me lo llevo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'll take it.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "D'accord, je le prends.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_market_ask_price:no_gracias",
+              "key": "no_gracias",
+              "intentKey": "decline_purchase",
+              "slotId": "no_thanks",
+              "speaker": "learner",
+              "text": "No, gracias.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "No, gracias."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, thank you.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Non, merci.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_market_ask_price:solo_mirando",
+              "key": "solo_mirando",
+              "intentKey": "say_just_looking",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Solo estoy mirando.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Solo estoy mirando."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm just looking.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Je regarde seulement.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "es_ask_directions",
+          "blueprintKey": "ask_directions",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "directions",
+          "characterKey": "es_carmen_passerby",
+          "titles": {
+            "en": "Asking for directions",
+            "fr": "Demander son chemin"
+          },
+          "sceneNotes": {
+            "en": "Looking for the train station; the passer-by speaks quickly.",
+            "fr": "Vous cherchez la gare et Carmen, une passante, vous répond en parlant vite."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_is",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "straight",
+              "speaker": "character"
+            },
+            {
+              "slotId": "turn",
+              "speaker": "character"
+            },
+            {
+              "slotId": "far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "near",
+              "speaker": "character"
+            },
+            {
+              "slotId": "repeat",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "slower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "es_es_ch1_arrival_madrid:es_ask_directions:perdone",
+              "key": "perdone",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "Perdone,",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Perdone,"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me,",
+                  "note": "Formal \"perdone\" with strangers; \"perdona\" with young people.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Excusez-moi,",
+                  "note": "« Perdone » se dit à des inconnus (vouvoiement) ; avec des jeunes, on dit « perdona ».",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_ask_directions:donde_esta_estacion",
+              "key": "donde_esta_estacion",
+              "intentKey": "ask_where_is",
+              "slotId": "where_is",
+              "speaker": "learner",
+              "text": "¿dónde está la estación?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿dónde está la estación?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "where is the station?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "où est la gare ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_ask_directions:todo_recto",
+              "key": "todo_recto",
+              "intentKey": "give_direction_straight",
+              "slotId": "straight",
+              "speaker": "character",
+              "text": "Siga todo recto.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Siga todo recto."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Go straight ahead.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Allez tout droit.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_ask_directions:gire_derecha",
+              "key": "gire_derecha",
+              "intentKey": "give_direction_turn",
+              "slotId": "turn",
+              "speaker": "character",
+              "text": "Gire a la derecha.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Gire a la derecha."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Turn right.",
+                  "note": "\"a la izquierda\" = to the left.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Tournez à droite.",
+                  "note": "« a la izquierda » signifie « à gauche ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_ask_directions:esta_lejos",
+              "key": "esta_lejos",
+              "intentKey": "ask_is_it_far",
+              "slotId": "far",
+              "speaker": "learner",
+              "text": "¿Está lejos?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Está lejos?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it far?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "C'est loin ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_ask_directions:esta_cerca",
+              "key": "esta_cerca",
+              "intentKey": "say_it_is_near",
+              "slotId": "near",
+              "speaker": "character",
+              "text": "Está cerca, a cinco minutos andando.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Está cerca, a cinco minutos andando."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's close, five minutes on foot.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "C'est près, à cinq minutes à pied.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_ask_directions:puede_repetir",
+              "key": "puede_repetir",
+              "intentKey": "ask_repeat",
+              "slotId": "repeat",
+              "speaker": "learner",
+              "text": "¿Puede repetir, por favor?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Puede repetir, por favor?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you repeat, please?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous répéter, s'il vous plaît ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_ask_directions:mas_despacio",
+              "key": "mas_despacio",
+              "intentKey": "ask_slow_down",
+              "slotId": "slower",
+              "speaker": "learner",
+              "text": "Más despacio, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Más despacio, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Slower, please.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Plus lentement, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_ask_directions:no_entiendo",
+              "key": "no_entiendo",
+              "intentKey": "say_not_understood",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "No entiendo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "No entiendo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I don't understand.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Je ne comprends pas.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_ask_directions:muchas_gracias",
+              "key": "muchas_gracias",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Muchas gracias.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Muchas gracias."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "es_meet_neighbour",
+          "blueprintKey": "meet_neighbour",
+          "missionType": "story",
+          "level": "beginner",
+          "situation": "neighbours",
+          "characterKey": "es_marta_vecina",
+          "titles": {
+            "en": "Meeting a neighbour",
+            "fr": "Rencontrer une voisine"
+          },
+          "sceneNotes": {
+            "en": "In the stairwell; the neighbour carries shopping bags and is curious about the newcomer.",
+            "fr": "Vous êtes dans la cage d'escalier ; la voisine porte des sacs de courses et se montre curieuse envers le nouvel arrivant."
+          },
+          "slots": [
+            {
+              "slotId": "new_neighbour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "character"
+            },
+            {
+              "slotId": "where_from_q",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "from",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "speak_lang",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "little",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "offer_help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "es_es_ch1_arrival_madrid:es_meet_neighbour:nuevo_vecino",
+              "key": "nuevo_vecino",
+              "intentKey": "say_new_neighbour",
+              "slotId": "new_neighbour",
+              "speaker": "learner",
+              "text": "Soy el nuevo vecino.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Soy el nuevo vecino."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm the new neighbour.",
+                  "note": "Feminine: \"la nueva vecina\".",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Je suis le nouveau voisin.",
+                  "note": "Au féminin : « la nueva vecina ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_meet_neighbour:bienvenido",
+              "key": "bienvenido",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "¡Bienvenido!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¡Bienvenido!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome!",
+                  "note": "Feminine: \"¡Bienvenida!\".",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bienvenue !",
+                  "note": "Au féminin : « ¡Bienvenida! ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_meet_neighbour:de_donde_eres",
+              "key": "de_donde_eres",
+              "intentKey": "ask_where_from",
+              "slotId": "where_from_q",
+              "speaker": "learner",
+              "text": "¿De dónde eres?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿De dónde eres?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where are you from?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "D'où viens-tu ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_meet_neighbour:soy_de_canada",
+              "key": "soy_de_canada",
+              "intentKey": "say_where_from",
+              "slotId": "from",
+              "speaker": "learner",
+              "text": "Soy de Canadá.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Soy de Canadá."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm from Canada.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Je viens du Canada.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_meet_neighbour:hablas_ingles",
+              "key": "hablas_ingles",
+              "intentKey": "ask_if_speaks_language",
+              "slotId": "speak_lang",
+              "speaker": "learner",
+              "text": "¿Hablas inglés?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Hablas inglés?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you speak English?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Tu parles anglais ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_meet_neighbour:un_poco",
+              "key": "un_poco",
+              "intentKey": "say_speak_little",
+              "slotId": "little",
+              "speaker": "learner",
+              "text": "Un poco.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Un poco."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A little.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Un peu.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_meet_neighbour:si_necesitas_algo",
+              "key": "si_necesitas_algo",
+              "intentKey": "offer_help",
+              "slotId": "offer_help",
+              "speaker": "learner",
+              "text": "Si necesitas algo, dímelo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Si necesitas algo, dímelo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "If you need anything, let me know.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Si tu as besoin de quoi que ce soit, dis-le-moi.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_meet_neighbour:muy_amable",
+              "key": "muy_amable",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Gracias, muy amable.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Gracias, muy amable."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks, that's very kind.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci, c'est très gentil.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "es_take_taxi",
+          "blueprintKey": "take_taxi",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "transport",
+          "characterKey": "es_antonio_taxista",
+          "titles": {
+            "en": "Taking a taxi",
+            "fr": "Prendre un taxi"
+          },
+          "sceneNotes": {
+            "en": "A white Madrid taxi; the meter is always used, so asking for it is only a check.",
+            "fr": "Vous montez dans un taxi blanc de Madrid ; le compteur est toujours utilisé, donc le demander n'est qu'une simple vérification."
+          },
+          "slots": [
+            {
+              "slotId": "hail",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_to",
+              "speaker": "character"
+            },
+            {
+              "slotId": "destination",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "meter",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fare",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "change",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "es_es_ch1_arrival_madrid:es_take_taxi:taxi",
+              "key": "taxi",
+              "intentKey": "hail_taxi",
+              "slotId": "hail",
+              "speaker": "learner",
+              "text": "¡Taxi!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¡Taxi!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Taxi!",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Taxi !",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_take_taxi:adonde_va",
+              "key": "adonde_va",
+              "intentKey": "ask_destination",
+              "slotId": "where_to",
+              "speaker": "character",
+              "text": "¿Adónde va?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Adónde va?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where to?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Où allez-vous ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_take_taxi:al_centro",
+              "key": "al_centro",
+              "intentKey": "state_destination",
+              "slotId": "destination",
+              "speaker": "learner",
+              "text": "Al centro, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Al centro, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "To the centre, please.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Au centre-ville, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_take_taxi:con_taximetro",
+              "key": "con_taximetro",
+              "intentKey": "ask_use_meter",
+              "slotId": "meter",
+              "speaker": "learner",
+              "text": "Con taxímetro, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Con taxímetro, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "With the meter, please.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Avec le compteur, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_take_taxi:cuanto_aeropuerto",
+              "key": "cuanto_aeropuerto",
+              "intentKey": "ask_fare",
+              "slotId": "fare",
+              "speaker": "learner",
+              "text": "¿Cuánto cuesta hasta el aeropuerto?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Cuánto cuesta hasta el aeropuerto?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is it to the airport?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Combien coûte la course jusqu'à l'aéroport ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_take_taxi:pare_aqui",
+              "key": "pare_aqui",
+              "intentKey": "say_stop_here",
+              "slotId": "stop",
+              "speaker": "learner",
+              "text": "Pare aquí, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pare aquí, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Stop here, please.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Arrêtez-vous ici, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_take_taxi:tiene_cambio",
+              "key": "tiene_cambio",
+              "intentKey": "ask_for_change",
+              "slotId": "change",
+              "speaker": "learner",
+              "text": "¿Tiene cambio?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Tiene cambio?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have change?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Avez-vous de la monnaie ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "es_es_ch1_arrival_madrid:es_take_taxi:gracias_adios",
+              "key": "gracias_adios",
+              "intentKey": "say_goodbye",
+              "slotId": "bye",
+              "speaker": "learner",
+              "text": "Gracias, adiós.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Gracias, adiós."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks, goodbye.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci, au revoir.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

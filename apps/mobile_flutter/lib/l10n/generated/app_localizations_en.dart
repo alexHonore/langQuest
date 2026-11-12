@@ -161,6 +161,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get courseContinue => 'Continue this course';
 
   @override
+  String get courseLoading => 'Loading the course…';
+
+  @override
+  String get courseLoadFailed => 'This course could not be loaded. Check your connection and try again.';
+
+  @override
+  String get courseLoadRetry => 'Try again';
+
+  @override
   String courseExplanationsIn(String language) {
     return 'Explanations in $language';
   }

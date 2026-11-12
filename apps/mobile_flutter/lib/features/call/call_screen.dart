@@ -106,7 +106,9 @@ final courseCharactersProvider = FutureProvider.autoDispose<List<CourseCharacter
   final api = ref.watch(apiProvider);
   final course = ref.watch(appStateProvider.select((s) => s.activeCourse));
   final language = ref.watch(appStateProvider.select((s) => s.uiLanguage));
-  final bundle = ref.watch(contentBundleProvider);
+  // The roles only: a course's chapters arriving must not ask the server again.
+  ref.watch(contentBundleProvider.select((b) => b.roles));
+  final bundle = ref.read(contentBundleProvider);
   if (call == null || api == null || course == null) return const [];
   try {
     return [

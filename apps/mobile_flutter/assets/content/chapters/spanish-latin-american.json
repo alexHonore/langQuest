@@ -1,0 +1,2731 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts",
+  "courseTrackId": "spanish-latin-american",
+  "chapters": [
+    {
+      "key": "spanish_latin_american_ch1",
+      "chapterIndex": 1,
+      "courseTrackId": "spanish-latin-american",
+      "targetVarietyId": "es-419",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "First days in Colombia",
+        "fr": "Premiers jours en Colombie"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+      "notes": [
+        "AI draft generated 2026-11-11T22:44:12.823Z with anthropic/claude-sonnet-5.5; validator accepted 75 expressions; native review required before publishing.",
+        "greet_and_introduce: Used 'usted' for polite register with a neighbour; Colombia often uses 'usted' even among acquaintances, other regions may prefer 'tú' or 'vos'.",
+        "greet_and_introduce: 'Sam' is a placeholder name, gender-neutral so no agreement issues.",
+        "greet_and_introduce: 'Chao' and 'que le vaya bien' are widespread, but please confirm they sound natural across regions.",
+        "cafe_order_drink: The server uses \"usted\" (\"Lo quiere\"); in some regions a younger server might use \"¿Lo quieres...?\". Please confirm what sounds most natural.",
+        "cafe_order_drink: \"Grande o pequeño\" is used since cafés often say \"tamaño\"; in some regions \"mediano\" or specific names (e.g. \"tinto\" in Colombia) may be more typical.",
+        "cafe_order_drink: Greetings and thanks avoid the earlier \"Buenos días\" and \"Hola, buenos días\" lines; the time-of-day greeting uses \"Buenas tardes\" for variety.",
+        "market_ask_price: Prices use Colombian pesos and \"¿Me lo deja en...?\"; please check whether the amounts and phrasing are natural for a Bogotá fruit stall.",
+        "market_ask_price: The slot \"lower\" uses \"lo\" while the example fruit is plural; the contextNote explains the agreement. Please confirm the clarity.",
+        "market_ask_price: \"¿A cómo está el kilo?\" is widespread but more typical of Mexico; confirm it is acceptable as a neutral variant.",
+        "ask_directions: Used usted forms (disculpe, siga, gire, puede) for a stranger; please check these feel natural for a young passer-by in Bogotá, where 'usted' is common.",
+        "ask_directions: 'Está a diez minutos a pie' is chosen for the ten-minute scene fact; 'caminando' is a common alternative, and 'derecho' vs 'recto' varies by region.",
+        "ask_directions: '¿Habla muy rápido?' variant uses usted via the third-person form with no pronoun; confirm it reads clearly without 'usted'.",
+        "meet_neighbour: Used formal \"usted\" throughout for neighbours, consistent with earlier lines; Colombian-style \"me avisa\" for the character, please check it sounds natural pan-regionally.",
+        "meet_neighbour: Gender forms (vecino/vecina, bienvenido/bienvenida) depend on speaker and listener; the extra variant covers the feminine learner.",
+        "meet_neighbour: The tea invitation from the twist is not in the required slots, so it is only hinted at in the thanks contextNote.",
+        "take_taxi: Please check that \"Pare aquí, por favor\" is not read as a bare command here; it is kept with por favor and flagged polite, remove if you think it is too direct.",
+        "take_taxi: \"Cambio de cien\" and \"centro histórico\" vary by country; the currency amount and the name for the old town may need regional adjustment.",
+        "take_taxi: Driver uses \"Para dónde va\" (common in Colombia/Mexico); alternative: \"¿A dónde va?\".",
+        "buy_ice_cream: \"Bola\" for scoop is common in MX/CO; Argentina/Uruguay say \"bocha\", Chile \"bola\", Peru often \"bola\" too. Please confirm for a neutral base.",
+        "buy_ice_cream: Child's flavour choice uses \"chocolate\"; \"fresa\" is used over \"frutilla\" (AR/CL) for neutral Spanish.",
+        "buy_ice_cream: Learner lines use \"tú\" forms with the child (\"quieres\"); the seller line uses \"por favor\" as polite register.",
+        "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+      ],
+      "characters": [
+        {
+          "key": "spanish_latin_american_camila_friendly_local_acquaintance",
+          "name": "Camila",
+          "role": "friendly local acquaintance",
+          "personality": "warm, busy, curious, kind",
+          "homeRegion": "Bogotá, Colombia",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "spanish_latin_american_camila_cafe_server",
+          "name": "Camila",
+          "role": "café server",
+          "personality": "quick, cheerful, helpful",
+          "homeRegion": "Bogotá, Colombia",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "spanish_latin_american_rosa_market_vendor",
+          "name": "Rosa",
+          "role": "market vendor",
+          "personality": "warm, chatty, generous",
+          "homeRegion": "Bogotá, Colombia",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "spanish_latin_american_carolina_passer_by",
+          "name": "Carolina",
+          "role": "passer-by",
+          "personality": "friendly, hurried, helpful",
+          "homeRegion": "Bogotá, Colombia",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "spanish_latin_american_marcela_neighbour",
+          "name": "Marcela",
+          "role": "neighbour",
+          "personality": "warm, chatty, long-time resident",
+          "homeRegion": "Medellín, Colombia",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "spanish_latin_american_carlos_taxi_driver",
+          "name": "Carlos",
+          "role": "taxi driver",
+          "personality": "talkative, friendly, a bit pushy",
+          "homeRegion": "Bogotá, Colombia",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "spanish_latin_american_valentina_child_at_the_ice_cream_stand",
+          "name": "Valentina",
+          "role": "child at the ice-cream stand",
+          "personality": "cheerful, impatient, sweet-toothed kid",
+          "homeRegion": "Bogotá, Colombia",
+          "ageBand": null,
+          "voice": "female"
+        }
+      ],
+      "missions": [
+        {
+          "key": "spanish_latin_american_greet_and_introduce",
+          "blueprintKey": "greet_and_introduce",
+          "missionType": "standard",
+          "level": "beginner",
+          "situation": "introductions",
+          "characterKey": "spanish_latin_american_camila_friendly_local_acquaintance",
+          "titles": {
+            "en": "Meeting a Neighbour",
+            "fr": "Rencontrer une voisine"
+          },
+          "sceneNotes": {
+            "en": "It's morning and you bump into a friendly neighbour on the street who is in a hurry but still stops to say hello.",
+            "fr": "Vous croisez le matin, dans la rue, une voisine sympathique qui est pressée mais s'arrête quand même pour vous saluer."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_are_you",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fine",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "your_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "nice_to_meet",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "goodbye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Buenos días.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Buenos días."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning.",
+                  "note": "Used until around noon; safe with anyone.",
+                  "literal": "good days"
+                },
+                "fr": {
+                  "meaning": "Bonjour.",
+                  "note": "S'emploie jusqu'à midi environ ; convient avec tout le monde. Le « d » de « días » est doux, proche du « th » anglais de « this ».",
+                  "literal": "bons jours"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 'd' in 'días' is soft, like the 'th' in 'this'."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:how_are_you",
+              "key": "how_are_you",
+              "intentKey": "ask_how_are_you",
+              "slotId": "how_are_you",
+              "speaker": "learner",
+              "text": "¿Cómo está usted?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Cómo está usted?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How are you?",
+                  "note": "Polite 'usted' form, good for a neighbour you don't know yet.",
+                  "literal": "how are you (formal)"
+                },
+                "fr": {
+                  "meaning": "Comment allez-vous ?",
+                  "note": "Forme de politesse avec « usted », adaptée à un voisin que vous ne connaissez pas encore.",
+                  "literal": "comment allez-vous (formel)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:fine",
+              "key": "fine",
+              "intentKey": "reply_fine",
+              "slotId": "fine",
+              "speaker": "learner",
+              "text": "Muy bien, gracias.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Muy bien, gracias."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Very well, thanks.",
+                  "note": null,
+                  "literal": "very well, thanks"
+                },
+                "fr": {
+                  "meaning": "Très bien, merci.",
+                  "note": null,
+                  "literal": "très bien, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:my_name",
+              "key": "my_name",
+              "intentKey": "introduce_name",
+              "slotId": "my_name",
+              "speaker": "learner",
+              "text": "Me llamo Sam.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Me llamo Sam."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My name is Sam.",
+                  "note": "Replace 'Sam' with your own name.",
+                  "literal": "I call myself Sam"
+                },
+                "fr": {
+                  "meaning": "Je m'appelle Sam.",
+                  "note": "Remplacez « Sam » par votre prénom. Le « ll » se prononce comme un « y » dans « yeux » (ou un « ch » doux dans certaines régions).",
+                  "literal": "je m'appelle Sam"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'ll' sounds like 'y' in 'yes' (or a soft 'sh' in some regions)."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:your_name",
+              "key": "your_name",
+              "intentKey": "ask_name",
+              "slotId": "your_name",
+              "speaker": "learner",
+              "text": "¿Y usted, cómo se llama?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Y usted, cómo se llama?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And you, what's your name?",
+                  "note": "Polite form; follows naturally after giving your own name.",
+                  "literal": "and you, how do you call yourself"
+                },
+                "fr": {
+                  "meaning": "Et vous, comment vous appelez-vous ?",
+                  "note": "Forme polie ; vient naturellement après avoir donné votre prénom.",
+                  "literal": "et vous, comment vous appelez-vous"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:nice_to_meet",
+              "key": "nice_to_meet",
+              "intentKey": "say_nice_to_meet",
+              "slotId": "nice_to_meet",
+              "speaker": "learner",
+              "text": "Mucho gusto.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mucho gusto."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Nice to meet you.",
+                  "note": "The standard reply on meeting someone; works everywhere in Latin America.",
+                  "literal": "much pleasure"
+                },
+                "fr": {
+                  "meaning": "Enchanté(e).",
+                  "note": "La réponse habituelle quand on rencontre quelqu'un ; fonctionne partout en Amérique latine. Le « g » devant « u » est dur, comme dans « gare ».",
+                  "literal": "beaucoup de plaisir"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'g' before 'u' is a hard 'g', as in 'go'."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:goodbye",
+              "key": "goodbye",
+              "intentKey": "say_goodbye",
+              "slotId": "goodbye",
+              "speaker": "learner",
+              "text": "Hasta luego, que le vaya bien.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hasta luego, que le vaya bien."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "See you later, have a good one.",
+                  "note": "A kind, polite way to wish a busy neighbour well as they leave.",
+                  "literal": "until later, that it goes well for you"
+                },
+                "fr": {
+                  "meaning": "À tout à l'heure, bonne journée.",
+                  "note": "Une façon aimable et polie de souhaiter bonne continuation à un voisin pressé qui s'en va. Le « h » de « hasta » est muet.",
+                  "literal": "jusqu'à tout à l'heure, que cela se passe bien pour vous"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'h' in 'hasta' is silent."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:greet_hello_variant_8",
+              "key": "greet_hello_variant_8",
+              "intentKey": "greet_hello",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Hola, buenos días.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hola, buenos días."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hi, good morning.",
+                  "note": "A slightly warmer version of the greeting.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Salut, bonjour.",
+                  "note": "Une version un peu plus chaleureuse de la salutation. Le « h » de « hola » est muet.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 'h' in 'hola' is silent."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:ask_how_are_you_variant_9",
+              "key": "ask_how_are_you_variant_9",
+              "intentKey": "ask_how_are_you",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "¿Cómo estás?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Cómo estás?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How are you?",
+                  "note": "Informal 'tú' form; fine with neighbours your own age or once they invite it.",
+                  "literal": "how are you (informal)"
+                },
+                "fr": {
+                  "meaning": "Comment vas-tu ?",
+                  "note": "Forme familière avec « tú » ; convient avec des voisins de votre âge ou quand ils vous y invitent.",
+                  "literal": "comment vas-tu (familier)"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:say_goodbye_variant_10",
+              "key": "say_goodbye_variant_10",
+              "intentKey": "say_goodbye",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Chao, que tenga buen día.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chao, que tenga buen día."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Bye, have a nice day.",
+                  "note": "'Chao' is very common across Latin America, especially in Colombia, Chile and Peru.",
+                  "literal": "bye, may you have a good day"
+                },
+                "fr": {
+                  "meaning": "Au revoir, bonne journée.",
+                  "note": "« Chao » est très courant en Amérique latine, surtout en Colombie, au Chili et au Pérou.",
+                  "literal": "salut, que vous ayez une bonne journée"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "spanish_latin_american_cafe_order_drink",
+          "blueprintKey": "cafe_order_drink",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "cafe",
+          "characterKey": "spanish_latin_american_camila_cafe_server",
+          "titles": {
+            "en": "Ordering a Drink at the Café",
+            "fr": "Commander une boisson au café"
+          },
+          "sceneNotes": {
+            "en": "You sit down at a busy café terrace where a quick, friendly server comes over to take your drink order.",
+            "fr": "Vous vous asseyez à la terrasse animée d'un café, où une serveuse rapide et aimable s'approche pour prendre votre commande."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "options",
+              "speaker": "character"
+            },
+            {
+              "slotId": "choice",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_cafe_order_drink:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Buenas tardes.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Buenas tardes."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good afternoon.",
+                  "note": "Use from noon until it gets dark. Swap in \"Buenos días\" in the morning or \"Buenas noches\" at night.",
+                  "literal": "good afternoons"
+                },
+                "fr": {
+                  "meaning": "Bonjour (l'après-midi).",
+                  "note": "S'emploie de midi jusqu'à la tombée de la nuit. Le matin, dites « Buenos días » ; le soir, « Buenas noches ». Le « ue » de « buenas » se prononce « oué ».",
+                  "literal": "bons après-midi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The \"ue\" in \"buenas\" sounds like \"weh\"."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_cafe_order_drink:order",
+              "key": "order",
+              "intentKey": "request_drink",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Quisiera un café, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Quisiera un café, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I would like a coffee, please.",
+                  "note": "\"Quisiera\" is a soft, polite way to ask. You can swap \"café\" for \"jugo\" (juice) or \"agua\" (water).",
+                  "literal": "I-would-like a coffee, please"
+                },
+                "fr": {
+                  "meaning": "Je voudrais un café, s'il vous plaît.",
+                  "note": "« Quisiera » est une façon douce et polie de demander. Vous pouvez remplacer « café » par « jugo » (jus) ou « agua » (eau). Le « qu » se prononce « k » et le « u » est muet.",
+                  "literal": "je voudrais un café, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The \"qu\" in \"quisiera\" is a hard \"k\" and the \"u\" is silent."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_cafe_order_drink:options",
+              "key": "options",
+              "intentKey": "offer_options",
+              "slotId": "options",
+              "speaker": "character",
+              "text": "¿Lo quiere grande o pequeño?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Lo quiere grande o pequeño?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you want it large or small?",
+                  "note": "The server uses \"usted\" (formal \"you\") with customers, which is common in Colombia.",
+                  "literal": "it you-want large or small"
+                },
+                "fr": {
+                  "meaning": "Vous le voulez grand ou petit ?",
+                  "note": "La serveuse vouvoie (« usted ») ses clients, ce qui est courant en Colombie. Le « ñ » de « pequeño » se prononce comme « gn » dans « agneau ».",
+                  "literal": "le vous voulez grand ou petit"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The \"ñ\" in \"pequeño\" sounds like \"ny\" in \"canyon\"."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_cafe_order_drink:choice",
+              "key": "choice",
+              "intentKey": "choose_option",
+              "slotId": "choice",
+              "speaker": "learner",
+              "text": "Grande, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Grande, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Large, please.",
+                  "note": "Say \"Pequeño, por favor\" for small. You can also answer with just the option you want.",
+                  "literal": "large, please"
+                },
+                "fr": {
+                  "meaning": "Grand, s'il vous plaît.",
+                  "note": "Pour un petit, dites « Pequeño, por favor ». Vous pouvez aussi répondre simplement par l'option choisie. Le « r » est roulé ou battu légèrement.",
+                  "literal": "grand, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Roll or tap the \"r\" lightly in \"grande\" and \"favor\"."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_cafe_order_drink:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "La cuenta, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "La cuenta, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The check, please.",
+                  "note": "\"La cuenta\" is the everyday way to ask for the bill across Latin America.",
+                  "literal": "the bill, please"
+                },
+                "fr": {
+                  "meaning": "L'addition, s'il vous plaît.",
+                  "note": "« La cuenta » est la façon courante de demander l'addition dans toute l'Amérique latine. « Cuenta » commence par un son « koua ».",
+                  "literal": "l'addition, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "\"Cuenta\" starts with a \"kw\" sound."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_cafe_order_drink:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Muchas gracias.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Muchas gracias."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much.",
+                  "note": "A friendly, polite way to say thanks, and it works in almost any situation.",
+                  "literal": "many thanks"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup.",
+                  "note": "Une façon aimable et polie de remercier, qui convient dans presque toutes les situations. Le « ch » de « muchas » se prononce « tch ».",
+                  "literal": "beaucoup de mercis"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The \"ch\" in \"muchas\" is like English \"ch\" in \"chair\"."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_cafe_order_drink:request_drink_variant_7",
+              "key": "request_drink_variant_7",
+              "intentKey": "request_drink",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Un jugo de naranja, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Un jugo de naranja, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "An orange juice, please.",
+                  "note": "A short, direct way to order. Use \"jugo\" in Latin America.",
+                  "literal": "a juice of orange, please"
+                },
+                "fr": {
+                  "meaning": "Un jus d'orange, s'il vous plaît.",
+                  "note": "Une façon courte et directe de commander. En Amérique latine, on dit « jugo ». Le « j » est un « h » soufflé, proche du « h » aspiré.",
+                  "literal": "un jus d'orange, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The Spanish \"j\" in \"jugo\" is a breathy \"h\" sound."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_cafe_order_drink:choose_option_variant_8",
+              "key": "choose_option_variant_8",
+              "intentKey": "choose_option",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Sin azúcar, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sin azúcar, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Without sugar, please.",
+                  "note": "Useful if the server asks whether you want sugar in your drink.",
+                  "literal": "without sugar, please"
+                },
+                "fr": {
+                  "meaning": "Sans sucre, s'il vous plaît.",
+                  "note": "Utile si le serveur demande si vous voulez du sucre dans votre boisson. Accent sur la 2e syllabe : a-ZÚ-car.",
+                  "literal": "sans sucre, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the second syllable of \"azúcar\": a-ZÚ-car."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_cafe_order_drink:ask_for_bill_variant_9",
+              "key": "ask_for_bill_variant_9",
+              "intentKey": "ask_for_bill",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "¿Cuánto le debo?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Cuánto le debo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much do I owe you?",
+                  "note": "A common, friendly alternative to asking for the bill.",
+                  "literal": "how-much to-you I-owe"
+                },
+                "fr": {
+                  "meaning": "Combien je vous dois ?",
+                  "note": "Une alternative courante et aimable pour demander l'addition. « Cuánto » porte un accent écrit et commence par un son « koua ».",
+                  "literal": "combien à vous je dois"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "\"Cuánto\" has a written accent and starts with a \"kw\" sound."
+            }
+          ]
+        },
+        {
+          "key": "spanish_latin_american_market_ask_price",
+          "blueprintKey": "market_ask_price",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "market",
+          "characterKey": "spanish_latin_american_rosa_market_vendor",
+          "titles": {
+            "en": "Asking Prices at the Market",
+            "fr": "Demander les prix au marché"
+          },
+          "sceneNotes": {
+            "en": "You walk up to a fruit stall at a busy market, ask how much the fruit costs per kilo, and see what the friendly vendor does when you start to bargain.",
+            "fr": "Vous vous approchez d'un étal de fruits sur un marché animé, vous demandez le prix du kilo, puis vous voyez comment réagit l'aimable vendeuse quand vous essayez de marchander."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_much",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "character"
+            },
+            {
+              "slotId": "expensive",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "lower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "deal",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "no_thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_market_ask_price:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Buenas tardes, señora.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Buenas tardes, señora."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good afternoon, ma'am.",
+                  "note": "Use \"buenos días\" in the morning. \"Señora\" is a polite way to address a woman vendor.",
+                  "literal": "good afternoons, madam"
+                },
+                "fr": {
+                  "meaning": "Bonjour (l'après-midi), madame.",
+                  "note": "On dit « buenos días » le matin. « Señora » est une façon polie de s'adresser à une vendeuse. Le ñ de « señora » se prononce comme « gn » dans « agneau ».",
+                  "literal": "bonnes après-midis, madame"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The ñ in \"señora\" sounds like \"ny\" in \"canyon\"."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_market_ask_price:how_much",
+              "key": "how_much",
+              "intentKey": "ask_price",
+              "slotId": "how_much",
+              "speaker": "learner",
+              "text": "¿Cuánto cuestan las fresas, por favor?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Cuánto cuestan las fresas, por favor?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much are the strawberries, please?",
+                  "note": "Use \"cuesta\" for one item and \"cuestan\" for plural items. Swap in any fruit you like.",
+                  "literal": "how much cost the strawberries, please"
+                },
+                "fr": {
+                  "meaning": "Combien coûtent les fraises, s'il vous plaît ?",
+                  "note": "On dit « cuesta » pour un seul article et « cuestan » pour plusieurs. Vous pouvez remplacer par n'importe quel fruit. Accent sur la première syllabe : KOUAN-to.",
+                  "literal": "combien coûtent les fraises, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the first syllable of \"cuánto\": KWAN-to."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_market_ask_price:price",
+              "key": "price",
+              "intentKey": "state_price",
+              "slotId": "price",
+              "speaker": "character",
+              "text": "Son seis mil pesos el kilo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Son seis mil pesos el kilo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's six thousand pesos a kilo.",
+                  "note": "Prices at stalls are usually given per kilo. The amount changes by country and currency.",
+                  "literal": "are six thousand pesos the kilo"
+                },
+                "fr": {
+                  "meaning": "C'est six mille pesos le kilo.",
+                  "note": "Sur les étals, les prix sont généralement donnés au kilo. Le montant varie selon le pays et la monnaie.",
+                  "literal": "sont six mille pesos le kilo"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_market_ask_price:expensive",
+              "key": "expensive",
+              "intentKey": "say_too_expensive",
+              "slotId": "expensive",
+              "speaker": "learner",
+              "text": "¡Uy, es muy caro!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¡Uy, es muy caro!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Oh, that's very expensive!",
+                  "note": "\"Uy\" is a common reaction sound. Said with a smile, it is friendly rather than rude.",
+                  "literal": "oh, it is very expensive"
+                },
+                "fr": {
+                  "meaning": "Oh là là, c'est très cher !",
+                  "note": "« Uy » est une exclamation courante. Dite avec le sourire, elle reste sympathique et pas impolie. Le r de « caro » est un seul petit battement de langue.",
+                  "literal": "oh, c'est très cher"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Roll or tap the r in \"caro\" lightly: one quick tap."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_market_ask_price:lower",
+              "key": "lower",
+              "intentKey": "offer_lower_price",
+              "slotId": "lower",
+              "speaker": "learner",
+              "text": "¿Me lo deja en cinco mil, por favor?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Me lo deja en cinco mil, por favor?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you give it to me for five thousand, please?",
+                  "note": "A very common bargaining phrase. Use \"la\" instead of \"lo\" for feminine items, or \"los/las\" for plurals.",
+                  "literal": "to-me it you-leave at five thousand, please"
+                },
+                "fr": {
+                  "meaning": "Vous pouvez me le faire à cinq mille, s'il vous plaît ?",
+                  "note": "Phrase de marchandage très courante. On dit « la » pour un mot féminin, « los/las » pour le pluriel.",
+                  "literal": "à moi le vous laissez à cinq mille, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_market_ask_price:deal",
+              "key": "deal",
+              "intentKey": "agree_to_price",
+              "slotId": "deal",
+              "speaker": "learner",
+              "text": "Listo, me las llevo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Listo, me las llevo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Okay, I'll take them.",
+                  "note": "\"Las\" refers to the strawberries (feminine plural). Use \"me lo llevo\" for a masculine singular item.",
+                  "literal": "ready, myself them I-carry"
+                },
+                "fr": {
+                  "meaning": "D'accord, je les prends.",
+                  "note": "« Las » désigne les fraises (féminin pluriel). Pour un article masculin singulier, on dit « me lo llevo ».",
+                  "literal": "prêt, moi les j'emporte"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_market_ask_price:no_thanks",
+              "key": "no_thanks",
+              "intentKey": "decline_purchase",
+              "slotId": "no_thanks",
+              "speaker": "learner",
+              "text": "No, gracias, hoy no.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "No, gracias, hoy no."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, thank you, not today.",
+                  "note": "A polite, short way to decline without any awkwardness.",
+                  "literal": "no, thanks, today no"
+                },
+                "fr": {
+                  "meaning": "Non, merci, pas aujourd'hui.",
+                  "note": "Une façon courte et polie de refuser sans gêne.",
+                  "literal": "non, merci, aujourd'hui non"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_market_ask_price:ask_price_variant_8",
+              "key": "ask_price_variant_8",
+              "intentKey": "ask_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "¿A cómo está el kilo de mango?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿A cómo está el kilo de mango?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is a kilo of mango?",
+                  "note": "A natural market way to ask the price per kilo, common in Mexico and much of Latin America.",
+                  "literal": "at how is the kilo of mango"
+                },
+                "fr": {
+                  "meaning": "Il est à combien, le kilo de mangues ?",
+                  "note": "Façon naturelle de demander le prix au kilo sur un marché, courante au Mexique et dans une grande partie de l'Amérique latine.",
+                  "literal": "à combien est le kilo de mangue"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_market_ask_price:offer_lower_price_variant_9",
+              "key": "offer_lower_price_variant_9",
+              "intentKey": "offer_lower_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "¿Me hace un descuento?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Me hace un descuento?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you give me a discount?",
+                  "note": "A simple, polite way to ask for a better price.",
+                  "literal": "to-me you-make a discount"
+                },
+                "fr": {
+                  "meaning": "Vous pouvez me faire une remise ?",
+                  "note": "Une façon simple et polie de demander un meilleur prix.",
+                  "literal": "à moi vous faites une remise"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "spanish_latin_american_ask_directions",
+          "blueprintKey": "ask_directions",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "directions",
+          "characterKey": "spanish_latin_american_carolina_passer_by",
+          "titles": {
+            "en": "Finding the Station",
+            "fr": "Trouver la gare"
+          },
+          "sceneNotes": {
+            "en": "You are a visitor looking for the train station, and a passer-by gives you directions very quickly, so you need to ask for slower speech.",
+            "fr": "Vous êtes de passage et cherchez la gare ; une passante vous donne l'itinéraire très vite, vous devez donc lui demander de parler plus lentement."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_is",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "straight",
+              "speaker": "character"
+            },
+            {
+              "slotId": "turn",
+              "speaker": "character"
+            },
+            {
+              "slotId": "far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "near",
+              "speaker": "character"
+            },
+            {
+              "slotId": "repeat",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "slower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_ask_directions:excuse_me",
+              "key": "excuse_me",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "Disculpe, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Disculpe, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, please.",
+                  "note": "Polite way to get a stranger's attention; uses the usted form.",
+                  "literal": "Excuse (you), please."
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, s'il vous plaît.",
+                  "note": "Manière polie d'attirer l'attention d'un inconnu, avec la forme de politesse (usted). Le c de « disculpe » se prononce [k] ; le e final est bien articulé.",
+                  "literal": "Excusez (vous), s'il vous plaît."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The c in 'disculpe' is a hard k sound; the final e is clear."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_ask_directions:where_is",
+              "key": "where_is",
+              "intentKey": "ask_where_is",
+              "slotId": "where_is",
+              "speaker": "learner",
+              "text": "¿Dónde está la estación, por favor?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Dónde está la estación, por favor?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where is the station, please?",
+                  "note": null,
+                  "literal": "Where is the station, please?"
+                },
+                "fr": {
+                  "meaning": "Où est la gare, s'il vous plaît ?",
+                  "note": "L'accent tombe sur la dernière syllabe de « estación » : es-ta-SYONE.",
+                  "literal": "Où est la gare, s'il vous plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress falls on the last syllable of 'estación': es-ta-SYOHN."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_ask_directions:straight",
+              "key": "straight",
+              "intentKey": "give_direction_straight",
+              "slotId": "straight",
+              "speaker": "character",
+              "text": "Siga derecho por esta calle.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Siga derecho por esta calle."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Keep going straight along this street.",
+                  "note": "'Siga' is the polite usted command form; this is a direction given by a stranger, not a rude order.",
+                  "literal": "Continue straight along this street."
+                },
+                "fr": {
+                  "meaning": "Continuez tout droit dans cette rue.",
+                  "note": "« Siga » est l'impératif de politesse (usted) ; ici, c'est simplement une indication donnée par un inconnu, pas un ordre impoli. Le r de « derecho » est un seul battement rapide.",
+                  "literal": "Continuez tout droit par cette rue."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The rr-less 'r' in 'derecho' is a single quick tap."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_ask_directions:turn",
+              "key": "turn",
+              "intentKey": "give_direction_turn",
+              "slotId": "turn",
+              "speaker": "character",
+              "text": "Luego gire a la izquierda en la segunda calle.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Luego gire a la izquierda en la segunda calle."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Then turn left at the second street.",
+                  "note": null,
+                  "literal": "Then turn to the left on the second street."
+                },
+                "fr": {
+                  "meaning": "Ensuite, tournez à gauche à la deuxième rue.",
+                  "note": "« Gire » commence par un son h très guttural, comme un « r » raclé : JI-re.",
+                  "literal": "Ensuite tournez à la gauche dans la deuxième rue."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'Gire' starts with a throaty h sound: HEE-reh."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_ask_directions:far",
+              "key": "far",
+              "intentKey": "ask_is_it_far",
+              "slotId": "far",
+              "speaker": "learner",
+              "text": "¿Está lejos de aquí?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Está lejos de aquí?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it far from here?",
+                  "note": null,
+                  "literal": "Is-it far from here?"
+                },
+                "fr": {
+                  "meaning": "C'est loin d'ici ?",
+                  "note": "« Lejos » commence par un son guttural proche d'un h expiré : LÉ-jos.",
+                  "literal": "Est-ce loin d'ici ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'Lejos' begins with a throaty h sound: LEH-hos."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_ask_directions:near",
+              "key": "near",
+              "intentKey": "say_it_is_near",
+              "slotId": "near",
+              "speaker": "character",
+              "text": "No, está a diez minutos a pie.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "No, está a diez minutos a pie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, it's ten minutes on foot.",
+                  "note": "Matches the scene: a ten-minute walk.",
+                  "literal": "No, it is at ten minutes on foot."
+                },
+                "fr": {
+                  "meaning": "Non, c'est à dix minutes à pied.",
+                  "note": "Correspond à la scène : dix minutes de marche.",
+                  "literal": "Non, c'est à dix minutes à pied."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_ask_directions:repeat",
+              "key": "repeat",
+              "intentKey": "ask_repeat",
+              "slotId": "repeat",
+              "speaker": "learner",
+              "text": "¿Puede repetir, por favor?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Puede repetir, por favor?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you repeat that, please?",
+                  "note": null,
+                  "literal": "Can (you) repeat, please?"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous répéter, s'il vous plaît ?",
+                  "note": "Le r initial de « repetir » est roulé ; le r final est un battement léger.",
+                  "literal": "Pouvez (vous) répéter, s'il vous plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The r in 'repetir' at the start is rolled; the final r is a light tap."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_ask_directions:slower",
+              "key": "slower",
+              "intentKey": "ask_slow_down",
+              "slotId": "slower",
+              "speaker": "learner",
+              "text": "Más despacio, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Más despacio, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "More slowly, please.",
+                  "note": "Short, polite request; not a bare command because of 'por favor'.",
+                  "literal": "More slowly, please."
+                },
+                "fr": {
+                  "meaning": "Plus lentement, s'il vous plaît.",
+                  "note": "Demande courte et polie ; avec « por favor », ce n'est pas un ordre sec.",
+                  "literal": "Plus lentement, s'il vous plaît."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_ask_directions:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Muchas gracias por su ayuda.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Muchas gracias por su ayuda."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much for your help.",
+                  "note": "Extends the earlier 'Muchas gracias' by adding the reason.",
+                  "literal": "Many thanks for your help."
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup pour votre aide.",
+                  "note": "Reprend le « Muchas gracias » précédent en ajoutant la raison du remerciement.",
+                  "literal": "Beaucoup de mercis pour votre aide."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_ask_directions:get_attention_variant_10",
+              "key": "get_attention_variant_10",
+              "intentKey": "get_attention",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Perdón, señora.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Perdón, señora."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, ma'am.",
+                  "note": "Use 'señor' for a man. 'Perdón' is a very common attention-getter across Latin America.",
+                  "literal": "Pardon, madam."
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, madame.",
+                  "note": "Pour un homme, on dit « señor ». « Perdón » est une façon très courante d'attirer l'attention en Amérique latine. Le ñ se prononce comme « gn » dans « agneau ».",
+                  "literal": "Pardon, madame."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The ñ sounds like 'ny' in 'canyon'."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_ask_directions:ask_slow_down_variant_11",
+              "key": "ask_slow_down_variant_11",
+              "intentKey": "ask_slow_down",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Habla muy rápido. ¿Más despacio?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Habla muy rápido. ¿Más despacio?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You speak very fast. Slower?",
+                  "note": "A friendly, slightly more casual way to explain why you are asking.",
+                  "literal": "(You) speak very fast. More slowly?"
+                },
+                "fr": {
+                  "meaning": "Vous parlez très vite. Plus lentement ?",
+                  "note": "Façon amicale et un peu plus décontractée d'expliquer pourquoi on demande de ralentir.",
+                  "literal": "(Vous) parlez très vite. Plus lentement ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_ask_directions:ask_where_is_variant_12",
+              "key": "ask_where_is_variant_12",
+              "intentKey": "ask_where_is",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "¿Sabe dónde queda la estación?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Sabe dónde queda la estación?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you know where the station is?",
+                  "note": "'Queda' is very common for locating places in Latin America.",
+                  "literal": "Do-you-know where is-located the station?"
+                },
+                "fr": {
+                  "meaning": "Savez-vous où se trouve la gare ?",
+                  "note": "« Queda » est très courant pour situer un lieu en Amérique latine.",
+                  "literal": "Savez-vous où se-trouve la gare ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "spanish_latin_american_meet_neighbour",
+          "blueprintKey": "meet_neighbour",
+          "missionType": "story",
+          "level": "beginner",
+          "situation": "neighbours",
+          "characterKey": "spanish_latin_american_marcela_neighbour",
+          "titles": {
+            "en": "Meeting Your New Neighbour",
+            "fr": "Rencontrer votre nouvelle voisine"
+          },
+          "sceneNotes": {
+            "en": "You run into your neighbour in the stairwell as she carries her shopping bags, and you introduce yourself.",
+            "fr": "Vous croisez votre voisine dans l'escalier alors qu'elle porte ses sacs de courses, et vous vous présentez."
+          },
+          "slots": [
+            {
+              "slotId": "new_neighbour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "character"
+            },
+            {
+              "slotId": "where_from_q",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "from",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "speak_lang",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "little",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "offer_help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:new_neighbour",
+              "key": "new_neighbour",
+              "intentKey": "say_new_neighbour",
+              "slotId": "new_neighbour",
+              "speaker": "learner",
+              "text": "Soy su nuevo vecino.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Soy su nuevo vecino."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm your new neighbour.",
+                  "note": "A man says \"vecino\"; a woman says \"vecina\" and \"nueva\". \"Su\" is the polite \"your\".",
+                  "literal": "I-am your new neighbour"
+                },
+                "fr": {
+                  "meaning": "Je suis votre nouveau voisin.",
+                  "note": "Un homme dit « vecino » ; une femme dit « vecina » et « nueva ». « Su » correspond au « votre » de politesse. Le v de « vecino » se prononce comme un b doux.",
+                  "literal": "Je-suis votre nouveau voisin"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The v in vecino sounds like a soft b."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "¡Bienvenido al edificio! Si necesita algo, me avisa.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¡Bienvenido al edificio! Si necesita algo, me avisa."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome to the building! If you need anything, let me know.",
+                  "note": "She would say \"Bienvenida\" to a woman. \"Me avisa\" is a friendly, polite way to say \"let me know\".",
+                  "literal": "Welcome to-the building! If you-need something, me you-tell"
+                },
+                "fr": {
+                  "meaning": "Bienvenue dans l'immeuble ! Si vous avez besoin de quoi que ce soit, dites-le-moi.",
+                  "note": "À une femme, elle dirait « Bienvenida ». « Me avisa » est une façon aimable et polie de dire « prévenez-moi ».",
+                  "literal": "Bienvenu à-l'immeuble ! Si vous-avez-besoin quelque chose, me vous-prévenez"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:where_from_q",
+              "key": "where_from_q",
+              "intentKey": "ask_where_from",
+              "slotId": "where_from_q",
+              "speaker": "learner",
+              "text": "¿De dónde es usted?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿De dónde es usted?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where are you from?",
+                  "note": "Polite form with \"usted\", good for a neighbour you don't know yet.",
+                  "literal": "From where are you (formal)"
+                },
+                "fr": {
+                  "meaning": "D'où êtes-vous ?",
+                  "note": "Forme de politesse avec « usted », adaptée à un voisin que l'on ne connaît pas encore. Le d de « de » et « dónde » est doux, proche d'un th anglais sonore.",
+                  "literal": "De où êtes vous (poli)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The d in \"de\" and \"dónde\" is soft, close to the th in \"the\"."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:from",
+              "key": "from",
+              "intentKey": "say_where_from",
+              "slotId": "from",
+              "speaker": "learner",
+              "text": "Soy de Canadá.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Soy de Canadá."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm from Canada.",
+                  "note": "Swap in your own country or city.",
+                  "literal": "I-am from Canada"
+                },
+                "fr": {
+                  "meaning": "Je viens du Canada.",
+                  "note": "Remplacez par votre propre pays ou votre ville.",
+                  "literal": "Je-suis de Canada"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:speak_lang",
+              "key": "speak_lang",
+              "intentKey": "ask_if_speaks_language",
+              "slotId": "speak_lang",
+              "speaker": "learner",
+              "text": "¿Habla usted inglés?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Habla usted inglés?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you speak English?",
+                  "note": null,
+                  "literal": "Speak you English"
+                },
+                "fr": {
+                  "meaning": "Parlez-vous anglais ?",
+                  "note": "Le h de « habla » est muet.",
+                  "literal": "Parlez vous anglais"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The h in \"habla\" is silent."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:little",
+              "key": "little",
+              "intentKey": "say_speak_little",
+              "slotId": "little",
+              "speaker": "learner",
+              "text": "Hablo un poco de español.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hablo un poco de español."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I speak a little Spanish.",
+                  "note": null,
+                  "literal": "I-speak a little of Spanish"
+                },
+                "fr": {
+                  "meaning": "Je parle un peu espagnol.",
+                  "note": "Le ñ de « español » se prononce comme « gn » dans « agneau ».",
+                  "literal": "Je-parle un peu d'espagnol"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The ñ in \"español\" sounds like ny in \"canyon\"."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:offer_help",
+              "key": "offer_help",
+              "intentKey": "offer_help",
+              "slotId": "offer_help",
+              "speaker": "learner",
+              "text": "¿Le ayudo con las bolsas?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Le ayudo con las bolsas?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I help you with the bags?",
+                  "note": "Natural and polite when you see someone carrying shopping. \"Bolsas\" is the usual word for bags in Latin America.",
+                  "literal": "To-you I-help with the bags"
+                },
+                "fr": {
+                  "meaning": "Je peux vous aider avec les sacs ?",
+                  "note": "Naturel et poli quand on voit quelqu'un chargé de courses. « Bolsas » est le mot courant pour « sacs » en Amérique latine. Le y de « ayudo » se prononce comme dans « yeux ».",
+                  "literal": "Vous j'aide avec les sacs"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The y in \"ayudo\" sounds like the y in \"yes\"."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Muchas gracias, es muy amable.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Muchas gracias, es muy amable."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much, you're very kind.",
+                  "note": "Good for thanking her for the tea invitation.",
+                  "literal": "Many thanks, you-are very kind"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup, vous êtes très aimable.",
+                  "note": "Pratique pour la remercier de son invitation à prendre le thé.",
+                  "literal": "Beaucoup merci, vous-êtes très aimable"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:say_new_neighbour_variant_9",
+              "key": "say_new_neighbour_variant_9",
+              "intentKey": "say_new_neighbour",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Me mudé hace poco, vivo arriba.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Me mudé hace poco, vivo arriba."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I moved in recently, I live upstairs.",
+                  "note": "A more casual alternative that says you live upstairs.",
+                  "literal": "I moved ago little, I-live above"
+                },
+                "fr": {
+                  "meaning": "J'ai emménagé il y a peu, j'habite à l'étage au-dessus.",
+                  "note": "Variante plus décontractée qui précise que vous habitez à l'étage au-dessus.",
+                  "literal": "Je-me-suis-installé il-y-a peu, j'habite au-dessus"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:say_new_neighbour_variant_10",
+              "key": "say_new_neighbour_variant_10",
+              "intentKey": "say_new_neighbour",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Soy su nueva vecina.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Soy su nueva vecina."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm your new neighbour (said by a woman).",
+                  "note": "Feminine form for a female learner.",
+                  "literal": "I-am your new neighbour"
+                },
+                "fr": {
+                  "meaning": "Je suis votre nouvelle voisine.",
+                  "note": "Forme féminine, pour une apprenante.",
+                  "literal": "Je-suis votre nouvelle voisine"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:offer_help_variant_11",
+              "key": "offer_help_variant_11",
+              "intentKey": "offer_help",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "¿Necesita ayuda?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Necesita ayuda?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you need help?",
+                  "note": "Shorter, quick alternative.",
+                  "literal": "Need-you help"
+                },
+                "fr": {
+                  "meaning": "Vous avez besoin d'aide ?",
+                  "note": "Variante plus courte et rapide.",
+                  "literal": "Avez-besoin vous aide"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "spanish_latin_american_take_taxi",
+          "blueprintKey": "take_taxi",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "transport",
+          "characterKey": "spanish_latin_american_carlos_taxi_driver",
+          "titles": {
+            "en": "Taking a Taxi",
+            "fr": "Prendre un taxi"
+          },
+          "sceneNotes": {
+            "en": "You hail a taxi on a busy street and ride to the old town while a chatty driver talks about the traffic.",
+            "fr": "Vous hélez un taxi dans une rue animée et vous vous rendez dans la vieille ville, pendant que le chauffeur bavard vous parle de la circulation."
+          },
+          "slots": [
+            {
+              "slotId": "hail",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_to",
+              "speaker": "character"
+            },
+            {
+              "slotId": "destination",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "meter",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fare",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "change",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_take_taxi:hail",
+              "key": "hail",
+              "intentKey": "hail_taxi",
+              "slotId": "hail",
+              "speaker": "learner",
+              "text": "¡Taxi! ¿Está libre?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¡Taxi! ¿Está libre?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Taxi! Are you free?",
+                  "note": "Said while waving at the taxi or leaning to the window.",
+                  "literal": "Taxi! Are-you free?"
+                },
+                "fr": {
+                  "meaning": "Taxi ! Vous êtes libre ?",
+                  "note": "On le dit en faisant signe au taxi ou en se penchant vers sa fenêtre.",
+                  "literal": "Taxi ! Êtes-vous libre ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_take_taxi:where_to",
+              "key": "where_to",
+              "intentKey": "ask_destination",
+              "slotId": "where_to",
+              "speaker": "character",
+              "text": "Buenas. ¿Para dónde va?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Buenas. ¿Para dónde va?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hi. Where are you headed?",
+                  "note": "Very common way for a driver to ask, using polite usted.",
+                  "literal": "Hi. For where do-you go?"
+                },
+                "fr": {
+                  "meaning": "Bonjour. Où allez-vous ?",
+                  "note": "Façon très courante pour un chauffeur de demander la destination, avec le vouvoiement (usted).",
+                  "literal": "Bonjour. Pour où allez-vous ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_take_taxi:destination",
+              "key": "destination",
+              "intentKey": "state_destination",
+              "slotId": "destination",
+              "speaker": "learner",
+              "text": "Al centro histórico, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Al centro histórico, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "To the old town, please.",
+                  "note": "\"Centro histórico\" is the usual name for the old town in many cities.",
+                  "literal": "To-the center historic, please."
+                },
+                "fr": {
+                  "meaning": "Au centre historique, s'il vous plaît.",
+                  "note": "« Centro histórico » désigne couramment la vieille ville dans de nombreuses villes. Le h de « histórico » est muet.",
+                  "literal": "Au centre historique, s'il vous plaît."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The h in \"histórico\" is silent."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_take_taxi:meter",
+              "key": "meter",
+              "intentKey": "ask_use_meter",
+              "slotId": "meter",
+              "speaker": "learner",
+              "text": "¿Puede usar el taxímetro, por favor?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Puede usar el taxímetro, por favor?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you use the meter, please?",
+                  "note": "Useful when the driver quotes a flat price without the meter.",
+                  "literal": "Can-you use the meter, please?"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous utiliser le taximètre, s'il vous plaît ?",
+                  "note": "Utile quand le chauffeur annonce un prix fixe sans compteur. L'accent tombe sur « xí » : ta-XÍ-me-tro.",
+                  "literal": "Pouvez-vous utiliser le taximètre, s'il vous plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress falls on \"xí\": ta-XÍ-me-tro."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_take_taxi:fare",
+              "key": "fare",
+              "intentKey": "ask_fare",
+              "slotId": "fare",
+              "speaker": "learner",
+              "text": "¿Cuánto cuesta hasta allá?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Cuánto cuesta hasta allá?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is it to get there?",
+                  "note": "Ask before the ride if there is no meter.",
+                  "literal": "How-much costs until there?"
+                },
+                "fr": {
+                  "meaning": "Combien ça coûte jusque-là ?",
+                  "note": "À demander avant la course s'il n'y a pas de taximètre.",
+                  "literal": "Combien coûte jusque là-bas ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_take_taxi:stop",
+              "key": "stop",
+              "intentKey": "say_stop_here",
+              "slotId": "stop",
+              "speaker": "learner",
+              "text": "Aquí está bien, gracias.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Aquí está bien, gracias."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Here is fine, thanks.",
+                  "note": "A soft, polite way to ask the driver to stop.",
+                  "literal": "Here is fine, thanks."
+                },
+                "fr": {
+                  "meaning": "Ici, c'est bien, merci.",
+                  "note": "Une façon douce et polie de demander au chauffeur de s'arrêter.",
+                  "literal": "Ici est bien, merci."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_take_taxi:change",
+              "key": "change",
+              "intentKey": "ask_for_change",
+              "slotId": "change",
+              "speaker": "learner",
+              "text": "¿Tiene cambio de cien?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Tiene cambio de cien?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have change for a hundred?",
+                  "note": "Use the bill amount you are handing over. Drivers often lack small change.",
+                  "literal": "Have change of hundred?"
+                },
+                "fr": {
+                  "meaning": "Vous avez la monnaie sur cent ?",
+                  "note": "Dites le montant du billet que vous tendez. Les chauffeurs manquent souvent de petite monnaie.",
+                  "literal": "Avez-vous monnaie de cent ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_take_taxi:bye",
+              "key": "bye",
+              "intentKey": "say_goodbye",
+              "slotId": "bye",
+              "speaker": "learner",
+              "text": "Gracias, que le vaya bien.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Gracias, que le vaya bien."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks, take care.",
+                  "note": "Said when getting out of the taxi.",
+                  "literal": "Thanks, that to-you it go well."
+                },
+                "fr": {
+                  "meaning": "Merci, bonne continuation.",
+                  "note": "On le dit en descendant du taxi. Prononcez « vaya » : VA-ya.",
+                  "literal": "Merci, que ça vous aille bien."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The double r in \"que le vaya\" is not an issue; just say \"vaya\" as VA-ya."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_take_taxi:hail_taxi_variant_9",
+              "key": "hail_taxi_variant_9",
+              "intentKey": "hail_taxi",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Buenas, ¿me puede llevar al centro?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Buenas, ¿me puede llevar al centro?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hi, can you take me downtown?",
+                  "note": "Polite alternative when you are already at the taxi window.",
+                  "literal": "Hi, me can-you take to-the center?"
+                },
+                "fr": {
+                  "meaning": "Bonjour, pouvez-vous m'emmener au centre-ville ?",
+                  "note": "Variante polie quand vous êtes déjà à la fenêtre du taxi.",
+                  "literal": "Bonjour, me pouvez-vous emmener au centre ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_take_taxi:ask_use_meter_variant_10",
+              "key": "ask_use_meter_variant_10",
+              "intentKey": "ask_use_meter",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "¿Con taxímetro, por favor?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Con taxímetro, por favor?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "With the meter, please?",
+                  "note": "A shorter option when the driver quotes a price.",
+                  "literal": "With meter, please?"
+                },
+                "fr": {
+                  "meaning": "Avec le taximètre, s'il vous plaît ?",
+                  "note": "Option plus courte quand le chauffeur annonce un prix.",
+                  "literal": "Avec taximètre, s'il vous plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_take_taxi:say_stop_here_variant_11",
+              "key": "say_stop_here_variant_11",
+              "intentKey": "say_stop_here",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Pare aquí, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pare aquí, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Stop here, please.",
+                  "note": "Regional wording that is very common in Colombia and Mexico; softened by \"por favor\".",
+                  "literal": "Stop here, please."
+                },
+                "fr": {
+                  "meaning": "Arrêtez-vous ici, s'il vous plaît.",
+                  "note": "Formulation régionale très courante en Colombie et au Mexique, adoucie par « por favor ».",
+                  "literal": "Arrêtez ici, s'il vous plaît."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "spanish_latin_american_buy_ice_cream",
+          "blueprintKey": "buy_ice_cream",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "shopping",
+          "characterKey": "spanish_latin_american_valentina_child_at_the_ice_cream_stand",
+          "titles": {
+            "en": "Buying Ice Cream Together",
+            "fr": "Acheter une glace ensemble"
+          },
+          "sceneNotes": {
+            "en": "You take a child to the ice-cream cart outside the school, where only two flavours are left, and you have to kindly say no when the child asks for a second scoop.",
+            "fr": "Vous accompagnez une enfant à la charrette de glaces devant l'école : il ne reste que deux parfums, et vous devez refuser gentiment quand elle demande une deuxième boule."
+          },
+          "slots": [
+            {
+              "slotId": "wants",
+              "speaker": "character"
+            },
+            {
+              "slotId": "which_flavour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "picks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "scoop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "asks_two",
+              "speaker": "character"
+            },
+            {
+              "slotId": "just_one",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "okay",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "yummy",
+              "speaker": "character"
+            },
+            {
+              "slotId": "me_too",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:wants",
+              "key": "wants",
+              "intentKey": "request_food",
+              "slotId": "wants",
+              "speaker": "character",
+              "text": "¡Quiero un helado, por favor!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¡Quiero un helado, por favor!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want an ice cream, please!",
+                  "note": "Kids often say this with lots of excitement.",
+                  "literal": "I-want an ice-cream, please"
+                },
+                "fr": {
+                  "meaning": "Je veux une glace, s'il te plaît !",
+                  "note": "Les enfants le disent souvent avec beaucoup d'enthousiasme. Le « h » de helado est muet : eh-LAH-do.",
+                  "literal": "Je veux une glace, s'il te plaît"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The h in helado is silent: eh-LAH-do."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:which_flavour",
+              "key": "which_flavour",
+              "intentKey": "offer_options",
+              "slotId": "which_flavour",
+              "speaker": "learner",
+              "text": "¿Chocolate o fresa?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Chocolate o fresa?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Chocolate or strawberry?",
+                  "note": "Only two flavours are left, so you offer both.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Chocolat ou fraise ?",
+                  "note": "Il ne reste que deux parfums, vous proposez donc les deux. Fresa a un seul r roulé très court : FRÉ-sa.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Fresa has a single tapped r: FREH-sah."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:picks",
+              "key": "picks",
+              "intentKey": "choose_option",
+              "slotId": "picks",
+              "speaker": "character",
+              "text": "Chocolate, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chocolate, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Chocolate, please.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Chocolat, s'il te plaît.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:scoop",
+              "key": "scoop",
+              "intentKey": "specify_quantity",
+              "slotId": "scoop",
+              "speaker": "learner",
+              "text": "Una bola de chocolate, por favor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Una bola de chocolate, por favor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One scoop of chocolate, please.",
+                  "note": "You say this to the ice-cream seller. In Mexico people say \"una bola\", in Colombia also \"una bola\"; Argentina uses \"una bocha\".",
+                  "literal": "one ball of chocolate, please"
+                },
+                "fr": {
+                  "meaning": "Une boule de chocolat, s'il vous plaît.",
+                  "note": "Vous le dites au vendeur de glaces. Au Mexique et en Colombie on dit « una bola » ; en Argentine, « una bocha ».",
+                  "literal": "une boule de chocolat, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:asks_two",
+              "key": "asks_two",
+              "intentKey": "ask_permission",
+              "slotId": "asks_two",
+              "speaker": "character",
+              "text": "¿Puedo pedir otra bola?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Puedo pedir otra bola?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I ask for another scoop?",
+                  "note": "This is the twist: the child wants a second scoop.",
+                  "literal": "can-I ask-for another ball"
+                },
+                "fr": {
+                  "meaning": "Je peux demander une autre boule ?",
+                  "note": "C'est le rebondissement : l'enfant veut une deuxième boule. Puedo se prononce PWÉ-do.",
+                  "literal": "puis-je demander une autre boule"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Puedo: PWEH-do."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:just_one",
+              "key": "just_one",
+              "intentKey": "refuse_permission",
+              "slotId": "just_one",
+              "speaker": "learner",
+              "text": "Hoy no, mi amor. Solo una.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hoy no, mi amor. Solo una."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Not today, sweetheart. Just one.",
+                  "note": "A warm way to say no to a child. Use \"mi amor\" or \"cariño\".",
+                  "literal": "today no, my love. only one"
+                },
+                "fr": {
+                  "meaning": "Pas aujourd'hui, mon cœur. Une seule.",
+                  "note": "Une façon douce de dire non à un enfant. On peut dire « mi amor » ou « cariño ».",
+                  "literal": "aujourd'hui non, mon amour. seulement une"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:okay",
+              "key": "okay",
+              "intentKey": "grant_permission",
+              "slotId": "okay",
+              "speaker": "learner",
+              "text": "Bueno, está bien.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bueno, está bien."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Okay, that's fine.",
+                  "note": "Use it if you decide to give in after all.",
+                  "literal": "well, it is fine"
+                },
+                "fr": {
+                  "meaning": "Bon, d'accord.",
+                  "note": "À utiliser si vous finissez par céder.",
+                  "literal": "bon, c'est bien"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:yummy",
+              "key": "yummy",
+              "intentKey": "say_delicious",
+              "slotId": "yummy",
+              "speaker": "character",
+              "text": "¡Qué rico está!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¡Qué rico está!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "This is so yummy!",
+                  "note": null,
+                  "literal": "how tasty it is"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce que c'est bon !",
+                  "note": "Pas de r roulé ici : rico commence par un r fort : RRI-ko.",
+                  "literal": "comme c'est bon"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Rolled rr is not needed here; rico has a strong r at the start: RREE-ko."
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:me_too",
+              "key": "me_too",
+              "intentKey": "express_like",
+              "slotId": "me_too",
+              "speaker": "learner",
+              "text": "A mí también me gusta el chocolate.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "A mí también me gusta el chocolate."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I like chocolate too.",
+                  "note": null,
+                  "literal": "to me also me pleases the chocolate"
+                },
+                "fr": {
+                  "meaning": "Moi aussi, j'aime le chocolat.",
+                  "note": null,
+                  "literal": "à moi aussi me plaît le chocolat"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "character",
+              "text": "¡Gracias!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¡Gracias!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks!",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci !",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:welcome",
+              "key": "welcome",
+              "intentKey": "respond_to_thanks",
+              "slotId": "welcome",
+              "speaker": "learner",
+              "text": "De nada, mi amor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "De nada, mi amor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You're welcome, sweetheart.",
+                  "note": null,
+                  "literal": "of nothing, my love"
+                },
+                "fr": {
+                  "meaning": "De rien, mon cœur.",
+                  "note": null,
+                  "literal": "de rien, mon amour"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:offer_options_variant_12",
+              "key": "offer_options_variant_12",
+              "intentKey": "offer_options",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "¿Cuál quieres, chocolate o fresa?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "¿Cuál quieres, chocolate o fresa?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which do you want, chocolate or strawberry?",
+                  "note": "A fuller, friendly way to ask a child.",
+                  "literal": "which you-want, chocolate or strawberry"
+                },
+                "fr": {
+                  "meaning": "Lequel tu veux, chocolat ou fraise ?",
+                  "note": "Une façon plus complète et amicale de demander à un enfant.",
+                  "literal": "lequel tu veux, chocolat ou fraise"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:refuse_permission_variant_13",
+              "key": "refuse_permission_variant_13",
+              "intentKey": "refuse_permission",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Hoy no se puede, solo una bola.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hoy no se puede, solo una bola."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Not today, just one scoop.",
+                  "note": "A gentle, slightly firmer alternative.",
+                  "literal": "today not it-can-be, only one scoop"
+                },
+                "fr": {
+                  "meaning": "Pas aujourd'hui, une seule boule.",
+                  "note": "Une alternative douce, mais un peu plus ferme.",
+                  "literal": "aujourd'hui ça ne se peut pas, seulement une boule"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

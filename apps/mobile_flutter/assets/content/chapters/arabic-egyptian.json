@@ -1,0 +1,3106 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts",
+  "courseTrackId": "arabic-egyptian",
+  "chapters": [
+    {
+      "key": "arabic_egyptian_ch1",
+      "chapterIndex": 1,
+      "courseTrackId": "arabic-egyptian",
+      "targetVarietyId": "arz",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "First days in Cairo",
+        "fr": "Premiers jours au Caire"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+      "notes": [
+        "AI draft generated 2026-11-11T22:38:22.884Z with anthropic/claude-sonnet-5.5; validator accepted 75 expressions; native review required before publishing.",
+        "greet_and_introduce: Masculine forms are the default for ازيك/عامل/اتشرفت بيك. Feminine alternatives are given in contextNotes; please check whether to add them as separate variants.",
+        "greet_and_introduce: The name Sara in my_name is only a placeholder.",
+        "greet_and_introduce: Please confirm that حضرتك in the ask_name line is not too formal for a neighbour.",
+        "cafe_order_drink: Please check that 'مظبوط' and 'سكر زيادة' match how a server would really ask about sugar.",
+        "cafe_order_drink: The thanks line uses the masculine متشكر; the feminine is in contextNote. Please check the spelling of 'متشكر'.",
+        "cafe_order_drink: I used 'عايز' with 'من فضلك' for the extra order; the feminine forms are in the note.",
+        "market_ask_price: 'Ya fandem' and 'ya 7agg' are used as vendor and shopper address terms; please confirm they feel natural for this scene.",
+        "market_ask_price: Prices use the common contraction خمستاشر; please confirm the natural spelling.",
+        "market_ask_price: 'قلل' is an imperative-style phrase softened by 'ya 7agg'; replace it if you think it reads too command-like for a beginner.",
+        "ask_directions: I avoided the already-used 'متشكر أوي' and used 'تسلم' for the thanks slot; please confirm it feels natural after getting directions.",
+        "ask_directions: Character directions use 'تمشي/تلف' (you walk/turn) instead of bare imperatives; please confirm this feels natural.",
+        "ask_directions: Please check the spelling of 'دوغري' (also written 'دغري') and the transliteration of 'قريبة' (ori-ba).",
+        "meet_neighbour: The learner's gender is unknown, so the main lines use masculine forms (جارك, معاك, تسلم) and feminine variants are noted in contextNote. The neighbour is male by default.",
+        "meet_neighbour: I avoided أهلاً وسهلاً and متشكر أوي because earlier lines already used them. Please check that نورت العمارة and ألف شكر، تسلم sound natural for a stairwell.",
+        "meet_neighbour: Please confirm باتكلم / باتعلم spelling. Some writers use باتكلم and others write بتكلم.",
+        "take_taxi: I used الحسين for \"old town\"; please confirm it is natural, or suggest مصر القديمة or وسط البلد instead.",
+        "take_taxi: The goodbye avoids repeating مع السلامة from earlier lines. Please check that تسلم/الله يسلمك sounds natural as a closing.",
+        "take_taxi: Please check the spelling of العداد (3addad) and the Latin renderings of ق as a glottal stop.",
+        "buy_ice_cream: The child is written as a boy (عايز, يا حبيبي). Please confirm the feminine alternatives (عايزة, يا حبيبتي).",
+        "buy_ice_cream: The slot 'okay' is generic (ماشي، اتفضل). Please check it fits after the twist, or suggest a better grant line.",
+        "buy_ice_cream: I used سكوب and ميرسي as natural loanwords. Please check the spellings أيس كريم, شوكولاتة and فراولة.",
+        "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+      ],
+      "characters": [
+        {
+          "key": "arabic_egyptian_mona_friendly_local_acquaintance",
+          "name": "Mona",
+          "role": "friendly local acquaintance",
+          "personality": "warm, rushed, kind, chatty",
+          "homeRegion": "Cairo",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "arabic_egyptian_character_cafe_server",
+          "name": "محمود",
+          "role": "café server",
+          "personality": "سريع، ودود، وبيهزر مع الزباين",
+          "homeRegion": "القاهرة",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "arabic_egyptian_character_market_vendor",
+          "name": "عم محمود",
+          "role": "market vendor",
+          "personality": "Warm, chatty, jokes with customers",
+          "homeRegion": "Cairo",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "arabic_egyptian_ahmed_passer_by",
+          "name": "Ahmed",
+          "role": "passer-by",
+          "personality": "friendly, in a hurry, talks fast",
+          "homeRegion": "Cairo",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "arabic_egyptian_character_neighbour",
+          "name": "محمود",
+          "role": "neighbour",
+          "personality": "warm, chatty, hospitable",
+          "homeRegion": "Cairo",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "arabic_egyptian_character_taxi_driver",
+          "name": "محمود",
+          "role": "taxi driver",
+          "personality": "talkative, friendly, a bit pushy",
+          "homeRegion": "Cairo",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "arabic_egyptian_character_child_at_the_ice_cream_stand",
+          "name": "يوسف",
+          "role": "child at the ice-cream stand",
+          "personality": "Cheeky, excited, sweet-toothed kid",
+          "homeRegion": "Cairo",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "arabic_egyptian_greet_and_introduce",
+          "blueprintKey": "greet_and_introduce",
+          "missionType": "standard",
+          "level": "beginner",
+          "situation": "introductions",
+          "characterKey": "arabic_egyptian_mona_friendly_local_acquaintance",
+          "titles": {
+            "en": "Meeting a Neighbour in Cairo",
+            "fr": "Rencontrer une voisine au Caire"
+          },
+          "sceneNotes": {
+            "en": "It's morning on your street in Cairo, and a friendly neighbour who is in a hurry stops for a quick hello and may ask where you live.",
+            "fr": "Il est tôt le matin dans votre rue au Caire, et une voisine sympathique, pressée, s'arrête pour vous saluer rapidement et peut-être vous demander où vous habitez."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_are_you",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fine",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "your_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "nice_to_meet",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "goodbye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "صباح الخير",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "صباح الخير"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "sabah el-kheir"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning.",
+                  "note": "The usual reply you will hear is \"صباح النور\" (sabah en-noor).",
+                  "literal": "morning of goodness"
+                },
+                "fr": {
+                  "meaning": "Bonjour.",
+                  "note": "Vous entendrez souvent la réponse « صباح النور » (sabah en-noor). Le kh de kheir est un son rauque, au fond de la gorge.",
+                  "literal": "matin du bien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The kh in kheir is a rough sound from the back of the throat."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:how_are_you",
+              "key": "how_are_you",
+              "intentKey": "ask_how_are_you",
+              "slotId": "how_are_you",
+              "speaker": "learner",
+              "text": "إزيك؟ عامل إيه؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "إزيك؟ عامل إيه؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ezzayyak? 3amel eih?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How are you? How's it going?",
+                  "note": "Said to a man. For a woman use \"إزيك\" (ezzayyek) and \"عاملة إيه\" (3amla eih).",
+                  "literal": "how-you? doing what?"
+                },
+                "fr": {
+                  "meaning": "Comment vas-tu ? Comment ça va ?",
+                  "note": "Formule adressée à un homme. Pour une femme, dites « إزيك » (ezzayyek) et « عاملة إيه » (3amla eih). Le 3 est le son guttural profond du ع.",
+                  "literal": "comment-toi ? faisant quoi ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "3 is the deep throaty ع sound."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:fine",
+              "key": "fine",
+              "intentKey": "reply_fine",
+              "slotId": "fine",
+              "speaker": "learner",
+              "text": "الحمد لله، تمام",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "الحمد لله، تمام"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "el-7amdulillah, tamam"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank God, I'm good.",
+                  "note": "A very common everyday reply. Add \"وإنت؟\" (we enta?) to ask back.",
+                  "literal": "praise to God, fine"
+                },
+                "fr": {
+                  "meaning": "Grâce à Dieu, ça va bien.",
+                  "note": "Réponse très courante au quotidien. Ajoutez « وإنت؟ » (we enta ?) pour demander en retour. Le 7 est un h soufflé, prononcé au fond de la gorge.",
+                  "literal": "louange à Dieu, bien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "7 is a breathy h made deep in the throat."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:my_name",
+              "key": "my_name",
+              "intentKey": "introduce_name",
+              "slotId": "my_name",
+              "speaker": "learner",
+              "text": "أنا اسمي سارة",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "أنا اسمي سارة"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ana ismi Sara"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My name is Sara.",
+                  "note": "Swap in your own name.",
+                  "literal": "I my-name Sara"
+                },
+                "fr": {
+                  "meaning": "Je m'appelle Sara.",
+                  "note": "Remplacez par votre propre prénom.",
+                  "literal": "moi mon-nom Sara"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:your_name",
+              "key": "your_name",
+              "intentKey": "ask_name",
+              "slotId": "your_name",
+              "speaker": "learner",
+              "text": "وحضرتك اسمك إيه؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "وحضرتك اسمك إيه؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "we 7adretak ismak eih?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And what's your name?",
+                  "note": "\"حضرتك\" is a polite \"you\" that works for men and women. Among peers you can say \"وإنت اسمك إيه؟\" (we enta ismak eih?).",
+                  "literal": "and your-honour your-name what"
+                },
+                "fr": {
+                  "meaning": "Et vous, comment vous appelez-vous ?",
+                  "note": "« حضرتك » est un « vous » poli, valable pour un homme comme pour une femme. Entre pairs, on peut dire « وإنت اسمك إيه؟ » (we enta ismak eih ?).",
+                  "literal": "et votre-honneur ton-nom quoi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:nice_to_meet",
+              "key": "nice_to_meet",
+              "intentKey": "say_nice_to_meet",
+              "slotId": "nice_to_meet",
+              "speaker": "learner",
+              "text": "اتشرفت بيك",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "اتشرفت بيك"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "etsharraft beek"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Nice to meet you.",
+                  "note": "Said to a man. To a woman say \"اتشرفت بيكي\" (etsharraft beeki).",
+                  "literal": "I was honoured by you"
+                },
+                "fr": {
+                  "meaning": "Enchanté(e).",
+                  "note": "Formule adressée à un homme. À une femme, dites « اتشرفت بيكي » (etsharraft beeki). Roulez légèrement le r doublé.",
+                  "literal": "j'ai été honoré par toi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Roll the doubled r lightly."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:goodbye",
+              "key": "goodbye",
+              "intentKey": "say_goodbye",
+              "slotId": "goodbye",
+              "speaker": "learner",
+              "text": "مع السلامة",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "مع السلامة"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ma3a es-salama"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Goodbye.",
+                  "note": "The usual reply is \"الله يسلمك\" (Allah yesallemak).",
+                  "literal": "with safety"
+                },
+                "fr": {
+                  "meaning": "Au revoir.",
+                  "note": "La réponse habituelle est « الله يسلمك » (Allah yesallemak).",
+                  "literal": "avec la sécurité"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:greet_hello_variant_8",
+              "key": "greet_hello_variant_8",
+              "intentKey": "greet_hello",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "أهلاً وسهلاً",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "أهلاً وسهلاً"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ahlan wa sahlan"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, welcome.",
+                  "note": "A warm generic hello. A shorter version is \"أهلاً\" (ahlan).",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bonjour, soyez le bienvenu.",
+                  "note": "Un bonjour chaleureux et courant. Une version plus courte existe : « أهلاً » (ahlan).",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:reply_fine_variant_9",
+              "key": "reply_fine_variant_9",
+              "intentKey": "reply_fine",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "كويس، شكراً",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "كويس، شكراً"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kwayyes, shokran"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good, thanks.",
+                  "note": "A simple, casual alternative. Women say \"كويسة\" (kwayyesa).",
+                  "literal": "good, thanks"
+                },
+                "fr": {
+                  "meaning": "Bien, merci.",
+                  "note": "Une alternative simple et décontractée. Les femmes disent « كويسة » (kwayyesa).",
+                  "literal": "bien, merci"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:ask_how_are_you_variant_10",
+              "key": "ask_how_are_you_variant_10",
+              "intentKey": "ask_how_are_you",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "أخبارك إيه؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "أخبارك إيه؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "akhbarak eih?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How are you? What's new?",
+                  "note": "To a woman say \"أخبارك إيه\" as \"akhbarek eih\".",
+                  "literal": "your-news what"
+                },
+                "fr": {
+                  "meaning": "Comment ça va ? Quoi de neuf ?",
+                  "note": "À une femme, on dit « أخبارك إيه » sous la forme « akhbarek eih ».",
+                  "literal": "tes nouvelles quoi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:say_goodbye_variant_11",
+              "key": "say_goodbye_variant_11",
+              "intentKey": "say_goodbye",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "يلا، أشوفك بعدين",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "يلا، أشوفك بعدين"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "yalla, ashoofak ba3dein"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Okay, see you later.",
+                  "note": "Friendly and casual. To a woman say \"أشوفك\" as \"ashoofek\".",
+                  "literal": "come on, I-see-you later"
+                },
+                "fr": {
+                  "meaning": "Allez, à tout à l'heure.",
+                  "note": "Amical et décontracté. À une femme, on dit « أشوفك » sous la forme « ashoofek ».",
+                  "literal": "allez, je-te-vois plus tard"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "arabic_egyptian_cafe_order_drink",
+          "blueprintKey": "cafe_order_drink",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "cafe",
+          "characterKey": "arabic_egyptian_character_cafe_server",
+          "titles": {
+            "en": "Ordering a Drink at the Café",
+            "fr": "Commander une boisson au café"
+          },
+          "sceneNotes": {
+            "en": "You sit down on a busy café terrace where a quick, friendly server comes over to take your order.",
+            "fr": "Vous vous asseyez à la terrasse animée d'un café, où un serveur rapide et sympathique vient prendre votre commande."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "options",
+              "speaker": "character"
+            },
+            {
+              "slotId": "choice",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_cafe_order_drink:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "مساء الخير",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "مساء الخير"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "masa2 el-kheir"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good evening.",
+                  "note": "Use after about midday or in the evening. In the morning, use صباح الخير, as in the earlier lesson.",
+                  "literal": "evening of-the-good"
+                },
+                "fr": {
+                  "meaning": "Bonsoir.",
+                  "note": "À employer après midi environ ou le soir. Le matin, on dit صباح الخير, comme dans la leçon précédente. Le 2 de masa2 est un petit coup de glotte ; kh est un son rauque venu de la gorge.",
+                  "literal": "soir du bien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say the 2 as a quick glottal stop in masa2; kh is a rough sound from the throat."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_cafe_order_drink:order",
+              "key": "order",
+              "intentKey": "request_drink",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "ممكن شاي بالنعناع لو سمحت؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "ممكن شاي بالنعناع لو سمحت؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "momken shai bel-na3na3 law sama7t?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I have a mint tea, please?",
+                  "note": "Very common on café terraces. You can swap in قهوة (ahwa) or عصير ليمون (3aseer lamoon).",
+                  "literal": "possible tea with-mint if you-allow"
+                },
+                "fr": {
+                  "meaning": "Je pourrais avoir un thé à la menthe, s'il vous plaît ?",
+                  "note": "Très courant en terrasse. Vous pouvez remplacer par قهوة (ahwa) ou عصير ليمون (3aseer lamoon). Le 3 est un son serré, produit tout au fond de la gorge, comme dans na3na3.",
+                  "literal": "possible thé avec menthe si vous permettez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "3 is a tight sound from deep in the throat, as in na3na3."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_cafe_order_drink:options",
+              "key": "options",
+              "intentKey": "offer_options",
+              "slotId": "options",
+              "speaker": "character",
+              "text": "سكر زيادة ولا مظبوط؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "سكر زيادة ولا مظبوط؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "sukkar ziyada wala mazboot?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Extra sugar or medium?",
+                  "note": "The server offers a choice and you have to pick. Note that ولا means 'or' in a question.",
+                  "literal": "sugar extra or medium"
+                },
+                "fr": {
+                  "meaning": "Un supplément de sucre ou moyen ?",
+                  "note": "Le serveur propose un choix et vous devez en choisir un. Ici, ولا signifie « ou » dans une question. Prononcez le z de mazboot nettement, avec l'accent sur boot.",
+                  "literal": "sucre en plus ou moyen"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say the z in mazboot as a clear z, with the stress on boot."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_cafe_order_drink:choice",
+              "key": "choice",
+              "intentKey": "choose_option",
+              "slotId": "choice",
+              "speaker": "learner",
+              "text": "مظبوط لو سمحت",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "مظبوط لو سمحت"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "mazboot law sama7t"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Medium sweet, please.",
+                  "note": "To say no sugar, use من غير سكر (min gheir sukkar).",
+                  "literal": "medium if you-allow"
+                },
+                "fr": {
+                  "meaning": "Moyennement sucré, s'il vous plaît.",
+                  "note": "Pour dire sans sucre, on dit من غير سكر (min gheir sukkar). Le 7 de sama7t est un h soufflé de la gorge, pas un h ordinaire.",
+                  "literal": "moyen si vous permettez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 7 in sama7t is a breathy h from the throat, not a normal h."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_cafe_order_drink:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "الحساب لو سمحت",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "الحساب لو سمحت"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "el-7esab law sama7t"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The bill, please.",
+                  "note": "A very common way to ask to pay at a café or restaurant.",
+                  "literal": "the-bill if you-allow"
+                },
+                "fr": {
+                  "meaning": "L'addition, s'il vous plaît.",
+                  "note": "Façon très courante de demander à payer au café ou au restaurant. Commencez el-7esab par le 7 soufflé, pas par un simple h.",
+                  "literal": "l'addition si vous permettez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Begin el-7esab with the breathy 7, not a plain h."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_cafe_order_drink:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "متشكر أوي",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "متشكر أوي"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "mutashakker awi"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks a lot. (said by a man)",
+                  "note": "A woman says متشكرة أوي (mutashakkera awi). The earlier lesson used شكراً, so this adds a warmer 'a lot'.",
+                  "literal": "thankful very"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup. (dit par un homme)",
+                  "note": "Une femme dit متشكرة أوي (mutashakkera awi). La leçon précédente utilisait شكراً ; ici, أوي apporte plus de chaleur.",
+                  "literal": "reconnaissant très"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_cafe_order_drink:request_drink_variant_7",
+              "key": "request_drink_variant_7",
+              "intentKey": "request_drink",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "أنا عايز قهوة تركي من فضلك",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "أنا عايز قهوة تركي من فضلك"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ana 3ayez ahwa turki min fadlak"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like a Turkish coffee, please. (said by a man)",
+                  "note": "A woman says عايزة (3ayza) and من فضلك (min fadlik). Stay polite with من فضلك or لو سمحت.",
+                  "literal": "I want coffee Turkish from your-favor"
+                },
+                "fr": {
+                  "meaning": "Je voudrais un café turc, s'il vous plaît. (dit par un homme)",
+                  "note": "Une femme dit عايزة (3ayza) et من فضلك (min fadlik). Restez poli avec من فضلك ou لو سمحت.",
+                  "literal": "moi je veux café turc de votre faveur"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_cafe_order_drink:choose_option_variant_8",
+              "key": "choose_option_variant_8",
+              "intentKey": "choose_option",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "من غير سكر، شكراً",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "من غير سكر، شكراً"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "min gheir sukkar, shukran"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Without sugar, thanks.",
+                  "note": "Said in reply to a question about sugar. The g in gheir is a gh sound, like a gargled r.",
+                  "literal": "from without sugar, thanks"
+                },
+                "fr": {
+                  "meaning": "Sans sucre, merci.",
+                  "note": "Réponse à une question sur le sucre. Le gh de gheir est un son guttural, comme un r grasseyé, doux et venu du fond de la gorge.",
+                  "literal": "de sans sucre, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "gh is a soft gargling sound from the back of the throat."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_cafe_order_drink:ask_for_bill_variant_9",
+              "key": "ask_for_bill_variant_9",
+              "intentKey": "ask_for_bill",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "كام الحساب؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "كام الحساب؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kam el-7esab?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is the bill?",
+                  "note": "A quick, casual way to ask how much you owe.",
+                  "literal": "how-much the-bill"
+                },
+                "fr": {
+                  "meaning": "L'addition, c'est combien ?",
+                  "note": "Façon rapide et décontractée de demander combien vous devez.",
+                  "literal": "combien l'addition"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "arabic_egyptian_market_ask_price",
+          "blueprintKey": "market_ask_price",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "market",
+          "characterKey": "arabic_egyptian_character_market_vendor",
+          "titles": {
+            "en": "Asking Prices at the Fruit Stall",
+            "fr": "Demander les prix à l'étal de fruits"
+          },
+          "sceneNotes": {
+            "en": "You stop at a busy fruit stall in a Cairo market, where the vendor sells fruit by the kilo and loves a bit of friendly bargaining.",
+            "fr": "Vous vous arrêtez devant un étal de fruits très animé sur un marché du Caire, où le vendeur vend les fruits au kilo et adore marchander gentiment."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_much",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "character"
+            },
+            {
+              "slotId": "expensive",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "lower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "deal",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "no_thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_market_ask_price:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "السلام عليكم، ازيك يا حاج؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "السلام عليكم، ازيك يا حاج؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "el-salamu 3alaykum, ezzayyak ya 7agg?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Peace be upon you, how are you, sir?",
+                  "note": "Calling an older vendor 'ya 7agg' is a friendly, respectful habit in Egyptian markets.",
+                  "literal": "peace upon-you, how-are-you, O pilgrim"
+                },
+                "fr": {
+                  "meaning": "Que la paix soit sur vous, comment allez-vous, monsieur ?",
+                  "note": "Appeler un vendeur plus âgé « ya 7agg » est une habitude amicale et respectueuse sur les marchés égyptiens. Le 7 de 7agg est un h soufflé, venant de la gorge ; le g du Caire est un « g » dur.",
+                  "literal": "paix sur-vous, comment-allez-vous, ô pèlerin"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 7 in 7agg is a breathy h from the throat; the Cairo g is a hard 'g'."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_market_ask_price:how_much",
+              "key": "how_much",
+              "intentKey": "ask_price",
+              "slotId": "how_much",
+              "speaker": "learner",
+              "text": "بكام الكيلو ده لو سمحت؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "بكام الكيلو ده لو سمحت؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "bikam el-kilo da law sama7t?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is a kilo of this, please?",
+                  "note": "Point at the fruit while saying 'da' (this).",
+                  "literal": "for-how-much the-kilo this if you-permit"
+                },
+                "fr": {
+                  "meaning": "Combien coûte le kilo de ceci, s'il vous plaît ?",
+                  "note": "Montrez les fruits du doigt en disant « da » (ceci).",
+                  "literal": "pour-combien le-kilo ceci si vous-permettez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_market_ask_price:price",
+              "key": "price",
+              "intentKey": "state_price",
+              "slotId": "price",
+              "speaker": "character",
+              "text": "الكيلو بعشرين جنيه يا فندم.",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "الكيلو بعشرين جنيه يا فندم."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "el-kilo bi-3eshreen geneih ya fandem."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A kilo is twenty pounds, sir/madam.",
+                  "note": "'Ya fandem' is a polite address from a vendor to a customer, used for men and women.",
+                  "literal": "the-kilo for-twenty pound O sir/madam"
+                },
+                "fr": {
+                  "meaning": "Le kilo est à vingt livres, monsieur/madame.",
+                  "note": "« Ya fandem » est une formule de politesse du vendeur envers le client, pour un homme comme pour une femme. Le 3 de 3eshreen est le son profond et guttural ع.",
+                  "literal": "le-kilo pour-vingt livre ô monsieur/madame"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "3 in 3eshreen is the deep throaty ع sound."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_market_ask_price:expensive",
+              "key": "expensive",
+              "intentKey": "say_too_expensive",
+              "slotId": "expensive",
+              "speaker": "learner",
+              "text": "ده غالي أوي!",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "ده غالي أوي!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "da ghaly awy!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "That's very expensive!",
+                  "note": "Say it with a smile; light bargaining is friendly, not rude.",
+                  "literal": "this expensive very"
+                },
+                "fr": {
+                  "meaning": "C'est très cher !",
+                  "note": "Dites-le avec le sourire : marchander un peu est amical, pas impoli. Le gh est un son râclé, comme le r français.",
+                  "literal": "ceci cher très"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "gh is a gargled sound like French r."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_market_ask_price:lower",
+              "key": "lower",
+              "intentKey": "offer_lower_price",
+              "slotId": "lower",
+              "speaker": "learner",
+              "text": "ممكن بخمستاشر جنيه؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "ممكن بخمستاشر جنيه؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "momken bi-khamastashar geneih?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you do fifteen pounds?",
+                  "note": null,
+                  "literal": "possible for-fifteen pound"
+                },
+                "fr": {
+                  "meaning": "Vous pouvez me le faire à quinze livres ?",
+                  "note": "Le kh est un son rauque venant du fond de la gorge, comme la jota espagnole.",
+                  "literal": "possible pour-quinze livre"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "kh is a rough sound from the back of the throat, like Scottish 'loch'."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_market_ask_price:deal",
+              "key": "deal",
+              "intentKey": "agree_to_price",
+              "slotId": "deal",
+              "speaker": "learner",
+              "text": "تمام، هاخد كيلو.",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "تمام، هاخد كيلو."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "tamam, hakhud kilo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'll take a kilo.",
+                  "note": "Use 'tamam' to close the deal.",
+                  "literal": "fine, I-will-take kilo"
+                },
+                "fr": {
+                  "meaning": "D'accord, je prends un kilo.",
+                  "note": "Utilisez « tamam » pour conclure l'affaire.",
+                  "literal": "d'accord, je-vais-prendre kilo"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_market_ask_price:no_thanks",
+              "key": "no_thanks",
+              "intentKey": "decline_purchase",
+              "slotId": "no_thanks",
+              "speaker": "learner",
+              "text": "شكراً، مش النهارده.",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "شكراً، مش النهارده."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "shukran, mish en-naharda."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks, not today.",
+                  "note": "A polite, easy way to leave without buying.",
+                  "literal": "thanks, not today"
+                },
+                "fr": {
+                  "meaning": "Merci, pas aujourd'hui.",
+                  "note": "Une façon polie et simple de partir sans rien acheter.",
+                  "literal": "merci, pas aujourd'hui"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_market_ask_price:ask_price_variant_8",
+              "key": "ask_price_variant_8",
+              "intentKey": "ask_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "التفاح بكام؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "التفاح بكام؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "et-toffa7 bikam?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much are the apples?",
+                  "note": "Swap in any fruit: المانجة (el-manga), البرتقان (el-bortu2an).",
+                  "literal": "the-apples for-how-much"
+                },
+                "fr": {
+                  "meaning": "Les pommes, c'est combien ?",
+                  "note": "Remplacez par n'importe quel fruit : المانجة (el-manga), البرتقان (el-bortu2an).",
+                  "literal": "les-pommes pour-combien"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_market_ask_price:offer_lower_price_variant_9",
+              "key": "offer_lower_price_variant_9",
+              "intentKey": "offer_lower_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "قلل شوية يا حاج.",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "قلل شوية يا حاج."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "2alil shwayya ya 7agg."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Lower it a bit, sir.",
+                  "note": "A friendly, common way to ask for a small discount.",
+                  "literal": "reduce a-little O pilgrim"
+                },
+                "fr": {
+                  "meaning": "Baissez un peu le prix, monsieur.",
+                  "note": "Une façon amicale et courante de demander une petite réduction. Le 2 est un coup de glotte, tel que les Cairotes prononcent le ق.",
+                  "literal": "baisse un-peu ô pèlerin"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 2 is a glottal stop, as Cairenes say ق."
+            }
+          ]
+        },
+        {
+          "key": "arabic_egyptian_ask_directions",
+          "blueprintKey": "ask_directions",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "directions",
+          "characterKey": "arabic_egyptian_ahmed_passer_by",
+          "titles": {
+            "en": "Finding the Station",
+            "fr": "Trouver la gare"
+          },
+          "sceneNotes": {
+            "en": "You are a visitor in Cairo looking for the station, and a friendly passer-by answers very fast, so you will need to ask them to slow down.",
+            "fr": "Vous êtes en visite au Caire et vous cherchez la gare, mais un passant sympathique vous répond très vite : il faudra lui demander de ralentir."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_is",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "straight",
+              "speaker": "character"
+            },
+            {
+              "slotId": "turn",
+              "speaker": "character"
+            },
+            {
+              "slotId": "far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "near",
+              "speaker": "character"
+            },
+            {
+              "slotId": "repeat",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "slower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_ask_directions:excuse_me",
+              "key": "excuse_me",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "لو سمحت يا فندم",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "لو سمحت يا فندم"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "law sama7t ya fandem"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, sir/madam.",
+                  "note": "Polite way to stop a stranger before asking something.",
+                  "literal": "if you allow, O sir/madam"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, monsieur/madame.",
+                  "note": "Façon polie d'interpeller un inconnu avant de poser une question. Le 7 de sama7t est un h soufflé, produit au fond de la gorge.",
+                  "literal": "si vous permettez, ô monsieur/madame"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 7 in sama7t is a breathy h, made deep in the throat."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_ask_directions:get_attention_variant_2",
+              "key": "get_attention_variant_2",
+              "intentKey": "get_attention",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "عن إذنك، معلش",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "عن إذنك، معلش"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "3an eznak, ma3lesh"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, sorry to bother you.",
+                  "note": "Softer and more casual; also works as an apology for interrupting.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, désolé de vous déranger.",
+                  "note": "Plus doux et plus décontracté ; sert aussi à s'excuser d'interrompre. Le 3 est le son guttural profond ع.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "3 is the deep throat sound ع."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_ask_directions:where_is",
+              "key": "where_is",
+              "intentKey": "ask_where_is",
+              "slotId": "where_is",
+              "speaker": "learner",
+              "text": "المحطة فين لو سمحت؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "المحطة فين لو سمحت؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "el-ma7atta fein law sama7t?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where is the station, please?",
+                  "note": null,
+                  "literal": "the-station where if-you-allow"
+                },
+                "fr": {
+                  "meaning": "Où est la gare, s'il vous plaît ?",
+                  "note": "Insistez sur le double t de ma7atta.",
+                  "literal": "la-gare où si-vous-permettez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Hold the double t in ma7atta."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_ask_directions:ask_where_is_variant_4",
+              "key": "ask_where_is_variant_4",
+              "intentKey": "ask_where_is",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "فيه محطة قريبة من هنا؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "فيه محطة قريبة من هنا؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "fih ma7atta ori-ba min hena?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a station near here?",
+                  "note": "Useful when you don't know the station's name.",
+                  "literal": "there-is station near from here"
+                },
+                "fr": {
+                  "meaning": "Y a-t-il une gare près d'ici ?",
+                  "note": "Utile quand vous ne connaissez pas le nom de la gare.",
+                  "literal": "il-y-a gare proche de ici"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_ask_directions:straight",
+              "key": "straight",
+              "intentKey": "give_direction_straight",
+              "slotId": "straight",
+              "speaker": "character",
+              "text": "تمشي دوغري لحد الناصية",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "تمشي دوغري لحد الناصية"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "temshi dogri la7ad en-nasya"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You go straight to the corner.",
+                  "note": "Locals often say directions as 'you walk...' rather than as a command.",
+                  "literal": "you-walk straight until the-corner"
+                },
+                "fr": {
+                  "meaning": "Vous allez tout droit jusqu'au coin de la rue.",
+                  "note": "Les gens du coin donnent souvent les directions avec « tu marches... » plutôt qu'à l'impératif.",
+                  "literal": "tu-marches tout-droit jusqu'à le-coin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_ask_directions:turn",
+              "key": "turn",
+              "intentKey": "give_direction_turn",
+              "slotId": "turn",
+              "speaker": "character",
+              "text": "وبعدين تلف شمال عند الإشارة",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "وبعدين تلف شمال عند الإشارة"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "we ba3dein telef shimal 3and el-eshara"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And then you turn left at the traffic light.",
+                  "note": "For right, say يمين (yimeen).",
+                  "literal": "and-then you-turn left at the-signal"
+                },
+                "fr": {
+                  "meaning": "Et ensuite vous tournez à gauche au feu.",
+                  "note": "Pour « à droite », dites يمين (yimeen).",
+                  "literal": "et-ensuite tu-tournes gauche à le-feu"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_ask_directions:far",
+              "key": "far",
+              "intentKey": "ask_is_it_far",
+              "slotId": "far",
+              "speaker": "learner",
+              "text": "هي بعيدة من هنا؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "هي بعيدة من هنا؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "heya be3eeda min hena?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it far from here?",
+                  "note": "'heya' refers to the station, which is feminine.",
+                  "literal": "it far from here"
+                },
+                "fr": {
+                  "meaning": "Est-ce que c'est loin d'ici ?",
+                  "note": "« heya » désigne la gare, qui est un mot féminin.",
+                  "literal": "elle loin de ici"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_ask_directions:near",
+              "key": "near",
+              "intentKey": "say_it_is_near",
+              "slotId": "near",
+              "speaker": "character",
+              "text": "لأ، مش بعيدة، حوالي عشر دقايق مشي",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "لأ، مش بعيدة، حوالي عشر دقايق مشي"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "la2, mish be3eeda, 7awaly 3ashar de2ayes mashy"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, it's not far, about ten minutes on foot.",
+                  "note": null,
+                  "literal": "no, not far, about ten minutes walking"
+                },
+                "fr": {
+                  "meaning": "Non, ce n'est pas loin, environ dix minutes à pied.",
+                  "note": null,
+                  "literal": "non, pas loin, environ dix minutes marche"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_ask_directions:repeat",
+              "key": "repeat",
+              "intentKey": "ask_repeat",
+              "slotId": "repeat",
+              "speaker": "learner",
+              "text": "ممكن تقول تاني لو سمحت؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "ممكن تقول تاني لو سمحت؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "momken te2ool tani law sama7t?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you say it again, please?",
+                  "note": "Said to a man; to a woman use تقولي (te2oli).",
+                  "literal": "possible you-say again if-you-allow"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous répéter, s'il vous plaît ?",
+                  "note": "S'adresse à un homme ; à une femme, on dit تقولي (te2oli). Au Caire, le ق se prononce comme un coup de glotte (2), comme dans te2ool.",
+                  "literal": "possible tu-dis encore si-vous-permettez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "In Cairo, ق is a glottal stop (2), as in te2ool."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_ask_directions:ask_repeat_variant_10",
+              "key": "ask_repeat_variant_10",
+              "intentKey": "ask_repeat",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "ممكن تقولي تاني لو سمحتي؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "ممكن تقولي تاني لو سمحتي؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "momken te2oli tani law sama7ti?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you say it again, please? (to a woman)",
+                  "note": "Feminine form for a female passer-by.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous répéter, s'il vous plaît ? (à une femme)",
+                  "note": "Forme féminine, pour une passante.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_ask_directions:slower",
+              "key": "slower",
+              "intentKey": "ask_slow_down",
+              "slotId": "slower",
+              "speaker": "learner",
+              "text": "ممكن بالراحة شوية لو سمحت؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "ممكن بالراحة شوية لو سمحت؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "momken bel-raha shwayya law sama7t?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you go a bit slower, please?",
+                  "note": "Works for any gender; بالراحة means 'slowly, gently'.",
+                  "literal": "possible with-the-ease a-little if-you-allow"
+                },
+                "fr": {
+                  "meaning": "Pourriez-vous parler un peu plus doucement, s'il vous plaît ?",
+                  "note": "Convient à tout le monde ; بالراحة signifie « doucement, calmement ». Le 7 de raha est un h soufflé.",
+                  "literal": "possible avec-le-calme un-peu si-vous-permettez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 7 in raha is a breathy h."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_ask_directions:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "تسلم، شكراً أوي",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "تسلم، شكراً أوي"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "teslam, shukran awi"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Bless you, thanks so much.",
+                  "note": "'teslam' is a warm Egyptian thank-you; to a woman say تسلمي (teslami).",
+                  "literal": "may-you-be-safe, thanks very"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup, que Dieu vous garde.",
+                  "note": "« teslam » est un remerciement égyptien chaleureux ; à une femme, on dit تسلمي (teslami).",
+                  "literal": "que-tu-sois-sain-et-sauf, merci très"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_ask_directions:thank_variant_13",
+              "key": "thank_variant_13",
+              "intentKey": "thank",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "شكراً ليكي، تسلمي",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "شكراً ليكي، تسلمي"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "shukran leeki, teslami"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, bless you. (to a woman)",
+                  "note": "Feminine form for a female passer-by.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci, que Dieu vous garde. (à une femme)",
+                  "note": "Forme féminine, pour une passante.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "arabic_egyptian_meet_neighbour",
+          "blueprintKey": "meet_neighbour",
+          "missionType": "story",
+          "level": "beginner",
+          "situation": "neighbours",
+          "characterKey": "arabic_egyptian_character_neighbour",
+          "titles": {
+            "en": "Meeting Your Neighbour",
+            "fr": "Rencontrer votre voisin"
+          },
+          "sceneNotes": {
+            "en": "You bump into your neighbour Mahmoud on the stairs while he carries shopping bags, and you introduce yourself as the new resident.",
+            "fr": "Vous croisez votre voisin Mahmoud dans l'escalier, les bras chargés de sacs de courses, et vous vous présentez comme le nouvel habitant."
+          },
+          "slots": [
+            {
+              "slotId": "new_neighbour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "character"
+            },
+            {
+              "slotId": "where_from_q",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "from",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "speak_lang",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "little",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "offer_help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:new_neighbour",
+              "key": "new_neighbour",
+              "intentKey": "say_new_neighbour",
+              "slotId": "new_neighbour",
+              "speaker": "learner",
+              "text": "أنا جارك الجديد.",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "أنا جارك الجديد."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ana gartak el-gedeed."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm your new neighbour.",
+                  "note": "Said by a man. A woman says جارتك الجديدة.",
+                  "literal": "I your-neighbour the-new"
+                },
+                "fr": {
+                  "meaning": "Je suis votre nouveau voisin.",
+                  "note": "Dit par un homme ; une femme dit جارتك الجديدة. Le « g » cairote de جار est dur, comme dans « gare ».",
+                  "literal": "moi ton-voisin le-nouveau"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The Cairene g in جار is a hard g, as in 'go'."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "نورت العمارة يا جاري!",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "نورت العمارة يا جاري!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "nawwart el-3emara ya gari!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome to the building, neighbour!",
+                  "note": "A common warm welcome to someone new. A woman is told نورتي.",
+                  "literal": "you lit up the building, my neighbour"
+                },
+                "fr": {
+                  "meaning": "Bienvenue dans l'immeuble, voisin !",
+                  "note": "Formule chaleureuse très courante pour accueillir un nouvel arrivant ; on dit نورتي à une femme. Le ع de عمارة est un son guttural profond.",
+                  "literal": "tu as illuminé l'immeuble, mon voisin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The ع in عمارة is a deep throat sound."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:where_from_q",
+              "key": "where_from_q",
+              "intentKey": "ask_where_from",
+              "slotId": "where_from_q",
+              "speaker": "learner",
+              "text": "حضرتك منين؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "حضرتك منين؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "7adretak minein?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where are you from?",
+                  "note": "Polite and works for any gender. The neighbour may answer with a city or a governorate.",
+                  "literal": "your presence from-where"
+                },
+                "fr": {
+                  "meaning": "Vous venez d'où ?",
+                  "note": "Poli, convient pour un homme comme pour une femme. Votre voisin peut répondre par une ville ou un gouvernorat. Le ح est un h soufflé, venu de la gorge.",
+                  "literal": "votre présence d'où"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ح is a breathy h from the throat."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:from",
+              "key": "from",
+              "intentKey": "say_where_from",
+              "slotId": "from",
+              "speaker": "learner",
+              "text": "أنا من أمريكا.",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "أنا من أمريكا."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ana min amrika."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm from America.",
+                  "note": "Swap in your own country.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Je viens des États-Unis.",
+                  "note": "Remplacez par votre propre pays.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:speak_lang",
+              "key": "speak_lang",
+              "intentKey": "ask_if_speaks_language",
+              "slotId": "speak_lang",
+              "speaker": "learner",
+              "text": "حضرتك بتتكلم إنجليزي؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "حضرتك بتتكلم إنجليزي؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "7adretak betetkallem engleezy?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you speak English?",
+                  "note": "Spoken to a man. To a woman, say بتتكلمي.",
+                  "literal": "your presence you-speak English"
+                },
+                "fr": {
+                  "meaning": "Vous parlez anglais ?",
+                  "note": "S'adresse à un homme ; à une femme, on dit بتتكلمي.",
+                  "literal": "votre présence tu-parles anglais"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:little",
+              "key": "little",
+              "intentKey": "say_speak_little",
+              "slotId": "little",
+              "speaker": "learner",
+              "text": "باتكلم عربي شوية بس.",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "باتكلم عربي شوية بس."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "batkallem 3araby shwayya bas."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I only speak a little Arabic.",
+                  "note": "The same form works for men and women.",
+                  "literal": "I-speak Arabic a-little only"
+                },
+                "fr": {
+                  "meaning": "Je parle seulement un peu l'arabe.",
+                  "note": "La même forme sert pour un homme comme pour une femme. Le ع de عربي est un son guttural profond.",
+                  "literal": "je-parle arabe un-peu seulement"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The ع in عربي is a deep throat sound."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:offer_help",
+              "key": "offer_help",
+              "intentKey": "offer_help",
+              "slotId": "offer_help",
+              "speaker": "learner",
+              "text": "ممكن أشيل معاك الشنط؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "ممكن أشيل معاك الشنط؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "momken ashil ma3ak esh-shonat?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I help you carry the bags?",
+                  "note": "Said to a man. To a woman, say معاكي.",
+                  "literal": "possible I-carry with-you the-bags"
+                },
+                "fr": {
+                  "meaning": "Je peux vous aider à porter les sacs ?",
+                  "note": "Dit à un homme ; à une femme, on dit معاكي.",
+                  "literal": "possible je-porte avec-toi les-sacs"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "ألف شكر، تسلم!",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "ألف شكر، تسلم!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "alf shokr, teslam!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks a lot, bless you!",
+                  "note": "تسلم is a blessing used as thanks. To a woman, say تسلمي.",
+                  "literal": "a thousand thanks, may you be safe"
+                },
+                "fr": {
+                  "meaning": "Mille mercis, que Dieu vous garde !",
+                  "note": "تسلم est un vœu de bénédiction utilisé pour remercier ; à une femme, on dit تسلمي.",
+                  "literal": "mille mercis, puisses-tu être en bonne santé"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:say_new_neighbour_variant_9",
+              "key": "say_new_neighbour_variant_9",
+              "intentKey": "say_new_neighbour",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "أنا جارتك الجديدة.",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "أنا جارتك الجديدة."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ana gartak el-gedeeda."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm your new neighbour (said by a woman).",
+                  "note": "Feminine counterpart of the first line.",
+                  "literal": "I your-neighbour(f.) the-new(f.)"
+                },
+                "fr": {
+                  "meaning": "Je suis votre nouvelle voisine.",
+                  "note": "Pendant féminin de la première phrase.",
+                  "literal": "moi ta-voisine(f.) la-nouvelle(f.)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:say_speak_little_variant_10",
+              "key": "say_speak_little_variant_10",
+              "intentKey": "say_speak_little",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "أنا لسه باتعلم، بالراحة لو سمحت.",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "أنا لسه باتعلم، بالراحة لو سمحت."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ana lessa bata3allem, bel-raha law sama7t."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm still learning, slowly please.",
+                  "note": "Useful when the neighbour speaks fast.",
+                  "literal": "I still I-learn, with-calm if you-permit"
+                },
+                "fr": {
+                  "meaning": "J'apprends encore, doucement s'il vous plaît.",
+                  "note": "Utile quand votre voisin parle vite.",
+                  "literal": "moi encore j'apprends, avec-calme si tu-permets"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "arabic_egyptian_take_taxi",
+          "blueprintKey": "take_taxi",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "transport",
+          "characterKey": "arabic_egyptian_character_taxi_driver",
+          "titles": {
+            "en": "Taking a Taxi Downtown",
+            "fr": "Prendre un taxi vers le centre"
+          },
+          "sceneNotes": {
+            "en": "You hail a taxi in heavy Cairo traffic to reach the old town, and the chatty driver names a price without turning on the meter.",
+            "fr": "Vous hélez un taxi dans les embouteillages du Caire pour aller dans la vieille ville, et le chauffeur bavard annonce un prix sans mettre le compteur."
+          },
+          "slots": [
+            {
+              "slotId": "hail",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_to",
+              "speaker": "character"
+            },
+            {
+              "slotId": "destination",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "meter",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fare",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "change",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_take_taxi:hail",
+              "key": "hail",
+              "intentKey": "hail_taxi",
+              "slotId": "hail",
+              "speaker": "learner",
+              "text": "تاكسي! فاضي يا أسطى؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "تاكسي! فاضي يا أسطى؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "taksi! fadi ya osta?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Taxi! Are you free, driver?",
+                  "note": "\"يا أسطى\" is the everyday way to address a driver.",
+                  "literal": "taxi, empty, O master"
+                },
+                "fr": {
+                  "meaning": "Taxi ! Vous êtes libre, chauffeur ?",
+                  "note": "« يا أسطى » est la façon courante de s'adresser à un chauffeur.",
+                  "literal": "taxi, libre, ô maître"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": "\"تاكسي\" is an English loanword used everywhere in Egypt.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_take_taxi:where_to",
+              "key": "where_to",
+              "intentKey": "ask_destination",
+              "slotId": "where_to",
+              "speaker": "character",
+              "text": "على فين يا فندم؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "على فين يا فندم؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "3ala fein ya fandem?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where to, sir/madam?",
+                  "note": "\"يا فندم\" is a polite address that works for any gender.",
+                  "literal": "on where, O sir"
+                },
+                "fr": {
+                  "meaning": "Où allez-vous, monsieur/madame ?",
+                  "note": "« يا فندم » est une formule polie qui convient aux hommes comme aux femmes. Le 3 est un son ع, guttural.",
+                  "literal": "à où, ô monsieur"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 3 is a throaty ع sound."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_take_taxi:destination",
+              "key": "destination",
+              "intentKey": "state_destination",
+              "slotId": "destination",
+              "speaker": "learner",
+              "text": "عايز أروح الحسين لو سمحت.",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "عايز أروح الحسين لو سمحت."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "3ayez aroo7 el-7oseen law sama7t."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want to go to Al-Hussein (the old town), please.",
+                  "note": "A man says عايز. A woman says عايزة (see the variant below).",
+                  "literal": "want I-go the-Hussein if you-permit"
+                },
+                "fr": {
+                  "meaning": "Je voudrais aller à Al-Hussein (la vieille ville), s'il vous plaît.",
+                  "note": "Un homme dit عايز, une femme dit عايزة (voir la variante plus bas). Le 7 de « 7oseen » est un ح soufflé.",
+                  "literal": "je veux j'aille le Hussein si vous permettez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 7 in \"7oseen\" is a breathy ح."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_take_taxi:meter",
+              "key": "meter",
+              "intentKey": "ask_use_meter",
+              "slotId": "meter",
+              "speaker": "learner",
+              "text": "ممكن تشغل العداد لو سمحت؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "ممكن تشغل العداد لو سمحت؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "momken teshaghghal el-3addad law sama7t?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you turn on the meter, please?",
+                  "note": "Use this when the driver quotes a price without the meter.",
+                  "literal": "possible you-run the-meter if you-permit"
+                },
+                "fr": {
+                  "meaning": "Pourriez-vous mettre le compteur, s'il vous plaît ?",
+                  "note": "À dire quand le chauffeur annonce un prix sans compteur.",
+                  "literal": "possible vous faites marcher le compteur si vous permettez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_take_taxi:fare",
+              "key": "fare",
+              "intentKey": "ask_fare",
+              "slotId": "fare",
+              "speaker": "learner",
+              "text": "بكام للحسين لو سمحت؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "بكام للحسين لو سمحت؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "bikam lel-7oseen law sama7t?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much to Al-Hussein, please?",
+                  "note": null,
+                  "literal": "for-how-much to-the-Hussein if you-permit"
+                },
+                "fr": {
+                  "meaning": "C'est combien jusqu'à Al-Hussein, s'il vous plaît ?",
+                  "note": null,
+                  "literal": "pour combien à le Hussein si vous permettez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_take_taxi:stop",
+              "key": "stop",
+              "intentKey": "say_stop_here",
+              "slotId": "stop",
+              "speaker": "learner",
+              "text": "ممكن توقف هنا لو سمحت؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "ممكن توقف هنا لو سمحت؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "momken tew2af hena law sama7t?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you stop here, please?",
+                  "note": null,
+                  "literal": "possible you-stop here if you-permit"
+                },
+                "fr": {
+                  "meaning": "Pourriez-vous vous arrêter ici, s'il vous plaît ?",
+                  "note": "Au Caire, le ق se prononce comme un coup de glotte : « tew2af » a une petite coupure avant le a.",
+                  "literal": "possible vous arrêtez ici si vous permettez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "In Cairo, ق is a glottal stop, so \"tew2af\" has a small catch before the a."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_take_taxi:change",
+              "key": "change",
+              "intentKey": "ask_for_change",
+              "slotId": "change",
+              "speaker": "learner",
+              "text": "ممكن الباقي لو سمحت؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "ممكن الباقي لو سمحت؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "momken el-baqi law sama7t?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could I have the change, please?",
+                  "note": "Say this after handing over a larger note.",
+                  "literal": "possible the-remainder if you-permit"
+                },
+                "fr": {
+                  "meaning": "Pourrais-je avoir la monnaie, s'il vous plaît ?",
+                  "note": "À dire après avoir tendu un gros billet.",
+                  "literal": "possible le reste si vous permettez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_take_taxi:bye",
+              "key": "bye",
+              "intentKey": "say_goodbye",
+              "slotId": "bye",
+              "speaker": "learner",
+              "text": "تسلم يا أسطى، الله يسلمك.",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "تسلم يا أسطى، الله يسلمك."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "tislam ya osta, allah yesallimak."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks, driver, take care.",
+                  "note": "A warm way to part ways. The literal sense is \"may you be safe, God keep you safe\".",
+                  "literal": "you-be-safe O master, God keep-you-safe"
+                },
+                "fr": {
+                  "meaning": "Merci, chauffeur, prenez soin de vous.",
+                  "note": "Une façon chaleureuse de se quitter. Sens littéral : « sois en sécurité, que Dieu te garde en sécurité ».",
+                  "literal": "tu sois sauf, ô maître, Dieu te garde sauf"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_take_taxi:state_destination_variant_9",
+              "key": "state_destination_variant_9",
+              "intentKey": "state_destination",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "عايزة أروح الحسين لو سمحت.",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "عايزة أروح الحسين لو سمحت."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "3ayza aroo7 el-7oseen law sama7t."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want to go to Al-Hussein, please. (woman speaking)",
+                  "note": "Feminine form of the destination line.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Je voudrais aller à Al-Hussein, s'il vous plaît. (c'est une femme qui parle)",
+                  "note": "Forme féminine de la phrase de destination.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_take_taxi:ask_use_meter_variant_10",
+              "key": "ask_use_meter_variant_10",
+              "intentKey": "ask_use_meter",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "بالعداد يا أسطى؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "بالعداد يا أسطى؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "bel-3addad ya osta?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "With the meter, driver?",
+                  "note": "A short, casual way to ask for the meter.",
+                  "literal": "with-the-meter O master"
+                },
+                "fr": {
+                  "meaning": "Au compteur, chauffeur ?",
+                  "note": "Une façon brève et familière de demander le compteur.",
+                  "literal": "avec le compteur ô maître"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "arabic_egyptian_buy_ice_cream",
+          "blueprintKey": "buy_ice_cream",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "shopping",
+          "characterKey": "arabic_egyptian_character_child_at_the_ice_cream_stand",
+          "titles": {
+            "en": "Ice Cream Outside School",
+            "fr": "Une glace devant l'école"
+          },
+          "sceneNotes": {
+            "en": "You take a child to the ice-cream cart outside the school, where only two flavours are left, and the child will try to get a second scoop.",
+            "fr": "Vous accompagnez un enfant au marchand de glaces devant l'école : il ne reste que deux parfums, et l'enfant va tenter d'obtenir une deuxième boule."
+          },
+          "slots": [
+            {
+              "slotId": "wants",
+              "speaker": "character"
+            },
+            {
+              "slotId": "which_flavour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "picks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "scoop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "asks_two",
+              "speaker": "character"
+            },
+            {
+              "slotId": "just_one",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "okay",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "yummy",
+              "speaker": "character"
+            },
+            {
+              "slotId": "me_too",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:wants",
+              "key": "wants",
+              "intentKey": "request_food",
+              "slotId": "wants",
+              "speaker": "character",
+              "text": "أنا عايز أيس كريم!",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "أنا عايز أيس كريم!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ana 3ayez ice cream!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want an ice cream!",
+                  "note": "A boy speaking. A girl would say عايزة (3ayza).",
+                  "literal": "I wanting ice cream"
+                },
+                "fr": {
+                  "meaning": "Je veux une glace !",
+                  "note": "C'est un garçon qui parle ; une fille dirait عايزة (3ayza). Le 3 est le son ع, profond et guttural.",
+                  "literal": "moi voulant glace"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "أيس كريم is the everyday English loanword.",
+              "pronunciationNote": "3 is the deep throaty ع sound."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:which_flavour",
+              "key": "which_flavour",
+              "intentKey": "offer_options",
+              "slotId": "which_flavour",
+              "speaker": "learner",
+              "text": "فراولة ولا شوكولاتة؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "فراولة ولا شوكولاتة؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "farawla wala shokolata?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Strawberry or chocolate?",
+                  "note": "In Egyptian Arabic, ولا means 'or' in a choice question.",
+                  "literal": "strawberry or chocolate"
+                },
+                "fr": {
+                  "meaning": "Fraise ou chocolat ?",
+                  "note": "En arabe égyptien, ولا signifie « ou » dans une question à choix.",
+                  "literal": "fraise ou chocolat"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:picks",
+              "key": "picks",
+              "intentKey": "choose_option",
+              "slotId": "picks",
+              "speaker": "character",
+              "text": "شوكولاتة، لو سمحت!",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "شوكولاتة، لو سمحت!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "shokolata, law sama7t!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Chocolate, please!",
+                  "note": "A well-brought-up child adds لو سمحت.",
+                  "literal": "chocolate, if you allow"
+                },
+                "fr": {
+                  "meaning": "Chocolat, s'il vous plaît !",
+                  "note": "Un enfant bien élevé ajoute لو سمحت. Le 7 est un ح soufflé, comme un soupir.",
+                  "literal": "chocolat, si tu permets"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "7 is a breathy ح, like a sigh."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:scoop",
+              "key": "scoop",
+              "intentKey": "specify_quantity",
+              "slotId": "scoop",
+              "speaker": "learner",
+              "text": "سكوب شوكولاتة واحد، لو سمحت.",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "سكوب شوكولاتة واحد، لو سمحت."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "sekoop shokolata wa7ed, law sama7t."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One scoop of chocolate, please.",
+                  "note": "Said to the ice-cream seller.",
+                  "literal": "scoop chocolate one, if you allow"
+                },
+                "fr": {
+                  "meaning": "Une boule de chocolat, s'il vous plaît.",
+                  "note": "Se dit au vendeur de glaces.",
+                  "literal": "boule chocolat une, si vous permettez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "سكوب is the English 'scoop'.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:asks_two",
+              "key": "asks_two",
+              "intentKey": "ask_permission",
+              "slotId": "asks_two",
+              "speaker": "character",
+              "text": "ممكن آخد سكوب تاني؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "ممكن آخد سكوب تاني؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "momken akhod sekoop tani?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I have another scoop?",
+                  "note": null,
+                  "literal": "possible I take scoop another"
+                },
+                "fr": {
+                  "meaning": "Je peux prendre une autre boule ?",
+                  "note": "Le kh se prononce comme un raclement de gorge.",
+                  "literal": "possible je prends boule autre"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "kh is like a rough throat-clearing sound."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:just_one",
+              "key": "just_one",
+              "intentKey": "refuse_permission",
+              "slotId": "just_one",
+              "speaker": "learner",
+              "text": "لأ يا حبيبي، واحد بس النهارده.",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "لأ يا حبيبي، واحد بس النهارده."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "la2 ya 7abibi, wa7ed bas en-naharda."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, sweetie, just one today.",
+                  "note": "The endearment and 'today' keep the refusal kind. To a girl, say يا حبيبتي (ya 7abibti).",
+                  "literal": "no, my dear, one only today"
+                },
+                "fr": {
+                  "meaning": "Non, mon chéri, une seule aujourd'hui.",
+                  "note": "Le terme affectueux et « aujourd'hui » adoucissent le refus. À une fille, on dit يا حبيبتي (ya 7abibti). La2 se termine par un petit coup de glotte.",
+                  "literal": "non, mon chéri, une seulement aujourd'hui"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "la2 ends in a quick glottal stop."
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:okay",
+              "key": "okay",
+              "intentKey": "grant_permission",
+              "slotId": "okay",
+              "speaker": "learner",
+              "text": "ماشي، اتفضل.",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "ماشي، اتفضل."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "mashi, itfaddal."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Okay, go ahead.",
+                  "note": "Use it for small requests, like the child asking to start eating or to taste the other flavour.",
+                  "literal": "okay, please go ahead"
+                },
+                "fr": {
+                  "meaning": "D'accord, vas-y.",
+                  "note": "Pour de petites demandes, par exemple quand l'enfant veut commencer à manger ou goûter l'autre parfum.",
+                  "literal": "d'accord, je t'en prie"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:yummy",
+              "key": "yummy",
+              "intentKey": "say_delicious",
+              "slotId": "yummy",
+              "speaker": "character",
+              "text": "الله! حلو أوي!",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "الله! حلو أوي!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Allah! 7elw awi!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Wow! It's so good!",
+                  "note": "الله! is a common exclamation of delight, not a religious statement here.",
+                  "literal": "God! sweet very"
+                },
+                "fr": {
+                  "meaning": "Waouh ! C'est trop bon !",
+                  "note": "الله! est une exclamation de plaisir courante, sans sens religieux ici.",
+                  "literal": "Dieu ! doux très"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:me_too",
+              "key": "me_too",
+              "intentKey": "express_like",
+              "slotId": "me_too",
+              "speaker": "learner",
+              "text": "وأنا كمان بحب الشوكولاتة.",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "وأنا كمان بحب الشوكولاتة."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "w ana kaman ba7ebb esh-shokolata."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I love chocolate too.",
+                  "note": null,
+                  "literal": "and I also I-like the chocolate"
+                },
+                "fr": {
+                  "meaning": "Moi aussi, j'adore le chocolat.",
+                  "note": null,
+                  "literal": "et moi aussi j'aime le chocolat"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "character",
+              "text": "ميرسي أوي!",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "ميرسي أوي!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "mersi awi!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks so much!",
+                  "note": "Very common and friendly, especially among kids and young people.",
+                  "literal": "thanks very"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup !",
+                  "note": "Très courant et amical, surtout chez les enfants et les jeunes.",
+                  "literal": "merci très"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "ميرسي comes from French 'merci' and is everyday Egyptian.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:welcome",
+              "key": "welcome",
+              "intentKey": "respond_to_thanks",
+              "slotId": "welcome",
+              "speaker": "learner",
+              "text": "العفو يا حبيبي!",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "العفو يا حبيبي!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "el-3afw ya 7abibi!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You're welcome, sweetie!",
+                  "note": null,
+                  "literal": "the pardon, my dear"
+                },
+                "fr": {
+                  "meaning": "De rien, mon chéri !",
+                  "note": null,
+                  "literal": "le pardon, mon chéri"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:offer_options_variant_12",
+              "key": "offer_options_variant_12",
+              "intentKey": "offer_options",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "تحب فراولة ولا شوكولاتة؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "تحب فراولة ولا شوكولاتة؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "te7eb farawla wala shokolata?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Would you like strawberry or chocolate?",
+                  "note": "Say تحبي (te7ebbi) to a girl.",
+                  "literal": "you like strawberry or chocolate"
+                },
+                "fr": {
+                  "meaning": "Tu veux de la fraise ou du chocolat ?",
+                  "note": "À une fille, on dit تحبي (te7ebbi).",
+                  "literal": "tu aimes fraise ou chocolat"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:refuse_permission_variant_13",
+              "key": "refuse_permission_variant_13",
+              "intentKey": "refuse_permission",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "كفاية كده يا حبيبي، واحد بس.",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "كفاية كده يا حبيبي، واحد بس."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kefaya keda ya 7abibi, wa7ed bas."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "That's enough for now, sweetie, just one.",
+                  "note": "A gentle, firm way to say no.",
+                  "literal": "enough like-this my dear, one only"
+                },
+                "fr": {
+                  "meaning": "Ça suffit comme ça, mon chéri, une seule.",
+                  "note": "Une façon douce mais ferme de dire non.",
+                  "literal": "suffisant comme ça mon chéri, une seulement"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

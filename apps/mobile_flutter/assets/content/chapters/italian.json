@@ -1,0 +1,2761 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts",
+  "courseTrackId": "italian",
+  "chapters": [
+    {
+      "key": "italian_ch1",
+      "chapterIndex": 1,
+      "courseTrackId": "italian",
+      "targetVarietyId": "it",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "First days in Bologna",
+        "fr": "Premiers jours à Bologne"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+      "notes": [
+        "AI draft generated 2026-11-11T22:44:09.940Z with anthropic/claude-sonnet-5.5; validator accepted 76 expressions; native review required before publishing.",
+        "greet_and_introduce: Anna is a placeholder name; 'Piacere' works for any gender, so no agreement issues in these lines.",
+        "greet_and_introduce: Polite 'Lei' forms are used for the required slots; informal tu variants are added as extras.",
+        "greet_and_introduce: 'Arrivederci' could be swapped for 'A presto' in northern or friendly contexts; please check naturalness.",
+        "cafe_order_drink: Earlier greetings use formal 'Lei' (Come sta?), but the server uses informal 'tu' (Lo vuoi) as is common in busy cafés; please confirm this is appropriate or switch to 'Lo vuole'.",
+        "cafe_order_drink: Buonasera chosen for time-of-day greeting to avoid duplicating Buongiorno and Ciao already drafted.",
+        "cafe_order_drink: In some places you pay first at the cassa and then order; the 'Il conto' line fits terrace table service.",
+        "market_ask_price: Greeting reuses Buongiorno! from earlier; 'Come va?' is slightly less formal than the earlier 'Come sta?'. Please confirm it suits a polite market tone.",
+        "market_ask_price: Pronoun in 'Va bene, li prendo' is masculine plural while the peaches are feminine; the extra variant uses 'le'. Consider whether to change the main line to 'le prendo' for consistency.",
+        "market_ask_price: Twist (free extra from the vendor) is not covered by the required slots; can be added in a later vendor line like 'Ti regalo una prugna!'.",
+        "ask_directions: All learner lines use the polite 'Lei' form (Scusi, Può, Parla), and the character's 'Vada/giri' follow the same form; please confirm this fits a passer-by.",
+        "ask_directions: The 'far' line uses 'lontano' and the character answers with 'vicino'; the extra 'ask_slow_down' variant uses 'veloce' as an adverb, which is common in speech though 'velocemente' is the stricter form.",
+        "ask_directions: Scene fact of 'two turns' is covered by 'turn' plus the straight line; check that the dialogue flows naturally.",
+        "meet_neighbour: Learner lines use polite 'Lei' with the neighbour; confirm that is natural for a first meeting in a stairwell, since many neighbours switch to 'tu' quickly.",
+        "meet_neighbour: Gender agreement (nuovo/nuova vicino/a, americano/a, trasferito/a, benvenuto/a) is given for a male learner and a female character; notes mention the alternatives.",
+        "meet_neighbour: 'Posso aiutarla con le borse?' is the Lei form; the casual alternative would be 'Ti do una mano?'.",
+        "take_taxi: Used polite Lei forms (può, si fermi, ha) for a taxi driver; please confirm they feel natural to a local.",
+        "take_taxi: 'Ha da cambiare dieci euro?' is colloquial; the amount is just an example.",
+        "take_taxi: Marco's line 'Dove la porto?' is standard; some drivers might say 'Dove andiamo?' instead.",
+        "buy_ice_cream: The 'okay' line grants the ice cream after the refusal; please check it reads as grant_permission naturally (alternative: 'Va bene, una pallina.').",
+        "buy_ice_cream: The 'scoop' slot is polite as required, addressed to the seller; 'pallina' is standard, though 'gusto' is also common for flavour.",
+        "buy_ice_cream: The child uses informal 'tu' forms; adults address the seller with 'tu' or 'Lei' depending on the context.",
+        "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+      ],
+      "characters": [
+        {
+          "key": "italian_giulia_friendly_local_acquaintance",
+          "name": "Giulia",
+          "role": "friendly local acquaintance",
+          "personality": "warm, quick, curious, polite",
+          "homeRegion": "Bologna, Emilia-Romagna",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "italian_giulia_cafe_server",
+          "name": "Giulia",
+          "role": "café server",
+          "personality": "quick, cheerful, friendly, efficient",
+          "homeRegion": "Bologna, Emilia-Romagna",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "italian_giulia_market_vendor",
+          "name": "Giulia",
+          "role": "market vendor",
+          "personality": "Warm, chatty, quick with jokes",
+          "homeRegion": "Bologna, Emilia-Romagna",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "italian_marco_passer_by",
+          "name": "Marco",
+          "role": "passer-by",
+          "personality": "friendly, quick-talking, helpful",
+          "homeRegion": "Bologna, Emilia-Romagna",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "italian_marta_neighbour",
+          "name": "Marta",
+          "role": "neighbour",
+          "personality": "warm, chatty, welcoming",
+          "homeRegion": "Bologna, Emilia-Romagna",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "italian_marco_taxi_driver",
+          "name": "Marco",
+          "role": "taxi driver",
+          "personality": "talkative, friendly, a bit pushy",
+          "homeRegion": "Roma, Lazio",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "italian_giulia_child_at_the_ice_cream_stand",
+          "name": "Giulia",
+          "role": "child at the ice-cream stand",
+          "personality": "cheerful, greedy, a bit cheeky",
+          "homeRegion": "Bologna, Emilia-Romagna",
+          "ageBand": null,
+          "voice": "female"
+        }
+      ],
+      "missions": [
+        {
+          "key": "italian_greet_and_introduce",
+          "blueprintKey": "greet_and_introduce",
+          "missionType": "standard",
+          "level": "beginner",
+          "situation": "introductions",
+          "characterKey": "italian_giulia_friendly_local_acquaintance",
+          "titles": {
+            "en": "Greeting a Neighbour Outside",
+            "fr": "Saluer une voisine dehors"
+          },
+          "sceneNotes": {
+            "en": "You meet a friendly neighbour on the street one morning; she is in a hurry but stops to say hello and asks where you live.",
+            "fr": "Vous croisez une voisine sympathique dans la rue un matin ; elle est pressée, mais elle s'arrête pour vous dire bonjour."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_are_you",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fine",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "your_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "nice_to_meet",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "goodbye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "italian_ch1:italian_greet_and_introduce:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Buongiorno!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Buongiorno!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning!",
+                  "note": "Used until about early afternoon; safe with anyone you don't know well.",
+                  "literal": "good day"
+                },
+                "fr": {
+                  "meaning": "Bonjour !",
+                  "note": "S'emploie jusqu'au début de l'après-midi ; convient avec toute personne que l'on connaît peu. Prononcez « gn » comme dans « agneau » : jor-no.",
+                  "literal": "bon jour"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say gn in 'giorno' like 'ny' in 'canyon': jyor-no."
+            },
+            {
+              "id": "italian_ch1:italian_greet_and_introduce:how_are_you",
+              "key": "how_are_you",
+              "intentKey": "ask_how_are_you",
+              "slotId": "how_are_you",
+              "speaker": "learner",
+              "text": "Come sta?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Come sta?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How are you?",
+                  "note": "Polite 'Lei' form, good for a neighbour you have just met.",
+                  "literal": "how (you) are"
+                },
+                "fr": {
+                  "meaning": "Comment allez-vous ?",
+                  "note": "Forme de politesse avec « Lei » (vouvoiement), idéale pour une voisine que vous venez de rencontrer.",
+                  "literal": "comment (vous) allez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_greet_and_introduce:fine",
+              "key": "fine",
+              "intentKey": "reply_fine",
+              "slotId": "fine",
+              "speaker": "learner",
+              "text": "Bene, grazie!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bene, grazie!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Fine, thanks!",
+                  "note": null,
+                  "literal": "well, thanks"
+                },
+                "fr": {
+                  "meaning": "Bien, merci !",
+                  "note": "Faites rouler ou battre légèrement le r ; « grazie » se termine par un « ie » net (gra-tsié).",
+                  "literal": "bien, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Roll or tap the r lightly; 'grazie' ends in a clear 'ee-eh'."
+            },
+            {
+              "id": "italian_ch1:italian_greet_and_introduce:my_name",
+              "key": "my_name",
+              "intentKey": "introduce_name",
+              "slotId": "my_name",
+              "speaker": "learner",
+              "text": "Mi chiamo Anna.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mi chiamo Anna."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My name is Anna.",
+                  "note": "Replace Anna with your own name.",
+                  "literal": "myself (I) call Anna"
+                },
+                "fr": {
+                  "meaning": "Je m'appelle Anna.",
+                  "note": "Remplacez Anna par votre prénom. « chi » se prononce « ki », et non « chi » comme en français.",
+                  "literal": "moi (je) appelle Anna"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'chi' is pronounced 'kee', not 'chee'."
+            },
+            {
+              "id": "italian_ch1:italian_greet_and_introduce:your_name",
+              "key": "your_name",
+              "intentKey": "ask_name",
+              "slotId": "your_name",
+              "speaker": "learner",
+              "text": "E Lei, come si chiama?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "E Lei, come si chiama?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And you, what is your name?",
+                  "note": "Polite form; with someone your age you could say 'E tu, come ti chiami?'.",
+                  "literal": "and you(formal), how yourself call?"
+                },
+                "fr": {
+                  "meaning": "Et vous, comment vous appelez-vous ?",
+                  "note": "Forme de politesse ; avec quelqu'un de votre âge, vous pouvez dire « E tu, come ti chiami? ».",
+                  "literal": "et vous, comment vous appelez ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_greet_and_introduce:nice_to_meet",
+              "key": "nice_to_meet",
+              "intentKey": "say_nice_to_meet",
+              "slotId": "nice_to_meet",
+              "speaker": "learner",
+              "text": "Piacere!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Piacere!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Nice to meet you!",
+                  "note": "Very common short reply right after hearing a name.",
+                  "literal": "pleasure"
+                },
+                "fr": {
+                  "meaning": "Enchanté(e) !",
+                  "note": "Réponse courte très courante juste après avoir entendu un prénom. Prononcez : pia-TCHÉ-ré.",
+                  "literal": "plaisir"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'ch' in 'piacere' sounds like English 'ch': pya-CHEH-re."
+            },
+            {
+              "id": "italian_ch1:italian_greet_and_introduce:goodbye",
+              "key": "goodbye",
+              "intentKey": "say_goodbye",
+              "slotId": "goodbye",
+              "speaker": "learner",
+              "text": "Arrivederci, buona giornata!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Arrivederci, buona giornata!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Goodbye, have a good day!",
+                  "note": "Perfect for a neighbour who is rushing off.",
+                  "literal": "until we see again, good day"
+                },
+                "fr": {
+                  "meaning": "Au revoir, bonne journée !",
+                  "note": "Parfait pour une voisine qui part en vitesse. Le double r de « arrivederci » est un r roulé court.",
+                  "literal": "jusqu'à nous revoir, bonne journée"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Double r in 'arrivederci' is a short rolled sound."
+            },
+            {
+              "id": "italian_ch1:italian_greet_and_introduce:greet_hello_variant_8",
+              "key": "greet_hello_variant_8",
+              "intentKey": "greet_hello",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ciao!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ciao!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hi!",
+                  "note": "Casual; use with neighbours your age or once you know each other.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Salut !",
+                  "note": "Informel ; à utiliser avec des voisins de votre âge ou quand vous vous connaissez mieux.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_greet_and_introduce:ask_how_are_you_variant_9",
+              "key": "ask_how_are_you_variant_9",
+              "intentKey": "ask_how_are_you",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Come stai?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Come stai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How are you?",
+                  "note": "Informal 'tu' form for friends or people your age.",
+                  "literal": "how (you) are"
+                },
+                "fr": {
+                  "meaning": "Comment vas-tu ?",
+                  "note": "Forme informelle avec « tu », pour des amis ou des personnes de votre âge.",
+                  "literal": "comment (tu) vas"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_greet_and_introduce:say_goodbye_variant_10",
+              "key": "say_goodbye_variant_10",
+              "intentKey": "say_goodbye",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ci vediamo! Ciao!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ci vediamo! Ciao!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "See you! Bye!",
+                  "note": "Friendly and casual, good for someone you will see again soon.",
+                  "literal": "we see each other, bye"
+                },
+                "fr": {
+                  "meaning": "À bientôt ! Salut !",
+                  "note": "Amical et décontracté, pratique pour quelqu'un que vous reverrez bientôt.",
+                  "literal": "nous nous voyons, salut"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "italian_cafe_order_drink",
+          "blueprintKey": "cafe_order_drink",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "cafe",
+          "characterKey": "italian_giulia_cafe_server",
+          "titles": {
+            "en": "Ordering a Drink at the Café",
+            "fr": "Commander une boisson au café"
+          },
+          "sceneNotes": {
+            "en": "You sit down at a busy café terrace, and a quick, friendly server comes over to take your order.",
+            "fr": "Vous vous installez à la terrasse animée d'un café, et une serveuse rapide et sympathique vient prendre votre commande."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "options",
+              "speaker": "character"
+            },
+            {
+              "slotId": "choice",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "italian_ch1:italian_cafe_order_drink:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Buonasera!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Buonasera!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good evening!",
+                  "note": "Use from the afternoon onward. Use Buongiorno in the morning, as in the earlier greeting.",
+                  "literal": "good evening"
+                },
+                "fr": {
+                  "meaning": "Bonsoir !",
+                  "note": "À employer dès l'après-midi. Le matin, on dit « Buongiorno », comme dans la salutation précédente. Accent tonique sur « se » : buo-na-SÉ-ra.",
+                  "literal": "bonne soirée"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say the stress on 'se': buo-na-SE-ra."
+            },
+            {
+              "id": "italian_ch1:italian_cafe_order_drink:order",
+              "key": "order",
+              "intentKey": "request_drink",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Vorrei un caffè, per favore.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vorrei un caffè, per favore."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like a coffee, please.",
+                  "note": "In Italy, 'un caffè' usually means a small espresso.",
+                  "literal": "I-would-like a coffee, for favor"
+                },
+                "fr": {
+                  "meaning": "Je voudrais un café, s'il vous plaît.",
+                  "note": "En Italie, « un caffè » désigne en général un petit expresso. Accentuez le è final : caf-FÈ.",
+                  "literal": "je voudrais un café, par faveur"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the final è in caffè: caf-FÈ."
+            },
+            {
+              "id": "italian_ch1:italian_cafe_order_drink:options",
+              "key": "options",
+              "intentKey": "offer_options",
+              "slotId": "options",
+              "speaker": "character",
+              "text": "Lo vuoi con zucchero o senza?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Lo vuoi con zucchero o senza?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you want it with sugar or without?",
+                  "note": "Servers often use informal 'tu' with customers, especially on a busy terrace.",
+                  "literal": "it you-want with sugar or without"
+                },
+                "fr": {
+                  "meaning": "Tu le veux avec du sucre ou sans ?",
+                  "note": "Les serveurs tutoient souvent les clients, surtout sur une terrasse animée.",
+                  "literal": "le tu veux avec sucre ou sans"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_cafe_order_drink:choice",
+              "key": "choice",
+              "intentKey": "choose_option",
+              "slotId": "choice",
+              "speaker": "learner",
+              "text": "Senza zucchero, grazie.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Senza zucchero, grazie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Without sugar, thank you.",
+                  "note": null,
+                  "literal": "without sugar, thanks"
+                },
+                "fr": {
+                  "meaning": "Sans sucre, merci.",
+                  "note": "Le double z de « zucchero » se prononce « ts » : TSOUK-ké-ro.",
+                  "literal": "sans sucre, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Double z in zucchero is 'ts': TSOO-kke-ro."
+            },
+            {
+              "id": "italian_ch1:italian_cafe_order_drink:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Il conto, per favore.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Il conto, per favore."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The bill, please.",
+                  "note": null,
+                  "literal": "the bill, for favor"
+                },
+                "fr": {
+                  "meaning": "L'addition, s'il vous plaît.",
+                  "note": null,
+                  "literal": "l'addition, par faveur"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_cafe_order_drink:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Grazie mille!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Grazie mille!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks a lot!",
+                  "note": null,
+                  "literal": "thanks thousand"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup !",
+                  "note": "Le z se prononce « ts » : GRA-tsié MIL-lé.",
+                  "literal": "merci mille"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Roll the z as 'ts': GRA-tsie MEEL-le."
+            },
+            {
+              "id": "italian_ch1:italian_cafe_order_drink:request_drink_variant_7",
+              "key": "request_drink_variant_7",
+              "intentKey": "request_drink",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Un cappuccino, per favore.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Un cappuccino, per favore."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A cappuccino, please.",
+                  "note": "Cappuccino is typically a morning drink in Italy.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Un cappuccino, s'il vous plaît.",
+                  "note": "En Italie, le cappuccino se boit surtout le matin. Double p et double c : cap-pou-TCHI-no.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Double p and double c: cap-puc-CHI-no."
+            },
+            {
+              "id": "italian_ch1:italian_cafe_order_drink:choose_option_variant_8",
+              "key": "choose_option_variant_8",
+              "intentKey": "choose_option",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Con un po' di zucchero, grazie.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Con un po' di zucchero, grazie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "With a little sugar, thank you.",
+                  "note": null,
+                  "literal": "with a bit of sugar, thanks"
+                },
+                "fr": {
+                  "meaning": "Avec un peu de sucre, merci.",
+                  "note": null,
+                  "literal": "avec un peu de sucre, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_cafe_order_drink:ask_for_bill_variant_9",
+              "key": "ask_for_bill_variant_9",
+              "intentKey": "ask_for_bill",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Posso pagare, per favore?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Posso pagare, per favore?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay, please?",
+                  "note": "Often you pay at the counter rather than at the table.",
+                  "literal": "I-can to-pay, for favor"
+                },
+                "fr": {
+                  "meaning": "Je peux payer, s'il vous plaît ?",
+                  "note": "Souvent, on paie au comptoir plutôt qu'à table.",
+                  "literal": "je peux payer, par faveur"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "italian_market_ask_price",
+          "blueprintKey": "market_ask_price",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "market",
+          "characterKey": "italian_giulia_market_vendor",
+          "titles": {
+            "en": "Asking Prices at the Market",
+            "fr": "Demander les prix au marché"
+          },
+          "sceneNotes": {
+            "en": "You are at a fruit stall in an Italian market, asking the vendor about prices per kilo and maybe bargaining a little.",
+            "fr": "Vous êtes devant un étal de fruits sur un marché italien et vous demandez à la vendeuse le prix au kilo, avec peut-être un petit marchandage."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_much",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "character"
+            },
+            {
+              "slotId": "expensive",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "lower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "deal",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "no_thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "italian_ch1:italian_market_ask_price:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Buongiorno! Come va?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Buongiorno! Come va?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning! How's it going?",
+                  "note": "A friendly, polite opener at a stall. Use Buonasera! in the late afternoon.",
+                  "literal": "Good day! How goes?"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! Comment ça va ?",
+                  "note": "Une formule d'accueil aimable et polie à un étal. Dites Buonasera ! en fin d'après-midi. Prononcez le « gi » de Buongiorno comme « dj » dans « djihad » (proche de « j » en anglais).",
+                  "literal": "Bon jour ! Comment ça va ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say gi in Buongiorno like the j in 'jungle'."
+            },
+            {
+              "id": "italian_ch1:italian_market_ask_price:how_much",
+              "key": "how_much",
+              "intentKey": "ask_price",
+              "slotId": "how_much",
+              "speaker": "learner",
+              "text": "Quanto costano le pesche, per favore?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Quanto costano le pesche, per favore?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much are the peaches, please?",
+                  "note": "Swap in any fruit: le arance, le mele, le fragole. For a singular item use Quanto costa?",
+                  "literal": "How much cost the peaches, please?"
+                },
+                "fr": {
+                  "meaning": "Combien coûtent les pêches, s'il vous plaît ?",
+                  "note": "Remplacez par n'importe quel fruit : le arance, le mele, le fragole. Pour un seul article, dites Quanto costa ? Dans pesche, « sch » se prononce « sk » : PÈS-ké.",
+                  "literal": "Combien coûtent les pêches, s'il vous plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "In pesche, sch is pronounced like 'sk': PES-keh."
+            },
+            {
+              "id": "italian_ch1:italian_market_ask_price:price",
+              "key": "price",
+              "intentKey": "state_price",
+              "slotId": "price",
+              "speaker": "character",
+              "text": "Tre euro al chilo. Sono dolcissime!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tre euro al chilo. Sono dolcissime!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Three euros a kilo. They're super sweet!",
+                  "note": "Prices at markets are almost always per kilo (al chilo).",
+                  "literal": "Three euros at-the kilo. They are very sweet!"
+                },
+                "fr": {
+                  "meaning": "Trois euros le kilo. Elles sont super sucrées !",
+                  "note": "Sur les marchés, les prix sont presque toujours au kilo (al chilo). Chilo commence par un « k » dur : KI-lo.",
+                  "literal": "Trois euros au kilo. Elles sont très douces !"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Chilo starts with a hard k sound: KEE-lo."
+            },
+            {
+              "id": "italian_ch1:italian_market_ask_price:expensive",
+              "key": "expensive",
+              "intentKey": "say_too_expensive",
+              "slotId": "expensive",
+              "speaker": "learner",
+              "text": "Mmm, è un po' caro.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mmm, è un po' caro."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hmm, it's a bit expensive.",
+                  "note": "Softened with un po', so it stays friendly and not rude.",
+                  "literal": "Hmm, it is a little dear."
+                },
+                "fr": {
+                  "meaning": "Mmm, c'est un peu cher.",
+                  "note": "Avec un po', la remarque est adoucie : elle reste aimable et n'est pas impolie.",
+                  "literal": "Mmm, c'est un peu cher."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_market_ask_price:lower",
+              "key": "lower",
+              "intentKey": "offer_lower_price",
+              "slotId": "lower",
+              "speaker": "learner",
+              "text": "Può fare due euro e cinquanta?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Può fare due euro e cinquanta?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you do two euros fifty?",
+                  "note": "Polite, light bargaining. Può is the formal 'you' form, used with a vendor you don't know.",
+                  "literal": "Can-you make two euro and fifty?"
+                },
+                "fr": {
+                  "meaning": "Vous pouvez faire deux euros cinquante ?",
+                  "note": "Un marchandage poli et léger. Può est la forme de politesse (vouvoiement), adaptée à un vendeur inconnu. Cinquanta : « cin- » se dit « tchin ».",
+                  "literal": "Pouvez-vous faire deux euros et cinquante ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Cinquanta: cin- is 'cheen'."
+            },
+            {
+              "id": "italian_ch1:italian_market_ask_price:deal",
+              "key": "deal",
+              "intentKey": "agree_to_price",
+              "slotId": "deal",
+              "speaker": "learner",
+              "text": "Va bene, li prendo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Va bene, li prendo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'll take them.",
+                  "note": "Li = masculine plural 'them'. For peaches (feminine plural) the pronoun is le: Le prendo.",
+                  "literal": "It goes well, them I-take."
+                },
+                "fr": {
+                  "meaning": "D'accord, je les prends.",
+                  "note": "Li = « les » au masculin pluriel. Pour des pêches (féminin pluriel), le pronom est le : Le prendo.",
+                  "literal": "Ça va bien, les je-prends."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_market_ask_price:no_thanks",
+              "key": "no_thanks",
+              "intentKey": "decline_purchase",
+              "slotId": "no_thanks",
+              "speaker": "learner",
+              "text": "No, grazie, magari un'altra volta.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "No, grazie, magari un'altra volta."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No thank you, maybe another time.",
+                  "note": "A polite, easy way to leave without buying.",
+                  "literal": "No, thanks, maybe an other time."
+                },
+                "fr": {
+                  "meaning": "Non merci, peut-être une prochaine fois.",
+                  "note": "Une façon polie et simple de partir sans rien acheter. Prononcez un'altra d'un seul souffle : oun-AL-tra.",
+                  "literal": "Non, merci, peut-être une autre fois."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say un'altra as one flowing sound: oon-AL-tra."
+            },
+            {
+              "id": "italian_ch1:italian_market_ask_price:ask_price_variant_8",
+              "key": "ask_price_variant_8",
+              "intentKey": "ask_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Scusi, quanto costa un chilo di fragole?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Scusi, quanto costa un chilo di fragole?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, how much is a kilo of strawberries?",
+                  "note": "Useful when you want to be specific about quantity.",
+                  "literal": "Excuse-me, how much costs a kilo of strawberries?"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, combien coûte un kilo de fraises ?",
+                  "note": "Utile pour préciser la quantité.",
+                  "literal": "Excusez-moi, combien coûte un kilo de fraises ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_market_ask_price:say_too_expensive_variant_9",
+              "key": "say_too_expensive_variant_9",
+              "intentKey": "say_too_expensive",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Caspita, è tanto!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Caspita, è tanto!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Wow, that's a lot!",
+                  "note": "Casual and playful, fine among friendly market chatter.",
+                  "literal": "Gosh, it is much!"
+                },
+                "fr": {
+                  "meaning": "Ça alors, c'est beaucoup !",
+                  "note": "Familier et enjoué, parfait dans l'ambiance conviviale du marché.",
+                  "literal": "Mince, c'est beaucoup !"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_market_ask_price:offer_lower_price_variant_10",
+              "key": "offer_lower_price_variant_10",
+              "intentKey": "offer_lower_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Un po' meno, per favore?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Un po' meno, per favore?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A bit less, please?",
+                  "note": "A short, polite way to ask for a small discount.",
+                  "literal": "A little less, please?"
+                },
+                "fr": {
+                  "meaning": "Un peu moins, s'il vous plaît ?",
+                  "note": "Une façon courte et polie de demander une petite remise.",
+                  "literal": "Un peu moins, s'il vous plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_market_ask_price:agree_to_price_variant_11",
+              "key": "agree_to_price_variant_11",
+              "intentKey": "agree_to_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Affare fatto! Le prendo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Affare fatto! Le prendo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Deal! I'll take them.",
+                  "note": "Le refers to feminine plural fruit like pesche or fragole.",
+                  "literal": "Deal done! Them I-take."
+                },
+                "fr": {
+                  "meaning": "Marché conclu ! Je les prends.",
+                  "note": "Le renvoie à des fruits au féminin pluriel, comme les pesche ou les fragole.",
+                  "literal": "Affaire faite ! Les je-prends."
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "italian_ask_directions",
+          "blueprintKey": "ask_directions",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "directions",
+          "characterKey": "italian_marco_passer_by",
+          "titles": {
+            "en": "Finding the Station",
+            "fr": "Trouver la gare"
+          },
+          "sceneNotes": {
+            "en": "You are a visitor looking for the train station, and a passer-by gives you directions but speaks very fast.",
+            "fr": "Vous êtes de passage et cherchez la gare ; un passant vous indique le chemin, mais il parle très vite."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_is",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "straight",
+              "speaker": "character"
+            },
+            {
+              "slotId": "turn",
+              "speaker": "character"
+            },
+            {
+              "slotId": "far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "near",
+              "speaker": "character"
+            },
+            {
+              "slotId": "repeat",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "slower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "italian_ch1:italian_ask_directions:excuse_me",
+              "key": "excuse_me",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "Scusi, mi scusi!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Scusi, mi scusi!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me!",
+                  "note": "Polite 'Lei' form, used with a stranger.",
+                  "literal": "Excuse (me), excuse me"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi !",
+                  "note": "Forme de politesse (« Lei »), adaptée à un inconnu. Dans « scusi », « sc » devant « u » se prononce « sk ».",
+                  "literal": "Excusez (moi), excusez-moi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Scusi: 'sc' before 'u' is a hard 'sk' sound."
+            },
+            {
+              "id": "italian_ch1:italian_ask_directions:where_is",
+              "key": "where_is",
+              "intentKey": "ask_where_is",
+              "slotId": "where_is",
+              "speaker": "learner",
+              "text": "Scusi, dov'è la stazione?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Scusi, dov'è la stazione?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, where is the station?",
+                  "note": null,
+                  "literal": "Excuse, where is the station"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, où est la gare ?",
+                  "note": "Dans « stazione », « zio » se prononce « tsyo ».",
+                  "literal": "Excusez, où est la gare"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stazione: 'zio' sounds like 'tsyo'."
+            },
+            {
+              "id": "italian_ch1:italian_ask_directions:straight",
+              "key": "straight",
+              "intentKey": "give_direction_straight",
+              "slotId": "straight",
+              "speaker": "character",
+              "text": "Vada dritto per questa strada.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vada dritto per questa strada."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Go straight along this street.",
+                  "note": "'Vada' is the polite command form of 'andare'.",
+                  "literal": "Go straight for this street"
+                },
+                "fr": {
+                  "meaning": "Allez tout droit dans cette rue.",
+                  "note": "« Vada » est l'impératif de politesse du verbe « andare ».",
+                  "literal": "Allez droit pour cette rue"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_ask_directions:turn",
+              "key": "turn",
+              "intentKey": "give_direction_turn",
+              "slotId": "turn",
+              "speaker": "character",
+              "text": "Poi giri a sinistra al semaforo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Poi giri a sinistra al semaforo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Then turn left at the traffic light.",
+                  "note": null,
+                  "literal": "Then turn to left at the traffic light"
+                },
+                "fr": {
+                  "meaning": "Ensuite, tournez à gauche au feu.",
+                  "note": "Dans « giri », le « g » est doux, comme « dj ».",
+                  "literal": "Ensuite tournez à gauche au feu"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Giri: soft 'g' like English 'j'."
+            },
+            {
+              "id": "italian_ch1:italian_ask_directions:far",
+              "key": "far",
+              "intentKey": "ask_is_it_far",
+              "slotId": "far",
+              "speaker": "learner",
+              "text": "È lontano da qui?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "È lontano da qui?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it far from here?",
+                  "note": null,
+                  "literal": "Is (it) far from here"
+                },
+                "fr": {
+                  "meaning": "C'est loin d'ici ?",
+                  "note": null,
+                  "literal": "Est loin d'ici"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_ask_directions:near",
+              "key": "near",
+              "intentKey": "say_it_is_near",
+              "slotId": "near",
+              "speaker": "character",
+              "text": "No, è vicino. Dieci minuti a piedi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "No, è vicino. Dieci minuti a piedi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, it's close. Ten minutes on foot.",
+                  "note": null,
+                  "literal": "No, is close. Ten minutes at feet"
+                },
+                "fr": {
+                  "meaning": "Non, c'est tout près. Dix minutes à pied.",
+                  "note": "Dans « vicino », « c » devant « i » se prononce « tch ».",
+                  "literal": "Non, est près. Dix minutes à pieds"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Vicino: 'c' before 'i' sounds like 'ch'."
+            },
+            {
+              "id": "italian_ch1:italian_ask_directions:repeat",
+              "key": "repeat",
+              "intentKey": "ask_repeat",
+              "slotId": "repeat",
+              "speaker": "learner",
+              "text": "Può ripetere, per favore?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Può ripetere, per favore?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you repeat that, please?",
+                  "note": null,
+                  "literal": "(You) can repeat, please"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous répéter, s'il vous plaît ?",
+                  "note": "Dans « può », l'accent tombe sur le « ò » final.",
+                  "literal": "(Vous) pouvez répéter, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Può: stress on the final 'ò'."
+            },
+            {
+              "id": "italian_ch1:italian_ask_directions:slower",
+              "key": "slower",
+              "intentKey": "ask_slow_down",
+              "slotId": "slower",
+              "speaker": "learner",
+              "text": "Più lentamente, per favore.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Più lentamente, per favore."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "More slowly, please.",
+                  "note": "Key phrase for when someone speaks too fast.",
+                  "literal": "More slowly, please"
+                },
+                "fr": {
+                  "meaning": "Plus lentement, s'il vous plaît.",
+                  "note": "Phrase essentielle quand quelqu'un parle trop vite. « Più » ne fait qu'une syllabe : « pyou ».",
+                  "literal": "Plus lentement, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Più: one syllable, 'pyoo'."
+            },
+            {
+              "id": "italian_ch1:italian_ask_directions:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Grazie, è molto gentile!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Grazie, è molto gentile!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, you are very kind!",
+                  "note": null,
+                  "literal": "Thanks, (you) are very kind"
+                },
+                "fr": {
+                  "meaning": "Merci, vous êtes très aimable !",
+                  "note": "Dans « grazie », « zie » se prononce « tsyé ».",
+                  "literal": "Merci, (vous) êtes très aimable"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Grazie: 'zie' is 'tsyeh'."
+            },
+            {
+              "id": "italian_ch1:italian_ask_directions:ask_slow_down_variant_10",
+              "key": "ask_slow_down_variant_10",
+              "intentKey": "ask_slow_down",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Parla troppo veloce, può parlare piano?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Parla troppo veloce, può parlare piano?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You speak too fast, can you speak slowly?",
+                  "note": "Slightly longer, very natural when someone talks fast.",
+                  "literal": "(You) speak too fast, can (you) speak slowly"
+                },
+                "fr": {
+                  "meaning": "Vous parlez trop vite, pouvez-vous parler plus doucement ?",
+                  "note": "Un peu plus longue, très naturelle quand quelqu'un parle vite.",
+                  "literal": "(Vous) parlez trop vite, pouvez (vous) parler doucement"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_ask_directions:ask_where_is_variant_11",
+              "key": "ask_where_is_variant_11",
+              "intentKey": "ask_where_is",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Scusi, c'è una stazione qui vicino?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Scusi, c'è una stazione qui vicino?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, is there a station near here?",
+                  "note": null,
+                  "literal": "Excuse, is there a station here near"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, y a-t-il une gare près d'ici ?",
+                  "note": null,
+                  "literal": "Excusez, y a une gare ici près"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "italian_meet_neighbour",
+          "blueprintKey": "meet_neighbour",
+          "missionType": "story",
+          "level": "beginner",
+          "situation": "neighbours",
+          "characterKey": "italian_marta_neighbour",
+          "titles": {
+            "en": "Meeting Your New Neighbour",
+            "fr": "Rencontrer votre nouvelle voisine"
+          },
+          "sceneNotes": {
+            "en": "You bump into your neighbour in the stairwell as she carries her shopping bags, and you introduce yourself.",
+            "fr": "Vous croisez votre voisine dans la cage d'escalier alors qu'elle porte ses sacs de courses, et vous vous présentez."
+          },
+          "slots": [
+            {
+              "slotId": "new_neighbour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "character"
+            },
+            {
+              "slotId": "where_from_q",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "from",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "speak_lang",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "little",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "offer_help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "italian_ch1:italian_meet_neighbour:new_neighbour",
+              "key": "new_neighbour",
+              "intentKey": "say_new_neighbour",
+              "slotId": "new_neighbour",
+              "speaker": "learner",
+              "text": "Buongiorno, sono il nuovo vicino.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Buongiorno, sono il nuovo vicino."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning, I'm the new neighbour.",
+                  "note": "A woman would say 'la nuova vicina'.",
+                  "literal": "Good morning, I am the new neighbour."
+                },
+                "fr": {
+                  "meaning": "Bonjour, je suis le nouveau voisin.",
+                  "note": "Une femme dirait « la nuova vicina ». Dans « vicino », le « c » devant « i » se prononce « tch ».",
+                  "literal": "Bonjour, je suis le nouveau voisin."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Vicino: the 'c' before 'i' sounds like 'ch' in 'cheese'."
+            },
+            {
+              "id": "italian_ch1:italian_meet_neighbour:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Benvenuto! Io abito qui da anni.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Benvenuto! Io abito qui da anni."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome! I've lived here for years.",
+                  "note": "Marta says 'Benvenuta' if speaking to a woman.",
+                  "literal": "Welcome! I live here for years."
+                },
+                "fr": {
+                  "meaning": "Bienvenue ! J'habite ici depuis des années.",
+                  "note": "Marta dit « Benvenuta » si elle s'adresse à une femme.",
+                  "literal": "Bienvenu ! Moi j'habite ici depuis des années."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_meet_neighbour:where_from_q",
+              "key": "where_from_q",
+              "intentKey": "ask_where_from",
+              "slotId": "where_from_q",
+              "speaker": "learner",
+              "text": "Di dov'è, signora?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Di dov'è, signora?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where are you from, madam?",
+                  "note": "Polite 'Lei' form, no pronoun needed.",
+                  "literal": "Of where is (you), madam?"
+                },
+                "fr": {
+                  "meaning": "D'où êtes-vous, madame ?",
+                  "note": "Forme de politesse avec « Lei », sans pronom.",
+                  "literal": "De où est (vous), madame ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_meet_neighbour:from",
+              "key": "from",
+              "intentKey": "say_where_from",
+              "slotId": "from",
+              "speaker": "learner",
+              "text": "Sono americano, di Boston.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sono americano, di Boston."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm American, from Boston.",
+                  "note": "Swap in your own nationality and city. A woman says 'americana'.",
+                  "literal": "I am American, of Boston."
+                },
+                "fr": {
+                  "meaning": "Je suis américain, de Boston.",
+                  "note": "Remplacez par votre nationalité et votre ville. Une femme dit « americana ».",
+                  "literal": "Je suis américain, de Boston."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_meet_neighbour:speak_lang",
+              "key": "speak_lang",
+              "intentKey": "ask_if_speaks_language",
+              "slotId": "speak_lang",
+              "speaker": "learner",
+              "text": "Parla inglese, per caso?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Parla inglese, per caso?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you happen to speak English?",
+                  "note": null,
+                  "literal": "Speak(s) English, by chance?"
+                },
+                "fr": {
+                  "meaning": "Est-ce que vous parlez anglais, par hasard ?",
+                  "note": "Dans « inglese », « gl » devant « e » se prononce comme un « g » dur, comme dans « gare ».",
+                  "literal": "Parle anglais, par hasard ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Inglese: 'gl' before 'e' is a hard 'g' as in 'get'."
+            },
+            {
+              "id": "italian_ch1:italian_meet_neighbour:little",
+              "key": "little",
+              "intentKey": "say_speak_little",
+              "slotId": "little",
+              "speaker": "learner",
+              "text": "Parlo solo un po' d'italiano.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Parlo solo un po' d'italiano."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I only speak a little Italian.",
+                  "note": null,
+                  "literal": "I speak only a little of Italian."
+                },
+                "fr": {
+                  "meaning": "Je ne parle qu'un peu d'italien.",
+                  "note": null,
+                  "literal": "Je parle seulement un peu d'italien."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_meet_neighbour:offer_help",
+              "key": "offer_help",
+              "intentKey": "offer_help",
+              "slotId": "offer_help",
+              "speaker": "learner",
+              "text": "Posso aiutarla con le borse?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Posso aiutarla con le borse?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I help you with the bags?",
+                  "note": "'aiutarla' is the polite 'Lei' form (help you).",
+                  "literal": "Can I help-you with the bags?"
+                },
+                "fr": {
+                  "meaning": "Puis-je vous aider avec vos sacs ?",
+                  "note": "« Aiutarla » est la forme de politesse (« vous »). Prononcez « aïou-TAR-la ».",
+                  "literal": "Puis-je aider-vous avec les sacs ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Aiutarla: say 'ah-yoo-TAR-la'."
+            },
+            {
+              "id": "italian_ch1:italian_meet_neighbour:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Grazie, è molto gentile!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Grazie, è molto gentile!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, you're very kind!",
+                  "note": "Good for the tea invitation.",
+                  "literal": "Thanks, (you) are very kind!"
+                },
+                "fr": {
+                  "meaning": "Merci, vous êtes très aimable !",
+                  "note": "Pratique pour répondre à l'invitation à prendre le thé. « Grazie » se prononce « GRA-tsié ».",
+                  "literal": "Merci, (vous) êtes très aimable !"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Grazie: 'zz' is like 'ts', 'GRAT-see-eh'."
+            },
+            {
+              "id": "italian_ch1:italian_meet_neighbour:say_new_neighbour_variant_9",
+              "key": "say_new_neighbour_variant_9",
+              "intentKey": "say_new_neighbour",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Mi sono appena trasferito qui.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mi sono appena trasferito qui."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I just moved in here.",
+                  "note": "A woman says 'trasferita'.",
+                  "literal": "Myself I-am just moved here."
+                },
+                "fr": {
+                  "meaning": "Je viens d'emménager ici.",
+                  "note": "Une femme dit « trasferita ».",
+                  "literal": "Je me suis tout juste installé ici."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_meet_neighbour:ask_where_from_variant_10",
+              "key": "ask_where_from_variant_10",
+              "intentKey": "ask_where_from",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Sei di qui?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sei di qui?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Are you from here?",
+                  "note": "Casual 'tu' form, for when you are on friendly terms.",
+                  "literal": "Are-you of here?"
+                },
+                "fr": {
+                  "meaning": "Tu es d'ici ?",
+                  "note": "Forme familière avec « tu », entre personnes qui se tutoient.",
+                  "literal": "Es-tu d'ici ?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "italian_take_taxi",
+          "blueprintKey": "take_taxi",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "transport",
+          "characterKey": "italian_marco_taxi_driver",
+          "titles": {
+            "en": "Taking a Taxi",
+            "fr": "Prendre un taxi"
+          },
+          "sceneNotes": {
+            "en": "You hail a taxi to the old town, and the chatty driver quotes a price without turning on the meter.",
+            "fr": "Vous hélez un taxi pour aller dans le centre historique, et le chauffeur bavard annonce un prix sans allumer le compteur."
+          },
+          "slots": [
+            {
+              "slotId": "hail",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_to",
+              "speaker": "character"
+            },
+            {
+              "slotId": "destination",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "meter",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fare",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "change",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "italian_ch1:italian_take_taxi:hail",
+              "key": "hail",
+              "intentKey": "hail_taxi",
+              "slotId": "hail",
+              "speaker": "learner",
+              "text": "Taxi! È libero?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Taxi! È libero?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Taxi! Are you free?",
+                  "note": "Said when you wave down or approach a taxi.",
+                  "literal": "Taxi! Is-it free?"
+                },
+                "fr": {
+                  "meaning": "Taxi ! Vous êtes libre ?",
+                  "note": "À dire quand vous faites signe à un taxi ou que vous vous approchez de lui. « Taxi » se prononce TAK-si, avec l'accent sur la première syllabe.",
+                  "literal": "Taxi ! Est-il libre ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Taxi is said TAK-see, with stress on the first syllable."
+            },
+            {
+              "id": "italian_ch1:italian_take_taxi:where_to",
+              "key": "where_to",
+              "intentKey": "ask_destination",
+              "slotId": "where_to",
+              "speaker": "character",
+              "text": "Buongiorno! Dove la porto?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Buongiorno! Dove la porto?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning! Where shall I take you?",
+                  "note": "The driver uses polite 'la' (you, formal).",
+                  "literal": "Good-morning! Where you I-take?"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! Où dois-je vous emmener ?",
+                  "note": "Le chauffeur vouvoie avec le « la » de politesse.",
+                  "literal": "Bonjour ! Où vous je-emmène ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_take_taxi:destination",
+              "key": "destination",
+              "intentKey": "state_destination",
+              "slotId": "destination",
+              "speaker": "learner",
+              "text": "Al centro storico, per favore.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Al centro storico, per favore."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "To the old town, please.",
+                  "note": "'Centro storico' is the usual Italian phrase for the old town.",
+                  "literal": "To-the center historic, please"
+                },
+                "fr": {
+                  "meaning": "Au centre historique, s'il vous plaît.",
+                  "note": "« Centro storico » est l'expression courante pour désigner le centre ancien. Prononcez « storico » STO-ri-ko, avec un r roulé.",
+                  "literal": "Au centre historique, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say 'storico' as STOH-ree-ko, with a rolled r."
+            },
+            {
+              "id": "italian_ch1:italian_take_taxi:meter",
+              "key": "meter",
+              "intentKey": "ask_use_meter",
+              "slotId": "meter",
+              "speaker": "learner",
+              "text": "Può accendere il tassametro, per favore?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Può accendere il tassametro, per favore?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you turn on the meter, please?",
+                  "note": "Use it when the driver quotes a price without the meter.",
+                  "literal": "Can-you turn-on the meter, please"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous allumer le compteur, s'il vous plaît ?",
+                  "note": "À utiliser quand le chauffeur annonce un prix sans mettre le compteur. « Accendere » se prononce a-TCHEN-de-re : « cc » devant « e » sonne « tch ».",
+                  "literal": "Pouvez allumer le compteur, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'Accendere' is ah-CHEN-de-re; 'cc' before 'e' sounds like 'ch'."
+            },
+            {
+              "id": "italian_ch1:italian_take_taxi:fare",
+              "key": "fare",
+              "intentKey": "ask_fare",
+              "slotId": "fare",
+              "speaker": "learner",
+              "text": "Quanto costa fino al centro storico?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Quanto costa fino al centro storico?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much does it cost to the old town?",
+                  "note": "Asking before the ride avoids surprises.",
+                  "literal": "How-much costs until to-the center historic"
+                },
+                "fr": {
+                  "meaning": "Combien coûte la course jusqu'au centre historique ?",
+                  "note": "Demander avant le trajet évite les mauvaises surprises.",
+                  "literal": "Combien coûte jusqu'au centre historique"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_take_taxi:stop",
+              "key": "stop",
+              "intentKey": "say_stop_here",
+              "slotId": "stop",
+              "speaker": "learner",
+              "text": "Si fermi qui, per favore.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Si fermi qui, per favore."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Stop here, please.",
+                  "note": "Polite 'Lei' form of the verb, not a blunt order.",
+                  "literal": "Yourself stop here, please"
+                },
+                "fr": {
+                  "meaning": "Arrêtez-vous ici, s'il vous plaît.",
+                  "note": "Verbe à la forme de politesse « Lei » : ce n'est pas un ordre sec.",
+                  "literal": "Vous-arrêtez ici, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_take_taxi:change",
+              "key": "change",
+              "intentKey": "ask_for_change",
+              "slotId": "change",
+              "speaker": "learner",
+              "text": "Ha da cambiare dieci euro?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ha da cambiare dieci euro?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have change for ten euros?",
+                  "note": "Useful when you only have a large note.",
+                  "literal": "Have to change ten euros?"
+                },
+                "fr": {
+                  "meaning": "Avez-vous la monnaie de dix euros ?",
+                  "note": "Utile quand vous n'avez qu'un gros billet.",
+                  "literal": "Avez à changer dix euros ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_take_taxi:bye",
+              "key": "bye",
+              "intentKey": "say_goodbye",
+              "slotId": "bye",
+              "speaker": "learner",
+              "text": "Grazie, arrivederci!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Grazie, arrivederci!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, goodbye!",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci, au revoir !",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_take_taxi:hail_taxi_variant_9",
+              "key": "hail_taxi_variant_9",
+              "intentKey": "hail_taxi",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Mi può portare in centro?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mi può portare in centro?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you take me downtown?",
+                  "note": "Good when you get into the taxi at a rank.",
+                  "literal": "Me can-you take to center"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous m'emmener en centre-ville ?",
+                  "note": "Pratique quand vous montez dans un taxi à une station.",
+                  "literal": "Me pouvez-vous emmener au centre"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_take_taxi:ask_use_meter_variant_10",
+              "key": "ask_use_meter_variant_10",
+              "intentKey": "ask_use_meter",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Con il tassametro, per favore.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Con il tassametro, per favore."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "With the meter, please.",
+                  "note": "A shorter, simpler way to ask for the meter.",
+                  "literal": "With the meter, please"
+                },
+                "fr": {
+                  "meaning": "Avec le compteur, s'il vous plaît.",
+                  "note": "Une façon plus courte et plus simple de demander le compteur.",
+                  "literal": "Avec le compteur, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_take_taxi:say_stop_here_variant_11",
+              "key": "say_stop_here_variant_11",
+              "intentKey": "say_stop_here",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Va bene qui, grazie.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Va bene qui, grazie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Here is fine, thanks.",
+                  "note": "A relaxed way to say you want to get out right here.",
+                  "literal": "Goes well here, thanks"
+                },
+                "fr": {
+                  "meaning": "Ici, c'est très bien, merci.",
+                  "note": "Une façon décontractée de dire que vous descendez juste ici.",
+                  "literal": "Va bien ici, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "italian_buy_ice_cream",
+          "blueprintKey": "buy_ice_cream",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "shopping",
+          "characterKey": "italian_giulia_child_at_the_ice_cream_stand",
+          "titles": {
+            "en": "Buying Ice Cream with a Child",
+            "fr": "Acheter une glace avec un enfant"
+          },
+          "sceneNotes": {
+            "en": "You take a child to the ice-cream cart outside the school, where only two flavours are left, and you have to kindly say no to a second scoop.",
+            "fr": "Vous emmenez une enfant au marchand de glaces devant l'école, où il ne reste que deux parfums, et vous devez refuser gentiment une deuxième boule."
+          },
+          "slots": [
+            {
+              "slotId": "wants",
+              "speaker": "character"
+            },
+            {
+              "slotId": "which_flavour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "picks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "scoop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "asks_two",
+              "speaker": "character"
+            },
+            {
+              "slotId": "just_one",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "okay",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "yummy",
+              "speaker": "character"
+            },
+            {
+              "slotId": "me_too",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "italian_ch1:italian_buy_ice_cream:wants",
+              "key": "wants",
+              "intentKey": "request_food",
+              "slotId": "wants",
+              "speaker": "character",
+              "text": "Voglio un gelato!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Voglio un gelato!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want an ice cream!",
+                  "note": "A child would say this directly; an adult would say 'Vorrei'.",
+                  "literal": "I-want an ice-cream"
+                },
+                "fr": {
+                  "meaning": "Je veux une glace !",
+                  "note": "Un enfant le dit de façon directe ; un adulte dirait « Vorrei ». Dans « voglio », « gli » se prononce comme « ill » dans « million » (proche de « lli »).",
+                  "literal": "Je-veux une glace"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Voglio: 'gli' sounds like 'lli' in 'million'."
+            },
+            {
+              "id": "italian_ch1:italian_buy_ice_cream:which_flavour",
+              "key": "which_flavour",
+              "intentKey": "offer_options",
+              "slotId": "which_flavour",
+              "speaker": "learner",
+              "text": "Cioccolato o fragola?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cioccolato o fragola?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Chocolate or strawberry?",
+                  "note": "Only two flavours are left, so you offer both.",
+                  "literal": "Chocolate or strawberry"
+                },
+                "fr": {
+                  "meaning": "Chocolat ou fraise ?",
+                  "note": "Il ne reste que deux parfums, vous proposez donc les deux. « Cio » se prononce « tcho ».",
+                  "literal": "Chocolat ou fraise"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Cioccolato: 'cio' is like 'cho' in 'chocolate'."
+            },
+            {
+              "id": "italian_ch1:italian_buy_ice_cream:picks",
+              "key": "picks",
+              "intentKey": "choose_option",
+              "slotId": "picks",
+              "speaker": "character",
+              "text": "Fragola, per favore!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Fragola, per favore!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Strawberry, please!",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Fraise, s'il te plaît !",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_buy_ice_cream:scoop",
+              "key": "scoop",
+              "intentKey": "specify_quantity",
+              "slotId": "scoop",
+              "speaker": "learner",
+              "text": "Una pallina alla fragola, per favore.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Una pallina alla fragola, per favore."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One scoop of strawberry, please.",
+                  "note": "Said to the ice-cream seller. 'Pallina' means a scoop (literally 'little ball').",
+                  "literal": "One little-ball with-the strawberry, please"
+                },
+                "fr": {
+                  "meaning": "Une boule à la fraise, s'il vous plaît.",
+                  "note": "À dire au vendeur de glaces. « Pallina » signifie une boule (littéralement « petite balle »). Le double « l » se prononce en le tenant un peu plus longtemps.",
+                  "literal": "Une petite-balle à-la fraise, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Pallina: double 'l', hold it slightly longer."
+            },
+            {
+              "id": "italian_ch1:italian_buy_ice_cream:asks_two",
+              "key": "asks_two",
+              "intentKey": "ask_permission",
+              "slotId": "asks_two",
+              "speaker": "character",
+              "text": "Posso avere due palline?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Posso avere due palline?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I have two scoops?",
+                  "note": null,
+                  "literal": "Can-I have two little-balls"
+                },
+                "fr": {
+                  "meaning": "Je peux avoir deux boules ?",
+                  "note": null,
+                  "literal": "Puis-je avoir deux petites-balles"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_buy_ice_cream:just_one",
+              "key": "just_one",
+              "intentKey": "refuse_permission",
+              "slotId": "just_one",
+              "speaker": "learner",
+              "text": "Mi dispiace, oggi una sola.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mi dispiace, oggi una sola."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, just one today.",
+                  "note": "A kind but firm no to a child.",
+                  "literal": "To-me it-displeases, today one only"
+                },
+                "fr": {
+                  "meaning": "Désolé(e), aujourd'hui une seule.",
+                  "note": "Un non gentil mais ferme à un enfant. Dans « dispiace », l'accent tombe sur « pia ».",
+                  "literal": "À-moi cela-déplaît, aujourd'hui une seule"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Dispiace: stress is on 'pia'."
+            },
+            {
+              "id": "italian_ch1:italian_buy_ice_cream:okay",
+              "key": "okay",
+              "intentKey": "grant_permission",
+              "slotId": "okay",
+              "speaker": "learner",
+              "text": "Va bene, andiamo a sederci.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Va bene, andiamo a sederci."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Okay, let's go sit down.",
+                  "note": "Said once the child accepts one scoop; here it grants the ice cream and moves on.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "D'accord, allons nous asseoir.",
+                  "note": "Se dit une fois que l'enfant accepte une seule boule ; on accorde la glace et on passe à la suite.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_buy_ice_cream:yummy",
+              "key": "yummy",
+              "intentKey": "say_delicious",
+              "slotId": "yummy",
+              "speaker": "character",
+              "text": "Che buono!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Che buono!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How yummy!",
+                  "note": null,
+                  "literal": "How good"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce que c'est bon !",
+                  "note": null,
+                  "literal": "Que bon"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_buy_ice_cream:me_too",
+              "key": "me_too",
+              "intentKey": "express_like",
+              "slotId": "me_too",
+              "speaker": "learner",
+              "text": "Anche a me piace la fragola.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Anche a me piace la fragola."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I like strawberry too.",
+                  "note": null,
+                  "literal": "Also to me pleases the strawberry"
+                },
+                "fr": {
+                  "meaning": "Moi aussi, j'aime la fraise.",
+                  "note": null,
+                  "literal": "Aussi à moi plaît la fraise"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_buy_ice_cream:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "character",
+              "text": "Grazie!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Grazie!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you!",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci !",
+                  "note": "Dans « grazie », « zie » se prononce avec un son « ts ».",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Grazie: 'zie' has a 'ts' sound."
+            },
+            {
+              "id": "italian_ch1:italian_buy_ice_cream:welcome",
+              "key": "welcome",
+              "intentKey": "respond_to_thanks",
+              "slotId": "welcome",
+              "speaker": "learner",
+              "text": "Prego!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Prego!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You're welcome!",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Je t'en prie !",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_buy_ice_cream:refuse_permission_variant_12",
+              "key": "refuse_permission_variant_12",
+              "intentKey": "refuse_permission",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "No, una basta, tesoro.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "No, una basta, tesoro."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, one is enough, sweetie.",
+                  "note": "A warm, affectionate way to say no to a child.",
+                  "literal": "No, one is-enough, treasure"
+                },
+                "fr": {
+                  "meaning": "Non, une seule suffit, mon trésor.",
+                  "note": "Une façon tendre et affectueuse de dire non à un enfant.",
+                  "literal": "Non, une suffit, trésor"
+                }
+              },
+              "register": "intimate",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_buy_ice_cream:offer_options_variant_13",
+              "key": "offer_options_variant_13",
+              "intentKey": "offer_options",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Che gusto vuoi, cioccolato o fragola?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Che gusto vuoi, cioccolato o fragola?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which flavour do you want, chocolate or strawberry?",
+                  "note": "A fuller alternative to the short question.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Quel parfum veux-tu, chocolat ou fraise ?",
+                  "note": "Une variante plus complète de la question courte.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "italian_ch1:italian_buy_ice_cream:respond_to_thanks_variant_14",
+              "key": "respond_to_thanks_variant_14",
+              "intentKey": "respond_to_thanks",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Di niente!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Di niente!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's nothing! / No problem!",
+                  "note": null,
+                  "literal": "Of nothing"
+                },
+                "fr": {
+                  "meaning": "De rien !",
+                  "note": null,
+                  "literal": "De rien"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -2,8 +2,8 @@
 /**
  * attach-tatoeba-examples — real examples for the Flutter app's phrases, from Tatoeba (spec §9.1/§9.2).
  *
- * For every phrase of the offline bundle (`apps/mobile_flutter/assets/content/chapters.json`), finds in the Tatoeba
- * exports of the course's language: the sentence that *is* the phrase (attested by a native contributor), and short
+ * For every phrase of the offline bundle (`apps/mobile_flutter/assets/content/chapters/<trackId>.json`), finds in the
+ * Tatoeba exports of the course's language: the sentence that *is* the phrase (attested by a native contributor), and short
  * sentences that use it, each with its translation in the course's instruction languages. Recordings are kept only
  * when their own license allows redistribution (CC BY / CC BY-SA / CC0): those are downloaded into
  * `apps/mobile_flutter/assets/audio/tatoeba/` and played as "native speaker" audio. Everything is attributed per
@@ -18,6 +18,7 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { flagBool, flagNumber, flagString, isDirectRun, runCli, type CliIo, type CliSpec, type ParsedArgs } from './lib/cli';
+import { readBundleChapters } from './lib/flutter-bundle';
 import { repoRoot, writeTextFileSync } from './lib/io';
 import { TATOEBA_DOWNLOADS_URL, TATOEBA_LANGUAGES, TATOEBA_TERMS_URL, TATOEBA_TEXT_LICENSE } from './lib/tatoeba';
 import { findExamples, type ExampleSentence, type PhraseExamples, type PhraseQuery } from './lib/tatoeba-examples';
@@ -83,7 +84,7 @@ export async function main(args: ParsedArgs, io: CliIo): Promise<number> {
   const snapshot = existsSync(snapshotFile) ? readFileSync(snapshotFile, 'utf8').trim() : 'unknown';
   const content = resolve(root, 'apps/mobile_flutter/assets/content');
   const tracks = (JSON.parse(readFileSync(resolve(content, 'catalog.json'), 'utf8')) as { tracks: BundleTrack[] }).tracks;
-  const chapters = (JSON.parse(readFileSync(resolve(content, 'chapters.json'), 'utf8')) as { chapters: BundleChapter[] }).chapters;
+  const chapters = readBundleChapters<BundleChapter>(root);
 
   const phrasesByTrack = new Map<string, PhraseQuery[]>();
   for (const ch of chapters) {

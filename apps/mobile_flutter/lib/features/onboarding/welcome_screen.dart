@@ -141,9 +141,9 @@ class _ReadyCourseTile extends ConsumerWidget {
     final colors = appState.colors;
     final l10n = context.l10n;
     final accent = CourseAccent.forTrack(track, isDark: appState.isDark);
-    final course = appState.content.course(track.id, source);
     final name = track.name(appState.uiLanguage);
-    final missions = course?.missions.length ?? 0;
+    // From the catalog: the course's chapters are read only when it is opened.
+    final missions = track.missionsFrom(source);
     return Padding(
       padding: const EdgeInsets.only(bottom: 12),
       child: Semantics(

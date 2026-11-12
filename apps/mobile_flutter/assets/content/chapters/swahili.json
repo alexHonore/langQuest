@@ -1,0 +1,2642 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts",
+  "courseTrackId": "swahili",
+  "chapters": [
+    {
+      "key": "swahili_ch1",
+      "chapterIndex": 1,
+      "courseTrackId": "swahili",
+      "targetVarietyId": "sw",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "First days on the Swahili Coast",
+        "fr": "Premiers jours sur la côte swahilie"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+      "notes": [
+        "AI draft generated 2026-11-11T22:46:12.338Z with anthropic/claude-sonnet-5.5; validator accepted 72 expressions; native review required before publishing.",
+        "greet_and_introduce: diversity gate marked this mission for regeneration (low_alternative_coverage:0.143); learner intents have too few distinct phrasings.",
+        "greet_and_introduce: Please check that 'Hujambo? U hali gani?' sounds natural together; the second phrase could be 'Habari yako?' instead.",
+        "greet_and_introduce: 'Shikamoo' is used mostly in Tanzania and is less common in Kenya, so it may need a regional flag.",
+        "greet_and_introduce: 'Nafurahi kukutana nawe' is a little formal for a quick street chat; 'Nimefurahi kukujua' is a possible alternative.",
+        "cafe_order_drink: I used 'Naomba' for polite requests; please confirm it sounds natural for both Kenyan and Tanzanian speakers.",
+        "cafe_order_drink: 'Bili' is used as a loanword for the bill; 'hesabu' is a possible alternative in some areas.",
+        "cafe_order_drink: The character is set in Dar es Salaam, so a Kenyan-learner version might use more Kenyan phrasing.",
+        "market_ask_price: Prices are illustrative; please confirm natural amounts and phrasing for Kenya versus Tanzania (e.g. 'bei gani' vs 'shilingi ngapi').",
+        "market_ask_price: The vendor's free-extra twist is not covered by the required slots; consider adding a vendor line like 'Nakuongezea embe moja' in a later step.",
+        "market_ask_price: 'Kupunguza' and 'bei juu' are natural, but a reviewer may prefer 'Punguza kidogo' phrasing in casual speech; keep it softened and non-commanding.",
+        "ask_directions: Chose Tanzanian-leaning wording (stesheni, kituo cha treni); in Kenya 'stage' or 'stesheni' may differ by context. Please check.",
+        "ask_directions: 'Nimeelewa. Asante kwa msaada!' combines understanding and thanks; confirm it sounds natural as the thanks slot.",
+        "ask_directions: Check whether 'Ni mbali?' and 'Rudia tena' feel polite enough as learner lines or need 'tafadhali' or 'Samahani' added.",
+        "meet_neighbour: Marekani is used for the USA; the learner can swap in their own country.",
+        "meet_neighbour: Used 'Naongea' and 'Unazungumza'; please confirm these feel natural, and whether the Kenyan 'Unaongea Kiingereza?' would be a better alternative.",
+        "meet_neighbour: Please check whether 'Asante kwa chai' fits as a reply after the tea invitation, and whether 'Nimehamia' is natural for the Tanzanian/Kenyan selector.",
+        "take_taxi: I used Tanzanian/Zanzibar usage (Mji Mkongwe, nauli, mita). For Kenya, please suggest Mombasa 'Mji wa Kale' and any local wording changes.",
+        "take_taxi: Please check whether 'Naomba usimame hapa' sounds natural for a taxi, or whether 'Naomba nishuke hapa' is better.",
+        "take_taxi: 'Chenji' and 'mita' are common loanwords; please confirm they are the usual choice over 'ritanzi' or 'kipimo'.",
+        "buy_ice_cream: Written in neutral standard Swahili; the Kenya/Tanzania selector was not specified. Please confirm 'aiskrimu' (Tanzanian spelling) and the Kenyan alternative 'aisikrimu'/'ice cream'.",
+        "buy_ice_cream: Please check whether 'kijiko' is the natural word for a scoop at an ice-cream cart, or whether vendors say 'scoop' or 'tonge'.",
+        "buy_ice_cream: 'Karibu sana' as a reply to thanks is common in Tanzania; Kenyans may prefer 'Starehe' or 'Hakuna shida'.",
+        "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+      ],
+      "characters": [
+        {
+          "key": "swahili_amina_friendly_local_acquaintance",
+          "name": "Amina",
+          "role": "friendly local acquaintance",
+          "personality": "Warm, busy, curious, kind",
+          "homeRegion": "Mombasa",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "swahili_neema_cafe_server",
+          "name": "Neema",
+          "role": "café server",
+          "personality": "quick, cheerful, friendly, efficient",
+          "homeRegion": "Dar es Salaam",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "swahili_amina_market_vendor",
+          "name": "Amina",
+          "role": "market vendor",
+          "personality": "Cheerful, chatty, generous vendor",
+          "homeRegion": "Mombasa",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "swahili_juma_passer_by",
+          "name": "Juma",
+          "role": "passer-by",
+          "personality": "Friendly, helpful, talks very fast",
+          "homeRegion": "Dar es Salaam",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "swahili_mama_neema_neighbour",
+          "name": "Mama Neema",
+          "role": "neighbour",
+          "personality": "Warm, chatty, welcoming, curious",
+          "homeRegion": "Dar es Salaam",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "swahili_juma_taxi_driver",
+          "name": "Juma",
+          "role": "taxi driver",
+          "personality": "talkative, friendly, a bit pushy",
+          "homeRegion": "Zanzibar (Unguja)",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "swahili_neema_child_at_the_ice_cream_stand",
+          "name": "Neema",
+          "role": "child at the ice-cream stand",
+          "personality": "cheerful, eager, a little cheeky",
+          "homeRegion": "Dar es Salaam",
+          "ageBand": null,
+          "voice": "female"
+        }
+      ],
+      "missions": [
+        {
+          "key": "swahili_greet_and_introduce",
+          "blueprintKey": "greet_and_introduce",
+          "missionType": "standard",
+          "level": "beginner",
+          "situation": "introductions",
+          "characterKey": "swahili_amina_friendly_local_acquaintance",
+          "titles": {
+            "en": "Greeting a New Neighbour",
+            "fr": "Saluer un nouveau voisin"
+          },
+          "sceneNotes": {
+            "en": "It is morning and you meet a friendly neighbour on the street who is in a hurry but stops to say hello.",
+            "fr": "Le matin, vous croisez dans la rue une voisine sympathique qui est pressée mais s'arrête pour vous dire bonjour."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_are_you",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fine",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "your_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "nice_to_meet",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "goodbye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swahili_ch1:swahili_greet_and_introduce:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Habari za asubuhi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Habari za asubuhi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning! (How is your morning?)",
+                  "note": "A standard polite morning greeting. The usual reply is 'Nzuri'.",
+                  "literal": "news of morning"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! (Comment se passe votre matinée ?)",
+                  "note": "Salutation matinale polie et courante. On répond généralement « Nzuri ». Accent sur l'avant-dernière syllabe : ha-BA-ri.",
+                  "literal": "nouvelles du matin"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress falls on the second-to-last syllable: ha-BA-ri."
+            },
+            {
+              "id": "swahili_ch1:swahili_greet_and_introduce:how_are_you",
+              "key": "how_are_you",
+              "intentKey": "ask_how_are_you",
+              "slotId": "how_are_you",
+              "speaker": "learner",
+              "text": "Hujambo? U hali gani?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hujambo? U hali gani?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, how are you?",
+                  "note": "Said to one person. Use 'Hamjambo?' for several people.",
+                  "literal": "you have no problem? you state how"
+                },
+                "fr": {
+                  "meaning": "Bonjour, comment allez-vous ?",
+                  "note": "S'adresse à une seule personne. Pour plusieurs personnes, on dit « Hamjambo ? ».",
+                  "literal": "tu n'as pas de problème ? tu es dans quel état ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_greet_and_introduce:fine",
+              "key": "fine",
+              "intentKey": "reply_fine",
+              "slotId": "fine",
+              "speaker": "learner",
+              "text": "Sijambo, ni mzima. Asante!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sijambo, ni mzima. Asante!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm fine, I'm well. Thank you!",
+                  "note": "'Sijambo' is the standard answer to 'Hujambo'. 'Nzuri' or 'Salama' also work.",
+                  "literal": "I have no problem, I am well. Thanks"
+                },
+                "fr": {
+                  "meaning": "Je vais bien, je suis en forme. Merci !",
+                  "note": "« Sijambo » est la réponse habituelle à « Hujambo ». « Nzuri » ou « Salama » conviennent aussi. Le « mz » de « mzima » se prononce comme un seul son lié.",
+                  "literal": "je n'ai pas de problème, je suis en bonne santé. Merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 'mz' in 'mzima' is one blended sound: mzee-ma."
+            },
+            {
+              "id": "swahili_ch1:swahili_greet_and_introduce:my_name",
+              "key": "my_name",
+              "intentKey": "introduce_name",
+              "slotId": "my_name",
+              "speaker": "learner",
+              "text": "Jina langu ni Sam.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Jina langu ni Sam."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My name is Sam.",
+                  "note": "Replace 'Sam' with your own name.",
+                  "literal": "name my is Sam"
+                },
+                "fr": {
+                  "meaning": "Je m'appelle Sam.",
+                  "note": "Remplacez « Sam » par votre prénom.",
+                  "literal": "nom mon est Sam"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_greet_and_introduce:your_name",
+              "key": "your_name",
+              "intentKey": "ask_name",
+              "slotId": "your_name",
+              "speaker": "learner",
+              "text": "Jina lako nani?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Jina lako nani?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What is your name?",
+                  "note": "Friendly and fine between neighbours. For an elder, add 'tafadhali' or use 'Naweza kujua jina lako?'.",
+                  "literal": "name your who"
+                },
+                "fr": {
+                  "meaning": "Comment vous appelez-vous ?",
+                  "note": "Tout à fait approprié entre voisins. Avec une personne âgée, ajoutez « tafadhali » ou dites « Naweza kujua jina lako ? ».",
+                  "literal": "nom ton qui"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_greet_and_introduce:nice_to_meet",
+              "key": "nice_to_meet",
+              "intentKey": "say_nice_to_meet",
+              "slotId": "nice_to_meet",
+              "speaker": "learner",
+              "text": "Nafurahi kukutana nawe.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nafurahi kukutana nawe."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Nice to meet you.",
+                  "note": null,
+                  "literal": "I am happy to meet with you"
+                },
+                "fr": {
+                  "meaning": "Enchanté de faire votre connaissance.",
+                  "note": "Prononcez « nawe » en deux syllabes bien nettes : na-we.",
+                  "literal": "je suis heureux de te rencontrer"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'Nawe' is said na-we, with two clear syllables."
+            },
+            {
+              "id": "swahili_ch1:swahili_greet_and_introduce:goodbye",
+              "key": "goodbye",
+              "intentKey": "say_goodbye",
+              "slotId": "goodbye",
+              "speaker": "learner",
+              "text": "Kwaheri, tutaonana!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kwaheri, tutaonana!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Goodbye, see you later!",
+                  "note": "Said when you part. The character may reply 'Kwaheri, siku njema!'.",
+                  "literal": "goodbye, we will see each other"
+                },
+                "fr": {
+                  "meaning": "Au revoir, à bientôt !",
+                  "note": "On le dit au moment de se quitter. Votre interlocutrice peut répondre « Kwaheri, siku njema ! ».",
+                  "literal": "au revoir, nous nous verrons"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_greet_and_introduce:greet_hello_variant_8",
+              "key": "greet_hello_variant_8",
+              "intentKey": "greet_hello",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Shikamoo!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Shikamoo!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Greetings! (respectful, to an elder)",
+                  "note": "Use it with someone clearly older than you. The reply is 'Marahaba'. It is more common in Tanzania than in Kenya.",
+                  "literal": "I hold your feet"
+                },
+                "fr": {
+                  "meaning": "Mes respects ! (salutation respectueuse à une personne plus âgée)",
+                  "note": "À utiliser avec une personne nettement plus âgée que vous. On répond « Marahaba ». Plus courant en Tanzanie qu'au Kenya.",
+                  "literal": "je tiens tes pieds"
+                }
+              },
+              "register": "formal",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_greet_and_introduce:greet_hello_variant_9",
+              "key": "greet_hello_variant_9",
+              "intentKey": "greet_hello",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Mambo! Vipi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mambo! Vipi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hey! What's up?",
+                  "note": "Casual, for people your own age. The reply is 'Poa!' (cool).",
+                  "literal": "things! how?"
+                },
+                "fr": {
+                  "meaning": "Salut ! Ça va ?",
+                  "note": "Familier, entre personnes du même âge. On répond « Poa ! » (cool).",
+                  "literal": "choses ! comment ?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "'Mambo' and 'Poa' are casual street Swahili, and very common in Kenyan Sheng.",
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "swahili_cafe_order_drink",
+          "blueprintKey": "cafe_order_drink",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "cafe",
+          "characterKey": "swahili_neema_cafe_server",
+          "titles": {
+            "en": "Ordering a Drink at the Café",
+            "fr": "Commander une boisson au café"
+          },
+          "sceneNotes": {
+            "en": "You sit down at a busy café terrace where a quick, friendly server comes over to take your order.",
+            "fr": "Vous vous installez à la terrasse animée d'un café, où une serveuse rapide et sympathique vient prendre votre commande."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "options",
+              "speaker": "character"
+            },
+            {
+              "slotId": "choice",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swahili_ch1:swahili_cafe_order_drink:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Habari za mchana?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Habari za mchana?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good afternoon, how are you?",
+                  "note": "Same pattern as 'Habari za asubuhi'; use 'mchana' for the afternoon.",
+                  "literal": "News of afternoon?"
+                },
+                "fr": {
+                  "meaning": "Bonjour, comment allez-vous cet après-midi ?",
+                  "note": "Même structure que « Habari za asubuhi » ; on utilise « mchana » pour l'après-midi. Le « ch » de « mchana » se prononce comme « tch ».",
+                  "literal": "Nouvelles de l'après-midi ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'ch' in mchana is like English 'ch' in 'chat'."
+            },
+            {
+              "id": "swahili_ch1:swahili_cafe_order_drink:order",
+              "key": "order",
+              "intentKey": "request_drink",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Naomba chai, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Naomba chai, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I would like tea, please.",
+                  "note": "'Naomba' is a polite way to ask for something. You can swap in 'kahawa' (coffee) or 'maji' (water).",
+                  "literal": "I ask-for tea, please."
+                },
+                "fr": {
+                  "meaning": "Je voudrais un thé, s'il vous plaît.",
+                  "note": "« Naomba » est une façon polie de demander quelque chose. Vous pouvez le remplacer par « kahawa » (café) ou « maji » (eau).",
+                  "literal": "Je demande thé, s'il vous plaît."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_cafe_order_drink:options",
+              "key": "options",
+              "intentKey": "offer_options",
+              "slotId": "options",
+              "speaker": "character",
+              "text": "Na maziwa au bila maziwa?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Na maziwa au bila maziwa?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "With milk or without milk?",
+                  "note": "The server gives you a choice you need to answer.",
+                  "literal": "With milk or without milk?"
+                },
+                "fr": {
+                  "meaning": "Avec du lait ou sans lait ?",
+                  "note": "La serveuse vous propose un choix auquel vous devez répondre.",
+                  "literal": "Avec lait ou sans lait ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_cafe_order_drink:choice",
+              "key": "choice",
+              "intentKey": "choose_option",
+              "slotId": "choice",
+              "speaker": "learner",
+              "text": "Na maziwa, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Na maziwa, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "With milk, please.",
+                  "note": "To say no milk, answer 'Bila maziwa, tafadhali.'",
+                  "literal": "With milk, please."
+                },
+                "fr": {
+                  "meaning": "Avec du lait, s'il vous plaît.",
+                  "note": "Pour dire sans lait, répondez « Bila maziwa, tafadhali. »",
+                  "literal": "Avec lait, s'il vous plaît."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_cafe_order_drink:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Naomba bili, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Naomba bili, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The bill, please.",
+                  "note": "'Bili' is a common loanword from English 'bill'.",
+                  "literal": "I ask-for bill, please."
+                },
+                "fr": {
+                  "meaning": "L'addition, s'il vous plaît.",
+                  "note": "« Bili » est un mot emprunté à l'anglais, très courant.",
+                  "literal": "Je demande addition, s'il vous plaît."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "'Bili' comes from English 'bill' and is used in everyday speech.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_cafe_order_drink:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Asante sana!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Asante sana!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much!",
+                  "note": null,
+                  "literal": "Thanks very-much!"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup !",
+                  "note": null,
+                  "literal": "Merci beaucoup !"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_cafe_order_drink:ask_for_bill_variant_7",
+              "key": "ask_for_bill_variant_7",
+              "intentKey": "ask_for_bill",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ni shilingi ngapi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ni shilingi ngapi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is it?",
+                  "note": "Useful for asking how much you owe. Works in both Tanzania and Kenya.",
+                  "literal": "It-is shillings how-many?"
+                },
+                "fr": {
+                  "meaning": "Ça fait combien ?",
+                  "note": "Pratique pour demander combien vous devez. Fonctionne aussi bien en Tanzanie qu'au Kenya.",
+                  "literal": "Ce-sont shillings combien ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_cafe_order_drink:choose_option_variant_8",
+              "key": "choose_option_variant_8",
+              "intentKey": "choose_option",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Bila sukari, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bila sukari, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Without sugar, please.",
+                  "note": "Handy alternative answer when asked about sugar or milk.",
+                  "literal": "Without sugar, please."
+                },
+                "fr": {
+                  "meaning": "Sans sucre, s'il vous plaît.",
+                  "note": "Autre réponse utile quand on vous interroge sur le sucre ou le lait.",
+                  "literal": "Sans sucre, s'il vous plaît."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "swahili_market_ask_price",
+          "blueprintKey": "market_ask_price",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "market",
+          "characterKey": "swahili_amina_market_vendor",
+          "titles": {
+            "en": "Asking Prices at the Market",
+            "fr": "Demander les prix au marché"
+          },
+          "sceneNotes": {
+            "en": "You are at a fruit stall in the market, ready to ask the vendor how much the fruit costs per kilo.",
+            "fr": "Vous êtes à un étal de fruits au marché et vous vous apprêtez à demander à la vendeuse combien coûtent les fruits au kilo."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_much",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "character"
+            },
+            {
+              "slotId": "expensive",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "lower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "deal",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "no_thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swahili_ch1:swahili_market_ask_price:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Habari za leo, mama?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Habari za leo, mama?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How are you today, ma'am?",
+                  "note": "Calling a female vendor 'mama' is friendly and respectful.",
+                  "literal": "News of today, mother?"
+                },
+                "fr": {
+                  "meaning": "Comment allez-vous aujourd'hui, madame ?",
+                  "note": "Appeler une vendeuse « mama » est amical et respectueux.",
+                  "literal": "Nouvelles d'aujourd'hui, mère ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_market_ask_price:how_much",
+              "key": "how_much",
+              "intentKey": "ask_price",
+              "slotId": "how_much",
+              "speaker": "learner",
+              "text": "Machungwa ni bei gani kwa kilo?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Machungwa ni bei gani kwa kilo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much are the oranges per kilo?",
+                  "note": "Swap 'machungwa' for another fruit, e.g. 'ndizi' (bananas) or 'maembe' (mangoes).",
+                  "literal": "Oranges are price which per kilo?"
+                },
+                "fr": {
+                  "meaning": "Combien coûtent les oranges au kilo ?",
+                  "note": "Remplacez « machungwa » par un autre fruit, par exemple « ndizi » (bananes) ou « maembe » (mangues).",
+                  "literal": "Oranges sont prix quel pour kilo ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_market_ask_price:price",
+              "key": "price",
+              "intentKey": "state_price",
+              "slotId": "price",
+              "speaker": "character",
+              "text": "Ni shilingi mia mbili kwa kilo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ni shilingi mia mbili kwa kilo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's two hundred shillings per kilo.",
+                  "note": "Shilingi is used in both Kenya and Tanzania; the amounts differ.",
+                  "literal": "It is shillings hundred two per kilo."
+                },
+                "fr": {
+                  "meaning": "C'est deux cents shillings le kilo.",
+                  "note": "Le shilling est utilisé au Kenya et en Tanzanie ; les montants diffèrent.",
+                  "literal": "C'est shillings cent deux pour kilo."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_market_ask_price:expensive",
+              "key": "expensive",
+              "intentKey": "say_too_expensive",
+              "slotId": "expensive",
+              "speaker": "learner",
+              "text": "Ni ghali sana!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ni ghali sana!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "That's very expensive!",
+                  "note": "Say it with a smile to keep the bargaining light.",
+                  "literal": "It is expensive very"
+                },
+                "fr": {
+                  "meaning": "C'est très cher !",
+                  "note": "Dites-le avec le sourire pour garder un marchandage léger. Le « gh » est un son guttural doux, proche d'un « r » français léger.",
+                  "literal": "C'est cher très"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'gh' is a soft throaty sound, like a gentle French 'r'."
+            },
+            {
+              "id": "swahili_ch1:swahili_market_ask_price:lower",
+              "key": "lower",
+              "intentKey": "offer_lower_price",
+              "slotId": "lower",
+              "speaker": "learner",
+              "text": "Unaweza kupunguza kidogo, tafadhali?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Unaweza kupunguza kidogo, tafadhali?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you lower it a little, please?",
+                  "note": null,
+                  "literal": "You can reduce a little, please?"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous baisser un peu le prix, s'il vous plaît ?",
+                  "note": null,
+                  "literal": "Vous pouvez réduire un peu, s'il vous plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_market_ask_price:deal",
+              "key": "deal",
+              "intentKey": "agree_to_price",
+              "slotId": "deal",
+              "speaker": "learner",
+              "text": "Sawa, nitachukua kilo mbili.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sawa, nitachukua kilo mbili."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Okay, I'll take two kilos.",
+                  "note": null,
+                  "literal": "Okay, I will take kilo two."
+                },
+                "fr": {
+                  "meaning": "D'accord, je prends deux kilos.",
+                  "note": null,
+                  "literal": "D'accord, je prendrai kilo deux."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_market_ask_price:no_thanks",
+              "key": "no_thanks",
+              "intentKey": "decline_purchase",
+              "slotId": "no_thanks",
+              "speaker": "learner",
+              "text": "Hapana, asante. Labda kesho.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hapana, asante. Labda kesho."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, thank you. Maybe tomorrow.",
+                  "note": null,
+                  "literal": "No, thanks. Perhaps tomorrow."
+                },
+                "fr": {
+                  "meaning": "Non, merci. Peut-être demain.",
+                  "note": null,
+                  "literal": "Non, merci. Peut-être demain."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_market_ask_price:ask_price_variant_8",
+              "key": "ask_price_variant_8",
+              "intentKey": "ask_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Hii ni bei gani?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hii ni bei gani?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is this?",
+                  "note": "Handy when you can only point at the fruit.",
+                  "literal": "This is price which?"
+                },
+                "fr": {
+                  "meaning": "C'est combien, ça ?",
+                  "note": "Pratique quand vous ne pouvez que montrer les fruits du doigt.",
+                  "literal": "Ceci est prix quel ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_market_ask_price:offer_lower_price_variant_9",
+              "key": "offer_lower_price_variant_9",
+              "intentKey": "offer_lower_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Mia moja na hamsini, nachukua.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mia moja na hamsini, nachukua."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One hundred fifty and I'll take it.",
+                  "note": "Replace the number with your own offer.",
+                  "literal": "Hundred one and fifty, I take."
+                },
+                "fr": {
+                  "meaning": "Cent cinquante et je prends.",
+                  "note": "Remplacez le nombre par votre propre offre.",
+                  "literal": "Cent un et cinquante, je prends."
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_market_ask_price:say_too_expensive_variant_10",
+              "key": "say_too_expensive_variant_10",
+              "intentKey": "say_too_expensive",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Aaah, ni bei juu!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Aaah, ni bei juu!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Aaah, that's a high price!",
+                  "note": "Casual and playful, common in everyday market talk.",
+                  "literal": "Aaah, it is price high!"
+                },
+                "fr": {
+                  "meaning": "Oh là là, c'est un prix élevé !",
+                  "note": "Ton familier et taquin, courant dans les échanges au marché.",
+                  "literal": "Aaah, c'est prix haut !"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "swahili_ask_directions",
+          "blueprintKey": "ask_directions",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "directions",
+          "characterKey": "swahili_juma_passer_by",
+          "titles": {
+            "en": "Asking Directions to the Station",
+            "fr": "Demander le chemin de la gare"
+          },
+          "sceneNotes": {
+            "en": "You are a visitor looking for the station, and a friendly passer-by gives you directions very quickly, so you need to ask them to slow down.",
+            "fr": "Vous êtes de passage et cherchez la gare ; un passant aimable vous indique le chemin très vite, vous devrez donc lui demander de parler plus lentement."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_is",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "straight",
+              "speaker": "character"
+            },
+            {
+              "slotId": "turn",
+              "speaker": "character"
+            },
+            {
+              "slotId": "far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "near",
+              "speaker": "character"
+            },
+            {
+              "slotId": "repeat",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "slower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swahili_ch1:swahili_ask_directions:excuse_me",
+              "key": "excuse_me",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "Samahani, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Samahani, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, please.",
+                  "note": "Use this to get a stranger's attention before asking a question.",
+                  "literal": "Sorry/pardon, please."
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, s'il vous plaît.",
+                  "note": "Sert à attirer l'attention d'un inconnu avant de poser une question. L'accent tombe sur l'avant-dernière syllabe : sa-ma-HA-ni.",
+                  "literal": "Pardon, s'il vous plaît."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress falls on the second-to-last syllable: sa-ma-HA-ni."
+            },
+            {
+              "id": "swahili_ch1:swahili_ask_directions:where_is",
+              "key": "where_is",
+              "intentKey": "ask_where_is",
+              "slotId": "where_is",
+              "speaker": "learner",
+              "text": "Stesheni iko wapi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Stesheni iko wapi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where is the station?",
+                  "note": "Add 'tafadhali' at the end to sound extra polite.",
+                  "literal": "Station it-is-at where?"
+                },
+                "fr": {
+                  "meaning": "Où est la gare ?",
+                  "note": "Ajoutez « tafadhali » à la fin pour être particulièrement poli.",
+                  "literal": "Gare elle-est-à où ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "Stesheni is a loanword from English 'station'.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_ask_directions:straight",
+              "key": "straight",
+              "intentKey": "give_direction_straight",
+              "slotId": "straight",
+              "speaker": "character",
+              "text": "Nenda moja kwa moja.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nenda moja kwa moja."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Go straight ahead.",
+                  "note": "Said by a passer-by; this is a normal direction, not a rude order.",
+                  "literal": "Go one by one (straight)."
+                },
+                "fr": {
+                  "meaning": "Allez tout droit.",
+                  "note": "Dit par un passant : c'est une indication normale, pas un ordre impoli.",
+                  "literal": "Va un par un (tout droit)."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_ask_directions:turn",
+              "key": "turn",
+              "intentKey": "give_direction_turn",
+              "slotId": "turn",
+              "speaker": "character",
+              "text": "Kisha pinda kushoto.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kisha pinda kushoto."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Then turn left.",
+                  "note": "Swap kushoto (left) for kulia (right).",
+                  "literal": "Then turn left."
+                },
+                "fr": {
+                  "meaning": "Ensuite, tournez à gauche.",
+                  "note": "Remplacez kushoto (gauche) par kulia (droite). Dans kushoto, « sh » se prononce comme « ch » en français.",
+                  "literal": "Ensuite tourne gauche."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Kushoto: the 'sh' is like English 'sh'."
+            },
+            {
+              "id": "swahili_ch1:swahili_ask_directions:far",
+              "key": "far",
+              "intentKey": "ask_is_it_far",
+              "slotId": "far",
+              "speaker": "learner",
+              "text": "Ni mbali?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ni mbali?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it far?",
+                  "note": "Said with rising intonation to make it a question.",
+                  "literal": "It-is far?"
+                },
+                "fr": {
+                  "meaning": "C'est loin ?",
+                  "note": "On monte la voix à la fin pour en faire une question. Mbali commence par un « mb » lié, prononcé en une seule syllabe.",
+                  "literal": "C'est loin ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Mbali starts with a blended 'mb' sound; say it as one syllable."
+            },
+            {
+              "id": "swahili_ch1:swahili_ask_directions:near",
+              "key": "near",
+              "intentKey": "say_it_is_near",
+              "slotId": "near",
+              "speaker": "character",
+              "text": "Si mbali. Ni dakika kumi kwa miguu.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Si mbali. Ni dakika kumi kwa miguu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's not far. It's ten minutes on foot.",
+                  "note": "Matches the scene: a ten-minute walk.",
+                  "literal": "Not far. It-is minutes ten by feet."
+                },
+                "fr": {
+                  "meaning": "Ce n'est pas loin. C'est à dix minutes à pied.",
+                  "note": "Correspond à la scène : dix minutes de marche.",
+                  "literal": "Pas loin. C'est minutes dix par pieds."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_ask_directions:repeat",
+              "key": "repeat",
+              "intentKey": "ask_repeat",
+              "slotId": "repeat",
+              "speaker": "learner",
+              "text": "Tafadhali, rudia tena.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tafadhali, rudia tena."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please repeat that again.",
+                  "note": "With 'tafadhali' this is a polite request, not a blunt command.",
+                  "literal": "Please, repeat again."
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous répéter, s'il vous plaît ?",
+                  "note": "Avec « tafadhali », c'est une demande polie et non un ordre brusque.",
+                  "literal": "S'il vous plaît, répète encore."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_ask_directions:slower",
+              "key": "slower",
+              "intentKey": "ask_slow_down",
+              "slotId": "slower",
+              "speaker": "learner",
+              "text": "Unaongea haraka. Polepole, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Unaongea haraka. Polepole, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You speak fast. Slowly, please.",
+                  "note": "Key line for the twist: the passer-by talks fast.",
+                  "literal": "You-are-speaking fast. Slowly, please."
+                },
+                "fr": {
+                  "meaning": "Vous parlez vite. Doucement, s'il vous plaît.",
+                  "note": "Phrase clé de la scène : le passant parle vite. Polepole : voyelles bien nettes, po-le-PO-le.",
+                  "literal": "Tu-es-en-train-de-parler vite. Doucement, s'il vous plaît."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Polepole: all vowels are pure, po-le-PO-le."
+            },
+            {
+              "id": "swahili_ch1:swahili_ask_directions:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Nimeelewa. Asante kwa msaada!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nimeelewa. Asante kwa msaada!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I understand. Thanks for the help!",
+                  "note": "Said at the end once you have the directions.",
+                  "literal": "I-have-understood. Thanks for help!"
+                },
+                "fr": {
+                  "meaning": "J'ai compris. Merci pour votre aide !",
+                  "note": "À dire à la fin, une fois que vous avez compris le chemin.",
+                  "literal": "J'ai-compris. Merci pour aide !"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_ask_directions:ask_slow_down_variant_10",
+              "key": "ask_slow_down_variant_10",
+              "intentKey": "ask_slow_down",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Sijaelewa. Ongea polepole kidogo, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sijaelewa. Ongea polepole kidogo, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I didn't understand. Speak a little slower, please.",
+                  "note": "A fuller, softer option when you are lost.",
+                  "literal": "I-have-not-understood. Speak slowly a-little, please."
+                },
+                "fr": {
+                  "meaning": "Je n'ai pas compris. Parlez un peu plus lentement, s'il vous plaît.",
+                  "note": "Une formule plus complète et plus douce quand vous êtes perdu.",
+                  "literal": "Je-n'ai-pas-compris. Parle doucement un-peu, s'il vous plaît."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_ask_directions:ask_where_is_variant_11",
+              "key": "ask_where_is_variant_11",
+              "intentKey": "ask_where_is",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Samahani, kituo cha treni kiko wapi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Samahani, kituo cha treni kiko wapi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, where is the train station?",
+                  "note": "More specific wording using 'kituo cha treni'. Use 'kituo cha basi' for bus stop.",
+                  "literal": "Excuse me, station of train it-is-at where?"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, où est la gare ferroviaire ?",
+                  "note": "Formulation plus précise avec « kituo cha treni ». Pour un arrêt de bus, dites « kituo cha basi ».",
+                  "literal": "Pardon, gare de train elle-est-à où ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "swahili_meet_neighbour",
+          "blueprintKey": "meet_neighbour",
+          "missionType": "story",
+          "level": "beginner",
+          "situation": "neighbours",
+          "characterKey": "swahili_mama_neema_neighbour",
+          "titles": {
+            "en": "Meeting Your New Neighbour",
+            "fr": "Rencontrer votre nouvelle voisine"
+          },
+          "sceneNotes": {
+            "en": "You meet a neighbour carrying shopping bags in the stairwell of your new building, and you introduce yourself.",
+            "fr": "Vous croisez une voisine chargée de sacs de courses dans la cage d'escalier de votre nouvel immeuble, et vous vous présentez."
+          },
+          "slots": [
+            {
+              "slotId": "new_neighbour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "character"
+            },
+            {
+              "slotId": "where_from_q",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "from",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "speak_lang",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "little",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "offer_help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swahili_ch1:swahili_meet_neighbour:new_neighbour",
+              "key": "new_neighbour",
+              "intentKey": "say_new_neighbour",
+              "slotId": "new_neighbour",
+              "speaker": "learner",
+              "text": "Mimi ni jirani yako mpya.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mimi ni jirani yako mpya."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I am your new neighbour.",
+                  "note": "A friendly way to introduce yourself on the stairs.",
+                  "literal": "I am neighbour your new"
+                },
+                "fr": {
+                  "meaning": "Je suis votre nouveau voisin / votre nouvelle voisine.",
+                  "note": "Une façon aimable de se présenter dans l'escalier. Prononcez « ji-RA-ni », avec l'accent sur l'avant-dernière syllabe.",
+                  "literal": "Je suis voisin votre nouveau"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say 'ji-RA-ni' with stress on the second-to-last syllable."
+            },
+            {
+              "id": "swahili_ch1:swahili_meet_neighbour:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Karibu sana! Nafurahi kukuona.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Karibu sana! Nafurahi kukuona."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome! I'm happy to see you.",
+                  "note": "The neighbour also mentions that later she would like to invite you for tea, a common local custom.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bienvenue ! Je suis contente de vous voir.",
+                  "note": "La voisine mentionne aussi plus tard qu'elle aimerait vous inviter à prendre le thé, une coutume locale courante.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_meet_neighbour:where_from_q",
+              "key": "where_from_q",
+              "intentKey": "ask_where_from",
+              "slotId": "where_from_q",
+              "speaker": "learner",
+              "text": "Unatoka wapi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Unatoka wapi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where are you from?",
+                  "note": "Also used to ask where someone is coming from right now.",
+                  "literal": "You come-from where"
+                },
+                "fr": {
+                  "meaning": "Vous venez d'où ?",
+                  "note": "Peut aussi servir à demander d'où quelqu'un arrive à l'instant.",
+                  "literal": "Tu viens de où"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_meet_neighbour:from",
+              "key": "from",
+              "intentKey": "say_where_from",
+              "slotId": "from",
+              "speaker": "learner",
+              "text": "Natoka Marekani.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Natoka Marekani."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I am from America.",
+                  "note": "Replace Marekani with your own country or city.",
+                  "literal": "I come-from America"
+                },
+                "fr": {
+                  "meaning": "Je viens des États-Unis.",
+                  "note": "Remplacez Marekani par votre pays ou votre ville.",
+                  "literal": "Je viens-de Amérique"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_meet_neighbour:speak_lang",
+              "key": "speak_lang",
+              "intentKey": "ask_if_speaks_language",
+              "slotId": "speak_lang",
+              "speaker": "learner",
+              "text": "Unazungumza Kiingereza?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Unazungumza Kiingereza?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you speak English?",
+                  "note": "Swap Kiingereza for another language if needed.",
+                  "literal": "You speak English"
+                },
+                "fr": {
+                  "meaning": "Vous parlez anglais ?",
+                  "note": "Remplacez Kiingereza par une autre langue si besoin. Pour « unazungumza », découpez : u-na-zu-ngu-m-za.",
+                  "literal": "Tu parles anglais"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 'z-u-ng-u-m-z-a' sequence is easier when said in chunks: u-na-zu-ngu-m-za."
+            },
+            {
+              "id": "swahili_ch1:swahili_meet_neighbour:little",
+              "key": "little",
+              "intentKey": "say_speak_little",
+              "slotId": "little",
+              "speaker": "learner",
+              "text": "Naongea Kiswahili kidogo tu.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Naongea Kiswahili kidogo tu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I only speak a little Swahili.",
+                  "note": "Useful to ask people to slow down.",
+                  "literal": "I speak Swahili a little only"
+                },
+                "fr": {
+                  "meaning": "Je ne parle qu'un tout petit peu swahili.",
+                  "note": "Utile pour demander aux gens de parler plus lentement.",
+                  "literal": "Je parle swahili un-peu seulement"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_meet_neighbour:offer_help",
+              "key": "offer_help",
+              "intentKey": "offer_help",
+              "slotId": "offer_help",
+              "speaker": "learner",
+              "text": "Naweza kukusaidia kubeba mifuko?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Naweza kukusaidia kubeba mifuko?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I help you carry the bags?",
+                  "note": "Fits the scene, since the neighbour has shopping bags.",
+                  "literal": "I can you-help to-carry bags"
+                },
+                "fr": {
+                  "meaning": "Puis-je vous aider à porter les sacs ?",
+                  "note": "Convient bien à la scène, puisque la voisine porte des sacs de courses.",
+                  "literal": "Je peux t'aider porter sacs"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_meet_neighbour:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Asante kwa chai!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Asante kwa chai!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks for the tea!",
+                  "note": "Said after the neighbour invites you for tea.",
+                  "literal": "Thanks for tea"
+                },
+                "fr": {
+                  "meaning": "Merci pour le thé !",
+                  "note": "À dire après que la voisine vous a invité à prendre le thé.",
+                  "literal": "Merci pour thé"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_meet_neighbour:say_new_neighbour_variant_9",
+              "key": "say_new_neighbour_variant_9",
+              "intentKey": "say_new_neighbour",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Nimehamia hapa juzi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nimehamia hapa juzi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I just moved in here recently.",
+                  "note": "Another casual way to say you are new. 'Juzi' means a few days ago.",
+                  "literal": "I-have-moved here the-other-day"
+                },
+                "fr": {
+                  "meaning": "J'ai emménagé ici il y a quelques jours.",
+                  "note": "Une autre façon décontractée de dire que vous êtes nouveau. « Juzi » signifie « il y a quelques jours ».",
+                  "literal": "J'ai-emménagé ici avant-hier"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_meet_neighbour:offer_help_variant_10",
+              "key": "offer_help_variant_10",
+              "intentKey": "offer_help",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ukihitaji kitu, niambie.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ukihitaji kitu, niambie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "If you need anything, tell me.",
+                  "note": "A general offer of help for the future.",
+                  "literal": "If-you-need thing, tell-me"
+                },
+                "fr": {
+                  "meaning": "Si vous avez besoin de quoi que ce soit, dites-le-moi.",
+                  "note": "Une offre d'aide générale pour l'avenir.",
+                  "literal": "Si-tu-as-besoin chose, dis-moi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "swahili_take_taxi",
+          "blueprintKey": "take_taxi",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "transport",
+          "characterKey": "swahili_juma_taxi_driver",
+          "titles": {
+            "en": "Taking a Taxi",
+            "fr": "Prendre un taxi"
+          },
+          "sceneNotes": {
+            "en": "You are in heavy traffic and need a taxi to the old town, and the driver is chatty and may quote a price without using the meter.",
+            "fr": "Vous êtes pris dans les embouteillages et il vous faut un taxi pour la vieille ville ; le chauffeur est bavard et pourrait vous annoncer un prix sans utiliser le compteur."
+          },
+          "slots": [
+            {
+              "slotId": "hail",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_to",
+              "speaker": "character"
+            },
+            {
+              "slotId": "destination",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "meter",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fare",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "change",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swahili_ch1:swahili_take_taxi:hail",
+              "key": "hail",
+              "intentKey": "hail_taxi",
+              "slotId": "hail",
+              "speaker": "learner",
+              "text": "Samahani, uko huru?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Samahani, uko huru?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, are you free?",
+                  "note": "Said through the car window or at the taxi rank.",
+                  "literal": "Excuse me, you-are free?"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, vous êtes libre ?",
+                  "note": "À dire par la vitre de la voiture ou à la station de taxis. Accent sur l'avant-dernière syllabe : sa-MA-ha-ni.",
+                  "literal": "Excuse-moi, tu-es libre ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the second-to-last syllable: sa-MA-ha-ni."
+            },
+            {
+              "id": "swahili_ch1:swahili_take_taxi:where_to",
+              "key": "where_to",
+              "intentKey": "ask_destination",
+              "slotId": "where_to",
+              "speaker": "character",
+              "text": "Karibu! Unakwenda wapi leo?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Karibu! Unakwenda wapi leo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome! Where are you going today?",
+                  "note": "The driver's friendly greeting and question.",
+                  "literal": "Welcome! You-are-going where today?"
+                },
+                "fr": {
+                  "meaning": "Bienvenue ! Où allez-vous aujourd'hui ?",
+                  "note": "Le message d'accueil et la question du chauffeur.",
+                  "literal": "Bienvenue ! Tu-vas où aujourd'hui ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_take_taxi:destination",
+              "key": "destination",
+              "intentKey": "state_destination",
+              "slotId": "destination",
+              "speaker": "learner",
+              "text": "Naomba kwenda Mji Mkongwe, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Naomba kwenda Mji Mkongwe, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like to go to the old town, please.",
+                  "note": "Mji Mkongwe is the Swahili name for Stone Town, the old town of Zanzibar.",
+                  "literal": "I-request to-go town old, please"
+                },
+                "fr": {
+                  "meaning": "Je voudrais aller à la vieille ville, s'il vous plaît.",
+                  "note": "Mji Mkongwe est le nom swahili de Stone Town, la vieille ville de Zanzibar. « Mji » commence par un m syllabique : « m-dji ».",
+                  "literal": "Je-demande aller ville vieille, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Mji starts with a syllabic m: 'm-jee'."
+            },
+            {
+              "id": "swahili_ch1:swahili_take_taxi:meter",
+              "key": "meter",
+              "intentKey": "ask_use_meter",
+              "slotId": "meter",
+              "speaker": "learner",
+              "text": "Tafadhali, unaweza kuwasha mita?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tafadhali, unaweza kuwasha mita?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please, can you turn on the meter?",
+                  "note": "Use it when the driver quotes a price without the meter.",
+                  "literal": "Please, you-can to-switch-on meter?"
+                },
+                "fr": {
+                  "meaning": "S'il vous plaît, pouvez-vous mettre le compteur ?",
+                  "note": "À utiliser quand le chauffeur annonce un prix sans compteur.",
+                  "literal": "S'il vous plaît, tu-peux allumer compteur ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "'Mita' is a loanword from English 'meter'.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_take_taxi:fare",
+              "key": "fare",
+              "intentKey": "ask_fare",
+              "slotId": "fare",
+              "speaker": "learner",
+              "text": "Nauli ni shilingi ngapi, tafadhali?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nauli ni shilingi ngapi, tafadhali?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is the fare, please?",
+                  "note": "Ask this before you set off.",
+                  "literal": "Fare is shillings how-many, please?"
+                },
+                "fr": {
+                  "meaning": "Combien coûte la course, s'il vous plaît ?",
+                  "note": "À demander avant de partir. Dans « ngapi », prononcez le ng comme dans « parking ».",
+                  "literal": "Course est shillings combien, s'il vous plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "In 'ngapi', say the ng as in 'finger'."
+            },
+            {
+              "id": "swahili_ch1:swahili_take_taxi:stop",
+              "key": "stop",
+              "intentKey": "say_stop_here",
+              "slotId": "stop",
+              "speaker": "learner",
+              "text": "Naomba usimame hapa, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Naomba usimame hapa, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please stop here.",
+                  "note": null,
+                  "literal": "I-request you-stop here, please"
+                },
+                "fr": {
+                  "meaning": "Arrêtez-vous ici, s'il vous plaît.",
+                  "note": null,
+                  "literal": "Je-demande tu-t'arrêtes ici, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_take_taxi:change",
+              "key": "change",
+              "intentKey": "ask_for_change",
+              "slotId": "change",
+              "speaker": "learner",
+              "text": "Naomba chenji yangu, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Naomba chenji yangu, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My change, please.",
+                  "note": "Use it after handing over a large note.",
+                  "literal": "I-request change my, please"
+                },
+                "fr": {
+                  "meaning": "Ma monnaie, s'il vous plaît.",
+                  "note": "À utiliser après avoir tendu un gros billet. Le « ch » se prononce comme « tch ».",
+                  "literal": "Je-demande monnaie ma, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "'Chenji' is a loanword from English 'change'.",
+              "pronunciationNote": "'Ch' as in 'chair'."
+            },
+            {
+              "id": "swahili_ch1:swahili_take_taxi:bye",
+              "key": "bye",
+              "intentKey": "say_goodbye",
+              "slotId": "bye",
+              "speaker": "learner",
+              "text": "Asante, siku njema!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Asante, siku njema!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, have a good day!",
+                  "note": null,
+                  "literal": "Thanks, day good"
+                },
+                "fr": {
+                  "meaning": "Merci, bonne journée !",
+                  "note": "Le « nj » de « njema » est un seul son, comme « ndj ».",
+                  "literal": "Merci, jour bon"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'Nj' in 'njema' is a single sound, like the 'nj' in 'injure'."
+            },
+            {
+              "id": "swahili_ch1:swahili_take_taxi:hail_taxi_variant_9",
+              "key": "hail_taxi_variant_9",
+              "intentKey": "hail_taxi",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Unaweza kunipeleka Mji Mkongwe?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Unaweza kunipeleka Mji Mkongwe?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you take me to the old town?",
+                  "note": "Use it to hail and state the destination in one go.",
+                  "literal": "You-can to-take-me town old?"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous m'emmener à la vieille ville ?",
+                  "note": "Pour héler le taxi et donner la destination en une seule phrase.",
+                  "literal": "Tu-peux m'emmener ville vieille ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_take_taxi:state_destination_variant_10",
+              "key": "state_destination_variant_10",
+              "intentKey": "state_destination",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Mji Mkongwe, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mji Mkongwe, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The old town, please.",
+                  "note": "A short, quick form.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "La vieille ville, s'il vous plaît.",
+                  "note": "Une forme courte et rapide.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_take_taxi:say_stop_here_variant_11",
+              "key": "say_stop_here_variant_11",
+              "intentKey": "say_stop_here",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Hapa ni sawa, asante.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hapa ni sawa, asante."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Here is fine, thanks.",
+                  "note": "A softer, casual way to say where you want to get out.",
+                  "literal": "Here is fine, thanks"
+                },
+                "fr": {
+                  "meaning": "Ici, c'est bien, merci.",
+                  "note": "Une façon plus douce et décontractée d'indiquer où vous voulez descendre.",
+                  "literal": "Ici est bien, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "swahili_buy_ice_cream",
+          "blueprintKey": "buy_ice_cream",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "shopping",
+          "characterKey": "swahili_neema_child_at_the_ice_cream_stand",
+          "titles": {
+            "en": "Buying Ice Cream Together",
+            "fr": "Acheter une glace ensemble"
+          },
+          "sceneNotes": {
+            "en": "You are at an ice-cream cart outside the school with a child who wants an ice cream, and only two flavours are left.",
+            "fr": "Vous êtes à un chariot de glaces devant l'école avec un enfant qui veut une glace, mais il ne reste que deux parfums."
+          },
+          "slots": [
+            {
+              "slotId": "wants",
+              "speaker": "character"
+            },
+            {
+              "slotId": "which_flavour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "picks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "scoop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "asks_two",
+              "speaker": "character"
+            },
+            {
+              "slotId": "just_one",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "okay",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "yummy",
+              "speaker": "character"
+            },
+            {
+              "slotId": "me_too",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swahili_ch1:swahili_buy_ice_cream:wants",
+              "key": "wants",
+              "intentKey": "request_food",
+              "slotId": "wants",
+              "speaker": "character",
+              "text": "Naomba aiskrimu, tafadhali!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Naomba aiskrimu, tafadhali!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I have an ice cream, please?",
+                  "note": "A child asking nicely. Children are taught to add tafadhali.",
+                  "literal": "I request ice cream, please"
+                },
+                "fr": {
+                  "meaning": "Je peux avoir une glace, s'il te plaît ?",
+                  "note": "Un enfant qui demande poliment : on apprend aux enfants à ajouter « tafadhali ».",
+                  "literal": "je demande glace, s'il te plaît"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "Aiskrimu is a loanword from English 'ice cream'.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_buy_ice_cream:which_flavour",
+              "key": "which_flavour",
+              "intentKey": "offer_options",
+              "slotId": "which_flavour",
+              "speaker": "learner",
+              "text": "Unataka vanila au stroberi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Unataka vanila au stroberi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you want vanilla or strawberry?",
+                  "note": "Only two flavours are left, so you offer both.",
+                  "literal": "You want vanilla or strawberry?"
+                },
+                "fr": {
+                  "meaning": "Tu veux de la vanille ou de la fraise ?",
+                  "note": "Il ne reste que deux parfums, donc vous les proposez tous les deux.",
+                  "literal": "tu veux vanille ou fraise ?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "Vanila and stroberi are loanwords.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_buy_ice_cream:picks",
+              "key": "picks",
+              "intentKey": "choose_option",
+              "slotId": "picks",
+              "speaker": "character",
+              "text": "Stroberi, tafadhali!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Stroberi, tafadhali!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Strawberry, please!",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "À la fraise, s'il te plaît !",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_buy_ice_cream:scoop",
+              "key": "scoop",
+              "intentKey": "specify_quantity",
+              "slotId": "scoop",
+              "speaker": "learner",
+              "text": "Kijiko kimoja tu, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kijiko kimoja tu, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Just one scoop, please.",
+                  "note": "You say this to the vendor.",
+                  "literal": "scoop one only, please"
+                },
+                "fr": {
+                  "meaning": "Une seule boule, s'il vous plaît.",
+                  "note": "Vous dites cela au vendeur. Prononcez ki-ji-ko avec un « dj » doux, comme dans « djinn ».",
+                  "literal": "boule une seulement, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say ki-ji-ko with a soft 'j' as in 'jam'."
+            },
+            {
+              "id": "swahili_ch1:swahili_buy_ice_cream:asks_two",
+              "key": "asks_two",
+              "intentKey": "ask_permission",
+              "slotId": "asks_two",
+              "speaker": "character",
+              "text": "Naweza kupata kijiko cha pili?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Naweza kupata kijiko cha pili?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I have a second scoop?",
+                  "note": "The twist: the child pushes for more.",
+                  "literal": "I can get scoop of second?"
+                },
+                "fr": {
+                  "meaning": "Je peux avoir une deuxième boule ?",
+                  "note": "Le rebondissement : l'enfant en réclame plus.",
+                  "literal": "je peux obtenir boule de deuxième ?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_buy_ice_cream:just_one",
+              "key": "just_one",
+              "intentKey": "refuse_permission",
+              "slotId": "just_one",
+              "speaker": "learner",
+              "text": "Pole, moja tu leo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pole, moja tu leo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, just one today.",
+                  "note": "A kind, gentle no.",
+                  "literal": "sorry, one only today"
+                },
+                "fr": {
+                  "meaning": "Désolé(e), une seule aujourd'hui.",
+                  "note": "Un non doux et gentil.",
+                  "literal": "désolé, une seulement aujourd'hui"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_buy_ice_cream:okay",
+              "key": "okay",
+              "intentKey": "grant_permission",
+              "slotId": "okay",
+              "speaker": "learner",
+              "text": "Sawa, unaweza kula sasa.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sawa, unaweza kula sasa."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Okay, you can eat it now.",
+                  "note": "You give the child the go-ahead to start eating.",
+                  "literal": "okay, you can eat now"
+                },
+                "fr": {
+                  "meaning": "D'accord, tu peux la manger maintenant.",
+                  "note": "Vous donnez à l'enfant le feu vert pour commencer à manger.",
+                  "literal": "d'accord, tu peux manger maintenant"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_buy_ice_cream:yummy",
+              "key": "yummy",
+              "intentKey": "say_delicious",
+              "slotId": "yummy",
+              "speaker": "character",
+              "text": "Mmm, tamu sana!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mmm, tamu sana!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Mmm, so tasty!",
+                  "note": null,
+                  "literal": "sweet very"
+                },
+                "fr": {
+                  "meaning": "Mmm, c'est trop bon !",
+                  "note": null,
+                  "literal": "doux très"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_buy_ice_cream:me_too",
+              "key": "me_too",
+              "intentKey": "express_like",
+              "slotId": "me_too",
+              "speaker": "learner",
+              "text": "Mimi pia naipenda!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mimi pia naipenda!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I love it too!",
+                  "note": "The 'i' in naipenda refers to aiskrimu.",
+                  "literal": "me also I-it-like"
+                },
+                "fr": {
+                  "meaning": "Moi aussi, j'adore ça !",
+                  "note": "Le « i » de « naipenda » renvoie à « aiskrimu » (la glace).",
+                  "literal": "moi aussi je-la-aime"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_buy_ice_cream:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "character",
+              "text": "Asante, nimefurahi sana!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Asante, nimefurahi sana!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, I'm so happy!",
+                  "note": null,
+                  "literal": "thanks, I am happy very"
+                },
+                "fr": {
+                  "meaning": "Merci, je suis super content(e) !",
+                  "note": null,
+                  "literal": "merci, je suis content très"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_buy_ice_cream:welcome",
+              "key": "welcome",
+              "intentKey": "respond_to_thanks",
+              "slotId": "welcome",
+              "speaker": "learner",
+              "text": "Karibu sana!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Karibu sana!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You're very welcome!",
+                  "note": null,
+                  "literal": "welcome very"
+                },
+                "fr": {
+                  "meaning": "Avec grand plaisir !",
+                  "note": null,
+                  "literal": "bienvenue très"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_buy_ice_cream:specify_quantity_variant_12",
+              "key": "specify_quantity_variant_12",
+              "intentKey": "specify_quantity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Moja tu, tafadhali.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Moja tu, tafadhali."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Just one, please.",
+                  "note": "A shorter way to order one scoop.",
+                  "literal": "one only, please"
+                },
+                "fr": {
+                  "meaning": "Juste une, s'il vous plaît.",
+                  "note": "Une façon plus courte de commander une seule boule.",
+                  "literal": "une seulement, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swahili_ch1:swahili_buy_ice_cream:refuse_permission_variant_13",
+              "key": "refuse_permission_variant_13",
+              "intentKey": "refuse_permission",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Leo ni moja tu, sawa?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Leo ni moja tu, sawa?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Today it's just one, okay?",
+                  "note": "A softer no that asks for the child's agreement.",
+                  "literal": "today is one only, okay?"
+                },
+                "fr": {
+                  "meaning": "Aujourd'hui, c'est juste une, d'accord ?",
+                  "note": "Un refus plus doux qui demande l'accord de l'enfant.",
+                  "literal": "aujourd'hui c'est une seulement, d'accord ?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

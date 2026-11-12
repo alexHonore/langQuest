@@ -1,0 +1,3246 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts",
+  "courseTrackId": "greek",
+  "chapters": [
+    {
+      "key": "greek_ch1",
+      "chapterIndex": 1,
+      "courseTrackId": "greek",
+      "targetVarietyId": "el",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "First days in Greece",
+        "fr": "Premiers jours en Grèce"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+      "notes": [
+        "AI draft generated 2026-11-11T22:41:11.055Z with anthropic/claude-sonnet-5.5; validator accepted 79 expressions; native review required before publishing.",
+        "greet_and_introduce: Polite lines use the plural/polite forms (κάνετε, σας). Please check they feel natural for a neighbour meeting in the morning.",
+        "greet_and_introduce: Με λένε Μαρία uses a sample female name as a placeholder for the learner's own name.",
+        "greet_and_introduce: Καλή συνέχεια is used as the polite farewell; please confirm it fits as a short parting line.",
+        "cafe_order_drink: Used Καλημέρα σας and Ευχαριστώ πολύ to stay consistent with the earlier Καλημέρα!/ευχαριστώ without duplicating them. Please confirm this is natural.",
+        "cafe_order_drink: Server line uses masculine τον for φραπές; the polite plural θέλετε is used to address the customer.",
+        "cafe_order_drink: Please check whether σκέτο or χωρίς ζάχαρη sounds more natural for the choice on a terrace, and confirm the stress marks.",
+        "market_ask_price: Greeting uses Καλησπέρα σας to avoid repeating the earlier Καλημέρα/Γεια σας; please confirm it suits the intended time of day.",
+        "market_ask_price: Plural μήλα/τα πάρω/ακριβά is used; singular alternatives are in contextNotes.",
+        "market_ask_price: Please check that 'Ενάμισι ευρώ και τα παίρνω;' sounds like real market bargaining, and tell me if a more natural phrasing exists.",
+        "ask_directions: Earlier thanks formulas (Ευχαριστώ πολύ / Σας ευχαριστώ) were not repeated, so the thanks slot uses 'για τη βοήθεια'. Please confirm this is acceptable.",
+        "ask_directions: Formal plural imperatives (Πηγαίνετε, Στρίψτε) are used for a stranger; casual 'Πας ευθεία' is mentioned in a note only.",
+        "ask_directions: σταθμός is kept generic; Athens locals might say 'το μετρό' or 'ο σταθμός του τρένου' depending on context.",
+        "meet_neighbour: Please check the Latin transliteration of the last extra line; I typed «ellinikά» with a Greek-style accent mark, which should be «elliniká».",
+        "meet_neighbour: «Είμαι από την Αγγλία» is a placeholder country; the learner swaps in their own. Gender: νέος/νέα γείτονας/γειτόνισσα.",
+        "meet_neighbour: Is «Ευχαριστώ για την πρόσκληση!» natural here? I avoided repeating «Ευχαριστώ πολύ!» and «Σας ευχαριστώ!» from earlier in the chapter.",
+        "take_taxi: Setting is Chania because 'Παλιά Πόλη' is the local term there; please confirm or suggest another city.",
+        "take_taxi: 'Μπορείτε να βάλετε το ταξίμετρο;' – please check that 'ταξίμετρο' sounds natural versus 'το κοντέρ' in casual speech.",
+        "take_taxi: 'Να έχετε μια καλή μέρα!' was chosen to avoid repeating earlier goodbyes; please check the polite register fits.",
+        "buy_ice_cream: Check that 'μπάλα' is the natural everyday word for a scoop at an ice-cream cart.",
+        "buy_ice_cream: The character lines avoid gender agreement so they work for a boy or a girl; the learner's 'αγάπη μου' is gender-neutral.",
+        "buy_ice_cream: Please confirm the casual 'σε παρακαλώ' is natural for a child speaking to an adult.",
+        "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+      ],
+      "characters": [
+        {
+          "key": "greek_character_friendly_local_acquaintance",
+          "name": "Γιάννης",
+          "role": "friendly local acquaintance",
+          "personality": "friendly, busy, kind, curious",
+          "homeRegion": "Thessaloniki",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "greek_character_cafe_server",
+          "name": "Νίκος",
+          "role": "café server",
+          "personality": "quick, cheerful, friendly, chatty",
+          "homeRegion": "Athens",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "greek_character_market_vendor",
+          "name": "Γιάννης",
+          "role": "market vendor",
+          "personality": "friendly, chatty, generous",
+          "homeRegion": "Athens",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "greek_character_passer_by",
+          "name": "Νίκος",
+          "role": "passer-by",
+          "personality": "friendly, hurried, helpful",
+          "homeRegion": "Athens",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "greek_character_neighbour",
+          "name": "Ελένη",
+          "role": "neighbour",
+          "personality": "warm, chatty, hospitable",
+          "homeRegion": "Thessaloniki",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "greek_character_taxi_driver",
+          "name": "Γιάννης",
+          "role": "taxi driver",
+          "personality": "talkative, friendly, a bit pushy",
+          "homeRegion": "Chania, Crete",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "greek_character_child_at_the_ice_cream_stand",
+          "name": "Νίκος",
+          "role": "child at the ice-cream stand",
+          "personality": "cheerful, curious, a bit cheeky",
+          "homeRegion": "Athens",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "greek_greet_and_introduce",
+          "blueprintKey": "greet_and_introduce",
+          "missionType": "standard",
+          "level": "beginner",
+          "situation": "introductions",
+          "characterKey": "greek_character_friendly_local_acquaintance",
+          "titles": {
+            "en": "Meeting a Neighbour",
+            "fr": "Rencontre avec un voisin"
+          },
+          "sceneNotes": {
+            "en": "It's morning and you meet a friendly neighbour on the street who is in a hurry but kind enough to stop and chat for a moment.",
+            "fr": "C'est le matin et vous croisez dans la rue un voisin sympathique, pressé mais assez aimable pour s'arrêter un instant et discuter."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_are_you",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fine",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "your_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "nice_to_meet",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "goodbye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "greek_ch1:greek_greet_and_introduce:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Καλημέρα!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Καλημέρα!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Kaliméra!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning!",
+                  "note": "Used until about noon. Works with anyone, polite or casual.",
+                  "literal": "good day"
+                },
+                "fr": {
+                  "meaning": "Bonjour !",
+                  "note": "S'emploie jusqu'à midi environ, avec tout le monde, en contexte poli comme familier. Accent sur le é : ka-li-MÉ-ra.",
+                  "literal": "bon jour"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the é: ka-li-MÉ-ra."
+            },
+            {
+              "id": "greek_ch1:greek_greet_and_introduce:how_are_you",
+              "key": "how_are_you",
+              "intentKey": "ask_how_are_you",
+              "slotId": "how_are_you",
+              "speaker": "learner",
+              "text": "Τι κάνετε;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Τι κάνετε;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ti kánete?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How are you?",
+                  "note": "Polite/plural form, good for someone you have just met or an older neighbour.",
+                  "literal": "what do-you(pl./polite) do"
+                },
+                "fr": {
+                  "meaning": "Comment allez-vous ?",
+                  "note": "Forme de politesse (pluriel), idéale pour quelqu'un que vous venez de rencontrer ou un voisin plus âgé.",
+                  "literal": "que faites-vous"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_greet_and_introduce:fine",
+              "key": "fine",
+              "intentKey": "reply_fine",
+              "slotId": "fine",
+              "speaker": "learner",
+              "text": "Είμαι καλά, ευχαριστώ.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Είμαι καλά, ευχαριστώ."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Íme kalá, efcharistó."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm fine, thank you.",
+                  "note": null,
+                  "literal": "I-am well, thank-you"
+                },
+                "fr": {
+                  "meaning": "Je vais bien, merci.",
+                  "note": "Le ευ de ευχαριστώ se prononce « ef » et le χ est un « h » soufflé, comme le « ch » allemand de « Bach ».",
+                  "literal": "je suis bien, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The ευ in ευχαριστώ sounds like 'ef' and χ is a breathy 'h' as in 'loch'."
+            },
+            {
+              "id": "greek_ch1:greek_greet_and_introduce:my_name",
+              "key": "my_name",
+              "intentKey": "introduce_name",
+              "slotId": "my_name",
+              "speaker": "learner",
+              "text": "Με λένε Μαρία.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Με λένε Μαρία."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Me léne María."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My name is Maria.",
+                  "note": "Replace Μαρία with your own name.",
+                  "literal": "me they-call Maria"
+                },
+                "fr": {
+                  "meaning": "Je m'appelle Maria.",
+                  "note": "Remplacez Μαρία par votre propre prénom.",
+                  "literal": "moi ils appellent Maria"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_greet_and_introduce:your_name",
+              "key": "your_name",
+              "intentKey": "ask_name",
+              "slotId": "your_name",
+              "speaker": "learner",
+              "text": "Πώς σας λένε;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Πώς σας λένε;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Pós sas léne?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's your name?",
+                  "note": "Polite form. Use σε instead of σας with friends or younger people.",
+                  "literal": "how you(polite) they-call"
+                },
+                "fr": {
+                  "meaning": "Comment vous appelez-vous ?",
+                  "note": "Forme de politesse. Avec des amis ou des plus jeunes, on dit σε à la place de σας.",
+                  "literal": "comment vous (poli) ils appellent"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_greet_and_introduce:nice_to_meet",
+              "key": "nice_to_meet",
+              "intentKey": "say_nice_to_meet",
+              "slotId": "nice_to_meet",
+              "speaker": "learner",
+              "text": "Χάρηκα πολύ!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Χάρηκα πολύ!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Chárika polí!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Nice to meet you!",
+                  "note": "Said when you meet and also when you part. The same form works for men and women.",
+                  "literal": "I-was-pleased a-lot"
+                },
+                "fr": {
+                  "meaning": "Enchanté(e) !",
+                  "note": "Se dit en rencontrant quelqu'un, mais aussi en se quittant. La même forme sert aux hommes et aux femmes. Commencez par un χ soufflé, comme le « ch » allemand de « Bach ».",
+                  "literal": "j'ai été content beaucoup"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Start with a breathy χ, like 'ch' in 'loch'."
+            },
+            {
+              "id": "greek_ch1:greek_greet_and_introduce:goodbye",
+              "key": "goodbye",
+              "intentKey": "say_goodbye",
+              "slotId": "goodbye",
+              "speaker": "learner",
+              "text": "Γεια σας, καλή συνέχεια!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Γεια σας, καλή συνέχεια!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ya sas, kalí sinécheia!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Goodbye, have a good day!",
+                  "note": "Καλή συνέχεια literally wishes someone a good continuation of their day. It suits a neighbour who is in a hurry.",
+                  "literal": "health to-you(pl.), good continuation"
+                },
+                "fr": {
+                  "meaning": "Au revoir, bonne continuation !",
+                  "note": "Καλή συνέχεια souhaite littéralement une bonne suite de journée : idéal pour un voisin pressé. Γεια se prononce en une seule syllabe, « ya ».",
+                  "literal": "santé à vous, bonne continuation"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Γεια is said as one syllable, 'ya'."
+            },
+            {
+              "id": "greek_ch1:greek_greet_and_introduce:ask_how_are_you_variant_8",
+              "key": "ask_how_are_you_variant_8",
+              "intentKey": "ask_how_are_you",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Τι κάνεις;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Τι κάνεις;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ti kánis?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How are you?",
+                  "note": "Casual singular form for friends, peers and younger people.",
+                  "literal": "what do-you do"
+                },
+                "fr": {
+                  "meaning": "Comment ça va ?",
+                  "note": "Forme familière au singulier, pour les amis, les personnes de votre âge et les plus jeunes.",
+                  "literal": "que fais-tu"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_greet_and_introduce:say_goodbye_variant_9",
+              "key": "say_goodbye_variant_9",
+              "intentKey": "say_goodbye",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Τα λέμε!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Τα λέμε!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ta léme!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "See you!",
+                  "note": "Friendly and casual; use it once you are on friendlier terms.",
+                  "literal": "we say them"
+                },
+                "fr": {
+                  "meaning": "À bientôt !",
+                  "note": "Amical et décontracté ; à réserver aux personnes avec qui vous êtes plus à l'aise.",
+                  "literal": "nous les disons"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "greek_cafe_order_drink",
+          "blueprintKey": "cafe_order_drink",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "cafe",
+          "characterKey": "greek_character_cafe_server",
+          "titles": {
+            "en": "Ordering a Drink",
+            "fr": "Commander une boisson"
+          },
+          "sceneNotes": {
+            "en": "You sit down on a busy café terrace and a quick, friendly server comes over to take your order.",
+            "fr": "Vous vous installez à la terrasse animée d'un café et un serveur rapide et sympathique vient prendre votre commande."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "options",
+              "speaker": "character"
+            },
+            {
+              "slotId": "choice",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "greek_ch1:greek_cafe_order_drink:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Καλημέρα σας!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Καλημέρα σας!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kaliméra sas!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning!",
+                  "note": "Polite greeting for staff. Use Καλησπέρα σας after about noon.",
+                  "literal": "good-morning to-you (polite)"
+                },
+                "fr": {
+                  "meaning": "Bonjour !",
+                  "note": "Salutation polie pour le personnel. Après midi environ, on dit Καλησπέρα σας. Accent sur le é : ka-li-MÉ-ra.",
+                  "literal": "bonjour à-vous (poli)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the é: ka-li-MÉ-ra."
+            },
+            {
+              "id": "greek_ch1:greek_cafe_order_drink:order",
+              "key": "order",
+              "intentKey": "request_drink",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Θα ήθελα έναν φραπέ, παρακαλώ.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Θα ήθελα έναν φραπέ, παρακαλώ."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "tha íthela énan frapé, parakaló."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like a frappé, please.",
+                  "note": "Φραπές is a very popular iced coffee in Greece. Swap in another drink if you like.",
+                  "literal": "would I-like a frappé, please"
+                },
+                "fr": {
+                  "meaning": "Je voudrais un frappé, s'il vous plaît.",
+                  "note": "Le φραπές est un café glacé très populaire en Grèce. Vous pouvez le remplacer par une autre boisson. Θ se prononce comme le « th » anglais de « think » (langue entre les dents).",
+                  "literal": "voudrais je un frappé, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "Φραπέ comes from French frappé and is fully Greek now.",
+              "pronunciationNote": "Θ is like English 'th' in 'think'."
+            },
+            {
+              "id": "greek_ch1:greek_cafe_order_drink:options",
+              "key": "options",
+              "intentKey": "offer_options",
+              "slotId": "options",
+              "speaker": "character",
+              "text": "Τον θέλετε γλυκό ή σκέτο;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Τον θέλετε γλυκό ή σκέτο;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ton thélete glykó i skéto?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Would you like it sweet or plain?",
+                  "note": "Σκέτο means no sugar. Τον refers to the masculine φραπές.",
+                  "literal": "it want-you(polite) sweet or plain"
+                },
+                "fr": {
+                  "meaning": "Vous le voulez sucré ou nature ?",
+                  "note": "Σκέτο signifie sans sucre. Τον renvoie au φραπές, qui est masculin.",
+                  "literal": "le voulez-vous sucré ou nature"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_cafe_order_drink:choice",
+              "key": "choice",
+              "intentKey": "choose_option",
+              "slotId": "choice",
+              "speaker": "learner",
+              "text": "Σκέτο, παρακαλώ.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Σκέτο, παρακαλώ."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "skéto, parakaló."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Plain, please.",
+                  "note": "Answers the server's question directly.",
+                  "literal": "plain, please"
+                },
+                "fr": {
+                  "meaning": "Nature, s'il vous plaît.",
+                  "note": "Répond directement à la question du serveur. Accent sur la première syllabe : SKÉ-to.",
+                  "literal": "nature, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress falls on the first syllable: SKÉ-to."
+            },
+            {
+              "id": "greek_ch1:greek_cafe_order_drink:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Τον λογαριασμό, παρακαλώ.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Τον λογαριασμό, παρακαλώ."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ton logariasmó, parakaló."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The bill, please.",
+                  "note": "Very common in cafés and restaurants.",
+                  "literal": "the bill, please"
+                },
+                "fr": {
+                  "meaning": "L'addition, s'il vous plaît.",
+                  "note": "Très courant dans les cafés et les restaurants. Le γ devant a est un « gh » doux, vibré.",
+                  "literal": "l'addition, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "γ before a is a soft, voiced 'gh' sound."
+            },
+            {
+              "id": "greek_ch1:greek_cafe_order_drink:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Ευχαριστώ πολύ!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Ευχαριστώ πολύ!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "efcharistó polí!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much!",
+                  "note": null,
+                  "literal": "I-thank much"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup !",
+                  "note": "Le ευ de ευχαριστώ se prononce « ef » ; le χ est un « h » rauque, comme la jota espagnole.",
+                  "literal": "je-remercie beaucoup"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The ευ in ευχαριστώ sounds like 'ef'; χ is a rough 'h' like Scottish 'loch'."
+            },
+            {
+              "id": "greek_ch1:greek_cafe_order_drink:greet_hello_variant_7",
+              "key": "greet_hello_variant_7",
+              "intentKey": "greet_hello",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Γεια σας!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Γεια σας!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ya sas!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello!",
+                  "note": "Works at any time of day; polite or plural 'you'.",
+                  "literal": "health to-you"
+                },
+                "fr": {
+                  "meaning": "Bonjour !",
+                  "note": "Convient à toute heure de la journée ; vouvoiement ou pluriel.",
+                  "literal": "santé à-vous"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_cafe_order_drink:request_drink_variant_8",
+              "key": "request_drink_variant_8",
+              "intentKey": "request_drink",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Έναν φρέντο εσπρέσο, παρακαλώ.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Έναν φρέντο εσπρέσο, παρακαλώ."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "énan frédo espréso, parakaló."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A freddo espresso, please.",
+                  "note": "Short 'a X, please' pattern; freddo espresso is a common iced coffee.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Un freddo espresso, s'il vous plaît.",
+                  "note": "Structure simple « un X, s'il vous plaît » ; le freddo espresso est un café glacé très courant.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "Φρέντο and εσπρέσο are Italian loanwords used as-is.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_cafe_order_drink:choose_option_variant_9",
+              "key": "choose_option_variant_9",
+              "intentKey": "choose_option",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Με ζάχαρη, παρακαλώ.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Με ζάχαρη, παρακαλώ."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "me záchari, parakaló."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "With sugar, please.",
+                  "note": "The other answer to the server's question.",
+                  "literal": "with sugar, please"
+                },
+                "fr": {
+                  "meaning": "Avec du sucre, s'il vous plaît.",
+                  "note": "C'est l'autre réponse possible à la question du serveur.",
+                  "literal": "avec sucre, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_cafe_order_drink:ask_for_bill_variant_10",
+              "key": "ask_for_bill_variant_10",
+              "intentKey": "ask_for_bill",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Μπορούμε να πληρώσουμε;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Μπορούμε να πληρώσουμε;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "borúme na plirósume?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can we pay?",
+                  "note": "Useful when you are with other people.",
+                  "literal": "can-we to pay-we"
+                },
+                "fr": {
+                  "meaning": "Pouvons-nous payer ?",
+                  "note": "Utile quand vous êtes avec d'autres personnes. Au début d'un mot, μπ se prononce « b ».",
+                  "literal": "pouvons-nous que payer-nous"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "μπ at the start of a word sounds like 'b'."
+            },
+            {
+              "id": "greek_ch1:greek_cafe_order_drink:thank_variant_11",
+              "key": "thank_variant_11",
+              "intentKey": "thank",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Σας ευχαριστώ!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Σας ευχαριστώ!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "sas efcharistó!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you!",
+                  "note": "Slightly more formal, with an explicit 'you (polite)'.",
+                  "literal": "you(polite) I-thank"
+                },
+                "fr": {
+                  "meaning": "Merci !",
+                  "note": "Un peu plus formel, avec un « vous » de politesse explicite.",
+                  "literal": "vous(poli) je-remercie"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "greek_market_ask_price",
+          "blueprintKey": "market_ask_price",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "market",
+          "characterKey": "greek_character_market_vendor",
+          "titles": {
+            "en": "Asking Prices at the Market",
+            "fr": "Demander les prix au marché"
+          },
+          "sceneNotes": {
+            "en": "You stop at a fruit stall where prices are per kilo, and the friendly vendor may throw in a little something extra.",
+            "fr": "Vous vous arrêtez devant un étal de fruits où les prix sont au kilo, et le sympathique vendeur pourrait bien vous offrir un petit extra."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_much",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "character"
+            },
+            {
+              "slotId": "expensive",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "lower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "deal",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "no_thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "greek_ch1:greek_market_ask_price:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Καλησπέρα σας!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Καλησπέρα σας!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kalispéra sas!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good afternoon/evening!",
+                  "note": "Use after about midday; switch to Καλημέρα in the morning.",
+                  "literal": "good-evening you (polite)"
+                },
+                "fr": {
+                  "meaning": "Bonsoir !",
+                  "note": "S'emploie à partir du milieu de la journée ; le matin, dites plutôt Καλημέρα. Accentuez le é de kalispéra.",
+                  "literal": "bonsoir vous (politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the é in kalispéra."
+            },
+            {
+              "id": "greek_ch1:greek_market_ask_price:how_much",
+              "key": "how_much",
+              "intentKey": "ask_price",
+              "slotId": "how_much",
+              "speaker": "learner",
+              "text": "Πόσο κάνουν τα μήλα, παρακαλώ;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Πόσο κάνουν τα μήλα, παρακαλώ;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "póso kánoun ta míla, parakaló?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much are the apples, please?",
+                  "note": "Swap μήλα for any fruit, e.g. τα πορτοκάλια (oranges).",
+                  "literal": "how-much make the apples please"
+                },
+                "fr": {
+                  "meaning": "Combien coûtent les pommes, s'il vous plaît ?",
+                  "note": "Remplacez μήλα par un autre fruit, par ex. τα πορτοκάλια (les oranges). Dans μήλα, ήλ se prononce « i-l » ; accent sur la première syllabe.",
+                  "literal": "combien font les pommes s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The ήλ in μήλα is 'ee-l'; stress the first syllable."
+            },
+            {
+              "id": "greek_ch1:greek_market_ask_price:price",
+              "key": "price",
+              "intentKey": "state_price",
+              "slotId": "price",
+              "speaker": "character",
+              "text": "Δύο ευρώ το κιλό.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Δύο ευρώ το κιλό."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "dío evró to kiló."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Two euros a kilo.",
+                  "note": "Prices at markets are usually quoted per kilo.",
+                  "literal": "two euro the kilo"
+                },
+                "fr": {
+                  "meaning": "Deux euros le kilo.",
+                  "note": "Au marché, les prix sont généralement indiqués au kilo.",
+                  "literal": "deux euro le kilo"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_market_ask_price:expensive",
+              "key": "expensive",
+              "intentKey": "say_too_expensive",
+              "slotId": "expensive",
+              "speaker": "learner",
+              "text": "Είναι λίγο ακριβά.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Είναι λίγο ακριβά."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "íne lígo akrivá."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "They're a bit expensive.",
+                  "note": "ακριβά is plural to match the fruit; use ακριβό for a single item.",
+                  "literal": "are a-little expensive"
+                },
+                "fr": {
+                  "meaning": "C'est un peu cher.",
+                  "note": "ακριβά est au pluriel pour s'accorder avec les fruits ; pour un seul article, dites ακριβό. Le γ de λίγο est un « gh » doux et guttural.",
+                  "literal": "sont un-peu chères"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The γ in λίγο is a soft, throaty 'gh'."
+            },
+            {
+              "id": "greek_ch1:greek_market_ask_price:lower",
+              "key": "lower",
+              "intentKey": "offer_lower_price",
+              "slotId": "lower",
+              "speaker": "learner",
+              "text": "Λίγο λιγότερο, παρακαλώ;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Λίγο λιγότερο, παρακαλώ;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "lígo ligótero, parakaló?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A bit less, please?",
+                  "note": "Said with a smile and rising intonation; a light, friendly ask.",
+                  "literal": "a-little less please"
+                },
+                "fr": {
+                  "meaning": "Un peu moins cher, s'il vous plaît ?",
+                  "note": "Dit avec le sourire et une intonation montante : une demande légère et aimable.",
+                  "literal": "un-peu moins s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_market_ask_price:deal",
+              "key": "deal",
+              "intentKey": "agree_to_price",
+              "slotId": "deal",
+              "speaker": "learner",
+              "text": "Εντάξει, θα τα πάρω.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Εντάξει, θα τα πάρω."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "entáxi, tha ta páro."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'll take them.",
+                  "note": "Use θα το πάρω for one item (singular).",
+                  "literal": "okay, will them I-take"
+                },
+                "fr": {
+                  "meaning": "D'accord, je les prends.",
+                  "note": "Pour un seul article, dites θα το πάρω. Εντάξει se prononce « en-DAK-si » (ξ = ks).",
+                  "literal": "d'accord, vais les je-prends"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Εντάξει is said as 'en-DAK-see' (ξ = ks)."
+            },
+            {
+              "id": "greek_ch1:greek_market_ask_price:no_thanks",
+              "key": "no_thanks",
+              "intentKey": "decline_purchase",
+              "slotId": "no_thanks",
+              "speaker": "learner",
+              "text": "Όχι, ευχαριστώ, όχι σήμερα.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Όχι, ευχαριστώ, όχι σήμερα."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ókhi, efcharistó, ókhi símera."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, thank you, not today.",
+                  "note": null,
+                  "literal": "no, thanks, not today"
+                },
+                "fr": {
+                  "meaning": "Non, merci, pas aujourd'hui.",
+                  "note": "Le χ est un « kh » soufflé, comme le « ch » allemand de « Bach » ; ευ devant χ se prononce « ef ».",
+                  "literal": "non, merci, non aujourd'hui"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "χ is a breathy 'kh' like Scottish 'loch'; ευ before χ sounds like 'ef'."
+            },
+            {
+              "id": "greek_ch1:greek_market_ask_price:ask_price_variant_8",
+              "key": "ask_price_variant_8",
+              "intentKey": "ask_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Πόσο κάνει το κιλό;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Πόσο κάνει το κιλό;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "póso káni to kiló?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is a kilo?",
+                  "note": "Handy when you point at the fruit and don't know its name.",
+                  "literal": "how-much makes the kilo"
+                },
+                "fr": {
+                  "meaning": "Combien coûte le kilo ?",
+                  "note": "Pratique quand vous montrez le fruit du doigt sans en connaître le nom.",
+                  "literal": "combien fait le kilo"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_market_ask_price:offer_lower_price_variant_9",
+              "key": "offer_lower_price_variant_9",
+              "intentKey": "offer_lower_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ενάμισι ευρώ και τα παίρνω;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Ενάμισι ευρώ και τα παίρνω;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "enámisi evró ke ta pérno?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One and a half euros and I'll take them?",
+                  "note": "A light bargaining offer: name your price and promise to buy.",
+                  "literal": "one-and-a-half euro and them I-take"
+                },
+                "fr": {
+                  "meaning": "Un euro cinquante et je les prends ?",
+                  "note": "Une petite offre pour marchander : annoncez votre prix et promettez d'acheter.",
+                  "literal": "un-et-demi euro et les je-prends"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_market_ask_price:decline_purchase_variant_10",
+              "key": "decline_purchase_variant_10",
+              "intentKey": "decline_purchase",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ίσως αργότερα, ευχαριστώ.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Ίσως αργότερα, ευχαριστώ."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "ísos argótera, efcharistó."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Maybe later, thank you.",
+                  "note": "A softer way to say no while browsing.",
+                  "literal": "maybe later, thanks"
+                },
+                "fr": {
+                  "meaning": "Peut-être plus tard, merci.",
+                  "note": "Une façon plus douce de dire non quand vous flânez.",
+                  "literal": "peut-être plus-tard, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "greek_ask_directions",
+          "blueprintKey": "ask_directions",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "directions",
+          "characterKey": "greek_character_passer_by",
+          "titles": {
+            "en": "Finding the Station",
+            "fr": "Trouver la gare"
+          },
+          "sceneNotes": {
+            "en": "You are a visitor looking for the station, and a passer-by gives you directions very quickly, so you will need to ask them to slow down.",
+            "fr": "Vous êtes de passage et cherchez la gare, mais un passant vous donne des indications très vite : vous allez devoir lui demander de ralentir."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_is",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "straight",
+              "speaker": "character"
+            },
+            {
+              "slotId": "turn",
+              "speaker": "character"
+            },
+            {
+              "slotId": "far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "near",
+              "speaker": "character"
+            },
+            {
+              "slotId": "repeat",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "slower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "greek_ch1:greek_ask_directions:excuse_me",
+              "key": "excuse_me",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "Με συγχωρείτε;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Με συγχωρείτε;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Me synchoríte?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me?",
+                  "note": "Polite way to stop a stranger before asking something.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Excusez-moi ?",
+                  "note": "Formule polie pour interpeller un inconnu avant de poser une question. Le χ se prononce comme un « h » soufflé, proche du « ch » allemand de « Bach ».",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The χ is a breathy 'h', like in 'loch'."
+            },
+            {
+              "id": "greek_ch1:greek_ask_directions:get_attention_variant_2",
+              "key": "get_attention_variant_2",
+              "intentKey": "get_attention",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Συγγνώμη, μπορείτε να με βοηθήσετε;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Συγγνώμη, μπορείτε να με βοηθήσετε;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Signómi, boríte na me voithísete?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, can you help me?",
+                  "note": "Slightly longer alternative that also tells the person you need help.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Pardon, pouvez-vous m'aider ?",
+                  "note": "Variante un peu plus longue qui indique aussi que vous avez besoin d'aide. Συγγνώμη se prononce « signómi » : le γγ sonne comme un « g » ou « ng ».",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Συγγνώμη is said 'signómi'; the γγ sounds like 'g' or 'ng'."
+            },
+            {
+              "id": "greek_ch1:greek_ask_directions:where_is",
+              "key": "where_is",
+              "intentKey": "ask_where_is",
+              "slotId": "where_is",
+              "speaker": "learner",
+              "text": "Πού είναι ο σταθμός, παρακαλώ;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Πού είναι ο σταθμός, παρακαλώ;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Pou íne o stathmós, parakaló?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where is the station, please?",
+                  "note": "σταθμός can mean train, metro or bus station; the context usually makes it clear.",
+                  "literal": "where is the station please"
+                },
+                "fr": {
+                  "meaning": "Où est la gare, s'il vous plaît ?",
+                  "note": "σταθμός peut désigner une gare de train, une station de métro ou une gare routière ; le contexte précise en général. Le θ se prononce comme le « th » anglais de « think » (langue entre les dents).",
+                  "literal": "où est la gare s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "θ is like 'th' in 'think'."
+            },
+            {
+              "id": "greek_ch1:greek_ask_directions:ask_where_is_variant_4",
+              "key": "ask_where_is_variant_4",
+              "intentKey": "ask_where_is",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Υπάρχει σταθμός εδώ κοντά;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Υπάρχει σταθμός εδώ κοντά;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ipárchi stathmós edhó kondá?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a station near here?",
+                  "note": null,
+                  "literal": "exists station here near"
+                },
+                "fr": {
+                  "meaning": "Y a-t-il une gare près d'ici ?",
+                  "note": "Le δ se prononce comme un « th » doux, proche du « th » anglais de « this ».",
+                  "literal": "existe gare ici près"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "δ is a soft 'th' as in 'this'."
+            },
+            {
+              "id": "greek_ch1:greek_ask_directions:straight",
+              "key": "straight",
+              "intentKey": "give_direction_straight",
+              "slotId": "straight",
+              "speaker": "character",
+              "text": "Πηγαίνετε ευθεία.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Πηγαίνετε ευθεία."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Pigaínete efthía."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Go straight ahead.",
+                  "note": "Polite plural/formal form. In casual speech people say 'Πας ευθεία'.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Allez tout droit.",
+                  "note": "Forme de politesse (vouvoiement). En langage courant, on dit « Πας ευθεία ». Le ευ devant θ se prononce « ef ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ευ before θ sounds like 'ef'."
+            },
+            {
+              "id": "greek_ch1:greek_ask_directions:turn",
+              "key": "turn",
+              "intentKey": "give_direction_turn",
+              "slotId": "turn",
+              "speaker": "character",
+              "text": "Στρίψτε αριστερά στη γωνία, μετά δεξιά.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Στρίψτε αριστερά στη γωνία, μετά δεξιά."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Strípste aristerá sti gonía, metá dexiá."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Turn left at the corner, then right.",
+                  "note": "This gives the two turns of the route.",
+                  "literal": "turn left at-the corner, then right"
+                },
+                "fr": {
+                  "meaning": "Tournez à gauche au coin, puis à droite.",
+                  "note": "Cela donne les deux virages de l'itinéraire. Dans Στρίψτε, le groupe ψτ se prononce vite, comme « pst ».",
+                  "literal": "tournez gauche au coin, puis droite"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ψτ in Στρίψτε is a quick 'pst' cluster."
+            },
+            {
+              "id": "greek_ch1:greek_ask_directions:far",
+              "key": "far",
+              "intentKey": "ask_is_it_far",
+              "slotId": "far",
+              "speaker": "learner",
+              "text": "Είναι μακριά;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Είναι μακριά;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Íne makriá?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it far?",
+                  "note": null,
+                  "literal": "is far"
+                },
+                "fr": {
+                  "meaning": "Est-ce que c'est loin ?",
+                  "note": null,
+                  "literal": "est loin"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_ask_directions:ask_is_it_far_variant_8",
+              "key": "ask_is_it_far_variant_8",
+              "intentKey": "ask_is_it_far",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Πόση ώρα με τα πόδια;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Πόση ώρα με τα πόδια;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Pósi óra me ta pódia?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How long on foot?",
+                  "note": null,
+                  "literal": "how-much time with the feet"
+                },
+                "fr": {
+                  "meaning": "Combien de temps à pied ?",
+                  "note": null,
+                  "literal": "combien-de temps avec les pieds"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_ask_directions:near",
+              "key": "near",
+              "intentKey": "say_it_is_near",
+              "slotId": "near",
+              "speaker": "character",
+              "text": "Όχι, δέκα λεπτά με τα πόδια.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Όχι, δέκα λεπτά με τα πόδια."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Óchi, dhéka leptá me ta pódia."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, it's ten minutes on foot.",
+                  "note": "Answers 'Is it far?' by saying it is a short walk.",
+                  "literal": "no, ten minutes with the feet"
+                },
+                "fr": {
+                  "meaning": "Non, c'est à dix minutes à pied.",
+                  "note": "Répond à « Est-ce que c'est loin ? » : c'est une courte marche.",
+                  "literal": "non, dix minutes avec les pieds"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_ask_directions:repeat",
+              "key": "repeat",
+              "intentKey": "ask_repeat",
+              "slotId": "repeat",
+              "speaker": "learner",
+              "text": "Μπορείτε να το πείτε ξανά, παρακαλώ;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Μπορείτε να το πείτε ξανά, παρακαλώ;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Boríte na to píte xaná, parakaló?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you say it again, please?",
+                  "note": null,
+                  "literal": "can-you to it say again please"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous le répéter, s'il vous plaît ?",
+                  "note": "Au début d'un mot, μπ se prononce « b ».",
+                  "literal": "pouvez-vous que le dire encore s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "μπ at the start of a word sounds like 'b'."
+            },
+            {
+              "id": "greek_ch1:greek_ask_directions:ask_repeat_variant_11",
+              "key": "ask_repeat_variant_11",
+              "intentKey": "ask_repeat",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Συγγνώμη, τι είπατε;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Συγγνώμη, τι είπατε;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Signómi, ti ípate?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, what did you say?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Pardon, qu'avez-vous dit ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_ask_directions:slower",
+              "key": "slower",
+              "intentKey": "ask_slow_down",
+              "slotId": "slower",
+              "speaker": "learner",
+              "text": "Μπορείτε να μιλάτε πιο αργά, παρακαλώ;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Μπορείτε να μιλάτε πιο αργά, παρακαλώ;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Boríte na miláte pio argá, parakaló?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you speak more slowly, please?",
+                  "note": "Key phrase for this mission, since the passer-by speaks fast.",
+                  "literal": "can-you to speak more slowly please"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous parler plus lentement, s'il vous plaît ?",
+                  "note": "Phrase clé de cette mission, puisque le passant parle vite. Dans αργά, le γ est un son doux, voisé, proche d'un « r » grasseyé léger.",
+                  "literal": "pouvez-vous que parler plus lentement s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "γ in αργά is a soft, voiced 'gh' sound."
+            },
+            {
+              "id": "greek_ch1:greek_ask_directions:ask_slow_down_variant_13",
+              "key": "ask_slow_down_variant_13",
+              "intentKey": "ask_slow_down",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Πιο αργά, παρακαλώ.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Πιο αργά, παρακαλώ."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Pio argá, parakaló."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "More slowly, please.",
+                  "note": "Short and easy to say; works well when you are in a hurry.",
+                  "literal": "more slowly please"
+                },
+                "fr": {
+                  "meaning": "Plus lentement, s'il vous plaît.",
+                  "note": "Court et facile à dire ; pratique quand on est pressé.",
+                  "literal": "plus lentement s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_ask_directions:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Ευχαριστώ για τη βοήθεια!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Ευχαριστώ για τη βοήθεια!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Efcharistó gia ti voíthia!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks for the help!",
+                  "note": "Extends the plain 'Ευχαριστώ' learned earlier.",
+                  "literal": "thank-you for the help"
+                },
+                "fr": {
+                  "meaning": "Merci pour votre aide !",
+                  "note": "Prolonge le simple « Ευχαριστώ » appris plus tôt. Le ευ devant χ se prononce « ef ».",
+                  "literal": "merci pour l'aide"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ευ before χ sounds like 'ef'."
+            }
+          ]
+        },
+        {
+          "key": "greek_meet_neighbour",
+          "blueprintKey": "meet_neighbour",
+          "missionType": "story",
+          "level": "beginner",
+          "situation": "neighbours",
+          "characterKey": "greek_character_neighbour",
+          "titles": {
+            "en": "Meeting Your New Neighbour",
+            "fr": "Rencontrer votre nouveau voisin"
+          },
+          "sceneNotes": {
+            "en": "You bump into your neighbour in the stairwell as she carries her shopping bags up the stairs.",
+            "fr": "Vous croisez votre voisine, Ελένη, dans la cage d'escalier alors qu'elle monte ses sacs de courses."
+          },
+          "slots": [
+            {
+              "slotId": "new_neighbour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "character"
+            },
+            {
+              "slotId": "where_from_q",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "from",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "speak_lang",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "little",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "offer_help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "greek_ch1:greek_meet_neighbour:new_neighbour",
+              "key": "new_neighbour",
+              "intentKey": "say_new_neighbour",
+              "slotId": "new_neighbour",
+              "speaker": "learner",
+              "text": "Είμαι ο νέος σας γείτονας.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Είμαι ο νέος σας γείτονας."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "íme o néos sas gítonas."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm your new neighbour.",
+                  "note": "A woman says «η νέα σας γειτόνισσα» instead.",
+                  "literal": "I-am the new your neighbour"
+                },
+                "fr": {
+                  "meaning": "Je suis votre nouveau voisin.",
+                  "note": "Une femme dit plutôt «η νέα σας γειτόνισσα». Le γ devant ε/ι se prononce comme un « y » : «γείτονας» se dit « yi-… ».",
+                  "literal": "Je-suis le nouveau votre voisin"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "γ before ε/ι sounds like English y; in «γείτονας» it is yee-."
+            },
+            {
+              "id": "greek_ch1:greek_meet_neighbour:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Καλώς ήρθατε στην πολυκατοικία!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Καλώς ήρθατε στην πολυκατοικία!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kalós írthate stin polikatikía!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome to the building!",
+                  "note": "The standard welcome for a new arrival.",
+                  "literal": "Well you-came to-the apartment-building"
+                },
+                "fr": {
+                  "meaning": "Bienvenue dans l'immeuble !",
+                  "note": "La formule habituelle pour accueillir un nouvel arrivant.",
+                  "literal": "Bien vous-êtes-venu dans-l'immeuble"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_meet_neighbour:where_from_q",
+              "key": "where_from_q",
+              "intentKey": "ask_where_from",
+              "slotId": "where_from_q",
+              "speaker": "learner",
+              "text": "Από πού είστε;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Από πού είστε;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "apó pou íste?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where are you from?",
+                  "note": "Polite plural «είστε» for someone you don't know yet.",
+                  "literal": "From where you-are"
+                },
+                "fr": {
+                  "meaning": "D'où êtes-vous ?",
+                  "note": "Le pluriel de politesse «είστε» s'emploie avec quelqu'un qu'on ne connaît pas encore.",
+                  "literal": "De où vous-êtes"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_meet_neighbour:from",
+              "key": "from",
+              "intentKey": "say_where_from",
+              "slotId": "from",
+              "speaker": "learner",
+              "text": "Είμαι από την Αγγλία.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Είμαι από την Αγγλία."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "íme apó tin Anglía."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm from England.",
+                  "note": "Swap in your own country, e.g. «από τη Γερμανία».",
+                  "literal": "I-am from the England"
+                },
+                "fr": {
+                  "meaning": "Je viens d'Angleterre.",
+                  "note": "Remplacez par votre pays, par exemple «από τη Γερμανία». Le γγ de Αγγλία se prononce « ng », comme dans « parking ».",
+                  "literal": "Je-suis de l'Angleterre"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The γκ in Αγγλία sounds like ng, as in «finger»."
+            },
+            {
+              "id": "greek_ch1:greek_meet_neighbour:speak_lang",
+              "key": "speak_lang",
+              "intentKey": "ask_if_speaks_language",
+              "slotId": "speak_lang",
+              "speaker": "learner",
+              "text": "Μιλάτε αγγλικά;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Μιλάτε αγγλικά;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "miláte angliká?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you speak English?",
+                  "note": null,
+                  "literal": "Speak-you English"
+                },
+                "fr": {
+                  "meaning": "Parlez-vous anglais ?",
+                  "note": null,
+                  "literal": "Parlez-vous anglais"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_meet_neighbour:little",
+              "key": "little",
+              "intentKey": "say_speak_little",
+              "slotId": "little",
+              "speaker": "learner",
+              "text": "Μιλάω λίγα ελληνικά.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Μιλάω λίγα ελληνικά."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "miláo líga elliniká."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I speak a little Greek.",
+                  "note": null,
+                  "literal": "I-speak few Greek"
+                },
+                "fr": {
+                  "meaning": "Je parle un peu grec.",
+                  "note": "Le γ de «λίγα» est un son doux et guttural, entre « y » et « gh ».",
+                  "literal": "Je-parle peu grec"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The γ in «λίγα» is a soft, throaty y/gh sound."
+            },
+            {
+              "id": "greek_ch1:greek_meet_neighbour:offer_help",
+              "key": "offer_help",
+              "intentKey": "offer_help",
+              "slotId": "offer_help",
+              "speaker": "learner",
+              "text": "Θέλετε βοήθεια με τις σακούλες;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Θέλετε βοήθεια με τις σακούλες;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "thélete voíthia me tis sakoúles?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Would you like help with the bags?",
+                  "note": null,
+                  "literal": "Want-you help with the bags"
+                },
+                "fr": {
+                  "meaning": "Voulez-vous de l'aide avec les sacs ?",
+                  "note": "θ se prononce comme le « th » anglais de « think » (langue entre les dents) ; β se prononce « v ».",
+                  "literal": "Voulez-vous aide avec les sacs"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "θ is like th in «think»; β is like v."
+            },
+            {
+              "id": "greek_ch1:greek_meet_neighbour:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Ευχαριστώ για την πρόσκληση!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Ευχαριστώ για την πρόσκληση!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "efcharistó ya tin prósklisi!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you for the invitation!",
+                  "note": "Use it after the neighbour invites you for tea.",
+                  "literal": "Thank-you for the invitation"
+                },
+                "fr": {
+                  "meaning": "Merci pour l'invitation !",
+                  "note": "À dire après que la voisine vous a invité à prendre le thé. Le ευ de «Ευχαριστώ» se prononce « ef » devant χ.",
+                  "literal": "Merci pour l'invitation"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The ευ in «Ευχαριστώ» sounds like ef before χ."
+            },
+            {
+              "id": "greek_ch1:greek_meet_neighbour:say_new_neighbour_variant_9",
+              "key": "say_new_neighbour_variant_9",
+              "intentKey": "say_new_neighbour",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Μόλις μετακόμισα στον πάνω όροφο.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Μόλις μετακόμισα στον πάνω όροφο."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "mólis metakómisa ston páno órofo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I just moved in upstairs.",
+                  "note": "Gives the same information in a more personal way.",
+                  "literal": "Just I-moved to-the upper floor"
+                },
+                "fr": {
+                  "meaning": "Je viens d'emménager à l'étage au-dessus.",
+                  "note": "Donne la même information de façon plus personnelle.",
+                  "literal": "Juste j'ai-emménagé à-l' étage supérieur"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_meet_neighbour:ask_where_from_variant_10",
+              "key": "ask_where_from_variant_10",
+              "intentKey": "ask_where_from",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Από πού είσαι;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Από πού είσαι;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "apó pou íse?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where are you from?",
+                  "note": "Informal «εσύ» form, for when the neighbour invites you to use it.",
+                  "literal": "From where you-are"
+                },
+                "fr": {
+                  "meaning": "D'où es-tu ?",
+                  "note": "Forme familière avec «εσύ», à utiliser quand la voisine vous propose de la tutoyer.",
+                  "literal": "De où tu-es"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_meet_neighbour:offer_help_variant_11",
+              "key": "offer_help_variant_11",
+              "intentKey": "offer_help",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Να σας βοηθήσω;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Να σας βοηθήσω;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "na sas voithíso?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall I help you?",
+                  "note": "A short, very common way to offer help.",
+                  "literal": "To you I-help"
+                },
+                "fr": {
+                  "meaning": "Je peux vous aider ?",
+                  "note": "Une façon courte et très courante de proposer son aide.",
+                  "literal": "Que vous j'aide"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_meet_neighbour:say_speak_little_variant_12",
+              "key": "say_speak_little_variant_12",
+              "intentKey": "say_speak_little",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Μαθαίνω ελληνικά. Πιο αργά, παρακαλώ.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Μαθαίνω ελληνικά. Πιο αργά, παρακαλώ."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "mathaíno ellinikά. pio argá, parakaló."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm learning Greek. More slowly, please.",
+                  "note": "Useful when the neighbour speaks fast.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "J'apprends le grec. Plus lentement, s'il vous plaît.",
+                  "note": "Utile quand la voisine parle vite.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "greek_take_taxi",
+          "blueprintKey": "take_taxi",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "transport",
+          "characterKey": "greek_character_taxi_driver",
+          "titles": {
+            "en": "Taking a Taxi",
+            "fr": "Prendre un taxi"
+          },
+          "sceneNotes": {
+            "en": "You are going to the old town in heavy traffic with a chatty taxi driver who quotes a price without turning on the meter.",
+            "fr": "Vous allez à la vieille ville dans les embouteillages, avec un chauffeur de taxi bavard qui annonce un prix sans mettre le compteur."
+          },
+          "slots": [
+            {
+              "slotId": "hail",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_to",
+              "speaker": "character"
+            },
+            {
+              "slotId": "destination",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "meter",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fare",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "change",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "greek_ch1:greek_take_taxi:hail",
+              "key": "hail",
+              "intentKey": "hail_taxi",
+              "slotId": "hail",
+              "speaker": "learner",
+              "text": "Συγγνώμη, είστε ελεύθερος;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Συγγνώμη, είστε ελεύθερος;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "signómi, íste eléftheros?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, are you free?",
+                  "note": "Said through the window or at the taxi rank. Use 'ελεύθερη' only if speaking about a female driver.",
+                  "literal": "Sorry, are-you free?"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, vous êtes libre ?",
+                  "note": "À dire par la vitre ou à la station de taxis. Employez « ελεύθερη » seulement si la conductrice est une femme. Le « γγ » de « συγγνώμη » se prononce comme un « g ».",
+                  "literal": "Pardon, êtes-vous libre ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "γγ in 'συγγνώμη' is pronounced like a 'g'."
+            },
+            {
+              "id": "greek_ch1:greek_take_taxi:where_to",
+              "key": "where_to",
+              "intentKey": "ask_destination",
+              "slotId": "where_to",
+              "speaker": "character",
+              "text": "Καλώς τον! Πού πάμε;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Καλώς τον! Πού πάμε;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "kalós ton! poú páme?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome! Where are we going?",
+                  "note": "A friendly driver's greeting, using 'we' for 'you'.",
+                  "literal": "Well (him)! Where go-we?"
+                },
+                "fr": {
+                  "meaning": "Bienvenue ! On va où ?",
+                  "note": "Accueil chaleureux d'un chauffeur sympathique, qui dit « on » à la place de « vous ».",
+                  "literal": "Bien (lui) ! Où allons-nous ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_take_taxi:destination",
+              "key": "destination",
+              "intentKey": "state_destination",
+              "slotId": "destination",
+              "speaker": "learner",
+              "text": "Στην Παλιά Πόλη, παρακαλώ.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Στην Παλιά Πόλη, παρακαλώ."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "stin paliá póli, parakaló."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "To the old town, please.",
+                  "note": null,
+                  "literal": "To-the old town, please."
+                },
+                "fr": {
+                  "meaning": "À la vieille ville, s'il vous plaît.",
+                  "note": "Le « λι » de « Παλιά » se prononce « lya ».",
+                  "literal": "À-la vieille ville, s'il-vous-plaît."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'λι' in 'Παλιά' sounds like 'lya'."
+            },
+            {
+              "id": "greek_ch1:greek_take_taxi:meter",
+              "key": "meter",
+              "intentKey": "ask_use_meter",
+              "slotId": "meter",
+              "speaker": "learner",
+              "text": "Μπορείτε να βάλετε το ταξίμετρο;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Μπορείτε να βάλετε το ταξίμετρο;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "boríte na válete to taxímetro?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you put the meter on?",
+                  "note": "A polite way to respond when the driver quotes a price without the meter.",
+                  "literal": "Can-you that put-on the meter?"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous mettre le compteur, s'il vous plaît ?",
+                  "note": "Façon polie de réagir quand le chauffeur annonce un prix sans compteur. Le « μπ » en début de mot se prononce « b ».",
+                  "literal": "Pouvez-vous que mettre le taximètre ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'μπ' at the start of a word sounds like 'b'."
+            },
+            {
+              "id": "greek_ch1:greek_take_taxi:fare",
+              "key": "fare",
+              "intentKey": "ask_fare",
+              "slotId": "fare",
+              "speaker": "learner",
+              "text": "Πόσο θα κάνει μέχρι την Παλιά Πόλη;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Πόσο θα κάνει μέχρι την Παλιά Πόλη;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "póso tha káni méchri tin paliá póli?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much will it be to the old town?",
+                  "note": null,
+                  "literal": "How-much will make until the old town?"
+                },
+                "fr": {
+                  "meaning": "Combien cela coûtera-t-il jusqu'à la vieille ville ?",
+                  "note": "Le « χρ » de « μέχρι » est un « ch » guttural suivi d'un « r ».",
+                  "literal": "Combien fera jusqu'à la vieille ville ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'χρ' in 'μέχρι' is a throaty 'ch' followed by 'r'."
+            },
+            {
+              "id": "greek_ch1:greek_take_taxi:stop",
+              "key": "stop",
+              "intentKey": "say_stop_here",
+              "slotId": "stop",
+              "speaker": "learner",
+              "text": "Μπορείτε να σταματήσετε εδώ;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Μπορείτε να σταματήσετε εδώ;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "boríte na stamatísete edó?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you stop here?",
+                  "note": null,
+                  "literal": "Can-you that stop here?"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous vous arrêter ici ?",
+                  "note": null,
+                  "literal": "Pouvez-vous que arrêter ici ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_take_taxi:change",
+              "key": "change",
+              "intentKey": "ask_for_change",
+              "slotId": "change",
+              "speaker": "learner",
+              "text": "Έχετε ρέστα, παρακαλώ;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Έχετε ρέστα, παρακαλώ;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "échete résta, parakaló?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have change, please?",
+                  "note": "'Ρέστα' is the everyday word for change (money back).",
+                  "literal": "Have-you change, please?"
+                },
+                "fr": {
+                  "meaning": "Avez-vous de la monnaie, s'il vous plaît ?",
+                  "note": "« Ρέστα » est le mot courant pour la monnaie rendue. Le « ρ » grec est légèrement roulé.",
+                  "literal": "Avez-vous monnaie, s'il-vous-plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The Greek 'ρ' is lightly rolled."
+            },
+            {
+              "id": "greek_ch1:greek_take_taxi:bye",
+              "key": "bye",
+              "intentKey": "say_goodbye",
+              "slotId": "bye",
+              "speaker": "learner",
+              "text": "Να έχετε μια καλή μέρα!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Να έχετε μια καλή μέρα!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "na échete mia kalí méra!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Have a good day!",
+                  "note": "A friendly polite goodbye when getting out of the taxi.",
+                  "literal": "That have-you a good day!"
+                },
+                "fr": {
+                  "meaning": "Bonne journée !",
+                  "note": "Formule d'adieu aimable et polie en descendant du taxi.",
+                  "literal": "Que ayez-vous une bonne journée !"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_take_taxi:hail_taxi_variant_9",
+              "key": "hail_taxi_variant_9",
+              "intentKey": "hail_taxi",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ταξί! Είστε ελεύθερος;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Ταξί! Είστε ελεύθερος;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "taxí! íste eléftheros?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Taxi! Are you free?",
+                  "note": "More direct, for calling a passing cab.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Taxi ! Vous êtes libre ?",
+                  "note": "Plus direct, pour héler un taxi qui passe.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_take_taxi:say_stop_here_variant_10",
+              "key": "say_stop_here_variant_10",
+              "intentKey": "say_stop_here",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Εδώ είναι μια χαρά, ευχαριστώ.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Εδώ είναι μια χαρά, ευχαριστώ."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "edó íne mia chará, efcharistó."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Here is fine, thank you.",
+                  "note": "Useful when you want to get out in traffic.",
+                  "literal": "Here is one joy, thanks."
+                },
+                "fr": {
+                  "meaning": "Ici, c'est très bien, merci.",
+                  "note": "Utile pour descendre en pleine circulation. Le « ευ » de « ευχαριστώ » se prononce « ef ».",
+                  "literal": "Ici est une joie, merci."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'ευ' in 'ευχαριστώ' sounds like 'ef'."
+            }
+          ]
+        },
+        {
+          "key": "greek_buy_ice_cream",
+          "blueprintKey": "buy_ice_cream",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "shopping",
+          "characterKey": "greek_character_child_at_the_ice_cream_stand",
+          "titles": {
+            "en": "Buying an Ice Cream",
+            "fr": "Acheter une glace"
+          },
+          "sceneNotes": {
+            "en": "You are at an ice-cream cart outside the school with a child who wants an ice cream, but only two flavours are left.",
+            "fr": "Vous êtes à un chariot de glaces devant l'école avec un enfant qui veut une glace, mais il ne reste que deux parfums."
+          },
+          "slots": [
+            {
+              "slotId": "wants",
+              "speaker": "character"
+            },
+            {
+              "slotId": "which_flavour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "picks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "scoop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "asks_two",
+              "speaker": "character"
+            },
+            {
+              "slotId": "just_one",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "okay",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "yummy",
+              "speaker": "character"
+            },
+            {
+              "slotId": "me_too",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "greek_ch1:greek_buy_ice_cream:wants",
+              "key": "wants",
+              "intentKey": "request_food",
+              "slotId": "wants",
+              "speaker": "character",
+              "text": "Θέλω ένα παγωτό, σε παρακαλώ!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Θέλω ένα παγωτό, σε παρακαλώ!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Thélo éna pagotó, se parakaló!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want an ice cream, please!",
+                  "note": "A child asking an adult directly, using the informal 'σε'.",
+                  "literal": "I-want an ice-cream, you please"
+                },
+                "fr": {
+                  "meaning": "Je veux une glace, s'il te plaît !",
+                  "note": "Un enfant qui s'adresse directement à un adulte, avec le « σε » familier (tutoiement).",
+                  "literal": "Je-veux une glace, te s'il-plaît"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_buy_ice_cream:which_flavour",
+              "key": "which_flavour",
+              "intentKey": "offer_options",
+              "slotId": "which_flavour",
+              "speaker": "learner",
+              "text": "Σοκολάτα ή βανίλια;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Σοκολάτα ή βανίλια;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Sokoláta i vanília?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Chocolate or vanilla?",
+                  "note": "Offering the two flavours that are left.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Chocolat ou vanille ?",
+                  "note": "On propose les deux parfums qui restent. Le mot « ή » (ou) se prononce « i ».",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The word 'ή' (or) is pronounced 'ee'."
+            },
+            {
+              "id": "greek_ch1:greek_buy_ice_cream:picks",
+              "key": "picks",
+              "intentKey": "choose_option",
+              "slotId": "picks",
+              "speaker": "character",
+              "text": "Σοκολάτα, παρακαλώ!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Σοκολάτα, παρακαλώ!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Sokoláta, parakaló!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Chocolate, please!",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Chocolat, s'il vous plaît !",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_buy_ice_cream:scoop",
+              "key": "scoop",
+              "intentKey": "specify_quantity",
+              "slotId": "scoop",
+              "speaker": "learner",
+              "text": "Μία μπάλα σοκολάτα, παρακαλώ.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Μία μπάλα σοκολάτα, παρακαλώ."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Mía bála sokoláta, parakaló."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One scoop of chocolate, please.",
+                  "note": "Said to the ice-cream seller. Greeks call a scoop a 'μπάλα' (ball).",
+                  "literal": "One ball chocolate, please"
+                },
+                "fr": {
+                  "meaning": "Une boule de chocolat, s'il vous plaît.",
+                  "note": "À dire au vendeur de glaces. En grec, une boule de glace se dit « μπάλα » (balle). « μπ » en début de mot se prononce « b ».",
+                  "literal": "Une balle chocolat, s'il-vous-plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'μπ' at the start of a word sounds like 'b'."
+            },
+            {
+              "id": "greek_ch1:greek_buy_ice_cream:asks_two",
+              "key": "asks_two",
+              "intentKey": "ask_permission",
+              "slotId": "asks_two",
+              "speaker": "character",
+              "text": "Μπορώ να πάρω δύο μπάλες;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Μπορώ να πάρω δύο μπάλες;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Boró na páro dío báles?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I have two scoops?",
+                  "note": "This is the twist: the child asks for more.",
+                  "literal": "Can I take two balls?"
+                },
+                "fr": {
+                  "meaning": "Je peux prendre deux boules ?",
+                  "note": "C'est le rebondissement : l'enfant en demande plus.",
+                  "literal": "Je-peux que je-prenne deux balles ?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_buy_ice_cream:just_one",
+              "key": "just_one",
+              "intentKey": "refuse_permission",
+              "slotId": "just_one",
+              "speaker": "learner",
+              "text": "Όχι, αγάπη μου, σήμερα μόνο μία.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Όχι, αγάπη μου, σήμερα μόνο μία."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Óchi, agápi mou, símera móno mía."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, sweetheart, only one today.",
+                  "note": "A kind way to say no to a child.",
+                  "literal": "No, love my, today only one"
+                },
+                "fr": {
+                  "meaning": "Non, mon chéri, aujourd'hui une seule.",
+                  "note": "Une façon gentille de dire non à un enfant. Le « χ » est un « h » soufflé, comme le « ch » allemand de « Buch ».",
+                  "literal": "Non, amour mon, aujourd'hui seulement une"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'χ' is a breathy 'h' sound, like in Scottish 'loch'."
+            },
+            {
+              "id": "greek_ch1:greek_buy_ice_cream:refuse_permission_variant_7",
+              "key": "refuse_permission_variant_7",
+              "intentKey": "refuse_permission",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Μία φτάνει, αγάπη μου.",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Μία φτάνει, αγάπη μου."
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Mía ftáni, agápi mou."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One is enough, sweetheart.",
+                  "note": "A softer, shorter alternative.",
+                  "literal": "One suffices, love my"
+                },
+                "fr": {
+                  "meaning": "Une, ça suffit, mon chéri.",
+                  "note": "Une variante plus douce et plus courte.",
+                  "literal": "Une suffit, amour mon"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_buy_ice_cream:okay",
+              "key": "okay",
+              "intentKey": "grant_permission",
+              "slotId": "okay",
+              "speaker": "learner",
+              "text": "Ναι, βέβαια, μπορείς!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Ναι, βέβαια, μπορείς!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Ne, véveia, borís!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, of course, you can!",
+                  "note": "Said when the child first asks for an ice cream.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Oui, bien sûr, tu peux !",
+                  "note": "À dire quand l'enfant demande une glace pour la première fois.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_buy_ice_cream:yummy",
+              "key": "yummy",
+              "intentKey": "say_delicious",
+              "slotId": "yummy",
+              "speaker": "character",
+              "text": "Μμμ, είναι πολύ νόστιμο!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Μμμ, είναι πολύ νόστιμο!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Mmm, íne polí nóstimo!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Mmm, it's really tasty!",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Mmm, c'est très bon !",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_buy_ice_cream:me_too",
+              "key": "me_too",
+              "intentKey": "express_like",
+              "slotId": "me_too",
+              "speaker": "learner",
+              "text": "Μου αρέσει πολύ η σοκολάτα!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Μου αρέσει πολύ η σοκολάτα!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Mou arési polí i sokoláta!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I really like chocolate!",
+                  "note": null,
+                  "literal": "To-me pleases much the chocolate"
+                },
+                "fr": {
+                  "meaning": "J'adore le chocolat !",
+                  "note": null,
+                  "literal": "À-moi plaît beaucoup le chocolat"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_buy_ice_cream:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "character",
+              "text": "Ευχαριστώ πολύ για το παγωτό!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Ευχαριστώ πολύ για το παγωτό!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Efcharistó polí gia to pagotó!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you so much for the ice cream!",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup pour la glace !",
+                  "note": "« ευ » devant une consonne sourde se prononce « ef ».",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'ευ' before a voiceless consonant sounds like 'ef'."
+            },
+            {
+              "id": "greek_ch1:greek_buy_ice_cream:welcome",
+              "key": "welcome",
+              "intentKey": "respond_to_thanks",
+              "slotId": "welcome",
+              "speaker": "learner",
+              "text": "Παρακαλώ, αγάπη μου!",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Παρακαλώ, αγάπη μου!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Parakaló, agápi mou!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You're welcome, sweetheart!",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "De rien, mon chéri !",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "greek_ch1:greek_buy_ice_cream:offer_options_variant_13",
+              "key": "offer_options_variant_13",
+              "intentKey": "offer_options",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ποια γεύση θέλεις;",
+              "forms": [
+                {
+                  "script": "Grek",
+                  "scheme": null,
+                  "text": "Ποια γεύση θέλεις;"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "translit-latn",
+                  "text": "Pia géfsi thélis?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which flavour do you want?",
+                  "note": "An open alternative to offering two named flavours.",
+                  "literal": "Which flavour you-want?"
+                },
+                "fr": {
+                  "meaning": "Quel parfum veux-tu ?",
+                  "note": "Une alternative ouverte, sans proposer deux parfums précis.",
+                  "literal": "Quel parfum tu-veux ?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

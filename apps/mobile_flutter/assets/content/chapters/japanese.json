@@ -1,0 +1,1471 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts",
+  "courseTrackId": "japanese",
+  "chapters": [
+    {
+      "key": "ja_ch1_arrival_tokyo",
+      "chapterIndex": 1,
+      "courseTrackId": "japanese",
+      "targetVarietyId": "ja",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "First days in Tokyo",
+        "fr": "Premiers jours à Tokyo"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "curriculum-seed/japanese@2026-10",
+      "notes": [
+        "Polite (desu/masu) register throughout, as appropriate for strangers; casual forms are deliberately absent from chapter 1.",
+        "Pitch accent is not annotated; a reviewer should flag words where accent matters for intelligibility.",
+        "Furigana forms are full-kana readings (not ruby markup).",
+        "fr learner text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+      ],
+      "characters": [
+        {
+          "key": "ja_aoi_acquaintance",
+          "name": "Aoi",
+          "role": "friendly local acquaintance",
+          "personality": "polite, gently curious, encouraging",
+          "homeRegion": "Tokyo",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "ja_kenta_cafe",
+          "name": "Kenta",
+          "role": "café server",
+          "personality": "efficient, courteous, uses set phrases",
+          "homeRegion": "Tokyo",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "ja_sato_passerby",
+          "name": "Satō-san",
+          "role": "passer-by",
+          "personality": "helpful office worker, slightly hurried",
+          "homeRegion": "Tokyo",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "ja_tanaka_taxi",
+          "name": "Tanaka-san",
+          "role": "taxi driver",
+          "personality": "formal, calm, knows the city",
+          "homeRegion": "Tokyo",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "ja_greet_and_introduce",
+          "blueprintKey": "greet_and_introduce",
+          "missionType": "standard",
+          "level": "beginner",
+          "situation": "introductions",
+          "characterKey": "ja_aoi_acquaintance",
+          "titles": {
+            "en": "Greet and introduce yourself",
+            "fr": "Saluer et se présenter"
+          },
+          "sceneNotes": {
+            "en": "A neighbour greets you outside the apartment building in the afternoon.",
+            "fr": "Vous croisez une voisine devant votre immeuble, en début d'après-midi, et elle vous salue."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_are_you",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fine",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "your_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "nice_to_meet",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "goodbye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_greet_and_introduce:konnichiwa",
+              "key": "konnichiwa",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "こんにちは",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "こんにちは"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "こんにちは"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "konnichiwa"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello / good afternoon.",
+                  "note": "Morning: \"ohayou gozaimasu\"; evening: \"konbanwa\".",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bonjour (en journée).",
+                  "note": "Le matin, on dit « ohayou gozaimasu » ; le soir, « konbanwa ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_greet_and_introduce:ohayou",
+              "key": "ohayou",
+              "intentKey": "greet_time_of_day",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "おはようございます",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "おはようございます"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "おはようございます"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "ohayou gozaimasu"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bonjour (le matin).",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_greet_and_introduce:ogenki_desu_ka",
+              "key": "ogenki_desu_ka",
+              "intentKey": "ask_how_are_you",
+              "slotId": "how_are_you",
+              "speaker": "learner",
+              "text": "お元気ですか",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "お元気ですか"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "おげんきですか"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "ogenki desu ka"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How are you?",
+                  "note": "Used with people you already know; not a routine opener with strangers.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Comment allez-vous ?",
+                  "note": "À réserver aux personnes que l'on connaît déjà ; ce n'est pas une formule d'ouverture habituelle avec des inconnus.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_greet_and_introduce:genki_desu",
+              "key": "genki_desu",
+              "intentKey": "reply_fine",
+              "slotId": "fine",
+              "speaker": "learner",
+              "text": "元気です",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "元気です"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "げんきです"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "genki desu"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm fine.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Je vais bien.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_greet_and_introduce:watashi_wa_desu",
+              "key": "watashi_wa_desu",
+              "intentKey": "introduce_name",
+              "slotId": "my_name",
+              "speaker": "learner",
+              "text": "私は…です",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "私は…です"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "わたしは…です"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "watashi wa … desu"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I am …",
+                  "note": "More formal: \"… to moushimasu\".",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Je suis… / Je m'appelle…",
+                  "note": "Plus formel : « … to moushimasu ».",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_greet_and_introduce:onamae_wa",
+              "key": "onamae_wa",
+              "intentKey": "ask_name",
+              "slotId": "your_name",
+              "speaker": "learner",
+              "text": "お名前は何ですか",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "お名前は何ですか"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "おなまえはなんですか"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "onamae wa nan desu ka"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What is your name?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Comment vous appelez-vous ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_greet_and_introduce:hajimemashite",
+              "key": "hajimemashite",
+              "intentKey": "say_nice_to_meet",
+              "slotId": "nice_to_meet",
+              "speaker": "learner",
+              "text": "はじめまして、よろしくお願いします",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "はじめまして、よろしくお願いします"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "はじめまして、よろしくおねがいします"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "hajimemashite, yoroshiku onegaishimasu"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Nice to meet you (lit. \"first time; please treat me well\").",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Enchanté(e).",
+                  "note": null,
+                  "literal": "première fois ; je vous prie de bien vouloir m'accueillir favorablement"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_greet_and_introduce:shitsurei_shimasu",
+              "key": "shitsurei_shimasu",
+              "intentKey": "say_goodbye",
+              "slotId": "goodbye",
+              "speaker": "learner",
+              "text": "失礼します",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "失礼します"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "しつれいします"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "shitsurei shimasu"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Goodbye (polite, when leaving).",
+                  "note": "\"sayounara\" is rarer and sounds final.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Au revoir (poli, en partant).",
+                  "note": "« sayounara » est plus rare et sonne comme un adieu définitif.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "ja_cafe_order_drink",
+          "blueprintKey": "cafe_order_drink",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "cafe",
+          "characterKey": "ja_kenta_cafe",
+          "titles": {
+            "en": "Ordering at a café",
+            "fr": "Commander au café"
+          },
+          "sceneNotes": {
+            "en": "A small café; the server uses formal set phrases.",
+            "fr": "Vous entrez dans un petit café où le serveur, Kenta, emploie des formules de politesse toutes faites."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "options",
+              "speaker": "character"
+            },
+            {
+              "slotId": "choice",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_cafe_order_drink:konnichiwa_cafe",
+              "key": "konnichiwa_cafe",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "こんにちは",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "こんにちは"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "こんにちは"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "konnichiwa"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bonjour.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_cafe_order_drink:koohii_onegaishimasu",
+              "key": "koohii_onegaishimasu",
+              "intentKey": "request_drink",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "コーヒーをお願いします",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "コーヒーをお願いします"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "コーヒーをおねがいします"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "koohii o onegaishimasu"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A coffee, please.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Un café, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_cafe_order_drink:hotto_aisu",
+              "key": "hotto_aisu",
+              "intentKey": "offer_options",
+              "slotId": "options",
+              "speaker": "character",
+              "text": "ホットとアイス、どちらにしますか",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "ホットとアイス、どちらにしますか"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "ホットとアイス、どちらにしますか"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "hotto to aisu, dochira ni shimasu ka"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hot or iced, which would you like?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Chaud ou glacé, que souhaitez-vous ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_cafe_order_drink:hotto_de",
+              "key": "hotto_de",
+              "intentKey": "choose_option",
+              "slotId": "choice",
+              "speaker": "learner",
+              "text": "ホットでお願いします",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "ホットでお願いします"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "ホットでおねがいします"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "hotto de onegaishimasu"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hot, please.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Chaud, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_cafe_order_drink:okaikei",
+              "key": "okaikei",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "お会計をお願いします",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "お会計をお願いします"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "おかいけいをおねがいします"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "okaikei o onegaishimasu"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The bill, please.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "L'addition, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_cafe_order_drink:arigatou_gozaimasu",
+              "key": "arigatou_gozaimasu",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "ありがとうございます",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "ありがとうございます"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "ありがとうございます"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "arigatou gozaimasu"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "ja_ask_directions",
+          "blueprintKey": "ask_directions",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "directions",
+          "characterKey": "ja_sato_passerby",
+          "titles": {
+            "en": "Asking for directions",
+            "fr": "Demander son chemin"
+          },
+          "sceneNotes": {
+            "en": "Looking for the station near a busy crossing.",
+            "fr": "Vous cherchez la gare près d'un carrefour très fréquenté et vous demandez votre chemin à Satō-san, un passant."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_is",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "straight",
+              "speaker": "character"
+            },
+            {
+              "slotId": "turn",
+              "speaker": "character"
+            },
+            {
+              "slotId": "far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "near",
+              "speaker": "character"
+            },
+            {
+              "slotId": "repeat",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "slower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_ask_directions:sumimasen",
+              "key": "sumimasen",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "すみません",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "すみません"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "すみません"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "sumimasen"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Excusez-moi.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_ask_directions:eki_wa_doko",
+              "key": "eki_wa_doko",
+              "intentKey": "ask_where_is",
+              "slotId": "where_is",
+              "speaker": "learner",
+              "text": "駅はどこですか",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "駅はどこですか"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "えきはどこですか"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "eki wa doko desu ka"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where is the station?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Où est la gare, s'il vous plaît ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_ask_directions:massugu",
+              "key": "massugu",
+              "intentKey": "give_direction_straight",
+              "slotId": "straight",
+              "speaker": "character",
+              "text": "まっすぐ行ってください",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "まっすぐ行ってください"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "まっすぐいってください"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "massugu itte kudasai"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Go straight.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Allez tout droit.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_ask_directions:migi_ni",
+              "key": "migi_ni",
+              "intentKey": "give_direction_turn",
+              "slotId": "turn",
+              "speaker": "character",
+              "text": "右に曲がってください",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "右に曲がってください"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "みぎにまがってください"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "migi ni magatte kudasai"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Turn right.",
+                  "note": "\"hidari\" = left.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Tournez à droite.",
+                  "note": "« hidari » signifie « gauche ».",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_ask_directions:tooi_desu_ka",
+              "key": "tooi_desu_ka",
+              "intentKey": "ask_is_it_far",
+              "slotId": "far",
+              "speaker": "learner",
+              "text": "遠いですか",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "遠いですか"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "とおいですか"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "tooi desu ka"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it far?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Est-ce que c'est loin ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_ask_directions:chikai_desu",
+              "key": "chikai_desu",
+              "intentKey": "say_it_is_near",
+              "slotId": "near",
+              "speaker": "character",
+              "text": "近いですよ。歩いて五分です",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "近いですよ。歩いて五分です"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "ちかいですよ。あるいてごふんです"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "chikai desu yo. aruite gofun desu"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's close. Five minutes on foot.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "C'est tout près. Cinq minutes à pied.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_ask_directions:mou_ichido",
+              "key": "mou_ichido",
+              "intentKey": "ask_repeat",
+              "slotId": "repeat",
+              "speaker": "learner",
+              "text": "もう一度お願いします",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "もう一度お願いします"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "もういちどおねがいします"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "mou ichido onegaishimasu"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Once more, please.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Pourriez-vous répéter, s'il vous plaît ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_ask_directions:yukkuri",
+              "key": "yukkuri",
+              "intentKey": "ask_slow_down",
+              "slotId": "slower",
+              "speaker": "learner",
+              "text": "ゆっくり話してください",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "ゆっくり話してください"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "ゆっくりはなしてください"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "yukkuri hanashite kudasai"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please speak slowly.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Pourriez-vous parler lentement, s'il vous plaît ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_ask_directions:wakarimasen",
+              "key": "wakarimasen",
+              "intentKey": "say_not_understood",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "わかりません",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "わかりません"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "わかりません"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "wakarimasen"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I don't understand.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Je ne comprends pas.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_ask_directions:arigatou_gozaimashita",
+              "key": "arigatou_gozaimashita",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "ありがとうございました",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "ありがとうございました"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "ありがとうございました"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "arigatou gozaimashita"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you (for what you just did).",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup (pour ce que vous venez de faire).",
+                  "note": "Le passé indique qu'on remercie pour une aide déjà reçue.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "ja_take_taxi",
+          "blueprintKey": "take_taxi",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "transport",
+          "characterKey": "ja_tanaka_taxi",
+          "titles": {
+            "en": "Taking a taxi",
+            "fr": "Prendre un taxi"
+          },
+          "sceneNotes": {
+            "en": "Tokyo taxi; the meter is always on and doors open automatically.",
+            "fr": "Vous êtes à Tokyo, dans un taxi : le compteur tourne toujours et les portes s'ouvrent automatiquement."
+          },
+          "slots": [
+            {
+              "slotId": "hail",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_to",
+              "speaker": "character"
+            },
+            {
+              "slotId": "destination",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "meter",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fare",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "change",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_take_taxi:takushii",
+              "key": "takushii",
+              "intentKey": "hail_taxi",
+              "slotId": "hail",
+              "speaker": "learner",
+              "text": "タクシー！",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "タクシー！"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "タクシー！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "takushii!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Taxi!",
+                  "note": "In Japan you usually raise a hand rather than call out.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Taxi !",
+                  "note": "Au Japon, on lève généralement la main plutôt que d'appeler à voix haute.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_take_taxi:dochira_made",
+              "key": "dochira_made",
+              "intentKey": "ask_destination",
+              "slotId": "where_to",
+              "speaker": "character",
+              "text": "どちらまでですか",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "どちらまでですか"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "どちらまでですか"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "dochira made desu ka"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where to?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Où allez-vous ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_take_taxi:toukyou_eki_made",
+              "key": "toukyou_eki_made",
+              "intentKey": "state_destination",
+              "slotId": "destination",
+              "speaker": "learner",
+              "text": "東京駅までお願いします",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "東京駅までお願いします"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "とうきょうえきまでおねがいします"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "toukyou eki made onegaishimasu"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "To Tokyo Station, please.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "À la gare de Tokyo, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_take_taxi:kuukou_made_ikura",
+              "key": "kuukou_made_ikura",
+              "intentKey": "ask_fare",
+              "slotId": "fare",
+              "speaker": "learner",
+              "text": "空港までいくらですか",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "空港までいくらですか"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "くうこうまでいくらですか"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "kuukou made ikura desu ka"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is it to the airport?",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Combien coûte la course jusqu'à l'aéroport ?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_take_taxi:koko_de_tomete",
+              "key": "koko_de_tomete",
+              "intentKey": "say_stop_here",
+              "slotId": "stop",
+              "speaker": "learner",
+              "text": "ここで止めてください",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "ここで止めてください"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "ここでとめてください"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "koko de tomete kudasai"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please stop here.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Arrêtez-vous ici, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ja_ch1_arrival_tokyo:ja_take_taxi:arigatou_taxi",
+              "key": "arigatou_taxi",
+              "intentKey": "say_goodbye",
+              "slotId": "bye",
+              "speaker": "learner",
+              "text": "ありがとうございました",
+              "forms": [
+                {
+                  "script": "Jpan",
+                  "scheme": null,
+                  "text": "ありがとうございました"
+                },
+                {
+                  "script": "Jpan",
+                  "scheme": "furigana",
+                  "text": "ありがとうございました"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "romaji",
+                  "text": "arigatou gozaimashita"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you (goodbye).",
+                  "note": "Thanks doubles as the leave-taking here.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci (au revoir).",
+                  "note": "Le remerciement sert ici aussi de formule pour prendre congé.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
