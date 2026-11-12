@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/content/content_models.dart';
+import '../../core/backend/narrator.dart';
 import '../../core/backend/server_voice.dart';
 import '../../core/layout/motion.dart';
 import '../../core/services/app_state.dart';
@@ -216,10 +217,10 @@ class ListenButtons extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final voice = ref.watch(lineVoiceProvider(locale)).asData?.value;
-    if (voice == null || !voice.available || (voice.source == LineVoiceSource.server && expressionId == null)) return const SizedBox.shrink();
+    if (voice == null || !voice.canSay(expressionId: expressionId)) return const SizedBox.shrink();
     final l10n = context.l10n;
     // The server's voice is said to be an AI voice (screen readers hear it; the course page says so too).
-    final ai = voice.source == LineVoiceSource.server;
+    final ai = voice.aiFor(expressionId);
     return Row(
       mainAxisSize: MainAxisSize.min,
       children: [
@@ -239,6 +240,26 @@ class ListenButtons extends ConsumerWidget {
           onTap: () => voice.say(text: text, expressionId: expressionId, slow: true),
         ),
       ],
+    );
+  }
+}
+
+/// Reads the exercise's context and question aloud again (the narrator, in the learner's instruction language).
+/// Rendered only where something can read it.
+class ReadAloudButton extends ConsumerWidget {
+  final VoidCallback onPressed;
+
+  const ReadAloudButton({super.key, required this.onPressed});
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    if (ref.watch(narrationAvailableProvider).asData?.value != true) return const SizedBox.shrink();
+    final colors = ref.watch(appStateProvider.select((s) => s.colors));
+    return IconButton(
+      icon: Icon(LucideIcons.audioLines, size: 18, color: colors.textSecondary),
+      tooltip: context.l10n.readAloud,
+      visualDensity: VisualDensity.compact,
+      onPressed: onPressed,
     );
   }
 }
@@ -272,7 +293,9 @@ class AudioChip extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final accent = ref.watch(appStateProvider.select((s) => s.accent));
     final ink = foreground ?? accent.primaryText;
+    // Its own node: next to a phrase's meaning, the chip would otherwise merge with that text into one button.
     return Semantics(
+      container: true,
       button: true,
       enabled: onTap != null,
       label: semanticsLabel ?? label,

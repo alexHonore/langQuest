@@ -1,0 +1,2731 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts",
+  "courseTrackId": "lingala",
+  "chapters": [
+    {
+      "key": "lingala_ch1",
+      "chapterIndex": 1,
+      "courseTrackId": "lingala",
+      "targetVarietyId": "ln",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "First days in Kinshasa",
+        "fr": "Premiers jours à Kinshasa"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+      "notes": [
+        "AI draft generated 2026-11-11T22:46:52.034Z with anthropic/claude-sonnet-5.5; validator accepted 75 expressions; native review required before publishing.",
+        "greet_and_introduce: Please check that 'Nkombo na yo nani?' sounds polite enough for a first meeting with a neighbour.",
+        "greet_and_introduce: Confirm that 'Sango nini?' and 'Bonne journée, tokomonana' suit the Kinshasa baseline, and whether Brazzaville speakers would say them differently.",
+        "greet_and_introduce: The name Sara is only a placeholder.",
+        "cafe_order_drink: The 'order' slot targetText is wrong: 'masolo te' means 'no conversation'. Please replace it with something like 'Nalingi kafe, s'il vous plaît.' and correct the contextNote.",
+        "cafe_order_drink: 'Pesa ngai ... ' is an imperative with 'please'; check it is not too blunt, and whether 'Nalingi' is preferred.",
+        "cafe_order_drink: Check 'Nalingi kofuta, ezali boni?' and whether 'Mbongo boni?' or 'Nakoki kofuta?' sounds more natural.",
+        "market_ask_price: Please confirm that maboke (a general word for fruit/produce) is natural at a Kinshasa fruit stall, or suggest a better generic word.",
+        "market_ask_price: Please check whether ntalo or mbongo ezali mingi is more natural for 'too expensive', and whether nasili kozwa yango sounds natural for 'I'll take it'.",
+        "market_ask_price: Please check that the price expression 'mille mibale na kilo' matches current market habits.",
+        "ask_directions: Please check the left/right phrasing (loboko ya mwasi / ya mobali) and whether tii liboso or another form is preferred in Kinshasa speech.",
+        "ask_directions: Gare vs. station for the train station, and minute zomi na makolo vs. another way of saying a ten-minute walk, need confirming.",
+        "ask_directions: Please check whether Okoloba noki sounds natural or if a different wording for 'you speak fast' is more common.",
+        "meet_neighbour: Please check 'moyokani' for 'neighbour' and 'Nabandi kofanda awa sika' for 'I just moved in'. Is there a more natural phrasing in Kinshasa?",
+        "meet_neighbour: 'tee' is a loan spelling and could be confused with 'te' (negation). Please confirm the spelling and whether 'kafe' or 'tee' is more natural.",
+        "meet_neighbour: The 'Canada' in the 'from' line is a placeholder, and I avoided the earlier 'Matondi mingi' on purpose.",
+        "take_taxi: 'mboka ya kala' is a placeholder for the old town; please replace it with the real local name.",
+        "take_taxi: Please check that 'kosalela compteur' and 'ozali libre' sound natural to a Kinshasa taxi driver.",
+        "take_taxi: I used 'Matondi, tata. Kende malamu.' as the goodbye so it does not repeat 'Tokomonana' from earlier. Please check that it is natural.",
+        "buy_ice_cream: Please check the refusal and permission phrasings (Pardon, moko kaka lelo / Ya solo, bóyoka) for natural Kinshasa usage, and whether tone marks should be kept.",
+        "buy_ice_cream: Check whether ezali nkomo te is the natural reply to thanks here, or whether something like 'Ezali na problème te' is more common.",
+        "buy_ice_cream: Verify the word for scoop: boule, or another everyday term used by vendors.",
+        "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+      ],
+      "characters": [
+        {
+          "key": "lingala_patrick_friendly_local_acquaintance",
+          "name": "Patrick",
+          "role": "friendly local acquaintance",
+          "personality": "kind, busy, curious neighbour",
+          "homeRegion": "Kinshasa",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "lingala_patrick_cafe_server",
+          "name": "Patrick",
+          "role": "café server",
+          "personality": "Quick, cheerful, chatty, helpful",
+          "homeRegion": "Kinshasa",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "lingala_mama_joelle_market_vendor",
+          "name": "Mama Joëlle",
+          "role": "market vendor",
+          "personality": "Warm, chatty, generous, jokes easily",
+          "homeRegion": "Kinshasa",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "lingala_patrick_passer_by",
+          "name": "Patrick",
+          "role": "passer-by",
+          "personality": "Helpful, friendly, talks very fast",
+          "homeRegion": "Kinshasa",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "lingala_joseph_neighbour",
+          "name": "Joseph",
+          "role": "neighbour",
+          "personality": "warm, chatty, long-time resident",
+          "homeRegion": "Kinshasa",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "lingala_patrick_taxi_driver",
+          "name": "Patrick",
+          "role": "taxi driver",
+          "personality": "talkative, friendly, a little pushy",
+          "homeRegion": "Kinshasa",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "lingala_joel_child_at_the_ice_cream_stand",
+          "name": "Joël",
+          "role": "child at the ice-cream stand",
+          "personality": "cheerful, greedy, a bit cheeky",
+          "homeRegion": "Kinshasa",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "lingala_greet_and_introduce",
+          "blueprintKey": "greet_and_introduce",
+          "missionType": "standard",
+          "level": "beginner",
+          "situation": "introductions",
+          "characterKey": "lingala_patrick_friendly_local_acquaintance",
+          "titles": {
+            "en": "Greet and Introduce Yourself",
+            "fr": "Salutations et présentations"
+          },
+          "sceneNotes": {
+            "en": "It is morning and you meet a kind neighbour who is in a hurry; greet them, exchange names, and be ready for a quick question about where you live.",
+            "fr": "C'est le matin et vous croisez un voisin aimable mais pressé ; saluez-le, échangez vos prénoms et préparez-vous à une petite question sur l'endroit où vous habitez."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_are_you",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fine",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "your_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "nice_to_meet",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "goodbye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "lingala_ch1:lingala_greet_and_introduce:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Mbote!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mbote!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello!",
+                  "note": "The all-purpose greeting, fine at any time of day.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bonjour !",
+                  "note": "La salutation passe-partout, utilisable à toute heure de la journée. Prononcez-la « mm-BO-té ».",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say it as mm-BO-teh."
+            },
+            {
+              "id": "lingala_ch1:lingala_greet_and_introduce:how_are_you",
+              "key": "how_are_you",
+              "intentKey": "ask_how_are_you",
+              "slotId": "how_are_you",
+              "speaker": "learner",
+              "text": "Ozali malamu?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ozali malamu?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Are you well?",
+                  "note": "Said right after the greeting.",
+                  "literal": "you-are good"
+                },
+                "fr": {
+                  "meaning": "Vous allez bien ?",
+                  "note": "On la dit juste après la salutation.",
+                  "literal": "tu-es bien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_greet_and_introduce:fine",
+              "key": "fine",
+              "intentKey": "reply_fine",
+              "slotId": "fine",
+              "speaker": "learner",
+              "text": "Nazali malamu, melesi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nazali malamu, melesi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm well, thanks.",
+                  "note": "Melesi is the everyday Kinshasa form of French merci.",
+                  "literal": "I-am good, thanks"
+                },
+                "fr": {
+                  "meaning": "Je vais bien, merci.",
+                  "note": "Melesi est la forme courante à Kinshasa du français « merci ».",
+                  "literal": "je-suis bien, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "melesi comes from French merci and is very common in Kinshasa.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_greet_and_introduce:my_name",
+              "key": "my_name",
+              "intentKey": "introduce_name",
+              "slotId": "my_name",
+              "speaker": "learner",
+              "text": "Nkombo na ngai ezali Sara.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nkombo na ngai ezali Sara."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My name is Sara.",
+                  "note": "Replace Sara with your own name.",
+                  "literal": "name of me is Sara"
+                },
+                "fr": {
+                  "meaning": "Je m'appelle Sara.",
+                  "note": "Remplacez Sara par votre propre prénom. Le « nk » initial de nkombo se prononce comme un seul son lié.",
+                  "literal": "nom de moi est Sara"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The word-initial 'nk' in nkombo is said as one blended sound."
+            },
+            {
+              "id": "lingala_ch1:lingala_greet_and_introduce:your_name",
+              "key": "your_name",
+              "intentKey": "ask_name",
+              "slotId": "your_name",
+              "speaker": "learner",
+              "text": "Nkombo na yo nani?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nkombo na yo nani?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What is your name?",
+                  "note": "A short, friendly way to ask someone's name.",
+                  "literal": "name of you who"
+                },
+                "fr": {
+                  "meaning": "Comment tu t'appelles ?",
+                  "note": "Une façon courte et sympathique de demander le prénom de quelqu'un.",
+                  "literal": "nom de toi qui"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_greet_and_introduce:nice_to_meet",
+              "key": "nice_to_meet",
+              "intentKey": "say_nice_to_meet",
+              "slotId": "nice_to_meet",
+              "speaker": "learner",
+              "text": "Nasepeli koyeba yo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nasepeli koyeba yo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Nice to meet you.",
+                  "note": "Use it once you have heard their name.",
+                  "literal": "I-am-happy to-know you"
+                },
+                "fr": {
+                  "meaning": "Enchanté de faire ta connaissance.",
+                  "note": "À dire une fois que vous avez entendu son prénom.",
+                  "literal": "je-suis-content de-connaître toi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_greet_and_introduce:goodbye",
+              "key": "goodbye",
+              "intentKey": "say_goodbye",
+              "slotId": "goodbye",
+              "speaker": "learner",
+              "text": "Tokomonana lisusu.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tokomonana lisusu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "See you again.",
+                  "note": "A friendly goodbye when you expect to meet again.",
+                  "literal": "we-will-see-each-other again"
+                },
+                "fr": {
+                  "meaning": "À bientôt.",
+                  "note": "Un au revoir amical quand on pense se revoir.",
+                  "literal": "nous-nous-verrons encore"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_greet_and_introduce:ask_how_are_you_variant_8",
+              "key": "ask_how_are_you_variant_8",
+              "intentKey": "ask_how_are_you",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Sango nini?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sango nini?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's the news? / How's it going?",
+                  "note": "A relaxed greeting for neighbours and peers.",
+                  "literal": "news what"
+                },
+                "fr": {
+                  "meaning": "Quoi de neuf ? / Comment ça va ?",
+                  "note": "Une salutation décontractée entre voisins et amis.",
+                  "literal": "nouvelles quoi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_greet_and_introduce:reply_fine_variant_9",
+              "key": "reply_fine_variant_9",
+              "intentKey": "reply_fine",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Nazali malamu, matondi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nazali malamu, matondi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm well, thank you.",
+                  "note": "The Lingala alternative to melesi.",
+                  "literal": "I-am good, thanks"
+                },
+                "fr": {
+                  "meaning": "Je vais bien, merci.",
+                  "note": "L'alternative lingala à melesi.",
+                  "literal": "je-suis bien, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_greet_and_introduce:introduce_name_variant_10",
+              "key": "introduce_name_variant_10",
+              "intentKey": "introduce_name",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Babengaka ngai Sara.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Babengaka ngai Sara."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "They call me Sara.",
+                  "note": "A common way to give your name. Replace Sara with your own name.",
+                  "literal": "they-call me Sara"
+                },
+                "fr": {
+                  "meaning": "On m'appelle Sara.",
+                  "note": "Une façon courante de donner son prénom. Remplacez Sara par votre propre prénom.",
+                  "literal": "ils-appellent moi Sara"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_greet_and_introduce:say_goodbye_variant_11",
+              "key": "say_goodbye_variant_11",
+              "intentKey": "say_goodbye",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Bonne journée, tokomonana.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bonne journée, tokomonana."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Have a good day, see you.",
+                  "note": "Wishing someone a good day as you part ways.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bonne journée, à bientôt.",
+                  "note": "Pour souhaiter une bonne journée au moment de se quitter.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "Bonne journée is French, and mixing it into Lingala is very natural in Kinshasa.",
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "lingala_cafe_order_drink",
+          "blueprintKey": "cafe_order_drink",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "cafe",
+          "characterKey": "lingala_patrick_cafe_server",
+          "titles": {
+            "en": "Ordering a Drink at Café",
+            "fr": "Commander une boisson au café"
+          },
+          "sceneNotes": {
+            "en": "You sit down on a busy café terrace where a quick, friendly server comes to take your order.",
+            "fr": "Vous vous installez à la terrasse animée d'un café, où un serveur rapide et sympathique vient prendre votre commande."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "options",
+              "speaker": "character"
+            },
+            {
+              "slotId": "choice",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "lingala_ch1:lingala_cafe_order_drink:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Mbote, ozali malamu lelo?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mbote, ozali malamu lelo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, are you well today?",
+                  "note": "A polite opener to the server as you sit down.",
+                  "literal": "Hello, you-are well today?"
+                },
+                "fr": {
+                  "meaning": "Bonjour, vous allez bien aujourd'hui ?",
+                  "note": "Une formule d'accueil polie à adresser au serveur quand vous vous asseyez. Prononcez « mbote » avec un « mb » rapide, comme un seul son.",
+                  "literal": "Bonjour, tu-es bien aujourd'hui ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say 'mbote' with a quick 'mb' at the start, like one sound."
+            },
+            {
+              "id": "lingala_ch1:lingala_cafe_order_drink:order",
+              "key": "order",
+              "intentKey": "request_drink",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Nalingi kafe, masolo te.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nalingi kafe, masolo te."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I would like a coffee, please.",
+                  "note": "Placeholder to be replaced below; see next line.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Je voudrais un café, s'il vous plaît.",
+                  "note": "Formule polie pour commander.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_cafe_order_drink:options",
+              "key": "options",
+              "intentKey": "offer_options",
+              "slotId": "options",
+              "speaker": "character",
+              "text": "Na sukali to sukali te?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Na sukali to sukali te?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "With sugar or without sugar?",
+                  "note": "The server asks this after you order coffee or tea.",
+                  "literal": "With sugar or sugar not?"
+                },
+                "fr": {
+                  "meaning": "Avec du sucre ou sans sucre ?",
+                  "note": "Le serveur pose cette question après une commande de café ou de thé.",
+                  "literal": "Avec sucre ou sucre pas ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_cafe_order_drink:choice",
+              "key": "choice",
+              "intentKey": "choose_option",
+              "slotId": "choice",
+              "speaker": "learner",
+              "text": "Na sukali te, merci.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Na sukali te, merci."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Without sugar, please.",
+                  "note": "A short answer to the server's question.",
+                  "literal": "With sugar not, thanks."
+                },
+                "fr": {
+                  "meaning": "Sans sucre, merci.",
+                  "note": "Une courte réponse à la question du serveur.",
+                  "literal": "Avec sucre pas, merci."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "'merci' is a French loanword used all the time in Kinshasa.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_cafe_order_drink:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Nalingi kofuta, ezali boni?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nalingi kofuta, ezali boni?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I would like to pay, how much is it?",
+                  "note": "Use it when you are ready to leave.",
+                  "literal": "I-want to-pay, it-is how-much?"
+                },
+                "fr": {
+                  "meaning": "Je voudrais payer, c'est combien ?",
+                  "note": "À utiliser quand vous êtes prêt à partir.",
+                  "literal": "Je-veux payer, c'est combien ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_cafe_order_drink:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Matondi mingi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Matondi mingi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much.",
+                  "note": "Say it when you get your drink or pay.",
+                  "literal": "Thanks a-lot"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup.",
+                  "note": "À dire quand on vous sert votre boisson ou quand vous payez.",
+                  "literal": "Merci beaucoup"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_cafe_order_drink:request_drink_variant_7",
+              "key": "request_drink_variant_7",
+              "intentKey": "request_drink",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Pesa ngai bière moko, s'il vous plaît.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pesa ngai bière moko, s'il vous plaît."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Give me a beer, please.",
+                  "note": "Common café order mixing in French politeness.",
+                  "literal": "Give me beer one, please"
+                },
+                "fr": {
+                  "meaning": "Donnez-moi une bière, s'il vous plaît.",
+                  "note": "Commande courante au café, avec une formule de politesse française.",
+                  "literal": "Donne moi bière une, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "'bière' and 's'il vous plaît' are French, very common in Kinshasa.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_cafe_order_drink:choose_option_variant_8",
+              "key": "choose_option_variant_8",
+              "intentKey": "choose_option",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Na sukali, mpo na ngai.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Na sukali, mpo na ngai."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "With sugar, for me.",
+                  "note": "Alternative answer when you want sugar.",
+                  "literal": "With sugar, for me"
+                },
+                "fr": {
+                  "meaning": "Avec du sucre, pour moi.",
+                  "note": "Autre réponse possible quand vous voulez du sucre.",
+                  "literal": "Avec sucre, pour moi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "lingala_market_ask_price",
+          "blueprintKey": "market_ask_price",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "market",
+          "characterKey": "lingala_mama_joelle_market_vendor",
+          "titles": {
+            "en": "Asking Prices at the Market",
+            "fr": "Demander les prix au marché"
+          },
+          "sceneNotes": {
+            "en": "You stop at a fruit stall in a busy Kinshasa market, greet the vendor, ask the price per kilo and decide whether to buy.",
+            "fr": "Vous vous arrêtez à un étal de fruits dans un marché animé de Kinshasa, vous saluez la vendeuse, demandez le prix au kilo et décidez d'acheter ou non."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_much",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "character"
+            },
+            {
+              "slotId": "expensive",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "lower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "deal",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "no_thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "lingala_ch1:lingala_market_ask_price:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Mbote mama, ozali malamu?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mbote mama, ozali malamu?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello ma'am, are you well?",
+                  "note": "Mama is a respectful way to address a woman vendor.",
+                  "literal": "Hello mama, you are well?"
+                },
+                "fr": {
+                  "meaning": "Bonjour madame, vous allez bien ?",
+                  "note": "« Mama » est une manière respectueuse de s'adresser à une vendeuse.",
+                  "literal": "Bonjour maman, vous êtes bien ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_market_ask_price:how_much",
+              "key": "how_much",
+              "intentKey": "ask_price",
+              "slotId": "how_much",
+              "speaker": "learner",
+              "text": "Maboke ezali boni, mama?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Maboke ezali boni, mama?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is it, ma'am?",
+                  "note": "Point at the fruit while you ask. Replace the first word with the name of the fruit, for example madeso or makemba.",
+                  "literal": "It is how, mama?"
+                },
+                "fr": {
+                  "meaning": "C'est combien, madame ?",
+                  "note": "Montrez le fruit du doigt en posant la question. Remplacez le premier mot par le nom du fruit, par exemple madeso ou makemba.",
+                  "literal": "C'est comment, maman ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_market_ask_price:price",
+              "key": "price",
+              "intentKey": "state_price",
+              "slotId": "price",
+              "speaker": "character",
+              "text": "Ezali mille mibale na kilo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ezali mille mibale na kilo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It is two thousand per kilo.",
+                  "note": "The vendor names the price per kilo. The currency (francs) is understood.",
+                  "literal": "It is thousand two per kilo."
+                },
+                "fr": {
+                  "meaning": "C'est deux mille le kilo.",
+                  "note": "La vendeuse annonce le prix au kilo. La monnaie (les francs) est sous-entendue.",
+                  "literal": "C'est mille deux par kilo."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": "Mille and kilo are French loanwords that are everyday in Kinshasa speech.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_market_ask_price:expensive",
+              "key": "expensive",
+              "intentKey": "say_too_expensive",
+              "slotId": "expensive",
+              "speaker": "learner",
+              "text": "Ezali mpe ntalo mingi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ezali mpe ntalo mingi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It is too expensive.",
+                  "note": "A light, friendly remark that opens the bargaining.",
+                  "literal": "It is also expensive a lot."
+                },
+                "fr": {
+                  "meaning": "C'est trop cher.",
+                  "note": "Une remarque légère et amicale qui lance le marchandage. Ntalo commence par un n nasal suivi directement du t.",
+                  "literal": "C'est aussi cher beaucoup."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Ntalo starts with a nasal n followed directly by t."
+            },
+            {
+              "id": "lingala_ch1:lingala_market_ask_price:lower",
+              "key": "lower",
+              "intentKey": "offer_lower_price",
+              "slotId": "lower",
+              "speaker": "learner",
+              "text": "Okoki kokitisa moke, mama?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Okoki kokitisa moke, mama?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you lower it a little, ma'am?",
+                  "note": "A polite way to ask for a small discount.",
+                  "literal": "You can lower a little, mama?"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous baisser un peu le prix, madame ?",
+                  "note": "Une façon polie de demander une petite réduction.",
+                  "literal": "Vous pouvez baisser un peu, maman ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_market_ask_price:deal",
+              "key": "deal",
+              "intentKey": "agree_to_price",
+              "slotId": "deal",
+              "speaker": "learner",
+              "text": "Malamu, nasili kozwa yango.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Malamu, nasili kozwa yango."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Fine, I'll take it.",
+                  "note": "Use this when you accept the price and decide to buy.",
+                  "literal": "Good, I have finished to take it."
+                },
+                "fr": {
+                  "meaning": "D'accord, je le prends.",
+                  "note": "À utiliser quand vous acceptez le prix et décidez d'acheter.",
+                  "literal": "Bien, j'ai fini de le prendre."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_market_ask_price:no_thanks",
+              "key": "no_thanks",
+              "intentKey": "decline_purchase",
+              "slotId": "no_thanks",
+              "speaker": "learner",
+              "text": "Merci mama, lelo te.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Merci mama, lelo te."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you ma'am, not today.",
+                  "note": "A friendly way to leave without buying.",
+                  "literal": "Thanks mama, today not."
+                },
+                "fr": {
+                  "meaning": "Merci madame, pas aujourd'hui.",
+                  "note": "Une façon aimable de partir sans rien acheter.",
+                  "literal": "Merci maman, aujourd'hui pas."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "Merci is a very common French loanword in Kinshasa speech.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_market_ask_price:greet_hello_variant_8",
+              "key": "greet_hello_variant_8",
+              "intentKey": "greet_hello",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Mbote mama! Sango nini?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mbote mama! Sango nini?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello ma'am! What's the news?",
+                  "note": "A more casual, chatty greeting.",
+                  "literal": "Hello mama! News what?"
+                },
+                "fr": {
+                  "meaning": "Bonjour madame ! Quoi de neuf ?",
+                  "note": "Une salutation plus décontractée et bavarde.",
+                  "literal": "Bonjour maman ! Nouvelles quoi ?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_market_ask_price:ask_price_variant_9",
+              "key": "ask_price_variant_9",
+              "intentKey": "ask_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Oyo ezali mbongo boni?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Oyo ezali mbongo boni?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is this?",
+                  "note": "A general question you can use for any item you point to.",
+                  "literal": "This is money how?"
+                },
+                "fr": {
+                  "meaning": "Ça coûte combien, ceci ?",
+                  "note": "Une question générale valable pour n'importe quel article que vous montrez du doigt.",
+                  "literal": "Ceci est argent comment ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_market_ask_price:decline_purchase_variant_10",
+              "key": "decline_purchase_variant_10",
+              "intentKey": "decline_purchase",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Nazali kotala kaka, merci.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nazali kotala kaka, merci."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm just looking, thanks.",
+                  "note": "Useful when you are only browsing the stall.",
+                  "literal": "I am looking only, thanks."
+                },
+                "fr": {
+                  "meaning": "Je regarde seulement, merci.",
+                  "note": "Utile quand vous ne faites que regarder l'étal.",
+                  "literal": "Je suis en train de regarder seulement, merci."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "Merci is a French loanword.",
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "lingala_ask_directions",
+          "blueprintKey": "ask_directions",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "directions",
+          "characterKey": "lingala_patrick_passer_by",
+          "titles": {
+            "en": "Asking Directions to the Station",
+            "fr": "Demander le chemin de la gare"
+          },
+          "sceneNotes": {
+            "en": "You are a visitor looking for the station, and a friendly passer-by gives you directions very quickly, so you need to ask them to repeat and slow down.",
+            "fr": "Vous êtes de passage et cherchez la gare ; un passant aimable vous explique le chemin très vite, alors vous devez lui demander de répéter et de parler plus lentement."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_is",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "straight",
+              "speaker": "character"
+            },
+            {
+              "slotId": "turn",
+              "speaker": "character"
+            },
+            {
+              "slotId": "far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "near",
+              "speaker": "character"
+            },
+            {
+              "slotId": "repeat",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "slower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "lingala_ch1:lingala_ask_directions:excuse_me",
+              "key": "excuse_me",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "Pardon, papa.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pardon, papa."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, sir.",
+                  "note": "Papa is a respectful way to address an older man; use mama for an older woman.",
+                  "literal": "Pardon, father"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, monsieur.",
+                  "note": "« Papa » est une façon respectueuse de s'adresser à un homme plus âgé ; pour une femme plus âgée, on dit « mama ».",
+                  "literal": "Pardon, père"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "Pardon is a French loanword, very common in Kinshasa speech.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_ask_directions:where_is",
+              "key": "where_is",
+              "intentKey": "ask_where_is",
+              "slotId": "where_is",
+              "speaker": "learner",
+              "text": "Gare ezali wapi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Gare ezali wapi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where is the station?",
+                  "note": null,
+                  "literal": "Station it-is where"
+                },
+                "fr": {
+                  "meaning": "Où est la gare ?",
+                  "note": null,
+                  "literal": "Gare elle-est où"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "Gare (French) is the usual word for a train station in Kinshasa.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_ask_directions:straight",
+              "key": "straight",
+              "intentKey": "give_direction_straight",
+              "slotId": "straight",
+              "speaker": "character",
+              "text": "Kende tii liboso, tango nyonso.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kende tii liboso, tango nyonso."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Go straight ahead, all the way.",
+                  "note": "Said quickly by the passer-by; the learner only needs to recognise it.",
+                  "literal": "Go until front, time all"
+                },
+                "fr": {
+                  "meaning": "Allez tout droit, jusqu'au bout.",
+                  "note": "Dit très vite par le passant ; vous avez seulement besoin de le reconnaître.",
+                  "literal": "Va jusqu'à devant, temps tout"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_ask_directions:turn",
+              "key": "turn",
+              "intentKey": "give_direction_turn",
+              "slotId": "turn",
+              "speaker": "character",
+              "text": "Na nsima, zonga na loboko ya mwasi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Na nsima, zonga na loboko ya mwasi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Then, turn left.",
+                  "note": "Loboko ya mwasi is the left side; loboko ya mobali is the right side.",
+                  "literal": "After, turn at hand of woman"
+                },
+                "fr": {
+                  "meaning": "Ensuite, tournez à gauche.",
+                  "note": "« Loboko ya mwasi » désigne le côté gauche ; « loboko ya mobali » désigne le côté droit.",
+                  "literal": "Après, tourne à main de femme"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_ask_directions:far",
+              "key": "far",
+              "intentKey": "ask_is_it_far",
+              "slotId": "far",
+              "speaker": "learner",
+              "text": "Ezali mosika?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ezali mosika?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it far?",
+                  "note": null,
+                  "literal": "It-is far"
+                },
+                "fr": {
+                  "meaning": "C'est loin ?",
+                  "note": null,
+                  "literal": "Elle-est loin"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_ask_directions:near",
+              "key": "near",
+              "intentKey": "say_it_is_near",
+              "slotId": "near",
+              "speaker": "character",
+              "text": "Te, ezali pene. Minute zomi na makolo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Te, ezali pene. Minute zomi na makolo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, it's near. Ten minutes on foot.",
+                  "note": null,
+                  "literal": "No, it-is near. Minutes ten on feet"
+                },
+                "fr": {
+                  "meaning": "Non, c'est tout près. Dix minutes à pied.",
+                  "note": null,
+                  "literal": "Non, elle-est près. Minutes dix sur pieds"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": "Minute is a French loanword used in everyday speech.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_ask_directions:repeat",
+              "key": "repeat",
+              "intentKey": "ask_repeat",
+              "slotId": "repeat",
+              "speaker": "learner",
+              "text": "Loba lisusu, s'il vous plaît.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Loba lisusu, s'il vous plaît."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Say it again, please.",
+                  "note": null,
+                  "literal": "Say again, please"
+                },
+                "fr": {
+                  "meaning": "Répétez, s'il vous plaît.",
+                  "note": null,
+                  "literal": "Dites encore, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "S'il vous plaît is French, commonly mixed into Lingala.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_ask_directions:slower",
+              "key": "slower",
+              "intentKey": "ask_slow_down",
+              "slotId": "slower",
+              "speaker": "learner",
+              "text": "Loba malembe, s'il vous plaît.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Loba malembe, s'il vous plaît."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Speak slowly, please.",
+                  "note": "Malembe means slowly or gently.",
+                  "literal": "Speak slowly, please"
+                },
+                "fr": {
+                  "meaning": "Parlez lentement, s'il vous plaît.",
+                  "note": "« Malembe » signifie lentement ou doucement.",
+                  "literal": "Parlez lentement, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "S'il vous plaît is French, commonly mixed into Lingala.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_ask_directions:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Matondi mingi, papa.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Matondi mingi, papa."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much, sir.",
+                  "note": "Same thanks formula used earlier in the chapter; papa adds respect.",
+                  "literal": "Thanks many, father"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup, monsieur.",
+                  "note": "C'est la même formule de remerciement que plus tôt dans le chapitre ; « papa » ajoute du respect.",
+                  "literal": "Merci beaucoup, père"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_ask_directions:get_attention_variant_10",
+              "key": "get_attention_variant_10",
+              "intentKey": "get_attention",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Pardon, mama.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pardon, mama."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, ma'am.",
+                  "note": "Use this when addressing an older woman.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, madame.",
+                  "note": "À utiliser pour s'adresser à une femme plus âgée.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "Pardon is a French loanword.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_ask_directions:ask_slow_down_variant_11",
+              "key": "ask_slow_down_variant_11",
+              "intentKey": "ask_slow_down",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Okoloba noki, loba malembe.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Okoloba noki, loba malembe."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You speak fast, speak slower.",
+                  "note": "Friendly and still polite when said with a smile.",
+                  "literal": "You-speak fast, speak slowly"
+                },
+                "fr": {
+                  "meaning": "Vous parlez vite, parlez plus lentement.",
+                  "note": "Amical et toujours poli si on le dit avec le sourire.",
+                  "literal": "Tu-parles vite, parle lentement"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_ask_directions:ask_where_is_variant_12",
+              "key": "ask_where_is_variant_12",
+              "intentKey": "ask_where_is",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Nazali koluka gare, mama.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nazali koluka gare, mama."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm looking for the station, ma'am.",
+                  "note": "A softer way to ask when you are unsure of the place.",
+                  "literal": "I-am looking-for station, mother"
+                },
+                "fr": {
+                  "meaning": "Je cherche la gare, madame.",
+                  "note": "Une façon plus douce de demander quand on ne connaît pas bien le lieu.",
+                  "literal": "Je-suis en train-de-chercher gare, mère"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "Gare is French.",
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "lingala_meet_neighbour",
+          "blueprintKey": "meet_neighbour",
+          "missionType": "story",
+          "level": "beginner",
+          "situation": "neighbours",
+          "characterKey": "lingala_joseph_neighbour",
+          "titles": {
+            "en": "Meeting Your New Neighbour",
+            "fr": "Rencontrer votre nouveau voisin"
+          },
+          "sceneNotes": {
+            "en": "You meet a neighbour carrying shopping bags in the stairwell of your new building, and you introduce yourself.",
+            "fr": "Vous croisez un voisin chargé de sacs de courses dans la cage d'escalier de votre nouvel immeuble, et vous vous présentez."
+          },
+          "slots": [
+            {
+              "slotId": "new_neighbour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "character"
+            },
+            {
+              "slotId": "where_from_q",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "from",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "speak_lang",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "little",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "offer_help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "lingala_ch1:lingala_meet_neighbour:new_neighbour",
+              "key": "new_neighbour",
+              "intentKey": "say_new_neighbour",
+              "slotId": "new_neighbour",
+              "speaker": "learner",
+              "text": "Nabandi kofanda awa sika.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nabandi kofanda awa sika."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I just moved in here.",
+                  "note": "Say it with a smile when you meet someone in the stairwell.",
+                  "literal": "I-began to-live here new"
+                },
+                "fr": {
+                  "meaning": "Je viens d'emménager ici.",
+                  "note": "À dire avec le sourire quand vous croisez quelqu'un dans l'escalier.",
+                  "literal": "j'ai commencé à habiter ici nouveau"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_meet_neighbour:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Boyei malamu awa na biso!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Boyei malamu awa na biso!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome here with us!",
+                  "note": "The plural 'bo-' shows respect and warmth.",
+                  "literal": "you-came well here with us"
+                },
+                "fr": {
+                  "meaning": "Soyez les bienvenus chez nous !",
+                  "note": "Le pluriel « bo- » marque le respect et la chaleur.",
+                  "literal": "vous êtes venus bien ici chez nous"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_meet_neighbour:where_from_q",
+              "key": "where_from_q",
+              "intentKey": "ask_where_from",
+              "slotId": "where_from_q",
+              "speaker": "learner",
+              "text": "Ozali moto ya wapi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ozali moto ya wapi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where are you from?",
+                  "note": null,
+                  "literal": "you-are person of where"
+                },
+                "fr": {
+                  "meaning": "Vous venez d'où ?",
+                  "note": null,
+                  "literal": "tu es personne de où"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_meet_neighbour:from",
+              "key": "from",
+              "intentKey": "say_where_from",
+              "slotId": "from",
+              "speaker": "learner",
+              "text": "Nazali moto ya Canada.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nazali moto ya Canada."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I am from Canada.",
+                  "note": "Replace Canada with your own country or city.",
+                  "literal": "I-am person of Canada"
+                },
+                "fr": {
+                  "meaning": "Je viens du Canada.",
+                  "note": "Remplacez Canada par votre pays ou votre ville.",
+                  "literal": "je suis personne de Canada"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_meet_neighbour:speak_lang",
+              "key": "speak_lang",
+              "intentKey": "ask_if_speaks_language",
+              "slotId": "speak_lang",
+              "speaker": "learner",
+              "text": "Tokoki koloba Lingala?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tokoki koloba Lingala?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can we speak Lingala?",
+                  "note": "A friendly way to ask to practise Lingala together.",
+                  "literal": "we-can to-speak Lingala"
+                },
+                "fr": {
+                  "meaning": "Pouvons-nous parler lingala ?",
+                  "note": "Une façon sympathique de proposer de pratiquer le lingala ensemble.",
+                  "literal": "nous pouvons parler lingala"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_meet_neighbour:little",
+              "key": "little",
+              "intentKey": "say_speak_little",
+              "slotId": "little",
+              "speaker": "learner",
+              "text": "Naloba Lingala moke.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Naloba Lingala moke."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I speak a little Lingala.",
+                  "note": null,
+                  "literal": "I-speak Lingala small"
+                },
+                "fr": {
+                  "meaning": "Je parle un peu lingala.",
+                  "note": null,
+                  "literal": "je parle lingala petit"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_meet_neighbour:offer_help",
+              "key": "offer_help",
+              "intentKey": "offer_help",
+              "slotId": "offer_help",
+              "speaker": "learner",
+              "text": "Nakoki kosalisa yo?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nakoki kosalisa yo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I help you?",
+                  "note": "Useful when you see someone carrying heavy bags.",
+                  "literal": "I-can to-help you"
+                },
+                "fr": {
+                  "meaning": "Puis-je vous aider ?",
+                  "note": "Utile quand vous voyez quelqu'un porter des sacs lourds.",
+                  "literal": "je peux aider toi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_meet_neighbour:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Natondi yo mingi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Natondi yo mingi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much.",
+                  "note": "Good for answering the invitation to tea.",
+                  "literal": "I-thank you much"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup.",
+                  "note": "Convient pour répondre à l'invitation à prendre le thé.",
+                  "literal": "je remercie toi beaucoup"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_meet_neighbour:say_new_neighbour_variant_9",
+              "key": "say_new_neighbour_variant_9",
+              "intentKey": "say_new_neighbour",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Nazali moyokani na yo ya sika.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nazali moyokani na yo ya sika."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I am your new neighbour.",
+                  "note": "A more explicit way to say it.",
+                  "literal": "I-am neighbour of you of new"
+                },
+                "fr": {
+                  "meaning": "Je suis votre nouveau voisin.",
+                  "note": "Une façon plus explicite de se présenter.",
+                  "literal": "je suis voisin de toi de nouveau"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_meet_neighbour:ask_where_from_variant_10",
+              "key": "ask_where_from_variant_10",
+              "intentKey": "ask_where_from",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ozali moto ya awa?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ozali moto ya awa?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Are you from here?",
+                  "note": null,
+                  "literal": "you-are person of here"
+                },
+                "fr": {
+                  "meaning": "Vous êtes d'ici ?",
+                  "note": null,
+                  "literal": "tu es personne de ici"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_meet_neighbour:thank_variant_11",
+              "key": "thank_variant_11",
+              "intentKey": "thank",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Merci mingi mpo na tee.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Merci mingi mpo na tee."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks a lot for the tea.",
+                  "note": "Use it after the neighbour invites you for tea.",
+                  "literal": "thanks much for tea"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup pour le thé.",
+                  "note": "À utiliser après l'invitation du voisin à prendre le thé.",
+                  "literal": "merci beaucoup pour thé"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "Merci is a French loanword that is very common in Kinshasa.",
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "lingala_take_taxi",
+          "blueprintKey": "take_taxi",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "transport",
+          "characterKey": "lingala_patrick_taxi_driver",
+          "titles": {
+            "en": "Taking a Taxi",
+            "fr": "Prendre un taxi"
+          },
+          "sceneNotes": {
+            "en": "You hail a taxi in heavy traffic to reach the old town, and the talkative driver quotes a price without using the meter.",
+            "fr": "Vous hélez un taxi dans les embouteillages pour rejoindre la vieille ville, et le chauffeur bavard annonce un prix sans utiliser le compteur."
+          },
+          "slots": [
+            {
+              "slotId": "hail",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_to",
+              "speaker": "character"
+            },
+            {
+              "slotId": "destination",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "meter",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fare",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "change",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "lingala_ch1:lingala_take_taxi:hail",
+              "key": "hail",
+              "intentKey": "hail_taxi",
+              "slotId": "hail",
+              "speaker": "learner",
+              "text": "Taxi, okoki komema ngai?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Taxi, okoki komema ngai?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Taxi, can you take me?",
+                  "note": "Said when the taxi pulls up beside you.",
+                  "literal": "Taxi, you-can to-take me?"
+                },
+                "fr": {
+                  "meaning": "Taxi, vous pouvez m'emmener ?",
+                  "note": "À dire quand le taxi s'arrête à votre hauteur.",
+                  "literal": "Taxi, tu-peux emmener moi ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": "Taxi is a French loanword used everywhere.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_take_taxi:where_to",
+              "key": "where_to",
+              "intentKey": "ask_destination",
+              "slotId": "where_to",
+              "speaker": "character",
+              "text": "Ozali kokende wapi?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ozali kokende wapi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where are you going?",
+                  "note": "The driver's usual opening question.",
+                  "literal": "You-are going where?"
+                },
+                "fr": {
+                  "meaning": "Où allez-vous ?",
+                  "note": "La question habituelle du chauffeur pour commencer.",
+                  "literal": "Tu-es allant où ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_take_taxi:destination",
+              "key": "destination",
+              "intentKey": "state_destination",
+              "slotId": "destination",
+              "speaker": "learner",
+              "text": "Nalingi kokende na mboka ya kala, s'il vous plaît.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nalingi kokende na mboka ya kala, s'il vous plaît."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like to go to the old town, please.",
+                  "note": "Replace 'mboka ya kala' with the real name of the neighbourhood.",
+                  "literal": "I-want to-go to town of old, please"
+                },
+                "fr": {
+                  "meaning": "Je voudrais aller à la vieille ville, s'il vous plaît.",
+                  "note": "Remplacez « mboka ya kala » par le vrai nom du quartier. Prononcez « kokende » k-o-k-e-n-d-e, sans « ng ».",
+                  "literal": "Je-veux aller à ville de ancien, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "s'il vous plaît is common French mixing for politeness.",
+              "pronunciationNote": "Say the 'ng' in 'kokende' as in 'finger'? No: it is 'k-o-k-e-n-d-e', with no 'ng'."
+            },
+            {
+              "id": "lingala_ch1:lingala_take_taxi:meter",
+              "key": "meter",
+              "intentKey": "ask_use_meter",
+              "slotId": "meter",
+              "speaker": "learner",
+              "text": "Okoki kosalela compteur, s'il vous plaît?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Okoki kosalela compteur, s'il vous plaît?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you use the meter, please?",
+                  "note": "Said when the driver quotes a price without the meter.",
+                  "literal": "You-can to-use meter, please?"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous utiliser le compteur, s'il vous plaît ?",
+                  "note": "À dire quand le chauffeur annonce un prix sans le compteur.",
+                  "literal": "Tu-peux utiliser compteur, s'il vous plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "compteur is the French word for meter.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_take_taxi:fare",
+              "key": "fare",
+              "intentKey": "ask_fare",
+              "slotId": "fare",
+              "speaker": "learner",
+              "text": "Tokofuta mbongo boni?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tokofuta mbongo boni?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much will we pay?",
+                  "note": "A natural way to ask the fare before you set off.",
+                  "literal": "We-will-pay money how-much?"
+                },
+                "fr": {
+                  "meaning": "Combien allons-nous payer ?",
+                  "note": "Une façon naturelle de demander le prix de la course avant de partir. Prononcez le « mb » de « mbongo » comme un seul son.",
+                  "literal": "Nous-paierons argent combien ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say 'mb' in 'mbongo' as one blended sound."
+            },
+            {
+              "id": "lingala_ch1:lingala_take_taxi:stop",
+              "key": "stop",
+              "intentKey": "say_stop_here",
+              "slotId": "stop",
+              "speaker": "learner",
+              "text": "Okoki kotelema awa, s'il vous plaît?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Okoki kotelema awa, s'il vous plaît?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you stop here, please?",
+                  "note": null,
+                  "literal": "You-can to-stop here, please?"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous vous arrêter ici, s'il vous plaît ?",
+                  "note": null,
+                  "literal": "Tu-peux t'arrêter ici, s'il vous plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_take_taxi:change",
+              "key": "change",
+              "intentKey": "ask_for_change",
+              "slotId": "change",
+              "speaker": "learner",
+              "text": "Ozali na monnaie, s'il vous plaît?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ozali na monnaie, s'il vous plaît?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have change, please?",
+                  "note": "Use it when you pay with a large note.",
+                  "literal": "You-have with change, please?"
+                },
+                "fr": {
+                  "meaning": "Avez-vous de la monnaie, s'il vous plaît ?",
+                  "note": "À utiliser quand vous payez avec un gros billet.",
+                  "literal": "Tu-es avec monnaie, s'il vous plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "monnaie is the usual French word for change in Kinshasa.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_take_taxi:bye",
+              "key": "bye",
+              "intentKey": "say_goodbye",
+              "slotId": "bye",
+              "speaker": "learner",
+              "text": "Matondi, tata. Kende malamu.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Matondi, tata. Kende malamu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, sir. Go well.",
+                  "note": "'Tata' is a respectful way to address an older man.",
+                  "literal": "Thanks, father. Go well."
+                },
+                "fr": {
+                  "meaning": "Merci, monsieur. Bonne route.",
+                  "note": "« Tata » est une façon respectueuse de s'adresser à un homme plus âgé.",
+                  "literal": "Merci, père. Va bien."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_take_taxi:hail_taxi_variant_9",
+              "key": "hail_taxi_variant_9",
+              "intentKey": "hail_taxi",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Taxi! Ozali libre?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Taxi! Ozali libre?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Taxi! Are you free?",
+                  "note": "A quick, casual way to hail a taxi.",
+                  "literal": "Taxi! You-are free?"
+                },
+                "fr": {
+                  "meaning": "Taxi ! Vous êtes libre ?",
+                  "note": "Une façon rapide et décontractée de héler un taxi.",
+                  "literal": "Taxi ! Tu-es libre ?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "libre is a French loanword meaning free or available.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_take_taxi:state_destination_variant_10",
+              "key": "state_destination_variant_10",
+              "intentKey": "state_destination",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Okoki komema ngai na mboka ya kala?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Okoki komema ngai na mboka ya kala?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you take me to the old town?",
+                  "note": "A polite alternative that works as a question.",
+                  "literal": "You-can to-take me to town of old?"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous m'emmener à la vieille ville ?",
+                  "note": "Une variante polie, sous forme de question.",
+                  "literal": "Tu-peux emmener moi à ville de ancien ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "lingala_buy_ice_cream",
+          "blueprintKey": "buy_ice_cream",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "shopping",
+          "characterKey": "lingala_joel_child_at_the_ice_cream_stand",
+          "titles": {
+            "en": "Buying Ice Cream Together",
+            "fr": "Acheter une glace ensemble"
+          },
+          "sceneNotes": {
+            "en": "You are taking a child to an ice-cream cart outside the school, and only two flavours are left.",
+            "fr": "Vous emmenez un enfant à une charrette de glaces devant l'école, mais il ne reste que deux parfums."
+          },
+          "slots": [
+            {
+              "slotId": "wants",
+              "speaker": "character"
+            },
+            {
+              "slotId": "which_flavour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "picks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "scoop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "asks_two",
+              "speaker": "character"
+            },
+            {
+              "slotId": "just_one",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "okay",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "yummy",
+              "speaker": "character"
+            },
+            {
+              "slotId": "me_too",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "lingala_ch1:lingala_buy_ice_cream:wants",
+              "key": "wants",
+              "intentKey": "request_food",
+              "slotId": "wants",
+              "speaker": "character",
+              "text": "Nalingi glace, tata!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nalingi glace, tata!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want an ice cream, daddy!",
+                  "note": "The child can say tata (dad/uncle) or mama to the grown-up. Use mama for a woman.",
+                  "literal": "I-want ice-cream, father"
+                },
+                "fr": {
+                  "meaning": "Je veux une glace, papa !",
+                  "note": "L'enfant peut dire « tata » (papa/tonton) ou « mama » à l'adulte. On emploie « mama » pour une femme.",
+                  "literal": "je-veux glace, père"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "glace is the common French loanword for ice cream in Kinshasa.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_buy_ice_cream:which_flavour",
+              "key": "which_flavour",
+              "intentKey": "offer_options",
+              "slotId": "which_flavour",
+              "speaker": "learner",
+              "text": "Vanille to chocolat?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vanille to chocolat?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Vanilla or chocolate?",
+                  "note": "to means 'or'. Say the two flavours with a rising tone.",
+                  "literal": "vanilla or chocolate"
+                },
+                "fr": {
+                  "meaning": "Vanille ou chocolat ?",
+                  "note": "« to » signifie « ou ». Prononcez les deux parfums avec un ton montant.",
+                  "literal": "vanille ou chocolat"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "Flavour names are French loanwords.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_buy_ice_cream:picks",
+              "key": "picks",
+              "intentKey": "choose_option",
+              "slotId": "picks",
+              "speaker": "character",
+              "text": "Chocolat, s'il vous plaît!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chocolat, s'il vous plaît!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Chocolate, please!",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Chocolat, s'il vous plaît !",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "s'il vous plaît is a natural French politeness phrase in Lingala speech.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_buy_ice_cream:scoop",
+              "key": "scoop",
+              "intentKey": "specify_quantity",
+              "slotId": "scoop",
+              "speaker": "learner",
+              "text": "Boule moko, s'il vous plaît.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Boule moko, s'il vous plaît."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One scoop, please.",
+                  "note": "You say this to the vendor.",
+                  "literal": "scoop one, please"
+                },
+                "fr": {
+                  "meaning": "Une boule, s'il vous plaît.",
+                  "note": "Vous dites cela au vendeur.",
+                  "literal": "boule une, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "boule (scoop) is French. moko (one) is Lingala.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_buy_ice_cream:asks_two",
+              "key": "asks_two",
+              "intentKey": "ask_permission",
+              "slotId": "asks_two",
+              "speaker": "character",
+              "text": "Nakoki kozwa boule ya mibale?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nakoki kozwa boule ya mibale?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I have a second scoop?",
+                  "note": null,
+                  "literal": "I-can to-take scoop of two"
+                },
+                "fr": {
+                  "meaning": "Je peux avoir une deuxième boule ?",
+                  "note": null,
+                  "literal": "je-peux prendre boule de deux"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_buy_ice_cream:just_one",
+              "key": "just_one",
+              "intentKey": "refuse_permission",
+              "slotId": "just_one",
+              "speaker": "learner",
+              "text": "Pardon, moko kaka lelo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pardon, moko kaka lelo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, just one today.",
+                  "note": "A kind, soft refusal. pardon softens it.",
+                  "literal": "sorry, one only today"
+                },
+                "fr": {
+                  "meaning": "Désolé, une seule aujourd'hui.",
+                  "note": "Un refus doux et gentil. « pardon » l'adoucit.",
+                  "literal": "pardon, une seulement aujourd'hui"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "pardon is French.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_buy_ice_cream:okay",
+              "key": "okay",
+              "intentKey": "grant_permission",
+              "slotId": "okay",
+              "speaker": "learner",
+              "text": "Ya solo, bóyoka!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ya solo, bóyoka!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Alright, go ahead!",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "D'accord, allez-y !",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_buy_ice_cream:yummy",
+              "key": "yummy",
+              "intentKey": "say_delicious",
+              "slotId": "yummy",
+              "speaker": "character",
+              "text": "Eloko elengi mingi!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Eloko elengi mingi!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's very tasty!",
+                  "note": null,
+                  "literal": "thing it-is-tasty a-lot"
+                },
+                "fr": {
+                  "meaning": "C'est très bon !",
+                  "note": null,
+                  "literal": "chose elle-est-bonne beaucoup"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_buy_ice_cream:me_too",
+              "key": "me_too",
+              "intentKey": "express_like",
+              "slotId": "me_too",
+              "speaker": "learner",
+              "text": "Nalingi glace mpe.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nalingi glace mpe."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I like ice cream too.",
+                  "note": null,
+                  "literal": "I-like ice-cream also"
+                },
+                "fr": {
+                  "meaning": "Moi aussi, j'aime les glaces.",
+                  "note": null,
+                  "literal": "j'aime glace aussi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_buy_ice_cream:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "character",
+              "text": "Matondi mingi, tata!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Matondi mingi, tata!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much, daddy!",
+                  "note": "Same thanks formula used earlier in the chapter.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup, papa !",
+                  "note": "C'est la même formule de remerciement que plus tôt dans le chapitre.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_buy_ice_cream:welcome",
+              "key": "welcome",
+              "intentKey": "respond_to_thanks",
+              "slotId": "welcome",
+              "speaker": "learner",
+              "text": "Ezali nkomo te.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ezali nkomo te."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's nothing. / You're welcome.",
+                  "note": "Casual reply to thanks.",
+                  "literal": "it-is problem not"
+                },
+                "fr": {
+                  "meaning": "Ce n'est rien. / De rien.",
+                  "note": "Réponse décontractée à un remerciement.",
+                  "literal": "c'est problème pas"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_buy_ice_cream:refuse_permission_variant_12",
+              "key": "refuse_permission_variant_12",
+              "intentKey": "refuse_permission",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Te, mwana, moko kaka.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Te, mwana, moko kaka."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, child, just one.",
+                  "note": "Slightly firmer but still friendly. mwana means child.",
+                  "literal": "no, child, one only"
+                },
+                "fr": {
+                  "meaning": "Non, mon petit, une seule.",
+                  "note": "Un peu plus ferme, mais toujours amical. « mwana » signifie « enfant ».",
+                  "literal": "non, enfant, une seulement"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "lingala_ch1:lingala_buy_ice_cream:offer_options_variant_13",
+              "key": "offer_options_variant_13",
+              "intentKey": "offer_options",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Olingi vanille to chocolat?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Olingi vanille to chocolat?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you want vanilla or chocolate?",
+                  "note": "A fuller, friendlier way to offer the choice.",
+                  "literal": "you-want vanilla or chocolate"
+                },
+                "fr": {
+                  "meaning": "Tu veux vanille ou chocolat ?",
+                  "note": "Une façon plus complète et plus chaleureuse de proposer le choix.",
+                  "literal": "tu-veux vanille ou chocolat"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

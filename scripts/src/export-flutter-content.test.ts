@@ -1,26 +1,46 @@
 /**
  * export-flutter-content: the checked-in Flutter bundle matches a fresh export (so a curriculum edit without a
  * re-export fails here), every track has names, a cover and a native name, colloquial Arabic never gets a device
- * voice, every exported expression keeps its seed id and draft honesty, and every skill the API may report has an
- * English and a French name. Offline: reads source files only.
+ * voice, every course's chapters are in a file of their own and the catalog says what each course is taught from,
+ * every exported expression keeps its seed id and draft honesty, and every skill the API may report has an English
+ * and a French name. Offline: reads source files only.
  */
-import { readFileSync } from 'node:fs';
-import { resolve } from 'node:path';
+import { mkdtempSync, mkdirSync, readFileSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join, resolve } from 'node:path';
 import { COURSE_TRACKS, LANGUAGE_VARIETIES } from '@langquest/contracts';
-import { ALL_SKILL_KEYS, DRAFT_CHAPTERS } from '@langquest/curriculum';
+import { ALL_SKILL_KEYS, DRAFT_CHAPTERS, type SeedChapter } from '@langquest/curriculum';
 import { describe, expect, it } from 'vitest';
-import { BUNDLE_DIR, NATIVE_TRACK_NAMES, buildFlutterBundle, castRoles, frenchTrackName, main, skillName, spec } from './export-flutter-content';
+import { BUNDLE_DIR, NATIVE_TRACK_NAMES, buildFlutterBundle, castRoles, courseSources, frenchTrackName, main, skillName, spec, staleChapterFiles } from './export-flutter-content';
 import { memoryIo, runCli } from './lib/cli';
+import { bundleChapterFiles, chaptersFileOf } from './lib/flutter-bundle';
 import { repoRoot } from './lib/io';
+
+type ExportedChapter = {
+  key: string;
+  courseTrackId: string;
+  sourceLanguages: string[];
+  nativeReviewed: boolean;
+  missions: { key: string; situation: string; slots: unknown[]; expressions: { id: string; text: string; meanings: Record<string, { meaning: string }> }[] }[];
+};
 
 const root = repoRoot();
 const files = buildFlutterBundle(root);
 const catalog = JSON.parse(files['catalog.json']!) as {
-  tracks: { id: string; names: { en: string; fr: string }; nativeName: string; voiceLocale: string | null; targetVarietyId: string; cover: { hue: number } }[];
+  tracks: {
+    id: string;
+    names: { en: string; fr: string };
+    nativeName: string;
+    voiceLocale: string | null;
+    targetVarietyId: string;
+    cover: { hue: number };
+    sources: string[];
+    missionCounts: Record<string, number>;
+  }[];
 };
-const chapters = JSON.parse(files['chapters.json']!) as {
-  chapters: { key: string; nativeReviewed: boolean; missions: { key: string; situation: string; slots: unknown[]; expressions: { id: string; text: string; meanings: Record<string, { meaning: string }> }[] }[] }[];
-};
+const courseFiles = Object.keys(files).filter((name) => name.startsWith('chapters/'));
+const courses = new Map(courseFiles.map((name) => [name, JSON.parse(files[name]!) as { schemaVersion: number; courseTrackId: string; chapters: ExportedChapter[] }]));
+const chapters = { chapters: [...courses.values()].flatMap((c) => c.chapters) };
 const skills = JSON.parse(files['skills.json']!) as { skills: { key: string; cefr: string; names: { en: string; fr: string }; system: boolean }[] };
 const cast = JSON.parse(files['cast.json']!) as { roles: Record<string, { en: string; fr: string }> };
 
@@ -34,6 +54,42 @@ describe('export-flutter-content', () => {
   it('--check passes on the checked-in bundle', async () => {
     const io = memoryIo();
     expect(await runCli(spec, ['--check'], main, io)).toBe(0);
+  });
+
+  it('writes no monolithic chapters file and leaves no chapter file of a course without chapters', () => {
+    expect(Object.keys(files)).not.toContain('chapters.json');
+    expect(bundleChapterFiles(root)).toEqual([...courseFiles].sort());
+    expect(staleChapterFiles(root, files)).toEqual([]);
+    const scratch = mkdtempSync(join(tmpdir(), 'flutter-bundle-'));
+    mkdirSync(join(scratch, BUNDLE_DIR, 'chapters'), { recursive: true });
+    for (const name of ['spanish-spain.json', 'klingon.json', 'notes.txt']) writeFileSync(join(scratch, BUNDLE_DIR, 'chapters', name), '{}');
+    expect(staleChapterFiles(scratch, files)).toEqual(['chapters/klingon.json']);
+  });
+
+  it('puts each course\'s chapters, in curriculum order, in a file of its own', () => {
+    for (const [name, course] of courses) {
+      expect(name).toBe(chaptersFileOf(course.courseTrackId));
+      expect(course.schemaVersion).toBe(1);
+      expect(course.chapters.map((c) => c.key)).toEqual(DRAFT_CHAPTERS.filter((c) => c.courseTrackId === course.courseTrackId).map((c) => c.key));
+      for (const c of course.chapters) expect(c.courseTrackId, c.key).toBe(course.courseTrackId);
+    }
+    expect(new Set(chapters.chapters.map((c) => c.courseTrackId))).toEqual(new Set(DRAFT_CHAPTERS.map((c) => c.courseTrackId)));
+  });
+
+  it('lists in the catalog what each course is taught from and its missions there, so the app needs no chapters to offer it', () => {
+    for (const t of catalog.tracks) {
+      const own = chapters.chapters.filter((c) => c.courseTrackId === t.id);
+      const expected = [...new Set(own.filter((c) => c.missions.length > 0).flatMap((c) => c.sourceLanguages))].sort();
+      expect(t.sources, t.id).toEqual(expected);
+      expect(Object.keys(t.missionCounts), t.id).toEqual(expected);
+      for (const s of expected) expect(t.missionCounts[s], `${t.id} ${s}`).toBe(own.filter((c) => c.sourceLanguages.includes(s)).reduce((n, c) => n + c.missions.length, 0));
+      expect(courses.has(chaptersFileOf(t.id)), t.id).toBe(own.length > 0);
+    }
+    expect(catalog.tracks.find((t) => t.id === 'english')?.sources).toEqual(['fr', 'ru']);
+    expect(catalog.tracks.find((t) => t.id === 'french')?.sources).toEqual(['en']);
+    // A chapter without missions makes no course of its instruction language.
+    const empty: SeedChapter = { ...DRAFT_CHAPTERS[0]!, courseTrackId: 'japanese', sourceLanguages: ['de'], missions: [] };
+    expect(courseSources([...DRAFT_CHAPTERS, empty], 'japanese').sources).not.toContain('de');
   });
 
   it('exports all 30 tracks with English and French names, a native name and a cover hue', () => {
@@ -57,9 +113,9 @@ describe('export-flutter-content', () => {
   });
 
   it('exports every draft chapter, mission and expression with its seed id, situation and meanings', () => {
-    expect(chapters.chapters.map((c) => c.key)).toEqual(DRAFT_CHAPTERS.map((c) => c.key));
-    for (const [ci, chapter] of chapters.chapters.entries()) {
-      const seed = DRAFT_CHAPTERS[ci]!;
+    expect(chapters.chapters.map((c) => c.key).sort()).toEqual(DRAFT_CHAPTERS.map((c) => c.key).sort());
+    for (const chapter of chapters.chapters) {
+      const seed = DRAFT_CHAPTERS.find((c) => c.key === chapter.key)!;
       expect(chapter.nativeReviewed).toBe(false);
       for (const [mi, mission] of chapter.missions.entries()) {
         expect(mission.situation.length, mission.key).toBeGreaterThan(0);

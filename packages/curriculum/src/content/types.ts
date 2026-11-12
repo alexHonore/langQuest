@@ -66,6 +66,8 @@ export const SeedCharacterSchema = z.object({
   regionalOption: z.string().nullable().default(null),
   /** Casting age band of the seed persona (documentation for the resolver; `null` = unspecified). */
   ageBand: AgeBandSchema.nullable().default(null),
+  /** Casting voice of the persona: which synthetic voice reads their lines (`null` = the course's default voice). */
+  voice: z.enum(['female', 'male']).nullable().default(null),
 });
 export type SeedCharacter = z.infer<typeof SeedCharacterSchema>;
 
@@ -125,6 +127,40 @@ export type SeedChapterInput = z.input<typeof SeedChapterSchema>;
 
 /** Parse + validate a seed chapter (throws on honesty violations). */
 export const defineSeedChapter = (input: SeedChapterInput): SeedChapter => SeedChapterSchema.parse(input);
+
+/** A source language's learner text for a chapter written in other source languages, kept beside it (`content/overlays/`). */
+export interface SourceOverlay {
+  source: SourceLanguageCode;
+  /** The chapter title in that language. */
+  title: string;
+  generatedBy: string;
+  missions: Record<string, { title: string; sceneNote: string; expressions: Record<string, { meaning: string; contextNote: string | null; literalGloss: string | null }> }>;
+}
+
+/** Adds an overlay's source language to a chapter; every mission and phrase must be covered (throws otherwise). */
+export function withSourceOverlay(chapter: SeedChapter, overlay: SourceOverlay): SeedChapter {
+  const src = overlay.source;
+  return defineSeedChapter({
+    ...chapter,
+    sourceLanguages: [...new Set([...chapter.sourceLanguages, src])],
+    titles: { ...chapter.titles, [src]: overlay.title },
+    notes: [...chapter.notes, `${src} learner text: ${overlay.generatedBy}; to review with the target text.`],
+    missions: chapter.missions.map((m) => {
+      const o = overlay.missions[m.key];
+      if (!o) throw new Error(`${src} overlay of ${chapter.key} misses mission ${m.key}`);
+      return {
+        ...m,
+        titles: { ...m.titles, [src]: o.title },
+        sceneNotes: { ...m.sceneNotes, [src]: o.sceneNote },
+        expressions: m.expressions.map((e) => {
+          const x = o.expressions[e.key];
+          if (!x) throw new Error(`${src} overlay of ${chapter.key} misses ${m.key}/${e.key}`);
+          return { ...e, meanings: { ...e.meanings, [src]: x } };
+        }),
+      };
+    }),
+  });
+}
 
 /** Stable candidate id for a seed expression. */
 export const seedExpressionId = (chapter: Pick<SeedChapter, 'key'>, mission: Pick<SeedMission, 'key'>, expression: Pick<SeedExpression, 'key'>): string => `${chapter.key}:${mission.key}:${expression.key}`;

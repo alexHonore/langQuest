@@ -8,8 +8,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:langquest_mobile/core/audio/take_recorder.dart';
+import 'package:langquest_mobile/core/backend/pronunciation_coach.dart';
 import 'package:langquest_mobile/core/backend/speech_check.dart';
 import 'package:langquest_mobile/core/services/speech_service.dart';
+import 'package:langquest_mobile/core/platform/browser_kind.dart';
 import 'package:langquest_mobile/features/learn/record_take.dart';
 import 'package:langquest_mobile/l10n/l10n.dart';
 
@@ -55,6 +57,8 @@ void main() {
       SpeechChecker? checker,
       SpeechTarget? check,
       ValueChanged<SpeechVerdict>? onVerdict,
+      BrowserKind browser = BrowserKind.other,
+      PronunciationCoach? coach,
     }) async {
       made = [];
       speech = FakeSpeech();
@@ -64,6 +68,8 @@ void main() {
             ...await testOverrides(device: device),
             speechServiceProvider.overrideWithValue(speech),
             speechCheckerProvider.overrideWithValue(checker),
+            browserKindProvider.overrideWithValue(browser),
+            pronunciationCoachProvider.overrideWithValue(coach),
             takeRecorderFactoryProvider.overrideWithValue(
               canRecord
                   ? () {
@@ -176,6 +182,94 @@ void main() {
       await tap(tester, 'Try again');
       expect(made.last.started, isTrue);
       expect(find.bySemanticsLabel('Stop recording'), findsOneWidget);
+    });
+
+    testWidgets('a blocked microphone: the steps to allow it, for this device', (tester) async {
+      for (final (browser, steps, others) in [
+        (BrowserKind.iosSafari, 'Website Settings › Microphone › Allow', 'Permissions › Microphone'),
+        (BrowserKind.android, 'Permissions › Microphone › Allow', 'Website Settings'),
+        (BrowserKind.desktop, 'set Microphone to Allow', 'Website Settings'),
+      ]) {
+        recorders = [FakeRecorder(failure: RecorderFailure.blocked)];
+        await pump(tester, browser: browser);
+        await tap(tester, 'Record yourself');
+        expect(find.text('How to allow the microphone'), findsOneWidget);
+        expect(find.textContaining(steps), findsNothing, reason: 'closed until asked');
+        await tester.tap(find.text('How to allow the microphone'));
+        await tester.pump();
+        expect(find.textContaining(steps), findsOneWidget, reason: '$browser');
+        expect(find.textContaining(others), findsNothing, reason: 'only this device\'s steps');
+        await tester.pumpWidget(const SizedBox());
+      }
+    });
+
+    group('AI pronunciation feedback', () {
+      const target = SpeechTarget(expressionId: 'ch:m:hola', chapterKey: 'ch', missionKey: 'm');
+      const silentH = PronunciationFeedback(
+        score: 75,
+        band: PronunciationBand.clearAccent,
+        matchesTarget: true,
+        heard: 'Jola, buenos días',
+        heardIpa: '/ˈxola ˈbwenos ˈdias/',
+        targetIpa: 'ˈola ˈbwenos ˈdias',
+        words: [
+          FeedbackWord(word: 'Hola', sound: WordSound.mispronounced, tip: 'The h is silent: say “ola”.'),
+          FeedbackWord(word: 'buenos', sound: WordSound.good),
+          FeedbackWord(word: 'días', sound: WordSound.good),
+        ],
+        summary: 'Easy to understand; the h of “Hola” is pronounced.',
+        tip: 'Keep the h silent.',
+      );
+
+      testWidgets('by itself after each checked take: the score, each word, the tip, what was heard, and that it is an AI estimate', (tester) async {
+        final semantics = tester.ensureSemantics();
+        recorders = [FakeRecorder(take: FakeTake())];
+        final coach = FakeCoach([silentH]);
+        await pump(
+          tester,
+          checker: FakeChecker([const SpeechVerdict(SpeechVerdictKind.understood, heard: 'Hola, buenos días')]),
+          check: target,
+          coach: coach,
+        );
+        await tap(tester, 'Record yourself');
+        await tap(tester, 'Stop recording');
+        await tester.pumpAndSettle();
+        // Realtime review: no tap needed, the AI listens as soon as the take is checked.
+        expect(coach.listened.single.$2.expressionId, 'ch:m:hola');
+        expect(find.bySemanticsLabel('75/100, Clear, with an accent'), findsOneWidget);
+        expect(find.text('Easy to understand; the h of “Hola” is pronounced.'), findsOneWidget);
+        expect(find.bySemanticsLabel('Hola: to work on'), findsOneWidget);
+        expect(find.bySemanticsLabel('buenos: good'), findsOneWidget);
+        expect(find.textContaining('The h is silent: say “ola”.', findRichText: true), findsOneWidget);
+        expect(find.text('Keep the h silent.'), findsOneWidget);
+        expect(find.text('Heard /ˈxola ˈbwenos ˈdias/ · expected /ˈola ˈbwenos ˈdias/'), findsOneWidget);
+        expect(find.text('An AI’s estimate from listening to your take, not a measurement. It isn’t counted in your progress.'), findsOneWidget);
+        expect(find.bySemanticsLabel('Get AI feedback on your pronunciation'), findsNothing, reason: 'once per take');
+        // A new take clears it.
+        recorders.add(FakeRecorder(take: FakeTake()));
+        await tap(tester, 'Record again');
+        expect(find.text('Keep the h silent.'), findsNothing);
+        semantics.dispose();
+      });
+
+      testWidgets('when it cannot be had, it says so; without an account course there is no button', (tester) async {
+        final semantics = tester.ensureSemantics();
+        recorders = [FakeRecorder(take: FakeTake())];
+        await pump(tester, check: target, coach: FakeCoach([null]));
+        await tap(tester, 'Record yourself');
+        await tap(tester, 'Stop recording');
+        await tap(tester, 'Get AI feedback on your pronunciation');
+        await tester.pumpAndSettle();
+        expect(find.text('Couldn’t get pronunciation feedback this time.'), findsOneWidget);
+        await tester.pumpWidget(const SizedBox());
+
+        recorders = [FakeRecorder(take: FakeTake())];
+        await pump(tester, check: target);
+        await tap(tester, 'Record yourself');
+        await tap(tester, 'Stop recording');
+        expect(find.bySemanticsLabel('Get AI feedback on your pronunciation'), findsNothing);
+        semantics.dispose();
+      });
     });
 
     testWidgets('a forgotten recording stops by itself', (tester) async {

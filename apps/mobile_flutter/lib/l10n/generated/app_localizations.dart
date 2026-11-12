@@ -362,6 +362,24 @@ abstract class AppLocalizations {
   /// **'Continue this course'**
   String get courseContinue;
 
+  /// No description provided for @courseLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading the course…'**
+  String get courseLoading;
+
+  /// No description provided for @courseLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'This course could not be loaded. Check your connection and try again.'**
+  String get courseLoadFailed;
+
+  /// No description provided for @courseLoadRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get courseLoadRetry;
+
   /// No description provided for @courseExplanationsIn.
   ///
   /// In en, this message translates to:
@@ -1649,7 +1667,7 @@ abstract class AppLocalizations {
   /// No description provided for @practiseSayingNoteChecked.
   ///
   /// In en, this message translates to:
-  /// **'Listen, record yourself: LangQuest tells you whether what you said came across. That is about meaning; there is no pronunciation score.'**
+  /// **'Listen, record yourself: LangQuest tells you whether what you said came across, and Pronunciation (AI) estimates how it sounded, word by word.'**
   String get practiseSayingNoteChecked;
 
   /// No description provided for @callIntroTitle.
@@ -1955,13 +1973,13 @@ abstract class AppLocalizations {
   /// No description provided for @courseIncludesSpokenCheck.
   ///
   /// In en, this message translates to:
-  /// **'Your spoken answers checked: LangQuest tells you whether you were understood (with a free account)'**
+  /// **'Your spoken answers checked: LangQuest tells you whether you were understood, and an AI estimates your pronunciation word by word (with a free account)'**
   String get courseIncludesSpokenCheck;
 
   /// No description provided for @courseMissingPronunciationScore.
   ///
   /// In en, this message translates to:
-  /// **'A pronunciation score: spoken answers are checked for meaning, not accent'**
+  /// **'A measured pronunciation score: the AI’s feedback is an estimate, not an acoustic measurement'**
   String get courseMissingPronunciationScore;
 
   /// No description provided for @courseLimitedForDialect.
@@ -2485,6 +2503,546 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Explanation'**
   String get callExplanation;
+
+  /// No description provided for @micHelpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'How to allow the microphone'**
+  String get micHelpTitle;
+
+  /// No description provided for @micHelpIos.
+  ///
+  /// In en, this message translates to:
+  /// **'On iPhone or iPad (Safari): tap “aA” at the left of the address bar, then Website Settings › Microphone › Allow. If Safari never asks: iPhone Settings › Safari › Microphone › Ask. Then tap Record again.'**
+  String get micHelpIos;
+
+  /// No description provided for @micHelpAndroid.
+  ///
+  /// In en, this message translates to:
+  /// **'On Android (Chrome): tap the icon at the left of the address (padlock or sliders), then Permissions › Microphone › Allow. Then tap Record again.'**
+  String get micHelpAndroid;
+
+  /// No description provided for @micHelpDesktop.
+  ///
+  /// In en, this message translates to:
+  /// **'On a computer: click the icon at the left of the address (padlock or sliders), set Microphone to Allow, then try again.'**
+  String get micHelpDesktop;
+
+  /// No description provided for @callMicBlocked.
+  ///
+  /// In en, this message translates to:
+  /// **'The microphone is blocked, so you can write your answers. Allow it to speak.'**
+  String get callMicBlocked;
+
+  /// No description provided for @pronunciationButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Pronunciation (AI)'**
+  String get pronunciationButton;
+
+  /// No description provided for @pronunciationButtonSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Get AI feedback on your pronunciation'**
+  String get pronunciationButtonSemantics;
+
+  /// No description provided for @pronunciationListening.
+  ///
+  /// In en, this message translates to:
+  /// **'LangQuest’s AI is listening to your take…'**
+  String get pronunciationListening;
+
+  /// No description provided for @pronunciationScore.
+  ///
+  /// In en, this message translates to:
+  /// **'{score}/100'**
+  String pronunciationScore(int score);
+
+  /// No description provided for @pronunciationNativeLike.
+  ///
+  /// In en, this message translates to:
+  /// **'Native-like'**
+  String get pronunciationNativeLike;
+
+  /// No description provided for @pronunciationClearAccent.
+  ///
+  /// In en, this message translates to:
+  /// **'Clear, with an accent'**
+  String get pronunciationClearAccent;
+
+  /// No description provided for @pronunciationHard.
+  ///
+  /// In en, this message translates to:
+  /// **'Hard to understand'**
+  String get pronunciationHard;
+
+  /// No description provided for @pronunciationOffTarget.
+  ///
+  /// In en, this message translates to:
+  /// **'That wasn’t the phrase'**
+  String get pronunciationOffTarget;
+
+  /// No description provided for @pronunciationNoSpeech.
+  ///
+  /// In en, this message translates to:
+  /// **'I didn’t hear anything. Check your microphone and try again.'**
+  String get pronunciationNoSpeech;
+
+  /// No description provided for @pronunciationWordGood.
+  ///
+  /// In en, this message translates to:
+  /// **'good'**
+  String get pronunciationWordGood;
+
+  /// No description provided for @pronunciationWordUnclear.
+  ///
+  /// In en, this message translates to:
+  /// **'unclear'**
+  String get pronunciationWordUnclear;
+
+  /// No description provided for @pronunciationWordToWork.
+  ///
+  /// In en, this message translates to:
+  /// **'to work on'**
+  String get pronunciationWordToWork;
+
+  /// No description provided for @pronunciationWordMissing.
+  ///
+  /// In en, this message translates to:
+  /// **'missing'**
+  String get pronunciationWordMissing;
+
+  /// No description provided for @pronunciationWordLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'{word}: {status}'**
+  String pronunciationWordLabel(String word, String status);
+
+  /// No description provided for @pronunciationSounds.
+  ///
+  /// In en, this message translates to:
+  /// **'Heard /{heard}/ · expected /{expected}/'**
+  String pronunciationSounds(String heard, String expected);
+
+  /// No description provided for @pronunciationNote.
+  ///
+  /// In en, this message translates to:
+  /// **'An AI’s estimate from listening to your take, not a measurement. It isn’t counted in your progress.'**
+  String get pronunciationNote;
+
+  /// No description provided for @pronunciationFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t get pronunciation feedback this time.'**
+  String get pronunciationFailed;
+
+  /// No description provided for @readAloud.
+  ///
+  /// In en, this message translates to:
+  /// **'Read aloud'**
+  String get readAloud;
+
+  /// No description provided for @readAloudSetting.
+  ///
+  /// In en, this message translates to:
+  /// **'Read exercises aloud'**
+  String get readAloudSetting;
+
+  /// No description provided for @readAloudSettingBody.
+  ///
+  /// In en, this message translates to:
+  /// **'As each exercise appears: its context and question in your language, then the phrase in the course\'s voice. Signed in, an AI voice reads them.'**
+  String get readAloudSettingBody;
+
+  /// No description provided for @realExamplesButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Real examples'**
+  String get realExamplesButton;
+
+  /// No description provided for @realExamplesButtonSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Real examples of this phrase, from Tatoeba'**
+  String get realExamplesButtonSemantics;
+
+  /// No description provided for @realExamplesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Real examples'**
+  String get realExamplesTitle;
+
+  /// No description provided for @realExamplesIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Sentences written by Tatoeba contributors that use “{phrase}”.'**
+  String realExamplesIntro(String phrase);
+
+  /// No description provided for @realExamplesAttested.
+  ///
+  /// In en, this message translates to:
+  /// **'“{phrase}” is itself a Tatoeba sentence: people really say it this way.'**
+  String realExamplesAttested(String phrase);
+
+  /// No description provided for @realExamplesRecording.
+  ///
+  /// In en, this message translates to:
+  /// **'Native recording'**
+  String get realExamplesRecording;
+
+  /// No description provided for @realExamplesRecordingSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Play a native speaker’s recording'**
+  String get realExamplesRecordingSemantics;
+
+  /// No description provided for @realExamplesBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Tatoeba #{id} by {author}'**
+  String realExamplesBy(String id, String author);
+
+  /// No description provided for @realExamplesById.
+  ///
+  /// In en, this message translates to:
+  /// **'Tatoeba #{id}'**
+  String realExamplesById(String id);
+
+  /// No description provided for @realExamplesRecordingBy.
+  ///
+  /// In en, this message translates to:
+  /// **'Recording by {author} · {license}'**
+  String realExamplesRecordingBy(String author, String license);
+
+  /// No description provided for @realExamplesRegion.
+  ///
+  /// In en, this message translates to:
+  /// **'Tatoeba doesn’t record which country a sentence comes from: an example may use another region’s wording.'**
+  String get realExamplesRegion;
+
+  /// No description provided for @realExamplesCredit.
+  ///
+  /// In en, this message translates to:
+  /// **'From Tatoeba (tatoeba.org), sentences under {license}, export of {date}.'**
+  String realExamplesCredit(String license, String date);
+
+  /// No description provided for @courseIncludesRealExamples.
+  ///
+  /// In en, this message translates to:
+  /// **'{attested} of {total} phrases found as written in Tatoeba, a collection of real sentences, with real examples to read'**
+  String courseIncludesRealExamples(int attested, int total);
+
+  /// No description provided for @recordSignInToCheck.
+  ///
+  /// In en, this message translates to:
+  /// **'Have LangQuest check what you said and how it sounded: create a free account'**
+  String get recordSignInToCheck;
+
+  /// No description provided for @speakToContinue.
+  ///
+  /// In en, this message translates to:
+  /// **'Say it out loud to continue'**
+  String get speakToContinue;
+
+  /// No description provided for @speakTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Not quite yet: try again ({tries} of {max})'**
+  String speakTryAgain(int tries, int max);
+
+  /// No description provided for @speakCantNow.
+  ///
+  /// In en, this message translates to:
+  /// **'Can’t speak now'**
+  String get speakCantNow;
+
+  /// No description provided for @speakCantNowDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Speaking steps are paused for 15 minutes.'**
+  String get speakCantNowDone;
+
+  /// No description provided for @speakSignUpTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Call the people of this course'**
+  String get speakSignUpTitle;
+
+  /// No description provided for @speakSignUpBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Live calls with the course’s AI characters, by voice or in writing, with corrections after each call. Free: it only needs an account, so your calls and progress are kept.'**
+  String get speakSignUpBody;
+
+  /// No description provided for @speakSignUpButton.
+  ///
+  /// In en, this message translates to:
+  /// **'Create a free account to call'**
+  String get speakSignUpButton;
+
+  /// No description provided for @speakSignUpAlready.
+  ///
+  /// In en, this message translates to:
+  /// **'Already have one? Sign in'**
+  String get speakSignUpAlready;
+
+  /// No description provided for @adminModelsEntry.
+  ///
+  /// In en, this message translates to:
+  /// **'AI models (admin)'**
+  String get adminModelsEntry;
+
+  /// No description provided for @adminModelsEntryBody.
+  ///
+  /// In en, this message translates to:
+  /// **'Which model does what, and change it'**
+  String get adminModelsEntryBody;
+
+  /// No description provided for @adminModelsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'AI models'**
+  String get adminModelsTitle;
+
+  /// No description provided for @adminModelsIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Each task the AI does, the model that does it (then its fallbacks, tried in order), and for which courses. A change is tested on the spot before it is saved, and takes effect within a minute.'**
+  String get adminModelsIntro;
+
+  /// No description provided for @adminModelsAllCourses.
+  ///
+  /// In en, this message translates to:
+  /// **'All courses'**
+  String get adminModelsAllCourses;
+
+  /// No description provided for @adminModelsDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'built-in'**
+  String get adminModelsDefault;
+
+  /// No description provided for @adminModelsChanged.
+  ///
+  /// In en, this message translates to:
+  /// **'changed by an admin'**
+  String get adminModelsChanged;
+
+  /// No description provided for @adminModelsFallbacks.
+  ///
+  /// In en, this message translates to:
+  /// **'Then: {models}'**
+  String adminModelsFallbacks(String models);
+
+  /// No description provided for @adminModelsVoice.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice: {voice}'**
+  String adminModelsVoice(String voice);
+
+  /// No description provided for @adminModelsChange.
+  ///
+  /// In en, this message translates to:
+  /// **'Change'**
+  String get adminModelsChange;
+
+  /// No description provided for @adminModelsReadOnly.
+  ///
+  /// In en, this message translates to:
+  /// **'Not changeable here'**
+  String get adminModelsReadOnly;
+
+  /// No description provided for @adminModelsScope.
+  ///
+  /// In en, this message translates to:
+  /// **'For'**
+  String get adminModelsScope;
+
+  /// No description provided for @adminModelsPrimary.
+  ///
+  /// In en, this message translates to:
+  /// **'Model'**
+  String get adminModelsPrimary;
+
+  /// No description provided for @adminModelsFallbacksField.
+  ///
+  /// In en, this message translates to:
+  /// **'Fallbacks (comma-separated, in order)'**
+  String get adminModelsFallbacksField;
+
+  /// No description provided for @adminModelsVoiceField.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice'**
+  String get adminModelsVoiceField;
+
+  /// No description provided for @adminModelsVoiceDefault.
+  ///
+  /// In en, this message translates to:
+  /// **'The course’s default voice'**
+  String get adminModelsVoiceDefault;
+
+  /// No description provided for @adminModelsSave.
+  ///
+  /// In en, this message translates to:
+  /// **'Test and save'**
+  String get adminModelsSave;
+
+  /// No description provided for @adminModelsSaved.
+  ///
+  /// In en, this message translates to:
+  /// **'Saved: tests passed.'**
+  String get adminModelsSaved;
+
+  /// No description provided for @adminModelsFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Not saved: {reason}'**
+  String adminModelsFailed(String reason);
+
+  /// No description provided for @adminModelsLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'Couldn’t load the models. Are you signed in as an admin?'**
+  String get adminModelsLoadFailed;
+
+  /// No description provided for @adminTask_character_dialogue.
+  ///
+  /// In en, this message translates to:
+  /// **'Calls: what the character says'**
+  String get adminTask_character_dialogue;
+
+  /// No description provided for @adminTask_learner_evaluation.
+  ///
+  /// In en, this message translates to:
+  /// **'Calls: the report after hanging up'**
+  String get adminTask_learner_evaluation;
+
+  /// No description provided for @adminTask_source_explanation.
+  ///
+  /// In en, this message translates to:
+  /// **'Calls: Translate, Hint, Explain, Example'**
+  String get adminTask_source_explanation;
+
+  /// No description provided for @adminTask_scene_planning.
+  ///
+  /// In en, this message translates to:
+  /// **'Calls: planning the scene'**
+  String get adminTask_scene_planning;
+
+  /// No description provided for @adminTask_meaning_assessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Spoken answers: was the meaning understood?'**
+  String get adminTask_meaning_assessment;
+
+  /// No description provided for @adminTask_pronunciation_feedback.
+  ///
+  /// In en, this message translates to:
+  /// **'Pronunciation score (AI listening)'**
+  String get adminTask_pronunciation_feedback;
+
+  /// No description provided for @adminTask_speech_recognition.
+  ///
+  /// In en, this message translates to:
+  /// **'Speech to text (your takes, calls)'**
+  String get adminTask_speech_recognition;
+
+  /// No description provided for @adminTask_speech_synthesis.
+  ///
+  /// In en, this message translates to:
+  /// **'Server AI voice (narrator, calls, lines without a bundled clip)'**
+  String get adminTask_speech_synthesis;
+
+  /// No description provided for @adminTask_language_quality_check.
+  ///
+  /// In en, this message translates to:
+  /// **'Checks each AI line is in the right language'**
+  String get adminTask_language_quality_check;
+
+  /// No description provided for @adminTask_content_generation.
+  ///
+  /// In en, this message translates to:
+  /// **'Content factory: drafting course content'**
+  String get adminTask_content_generation;
+
+  /// No description provided for @adminTask_transcription_alignment.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio library: transcripts'**
+  String get adminTask_transcription_alignment;
+
+  /// No description provided for @adminTask_pronunciation_assessment.
+  ///
+  /// In en, this message translates to:
+  /// **'Acoustic pronunciation score (Azure, not set up)'**
+  String get adminTask_pronunciation_assessment;
+
+  /// No description provided for @adminTask_realtime_conversation.
+  ///
+  /// In en, this message translates to:
+  /// **'Voice calls pipeline (speech to text, dialogue, voice)'**
+  String get adminTask_realtime_conversation;
+
+  /// No description provided for @practiceListenPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen. What does it mean?'**
+  String get practiceListenPrompt;
+
+  /// No description provided for @practiceReadPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'What does it mean?'**
+  String get practiceReadPrompt;
+
+  /// No description provided for @practiceReversePrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Which one says this?'**
+  String get practiceReversePrompt;
+
+  /// No description provided for @practiceGapPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Complete the sentence'**
+  String get practiceGapPrompt;
+
+  /// No description provided for @practiceTryAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Not this one. Try another.'**
+  String get practiceTryAgain;
+
+  /// No description provided for @practiceRight.
+  ///
+  /// In en, this message translates to:
+  /// **'That’s it!'**
+  String get practiceRight;
+
+  /// No description provided for @practiceNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Continue'**
+  String get practiceNext;
+
+  /// No description provided for @practiceGapSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'missing word'**
+  String get practiceGapSemantics;
+
+  /// No description provided for @practiceWrongSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{option}, not this one'**
+  String practiceWrongSemantics(String option);
+
+  /// No description provided for @practiceRightSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{option}, right answer'**
+  String practiceRightSemantics(String option);
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

@@ -214,6 +214,56 @@ export type PronunciationAssessRequest = z.infer<typeof PronunciationAssessReque
  * `transcript: null`, `shouldAdvanceConversation: false` and an `unavailable` pronunciation block (no score).
  */
 export const PronunciationAssessResponseSchema = SpeechEvaluationResultSchema;
+
+/**
+ * `POST /v1/speech/pronunciation-feedback` — AI pronunciation feedback: a listening model's estimate of how a take of an
+ * approved phrase sounds (a score, word by word statuses, tips in the learner's instruction language). It is NOT an
+ * acoustic measurement: it never fills `PronunciationAssessment.numericScore` and is never recorded as mastery
+ * evidence. The take is sent inline as WAV or MP3, the formats listening models accept (clients convert their
+ * recording). A take whose recorder metering says it is silent is answered `no_speech` without calling the model.
+ */
+export const PronunciationFeedbackRequestSchema = z.object({
+  enrollmentId: UuidSchema,
+  targetVarietyId: VarietyIdSchema,
+  /** The phrase said: published course content only. */
+  expressionId: UuidSchema,
+  audio: z.object({
+    source: z.literal('inline'),
+    base64: z.string().min(1),
+    encoding: z.enum(['wav', 'mp3']),
+    sampleRateHz: z.number().int().positive().nullable(),
+  }),
+  recording: RecordingSignalsSchema.optional(),
+  clientRequestId: UuidSchema,
+});
+export type PronunciationFeedbackRequest = z.infer<typeof PronunciationFeedbackRequestSchema>;
+
+export const PronunciationFeedbackWordSchema = z.object({
+  word: z.string(),
+  status: z.enum(['good', 'unclear', 'mispronounced', 'missing']),
+  tip: z.string().nullable(),
+});
+
+export const PronunciationFeedbackResponseSchema = z.object({
+  feedbackId: UuidSchema,
+  targetVarietyId: VarietyIdSchema,
+  method: z.literal('ai_listening'),
+  /** The model's estimate, 0-100; null when nothing was listened to (`no_speech`). */
+  score: z.number().int().min(0).max(100).nullable(),
+  band: z.enum(['native_like', 'clear_accent', 'hard_to_understand', 'off_target', 'no_speech']),
+  matchesTarget: z.boolean(),
+  /** What the model heard, in the target script, and the same in IPA next to the expected IPA. */
+  heard: z.string(),
+  heardIpa: z.string(),
+  targetIpa: z.string(),
+  words: z.array(PronunciationFeedbackWordSchema),
+  /** In the learner's instruction language. */
+  summary: z.string(),
+  tip: z.string(),
+  model: z.string().nullable(),
+  version: z.string(),
+});
+export type PronunciationFeedbackResponse = z.infer<typeof PronunciationFeedbackResponseSchema>;
 export type PronunciationAssessResponse = z.infer<typeof PronunciationAssessResponseSchema>;
 
 // --- synthesize -------------------------------------------------------------
@@ -232,6 +282,20 @@ export const SynthesizeRequestSchema = z.object({
 export type SynthesizeRequest = z.infer<typeof SynthesizeRequestSchema>;
 export const SynthesizeResponseSchema = z.object({ audio: AudioOutputSchema, capability: CapabilitySchema });
 export type SynthesizeResponse = z.infer<typeof SynthesizeResponseSchema>;
+
+/**
+ * The narrator: an exercise's instruction or context read aloud in the learner's instruction language (the
+ * enrollment's source language), e.g. "At the café. Karim greets you. What do you answer?". Target-language lines are
+ * never narrated here: they go through `speechSynthesize` with an approved expression id, in the variety's voice.
+ */
+export const NarrateRequestSchema = z.object({
+  enrollmentId: UuidSchema,
+  text: z.string().trim().min(1).max(400),
+  speed: z.enum(['slow', 'normal']).default('normal'),
+});
+export type NarrateRequest = z.infer<typeof NarrateRequestSchema>;
+export const NarrateResponseSchema = z.object({ audio: AudioOutputSchema, capability: CapabilitySchema, language: SourceLanguageCodeSchema });
+export type NarrateResponse = z.infer<typeof NarrateResponseSchema>;
 
 // --- capabilities -----------------------------------------------------------
 

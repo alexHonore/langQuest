@@ -14,6 +14,7 @@ import { OpenRouterSpeechRecognizer } from './speech/stt';
 import { OpenRouterSpeechSynthesizer, type TtsCache } from './speech/tts';
 import { AzurePronunciationAssessor, CompositeAssessor, ReferenceComparisonAssessor, type ReferenceAudioResolver } from './speech/pronunciation';
 import type { AudioAssetResolver } from './speech/audio-input';
+import { LlmPronunciationJudge } from './speech/pronunciation-judge';
 import { PipelineRealtimeProvider } from './realtime/pipeline';
 import { DuplexProviderStub } from './realtime/duplex-stub';
 import { CharacterAgent } from './conversation/character-agent';
@@ -39,6 +40,7 @@ export * from './speech/voices';
 export * from './speech/stt';
 export * from './speech/tts';
 export * from './speech/pronunciation';
+export * from './speech/pronunciation-judge';
 export * from './realtime/tickets';
 export * from './realtime/pipeline';
 export * from './realtime/duplex-stub';
@@ -93,6 +95,8 @@ export interface AiServices {
   evaluator: Evaluator;
   summariser: SessionSummariser;
   meaning: MeaningMatcher;
+  /** AI pronunciation feedback: a listening model's estimate (never an acoustic score, never mastery evidence). */
+  pronunciationJudge: LlmPronunciationJudge;
 }
 
 /** Wire every adapter from environment + injected dependencies. Safe for Workers and Node. */
@@ -140,5 +144,6 @@ export async function createAiServices(envSource: AiEnv | Record<string, string 
     evaluator: new Evaluator({ reasoner }),
     summariser: new SessionSummariser(reasoner),
     meaning: new MeaningMatcher({ reasoner }),
+    pronunciationJudge: new LlmPronunciationJudge({ client, sink: deps.requestSink ?? null, attribution, profiles }),
   };
 }

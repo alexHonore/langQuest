@@ -1,0 +1,2645 @@
+{
+ "key": "portuguese_european_ch1",
+ "chapterIndex": 1,
+ "courseTrackId": "portuguese-european",
+ "targetVarietyId": "pt-PT",
+ "sourceLanguages": [
+  "en",
+  "fr"
+ ],
+ "titles": {
+  "en": "First days in Portugal",
+  "fr": "Premiers jours au Portugal"
+ },
+ "characters": [
+  {
+   "characterKey": "portuguese_european_marta_friendly_local_acquaintance",
+   "role": "friendly local acquaintance",
+   "name": "Marta",
+   "personality": "warm, busy, curious, kind",
+   "homeRegion": "Porto",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "portuguese_european_sofia_cafe_server",
+   "role": "café server",
+   "name": "Sofia",
+   "personality": "quick, friendly, cheerful, efficient",
+   "homeRegion": "Lisboa",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "portuguese_european_fernando_market_vendor",
+   "role": "market vendor",
+   "name": "Fernando",
+   "personality": "friendly, chatty, quick-witted",
+   "homeRegion": "Porto",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "portuguese_european_marta_passer_by",
+   "role": "passer-by",
+   "name": "Marta",
+   "personality": "Friendly, in a hurry, talkative",
+   "homeRegion": "Porto",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "portuguese_european_fernanda_neighbour",
+   "role": "neighbour",
+   "name": "Fernanda",
+   "personality": "warm, chatty, curious, welcoming",
+   "homeRegion": "Porto",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "portuguese_european_rui_taxi_driver",
+   "role": "taxi driver",
+   "name": "Rui",
+   "personality": "talkative, friendly, a bit pushy",
+   "homeRegion": "Lisboa",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "portuguese_european_tiago_child_at_the_ice_cream_stand",
+   "role": "child at the ice-cream stand",
+   "name": "Tiago",
+   "personality": "cheerful, greedy, very chatty",
+   "homeRegion": "Lisboa",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  }
+ ],
+ "missions": [
+  {
+   "key": "portuguese_european_greet_and_introduce",
+   "blueprintKey": "greet_and_introduce",
+   "titles": {
+    "en": "Meeting a Neighbour Outside",
+    "fr": "Rencontrer une voisine dehors"
+   },
+   "sceneNotes": {
+    "en": "It's morning and you bump into a neighbour on the street who is in a hurry but friendly, so you greet each other, introduce yourselves and say a quick goodbye.",
+    "fr": "C'est le matin et vous croisez dans la rue une voisine pressée mais aimable : vous vous saluez, vous vous présentez et vous vous dites rapidement au revoir."
+   },
+   "characterKey": "portuguese_european_marta_friendly_local_acquaintance",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Bom dia!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Bom dia!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good morning!",
+       "contextNote": "Used until lunchtime; the safe, polite way to greet a neighbour in the morning.",
+       "literalGloss": "good day"
+      },
+      "fr": {
+       "meaning": "Bonjour !",
+       "contextNote": "S'emploie jusqu'au déjeuner ; c'est la façon polie et sûre de saluer un voisin le matin. Prononcez « dia » comme « DI-a » ; le « a » final est très léger.",
+       "literalGloss": "bon jour"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say 'dia' like 'DEE-uh'; the final 'a' is very soft.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "how_are_you",
+     "intentKey": "ask_how_are_you",
+     "slotId": "how_are_you",
+     "speaker": "learner",
+     "targetText": "Está tudo bem consigo?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Está tudo bem consigo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Is everything fine with you?",
+       "contextNote": "Polite form using the 3rd person, suitable for a neighbour you don't know yet.",
+       "literalGloss": "is all well with you"
+      },
+      "fr": {
+       "meaning": "Tout va bien pour vous ?",
+       "contextNote": "Forme polie à la 3e personne, adaptée à un voisin que vous ne connaissez pas encore. « Consigo » se dit « kon-SI-gou ».",
+       "literalGloss": "est tout bien avec vous"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Consigo' is said 'kon-SEE-goo'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "fine",
+     "intentKey": "reply_fine",
+     "slotId": "fine",
+     "speaker": "learner",
+     "targetText": "Estou bem, obrigado.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Estou bem, obrigado."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm fine, thank you.",
+       "contextNote": "Women say 'obrigada'.",
+       "literalGloss": "I am well, thanked"
+      },
+      "fr": {
+       "meaning": "Je vais bien, merci.",
+       "contextNote": "Une femme dit « obrigada ». Le « o » initial de « obrigado » est court, presque avalé (« ou-bri-GA-dou »).",
+       "literalGloss": "je suis bien, remercié"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Obrigado' starts with a short, almost swallowed 'o' (like 'oo-bree-GAH-doo').",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "my_name",
+     "intentKey": "introduce_name",
+     "slotId": "my_name",
+     "speaker": "learner",
+     "targetText": "Chamo-me Daniel.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Chamo-me Daniel."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "My name is Daniel.",
+       "contextNote": "Replace 'Daniel' with your own name. The pronoun 'me' attaches to the verb with a hyphen.",
+       "literalGloss": "I call myself Daniel"
+      },
+      "fr": {
+       "meaning": "Je m'appelle Daniel.",
+       "contextNote": "Remplacez « Daniel » par votre prénom. Le pronom « me » se rattache au verbe par un trait d'union. « Chamo » commence par « ch » comme dans « chat ».",
+       "literalGloss": "je m'appelle Daniel"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Chamo' starts with 'sh', as in 'shop'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "your_name",
+     "intentKey": "ask_name",
+     "slotId": "your_name",
+     "speaker": "learner",
+     "targetText": "Como se chama?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Como se chama?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "What's your name?",
+       "contextNote": "Polite form for someone you've just met; with peers you could say 'Como te chamas?'.",
+       "literalGloss": "how yourself you-call"
+      },
+      "fr": {
+       "meaning": "Comment vous appelez-vous ?",
+       "contextNote": "Forme polie pour quelqu'un que l'on vient de rencontrer ; entre pairs, on peut dire « Como te chamas? ». « Chama » commence par « ch » : « CHA-ma ».",
+       "literalGloss": "comment vous appelez-vous"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Chama' begins with 'sh': 'SHA-ma'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "nice_to_meet",
+     "intentKey": "say_nice_to_meet",
+     "slotId": "nice_to_meet",
+     "speaker": "learner",
+     "targetText": "Muito prazer!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Muito prazer!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Nice to meet you!",
+       "contextNote": "Said right after hearing the other person's name.",
+       "literalGloss": "much pleasure"
+      },
+      "fr": {
+       "meaning": "Enchanté(e) !",
+       "contextNote": "Se dit juste après avoir entendu le nom de l'autre personne. « Muito » est nasal, à peu près « MOUIN-tou ».",
+       "literalGloss": "beaucoup plaisir"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Muito' is nasal, roughly 'MWEEN-too'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "goodbye",
+     "intentKey": "say_goodbye",
+     "slotId": "goodbye",
+     "speaker": "learner",
+     "targetText": "Até logo! Bom dia!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Até logo! Bom dia!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "See you later! Have a good day!",
+       "contextNote": "A natural way to part from a neighbour who is rushing off.",
+       "literalGloss": "until later, good day"
+      },
+      "fr": {
+       "meaning": "À tout à l'heure ! Bonne journée !",
+       "contextNote": "Une façon naturelle de quitter un voisin qui est pressé. Dans « logo », le « o » final sonne comme un « ou » bref.",
+       "literalGloss": "jusqu'à tout à l'heure, bon jour"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "In 'logo' the final 'o' sounds like a short 'oo'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "greet_hello_variant_8",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Olá, bom dia!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Olá, bom dia!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello, good morning!",
+       "contextNote": "A slightly warmer greeting, still fine with a neighbour.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Salut, bonjour !",
+       "contextNote": "Une salutation un peu plus chaleureuse, tout à fait possible avec un voisin.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "reply_fine_variant_9",
+     "intentKey": "reply_fine",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Estou bem, obrigada. E o senhor?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Estou bem, obrigada. E o senhor?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm fine, thank you. And you, sir?",
+       "contextNote": "Feminine form for a woman speaking. Use 'e a senhora?' for a woman. With a neighbour of similar age, 'e você?' or 'e tu?' may also be heard.",
+       "literalGloss": "and the gentleman"
+      },
+      "fr": {
+       "meaning": "Je vais bien, merci. Et vous, monsieur ?",
+       "contextNote": "Forme féminine pour une femme qui parle. Pour s'adresser à une femme, on dit « e a senhora? ». Avec un voisin du même âge, on peut aussi entendre « e você? » ou « e tu? ».",
+       "literalGloss": "et le monsieur"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_name_variant_10",
+     "intentKey": "ask_name",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Como te chamas?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Como te chamas?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "What's your name?",
+       "contextNote": "Casual 'tu' form, fine if the neighbour is young or says 'tu' first.",
+       "literalGloss": "how yourself you-call"
+      },
+      "fr": {
+       "meaning": "Comment tu t'appelles ?",
+       "contextNote": "Forme familière avec « tu », adaptée si le voisin est jeune ou vous tutoie le premier.",
+       "literalGloss": "comment te t'appelles"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "portuguese_european_cafe_order_drink",
+   "blueprintKey": "cafe_order_drink",
+   "titles": {
+    "en": "Ordering a Drink at the Café",
+    "fr": "Commander une boisson au café"
+   },
+   "sceneNotes": {
+    "en": "You sit down at a busy café terrace in Portugal, where a quick, friendly server comes over to take your order.",
+    "fr": "Vous vous installez à la terrasse d'un café animé au Portugal, où une serveuse rapide et aimable vient prendre votre commande."
+   },
+   "characterKey": "portuguese_european_sofia_cafe_server",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Boa tarde!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Boa tarde!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good afternoon!",
+       "contextNote": "Use after lunch until evening; switch to Bom dia in the morning and Boa noite after dark.",
+       "literalGloss": "good afternoon"
+      },
+      "fr": {
+       "meaning": "Bonjour ! (l'après-midi)",
+       "contextNote": "À employer après le déjeuner jusqu'au soir ; le matin, dites « Bom dia », et la nuit tombée, « Boa noite ». Le -e final de « tarde » est presque muet : environ « BOA-a TARD ».",
+       "literalGloss": "bon après-midi"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Final -e in tarde is nearly silent: roughly 'BOH-ah TARD'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "order",
+     "intentKey": "request_drink",
+     "slotId": "order",
+     "speaker": "learner",
+     "targetText": "Queria um café, por favor.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Queria um café, por favor."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'd like a coffee, please.",
+       "contextNote": "In Lisbon a small espresso is called 'uma bica' and in the north 'um cimbalino'; 'um café' works everywhere.",
+       "literalGloss": "I-would-want a coffee, please"
+      },
+      "fr": {
+       "meaning": "Je voudrais un café, s'il vous plaît.",
+       "contextNote": "À Lisbonne, un petit expresso se dit « uma bica », dans le nord « um cimbalino » ; « um café » fonctionne partout. « Queria » commence par un son « k » : « kou-RI-a ».",
+       "literalGloss": "je voudrais un café, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'ão'-free 'queria' starts with a 'k' sound: 'kuh-REE-ah'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "options",
+     "intentKey": "offer_options",
+     "slotId": "options",
+     "speaker": "character",
+     "targetText": "Pequeno ou grande?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Pequeno ou grande?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Small or large?",
+       "contextNote": "The server asks about the size or type of drink; you answer by picking one.",
+       "literalGloss": "small or large"
+      },
+      "fr": {
+       "meaning": "Petit ou grand ?",
+       "contextNote": "La serveuse vous demande la taille ou le type de boisson ; vous répondez en choisissant l'un des deux.",
+       "literalGloss": "petit ou grand"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "choice",
+     "intentKey": "choose_option",
+     "slotId": "choice",
+     "speaker": "learner",
+     "targetText": "Pequeno, por favor.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Pequeno, por favor."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Small, please.",
+       "contextNote": "Swap in 'grande' for large.",
+       "literalGloss": "small, please"
+      },
+      "fr": {
+       "meaning": "Petit, s'il vous plaît.",
+       "contextNote": "Remplacez par « grande » pour un grand. L'accent tombe sur « ne » : « pe-KE-nou ».",
+       "literalGloss": "petit, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Stress falls on 'ne': 'peh-KEH-noo'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "bill",
+     "intentKey": "ask_for_bill",
+     "slotId": "bill",
+     "speaker": "learner",
+     "targetText": "A conta, se faz favor.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "A conta, se faz favor."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "The bill, please.",
+       "contextNote": "Very common way to call for the bill in a café or restaurant.",
+       "literalGloss": "the bill, if it does favour"
+      },
+      "fr": {
+       "meaning": "L'addition, s'il vous plaît.",
+       "contextNote": "Façon très courante de demander l'addition dans un café ou un restaurant. Dans « conta », le « on » est nasal : ne prononcez pas un « n » dur.",
+       "literalGloss": "l'addition, s'il vous fait plaisir"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'conta' has a nasal 'on': do not pronounce a hard 'n'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Obrigado, até logo!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Obrigado, até logo!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you, see you later!",
+       "contextNote": "A woman says 'obrigada'.",
+       "literalGloss": "obliged, until later"
+      },
+      "fr": {
+       "meaning": "Merci, à tout à l'heure !",
+       "contextNote": "Une femme dit « obrigada ». Le « g » de « obrigado » est doux : « o-bri-GA-dou ».",
+       "literalGloss": "obligé, jusqu'à tout à l'heure"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'lh'-free but note 'g' in 'obrigado' is a soft 'ee-GAH-doo'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "request_drink_variant_7",
+     "intentKey": "request_drink",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Uma água sem gás, por favor.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Uma água sem gás, por favor."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "A still water, please.",
+       "contextNote": "Use 'com gás' for sparkling water.",
+       "literalGloss": "a water without gas, please"
+      },
+      "fr": {
+       "meaning": "Une eau plate, s'il vous plaît.",
+       "contextNote": "Dites « com gás » pour de l'eau gazeuse. « Água » se prononce « A-goua », accent sur la première syllabe.",
+       "literalGloss": "une eau sans gaz, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'água' is 'AH-gwah', with stress on the first syllable.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "choose_option_variant_8",
+     "intentKey": "choose_option",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Sem açúcar, obrigada.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Sem açúcar, obrigada."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Without sugar, thank you.",
+       "contextNote": "Feminine speaker form; a man says 'obrigado'.",
+       "literalGloss": "without sugar, thank-you (fem.)"
+      },
+      "fr": {
+       "meaning": "Sans sucre, merci.",
+       "contextNote": "Forme féminine ; un homme dit « obrigado ». Le ç se prononce comme un simple « s » : « a-SOU-kar ».",
+       "literalGloss": "sans sucre, merci (fém.)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ç is a plain 's' sound: 'ah-SOO-kar'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "portuguese_european_market_ask_price",
+   "blueprintKey": "market_ask_price",
+   "titles": {
+    "en": "Asking Prices at the Market",
+    "fr": "Demander les prix au marché"
+   },
+   "sceneNotes": {
+    "en": "You stop at a fruit stall at the market, where prices are per kilo and a little friendly haggling is normal.",
+    "fr": "Vous vous arrêtez devant un étal de fruits au marché, où les prix sont au kilo et où un peu de marchandage amical est tout à fait normal."
+   },
+   "characterKey": "portuguese_european_fernando_market_vendor",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Boa tarde, como está?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Boa tarde, como está?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good afternoon, how are you?",
+       "contextNote": "Polite opener to a vendor you don't know. Use Bom dia before midday.",
+       "literalGloss": "good afternoon, how are-you"
+      },
+      "fr": {
+       "meaning": "Bonjour, comment allez-vous ?",
+       "contextNote": "Formule polie pour saluer un vendeur que vous ne connaissez pas. Avant midi, dites « Bom dia ». Dans « tarde », le -e final est presque muet.",
+       "literalGloss": "bon après-midi, comment êtes-vous"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "In \"tarde\", the final -e is almost silent.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "how_much",
+     "intentKey": "ask_price",
+     "slotId": "how_much",
+     "speaker": "learner",
+     "targetText": "Quanto custa o quilo, se faz favor?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Quanto custa o quilo, se faz favor?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much is a kilo, please?",
+       "contextNote": "Point at the fruit while you ask.",
+       "literalGloss": "how-much costs the kilo, if it-does favour"
+      },
+      "fr": {
+       "meaning": "Combien coûte le kilo, s'il vous plaît ?",
+       "contextNote": "Montrez les fruits du doigt en posant la question. « Quilo » se prononce KI-lou, le u final se disant à peine.",
+       "literalGloss": "combien coûte le kilo, si cela fait plaisir"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"Quilo\" is said KEE-loo, with the u silent.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "price",
+     "intentKey": "state_price",
+     "slotId": "price",
+     "speaker": "character",
+     "targetText": "São dois euros o quilo.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "São dois euros o quilo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "It's two euros a kilo.",
+       "contextNote": "The vendor answers with the price per kilo.",
+       "literalGloss": "are two euros the kilo"
+      },
+      "fr": {
+       "meaning": "C'est deux euros le kilo.",
+       "contextNote": "Le vendeur répond en donnant le prix au kilo.",
+       "literalGloss": "sont deux euros le kilo"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "expensive",
+     "intentKey": "say_too_expensive",
+     "slotId": "expensive",
+     "speaker": "learner",
+     "targetText": "É um bocado caro!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "É um bocado caro!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "That's a bit expensive!",
+       "contextNote": "Said lightly and with a smile. Haggling here is friendly.",
+       "literalGloss": "is a bit expensive"
+      },
+      "fr": {
+       "meaning": "C'est un peu cher !",
+       "contextNote": "À dire d'un ton léger, avec le sourire. Ici, le marchandage reste amical.",
+       "literalGloss": "est un peu cher"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "lower",
+     "intentKey": "offer_lower_price",
+     "slotId": "lower",
+     "speaker": "learner",
+     "targetText": "Pode fazer mais barato, por favor?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Pode fazer mais barato, por favor?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could you do it a bit cheaper, please?",
+       "contextNote": "Polite way to ask for a small discount.",
+       "literalGloss": "can-you make more cheap, please"
+      },
+      "fr": {
+       "meaning": "Vous pouvez me faire un meilleur prix, s'il vous plaît ?",
+       "contextNote": "Manière polie de demander une petite réduction.",
+       "literalGloss": "pouvez-vous faire plus bon marché, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "deal",
+     "intentKey": "agree_to_price",
+     "slotId": "deal",
+     "speaker": "learner",
+     "targetText": "Está bem, levo um quilo.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Está bem, levo um quilo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "OK, I'll take a kilo.",
+       "contextNote": "Change um to dois for two kilos.",
+       "literalGloss": "is well, I-take one kilo"
+      },
+      "fr": {
+       "meaning": "D'accord, j'en prends un kilo.",
+       "contextNote": "Remplacez « um » par « dois » pour deux kilos.",
+       "literalGloss": "est bien, je prends un kilo"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "no_thanks",
+     "intentKey": "decline_purchase",
+     "slotId": "no_thanks",
+     "speaker": "learner",
+     "targetText": "Hoje não, obrigado.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hoje não, obrigado."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Not today, thank you.",
+       "contextNote": "Men say obrigado.",
+       "literalGloss": "today no, thank-you"
+      },
+      "fr": {
+       "meaning": "Pas aujourd'hui, merci.",
+       "contextNote": "Forme masculine : « obrigado » est dit par les hommes. Le h de « hoje » est muet : on dit OH-je (comme le j de « jour »).",
+       "literalGloss": "aujourd'hui non, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"Hoje\" starts with a silent h. Say OH-zhe.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_price_variant_8",
+     "intentKey": "ask_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Quanto custam estas maçãs?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Quanto custam estas maçãs?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much are these apples?",
+       "contextNote": "Use the plural custam with plural fruit. Swap in other fruit as needed.",
+       "literalGloss": "how-much cost these apples"
+      },
+      "fr": {
+       "meaning": "Combien coûtent ces pommes ?",
+       "contextNote": "Avec des fruits au pluriel, on utilise « custam ». Vous pouvez remplacer « maçãs » par d'autres fruits.",
+       "literalGloss": "combien coûtent ces pommes"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "decline_purchase_variant_9",
+     "intentKey": "decline_purchase",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Hoje não, obrigada.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hoje não, obrigada."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Not today, thank you.",
+       "contextNote": "Feminine form, said by women.",
+       "literalGloss": "today no, thank-you"
+      },
+      "fr": {
+       "meaning": "Pas aujourd'hui, merci.",
+       "contextNote": "Forme féminine, utilisée par les femmes.",
+       "literalGloss": "aujourd'hui non, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "portuguese_european_ask_directions",
+   "blueprintKey": "ask_directions",
+   "titles": {
+    "en": "Finding the Station",
+    "fr": "À la recherche de la gare"
+   },
+   "sceneNotes": {
+    "en": "You are a visitor in a Portuguese town looking for the train station, and a passer-by gives you directions very quickly.",
+    "fr": "Vous êtes en visite dans une ville portugaise et cherchez la gare ; une passante vous explique le chemin très vite."
+   },
+   "characterKey": "portuguese_european_marta_passer_by",
+   "expressions": [
+    {
+     "key": "excuse_me",
+     "intentKey": "get_attention",
+     "slotId": "excuse_me",
+     "speaker": "learner",
+     "targetText": "Com licença, se faz favor.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Com licença, se faz favor."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, please.",
+       "contextNote": "Polite way to stop a stranger before asking something.",
+       "literalGloss": "With permission, if it makes favour"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, s'il vous plaît.",
+       "contextNote": "Formule polie pour aborder un inconnu avant de poser une question. Le ç se prononce s ; le -a final est très léger.",
+       "literalGloss": "Avec permission, s'il fait faveur"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"licença\": the ç sounds like s; the final -a is very soft.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "where_is",
+     "intentKey": "ask_where_is",
+     "slotId": "where_is",
+     "speaker": "learner",
+     "targetText": "Onde é a estação, se faz favor?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Onde é a estação, se faz favor?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where is the station, please?",
+       "contextNote": "Use \"estação de comboios\" if you need to be specific about the train station.",
+       "literalGloss": "Where is the station, if it makes favour"
+      },
+      "fr": {
+       "meaning": "Où est la gare, s'il vous plaît ?",
+       "contextNote": "Dites « estação de comboios » pour préciser qu'il s'agit de la gare ferroviaire. « estação » se termine par un son nasal, comme « -ow » prononcé par le nez.",
+       "literalGloss": "Où est la gare, s'il fait faveur"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"estação\" ends in a nasal sound, like \"-ow\" through the nose.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "straight",
+     "intentKey": "give_direction_straight",
+     "slotId": "straight",
+     "speaker": "character",
+     "targetText": "Siga sempre em frente.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Siga sempre em frente."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Keep going straight ahead.",
+       "contextNote": "Polite imperative of \"seguir\", used with strangers.",
+       "literalGloss": "Follow always in front"
+      },
+      "fr": {
+       "meaning": "Continuez tout droit.",
+       "contextNote": "Impératif de politesse de « seguir », employé avec des inconnus.",
+       "literalGloss": "Suivez toujours en avant"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "turn",
+     "intentKey": "give_direction_turn",
+     "slotId": "turn",
+     "speaker": "character",
+     "targetText": "Depois vire à esquerda.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Depois vire à esquerda."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Then turn left.",
+       "contextNote": "For right, say \"vire à direita\".",
+       "literalGloss": "Then turn to the left"
+      },
+      "fr": {
+       "meaning": "Ensuite, tournez à gauche.",
+       "contextNote": "Pour la droite, on dit « vire à direita ». Dans « esquerda », le « e » initial est court, presque avalé.",
+       "literalGloss": "Ensuite tournez à la gauche"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"esquerda\" starts with a short, almost swallowed \"e\" sound.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "far",
+     "intentKey": "ask_is_it_far",
+     "slotId": "far",
+     "speaker": "learner",
+     "targetText": "É longe daqui?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "É longe daqui?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Is it far from here?",
+       "contextNote": null,
+       "literalGloss": "Is far from-here"
+      },
+      "fr": {
+       "meaning": "C'est loin d'ici ?",
+       "contextNote": "Dans « longe », le g se prononce comme le j de « jour ».",
+       "literalGloss": "Est loin d'ici"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"longe\": the g sounds like the s in \"measure\".",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "near",
+     "intentKey": "say_it_is_near",
+     "slotId": "near",
+     "speaker": "character",
+     "targetText": "Não, são dez minutos a pé.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Não, são dez minutos a pé."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No, it's ten minutes on foot.",
+       "contextNote": "Matches the scene: a ten-minute walk.",
+       "literalGloss": "No, are ten minutes on foot"
+      },
+      "fr": {
+       "meaning": "Non, c'est à dix minutes à pied.",
+       "contextNote": "Correspond à la scène : dix minutes de marche.",
+       "literalGloss": "Non, sont dix minutes à pied"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "repeat",
+     "intentKey": "ask_repeat",
+     "slotId": "repeat",
+     "speaker": "learner",
+     "targetText": "Pode repetir, por favor?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Pode repetir, por favor?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you repeat, please?",
+       "contextNote": "\"Pode\" is the polite form for a stranger; with a friend use \"podes\".",
+       "literalGloss": "Can-you repeat, please"
+      },
+      "fr": {
+       "meaning": "Pouvez-vous répéter, s'il vous plaît ?",
+       "contextNote": "« Pode » est la forme polie avec un inconnu ; avec un ami, on dit « podes ». Le « r » final de « repetir » est une légère battue, et les e non accentués sont très brefs.",
+       "literalGloss": "Pouvez répéter, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The final \"r\" of \"repetir\" is a light tap, and the unstressed e's are very short.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "slower",
+     "intentKey": "ask_slow_down",
+     "slotId": "slower",
+     "speaker": "learner",
+     "targetText": "Mais devagar, por favor.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mais devagar, por favor."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Slower, please.",
+       "contextNote": "A short request, useful when someone speaks fast. It is not a command because of \"por favor\".",
+       "literalGloss": "More slowly, please"
+      },
+      "fr": {
+       "meaning": "Plus lentement, s'il vous plaît.",
+       "contextNote": "Courte demande utile quand quelqu'un parle vite ; « por favor » l'adoucit. Dans « devagar », le premier e est très bref : « d'vagar ».",
+       "literalGloss": "Plus lentement, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"devagar\": the first e is very short, so it sounds like \"d'vagar\".",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Muito obrigado!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Muito obrigado!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much!",
+       "contextNote": "A woman says \"Muito obrigada!\".",
+       "literalGloss": "Very obliged"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup !",
+       "contextNote": "Un homme dit « obrigado » ; une femme dit « Muito obrigada ! ».",
+       "literalGloss": "Très obligé"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "thank_variant_10",
+     "intentKey": "thank",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Muito obrigada!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Muito obrigada!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much! (said by a woman)",
+       "contextNote": "Feminine form of the same thanks.",
+       "literalGloss": "Very obliged"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup ! (dit par une femme)",
+       "contextNote": "Forme féminine du même remerciement.",
+       "literalGloss": "Très obligée"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "ask_repeat_variant_11",
+     "intentKey": "ask_repeat",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Desculpe, não percebi. Pode repetir?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Desculpe, não percebi. Pode repetir?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Sorry, I didn't understand. Can you repeat?",
+       "contextNote": "Slightly fuller and softer alternative.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Excusez-moi, je n'ai pas compris. Pouvez-vous répéter ?",
+       "contextNote": "Variante un peu plus complète et plus douce.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "ask_slow_down_variant_12",
+     "intentKey": "ask_slow_down",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Fala depressa. Pode falar mais devagar?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Fala depressa. Pode falar mais devagar?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "You speak fast. Can you speak more slowly?",
+       "contextNote": "Explains why you are asking.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Vous parlez vite. Pouvez-vous parler plus lentement ?",
+       "contextNote": "Explique pourquoi vous faites cette demande.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "portuguese_european_meet_neighbour",
+   "blueprintKey": "meet_neighbour",
+   "titles": {
+    "en": "Meeting Your New Neighbour",
+    "fr": "Rencontrer votre nouvelle voisine"
+   },
+   "sceneNotes": {
+    "en": "You bump into a neighbour carrying shopping bags in the stairwell of your new building and introduce yourself.",
+    "fr": "Vous croisez une voisine chargée de sacs de courses dans la cage d'escalier de votre nouvel immeuble et vous vous présentez."
+   },
+   "characterKey": "portuguese_european_fernanda_neighbour",
+   "expressions": [
+    {
+     "key": "new_neighbour",
+     "intentKey": "say_new_neighbour",
+     "slotId": "new_neighbour",
+     "speaker": "learner",
+     "targetText": "Sou o novo vizinho do terceiro andar.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Sou o novo vizinho do terceiro andar."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm the new neighbour on the third floor.",
+       "contextNote": "A man says 'o novo vizinho'; a woman says 'a nova vizinha'.",
+       "literalGloss": "I-am the new neighbour of-the third floor"
+      },
+      "fr": {
+       "meaning": "Je suis le nouveau voisin du troisième étage.",
+       "contextNote": "Un homme dit « o novo vizinho », une femme dit « a nova vizinha ». Le « nh » de « vizinho » est doux, comme dans « agneau ».",
+       "literalGloss": "Je suis le nouveau voisin du troisième étage"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'vizinho' has a soft 'nh', like 'ny' in 'canyon'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "welcome",
+     "intentKey": "welcome_someone",
+     "slotId": "welcome",
+     "speaker": "character",
+     "targetText": "Seja bem-vindo ao prédio!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Seja bem-vindo ao prédio!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Welcome to the building!",
+       "contextNote": "Said to a man; to a woman it is 'Seja bem-vinda'.",
+       "literalGloss": "Be well-come to-the building"
+      },
+      "fr": {
+       "meaning": "Bienvenue dans l'immeuble !",
+       "contextNote": "Se dit à un homme ; à une femme, on dit « Seja bem-vinda ».",
+       "literalGloss": "Soyez bien-venu à l'immeuble"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "where_from_q",
+     "intentKey": "ask_where_from",
+     "slotId": "where_from_q",
+     "speaker": "learner",
+     "targetText": "De onde é a senhora?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "De onde é a senhora?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where are you from?",
+       "contextNote": "Polite form for a woman. For a man, use 'o senhor'.",
+       "literalGloss": "From where is the lady"
+      },
+      "fr": {
+       "meaning": "Vous venez d'où, madame ?",
+       "contextNote": "Forme polie pour une femme. Pour un homme, on utilise « o senhor ».",
+       "literalGloss": "De où est la dame"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "from",
+     "intentKey": "say_where_from",
+     "slotId": "from",
+     "speaker": "learner",
+     "targetText": "Sou de Londres, mas moro aqui agora.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Sou de Londres, mas moro aqui agora."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm from London, but I live here now.",
+       "contextNote": "Swap 'Londres' for your own city.",
+       "literalGloss": "I-am from London but I-live here now"
+      },
+      "fr": {
+       "meaning": "Je suis de Londres, mais j'habite ici maintenant.",
+       "contextNote": "Remplacez « Londres » par votre propre ville. Le « es » final de « Londres » est très faible, presque « Lon-drch ».",
+       "literalGloss": "Je suis de Londres mais j'habite ici maintenant"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The final 'es' in 'Londres' is very weak, almost 'Lon-drsh'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "speak_lang",
+     "intentKey": "ask_if_speaks_language",
+     "slotId": "speak_lang",
+     "speaker": "learner",
+     "targetText": "Fala inglês?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Fala inglês?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you speak English?",
+       "contextNote": "Dropping the pronoun and using the 'he/she' verb form is polite.",
+       "literalGloss": "Speak English?"
+      },
+      "fr": {
+       "meaning": "Vous parlez anglais ?",
+       "contextNote": "Omettre le pronom et employer la forme du « il/elle » est poli.",
+       "literalGloss": "Parle anglais ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "little",
+     "intentKey": "say_speak_little",
+     "slotId": "little",
+     "speaker": "learner",
+     "targetText": "Falo só um bocadinho de português.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Falo só um bocadinho de português."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I only speak a little Portuguese.",
+       "contextNote": null,
+       "literalGloss": "I-speak only a little-bit of Portuguese"
+      },
+      "fr": {
+       "meaning": "Je ne parle qu'un tout petit peu portugais.",
+       "contextNote": "Le « ê » de « português » est fermé, et le « s » final se prononce « ch ».",
+       "literalGloss": "Je parle seulement un petit peu de portugais"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'ê' in 'português' is closed, and the final 's' sounds like 'sh'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "offer_help",
+     "intentKey": "offer_help",
+     "slotId": "offer_help",
+     "speaker": "learner",
+     "targetText": "Posso ajudar com os sacos?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Posso ajudar com os sacos?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I help with the bags?",
+       "contextNote": "Natural when the neighbour is carrying shopping.",
+       "literalGloss": "Can-I help with the bags"
+      },
+      "fr": {
+       "meaning": "Je peux vous aider avec les sacs ?",
+       "contextNote": "Naturel quand le voisin porte des courses. « ajudar » se prononce « a-jou-DAR », avec un « j » comme dans « jour ».",
+       "literalGloss": "Puis-je aider avec les sacs"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'aj' in 'ajudar' sounds like 'ah-zhoo-DAR'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Muito obrigado pela simpatia!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Muito obrigado pela simpatia!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much for your kindness!",
+       "contextNote": "A woman says 'obrigada'.",
+       "literalGloss": "Very thankful for-the kindness"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup pour votre gentillesse !",
+       "contextNote": "Une femme dit « obrigada ».",
+       "literalGloss": "Très reconnaissant pour la gentillesse"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "say_new_neighbour_variant_9",
+     "intentKey": "say_new_neighbour",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Acabei de me mudar para aqui.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Acabei de me mudar para aqui."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I've just moved in here.",
+       "contextNote": "A neutral alternative that works for any gender.",
+       "literalGloss": "I-finished of myself to-move to here"
+      },
+      "fr": {
+       "meaning": "Je viens d'emménager ici.",
+       "contextNote": "Une alternative neutre qui convient à tout le monde, homme ou femme.",
+       "literalGloss": "J'ai fini de me déménager vers ici"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "ask_where_from_variant_10",
+     "intentKey": "ask_where_from",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "De onde és?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "De onde és?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where are you from?",
+       "contextNote": "Casual 'tu' form. Use it only if the neighbour is your age or invites it.",
+       "literalGloss": "From where are-you"
+      },
+      "fr": {
+       "meaning": "Tu viens d'où ?",
+       "contextNote": "Forme familière avec « tu ». À utiliser seulement si la voisine a votre âge ou si elle vous y invite.",
+       "literalGloss": "De où es-tu"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "portuguese_european_take_taxi",
+   "blueprintKey": "take_taxi",
+   "titles": {
+    "en": "Taking a Taxi",
+    "fr": "Prendre un taxi"
+   },
+   "sceneNotes": {
+    "en": "You hail a taxi in heavy traffic to reach the old town, and the chatty driver quotes a price without using the meter.",
+    "fr": "Vous hélez un taxi dans la circulation dense pour rejoindre la vieille ville, et le chauffeur bavard annonce un prix sans mettre le compteur."
+   },
+   "characterKey": "portuguese_european_rui_taxi_driver",
+   "expressions": [
+    {
+     "key": "hail",
+     "intentKey": "hail_taxi",
+     "slotId": "hail",
+     "speaker": "learner",
+     "targetText": "Boa tarde! Está livre?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Boa tarde! Está livre?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good afternoon! Are you free?",
+       "contextNote": "Said through the window or as you get in; taxis often show a green light when free.",
+       "literalGloss": "Good afternoon! Is-(it) free?"
+      },
+      "fr": {
+       "meaning": "Bonjour ! Vous êtes libre ?",
+       "contextNote": "À dire par la fenêtre ou en montant ; un taxi libre affiche souvent un voyant vert. Dans « livre », le -e final est très faible, presque muet.",
+       "literalGloss": "Bon après-midi ! Est-(il) libre ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "In 'livre', the final -e is very weak, almost silent.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "where_to",
+     "intentKey": "ask_destination",
+     "slotId": "where_to",
+     "speaker": "character",
+     "targetText": "Boa tarde! Para onde vai?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Boa tarde! Para onde vai?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good afternoon! Where are you going?",
+       "contextNote": "The driver uses 'vai' (formal 3rd person) to address a stranger.",
+       "literalGloss": "Good afternoon! To where (you) go?"
+      },
+      "fr": {
+       "meaning": "Bonjour ! Où allez-vous ?",
+       "contextNote": "Le chauffeur emploie « vai » (3e personne de politesse) pour s'adresser à un inconnu.",
+       "literalGloss": "Bon après-midi ! Pour où (vous) allez ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "destination",
+     "intentKey": "state_destination",
+     "slotId": "destination",
+     "speaker": "learner",
+     "targetText": "Para a cidade velha, por favor.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Para a cidade velha, por favor."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "To the old town, please.",
+       "contextNote": "'Cidade velha' is the generic phrase; in a real city, say the actual neighbourhood name (e.g. 'Alfama').",
+       "literalGloss": "To the city old, please."
+      },
+      "fr": {
+       "meaning": "À la vieille ville, s'il vous plaît.",
+       "contextNote": "« Cidade velha » est l'expression générique ; dans une vraie ville, dites le nom du quartier (par ex. « Alfama »). « Velha » se prononce à peu près « VÈ-lya ».",
+       "literalGloss": "Pour la ville vieille, s'il vous plaît."
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Velha' sounds like 'VEH-lya'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "meter",
+     "intentKey": "ask_use_meter",
+     "slotId": "meter",
+     "speaker": "learner",
+     "targetText": "Pode ligar o taxímetro, por favor?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Pode ligar o taxímetro, por favor?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you turn on the meter, please?",
+       "contextNote": "Useful when the driver quotes a flat price without the meter.",
+       "literalGloss": "Can (you) switch-on the taximeter, please?"
+      },
+      "fr": {
+       "meaning": "Pouvez-vous mettre le compteur, s'il vous plaît ?",
+       "contextNote": "Utile quand le chauffeur annonce un prix fixe sans compteur. « Taxímetro » est accentué sur « xí » : ta-SSÍ-me-tru.",
+       "literalGloss": "Pouvez-(vous) allumer le taximètre, s'il vous plaît ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Taxímetro' is stressed on 'xí': ta-SSÍ-me-tru.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "fare",
+     "intentKey": "ask_fare",
+     "slotId": "fare",
+     "speaker": "learner",
+     "targetText": "Quanto custa até à cidade velha?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Quanto custa até à cidade velha?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much is it to the old town?",
+       "contextNote": "Ask before setting off if the driver does not use the meter.",
+       "literalGloss": "How-much costs until to-the city old?"
+      },
+      "fr": {
+       "meaning": "Combien coûte la course jusqu'à la vieille ville ?",
+       "contextNote": "À demander avant de partir si le chauffeur n'utilise pas le compteur. « Até à » se prononce presque comme un seul son fluide.",
+       "literalGloss": "Combien coûte jusqu'à la ville vieille ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Até à' is pronounced almost as one flowing sound.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "stop",
+     "intentKey": "say_stop_here",
+     "slotId": "stop",
+     "speaker": "learner",
+     "targetText": "Pode parar aqui, por favor?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Pode parar aqui, por favor?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you stop here, please?",
+       "contextNote": null,
+       "literalGloss": "Can (you) stop here, please?"
+      },
+      "fr": {
+       "meaning": "Pouvez-vous vous arrêter ici, s'il vous plaît ?",
+       "contextNote": "« Parar » se prononce « pa-RAR », avec un premier « a » faible.",
+       "literalGloss": "Pouvez-(vous) arrêter ici, s'il vous plaît ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Parar' is pronounced 'pa-RAR', with a weak first 'a'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "change",
+     "intentKey": "ask_for_change",
+     "slotId": "change",
+     "speaker": "learner",
+     "targetText": "Tem troco para vinte euros?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Tem troco para vinte euros?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you have change for twenty euros?",
+       "contextNote": "Said when paying with a large note.",
+       "literalGloss": "Have change for twenty euros?"
+      },
+      "fr": {
+       "meaning": "Avez-vous la monnaie sur vingt euros ?",
+       "contextNote": "À dire quand on paie avec un gros billet. Dans « troco », le r après le t est roulé ou battu.",
+       "literalGloss": "Avez monnaie pour vingt euros ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Troco' has a rolled or tapped r after the t.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "bye",
+     "intentKey": "say_goodbye",
+     "slotId": "bye",
+     "speaker": "learner",
+     "targetText": "Obrigado, boa tarde!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Obrigado, boa tarde!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you, good afternoon!",
+       "contextNote": "A woman says 'Obrigada'. Also works as a goodbye when leaving the taxi.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Merci, bonne après-midi !",
+       "contextNote": "Une femme dit « Obrigada ». Sert aussi d'au revoir en quittant le taxi.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "ask_use_meter_variant_9",
+     "intentKey": "ask_use_meter",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Com taxímetro, se faz favor.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Com taxímetro, se faz favor."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "With the meter, please.",
+       "contextNote": "A shorter way to insist on the meter after the driver quotes a price.",
+       "literalGloss": "With taximeter, if (it) does favour."
+      },
+      "fr": {
+       "meaning": "Avec le compteur, s'il vous plaît.",
+       "contextNote": "Une façon plus courte d'insister pour le compteur après l'annonce d'un prix.",
+       "literalGloss": "Avec taximètre, si (il) fait faveur."
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "say_stop_here_variant_10",
+     "intentKey": "say_stop_here",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Aqui está bem, obrigada.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Aqui está bem, obrigada."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Here is fine, thank you.",
+       "contextNote": "Feminine form 'obrigada' used by a woman speaker; a man says 'obrigado'.",
+       "literalGloss": "Here is fine, thanks."
+      },
+      "fr": {
+       "meaning": "Ici, c'est bien, merci.",
+       "contextNote": "« Obrigada » est la forme féminine, dite par une femme ; un homme dit « obrigado ».",
+       "literalGloss": "Ici est bien, merci."
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "hail_taxi_variant_11",
+     "intentKey": "hail_taxi",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Pode levar-me à cidade velha?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Pode levar-me à cidade velha?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you take me to the old town?",
+       "contextNote": "Combines hailing and stating the destination in one line.",
+       "literalGloss": "Can (you) take-me to-the city old?"
+      },
+      "fr": {
+       "meaning": "Pouvez-vous m'emmener à la vieille ville ?",
+       "contextNote": "Réunit en une seule phrase l'appel du taxi et la destination.",
+       "literalGloss": "Pouvez-(vous) emmener-moi à la ville vieille ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "portuguese_european_buy_ice_cream",
+   "blueprintKey": "buy_ice_cream",
+   "titles": {
+    "en": "Buying an Ice Cream",
+    "fr": "Acheter une glace"
+   },
+   "sceneNotes": {
+    "en": "You are at the ice-cream cart outside the school with a child who wants a gelado, but only two flavours are left and the child will ask for more.",
+    "fr": "Vous êtes au chariot de glaces devant l'école avec un enfant qui veut un gelado, mais il ne reste que deux parfums et l'enfant va en demander plus."
+   },
+   "characterKey": "portuguese_european_tiago_child_at_the_ice_cream_stand",
+   "expressions": [
+    {
+     "key": "wants",
+     "intentKey": "request_food",
+     "slotId": "wants",
+     "speaker": "character",
+     "targetText": "Quero um gelado, por favor!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Quero um gelado, por favor!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I want an ice cream, please!",
+       "contextNote": "A child's direct way of asking; in Portugal \"gelado\" is the word for ice cream.",
+       "literalGloss": "I-want an ice-cream, please"
+      },
+      "fr": {
+       "meaning": "Je veux une glace, s'il vous plaît !",
+       "contextNote": "Manière directe de demander, typique d'un enfant. Au Portugal, « gelado » désigne la glace. Le « g » se prononce comme le « j » de « jour ».",
+       "literalGloss": "Je-veux une glace, s'il-vous-plaît"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"gelado\": the g sounds like the s in \"measure\".",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "which_flavour",
+     "intentKey": "offer_options",
+     "slotId": "which_flavour",
+     "speaker": "learner",
+     "targetText": "Queres de morango ou de chocolate?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Queres de morango ou de chocolate?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you want strawberry or chocolate?",
+       "contextNote": "Uses \"tu\" because you are talking to a child.",
+       "literalGloss": "You-want of strawberry or of chocolate?"
+      },
+      "fr": {
+       "meaning": "Tu veux à la fraise ou au chocolat ?",
+       "contextNote": "On utilise « tu » car on parle à un enfant. Dans « morango », le « -go » final est léger et le « o » ressemble à un « ou » fermé.",
+       "literalGloss": "Tu-veux de fraise ou de chocolat ?"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"morango\": the final -go is soft, and the o is a closed u-like sound.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "picks",
+     "intentKey": "choose_option",
+     "slotId": "picks",
+     "speaker": "character",
+     "targetText": "De morango, por favor!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "De morango, por favor!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Strawberry, please!",
+       "contextNote": null,
+       "literalGloss": "Of strawberry, please"
+      },
+      "fr": {
+       "meaning": "À la fraise, s'il vous plaît !",
+       "contextNote": null,
+       "literalGloss": "De fraise, s'il-vous-plaît"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "scoop",
+     "intentKey": "specify_quantity",
+     "slotId": "scoop",
+     "speaker": "learner",
+     "targetText": "Uma bola de morango, se faz favor.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Uma bola de morango, se faz favor."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "One scoop of strawberry, please.",
+       "contextNote": "Said politely to the person at the cart. \"Bola\" is the usual word for a scoop.",
+       "literalGloss": "One ball of strawberry, if (it) does favour"
+      },
+      "fr": {
+       "meaning": "Une boule à la fraise, s'il vous plaît.",
+       "contextNote": "Formule polie adressée à la personne du chariot. « Bola » est le mot courant pour une boule de glace.",
+       "literalGloss": "Une boule de fraise, si (cela) fait faveur"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "asks_two",
+     "intentKey": "ask_permission",
+     "slotId": "asks_two",
+     "speaker": "character",
+     "targetText": "Posso comer duas bolas?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Posso comer duas bolas?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have two scoops?",
+       "contextNote": "This is the twist: the child asks for more.",
+       "literalGloss": "Can-I eat two balls?"
+      },
+      "fr": {
+       "meaning": "Je peux avoir deux boules ?",
+       "contextNote": "C'est le rebondissement : l'enfant en demande plus. « duas » se prononce à peu près « DOU-ach ».",
+       "literalGloss": "Puis-je manger deux boules ?"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"duas\" is said roughly DOO-ash.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "just_one",
+     "intentKey": "refuse_permission",
+     "slotId": "just_one",
+     "speaker": "learner",
+     "targetText": "Hoje só uma, está bem?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hoje só uma, está bem?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Just one today, okay?",
+       "contextNote": "A kind, soft no. \"Está bem?\" invites the child to agree.",
+       "literalGloss": "Today only one, is well?"
+      },
+      "fr": {
+       "meaning": "Aujourd'hui, une seule, d'accord ?",
+       "contextNote": "Un non doux et bienveillant. « Está bem ? » invite l'enfant à accepter. Dans « Hoje », le h est muet et le j se prononce comme dans « jour ».",
+       "literalGloss": "Aujourd'hui seulement une, est bien ?"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"Hoje\": the h is silent, and the j sounds like the s in \"measure\".",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "okay",
+     "intentKey": "grant_permission",
+     "slotId": "okay",
+     "speaker": "learner",
+     "targetText": "Claro que sim!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Claro que sim!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Of course!",
+       "contextNote": "Use it for any small yes, for example if the child asks to sit down.",
+       "literalGloss": "Clear that yes"
+      },
+      "fr": {
+       "meaning": "Bien sûr !",
+       "contextNote": "Utile pour tout petit oui, par exemple si l'enfant demande à s'asseoir.",
+       "literalGloss": "Clair que oui"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "yummy",
+     "intentKey": "say_delicious",
+     "slotId": "yummy",
+     "speaker": "character",
+     "targetText": "Hmm, está muito bom!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hmm, está muito bom!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Mmm, it's really good!",
+       "contextNote": null,
+       "literalGloss": "Mmm, is very good"
+      },
+      "fr": {
+       "meaning": "Hmm, c'est très bon !",
+       "contextNote": null,
+       "literalGloss": "Hmm, est très bon"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "me_too",
+     "intentKey": "express_like",
+     "slotId": "me_too",
+     "speaker": "learner",
+     "targetText": "Eu também gosto de morango.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Eu também gosto de morango."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I like strawberry too.",
+       "contextNote": null,
+       "literalGloss": "I also like of strawberry"
+      },
+      "fr": {
+       "meaning": "Moi aussi, j'aime la fraise.",
+       "contextNote": "« também » se termine par un son nasal, comme « tam-BÂYN » sans « n » marqué.",
+       "literalGloss": "Moi aussi j'aime de fraise"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"também\" ends in a nasal sound, like \"tam-BAYN\" without a hard n.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "character",
+     "targetText": "Muito obrigado!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Muito obrigado!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much!",
+       "contextNote": "A boy says \"obrigado\"; a girl would say \"obrigada\".",
+       "literalGloss": "Very obliged"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup !",
+       "contextNote": "Un garçon dit « obrigado » ; une fille dirait « obrigada ».",
+       "literalGloss": "Très obligé"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "welcome",
+     "intentKey": "respond_to_thanks",
+     "slotId": "welcome",
+     "speaker": "learner",
+     "targetText": "De nada!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "De nada!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "You're welcome!",
+       "contextNote": null,
+       "literalGloss": "Of nothing"
+      },
+      "fr": {
+       "meaning": "De rien !",
+       "contextNote": null,
+       "literalGloss": "De rien"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "refuse_permission_variant_12",
+     "intentKey": "refuse_permission",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Desculpa, hoje só uma bola.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Desculpa, hoje só uma bola."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Sorry, just one scoop today.",
+       "contextNote": "A slightly firmer but still kind alternative.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Désolé, aujourd'hui une seule boule.",
+       "contextNote": "Variante un peu plus ferme, mais toujours bienveillante.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "offer_options_variant_13",
+     "intentKey": "offer_options",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Qual preferes: morango ou chocolate?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Qual preferes: morango ou chocolate?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Which do you prefer: strawberry or chocolate?",
+       "contextNote": "An alternative that asks for the child's opinion.",
+       "literalGloss": "Which you-prefer: strawberry or chocolate?"
+      },
+      "fr": {
+       "meaning": "Tu préfères laquelle : fraise ou chocolat ?",
+       "contextNote": "Variante qui demande l'avis de l'enfant.",
+       "literalGloss": "Laquelle tu-préfères : fraise ou chocolat ?"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  }
+ ],
+ "provenance": "ai_draft",
+ "nativeReviewed": false,
+ "reviewStatus": "review_needed",
+ "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+ "notes": [
+  "AI draft generated 2026-11-11T22:44:31.768Z with anthropic/claude-sonnet-5.5; validator accepted 73 expressions; native review required before publishing.",
+  "greet_and_introduce: Slot registers are set to polite as requested; 'Como te chamas?' is included as a casual variant and marked casual.",
+  "greet_and_introduce: 'obrigado/obrigada' depends on the learner's gender; both are shown across the slot and variant.",
+  "greet_and_introduce: Please check that 'Até logo! Bom dia!' sounds natural as a single closing line and that 'e o senhor?' isn't too stiff for a neighbour.",
+  "cafe_order_drink: Greeting and thanks reuse earlier chapter formulas (obrigado/obrigada, bom dia pattern); please confirm the 'Obrigado, até logo' pairing feels natural.",
+  "cafe_order_drink: Pronunciation tips are simplified for English speakers; please check accuracy against European Portuguese vowel reduction.",
+  "cafe_order_drink: 'Pequeno ou grande?' is a typical coffee-size question, but locals may more often ask 'Curto ou normal?' or 'Com leite?'; consider substituting.",
+  "market_ask_price: Please check that the vendor's price phrasing (São dois euros o quilo) sounds natural at a local market.",
+  "market_ask_price: The greeting Boa tarde, como está? avoids repeating earlier lines; please confirm it works with a vendor.",
+  "market_ask_price: Gender: obrigado and obrigada are given as separate variants for the learner.",
+  "ask_directions: Used polite \"você\"-less forms (siga, vire, pode) for a stranger; please confirm this feels natural, versus \"o senhor/a senhora\" being added.",
+  "ask_directions: Added \"Fala depressa\" as a variant; it uses the verb form that fits tu, so check that it is not too informal for addressing a stranger, and change it to \"Fala muito depressa\" or \"A senhora fala depressa\" if you prefer.",
+  "ask_directions: \"Obrigado/obrigada\" gender is given by the speaker; the earlier chapter already uses both.",
+  "meet_neighbour: Learner lines default to a male speaker (novo vizinho, obrigado); feminine forms are given in contextNote. Please confirm.",
+  "meet_neighbour: 'Fala inglês?' and 'De onde é a senhora?' are formal 'você'-type address; please check this suits a neighbour in the stairwell.",
+  "meet_neighbour: Please check that 'bocadinho' and 'sacos' feel natural for the shopping bags in PT-PT.",
+  "take_taxi: 'Cidade velha' is a placeholder for a real neighbourhood; please confirm natural wording (e.g. Alfama, centro histórico).",
+  "take_taxi: Greeting changes by time of day; I used 'boa tarde' to match earlier lines. 'Obrigado/obrigada' depends on speaker gender.",
+  "take_taxi: Please check 'Tem troco para vinte euros?' sounds natural with the polite 3rd-person address a taxi driver would expect.",
+  "buy_ice_cream: The child is a boy (Tiago), so \"obrigado\" is used; please check whether a gender-neutral alternative would be better.",
+  "buy_ice_cream: \"Se faz favor\" is used in the polite scoop line and \"por favor\" in the child's lines. Please confirm both fit a real ice-cream stand.",
+  "buy_ice_cream: \"Bola\" for a scoop and \"gelado\" for ice cream are used. Please confirm that \"bola\" is the natural everyday word.",
+  "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+ ]
+}

@@ -58,5 +58,21 @@ build, so the adapter is fixture-tested, not live-exercised. STT confidence and 
 - Analytics "false pronunciation corrections by target language" (§12.2) can only be computed where acoustic scores exist;
   elsewhere the metric is reported as unavailable rather than estimated.
 
+## Amendment 2026-11-11 — AI listening feedback (owner request)
+
+The owner asked for pronunciation feedback from an audio-capable model on OpenRouter ("evaluate the pronunciation of X
+phrase in X language"). It is added **beside** this decision, not in place of it:
+
+- A separate route, `POST /v1/speech/pronunciation-feedback`, and a separate result shape
+  (`PronunciationFeedbackResponseSchema`, `method: 'ai_listening'`). `PronunciationAssessment.numericScore` keeps the rule
+  above: null unless an acoustic assessor measured it. The `pronunciation_assessment` profile is unchanged.
+- The model is asked for the expected IPA, then for what it hears sound by sound *as if it did not know the target*, then
+  to compare word by word (`packages/ai/src/speech/pronunciation-judge.ts`). Told the target first, models tend to hear
+  it; the IPA-first prompt caught a silent-h error that a plain prompt missed (probe of 2026-11-11: native 100,
+  English-accented 62, silent h 75, another language 0).
+- The app labels it an AI estimate, on request only ("How did I sound?"); it is never XP, mastery or skill evidence, and
+  nothing is stored but the cost record (`ai_requests`). A take metered as silent is answered `no_speech` with no call.
+- The §12.2 metric "false pronunciation corrections" still counts acoustic scores only.
+
 Related: ADR-002 (realtime pipeline), `docs/provider-matrix/ai-capability-matrix.md`,
 `docs/provider-matrix/azure-pronunciation-locales-2026-10-14.md`, `docs/provider-matrix/provider-setup-and-cost.md` §2.6.

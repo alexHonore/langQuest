@@ -1,0 +1,2810 @@
+{
+ "key": "romanian_ch1",
+ "chapterIndex": 1,
+ "courseTrackId": "romanian",
+ "targetVarietyId": "ro",
+ "sourceLanguages": [
+  "en",
+  "fr"
+ ],
+ "titles": {
+  "en": "First days in Romania",
+  "fr": "Premiers jours en Roumanie"
+ },
+ "characters": [
+  {
+   "characterKey": "romanian_andrei_friendly_local_acquaintance",
+   "role": "friendly local acquaintance",
+   "name": "Andrei",
+   "personality": "Kind, cheerful, always in a rush",
+   "homeRegion": "Cluj-Napoca",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "romanian_andrei_cafe_server",
+   "role": "café server",
+   "name": "Andrei",
+   "personality": "quick, cheerful, helpful",
+   "homeRegion": "Cluj-Napoca",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "romanian_maria_market_vendor",
+   "role": "market vendor",
+   "name": "Maria",
+   "personality": "friendly, chatty, generous",
+   "homeRegion": "Cluj-Napoca",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "romanian_andrei_passer_by",
+   "role": "passer-by",
+   "name": "Andrei",
+   "personality": "friendly, quick, helpful",
+   "homeRegion": "Cluj-Napoca",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "romanian_elena_neighbour",
+   "role": "neighbour",
+   "name": "Elena",
+   "personality": "warm, chatty, curious about newcomers",
+   "homeRegion": "Cluj-Napoca",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "romanian_mihai_taxi_driver",
+   "role": "taxi driver",
+   "name": "Mihai",
+   "personality": "talkative, friendly, a bit pushy",
+   "homeRegion": "București",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "romanian_maria_child_at_the_ice_cream_stand",
+   "role": "child at the ice-cream stand",
+   "name": "Maria",
+   "personality": "cheerful, curious, a bit greedy",
+   "homeRegion": "Cluj-Napoca",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  }
+ ],
+ "missions": [
+  {
+   "key": "romanian_greet_and_introduce",
+   "blueprintKey": "greet_and_introduce",
+   "titles": {
+    "en": "Greeting a Neighbour",
+    "fr": "Saluer un voisin"
+   },
+   "sceneNotes": {
+    "en": "It is morning and you meet a neighbour on the street who is in a hurry but friendly, so greet them, introduce yourself and say goodbye.",
+    "fr": "C'est le matin et vous croisez dans la rue un voisin pressé mais sympathique : saluez-le, présentez-vous et dites-lui au revoir."
+   },
+   "characterKey": "romanian_andrei_friendly_local_acquaintance",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Bună dimineața!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Bună dimineața!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good morning!",
+       "contextNote": "Use until about midday. Fits a neighbour you do not know well yet.",
+       "literalGloss": "good morning"
+      },
+      "fr": {
+       "meaning": "Bonjour !",
+       "contextNote": "À utiliser jusqu'à midi environ. Convient pour un voisin que vous ne connaissez pas encore bien. Le « ă » de « Bună » est une voyelle brève et relâchée, comme le « e » de « le ».",
+       "literalGloss": "bonne matinée"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'ă' in 'Bună' is a short, relaxed vowel, like the 'a' in 'about'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "how_are_you",
+     "intentKey": "ask_how_are_you",
+     "slotId": "how_are_you",
+     "speaker": "learner",
+     "targetText": "Ce mai faceți?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ce mai faceți?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How are you?",
+       "contextNote": "Polite form, used with someone you do not know well or an older person.",
+       "literalGloss": "what more do-you(polite)"
+      },
+      "fr": {
+       "meaning": "Comment allez-vous ?",
+       "contextNote": "Forme polie, pour quelqu'un que l'on connaît peu ou une personne plus âgée. Le « ț » de « faceți » se prononce « ts », comme dans « tsar ».",
+       "literalGloss": "quoi de plus faites-vous (politesse)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'ț' in 'faceți' sounds like 'ts' in 'cats'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "fine",
+     "intentKey": "reply_fine",
+     "slotId": "fine",
+     "speaker": "learner",
+     "targetText": "Bine, mulțumesc! Dumneavoastră?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Bine, mulțumesc! Dumneavoastră?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Fine, thank you! And you?",
+       "contextNote": "'Dumneavoastră' is the polite 'you'. In quick chat people often just say 'Bine, mulțumesc!'.",
+       "literalGloss": "well, thank-you! you(polite)?"
+      },
+      "fr": {
+       "meaning": "Bien, merci ! Et vous ?",
+       "contextNote": "« Dumneavoastră » est le « vous » de politesse. Dans une conversation rapide, on dit souvent juste « Bine, mulțumesc ! ». Ce mot est long : dites-le lentement, par morceaux : dum-nea-voas-tră.",
+       "literalGloss": "bien, merci ! vous (politesse) ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Dumneavoastră' is long, so say it slowly in chunks: dum-nea-voas-tră.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "my_name",
+     "intentKey": "introduce_name",
+     "slotId": "my_name",
+     "speaker": "learner",
+     "targetText": "Mă numesc Alex.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mă numesc Alex."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "My name is Alex.",
+       "contextNote": "Replace 'Alex' with your own name.",
+       "literalGloss": "myself I-call Alex"
+      },
+      "fr": {
+       "meaning": "Je m'appelle Alex.",
+       "contextNote": "Remplacez « Alex » par votre prénom.",
+       "literalGloss": "je m'appelle Alex"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "your_name",
+     "intentKey": "ask_name",
+     "slotId": "your_name",
+     "speaker": "learner",
+     "targetText": "Cum vă cheamă?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Cum vă cheamă?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "What is your name?",
+       "contextNote": "Polite form. 'Vă' is the polite 'you'.",
+       "literalGloss": "how you(polite) they-call"
+      },
+      "fr": {
+       "meaning": "Comment vous appelez-vous ?",
+       "contextNote": "Forme polie. « Vă » est le « vous » de politesse. Le « ch » de « cheamă » se prononce comme un « k » dur, comme dans « képi ».",
+       "literalGloss": "comment vous (politesse) on appelle"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'ch' in 'cheamă' is a hard 'k', as in 'key'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "nice_to_meet",
+     "intentKey": "say_nice_to_meet",
+     "slotId": "nice_to_meet",
+     "speaker": "learner",
+     "targetText": "Îmi pare bine!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Îmi pare bine!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Nice to meet you!",
+       "contextNote": "Said right after hearing the other person's name. Works for any gender.",
+       "literalGloss": "to-me it-seems well"
+      },
+      "fr": {
+       "meaning": "Enchanté(e) !",
+       "contextNote": "On le dit juste après avoir entendu le prénom de l'autre personne. Convient aux hommes comme aux femmes. Le « Î » est une voyelle centrale, prononcée avec la langue reculée.",
+       "literalGloss": "à moi il semble bien"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Î' is a central vowel, said with the tongue pulled back.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "goodbye",
+     "intentKey": "say_goodbye",
+     "slotId": "goodbye",
+     "speaker": "learner",
+     "targetText": "La revedere, o zi bună!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "La revedere, o zi bună!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Goodbye, have a good day!",
+       "contextNote": "A friendly way to leave a neighbour who is in a hurry.",
+       "literalGloss": "to re-seeing, a day good"
+      },
+      "fr": {
+       "meaning": "Au revoir, bonne journée !",
+       "contextNote": "Une façon aimable de quitter un voisin pressé.",
+       "literalGloss": "à revoir, une journée bonne"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "greet_hello_variant_8",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Salut!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Salut!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hi!",
+       "contextNote": "Casual, for people your age or once you are on friendly terms.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Salut !",
+       "contextNote": "Familier, pour les personnes de votre âge ou quand vous vous connaissez mieux.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "ask_how_are_you_variant_9",
+     "intentKey": "ask_how_are_you",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Ce mai faci?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ce mai faci?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How are you? (informal)",
+       "contextNote": "Informal 'you'. Use with friends or younger people.",
+       "literalGloss": "what more do-you"
+      },
+      "fr": {
+       "meaning": "Comment vas-tu ?",
+       "contextNote": "Forme familière avec « tu ». À utiliser avec des amis ou des personnes plus jeunes.",
+       "literalGloss": "quoi de plus fais-tu"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "introduce_name_variant_10",
+     "intentKey": "introduce_name",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Mă cheamă Alex.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mă cheamă Alex."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "My name is Alex. / They call me Alex.",
+       "contextNote": "The most common everyday way to give your name.",
+       "literalGloss": "me they-call Alex"
+      },
+      "fr": {
+       "meaning": "Je m'appelle Alex.",
+       "contextNote": "La façon la plus courante de dire son nom au quotidien.",
+       "literalGloss": "me on appelle Alex"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "say_nice_to_meet_variant_11",
+     "intentKey": "say_nice_to_meet",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Încântată de cunoștință!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Încântată de cunoștință!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Pleased to meet you! (said by a woman)",
+       "contextNote": "A man says 'Încântat de cunoștință!'.",
+       "literalGloss": "delighted of acquaintance"
+      },
+      "fr": {
+       "meaning": "Enchantée de faire votre connaissance !",
+       "contextNote": "Dit par une femme. Un homme dit « Încântat de cunoștință ! ». Le « ț » se prononce « ts » et le « ș » se prononce « ch » comme dans « chat ».",
+       "literalGloss": "enchantée de connaissance"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'ț' is 'ts' and 'ș' is 'sh'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "romanian_cafe_order_drink",
+   "blueprintKey": "cafe_order_drink",
+   "titles": {
+    "en": "Ordering a Drink at a Café",
+    "fr": "Commander une boisson au café"
+   },
+   "sceneNotes": {
+    "en": "You sit down on a busy café terrace, and the quick, friendly server comes over to take your order.",
+    "fr": "Vous vous installez à la terrasse animée d'un café, et Andrei, le serveur rapide et sympathique, vient prendre votre commande."
+   },
+   "characterKey": "romanian_andrei_cafe_server",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Bună ziua!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Bună ziua!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello! / Good day!",
+       "contextNote": "Polite greeting for daytime, good with staff you don't know.",
+       "literalGloss": "good day"
+      },
+      "fr": {
+       "meaning": "Bonjour !",
+       "contextNote": "Salutation polie pour la journée, adaptée au personnel que vous ne connaissez pas. Dans « ziua », « iua » se prononce en une seule glissade : ZI-oua.",
+       "literalGloss": "bonne journée"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "In 'ziua' the 'iua' glides together: ZEE-wa.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "order",
+     "intentKey": "request_drink",
+     "slotId": "order",
+     "speaker": "learner",
+     "targetText": "Aș vrea o cafea, vă rog.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Aș vrea o cafea, vă rog."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'd like a coffee, please.",
+       "contextNote": "Swap 'o cafea' for 'un ceai' (a tea) or 'o apă' (a water).",
+       "literalGloss": "I would want a coffee, you-please"
+      },
+      "fr": {
+       "meaning": "Je voudrais un café, s'il vous plaît.",
+       "contextNote": "Remplacez « o cafea » par « un ceai » (un thé) ou « o apă » (une eau). « Aș » se prononce comme « ach ».",
+       "literalGloss": "je voudrais un café, vous-prie"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Aș' sounds like 'ash'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "options",
+     "intentKey": "offer_options",
+     "slotId": "options",
+     "speaker": "character",
+     "targetText": "Cu lapte sau fără lapte?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Cu lapte sau fără lapte?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "With milk or without milk?",
+       "contextNote": "The server asks this after you order a coffee.",
+       "literalGloss": "with milk or without milk"
+      },
+      "fr": {
+       "meaning": "Avec du lait ou sans lait ?",
+       "contextNote": "Le serveur pose cette question après votre commande de café. Le « ă » de « fără » est une voyelle brève et neutre, comme le « e » de « le ».",
+       "literalGloss": "avec lait ou sans lait"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'ă' in 'fără' is a short, relaxed vowel, like the 'a' in 'about'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "choice",
+     "intentKey": "choose_option",
+     "slotId": "choice",
+     "speaker": "learner",
+     "targetText": "Fără lapte, vă rog.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Fără lapte, vă rog."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Without milk, please.",
+       "contextNote": "For the other option, say 'Cu lapte, vă rog.'",
+       "literalGloss": "without milk, you-please"
+      },
+      "fr": {
+       "meaning": "Sans lait, s'il vous plaît.",
+       "contextNote": "Pour l'autre option, dites « Cu lapte, vă rog. »",
+       "literalGloss": "sans lait, vous-prie"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "bill",
+     "intentKey": "ask_for_bill",
+     "slotId": "bill",
+     "speaker": "learner",
+     "targetText": "Nota, vă rog.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nota, vă rog."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "The bill, please.",
+       "contextNote": "Short and common on terraces; say it when the server passes by.",
+       "literalGloss": "the bill, you-please"
+      },
+      "fr": {
+       "meaning": "L'addition, s'il vous plaît.",
+       "contextNote": "Formule courte et courante en terrasse ; dites-la quand le serveur passe près de vous.",
+       "literalGloss": "l'addition, vous-prie"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Mulțumesc mult!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mulțumesc mult!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much!",
+       "contextNote": null,
+       "literalGloss": "thank-you much"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup !",
+       "contextNote": "Le « ț » se prononce « ts », comme dans « tsé-tsé ».",
+       "literalGloss": "je remercie beaucoup"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'ț' sounds like 'ts' in 'cats'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "greet_hello_variant_7",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Bună seara!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Bună seara!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good evening!",
+       "contextNote": "Use in the evening instead of 'Bună ziua'.",
+       "literalGloss": "good evening"
+      },
+      "fr": {
+       "meaning": "Bonsoir !",
+       "contextNote": "À utiliser le soir à la place de « Bună ziua ».",
+       "literalGloss": "bonne soirée"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "request_drink_variant_8",
+     "intentKey": "request_drink",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Aș vrea două cafele, vă rog.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Aș vrea două cafele, vă rog."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'd like two coffees, please.",
+       "contextNote": "Plural form: 'cafea' becomes 'cafele' after 'două'.",
+       "literalGloss": "I would want two coffees, you-please"
+      },
+      "fr": {
+       "meaning": "Je voudrais deux cafés, s'il vous plaît.",
+       "contextNote": "Pluriel : « cafea » devient « cafele » après « două ».",
+       "literalGloss": "je voudrais deux cafés, vous-prie"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "request_drink_variant_9",
+     "intentKey": "request_drink",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Un ceai, vă rog.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Un ceai, vă rog."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "A tea, please.",
+       "contextNote": "Shorter, very common way to order.",
+       "literalGloss": "a tea, you-please"
+      },
+      "fr": {
+       "meaning": "Un thé, s'il vous plaît.",
+       "contextNote": "Façon plus courte et très courante de commander. Le « ce » de « ceai » se prononce « tché ».",
+       "literalGloss": "un thé, vous-prie"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'ce' in 'ceai' sounds like 'che'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "ask_for_bill_variant_10",
+     "intentKey": "ask_for_bill",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Cât vă datorez?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Cât vă datorez?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much do I owe you?",
+       "contextNote": "Polite alternative to asking for the bill.",
+       "literalGloss": "how-much you I-owe"
+      },
+      "fr": {
+       "meaning": "Combien est-ce que je vous dois ?",
+       "contextNote": "Alternative polie pour demander l'addition. Le « â » de « cât » est une voyelle centrale et profonde.",
+       "literalGloss": "combien vous je-dois"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'â' in 'cât' is a deep, central vowel.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "romanian_market_ask_price",
+   "blueprintKey": "market_ask_price",
+   "titles": {
+    "en": "Asking Prices at the Market",
+    "fr": "Demander les prix au marché"
+   },
+   "sceneNotes": {
+    "en": "You are at a fruit stall in the market, greeting the vendor, asking the price per kilo and deciding whether to buy, and she may add a little something extra for free.",
+    "fr": "Vous êtes devant un étal de fruits au marché : vous saluez la vendeuse, demandez le prix au kilo et décidez si vous achetez, et elle pourrait bien vous offrir un petit supplément."
+   },
+   "characterKey": "romanian_maria_market_vendor",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Bună ziua, doamnă!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Bună ziua, doamnă!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good afternoon, ma'am!",
+       "contextNote": "Polite way to greet a female vendor; use \"domnule\" for a man.",
+       "literalGloss": "good day, madam"
+      },
+      "fr": {
+       "meaning": "Bonjour, madame !",
+       "contextNote": "Façon polie de saluer une vendeuse ; pour un homme, on dit « domnule ». Le ă de « Bună » se prononce comme le e muet de « le », en plus ouvert.",
+       "literalGloss": "bon jour, madame"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say the ă in \"Bună\" like the a in \"about\".",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "greet_hello_variant_2",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Salutare!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Salutare!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hi there!",
+       "contextNote": "Friendly and casual, fine with a relaxed vendor.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Salut !",
+       "contextNote": "Amical et décontracté, convient avec un vendeur détendu.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "how_much",
+     "intentKey": "ask_price",
+     "slotId": "how_much",
+     "speaker": "learner",
+     "targetText": "Cât costă merele, vă rog?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Cât costă merele, vă rog?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much are the apples, please?",
+       "contextNote": "Swap \"merele\" for another fruit, such as \"căpșunile\" (strawberries) or \"perele\" (pears).",
+       "literalGloss": "how costs the apples, you please"
+      },
+      "fr": {
+       "meaning": "Combien coûtent les pommes, s'il vous plaît ?",
+       "contextNote": "Remplacez « merele » par un autre fruit, comme « căpșunile » (les fraises) ou « perele » (les poires). Le â de « Cât » ressemble au ă de « Bună », mais plus profond, au fond de la bouche.",
+       "literalGloss": "comment coûte les pommes, vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The â in \"Cât\" is like the ă in \"Bună\" but deeper, in the back of the mouth.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_price_variant_4",
+     "intentKey": "ask_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Cât costă un kilogram?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Cât costă un kilogram?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much is a kilo?",
+       "contextNote": "Useful when you point at the fruit and want the per-kilo price.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Combien coûte un kilo ?",
+       "contextNote": "Utile quand vous montrez les fruits du doigt et voulez le prix au kilo.",
+       "literalGloss": null
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "price",
+     "intentKey": "state_price",
+     "slotId": "price",
+     "speaker": "character",
+     "targetText": "Costă opt lei kilogramul.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Costă opt lei kilogramul."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "It costs eight lei a kilo.",
+       "contextNote": "Lei is the Romanian currency.",
+       "literalGloss": "costs eight lei the kilo"
+      },
+      "fr": {
+       "meaning": "Ça coûte huit lei le kilo.",
+       "contextNote": "Le leu (pluriel « lei ») est la monnaie roumaine.",
+       "literalGloss": "coûte huit lei le kilo"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "expensive",
+     "intentKey": "say_too_expensive",
+     "slotId": "expensive",
+     "speaker": "learner",
+     "targetText": "E cam scump!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "E cam scump!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "That's a bit expensive!",
+       "contextNote": "Said lightly with a smile, it opens the door to light bargaining.",
+       "literalGloss": "is rather expensive"
+      },
+      "fr": {
+       "meaning": "C'est un peu cher !",
+       "contextNote": "Dit avec légèreté et le sourire, cela ouvre la porte à un petit marchandage.",
+       "literalGloss": "est plutôt cher"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "lower",
+     "intentKey": "offer_lower_price",
+     "slotId": "lower",
+     "speaker": "learner",
+     "targetText": "Puteți face șapte lei?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Puteți face șapte lei?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you do seven lei?",
+       "contextNote": "Polite way to propose a lower price.",
+       "literalGloss": "can you make seven lei"
+      },
+      "fr": {
+       "meaning": "Vous pouvez faire sept lei ?",
+       "contextNote": "Façon polie de proposer un prix plus bas. Le ț de « Puteți » se prononce comme « ts » dans « tsar », et le ș de « șapte » comme « ch » dans « chat ».",
+       "literalGloss": "pouvez-vous faire sept lei"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ț in \"Puteți\" sounds like ts in \"cats\", and the ș in \"șapte\" like sh.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "offer_lower_price_variant_8",
+     "intentKey": "offer_lower_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Puțin mai ieftin, vă rog?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Puțin mai ieftin, vă rog?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "A little cheaper, please?",
+       "contextNote": null,
+       "literalGloss": "a little more cheap, you please"
+      },
+      "fr": {
+       "meaning": "Un peu moins cher, s'il vous plaît ?",
+       "contextNote": null,
+       "literalGloss": "un peu plus bon marché, vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "deal",
+     "intentKey": "agree_to_price",
+     "slotId": "deal",
+     "speaker": "learner",
+     "targetText": "Bine, iau un kilogram.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Bine, iau un kilogram."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "OK, I'll take a kilo.",
+       "contextNote": "You can say \"două kilograme\" (two kilos) for more.",
+       "literalGloss": "well, I take one kilogram"
+      },
+      "fr": {
+       "meaning": "D'accord, je prends un kilo.",
+       "contextNote": "Pour en prendre davantage, dites « două kilograme » (deux kilos).",
+       "literalGloss": "bien, je prends un kilogramme"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "no_thanks",
+     "intentKey": "decline_purchase",
+     "slotId": "no_thanks",
+     "speaker": "learner",
+     "targetText": "Nu, mulțumesc, poate altă dată.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nu, mulțumesc, poate altă dată."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No thank you, maybe another time.",
+       "contextNote": null,
+       "literalGloss": "no, thanks, maybe another time"
+      },
+      "fr": {
+       "meaning": "Non merci, peut-être une autre fois.",
+       "contextNote": null,
+       "literalGloss": "non, merci, peut-être autre fois"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "decline_purchase_variant_11",
+     "intentKey": "decline_purchase",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Nu azi, mulțumesc.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nu azi, mulțumesc."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Not today, thank you.",
+       "contextNote": "A short, polite way to turn down an offer.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Pas aujourd'hui, merci.",
+       "contextNote": "Une façon courte et polie de refuser une offre.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "romanian_ask_directions",
+   "blueprintKey": "ask_directions",
+   "titles": {
+    "en": "Asking Directions to the Station",
+    "fr": "Demander le chemin de la gare"
+   },
+   "sceneNotes": {
+    "en": "You are a visitor trying to find the train station, and a friendly passer-by gives you directions very quickly, so you need to ask them to slow down.",
+    "fr": "Vous êtes visiteur et cherchez la gare ; un passant aimable vous indique le chemin très vite, vous devrez donc lui demander de parler plus lentement."
+   },
+   "characterKey": "romanian_andrei_passer_by",
+   "expressions": [
+    {
+     "key": "excuse_me",
+     "intentKey": "get_attention",
+     "slotId": "excuse_me",
+     "speaker": "learner",
+     "targetText": "Scuzați-mă, vă rog!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Scuzați-mă, vă rog!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, please!",
+       "contextNote": "Polite way to stop a stranger before asking something.",
+       "literalGloss": "Excuse me, I ask you"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, s'il vous plaît !",
+       "contextNote": "Façon polie d'interpeller un inconnu avant de lui poser une question. Prononcez ț comme « ts » dans « tsar » : scu-ZA-ți-mă.",
+       "literalGloss": "Excusez-moi, je vous prie"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say ț like 'ts' in 'cats': scu-ZA-țî-mă.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "where_is",
+     "intentKey": "ask_where_is",
+     "slotId": "where_is",
+     "speaker": "learner",
+     "targetText": "Unde este gara, vă rog?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Unde este gara, vă rog?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where is the train station, please?",
+       "contextNote": null,
+       "literalGloss": "Where is the station, I ask you"
+      },
+      "fr": {
+       "meaning": "Où est la gare, s'il vous plaît ?",
+       "contextNote": null,
+       "literalGloss": "Où est la gare, je vous prie"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "straight",
+     "intentKey": "give_direction_straight",
+     "slotId": "straight",
+     "speaker": "character",
+     "targetText": "Mergeți drept înainte.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mergeți drept înainte."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Go straight ahead.",
+       "contextNote": null,
+       "literalGloss": "Go straight forward"
+      },
+      "fr": {
+       "meaning": "Allez tout droit.",
+       "contextNote": null,
+       "literalGloss": "Allez droit devant"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "turn",
+     "intentKey": "give_direction_turn",
+     "slotId": "turn",
+     "speaker": "character",
+     "targetText": "Apoi faceți stânga.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Apoi faceți stânga."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Then turn left.",
+       "contextNote": "Literally 'make left'. For right, say 'faceți dreapta'.",
+       "literalGloss": "Then make left"
+      },
+      "fr": {
+       "meaning": "Ensuite, tournez à gauche.",
+       "contextNote": "Littéralement « faites gauche ». Pour la droite, on dit « faceți dreapta ». Le â de stânga se prononce comme le î de înainte.",
+       "literalGloss": "Ensuite faites gauche"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The â in stânga is like the î in înainte.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "far",
+     "intentKey": "ask_is_it_far",
+     "slotId": "far",
+     "speaker": "learner",
+     "targetText": "Este departe?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Este departe?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Is it far?",
+       "contextNote": null,
+       "literalGloss": "Is far"
+      },
+      "fr": {
+       "meaning": "C'est loin ?",
+       "contextNote": null,
+       "literalGloss": "Est loin"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "near",
+     "intentKey": "say_it_is_near",
+     "slotId": "near",
+     "speaker": "character",
+     "targetText": "Nu, e la zece minute pe jos.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nu, e la zece minute pe jos."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No, it's ten minutes on foot.",
+       "contextNote": null,
+       "literalGloss": "No, it's at ten minutes on foot"
+      },
+      "fr": {
+       "meaning": "Non, c'est à dix minutes à pied.",
+       "contextNote": "Le j se prononce comme le « j » français de « jour ».",
+       "literalGloss": "Non, c'est à dix minutes à pied"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "j is like the 's' in 'measure'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "repeat",
+     "intentKey": "ask_repeat",
+     "slotId": "repeat",
+     "speaker": "learner",
+     "targetText": "Puteți repeta, vă rog?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Puteți repeta, vă rog?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you repeat that, please?",
+       "contextNote": null,
+       "literalGloss": "Can you repeat, I ask you"
+      },
+      "fr": {
+       "meaning": "Pouvez-vous répéter, s'il vous plaît ?",
+       "contextNote": null,
+       "literalGloss": "Pouvez-vous répéter, je vous prie"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "slower",
+     "intentKey": "ask_slow_down",
+     "slotId": "slower",
+     "speaker": "learner",
+     "targetText": "Mai rar, vă rog!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mai rar, vă rog!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "More slowly, please!",
+       "contextNote": "Useful when someone speaks fast.",
+       "literalGloss": "More rarely, I ask you"
+      },
+      "fr": {
+       "meaning": "Plus lentement, s'il vous plaît !",
+       "contextNote": "Utile quand quelqu'un parle vite. Roulez légèrement le r.",
+       "literalGloss": "Plus rarement, je vous prie"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Roll the r lightly.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Mulțumesc frumos!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mulțumesc frumos!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much!",
+       "contextNote": "Different from the earlier 'Mulțumesc mult!', but equally common.",
+       "literalGloss": "I thank nicely"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup !",
+       "contextNote": "Différent de « Mulțumesc mult ! » vu plus tôt, mais tout aussi courant.",
+       "literalGloss": "Je remercie joliment"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "ask_slow_down_variant_10",
+     "intentKey": "ask_slow_down",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Vorbiți prea repede, puteți mai rar?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vorbiți prea repede, puteți mai rar?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "You speak too fast, can you go slower?",
+       "contextNote": null,
+       "literalGloss": "You speak too quickly, can you more slowly"
+      },
+      "fr": {
+       "meaning": "Vous parlez trop vite, pouvez-vous parler plus lentement ?",
+       "contextNote": null,
+       "literalGloss": "Vous parlez trop vite, pouvez-vous plus lentement"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "ask_where_is_variant_11",
+     "intentKey": "ask_where_is",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Știți unde e gara?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Știți unde e gara?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you know where the station is?",
+       "contextNote": "A common, slightly more conversational way to ask.",
+       "literalGloss": "Do you know where is the station"
+      },
+      "fr": {
+       "meaning": "Savez-vous où est la gare ?",
+       "contextNote": "Façon courante, un peu plus conversationnelle, de demander. Le ș se prononce comme « ch » en français.",
+       "literalGloss": "Savez-vous où est la gare"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ș is like 'sh'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "get_attention_variant_12",
+     "intentKey": "get_attention",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Îmi cer scuze, doamnă!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Îmi cer scuze, doamnă!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, madam!",
+       "contextNote": "Use 'domnule' for a man.",
+       "literalGloss": "I ask excuses, madam"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, madame !",
+       "contextNote": "Pour un homme, on dit « domnule ».",
+       "literalGloss": "Je demande des excuses, madame"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "romanian_meet_neighbour",
+   "blueprintKey": "meet_neighbour",
+   "titles": {
+    "en": "Meeting Your New Neighbour",
+    "fr": "Rencontrer votre nouvelle voisine"
+   },
+   "sceneNotes": {
+    "en": "You meet your neighbour on the stairs as she carries her shopping bags up, and you introduce yourself.",
+    "fr": "Vous croisez votre voisine dans l'escalier alors qu'elle monte ses sacs de courses, et vous vous présentez."
+   },
+   "characterKey": "romanian_elena_neighbour",
+   "expressions": [
+    {
+     "key": "new_neighbour",
+     "intentKey": "say_new_neighbour",
+     "slotId": "new_neighbour",
+     "speaker": "learner",
+     "targetText": "Sunt noul dumneavoastră vecin.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Sunt noul dumneavoastră vecin."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm your new neighbour.",
+       "contextNote": "Polite form for someone older or someone you don't know yet. A woman says noua ... vecină.",
+       "literalGloss": "I-am the-new your(polite) neighbour"
+      },
+      "fr": {
+       "meaning": "Je suis votre nouveau voisin.",
+       "contextNote": "Forme de politesse, pour une personne plus âgée ou que vous ne connaissez pas encore. Une femme dit « noua ... vecină ». Le ă de « dumneavoastră » se prononce comme un « e » muet, doux.",
+       "literalGloss": "Suis le-nouveau votre(politesse) voisin"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ă in dumneavoastră is a soft 'uh' sound.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "welcome",
+     "intentKey": "welcome_someone",
+     "slotId": "welcome",
+     "speaker": "character",
+     "targetText": "Bine ai venit în bloc!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Bine ai venit în bloc!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Welcome to the building!",
+       "contextNote": "Neighbours often switch to the friendly tu form quickly. Bine ați venit is the more formal version.",
+       "literalGloss": "well you-have come in block"
+      },
+      "fr": {
+       "meaning": "Bienvenue dans l'immeuble !",
+       "contextNote": "Les voisins passent souvent vite au tutoiement. « Bine ați venit » est la version plus formelle. Le î de « în » est une voyelle centrale fermée, proche du « i » prononcé plus en arrière dans la gorge.",
+       "literalGloss": "bien tu-es venu dans immeuble"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The î in în is a close, central vowel, like the 'i' in 'roses' said further back.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "where_from_q",
+     "intentKey": "ask_where_from",
+     "slotId": "where_from_q",
+     "speaker": "learner",
+     "targetText": "De unde sunteți?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "De unde sunteți?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where are you from?",
+       "contextNote": "Polite form. Among younger people you can say De unde ești?",
+       "literalGloss": "from where are-you(polite)"
+      },
+      "fr": {
+       "meaning": "D'où êtes-vous ?",
+       "contextNote": "Forme de politesse. Entre jeunes, on peut dire « De unde ești ? ». Le ț de « sunteți » se prononce « ts », comme dans « tsar ».",
+       "literalGloss": "de où êtes-vous(politesse)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ț in sunteți sounds like 'ts' in 'cats'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "from",
+     "intentKey": "say_where_from",
+     "slotId": "from",
+     "speaker": "learner",
+     "targetText": "Sunt din Anglia.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Sunt din Anglia."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm from England.",
+       "contextNote": "Replace Anglia with your own country, for example Spania or Canada.",
+       "literalGloss": "I-am from England"
+      },
+      "fr": {
+       "meaning": "Je viens d'Angleterre.",
+       "contextNote": "Remplacez « Anglia » par votre pays, par exemple « Spania » ou « Canada ».",
+       "literalGloss": "Je-suis de Angleterre"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "speak_lang",
+     "intentKey": "ask_if_speaks_language",
+     "slotId": "speak_lang",
+     "speaker": "learner",
+     "targetText": "Vorbiți engleză?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vorbiți engleză?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you speak English?",
+       "contextNote": null,
+       "literalGloss": "speak(you, polite) English"
+      },
+      "fr": {
+       "meaning": "Parlez-vous anglais ?",
+       "contextNote": "Roulez légèrement le r, d'un petit coup de langue.",
+       "literalGloss": "parlez(vous, politesse) anglais"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Roll the r lightly, with a quick tap of the tongue.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "little",
+     "intentKey": "say_speak_little",
+     "slotId": "little",
+     "speaker": "learner",
+     "targetText": "Vorbesc română doar puțin.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vorbesc română doar puțin."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I only speak a little Romanian.",
+       "contextNote": null,
+       "literalGloss": "I-speak Romanian only a-little"
+      },
+      "fr": {
+       "meaning": "Je ne parle que très peu roumain.",
+       "contextNote": "Le ț de « puțin » se prononce « ts » : « pou-tsine ».",
+       "literalGloss": "Je-parle roumain seulement un-peu"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ț in puțin is 'ts', so it sounds like 'poo-tseen'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "offer_help",
+     "intentKey": "offer_help",
+     "slotId": "offer_help",
+     "speaker": "learner",
+     "targetText": "Vă pot ajuta cu sacoșele?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vă pot ajuta cu sacoșele?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I help you with the bags?",
+       "contextNote": "Said while pointing at the shopping bags.",
+       "literalGloss": "you(polite) can-I help with the-bags"
+      },
+      "fr": {
+       "meaning": "Puis-je vous aider avec vos sacs ?",
+       "contextNote": "À dire en montrant les sacs de courses. Le ș de « sacoșele » se prononce « ch ».",
+       "literalGloss": "vous(politesse) peux-je aider avec les-sacs"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ș in sacoșele sounds like 'sh'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Vă mulțumesc frumos!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vă mulțumesc frumos!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much!",
+       "contextNote": "Warm and polite. Use it for the tea invitation too.",
+       "literalGloss": "you(polite) I-thank nicely"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup !",
+       "contextNote": "Chaleureux et poli. Vous pouvez aussi l'utiliser pour l'invitation à prendre le thé. Le ț de « mulțumesc » se prononce « ts ».",
+       "literalGloss": "vous(politesse) je-remercie joliment"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ț in mulțumesc is 'ts'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "say_new_neighbour_variant_9",
+     "intentKey": "say_new_neighbour",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "M-am mutat aici de curând.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "M-am mutat aici de curând."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I moved in here recently.",
+       "contextNote": "A neutral wording that works for any gender. A woman can also say Sunt noua dumneavoastră vecină.",
+       "literalGloss": "myself-have moved here of recently"
+      },
+      "fr": {
+       "meaning": "J'ai emménagé ici récemment.",
+       "contextNote": "Formulation neutre, valable pour un homme comme pour une femme. Une femme peut aussi dire « Sunt noua dumneavoastră vecină ». Le â de « curând » se prononce comme le î.",
+       "literalGloss": "Me-suis installé ici depuis récemment"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The â in curând is the same sound as î.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "offer_help_variant_10",
+     "intentKey": "offer_help",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Dacă aveți nevoie de ceva, spuneți-mi.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Dacă aveți nevoie de ceva, spuneți-mi."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "If you need anything, tell me.",
+       "contextNote": "A friendly offer for a neighbour in general.",
+       "literalGloss": "if you-have need of something, tell-me"
+      },
+      "fr": {
+       "meaning": "Si vous avez besoin de quoi que ce soit, dites-le-moi.",
+       "contextNote": "Une proposition aimable, valable pour un voisin en général.",
+       "literalGloss": "si vous-avez besoin de quelque-chose, dites-moi"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "romanian_take_taxi",
+   "blueprintKey": "take_taxi",
+   "titles": {
+    "en": "Taking a Taxi",
+    "fr": "Prendre un taxi"
+   },
+   "sceneNotes": {
+    "en": "You are a passenger flagging down a taxi to go to the old town, and the talkative driver quotes you a price without turning on the meter.",
+    "fr": "Vous hélez un taxi pour aller dans la vieille ville, et le chauffeur bavard vous annonce un prix sans avoir mis le compteur en marche."
+   },
+   "characterKey": "romanian_mihai_taxi_driver",
+   "expressions": [
+    {
+     "key": "hail",
+     "intentKey": "hail_taxi",
+     "slotId": "hail",
+     "speaker": "learner",
+     "targetText": "Sunteți liber, vă rog?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Sunteți liber, vă rog?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Are you free, please?",
+       "contextNote": "Said at the car window before you get in.",
+       "literalGloss": "are-you free, you please"
+      },
+      "fr": {
+       "meaning": "Vous êtes libre, s'il vous plaît ?",
+       "contextNote": "À dire à la vitre de la voiture avant de monter. Le ț de « Sunteți » se prononce comme « ts » dans « tsar ».",
+       "literalGloss": "êtes-vous libre, vous prie"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ț in Sunteți sounds like ts in cats.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "where_to",
+     "intentKey": "ask_destination",
+     "slotId": "where_to",
+     "speaker": "character",
+     "targetText": "Unde mergeți?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Unde mergeți?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where are you going?",
+       "contextNote": null,
+       "literalGloss": "where go-you"
+      },
+      "fr": {
+       "meaning": "Où allez-vous ?",
+       "contextNote": null,
+       "literalGloss": "où allez-vous"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "destination",
+     "intentKey": "state_destination",
+     "slotId": "destination",
+     "speaker": "learner",
+     "targetText": "La Centrul Vechi, vă rog.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "La Centrul Vechi, vă rog."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "To the Old Town, please.",
+       "contextNote": "Centrul Vechi is the Old Town of Bucharest. Use the local name in other cities.",
+       "literalGloss": "to the-center old, you please"
+      },
+      "fr": {
+       "meaning": "Au Centrul Vechi, s'il vous plaît.",
+       "contextNote": "Centrul Vechi est la vieille ville de Bucarest ; dans une autre ville, utilisez le nom local. Prononcez « Vechi » comme « véki ».",
+       "literalGloss": "à le-centre vieux, vous prie"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say Vechi as 'veki'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "meter",
+     "intentKey": "ask_use_meter",
+     "slotId": "meter",
+     "speaker": "learner",
+     "targetText": "Puteți porni aparatul, vă rog?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Puteți porni aparatul, vă rog?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could you turn the meter on, please?",
+       "contextNote": "Use it when the driver quotes a price without the meter.",
+       "literalGloss": "can-you start the-device, you please"
+      },
+      "fr": {
+       "meaning": "Pourriez-vous allumer le compteur, s'il vous plaît ?",
+       "contextNote": "À utiliser quand le chauffeur annonce un prix sans compteur.",
+       "literalGloss": "pouvez-vous démarrer l'appareil, vous prie"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "fare",
+     "intentKey": "ask_fare",
+     "slotId": "fare",
+     "speaker": "learner",
+     "targetText": "Cât costă până acolo, vă rog?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Cât costă până acolo, vă rog?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much is it to get there, please?",
+       "contextNote": null,
+       "literalGloss": "how-much costs until there, you please"
+      },
+      "fr": {
+       "meaning": "Combien coûte la course jusque-là, s'il vous plaît ?",
+       "contextNote": "Le â de « Cât » est une voyelle centrale fermée, comme î.",
+       "literalGloss": "combien coûte jusque là-bas, vous prie"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The â in Cât is a close central vowel, like î.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "stop",
+     "intentKey": "say_stop_here",
+     "slotId": "stop",
+     "speaker": "learner",
+     "targetText": "Puteți opri aici, vă rog?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Puteți opri aici, vă rog?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could you stop here, please?",
+       "contextNote": null,
+       "literalGloss": "can-you stop here, you please"
+      },
+      "fr": {
+       "meaning": "Pourriez-vous vous arrêter ici, s'il vous plaît ?",
+       "contextNote": null,
+       "literalGloss": "pouvez-vous arrêter ici, vous prie"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "change",
+     "intentKey": "ask_for_change",
+     "slotId": "change",
+     "speaker": "learner",
+     "targetText": "Îmi dați restul, vă rog?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Îmi dați restul, vă rog?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could I have the change, please?",
+       "contextNote": null,
+       "literalGloss": "to-me give-you the-rest, you please"
+      },
+      "fr": {
+       "meaning": "Pourriez-vous me rendre la monnaie, s'il vous plaît ?",
+       "contextNote": "« Îmi » commence par î, une voyelle centrale fermée.",
+       "literalGloss": "à-moi donnez-vous le reste, vous prie"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Îmi starts with î, a close central vowel.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "bye",
+     "intentKey": "say_goodbye",
+     "slotId": "bye",
+     "speaker": "learner",
+     "targetText": "Mulțumesc, toate cele bune!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mulțumesc, toate cele bune!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you, all the best!",
+       "contextNote": "A warm way to part from the driver.",
+       "literalGloss": "thank-you, all the good"
+      },
+      "fr": {
+       "meaning": "Merci, bonne continuation !",
+       "contextNote": "Une manière chaleureuse de prendre congé du chauffeur.",
+       "literalGloss": "merci, toutes les bonnes"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "hail_taxi_variant_9",
+     "intentKey": "hail_taxi",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Mă duceți în Centrul Vechi?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mă duceți în Centrul Vechi?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you take me to the Old Town?",
+       "contextNote": "A hailing variant that names the destination right away.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Vous pouvez m'emmener au Centrul Vechi ?",
+       "contextNote": "Variante pour héler un taxi en indiquant tout de suite la destination.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "state_destination_variant_10",
+     "intentKey": "state_destination",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Centrul Vechi, vă rog.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Centrul Vechi, vă rog."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "The Old Town, please.",
+       "contextNote": "A shorter variant.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Au Centrul Vechi, s'il vous plaît.",
+       "contextNote": "Variante plus courte.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "say_stop_here_variant_11",
+     "intentKey": "say_stop_here",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Aici e bine, mulțumesc.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Aici e bine, mulțumesc."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Here is fine, thanks.",
+       "contextNote": "Said when you want to get out at this spot.",
+       "literalGloss": "here is good, thank-you"
+      },
+      "fr": {
+       "meaning": "Ici, c'est bien, merci.",
+       "contextNote": "À dire quand vous voulez descendre à cet endroit.",
+       "literalGloss": "ici est bien, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "romanian_buy_ice_cream",
+   "blueprintKey": "buy_ice_cream",
+   "titles": {
+    "en": "Buying Ice Cream with a Child",
+    "fr": "Acheter une glace avec un enfant"
+   },
+   "sceneNotes": {
+    "en": "You take a child to an ice-cream cart outside the school, where only two flavours are left, and you must kindly say no to a second scoop.",
+    "fr": "Vous emmenez un enfant à la charrette de glaces devant l'école, où il ne reste que deux parfums, et vous devez refuser gentiment une deuxième boule."
+   },
+   "characterKey": "romanian_maria_child_at_the_ice_cream_stand",
+   "expressions": [
+    {
+     "key": "wants",
+     "intentKey": "request_food",
+     "slotId": "wants",
+     "speaker": "character",
+     "targetText": "Vreau o înghețată, te rog!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vreau o înghețată, te rog!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I want an ice cream, please!",
+       "contextNote": "A child speaking to a familiar adult, so it uses informal te rog.",
+       "literalGloss": "I-want an ice-cream, you please"
+      },
+      "fr": {
+       "meaning": "Je veux une glace, s'il te plaît !",
+       "contextNote": "Une enfant s'adresse à un adulte qu'elle connaît, d'où le « te rog » familier. Prononcez îng-he-ȚA-tă ; « ghe » se dit comme « gué ».",
+       "literalGloss": "Je-veux une glace, toi s'il-plaît"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say îng-he-ȚA-tă; ghe sounds like 'gheh'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "which_flavour",
+     "intentKey": "offer_options",
+     "slotId": "which_flavour",
+     "speaker": "learner",
+     "targetText": "Vanilie sau ciocolată?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vanilie sau ciocolată?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Vanilla or chocolate?",
+       "contextNote": "Only two flavours are left, so you offer both.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Vanille ou chocolat ?",
+       "contextNote": "Il ne reste que deux parfums, vous proposez donc les deux. Le « -ie » final de vanilie se prononce « yé ».",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The final -ie in vanilie is said as 'yeh'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "picks",
+     "intentKey": "choose_option",
+     "slotId": "picks",
+     "speaker": "character",
+     "targetText": "Ciocolată, te rog!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ciocolată, te rog!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Chocolate, please!",
+       "contextNote": null,
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Chocolat, s'il te plaît !",
+       "contextNote": "Le « ci » de ciocolată se prononce « tcho ».",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ci in ciocolată sounds like 'cho'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "scoop",
+     "intentKey": "specify_quantity",
+     "slotId": "scoop",
+     "speaker": "learner",
+     "targetText": "O cupă de ciocolată, vă rog.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "O cupă de ciocolată, vă rog."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "One scoop of chocolate, please.",
+       "contextNote": "Said politely to the ice-cream seller.",
+       "literalGloss": "One scoop of chocolate, you-polite please"
+      },
+      "fr": {
+       "meaning": "Une boule de chocolat, s'il vous plaît.",
+       "contextNote": "Se dit poliment au vendeur de glaces. Cupă se prononce KOU-pă.",
+       "literalGloss": "Une boule de chocolat, vous-poli s'il-plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Cupă is said KOO-pă.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "asks_two",
+     "intentKey": "ask_permission",
+     "slotId": "asks_two",
+     "speaker": "character",
+     "targetText": "Pot să iau și o a doua cupă?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Pot să iau și o a doua cupă?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have a second scoop too?",
+       "contextNote": null,
+       "literalGloss": "Can that I-take also a second scoop"
+      },
+      "fr": {
+       "meaning": "Je peux prendre aussi une deuxième boule ?",
+       "contextNote": null,
+       "literalGloss": "Puis que je-prenne aussi une deuxième boule"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "just_one",
+     "intentKey": "refuse_permission",
+     "slotId": "just_one",
+     "speaker": "learner",
+     "targetText": "Nu, azi doar una, dragule.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nu, azi doar una, dragule."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No, just one today, dear.",
+       "contextNote": "A kind no. Dragule is for a boy; use dragă for a girl.",
+       "literalGloss": "No, today only one, dear"
+      },
+      "fr": {
+       "meaning": "Non, aujourd'hui une seule, mon chéri.",
+       "contextNote": "Un refus plein de gentillesse. Dragule s'emploie pour un garçon ; pour une fille, on dit dragă. Azi se prononce « azz », avec un i final très bref.",
+       "literalGloss": "Non, aujourd'hui seulement une, cher"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say azi as 'azz' with a short final i.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "okay",
+     "intentKey": "grant_permission",
+     "slotId": "okay",
+     "speaker": "learner",
+     "targetText": "Bine, ia-ți înghețata!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Bine, ia-ți înghețata!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Okay, take your ice cream!",
+       "contextNote": "Said when handing over the ice cream; the permission is for the single scoop.",
+       "literalGloss": "Fine, take-yourself the ice cream"
+      },
+      "fr": {
+       "meaning": "D'accord, prends ta glace !",
+       "contextNote": "Se dit en tendant la glace ; la permission ne vaut que pour une seule boule.",
+       "literalGloss": "Bien, prends-toi la glace"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "yummy",
+     "intentKey": "say_delicious",
+     "slotId": "yummy",
+     "speaker": "character",
+     "targetText": "Mmm, e foarte bună!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mmm, e foarte bună!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Mmm, it's very good!",
+       "contextNote": null,
+       "literalGloss": "Mmm, is very good"
+      },
+      "fr": {
+       "meaning": "Mmm, elle est très bonne !",
+       "contextNote": null,
+       "literalGloss": "Mmm, est très bonne"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "me_too",
+     "intentKey": "express_like",
+     "slotId": "me_too",
+     "speaker": "learner",
+     "targetText": "Și mie îmi place ciocolata.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Și mie îmi place ciocolata."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I like chocolate too.",
+       "contextNote": null,
+       "literalGloss": "And to-me to-me pleases the chocolate"
+      },
+      "fr": {
+       "meaning": "Moi aussi, j'aime le chocolat.",
+       "contextNote": "Mie se prononce MI-é.",
+       "literalGloss": "Et à-moi à-moi plaît le chocolat"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Mie is said MEE-eh.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "character",
+     "targetText": "Mulțumesc mult!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mulțumesc mult!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much!",
+       "contextNote": "Same thanks formula as earlier in the chapter.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Merci beaucoup !",
+       "contextNote": "C'est la même formule de remerciement que plus tôt dans le chapitre. Le ț se prononce « ts » comme dans « tsar ».",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ț sounds like 'ts' in 'cats'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "welcome",
+     "intentKey": "respond_to_thanks",
+     "slotId": "welcome",
+     "speaker": "learner",
+     "targetText": "Cu plăcere!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Cu plăcere!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "You're welcome!",
+       "contextNote": null,
+       "literalGloss": "With pleasure"
+      },
+      "fr": {
+       "meaning": "Avec plaisir !",
+       "contextNote": null,
+       "literalGloss": "Avec plaisir"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "refuse_permission_variant_12",
+     "intentKey": "refuse_permission",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Mai bine nu, e prea rece.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mai bine nu, e prea rece."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Better not, it's too cold.",
+       "contextNote": "A softer no that gives a gentle reason.",
+       "literalGloss": "More well no, is too cold"
+      },
+      "fr": {
+       "meaning": "Mieux vaut pas, c'est trop froid.",
+       "contextNote": "Un non plus doux, qui donne une raison avec tact.",
+       "literalGloss": "Plus bien non, est trop froid"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "offer_options_variant_13",
+     "intentKey": "offer_options",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Ce gust vrei: vanilie sau ciocolată?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ce gust vrei: vanilie sau ciocolată?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Which flavour do you want: vanilla or chocolate?",
+       "contextNote": "A fuller version of the question.",
+       "literalGloss": "What flavour you-want: vanilla or chocolate"
+      },
+      "fr": {
+       "meaning": "Quel parfum veux-tu : vanille ou chocolat ?",
+       "contextNote": "Une version plus complète de la question.",
+       "literalGloss": "Quel parfum tu-veux : vanille ou chocolat"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  }
+ ],
+ "provenance": "ai_draft",
+ "nativeReviewed": false,
+ "reviewStatus": "review_needed",
+ "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+ "notes": [
+  "AI draft generated 2026-11-11T22:44:45.626Z with anthropic/claude-sonnet-5.5; validator accepted 78 expressions; native review required before publishing.",
+  "greet_and_introduce: All required slots are learner lines. The character's follow-up question about where the learner lives is not an expression here.",
+  "greet_and_introduce: Please check the polite 'Ce mai faceți?' and 'Dumneavoastră' against what a neighbour would really say, since people often shorten them.",
+  "greet_and_introduce: 'Alex' is a placeholder name. Încântată/Încântat shows gender agreement.",
+  "cafe_order_drink: Avoided 'Bună dimineața' and 'Salut' because they were already used earlier in the chapter; 'Bună ziua' is used instead. Please confirm the polite 'vă rog' is right for a young server.",
+  "cafe_order_drink: 'Nota, vă rog.' is a short elliptical request, not a bare command; check that it sounds natural and not abrupt.",
+  "cafe_order_drink: In the slang-free 'Mulțumesc mult!', 'mult' could be swapped for 'frumos' in some regions.",
+  "market_ask_price: Avoided repeating earlier greetings (Bună ziua, Salut, etc.); greeting slot uses \"Bună ziua, doamnă!\" with a vendor addressed as female.",
+  "market_ask_price: The price line uses 8 lei per kilo as an illustrative price; adjust if you prefer more realistic market prices.",
+  "market_ask_price: The twist (a free extra from the vendor) is not drafted as a line, since only the required slots were requested; please confirm that is acceptable.",
+  "ask_directions: Used formal 'dumneavoastră' forms (Mergeți, faceți, puteți) for a stranger; please confirm that is natural for the passer-by.",
+  "ask_directions: 'e la zece minute pe jos' kept casual; check it sounds natural versus 'la zece minute de mers pe jos'.",
+  "ask_directions: 'Gara' chosen for the train station; 'stația' would suggest a bus or tram stop.",
+  "meet_neighbour: The neighbour uses informal tu (Bine ai venit) while the learner stays polite with dumneavoastră and vă. Please confirm this mix feels natural.",
+  "meet_neighbour: The learner's gender is unspecified. Vecin and vecină are both given, and the neutral M-am mutat variant covers either.",
+  "meet_neighbour: Please check that Sunt din Anglia and the other examples fit the country placeholder used elsewhere in the chapter.",
+  "take_taxi: Centrul Vechi is specific to Bucharest. Please check the wording for other cities.",
+  "take_taxi: Aparat and taximetru are both used for the meter. Please confirm that aparat is the most natural choice.",
+  "take_taxi: All learner lines use the formal vă and sunteți, as expected with a stranger. Please check that this fits the situation.",
+  "buy_ice_cream: Check that 'cupă' is the natural word for a scoop; 'bilă' is a common alternative.",
+  "buy_ice_cream: 'Dragule' is masculine vocative; the character is named Maria, so please check if 'dragă' fits better for a girl.",
+  "buy_ice_cream: Chosen te rog for the child and vă rog for the seller; please confirm this is natural.",
+  "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+ ]
+}

@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
+import '../../core/backend/narrator.dart';
 import '../../core/backend/server_voice.dart';
 import '../../core/backend/speech_check.dart';
 import '../../core/layout/motion.dart';
@@ -38,6 +39,9 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
   int _utterance = 0;
   late final SpeechService _speech;
 
+  /// The learner's line has to be said (with a microphone) before moving on.
+  final _step = SpeakingStep();
+
   @override
   void initState() {
     super.initState();
@@ -54,10 +58,20 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
   Future<void> _speakCurrent({bool slow = false}) async {
     final plan = ref.read(learnPlanProvider(widget.missionKey));
     if (plan == null) return;
-    // The device's voice for the course, else the server's AI voice (signed in), else none.
-    final voice = await ref.read(lineVoiceProvider(plan.voiceLocale).future);
-    if (!voice.available || !mounted) return;
     final token = ++_utterance;
+    ref.read(narratorProvider)?.stop();
+    // Read aloud: the scene's context before its first line, and "Your line — say it out loud" before the learner's.
+    final read = readAloudFor(ref);
+    if (read != null) {
+      final note = _index == 0 ? plan.mission.sceneNoteIn(plan.source) : null;
+      if (note != null) await read.narrator.say(note);
+      if (!mounted || token != _utterance) return;
+      if (plan.sceneLines[_index].byLearner) await read.narrator.say(read.words.sceneYourLine);
+      if (!mounted || token != _utterance) return;
+    }
+    // The course's voice: the server's AI voice (signed in), else the device's, else none.
+    final voice = await ref.read(lineVoiceProvider(plan.voiceLocale).future);
+    if (!voice.available || !mounted || token != _utterance) return;
     setState(() => _speaking = true);
     final line = plan.sceneLines[_index].expression;
     await voice.say(text: line.text, expressionId: line.id, slow: slow);
@@ -67,6 +81,7 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
 
   void _next(MissionLearnPlan plan) {
     if (_index < plan.sceneLines.length - 1) {
+      _step.reset();
       setState(() => _index++);
       _speakCurrent();
     } else {
@@ -92,6 +107,8 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
     final sceneId = sceneIdForSituation(plan.mission.situation);
     final isLast = index == plan.sceneLines.length - 1;
     final note = plan.noteOf(line.expression);
+    // The learner's line waits for a take (understood where the server checks), unless speaking is paused.
+    final waiting = learnerTurn && speakingRequired(ref) && !_step.done;
 
     return Scaffold(
       backgroundColor: colors.background,
@@ -206,6 +223,7 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
                             key: ValueKey('take-$index'),
                             voiceLocale: plan.voiceLocale,
                             check: SpeechTarget(expressionId: line.expression.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
+                            onTake: (outcome) => setState(() => _step.take(outcome)),
                           ),
                         ],
                       ],
@@ -219,10 +237,20 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
             const SizedBox(height: 12),
             Padding(
               padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
-              child: LearnPrimaryButton(
-                label: learnerTurn ? l10n.sceneISaidIt : (isLast ? l10n.sceneLearnPhrases : l10n.next),
-                icon: LucideIcons.chevronRight,
-                onPressed: () => _next(plan),
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  if (waiting)
+                    Padding(
+                      padding: const EdgeInsets.only(bottom: 4),
+                      child: SpeakingHint(tries: _step.tries),
+                    ),
+                  LearnPrimaryButton(
+                    label: learnerTurn ? l10n.sceneISaidIt : (isLast ? l10n.sceneLearnPhrases : l10n.next),
+                    icon: LucideIcons.chevronRight,
+                    onPressed: waiting ? null : () => _next(plan),
+                  ),
+                ],
               ),
             ),
           ],

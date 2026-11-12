@@ -37,6 +37,11 @@ export const DEFAULT_PRICING: readonly ModelPricing[] = [
   snap('openai/gpt-5.4-mini', 0.00000075, 0.0000045, 'token'),
   snap('openai/gpt-5.4-nano', 0.0000002, 0.00000125, 'token'),
   snap('mistralai/mistral-small-2603', 0.00000015, 0.0000006, 'token'),
+  // OpenAI GPT 6 family as listed in the OpenRouter catalog on 2026-11-11 (candidates for call dialogue; see the bench in
+  // docs/provider-matrix/dialogue-models-2026-11-11.md).
+  { model: 'openai/gpt-6-luna', promptUsd: 0.0000001, completionUsd: 0.0000005, unit: 'token', source: 'manual' },
+  { model: 'openai/gpt-6.1-terra', promptUsd: 0.000001, completionUsd: 0.000005, unit: 'token', source: 'manual' },
+  { model: 'openai/gpt-6.1-sol', promptUsd: 0.000002, completionUsd: 0.00001, unit: 'token', source: 'manual' },
   // speech-to-text
   snap('openai/whisper-large-v3', 0.0000075, 0, 'second'),
   snap('openai/whisper-large-v3-turbo', 0.00000333, 0, 'second'),

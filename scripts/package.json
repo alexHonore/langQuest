@@ -17,7 +17,10 @@
     "seed-curriculum": "tsx src/seed-curriculum.ts",
     "validate-course-coverage": "tsx src/validate-course-coverage.ts",
     "content-factory": "tsx src/content-factory.ts",
-    "export-flutter-content": "tsx src/export-flutter-content.ts"
+    "export-flutter-content": "tsx src/export-flutter-content.ts",
+    "attach-tatoeba-examples": "tsx src/attach-tatoeba-examples.ts",
+    "synthesize-bundle-audio": "tsx src/synthesize-bundle-audio.ts",
+    "import-factory-chapters": "tsx src/import-factory-chapters.ts"
   },
   "dependencies": {
     "zod": "^4.6.0",

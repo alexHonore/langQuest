@@ -33,9 +33,14 @@ void main() {
   testWidgets('with the server\'s offer: live calls and checked answers are included, the dialect caveat is said', (t) async {
     await pump(t, {'arabic-moroccan': const ServerTrackOffer(characters: 4, liveCalls: true, spokenCheck: true, aiVoice: true)});
     expect(find.text('Live calls with 4 AI characters, by voice or in writing (with a free account)'), findsOneWidget);
-    expect(find.text('Your spoken answers checked: LangQuest tells you whether you were understood (with a free account)'), findsOneWidget);
+    expect(
+      find.text(
+        'Your spoken answers checked: LangQuest tells you whether you were understood, and an AI estimates your pronunciation word by word (with a free account)',
+      ),
+      findsOneWidget,
+    );
     expect(find.text('Speech recognition and AI voices are still limited for this dialect (not yet reviewed by native speakers)'), findsOneWidget);
-    expect(find.text('A pronunciation score: spoken answers are checked for meaning, not accent'), findsOneWidget);
+    expect(find.text('A measured pronunciation score: the AI’s feedback is an estimate, not an acoustic measurement'), findsOneWidget);
     expect(find.text('Live conversation with AI characters'), findsNothing);
     expect(find.text('Spoken pronunciation feedback'), findsNothing);
     // Darija has no device voice: the server's AI voice reads it, and its audio lessons.
@@ -43,6 +48,8 @@ void main() {
     expect(find.text('Audio lessons made from each mission, read by an AI voice (with a free account)'), findsOneWidget);
     expect(find.textContaining('phone voices speak Modern Standard Arabic'), findsNothing);
     expect(find.text('Audio recorded by native speakers'), findsOneWidget);
+    // Checked against Tatoeba: the phrases found as written there (examples.json), counted for this course.
+    expect(find.text('4 of 60 phrases found as written in Tatoeba, a collection of real sentences, with real examples to read'), findsOneWidget);
   });
 
   testWidgets('offline (no offer): nothing an account would add is promised', (t) async {

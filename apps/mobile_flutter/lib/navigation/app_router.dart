@@ -8,6 +8,7 @@ import '../core/theme/glass.dart';
 import '../features/audio/audio_screens.dart';
 import '../features/call/call_record_screen.dart';
 import '../features/call/call_screen.dart';
+import '../features/admin/admin_models_screen.dart';
 import '../features/call/speak_screen.dart';
 import '../features/account/account_screen.dart';
 import '../features/catalog/catalog_screen.dart';
@@ -94,6 +95,7 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       page('/course/:trackId', (s) => CourseDetailScreen(trackId: s.pathParameters['trackId']!)),
       // Learn path (approved L1 + L3 inside N2): a mission node, then its learn, practise and mission stops.
       page('/path/:id', (s) => MissionPathScreen(missionKey: s.pathParameters['id']!)),
+      page('/admin/models', (s) => const AdminModelsScreen()),
       page('/learn/:id/scene', (s) => SceneLessonScreen(missionKey: s.pathParameters['id']!)),
       page('/learn/:id/cards', (s) => CardsScreen(missionKey: s.pathParameters['id']!)),
       page('/learn/:id/practice', (s) => PracticeScreen(missionKey: s.pathParameters['id']!)),
@@ -135,7 +137,8 @@ class AppScaffold extends ConsumerWidget {
     final colors = appState.colors;
     final l10n = context.l10n;
     final audio = ref.watch(audioLessonsAvailableProvider);
-    final speak = ref.watch(liveCallCourseProvider) != null;
+    // Signed out on a course with calls, the tab says how to unlock them (a free account) rather than hiding them.
+    final speak = ref.watch(liveCallCourseProvider) != null || ref.watch(callsNeedAccountProvider);
     final tabs = ['/', '/missions', if (speak) '/talk', if (audio) '/audio', '/progress'];
     final selected = _selectedIndex(context, tabs);
     final items = [

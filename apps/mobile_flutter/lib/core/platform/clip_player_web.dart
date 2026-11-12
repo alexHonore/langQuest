@@ -38,11 +38,16 @@ class _WebClipPlayer implements ClipPlayer {
   }
 
   @override
-  Future<void> play(String url) async {
+  Future<void> play(String url, {double rate = 1}) async {
     if (_disposed) return;
     stop();
     final done = Completer<void>();
-    final audio = web.HTMLAudioElement()..src = url;
+    // A slower rate keeps the voice's pitch (browsers preserve it by default; set for those that do not).
+    final audio = web.HTMLAudioElement()
+      ..src = url
+      ..playbackRate = rate
+      ..defaultPlaybackRate = rate
+      ..preservesPitch = true;
     _audio = audio;
     _done = done;
     void finish() {

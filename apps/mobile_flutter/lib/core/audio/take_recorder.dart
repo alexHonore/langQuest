@@ -55,6 +55,10 @@ abstract class RecordedTake {
   /// The recorded bytes (for a server check of what was said).
   Future<Uint8List> bytes();
 
+  /// The take as 16-bit mono WAV at [sampleRate]: what listening models accept (they do not take WebM or MP4), for
+  /// AI pronunciation feedback. Null when the take cannot be decoded on this device.
+  Future<Uint8List?> wav({int sampleRate = 16000});
+
   /// Plays the take; completes when it has ended or was stopped.
   Future<void> play();
 

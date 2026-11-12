@@ -20,6 +20,8 @@ export const AI_TASK_NAME_VALUES = [
   'pronunciation_assessment',
   'transcription_alignment',
   'language_quality_check',
+  /** AI pronunciation feedback: a listening model's estimate of how a take sounds (never an acoustic score, ADR-006). */
+  'pronunciation_feedback',
 ] as const;
 export const AiTaskNameSchema = z.enum(AI_TASK_NAME_VALUES);
 export type AiTaskName = z.infer<typeof AiTaskNameSchema>;

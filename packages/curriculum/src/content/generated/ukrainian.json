@@ -1,0 +1,3276 @@
+{
+ "key": "ukrainian_ch1",
+ "chapterIndex": 1,
+ "courseTrackId": "ukrainian",
+ "targetVarietyId": "uk",
+ "sourceLanguages": [
+  "en",
+  "fr"
+ ],
+ "titles": {
+  "en": "First days in Lviv",
+  "fr": "Premiers jours à Lviv"
+ },
+ "characters": [
+  {
+   "characterKey": "ukrainian_character_friendly_local_acquaintance",
+   "role": "friendly local acquaintance",
+   "name": "Оксана",
+   "personality": "warm, quick, kind, curious",
+   "homeRegion": "Львів",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "ukrainian_character_cafe_server",
+   "role": "café server",
+   "name": "Оксана",
+   "personality": "quick, cheerful, warm and chatty",
+   "homeRegion": "Львів",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "ukrainian_character_market_vendor",
+   "role": "market vendor",
+   "name": "Оксана",
+   "personality": "warm, chatty, lightly teasing",
+   "homeRegion": "Lviv",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "ukrainian_character_passer_by",
+   "role": "passer-by",
+   "name": "Андрій",
+   "personality": "helpful, brisk, talks fast",
+   "homeRegion": "Kyiv",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "ukrainian_character_neighbour",
+   "role": "neighbour",
+   "name": "Оксана",
+   "personality": "warm, chatty, hospitable",
+   "homeRegion": "Львів",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "ukrainian_character_taxi_driver",
+   "role": "taxi driver",
+   "name": "Олег",
+   "personality": "talkative, friendly, a bit pushy",
+   "homeRegion": "Lviv",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "ukrainian_character_child_at_the_ice_cream_stand",
+   "role": "child at the ice-cream stand",
+   "name": "Максим",
+   "personality": "cheerful, curious, a bit cheeky",
+   "homeRegion": "Львів",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  }
+ ],
+ "missions": [
+  {
+   "key": "ukrainian_greet_and_introduce",
+   "blueprintKey": "greet_and_introduce",
+   "titles": {
+    "en": "Meeting a Neighbour Outside",
+    "fr": "Rencontrer une voisine dehors"
+   },
+   "sceneNotes": {
+    "en": "It's morning, and a friendly neighbour who is in a hurry stops to greet you on the street.",
+    "fr": "C'est le matin, et une voisine sympathique, pressée, s'arrête pour vous saluer dans la rue."
+   },
+   "characterKey": "ukrainian_character_friendly_local_acquaintance",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Добрий день!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Добрий день!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Dobryi den!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello! / Good day!",
+       "contextNote": "Polite, works at any time of day. In the morning you can also say \"Доброго ранку\".",
+       "literalGloss": "good day"
+      },
+      "fr": {
+       "meaning": "Bonjour !",
+       "contextNote": "Poli, convient à toute heure de la journée. Le matin, on peut aussi dire « Доброго ранку ». Le « и » se prononce comme le « i » de l'anglais « bit », un peu plus grave.",
+       "literalGloss": "bon jour"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "И is like the i in \"bit\", but a bit deeper.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "how_are_you",
+     "intentKey": "ask_how_are_you",
+     "slotId": "how_are_you",
+     "speaker": "learner",
+     "targetText": "Як ви?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Як ви?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Yak vy?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How are you?",
+       "contextNote": "Short and polite. Use \"ви\" with a stranger or someone older.",
+       "literalGloss": "how you"
+      },
+      "fr": {
+       "meaning": "Comment allez-vous ?",
+       "contextNote": "Court et poli. On emploie « ви » avec un inconnu ou une personne plus âgée.",
+       "literalGloss": "comment vous"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "fine",
+     "intentKey": "reply_fine",
+     "slotId": "fine",
+     "speaker": "learner",
+     "targetText": "Дякую, добре!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Дякую, добре!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Diakuiu, dobre!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks, I'm fine!",
+       "contextNote": null,
+       "literalGloss": "thank-you, well"
+      },
+      "fr": {
+       "meaning": "Merci, ça va bien !",
+       "contextNote": "Le « дя » de Дякую est mouillé : prononcez à peu près « dia ».",
+       "literalGloss": "merci, bien"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The \"ді\" in Дякую is soft: say \"dya\".",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "my_name",
+     "intentKey": "introduce_name",
+     "slotId": "my_name",
+     "speaker": "learner",
+     "targetText": "Мене звати Анна.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Мене звати Анна."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Mene zvaty Anna."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "My name is Anna.",
+       "contextNote": "Replace Анна with your own name.",
+       "literalGloss": "me to-call Anna"
+      },
+      "fr": {
+       "meaning": "Je m'appelle Anna.",
+       "contextNote": "Remplacez Анна par votre propre prénom.",
+       "literalGloss": "moi appeler Anna"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "your_name",
+     "intentKey": "ask_name",
+     "slotId": "your_name",
+     "speaker": "learner",
+     "targetText": "А як вас звати?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "А як вас звати?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "A yak vas zvaty?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "And what's your name?",
+       "contextNote": "Polite \"вас\" is right for a neighbour you don't know yet.",
+       "literalGloss": "and how you(polite) to-call"
+      },
+      "fr": {
+       "meaning": "Et vous, comment vous appelez-vous ?",
+       "contextNote": "Le « вас » de politesse convient pour un voisin que vous ne connaissez pas encore.",
+       "literalGloss": "et comment vous(poli) appeler"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "nice_to_meet",
+     "intentKey": "say_nice_to_meet",
+     "slotId": "nice_to_meet",
+     "speaker": "learner",
+     "targetText": "Дуже приємно!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Дуже приємно!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Duzhe pryiemno!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Nice to meet you!",
+       "contextNote": null,
+       "literalGloss": "very pleasant"
+      },
+      "fr": {
+       "meaning": "Enchantée !",
+       "contextNote": "Le « є » de приємно se prononce « ye ».",
+       "literalGloss": "très agréable"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"Є\" in приємно sounds like \"ye\".",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "goodbye",
+     "intentKey": "say_goodbye",
+     "slotId": "goodbye",
+     "speaker": "learner",
+     "targetText": "До побачення!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "До побачення!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Do pobachennia!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Goodbye!",
+       "contextNote": "Polite and safe in any situation.",
+       "literalGloss": "until seeing"
+      },
+      "fr": {
+       "meaning": "Au revoir !",
+       "contextNote": "Poli et adapté à toute situation. Le « чч » se prononce « tch » net ; le « нн » est tenu un peu plus longtemps.",
+       "literalGloss": "jusqu'à la revoyure"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"Чч\" is a clear \"ch\"; the \"нн\" is held slightly longer.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "greet_hello_variant_8",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Доброго ранку!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Доброго ранку!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Dobroho ranku!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good morning!",
+       "contextNote": "A natural time-of-day greeting for this morning scene.",
+       "literalGloss": "of-good morning"
+      },
+      "fr": {
+       "meaning": "Bonjour ! (le matin)",
+       "contextNote": "Salutation naturelle pour cette scène du matin. Le « г » ukrainien est un « h » doux et soufflé, pas un « g » dur.",
+       "literalGloss": "du bon matin"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Ukrainian г is a soft, breathy \"h\", not a hard \"g\".",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "greet_hello_variant_9",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Привіт!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Привіт!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Pryvit!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hi!",
+       "contextNote": "Casual. Use with friendly neighbours your age or younger, once you know them.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Salut !",
+       "contextNote": "Familier. À utiliser avec des voisins sympathiques de votre âge ou plus jeunes, une fois que vous les connaissez.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "reply_fine_variant_10",
+     "intentKey": "reply_fine",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Усе добре, дякую!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Усе добре, дякую!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Use dobre, diakuiu!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Everything is good, thank you!",
+       "contextNote": null,
+       "literalGloss": "everything good, thank-you"
+      },
+      "fr": {
+       "meaning": "Tout va bien, merci !",
+       "contextNote": null,
+       "literalGloss": "tout bien, merci"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "say_goodbye_variant_11",
+     "intentKey": "say_goodbye",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Гарного дня!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Гарного дня!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Harnoho dnia!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Have a nice day!",
+       "contextNote": "A friendly closing, good for a neighbour who is rushing off.",
+       "literalGloss": "of-nice day"
+      },
+      "fr": {
+       "meaning": "Bonne journée !",
+       "contextNote": "Une formule d'adieu aimable, idéale pour un voisin qui est pressé.",
+       "literalGloss": "de belle journée"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "ukrainian_cafe_order_drink",
+   "blueprintKey": "cafe_order_drink",
+   "titles": {
+    "en": "Ordering a Drink at a Café",
+    "fr": "Commander une boisson au café"
+   },
+   "sceneNotes": {
+    "en": "You find a table on a busy café terrace, and a quick, friendly server comes over to take your order.",
+    "fr": "Vous trouvez une table sur la terrasse animée d'un café, et une serveuse rapide et souriante vient prendre votre commande."
+   },
+   "characterKey": "ukrainian_character_cafe_server",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Вітаю!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Вітаю!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Vitaiu!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello! / Greetings!",
+       "contextNote": "A polite, slightly warm greeting that works at any time of day.",
+       "literalGloss": "I greet (you)"
+      },
+      "fr": {
+       "meaning": "Bonjour ! / Salutations !",
+       "contextNote": "Salutation polite et un peu chaleureuse, utilisable à toute heure. Insistez bien sur le і accentué : vi-TAH-yu.",
+       "literalGloss": "je (vous) salue"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say the stressed і clearly: vi-TAH-yu.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.15
+    },
+    {
+     "key": "order",
+     "intentKey": "request_drink",
+     "slotId": "order",
+     "speaker": "learner",
+     "targetText": "Я хотів би каву, будь ласка.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Я хотів би каву, будь ласка."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Ya khotiv by kavu, bud laska."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I would like a coffee, please.",
+       "contextNote": "Said by a male speaker. A woman says хотіла б.",
+       "literalGloss": "I wanted would coffee, please"
+      },
+      "fr": {
+       "meaning": "Je voudrais un café, s'il vous plaît.",
+       "contextNote": "Forme dite par un homme ; une femme dit « хотіла б ». Le х ukrainien est un « kh » soufflé, comme la jota espagnole.",
+       "literalGloss": "je voulais conditionnel café, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Ukrainian х is a breathy kh, like the ch in Scottish 'loch'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    },
+    {
+     "key": "options",
+     "intentKey": "offer_options",
+     "slotId": "options",
+     "speaker": "character",
+     "targetText": "З молоком чи без молока?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "З молоком чи без молока?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Z molokom chy bez moloka?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "With milk or without milk?",
+       "contextNote": "The server asks this after you order a coffee. Listen for з (with) and без (without).",
+       "literalGloss": "with milk or without milk"
+      },
+      "fr": {
+       "meaning": "Avec du lait ou sans lait ?",
+       "contextNote": "La serveuse pose cette question après votre commande de café. Repérez з (avec) et без (sans).",
+       "literalGloss": "avec lait ou sans lait"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "choice",
+     "intentKey": "choose_option",
+     "slotId": "choice",
+     "speaker": "learner",
+     "targetText": "Без молока, будь ласка.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Без молока, будь ласка."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Bez moloka, bud laska."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Without milk, please.",
+       "contextNote": "Repeat the server's option and add будь ласка.",
+       "literalGloss": "without milk, please"
+      },
+      "fr": {
+       "meaning": "Sans lait, s'il vous plaît.",
+       "contextNote": "Reprenez l'option proposée et ajoutez будь ласка.",
+       "literalGloss": "sans lait, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "bill",
+     "intentKey": "ask_for_bill",
+     "slotId": "bill",
+     "speaker": "learner",
+     "targetText": "Можна рахунок, будь ласка?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Можна рахунок, будь ласка?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Mozhna rakhunok, bud laska?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could I have the bill, please?",
+       "contextNote": null,
+       "literalGloss": "possible bill, please"
+      },
+      "fr": {
+       "meaning": "Pourrais-je avoir l'addition, s'il vous plaît ?",
+       "contextNote": "Le ж de можна se prononce comme le j de « jour ».",
+       "literalGloss": "possible addition, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ж in можна is like the s in 'measure'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Дуже дякую!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Дуже дякую!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Duzhe diakuiu!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much!",
+       "contextNote": null,
+       "literalGloss": "very (I) thank"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup !",
+       "contextNote": "Le дя se prononce « dya » : DYA-ku-yu.",
+       "literalGloss": "très (je) remercie"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "дя sounds like 'dya': DYA-ku-yu.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "greet_hello_variant_7",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Добрий вечір!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Добрий вечір!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Dobryi vechir!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good evening!",
+       "contextNote": "Time-of-day greeting for the evening.",
+       "literalGloss": "good evening"
+      },
+      "fr": {
+       "meaning": "Bonsoir !",
+       "contextNote": "Salutation propre à la soirée.",
+       "literalGloss": "bon soir"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "request_drink_variant_8",
+     "intentKey": "request_drink",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Я хотіла б каву, будь ласка.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Я хотіла б каву, будь ласка."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Ya khotila b kavu, bud laska."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I would like a coffee, please.",
+       "contextNote": "Feminine form, said by a woman.",
+       "literalGloss": "I wanted-fem would coffee, please"
+      },
+      "fr": {
+       "meaning": "Je voudrais un café, s'il vous plaît.",
+       "contextNote": "Forme féminine, dite par une femme.",
+       "literalGloss": "je voulais-fém. conditionnel café, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    },
+    {
+     "key": "request_drink_variant_9",
+     "intentKey": "request_drink",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Чай, будь ласка.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Чай, будь ласка."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Chai, bud laska."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "A tea, please.",
+       "contextNote": "Short, natural way to order when the terrace is busy. Swap in other drinks, such as каву (coffee) or воду (water).",
+       "literalGloss": "tea, please"
+      },
+      "fr": {
+       "meaning": "Un thé, s'il vous plaît.",
+       "contextNote": "Façon courte et naturelle de commander quand la terrasse est pleine. Remplacez par d'autres boissons, comme каву (café) ou воду (eau).",
+       "literalGloss": "thé, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.15
+    },
+    {
+     "key": "choose_option_variant_10",
+     "intentKey": "choose_option",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "З молоком, будь ласка.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "З молоком, будь ласка."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Z molokom, bud laska."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "With milk, please.",
+       "contextNote": "The other answer to the server's question.",
+       "literalGloss": "with milk, please"
+      },
+      "fr": {
+       "meaning": "Avec du lait, s'il vous plaît.",
+       "contextNote": "L'autre réponse possible à la question de la serveuse.",
+       "literalGloss": "avec lait, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "ask_for_bill_variant_11",
+     "intentKey": "ask_for_bill",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Скільки з мене?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Скільки з мене?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Skilky z mene?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much do I owe?",
+       "contextNote": "Same for men and women. A common, relaxed way to ask what you owe.",
+       "literalGloss": "how much from me"
+      },
+      "fr": {
+       "meaning": "Combien je vous dois ?",
+       "contextNote": "Identique pour un homme et une femme. Façon courante et détendue de demander ce que l'on doit.",
+       "literalGloss": "combien de moi"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The soft ь makes the л in скільки soft.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thank_variant_12",
+     "intentKey": "thank",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Щиро дякую!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Щиро дякую!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Shchyro diakuiu!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Many thanks! / Thank you sincerely!",
+       "contextNote": "A warmer thank-you, good when the service was great.",
+       "literalGloss": "sincerely (I) thank"
+      },
+      "fr": {
+       "meaning": "Merci sincèrement !",
+       "contextNote": "Un remerciement plus chaleureux, idéal quand le service était excellent. Le щ se prononce en deux sons : « ch » + « tch ».",
+       "literalGloss": "sincèrement (je) remercie"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "щ is two sounds: sh + ch.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "ukrainian_market_ask_price",
+   "blueprintKey": "market_ask_price",
+   "titles": {
+    "en": "Asking Prices at the Market",
+    "fr": "Demander les prix au marché"
+   },
+   "sceneNotes": {
+    "en": "You are at a fruit stall in a busy market, where prices are per kilo and the vendor is happy to chat and bargain a little.",
+    "fr": "Vous êtes devant un étal de fruits dans un marché animé, où les prix s'affichent au kilo et où la vendeuse aime discuter et marchander un peu."
+   },
+   "characterKey": "ukrainian_character_market_vendor",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Здрастуйте!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Здрастуйте!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Zdrastuite!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello!",
+       "contextNote": "Polite greeting to a stranger such as a vendor; a good alternative to the greetings used earlier in the chapter.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Bonjour !",
+       "contextNote": "Salutation polie, adaptée à une personne inconnue comme une vendeuse. Le groupe « здр » se prononce vite : zdrAS-touï-té.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The first 'з-д-р' cluster is said quickly: zdrAS-tuy-te.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "how_much",
+     "intentKey": "ask_price",
+     "slotId": "how_much",
+     "speaker": "learner",
+     "targetText": "Скільки коштують ці персики?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Скільки коштують ці персики?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Skilky koshtuiut tsi persyky?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much are these peaches?",
+       "contextNote": "Swap 'персики' for other fruit such as 'яблука' (apples) or 'сливи' (plums).",
+       "literalGloss": "how-much cost these peaches"
+      },
+      "fr": {
+       "meaning": "Combien coûtent ces pêches ?",
+       "contextNote": "Remplacez « персики » par un autre fruit, comme « яблука » (pommes) ou « сливи » (prunes). « ці » commence par un « ts », comme à la fin de « laits ».",
+       "literalGloss": "combien coûtent ces pêches"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'ці' starts with 'ts', like the end of 'cats'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "price",
+     "intentKey": "state_price",
+     "slotId": "price",
+     "speaker": "character",
+     "targetText": "Шістдесят гривень за кілограм.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Шістдесят гривень за кілограм."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Shistdesiat hryven za kilohram."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Sixty hryvnias a kilo.",
+       "contextNote": "The vendor states the price per kilo.",
+       "literalGloss": "sixty hryvnias for kilogram"
+      },
+      "fr": {
+       "meaning": "Soixante hryvnias le kilo.",
+       "contextNote": "La vendeuse annonce le prix au kilo.",
+       "literalGloss": "soixante hryvnias pour kilogramme"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "expensive",
+     "intentKey": "say_too_expensive",
+     "slotId": "expensive",
+     "speaker": "learner",
+     "targetText": "Це дорого.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Це дорого."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Tse doroho."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "That's expensive.",
+       "contextNote": "Said with a smile, it works as a light opening to bargaining.",
+       "literalGloss": "this expensive"
+      },
+      "fr": {
+       "meaning": "C'est cher.",
+       "contextNote": "Dit avec le sourire, cela peut lancer le marchandage en douceur. Le « г » ukrainien est un « h » doux et soufflé, pas un « g » dur.",
+       "literalGloss": "ceci cher"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Ukrainian 'г' is a soft breathy 'h', not a hard 'g'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "lower",
+     "intentKey": "offer_lower_price",
+     "slotId": "lower",
+     "speaker": "learner",
+     "targetText": "Може, п’ятдесят гривень?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Може, п’ятдесят гривень?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Mozhe, piatdesiat hryven?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Maybe fifty hryvnias?",
+       "contextNote": "A gentle way to suggest a lower price.",
+       "literalGloss": "maybe fifty hryvnias"
+      },
+      "fr": {
+       "meaning": "Peut-être cinquante hryvnias ?",
+       "contextNote": "Une façon aimable de proposer un prix plus bas. L'apostrophe dans « п’ятдесят » sépare « п » de « я » : dites « p-yatdessiat », sans voyelle entre les deux.",
+       "literalGloss": "peut-être cinquante hryvnias"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The apostrophe in 'п’ятдесят' separates 'п' from 'я', so say 'p-yatdesyat' with no vowel between them.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "deal",
+     "intentKey": "agree_to_price",
+     "slotId": "deal",
+     "speaker": "learner",
+     "targetText": "Добре, беру.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Добре, беру."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Dobre, beru."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "OK, I'll take it.",
+       "contextNote": null,
+       "literalGloss": "good, [I] take"
+      },
+      "fr": {
+       "meaning": "D'accord, je le prends.",
+       "contextNote": null,
+       "literalGloss": "bien, [je] prends"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "no_thanks",
+     "intentKey": "decline_purchase",
+     "slotId": "no_thanks",
+     "speaker": "learner",
+     "targetText": "Ні, дякую, не сьогодні.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Ні, дякую, не сьогодні."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Ni, diakuiu, ne sohodni."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No, thank you, not today.",
+       "contextNote": "A polite, friendly way to decline.",
+       "literalGloss": "no, thank-you, not today"
+      },
+      "fr": {
+       "meaning": "Non, merci, pas aujourd'hui.",
+       "contextNote": "Une façon polie et amicale de refuser. « сьогодні » se prononce « so-HOD-ni » ; le « ь » adoucit le « с ».",
+       "literalGloss": "non, merci, pas aujourd'hui"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'сьогодні' sounds like 'so-HOD-ni'; the 'ь' softens the 'с'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "ask_price_variant_8",
+     "intentKey": "ask_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Скільки це коштує?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Скільки це коштує?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Skilky tse koshtuie?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much does this cost?",
+       "contextNote": "Useful when pointing at something without naming it.",
+       "literalGloss": "how-much this costs"
+      },
+      "fr": {
+       "meaning": "Combien ça coûte ?",
+       "contextNote": "Pratique pour montrer un article du doigt sans le nommer.",
+       "literalGloss": "combien ceci coûte"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "offer_lower_price_variant_9",
+     "intentKey": "offer_lower_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Можна трохи дешевше?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Можна трохи дешевше?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Mozhna trokhy deshevshe?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could it be a bit cheaper?",
+       "contextNote": "A polite, general request for a discount without naming a price.",
+       "literalGloss": "possible a-little cheaper"
+      },
+      "fr": {
+       "meaning": "Ce serait possible un peu moins cher ?",
+       "contextNote": "Une demande polie et générale de réduction, sans citer de prix. « трохи » a un « kh » rauque, comme la « jota » espagnole.",
+       "literalGloss": "possible un-peu moins-cher"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'трохи' has a rough 'kh' like Scottish 'loch'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "ukrainian_ask_directions",
+   "blueprintKey": "ask_directions",
+   "titles": {
+    "en": "Finding the Station",
+    "fr": "Trouver la gare"
+   },
+   "sceneNotes": {
+    "en": "You are a visitor in town, trying to find the station, and a friendly passer-by answers very quickly, so you will need to ask them to slow down.",
+    "fr": "Vous êtes de passage en ville et cherchez la gare ; un passant sympathique vous répond très vite, vous allez donc devoir lui demander de ralentir."
+   },
+   "characterKey": "ukrainian_character_passer_by",
+   "expressions": [
+    {
+     "key": "excuse_me",
+     "intentKey": "get_attention",
+     "slotId": "excuse_me",
+     "speaker": "learner",
+     "targetText": "Перепрошую!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Перепрошую!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Pereproshuiu!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me!",
+       "contextNote": "Polite way to stop a stranger before asking something.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Excusez-moi !",
+       "contextNote": "Formule polie pour interpeller un inconnu avant de lui poser une question. Accent sur la 3e syllabe : pe-re-PRO-shou-iou.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Stress falls on the second syllable: pe-re-PRO-shu-yu.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "where_is",
+     "intentKey": "ask_where_is",
+     "slotId": "where_is",
+     "speaker": "learner",
+     "targetText": "Де тут вокзал, будь ласка?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Де тут вокзал, будь ласка?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "De tut vokzal, bud laska?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where is the station around here, please?",
+       "contextNote": "Вокзал means a (railway) station.",
+       "literalGloss": "where here station, please"
+      },
+      "fr": {
+       "meaning": "Où est la gare, s'il vous plaît ?",
+       "contextNote": "Вокзал désigne une gare (ferroviaire).",
+       "literalGloss": "où ici gare, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "straight",
+     "intentKey": "give_direction_straight",
+     "slotId": "straight",
+     "speaker": "character",
+     "targetText": "Ідіть прямо до світлофора.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Ідіть прямо до світлофора."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Idit priamo do svitlofora."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Go straight to the traffic lights.",
+       "contextNote": null,
+       "literalGloss": "go straight to traffic-light"
+      },
+      "fr": {
+       "meaning": "Allez tout droit jusqu'au feu.",
+       "contextNote": null,
+       "literalGloss": "allez tout droit jusqu'à feu"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    },
+    {
+     "key": "turn",
+     "intentKey": "give_direction_turn",
+     "slotId": "turn",
+     "speaker": "character",
+     "targetText": "Потім поверніть ліворуч.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Потім поверніть ліворуч."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Potim povernit livoruch."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Then turn left.",
+       "contextNote": "Праворуч means 'right'.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Ensuite, tournez à gauche.",
+       "contextNote": "Праворуч signifie « à droite ».",
+       "literalGloss": null
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    },
+    {
+     "key": "far",
+     "intentKey": "ask_is_it_far",
+     "slotId": "far",
+     "speaker": "learner",
+     "targetText": "Це далеко?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Це далеко?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Tse daleko?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Is it far?",
+       "contextNote": null,
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "C'est loin ?",
+       "contextNote": null,
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.15
+    },
+    {
+     "key": "near",
+     "intentKey": "say_it_is_near",
+     "slotId": "near",
+     "speaker": "character",
+     "targetText": "Ні, десять хвилин пішки.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Ні, десять хвилин пішки."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Ni, desiat khvylyn pishky."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No, it's ten minutes on foot.",
+       "contextNote": null,
+       "literalGloss": "no, ten minutes on-foot"
+      },
+      "fr": {
+       "meaning": "Non, c'est à dix minutes à pied.",
+       "contextNote": "Prononcez « khv » avec un h bien rauque, comme la jota espagnole.",
+       "literalGloss": "non, dix minutes à-pied"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say 'khv' with a rough h, like in 'loch'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "repeat",
+     "intentKey": "ask_repeat",
+     "slotId": "repeat",
+     "speaker": "learner",
+     "targetText": "Можете повторити, будь ласка?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Можете повторити, будь ласка?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Mozhete povtoryty, bud laska?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could you repeat that, please?",
+       "contextNote": null,
+       "literalGloss": "can-you repeat, please"
+      },
+      "fr": {
+       "meaning": "Pourriez-vous répéter, s'il vous plaît ?",
+       "contextNote": null,
+       "literalGloss": "pouvez-vous répéter, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    },
+    {
+     "key": "slower",
+     "intentKey": "ask_slow_down",
+     "slotId": "slower",
+     "speaker": "learner",
+     "targetText": "Можете говорити повільніше?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Можете говорити повільніше?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Mozhete hovoryty povilnishe?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could you speak more slowly?",
+       "contextNote": "Key phrase for when someone talks too fast.",
+       "literalGloss": "can-you speak more-slowly"
+      },
+      "fr": {
+       "meaning": "Pourriez-vous parler plus lentement ?",
+       "contextNote": "Phrase essentielle quand quelqu'un parle trop vite. Le г ukrainien est un h doux, comme dans « hovoryty ».",
+       "literalGloss": "pouvez-vous parler plus-lentement"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Ukrainian г is a soft h, as in 'hovoryty'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Дякую за допомогу!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Дякую за допомогу!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Diakuiu za dopomohu!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks for your help!",
+       "contextNote": "Extends the earlier 'Дуже дякую!' with a reason for thanking.",
+       "literalGloss": "thank-you for help"
+      },
+      "fr": {
+       "meaning": "Merci pour votre aide !",
+       "contextNote": "Complète le « Дуже дякую ! » vu plus tôt en précisant la raison du remerciement.",
+       "literalGloss": "merci pour aide"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "get_attention_variant_10",
+     "intentKey": "get_attention",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Вибачте, будь ласка!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Вибачте, будь ласка!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Vybachte, bud laska!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, please!",
+       "contextNote": "Common alternative to Перепрошую.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Excusez-moi, s'il vous plaît !",
+       "contextNote": "Alternative courante à Перепрошую.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "ask_where_is_variant_11",
+     "intentKey": "ask_where_is",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Підкажіть, де вокзал?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Підкажіть, де вокзал?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Pidkazhit, de vokzal?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Could you tell me where the station is?",
+       "contextNote": "Very natural way to ask a stranger for directions.",
+       "literalGloss": "advise/tell-me, where station"
+      },
+      "fr": {
+       "meaning": "Pourriez-vous m'indiquer où est la gare ?",
+       "contextNote": "Façon très naturelle de demander son chemin à un inconnu.",
+       "literalGloss": "conseillez/indiquez-moi, où gare"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_slow_down_variant_12",
+     "intentKey": "ask_slow_down",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Я не зрозуміла, можна повільніше?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Я не зрозуміла, можна повільніше?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Ya ne zrozumila, mozhna povilnishe?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I didn't understand, can you go slower?",
+       "contextNote": "Feminine form; a male speaker says зрозумів.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Je n'ai pas compris, vous pouvez parler plus lentement ?",
+       "contextNote": "Forme féminine ; un homme dit зрозумів.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.45
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "ukrainian_meet_neighbour",
+   "blueprintKey": "meet_neighbour",
+   "titles": {
+    "en": "Meeting Your New Neighbour",
+    "fr": "Rencontrer votre nouvelle voisine"
+   },
+   "sceneNotes": {
+    "en": "You meet your neighbour in the stairwell as she carries her shopping bags, and she turns out to be friendly and chatty.",
+    "fr": "Vous croisez votre voisine Oksana dans la cage d'escalier alors qu'elle porte ses sacs de courses, et elle se montre aimable et bavarde."
+   },
+   "characterKey": "ukrainian_character_neighbour",
+   "expressions": [
+    {
+     "key": "new_neighbour",
+     "intentKey": "say_new_neighbour",
+     "slotId": "new_neighbour",
+     "speaker": "learner",
+     "targetText": "Я ваш новий сусід.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Я ваш новий сусід."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Ya vash novyi susid."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm your new neighbour.",
+       "contextNote": "Said by a man. A woman says «Я ваша нова сусідка.»",
+       "literalGloss": "I your new neighbour"
+      },
+      "fr": {
+       "meaning": "Je suis votre nouveau voisin.",
+       "contextNote": "Dit par un homme ; une femme dit «Я ваша нова сусідка.» Le «і» de «сусід» se prononce comme le «i» de «si».",
+       "literalGloss": "Je votre nouveau voisin"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The і in «сусід» sounds like 'ee' in 'see'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "say_new_neighbour_variant_2",
+     "intentKey": "say_new_neighbour",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Я ваша нова сусідка.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Я ваша нова сусідка."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Ya vasha nova susidka."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm your new neighbour.",
+       "contextNote": "Feminine form, said by a woman.",
+       "literalGloss": "I your(f) new(f) neighbour(f)"
+      },
+      "fr": {
+       "meaning": "Je suis votre nouvelle voisine.",
+       "contextNote": "Forme féminine, dite par une femme.",
+       "literalGloss": "Je votre(f) nouvelle(f) voisine(f)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "say_new_neighbour_variant_3",
+     "intentKey": "say_new_neighbour",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Я нещодавно тут оселився.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Я нещодавно тут оселився."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Ya neshchodavno tut oselyvsia."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I just moved in here.",
+       "contextNote": "Said by a man. A woman says «оселилася».",
+       "literalGloss": "I recently here settled"
+      },
+      "fr": {
+       "meaning": "Je viens d'emménager ici.",
+       "contextNote": "Dit par un homme ; une femme dit «оселилася». «щ» se prononce «chtch».",
+       "literalGloss": "Je récemment ici installé"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "«щ» is 'shch', as in 'fresh cheese'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "welcome",
+     "intentKey": "welcome_someone",
+     "slotId": "welcome",
+     "speaker": "character",
+     "targetText": "Ласкаво просимо! Радий вас бачити.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Ласкаво просимо! Радий вас бачити."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Laskavo prosymo! Radyi vas bachyty."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Welcome! Nice to see you.",
+       "contextNote": "The neighbour is a woman, so she would say «Рада вас бачити.» Use this version only if the character is male.",
+       "literalGloss": "Kindly we-ask! Glad you to-see"
+      },
+      "fr": {
+       "meaning": "Bienvenue ! Ravie de vous voir.",
+       "contextNote": "Version masculine ; Oksana étant une femme, elle dirait «Рада вас бачити.»",
+       "literalGloss": "Gentiment nous-invitons ! Content vous voir"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "where_from_q",
+     "intentKey": "ask_where_from",
+     "slotId": "where_from_q",
+     "speaker": "learner",
+     "targetText": "Звідки ви?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Звідки ви?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Zvidky vy?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where are you from?",
+       "contextNote": "«Ви» is the polite 'you', used with someone you have just met.",
+       "literalGloss": "From-where you"
+      },
+      "fr": {
+       "meaning": "D'où êtes-vous ?",
+       "contextNote": "«Ви» est le « vous » de politesse, utilisé avec quelqu'un qu'on vient de rencontrer. Le «і» de «звідки» est bref, et «и» est un «i» relâché, plus ouvert.",
+       "literalGloss": "D'où vous"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "«вi» in «звідки» is short, and «и» is like 'i' in 'bit'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "ask_where_from_variant_6",
+     "intentKey": "ask_where_from",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Ви тутешня?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Ви тутешня?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Vy tuteshnia?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Are you from here?",
+       "contextNote": "Feminine form for a woman. For a man, say «Ви тутешній?»",
+       "literalGloss": "You local(f)"
+      },
+      "fr": {
+       "meaning": "Vous êtes d'ici ?",
+       "contextNote": "Forme féminine, pour une femme. Pour un homme, dites «Ви тутешній?»",
+       "literalGloss": "Vous du-coin(f)"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "from",
+     "intentKey": "say_where_from",
+     "slotId": "from",
+     "speaker": "learner",
+     "targetText": "Я з Канади.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Я з Канади."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Ya z Kanady."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm from Canada.",
+       "contextNote": "Replace «Канади» with your own country in the genitive, e.g. «з Польщі», «зі Сполучених Штатів».",
+       "literalGloss": "I from Canada"
+      },
+      "fr": {
+       "meaning": "Je viens du Canada.",
+       "contextNote": "Remplacez «Канади» par votre pays au génitif, par exemple «з Польщі», «зі Сполучених Штатів».",
+       "literalGloss": "Je de Canada"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "speak_lang",
+     "intentKey": "ask_if_speaks_language",
+     "slotId": "speak_lang",
+     "speaker": "learner",
+     "targetText": "Ви говорите англійською?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Ви говорите англійською?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Vy hovoryte anhliiskoiu?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you speak English?",
+       "contextNote": "Languages take the instrumental ending: «англійською», «польською».",
+       "literalGloss": "You speak in-English"
+      },
+      "fr": {
+       "meaning": "Parlez-vous anglais ?",
+       "contextNote": "Les langues se mettent à l'instrumental : «англійською», «польською». Le «г» ukrainien est un «h» aspiré, pas un «g».",
+       "literalGloss": "Vous parlez en-anglais"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Ukrainian «г» is a soft 'h', not 'g'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "little",
+     "intentKey": "say_speak_little",
+     "slotId": "little",
+     "speaker": "learner",
+     "targetText": "Я говорю українською трохи.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Я говорю українською трохи."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Ya hovoriu ukrainskoiu trokhy."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I speak Ukrainian a little.",
+       "contextNote": "A more natural word order is «Я трохи говорю українською.»",
+       "literalGloss": "I speak in-Ukrainian a-little"
+      },
+      "fr": {
+       "meaning": "Je parle un peu ukrainien.",
+       "contextNote": "L'ordre des mots plus naturel est «Я трохи говорю українською.» Le «х» de «трохи» est proche du «ch» allemand de « Bach ».",
+       "literalGloss": "Je parle en-ukrainien un-peu"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "«х» in «трохи» is like 'ch' in Scottish 'loch'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "say_speak_little_variant_10",
+     "intentKey": "say_speak_little",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Я ще вчу українську.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Я ще вчу українську."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Ya shche vchu ukrainsku."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm still learning Ukrainian.",
+       "contextNote": null,
+       "literalGloss": "I still learn Ukrainian"
+      },
+      "fr": {
+       "meaning": "J'apprends encore l'ukrainien.",
+       "contextNote": null,
+       "literalGloss": "Je encore j'apprends ukrainien"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "offer_help",
+     "intentKey": "offer_help",
+     "slotId": "offer_help",
+     "speaker": "learner",
+     "targetText": "Вам допомогти з сумками?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Вам допомогти з сумками?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Vam dopomohty z sumkamy?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I help you with the bags?",
+       "contextNote": "Offered when you see your neighbour carrying shopping.",
+       "literalGloss": "To-you to-help with bags"
+      },
+      "fr": {
+       "meaning": "Puis-je vous aider avec vos sacs ?",
+       "contextNote": "À proposer quand vous voyez votre voisine porter ses courses.",
+       "literalGloss": "À-vous aider avec sacs"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "offer_help_variant_12",
+     "intentKey": "offer_help",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Якщо щось треба, кажіть.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Якщо щось треба, кажіть."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Yakshcho shchos treba, kazhit."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "If you need anything, just say.",
+       "contextNote": null,
+       "literalGloss": "If something needed, say"
+      },
+      "fr": {
+       "meaning": "Si vous avez besoin de quoi que ce soit, dites-le-moi.",
+       "contextNote": null,
+       "literalGloss": "Si quelque-chose nécessaire, dites"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Дуже дякую за запрошення!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Дуже дякую за запрошення!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Duzhe diakuiu za zaproshennia!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much for the invitation!",
+       "contextNote": "Said after the neighbour invites you for tea.",
+       "literalGloss": "Very thank for invitation"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup pour l'invitation !",
+       "contextNote": "Se dit après que la voisine vous a invité à prendre le thé. «дякую» commence par un «d» mouillé, comme dans «dya».",
+       "literalGloss": "Très merci pour invitation"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "«дякую» starts with a soft 'dy', like 'dya'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "ukrainian_take_taxi",
+   "blueprintKey": "take_taxi",
+   "titles": {
+    "en": "Taking a Taxi",
+    "fr": "Prendre un taxi"
+   },
+   "sceneNotes": {
+    "en": "You hail a taxi on a busy street and ask to go to the old town, while the chatty driver quotes a price without turning on the meter.",
+    "fr": "Vous hélez un taxi dans une rue animée et demandez à aller dans la vieille ville, tandis que le chauffeur bavard annonce un prix sans mettre le compteur."
+   },
+   "characterKey": "ukrainian_character_taxi_driver",
+   "expressions": [
+    {
+     "key": "hail",
+     "intentKey": "hail_taxi",
+     "slotId": "hail",
+     "speaker": "learner",
+     "targetText": "Вільно? Можете мене підвезти?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Вільно? Можете мене підвезти?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Vilno? Mozhete mene pidvezty?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Are you free? Can you take me?",
+       "contextNote": "Said at the car window before getting in.",
+       "literalGloss": "Free? Can-you me to-give-a-ride?"
+      },
+      "fr": {
+       "meaning": "Vous êtes libre ? Pouvez-vous m'emmener ?",
+       "contextNote": "À dire à la vitre de la voiture avant de monter. Le « ти » final de « підвезти » est doux : dites « ti », pas « ty ».",
+       "literalGloss": "Libre ? Pouvez-vous me conduire en voiture ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The final ч-less 'ти' in 'підвезти' is soft: say 'tee', not 'ty'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "where_to",
+     "intentKey": "ask_destination",
+     "slotId": "where_to",
+     "speaker": "character",
+     "targetText": "Добрий день! Куди їдемо?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Добрий день! Куди їдемо?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Dobryi den! Kudy yidemo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good afternoon! Where are we going?",
+       "contextNote": "Drivers often say 'we' as a friendly way to ask.",
+       "literalGloss": "Where we-go?"
+      },
+      "fr": {
+       "meaning": "Bonjour ! Où allons-nous ?",
+       "contextNote": "Les chauffeurs disent souvent « nous » pour poser la question de façon aimable. « ї » se prononce « yi ».",
+       "literalGloss": "Où nous-allons ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'ї' is pronounced 'yee'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "destination",
+     "intentKey": "state_destination",
+     "slotId": "destination",
+     "speaker": "learner",
+     "targetText": "До старого міста, будь ласка.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "До старого міста, будь ласка."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Do staroho mista, bud laska."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "To the old town, please.",
+       "contextNote": "In a specific city you can name the district or square instead.",
+       "literalGloss": "To old town, please."
+      },
+      "fr": {
+       "meaning": "Dans la vieille ville, s'il vous plaît.",
+       "contextNote": "Dans une ville précise, vous pouvez citer le quartier ou la place à la place. Le « г » de « старого » est un « h » doux et soufflé.",
+       "literalGloss": "Vers vieille ville, s'il-vous-plaît."
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'г' in 'старого' is a soft breathy 'h'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "meter",
+     "intentKey": "ask_use_meter",
+     "slotId": "meter",
+     "speaker": "learner",
+     "targetText": "Увімкніть лічильник, будь ласка.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Увімкніть лічильник, будь ласка."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Uvimkniť lichylnyk, bud laska."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Please turn on the meter.",
+       "contextNote": "Useful when the driver quotes a flat price instead of using the meter.",
+       "literalGloss": "Switch-on meter, please."
+      },
+      "fr": {
+       "meaning": "Mettez le compteur, s'il vous plaît.",
+       "contextNote": "Utile quand le chauffeur annonce un prix fixe au lieu d'utiliser le compteur. Prononcez « uvimk-NIT » avec le « ь » final adoucissant le « т ».",
+       "literalGloss": "Allumez compteur, s'il-vous-plaît."
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say 'uvimk-NEET', with a soft final 'ь' on the 'т'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "fare",
+     "intentKey": "ask_fare",
+     "slotId": "fare",
+     "speaker": "learner",
+     "targetText": "Скільки буде коштувати поїздка?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Скільки буде коштувати поїздка?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Skilky bude koshtuvaty poizdka?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much will the ride cost?",
+       "contextNote": "Ask before you set off.",
+       "literalGloss": "How-much will cost ride?"
+      },
+      "fr": {
+       "meaning": "Combien coûtera la course ?",
+       "contextNote": "À demander avant de partir. « Скільки » se termine par un « ky » doux, avec le « л » adouci.",
+       "literalGloss": "Combien sera coûter course ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Скільки' ends in a soft 'ky', with the л softened.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "stop",
+     "intentKey": "say_stop_here",
+     "slotId": "stop",
+     "speaker": "learner",
+     "targetText": "Зупиніться тут, будь ласка.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Зупиніться тут, будь ласка."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Zupynitsia tut, bud laska."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Please stop here.",
+       "contextNote": "Polite 'you' form, suitable for a stranger.",
+       "literalGloss": "Stop here, please."
+      },
+      "fr": {
+       "meaning": "Arrêtez-vous ici, s'il vous plaît.",
+       "contextNote": "Forme de politesse (vouvoiement), adaptée à un inconnu. « -ться » se prononce « tsya » long.",
+       "literalGloss": "Arrêtez-vous ici, s'il-vous-plaît."
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'-ться' is said as a long 'tsya'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "change",
+     "intentKey": "ask_for_change",
+     "slotId": "change",
+     "speaker": "learner",
+     "targetText": "Можна здачу, будь ласка?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Можна здачу, будь ласка?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Mozhna zdachu, bud laska?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have the change, please?",
+       "contextNote": "Use after handing over a larger note.",
+       "literalGloss": "Possible change, please?"
+      },
+      "fr": {
+       "meaning": "Puis-je avoir la monnaie, s'il vous plaît ?",
+       "contextNote": "À utiliser après avoir tendu un gros billet. « зд » se prononce comme un groupe « zd » rapide.",
+       "literalGloss": "Possible monnaie, s'il-vous-plaît ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'зд' is pronounced as a quick 'zd' cluster.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "bye",
+     "intentKey": "say_goodbye",
+     "slotId": "bye",
+     "speaker": "learner",
+     "targetText": "Дякую! Усього найкращого!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Дякую! Усього найкращого!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Diakuiu! Usoho naikrashchoho!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you! All the best!",
+       "contextNote": "A warm way to leave when the driver has been chatty.",
+       "literalGloss": "Thank-you! Of-everything of-best!"
+      },
+      "fr": {
+       "meaning": "Merci ! Je vous souhaite tout le meilleur !",
+       "contextNote": "Une façon chaleureuse de partir quand le chauffeur a été bavard. « щ » se prononce « chtch ».",
+       "literalGloss": "Merci ! De-tout du-meilleur !"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'щ' is 'shch', as in 'fresh cheese'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "hail_taxi_variant_9",
+     "intentKey": "hail_taxi",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Добрий день! Ви вільні?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Добрий день! Ви вільні?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Dobryi den! Vy vilni?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good afternoon! Are you free?",
+       "contextNote": "Polite variant that reuses the greeting from earlier.",
+       "literalGloss": "Good day! You free?"
+      },
+      "fr": {
+       "meaning": "Bonjour ! Vous êtes libre ?",
+       "contextNote": "Variante polie qui reprend la salutation vue plus haut.",
+       "literalGloss": "Bonne journée ! Vous libre ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_use_meter_variant_10",
+     "intentKey": "ask_use_meter",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "А за лічильником можна?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "А за лічильником можна?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "A za lichylnykom mozhna?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can we go by the meter?",
+       "contextNote": "A softer, more casual way to push back on the quoted price.",
+       "literalGloss": "And by meter possible?"
+      },
+      "fr": {
+       "meaning": "Et au compteur, ce serait possible ?",
+       "contextNote": "Une façon plus douce et plus familière de contester le prix annoncé.",
+       "literalGloss": "Et au compteur possible ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "ukrainian_buy_ice_cream",
+   "blueprintKey": "buy_ice_cream",
+   "titles": {
+    "en": "Buying Ice Cream Together",
+    "fr": "Acheter une glace ensemble"
+   },
+   "sceneNotes": {
+    "en": "You are at an ice-cream cart outside the school with a child who wants ice cream, but only chocolate and vanilla are left.",
+    "fr": "Vous êtes devant le chariot de glaces à la sortie de l'école avec un enfant qui veut une glace, mais il ne reste que du chocolat et de la vanille."
+   },
+   "characterKey": "ukrainian_character_child_at_the_ice_cream_stand",
+   "expressions": [
+    {
+     "key": "wants",
+     "intentKey": "request_food",
+     "slotId": "wants",
+     "speaker": "character",
+     "targetText": "Я хочу морозиво, будь ласка!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Я хочу морозиво, будь ласка!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Ya khochu morozyvo, bud laska!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I want an ice cream, please!",
+       "contextNote": "The child asks as soon as they reach the cart.",
+       "literalGloss": "I want ice-cream, please"
+      },
+      "fr": {
+       "meaning": "Je veux une glace, s'il te plaît !",
+       "contextNote": "L'enfant demande dès qu'il arrive au chariot. Le х ukrainien est un « kh » soufflé, comme dans « khochu ».",
+       "literalGloss": "Je veux glace, s'il-te-plaît"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Ukrainian х is a breathy 'kh', as in 'khochu'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "which_flavour",
+     "intentKey": "offer_options",
+     "slotId": "which_flavour",
+     "speaker": "learner",
+     "targetText": "Шоколадне чи ванільне?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Шоколадне чи ванільне?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Shokoladne chy vanilne?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Chocolate or vanilla?",
+       "contextNote": "Short and natural; the word for ice cream is understood from context.",
+       "literalGloss": "chocolate or vanilla"
+      },
+      "fr": {
+       "meaning": "Chocolat ou vanille ?",
+       "contextNote": "Court et naturel : on comprend « glace » grâce au contexte. Le ь dans ванільне adoucit le « ль » : « vanil-ne ».",
+       "literalGloss": "chocolat ou vanille"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The final soft sign in ванільне makes the 'ль' sound soft: 'vanil-ne'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "picks",
+     "intentKey": "choose_option",
+     "slotId": "picks",
+     "speaker": "character",
+     "targetText": "Шоколадне, будь ласка!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Шоколадне, будь ласка!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Shokoladne, bud laska!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Chocolate, please!",
+       "contextNote": null,
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Chocolat, s'il te plaît !",
+       "contextNote": null,
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "scoop",
+     "intentKey": "specify_quantity",
+     "slotId": "scoop",
+     "speaker": "learner",
+     "targetText": "Одну кульку шоколадного, будь ласка.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Одну кульку шоколадного, будь ласка."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Odnu kulku shokoladnoho, bud laska."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "One scoop of chocolate, please.",
+       "contextNote": "Said to the ice-cream seller. Кулька (little ball) is the everyday word for a scoop.",
+       "literalGloss": "one scoop of-chocolate, please"
+      },
+      "fr": {
+       "meaning": "Une boule de chocolat, s'il vous plaît.",
+       "contextNote": "À dire au vendeur de glaces. Кулька (petite bille) est le mot courant pour une boule de glace. Le г de шоколадного est un « h » doux, pas un « g » dur.",
+       "literalGloss": "une boule de-chocolat, s'il-vous-plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The г in шоколадного is a soft 'h', not a hard 'g'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "asks_two",
+     "intentKey": "ask_permission",
+     "slotId": "asks_two",
+     "speaker": "character",
+     "targetText": "Можна ще одну кульку?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Можна ще одну кульку?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Mozhna shche odnu kulku?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have one more scoop?",
+       "contextNote": "This is the twist: the child asks for a second scoop.",
+       "literalGloss": "possible still one scoop?"
+      },
+      "fr": {
+       "meaning": "Je peux avoir une autre boule ?",
+       "contextNote": "Le rebondissement : l'enfant demande une deuxième boule. Le щ se prononce « chtch », deux sons fondus ensemble.",
+       "literalGloss": "possible encore une boule ?"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "щ is 'shch', two sounds blended together.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "just_one",
+     "intentKey": "refuse_permission",
+     "slotId": "just_one",
+     "speaker": "learner",
+     "targetText": "Вибач, сьогодні тільки одну.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Вибач, сьогодні тільки одну."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Vybach, sohodni tilky odnu."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Sorry, only one today.",
+       "contextNote": "A kind, gentle no to a child. The word кульку is left out because it is understood.",
+       "literalGloss": "sorry, today only one"
+      },
+      "fr": {
+       "meaning": "Désolé(e), aujourd'hui, une seule.",
+       "contextNote": "Un refus doux et gentil à un enfant. Le mot кульку est omis, car on le comprend. Dans сьогодні, le signe doux donne « syo », mais on dit plutôt « sohodni ».",
+       "literalGloss": "excuse-moi, aujourd'hui seulement une"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "сьогодні: the soft sign after с makes 'syo', so it sounds like 'sohodni'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "okay",
+     "intentKey": "grant_permission",
+     "slotId": "okay",
+     "speaker": "learner",
+     "targetText": "Добре, можна!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Добре, можна!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Dobre, mozhna!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Okay, you can!",
+       "contextNote": "For example, when the child asks whether they can eat it on the bench.",
+       "literalGloss": "good, possible"
+      },
+      "fr": {
+       "meaning": "D'accord, tu peux !",
+       "contextNote": "Par exemple quand l'enfant demande s'il peut la manger sur le banc.",
+       "literalGloss": "bien, possible"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "yummy",
+     "intentKey": "say_delicious",
+     "slotId": "yummy",
+     "speaker": "character",
+     "targetText": "Смачне! Дуже смачне!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Смачне! Дуже смачне!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Smachne! Duzhe smachne!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Yummy! Really yummy!",
+       "contextNote": null,
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Délicieux ! Vraiment délicieux !",
+       "contextNote": "Le ч se prononce « tch », comme dans « tchèque ».",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "ч is 'ch' as in 'church'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "me_too",
+     "intentKey": "express_like",
+     "slotId": "me_too",
+     "speaker": "learner",
+     "targetText": "Я теж люблю шоколадне.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Я теж люблю шоколадне."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Ya tezh liubliu shokoladne."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I like chocolate too.",
+       "contextNote": null,
+       "literalGloss": "I also love chocolate-one"
+      },
+      "fr": {
+       "meaning": "Moi aussi, j'aime le chocolat.",
+       "contextNote": null,
+       "literalGloss": "Je aussi j'aime chocolat"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "character",
+     "targetText": "Дякую за морозиво!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Дякую за морозиво!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Diakuiu za morozyvo!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks for the ice cream!",
+       "contextNote": null,
+       "literalGloss": "thank-you for ice-cream"
+      },
+      "fr": {
+       "meaning": "Merci pour la glace !",
+       "contextNote": "Le дя se prononce « dya », avec un son doux.",
+       "literalGloss": "merci pour glace"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "дя is a soft 'dya'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "welcome",
+     "intentKey": "respond_to_thanks",
+     "slotId": "welcome",
+     "speaker": "learner",
+     "targetText": "Нема за що!",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Нема за що!"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Nema za shcho!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "You're welcome! / It's nothing!",
+       "contextNote": null,
+       "literalGloss": "there-is-not for what"
+      },
+      "fr": {
+       "meaning": "De rien !",
+       "contextNote": null,
+       "literalGloss": "il-n'y-a-pas pour quoi"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "offer_options_variant_12",
+     "intentKey": "offer_options",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Тобі шоколадне чи ванільне?",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Тобі шоколадне чи ванільне?"
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Tobi shokoladne chy vanilne?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you want chocolate or vanilla?",
+       "contextNote": "A fuller version that speaks directly to the child.",
+       "literalGloss": "to-you chocolate or vanilla"
+      },
+      "fr": {
+       "meaning": "Tu veux chocolat ou vanille ?",
+       "contextNote": "Une version plus complète qui s'adresse directement à l'enfant.",
+       "literalGloss": "à-toi chocolat ou vanille"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "refuse_permission_variant_13",
+     "intentKey": "refuse_permission",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Ні, сонечку, на сьогодні досить.",
+     "forms": [
+      {
+       "script": "Cyrl",
+       "transliterationScheme": null,
+       "text": "Ні, сонечку, на сьогодні досить."
+      },
+      {
+       "script": "Latn",
+       "transliterationScheme": "translit-latn",
+       "text": "Ni, sonechku, na sohodni dosyt."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No, sweetie, that's enough for today.",
+       "contextNote": "A warm way to say no. Сонечку (little sun) is an affectionate address to a child.",
+       "literalGloss": "no, little-sun, for today enough"
+      },
+      "fr": {
+       "meaning": "Non, mon trésor, ça suffit pour aujourd'hui.",
+       "contextNote": "Une façon chaleureuse de dire non. Сонечку (petit soleil) est une appellation affectueuse pour un enfant.",
+       "literalGloss": "non, petit-soleil, pour aujourd'hui assez"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  }
+ ],
+ "provenance": "ai_draft",
+ "nativeReviewed": false,
+ "reviewStatus": "review_needed",
+ "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+ "notes": [
+  "AI draft generated 2026-11-11T22:47:30.537Z with anthropic/claude-sonnet-5.5; validator accepted 80 expressions; native review required before publishing.",
+  "greet_and_introduce: Used the 2010 official transliteration (e.g. дякую = diakuiu, приємно = pryiemno). This differs from common informal romanisations like dyakuyu.",
+  "greet_and_introduce: All lines are gender-neutral; there are no past-tense forms. Please confirm Оксана and Львів as a fitting character, and that Доброго ранку is natural as a greeting.",
+  "greet_and_introduce: The learner name \"Анна\" in the example is a placeholder; learners should substitute their own.",
+  "cafe_order_drink: Please check that Вітаю! and Добрий вечір! feel natural for a café, since Добрий день! and Привіт! were already used earlier in the chapter.",
+  "cafe_order_drink: Gender-marked forms (хотів би / хотіла б) are given as two variants. Please confirm the Latin transliteration follows the 2010 scheme.",
+  "cafe_order_drink: Please confirm that Можна рахунок, будь ласка? and Скільки з мене? are the most natural bill requests, and whether a regional alternative such as Розрахуйте нас, будь ласка is more common.",
+  "market_ask_price: Greeting 'Здрастуйте!' was chosen to avoid duplicating the earlier 'Добрий день!', 'Привіт!' and 'Вітаю!'. Please confirm it sounds natural for a market.",
+  "market_ask_price: Prices of 60 and 50 hryvnias per kilo are illustrative; please check they are realistic.",
+  "market_ask_price: The vendor's free extra (twist) is not in the required slots; it could be added in a later character line.",
+  "ask_directions: Used вокзал for 'station'; станція would suit a metro station instead.",
+  "ask_directions: Extra slow-down variant is feminine (зрозуміла); the masculine is зрозумів.",
+  "ask_directions: Please check that the character's line 'Ні, десять хвилин пішки' sounds natural as a reply to 'Це далеко?'.",
+  "meet_neighbour: The welcome line is written with the masculine «Радий». The character Оксана is female, so please change it to «Рада вас бачити.»",
+  "meet_neighbour: Learner lines use masculine forms by default, with feminine variants as extra lines. Please confirm the gender pairs.",
+  "meet_neighbour: «Я говорю українською трохи» is acceptable but «Я трохи говорю українською» sounds more natural. Please choose which to keep.",
+  "take_taxi: Please check the register of 'Вільно?' as a taxi hail and whether 'Ви вільні?' sounds more natural; also check the weird pronunciationNote on 'підвезти' (it is not an actual ч sound, I could not phrase it better).",
+  "take_taxi: 'Увімкніть лічильник' is imperative with 'будь ласка'; I assumed it counts as polite, not a bare command. Please confirm it is natural for a passenger.",
+  "take_taxi: Transliteration follows the 2010 scheme loosely: ь is marked with an apostrophe-like 'ť' in 'Uvimkniť', which may need correcting to 'Uvimknit'.",
+  "buy_ice_cream: Please check that кулька is the natural everyday word for a scoop in this context, and that the elliptical 'тільки одну' sounds natural.",
+  "buy_ice_cream: Tone check: Максим is a boy, but his lines are gender-neutral, so no agreement problems. The learner can be of any gender.",
+  "buy_ice_cream: Transliteration follows the official 2010 scheme: initial я is ya, medial ю is iu and medial я is ia (diakuiu, liubliu).",
+  "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+ ]
+}

@@ -437,6 +437,10 @@ export const LicensesAttributionsResponseSchema = pageOf(AttributionItemSchema);
 export const ModelsListQuerySchema = z.object({ task: AiTaskNameSchema.optional(), targetVariety: VarietyIdSchema.optional(), sourceLanguage: SourceLanguageCodeSchema.optional() });
 export const ModelsListResponseSchema = z.object({
   profiles: z.array(ModelProfileSchema),
+  /** The package defaults each task routes to when no enabled row overrides it (what is in effect on a fresh stack). */
+  defaults: z.array(ModelProfileSchema).default([]),
+  /** The synthetic voices per variety (a variety's `speech_synthesis` profile may pick one with `params.voiceId`). */
+  voices: z.array(z.object({ voiceId: z.string(), varietyId: z.string(), model: z.string(), providerVoice: z.string(), locale: z.string(), gender: z.string(), status: z.string() })).default([]),
   /** Discovery metadata from the router (pricing is informational; never hard-coded elsewhere). */
   availableModels: z.array(z.object({ id: z.string(), provider: z.string(), modalities: z.array(z.string()), contextLength: NonNegativeIntSchema.nullable(), pricing: JsonObjectSchema.nullable() })),
 });

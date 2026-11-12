@@ -142,6 +142,26 @@ class LangQuestApi {
     }, aiTimeout),
   );
 
+  /// `POST /v1/speech/pronunciation-feedback` — AI pronunciation feedback: a listening model's estimate of how the take
+  /// (WAV, base64) of [expressionId] (a server id) sounds. Never an acoustic score; not counted as mastery.
+  Future<Map<String, Object?>> pronunciationFeedback({
+    required String enrollmentId,
+    required String targetVarietyId,
+    required String expressionId,
+    required String wavBase64,
+    required String clientRequestId,
+    double? peakLevelDb,
+  }) async => _object(
+    await _send('POST', '/v1/speech/pronunciation-feedback', {
+      'enrollmentId': enrollmentId,
+      'targetVarietyId': targetVarietyId,
+      'expressionId': expressionId,
+      'audio': {'source': 'inline', 'base64': wavBase64, 'encoding': 'wav', 'sampleRateHz': 16000},
+      'recording': {'peakLevelDb': peakLevelDb},
+      'clientRequestId': clientRequestId,
+    }, aiTimeout),
+  );
+
   /// `POST /v1/speech/synthesize` — the server's synthetic voice for an approved line of the enrollment's variety
   /// ([expressionId], a server id). The audio comes inline (`base64`) or as a short-lived `url`.
   Future<Map<String, Object?>> synthesize({
@@ -158,6 +178,18 @@ class LangQuestApi {
       'outputEncoding': 'mp3',
     }, aiTimeout),
   );
+
+  /// `GET /v1/admin/models` (admin): the model routes in effect, the defaults, the router's models and the voices.
+  Future<Map<String, Object?>> adminModels() async => _object(await _send('GET', '/v1/admin/models', null, aiTimeout));
+
+  /// `PUT /v1/admin/models/:task/config` (admin): saves a task's route after its smoke tests pass.
+  Future<Map<String, Object?>> adminModelConfig(String task, Map<String, Object?> body) async =>
+      _object(await _send('PUT', '/v1/admin/models/$task/config', body, aiTimeout));
+
+  /// `POST /v1/speech/narrate` — an exercise's instruction or context read aloud in the enrollment's instruction
+  /// language (never target-language content: that is [synthesize], by approved expression id).
+  Future<Map<String, Object?>> narrate({required String enrollmentId, required String text, bool slow = false}) async =>
+      _object(await _send('POST', '/v1/speech/narrate', {'enrollmentId': enrollmentId, 'text': text, 'speed': slow ? 'slow' : 'normal'}, aiTimeout));
 
   /// `POST /v1/ai/conversation/session` — a live conversation with one of the course's characters, scoped to a
   /// mission (its objectives and scene). Idempotent on [clientSessionId]. The answer names the character, the

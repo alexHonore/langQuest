@@ -1,0 +1,2777 @@
+{
+ "key": "swedish_ch1",
+ "chapterIndex": 1,
+ "courseTrackId": "swedish",
+ "targetVarietyId": "sv",
+ "sourceLanguages": [
+  "en",
+  "fr"
+ ],
+ "titles": {
+  "en": "First days in Sweden",
+  "fr": "Premiers jours en Suède"
+ },
+ "characters": [
+  {
+   "characterKey": "swedish_anna_friendly_local_acquaintance",
+   "role": "friendly local acquaintance",
+   "name": "Anna",
+   "personality": "warm, busy, curious, kind",
+   "homeRegion": "Göteborg",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "swedish_emma_cafe_server",
+   "role": "café server",
+   "name": "Emma",
+   "personality": "quick, cheerful, friendly, efficient",
+   "homeRegion": "Stockholm",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "swedish_lena_market_vendor",
+   "role": "market vendor",
+   "name": "Lena",
+   "personality": "warm, chatty, quick-witted",
+   "homeRegion": "Göteborg",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "swedish_emma_passer_by",
+   "role": "passer-by",
+   "name": "Emma",
+   "personality": "friendly, in a hurry, talkative",
+   "homeRegion": "Stockholm",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "swedish_karin_neighbour",
+   "role": "neighbour",
+   "name": "Karin",
+   "personality": "warm, chatty, long-time resident",
+   "homeRegion": "Göteborg",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "swedish_lars_taxi_driver",
+   "role": "taxi driver",
+   "name": "Lars",
+   "personality": "talkative, friendly, a bit pushy",
+   "homeRegion": "Stockholm",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "swedish_elsa_child_at_the_ice_cream_stand",
+   "role": "child at the ice-cream stand",
+   "name": "Elsa",
+   "personality": "cheerful, eager, a little cheeky",
+   "homeRegion": "Göteborg",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  }
+ ],
+ "missions": [
+  {
+   "key": "swedish_greet_and_introduce",
+   "blueprintKey": "greet_and_introduce",
+   "titles": {
+    "en": "Greeting Your Neighbour",
+    "fr": "Saluer votre voisine"
+   },
+   "sceneNotes": {
+    "en": "It's morning and you bump into a friendly neighbour on the street who is in a hurry but stops for a quick hello.",
+    "fr": "C'est le matin et vous croisez dans la rue une voisine sympathique, pressée, qui s'arrête tout de même pour un petit bonjour."
+   },
+   "characterKey": "swedish_anna_friendly_local_acquaintance",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "God morgon!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "God morgon!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good morning!",
+       "contextNote": "Used until about 10 or 11 a.m.; a safe, friendly opener.",
+       "literalGloss": "good morning"
+      },
+      "fr": {
+       "meaning": "Bonjour !",
+       "contextNote": "S'emploie jusqu'à 10 h ou 11 h du matin environ ; une formule d'accueil sûre et chaleureuse. Le g de « god » est dur ; « morgon » se prononce à peu près MOR-ron, avec un r léger.",
+       "literalGloss": "bon matin"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The g in 'god' is a hard g; 'morgon' is roughly MOR-ron, with a soft rolled r.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "how_are_you",
+     "intentKey": "ask_how_are_you",
+     "slotId": "how_are_you",
+     "speaker": "learner",
+     "targetText": "Hur mår du?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hur mår du?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How are you?",
+       "contextNote": "Friendly and neutral enough for a neighbour.",
+       "literalGloss": "how feel you"
+      },
+      "fr": {
+       "meaning": "Comment vas-tu ?",
+       "contextNote": "Assez amical et neutre pour un voisin. Le « å » de « mår » ressemble à un o ouvert, avec les lèvres arrondies.",
+       "literalGloss": "comment te sens tu"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'å' in 'mår' is like the o in 'more', but with rounded lips.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "fine",
+     "intentKey": "reply_fine",
+     "slotId": "fine",
+     "speaker": "learner",
+     "targetText": "Bra, tack!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Bra, tack!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Fine, thanks!",
+       "contextNote": "Short and very common. Add 'och du?' to ask back.",
+       "literalGloss": "good, thanks"
+      },
+      "fr": {
+       "meaning": "Bien, merci !",
+       "contextNote": "Court et très courant. Ajoutez « och du ? » pour retourner la question.",
+       "literalGloss": "bien, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "my_name",
+     "intentKey": "introduce_name",
+     "slotId": "my_name",
+     "speaker": "learner",
+     "targetText": "Jag heter Sam.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Jag heter Sam."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "My name is Sam.",
+       "contextNote": "Replace 'Sam' with your own name.",
+       "literalGloss": "I am-called Sam"
+      },
+      "fr": {
+       "meaning": "Je m'appelle Sam.",
+       "contextNote": "Remplacez « Sam » par votre prénom. À l'oral, « jag » se prononce souvent « ya ».",
+       "literalGloss": "je m'appelle Sam"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Jag' is usually said like 'yah' in everyday speech.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "your_name",
+     "intentKey": "ask_name",
+     "slotId": "your_name",
+     "speaker": "learner",
+     "targetText": "Vad heter du?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vad heter du?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "What's your name?",
+       "contextNote": "Normal and polite in Swedish, even with strangers.",
+       "literalGloss": "what are-called you"
+      },
+      "fr": {
+       "meaning": "Comment tu t'appelles ?",
+       "contextNote": "Normal et poli en suédois, même avec des inconnus. Le d de « vad » ne se prononce pas à l'oral : « va ».",
+       "literalGloss": "quoi s'appelle tu"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The d in 'vad' is usually silent in speech: 'va'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "nice_to_meet",
+     "intentKey": "say_nice_to_meet",
+     "slotId": "nice_to_meet",
+     "speaker": "learner",
+     "targetText": "Trevligt att träffas!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Trevligt att träffas!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Nice to meet you!",
+       "contextNote": "Said after hearing the other person's name.",
+       "literalGloss": "nice to meet"
+      },
+      "fr": {
+       "meaning": "Enchanté !",
+       "contextNote": "Se dit après avoir entendu le nom de l'autre personne. Dans « träffas », on entend bien t + r ; le « ä » est proche du è de « mère » en plus court.",
+       "literalGloss": "agréable de se rencontrer"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'tr' in 'träffas' is a clear t plus r; 'ä' sounds like the e in 'bet'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "goodbye",
+     "intentKey": "say_goodbye",
+     "slotId": "goodbye",
+     "speaker": "learner",
+     "targetText": "Hej då, ha en bra dag!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hej då, ha en bra dag!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Bye, have a good day!",
+       "contextNote": "A friendly way to part, fitting for a neighbour in a hurry.",
+       "literalGloss": "hi then, have a good day"
+      },
+      "fr": {
+       "meaning": "Au revoir, bonne journée !",
+       "contextNote": "Une façon sympathique de se quitter, idéale avec une voisine pressée.",
+       "literalGloss": "salut alors, aie une bonne journée"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "greet_hello_variant_8",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Hej!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hej!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hi!",
+       "contextNote": "The all-purpose greeting, fine at any time of day.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Salut !",
+       "contextNote": "La salutation universelle, valable à toute heure. Se prononce « hèye ».",
+       "literalGloss": null
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Pronounced 'hey'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "ask_how_are_you_variant_9",
+     "intentKey": "ask_how_are_you",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Hur är det?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hur är det?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How's it going?",
+       "contextNote": "A relaxed alternative; the usual answer is 'Bra, tack!'.",
+       "literalGloss": "how is it"
+      },
+      "fr": {
+       "meaning": "Ça va ?",
+       "contextNote": "Une variante décontractée ; on répond généralement « Bra, tack ! ».",
+       "literalGloss": "comment est-ce"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "say_goodbye_variant_10",
+     "intentKey": "say_goodbye",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Vi ses!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vi ses!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "See you!",
+       "contextNote": "Casual, good for someone you will see again, like a neighbour.",
+       "literalGloss": "we see-each-other"
+      },
+      "fr": {
+       "meaning": "À bientôt !",
+       "contextNote": "Familier, pour quelqu'un qu'on reverra, comme un voisin.",
+       "literalGloss": "nous nous voyons"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "swedish_cafe_order_drink",
+   "blueprintKey": "cafe_order_drink",
+   "titles": {
+    "en": "Ordering a Drink at the Café",
+    "fr": "Commander une boisson au café"
+   },
+   "sceneNotes": {
+    "en": "You step up to the counter on a busy sunny café terrace, where the quick, friendly server is ready to take your order.",
+    "fr": "Vous vous approchez du comptoir d'une terrasse de café ensoleillée et animée, où la serveuse, rapide et sympathique, est prête à prendre votre commande."
+   },
+   "characterKey": "swedish_emma_cafe_server",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "God eftermiddag!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "God eftermiddag!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good afternoon!",
+       "contextNote": "Time-of-day greeting; swap in God morgon (already learned) or God kväll as needed.",
+       "literalGloss": "good afternoon"
+      },
+      "fr": {
+       "meaning": "Bonjour ! (en début d'après-midi)",
+       "contextNote": "Salutation selon le moment de la journée ; on peut la remplacer par God morgon ou God kväll. Le g de « god » est dur.",
+       "literalGloss": "bon après-midi"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Stress the second syllable of 'eftermiddag' lightly; the g in 'god' is a hard g.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "order",
+     "intentKey": "request_drink",
+     "slotId": "order",
+     "speaker": "learner",
+     "targetText": "Jag skulle vilja ha en latte, tack.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Jag skulle vilja ha en latte, tack."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I would like a latte, please.",
+       "contextNote": "Swap in 'kaffe' or 'te' for other drinks.",
+       "literalGloss": "I would want have a latte, thanks"
+      },
+      "fr": {
+       "meaning": "Je voudrais un latte, s'il vous plaît.",
+       "contextNote": "Remplacez « latte » par « kaffe » ou « te » pour d'autres boissons. À l'oral, le g de « jag » est souvent muet (« ja »).",
+       "literalGloss": "je voudrais avoir un latte, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": "'Latte' is a common loanword from Italian, used as-is in Swedish cafés.",
+     "pronunciationNote": "In 'skulle', sk is a hard /sk/ before u, and the 'jag' g is usually silent in speech ('ja').",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "options",
+     "intentKey": "offer_options",
+     "slotId": "options",
+     "speaker": "character",
+     "targetText": "Vill du ha stor eller liten?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vill du ha stor eller liten?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you want a large or a small one?",
+       "contextNote": "The server offers a size choice; you must pick one.",
+       "literalGloss": "want you have large or small"
+      },
+      "fr": {
+       "meaning": "Tu veux une grande ou une petite ?",
+       "contextNote": "La serveuse propose une taille, il faut en choisir une. Le o de « stor » est long, proche du « ou » français.",
+       "literalGloss": "veux tu avoir grand ou petit"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Stor' has a long 'o' like 'oo' in 'moon' in many accents.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "choice",
+     "intentKey": "choose_option",
+     "slotId": "choice",
+     "speaker": "learner",
+     "targetText": "En liten, tack.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "En liten, tack."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "A small one, please.",
+       "contextNote": "Use 'en' because 'latte' and 'kaffe' take 'en'; use 'ett' for neuter nouns.",
+       "literalGloss": "a small, thanks"
+      },
+      "fr": {
+       "meaning": "Une petite, s'il vous plaît.",
+       "contextNote": "On emploie « en » car « latte » et « kaffe » sont de genre commun ; pour un nom neutre, on dit « ett ». Le a de « tack » est bref.",
+       "literalGloss": "une petite, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Tack' has a short, crisp 'a' and a hard 'ck'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "bill",
+     "intentKey": "ask_for_bill",
+     "slotId": "bill",
+     "speaker": "learner",
+     "targetText": "Kan jag få notan, tack?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Kan jag få notan, tack?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have the bill, please?",
+       "contextNote": "Often said when the server passes by, or at the counter.",
+       "literalGloss": "can I get the bill, thanks"
+      },
+      "fr": {
+       "meaning": "Puis-je avoir l'addition, s'il vous plaît ?",
+       "contextNote": "On le dit souvent quand la serveuse passe, ou au comptoir. Le o de « notan » est long, proche du « ou » français.",
+       "literalGloss": "puis-je avoir l'addition, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'o' in 'notan' is long, like 'oo' in 'moon'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Tack så mycket!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Tack så mycket!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much!",
+       "contextNote": null,
+       "literalGloss": "thanks so much"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup !",
+       "contextNote": "Le y de « mycket » ressemble au « u » français, avec les lèvres bien arrondies.",
+       "literalGloss": "merci tellement"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'y' in 'mycket' is a rounded vowel; say 'ee' with rounded lips.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "greet_hello_variant_7",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Hej, hej!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hej, hej!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hi there!",
+       "contextNote": "Very common, friendly and casual at a counter.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Salut !",
+       "contextNote": "Très courant, amical et décontracté au comptoir.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "request_drink_variant_8",
+     "intentKey": "request_drink",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Kan jag få en kaffe, tack?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Kan jag få en kaffe, tack?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have a coffee, please?",
+       "contextNote": "The most common everyday way to order.",
+       "literalGloss": "can I get a coffee, thanks"
+      },
+      "fr": {
+       "meaning": "Je peux avoir un café, s'il vous plaît ?",
+       "contextNote": "La façon la plus courante de commander au quotidien.",
+       "literalGloss": "puis-je avoir un café, merci"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "choose_option_variant_9",
+     "intentKey": "choose_option",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Den lilla, tack.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Den lilla, tack."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "The small one, please.",
+       "contextNote": "Used when pointing at a specific item or size.",
+       "literalGloss": "the small, thanks"
+      },
+      "fr": {
+       "meaning": "La petite, s'il vous plaît.",
+       "contextNote": "Se dit quand on montre un article ou une taille précise.",
+       "literalGloss": "la petite, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thank_variant_10",
+     "intentKey": "thank",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Tusen tack!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Tusen tack!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks a lot!",
+       "contextNote": null,
+       "literalGloss": "thousand thanks"
+      },
+      "fr": {
+       "meaning": "Merci mille fois !",
+       "contextNote": null,
+       "literalGloss": "mille mercis"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "swedish_market_ask_price",
+   "blueprintKey": "market_ask_price",
+   "titles": {
+    "en": "Asking Prices at the Market",
+    "fr": "Demander les prix au marché"
+   },
+   "sceneNotes": {
+    "en": "You stop at a busy fruit stall at a Swedish market, where prices are per kilo and the vendor is friendly and happy to chat.",
+    "fr": "Vous vous arrêtez devant un étal de fruits très animé sur un marché suédois, où les prix sont au kilo et où la vendeuse, Lena, est sympathique et aime bien discuter."
+   },
+   "characterKey": "swedish_lena_market_vendor",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Hej! Hur står det till?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hej! Hur står det till?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hi! How are you?",
+       "contextNote": "A friendly, slightly polite opener for a vendor. Use it only if you have a moment to chat.",
+       "literalGloss": "Hi! How stands it to?"
+      },
+      "fr": {
+       "meaning": "Bonjour ! Comment allez-vous ?",
+       "contextNote": "Une formule d'accueil aimable et assez polie pour une vendeuse. À utiliser si vous avez un moment pour discuter. « Hej » se prononce comme « hèï » et le « j » sonne comme un « y ».",
+       "literalGloss": "Salut ! Comment ça se tient vers ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Hej is pronounced like 'hey'. The 'j' sounds like English 'y'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "how_much",
+     "intentKey": "ask_price",
+     "slotId": "how_much",
+     "speaker": "learner",
+     "targetText": "Hur mycket kostar jordgubbarna?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hur mycket kostar jordgubbarna?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much are the strawberries?",
+       "contextNote": "Swap jordgubbarna for any fruit, for example äpplena (the apples) or päronen (the pears).",
+       "literalGloss": "How much costs the strawberries?"
+      },
+      "fr": {
+       "meaning": "Combien coûtent les fraises ?",
+       "contextNote": "Remplacez jordgubbarna par un autre fruit, par exemple äpplena (les pommes) ou päronen (les poires). Le « k » de kostar est dur.",
+       "literalGloss": "Combien coûte les fraises ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'k' in kostar is hard. The 'rd' in jordgubbarna is often pronounced as a single retroflex sound.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "price",
+     "intentKey": "state_price",
+     "slotId": "price",
+     "speaker": "character",
+     "targetText": "Det blir fyrtio kronor kilot.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Det blir fyrtio kronor kilot."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "That's forty kronor a kilo.",
+       "contextNote": "Vendors often say 'kilot' (the kilo) after the price. You may also hear 'per kilo'.",
+       "literalGloss": "It becomes forty kronor the-kilo."
+      },
+      "fr": {
+       "meaning": "Ça fait quarante couronnes le kilo.",
+       "contextNote": "Les vendeurs ajoutent souvent « kilot » (le kilo) après le prix. Le « y » de fyrtio est une voyelle arrondie : avancez les lèvres.",
+       "literalGloss": "Ça devient quarante couronnes le-kilo."
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Fyrtio is pronounced roughly 'FYR-tee-oo'. The 'y' is a rounded vowel, so purse your lips.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "expensive",
+     "intentKey": "say_too_expensive",
+     "slotId": "expensive",
+     "speaker": "learner",
+     "targetText": "Oj, det var dyrt!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Oj, det var dyrt!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Oh, that's expensive!",
+       "contextNote": "Said lightly, it works as friendly bargaining rather than a complaint.",
+       "literalGloss": "Oh, it was expensive!"
+      },
+      "fr": {
+       "meaning": "Oh là là, c'est cher !",
+       "contextNote": "Dit sur un ton léger, cela ressemble à un marchandage amical plutôt qu'à une plainte. Le « y » de dyrt est arrondi.",
+       "literalGloss": "Oh, c'était cher !"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "In dyrt, the 'y' is a rounded vowel, and the 'rt' is pronounced as one retroflex sound.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "lower",
+     "intentKey": "offer_lower_price",
+     "slotId": "lower",
+     "speaker": "learner",
+     "targetText": "Kan du gå ner lite i pris?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Kan du gå ner lite i pris?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you come down a little in price?",
+       "contextNote": "Bargaining is light in Sweden, so keep it gentle and polite.",
+       "literalGloss": "Can you go down a bit in price?"
+      },
+      "fr": {
+       "meaning": "Vous pouvez baisser un peu le prix ?",
+       "contextNote": "En Suède, on marchande peu : restez doux et poli.",
+       "literalGloss": "Peux-tu descendre un peu en prix ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "deal",
+     "intentKey": "agree_to_price",
+     "slotId": "deal",
+     "speaker": "learner",
+     "targetText": "Okej, jag tar ett kilo.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Okej, jag tar ett kilo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "OK, I'll take a kilo.",
+       "contextNote": "Okej is used everywhere in Swedish. Change 'ett kilo' to 'två kilo' for two kilos.",
+       "literalGloss": "OK, I take one kilo."
+      },
+      "fr": {
+       "meaning": "D'accord, je prends un kilo.",
+       "contextNote": "« Okej » s'emploie partout en suédois. Remplacez « ett kilo » par « två kilo » pour deux kilos. Prononcez « kilo » comme « chi-lo », avec un i long.",
+       "literalGloss": "OK, je prends un kilo."
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": "Okej is an English loanword that is fully natural in Swedish.",
+     "pronunciationNote": "Say 'kilo' as KEE-lo, with a long 'i'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "no_thanks",
+     "intentKey": "decline_purchase",
+     "slotId": "no_thanks",
+     "speaker": "learner",
+     "targetText": "Nej tack, inte idag.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nej tack, inte idag."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No thank you, not today.",
+       "contextNote": "A polite, easy way to turn down a purchase.",
+       "literalGloss": "No thanks, not today."
+      },
+      "fr": {
+       "meaning": "Non merci, pas aujourd'hui.",
+       "contextNote": "Une façon polie et simple de refuser un achat. « Nej » se prononce à peu près « nèï ».",
+       "literalGloss": "Non merci, pas aujourd'hui."
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say 'nej' like 'nay'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "greet_hello_variant_8",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "God dag!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "God dag!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good day!",
+       "contextNote": "A slightly more formal greeting, fine at a market stall.",
+       "literalGloss": "Good day!"
+      },
+      "fr": {
+       "meaning": "Bonjour !",
+       "contextNote": "Une salutation un peu plus formelle, tout à fait adaptée à un étal de marché.",
+       "literalGloss": "Bon jour !"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "ask_price_variant_9",
+     "intentKey": "ask_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Vad kostar äpplena per kilo?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vad kostar äpplena per kilo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "What do the apples cost per kilo?",
+       "contextNote": "Useful when prices aren't marked clearly.",
+       "literalGloss": "What costs the-apples per kilo?"
+      },
+      "fr": {
+       "meaning": "Combien coûtent les pommes au kilo ?",
+       "contextNote": "Pratique quand les prix ne sont pas clairement affichés.",
+       "literalGloss": "Quoi coûte les pommes par kilo ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "offer_lower_price_variant_10",
+     "intentKey": "offer_lower_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Kan jag få två kilo för sjuttio?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Kan jag få två kilo för sjuttio?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I get two kilos for seventy?",
+       "contextNote": "A light counteroffer, normal in a friendly market setting.",
+       "literalGloss": "Can I get two kilo for seventy?"
+      },
+      "fr": {
+       "meaning": "Je peux avoir deux kilos pour soixante-dix ?",
+       "contextNote": "Une petite contre-proposition, courante dans une ambiance de marché sympathique.",
+       "literalGloss": "Puis-je avoir deux kilos pour soixante-dix ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "swedish_ask_directions",
+   "blueprintKey": "ask_directions",
+   "titles": {
+    "en": "Finding the Station",
+    "fr": "Trouver la gare"
+   },
+   "sceneNotes": {
+    "en": "You are a visitor looking for the station, and a friendly passer-by answers very quickly, so you need to ask them to slow down.",
+    "fr": "Vous êtes de passage et cherchez la gare ; une passante sympathique répond très vite, alors vous devrez lui demander de ralentir."
+   },
+   "characterKey": "swedish_emma_passer_by",
+   "expressions": [
+    {
+     "key": "excuse_me",
+     "intentKey": "get_attention",
+     "slotId": "excuse_me",
+     "speaker": "learner",
+     "targetText": "Ursäkta, har du en sekund?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ursäkta, har du en sekund?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, do you have a second?",
+       "contextNote": "Polite way to stop a stranger. 'Ursäkta' alone also works.",
+       "literalGloss": "Excuse, have you a second?"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, vous avez une seconde ?",
+       "contextNote": "Façon polie d'aborder un inconnu ; « Ursäkta » seul fonctionne aussi. « sekund » est accentué sur la dernière syllabe : se-KUND.",
+       "literalGloss": "Excuse, as-tu une seconde ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'sekund' is stressed on the last syllable: se-KUND.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "where_is",
+     "intentKey": "ask_where_is",
+     "slotId": "where_is",
+     "speaker": "learner",
+     "targetText": "Var ligger stationen?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Var ligger stationen?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where is the station?",
+       "contextNote": "'Var ligger' is the usual way to ask where a place is located; 'Var är' also works.",
+       "literalGloss": "Where lies the station?"
+      },
+      "fr": {
+       "meaning": "Où se trouve la gare ?",
+       "contextNote": "« Var ligger » est la façon habituelle de demander où se situe un lieu ; « Var är » marche aussi. « stationen » contient le son « ch » : sta-CHOU-nen.",
+       "literalGloss": "Où se situe la gare ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'stationen' has the 'sh' sound: sta-SHOO-nen.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "straight",
+     "intentKey": "give_direction_straight",
+     "slotId": "straight",
+     "speaker": "character",
+     "targetText": "Gå rakt fram.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Gå rakt fram."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Go straight ahead.",
+       "contextNote": null,
+       "literalGloss": "Go straight forward."
+      },
+      "fr": {
+       "meaning": "Allez tout droit.",
+       "contextNote": null,
+       "literalGloss": "Marche droit devant."
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "turn",
+     "intentKey": "give_direction_turn",
+     "slotId": "turn",
+     "speaker": "character",
+     "targetText": "Sen svänger du vänster vid ljusen.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Sen svänger du vänster vid ljusen."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Then you turn left at the traffic lights.",
+       "contextNote": "'Sen' is the casual spoken form of 'sedan'. Use 'höger' for right.",
+       "literalGloss": "Then turn you left at the lights."
+      },
+      "fr": {
+       "meaning": "Ensuite, vous tournez à gauche au feu.",
+       "contextNote": "« Sen » est la forme parlée familière de « sedan ». Pour la droite, on dit « höger ». Le « ä » de « vänster » est court, comme le « è » de « mer ».",
+       "literalGloss": "Ensuite tournes-tu à gauche aux feux."
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'sv' in 'svänger' is pronounced like 'sv' as written; 'vänster' has a short 'ä' like 'e' in 'bed'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "far",
+     "intentKey": "ask_is_it_far",
+     "slotId": "far",
+     "speaker": "learner",
+     "targetText": "Är det långt?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Är det långt?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Is it far?",
+       "contextNote": null,
+       "literalGloss": "Is it far?"
+      },
+      "fr": {
+       "meaning": "C'est loin ?",
+       "contextNote": "Le « å » de « långt » est ouvert, proche du « o » de « botte ».",
+       "literalGloss": "Est-ce loin ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'långt' has an open 'å' sound, like 'o' in 'long'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "near",
+     "intentKey": "say_it_is_near",
+     "slotId": "near",
+     "speaker": "character",
+     "targetText": "Nej, det är tio minuter att gå.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nej, det är tio minuter att gå."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No, it's a ten-minute walk.",
+       "contextNote": "Literally 'ten minutes to walk'. Swedes often say 'tio minuters promenad' too.",
+       "literalGloss": "No, it is ten minutes to walk."
+      },
+      "fr": {
+       "meaning": "Non, c'est à dix minutes à pied.",
+       "contextNote": "Littéralement « dix minutes pour marcher ». On entend aussi « tio minuters promenad ».",
+       "literalGloss": "Non, c'est dix minutes à marcher."
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "repeat",
+     "intentKey": "ask_repeat",
+     "slotId": "repeat",
+     "speaker": "learner",
+     "targetText": "Kan du upprepa det, tack?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Kan du upprepa det, tack?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you repeat that, please?",
+       "contextNote": null,
+       "literalGloss": "Can you repeat it, thanks?"
+      },
+      "fr": {
+       "meaning": "Pouvez-vous répéter, s'il vous plaît ?",
+       "contextNote": "« upprepa » est accentué sur « pre » : upp-RÉ-pa.",
+       "literalGloss": "Peux-tu le répéter, merci ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'upprepa' is stressed on the 'pre': upp-REE-pa.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "slower",
+     "intentKey": "ask_slow_down",
+     "slotId": "slower",
+     "speaker": "learner",
+     "targetText": "Kan du prata lite långsammare?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Kan du prata lite långsammare?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you speak a little slower?",
+       "contextNote": "Key phrase for this scene since the passer-by talks fast.",
+       "literalGloss": "Can you talk a bit slower?"
+      },
+      "fr": {
+       "meaning": "Pouvez-vous parler un peu plus lentement ?",
+       "contextNote": "Phrase clé de cette scène, puisque la passante parle vite. Dans « långsammare », le « å » est long, le « a » bref et le « m » double.",
+       "literalGloss": "Peux-tu parler un peu plus lentement ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'långsammare' has a long 'å' and a short 'a' with double 'm': LÅNG-sam-ma-re.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Tack för hjälpen!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Tack för hjälpen!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks for the help!",
+       "contextNote": "Fits well after getting directions.",
+       "literalGloss": "Thanks for the help!"
+      },
+      "fr": {
+       "meaning": "Merci pour votre aide !",
+       "contextNote": "Idéal après avoir reçu un itinéraire. Le « hj » de « hjälpen » se prononce comme le « y » de « yeux ».",
+       "literalGloss": "Merci pour l'aide !"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'hj' in 'hjälpen' is pronounced like 'y' in 'yes'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_slow_down_variant_10",
+     "intentKey": "ask_slow_down",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Förlåt, du pratar snabbt. Lite långsammare?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Förlåt, du pratar snabbt. Lite långsammare?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Sorry, you talk fast. A bit slower?",
+       "contextNote": "Friendly and direct; useful when someone really does talk fast.",
+       "literalGloss": "Sorry, you talk fast. A bit slower?"
+      },
+      "fr": {
+       "meaning": "Pardon, vous parlez vite. Un peu plus lentement ?",
+       "contextNote": "Amical et direct ; utile quand quelqu'un parle vraiment vite.",
+       "literalGloss": "Pardon, tu parles vite. Un peu plus lentement ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "ask_repeat_variant_11",
+     "intentKey": "ask_repeat",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Förlåt, vad sa du?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Förlåt, vad sa du?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Sorry, what did you say?",
+       "contextNote": "Casual and very common.",
+       "literalGloss": "Sorry, what said you?"
+      },
+      "fr": {
+       "meaning": "Pardon, qu'est-ce que tu as dit ?",
+       "contextNote": "Familier et très courant.",
+       "literalGloss": "Pardon, quoi as-tu dit ?"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "ask_where_is_variant_12",
+     "intentKey": "ask_where_is",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Hur kommer jag till stationen?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hur kommer jag till stationen?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How do I get to the station?",
+       "contextNote": null,
+       "literalGloss": "How come I to the station?"
+      },
+      "fr": {
+       "meaning": "Comment puis-je aller à la gare ?",
+       "contextNote": null,
+       "literalGloss": "Comment viens-je à la gare ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "swedish_meet_neighbour",
+   "blueprintKey": "meet_neighbour",
+   "titles": {
+    "en": "Meeting Your Neighbour",
+    "fr": "Rencontre avec la voisine"
+   },
+   "sceneNotes": {
+    "en": "You meet an older neighbour carrying shopping bags in the stairwell of your new building.",
+    "fr": "Vous croisez une voisine âgée, chargée de sacs de courses, dans la cage d'escalier de votre nouvel immeuble."
+   },
+   "characterKey": "swedish_karin_neighbour",
+   "expressions": [
+    {
+     "key": "new_neighbour",
+     "intentKey": "say_new_neighbour",
+     "slotId": "new_neighbour",
+     "speaker": "learner",
+     "targetText": "Hej! Jag är din nya granne.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hej! Jag är din nya granne."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hi! I'm your new neighbour.",
+       "contextNote": "Natural way to introduce yourself on the stairs.",
+       "literalGloss": "Hi! I am your new neighbour."
+      },
+      "fr": {
+       "meaning": "Bonjour ! Je suis votre nouvel(le) voisin(e).",
+       "contextNote": "Une façon naturelle de se présenter dans l'escalier. Dans « granne », le g est dur, comme dans « gare ».",
+       "literalGloss": "Salut ! Je suis votre nouvelle voisine."
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "In 'granne', the g is hard, as in 'go'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "say_new_neighbour_variant_2",
+     "intentKey": "say_new_neighbour",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Jag har just flyttat in.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Jag har just flyttat in."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I just moved in.",
+       "contextNote": "A common alternative.",
+       "literalGloss": "I have just moved in."
+      },
+      "fr": {
+       "meaning": "Je viens d'emménager.",
+       "contextNote": "Une variante courante. « Just » commence par un son « y » : « yust ».",
+       "literalGloss": "J'ai juste emménagé."
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Just' is pronounced with a y sound at the start: 'yust'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "welcome",
+     "intentKey": "welcome_someone",
+     "slotId": "welcome",
+     "speaker": "character",
+     "targetText": "Välkommen hit! Vad roligt!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Välkommen hit! Vad roligt!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Welcome! How nice!",
+       "contextNote": "Karin says this warmly, to a person she is talking to directly.",
+       "literalGloss": "Welcome here! What fun!"
+      },
+      "fr": {
+       "meaning": "Bienvenue ! Quel plaisir !",
+       "contextNote": "Karin le dit chaleureusement, en s'adressant directement à vous. Le « v » de « välkommen » se prononce comme en français.",
+       "literalGloss": "Bienvenue ici ! Quel amusement !"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'v' in 'välkommen' is pronounced as in English.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "where_from_q",
+     "intentKey": "ask_where_from",
+     "slotId": "where_from_q",
+     "speaker": "learner",
+     "targetText": "Var kommer du ifrån?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Var kommer du ifrån?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where are you from?",
+       "contextNote": null,
+       "literalGloss": "Where come you from?"
+      },
+      "fr": {
+       "meaning": "D'où venez-vous ?",
+       "contextNote": "« Var » a un a long, comme « vâr », avec un r très léger.",
+       "literalGloss": "Où venez-vous de ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Var' is pronounced with a long a, like 'vahr' without a strong r.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_where_from_variant_5",
+     "intentKey": "ask_where_from",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Är du härifrån?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Är du härifrån?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Are you from here?",
+       "contextNote": "Good for asking someone who has lived there for years.",
+       "literalGloss": "Are you from-here?"
+      },
+      "fr": {
+       "meaning": "Êtes-vous d'ici ?",
+       "contextNote": "Pratique pour demander à quelqu'un qui habite là depuis des années.",
+       "literalGloss": "Êtes-vous d'ici ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "from",
+     "intentKey": "say_where_from",
+     "slotId": "from",
+     "speaker": "learner",
+     "targetText": "Jag kommer från Kanada.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Jag kommer från Kanada."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm from Canada.",
+       "contextNote": "Swap in your own country.",
+       "literalGloss": "I come from Canada."
+      },
+      "fr": {
+       "meaning": "Je viens du Canada.",
+       "contextNote": "Remplacez par votre propre pays. « Kommer » a un o court : « kom-mer ».",
+       "literalGloss": "Je viens de Canada."
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Kommer' has a short o, like 'kom-mer'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "speak_lang",
+     "intentKey": "ask_if_speaks_language",
+     "slotId": "speak_lang",
+     "speaker": "learner",
+     "targetText": "Pratar du engelska?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Pratar du engelska?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you speak English?",
+       "contextNote": "Useful if you get stuck.",
+       "literalGloss": "Speak you English?"
+      },
+      "fr": {
+       "meaning": "Parlez-vous anglais ?",
+       "contextNote": "Utile si vous êtes bloqué(e). Dans « engelska », « ng » se prononce comme dans « parking ».",
+       "literalGloss": "Parlez-vous anglais ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "In 'engelska', 'ng' is like in 'sing'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "little",
+     "intentKey": "say_speak_little",
+     "slotId": "little",
+     "speaker": "learner",
+     "targetText": "Jag pratar bara lite svenska.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Jag pratar bara lite svenska."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I only speak a little Swedish.",
+       "contextNote": null,
+       "literalGloss": "I speak only a little Swedish."
+      },
+      "fr": {
+       "meaning": "Je ne parle qu'un peu suédois.",
+       "contextNote": "Dans « svenska », « sv » se prononce d'un seul bloc : « sv- ».",
+       "literalGloss": "Je parle seulement un peu suédois."
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Sv' in 'svenska' is pronounced together: 'sv-'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "say_speak_little_variant_9",
+     "intentKey": "say_speak_little",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Jag lär mig svenska.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Jag lär mig svenska."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm learning Swedish.",
+       "contextNote": "A friendly way to explain you're a beginner.",
+       "literalGloss": "I teach myself Swedish."
+      },
+      "fr": {
+       "meaning": "J'apprends le suédois.",
+       "contextNote": "Une façon sympathique d'expliquer que vous êtes débutant(e).",
+       "literalGloss": "Je m'enseigne le suédois."
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "offer_help",
+     "intentKey": "offer_help",
+     "slotId": "offer_help",
+     "speaker": "learner",
+     "targetText": "Kan jag hjälpa dig med kassarna?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Kan jag hjälpa dig med kassarna?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I help you with the bags?",
+       "contextNote": "Said while seeing the neighbour's shopping bags.",
+       "literalGloss": "Can I help you with the bags?"
+      },
+      "fr": {
+       "meaning": "Puis-je vous aider avec les sacs ?",
+       "contextNote": "À dire en voyant les sacs de courses de la voisine. Le « hj » de « hjälpa » se prononce comme un « y » : « yelpa ».",
+       "literalGloss": "Puis-je vous aider avec les sacs ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Hj' in 'hjälpa' is pronounced like a 'y': 'yelpa'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "offer_help_variant_11",
+     "intentKey": "offer_help",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Behöver du hjälp?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Behöver du hjälp?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you need help?",
+       "contextNote": "Shorter and more casual.",
+       "literalGloss": "Need you help?"
+      },
+      "fr": {
+       "meaning": "Tu as besoin d'aide ?",
+       "contextNote": "Plus court et plus décontracté.",
+       "literalGloss": "As besoin tu aide ?"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Tack, det vore snällt!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Tack, det vore snällt!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks, that would be kind!",
+       "contextNote": "Also fits when accepting the tea invitation.",
+       "literalGloss": "Thanks, that would-be kind!"
+      },
+      "fr": {
+       "meaning": "Merci, ce serait gentil !",
+       "contextNote": "Convient aussi pour accepter l'invitation à prendre le thé. Le « ä » de « snällt » se prononce comme le « è » de « mer ».",
+       "literalGloss": "Merci, ce serait gentil !"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "In 'snällt', 'ä' is like the 'e' in 'bed'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "swedish_take_taxi",
+   "blueprintKey": "take_taxi",
+   "titles": {
+    "en": "Taking a Taxi",
+    "fr": "Prendre un taxi"
+   },
+   "sceneNotes": {
+    "en": "You wave down a taxi in heavy traffic and ask the talkative driver to take you to the old town, even though he quotes a price without using the meter.",
+    "fr": "Vous hélez un taxi dans la circulation dense et vous demandez au chauffeur bavard de vous conduire à la vieille ville, alors qu'il annonce un prix sans utiliser le compteur."
+   },
+   "characterKey": "swedish_lars_taxi_driver",
+   "expressions": [
+    {
+     "key": "hail",
+     "intentKey": "hail_taxi",
+     "slotId": "hail",
+     "speaker": "learner",
+     "targetText": "Hej! Är du ledig?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hej! Är du ledig?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hi! Are you free?",
+       "contextNote": "Said through the car window or when getting in. 'Ledig' is the usual word for a free taxi.",
+       "literalGloss": "Hi! Are you free?"
+      },
+      "fr": {
+       "meaning": "Salut ! Vous êtes libre ?",
+       "contextNote": "À dire par la vitre ou en montant. « Ledig » est le mot habituel pour un taxi libre. Le « g » de « ledig » est doux, presque muet : environ « LÉ-di ».",
+       "literalGloss": "Salut ! Es-tu libre ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'g' in 'ledig' is soft and often almost silent: roughly 'LEH-dee'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "where_to",
+     "intentKey": "ask_destination",
+     "slotId": "where_to",
+     "speaker": "character",
+     "targetText": "Hej! Vart ska du åka?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hej! Vart ska du åka?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hi! Where are you going?",
+       "contextNote": "'Vart' is used for movement toward a place; 'var' is for location.",
+       "literalGloss": "Hi! Where shall you go?"
+      },
+      "fr": {
+       "meaning": "Salut ! Où allez-vous ?",
+       "contextNote": "« Vart » s'emploie pour un mouvement vers un lieu ; « var » pour une position. Le « rt » de « vart » est bref et net, souvent fondu en un seul son.",
+       "literalGloss": "Salut ! Où vas-tu aller ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Vart' sounds like 'vart' with a short, crisp 'rt' (often merged into one sound).",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "destination",
+     "intentKey": "state_destination",
+     "slotId": "destination",
+     "speaker": "learner",
+     "targetText": "Till gamla stan, tack.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Till gamla stan, tack."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "To the old town, please.",
+       "contextNote": "'Gamla stan' is the standard name for Stockholm's old town, and it is written in lower case.",
+       "literalGloss": "To old town, thanks"
+      },
+      "fr": {
+       "meaning": "À la vieille ville, s'il vous plaît.",
+       "contextNote": "« Gamla stan » est le nom usuel de la vieille ville de Stockholm, écrit en minuscules. Le « a » de « stan » est long, comme « aah ».",
+       "literalGloss": "Vers vieille ville, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'st' in 'stan' is a plain 's' plus 't'; the 'a' is long, like 'ah'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "meter",
+     "intentKey": "ask_use_meter",
+     "slotId": "meter",
+     "speaker": "learner",
+     "targetText": "Kan du sätta på taxametern?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Kan du sätta på taxametern?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you put the meter on?",
+       "contextNote": "Use this when the driver quotes a fixed price without the meter.",
+       "literalGloss": "Can you put on the taxi-meter?"
+      },
+      "fr": {
+       "meaning": "Pouvez-vous mettre le compteur ?",
+       "contextNote": "À utiliser quand le chauffeur annonce un prix fixe sans compteur. Le « x » se prononce « ks » ; l'accent tombe sur « me » : « tak-sa-MÉ-tern ».",
+       "literalGloss": "Peux-tu mettre en marche le taxamètre ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'x' in 'taxametern' is 'ks'; stress falls on 'me': 'tak-sa-MEE-tern'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.5
+    },
+    {
+     "key": "fare",
+     "intentKey": "ask_fare",
+     "slotId": "fare",
+     "speaker": "learner",
+     "targetText": "Hur mycket kostar det?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hur mycket kostar det?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much will it cost?",
+       "contextNote": "Fits the moment the driver names a price without the meter.",
+       "literalGloss": "How much costs it?"
+      },
+      "fr": {
+       "meaning": "Ça coûte combien ?",
+       "contextNote": "Convient quand le chauffeur annonce un prix sans compteur. « Mycket » a un « y » arrondi (lèvres comme pour « ou », dites « i ») : « MU-ké ».",
+       "literalGloss": "Combien coûte cela ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Mycket' has a rounded 'y' (lips as for 'oo', say 'ee'): 'MÜ-keh'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "stop",
+     "intentKey": "say_stop_here",
+     "slotId": "stop",
+     "speaker": "learner",
+     "targetText": "Du kan stanna här, tack.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Du kan stanna här, tack."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "You can stop here, please.",
+       "contextNote": "Polite and relaxed, a normal way to tell a driver where to let you out.",
+       "literalGloss": "You can stop here, thanks"
+      },
+      "fr": {
+       "meaning": "Vous pouvez vous arrêter ici, merci.",
+       "contextNote": "Poli et détendu, une façon courante de dire au chauffeur où vous déposer. Le « ä » de « här » est un « è » ouvert.",
+       "literalGloss": "Tu peux t'arrêter ici, merci"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Här' has an open 'e' sound, like 'air' without the 'r' pronounced strongly.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "change",
+     "intentKey": "ask_for_change",
+     "slotId": "change",
+     "speaker": "learner",
+     "targetText": "Kan jag få växel, tack?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Kan jag få växel, tack?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have change, please?",
+       "contextNote": "Use it when you hand over cash and expect some money back.",
+       "literalGloss": "Can I get change, thanks?"
+      },
+      "fr": {
+       "meaning": "Je peux avoir la monnaie, s'il vous plaît ?",
+       "contextNote": "À dire quand vous tendez des espèces et attendez de la monnaie. « Växel » se prononce « VEK-sel ».",
+       "literalGloss": "Puis-je avoir monnaie, merci ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Växel' starts with 'v' and has 'ks' in the middle: 'VEK-sel'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "bye",
+     "intentKey": "say_goodbye",
+     "slotId": "bye",
+     "speaker": "learner",
+     "targetText": "Tack för skjutsen! Hej då!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Tack för skjutsen! Hej då!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks for the ride! Bye!",
+       "contextNote": "'Skjuts' is a friendly everyday word for a ride or lift.",
+       "literalGloss": "Thanks for the ride! Bye then!"
+      },
+      "fr": {
+       "meaning": "Merci pour la course ! Au revoir !",
+       "contextNote": "« Skjuts » est un mot familier et sympathique pour un trajet en voiture. Le « skj » est le son « sj » suédois, un chuintement doux : « CHUT-sen ».",
+       "literalGloss": "Merci pour la course ! Salut alors !"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Skj' in 'skjutsen' is the Swedish 'sj' sound, a soft 'sh'-like hush: 'SHUT-sen'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "hail_taxi_variant_9",
+     "intentKey": "hail_taxi",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Hej! Kan du köra mig till gamla stan?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Hej! Kan du köra mig till gamla stan?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hi! Can you take me to the old town?",
+       "contextNote": "A more direct way to hail and state the destination at once.",
+       "literalGloss": "Hi! Can you drive me to old town?"
+      },
+      "fr": {
+       "meaning": "Salut ! Vous pouvez m'emmener à la vieille ville ?",
+       "contextNote": "Une façon plus directe de héler le taxi et d'indiquer la destination d'un coup. Le « ö » de « köra » est arrondi : lèvres comme pour « o », dites « é ».",
+       "literalGloss": "Salut ! Peux-tu me conduire à vieille ville ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Köra' has a rounded 'ö' (lips as for 'oh', say 'eh').",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "ask_use_meter_variant_10",
+     "intentKey": "ask_use_meter",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Kan vi köra med taxameter?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Kan vi köra med taxameter?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can we go by the meter?",
+       "contextNote": "A softer alternative to the first meter request.",
+       "literalGloss": "Can we drive with taxi-meter?"
+      },
+      "fr": {
+       "meaning": "On peut rouler au compteur ?",
+       "contextNote": "Une alternative plus douce à la première demande de compteur.",
+       "literalGloss": "Peut-on rouler avec taxamètre ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "swedish_buy_ice_cream",
+   "blueprintKey": "buy_ice_cream",
+   "titles": {
+    "en": "Buying Ice Cream Outside School",
+    "fr": "Une glace devant l'école"
+   },
+   "sceneNotes": {
+    "en": "You are taking a child to the ice-cream cart outside the school, where only two flavours are left and the child will try to get a second scoop.",
+    "fr": "Vous emmenez un enfant au chariot de glaces devant l'école, mais il ne reste que deux parfums et l'enfant va tenter d'obtenir une deuxième boule."
+   },
+   "characterKey": "swedish_elsa_child_at_the_ice_cream_stand",
+   "expressions": [
+    {
+     "key": "wants",
+     "intentKey": "request_food",
+     "slotId": "wants",
+     "speaker": "character",
+     "targetText": "Kan jag få en glass, snälla?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Kan jag få en glass, snälla?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have an ice cream, please?",
+       "contextNote": "A child asking an adult. 'Snälla' is the kid-friendly 'please'.",
+       "literalGloss": "Can I get an ice cream, kind?"
+      },
+      "fr": {
+       "meaning": "Je peux avoir une glace, s'il te plaît ?",
+       "contextNote": "Un enfant s'adresse à un adulte. « Snälla » est le « s'il te plaît » des enfants. Le « ä » se prononce comme le « è » de « mère ».",
+       "literalGloss": "Je peux avoir une glace, gentille ?"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'sn' in 'snälla' is a clear s + n; 'ä' is like the 'e' in 'bed'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "which_flavour",
+     "intentKey": "offer_options",
+     "slotId": "which_flavour",
+     "speaker": "learner",
+     "targetText": "Vill du ha choklad eller jordgubb?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vill du ha choklad eller jordgubb?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you want chocolate or strawberry?",
+       "contextNote": "Only two flavours are left, so offer both.",
+       "literalGloss": "Want you have chocolate or strawberry?"
+      },
+      "fr": {
+       "meaning": "Tu veux du chocolat ou de la fraise ?",
+       "contextNote": "Il ne reste que deux parfums : proposez les deux. « Choklad » commence par un son « ch » (chokLAD) ; le d final est muet.",
+       "literalGloss": "Veux tu avoir chocolat ou fraise ?"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Choklad' starts with a 'sh' sound (sh-oh-KLAHD); the final d is silent.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "picks",
+     "intentKey": "choose_option",
+     "slotId": "picks",
+     "speaker": "character",
+     "targetText": "Jordgubb, tack!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Jordgubb, tack!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Strawberry, please!",
+       "contextNote": null,
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "De la fraise, merci !",
+       "contextNote": "« Jord » commence par un son « y » : YOURD-gubb.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Jord' begins with a 'y' sound: YOOrd-gubb.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "scoop",
+     "intentKey": "specify_quantity",
+     "slotId": "scoop",
+     "speaker": "learner",
+     "targetText": "En kula jordgubb, tack.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "En kula jordgubb, tack."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "One scoop of strawberry, please.",
+       "contextNote": "Said to the ice-cream seller. 'Kula' literally means 'ball'.",
+       "literalGloss": "A ball strawberry, thanks."
+      },
+      "fr": {
+       "meaning": "Une boule de fraise, s'il vous plaît.",
+       "contextNote": "À dire au vendeur de glaces. « Kula » signifie littéralement « boule ». Le « k » est dur ; le « u » est une voyelle arrondie qui n'existe pas en français.",
+       "literalGloss": "Une boule fraise, merci."
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Kula' starts with a 'k' as in 'kind'; the 'u' is a rounded vowel not found in English.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "asks_two",
+     "intentKey": "ask_permission",
+     "slotId": "asks_two",
+     "speaker": "character",
+     "targetText": "Kan jag få två kulor?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Kan jag få två kulor?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have two scoops?",
+       "contextNote": "The child pushes their luck.",
+       "literalGloss": "Can I get two balls?"
+      },
+      "fr": {
+       "meaning": "Je peux avoir deux boules ?",
+       "contextNote": "L'enfant tente sa chance. « Två » se prononce à peu près « tvo », avec un o long.",
+       "literalGloss": "Je peux avoir deux boules ?"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Två' is pronounced like 'tvo' with a long 'o'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "just_one",
+     "intentKey": "refuse_permission",
+     "slotId": "just_one",
+     "speaker": "learner",
+     "targetText": "Nej, tyvärr, bara en idag.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nej, tyvärr, bara en idag."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No, sorry, just one today.",
+       "contextNote": "A kind but firm refusal. 'Tyvärr' softens the no.",
+       "literalGloss": "No, unfortunately, only one today."
+      },
+      "fr": {
+       "meaning": "Non, désolé, une seule aujourd'hui.",
+       "contextNote": "Un refus gentil mais ferme : « tyvärr » adoucit le non. Le « y » est arrondi (lèvres comme pour « ou », en disant « i ») et le « rr » est long.",
+       "literalGloss": "Non, malheureusement, seulement une aujourd'hui."
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Tyvärr' has a rounded 'y' (lips as for 'oo', say 'ee') and a long rolled or tapped 'rr'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "okay",
+     "intentKey": "grant_permission",
+     "slotId": "okay",
+     "speaker": "learner",
+     "targetText": "Okej, varsågod!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Okej, varsågod!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Okay, here you go!",
+       "contextNote": "Said when handing over the ice cream; 'varsågod' also works as 'go ahead'.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "D'accord, voilà !",
+       "contextNote": "À dire en tendant la glace ; « varsågod » peut aussi signifier « allez-y ». Souvent prononcé vite : « vachgo ».",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": "'Okej' is the Swedish spelling of the English loanword 'okay'.",
+     "pronunciationNote": "'Varsågod' is often said quickly as 'vashgo'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "yummy",
+     "intentKey": "say_delicious",
+     "slotId": "yummy",
+     "speaker": "character",
+     "targetText": "Mmm, den är jättegod!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mmm, den är jättegod!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Mmm, it's really yummy!",
+       "contextNote": "'Jätte-' is a common casual intensifier meaning 'really'.",
+       "literalGloss": "Mmm, it is giant-good!"
+      },
+      "fr": {
+       "meaning": "Mmm, elle est super bonne !",
+       "contextNote": "« Jätte- » est un intensif familier qui signifie « très, super ». « Jätte » commence par un son « y » : YÈ-te.",
+       "literalGloss": "Mmm, elle est géant-bonne !"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Jätte' starts with a 'y' sound: YEH-teh.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "me_too",
+     "intentKey": "express_like",
+     "slotId": "me_too",
+     "speaker": "learner",
+     "targetText": "Jag gillar jordgubbsglass också.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Jag gillar jordgubbsglass också."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I like strawberry ice cream too.",
+       "contextNote": null,
+       "literalGloss": "I like strawberry-ice-cream also."
+      },
+      "fr": {
+       "meaning": "J'aime aussi la glace à la fraise.",
+       "contextNote": "« Jag » se prononce « ya » : le g est muet.",
+       "literalGloss": "Je aime fraise-glace aussi."
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Jag' is said 'yah', with the g silent.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "character",
+     "targetText": "Tack för glassen!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Tack för glassen!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks for the ice cream!",
+       "contextNote": null,
+       "literalGloss": "Thanks for the ice-cream-the!"
+      },
+      "fr": {
+       "meaning": "Merci pour la glace !",
+       "contextNote": "« Glassen » a un « gl » net et un « a » court.",
+       "literalGloss": "Merci pour la glace-la !"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Glassen' has a clear 'gl' and a short 'a'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "welcome",
+     "intentKey": "respond_to_thanks",
+     "slotId": "welcome",
+     "speaker": "learner",
+     "targetText": "Varsågod!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Varsågod!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "You're welcome!",
+       "contextNote": "The standard reply to 'tack'.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "De rien !",
+       "contextNote": "La réponse habituelle à « tack ». Souvent prononcé vite : « vachgo ».",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Often said quickly as 'vashgo'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "refuse_permission_variant_12",
+     "intentKey": "refuse_permission",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Det blir lite för mycket, bara en.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Det blir lite för mycket, bara en."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "That'd be a bit too much, just one.",
+       "contextNote": "A gentler alternative that explains the no.",
+       "literalGloss": "It becomes a little too much, only one."
+      },
+      "fr": {
+       "meaning": "Ça ferait un peu trop, juste une.",
+       "contextNote": "Variante plus douce qui explique le refus.",
+       "literalGloss": "Ça devient un peu trop, seulement une."
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "respond_to_thanks_variant_13",
+     "intentKey": "respond_to_thanks",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Ingen orsak!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ingen orsak!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No problem!",
+       "contextNote": "A common alternative to 'varsågod'.",
+       "literalGloss": "No reason!"
+      },
+      "fr": {
+       "meaning": "Pas de souci !",
+       "contextNote": "Alternative courante à « varsågod ». « Orsak » se prononce OU-chak : le « rs » devient « ch ».",
+       "literalGloss": "Pas de raison !"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Orsak' is pronounced OO-shak, with 'rs' merging into 'sh'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  }
+ ],
+ "provenance": "ai_draft",
+ "nativeReviewed": false,
+ "reviewStatus": "review_needed",
+ "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+ "notes": [
+  "AI draft generated 2026-11-11T22:46:15.424Z with anthropic/claude-sonnet-5.5; validator accepted 77 expressions; native review required before publishing.",
+  "greet_and_introduce: Slot registers are set to polite as required; Swedish has no real formal/informal split, so these lines are standard neutral speech with 'du'.",
+  "greet_and_introduce: 'Hej då, ha en bra dag!' is a combined goodbye plus good-day wish under say_goodbye; please check it fits within the 8-word limit and sounds natural.",
+  "greet_and_introduce: Please confirm the name 'Sam' as a placeholder is fine for learners and that 'Hur är det?' feels casual rather than neutral.",
+  "cafe_order_drink: 'Jag skulle vilja ha' is polite but slightly longer than the everyday 'Kan jag få'; both are kept as variants.",
+  "cafe_order_drink: 'Notan' vs 'räkningen': 'notan' chosen as the usual café word, though many cafés take payment at the counter first.",
+  "cafe_order_drink: Please check that 'God eftermiddag' feels natural at a casual terrace; 'Hej, hej!' may be more common.",
+  "market_ask_price: Stall prices may be given as 'kilot' or 'per kilo'; please confirm which is more natural today.",
+  "market_ask_price: Hur står det till? is a bit formal and old-fashioned; consider replacing it with a simple Hej!, though Hej! is already used earlier in the chapter.",
+  "market_ask_price: Please check whether 'gå ner i pris' sounds natural for light bargaining or if 'Går det att pruta lite?' is better.",
+  "ask_directions: Used 'Tack för hjälpen!' to avoid repeating the earlier 'Tack så mycket!' and 'Tusen tack!'.",
+  "ask_directions: Used 'stationen' for a generic station; in Stockholm locals might say 'centralen' or 'tunnelbanan' depending on the place.",
+  "ask_directions: Please check that 'Ursäkta, har du en sekund?' sounds natural for a beginner attention-getter and whether 'Ursäkta' alone would be better.",
+  "meet_neighbour: Used 'Tack, det vore snällt!' to avoid repeating 'Tack så mycket'/'Tusen tack' from earlier in the chapter; please check naturalness.",
+  "meet_neighbour: 'Pratar du engelska?' is the everyday verb; 'talar' would be more formal.",
+  "meet_neighbour: Gender and plural forms are not needed in Swedish; 'kassarna' (the bags) could be swapped for 'påsarna' regionally.",
+  "take_taxi: Chose 'Är du ledig?' for hailing a taxi and 'Hur mycket kostar det?' for the fare; please confirm they sound natural.",
+  "take_taxi: 'Taxametern' (definite) vs. 'taxameter': both are used; please check the preferred wording. 'Skjuts' is informal and friendly.",
+  "take_taxi: Character line uses 'Vart ska du åka?'; some speakers say 'Vart ska du?' or 'Vart ska det bära av?', so please check what is most common.",
+  "buy_ice_cream: 'Okej' is used for grant_permission but doubles as a handover with 'varsågod'; please check it reads naturally, since 'varsågod' is used twice (okay and welcome).",
+  "buy_ice_cream: 'Kula' is used for a scoop; some speakers say 'en boll', so please confirm kula is the most common term at ice-cream carts.",
+  "buy_ice_cream: Please confirm 'snälla' sounds natural from a child, and that 'jordgubbsglass' with the s-joint is spelled correctly.",
+  "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+ ]
+}

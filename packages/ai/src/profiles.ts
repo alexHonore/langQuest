@@ -108,9 +108,10 @@ const mk = (s: Spec): ModelProfile =>
   } satisfies ModelProfile);
 
 const CHEAP_FAST = ['google/gemini-3.8-flash', 'deepseek/deepseek-v4.1-flash'] as const;
+const CALL_FALLBACKS = ['anthropic/claude-sonnet-5.5', 'google/gemini-3.8-flash'] as const;
 
 /**
- * Defaults for all twelve tasks (global scope) plus variety-scoped overrides for low-resource varieties
+ * Defaults for all thirteen tasks (global scope) plus variety-scoped overrides for low-resource varieties
  * where a stronger model is the responsible default. Live-verified on 2026-10-14: `anthropic/claude-haiku-5.5`
  * structured output in Darija, `openai/whisper-large-v3` / `elevenlabs/scribe-v2` / `google/gemini-3.5-transcribe`
  * STT, `google/gemini-3.8-flash-lite-tts` / `hexgrad/kokoro-82m` / `microsoft/mai-voice-2.1-flash` TTS.
@@ -118,7 +119,9 @@ const CHEAP_FAST = ['google/gemini-3.8-flash', 'deepseek/deepseek-v4.1-flash'] a
 export const DEFAULT_PROFILES: readonly ModelProfile[] = [
   mk({ task: 'content_generation', provider: 'openrouter', primary: 'anthropic/claude-sonnet-5.5', fallbacks: ['google/gemini-3.8-flash'], latency: 'batch', params: { temperature: 0.8, maxOutputTokens: 4000, timeoutMs: 90_000, maxRetries: 2 } }),
   mk({ task: 'scene_planning', provider: 'openrouter', primary: 'anthropic/claude-haiku-5.5', fallbacks: CHEAP_FAST, latency: 'interactive', params: { temperature: 0.5, maxOutputTokens: 1200, timeoutMs: 20_000 } }),
-  mk({ task: 'character_dialogue', provider: 'openrouter', primary: 'anthropic/claude-haiku-5.5', fallbacks: CHEAP_FAST, latency: 'realtime', params: { temperature: 0.7, maxOutputTokens: 1000, timeoutMs: 12_000, maxRetries: 1, contextBudgetTokens: 6000 } }),
+  // Calls: GPT 6 Luna first, Sonnet behind it, Gemini as a third provider (owner's choice after the 2026-11-11 bench,
+  // docs/provider-matrix/dialogue-models-2026-11-11.md: Luna scored above Haiku at a lower cost per turn).
+  mk({ task: 'character_dialogue', provider: 'openrouter', primary: 'openai/gpt-6-luna', fallbacks: CALL_FALLBACKS, latency: 'realtime', params: { temperature: 0.7, maxOutputTokens: 1000, timeoutMs: 12_000, maxRetries: 1, contextBudgetTokens: 6000 } }),
   mk({ task: 'meaning_assessment', provider: 'openrouter', primary: 'google/gemini-3.8-flash', fallbacks: ['anthropic/claude-haiku-5.5', 'deepseek/deepseek-v4.1-flash'], latency: 'interactive', params: { temperature: 0, maxOutputTokens: 300, timeoutMs: 8_000 } }),
   mk({ task: 'source_explanation', provider: 'openrouter', primary: 'anthropic/claude-haiku-5.5', fallbacks: CHEAP_FAST, latency: 'interactive', params: { temperature: 0.2, maxOutputTokens: 300, timeoutMs: 10_000 } }),
   mk({ task: 'learner_evaluation', provider: 'openrouter', primary: 'google/gemini-3.8-flash', fallbacks: ['anthropic/claude-haiku-5.5', 'deepseek/deepseek-v4.1-flash'], latency: 'batch', params: { temperature: 0.1, maxOutputTokens: 1200, timeoutMs: 30_000 } }),
@@ -128,9 +131,11 @@ export const DEFAULT_PROFILES: readonly ModelProfile[] = [
   mk({ task: 'pronunciation_assessment', provider: 'azure_speech', primary: 'azure:pronunciation-assessment', fallbacks: ['reference-comparison'], latency: 'interactive', params: { timeoutMs: 15_000 } }),
   mk({ task: 'transcription_alignment', provider: 'openrouter', primary: 'openai/whisper-large-v3', fallbacks: ['elevenlabs/scribe-v2'], latency: 'batch', params: { timeoutMs: 60_000, maxRetries: 2 } }),
   mk({ task: 'language_quality_check', provider: 'openrouter', primary: 'google/gemini-3.5-flash-lite', fallbacks: ['anthropic/claude-haiku-5.5'], latency: 'interactive', params: { temperature: 0, maxOutputTokens: 200, timeoutMs: 8_000 } }),
+  // Listens to a learner's take (audio input): an audio-capable model (OpenRouter `input_audio`).
+  mk({ task: 'pronunciation_feedback', provider: 'openrouter', primary: 'google/gemini-3.8-flash', fallbacks: ['google/gemini-3.5-flash-lite'], latency: 'interactive', params: { temperature: 0, maxOutputTokens: 1200, timeoutMs: 25_000 } }),
   // Variety-scoped: dialects and low-resource targets get a stronger dialogue/evaluation model by default.
   ...(['ary', 'arz', 'ar-levant', 'yue', 'ht', 'rw', 'ln', 'sw'] as const).flatMap((variety) => [
-    mk({ task: 'character_dialogue', variety, provider: 'openrouter', primary: 'anthropic/claude-sonnet-5.5', fallbacks: ['anthropic/claude-haiku-5.5', 'google/gemini-3.8-flash'], latency: 'realtime', params: { temperature: 0.7, maxOutputTokens: 1000, timeoutMs: 14_000, maxRetries: 1 } }),
+    mk({ task: 'character_dialogue', variety, provider: 'openrouter', primary: 'anthropic/claude-sonnet-5.5', fallbacks: ['openai/gpt-6-luna', 'google/gemini-3.8-flash'], latency: 'realtime', params: { temperature: 0.7, maxOutputTokens: 1000, timeoutMs: 14_000, maxRetries: 1 } }),
     mk({ task: 'learner_evaluation', variety, provider: 'openrouter', primary: 'anthropic/claude-sonnet-5.5', fallbacks: ['google/gemini-3.8-flash'], latency: 'batch', params: { temperature: 0.1, maxOutputTokens: 1200, timeoutMs: 40_000 } }),
   ]),
 ];

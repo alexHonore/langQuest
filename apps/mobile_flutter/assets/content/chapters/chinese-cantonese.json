@@ -1,0 +1,3176 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts",
+  "courseTrackId": "chinese-cantonese",
+  "chapters": [
+    {
+      "key": "chinese_cantonese_ch1",
+      "chapterIndex": 1,
+      "courseTrackId": "chinese-cantonese",
+      "targetVarietyId": "yue",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "First days in Hong Kong",
+        "fr": "Premiers jours à Hong Kong"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+      "notes": [
+        "AI draft generated 2026-11-11T22:39:18.647Z with anthropic/claude-sonnet-5.5; validator accepted 77 expressions; native review required before publishing.",
+        "greet_and_introduce: Please check that 你今日點呀 and 幾好呀，你呢 sit at the right politeness level for a first meeting.",
+        "greet_and_introduce: 認識 is given as jing6; some speakers say ying6, so please confirm the preferred Jyutping.",
+        "greet_and_introduce: 小明 is a placeholder name for the learner; Guangzhou speakers may greet with 早晨 or 你好 similarly.",
+        "cafe_order_drink: Avoided repeating 早晨/你好; used 下午好 and 哈囉 for greetings. Please check that 下午好 is natural when spoken to a server.",
+        "cafe_order_drink: Used 唔該 for service and 多謝 for gifts or favours; please confirm both fit here.",
+        "cafe_order_drink: Drink choices (凍檸茶, 熱奶茶) are Hong Kong style; Guangzhou usage may differ slightly.",
+        "market_ask_price: Prices use 蚊 and 斤 as in Hong Kong markets. Please check that the sample price of 30 per catty for grapes sounds realistic.",
+        "market_ask_price: The vendor's free extra (the twist) is not covered by a required slot, so I did not draft it here.",
+        "market_ask_price: 唔使喇 can sound slightly curt in some contexts. Please confirm it is polite enough for a beginner learner.",
+        "ask_directions: Please check that 地鐵站 versus 港鐵站 is the most natural word for learners in HK today.",
+        "ask_directions: Please check 請問 as cing2 man6 and the politeness of the casual 講慢啲啦 for a stranger.",
+        "ask_directions: Directions use Hong Kong wording; Guangzhou speakers may say 行路 or 睇住 differently.",
+        "meet_neighbour: Used 真係好多謝你 for the thanks slot because 唔該晒 and 多謝你呀 are already drafted; please confirm it is natural for an invitation.",
+        "meet_neighbour: Character name 陳姨姨 is a friendly neighbour address; please check that 姨姨 suits the tone.",
+        "meet_neighbour: Please check that 使唔使我幫你拎呀 and 我係英國人 sound natural for an HK beginner.",
+        "take_taxi: 舊城區 is used for 'old town'; in Guangzhou 老城區 is more typical. Please confirm the natural local term.",
+        "take_taxi: Check that 師傅，辛苦晒 sounds natural as a goodbye to a driver, and whether 跳錶 or 咪錶 is preferred.",
+        "take_taxi: Greetings and thanks follow earlier chapter formulas; 唔該 is used for requests.",
+        "buy_ice_cream: The scene facts don't name the two flavours. I assumed chocolate and strawberry, with vanilla in the extra variant. Please adjust if needed.",
+        "buy_ice_cream: Spellings to check: 雲呢拿 (alternative 雲尼拿), 士多啤梨, and 球 as the scoop measure word.",
+        "buy_ice_cream: The character's second line (多謝你請我食雪糕) avoids repeating the earlier 多謝你呀. The learner-side relation to the child is left neutral.",
+        "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+      ],
+      "characters": [
+        {
+          "key": "chinese_cantonese_character_friendly_local_acquaintance",
+          "name": "嘉欣",
+          "role": "friendly local acquaintance",
+          "personality": "kind, busy, chatty neighbour",
+          "homeRegion": "Hong Kong",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "chinese_cantonese_mandy_cafe_server",
+          "name": "Mandy",
+          "role": "café server",
+          "personality": "quick, friendly, upbeat",
+          "homeRegion": "Hong Kong",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "chinese_cantonese_character_market_vendor",
+          "name": "阿芬",
+          "role": "market vendor",
+          "personality": "friendly, chatty, quick-witted",
+          "homeRegion": "Hong Kong",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "chinese_cantonese_ah_keung_passer_by",
+          "name": "阿強 (Ah Keung)",
+          "role": "passer-by",
+          "personality": "Friendly, busy, talks very fast",
+          "homeRegion": "Hong Kong",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "chinese_cantonese_character_neighbour",
+          "name": "陳姨姨",
+          "role": "neighbour",
+          "personality": "warm, chatty, long-time resident",
+          "homeRegion": "Hong Kong",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "chinese_cantonese_character_taxi_driver",
+          "name": "阿強",
+          "role": "taxi driver",
+          "personality": "talkative, friendly, a bit pushy",
+          "homeRegion": "Hong Kong",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "chinese_cantonese_character_child_at_the_ice_cream_stand",
+          "name": "嘉欣",
+          "role": "child at the ice-cream stand",
+          "personality": "cheerful, cheeky, a little greedy",
+          "homeRegion": "Hong Kong",
+          "ageBand": null,
+          "voice": "female"
+        }
+      ],
+      "missions": [
+        {
+          "key": "chinese_cantonese_greet_and_introduce",
+          "blueprintKey": "greet_and_introduce",
+          "missionType": "standard",
+          "level": "beginner",
+          "situation": "introductions",
+          "characterKey": "chinese_cantonese_character_friendly_local_acquaintance",
+          "titles": {
+            "en": "Greeting a New Neighbour",
+            "fr": "Saluer un nouveau voisin"
+          },
+          "sceneNotes": {
+            "en": "It's morning and you meet a friendly neighbour on the street who is in a hurry but stops to say hello and ask where you live.",
+            "fr": "C'est le matin et vous croisez dans la rue une voisine sympathique, pressée mais qui s'arrête pour vous saluer et vous demander où vous habitez."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_are_you",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fine",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "your_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "nice_to_meet",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "goodbye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "早晨！",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "早晨！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "zou2 san4!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning!",
+                  "note": "Used only in the morning, so it fits this scene.",
+                  "literal": "early morning"
+                },
+                "fr": {
+                  "meaning": "Bonjour !",
+                  "note": "S'utilise uniquement le matin, donc parfait pour cette scène. Prononcez san4 sur un ton bas, montant puis descendant, détendu.",
+                  "literal": "tôt matin"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "san4 is a low rising-falling tone, like a relaxed 'sun'."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:how_are_you",
+              "key": "how_are_you",
+              "intentKey": "ask_how_are_you",
+              "slotId": "how_are_you",
+              "speaker": "learner",
+              "text": "你今日點呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "你今日點呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "nei5 gam1 jat6 dim2 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How are you today?",
+                  "note": "A friendly everyday way to ask after someone.",
+                  "literal": "you today how (particle)"
+                },
+                "fr": {
+                  "meaning": "Comment vas-tu aujourd'hui ?",
+                  "note": "Une façon amicale et courante de prendre des nouvelles de quelqu'un.",
+                  "literal": "toi aujourd'hui comment (particule)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:fine",
+              "key": "fine",
+              "intentKey": "reply_fine",
+              "slotId": "fine",
+              "speaker": "learner",
+              "text": "我好好，多謝。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "我好好，多謝。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "ngo5 hou2 hou2, do1 ze6."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm very well, thanks.",
+                  "note": null,
+                  "literal": "I very good, thanks"
+                },
+                "fr": {
+                  "meaning": "Je vais très bien, merci.",
+                  "note": "Ngo5 commence par le son « ng » comme à la fin de « parking ».",
+                  "literal": "je très bien, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ngo5 starts with the 'ng' sound of 'sing'."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:my_name",
+              "key": "my_name",
+              "intentKey": "introduce_name",
+              "slotId": "my_name",
+              "speaker": "learner",
+              "text": "我叫小明。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "我叫小明。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "ngo5 giu3 siu2 ming4."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My name is Siu Ming.",
+                  "note": "Swap 小明 for your own name.",
+                  "literal": "I am called Siu Ming"
+                },
+                "fr": {
+                  "meaning": "Je m'appelle Siu Ming.",
+                  "note": "Remplacez 小明 par votre propre prénom.",
+                  "literal": "je m'appelle Siu Ming"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:your_name",
+              "key": "your_name",
+              "intentKey": "ask_name",
+              "slotId": "your_name",
+              "speaker": "learner",
+              "text": "請問你叫乜嘢名呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "請問你叫乜嘢名呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "cing2 man6 nei5 giu3 mat1 je5 meng2 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "May I ask what your name is?",
+                  "note": "請問 makes it polite; fine with someone you've just met.",
+                  "literal": "may-ask you called what name (particle)"
+                },
+                "fr": {
+                  "meaning": "Puis-je vous demander comment vous vous appelez ?",
+                  "note": "請問 rend la question polie ; convient avec quelqu'un que l'on vient de rencontrer. À l'oral, 名 se lit meng2, et non ming4.",
+                  "literal": "puis-je-demander tu t'appelles quoi nom (particule)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "meng2 (名) is read meng2 in speech, not ming4."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:nice_to_meet",
+              "key": "nice_to_meet",
+              "intentKey": "say_nice_to_meet",
+              "slotId": "nice_to_meet",
+              "speaker": "learner",
+              "text": "好高興認識你。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "好高興認識你。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "hou2 gou1 hing3 jing6 sik1 nei5."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Nice to meet you.",
+                  "note": null,
+                  "literal": "very happy know you"
+                },
+                "fr": {
+                  "meaning": "Enchanté(e).",
+                  "note": null,
+                  "literal": "très content connaître toi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:goodbye",
+              "key": "goodbye",
+              "intentKey": "say_goodbye",
+              "slotId": "goodbye",
+              "speaker": "learner",
+              "text": "再見！",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "再見！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "zoi3 gin3!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Goodbye!",
+                  "note": "Good for a quick parting when the other person is rushing off.",
+                  "literal": "again see"
+                },
+                "fr": {
+                  "meaning": "Au revoir !",
+                  "note": "Pratique pour un adieu rapide quand l'autre personne est pressée.",
+                  "literal": "encore voir"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:greet_hello_variant_8",
+              "key": "greet_hello_variant_8",
+              "intentKey": "greet_hello",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "你好！",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "你好！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "nei5 hou2!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello!",
+                  "note": "Works at any time of day.",
+                  "literal": "you good"
+                },
+                "fr": {
+                  "meaning": "Bonjour !",
+                  "note": "Convient à n'importe quel moment de la journée.",
+                  "literal": "toi bien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:reply_fine_variant_9",
+              "key": "reply_fine_variant_9",
+              "intentKey": "reply_fine",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "幾好呀，你呢？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "幾好呀，你呢？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "gei2 hou2 aa3, nei5 ne1?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Pretty good, and you?",
+                  "note": "A natural way to answer and return the question.",
+                  "literal": "quite good (particle), you (particle)"
+                },
+                "fr": {
+                  "meaning": "Plutôt bien, et toi ?",
+                  "note": "Une façon naturelle de répondre et de renvoyer la question.",
+                  "literal": "assez bien (particule), toi (particule)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:say_goodbye_variant_10",
+              "key": "say_goodbye_variant_10",
+              "intentKey": "say_goodbye",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "遲啲見！",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "遲啲見！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "ci4 di1 gin3!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "See you later!",
+                  "note": "Friendly and casual-polite, good for neighbours you'll bump into again.",
+                  "literal": "later see"
+                },
+                "fr": {
+                  "meaning": "À tout à l'heure !",
+                  "note": "Amical et poli sans être guindé, idéal pour des voisins que l'on reverra.",
+                  "literal": "plus tard voir"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "chinese_cantonese_cafe_order_drink",
+          "blueprintKey": "cafe_order_drink",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "cafe",
+          "characterKey": "chinese_cantonese_mandy_cafe_server",
+          "titles": {
+            "en": "Ordering a Drink at a Café",
+            "fr": "Commander une boisson au café"
+          },
+          "sceneNotes": {
+            "en": "You sit down at a busy café terrace in Hong Kong, and the quick, friendly server comes over to take your drink order.",
+            "fr": "Vous vous installez à la terrasse d'un café animé de Hong Kong, et la serveuse, rapide et souriante, vient prendre votre commande."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "options",
+              "speaker": "character"
+            },
+            {
+              "slotId": "choice",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "下午好！",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "下午好！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "haa6 ng5 hou2!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good afternoon!",
+                  "note": "A polite time-of-day greeting. Swap in 早晨 in the morning.",
+                  "literal": "afternoon good"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! (l'après-midi)",
+                  "note": "Salutation polie selon le moment de la journée. Le matin, remplacez par 早晨. Le 5 est un ton montant grave ; 午 se prononce comme un « ng » presque nasal.",
+                  "literal": "après-midi bien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "5 is a low rising tone. 午 is a syllabic-nasal-like 'ng'."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:greet_hello_variant_2",
+              "key": "greet_hello_variant_2",
+              "intentKey": "greet_hello",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "哈囉！",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "哈囉！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "haa1 lou1!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello!",
+                  "note": "A relaxed greeting, common with café staff.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Salut !",
+                  "note": "Salutation décontractée, courante avec le personnel des cafés.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "Borrowed from English 'hello'.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:order",
+              "key": "order",
+              "intentKey": "request_drink",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "唔該，我想要一杯凍檸茶。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "唔該，我想要一杯凍檸茶。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "m4 goi1, ngo5 soeng2 jiu3 jat1 bui1 dung3 ning4 caa4."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, I'd like a cold lemon tea.",
+                  "note": "Iced lemon tea is a very typical Hong Kong café drink.",
+                  "literal": "please, I want-to-have one cup cold lemon tea"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, je voudrais un thé glacé au citron.",
+                  "note": "Le thé au citron glacé est une boisson typique des cafés de Hong Kong. Pour 檸 ning4, commencez par n et gardez un ton grave et plat.",
+                  "literal": "s'il vous plaît, je veux un verre froid citron thé"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "檸 ning4 starts with n; keep the tone low and level."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:request_drink_variant_4",
+              "key": "request_drink_variant_4",
+              "intentKey": "request_drink",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "唔該，一杯熱奶茶。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "唔該，一杯熱奶茶。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "m4 goi1, jat1 bui1 jit6 naai5 caa4."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A hot milk tea, please.",
+                  "note": "A shorter, very common way to order at a busy café.",
+                  "literal": "please, one cup hot milk tea"
+                },
+                "fr": {
+                  "meaning": "Un thé au lait chaud, s'il vous plaît.",
+                  "note": "Une façon plus courte et très courante de commander dans un café bondé.",
+                  "literal": "s'il vous plaît, un verre chaud lait thé"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:options",
+              "key": "options",
+              "intentKey": "offer_options",
+              "slotId": "options",
+              "speaker": "character",
+              "text": "要熱定凍呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "要熱定凍呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "jiu3 jit6 ding6 dung3 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hot or cold?",
+                  "note": "定 means 'or' in questions, so you answer with one of the two options.",
+                  "literal": "want hot or cold?"
+                },
+                "fr": {
+                  "meaning": "Chaud ou froid ?",
+                  "note": "定 signifie « ou » dans une question : on répond en choisissant l'une des deux options.",
+                  "literal": "vouloir chaud ou froid ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:choice",
+              "key": "choice",
+              "intentKey": "choose_option",
+              "slotId": "choice",
+              "speaker": "learner",
+              "text": "凍嘅，唔該。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "凍嘅，唔該。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "dung3 ge3, m4 goi1."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Cold, please.",
+                  "note": "Use 熱嘅 (jit6 ge3) for hot.",
+                  "literal": "cold one, please"
+                },
+                "fr": {
+                  "meaning": "Froid, s'il vous plaît.",
+                  "note": "Pour chaud, dites 熱嘅 (jit6 ge3). Le début de 熱 n'est pas un « ng » : il commence par j, comme le « y » de « yaourt ».",
+                  "literal": "froid (celui-là), s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 'ng' at the start of 熱 does not exist; it begins with j, like English 'y'."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:choose_option_variant_7",
+              "key": "choose_option_variant_7",
+              "intentKey": "choose_option",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "唔要糖，唔該。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "唔要糖，唔該。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "m4 jiu3 tong4, m4 goi1."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No sugar, please.",
+                  "note": "Useful if the server asks whether you want sugar.",
+                  "literal": "not want sugar, please"
+                },
+                "fr": {
+                  "meaning": "Sans sucre, s'il vous plaît.",
+                  "note": "Utile si la serveuse demande si vous voulez du sucre.",
+                  "literal": "ne pas vouloir sucre, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "唔該，我想埋單。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "唔該，我想埋單。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "m4 goi1, ngo5 soeng2 maai4 daan1."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, I'd like to pay.",
+                  "note": "埋單 is the everyday word for asking for the bill or paying.",
+                  "literal": "excuse me, I want settle-bill"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, je voudrais régler.",
+                  "note": "埋單 est le mot courant pour demander l'addition ou payer. 埋 maai4 a une voyelle « aai » longue.",
+                  "literal": "excusez-moi, je veux régler-l'addition"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "埋 maai4 has a long 'aai' vowel."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:ask_for_bill_variant_9",
+              "key": "ask_for_bill_variant_9",
+              "intentKey": "ask_for_bill",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "唔該，幾多錢呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "唔該，幾多錢呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "m4 goi1, gei2 do1 cin2 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, how much is it?",
+                  "note": "Good when the server has not brought the bill yet.",
+                  "literal": "please, how-much money?"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, ça fait combien ?",
+                  "note": "Pratique quand la serveuse n'a pas encore apporté l'addition.",
+                  "literal": "s'il vous plaît, combien argent ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "唔該晒！",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "唔該晒！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "m4 goi1 saai3!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks a lot!",
+                  "note": "唔該 thanks someone for a service. 多謝 is for gifts or favours.",
+                  "literal": "thank-you all"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup !",
+                  "note": "唔該 remercie pour un service rendu. 多謝 s'emploie pour un cadeau ou une faveur.",
+                  "literal": "merci tout"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:thank_variant_11",
+              "key": "thank_variant_11",
+              "intentKey": "thank",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "多謝你呀！",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "多謝你呀！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "do1 ze6 nei5 aa3!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you!",
+                  "note": "Uses the same 多謝 as the earlier lesson, with a friendly 呀.",
+                  "literal": "many thanks you"
+                },
+                "fr": {
+                  "meaning": "Merci à vous !",
+                  "note": "Reprend le 多謝 vu précédemment, avec un 呀 chaleureux.",
+                  "literal": "beaucoup merci vous"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "chinese_cantonese_market_ask_price",
+          "blueprintKey": "market_ask_price",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "market",
+          "characterKey": "chinese_cantonese_character_market_vendor",
+          "titles": {
+            "en": "Asking Prices at the Fruit Stall",
+            "fr": "Demander les prix au étal de fruits"
+          },
+          "sceneNotes": {
+            "en": "You stop at a busy fruit stall in a Hong Kong wet market, and the vendor is weighing grapes and chatting with customers.",
+            "fr": "Vous vous arrêtez devant un étal de fruits très animé dans un marché de Hong Kong, où la vendeuse pèse des raisins et discute avec les clients."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_much",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "character"
+            },
+            {
+              "slotId": "expensive",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "lower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "deal",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "no_thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_market_ask_price:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "老闆，你好呀！",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "老闆，你好呀！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "lou5 baan2, nei5 hou2 aa3!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, boss!",
+                  "note": "老闆 is a friendly way to address a stall owner, whatever their gender.",
+                  "literal": "boss, you good (particle)"
+                },
+                "fr": {
+                  "meaning": "Bonjour, patron !",
+                  "note": "老闆 est une façon amicale de s'adresser au tenancier d'un étal, homme ou femme. 老 se dit lou5 (ton montant grave) et 闆 baan2 (ton montant moyen).",
+                  "literal": "patron, toi bien (particule)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "老 is lou5 (low rising tone), and 闆 is baan2 (mid rising tone)."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_market_ask_price:how_much",
+              "key": "how_much",
+              "intentKey": "ask_price",
+              "slotId": "how_much",
+              "speaker": "learner",
+              "text": "呢啲提子幾多錢一斤呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "呢啲提子幾多錢一斤呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "ni1 di1 tai4 zi2 gei2 do1 cin2 jat1 gan1 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much are these grapes per catty?",
+                  "note": "Markets in Hong Kong usually price by the 斤 (catty, about 600 g). You can swap in other fruit.",
+                  "literal": "these grapes how-much money one catty (particle)"
+                },
+                "fr": {
+                  "meaning": "Combien coûtent ces raisins la livre chinoise ?",
+                  "note": "Sur les marchés de Hong Kong, on vend généralement au 斤 (livre chinoise, environ 600 g). Vous pouvez remplacer par un autre fruit.",
+                  "literal": "ces raisins combien argent une livre (particule)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_market_ask_price:price",
+              "key": "price",
+              "intentKey": "state_price",
+              "slotId": "price",
+              "speaker": "character",
+              "text": "三十蚊一斤，好甜㗎！",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "三十蚊一斤，好甜㗎！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "saam1 sap6 man1 jat1 gan1, hou2 tim4 gaa3!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thirty dollars a catty, and they're really sweet!",
+                  "note": "蚊 is the everyday word for dollars when speaking. 㗎 adds a reassuring tone.",
+                  "literal": "thirty dollars one catty, very sweet (particle)"
+                },
+                "fr": {
+                  "meaning": "Trente dollars la livre, et ils sont vraiment sucrés !",
+                  "note": "蚊 est le mot courant à l'oral pour dire « dollars ». 㗎 donne un ton rassurant.",
+                  "literal": "trente dollars une livre, très sucré (particule)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_market_ask_price:expensive",
+              "key": "expensive",
+              "intentKey": "say_too_expensive",
+              "slotId": "expensive",
+              "speaker": "learner",
+              "text": "太貴啦！",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "太貴啦！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "taai3 gwai3 laa1!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "That's too expensive!",
+                  "note": "Say it with a smile, since bargaining here is light and friendly.",
+                  "literal": "too expensive (particle)"
+                },
+                "fr": {
+                  "meaning": "C'est trop cher !",
+                  "note": "Dites-le en souriant : le marchandage reste léger et amical. Dans 貴 gwai3, le gw se prononce avec les lèvres arrondies.",
+                  "literal": "trop cher (particule)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "貴 gwai3 starts with a rounded gw sound."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_market_ask_price:lower",
+              "key": "lower",
+              "intentKey": "offer_lower_price",
+              "slotId": "lower",
+              "speaker": "learner",
+              "text": "二十五蚊，可唔可以呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "二十五蚊，可唔可以呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "ji6 sap6 ng5 man1, ho2 m4 ho2 ji5 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Twenty-five dollars, is that okay?",
+                  "note": null,
+                  "literal": "twenty-five dollars, can not can (particle)"
+                },
+                "fr": {
+                  "meaning": "Vingt-cinq dollars, c'est possible ?",
+                  "note": "Dans 五 ng5, la syllabe commence par un son nasal, sans voyelle devant.",
+                  "literal": "vingt-cinq dollars, possible pas possible (particule)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "五 ng5 is a nasal start with no vowel before it."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_market_ask_price:deal",
+              "key": "deal",
+              "intentKey": "agree_to_price",
+              "slotId": "deal",
+              "speaker": "learner",
+              "text": "好，我要兩斤。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "好，我要兩斤。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "hou2, ngo5 jiu3 loeng5 gan1."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'll take two catties.",
+                  "note": "Use this when you've agreed on the price. You can change the number of catties.",
+                  "literal": "good, I want two catties"
+                },
+                "fr": {
+                  "meaning": "D'accord, j'en prends deux livres.",
+                  "note": "À dire une fois le prix convenu. Vous pouvez changer le nombre de livres.",
+                  "literal": "bon, je veux deux livres"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_market_ask_price:no_thanks",
+              "key": "no_thanks",
+              "intentKey": "decline_purchase",
+              "slotId": "no_thanks",
+              "speaker": "learner",
+              "text": "唔使喇，多謝。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "唔使喇，多謝。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "m4 sai2 laa3, do1 ze6."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No need, thank you.",
+                  "note": "A polite way to turn down an offer without buying.",
+                  "literal": "not need (particle), thanks"
+                },
+                "fr": {
+                  "meaning": "Ce n'est pas nécessaire, merci.",
+                  "note": "Une façon polie de refuser une offre sans rien acheter.",
+                  "literal": "pas besoin (particule), merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_market_ask_price:ask_price_variant_8",
+              "key": "ask_price_variant_8",
+              "intentKey": "ask_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "呢啲點賣呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "呢啲點賣呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "ni1 di1 dim2 maai6 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How do you sell these?",
+                  "note": "A casual, very common way to ask for the price at a stall.",
+                  "literal": "these how sell (particle)"
+                },
+                "fr": {
+                  "meaning": "Comment vendez-vous ça ?",
+                  "note": "Une façon décontractée et très courante de demander le prix sur un étal.",
+                  "literal": "ça comment vendre (particule)"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_market_ask_price:offer_lower_price_variant_9",
+              "key": "offer_lower_price_variant_9",
+              "intentKey": "offer_lower_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "平啲啦，老闆。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "平啲啦，老闆。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "ping4 di1 laa1, lou5 baan2."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Make it a bit cheaper, boss.",
+                  "note": "A casual, friendly request for a small discount.",
+                  "literal": "cheaper a-bit (particle), boss"
+                },
+                "fr": {
+                  "meaning": "Faites-moi un petit prix, patron.",
+                  "note": "Une demande amicale et décontractée pour obtenir une petite réduction.",
+                  "literal": "moins cher un peu (particule), patron"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "chinese_cantonese_ask_directions",
+          "blueprintKey": "ask_directions",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "directions",
+          "characterKey": "chinese_cantonese_ah_keung_passer_by",
+          "titles": {
+            "en": "Asking for the Station",
+            "fr": "Demander la station de métro"
+          },
+          "sceneNotes": {
+            "en": "You are a visitor in Hong Kong looking for the MTR station, and a passer-by gives you directions very quickly.",
+            "fr": "Vous êtes en visite à Hong Kong et vous cherchez la station de métro, mais un passant vous donne des indications très vite."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_is",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "straight",
+              "speaker": "character"
+            },
+            {
+              "slotId": "turn",
+              "speaker": "character"
+            },
+            {
+              "slotId": "far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "near",
+              "speaker": "character"
+            },
+            {
+              "slotId": "repeat",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "slower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_ask_directions:excuse_me",
+              "key": "excuse_me",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "唔好意思，請問下。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "唔好意思，請問下。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "m4 hou2 ji3 si1, cing2 man6 haa5."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, may I ask something?",
+                  "note": "Use this before asking a stranger a question.",
+                  "literal": "not good meaning, please ask a bit"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, puis-je vous poser une question ?",
+                  "note": "À dire avant de poser une question à un inconnu. Le « m4 » de 唔 est un son nasal fredonné, sans voyelle.",
+                  "literal": "pas bon sens, s'il vous plaît demander un peu"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 'm4' in 唔 is a humming sound with no vowel."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_ask_directions:where_is",
+              "key": "where_is",
+              "intentKey": "ask_where_is",
+              "slotId": "where_is",
+              "speaker": "learner",
+              "text": "請問地鐵站喺邊度呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "請問地鐵站喺邊度呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "cing2 man6 dei6 tit3 zaam6 hai2 bin1 dou6 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, where is the MTR station?",
+                  "note": "地鐵站 is the everyday word for an MTR station.",
+                  "literal": "may I ask, MTR station is at which place?"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, où est la station de métro ?",
+                  "note": "地鐵站 est le mot courant pour désigner une station de métro (MTR).",
+                  "literal": "puis-je demander, station de métro être à quel endroit ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_ask_directions:straight",
+              "key": "straight",
+              "intentKey": "give_direction_straight",
+              "slotId": "straight",
+              "speaker": "character",
+              "text": "你一直行，行到尾。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "你一直行，行到尾。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "nei5 jat1 zik6 haang4, haang4 dou3 mei5."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Go straight, all the way to the end.",
+                  "note": "行到尾 means walk to the end of the street.",
+                  "literal": "you straight walk, walk to the end"
+                },
+                "fr": {
+                  "meaning": "Allez tout droit, jusqu'au bout.",
+                  "note": "行到尾 signifie marcher jusqu'au bout de la rue.",
+                  "literal": "toi tout droit marcher, marcher jusqu'au bout"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_ask_directions:turn",
+              "key": "turn",
+              "intentKey": "give_direction_turn",
+              "slotId": "turn",
+              "speaker": "character",
+              "text": "跟住轉左，再轉右。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "跟住轉左，再轉右。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "gan1 zyu6 zyun3 zo2, zoi3 zyun3 jau6."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Then turn left, and then turn right.",
+                  "note": "This covers the scene's two turns.",
+                  "literal": "next turn left, again turn right"
+                },
+                "fr": {
+                  "meaning": "Ensuite, tournez à gauche, puis à droite.",
+                  "note": "Cette phrase donne les deux virages de la scène.",
+                  "literal": "ensuite tourner gauche, puis tourner droite"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_ask_directions:far",
+              "key": "far",
+              "intentKey": "ask_is_it_far",
+              "slotId": "far",
+              "speaker": "learner",
+              "text": "行路去遠唔遠呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "行路去遠唔遠呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "haang4 lou6 heoi3 jyun5 m4 jyun5 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it far to walk?",
+                  "note": null,
+                  "literal": "walk go far not far?"
+                },
+                "fr": {
+                  "meaning": "Est-ce loin à pied ?",
+                  "note": "Prononcez 遠 (jyun5) avec un « y » initial, comme « you-oune ».",
+                  "literal": "marcher aller loin pas loin ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "遠 (jyun5) starts with a 'y' sound, like 'yoo-un'."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_ask_directions:near",
+              "key": "near",
+              "intentKey": "say_it_is_near",
+              "slotId": "near",
+              "speaker": "character",
+              "text": "唔遠，行路大概十分鐘。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "唔遠，行路大概十分鐘。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "m4 jyun5, haang4 lou6 daai6 koi3 sap6 fan1 zung1."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Not far, about ten minutes on foot.",
+                  "note": null,
+                  "literal": "not far, walk roughly ten minutes"
+                },
+                "fr": {
+                  "meaning": "Non, ce n'est pas loin, environ dix minutes à pied.",
+                  "note": null,
+                  "literal": "pas loin, marcher environ dix minutes"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_ask_directions:repeat",
+              "key": "repeat",
+              "intentKey": "ask_repeat",
+              "slotId": "repeat",
+              "speaker": "learner",
+              "text": "唔好意思，可唔可以再講一次？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "唔好意思，可唔可以再講一次？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "m4 hou2 ji3 si1, ho2 m4 ho2 ji5 zoi3 gong2 jat1 ci3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, could you say that again?",
+                  "note": null,
+                  "literal": "sorry, can or can't again say one time"
+                },
+                "fr": {
+                  "meaning": "Désolé(e), pourriez-vous répéter, s'il vous plaît ?",
+                  "note": null,
+                  "literal": "désolé, pouvoir ou ne pas pouvoir encore dire une fois"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_ask_directions:slower",
+              "key": "slower",
+              "intentKey": "ask_slow_down",
+              "slotId": "slower",
+              "speaker": "learner",
+              "text": "你講得好快，可唔可以講慢啲？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "你講得好快，可唔可以講慢啲？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "nei5 gong2 dak1 hou2 faai3, ho2 m4 ho2 ji5 gong2 maan6 di1?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You speak very fast. Could you speak more slowly?",
+                  "note": "Key line for this mission's twist.",
+                  "literal": "you speak very fast, can or can't speak slower a bit"
+                },
+                "fr": {
+                  "meaning": "Vous parlez très vite. Pourriez-vous parler plus lentement ?",
+                  "note": "Phrase clé de cette mission.",
+                  "literal": "toi parler très vite, pouvoir ou ne pas pouvoir parler plus lent un peu"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_ask_directions:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "真係多謝你幫手。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "真係多謝你幫手。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "zan1 hai6 do1 ze6 nei5 bong1 sau2."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you so much for your help.",
+                  "note": "Fits receiving help; 唔該晒 and 多謝你呀 were used earlier.",
+                  "literal": "really thank you help"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup de votre aide.",
+                  "note": "Convient quand on vient de recevoir de l'aide ; 唔該晒 et 多謝你呀 ont déjà été vus.",
+                  "literal": "vraiment merci toi aider"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_ask_directions:get_attention_variant_10",
+              "key": "get_attention_variant_10",
+              "intentKey": "get_attention",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "先生，唔該。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "先生，唔該。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "sin1 saang1, m4 goi1."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, sir.",
+                  "note": "Use 小姐 (siu2 ze2) for a young woman.",
+                  "literal": "sir, excuse me"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, monsieur.",
+                  "note": "Pour une jeune femme, on dit 小姐 (siu2 ze2).",
+                  "literal": "monsieur, excusez-moi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_ask_directions:ask_where_is_variant_11",
+              "key": "ask_where_is_variant_11",
+              "intentKey": "ask_where_is",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "唔該，呢度附近有冇地鐵站呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "唔該，呢度附近有冇地鐵站呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "m4 goi1, ni1 dou6 fu6 gan6 jau5 mou5 dei6 tit3 zaam6 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, is there an MTR station near here?",
+                  "note": null,
+                  "literal": "excuse me, this place nearby have not-have MTR station?"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, y a-t-il une station de métro près d'ici ?",
+                  "note": null,
+                  "literal": "excusez-moi, cet endroit près avoir pas-avoir station de métro ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_ask_directions:ask_slow_down_variant_12",
+              "key": "ask_slow_down_variant_12",
+              "intentKey": "ask_slow_down",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "講慢啲啦，我聽唔明。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "講慢啲啦，我聽唔明。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "gong2 maan6 di1 laa1, ngo5 teng1 m4 ming4."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Slower please, I can't follow.",
+                  "note": "Casual and friendly; fine with a passer-by if said with a smile.",
+                  "literal": "speak slower a bit, I listen not understand"
+                },
+                "fr": {
+                  "meaning": "Plus lentement, s'il te plaît, je ne comprends pas.",
+                  "note": "Ton familier et amical ; passe bien avec un passant si on le dit en souriant.",
+                  "literal": "parler plus lent un peu, je écouter pas comprendre"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "chinese_cantonese_meet_neighbour",
+          "blueprintKey": "meet_neighbour",
+          "missionType": "story",
+          "level": "beginner",
+          "situation": "neighbours",
+          "characterKey": "chinese_cantonese_character_neighbour",
+          "titles": {
+            "en": "Meeting the Neighbour",
+            "fr": "Rencontrer la voisine"
+          },
+          "sceneNotes": {
+            "en": "You meet an older neighbour in the stairwell of your new building while they carry their shopping bags upstairs.",
+            "fr": "Vous croisez une voisine plus âgée dans la cage d'escalier de votre nouvel immeuble, alors qu'elle monte ses sacs de courses."
+          },
+          "slots": [
+            {
+              "slotId": "new_neighbour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "character"
+            },
+            {
+              "slotId": "where_from_q",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "from",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "speak_lang",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "little",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "offer_help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_meet_neighbour:new_neighbour",
+              "key": "new_neighbour",
+              "intentKey": "say_new_neighbour",
+              "slotId": "new_neighbour",
+              "speaker": "learner",
+              "text": "我係新搬嚟嘅鄰居。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "我係新搬嚟嘅鄰居。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "ngo5 hai6 san1 bun1 lai4 ge3 leon4 geoi1."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm the new neighbour who just moved in.",
+                  "note": null,
+                  "literal": "I am newly-moved-here 's neighbour"
+                },
+                "fr": {
+                  "meaning": "Je suis le nouveau voisin, je viens d'emménager.",
+                  "note": "Prononcez 嚟 (lai4) avec un l, pas un n.",
+                  "literal": "je suis récemment-emménagé-ici de voisin"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "嚟 (lai4) starts with an l sound, not n."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_meet_neighbour:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "歡迎你搬嚟呀！",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "歡迎你搬嚟呀！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "fun1 jing4 nei5 bun1 lai4 aa3!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome, glad you've moved in!",
+                  "note": "A friendly neighbour's greeting.",
+                  "literal": "welcome you move-here (particle)"
+                },
+                "fr": {
+                  "meaning": "Bienvenue, content(e) que vous ayez emménagé !",
+                  "note": "Formule d'accueil chaleureuse d'un voisin sympathique.",
+                  "literal": "bienvenue toi emménager-ici (particule)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_meet_neighbour:where_from_q",
+              "key": "where_from_q",
+              "intentKey": "ask_where_from",
+              "slotId": "where_from_q",
+              "speaker": "learner",
+              "text": "請問你係邊度人呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "請問你係邊度人呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "cing2 man6 nei5 hai6 bin1 dou6 jan4 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, where are you from?",
+                  "note": "Locals often answer with a city or region.",
+                  "literal": "may-I-ask you are which-place person"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, vous êtes d'où ?",
+                  "note": "On répond souvent par une ville ou une région.",
+                  "literal": "puis-je-demander vous être quel-endroit personne"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_meet_neighbour:from",
+              "key": "from",
+              "intentKey": "say_where_from",
+              "slotId": "from",
+              "speaker": "learner",
+              "text": "我係英國人。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "我係英國人。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "ngo5 hai6 jing1 gwok3 jan4."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm from the UK.",
+                  "note": "Swap 英國 for your own country.",
+                  "literal": "I am UK person"
+                },
+                "fr": {
+                  "meaning": "Je viens du Royaume-Uni.",
+                  "note": "Remplacez 英國 par votre propre pays. Le ng de ngo5 se prononce comme à la fin de « parking ».",
+                  "literal": "je suis Royaume-Uni personne"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The ng in ngo5 is like the end of 'sing'."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_meet_neighbour:speak_lang",
+              "key": "speak_lang",
+              "intentKey": "ask_if_speaks_language",
+              "slotId": "speak_lang",
+              "speaker": "learner",
+              "text": "你識唔識講英文呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "你識唔識講英文呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "nei5 sik1 m4 sik1 gong2 jing1 man2 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you speak English?",
+                  "note": null,
+                  "literal": "you know not know speak English (particle)"
+                },
+                "fr": {
+                  "meaning": "Vous parlez anglais ?",
+                  "note": null,
+                  "literal": "tu savoir pas savoir parler anglais (particule)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_meet_neighbour:little",
+              "key": "little",
+              "intentKey": "say_speak_little",
+              "slotId": "little",
+              "speaker": "learner",
+              "text": "我識講少少廣東話。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "我識講少少廣東話。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "ngo5 sik1 gong2 siu2 siu2 gwong2 dung1 waa2."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I speak a little Cantonese.",
+                  "note": null,
+                  "literal": "I know speak a-little Cantonese"
+                },
+                "fr": {
+                  "meaning": "Je parle un peu cantonais.",
+                  "note": "廣 (gwong2) se prononce avec un gw arrondi des lèvres.",
+                  "literal": "je sais parler un-peu cantonais"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "廣 (gwong2) has a lip-rounded gw sound."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_meet_neighbour:offer_help",
+              "key": "offer_help",
+              "intentKey": "offer_help",
+              "slotId": "offer_help",
+              "speaker": "learner",
+              "text": "使唔使我幫你拎呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "使唔使我幫你拎呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "sai2 m4 sai2 ngo5 bong1 nei5 ling1 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you need me to help you carry those?",
+                  "note": "Fits the neighbour carrying shopping bags.",
+                  "literal": "need not need I help you carry (particle)"
+                },
+                "fr": {
+                  "meaning": "Voulez-vous que je vous aide à porter ça ?",
+                  "note": "Convient quand la voisine porte ses sacs de courses.",
+                  "literal": "besoin pas besoin je aider toi porter (particule)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_meet_neighbour:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "真係好多謝你。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "真係好多謝你。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "zan1 hai6 hou2 do1 ze6 nei5."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you so much.",
+                  "note": "Good for thanking someone for an invitation, such as the tea.",
+                  "literal": "really very thank you"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup.",
+                  "note": "Pratique pour remercier d'une invitation, par exemple à prendre le thé.",
+                  "literal": "vraiment très merci toi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_meet_neighbour:say_new_neighbour_variant_9",
+              "key": "say_new_neighbour_variant_9",
+              "intentKey": "say_new_neighbour",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "我啱啱搬咗入嚟住。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "我啱啱搬咗入嚟住。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "ngo5 ngaam1 ngaam1 bun1 zo2 jap6 lai4 zyu6."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I've just moved in.",
+                  "note": "A more casual alternative.",
+                  "literal": "I just-now moved in-here live"
+                },
+                "fr": {
+                  "meaning": "Je viens d'emménager.",
+                  "note": "Variante plus décontractée.",
+                  "literal": "je à-l'instant emménager-dedans habiter"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_meet_neighbour:offer_help_variant_10",
+              "key": "offer_help_variant_10",
+              "intentKey": "offer_help",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "有咩需要，話我知啦。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "有咩需要，話我知啦。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "jau5 me1 seoi1 jiu3, waa6 ngo5 zi1 laa1."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "If you need anything, just tell me.",
+                  "note": "Friendly, general offer of help.",
+                  "literal": "have what need, tell me know (particle)"
+                },
+                "fr": {
+                  "meaning": "Si vous avez besoin de quoi que ce soit, dites-le-moi.",
+                  "note": "Proposition d'aide générale et amicale.",
+                  "literal": "avoir quoi besoin, dire moi savoir (particule)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "chinese_cantonese_take_taxi",
+          "blueprintKey": "take_taxi",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "transport",
+          "characterKey": "chinese_cantonese_character_taxi_driver",
+          "titles": {
+            "en": "Taking a Taxi",
+            "fr": "Prendre un taxi"
+          },
+          "sceneNotes": {
+            "en": "You are flagging down a taxi to the old town in heavy traffic, and the chatty driver quotes a price without using the meter.",
+            "fr": "Vous hélez un taxi pour aller dans la vieille ville malgré les embouteillages, et le chauffeur bavard annonce un prix sans utiliser le compteur."
+          },
+          "slots": [
+            {
+              "slotId": "hail",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_to",
+              "speaker": "character"
+            },
+            {
+              "slotId": "destination",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "meter",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fare",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "change",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_take_taxi:hail",
+              "key": "hail",
+              "intentKey": "hail_taxi",
+              "slotId": "hail",
+              "speaker": "learner",
+              "text": "師傅，可唔可以載我呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "師傅，可唔可以載我呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "si1 fu6, ho2 m4 ho2 ji5 zoi3 ngo5 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Driver, can you take me?",
+                  "note": "師傅 is the normal way to address a taxi driver.",
+                  "literal": "master-driver, can-not-can carry me?"
+                },
+                "fr": {
+                  "meaning": "Monsieur, pouvez-vous m'emmener ?",
+                  "note": "師傅 est la façon habituelle de s'adresser à un chauffeur de taxi. Prononcez zoi3 (載) comme « zoï », avec un ton montant à départ descendant.",
+                  "literal": "maître-chauffeur, peut-pas-peut emmener moi ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "zoi3 (載) is a clear 'zoy' with a falling-rising tone."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_take_taxi:where_to",
+              "key": "where_to",
+              "intentKey": "ask_destination",
+              "slotId": "where_to",
+              "speaker": "character",
+              "text": "想去邊度呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "想去邊度呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "soeng2 heoi3 bin1 dou6 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where do you want to go?",
+                  "note": null,
+                  "literal": "want go where?"
+                },
+                "fr": {
+                  "meaning": "Où voulez-vous aller ?",
+                  "note": null,
+                  "literal": "vouloir aller où ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_take_taxi:destination",
+              "key": "destination",
+              "intentKey": "state_destination",
+              "slotId": "destination",
+              "speaker": "learner",
+              "text": "唔該，我想去舊城區。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "唔該，我想去舊城區。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "m4 goi1, ngo5 soeng2 heoi3 gau6 sing4 keoi1."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please, I'd like to go to the old town.",
+                  "note": null,
+                  "literal": "please, I want go old-town-district"
+                },
+                "fr": {
+                  "meaning": "S'il vous plaît, je voudrais aller dans la vieille ville.",
+                  "note": "Dans heoi3 (去), le son « oe » est arrondi, comme le « eu » français dans « peur ».",
+                  "literal": "s'il vous plaît, je veux aller vieille-ville-quartier"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "heoi3 (去) has a rounded 'oe' sound, like German 'ö'."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_take_taxi:meter",
+              "key": "meter",
+              "intentKey": "ask_use_meter",
+              "slotId": "meter",
+              "speaker": "learner",
+              "text": "唔該，可唔可以跳錶呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "唔該，可唔可以跳錶呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "m4 goi1, ho2 m4 ho2 ji5 tiu3 biu1 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you use the meter, please?",
+                  "note": "跳錶 (the meter 'jumps') is the everyday way to say use the meter.",
+                  "literal": "please, can-not-can jump meter?"
+                },
+                "fr": {
+                  "meaning": "Pourriez-vous mettre le compteur, s'il vous plaît ?",
+                  "note": "跳錶 (le compteur « saute ») est la façon courante de demander d'utiliser le compteur.",
+                  "literal": "s'il vous plaît, peut-pas-peut sauter compteur ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_take_taxi:fare",
+              "key": "fare",
+              "intentKey": "ask_fare",
+              "slotId": "fare",
+              "speaker": "learner",
+              "text": "去舊城區大概幾多錢呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "去舊城區大概幾多錢呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "heoi3 gau6 sing4 keoi1 daai6 koi3 gei2 do1 cin2 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "About how much is it to the old town?",
+                  "note": null,
+                  "literal": "go old-town roughly how-much money?"
+                },
+                "fr": {
+                  "meaning": "Ça coûte environ combien jusqu'à la vieille ville ?",
+                  "note": null,
+                  "literal": "aller vieille-ville environ combien argent ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_take_taxi:stop",
+              "key": "stop",
+              "intentKey": "say_stop_here",
+              "slotId": "stop",
+              "speaker": "learner",
+              "text": "唔該，喺呢度停車啦。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "唔該，喺呢度停車啦。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "m4 goi1, hai2 ni1 dou6 ting4 ce1 laa1."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please stop here.",
+                  "note": "Said when you want to get out. 落車 (get off) is also common.",
+                  "literal": "please, at here stop car"
+                },
+                "fr": {
+                  "meaning": "Arrêtez-vous ici, s'il vous plaît.",
+                  "note": "À dire quand vous voulez descendre. 落車 (descendre du véhicule) est aussi très courant.",
+                  "literal": "s'il vous plaît, à ici arrêter voiture"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_take_taxi:change",
+              "key": "change",
+              "intentKey": "ask_for_change",
+              "slotId": "change",
+              "speaker": "learner",
+              "text": "唔該，搵返錢畀我呀。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "唔該，搵返錢畀我呀。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "m4 goi1, wan2 faan1 cin2 bei2 ngo5 aa3."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please give me my change.",
+                  "note": null,
+                  "literal": "please, find back money give me"
+                },
+                "fr": {
+                  "meaning": "Rendez-moi la monnaie, s'il vous plaît.",
+                  "note": null,
+                  "literal": "s'il vous plaît, trouver retour argent donner moi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_take_taxi:bye",
+              "key": "bye",
+              "intentKey": "say_goodbye",
+              "slotId": "bye",
+              "speaker": "learner",
+              "text": "師傅，辛苦晒，拜拜！",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "師傅，辛苦晒，拜拜！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "si1 fu6, san1 fu2 saai3, baai1 baai3!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks for the ride, driver, bye!",
+                  "note": "辛苦晒 thanks someone for their effort.",
+                  "literal": "driver, worked-hard-all, bye-bye"
+                },
+                "fr": {
+                  "meaning": "Merci pour la course, monsieur, au revoir !",
+                  "note": "辛苦晒 sert à remercier quelqu'un pour sa peine.",
+                  "literal": "chauffeur, peiné-tout, au revoir"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "拜拜 comes from English 'bye-bye'.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_take_taxi:hail_taxi_variant_9",
+              "key": "hail_taxi_variant_9",
+              "intentKey": "hail_taxi",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "師傅，去舊城區得唔得呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "師傅，去舊城區得唔得呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "si1 fu6, heoi3 gau6 sing4 keoi1 dak1 m4 dak1 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Driver, can you go to the old town?",
+                  "note": "Useful when you check whether the driver will take the trip.",
+                  "literal": "driver, go old-town OK-not-OK?"
+                },
+                "fr": {
+                  "meaning": "Monsieur, vous pouvez aller dans la vieille ville ?",
+                  "note": "Utile pour vérifier que le chauffeur accepte la course.",
+                  "literal": "chauffeur, aller vieille-ville possible-pas-possible ?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_take_taxi:state_destination_variant_10",
+              "key": "state_destination_variant_10",
+              "intentKey": "state_destination",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "舊城區，唔該。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "舊城區，唔該。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "gau6 sing4 keoi1, m4 goi1."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Old town, please.",
+                  "note": "Shorter and very common in real taxis.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "La vieille ville, s'il vous plaît.",
+                  "note": "Plus court et très courant dans les vrais taxis.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_take_taxi:ask_use_meter_variant_11",
+              "key": "ask_use_meter_variant_11",
+              "intentKey": "ask_use_meter",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "師傅，唔該跳錶呀。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "師傅，唔該跳錶呀。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "si1 fu6, m4 goi1 tiu3 biu1 aa3."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Driver, meter please.",
+                  "note": "A firmer way to answer a quoted price.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Monsieur, le compteur, s'il vous plaît.",
+                  "note": "Une façon plus ferme de répondre à un prix annoncé d'avance.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "chinese_cantonese_buy_ice_cream",
+          "blueprintKey": "buy_ice_cream",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "shopping",
+          "characterKey": "chinese_cantonese_character_child_at_the_ice_cream_stand",
+          "titles": {
+            "en": "Buying Ice Cream Together",
+            "fr": "Acheter une glace ensemble"
+          },
+          "sceneNotes": {
+            "en": "You are taking a child to the ice-cream cart outside the school, and only two flavours are left.",
+            "fr": "Vous emmenez un enfant au chariot de glaces devant l'école, et il ne reste plus que deux parfums."
+          },
+          "slots": [
+            {
+              "slotId": "wants",
+              "speaker": "character"
+            },
+            {
+              "slotId": "which_flavour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "picks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "scoop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "asks_two",
+              "speaker": "character"
+            },
+            {
+              "slotId": "just_one",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "okay",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "yummy",
+              "speaker": "character"
+            },
+            {
+              "slotId": "me_too",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:wants",
+              "key": "wants",
+              "intentKey": "request_food",
+              "slotId": "wants",
+              "speaker": "character",
+              "text": "我想食雪糕呀！",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "我想食雪糕呀！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "ngo5 soeng2 sik6 syut3 gou1 aa3!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want ice cream!",
+                  "note": "A child's excited, direct request.",
+                  "literal": "I want eat ice-cream (particle)"
+                },
+                "fr": {
+                  "meaning": "Je veux une glace !",
+                  "note": "Demande directe et enthousiaste d'un enfant. 雪 syut3 est un son court et net : ne perdez pas le t final.",
+                  "literal": "Je veux manger glace (particule)"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "雪 syut3 is a short, sharp sound; don't drop the final t."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:which_flavour",
+              "key": "which_flavour",
+              "intentKey": "offer_options",
+              "slotId": "which_flavour",
+              "speaker": "learner",
+              "text": "你要朱古力定係士多啤梨呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "你要朱古力定係士多啤梨呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "nei5 jiu3 zyu1 gu1 lik1 ding6 hai6 si6 do1 be1 lei2 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you want chocolate or strawberry?",
+                  "note": "定係 is how you say 'or' in a question.",
+                  "literal": "you want chocolate or-is strawberry (particle)"
+                },
+                "fr": {
+                  "meaning": "Tu veux chocolat ou fraise ?",
+                  "note": "定係 sert à dire « ou » dans une question.",
+                  "literal": "tu veux chocolat ou-est fraise (particule)"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:picks",
+              "key": "picks",
+              "intentKey": "choose_option",
+              "slotId": "picks",
+              "speaker": "character",
+              "text": "我要朱古力！",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "我要朱古力！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "ngo5 jiu3 zyu1 gu1 lik1!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want chocolate!",
+                  "note": null,
+                  "literal": "I want chocolate"
+                },
+                "fr": {
+                  "meaning": "Je veux du chocolat !",
+                  "note": null,
+                  "literal": "je veux chocolat"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:scoop",
+              "key": "scoop",
+              "intentKey": "specify_quantity",
+              "slotId": "scoop",
+              "speaker": "learner",
+              "text": "一球朱古力，唔該。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "一球朱古力，唔該。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "jat1 kau4 zyu1 gu1 lik1, m4 goi1."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One scoop of chocolate, please.",
+                  "note": "Said to the vendor. 球 is the measure word for scoops.",
+                  "literal": "one scoop chocolate, please"
+                },
+                "fr": {
+                  "meaning": "Une boule de chocolat, s'il vous plaît.",
+                  "note": "À dire au vendeur. 球 est le classificateur des boules de glace ; il se prononce kau4, avec un k net, pas un g.",
+                  "literal": "une boule chocolat, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "球 kau4 starts with a clear k, not g."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:asks_two",
+              "key": "asks_two",
+              "intentKey": "ask_permission",
+              "slotId": "asks_two",
+              "speaker": "character",
+              "text": "我可唔可以要兩球呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "我可唔可以要兩球呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "ngo5 ho2 m4 ho2 ji5 jiu3 loeng5 kau4 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I have two scoops?",
+                  "note": "可唔可以 is the standard way to ask 'may I?'. The child is hopeful and a bit cheeky.",
+                  "literal": "I can-not-can want two scoops (particle)"
+                },
+                "fr": {
+                  "meaning": "Je peux avoir deux boules ?",
+                  "note": "可唔可以 est la façon courante de demander « puis-je ? ». L'enfant est plein d'espoir et un peu coquin. 兩 loeng5 se prononce comme « leung », sur un ton bas.",
+                  "literal": "je peux-pas-peux vouloir deux boules (particule)"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "兩 loeng5 sounds like 'leung' with a low tone."
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:just_one",
+              "key": "just_one",
+              "intentKey": "refuse_permission",
+              "slotId": "just_one",
+              "speaker": "learner",
+              "text": "今日一球就夠啦，下次先啦。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "今日一球就夠啦，下次先啦。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "gam1 jat6 jat1 kau4 zau6 gau3 laa1, haa6 ci3 sin1 laa1."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One scoop is enough today. Next time.",
+                  "note": "A gentle no. 下次先 means 'let's wait until next time'.",
+                  "literal": "today one scoop then enough (particle), next time first (particle)"
+                },
+                "fr": {
+                  "meaning": "Aujourd'hui, une boule suffit. Ce sera pour la prochaine fois.",
+                  "note": "Un non tout en douceur. 下次先 veut dire « attendons la prochaine fois ».",
+                  "literal": "aujourd'hui une boule alors suffit (particule), prochaine fois d'abord (particule)"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:okay",
+              "key": "okay",
+              "intentKey": "grant_permission",
+              "slotId": "okay",
+              "speaker": "learner",
+              "text": "好呀，食啦！",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "好呀，食啦！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "hou2 aa3, sik6 laa1!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Okay, go ahead and eat!",
+                  "note": "Use this when you say yes to the child, e.g. to eating the ice cream now.",
+                  "literal": "good (particle), eat (particle)"
+                },
+                "fr": {
+                  "meaning": "D'accord, mange !",
+                  "note": "Pour dire oui à l'enfant, par exemple pour manger sa glace tout de suite.",
+                  "literal": "bon (particule), manger (particule)"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:yummy",
+              "key": "yummy",
+              "intentKey": "say_delicious",
+              "slotId": "yummy",
+              "speaker": "character",
+              "text": "好好食呀！",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "好好食呀！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "hou2 hou2 sik6 aa3!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's so yummy!",
+                  "note": null,
+                  "literal": "very good-eating (particle)"
+                },
+                "fr": {
+                  "meaning": "Elle est trop bonne !",
+                  "note": null,
+                  "literal": "très bon-à-manger (particule)"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:me_too",
+              "key": "me_too",
+              "intentKey": "express_like",
+              "slotId": "me_too",
+              "speaker": "learner",
+              "text": "我都好鍾意朱古力。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "我都好鍾意朱古力。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "ngo5 dou1 hou2 zung1 ji3 zyu1 gu1 lik1."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I really like chocolate too.",
+                  "note": "都 means 'too/also'.",
+                  "literal": "I also very like chocolate"
+                },
+                "fr": {
+                  "meaning": "Moi aussi, j'aime beaucoup le chocolat.",
+                  "note": "都 signifie « aussi ».",
+                  "literal": "moi aussi très aimer chocolat"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "character",
+              "text": "多謝你請我食雪糕！",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "多謝你請我食雪糕！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "do1 ze6 nei5 cing2 ngo5 sik6 syut3 gou1!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks for treating me to ice cream!",
+                  "note": "請 means 'to treat someone'.",
+                  "literal": "thank you treat me eat ice-cream"
+                },
+                "fr": {
+                  "meaning": "Merci de m'offrir une glace !",
+                  "note": "請 signifie « offrir », « inviter » quelqu'un.",
+                  "literal": "merci toi offrir moi manger glace"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:welcome",
+              "key": "welcome",
+              "intentKey": "respond_to_thanks",
+              "slotId": "welcome",
+              "speaker": "learner",
+              "text": "唔使客氣啦。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "唔使客氣啦。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "m4 sai2 haak3 hei3 laa1."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You're welcome.",
+                  "note": null,
+                  "literal": "no need polite (particle)"
+                },
+                "fr": {
+                  "meaning": "Il n'y a pas de quoi.",
+                  "note": null,
+                  "literal": "pas besoin poli (particule)"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:refuse_permission_variant_12",
+              "key": "refuse_permission_variant_12",
+              "intentKey": "refuse_permission",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "唔得喎，一球就夠啦。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "唔得喎，一球就夠啦。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "m4 dak1 wo3, jat1 kau4 zau6 gau3 laa1."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, no. One scoop is enough.",
+                  "note": "A more direct, still friendly no. 喎 softens it.",
+                  "literal": "not allowed (particle), one scoop then enough (particle)"
+                },
+                "fr": {
+                  "meaning": "Désolé, non. Une boule suffit.",
+                  "note": "Un non plus direct, mais toujours amical. 喎 l'adoucit.",
+                  "literal": "pas permis (particule), une boule alors suffit (particule)"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:specify_quantity_variant_13",
+              "key": "specify_quantity_variant_13",
+              "intentKey": "specify_quantity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "一個甜筒，唔該。",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "一個甜筒，唔該。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "jat1 go3 tim4 tung2, m4 goi1."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One cone, please.",
+                  "note": "An alternative order if you want a cone.",
+                  "literal": "one cone, please"
+                },
+                "fr": {
+                  "meaning": "Un cornet, s'il vous plaît.",
+                  "note": "Une autre façon de commander si vous voulez un cornet.",
+                  "literal": "un cornet, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:offer_options_variant_14",
+              "key": "offer_options_variant_14",
+              "intentKey": "offer_options",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "朱古力定雲呢拿呀？",
+              "forms": [
+                {
+                  "script": "Hant",
+                  "scheme": null,
+                  "text": "朱古力定雲呢拿呀？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "jyutping",
+                  "text": "zyu1 gu1 lik1 ding6 wan4 ni1 naa4 aa3?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Chocolate or vanilla?",
+                  "note": "A shorter version. 定 alone also means 'or'.",
+                  "literal": "chocolate or vanilla (particle)"
+                },
+                "fr": {
+                  "meaning": "Chocolat ou vanille ?",
+                  "note": "Version plus courte. 定 seul signifie aussi « ou ».",
+                  "literal": "chocolat ou vanille (particule)"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

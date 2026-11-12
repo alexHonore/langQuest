@@ -128,6 +128,33 @@ void main() {
     expect(player.index, lines[2]);
   });
 
+  testWidgets('with a microphone, a turn waits for the phrase: next cannot skip it; said, the lesson goes on', (t) async {
+    final device = SpeakingDevice();
+    final lesson = buildAudioLesson(planOf('es_greet_and_introduce'), narration);
+    final player = AudioLessonPlayer(
+      lesson: lesson,
+      voice: LineVoice(source: LineVoiceSource.device, locale: 'es-ES', speech: device),
+      narrate: (text) => device.speak(text, locale: 'en-US'),
+    )..speakAtTurns = true;
+    addTearDown(player.dispose);
+    final turn = lesson.steps.indexWhere((s) => s.kind == AudioStepKind.yourTurn);
+    player.seek(turn);
+    final play = player.play();
+    await t.pump(const Duration(minutes: 2));
+    expect((player.index, player.awaitingSpeech), (turn, true), reason: 'no timer: it waits for the phrase');
+    player.next();
+    expect(player.index, turn, reason: 'next does not skip the turn');
+    player.spoke();
+    await t.pump(const Duration(seconds: 1));
+    expect(player.awaitingSpeech, isFalse);
+    expect(player.index, greaterThan(turn));
+    // "Can't speak now": turns go back to timed pauses, and a waiting turn goes on.
+    player.setSpeakAtTurns(false);
+    player.pause();
+    await t.pump(const Duration(seconds: 1));
+    await play;
+  });
+
   testWidgets('the learner\'s turn waits, counting down', (t) async {
     final device = SpeakingDevice();
     final lesson = buildAudioLesson(planOf('es_greet_and_introduce'), narration);

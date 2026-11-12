@@ -71,7 +71,8 @@ describe('seed SQL builders', () => {
     expect(seeds.every((s) => s.nativeReviewed === false)).toBe(true);
     const fr = buildCoverageSeedSql(['fr']);
     expect(fr).toContain("('arabic-moroccan', 'fr', 'partial'");
-    expect(fr).toContain("('lingala', 'fr', 'planned'");
+    expect(fr).toContain("('lingala', 'fr', 'partial'");
+    expect(fr).toContain("('french', 'fr', 'planned'");
   });
 
   it('builds a full plan with the catalog seed from @langquest/db', () => {

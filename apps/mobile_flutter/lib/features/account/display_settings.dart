@@ -9,8 +9,9 @@ import '../../l10n/l10n.dart';
 
 enum _Theme { dark, light, device }
 
-/// Settings › Display: the theme (dark, light, or the device's), the text size, reduced motion and the mascot — the
-/// Expo app's accessibility choices that apply to this app. Saved on this device with the rest of the learner's state.
+/// Settings › Display: the theme (dark, light, or the device's), the text size, reduced motion, the mascot — the Expo
+/// app's accessibility choices that apply to this app — and reading exercises aloud. Saved on this device with the rest
+/// of the learner's state.
 class DisplaySettings extends ConsumerWidget {
   const DisplaySettings({super.key});
 
@@ -123,6 +124,13 @@ class DisplaySettings extends ConsumerWidget {
           onChanged: deviceStill ? null : notifier.setReduceMotion,
         ),
         toggle(icon: LucideIcons.smile, label: l10n.showMascot, body: l10n.showMascotBody, value: learner.mascot, onChanged: notifier.setMascot),
+        toggle(
+          icon: LucideIcons.audioLines,
+          label: l10n.readAloudSetting,
+          body: l10n.readAloudSettingBody,
+          value: learner.readAloud,
+          onChanged: notifier.setReadAloud,
+        ),
       ],
     );
   }

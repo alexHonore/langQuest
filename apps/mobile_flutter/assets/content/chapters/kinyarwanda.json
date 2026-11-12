@@ -1,0 +1,2821 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts",
+  "courseTrackId": "kinyarwanda",
+  "chapters": [
+    {
+      "key": "kinyarwanda_ch1",
+      "chapterIndex": 1,
+      "courseTrackId": "kinyarwanda",
+      "targetVarietyId": "rw",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "First days in Kigali",
+        "fr": "Premiers jours à Kigali"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+      "notes": [
+        "AI draft generated 2026-11-11T22:47:19.375Z with anthropic/claude-sonnet-5.5; validator accepted 78 expressions; native review required before publishing.",
+        "greet_and_introduce: Please confirm whether Witwa nde? or Mwitwa nde? sounds more natural for a first meeting with a neighbour.",
+        "greet_and_introduce: Please check whether Ni meza, murakoze. is the most common reply, and whether Meze neza would be a good alternative.",
+        "greet_and_introduce: The follow-up question about where the learner lives is not drafted, because no matching intent was provided.",
+        "cafe_order_drink: Please check whether 'Ushaka' (singular) or 'Mushaka' (polite) is better for a server's line to a customer.",
+        "cafe_order_drink: Check 'Nishyure angahe' versus the usual café phrasing for asking for the bill; 'Ni angahe' is kept as a variant.",
+        "cafe_order_drink: Please confirm the 'idafite amata' / 'ifite amata' agreement with 'ikawa' (class 9) and the spelling of 'nyabuneka'.",
+        "market_ask_price: Please check 'ndakongeraho' (add extra for you) and 'ku buntu' (for free) for natural everyday wording.",
+        "market_ask_price: 'Wagabanya' (singular you) vs 'Mwagabanya' (plural/polite you): which is more natural with a vendor?",
+        "market_ask_price: Confirm the plural 'imineke' and the object prefix 'bi-' in 'ndabifata' (I take them).",
+        "ask_directions: Please check whether to write 'hehe' or 'he' in 'Gare iri hehe', and whether 'gare' takes 'iri' in everyday speech.",
+        "ask_directions: Directions use the 'ukata' (you cut/turn) wording to avoid bare imperatives. Please confirm that is natural, or suggest a more common phrasing.",
+        "ask_directions: 'Murakoze ku bufasha' was chosen to avoid repeating the earlier 'Murakoze cyane!'. Please confirm it is natural.",
+        "meet_neighbour: Please check whether the polite plural (muturuka, muvuga, wanyu) sounds natural for a neighbour, or whether singular is more common.",
+        "meet_neighbour: Country names with prepositions (muri Amerika vs mu Bufaransa) vary; please confirm 'muri Amerika'.",
+        "meet_neighbour: Please confirm the thanks wording 'Murakoze cyane kunyakira' and the verb 'kunyakira' sound natural.",
+        "take_taxi: Please check 'Mwakoresha compteur' and 'Mukoreshe compteur'. Do locals prefer another word for the meter, or just 'compteur'?",
+        "take_taxi: Please check 'guhagarara' versus 'guhagarika' for asking a driver to stop, and whether 'chenji' is the natural word for change.",
+        "take_taxi: Please check the farewell 'Murakoze, mugire amahoro' for a passenger leaving a driver, and whether the hail line sounds natural.",
+        "buy_ice_cream: Please check agreement of the loanword \"ice cream\" (imwe, iraryoshye, indi, ndayikunda) and whether a native word is preferred locally.",
+        "buy_ice_cream: Flavour spellings vanille/shokola are my choice; confirm common spoken forms.",
+        "buy_ice_cream: \"Nta kibazo\" and \"Ntacyo\" are used as casual replies; check they sound natural when speaking to a child.",
+        "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+      ],
+      "characters": [
+        {
+          "key": "kinyarwanda_mutesi_friendly_local_acquaintance",
+          "name": "Mutesi",
+          "role": "friendly local acquaintance",
+          "personality": "kind, busy, warm, curious",
+          "homeRegion": "Kigali",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "kinyarwanda_claudine_cafe_server",
+          "name": "Claudine",
+          "role": "café server",
+          "personality": "quick, cheerful, helpful",
+          "homeRegion": "Kigali",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "kinyarwanda_mukamana_market_vendor",
+          "name": "Mukamana",
+          "role": "market vendor",
+          "personality": "Warm, chatty, generous",
+          "homeRegion": "Kigali",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "kinyarwanda_eric_passer_by",
+          "name": "Eric",
+          "role": "passer-by",
+          "personality": "Friendly, busy, talks fast",
+          "homeRegion": "Kigali",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "kinyarwanda_mukamana_neighbour",
+          "name": "Mukamana",
+          "role": "neighbour",
+          "personality": "warm, chatty, long-time resident",
+          "homeRegion": "Kigali",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "kinyarwanda_emmanuel_taxi_driver",
+          "name": "Emmanuel",
+          "role": "taxi driver",
+          "personality": "talkative, friendly, a bit pushy",
+          "homeRegion": "Kigali",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "kinyarwanda_keza_child_at_the_ice_cream_stand",
+          "name": "Keza",
+          "role": "child at the ice-cream stand",
+          "personality": "Cheerful, curious, a little pushy",
+          "homeRegion": "Kigali",
+          "ageBand": null,
+          "voice": "female"
+        }
+      ],
+      "missions": [
+        {
+          "key": "kinyarwanda_greet_and_introduce",
+          "blueprintKey": "greet_and_introduce",
+          "missionType": "standard",
+          "level": "beginner",
+          "situation": "introductions",
+          "characterKey": "kinyarwanda_mutesi_friendly_local_acquaintance",
+          "titles": {
+            "en": "Greeting a Neighbour",
+            "fr": "Saluer une voisine"
+          },
+          "sceneNotes": {
+            "en": "It is morning and you meet a friendly neighbour on the street who is in a hurry but stops to say hello.",
+            "fr": "C'est le matin et vous croisez dans la rue une voisine sympathique, pressée, qui s'arrête pourtant pour vous saluer."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_are_you",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fine",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "your_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "nice_to_meet",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "goodbye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Mwaramutse!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mwaramutse!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning!",
+                  "note": "Used until about midday. The mu- form is polite and also used for one person you don't know well.",
+                  "literal": "you have woken up"
+                },
+                "fr": {
+                  "meaning": "Bonjour !",
+                  "note": "S'emploie jusqu'à midi environ. La forme en mu- est polie, aussi utilisée pour une seule personne qu'on connaît peu. Roulez légèrement le r, proche d'un d rapide.",
+                  "literal": "vous vous êtes réveillé(e)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Roll the r lightly, close to a quick d."
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:how_are_you",
+              "key": "how_are_you",
+              "intentKey": "ask_how_are_you",
+              "slotId": "how_are_you",
+              "speaker": "learner",
+              "text": "Amakuru yawe?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Amakuru yawe?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How are you?",
+                  "note": "Literally asks for your news.",
+                  "literal": "news of-you"
+                },
+                "fr": {
+                  "meaning": "Comment allez-vous ?",
+                  "note": "Demande littéralement des nouvelles.",
+                  "literal": "nouvelles de-toi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:fine",
+              "key": "fine",
+              "intentKey": "reply_fine",
+              "slotId": "fine",
+              "speaker": "learner",
+              "text": "Ni meza, murakoze.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ni meza, murakoze."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Fine, thank you.",
+                  "note": "Ni meza means 'it is good', a standard reply to Amakuru.",
+                  "literal": "it-is good, thank-you"
+                },
+                "fr": {
+                  "meaning": "Ça va bien, merci.",
+                  "note": "Ni meza signifie « c'est bien », réponse habituelle à Amakuru.",
+                  "literal": "c'est bien, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:my_name",
+              "key": "my_name",
+              "intentKey": "introduce_name",
+              "slotId": "my_name",
+              "speaker": "learner",
+              "text": "Nitwa Anna.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nitwa Anna."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My name is Anna.",
+                  "note": "Replace Anna with your own name.",
+                  "literal": "I-am-called Anna"
+                },
+                "fr": {
+                  "meaning": "Je m'appelle Anna.",
+                  "note": "Remplacez Anna par votre prénom.",
+                  "literal": "je-m'appelle Anna"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:your_name",
+              "key": "your_name",
+              "intentKey": "ask_name",
+              "slotId": "your_name",
+              "speaker": "learner",
+              "text": "Witwa nde?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Witwa nde?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What is your name?",
+                  "note": "Use Mwitwa nde? for more respect or for several people.",
+                  "literal": "you-are-called who"
+                },
+                "fr": {
+                  "meaning": "Comment tu t'appelles ?",
+                  "note": "Dites Mwitwa nde ? pour plus de respect ou pour plusieurs personnes.",
+                  "literal": "tu-t'appelles qui"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:nice_to_meet",
+              "key": "nice_to_meet",
+              "intentKey": "say_nice_to_meet",
+              "slotId": "nice_to_meet",
+              "speaker": "learner",
+              "text": "Nishimiye kukumenya.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nishimiye kukumenya."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Nice to meet you.",
+                  "note": "Said to one person you have just met.",
+                  "literal": "I-am-happy to-know-you"
+                },
+                "fr": {
+                  "meaning": "Enchanté(e) de faire votre connaissance.",
+                  "note": "Se dit à une personne que l'on vient de rencontrer. Prononcez sh comme dans « chat » : ni-shi-mi-ye.",
+                  "literal": "je-suis-heureux(se) de-te-connaître"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say sh as in 'ship': ni-shi-mi-ye."
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:goodbye",
+              "key": "goodbye",
+              "intentKey": "say_goodbye",
+              "slotId": "goodbye",
+              "speaker": "learner",
+              "text": "Murabeho!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Murabeho!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Goodbye!",
+                  "note": "Polite form, fine for one person or several.",
+                  "literal": "stay well"
+                },
+                "fr": {
+                  "meaning": "Au revoir !",
+                  "note": "Forme polie, valable pour une ou plusieurs personnes.",
+                  "literal": "restez bien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:greet_hello_variant_8",
+              "key": "greet_hello_variant_8",
+              "intentKey": "greet_hello",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Muraho!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Muraho!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello!",
+                  "note": "A general hello that works at any time of day.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bonjour !",
+                  "note": "Salutation générale, utilisable à toute heure de la journée.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:ask_how_are_you_variant_9",
+              "key": "ask_how_are_you_variant_9",
+              "intentKey": "ask_how_are_you",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Amakuru?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Amakuru?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How's it going?",
+                  "note": "A short, relaxed version, common among neighbours.",
+                  "literal": "news?"
+                },
+                "fr": {
+                  "meaning": "Ça va ?",
+                  "note": "Version courte et décontractée, courante entre voisins.",
+                  "literal": "nouvelles ?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:say_goodbye_variant_10",
+              "key": "say_goodbye_variant_10",
+              "intentKey": "say_goodbye",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Murabeho, mugire umunsi mwiza!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Murabeho, mugire umunsi mwiza!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Goodbye, have a good day!",
+                  "note": "A friendly way to part with a neighbour in a hurry.",
+                  "literal": "stay-well, you-have day good"
+                },
+                "fr": {
+                  "meaning": "Au revoir, bonne journée !",
+                  "note": "Une façon aimable de quitter un voisin pressé.",
+                  "literal": "restez-bien, vous-ayez journée bonne"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "kinyarwanda_cafe_order_drink",
+          "blueprintKey": "cafe_order_drink",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "cafe",
+          "characterKey": "kinyarwanda_claudine_cafe_server",
+          "titles": {
+            "en": "Ordering a Drink at Café",
+            "fr": "Commander une boisson au café"
+          },
+          "sceneNotes": {
+            "en": "You sit down at a busy café terrace in Kigali, and a quick, friendly server comes over to take your drink order.",
+            "fr": "Vous vous asseyez à la terrasse animée d'un café de Kigali, et une serveuse rapide et sympathique vient prendre votre commande."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "options",
+              "speaker": "character"
+            },
+            {
+              "slotId": "choice",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Mwiriwe!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mwiriwe!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good afternoon / good evening!",
+                  "note": "Use after about noon; use Mwaramutse in the morning.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bonjour ! / Bonsoir !",
+                  "note": "À utiliser à partir de midi environ ; le matin, on dit « Mwaramutse ». Roulez légèrement le r, entre un d et un l.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Roll the r lightly, close to an English d/l blend."
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:order",
+              "key": "order",
+              "intentKey": "request_drink",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Nshaka ikawa, nyabuneka.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nshaka ikawa, nyabuneka."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I would like a coffee, please.",
+                  "note": null,
+                  "literal": "I want coffee, please"
+                },
+                "fr": {
+                  "meaning": "Je voudrais un café, s'il vous plaît.",
+                  "note": "Commencez par un « nsh » rapide, sans voyelle entre le n et le sh.",
+                  "literal": "Je veux café, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Start with a quick 'nsh' sound, with no vowel between n and sh."
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:options",
+              "key": "options",
+              "intentKey": "offer_options",
+              "slotId": "options",
+              "speaker": "character",
+              "text": "Ushaka ikawa ifite amata cyangwa idafite?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ushaka ikawa ifite amata cyangwa idafite?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you want coffee with milk or without?",
+                  "note": "The server asks the question you must answer next.",
+                  "literal": "You-want coffee that-has milk or that-doesn't-have"
+                },
+                "fr": {
+                  "meaning": "Vous voulez votre café avec du lait ou sans lait ?",
+                  "note": "La serveuse pose la question à laquelle vous devrez répondre ensuite.",
+                  "literal": "Tu-veux café qui-a lait ou qui-n'a-pas"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:choice",
+              "key": "choice",
+              "intentKey": "choose_option",
+              "slotId": "choice",
+              "speaker": "learner",
+              "text": "Idafite amata, nyabuneka.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Idafite amata, nyabuneka."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Without milk, please.",
+                  "note": "Short for 'ikawa idafite amata' (coffee without milk).",
+                  "literal": "That-doesn't-have milk, please"
+                },
+                "fr": {
+                  "meaning": "Sans lait, s'il vous plaît.",
+                  "note": "Forme abrégée de « ikawa idafite amata » (café sans lait).",
+                  "literal": "Qui-n'a-pas lait, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Nishyure angahe, nyabuneka?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nishyure angahe, nyabuneka?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much do I owe, please?",
+                  "note": null,
+                  "literal": "I-should-pay how-much, please"
+                },
+                "fr": {
+                  "meaning": "Je vous dois combien, s'il vous plaît ?",
+                  "note": "Le « shy » de nishyure est un enchaînement rapide de sh + y.",
+                  "literal": "Que-je-paie combien, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 'shy' in nishyure is a quick sh + y blend."
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Murakoze cyane!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Murakoze cyane!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much!",
+                  "note": "Matches the Murakoze formula from earlier in the chapter.",
+                  "literal": "You-thank very"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup !",
+                  "note": "Reprend la formule Murakoze vue plus tôt dans le chapitre. Le « cy » se prononce comme « ch » avec un léger glissement vers le y.",
+                  "literal": "Vous-remerciez beaucoup"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'cy' is like 'ch' with a soft y glide."
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:request_drink_variant_7",
+              "key": "request_drink_variant_7",
+              "intentKey": "request_drink",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Nshaka icyayi, nyabuneka.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nshaka icyayi, nyabuneka."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I would like tea, please.",
+                  "note": "Swap in another drink word the same way.",
+                  "literal": "I want tea, please"
+                },
+                "fr": {
+                  "meaning": "Je voudrais un thé, s'il vous plaît.",
+                  "note": "Remplacez le nom de la boisson de la même façon pour en demander une autre.",
+                  "literal": "Je veux thé, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:choose_option_variant_8",
+              "key": "choose_option_variant_8",
+              "intentKey": "choose_option",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ifite amata, nyabuneka.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ifite amata, nyabuneka."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "With milk, please.",
+                  "note": null,
+                  "literal": "That-has milk, please"
+                },
+                "fr": {
+                  "meaning": "Avec du lait, s'il vous plaît.",
+                  "note": null,
+                  "literal": "Qui-a lait, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:ask_for_bill_variant_9",
+              "key": "ask_for_bill_variant_9",
+              "intentKey": "ask_for_bill",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ni angahe, nyabuneka?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ni angahe, nyabuneka?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is it, please?",
+                  "note": "A simpler, very common way to ask for the price.",
+                  "literal": "It-is how-much, please"
+                },
+                "fr": {
+                  "meaning": "Ça fait combien, s'il vous plaît ?",
+                  "note": "Une façon plus simple et très courante de demander le prix.",
+                  "literal": "C'est combien, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:thank_variant_10",
+              "key": "thank_variant_10",
+              "intentKey": "thank",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Urakoze!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Urakoze!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks! (to one person you know well)",
+                  "note": "Singular, more casual than Murakoze.",
+                  "literal": "You(sg)-thank"
+                },
+                "fr": {
+                  "meaning": "Merci ! (à une seule personne que l'on connaît bien)",
+                  "note": "Au singulier, plus familier que Murakoze.",
+                  "literal": "Tu-remercies"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "kinyarwanda_market_ask_price",
+          "blueprintKey": "market_ask_price",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "market",
+          "characterKey": "kinyarwanda_mukamana_market_vendor",
+          "titles": {
+            "en": "Asking Prices at the Market",
+            "fr": "Demander les prix au marché"
+          },
+          "sceneNotes": {
+            "en": "You are at a fruit stall in a Rwandan market, greeting the vendor and asking the price per kilo of bananas.",
+            "fr": "Vous êtes devant un étal de fruits sur un marché rwandais : vous saluez la vendeuse et demandez le prix des bananes au kilo."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_much",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "character"
+            },
+            {
+              "slotId": "expensive",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "lower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "deal",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "no_thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_market_ask_price:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Muraho, mama!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Muraho, mama!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, ma'am!",
+                  "note": "Calling a woman vendor 'mama' is a friendly, respectful habit.",
+                  "literal": "Hello, mother"
+                },
+                "fr": {
+                  "meaning": "Bonjour, madame !",
+                  "note": "Appeler une vendeuse « mama » est une habitude amicale et respectueuse. Roulez légèrement le r, d'un battement rapide.",
+                  "literal": "Bonjour, mère"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Roll the r lightly, as a quick tap."
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_market_ask_price:how_much",
+              "key": "how_much",
+              "intentKey": "ask_price",
+              "slotId": "how_much",
+              "speaker": "learner",
+              "text": "Imineke ni angahe ku kilo?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Imineke ni angahe ku kilo?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much are the bananas per kilo?",
+                  "note": "Swap 'imineke' for 'imyembe' (mangoes) or 'inanasi' (pineapples).",
+                  "literal": "Bananas are how-much per kilo"
+                },
+                "fr": {
+                  "meaning": "Combien coûtent les bananes le kilo ?",
+                  "note": "Remplacez « imineke » par « imyembe » (mangues) ou « inanasi » (ananas).",
+                  "literal": "Bananes sont combien au kilo"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "'kilo' is a loanword used everywhere.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_market_ask_price:price",
+              "key": "price",
+              "intentKey": "state_price",
+              "slotId": "price",
+              "speaker": "character",
+              "text": "Ni amafaranga magana atatu ku kilo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ni amafaranga magana atatu ku kilo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's 300 francs per kilo.",
+                  "note": "Vendors often just say 'Magana atatu' (300).",
+                  "literal": "It is money hundreds three per kilo"
+                },
+                "fr": {
+                  "meaning": "C'est 300 francs le kilo.",
+                  "note": "Les vendeurs disent souvent simplement « Magana atatu » (300).",
+                  "literal": "C'est argent centaines trois par kilo"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_market_ask_price:expensive",
+              "key": "expensive",
+              "intentKey": "say_too_expensive",
+              "slotId": "expensive",
+              "speaker": "learner",
+              "text": "Birahenze cyane!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Birahenze cyane!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "That's very expensive!",
+                  "note": "Say it with a smile; bargaining here is light and friendly.",
+                  "literal": "They are expensive very"
+                },
+                "fr": {
+                  "meaning": "C'est très cher !",
+                  "note": "Dites-le en souriant : ici, le marchandage reste léger et amical. « cy » sonne comme un « ch » doux mêlé à un « y ».",
+                  "literal": "Elles sont chères très"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'cy' sounds like a soft 'ch' blended with 'y'."
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_market_ask_price:lower",
+              "key": "lower",
+              "intentKey": "offer_lower_price",
+              "slotId": "lower",
+              "speaker": "learner",
+              "text": "Wagabanya gato, nyabuneka?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Wagabanya gato, nyabuneka?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you lower it a little, please?",
+                  "note": null,
+                  "literal": "You could reduce a little, please"
+                },
+                "fr": {
+                  "meaning": "Vous pourriez baisser un peu le prix, s'il vous plaît ?",
+                  "note": "Le « ny » de « nyabuneka » se prononce comme « gn » dans « agneau ».",
+                  "literal": "Vous pourriez réduire un peu, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'ny' in 'nyabuneka' is like 'ni' in 'onion'."
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_market_ask_price:deal",
+              "key": "deal",
+              "intentKey": "agree_to_price",
+              "slotId": "deal",
+              "speaker": "learner",
+              "text": "Sawa, ndabifata.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sawa, ndabifata."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'll take them.",
+                  "note": null,
+                  "literal": "OK, I take them"
+                },
+                "fr": {
+                  "meaning": "D'accord, je les prends.",
+                  "note": null,
+                  "literal": "D'accord, je les prends"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": "'Sawa' is a Swahili-origin word widely used in Rwanda.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_market_ask_price:no_thanks",
+              "key": "no_thanks",
+              "intentKey": "decline_purchase",
+              "slotId": "no_thanks",
+              "speaker": "learner",
+              "text": "Oya, murakoze, ntabwo mbikeneye uyu munsi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Oya, murakoze, ntabwo mbikeneye uyu munsi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, thank you, I don't need them today.",
+                  "note": null,
+                  "literal": "No, thank you, not I-need-them this day"
+                },
+                "fr": {
+                  "meaning": "Non, merci, je n'en ai pas besoin aujourd'hui.",
+                  "note": null,
+                  "literal": "Non, merci, pas je-en-ai-besoin ce jour"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_market_ask_price:offer_lower_price_variant_8",
+              "key": "offer_lower_price_variant_8",
+              "intentKey": "offer_lower_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Magana abiri, ndabifata?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Magana abiri, ndabifata?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "200, and I'll take them?",
+                  "note": "A casual counter-offer, used with a smile.",
+                  "literal": "Hundreds two, I take them"
+                },
+                "fr": {
+                  "meaning": "200, et je les prends ?",
+                  "note": "Une contre-offre décontractée, à faire avec le sourire.",
+                  "literal": "Centaines deux, je les prends"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_market_ask_price:decline_purchase_variant_9",
+              "key": "decline_purchase_variant_9",
+              "intentKey": "decline_purchase",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ndareba gusa, murakoze.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ndareba gusa, murakoze."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm just looking, thank you.",
+                  "note": "A gentle way to say no without buying.",
+                  "literal": "I look only, thank you"
+                },
+                "fr": {
+                  "meaning": "Je regarde seulement, merci.",
+                  "note": "Une façon aimable de refuser sans rien acheter.",
+                  "literal": "Je regarde seulement, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_market_ask_price:state_price_variant_10",
+              "key": "state_price_variant_10",
+              "intentKey": "state_price",
+              "slotId": null,
+              "speaker": "character",
+              "text": "Ni magana atatu, ndakongeraho umuneke ku buntu.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ni magana atatu, ndakongeraho umuneke ku buntu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's 300, and I'll add a banana for free.",
+                  "note": "This is the vendor's friendly twist: a free extra.",
+                  "literal": "It is 300, I add-on-to-you a banana for free"
+                },
+                "fr": {
+                  "meaning": "C'est 300, et je vous ajoute une banane gratuitement.",
+                  "note": "C'est le petit geste sympa de la vendeuse : un extra offert.",
+                  "literal": "C'est 300, je ajoute-à-vous une banane gratuitement"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "kinyarwanda_ask_directions",
+          "blueprintKey": "ask_directions",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "directions",
+          "characterKey": "kinyarwanda_eric_passer_by",
+          "titles": {
+            "en": "Finding the Station",
+            "fr": "Trouver la gare"
+          },
+          "sceneNotes": {
+            "en": "You are a visitor in Kigali looking for the station, and a passer-by who talks very fast stops to help.",
+            "fr": "Vous êtes en visite à Kigali et cherchez la gare ; un passant qui parle très vite s'arrête pour vous aider."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_is",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "straight",
+              "speaker": "character"
+            },
+            {
+              "slotId": "turn",
+              "speaker": "character"
+            },
+            {
+              "slotId": "far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "near",
+              "speaker": "character"
+            },
+            {
+              "slotId": "repeat",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "slower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_ask_directions:excuse_me",
+              "key": "excuse_me",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "Mumbabarire, nyabuneka.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mumbabarire, nyabuneka."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, please.",
+                  "note": "Use it to get a stranger's attention politely. The plural form is respectful for one person.",
+                  "literal": "Forgive (me), please."
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, s'il vous plaît.",
+                  "note": "Pour attirer poliment l'attention d'un inconnu. La forme du pluriel est une marque de respect, même pour une seule personne. Prononcez le « mb » de Mumbabarire d'un seul trait.",
+                  "literal": "Pardonnez (-moi), s'il vous plaît."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say the mb in Mumbabarire as one smooth sound."
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_ask_directions:where_is",
+              "key": "where_is",
+              "intentKey": "ask_where_is",
+              "slotId": "where_is",
+              "speaker": "learner",
+              "text": "Gare iri hehe, nyabuneka?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Gare iri hehe, nyabuneka?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where is the station, please?",
+                  "note": "Gare is the everyday word for a station or bus station.",
+                  "literal": "Station it-is where, please?"
+                },
+                "fr": {
+                  "meaning": "Où est la gare, s'il vous plaît ?",
+                  "note": "Gare est le mot courant pour une gare ou une gare routière.",
+                  "literal": "Gare elle-est où, s'il vous plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "Gare is a French loanword used in everyday Kinyarwanda.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_ask_directions:straight",
+              "key": "straight",
+              "intentKey": "give_direction_straight",
+              "slotId": "straight",
+              "speaker": "character",
+              "text": "Ukomeza kugenda ugororotse.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ukomeza kugenda ugororotse."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You keep going straight.",
+                  "note": "Said quickly by the passer-by.",
+                  "literal": "You continue to go straight."
+                },
+                "fr": {
+                  "meaning": "Vous continuez tout droit.",
+                  "note": "Dit rapidement par le passant.",
+                  "literal": "Tu continues à aller tout droit."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_ask_directions:turn",
+              "key": "turn",
+              "intentKey": "give_direction_turn",
+              "slotId": "turn",
+              "speaker": "character",
+              "text": "Ukata iburyo, hanyuma ukata ibumoso.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ukata iburyo, hanyuma ukata ibumoso."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You turn right, then you turn left.",
+                  "note": "These are the two turns on the way to the station.",
+                  "literal": "You cut right, then you cut left."
+                },
+                "fr": {
+                  "meaning": "Vous tournez à droite, puis vous tournez à gauche.",
+                  "note": "Ce sont les deux virages sur le chemin de la gare.",
+                  "literal": "Tu coupes à droite, puis tu coupes à gauche."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_ask_directions:far",
+              "key": "far",
+              "intentKey": "ask_is_it_far",
+              "slotId": "far",
+              "speaker": "learner",
+              "text": "Ni kure kuva hano?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ni kure kuva hano?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it far from here?",
+                  "note": null,
+                  "literal": "Is-it far from here?"
+                },
+                "fr": {
+                  "meaning": "C'est loin d'ici ?",
+                  "note": null,
+                  "literal": "C'est loin depuis ici ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_ask_directions:near",
+              "key": "near",
+              "intentKey": "say_it_is_near",
+              "slotId": "near",
+              "speaker": "character",
+              "text": "Si kure, ni iminota icumi n'amaguru.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Si kure, ni iminota icumi n'amaguru."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's not far, it's ten minutes on foot.",
+                  "note": null,
+                  "literal": "Not far, it-is minutes ten by-feet."
+                },
+                "fr": {
+                  "meaning": "Ce n'est pas loin, c'est à dix minutes à pied.",
+                  "note": null,
+                  "literal": "Pas loin, c'est minutes dix à-pied."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_ask_directions:repeat",
+              "key": "repeat",
+              "intentKey": "ask_repeat",
+              "slotId": "repeat",
+              "speaker": "learner",
+              "text": "Wabisubiramo, nyabuneka?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Wabisubiramo, nyabuneka?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you repeat that, please?",
+                  "note": null,
+                  "literal": "You-could-repeat-it, please?"
+                },
+                "fr": {
+                  "meaning": "Pourriez-vous répéter, s'il vous plaît ?",
+                  "note": null,
+                  "literal": "Vous-pourriez-le-répéter, s'il vous plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_ask_directions:slower",
+              "key": "slower",
+              "intentKey": "ask_slow_down",
+              "slotId": "slower",
+              "speaker": "learner",
+              "text": "Washobora kuvuga buhoro, nyabuneka?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Washobora kuvuga buhoro, nyabuneka?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you speak slowly, please?",
+                  "note": "Key phrase for this mission, since the passer-by speaks fast.",
+                  "literal": "You-can to-speak slowly, please?"
+                },
+                "fr": {
+                  "meaning": "Pourriez-vous parler lentement, s'il vous plaît ?",
+                  "note": "Phrase essentielle pour cette mission, car le passant parle vite. Roulez légèrement le r de Washobora et articulez bien le h de buhoro.",
+                  "literal": "Vous-pouvez parler lentement, s'il vous plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Roll the r in Washobora lightly, and say the h in buhoro clearly."
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_ask_directions:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Murakoze ku bufasha.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Murakoze ku bufasha."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you for the help.",
+                  "note": "Use it after getting directions. It builds on the Murakoze formula from earlier.",
+                  "literal": "Thank-you for help."
+                },
+                "fr": {
+                  "meaning": "Merci pour votre aide.",
+                  "note": "À dire après avoir reçu des indications. Reprend la formule Murakoze vue plus tôt.",
+                  "literal": "Merci pour aide."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_ask_directions:ask_where_is_variant_10",
+              "key": "ask_where_is_variant_10",
+              "intentKey": "ask_where_is",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Hari gare hano hafi, nyabuneka?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hari gare hano hafi, nyabuneka?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a station near here, please?",
+                  "note": "Use it when you are not sure which station is the right one.",
+                  "literal": "There-is station here nearby, please?"
+                },
+                "fr": {
+                  "meaning": "Y a-t-il une gare près d'ici, s'il vous plaît ?",
+                  "note": "Utile quand vous ne savez pas quelle gare est la bonne.",
+                  "literal": "Il-y-a gare ici près, s'il vous plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "Gare is a French loanword.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_ask_directions:ask_repeat_variant_11",
+              "key": "ask_repeat_variant_11",
+              "intentKey": "ask_repeat",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Sinumvise, wabisubiramo buhoro?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sinumvise, wabisubiramo buhoro?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I didn't understand, could you repeat it slowly?",
+                  "note": "Combines asking for a repeat and asking for slower speech.",
+                  "literal": "I-didn't-understand, you-could-repeat-it slowly?"
+                },
+                "fr": {
+                  "meaning": "Je n'ai pas compris, pourriez-vous répéter lentement ?",
+                  "note": "Combine la demande de répétition et celle de parler plus lentement.",
+                  "literal": "Je-n'ai-pas-compris, vous-pourriez-le-répéter lentement ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_ask_directions:ask_is_it_far_variant_12",
+              "key": "ask_is_it_far_variant_12",
+              "intentKey": "ask_is_it_far",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ni iminota ingahe n'amaguru?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ni iminota ingahe n'amaguru?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How many minutes is it on foot?",
+                  "note": null,
+                  "literal": "It-is minutes how-many by-feet?"
+                },
+                "fr": {
+                  "meaning": "C'est à combien de minutes à pied ?",
+                  "note": null,
+                  "literal": "C'est minutes combien à-pied ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "kinyarwanda_meet_neighbour",
+          "blueprintKey": "meet_neighbour",
+          "missionType": "story",
+          "level": "beginner",
+          "situation": "neighbours",
+          "characterKey": "kinyarwanda_mukamana_neighbour",
+          "titles": {
+            "en": "Meeting Your New Neighbour",
+            "fr": "Rencontrer votre nouvelle voisine"
+          },
+          "sceneNotes": {
+            "en": "You meet your neighbour in the stairwell of your new building as they carry their shopping bags upstairs.",
+            "fr": "Vous croisez votre voisine dans la cage d'escalier de votre nouvel immeuble, alors qu'elle monte ses sacs de courses."
+          },
+          "slots": [
+            {
+              "slotId": "new_neighbour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "character"
+            },
+            {
+              "slotId": "where_from_q",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "from",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "speak_lang",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "little",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "offer_help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_meet_neighbour:new_neighbour",
+              "key": "new_neighbour",
+              "intentKey": "say_new_neighbour",
+              "slotId": "new_neighbour",
+              "speaker": "learner",
+              "text": "Ndi umuturanyi wanyu mushya.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ndi umuturanyi wanyu mushya."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I am your new neighbour.",
+                  "note": "Uses the polite plural 'wanyu' (your) to show respect to an older neighbour.",
+                  "literal": "I am neighbour of-you(pl) new"
+                },
+                "fr": {
+                  "meaning": "Je suis votre nouveau voisin.",
+                  "note": "Le pluriel de politesse « wanyu » (votre) marque le respect envers un voisin plus âgé. Prononcez le « r » de « umuturanyi » d'un léger battement de langue ; « ny » sonne comme « gn » en français.",
+                  "literal": "Je suis voisin de-vous(pl) nouveau"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say 'ru' in 'umuturanyi' with a light tap of the tongue; 'ny' sounds like Spanish ñ."
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_meet_neighbour:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Murakaza neza! Nishimiye kukubona.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Murakaza neza! Nishimiye kukubona."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome! I'm happy to see you.",
+                  "note": "'Murakaza neza' is the standard welcome phrase.",
+                  "literal": "You(pl) have arrived well! I am happy to see you"
+                },
+                "fr": {
+                  "meaning": "Bienvenue ! Je suis heureuse de vous voir.",
+                  "note": "« Murakaza neza » est la formule d'accueil habituelle.",
+                  "literal": "Vous(pl) êtes arrivés bien ! Je suis heureuse de te voir"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_meet_neighbour:where_from_q",
+              "key": "where_from_q",
+              "intentKey": "ask_where_from",
+              "slotId": "where_from_q",
+              "speaker": "learner",
+              "text": "Muturuka he?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Muturuka he?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where are you from?",
+                  "note": "Polite plural 'mu-' form, good for someone older.",
+                  "literal": "You(pl) come-from where"
+                },
+                "fr": {
+                  "meaning": "D'où venez-vous ?",
+                  "note": "Forme de politesse au pluriel en « mu- », adaptée à une personne plus âgée.",
+                  "literal": "Vous(pl) venez-de où"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_meet_neighbour:from",
+              "key": "from",
+              "intentKey": "say_where_from",
+              "slotId": "from",
+              "speaker": "learner",
+              "text": "Nturuka muri Amerika.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nturuka muri Amerika."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I am from America.",
+                  "note": "Replace 'Amerika' with your own country or city.",
+                  "literal": "I come-from in America"
+                },
+                "fr": {
+                  "meaning": "Je viens des États-Unis.",
+                  "note": "Remplacez « Amerika » par votre pays ou votre ville.",
+                  "literal": "Je viens-de dans Amérique"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_meet_neighbour:speak_lang",
+              "key": "speak_lang",
+              "intentKey": "ask_if_speaks_language",
+              "slotId": "speak_lang",
+              "speaker": "learner",
+              "text": "Muvuga Icyongereza?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Muvuga Icyongereza?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you speak English?",
+                  "note": "Swap 'Icyongereza' for 'Igifaransa' (French) if needed.",
+                  "literal": "You(pl) speak English"
+                },
+                "fr": {
+                  "meaning": "Parlez-vous anglais ?",
+                  "note": "Remplacez « Icyongereza » par « Igifaransa » (français) si besoin.",
+                  "literal": "Vous(pl) parlez anglais"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_meet_neighbour:little",
+              "key": "little",
+              "intentKey": "say_speak_little",
+              "slotId": "little",
+              "speaker": "learner",
+              "text": "Mvuga Ikinyarwanda gake.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mvuga Ikinyarwanda gake."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I speak a little Kinyarwanda.",
+                  "note": null,
+                  "literal": "I speak Kinyarwanda a-little"
+                },
+                "fr": {
+                  "meaning": "Je parle un peu le kinyarwanda.",
+                  "note": null,
+                  "literal": "Je parle kinyarwanda un-peu"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_meet_neighbour:offer_help",
+              "key": "offer_help",
+              "intentKey": "offer_help",
+              "slotId": "offer_help",
+              "speaker": "learner",
+              "text": "Nimukenera ubufasha, mumbwire.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nimukenera ubufasha, mumbwire."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "If you need help, tell me.",
+                  "note": null,
+                  "literal": "If you(pl) need help, tell me"
+                },
+                "fr": {
+                  "meaning": "Si vous avez besoin d'aide, dites-le-moi.",
+                  "note": null,
+                  "literal": "Si vous(pl) avez-besoin aide, dites-moi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_meet_neighbour:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Murakoze cyane kunyakira.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Murakoze cyane kunyakira."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much for welcoming me.",
+                  "note": "Builds on the 'Murakoze' thanks formula from earlier.",
+                  "literal": "Thank-you(pl) very to-welcome-me"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup de m'accueillir.",
+                  "note": "Reprend la formule de remerciement « Murakoze » vue plus tôt.",
+                  "literal": "Merci(pl) beaucoup de-m'accueillir"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_meet_neighbour:ask_where_from_variant_9",
+              "key": "ask_where_from_variant_9",
+              "intentKey": "ask_where_from",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Uturuka he?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Uturuka he?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where are you from? (to one person, casual)",
+                  "note": "Singular, used with peers or younger people.",
+                  "literal": "You come-from where"
+                },
+                "fr": {
+                  "meaning": "D'où viens-tu ?",
+                  "note": "Singulier, utilisé avec des personnes du même âge ou plus jeunes.",
+                  "literal": "Tu viens-de où"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_meet_neighbour:offer_help_variant_10",
+              "key": "offer_help_variant_10",
+              "intentKey": "offer_help",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ngufashe gutwara iyo mifuka?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ngufashe gutwara iyo mifuka?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall I help you carry those bags?",
+                  "note": "Fits the stairwell scene; casual singular.",
+                  "literal": "Let-me help-you to-carry those bags"
+                },
+                "fr": {
+                  "meaning": "Je t'aide à porter ces sacs ?",
+                  "note": "Convient à la scène de la cage d'escalier ; singulier, registre familier.",
+                  "literal": "Que-je t'aide à-porter ces sacs"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_meet_neighbour:thank_variant_11",
+              "key": "thank_variant_11",
+              "intentKey": "thank",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ndabashimiye.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ndabashimiye."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I thank you.",
+                  "note": "A warm, slightly more formal alternative to 'Murakoze'.",
+                  "literal": "I thank you(pl)"
+                },
+                "fr": {
+                  "meaning": "Je vous remercie.",
+                  "note": "Variante chaleureuse et un peu plus soutenue que « Murakoze ».",
+                  "literal": "Je vous(pl) remercie"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "kinyarwanda_take_taxi",
+          "blueprintKey": "take_taxi",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "transport",
+          "characterKey": "kinyarwanda_emmanuel_taxi_driver",
+          "titles": {
+            "en": "Taking a Taxi",
+            "fr": "Prendre un taxi"
+          },
+          "sceneNotes": {
+            "en": "You wave down a taxi in busy traffic and ask the talkative driver to take you to the old town.",
+            "fr": "Vous hélez un taxi dans la circulation dense et vous demandez au chauffeur bavard de vous conduire à la vieille ville."
+          },
+          "slots": [
+            {
+              "slotId": "hail",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_to",
+              "speaker": "character"
+            },
+            {
+              "slotId": "destination",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "meter",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fare",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "change",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_take_taxi:hail",
+              "key": "hail",
+              "intentKey": "hail_taxi",
+              "slotId": "hail",
+              "speaker": "learner",
+              "text": "Muraho, mushobora kunjyana?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Muraho, mushobora kunjyana?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, can you take me?",
+                  "note": "Said when you stop a taxi, before saying where you are going.",
+                  "literal": "Hello, you-are-able to-take-me?"
+                },
+                "fr": {
+                  "meaning": "Bonjour, pouvez-vous m'emmener ?",
+                  "note": "À dire en arrêtant un taxi, avant d'indiquer votre destination. Le « nj » de kunjyana se prononce comme un seul son.",
+                  "literal": "Bonjour, vous-pouvez m'emmener ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 'nj' in kunjyana is one blended sound."
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_take_taxi:where_to",
+              "key": "where_to",
+              "intentKey": "ask_destination",
+              "slotId": "where_to",
+              "speaker": "character",
+              "text": "Murajya he?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Murajya he?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where are you going?",
+                  "note": "The driver uses the polite plural 'mu-' to address one passenger.",
+                  "literal": "You-are-going where?"
+                },
+                "fr": {
+                  "meaning": "Où allez-vous ?",
+                  "note": "Le chauffeur emploie le pluriel de politesse « mu- » pour s'adresser à un seul passager.",
+                  "literal": "Vous-allez où ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_take_taxi:destination",
+              "key": "destination",
+              "intentKey": "state_destination",
+              "slotId": "destination",
+              "speaker": "learner",
+              "text": "Njya mu mujyi wa kera, nyabuneka.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Njya mu mujyi wa kera, nyabuneka."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm going to the old town, please.",
+                  "note": null,
+                  "literal": "I-go in town of old, please"
+                },
+                "fr": {
+                  "meaning": "Je vais à la vieille ville, s'il vous plaît.",
+                  "note": "Prononcez le « nj » de Njya comme un seul son.",
+                  "literal": "Je-vais dans ville de ancien, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say 'nj' in Njya as one sound."
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_take_taxi:meter",
+              "key": "meter",
+              "intentKey": "ask_use_meter",
+              "slotId": "meter",
+              "speaker": "learner",
+              "text": "Mwakoresha compteur, nyabuneka?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mwakoresha compteur, nyabuneka?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you use the meter, please?",
+                  "note": "Use this when the driver quotes a price without the meter.",
+                  "literal": "You-could-use meter, please?"
+                },
+                "fr": {
+                  "meaning": "Pourriez-vous utiliser le compteur, s'il vous plaît ?",
+                  "note": "À utiliser quand le chauffeur annonce un prix sans mettre le compteur.",
+                  "literal": "Vous-pourriez-utiliser compteur, s'il vous plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "'compteur' is a French loanword, commonly used for the taxi meter.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_take_taxi:fare",
+              "key": "fare",
+              "intentKey": "ask_fare",
+              "slotId": "fare",
+              "speaker": "learner",
+              "text": "Kugera mu mujyi wa kera ni angahe?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kugera mu mujyi wa kera ni angahe?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is it to get to the old town?",
+                  "note": null,
+                  "literal": "To-arrive in town of old is how-much?"
+                },
+                "fr": {
+                  "meaning": "Combien coûte la course jusqu'à la vieille ville ?",
+                  "note": null,
+                  "literal": "Arriver dans ville de ancien c'est combien ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_take_taxi:stop",
+              "key": "stop",
+              "intentKey": "say_stop_here",
+              "slotId": "stop",
+              "speaker": "learner",
+              "text": "Mushobora guhagarara hano, nyabuneka?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mushobora guhagarara hano, nyabuneka?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you stop here, please?",
+                  "note": null,
+                  "literal": "You-are-able to-stop here, please?"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous vous arrêter ici, s'il vous plaît ?",
+                  "note": "Roulez légèrement le « r » dans guhagarara.",
+                  "literal": "Vous-pouvez vous-arrêter ici, s'il vous plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Roll the 'r' lightly in guhagarara."
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_take_taxi:change",
+              "key": "change",
+              "intentKey": "ask_for_change",
+              "slotId": "change",
+              "speaker": "learner",
+              "text": "Mufite chenji, nyabuneka?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mufite chenji, nyabuneka?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have change, please?",
+                  "note": null,
+                  "literal": "You-have change, please?"
+                },
+                "fr": {
+                  "meaning": "Avez-vous de la monnaie, s'il vous plaît ?",
+                  "note": null,
+                  "literal": "Vous-avez monnaie, s'il vous plaît ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "'chenji' comes from English 'change' and is very common in everyday speech.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_take_taxi:bye",
+              "key": "bye",
+              "intentKey": "say_goodbye",
+              "slotId": "bye",
+              "speaker": "learner",
+              "text": "Murakoze, mugire amahoro!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Murakoze, mugire amahoro!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, go in peace!",
+                  "note": "A warm farewell as you get out of the taxi.",
+                  "literal": "Thank-you, have peace"
+                },
+                "fr": {
+                  "meaning": "Merci, allez en paix !",
+                  "note": "Un au revoir chaleureux en descendant du taxi.",
+                  "literal": "Merci, ayez paix"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_take_taxi:state_destination_variant_9",
+              "key": "state_destination_variant_9",
+              "intentKey": "state_destination",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Mu mujyi wa kera, nyabuneka.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mu mujyi wa kera, nyabuneka."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "To the old town, please.",
+                  "note": "Shorter version for when the driver is busy or the road is noisy.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "À la vieille ville, s'il vous plaît.",
+                  "note": "Version plus courte, quand le chauffeur est occupé ou que la rue est bruyante.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_take_taxi:ask_use_meter_variant_10",
+              "key": "ask_use_meter_variant_10",
+              "intentKey": "ask_use_meter",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Mukoreshe compteur, nyabuneka.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mukoreshe compteur, nyabuneka."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please use the meter.",
+                  "note": "A firmer but still polite way to ask for the meter.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Utilisez le compteur, s'il vous plaît.",
+                  "note": "Une façon plus ferme, mais toujours polie, de demander le compteur.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "'compteur' is a French loanword.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_take_taxi:say_stop_here_variant_11",
+              "key": "say_stop_here_variant_11",
+              "intentKey": "say_stop_here",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Hano ni heza, murakoze.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hano ni heza, murakoze."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Here is fine, thank you.",
+                  "note": "Said when you want to get out at the spot you are at now.",
+                  "literal": "Here is good, thank-you"
+                },
+                "fr": {
+                  "meaning": "Ici, c'est bien, merci.",
+                  "note": "À dire quand vous voulez descendre à l'endroit où vous êtes.",
+                  "literal": "Ici est bon, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "kinyarwanda_buy_ice_cream",
+          "blueprintKey": "buy_ice_cream",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "shopping",
+          "characterKey": "kinyarwanda_keza_child_at_the_ice_cream_stand",
+          "titles": {
+            "en": "Buying Ice Cream Together",
+            "fr": "Acheter une glace ensemble"
+          },
+          "sceneNotes": {
+            "en": "You are at an ice-cream cart outside the school with a child who wants an ice cream, and only two flavours are left.",
+            "fr": "Vous êtes à un chariot de glaces devant l'école avec une enfant qui veut une glace, et il ne reste que deux parfums."
+          },
+          "slots": [
+            {
+              "slotId": "wants",
+              "speaker": "character"
+            },
+            {
+              "slotId": "which_flavour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "picks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "scoop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "asks_two",
+              "speaker": "character"
+            },
+            {
+              "slotId": "just_one",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "okay",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "yummy",
+              "speaker": "character"
+            },
+            {
+              "slotId": "me_too",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:wants",
+              "key": "wants",
+              "intentKey": "request_food",
+              "slotId": "wants",
+              "speaker": "character",
+              "text": "Nshaka ice cream!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nshaka ice cream!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want an ice cream!",
+                  "note": "A child asking an adult directly.",
+                  "literal": "I-want ice cream"
+                },
+                "fr": {
+                  "meaning": "Je veux une glace !",
+                  "note": "Une enfant s'adresse directement à un adulte.",
+                  "literal": "Je-veux glace"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "\"ice cream\" is the common English loanword used in Kigali.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:which_flavour",
+              "key": "which_flavour",
+              "intentKey": "offer_options",
+              "slotId": "which_flavour",
+              "speaker": "learner",
+              "text": "Ushaka vanille cyangwa shokola?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ushaka vanille cyangwa shokola?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you want vanilla or chocolate?",
+                  "note": "Speaking to the child.",
+                  "literal": "You-want vanilla or chocolate"
+                },
+                "fr": {
+                  "meaning": "Tu veux vanille ou chocolat ?",
+                  "note": "Vous parlez à l'enfant. Le « cy » de cyangwa se prononce comme un « tch » ou « ky » doux.",
+                  "literal": "Tu-veux vanille ou chocolat"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "Flavour names are borrowed from French.",
+              "pronunciationNote": "\"cy\" in cyangwa is like a soft \"ch\"/\"ky\"."
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:picks",
+              "key": "picks",
+              "intentKey": "choose_option",
+              "slotId": "picks",
+              "speaker": "character",
+              "text": "Nshaka shokola, nyabuneka.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nshaka shokola, nyabuneka."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want chocolate, please.",
+                  "note": null,
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Je veux du chocolat, s'il te plaît.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:scoop",
+              "key": "scoop",
+              "intentKey": "specify_quantity",
+              "slotId": "scoop",
+              "speaker": "learner",
+              "text": "Ice cream imwe, nyabuneka.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ice cream imwe, nyabuneka."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One ice cream, please.",
+                  "note": "Said to the vendor.",
+                  "literal": "Ice cream one, please"
+                },
+                "fr": {
+                  "meaning": "Une glace, s'il vous plaît.",
+                  "note": "À dire au vendeur.",
+                  "literal": "Glace une, s'il vous plaît"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "Loanword \"ice cream\" takes the agreement \"imwe\".",
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:asks_two",
+              "key": "asks_two",
+              "intentKey": "ask_permission",
+              "slotId": "asks_two",
+              "speaker": "character",
+              "text": "Nshobora kubona indi imwe, nyabuneka?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nshobora kubona indi imwe, nyabuneka?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I have another one, please?",
+                  "note": "The twist: the child asks for a second scoop.",
+                  "literal": "I-can get another one, please"
+                },
+                "fr": {
+                  "meaning": "Je peux en avoir une autre, s'il te plaît ?",
+                  "note": "Le rebondissement : l'enfant demande une deuxième boule.",
+                  "literal": "Je-peux obtenir autre une, s'il te plaît"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:just_one",
+              "key": "just_one",
+              "intentKey": "refuse_permission",
+              "slotId": "just_one",
+              "speaker": "learner",
+              "text": "Oya mwana wanjye, ni imwe gusa.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Oya mwana wanjye, ni imwe gusa."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, my child, just one.",
+                  "note": "A kind, gentle no.",
+                  "literal": "No child my, it-is one only"
+                },
+                "fr": {
+                  "meaning": "Non, mon enfant, une seule.",
+                  "note": "Un non doux et bienveillant.",
+                  "literal": "Non enfant mon, c'est une seulement"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:okay",
+              "key": "okay",
+              "intentKey": "grant_permission",
+              "slotId": "okay",
+              "speaker": "learner",
+              "text": "Yego, nta kibazo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Yego, nta kibazo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, no problem.",
+                  "note": "Use if you decide to allow it.",
+                  "literal": "Yes, no problem"
+                },
+                "fr": {
+                  "meaning": "Oui, pas de problème.",
+                  "note": "À utiliser si vous décidez d'accepter.",
+                  "literal": "Oui, pas de problème"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:yummy",
+              "key": "yummy",
+              "intentKey": "say_delicious",
+              "slotId": "yummy",
+              "speaker": "character",
+              "text": "Iraryoshye cyane!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Iraryoshye cyane!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's so tasty!",
+                  "note": null,
+                  "literal": "It-is-tasty very"
+                },
+                "fr": {
+                  "meaning": "C'est trop bon !",
+                  "note": "Le r se roule légèrement, presque comme un d/l rapide.",
+                  "literal": "C'est-bon très"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Roll the r lightly, almost like a quick d/l."
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:me_too",
+              "key": "me_too",
+              "intentKey": "express_like",
+              "slotId": "me_too",
+              "speaker": "learner",
+              "text": "Nanjye ndayikunda!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nanjye ndayikunda!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I love it too!",
+                  "note": null,
+                  "literal": "Me-too I-it-like"
+                },
+                "fr": {
+                  "meaning": "Moi aussi, j'adore !",
+                  "note": null,
+                  "literal": "Moi-aussi je-l'aime"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "character",
+              "text": "Urakoze cyane ku ice cream!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Urakoze cyane ku ice cream!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you so much for the ice cream!",
+                  "note": "Child uses singular \"urakoze\" to one adult.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup pour la glace !",
+                  "note": "L'enfant utilise « urakoze » au singulier, car elle s'adresse à un seul adulte.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:welcome",
+              "key": "welcome",
+              "intentKey": "respond_to_thanks",
+              "slotId": "welcome",
+              "speaker": "learner",
+              "text": "Ntacyo, mwana wanjye.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ntacyo, mwana wanjye."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's nothing, my child.",
+                  "note": null,
+                  "literal": "Nothing, child my"
+                },
+                "fr": {
+                  "meaning": "Il n'y a pas de quoi, mon enfant.",
+                  "note": null,
+                  "literal": "Rien, enfant mon"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:offer_options_variant_12",
+              "key": "offer_options_variant_12",
+              "intentKey": "offer_options",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ushaka iyihe?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ushaka iyihe?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which one do you want?",
+                  "note": "Shorter option when pointing at the flavours.",
+                  "literal": "You-want which"
+                },
+                "fr": {
+                  "meaning": "Laquelle tu veux ?",
+                  "note": "Version plus courte quand vous montrez les parfums du doigt.",
+                  "literal": "Tu-veux laquelle"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:refuse_permission_variant_13",
+              "key": "refuse_permission_variant_13",
+              "intentKey": "refuse_permission",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Tuzagura indi ejo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tuzagura indi ejo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "We'll buy another tomorrow.",
+                  "note": "A softer way to say no by offering a later treat.",
+                  "literal": "We-will-buy another tomorrow"
+                },
+                "fr": {
+                  "meaning": "On en achètera une autre demain.",
+                  "note": "Une façon plus douce de dire non en proposant une gourmandise pour plus tard.",
+                  "literal": "Nous-achèterons autre demain"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:specify_quantity_variant_14",
+              "key": "specify_quantity_variant_14",
+              "intentKey": "specify_quantity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Nshaka ice cream imwe, nyabuneka.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nshaka ice cream imwe, nyabuneka."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want one ice cream, please.",
+                  "note": "A fuller polite alternative.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Je voudrais une glace, s'il vous plaît.",
+                  "note": "Une variante polite plus complète.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

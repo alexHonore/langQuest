@@ -16,6 +16,7 @@ import 'package:langquest_mobile/core/backend/auth_gateway.dart';
 import 'package:langquest_mobile/core/backend/backend_config.dart';
 import 'package:langquest_mobile/core/backend/curriculum_ids.dart';
 import 'package:langquest_mobile/core/backend/sync_service.dart';
+import 'package:langquest_mobile/core/content/content_bundle.dart';
 import 'package:langquest_mobile/core/content/content_models.dart';
 import 'package:langquest_mobile/core/learning/srs.dart';
 import 'package:langquest_mobile/core/services/app_state.dart';
@@ -208,11 +209,11 @@ void main() {
   late SyncService sync;
   late TestClock clock;
 
-  Future<void> setUpSync({AccountUser? user = const AccountUser(id: 'u-1', email: 'learner@example.test')}) async {
+  Future<void> setUpSync({AccountUser? user = const AccountUser(id: 'u-1', email: 'learner@example.test'), ContentBundle? content}) async {
     worker = FakeWorker();
     auth = FakeAuth(user: user);
     clock = TestClock();
-    container = await testContainer(clock: clock);
+    container = await testContainer(clock: clock, content: content);
     final api = LangQuestApi(baseUrl: 'https://api.test', accessToken: auth.accessToken, client: worker.client);
     sync = SyncService(api: api, auth: auth, ledger: SyncLedger(await SharedPreferences.getInstance()), target: container.read(appStateProvider.notifier), now: clock.call);
   }
@@ -325,6 +326,50 @@ void main() {
       expect(progress.cards, isEmpty);
       expect(state.learner.xpByDay, isEmpty);
       expect(worker.requests.where((r) => r.contains('/evaluate')), isEmpty, reason: 'restored missions are not sent back');
+    });
+
+    test('on a device that has read no course yet, an account course is read first, then restored with its missions', () async {
+      await setUpSync(content: await startupBundle());
+      expect(container.read(appStateProvider).content.chapters, isEmpty);
+      final darija = testBundle.course('arabic-moroccan', 'fr')!;
+      worker.enrollments.add({'id': 'enr-9', 'courseTrackId': 'arabic-moroccan', 'sourceLanguageCode': 'fr', 'status': 'active'});
+      auth.completedByEnrollment['enr-9'] = {missionServerId(darija.missions.first.chapterKey, darija.missions.first.key)};
+
+      final report = await sync.sync();
+      expect((report.coursesRestored, report.missionsRestored), (1, 1));
+      final state = container.read(appStateProvider);
+      expect(state.content.isLoaded('arabic-moroccan'), isTrue);
+      expect({for (final c in state.content.chapters) c.courseTrackId}, {'arabic-moroccan'}, reason: 'only the account\'s course');
+      expect(state.activeCourse?.id, darija.id);
+      expect(state.learner.progressOf(darija.id).isMissionCompleted(darija.missions.first.key), isTrue);
+    });
+
+    test('an account course that cannot be read now is left for a later sync, which restores it', () async {
+      var failing = true;
+      Future<String> read(String path) => failing && path == ContentBundle.chaptersAsset(spanish) ? Future.error(FlutterError('offline')) : readTestAsset(path);
+      worker = FakeWorker();
+      auth = FakeAuth(
+        user: const AccountUser(id: 'u-1', email: 'learner@example.test'),
+      );
+      clock = TestClock();
+      container = await testContainer(clock: clock, content: await startupBundle(), read: read);
+      sync = SyncService(
+        api: LangQuestApi(baseUrl: 'https://api.test', accessToken: auth.accessToken, client: worker.client),
+        auth: auth,
+        ledger: SyncLedger(await SharedPreferences.getInstance()),
+        target: container.read(appStateProvider.notifier),
+        now: clock.call,
+      );
+      worker.enrollments.add({'id': 'enr-3', 'courseTrackId': spanish, 'sourceLanguageCode': 'en', 'status': 'active'});
+
+      var report = await sync.sync();
+      expect(report.coursesRestored, 0, reason: 'its chapters could not be read');
+      expect(container.read(appStateProvider).learner.isEnrolled(spanish, 'en'), isFalse);
+
+      failing = false;
+      report = await sync.sync();
+      expect(report.coursesRestored, 1);
+      expect(container.read(appStateProvider).activeCourse?.id, '$spanish|en');
     });
 
     test('a course the account refuses (another source of the track is active) is reported, not retried as an error', () async {

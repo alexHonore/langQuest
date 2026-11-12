@@ -52,10 +52,10 @@ export const ENGLISH_CHAPTER_1: SeedChapter = defineSeedChapter({
   generatedBy: 'curriculum-seed/english@2026-10',
   notes: ['US-neutral phrasing; GB regional option may prefer "bill" → "the bill" vs US "check" — reviewer to add variants.', 'French overlays use vouvoiement with strangers; Russian overlays use «вы».'],
   characters: [
-    { characterKey: 'en_maya_acquaintance', role: 'friendly local acquaintance', name: 'Maya', personality: 'easy-going, encouraging', homeRegion: 'US (neutral)', regionalOption: null },
-    { characterKey: 'en_sam_barista', role: 'café server', name: 'Sam', personality: 'quick, friendly, asks follow-ups', homeRegion: 'US (neutral)', regionalOption: null },
-    { characterKey: 'en_dana_passerby', role: 'passer-by', name: 'Dana', personality: 'helpful, talks fast', homeRegion: 'US (neutral)', regionalOption: null },
-    { characterKey: 'en_ray_taxi', role: 'taxi driver', name: 'Ray', personality: 'chatty, practical', homeRegion: 'US (neutral)', regionalOption: null },
+    { characterKey: 'en_maya_acquaintance', role: 'friendly local acquaintance', name: 'Maya', personality: 'easy-going, encouraging', homeRegion: 'US (neutral)', regionalOption: null, voice: 'female' },
+    { characterKey: 'en_sam_barista', role: 'café server', name: 'Sam', personality: 'quick, friendly, asks follow-ups', homeRegion: 'US (neutral)', regionalOption: null, voice: 'male' },
+    { characterKey: 'en_dana_passerby', role: 'passer-by', name: 'Dana', personality: 'helpful, talks fast', homeRegion: 'US (neutral)', regionalOption: null, voice: 'female' },
+    { characterKey: 'en_ray_taxi', role: 'taxi driver', name: 'Ray', personality: 'chatty, practical', homeRegion: 'US (neutral)', regionalOption: null, voice: 'male' },
   ],
   missions: [
     {

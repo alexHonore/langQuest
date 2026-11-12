@@ -6,6 +6,7 @@ import 'dart:typed_data';
 import 'package:web/web.dart' as web;
 
 import '../audio/take_recorder.dart';
+import '../audio/wav.dart';
 
 /// The browser can record: a secure context (https or localhost) with the microphone API and MediaRecorder.
 bool get canRecordTakes {
@@ -195,6 +196,11 @@ class _WebTake implements RecordedTake {
 
   @override
   Future<Uint8List> bytes() async => (await _blob.arrayBuffer().toDart).toDart.asUint8List();
+
+  /// Decodes the take (WebM/Opus in Chrome, AAC in MP4 in Safari) and renders it mono at [sampleRate] in an offline
+  /// audio context, then writes 16-bit WAV.
+  @override
+  Future<Uint8List?> wav({int sampleRate = 16000}) => _toWav(_blob, sampleRate);
   web.HTMLAudioElement? _audio;
   Completer<void>? _done;
   bool _disposed = false;
@@ -236,5 +242,31 @@ class _WebTake implements RecordedTake {
     _disposed = true;
     stop();
     web.URL.revokeObjectURL(_url);
+  }
+}
+
+/// [blob] as 16-bit mono WAV at [sampleRate]; null when the browser cannot decode it (a helper returning the outcome:
+/// no nullable local is captured by a closure, which dart2js has miscompiled in this file's catch blocks).
+Future<Uint8List?> _toWav(web.Blob blob, int sampleRate) async {
+  try {
+    final data = await blob.arrayBuffer().toDart;
+    final probe = web.OfflineAudioContext(web.OfflineAudioContextOptions(numberOfChannels: 1, length: 1, sampleRate: sampleRate));
+    final decoded = await probe.decodeAudioData(data).toDart;
+    final frames = (decoded.duration * sampleRate).ceil();
+    if (frames <= 0) return null;
+    final offline = web.OfflineAudioContext(web.OfflineAudioContextOptions(numberOfChannels: 1, length: frames, sampleRate: sampleRate));
+    final source = offline.createBufferSource()..buffer = decoded;
+    source.connect(offline.destination);
+    source.start(0);
+    final rendered = await offline.startRendering().toDart;
+    final samples = rendered.getChannelData(0).toDart;
+    final pcm = Uint8List(samples.length * 2);
+    final view = ByteData.sublistView(pcm);
+    for (var i = 0; i < samples.length; i++) {
+      view.setInt16(i * 2, (samples[i].clamp(-1.0, 1.0) * 32767).round(), Endian.little);
+    }
+    return pcm16ToWav(pcm, sampleRate);
+  } catch (_) {
+    return null;
   }
 }

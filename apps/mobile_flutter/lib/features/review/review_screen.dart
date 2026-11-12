@@ -5,12 +5,15 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
+import '../../core/backend/narrator.dart';
+import '../../core/backend/server_voice.dart';
 import '../../core/backend/speech_check.dart';
 import '../../core/layout/motion.dart';
 import '../../core/content/content_bundle.dart';
 import '../../core/content/content_models.dart';
 import '../../core/learning/srs.dart';
 import '../../core/services/app_state.dart';
+import '../../core/services/speech_service.dart';
 import '../../l10n/l10n.dart';
 import '../learn/learn_content.dart';
 import '../learn/learn_widgets.dart';
@@ -39,6 +42,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
   /// The server's verdict on the spoken phrase of the current card, and the rating it suggests.
   SpeechVerdict? _verdict;
   ReviewRating? _suggested;
+  late final SpeechService _speech;
 
   @override
   void initState() {
@@ -53,9 +57,48 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
         for (final c in appState.dueCards(now))
           if (_lookup(content, course, c.id) != null) c.id,
     ];
+    _speech = ref.read(speechServiceProvider);
+    WidgetsBinding.instance.addPostFrameCallback((_) => _announce());
+  }
+
+  @override
+  void dispose() {
+    _speech.stop();
+    super.dispose();
+  }
+
+  _ReviewItem? get _current {
+    final course = ref.read(appStateProvider).activeCourse;
+    if (course == null || _position >= _queue.length) return null;
+    return _lookup(ref.read(contentBundleProvider), course, _queue[_position]);
+  }
+
+  /// The card's question read aloud ("How do you say “…”?"), when exercises are read aloud or the learner asks.
+  void _announce({bool asked = false}) {
+    final current = _current;
+    final read = readAloudFor(ref, asked: asked);
+    if (current == null || read == null || !mounted) return;
+    read.narrator.say(read.words.missionHowDoYouSay(current.plan.promptMeaningOf(current.expression)));
+  }
+
+  /// The answer, once shown, said in the course's voice (when exercises are read aloud).
+  Future<void> _sayAnswer() async {
+    final current = _current;
+    final course = ref.read(appStateProvider).activeCourse;
+    if (current == null || course == null || !ref.read(appStateProvider).learner.readAloud) return;
+    ref.read(narratorProvider)?.stop();
+    final voice = await ref.read(lineVoiceProvider(course.track.voiceLocale).future);
+    if (!mounted || !_revealed || !voice.canSay(expressionId: current.expression.id)) return;
+    await voice.say(text: current.expression.text, expressionId: current.expression.id);
+  }
+
+  void _reveal() {
+    setState(() => _revealed = true);
+    _sayAnswer();
   }
 
   void _rate(ReviewRating rating) {
+    _speech.stop();
     ref.read(appStateProvider.notifier).reviewCard(_queue[_position], rating);
     setState(() {
       _position++;
@@ -63,6 +106,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
       _verdict = null;
       _suggested = null;
     });
+    _announce();
   }
 
   /// A checked spoken answer reveals the phrase, with the rating its verdict suggests.
@@ -78,6 +122,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
       _suggested = suggested;
       _revealed = true;
     });
+    _sayAnswer();
   }
 
   @override
@@ -146,9 +191,17 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
                                     child: Column(
                                       mainAxisSize: MainAxisSize.min,
                                       children: [
-                                        Text(
-                                          l10n.reviewHowDoYouSay,
-                                          style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: colors.textMuted),
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.center,
+                                          children: [
+                                            Flexible(
+                                              child: Text(
+                                                l10n.reviewHowDoYouSay,
+                                                style: TextStyle(fontSize: 13, fontWeight: FontWeight.w700, letterSpacing: 0.5, color: colors.textMuted),
+                                              ),
+                                            ),
+                                            if (!_revealed) ReadAloudButton(onPressed: () => _announce(asked: true)),
+                                          ],
                                         ),
                                         const SizedBox(height: 10),
                                         Text(
@@ -220,7 +273,7 @@ class _ReviewScreenState extends ConsumerState<ReviewScreen> {
                           ),
                           const SizedBox(height: 16),
                           if (!_revealed)
-                            LearnPrimaryButton(label: l10n.reviewShowAnswer, icon: LucideIcons.eye, onPressed: () => setState(() => _revealed = true))
+                            LearnPrimaryButton(label: l10n.reviewShowAnswer, icon: LucideIcons.eye, onPressed: _reveal)
                           else
                             Row(
                               children: [

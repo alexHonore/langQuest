@@ -8,6 +8,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:langquest_mobile/core/audio/clip_player_provider.dart';
+import 'package:langquest_mobile/core/platform/browser_kind.dart';
+import 'package:langquest_mobile/core/audio/take_recorder.dart';
 import 'package:langquest_mobile/core/backend/account.dart';
 import 'package:langquest_mobile/core/backend/api_client.dart';
 import 'package:langquest_mobile/core/backend/auth_gateway.dart';
@@ -340,6 +342,41 @@ void main() {
     expect(find.text('+30 XP'), findsOneWidget);
     expect(container.read(appStateProvider).learner.xpTotal, xpBefore + 30, reason: 'the summary\'s XP is the total\'s');
     expect(container.read(appStateProvider).stopsDone(missionKey), isNot(contains(PathStop.talk)));
+    semantics.dispose();
+  });
+
+  testWidgets('a refused microphone: the call goes on in writing, and says how to allow it', (t) async {
+    final semantics = t.ensureSemantics();
+    t.view.physicalSize = const Size(390 * 3, 844 * 3);
+    t.view.devicePixelRatio = 3;
+    addTearDown(t.view.reset);
+    final api = LangQuestApi(baseUrl: 'https://api.test', accessToken: () async => 't', client: FakeConversationServer().client);
+    await t.pumpWidget(
+      ProviderScope(
+        overrides: [
+          ...await testOverrides(),
+          liveCallCourseProvider.overrideWithValue(course),
+          apiProvider.overrideWithValue(api),
+          takeRecorderFactoryProvider.overrideWithValue(() => FakeRecorder(failure: RecorderFailure.blocked)),
+          clipPlayerFactoryProvider.overrideWithValue(() => FakeClipPlayer(instant: true)),
+          browserKindProvider.overrideWithValue(BrowserKind.iosSafari),
+        ],
+        child: const LangQuestApp(),
+      ),
+    );
+    final container = ProviderScope.containerOf(t.element(find.byType(LangQuestApp)));
+    container.read(appStateProvider.notifier)
+      ..setReduceMotion(true)
+      ..enroll('spanish-spain', 'en');
+    container.read(appRouterProvider).go('/call/$missionKey');
+    await settle(t, 1200);
+    await tapLabel(t, 'Call', ms: 1500);
+    await tapLabel(t, 'Talk');
+    expect(find.text('The microphone is blocked, so you can write your answers. Allow it to speak.'), findsOneWidget);
+    expect(find.byType(TextField), findsOneWidget, reason: 'the call goes on in writing');
+    await t.tap(find.text('How to allow the microphone'));
+    await settle(t, 300);
+    expect(find.textContaining('Website Settings › Microphone › Allow'), findsOneWidget);
     semantics.dispose();
   });
 

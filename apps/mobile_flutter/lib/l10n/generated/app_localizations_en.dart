@@ -161,6 +161,15 @@ class AppLocalizationsEn extends AppLocalizations {
   String get courseContinue => 'Continue this course';
 
   @override
+  String get courseLoading => 'Loading the course…';
+
+  @override
+  String get courseLoadFailed => 'This course could not be loaded. Check your connection and try again.';
+
+  @override
+  String get courseLoadRetry => 'Try again';
+
+  @override
   String courseExplanationsIn(String language) {
     return 'Explanations in $language';
   }
@@ -887,7 +896,7 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get practiseSayingNoteChecked =>
-      'Listen, record yourself: LangQuest tells you whether what you said came across. That is about meaning; there is no pronunciation score.';
+      'Listen, record yourself: LangQuest tells you whether what you said came across, and Pronunciation (AI) estimates how it sounded, word by word.';
 
   @override
   String get callIntroTitle => 'Practise it in a real conversation';
@@ -1061,10 +1070,11 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get courseIncludesSpokenCheck => 'Your spoken answers checked: LangQuest tells you whether you were understood (with a free account)';
+  String get courseIncludesSpokenCheck =>
+      'Your spoken answers checked: LangQuest tells you whether you were understood, and an AI estimates your pronunciation word by word (with a free account)';
 
   @override
-  String get courseMissingPronunciationScore => 'A pronunciation score: spoken answers are checked for meaning, not accent';
+  String get courseMissingPronunciationScore => 'A measured pronunciation score: the AI’s feedback is an estimate, not an acoustic measurement';
 
   @override
   String get courseLimitedForDialect => 'Speech recognition and AI voices are still limited for this dialect (not yet reviewed by native speakers)';
@@ -1354,4 +1364,311 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get callExplanation => 'Explanation';
+
+  @override
+  String get micHelpTitle => 'How to allow the microphone';
+
+  @override
+  String get micHelpIos =>
+      'On iPhone or iPad (Safari): tap “aA” at the left of the address bar, then Website Settings › Microphone › Allow. If Safari never asks: iPhone Settings › Safari › Microphone › Ask. Then tap Record again.';
+
+  @override
+  String get micHelpAndroid =>
+      'On Android (Chrome): tap the icon at the left of the address (padlock or sliders), then Permissions › Microphone › Allow. Then tap Record again.';
+
+  @override
+  String get micHelpDesktop => 'On a computer: click the icon at the left of the address (padlock or sliders), set Microphone to Allow, then try again.';
+
+  @override
+  String get callMicBlocked => 'The microphone is blocked, so you can write your answers. Allow it to speak.';
+
+  @override
+  String get pronunciationButton => 'Pronunciation (AI)';
+
+  @override
+  String get pronunciationButtonSemantics => 'Get AI feedback on your pronunciation';
+
+  @override
+  String get pronunciationListening => 'LangQuest’s AI is listening to your take…';
+
+  @override
+  String pronunciationScore(int score) {
+    return '$score/100';
+  }
+
+  @override
+  String get pronunciationNativeLike => 'Native-like';
+
+  @override
+  String get pronunciationClearAccent => 'Clear, with an accent';
+
+  @override
+  String get pronunciationHard => 'Hard to understand';
+
+  @override
+  String get pronunciationOffTarget => 'That wasn’t the phrase';
+
+  @override
+  String get pronunciationNoSpeech => 'I didn’t hear anything. Check your microphone and try again.';
+
+  @override
+  String get pronunciationWordGood => 'good';
+
+  @override
+  String get pronunciationWordUnclear => 'unclear';
+
+  @override
+  String get pronunciationWordToWork => 'to work on';
+
+  @override
+  String get pronunciationWordMissing => 'missing';
+
+  @override
+  String pronunciationWordLabel(String word, String status) {
+    return '$word: $status';
+  }
+
+  @override
+  String pronunciationSounds(String heard, String expected) {
+    return 'Heard /$heard/ · expected /$expected/';
+  }
+
+  @override
+  String get pronunciationNote => 'An AI’s estimate from listening to your take, not a measurement. It isn’t counted in your progress.';
+
+  @override
+  String get pronunciationFailed => 'Couldn’t get pronunciation feedback this time.';
+
+  @override
+  String get readAloud => 'Read aloud';
+
+  @override
+  String get readAloudSetting => 'Read exercises aloud';
+
+  @override
+  String get readAloudSettingBody =>
+      'As each exercise appears: its context and question in your language, then the phrase in the course\'s voice. Signed in, an AI voice reads them.';
+
+  @override
+  String get realExamplesButton => 'Real examples';
+
+  @override
+  String get realExamplesButtonSemantics => 'Real examples of this phrase, from Tatoeba';
+
+  @override
+  String get realExamplesTitle => 'Real examples';
+
+  @override
+  String realExamplesIntro(String phrase) {
+    return 'Sentences written by Tatoeba contributors that use “$phrase”.';
+  }
+
+  @override
+  String realExamplesAttested(String phrase) {
+    return '“$phrase” is itself a Tatoeba sentence: people really say it this way.';
+  }
+
+  @override
+  String get realExamplesRecording => 'Native recording';
+
+  @override
+  String get realExamplesRecordingSemantics => 'Play a native speaker’s recording';
+
+  @override
+  String realExamplesBy(String id, String author) {
+    return 'Tatoeba #$id by $author';
+  }
+
+  @override
+  String realExamplesById(String id) {
+    return 'Tatoeba #$id';
+  }
+
+  @override
+  String realExamplesRecordingBy(String author, String license) {
+    return 'Recording by $author · $license';
+  }
+
+  @override
+  String get realExamplesRegion => 'Tatoeba doesn’t record which country a sentence comes from: an example may use another region’s wording.';
+
+  @override
+  String realExamplesCredit(String license, String date) {
+    return 'From Tatoeba (tatoeba.org), sentences under $license, export of $date.';
+  }
+
+  @override
+  String courseIncludesRealExamples(int attested, int total) {
+    return '$attested of $total phrases found as written in Tatoeba, a collection of real sentences, with real examples to read';
+  }
+
+  @override
+  String get recordSignInToCheck => 'Have LangQuest check what you said and how it sounded: create a free account';
+
+  @override
+  String get speakToContinue => 'Say it out loud to continue';
+
+  @override
+  String speakTryAgain(int tries, int max) {
+    return 'Not quite yet: try again ($tries of $max)';
+  }
+
+  @override
+  String get speakCantNow => 'Can’t speak now';
+
+  @override
+  String get speakCantNowDone => 'Speaking steps are paused for 15 minutes.';
+
+  @override
+  String get speakSignUpTitle => 'Call the people of this course';
+
+  @override
+  String get speakSignUpBody =>
+      'Live calls with the course’s AI characters, by voice or in writing, with corrections after each call. Free: it only needs an account, so your calls and progress are kept.';
+
+  @override
+  String get speakSignUpButton => 'Create a free account to call';
+
+  @override
+  String get speakSignUpAlready => 'Already have one? Sign in';
+
+  @override
+  String get adminModelsEntry => 'AI models (admin)';
+
+  @override
+  String get adminModelsEntryBody => 'Which model does what, and change it';
+
+  @override
+  String get adminModelsTitle => 'AI models';
+
+  @override
+  String get adminModelsIntro =>
+      'Each task the AI does, the model that does it (then its fallbacks, tried in order), and for which courses. A change is tested on the spot before it is saved, and takes effect within a minute.';
+
+  @override
+  String get adminModelsAllCourses => 'All courses';
+
+  @override
+  String get adminModelsDefault => 'built-in';
+
+  @override
+  String get adminModelsChanged => 'changed by an admin';
+
+  @override
+  String adminModelsFallbacks(String models) {
+    return 'Then: $models';
+  }
+
+  @override
+  String adminModelsVoice(String voice) {
+    return 'Voice: $voice';
+  }
+
+  @override
+  String get adminModelsChange => 'Change';
+
+  @override
+  String get adminModelsReadOnly => 'Not changeable here';
+
+  @override
+  String get adminModelsScope => 'For';
+
+  @override
+  String get adminModelsPrimary => 'Model';
+
+  @override
+  String get adminModelsFallbacksField => 'Fallbacks (comma-separated, in order)';
+
+  @override
+  String get adminModelsVoiceField => 'Voice';
+
+  @override
+  String get adminModelsVoiceDefault => 'The course’s default voice';
+
+  @override
+  String get adminModelsSave => 'Test and save';
+
+  @override
+  String get adminModelsSaved => 'Saved: tests passed.';
+
+  @override
+  String adminModelsFailed(String reason) {
+    return 'Not saved: $reason';
+  }
+
+  @override
+  String get adminModelsLoadFailed => 'Couldn’t load the models. Are you signed in as an admin?';
+
+  @override
+  String get adminTask_character_dialogue => 'Calls: what the character says';
+
+  @override
+  String get adminTask_learner_evaluation => 'Calls: the report after hanging up';
+
+  @override
+  String get adminTask_source_explanation => 'Calls: Translate, Hint, Explain, Example';
+
+  @override
+  String get adminTask_scene_planning => 'Calls: planning the scene';
+
+  @override
+  String get adminTask_meaning_assessment => 'Spoken answers: was the meaning understood?';
+
+  @override
+  String get adminTask_pronunciation_feedback => 'Pronunciation score (AI listening)';
+
+  @override
+  String get adminTask_speech_recognition => 'Speech to text (your takes, calls)';
+
+  @override
+  String get adminTask_speech_synthesis => 'Server AI voice (narrator, calls, lines without a bundled clip)';
+
+  @override
+  String get adminTask_language_quality_check => 'Checks each AI line is in the right language';
+
+  @override
+  String get adminTask_content_generation => 'Content factory: drafting course content';
+
+  @override
+  String get adminTask_transcription_alignment => 'Audio library: transcripts';
+
+  @override
+  String get adminTask_pronunciation_assessment => 'Acoustic pronunciation score (Azure, not set up)';
+
+  @override
+  String get adminTask_realtime_conversation => 'Voice calls pipeline (speech to text, dialogue, voice)';
+
+  @override
+  String get practiceListenPrompt => 'Listen. What does it mean?';
+
+  @override
+  String get practiceReadPrompt => 'What does it mean?';
+
+  @override
+  String get practiceReversePrompt => 'Which one says this?';
+
+  @override
+  String get practiceGapPrompt => 'Complete the sentence';
+
+  @override
+  String get practiceTryAgain => 'Not this one. Try another.';
+
+  @override
+  String get practiceRight => 'That’s it!';
+
+  @override
+  String get practiceNext => 'Continue';
+
+  @override
+  String get practiceGapSemantics => 'missing word';
+
+  @override
+  String practiceWrongSemantics(String option) {
+    return '$option, not this one';
+  }
+
+  @override
+  String practiceRightSemantics(String option) {
+    return '$option, right answer';
+  }
 }

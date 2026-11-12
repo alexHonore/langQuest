@@ -1,3 +1,4 @@
+import 'package:flutter/foundation.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_tts/flutter_tts.dart';
 
@@ -26,8 +27,10 @@ class SpeechService {
   static const int voiceListAttempts = 6;
   final Duration voiceRetryDelay;
 
-  static const double normalRate = 0.5;
-  static const double slowRate = 0.32;
+  /// flutter_tts rates: on iOS and Android 0.5 is the normal pace; in a browser the rate is the Web Speech API's,
+  /// where 1 is normal (0.5 there was already half speed, so "Slowly" barely differed).
+  static double get normalRate => kIsWeb ? 1.0 : 0.5;
+  static double get slowRate => kIsWeb ? 0.6 : 0.3;
 
   Future<void> _configure() async {
     if (_configured) return;

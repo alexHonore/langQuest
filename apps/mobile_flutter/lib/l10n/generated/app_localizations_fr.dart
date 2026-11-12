@@ -166,6 +166,15 @@ class AppLocalizationsFr extends AppLocalizations {
   String get courseContinue => 'Continuer ce cours';
 
   @override
+  String get courseLoading => 'Chargement du cours…';
+
+  @override
+  String get courseLoadFailed => 'Ce cours n’a pas pu être chargé. Vérifiez votre connexion et réessayez.';
+
+  @override
+  String get courseLoadRetry => 'Réessayer';
+
+  @override
   String courseExplanationsIn(String language) {
     return 'Explications en $language';
   }
@@ -899,7 +908,7 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get practiseSayingNoteChecked =>
-      'Écoutez, enregistrez-vous : LangQuest vous dit si ce que vous avez dit a été compris. C’est le sens qui compte ; il n’y a pas de note de prononciation.';
+      'Écoutez, enregistrez-vous : LangQuest vous dit si ce que vous avez dit a été compris, et Prononciation (IA) estime comment cela sonnait, mot par mot.';
 
   @override
   String get callIntroTitle => 'Entraînez-vous dans une vraie conversation';
@@ -1073,10 +1082,11 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get courseIncludesSpokenCheck => 'Vos réponses orales vérifiées : LangQuest vous dit si vous avez été compris (avec un compte gratuit)';
+  String get courseIncludesSpokenCheck =>
+      'Vos réponses orales vérifiées : LangQuest vous dit si vous avez été compris, et une IA estime votre prononciation mot par mot (avec un compte gratuit)';
 
   @override
-  String get courseMissingPronunciationScore => 'Une note de prononciation : les réponses orales sont vérifiées pour le sens, pas pour l’accent';
+  String get courseMissingPronunciationScore => 'Une note de prononciation mesurée : l’avis de l’IA est une estimation, pas une mesure acoustique';
 
   @override
   String get courseLimitedForDialect =>
@@ -1369,4 +1379,312 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get callExplanation => 'Explication';
+
+  @override
+  String get micHelpTitle => 'Comment autoriser le micro';
+
+  @override
+  String get micHelpIos =>
+      'Sur iPhone ou iPad (Safari) : touchez « aA » à gauche de l’adresse, puis Réglages du site web › Microphone › Autoriser. Si Safari ne demande jamais : Réglages de l’iPhone › Safari › Microphone › Demander. Puis touchez de nouveau Enregistrer.';
+
+  @override
+  String get micHelpAndroid =>
+      'Sur Android (Chrome) : touchez l’icône à gauche de l’adresse (cadenas ou réglages), puis Autorisations › Micro › Autoriser. Puis touchez de nouveau Enregistrer.';
+
+  @override
+  String get micHelpDesktop =>
+      'Sur un ordinateur : cliquez sur l’icône à gauche de l’adresse (cadenas ou réglages), mettez Micro sur Autoriser, puis réessayez.';
+
+  @override
+  String get callMicBlocked => 'Le micro est bloqué : vous pouvez écrire vos réponses. Autorisez-le pour parler.';
+
+  @override
+  String get pronunciationButton => 'Prononciation (IA)';
+
+  @override
+  String get pronunciationButtonSemantics => 'Obtenir l’avis de l’IA sur votre prononciation';
+
+  @override
+  String get pronunciationListening => 'L’IA de LangQuest écoute votre enregistrement…';
+
+  @override
+  String pronunciationScore(int score) {
+    return '$score/100';
+  }
+
+  @override
+  String get pronunciationNativeLike => 'Comme un natif';
+
+  @override
+  String get pronunciationClearAccent => 'Clair, avec un accent';
+
+  @override
+  String get pronunciationHard => 'Difficile à comprendre';
+
+  @override
+  String get pronunciationOffTarget => 'Ce n’était pas la phrase';
+
+  @override
+  String get pronunciationNoSpeech => 'Je n’ai rien entendu. Vérifiez votre micro et réessayez.';
+
+  @override
+  String get pronunciationWordGood => 'bien';
+
+  @override
+  String get pronunciationWordUnclear => 'pas clair';
+
+  @override
+  String get pronunciationWordToWork => 'à travailler';
+
+  @override
+  String get pronunciationWordMissing => 'manquant';
+
+  @override
+  String pronunciationWordLabel(String word, String status) {
+    return '$word : $status';
+  }
+
+  @override
+  String pronunciationSounds(String heard, String expected) {
+    return 'Entendu /$heard/ · attendu /$expected/';
+  }
+
+  @override
+  String get pronunciationNote => 'Une estimation de l’IA qui a écouté votre enregistrement, pas une mesure. Elle ne compte pas dans votre progression.';
+
+  @override
+  String get pronunciationFailed => 'Impossible d’obtenir l’avis sur la prononciation cette fois-ci.';
+
+  @override
+  String get readAloud => 'Lire à voix haute';
+
+  @override
+  String get readAloudSetting => 'Lire les exercices à voix haute';
+
+  @override
+  String get readAloudSettingBody =>
+      'À chaque exercice : son contexte et sa question dans votre langue, puis la phrase avec la voix du cours. Connecté, une voix IA les lit.';
+
+  @override
+  String get realExamplesButton => 'Exemples réels';
+
+  @override
+  String get realExamplesButtonSemantics => 'Exemples réels de cette phrase, tirés de Tatoeba';
+
+  @override
+  String get realExamplesTitle => 'Exemples réels';
+
+  @override
+  String realExamplesIntro(String phrase) {
+    return 'Des phrases écrites par des contributeurs de Tatoeba qui utilisent « $phrase ».';
+  }
+
+  @override
+  String realExamplesAttested(String phrase) {
+    return '« $phrase » est elle-même une phrase de Tatoeba : on la dit vraiment ainsi.';
+  }
+
+  @override
+  String get realExamplesRecording => 'Enregistrement natif';
+
+  @override
+  String get realExamplesRecordingSemantics => 'Écouter l’enregistrement d’un locuteur natif';
+
+  @override
+  String realExamplesBy(String id, String author) {
+    return 'Tatoeba nº $id par $author';
+  }
+
+  @override
+  String realExamplesById(String id) {
+    return 'Tatoeba nº $id';
+  }
+
+  @override
+  String realExamplesRecordingBy(String author, String license) {
+    return 'Enregistrement : $author · $license';
+  }
+
+  @override
+  String get realExamplesRegion => 'Tatoeba n’indique pas de quel pays vient une phrase : un exemple peut employer les mots d’une autre région.';
+
+  @override
+  String realExamplesCredit(String license, String date) {
+    return 'Tiré de Tatoeba (tatoeba.org), phrases sous licence $license, export du $date.';
+  }
+
+  @override
+  String courseIncludesRealExamples(int attested, int total) {
+    return '$attested phrases sur $total trouvées telles quelles dans Tatoeba, un recueil de phrases réelles, avec des exemples réels à lire';
+  }
+
+  @override
+  String get recordSignInToCheck => 'Faites vérifier ce que vous avez dit et votre prononciation : créez un compte gratuit';
+
+  @override
+  String get speakToContinue => 'Dites-le à voix haute pour continuer';
+
+  @override
+  String speakTryAgain(int tries, int max) {
+    return 'Pas encore tout à fait : réessayez ($tries sur $max)';
+  }
+
+  @override
+  String get speakCantNow => 'Impossible de parler maintenant';
+
+  @override
+  String get speakCantNowDone => 'Les étapes orales sont en pause pendant 15 minutes.';
+
+  @override
+  String get speakSignUpTitle => 'Appelez les personnages de ce cours';
+
+  @override
+  String get speakSignUpBody =>
+      'Des appels en direct avec les personnages IA du cours, à la voix ou par écrit, avec des corrections après chaque appel. Gratuit : il suffit d’un compte, pour garder vos appels et vos progrès.';
+
+  @override
+  String get speakSignUpButton => 'Créer un compte gratuit pour appeler';
+
+  @override
+  String get speakSignUpAlready => 'Vous en avez un ? Connectez-vous';
+
+  @override
+  String get adminModelsEntry => 'Modèles d’IA (admin)';
+
+  @override
+  String get adminModelsEntryBody => 'Quel modèle fait quoi, et le changer';
+
+  @override
+  String get adminModelsTitle => 'Modèles d’IA';
+
+  @override
+  String get adminModelsIntro =>
+      'Chaque tâche de l’IA, le modèle qui la fait (puis ses remplaçants, essayés dans l’ordre), et pour quels cours. Un changement est testé sur-le-champ avant d’être enregistré, et s’applique en une minute.';
+
+  @override
+  String get adminModelsAllCourses => 'Tous les cours';
+
+  @override
+  String get adminModelsDefault => 'par défaut';
+
+  @override
+  String get adminModelsChanged => 'changé par un admin';
+
+  @override
+  String adminModelsFallbacks(String models) {
+    return 'Ensuite : $models';
+  }
+
+  @override
+  String adminModelsVoice(String voice) {
+    return 'Voix : $voice';
+  }
+
+  @override
+  String get adminModelsChange => 'Changer';
+
+  @override
+  String get adminModelsReadOnly => 'Non modifiable ici';
+
+  @override
+  String get adminModelsScope => 'Pour';
+
+  @override
+  String get adminModelsPrimary => 'Modèle';
+
+  @override
+  String get adminModelsFallbacksField => 'Remplaçants (séparés par des virgules, dans l’ordre)';
+
+  @override
+  String get adminModelsVoiceField => 'Voix';
+
+  @override
+  String get adminModelsVoiceDefault => 'La voix par défaut du cours';
+
+  @override
+  String get adminModelsSave => 'Tester et enregistrer';
+
+  @override
+  String get adminModelsSaved => 'Enregistré : tests réussis.';
+
+  @override
+  String adminModelsFailed(String reason) {
+    return 'Non enregistré : $reason';
+  }
+
+  @override
+  String get adminModelsLoadFailed => 'Impossible de charger les modèles. Êtes-vous connecté en tant qu’admin ?';
+
+  @override
+  String get adminTask_character_dialogue => 'Appels : ce que dit le personnage';
+
+  @override
+  String get adminTask_learner_evaluation => 'Appels : le bilan après l’appel';
+
+  @override
+  String get adminTask_source_explanation => 'Appels : Traduire, Indice, Expliquer, Exemple';
+
+  @override
+  String get adminTask_scene_planning => 'Appels : préparer la scène';
+
+  @override
+  String get adminTask_meaning_assessment => 'Réponses orales : le sens a-t-il été compris ?';
+
+  @override
+  String get adminTask_pronunciation_feedback => 'Note de prononciation (écoute par IA)';
+
+  @override
+  String get adminTask_speech_recognition => 'Parole en texte (vos prises, les appels)';
+
+  @override
+  String get adminTask_speech_synthesis => 'Voix IA du serveur (narrateur, appels, phrases sans clip intégré)';
+
+  @override
+  String get adminTask_language_quality_check => 'Vérifie que chaque phrase de l’IA est dans la bonne langue';
+
+  @override
+  String get adminTask_content_generation => 'Usine à contenu : rédaction des cours';
+
+  @override
+  String get adminTask_transcription_alignment => 'Audiothèque : transcriptions';
+
+  @override
+  String get adminTask_pronunciation_assessment => 'Note acoustique de prononciation (Azure, non configuré)';
+
+  @override
+  String get adminTask_realtime_conversation => 'Chaîne des appels vocaux (parole en texte, dialogue, voix)';
+
+  @override
+  String get practiceListenPrompt => 'Écoutez. Qu’est-ce que ça veut dire ?';
+
+  @override
+  String get practiceReadPrompt => 'Qu’est-ce que ça veut dire ?';
+
+  @override
+  String get practiceReversePrompt => 'Laquelle dit cela ?';
+
+  @override
+  String get practiceGapPrompt => 'Complétez la phrase';
+
+  @override
+  String get practiceTryAgain => 'Pas celle-ci. Essayez une autre.';
+
+  @override
+  String get practiceRight => 'C’est bien ça !';
+
+  @override
+  String get practiceNext => 'Continuer';
+
+  @override
+  String get practiceGapSemantics => 'mot manquant';
+
+  @override
+  String practiceWrongSemantics(String option) {
+    return '$option, pas celle-ci';
+  }
+
+  @override
+  String practiceRightSemantics(String option) {
+    return '$option, bonne réponse';
+  }
 }

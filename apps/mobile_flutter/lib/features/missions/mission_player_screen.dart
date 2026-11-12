@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
+import '../../core/backend/narrator.dart';
 import '../../core/backend/server_voice.dart';
 import '../../core/backend/speech_check.dart';
 import '../../core/content/content_models.dart';
@@ -60,6 +61,9 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
 
   /// The current reply was given out loud and understood (no option was chosen).
   bool _answeredByVoice = false;
+
+  /// The chosen reply has to be said (with a microphone) before the next exchange.
+  final _sayStep = SpeakingStep();
   late final SpeechService _speech;
   late final bool _wasCompleted;
   int _newReviewCards = 0;
@@ -71,7 +75,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     _wasCompleted = ref.read(appStateProvider).progress.isMissionCompleted(widget.missionKey);
     WidgetsBinding.instance.addPostFrameCallback((_) {
       ref.read(appStateProvider.notifier).missionOpened(widget.missionKey);
-      _sayCue();
+      _introduce();
     });
   }
 
@@ -81,23 +85,51 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     super.dispose();
   }
 
-  Future<void> _say(Expression line) async {
+  /// Says [line] in the course's voice (the server's AI voice signed in, else the device's), interrupting the
+  /// narration. Part of an introduction when [token] is given; a new utterance otherwise.
+  Future<void> _say(Expression line, {int? token}) async {
     final plan = ref.read(learnPlanProvider(widget.missionKey));
     if (plan == null) return;
-    // The device's voice for the course, else the server's AI voice (signed in), else none.
+    final id = token ?? ++_utterance;
+    if (token == null) ref.read(narratorProvider)?.stop();
     final voice = await ref.read(lineVoiceProvider(plan.voiceLocale).future);
-    if (!voice.available || !mounted) return;
-    final token = ++_utterance;
+    if (!voice.available || !mounted || id != _utterance) return;
     setState(() => _speaking = true);
     await voice.say(text: line.text, expressionId: line.id);
-    if (mounted && token == _utterance) setState(() => _speaking = false);
+    if (mounted && id == _utterance) setState(() => _speaking = false);
   }
 
-  void _sayCue() {
+  /// The exchange read aloud as it appears: on the first, the scene's context; then "Karim says", the cue in the
+  /// course's voice and "What do you answer?" — or "How do you say “…”?" when the learner speaks first. Without
+  /// narration (Settings › Display, or no voice for the instruction language), only the cue is said.
+  Future<void> _introduce({bool asked = false}) async {
     final plan = ref.read(learnPlanProvider(widget.missionKey));
     if (plan == null || _exchange >= plan.exchanges.length) return;
-    final cue = plan.exchanges[_exchange].cue;
-    if (cue != null) _say(cue);
+    final token = ++_utterance;
+    bool live() => mounted && token == _utterance && _phase == _Phase.exchange && !_answered;
+    final exchange = plan.exchanges[_exchange];
+    final cue = exchange.cue;
+    final read = readAloudFor(ref, asked: asked);
+    final note = _exchange == 0 ? plan.mission.sceneNoteIn(plan.source) : null;
+    if (read != null) {
+      final question = cue == null ? read.words.missionHowDoYouSay(plan.promptMeaningOf(exchange.answer)) : read.words.missionWhatDoYouAnswer;
+      read.narrator.prepare(question);
+      if (note != null) {
+        await read.narrator.say(note);
+        if (!live()) return;
+      }
+      if (cue == null) {
+        await read.narrator.say(question);
+        return;
+      }
+      await read.narrator.say(read.words.missionCue(plan.characterName));
+      if (!live()) return;
+      await _say(cue, token: token);
+      if (!live()) return;
+      await read.narrator.say(question);
+      return;
+    }
+    if (cue != null) await _say(cue, token: token);
   }
 
   void _choose(MissionExchange exchange, int index) {
@@ -114,6 +146,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
   void _nextExchange(MissionLearnPlan plan) {
     _utterance++;
     _speech.stop();
+    _sayStep.reset();
     setState(() {
       _selected = null;
       _answered = false;
@@ -126,7 +159,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
         _phase = _Phase.recap;
       }
     });
-    if (_phase == _Phase.exchange) _sayCue();
+    if (_phase == _Phase.exchange) _introduce();
   }
 
   /// The learner answered out loud before choosing: understood is the right reply given unaided (first try, good);
@@ -292,9 +325,16 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
           ? Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(
-                  l10n.missionCue(plan.characterName),
-                  style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, letterSpacing: 0.4, color: colors.textMuted),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Text(
+                        l10n.missionCue(plan.characterName),
+                        style: TextStyle(fontSize: 12, fontWeight: FontWeight.w700, letterSpacing: 0.4, color: colors.textMuted),
+                      ),
+                    ),
+                    ReadAloudButton(onPressed: () => _introduce(asked: true)),
+                  ],
                 ),
                 const SizedBox(height: 6),
                 SizedBox(
@@ -307,13 +347,22 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                 ListenButtons(text: cue.text, expressionId: cue.id, locale: plan.voiceLocale, compact: true),
               ],
             )
-          : Text(
-              l10n.missionHowDoYouSay(plan.promptMeaningOf(exchange.answer)),
-              style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colors.textPrimary),
+          : Row(
+              children: [
+                Expanded(
+                  child: Text(
+                    l10n.missionHowDoYouSay(plan.promptMeaningOf(exchange.answer)),
+                    style: TextStyle(fontSize: 17, fontWeight: FontWeight.w600, color: colors.textPrimary),
+                  ),
+                ),
+                ReadAloudButton(onPressed: () => _introduce(asked: true)),
+              ],
             ),
     );
 
     if (_answered) {
+      // Said out loud already (understood), or waits for a take of the chosen reply.
+      final waitingForTake = !_answeredByVoice && speakingRequired(ref) && !_sayStep.done;
       // Say it: the chosen (correct) reply, big, with its meaning and the device voice when there is one.
       return Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -364,6 +413,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
                         centered: true,
                         check: SpeechTarget(expressionId: exchange.answer.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
                         onVerdict: (verdict) => _onVerdict(exchange, verdict),
+                        onTake: (outcome) => setState(() => _sayStep.take(outcome)),
                       ),
                     const SizedBox(height: 12),
                     MeloWidget(
@@ -379,10 +429,20 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
           const SizedBox(height: 10),
           Padding(
             padding: const EdgeInsets.only(bottom: 12),
-            child: LearnPrimaryButton(
-              label: _answeredByVoice ? l10n.next : l10n.sceneISaidIt,
-              icon: _answeredByVoice ? LucideIcons.chevronRight : LucideIcons.check,
-              onPressed: () => _nextExchange(plan),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                if (waitingForTake)
+                  Padding(
+                    padding: const EdgeInsets.only(bottom: 4),
+                    child: SpeakingHint(tries: _sayStep.tries),
+                  ),
+                LearnPrimaryButton(
+                  label: _answeredByVoice ? l10n.next : l10n.sceneISaidIt,
+                  icon: _answeredByVoice ? LucideIcons.chevronRight : LucideIcons.check,
+                  onPressed: waitingForTake ? null : () => _nextExchange(plan),
+                ),
+              ],
             ),
           ),
         ],

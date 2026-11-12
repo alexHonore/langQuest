@@ -7,7 +7,8 @@ iOS and Android use system fonts and a phrase's locale; the subsets are harmless
 
 Each subset is a static Regular (400) and Bold (700) instance of a Noto Sans font from the Google Fonts repository,
 pinned to one commit and checked by SHA-256, holding:
-  * every character of that script used by the content bundle (assets/content/*.json) and the interface, and
+  * every character of that script used by the content bundle (assets/content/**/*.json, the Tatoeba examples included)
+    and the interface, and
   * whole blocks where they are small (kana and CJK punctuation for Japanese; Arabic; Hebrew), so most content edits
     need no new subset. Chinese, Korean and Devanagari appear only in course names: just those characters. test/script_fonts_test.dart fails when the bundle uses a character a subset lacks.
 
@@ -93,10 +94,16 @@ def strings(value) -> list[str]:
 def needed_by_family(ui_cmap: set[int]) -> dict[str, set[int]]:
     """Characters outside the interface fonts, per family, from the tracks that use each script."""
     catalog = json.loads((ROOT / "assets/content/catalog.json").read_text("utf-8"))
-    chapters = json.loads((ROOT / "assets/content/chapters.json").read_text("utf-8"))["chapters"]
+    # Each course's chapters are a file of their own (assets/content/chapters/<track id>.json).
+    chapters = [c for path in sorted((ROOT / "assets/content/chapters").glob("*.json")) for c in json.loads(path.read_text("utf-8"))["chapters"]]
+    # Real examples from Tatoeba (examples.json), drawn in the course of the phrase they illustrate.
+    examples_path = ROOT / "assets/content/examples.json"
+    examples = json.loads(examples_path.read_text("utf-8"))["phrases"] if examples_path.exists() else {}
+    track_of_phrase = {e["id"]: c["courseTrackId"] for c in chapters for m in c["missions"] for e in m["expressions"]}
     texts_by_script: dict[str, list[str]] = {}
     for track in catalog["tracks"]:
         texts = [track["nativeName"]] + [s for c in chapters if c["courseTrackId"] == track["id"] for s in strings(c)]
+        texts += [s for pid, e in examples.items() if track_of_phrase.get(pid) == track["id"] for s in strings(e)]
         texts_by_script.setdefault(track["primaryScript"], []).extend(texts)
     needed = {}
     for family, (_, _, _, scripts, blocks, _) in FONTS.items():

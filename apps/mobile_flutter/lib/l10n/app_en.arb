@@ -90,6 +90,9 @@
   "coursePlanned": "Not available yet. Planned.",
   "courseStart": "Start this course",
   "courseContinue": "Continue this course",
+  "courseLoading": "Loading the course…",
+  "courseLoadFailed": "This course could not be loaded. Check your connection and try again.",
+  "courseLoadRetry": "Try again",
   "courseExplanationsIn": "Explanations in {language}",
   "@courseExplanationsIn": {
     "placeholders": {
@@ -574,7 +577,7 @@
       }
     }
   },
-  "practiseSayingNoteChecked": "Listen, record yourself: LangQuest tells you whether what you said came across. That is about meaning; there is no pronunciation score.",
+  "practiseSayingNoteChecked": "Listen, record yourself: LangQuest tells you whether what you said came across, and Pronunciation (AI) estimates how it sounded, word by word.",
   "callIntroTitle": "Practise it in a real conversation",
   "callIntroBody": "Someone from this mission picks up and talks with you in the language you’re learning. Answer out loud, or type. When you hang up, LangQuest tells you how it went.",
   "callIntroBodyText": "Someone from this mission chats with you in the language you’re learning. When you end the chat, LangQuest tells you how it went.",
@@ -691,8 +694,8 @@
       }
     }
   },
-  "courseIncludesSpokenCheck": "Your spoken answers checked: LangQuest tells you whether you were understood (with a free account)",
-  "courseMissingPronunciationScore": "A pronunciation score: spoken answers are checked for meaning, not accent",
+  "courseIncludesSpokenCheck": "Your spoken answers checked: LangQuest tells you whether you were understood, and an AI estimates your pronunciation word by word (with a free account)",
+  "courseMissingPronunciationScore": "A measured pronunciation score: the AI’s feedback is an estimate, not an acoustic measurement",
   "courseLimitedForDialect": "Speech recognition and AI voices are still limited for this dialect (not yet reviewed by native speakers)",
   "listenAiVoiceSemantics": "Listen (AI voice)",
   "listenSlowlyAiVoiceSemantics": "Listen slowly (AI voice)",
@@ -877,5 +880,228 @@
   "missionLiveCallAccount": "Practise it in a live call (free account)",
   "callExplain": "Explain",
   "callExample": "Example",
-  "callExplanation": "Explanation"
+  "callExplanation": "Explanation",
+  "micHelpTitle": "How to allow the microphone",
+  "micHelpIos": "On iPhone or iPad (Safari): tap “aA” at the left of the address bar, then Website Settings › Microphone › Allow. If Safari never asks: iPhone Settings › Safari › Microphone › Ask. Then tap Record again.",
+  "micHelpAndroid": "On Android (Chrome): tap the icon at the left of the address (padlock or sliders), then Permissions › Microphone › Allow. Then tap Record again.",
+  "micHelpDesktop": "On a computer: click the icon at the left of the address (padlock or sliders), set Microphone to Allow, then try again.",
+  "callMicBlocked": "The microphone is blocked, so you can write your answers. Allow it to speak.",
+  "pronunciationButton": "Pronunciation (AI)",
+  "pronunciationButtonSemantics": "Get AI feedback on your pronunciation",
+  "pronunciationListening": "LangQuest’s AI is listening to your take…",
+  "pronunciationScore": "{score}/100",
+  "@pronunciationScore": {
+    "placeholders": {
+      "score": {
+        "type": "int"
+      }
+    }
+  },
+  "pronunciationNativeLike": "Native-like",
+  "pronunciationClearAccent": "Clear, with an accent",
+  "pronunciationHard": "Hard to understand",
+  "pronunciationOffTarget": "That wasn’t the phrase",
+  "pronunciationNoSpeech": "I didn’t hear anything. Check your microphone and try again.",
+  "pronunciationWordGood": "good",
+  "pronunciationWordUnclear": "unclear",
+  "pronunciationWordToWork": "to work on",
+  "pronunciationWordMissing": "missing",
+  "pronunciationWordLabel": "{word}: {status}",
+  "@pronunciationWordLabel": {
+    "placeholders": {
+      "word": {
+        "type": "String"
+      },
+      "status": {
+        "type": "String"
+      }
+    }
+  },
+  "pronunciationSounds": "Heard /{heard}/ · expected /{expected}/",
+  "@pronunciationSounds": {
+    "placeholders": {
+      "heard": {
+        "type": "String"
+      },
+      "expected": {
+        "type": "String"
+      }
+    }
+  },
+  "pronunciationNote": "An AI’s estimate from listening to your take, not a measurement. It isn’t counted in your progress.",
+  "pronunciationFailed": "Couldn’t get pronunciation feedback this time.",
+  "readAloud": "Read aloud",
+  "readAloudSetting": "Read exercises aloud",
+  "readAloudSettingBody": "As each exercise appears: its context and question in your language, then the phrase in the course's voice. Signed in, an AI voice reads them.",
+  "realExamplesButton": "Real examples",
+  "realExamplesButtonSemantics": "Real examples of this phrase, from Tatoeba",
+  "realExamplesTitle": "Real examples",
+  "realExamplesIntro": "Sentences written by Tatoeba contributors that use “{phrase}”.",
+  "@realExamplesIntro": {
+    "placeholders": {
+      "phrase": {
+        "type": "String"
+      }
+    }
+  },
+  "realExamplesAttested": "“{phrase}” is itself a Tatoeba sentence: people really say it this way.",
+  "@realExamplesAttested": {
+    "placeholders": {
+      "phrase": {
+        "type": "String"
+      }
+    }
+  },
+  "realExamplesRecording": "Native recording",
+  "realExamplesRecordingSemantics": "Play a native speaker’s recording",
+  "realExamplesBy": "Tatoeba #{id} by {author}",
+  "@realExamplesBy": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      },
+      "author": {
+        "type": "String"
+      }
+    }
+  },
+  "realExamplesById": "Tatoeba #{id}",
+  "@realExamplesById": {
+    "placeholders": {
+      "id": {
+        "type": "String"
+      }
+    }
+  },
+  "realExamplesRecordingBy": "Recording by {author} · {license}",
+  "@realExamplesRecordingBy": {
+    "placeholders": {
+      "author": {
+        "type": "String"
+      },
+      "license": {
+        "type": "String"
+      }
+    }
+  },
+  "realExamplesRegion": "Tatoeba doesn’t record which country a sentence comes from: an example may use another region’s wording.",
+  "realExamplesCredit": "From Tatoeba (tatoeba.org), sentences under {license}, export of {date}.",
+  "@realExamplesCredit": {
+    "placeholders": {
+      "license": {
+        "type": "String"
+      },
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "courseIncludesRealExamples": "{attested} of {total} phrases found as written in Tatoeba, a collection of real sentences, with real examples to read",
+  "@courseIncludesRealExamples": {
+    "placeholders": {
+      "attested": {
+        "type": "int"
+      },
+      "total": {
+        "type": "int"
+      }
+    }
+  },
+  "recordSignInToCheck": "Have LangQuest check what you said and how it sounded: create a free account",
+  "speakToContinue": "Say it out loud to continue",
+  "speakTryAgain": "Not quite yet: try again ({tries} of {max})",
+  "@speakTryAgain": {
+    "placeholders": {
+      "tries": {
+        "type": "int"
+      },
+      "max": {
+        "type": "int"
+      }
+    }
+  },
+  "speakCantNow": "Can’t speak now",
+  "speakCantNowDone": "Speaking steps are paused for 15 minutes.",
+  "speakSignUpTitle": "Call the people of this course",
+  "speakSignUpBody": "Live calls with the course’s AI characters, by voice or in writing, with corrections after each call. Free: it only needs an account, so your calls and progress are kept.",
+  "speakSignUpButton": "Create a free account to call",
+  "speakSignUpAlready": "Already have one? Sign in",
+  "adminModelsEntry": "AI models (admin)",
+  "adminModelsEntryBody": "Which model does what, and change it",
+  "adminModelsTitle": "AI models",
+  "adminModelsIntro": "Each task the AI does, the model that does it (then its fallbacks, tried in order), and for which courses. A change is tested on the spot before it is saved, and takes effect within a minute.",
+  "adminModelsAllCourses": "All courses",
+  "adminModelsDefault": "built-in",
+  "adminModelsChanged": "changed by an admin",
+  "adminModelsFallbacks": "Then: {models}",
+  "@adminModelsFallbacks": {
+    "placeholders": {
+      "models": {
+        "type": "String"
+      }
+    }
+  },
+  "adminModelsVoice": "Voice: {voice}",
+  "@adminModelsVoice": {
+    "placeholders": {
+      "voice": {
+        "type": "String"
+      }
+    }
+  },
+  "adminModelsChange": "Change",
+  "adminModelsReadOnly": "Not changeable here",
+  "adminModelsScope": "For",
+  "adminModelsPrimary": "Model",
+  "adminModelsFallbacksField": "Fallbacks (comma-separated, in order)",
+  "adminModelsVoiceField": "Voice",
+  "adminModelsVoiceDefault": "The course’s default voice",
+  "adminModelsSave": "Test and save",
+  "adminModelsSaved": "Saved: tests passed.",
+  "adminModelsFailed": "Not saved: {reason}",
+  "@adminModelsFailed": {
+    "placeholders": {
+      "reason": {
+        "type": "String"
+      }
+    }
+  },
+  "adminModelsLoadFailed": "Couldn’t load the models. Are you signed in as an admin?",
+  "adminTask_character_dialogue": "Calls: what the character says",
+  "adminTask_learner_evaluation": "Calls: the report after hanging up",
+  "adminTask_source_explanation": "Calls: Translate, Hint, Explain, Example",
+  "adminTask_scene_planning": "Calls: planning the scene",
+  "adminTask_meaning_assessment": "Spoken answers: was the meaning understood?",
+  "adminTask_pronunciation_feedback": "Pronunciation score (AI listening)",
+  "adminTask_speech_recognition": "Speech to text (your takes, calls)",
+  "adminTask_speech_synthesis": "Server AI voice (narrator, calls, lines without a bundled clip)",
+  "adminTask_language_quality_check": "Checks each AI line is in the right language",
+  "adminTask_content_generation": "Content factory: drafting course content",
+  "adminTask_transcription_alignment": "Audio library: transcripts",
+  "adminTask_pronunciation_assessment": "Acoustic pronunciation score (Azure, not set up)",
+  "adminTask_realtime_conversation": "Voice calls pipeline (speech to text, dialogue, voice)",
+  "practiceListenPrompt": "Listen. What does it mean?",
+  "practiceReadPrompt": "What does it mean?",
+  "practiceReversePrompt": "Which one says this?",
+  "practiceGapPrompt": "Complete the sentence",
+  "practiceTryAgain": "Not this one. Try another.",
+  "practiceRight": "That’s it!",
+  "practiceNext": "Continue",
+  "practiceGapSemantics": "missing word",
+  "practiceWrongSemantics": "{option}, not this one",
+  "@practiceWrongSemantics": {
+    "placeholders": {
+      "option": {
+        "type": "String"
+      }
+    }
+  },
+  "practiceRightSemantics": "{option}, right answer",
+  "@practiceRightSemantics": {
+    "placeholders": {
+      "option": {
+        "type": "String"
+      }
+    }
+  }
 }

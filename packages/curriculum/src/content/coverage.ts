@@ -8,12 +8,16 @@ import { DEFAULT_STORY_ARC } from '../missions/story';
 import { ARABIC_MOROCCAN_CHAPTER_1 } from './arabic-moroccan';
 import { ENGLISH_CHAPTER_1 } from './english';
 import { JAPANESE_CHAPTER_1 } from './japanese';
+import { GENERATED_CHAPTERS } from './generated';
 import { buildAllPlannedSkeletons } from './skeletons';
 import { SPANISH_SPAIN_CHAPTER_1 } from './spanish-spain';
 import type { SeedChapter } from './types';
 
-/** Hand-authored draft chapters (never published without native review). */
-export const DRAFT_CHAPTERS: readonly SeedChapter[] = [ARABIC_MOROCCAN_CHAPTER_1, SPANISH_SPAIN_CHAPTER_1, JAPANESE_CHAPTER_1, ENGLISH_CHAPTER_1];
+/** The four hand-authored draft chapters. */
+export const HAND_AUTHORED_CHAPTERS: readonly SeedChapter[] = [ARABIC_MOROCCAN_CHAPTER_1, SPANISH_SPAIN_CHAPTER_1, JAPANESE_CHAPTER_1, ENGLISH_CHAPTER_1];
+
+/** Every draft chapter (never published as reviewed: all are `review_needed` AI drafts): hand-authored, then generated. */
+export const DRAFT_CHAPTERS: readonly SeedChapter[] = [...HAND_AUTHORED_CHAPTERS, ...GENERATED_CHAPTERS];
 
 export interface TrackSourceCoverage {
   courseTrackId: CourseTrackId;

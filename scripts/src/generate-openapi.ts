@@ -93,7 +93,9 @@ export const ROUTE_SCHEMAS: Partial<Record<RouteKey, RouteSchemas>> = {
   conversationEnd: { body: 'ConversationEndRequestSchema', response: 'ConversationEndResponseSchema' },
   speechTranscribe: { body: 'TranscribeRequestSchema', response: 'TranscribeResponseSchema' },
   speechPronunciationAssess: { body: 'PronunciationAssessRequestSchema', response: 'PronunciationAssessResponseSchema', note: 'ADR-006: `numericScore` is null unless the assessment mode is an acoustic assessor.' },
+  speechPronunciationFeedback: { body: 'PronunciationFeedbackRequestSchema', response: 'PronunciationFeedbackResponseSchema', note: 'AI pronunciation feedback: a listening model\'s estimate (`method: ai_listening`), never an acoustic score and never mastery evidence. The take is WAV or MP3.' },
   speechSynthesize: { body: 'SynthesizeRequestSchema', response: 'SynthesizeResponseSchema' },
+  speechNarrate: { body: 'NarrateRequestSchema', response: 'NarrateResponseSchema', note: 'The narrator: an exercise instruction or context read in the enrollment\'s instruction language (never target-language content, which goes through speechSynthesize by approved expression id).' },
   modelCapabilities: { query: 'ModelCapabilitiesQuerySchema', response: 'ModelCapabilitiesResponseSchema' },
   // §6.3 audio library (apps/api/src/routes/audio/index.ts, media-proxy.ts)
   audioCollections: { query: 'AudioCollectionsQuerySchema', response: 'AudioCollectionsResponseSchema' },

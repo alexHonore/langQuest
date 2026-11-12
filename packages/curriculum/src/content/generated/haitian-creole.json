@@ -1,0 +1,2777 @@
+{
+ "key": "haitian_creole_ch1",
+ "chapterIndex": 1,
+ "courseTrackId": "haitian-creole",
+ "targetVarietyId": "ht",
+ "sourceLanguages": [
+  "en",
+  "fr"
+ ],
+ "titles": {
+  "en": "First days in Port-au-Prince",
+  "fr": "Premiers jours à Port-au-Prince"
+ },
+ "characters": [
+  {
+   "characterKey": "haitian_creole_marie_friendly_local_acquaintance",
+   "role": "friendly local acquaintance",
+   "name": "Marie",
+   "personality": "warm, kind, always in a hurry",
+   "homeRegion": "Pétion-Ville, Ayiti",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "haitian_creole_rose_cafe_server",
+   "role": "café server",
+   "name": "Rose",
+   "personality": "quick, friendly, cheerful, patient",
+   "homeRegion": "Port-au-Prince",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "haitian_creole_rose_market_vendor",
+   "role": "market vendor",
+   "name": "Rose",
+   "personality": "Warm, chatty, quick-witted",
+   "homeRegion": "Pòtoprens",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "haitian_creole_jan_passer_by",
+   "role": "passer-by",
+   "name": "Jan",
+   "personality": "Friendly, helpful, talks fast",
+   "homeRegion": "Okap",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "haitian_creole_marie_neighbour",
+   "role": "neighbour",
+   "name": "Marie",
+   "personality": "Warm, chatty, welcoming, curious",
+   "homeRegion": "Okap",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "female"
+  },
+  {
+   "characterKey": "haitian_creole_jean_taxi_driver",
+   "role": "taxi driver",
+   "name": "Jean",
+   "personality": "talkative, friendly, a bit pushy",
+   "homeRegion": "Pòtoprens",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  },
+  {
+   "characterKey": "haitian_creole_daniel_child_at_the_ice_cream_stand",
+   "role": "child at the ice-cream stand",
+   "name": "Daniel",
+   "personality": "excited, sweet, a little greedy",
+   "homeRegion": "Pòtoprens",
+   "regionalOption": null,
+   "ageBand": null,
+   "voice": "male"
+  }
+ ],
+ "missions": [
+  {
+   "key": "haitian_creole_greet_and_introduce",
+   "blueprintKey": "greet_and_introduce",
+   "titles": {
+    "en": "Greeting a New Neighbour",
+    "fr": "Saluer un nouveau voisin"
+   },
+   "sceneNotes": {
+    "en": "It is morning and you meet a friendly neighbour on the street who is in a hurry but stops to say hello and ask where you live.",
+    "fr": "C'est le matin et vous croisez dans la rue une voisine sympathique, pressée, qui s'arrête pourtant pour vous saluer et vous demander où vous habitez."
+   },
+   "characterKey": "haitian_creole_marie_friendly_local_acquaintance",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Bonjou, madanm!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Bonjou, madanm!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good morning, ma'am!",
+       "contextNote": "Bonjou is used until about midday. Madanm is a polite way to address a woman; use mesye for a man.",
+       "literalGloss": "good-day, madam"
+      },
+      "fr": {
+       "meaning": "Bonjour, madame !",
+       "contextNote": "Bonjou s'emploie jusqu'à midi environ. Madanm est une façon polie de s'adresser à une femme ; pour un homme, on dit mesye. Prononcez le j comme dans « jour » ; le o est une voyelle pure.",
+       "literalGloss": "bon-jour, madame"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say j like the s in 'measure'; the o is a pure vowel.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "how_are_you",
+     "intentKey": "ask_how_are_you",
+     "slotId": "how_are_you",
+     "speaker": "learner",
+     "targetText": "Kijan ou ye?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Kijan ou ye?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How are you?",
+       "contextNote": "Very common and works with almost anyone.",
+       "literalGloss": "how you are"
+      },
+      "fr": {
+       "meaning": "Comment allez-vous ? / Comment ça va ?",
+       "contextNote": "Très courant, convient à presque tout le monde. Prononcez le j comme dans « jour ».",
+       "literalGloss": "comment tu es"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say the j like the s in 'measure'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.15
+    },
+    {
+     "key": "fine",
+     "intentKey": "reply_fine",
+     "slotId": "fine",
+     "speaker": "learner",
+     "targetText": "Mwen byen, mèsi. E ou menm?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mwen byen, mèsi. E ou menm?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm fine, thank you. And you?",
+       "contextNote": "Adding E ou menm? returns the question politely.",
+       "literalGloss": "I well, thanks. And you yourself?"
+      },
+      "fr": {
+       "meaning": "Je vais bien, merci. Et vous ?",
+       "contextNote": "Ajouter E ou menm ? permet de retourner poliment la question. Mwen se prononce avec une voyelle nasale ; le n ne se fait presque pas entendre.",
+       "literalGloss": "moi bien, merci. Et toi-même ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Mwen sounds like 'mwen' with a nasal vowel; do not pronounce the n strongly.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "my_name",
+     "intentKey": "introduce_name",
+     "slotId": "my_name",
+     "speaker": "learner",
+     "targetText": "Mwen rele Sam.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mwen rele Sam."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "My name is Sam.",
+       "contextNote": "Replace Sam with your own name.",
+       "literalGloss": "I am-called Sam"
+      },
+      "fr": {
+       "meaning": "Je m'appelle Sam.",
+       "contextNote": "Remplacez Sam par votre prénom.",
+       "literalGloss": "moi m'appelle Sam"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.15
+    },
+    {
+     "key": "your_name",
+     "intentKey": "ask_name",
+     "slotId": "your_name",
+     "speaker": "learner",
+     "targetText": "Kijan ou rele?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Kijan ou rele?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "What is your name?",
+       "contextNote": "This is the normal everyday way to ask someone's name.",
+       "literalGloss": "how you are-called"
+      },
+      "fr": {
+       "meaning": "Comment vous appelez-vous ?",
+       "contextNote": "C'est la manière courante de demander le nom de quelqu'un. Le r est doux, non roulé.",
+       "literalGloss": "comment tu t'appelles"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The r is soft, not rolled.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "nice_to_meet",
+     "intentKey": "say_nice_to_meet",
+     "slotId": "nice_to_meet",
+     "speaker": "learner",
+     "targetText": "Mwen kontan fè konesans ou.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mwen kontan fè konesans ou."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm happy to meet you.",
+       "contextNote": null,
+       "literalGloss": "I happy make acquaintance you"
+      },
+      "fr": {
+       "meaning": "Enchanté(e) de faire votre connaissance.",
+       "contextNote": "Dans kontan et konesans, on et an sont des voyelles nasales.",
+       "literalGloss": "moi content faire connaissance toi"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "In kontan and konesans, the on/an are nasal vowels.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "goodbye",
+     "intentKey": "say_goodbye",
+     "slotId": "goodbye",
+     "speaker": "learner",
+     "targetText": "N ap wè pita. Bòn jounen!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "N ap wè pita. Bòn jounen!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "See you later. Have a good day!",
+       "contextNote": "A friendly way to part ways in the morning.",
+       "literalGloss": "we will see later. good day"
+      },
+      "fr": {
+       "meaning": "À tout à l'heure. Bonne journée !",
+       "contextNote": "Une façon sympathique de se quitter le matin. Le ò de bòn se prononce comme un « o » ouvert, proche de « or ».",
+       "literalGloss": "nous allons voir plus tard. bon jour"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The ò in bòn is an open 'aw' sound.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "greet_hello_variant_8",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Bonjou, mesye!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Bonjou, mesye!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good morning, sir!",
+       "contextNote": "Use this when greeting a man.",
+       "literalGloss": "good-day, sir"
+      },
+      "fr": {
+       "meaning": "Bonjour, monsieur !",
+       "contextNote": "À utiliser pour saluer un homme.",
+       "literalGloss": "bon-jour, monsieur"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "ask_how_are_you_variant_9",
+     "intentKey": "ask_how_are_you",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Sa k pase?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Sa k pase?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "What's up? / How's it going?",
+       "contextNote": "Casual; best with friends and people your age.",
+       "literalGloss": "what that happens"
+      },
+      "fr": {
+       "meaning": "Quoi de neuf ? / Ça va ?",
+       "contextNote": "Familier ; à réserver aux amis et aux personnes de votre âge.",
+       "literalGloss": "ce qui se passe"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "say_goodbye_variant_10",
+     "intentKey": "say_goodbye",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Orevwa!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Orevwa!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Goodbye!",
+       "contextNote": "A simple, polite goodbye for any situation.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Au revoir !",
+       "contextNote": "Un au revoir simple et poli, valable en toute situation. Le w est une semi-voyelle : o-re-vwa.",
+       "literalGloss": null
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The w is a glide: o-re-vwa.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "haitian_creole_cafe_order_drink",
+   "blueprintKey": "cafe_order_drink",
+   "titles": {
+    "en": "Ordering a Drink at the Café",
+    "fr": "Commander une boisson au café"
+   },
+   "sceneNotes": {
+    "en": "You sit on a busy café terrace where a quick, friendly server comes to take your order and asks you to make a choice.",
+    "fr": "Vous êtes installé(e) sur une terrasse de café animée, où une serveuse rapide et sympathique vient prendre votre commande et vous demande de faire un choix."
+   },
+   "characterKey": "haitian_creole_rose_cafe_server",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Bonjou, ou byen?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Bonjou, ou byen?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello, how are you?",
+       "contextNote": "A friendly opener to the server. \"Ou byen?\" is a short, common check-in.",
+       "literalGloss": "Good day, you well?"
+      },
+      "fr": {
+       "meaning": "Bonjour, comment allez-vous ?",
+       "contextNote": "Une façon aimable d'engager la conversation avec la serveuse. « Ou byen ? » est une formule courte et courante pour prendre des nouvelles. Le « ou » se prononce comme « ou » en français.",
+       "literalGloss": "Bonjour, vous bien ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"ou\" sounds like English \"oo\".",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.15
+    },
+    {
+     "key": "greet_hello_variant_2",
+     "intentKey": "greet_hello",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Bonswa!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Bonswa!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Good evening!",
+       "contextNote": "Use from the afternoon onward.",
+       "literalGloss": "Good evening"
+      },
+      "fr": {
+       "meaning": "Bonsoir !",
+       "contextNote": "S'emploie à partir de l'après-midi.",
+       "literalGloss": "Bonsoir"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "order",
+     "intentKey": "request_drink",
+     "slotId": "order",
+     "speaker": "learner",
+     "targetText": "Mwen ta renmen yon kafe, tanpri.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mwen ta renmen yon kafe, tanpri."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I would like a coffee, please.",
+       "contextNote": "You can swap \"kafe\" for \"ji\" (juice) or \"dlo\" (water).",
+       "literalGloss": "I would like a coffee, please"
+      },
+      "fr": {
+       "meaning": "Je voudrais un café, s'il vous plaît.",
+       "contextNote": "Vous pouvez remplacer « kafe » par « ji » (jus) ou « dlo » (eau). Le « en » de « renmen » est nasal et se dit vite, presque « rèmen ».",
+       "literalGloss": "Je voudrais un café, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"renmen\" has a nasal \"en\" and is said quickly, like \"rèmen\".",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "request_drink_variant_4",
+     "intentKey": "request_drink",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Èske m ka jwenn yon ji, tanpri?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Èske m ka jwenn yon ji, tanpri?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have a juice, please?",
+       "contextNote": "A polite alternative that asks for the drink as a question.",
+       "literalGloss": "Q I can find a juice please"
+      },
+      "fr": {
+       "meaning": "Puis-je avoir un jus, s'il vous plaît ?",
+       "contextNote": "Une variante polie qui demande la boisson sous forme de question. Le « j » de « ji » se prononce comme dans « jus ».",
+       "literalGloss": "Est-ce que je peux trouver un jus s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"ji\" is like English \"zhee\".",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "options",
+     "intentKey": "offer_options",
+     "slotId": "options",
+     "speaker": "character",
+     "targetText": "Ak sik oswa san sik?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ak sik oswa san sik?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "With sugar or without sugar?",
+       "contextNote": "The server asks how you want your drink.",
+       "literalGloss": "With sugar or without sugar"
+      },
+      "fr": {
+       "meaning": "Avec du sucre ou sans sucre ?",
+       "contextNote": "La serveuse vous demande comment vous voulez votre boisson.",
+       "literalGloss": "Avec sucre ou sans sucre"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "choice",
+     "intentKey": "choose_option",
+     "slotId": "choice",
+     "speaker": "learner",
+     "targetText": "San sik, tanpri.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "San sik, tanpri."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Without sugar, please.",
+       "contextNote": "For the other choice, say \"Ak sik, tanpri.\"",
+       "literalGloss": "Without sugar please"
+      },
+      "fr": {
+       "meaning": "Sans sucre, s'il vous plaît.",
+       "contextNote": "Pour l'autre choix, dites « Ak sik, tanpri. »",
+       "literalGloss": "Sans sucre s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "bill",
+     "intentKey": "ask_for_bill",
+     "slotId": "bill",
+     "speaker": "learner",
+     "targetText": "Konbyen m dwe, tanpri?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Konbyen m dwe, tanpri?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much do I owe, please?",
+       "contextNote": null,
+       "literalGloss": "How much I owe please"
+      },
+      "fr": {
+       "meaning": "Combien je vous dois, s'il vous plaît ?",
+       "contextNote": null,
+       "literalGloss": "Combien je dois s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_for_bill_variant_8",
+     "intentKey": "ask_for_bill",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Nou ka peye kounye a?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Nou ka peye kounye a?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can we pay now?",
+       "contextNote": "Useful when you are with other people.",
+       "literalGloss": "We can pay now"
+      },
+      "fr": {
+       "meaning": "Pouvons-nous payer maintenant ?",
+       "contextNote": "Utile quand vous êtes avec d'autres personnes.",
+       "literalGloss": "Nous pouvons payer maintenant"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Mèsi anpil!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mèsi anpil!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much!",
+       "contextNote": null,
+       "literalGloss": "Thanks a lot"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup !",
+       "contextNote": "Le « è » de « mèsi » est ouvert, comme dans « mère ».",
+       "literalGloss": "Merci beaucoup"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"è\" in \"mèsi\" is open, like the vowel in \"bed\".",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "haitian_creole_market_ask_price",
+   "blueprintKey": "market_ask_price",
+   "titles": {
+    "en": "Asking Prices at the Market",
+    "fr": "Demander les prix au marché"
+   },
+   "sceneNotes": {
+    "en": "You stop at a fruit stall in the market, ask how much the mangoes cost per kilo, and the vendor surprises you with a free extra at the end.",
+    "fr": "Vous vous arrêtez à un étal de fruits au marché, vous demandez le prix du kilo de mangues, et la vendeuse vous réserve à la fin une petite surprise gratuite."
+   },
+   "characterKey": "haitian_creole_rose_market_vendor",
+   "expressions": [
+    {
+     "key": "greeting",
+     "intentKey": "greet_hello",
+     "slotId": "greeting",
+     "speaker": "learner",
+     "targetText": "Bonjou, machann!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Bonjou, machann!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello, vendor!",
+       "contextNote": "Machann (vendor) is a friendly way to address a market seller.",
+       "literalGloss": "Good day, vendor"
+      },
+      "fr": {
+       "meaning": "Bonjour, madame !",
+       "contextNote": "Machann (marchand) est une façon aimable d'interpeller un vendeur au marché. Le « ch » de machann se prononce comme dans « chat ».",
+       "literalGloss": "Bonjour, marchand"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Ch in machann sounds like English 'sh'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.1
+    },
+    {
+     "key": "how_much",
+     "intentKey": "ask_price",
+     "slotId": "how_much",
+     "speaker": "learner",
+     "targetText": "Konbyen yon kilo mango a, tanpri?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Konbyen yon kilo mango a, tanpri?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much is a kilo of mangoes, please?",
+       "contextNote": "Swap mango for another fruit to reuse the line.",
+       "literalGloss": "How-much one kilo mango the, please"
+      },
+      "fr": {
+       "meaning": "Combien coûte un kilo de mangues, s'il vous plaît ?",
+       "contextNote": "Remplacez mango par un autre fruit pour réutiliser la phrase.",
+       "literalGloss": "Combien un kilo mangue la, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_price_variant_3",
+     "intentKey": "ask_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Konbyen pou de kilo?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Konbyen pou de kilo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much for two kilos?",
+       "contextNote": null,
+       "literalGloss": "How-much for two kilo"
+      },
+      "fr": {
+       "meaning": "Combien pour deux kilos ?",
+       "contextNote": null,
+       "literalGloss": "Combien pour deux kilo"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "price",
+     "intentKey": "state_price",
+     "slotId": "price",
+     "speaker": "character",
+     "targetText": "Se san senkant goud pou yon kilo.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Se san senkant goud pou yon kilo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "It's 150 gourdes for a kilo.",
+       "contextNote": "Prices at the market are often quoted in goud (gourdes).",
+       "literalGloss": "It-is hundred fifty gourde for one kilo"
+      },
+      "fr": {
+       "meaning": "C'est 150 gourdes le kilo.",
+       "contextNote": "Au marché, les prix sont souvent donnés en goud (gourdes).",
+       "literalGloss": "C'est cent cinquante gourde pour un kilo"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "expensive",
+     "intentKey": "say_too_expensive",
+     "slotId": "expensive",
+     "speaker": "learner",
+     "targetText": "Sa chè twòp!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Sa chè twòp!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "That's too expensive!",
+       "contextNote": "Said with a smile, it is part of friendly bargaining.",
+       "literalGloss": "That expensive too-much"
+      },
+      "fr": {
+       "meaning": "C'est trop cher !",
+       "contextNote": "Dit avec le sourire, cela fait partie du marchandage amical. Le « ch » se prononce comme dans « chat » ; « è » est un e ouvert, comme dans « mère ».",
+       "literalGloss": "Ça cher trop"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Ch sounds like 'sh'; è is an open 'e' as in 'bed'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "lower",
+     "intentKey": "offer_lower_price",
+     "slotId": "lower",
+     "speaker": "learner",
+     "targetText": "Ou ka bese pri a yon ti jan, tanpri?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ou ka bese pri a yon ti jan, tanpri?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you lower the price a little, please?",
+       "contextNote": null,
+       "literalGloss": "You can lower price the a little bit, please"
+      },
+      "fr": {
+       "meaning": "Pouvez-vous baisser un peu le prix, s'il vous plaît ?",
+       "contextNote": null,
+       "literalGloss": "Vous pouvez baisser prix le un petit peu, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "offer_lower_price_variant_7",
+     "intentKey": "offer_lower_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "San goud e m pran l.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "San goud e m pran l."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "100 gourdes and I'll take it.",
+       "contextNote": "A direct counteroffer; the vendor may meet you halfway.",
+       "literalGloss": "Hundred gourde and I take it"
+      },
+      "fr": {
+       "meaning": "Cent gourdes et je le prends.",
+       "contextNote": "Une contre-offre directe : la vendeuse peut accepter de faire un compromis.",
+       "literalGloss": "Cent gourde et je prends le"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    },
+    {
+     "key": "deal",
+     "intentKey": "agree_to_price",
+     "slotId": "deal",
+     "speaker": "learner",
+     "targetText": "Dakò, m pran l.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Dakò, m pran l."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "OK, I'll take it.",
+       "contextNote": null,
+       "literalGloss": "Okay, I take it"
+      },
+      "fr": {
+       "meaning": "D'accord, je le prends.",
+       "contextNote": "Le « ò » est un o ouvert, comme dans « porte ».",
+       "literalGloss": "D'accord, je prends le"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Ò is an open 'o' as in 'law'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "agree_to_price_variant_9",
+     "intentKey": "agree_to_price",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Dakò, ban m de kilo.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Dakò, ban m de kilo."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "OK, give me two kilos.",
+       "contextNote": "Handy when you want to buy more than one kilo.",
+       "literalGloss": "Okay, give me two kilo"
+      },
+      "fr": {
+       "meaning": "D'accord, donnez-moi deux kilos.",
+       "contextNote": "Pratique quand vous voulez acheter plus d'un kilo.",
+       "literalGloss": "D'accord, donne-moi deux kilo"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "no_thanks",
+     "intentKey": "decline_purchase",
+     "slotId": "no_thanks",
+     "speaker": "learner",
+     "targetText": "Non, mèsi. Pita petèt.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Non, mèsi. Pita petèt."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No, thank you. Maybe later.",
+       "contextNote": null,
+       "literalGloss": "No, thanks. Later maybe"
+      },
+      "fr": {
+       "meaning": "Non, merci. Peut-être plus tard.",
+       "contextNote": null,
+       "literalGloss": "Non, merci. Plus tard peut-être"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "decline_purchase_variant_11",
+     "intentKey": "decline_purchase",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Non mèsi, pa jodi a.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Non mèsi, pa jodi a."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No thanks, not today.",
+       "contextNote": null,
+       "literalGloss": "No thanks, not today"
+      },
+      "fr": {
+       "meaning": "Non merci, pas aujourd'hui.",
+       "contextNote": null,
+       "literalGloss": "Non merci, pas aujourd'hui"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "haitian_creole_ask_directions",
+   "blueprintKey": "ask_directions",
+   "titles": {
+    "en": "Asking Directions to the Station",
+    "fr": "Demander le chemin de la gare"
+   },
+   "sceneNotes": {
+    "en": "You are a visitor in a Haitian town looking for the station, and you stop a passer-by who talks very fast.",
+    "fr": "Vous êtes en visite dans une ville haïtienne et cherchez la gare ; vous arrêtez un passant qui parle très vite."
+   },
+   "characterKey": "haitian_creole_jan_passer_by",
+   "expressions": [
+    {
+     "key": "excuse_me",
+     "intentKey": "get_attention",
+     "slotId": "excuse_me",
+     "speaker": "learner",
+     "targetText": "Eskize m, mesye.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Eskize m, mesye."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, sir.",
+       "contextNote": "Use madanm for a woman. Mesye and madanm were already introduced as greetings.",
+       "literalGloss": "Excuse me, sir"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, monsieur.",
+       "contextNote": "Pour une femme, on dit « madanm ». Mesye et madanm ont déjà été vus dans les salutations. Mesye se prononce « mé-SYÈ ».",
+       "literalGloss": "Excuse moi, monsieur"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Mesye sounds like 'meh-SYEH'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "where_is",
+     "intentKey": "ask_where_is",
+     "slotId": "where_is",
+     "speaker": "learner",
+     "targetText": "Kote estasyon an ye, tanpri?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Kote estasyon an ye, tanpri?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where is the station, please?",
+       "contextNote": "Kote ... ye is the standard way to ask where something is.",
+       "literalGloss": "Where station the is, please"
+      },
+      "fr": {
+       "meaning": "Où est la gare, s'il vous plaît ?",
+       "contextNote": "« Kote ... ye » est la façon habituelle de demander où se trouve quelque chose. Le « an » de « estasyon an » est nasal, comme dans « on ».",
+       "literalGloss": "Où gare la est, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'an' in 'estasyon an' is nasal, like in 'on'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "straight",
+     "intentKey": "give_direction_straight",
+     "slotId": "straight",
+     "speaker": "character",
+     "targetText": "Ale tou dwat devan ou.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ale tou dwat devan ou."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Go straight ahead.",
+       "contextNote": "Also heard: 'Kontinye tou dwat.'",
+       "literalGloss": "Go straight in front of you"
+      },
+      "fr": {
+       "meaning": "Allez tout droit devant vous.",
+       "contextNote": "On entend aussi : « Kontinye tou dwat. »",
+       "literalGloss": "Allez tout droit devant toi"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "turn",
+     "intentKey": "give_direction_turn",
+     "slotId": "turn",
+     "speaker": "character",
+     "targetText": "Apre sa, vire a goch.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Apre sa, vire a goch."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "After that, turn left.",
+       "contextNote": "Say 'a dwat' for right.",
+       "literalGloss": "After that, turn at left"
+      },
+      "fr": {
+       "meaning": "Ensuite, tournez à gauche.",
+       "contextNote": "Pour dire « à droite », on dit « a dwat ». Goch a un o court et se termine par « ch ».",
+       "literalGloss": "Après ça, tourne à gauche"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Goch has a short 'o' and ends in 'sh'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "far",
+     "intentKey": "ask_is_it_far",
+     "slotId": "far",
+     "speaker": "learner",
+     "targetText": "Èske li lwen?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Èske li lwen?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Is it far?",
+       "contextNote": null,
+       "literalGloss": "Is it far"
+      },
+      "fr": {
+       "meaning": "Est-ce que c'est loin ?",
+       "contextNote": "Lwen se prononce avec un « en » nasal.",
+       "literalGloss": "Est-ce que il loin"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Lwen sounds like 'lwen' with a nasal 'en'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "near",
+     "intentKey": "say_it_is_near",
+     "slotId": "near",
+     "speaker": "character",
+     "targetText": "Non, se dis minit a pye.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Non, se dis minit a pye."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No, it's a ten-minute walk.",
+       "contextNote": "Matches the scene fact: a ten-minute walk.",
+       "literalGloss": "No, it is ten minutes on foot"
+      },
+      "fr": {
+       "meaning": "Non, c'est à dix minutes à pied.",
+       "contextNote": "Correspond à la situation : dix minutes de marche.",
+       "literalGloss": "Non, c'est dix minutes à pied"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "repeat",
+     "intentKey": "ask_repeat",
+     "slotId": "repeat",
+     "speaker": "learner",
+     "targetText": "Ou ka repete, tanpri?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ou ka repete, tanpri?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you repeat, please?",
+       "contextNote": null,
+       "literalGloss": "You can repeat, please"
+      },
+      "fr": {
+       "meaning": "Pouvez-vous répéter, s'il vous plaît ?",
+       "contextNote": null,
+       "literalGloss": "Vous pouvez répéter, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "slower",
+     "intentKey": "ask_slow_down",
+     "slotId": "slower",
+     "speaker": "learner",
+     "targetText": "Pale dousman, tanpri.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Pale dousman, tanpri."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Speak slowly, please.",
+       "contextNote": "Key phrase for the twist: the passer-by speaks fast.",
+       "literalGloss": "Speak slowly, please"
+      },
+      "fr": {
+       "meaning": "Parlez doucement, s'il vous plaît.",
+       "contextNote": "Phrase clé ici : le passant parle vite. Dans « dousman », le « ou » se prononce comme dans « doux ».",
+       "literalGloss": "Parlez doucement, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Dousman: 'ou' is like English 'oo'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Mèsi anpil, mesye!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mèsi anpil, mesye!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you very much, sir!",
+       "contextNote": "Same thanks formula used earlier in the chapter.",
+       "literalGloss": "Thanks a lot, sir"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup, monsieur !",
+       "contextNote": "Même formule de remerciement que plus tôt dans le chapitre. Le è de « mèsi » se prononce comme dans « mère ».",
+       "literalGloss": "Merci beaucoup, monsieur"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Mèsi: è is like 'e' in 'bed'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "ask_slow_down_variant_10",
+     "intentKey": "ask_slow_down",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Ou pale vit. Ou ka pale dousman?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ou pale vit. Ou ka pale dousman?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "You speak fast. Can you speak slowly?",
+       "contextNote": "A friendly, explicit way to point out the speed.",
+       "literalGloss": "You speak fast. You can speak slowly"
+      },
+      "fr": {
+       "meaning": "Vous parlez vite. Pouvez-vous parler doucement ?",
+       "contextNote": "Une façon aimable et claire de signaler la vitesse.",
+       "literalGloss": "Tu parles vite. Tu peux parler doucement"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "ask_repeat_variant_11",
+     "intentKey": "ask_repeat",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Eskize m, kisa ou di?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Eskize m, kisa ou di?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Sorry, what did you say?",
+       "contextNote": null,
+       "literalGloss": "Excuse me, what you said"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, qu'est-ce que vous avez dit ?",
+       "contextNote": null,
+       "literalGloss": "Excuse moi, quoi tu as dit"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "get_attention_variant_12",
+     "intentKey": "get_attention",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Eskize m, madanm.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Eskize m, madanm."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Excuse me, ma'am.",
+       "contextNote": "Use this when addressing a woman.",
+       "literalGloss": "Excuse me, madam"
+      },
+      "fr": {
+       "meaning": "Excusez-moi, madame.",
+       "contextNote": "À utiliser pour s'adresser à une femme.",
+       "literalGloss": "Excuse moi, madame"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "haitian_creole_meet_neighbour",
+   "blueprintKey": "meet_neighbour",
+   "titles": {
+    "en": "Meeting Your New Neighbour",
+    "fr": "Rencontrer votre nouvelle voisine"
+   },
+   "sceneNotes": {
+    "en": "You are on the stairwell of your new building when a neighbour who has lived there for years comes up carrying shopping bags.",
+    "fr": "Vous êtes dans la cage d'escalier de votre nouvel immeuble quand une voisine installée depuis des années arrive, chargée de sacs de courses."
+   },
+   "characterKey": "haitian_creole_marie_neighbour",
+   "expressions": [
+    {
+     "key": "new_neighbour",
+     "intentKey": "say_new_neighbour",
+     "slotId": "new_neighbour",
+     "speaker": "learner",
+     "targetText": "Mwen se nouvo vwazen ou a.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mwen se nouvo vwazen ou a."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I am your new neighbour.",
+       "contextNote": "Said with a smile when meeting someone in the building for the first time.",
+       "literalGloss": "I am new neighbour your the"
+      },
+      "fr": {
+       "meaning": "Je suis votre nouveau voisin.",
+       "contextNote": "À dire avec le sourire en rencontrant quelqu'un de l'immeuble pour la première fois. Dans « vwazen », « vw » se prononce comme dans « voilà » et le « en » final est nasal.",
+       "literalGloss": "Je suis nouveau voisin ton le"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "In vwazen, the 'vw' is like 'vwa' in 'voila'; the final 'en' is nasal.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "welcome",
+     "intentKey": "welcome_someone",
+     "slotId": "welcome",
+     "speaker": "character",
+     "targetText": "Byenvini! Fè tankou lakay ou.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Byenvini! Fè tankou lakay ou."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Welcome! Make yourself at home.",
+       "contextNote": "The neighbour sets down a bag and greets you warmly.",
+       "literalGloss": "Welcome! Do like home yours"
+      },
+      "fr": {
+       "meaning": "Bienvenue ! Faites comme chez vous.",
+       "contextNote": "La voisine pose un sac et vous accueille chaleureusement.",
+       "literalGloss": "Bienvenue ! Fais comme chez toi"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "where_from_q",
+     "intentKey": "ask_where_from",
+     "slotId": "where_from_q",
+     "speaker": "learner",
+     "targetText": "Ki kote ou soti?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ki kote ou soti?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Where are you from?",
+       "contextNote": "Friendly and polite. Use it to ask where someone comes from.",
+       "literalGloss": "Which place you come-from"
+      },
+      "fr": {
+       "meaning": "D'où venez-vous ?",
+       "contextNote": "Poli et amical, pour demander l'origine de quelqu'un. « ou » se prononce comme « ou » en français ; « soti » se dit « so-ti ».",
+       "literalGloss": "Quel endroit tu viens-de"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'ou' is pronounced like 'oo'; soti sounds like 'soh-tee'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "from",
+     "intentKey": "say_where_from",
+     "slotId": "from",
+     "speaker": "learner",
+     "targetText": "Mwen soti Kanada.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mwen soti Kanada."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I am from Canada.",
+       "contextNote": "Replace Kanada with your own country or city.",
+       "literalGloss": "I come-from Canada"
+      },
+      "fr": {
+       "meaning": "Je viens du Canada.",
+       "contextNote": "Remplacez Kanada par votre pays ou votre ville.",
+       "literalGloss": "Je viens-de Canada"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "speak_lang",
+     "intentKey": "ask_if_speaks_language",
+     "slotId": "speak_lang",
+     "speaker": "learner",
+     "targetText": "Èske ou pale angle?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Èske ou pale angle?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you speak English?",
+       "contextNote": "Swap angle for another language, e.g. fransè or panyòl.",
+       "literalGloss": "Q you speak English"
+      },
+      "fr": {
+       "meaning": "Parlez-vous anglais ?",
+       "contextNote": "Remplacez angle par une autre langue, par exemple fransè ou panyòl. « Èske » se prononce « ès-ké ».",
+       "literalGloss": "Est-ce que tu parles anglais"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Èske sounds like 'es-keh'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "little",
+     "intentKey": "say_speak_little",
+     "slotId": "little",
+     "speaker": "learner",
+     "targetText": "Mwen pale kreyòl yon ti kras.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mwen pale kreyòl yon ti kras."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I speak a little Creole.",
+       "contextNote": "Useful to ask people to slow down and be patient with you.",
+       "literalGloss": "I speak Creole a little bit"
+      },
+      "fr": {
+       "meaning": "Je parle un peu créole.",
+       "contextNote": "Utile pour demander aux gens de parler lentement et d'être patients. Dans « kreyòl », le « ò » est un « o » ouvert, comme dans « bol ».",
+       "literalGloss": "Je parle créole un petit peu"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "In kreyòl, ò is an open 'o' as in 'law'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "offer_help",
+     "intentKey": "offer_help",
+     "slotId": "offer_help",
+     "speaker": "learner",
+     "targetText": "M ka ede w ak sak yo?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "M ka ede w ak sak yo?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I help you with the bags?",
+       "contextNote": "A kind offer since the neighbour is carrying shopping bags.",
+       "literalGloss": "I can help you with bags the"
+      },
+      "fr": {
+       "meaning": "Puis-je vous aider avec les sacs ?",
+       "contextNote": "Une offre aimable, puisque la voisine porte des sacs de courses. Le « w » de « ede w » est un « ou » très bref accolé à « ede ».",
+       "literalGloss": "Je peux aider toi avec sacs les"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'w' in 'ede w' is a short 'ou' sound attached to 'ede'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "learner",
+     "targetText": "Mèsi anpil pou envitasyon an.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mèsi anpil pou envitasyon an."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thank you so much for the invitation.",
+       "contextNote": "Said after the neighbour invites you for tea later.",
+       "literalGloss": "Thanks a lot for invitation the"
+      },
+      "fr": {
+       "meaning": "Merci beaucoup pour l'invitation.",
+       "contextNote": "À dire après que la voisine vous a invité à prendre le thé plus tard. Dans « mèsi », le « è » est un « è » ouvert.",
+       "literalGloss": "Merci beaucoup pour invitation la"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Mèsi: è is an open 'eh' sound.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    },
+    {
+     "key": "say_new_neighbour_variant_9",
+     "intentKey": "say_new_neighbour",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Mwen fèk demenaje isit la.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mwen fèk demenaje isit la."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I just moved in here.",
+       "contextNote": "A more casual alternative to introduce yourself.",
+       "literalGloss": "I just move here"
+      },
+      "fr": {
+       "meaning": "Je viens d'emménager ici.",
+       "contextNote": "Une façon plus décontractée de se présenter.",
+       "literalGloss": "Je viens-de déménager ici"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    },
+    {
+     "key": "offer_help_variant_10",
+     "intentKey": "offer_help",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Si w bezwen yon bagay, di m.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Si w bezwen yon bagay, di m."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "If you need anything, tell me.",
+       "contextNote": "A warm offer of ongoing help between neighbours.",
+       "literalGloss": "If you need a thing, tell me"
+      },
+      "fr": {
+       "meaning": "Si vous avez besoin de quoi que ce soit, dites-le-moi.",
+       "contextNote": "Une proposition chaleureuse d'aide durable entre voisins.",
+       "literalGloss": "Si tu as besoin d'une chose, dis-moi"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "haitian_creole_take_taxi",
+   "blueprintKey": "take_taxi",
+   "titles": {
+    "en": "Taking a Taxi Downtown",
+    "fr": "Prendre un taxi pour le centre"
+   },
+   "sceneNotes": {
+    "en": "You hail a taxi in heavy traffic to reach the old town, and the chatty driver quotes you a price without using the meter.",
+    "fr": "Vous hélez un taxi dans les embouteillages pour rejoindre la vieille ville, et le chauffeur bavard vous annonce un prix sans utiliser le compteur."
+   },
+   "characterKey": "haitian_creole_jean_taxi_driver",
+   "expressions": [
+    {
+     "key": "hail",
+     "intentKey": "hail_taxi",
+     "slotId": "hail",
+     "speaker": "learner",
+     "targetText": "Taksi! Ou lib?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Taksi! Ou lib?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Taxi! Are you free?",
+       "contextNote": "Said when waving the driver down at the roadside.",
+       "literalGloss": "Taxi! You free?"
+      },
+      "fr": {
+       "meaning": "Taxi ! Vous êtes libre ?",
+       "contextNote": "À dire en faisant signe au chauffeur au bord de la route. Prononcez « lib » avec un i bref, comme « lib ».",
+       "literalGloss": "Taxi ! Tu libre ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": "Say 'lib' with a short i, like 'leeb'.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "where_to",
+     "intentKey": "ask_destination",
+     "slotId": "where_to",
+     "speaker": "character",
+     "targetText": "Bonjou! Kote ou prale?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Bonjou! Kote ou prale?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Hello! Where are you going?",
+       "contextNote": null,
+       "literalGloss": "Hello! Where you going?"
+      },
+      "fr": {
+       "meaning": "Bonjour ! Où allez-vous ?",
+       "contextNote": null,
+       "literalGloss": "Bonjour ! Où tu vas ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "destination",
+     "intentKey": "state_destination",
+     "slotId": "destination",
+     "speaker": "learner",
+     "targetText": "Mwen prale nan vil ansyen an, tanpri.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mwen prale nan vil ansyen an, tanpri."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'm going to the old town, please.",
+       "contextNote": "Replace 'vil ansyen an' with any place name.",
+       "literalGloss": "I go in city old the, please"
+      },
+      "fr": {
+       "meaning": "Je vais à la vieille ville, s'il vous plaît.",
+       "contextNote": "Remplacez « vil ansyen an » par n'importe quel nom de lieu. Le « an » de « ansyen » est une voyelle nasale : ne prononcez pas le n.",
+       "literalGloss": "Je vais dans ville ancienne la, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "The 'an' in 'ansyen' is a nasal vowel; do not pronounce the n.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "meter",
+     "intentKey": "ask_use_meter",
+     "slotId": "meter",
+     "speaker": "learner",
+     "targetText": "Ou ka mete konte a, tanpri?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ou ka mete konte a, tanpri?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you put the meter on, please?",
+       "contextNote": "Meters are rare in Haitian taxis, so this may be refused or negotiated.",
+       "literalGloss": "You can put meter the, please?"
+      },
+      "fr": {
+       "meaning": "Pouvez-vous mettre le compteur, s'il vous plaît ?",
+       "contextNote": "Les compteurs sont rares dans les taxis haïtiens : la demande peut être refusée ou négociée.",
+       "literalGloss": "Tu peux mettre compteur le, s'il vous plaît ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "fare",
+     "intentKey": "ask_fare",
+     "slotId": "fare",
+     "speaker": "learner",
+     "targetText": "Konbyen pou vil ansyen an?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Konbyen pou vil ansyen an?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much to the old town?",
+       "contextNote": "Ask before getting in, since the price is agreed up front.",
+       "literalGloss": "How much for city old the?"
+      },
+      "fr": {
+       "meaning": "Combien pour la vieille ville ?",
+       "contextNote": "Demandez avant de monter, car le prix se fixe à l'avance.",
+       "literalGloss": "Combien pour ville ancienne la ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "stop",
+     "intentKey": "say_stop_here",
+     "slotId": "stop",
+     "speaker": "learner",
+     "targetText": "Mwen desann isit la, tanpri.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mwen desann isit la, tanpri."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I'll get off here, please.",
+       "contextNote": "Natural way to ask the driver to stop.",
+       "literalGloss": "I get-off here, please"
+      },
+      "fr": {
+       "meaning": "Je descends ici, s'il vous plaît.",
+       "contextNote": "Façon naturelle de demander au chauffeur de s'arrêter. « Desann » a un « an » nasal : ne prononcez pas le n.",
+       "literalGloss": "Je descends ici, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Desann' has a nasal 'an'; do not pronounce the n.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "change",
+     "intentKey": "ask_for_change",
+     "slotId": "change",
+     "speaker": "learner",
+     "targetText": "Ou gen monnen, tanpri?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ou gen monnen, tanpri?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Do you have change, please?",
+       "contextNote": null,
+       "literalGloss": "You have change, please?"
+      },
+      "fr": {
+       "meaning": "Avez-vous de la monnaie, s'il vous plaît ?",
+       "contextNote": "« Monnen » se prononce à peu près « mo-NEN », avec une voyelle nasale.",
+       "literalGloss": "Tu as monnaie, s'il vous plaît ?"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "'Monnen' is pronounced roughly 'mo-NEN' with a nasal vowel.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "bye",
+     "intentKey": "say_goodbye",
+     "slotId": "bye",
+     "speaker": "learner",
+     "targetText": "Mèsi, bòn jounen!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mèsi, bòn jounen!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks, have a good day!",
+       "contextNote": "Said as you step out of the taxi.",
+       "literalGloss": "Thanks, good day"
+      },
+      "fr": {
+       "meaning": "Merci, bonne journée !",
+       "contextNote": "À dire en descendant du taxi.",
+       "literalGloss": "Merci, bonne journée"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "hail_taxi_variant_9",
+     "intentKey": "hail_taxi",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Ou ka mennen m nan vil ansyen an?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ou ka mennen m nan vil ansyen an?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can you take me to the old town?",
+       "contextNote": "A fuller way to hail and state the destination together.",
+       "literalGloss": "You can take me in city old the?"
+      },
+      "fr": {
+       "meaning": "Pouvez-vous m'emmener à la vieille ville ?",
+       "contextNote": "Une façon plus complète de héler le taxi et d'indiquer la destination en même temps.",
+       "literalGloss": "Tu peux emmener moi dans ville ancienne la ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "say_stop_here_variant_10",
+     "intentKey": "say_stop_here",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Sispann isit la, tanpri.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Sispann isit la, tanpri."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Stop here, please.",
+       "contextNote": "A more direct alternative, softened by 'tanpri'.",
+       "literalGloss": "Stop here, please"
+      },
+      "fr": {
+       "meaning": "Arrêtez-vous ici, s'il vous plaît.",
+       "contextNote": "Une option plus directe, adoucie par « tanpri ».",
+       "literalGloss": "Arrête ici, s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    },
+    {
+     "key": "ask_fare_variant_11",
+     "intentKey": "ask_fare",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Konbyen m dwe ou?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Konbyen m dwe ou?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "How much do I owe you?",
+       "contextNote": "Useful when paying at the end of the ride.",
+       "literalGloss": "How much I owe you?"
+      },
+      "fr": {
+       "meaning": "Combien je vous dois ?",
+       "contextNote": "Utile pour payer à la fin de la course.",
+       "literalGloss": "Combien je dois toi ?"
+      }
+     },
+     "register": "neutral",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.3
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  },
+  {
+   "key": "haitian_creole_buy_ice_cream",
+   "blueprintKey": "buy_ice_cream",
+   "titles": {
+    "en": "Buying Ice Cream Together",
+    "fr": "Acheter une glace ensemble"
+   },
+   "sceneNotes": {
+    "en": "You are taking a child to an ice-cream cart outside the school, and only two flavours are left.",
+    "fr": "Vous accompagnez un enfant à la charrette de glaces devant l'école, mais il ne reste que deux parfums."
+   },
+   "characterKey": "haitian_creole_daniel_child_at_the_ice_cream_stand",
+   "expressions": [
+    {
+     "key": "wants",
+     "intentKey": "request_food",
+     "slotId": "wants",
+     "speaker": "character",
+     "targetText": "Mwen vle yon krèm, tanpri!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mwen vle yon krèm, tanpri!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I want an ice cream, please!",
+       "contextNote": "Children often say \"m vle\" for \"I want\". \"Krèm\" is a common word for ice cream.",
+       "literalGloss": "I want an ice-cream, please"
+      },
+      "fr": {
+       "meaning": "Je veux une glace, s'il te plaît !",
+       "contextNote": "Les enfants disent souvent « m vle » pour « mwen vle ». « Krèm » est un mot courant pour dire glace.",
+       "literalGloss": "Je veux une crème, s'il te plaît"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "which_flavour",
+     "intentKey": "offer_options",
+     "slotId": "which_flavour",
+     "speaker": "learner",
+     "targetText": "Vanilj oswa chokola?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Vanilj oswa chokola?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Vanilla or chocolate?",
+       "contextNote": "The two flavours that are left.",
+       "literalGloss": "Vanilla or chocolate"
+      },
+      "fr": {
+       "meaning": "Vanille ou chocolat ?",
+       "contextNote": "Ce sont les deux parfums qui restent. « oswa » se prononce à peu près « o-soua ».",
+       "literalGloss": "Vanille ou chocolat"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"oswa\" is said roughly oh-SWAH.",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "picks",
+     "intentKey": "choose_option",
+     "slotId": "picks",
+     "speaker": "character",
+     "targetText": "Chokola, tanpri!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Chokola, tanpri!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Chocolate, please!",
+       "contextNote": null,
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Chocolat, s'il te plaît !",
+       "contextNote": "« ch » se prononce comme « ch » en français.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"ch\" sounds like English \"sh\".",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.15
+    },
+    {
+     "key": "scoop",
+     "intentKey": "specify_quantity",
+     "slotId": "scoop",
+     "speaker": "learner",
+     "targetText": "Yon bòl chokola, tanpri.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Yon bòl chokola, tanpri."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "One scoop of chocolate, please.",
+       "contextNote": "Said to the vendor.",
+       "literalGloss": "a scoop chocolate please"
+      },
+      "fr": {
+       "meaning": "Une boule de chocolat, s'il vous plaît.",
+       "contextNote": "À dire à la vendeuse ou au vendeur. « ò » est un « o » ouvert, comme dans « porte ».",
+       "literalGloss": "une boule chocolat s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": "\"ò\" is an open \"o\", as in \"law\".",
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "asks_two",
+     "intentKey": "ask_permission",
+     "slotId": "asks_two",
+     "speaker": "character",
+     "targetText": "Èske m ka pran de bòl, tanpri?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Èske m ka pran de bòl, tanpri?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Can I have two scoops, please?",
+       "contextNote": "The child pushes their luck.",
+       "literalGloss": "Q I can take two scoops please"
+      },
+      "fr": {
+       "meaning": "Est-ce que je peux avoir deux boules, s'il te plaît ?",
+       "contextNote": "L'enfant tente sa chance.",
+       "literalGloss": "Est-ce que je peux prendre deux boules s'il te plaît"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    },
+    {
+     "key": "just_one",
+     "intentKey": "refuse_permission",
+     "slotId": "just_one",
+     "speaker": "learner",
+     "targetText": "Non, cheri, yon sèl bòl jodi a.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Non, cheri, yon sèl bòl jodi a."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "No, sweetie, just one scoop today.",
+       "contextNote": "Gentle refusal; \"cheri\" softens it.",
+       "literalGloss": "no dear one only scoop today"
+      },
+      "fr": {
+       "meaning": "Non, mon chéri, une seule boule aujourd'hui.",
+       "contextNote": "Refus doux : « cheri » l'adoucit.",
+       "literalGloss": "non chéri une seule boule aujourd'hui"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.35
+    },
+    {
+     "key": "refuse_permission_variant_7",
+     "intentKey": "refuse_permission",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Pi bon yon sèl bòl, cheri.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Pi bon yon sèl bòl, cheri."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "It's better to have just one scoop, sweetie.",
+       "contextNote": "A softer alternative way to refuse.",
+       "literalGloss": "more good one only scoop dear"
+      },
+      "fr": {
+       "meaning": "Il vaut mieux une seule boule, mon chéri.",
+       "contextNote": "Une autre façon, plus douce, de refuser.",
+       "literalGloss": "plus bon une seule boule chéri"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.4
+    },
+    {
+     "key": "specify_quantity_variant_8",
+     "intentKey": "specify_quantity",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Yon bòl vanilj, tanpri.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Yon bòl vanilj, tanpri."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "One scoop of vanilla, please.",
+       "contextNote": "Use if the child picks vanilla instead.",
+       "literalGloss": "a scoop vanilla please"
+      },
+      "fr": {
+       "meaning": "Une boule de vanille, s'il vous plaît.",
+       "contextNote": "À utiliser si l'enfant choisit plutôt la vanille.",
+       "literalGloss": "une boule vanille s'il vous plaît"
+      }
+     },
+     "register": "polite",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "offer_options_variant_9",
+     "intentKey": "offer_options",
+     "slotId": null,
+     "speaker": "learner",
+     "targetText": "Ki gou ou vle?",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Ki gou ou vle?"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Which flavour do you want?",
+       "contextNote": "An open question alternative to offering two flavours.",
+       "literalGloss": "which flavour you want"
+      },
+      "fr": {
+       "meaning": "Quel parfum veux-tu ?",
+       "contextNote": "Une question ouverte, au lieu de proposer deux parfums.",
+       "literalGloss": "quel parfum tu veux"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "okay",
+     "intentKey": "grant_permission",
+     "slotId": "okay",
+     "speaker": "learner",
+     "targetText": "Dakò, manje l, cheri.",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Dakò, manje l, cheri."
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Okay, go ahead and eat it, sweetie.",
+       "contextNote": "Said when handing over the ice cream.",
+       "literalGloss": "okay eat it dear"
+      },
+      "fr": {
+       "meaning": "D'accord, mange-la, mon chéri.",
+       "contextNote": "À dire en lui tendant la glace.",
+       "literalGloss": "d'accord mange-la chéri"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.25
+    },
+    {
+     "key": "yummy",
+     "intentKey": "say_delicious",
+     "slotId": "yummy",
+     "speaker": "character",
+     "targetText": "Mmm, li bon anpil!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mmm, li bon anpil!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Mmm, it's so good!",
+       "contextNote": null,
+       "literalGloss": "it good a lot"
+      },
+      "fr": {
+       "meaning": "Mmm, c'est trop bon !",
+       "contextNote": null,
+       "literalGloss": "elle bonne beaucoup"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.15
+    },
+    {
+     "key": "me_too",
+     "intentKey": "express_like",
+     "slotId": "me_too",
+     "speaker": "learner",
+     "targetText": "Mwen renmen chokola tou!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mwen renmen chokola tou!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "I love chocolate too!",
+       "contextNote": null,
+       "literalGloss": "I like chocolate too"
+      },
+      "fr": {
+       "meaning": "Moi aussi, j'adore le chocolat !",
+       "contextNote": null,
+       "literalGloss": "j'aime chocolat aussi"
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    },
+    {
+     "key": "thanks",
+     "intentKey": "thank",
+     "slotId": "thanks",
+     "speaker": "character",
+     "targetText": "Mèsi anpil, wi!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Mèsi anpil, wi!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "Thanks a lot!",
+       "contextNote": "\"Wi\" adds warmth and emphasis.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "Merci beaucoup !",
+       "contextNote": "« Wi » ajoute de la chaleur et de l'insistance.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": null,
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.15
+    },
+    {
+     "key": "welcome",
+     "intentKey": "respond_to_thanks",
+     "slotId": "welcome",
+     "speaker": "learner",
+     "targetText": "Pa dekwa, cheri!",
+     "forms": [
+      {
+       "script": "Latn",
+       "transliterationScheme": null,
+       "text": "Pa dekwa, cheri!"
+      }
+     ],
+     "meanings": {
+      "en": {
+       "meaning": "You're welcome, sweetie!",
+       "contextNote": "\"Pa gen pwoblèm\" (no problem) also works.",
+       "literalGloss": null
+      },
+      "fr": {
+       "meaning": "De rien, mon chéri !",
+       "contextNote": "« Pa gen pwoblèm » (pas de problème) fonctionne aussi.",
+       "literalGloss": null
+      }
+     },
+     "register": "casual",
+     "codeSwitchNote": "\"Dekwa\" comes from French \"de quoi\" but is spelled the Kreyòl way.",
+     "pronunciationNote": null,
+     "nativeReviewed": false,
+     "reviewStatus": "review_needed",
+     "provenance": "ai_draft",
+     "difficulty": 0.2
+    }
+   ],
+   "casting": null,
+   "rosterCharacterId": null
+  }
+ ],
+ "provenance": "ai_draft",
+ "nativeReviewed": false,
+ "reviewStatus": "review_needed",
+ "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+ "notes": [
+  "AI draft generated 2026-11-11T22:40:22.101Z with anthropic/claude-sonnet-5.5; validator accepted 77 expressions; native review required before publishing.",
+  "greet_and_introduce: Please check that madanm and mesye are natural as street greetings; some speakers may prefer just Bonjou.",
+  "greet_and_introduce: Mwen kontan fè konesans ou is understandable but please confirm if a more everyday phrasing is preferred (e.g. Mwen kontan rankontre ou).",
+  "greet_and_introduce: N ap wè pita and Orevwa are both included; please confirm the spelling and which one sounds most natural.",
+  "cafe_order_drink: Greeting \"Bonjou, ou byen?\" was chosen to avoid repeating \"Kijan ou ye?\" from earlier. Please confirm it sounds natural to a server.",
+  "cafe_order_drink: Prices and the \"Konbyen m dwe\" phrasing: some speakers prefer \"Konbyen sa koute?\". Please confirm which is more usual.",
+  "cafe_order_drink: Spelling \"Èske m ka jwenn\" is used. Please check whether \"ka jwenn\" or \"ka gen\" is more idiomatic for ordering.",
+  "market_ask_price: Prices in goud are plausible but please check they sound realistic for mangoes today.",
+  "market_ask_price: Please confirm 'Ou ka bese pri a yon ti jan' and 'San goud e m pran l' sound natural for bargaining.",
+  "market_ask_price: Greeting 'Bonjou, machann!' chosen to avoid repeating earlier greetings; tell me if another address term is more common.",
+  "ask_directions: Please check that 'Ale tou dwat devan ou' and 'dis minit a pye' sound natural; 'a pye' could be replaced by 'sou pye'.",
+  "ask_directions: 'Ou ka repete, tanpri?' and 'Pale dousman, tanpri' are short polite forms; confirm they are not too blunt, or add 'souple' if preferred.",
+  "ask_directions: 'Mesye' and 'madanm' are used as address terms; the character's tu/vous-like politeness is not marked in Kreyòl.",
+  "meet_neighbour: Please check that 'Fè tankou lakay ou' sounds natural for 'make yourself at home'; 'Fè tankou lakay ou' is a common calque, and an alternative may be preferred locally.",
+  "meet_neighbour: Contractions like 'm ka' and 'w' are written with an apostrophe-free space per common usage; confirm spelling preference.",
+  "meet_neighbour: 'Ki kote ou soti?' chosen over 'Ki peyi ou soti?'; both are possible depending on whether country or place is meant.",
+  "take_taxi: Please confirm 'konte' for taxi meter; some speakers may prefer 'konteur' or a different term.",
+  "take_taxi: 'Vil ansyen an' is my choice for 'old town'; a specific place name may be more natural locally.",
+  "take_taxi: Please check that 'Taksi! Ou lib?' and 'Mwen desann isit la' sound natural for a street taxi or tap-tap context.",
+  "buy_ice_cream: Please check \"bòl\" for a scoop; vendors may say \"bòl\", \"kiyè\" or \"boul\" depending on the area.",
+  "buy_ice_cream: \"Krèm\" for ice cream: confirm it is the usual word, versus \"krèm glase\" or \"glas\".",
+  "buy_ice_cream: \"Pa dekwa\" is used as \"you're welcome\"; confirm it is natural with a child.",
+  "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+ ]
+}
