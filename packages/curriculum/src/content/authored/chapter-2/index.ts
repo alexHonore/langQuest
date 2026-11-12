@@ -32,6 +32,7 @@ import russian from './russian.json';
 import spanishLatinAmerican from './spanish-latin-american.json';
 import spanishSpain from './spanish-spain.json';
 import swahili from './swahili.json';
+import swedish from './swedish.json';
 import ukrainian from './ukrainian.json';
 import vietnamese from './vietnamese.json';
 
@@ -63,6 +64,7 @@ export const AUTHORED_CHAPTER_2_INPUTS: readonly AuthoredChapterInput[] = [
   spanishLatinAmerican,
   spanishSpain,
   swahili,
+  swedish,
   ukrainian,
   vietnamese,
 ] as unknown as AuthoredChapterInput[];

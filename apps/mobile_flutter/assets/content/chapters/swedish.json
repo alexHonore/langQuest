@@ -2786,6 +2786,2329 @@
           ]
         }
       ]
+    },
+    {
+      "key": "swedish_ch2",
+      "chapterIndex": 2,
+      "courseTrackId": "swedish",
+      "targetVarietyId": "sv",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "Finding your feet in Stockholm",
+        "fr": "Prendre ses marques à Stockholm"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 2, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 2 for Swedish (sv); native review required before publishing.",
+        "Du with every character, as in chapter 1 and in today's Swedish, the elderly host included; ni only as a plural (the restaurant table, the shop, the two travellers). The French meanings say vous to strangers and from the learner to the host, and the notes explain that Swedish du is not familiar.",
+        "Chapter 1 is split between Stockholm and Göteborg; this chapter is set in Stockholm (where the chapter 1 taxi went to Gamla stan), with a train trip to Göteborg. Spelling follows chapter 1 (okej, idag as one word, istället).",
+        "Wordings to check first: \"Ja, men vi kan göra det laktosfritt.\", \"Var ska vi gå av för Liseberg?\", \"På Centralen. Sen tar ni spårvagnen dit.\", \"Funkar söndag istället?\", \"Vilka goda bullar!\", \"Jag är enda barnet.\"",
+        "Facts to verify: stekt strömming as the daily special, SJ desk at Stockholm Central and platform 12, trams from Göteborg Central towards Liseberg, boats to Vaxholm from Strömkajen (about an hour), 1177 for medical advice. \"Min kompis\" is gender-neutral, but \"Hon har ont i huvudet\" needs \"Han har ont i huvudet\" recorded."
+      ],
+      "characters": [
+        {
+          "key": "swedish_erik_waiter",
+          "name": "Erik",
+          "role": "waiter",
+          "personality": "calm, friendly, proud of the old Stockholm dishes",
+          "homeRegion": "Stockholm",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "swedish_sara_shop_assistant",
+          "name": "Sara",
+          "role": "shop assistant",
+          "personality": "relaxed, helpful, honest about what fits",
+          "homeRegion": "Stockholm",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "swedish_annika_ticket_clerk",
+          "name": "Annika",
+          "role": "ticket clerk",
+          "personality": "efficient, precise, patient with travellers",
+          "homeRegion": "Stockholm",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "swedish_johan_bystander",
+          "name": "Johan",
+          "role": "helpful bystander",
+          "personality": "calm, practical, quick to help",
+          "homeRegion": "Stockholm",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "swedish_birgitta_host",
+          "name": "Birgitta",
+          "role": "host",
+          "personality": "Linnea's grandmother: warm, always has buns in the oven, curious about your family",
+          "homeRegion": "Stockholm",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "swedish_linnea_friend",
+          "name": "Linnea",
+          "role": "friend",
+          "personality": "cheerful, loves the archipelago, always has a plan for the weekend",
+          "homeRegion": "Stockholm",
+          "ageBand": null,
+          "voice": "female"
+        }
+      ],
+      "missions": [
+        {
+          "key": "swedish_restaurant_order_meal",
+          "blueprintKey": "restaurant_order_meal",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "restaurant",
+          "characterKey": "swedish_erik_waiter",
+          "titles": {
+            "en": "Dinner on Södermalm",
+            "fr": "Dîner à Södermalm"
+          },
+          "sceneNotes": {
+            "en": "A small, traditional restaurant on Södermalm on a busy evening; the waiter recommends the Stockholm classic of the day.",
+            "fr": "Vous dînez dans un petit restaurant traditionnel de Södermalm, un soir d'affluence ; le serveur recommande le grand classique stockholmois du jour."
+          },
+          "slots": [
+            {
+              "slotId": "table",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "ingredients",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swedish_ch2:swedish_restaurant_order_meal:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Hej och välkommen! Har ni bokat bord?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hej och välkommen! Har ni bokat bord?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hi and welcome! Have you booked a table?",
+                  "note": "Ni is the plural 'you': the waiter is speaking to your whole table. To one person, Swedes say du, whoever they are.",
+                  "literal": "hi and welcome! have you(all) booked table"
+                },
+                "fr": {
+                  "meaning": "Bonsoir et bienvenue ! Vous avez réservé ?",
+                  "note": "« Ni » est le « vous » pluriel : le serveur s'adresse à toute la table. À une seule personne, les Suédois disent « du », quels que soient son âge ou son rang.",
+                  "literal": "salut et bienvenue ! avez vous réservé table"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_restaurant_order_meal:table",
+              "key": "table",
+              "intentKey": "request_table",
+              "slotId": "table",
+              "speaker": "learner",
+              "text": "Ett bord för två, tack.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ett bord för två, tack."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A table for two, please.",
+                  "note": "Bord is an ett-word, hence ett bord. Change the number: för tre, för fyra. Tack means 'thank you' and also does the job of 'please'.",
+                  "literal": "a table for two, thanks"
+                },
+                "fr": {
+                  "meaning": "Une table pour deux, s'il vous plaît.",
+                  "note": "« Bord » est un nom en « ett », d'où « ett bord ». « Tack » (merci) sert aussi de « s'il vous plaît ». Le o long se prononce souvent « ou » : « bourd ».",
+                  "literal": "une table pour deux, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The o in bord is like 'oo': 'boord'. Två: 'tvoh'."
+            },
+            {
+              "id": "swedish_ch2:swedish_restaurant_order_meal:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "Vad kan du rekommendera?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vad kan du rekommendera?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What can you recommend?",
+                  "note": "Swedes say du to everyone, waiters included: it is simply 'you', not over-familiar.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Que pouvez-vous recommander ?",
+                  "note": "Les Suédois tutoient tout le monde, serveur compris : « du » est le « vous » de tous les jours, sans familiarité. Le d de « vad » ne se prononce presque pas : « va ».",
+                  "literal": "quoi peux tu recommander"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Stress the e before -ra: reh-kom-men-DEH-ra. The d of vad is usually dropped: 'va'."
+            },
+            {
+              "id": "swedish_ch2:swedish_restaurant_order_meal:dish_of_day",
+              "key": "dish_of_day",
+              "intentKey": "state_opinion",
+              "slotId": "dish_of_day",
+              "speaker": "character",
+              "text": "Dagens rätt är stekt strömming med potatismos.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Dagens rätt är stekt strömming med potatismos."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Today's special is fried herring with mashed potatoes.",
+                  "note": "Stekt strömming, fried Baltic herring with mash and lingonberries, is a Stockholm classic. Menus often just say Dagens.",
+                  "literal": "the-day's dish is fried Baltic-herring with potato-mash"
+                },
+                "fr": {
+                  "meaning": "Le plat du jour, c'est du hareng frit avec de la purée.",
+                  "note": "Le « stekt strömming », petit hareng de la Baltique frit, servi avec purée et airelles, est un classique de Stockholm. Les ardoises affichent souvent juste « Dagens ».",
+                  "literal": "du-jour plat est frit hareng avec pomme-de-terre-purée"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_restaurant_order_meal:ingredients",
+              "key": "ingredients",
+              "intentKey": "ask_ingredients",
+              "slotId": "ingredients",
+              "speaker": "learner",
+              "text": "Finns det mjölk i moset?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Finns det mjölk i moset?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there milk in the mash?",
+                  "note": "Finns det…? = is there…? Swap in gluten, nötter (nuts) or laktos: lactose-free options are standard in Sweden.",
+                  "literal": "is-found there milk in mash-the"
+                },
+                "fr": {
+                  "meaning": "Il y a du lait dans la purée ?",
+                  "note": "« Finns det…? » = est-ce qu'il y a… ? (de « finnas », exister). Remplacez par gluten, nötter (fruits à coque) ou laktos. Le j de « mjölk » se dit comme un « y » : « myeulk ».",
+                  "literal": "se-trouve-t-il lait dans purée-la"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Mjölk: 'myulk', the j is a y sound."
+            },
+            {
+              "id": "swedish_ch2:swedish_restaurant_order_meal:lactose_free",
+              "key": "lactose_free",
+              "intentKey": "offer_options",
+              "slotId": "lactose_free",
+              "speaker": "character",
+              "text": "Ja, men vi kan göra det laktosfritt.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ja, men vi kan göra det laktosfritt."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, but we can make it lactose-free.",
+                  "note": "Laktosfritt ends in -tt because it describes det (the mash, an ett-word).",
+                  "literal": "yes, but we can make it lactose-free"
+                },
+                "fr": {
+                  "meaning": "Oui, mais on peut la faire sans lactose.",
+                  "note": "L'adjectif s'accorde : « laktosfri » devient « laktosfritt » parce qu'il se rapporte à « det » (la purée, un nom en « ett »). Le g de « göra » se dit « y » : « YEU-ra ».",
+                  "literal": "oui, mais nous pouvons faire le sans-lactose"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_restaurant_order_meal:order",
+              "key": "order",
+              "intentKey": "request_food",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Då tar jag strömmingen, tack.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Då tar jag strömmingen, tack."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Then I'll have the herring, please.",
+                  "note": "After då (then) the verb stays second and jag moves behind it: då tar jag. The definite article is a suffix: strömming, strömmingen.",
+                  "literal": "then take I herring-the, thanks"
+                },
+                "fr": {
+                  "meaning": "Alors je prends le hareng, s'il vous plaît.",
+                  "note": "Après « då » (alors), le verbe reste en deuxième position et le sujet passe derrière : « då tar jag ». L'article défini se colle à la fin du nom : strömming → strömmingen.",
+                  "literal": "alors prends je hareng-le, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_restaurant_order_meal:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Det smakar verkligen gott.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Det smakar verkligen gott."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It really tastes good.",
+                  "note": "God (good) becomes gott after det. When the plate is empty, Swedes say det var gott! (that was good).",
+                  "literal": "it tastes really good"
+                },
+                "fr": {
+                  "meaning": "C'est vraiment bon.",
+                  "note": "« God » (bon) devient « gott » avec « det ». Quand l'assiette est vide, on dit « det var gott! » (c'était bon). Le g de « verkligen » est muet : « VÈRK-li-èn ».",
+                  "literal": "ça goûte vraiment bon"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Gott rhymes with 'got'. Verkligen: VERK-li-en, the g is silent."
+            },
+            {
+              "id": "swedish_ch2:swedish_restaurant_order_meal:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Vi skulle vilja betala, tack.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vi skulle vilja betala, tack."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "We'd like to pay, please.",
+                  "note": "Service is included in Swedish prices; people sometimes round up, but no big tip is expected. The waiter usually brings the card reader to the table.",
+                  "literal": "we would want to-pay, thanks"
+                },
+                "fr": {
+                  "meaning": "Nous voudrions payer, s'il vous plaît.",
+                  "note": "« Skulle vilja » = voudrais, voudrions. Le service est compris en Suède : on arrondit parfois, sans plus. Le serveur apporte en général le terminal de paiement à table.",
+                  "literal": "nous devrions vouloir payer, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_restaurant_order_meal:right_away",
+              "key": "right_away",
+              "intentKey": "confirm_understood",
+              "slotId": "right_away",
+              "speaker": "character",
+              "text": "Absolut, jag kommer strax.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Absolut, jag kommer strax."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Of course, I'll be right with you.",
+                  "note": "Absolut is an everyday 'of course'; strax = in a moment.",
+                  "literal": "absolutely, I come shortly"
+                },
+                "fr": {
+                  "meaning": "Bien sûr, j'arrive tout de suite.",
+                  "note": "« Absolut » = bien sûr, tout à fait. « Strax » = dans un instant.",
+                  "literal": "absolument, je viens bientôt"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_restaurant_order_meal:have_table",
+              "key": "have_table",
+              "intentKey": "request_table",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Har ni ett bord för två?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Har ni ett bord för två?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have a table for two?",
+                  "note": "Handy when you walk in without booking; ni here means the restaurant.",
+                  "literal": "have you(all) a table for two"
+                },
+                "fr": {
+                  "meaning": "Vous avez une table pour deux ?",
+                  "note": "Pratique quand on arrive sans réservation ; « ni » désigne ici le restaurant, d'où le pluriel.",
+                  "literal": "avez vous une table pour deux"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_restaurant_order_meal:want_meatballs",
+              "key": "want_meatballs",
+              "intentKey": "request_food",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Kan jag få köttbullar med potatismos?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kan jag få köttbullar med potatismos?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I have meatballs with mashed potatoes?",
+                  "note": "Köttbullar come with mash, cream sauce and lingonberry jam. Kan jag få…? (can I get…?) is the everyday way to order.",
+                  "literal": "can I get meat-balls with potato-mash"
+                },
+                "fr": {
+                  "meaning": "Je pourrais avoir des boulettes avec de la purée ?",
+                  "note": "Les « köttbullar » se servent avec purée, sauce à la crème et confiture d'airelles. Devant ö, le k se prononce comme un « ch » très doux : « cheutt-bou-lar ».",
+                  "literal": "peux je obtenir viande-boulettes avec pomme-de-terre-purée"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Kött- starts with a soft 'sh' sound: SHUTT-bull-ar."
+            }
+          ]
+        },
+        {
+          "key": "swedish_shop_for_clothes",
+          "blueprintKey": "shop_for_clothes",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "swedish_sara_shop_assistant",
+          "titles": {
+            "en": "Buying a warm jumper",
+            "fr": "Acheter un pull chaud"
+          },
+          "sceneNotes": {
+            "en": "A small clothes shop on Södermalm as autumn turns cold; the assistant is relaxed and the sizes run small.",
+            "fr": "Vous entrez dans une petite boutique de vêtements de Södermalm, aux premiers froids de l'automne ; la vendeuse est détendue et les tailles sont petites."
+          },
+          "slots": [
+            {
+              "slotId": "just_looking",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "want",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "variant",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swedish_ch2:swedish_shop_for_clothes:can_i_help",
+              "key": "can_i_help",
+              "intentKey": "offer_help",
+              "slotId": "can_i_help",
+              "speaker": "character",
+              "text": "Hej! Letar du efter något speciellt?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hej! Letar du efter något speciellt?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hi! Are you looking for anything in particular?",
+                  "note": "Leta efter = to look for. Något = something, anything.",
+                  "literal": "hi! search you after something special"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! Vous cherchez quelque chose de particulier ?",
+                  "note": "« Leta efter » = chercher ; « något » = quelque chose. Le c de « speciellt » se prononce s : « spé-si-ÈLT ».",
+                  "literal": "salut ! cherches tu après quelque-chose spécial"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_shop_for_clothes:just_looking",
+              "key": "just_looking",
+              "intentKey": "say_just_looking",
+              "slotId": "just_looking",
+              "speaker": "learner",
+              "text": "Jag tittar bara, tack.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Jag tittar bara, tack."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm just looking, thanks.",
+                  "note": "Titta = to look. Swedish has no -ing form: jag tittar is both 'I look' and 'I'm looking'.",
+                  "literal": "I look only, thanks"
+                },
+                "fr": {
+                  "meaning": "Je regarde seulement, merci.",
+                  "note": "« Titta » = regarder, « bara » = seulement. Comme en français, un seul présent : « jag tittar » = je regarde, je suis en train de regarder.",
+                  "literal": "je regarde seulement, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_shop_for_clothes:want",
+              "key": "want",
+              "intentKey": "request_item",
+              "slotId": "want",
+              "speaker": "learner",
+              "text": "Jag letar efter en varm tröja.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Jag letar efter en varm tröja."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm looking for a warm jumper.",
+                  "note": "Tröja covers any jumper or sweater; a cardigan is a kofta. Stockholm winters are dark and cold, so wool sells well.",
+                  "literal": "I search after a warm sweater"
+                },
+                "fr": {
+                  "meaning": "Je cherche un pull chaud.",
+                  "note": "Le suédois ajoute « efter » (après) là où le français n'a pas de préposition. « Tröja » = pull ; un gilet se dit « kofta ». Le ö se prononce comme « eu » : « TREU-ya ».",
+                  "literal": "je cherche après un chaud pull"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Tröja: TRUH-ya; the j is a y sound."
+            },
+            {
+              "id": "swedish_ch2:swedish_shop_for_clothes:try_this",
+              "key": "try_this",
+              "intentKey": "offer_options",
+              "slotId": "try_this",
+              "speaker": "character",
+              "text": "Prova den här. Den är i medium.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Prova den här. Den är i medium."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Try this one. It's a medium.",
+                  "note": "Prova = to try on. Den här = this one, for an en-word like tröja.",
+                  "literal": "try it here. it is in medium"
+                },
+                "fr": {
+                  "meaning": "Essayez celui-ci. Il est en M.",
+                  "note": "« Prova » = essayer (un vêtement). « Den här » = celui-ci, pour un nom en « en » comme « tröja ».",
+                  "literal": "essaie le ici. il est en medium"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_shop_for_clothes:variant",
+              "key": "variant",
+              "intentKey": "ask_for_variant",
+              "slotId": "variant",
+              "speaker": "learner",
+              "text": "Har ni den i en större storlek?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Har ni den i en större storlek?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have it in a bigger size?",
+                  "note": "Ni (plural 'you') means the shop. Mindre = smaller.",
+                  "literal": "have you(all) it in a bigger size"
+                },
+                "fr": {
+                  "meaning": "Vous l'avez dans une taille au-dessus ?",
+                  "note": "« Ni » s'adresse à la boutique : c'est un pluriel, pas une marque de politesse. « Mindre » = plus petit. « Storlek » se dit « STOUR-lék ».",
+                  "literal": "avez vous le en une plus-grande taille"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Större: STUR-reh. Storlek: STOOR-leek."
+            },
+            {
+              "id": "swedish_ch2:swedish_shop_for_clothes:sold_out",
+              "key": "sold_out",
+              "intentKey": "say_unavailable",
+              "slotId": "sold_out",
+              "speaker": "character",
+              "text": "Ja, men bara i grått. Den blå är slutsåld.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ja, men bara i grått. Den blå är slutsåld."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, but only in grey. The blue one is sold out.",
+                  "note": "Colours used as nouns take the ett form: i grått, i svart, i blått. Slutsåld = sold out.",
+                  "literal": "yes, but only in grey. the blue is end-sold"
+                },
+                "fr": {
+                  "meaning": "Oui, mais seulement en gris. Le bleu est épuisé.",
+                  "note": "Employée comme nom, la couleur prend la forme neutre : i grått, i svart, i blått. « Slutsåld » = épuisé (« slut » = fini).",
+                  "literal": "oui, mais seulement en gris. le bleu est fin-vendu"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_shop_for_clothes:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "Vad kostar den?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vad kostar den?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is it?",
+                  "note": "Den stands for the jumper; for something general, ask vad kostar det?",
+                  "literal": "what costs it"
+                },
+                "fr": {
+                  "meaning": "Il coûte combien ?",
+                  "note": "« Den » désigne le pull ; pour une question générale : « Vad kostar det? » (ça coûte combien ?).",
+                  "literal": "quoi coûte il"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_shop_for_clothes:price_is",
+              "key": "price_is",
+              "intentKey": "state_price",
+              "slotId": "price_is",
+              "speaker": "character",
+              "text": "Den kostar åttahundra kronor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Den kostar åttahundra kronor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It costs eight hundred kronor.",
+                  "note": "Prices are in Swedish kronor (SEK): 100 kronor is roughly 9 euros. One krona, two kronor.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Il coûte huit cents couronnes.",
+                  "note": "Les prix sont en couronnes suédoises (SEK) : 100 couronnes valent environ 9 euros. Une « krona », des « kronor ». « Åtta » (huit) se dit « OT-ta ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_shop_for_clothes:take_it",
+              "key": "take_it",
+              "intentKey": "agree_to_price",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "Den tar jag!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Den tar jag!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'll take it!",
+                  "note": "Putting den first stresses it: 'that one I'll take'. The verb still comes second.",
+                  "literal": "it take I"
+                },
+                "fr": {
+                  "meaning": "Je le prends !",
+                  "note": "Mettre « den » en tête insiste sur l'objet, comme « celui-là, je le prends ». Le verbe reste en deuxième position, le sujet passe derrière.",
+                  "literal": "le prends je"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_shop_for_clothes:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Går det bra med kort?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Går det bra med kort?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it OK to pay by card?",
+                  "note": "Literally 'does it go well with card?'. Sweden is close to cashless: many shops and cafés no longer take cash at all.",
+                  "literal": "goes it well with card"
+                },
+                "fr": {
+                  "meaning": "Je peux payer par carte ?",
+                  "note": "Mot à mot « ça va bien avec carte ? ». La Suède vit presque sans espèces : beaucoup de commerces et de cafés n'acceptent plus du tout le liquide.",
+                  "literal": "va ça bien avec carte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_shop_for_clothes:other_colour",
+              "key": "other_colour",
+              "intentKey": "ask_for_variant",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Har ni den i en annan färg?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Har ni den i en annan färg?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have it in another colour?",
+                  "note": "Annan = other, for en-words; for ett-words it is annat: ett annat mönster (another pattern).",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Vous l'avez dans une autre couleur ?",
+                  "note": "« Annan » = autre devant un nom en « en » ; devant un nom en « ett », on dit « annat ». « Färg » se prononce « fèrj ».",
+                  "literal": "avez vous le en une autre couleur"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_shop_for_clothes:just_checking",
+              "key": "just_checking",
+              "intentKey": "say_just_looking",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Jag kollar bara.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Jag kollar bara."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Just having a look.",
+                  "note": "Kolla (to check, to look) is the casual everyday verb; you will hear it everywhere.",
+                  "literal": "I check only"
+                },
+                "fr": {
+                  "meaning": "Je jette juste un œil.",
+                  "note": "« Kolla » (regarder, vérifier) est le verbe familier du quotidien ; on l'entend partout.",
+                  "literal": "je vérifie seulement"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "swedish_buy_train_ticket",
+          "blueprintKey": "buy_train_ticket",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "swedish_annika_ticket_clerk",
+          "titles": {
+            "en": "A train ticket to Gothenburg",
+            "fr": "Un billet de train pour Göteborg"
+          },
+          "sceneNotes": {
+            "en": "The ticket office at Stockholm Central Station on a busy morning; you and a friend are off to Gothenburg to visit the Liseberg amusement park.",
+            "fr": "Vous êtes au guichet de la gare centrale de Stockholm, un matin chargé ; avec un ami, vous partez à Göteborg pour le parc d'attractions Liseberg."
+          },
+          "slots": [
+            {
+              "slotId": "ticket",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "character"
+            },
+            {
+              "slotId": "two",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "which_stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "card",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swedish_ch2:swedish_buy_train_ticket:ticket",
+              "key": "ticket",
+              "intentKey": "buy_ticket",
+              "slotId": "ticket",
+              "speaker": "learner",
+              "text": "Jag skulle vilja köpa biljetter till Göteborg.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Jag skulle vilja köpa biljetter till Göteborg."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like to buy tickets to Gothenburg.",
+                  "note": "Skulle vilja (would like) is the polite way to ask for something. Göteborg is Gothenburg in English.",
+                  "literal": "I would want to-buy tickets to Gothenburg"
+                },
+                "fr": {
+                  "meaning": "Je voudrais acheter des billets pour Göteborg.",
+                  "note": "« Skulle vilja » = je voudrais. Devant ö, le g se prononce « y » : Göteborg se dit à peu près « yeu-té-BORY ».",
+                  "literal": "je devrais vouloir acheter billets à Göteborg"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Göteborg: roughly 'yuh-teh-BORY'; before ö, g sounds like y."
+            },
+            {
+              "id": "swedish_ch2:swedish_buy_train_ticket:how_many",
+              "key": "how_many",
+              "intentKey": "ask_clarification",
+              "slotId": "how_many",
+              "speaker": "character",
+              "text": "Hur många ska resa?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hur många ska resa?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How many are travelling?",
+                  "note": "Hur många = how many. Resa = to travel; en resa = a trip.",
+                  "literal": "how many shall travel"
+                },
+                "fr": {
+                  "meaning": "Combien de personnes voyagent ?",
+                  "note": "« Hur många » = combien. « Resa » = voyager ; « en resa » = un voyage.",
+                  "literal": "combien nombreux vont voyager"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_buy_train_ticket:two",
+              "key": "two",
+              "intentKey": "specify_quantity",
+              "slotId": "two",
+              "speaker": "learner",
+              "text": "Två vuxna, tack.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Två vuxna, tack."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Two adults, please.",
+                  "note": "Vuxna = adults; children are barn. At the counter you count travellers, not tickets.",
+                  "literal": "two adults, thanks"
+                },
+                "fr": {
+                  "meaning": "Deux adultes, s'il vous plaît.",
+                  "note": "« Vuxna » = adultes ; les enfants : « barn ». Au guichet, on compte les voyageurs plutôt que les billets. « Två » (deux) se dit « tvô ».",
+                  "literal": "deux adultes, merci"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_buy_train_ticket:single_or_return",
+              "key": "single_or_return",
+              "intentKey": "offer_options",
+              "slotId": "single_or_return",
+              "speaker": "character",
+              "text": "Enkel eller tur och retur?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Enkel eller tur och retur?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Single or return?",
+                  "note": "Enkel (simple) = one way; tur och retur = return.",
+                  "literal": "single or trip and return"
+                },
+                "fr": {
+                  "meaning": "Aller simple ou aller-retour ?",
+                  "note": "« Enkel » = aller simple ; « tur och retur » = aller-retour, deux mots que le suédois a empruntés au français « tour » et « retour ».",
+                  "literal": "simple ou tour et retour"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_buy_train_ticket:return_please",
+              "key": "return_please",
+              "intentKey": "choose_option",
+              "slotId": "return_please",
+              "speaker": "learner",
+              "text": "Tur och retur, tack.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tur och retur, tack."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Return, please.",
+                  "note": null,
+                  "literal": "trip and return, thanks"
+                },
+                "fr": {
+                  "meaning": "Aller-retour, s'il vous plaît.",
+                  "note": null,
+                  "literal": "tour et retour, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_buy_train_ticket:when",
+              "key": "when",
+              "intentKey": "ask_departure_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "När går nästa tåg?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "När går nästa tåg?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "When does the next train leave?",
+                  "note": "Trains gå (walk, go) in Swedish: tåget går klockan tio = the train leaves at ten.",
+                  "literal": "when goes next train"
+                },
+                "fr": {
+                  "meaning": "Quand part le prochain train ?",
+                  "note": "En suédois, le train « va » (gå) : « tåget går klockan tio » = le train part à dix heures. « Tåg » se prononce « tôg ».",
+                  "literal": "quand va prochain train"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Tåg: 'tohg', with a long o."
+            },
+            {
+              "id": "swedish_ch2:swedish_buy_train_ticket:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "character",
+              "text": "Det går halv elva, från spår tolv.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Det går halv elva, från spår tolv."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It leaves at half past ten, from track twelve.",
+                  "note": "Careful: halv elva (half eleven) means 10:30, half an hour before eleven. Kvart över tio = 10:15.",
+                  "literal": "it goes half eleven, from track twelve"
+                },
+                "fr": {
+                  "meaning": "Il part à dix heures et demie, voie douze.",
+                  "note": "Piège : « halv elva » (« demi onze ») veut dire 10 h 30, la demi-heure avant onze heures. « Kvart över tio » = 10 h 15. « Spår » = la voie.",
+                  "literal": "il va demi onze, de voie douze"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_buy_train_ticket:which_stop",
+              "key": "which_stop",
+              "intentKey": "ask_which_stop",
+              "slotId": "which_stop",
+              "speaker": "learner",
+              "text": "Var ska vi gå av för Liseberg?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Var ska vi gå av för Liseberg?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where do we get off for Liseberg?",
+                  "note": "Gå av = to get off; gå på = to get on. Liseberg is one of Scandinavia's biggest amusement parks.",
+                  "literal": "where shall we go off for Liseberg"
+                },
+                "fr": {
+                  "meaning": "Où devons-nous descendre pour Liseberg ?",
+                  "note": "« Gå av » = descendre ; « gå på » = monter. « Var » = où (sans mouvement), à ne pas confondre avec « vart » (vers où).",
+                  "literal": "où devons nous aller hors pour Liseberg"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_buy_train_ticket:take_tram",
+              "key": "take_tram",
+              "intentKey": "state_destination",
+              "slotId": "take_tram",
+              "speaker": "character",
+              "text": "På Centralen. Sen tar ni spårvagnen dit.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "På Centralen. Sen tar ni spårvagnen dit."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "At the Central Station. Then you take the tram there.",
+                  "note": "Centralen is what everyone calls the central station. Sen is the spoken form of sedan (then).",
+                  "literal": "at Central-the. then take you(all) tram-the there"
+                },
+                "fr": {
+                  "meaning": "À la gare centrale. Ensuite, vous prenez le tram jusque-là.",
+                  "note": "« Centralen » est le nom courant de la gare centrale. « Sen » est la forme parlée de « sedan » (ensuite). Göteborg a un grand réseau de tramways.",
+                  "literal": "à centrale-la. ensuite prenez vous tram-le là-bas"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_buy_train_ticket:card",
+              "key": "card",
+              "intentKey": "ask_payment_method",
+              "slotId": "card",
+              "speaker": "learner",
+              "text": "Kan jag betala med kort?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kan jag betala med kort?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I pay by card?",
+                  "note": "Most travellers book in the SJ app; at the counter, paying by card is the norm.",
+                  "literal": "can I pay with card"
+                },
+                "fr": {
+                  "meaning": "Je peux payer par carte ?",
+                  "note": "La plupart des voyageurs réservent dans l'appli des chemins de fer (SJ) ; au guichet, on paie normalement par carte.",
+                  "literal": "peux je payer avec carte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_buy_train_ticket:one_ticket",
+              "key": "one_ticket",
+              "intentKey": "buy_ticket",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "En biljett till Göteborg, tack.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "En biljett till Göteborg, tack."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A ticket to Gothenburg, please.",
+                  "note": "The shortest way to ask: no verb needed.",
+                  "literal": "a ticket to Gothenburg, thanks"
+                },
+                "fr": {
+                  "meaning": "Un billet pour Göteborg, s'il vous plaît.",
+                  "note": "La façon la plus courte de demander, sans verbe. « Biljett » vient du français « billet ».",
+                  "literal": "un billet à Göteborg, merci"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "swedish_emergency_ask_help",
+          "blueprintKey": "emergency_ask_help",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "emergencies",
+          "characterKey": "swedish_johan_bystander",
+          "titles": {
+            "en": "Asking for help",
+            "fr": "Demander de l'aide"
+          },
+          "sceneNotes": {
+            "en": "In Gamla stan on a hot summer afternoon, the friend you are walking with suddenly feels faint; a passer-by stops to help.",
+            "fr": "Dans Gamla stan, par un après-midi d'été très chaud, l'amie qui vous accompagne a soudain un malaise ; un passant s'arrête pour vous aider."
+          },
+          "slots": [
+            {
+              "slotId": "help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_happened",
+              "speaker": "character"
+            },
+            {
+              "slotId": "type",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pharmacy",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swedish_ch2:swedish_emergency_ask_help:help",
+              "key": "help",
+              "intentKey": "call_for_help",
+              "slotId": "help",
+              "speaker": "learner",
+              "text": "Hjälp! Kan någon hjälpa oss?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hjälp! Kan någon hjälpa oss?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Help! Can someone help us?",
+                  "note": "In an emergency anywhere in Sweden, call 112.",
+                  "literal": "help! can someone help us"
+                },
+                "fr": {
+                  "meaning": "À l'aide ! Quelqu'un peut nous aider ?",
+                  "note": "En cas d'urgence, partout en Suède, composez le 112. « Hjälp » se prononce « yèlp » : le h est muet devant j.",
+                  "literal": "aide ! peut quelqu'un aider nous"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Hj is said like y: 'yelp'. Någon: NOH-gon."
+            },
+            {
+              "id": "swedish_ch2:swedish_emergency_ask_help:what_happened",
+              "key": "what_happened",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "Vad har hänt?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vad har hänt?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What happened?",
+                  "note": "Hänt comes from hända, to happen.",
+                  "literal": "what has happened"
+                },
+                "fr": {
+                  "meaning": "Qu'est-ce qui s'est passé ?",
+                  "note": "« Hända » = arriver, se passer ; le suédois forme ce passé avec « har » (avoir), là où le français prend « être ».",
+                  "literal": "quoi a arrivé"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_emergency_ask_help:type",
+              "key": "type",
+              "intentKey": "say_emergency_type",
+              "slotId": "type",
+              "speaker": "learner",
+              "text": "Min kompis håller på att svimma.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Min kompis håller på att svimma."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My friend is about to faint.",
+                  "note": "Hålla på att = to be about to (or to be busy doing). Kompis (friend) works for a woman or a man.",
+                  "literal": "my friend holds on to faint"
+                },
+                "fr": {
+                  "meaning": "Mon amie va s'évanouir.",
+                  "note": "« Hålla på att » = être sur le point de (ou en train de). « Kompis » (copain, copine) vaut pour une femme comme pour un homme.",
+                  "literal": "mon copain tient sur de s'évanouir"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_emergency_ask_help:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "Hon har ont i huvudet.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hon har ont i huvudet."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "She has a headache.",
+                  "note": "Ha ont i + body part = to have a pain in: jag har ont i magen (I have a stomach ache). For a man: han har ont i huvudet.",
+                  "literal": "she has pain in head-the"
+                },
+                "fr": {
+                  "meaning": "Elle a mal à la tête.",
+                  "note": "« Ha ont i » + partie du corps se construit exactement comme « avoir mal à » : jag har ont i magen (j'ai mal au ventre). Le o de « ont » se prononce « ou ».",
+                  "literal": "elle a mal dans tête-la"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Ont: 'oont'. Huvudet: HOO-vu-deh."
+            },
+            {
+              "id": "swedish_ch2:swedish_emergency_ask_help:ambulance",
+              "key": "ambulance",
+              "intentKey": "offer_help",
+              "slotId": "ambulance",
+              "speaker": "character",
+              "text": "Ska jag ringa efter en ambulans?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ska jag ringa efter en ambulans?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall I call an ambulance?",
+                  "note": "Ringa efter = to call for. For medical advice that is not an emergency, Swedes call 1177.",
+                  "literal": "shall I ring after an ambulance"
+                },
+                "fr": {
+                  "meaning": "Vous voulez que j'appelle une ambulance ?",
+                  "note": "« Ringa efter » = appeler, faire venir. Pour un conseil médical sans urgence vitale, les Suédois composent le 1177.",
+                  "literal": "dois je sonner après une ambulance"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_emergency_ask_help:pharmacy",
+              "key": "pharmacy",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": "pharmacy",
+              "speaker": "learner",
+              "text": "Nej tack. Finns det ett apotek i närheten?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nej tack. Finns det ett apotek i närheten?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, thank you. Is there a pharmacy nearby?",
+                  "note": "Apotek = pharmacy; i närheten = nearby (literally 'in the nearness').",
+                  "literal": "no thanks. is-found there a pharmacy in the-nearness"
+                },
+                "fr": {
+                  "meaning": "Non merci. Il y a une pharmacie près d'ici ?",
+                  "note": "« Apotek » rappelle « apothicaire ». « Finns det… ? » = est-ce qu'il y a… ? ; « i närheten » = à proximité.",
+                  "literal": "non merci. se-trouve-t-il une pharmacie dans proximité-la"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_emergency_ask_help:pharmacy_near",
+              "key": "pharmacy_near",
+              "intentKey": "say_it_is_near",
+              "slotId": "pharmacy_near",
+              "speaker": "character",
+              "text": "Ja, det finns ett precis runt hörnet.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ja, det finns ett precis runt hörnet."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, there's one just around the corner.",
+                  "note": "Precis = just, exactly. Hörnet = the corner.",
+                  "literal": "yes, there is-found one just round corner-the"
+                },
+                "fr": {
+                  "meaning": "Oui, il y en a une juste au coin de la rue.",
+                  "note": "« Precis » = juste, exactement. « Ett » reprend « apotek », un nom en « ett ».",
+                  "literal": "oui, il se-trouve une juste autour coin-le"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_emergency_ask_help:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "Okej, jag förstår. Tack så hemskt mycket!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Okej, jag förstår. Tack så hemskt mycket!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I understand. Thank you so much!",
+                  "note": "Tack så hemskt mycket (literally 'thanks so terribly much') is a heartfelt thank-you. Förstå = to understand.",
+                  "literal": "okay, I understand. thanks so terribly much"
+                },
+                "fr": {
+                  "meaning": "D'accord, je comprends. Merci infiniment !",
+                  "note": "« Tack så hemskt mycket » (mot à mot « merci si terriblement beaucoup ») est un merci du fond du cœur. « Förstå » = comprendre.",
+                  "literal": "d'accord, je comprends. merci si terriblement beaucoup"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_emergency_ask_help:need_doctor",
+              "key": "need_doctor",
+              "intentKey": "ask_for_doctor_or_pharmacy",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Vi behöver en läkare.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vi behöver en läkare."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "We need a doctor.",
+                  "note": "Behöva = to need. Läkare = doctor.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Nous avons besoin d'un médecin.",
+                  "note": "« Behöva » = avoir besoin de, sans préposition : « vi behöver en läkare ».",
+                  "literal": "nous nécessitons un médecin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_emergency_ask_help:excuse_help",
+              "key": "excuse_help",
+              "intentKey": "call_for_help",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ursäkta, kan du hjälpa mig?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ursäkta, kan du hjälpa mig?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, can you help me?",
+                  "note": "A calmer way to stop a passer-by when it is not a matter of seconds.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, vous pouvez m'aider ?",
+                  "note": "Pour arrêter un passant plus calmement, quand ce n'est pas une question de secondes. Dans « ursäkta », rs se dit « ch » : « U-chèk-ta ».",
+                  "literal": "excuse, peux tu aider moi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Ursäkta: OO-shek-ta; rs is said 'sh'."
+            }
+          ]
+        },
+        {
+          "key": "swedish_talk_about_family",
+          "blueprintKey": "talk_about_family",
+          "missionType": "story",
+          "level": "elementary",
+          "situation": "family",
+          "characterKey": "swedish_birgitta_host",
+          "titles": {
+            "en": "Fika at Birgitta's",
+            "fr": "Le fika chez Birgitta"
+          },
+          "sceneNotes": {
+            "en": "Your friend Linnea takes you to her grandmother Birgitta's flat for fika; there are fresh cinnamon buns, and Birgitta wants to know all about your family.",
+            "fr": "Votre amie Linnea vous emmène prendre le fika chez sa grand-mère Birgitta ; il y a des brioches à la cannelle tout juste sorties du four, et Birgitta veut tout savoir de votre famille."
+          },
+          "slots": [
+            {
+              "slotId": "ask_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_family",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "delicious",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "compliment_reply",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dont_know",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swedish_ch2:swedish_talk_about_family:come_in",
+              "key": "come_in",
+              "intentKey": "welcome_someone",
+              "slotId": "come_in",
+              "speaker": "character",
+              "text": "Kom in, kom in! Jag har bakat kanelbullar.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kom in, kom in! Jag har bakat kanelbullar."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Come in, come in! I've baked cinnamon buns.",
+                  "note": "Fika, coffee with something sweet, is a daily ritual. Take your shoes off at the door: Swedes always do indoors.",
+                  "literal": "come in, come in! I have baked cinnamon-buns"
+                },
+                "fr": {
+                  "meaning": "Entre, entre ! J'ai fait des brioches à la cannelle.",
+                  "note": "Le « fika », pause café accompagnée d'une douceur, est un rituel quotidien. En entrant, enlevez vos chaussures : en Suède, on se déchausse toujours chez les gens.",
+                  "literal": "viens dedans, viens dedans ! j'ai cuit cannelle-brioches"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_talk_about_family:delicious",
+              "key": "delicious",
+              "intentKey": "say_delicious",
+              "slotId": "delicious",
+              "speaker": "learner",
+              "text": "Vilka goda bullar!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vilka goda bullar!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What delicious buns!",
+                  "note": "Vilka (what) + adjective + noun makes an exclamation. God (good) takes -a in the plural: goda bullar.",
+                  "literal": "which good buns"
+                },
+                "fr": {
+                  "meaning": "Qu'elles sont bonnes, ces brioches !",
+                  "note": "« Vilka » (quels) + adjectif + nom = une exclamation, comme « quelles bonnes brioches ! ». Au pluriel, « god » devient « goda » ; le o se prononce « ou » : « GOU-da ».",
+                  "literal": "quelles bonnes brioches"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Goda: GOO-da, the o is like 'oo'."
+            },
+            {
+              "id": "swedish_ch2:swedish_talk_about_family:you_speak_well",
+              "key": "you_speak_well",
+              "intentKey": "compliment",
+              "slotId": "you_speak_well",
+              "speaker": "character",
+              "text": "Och vad bra du pratar svenska!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Och vad bra du pratar svenska!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And how well you speak Swedish!",
+                  "note": "Vad + adjective = how …! Prata = to speak, to chat.",
+                  "literal": "and what good you speak Swedish"
+                },
+                "fr": {
+                  "meaning": "Et comme tu parles bien suédois !",
+                  "note": "« Vad » (quoi) + adjectif = comme… ! « Prata » = parler, bavarder.",
+                  "literal": "et quoi bien tu parles suédois"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_talk_about_family:compliment_reply",
+              "key": "compliment_reply",
+              "intentKey": "respond_to_compliment",
+              "slotId": "compliment_reply",
+              "speaker": "learner",
+              "text": "Tack, vad snällt av dig!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tack, vad snällt av dig!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, that's kind of you!",
+                  "note": "Snäll = kind; snällt agrees with vad. You say du to Birgitta too: Swedes say du to everyone, older people included.",
+                  "literal": "thanks, what kind of you"
+                },
+                "fr": {
+                  "meaning": "Merci, c'est gentil de votre part !",
+                  "note": "« Snäll » = gentil. On tutoie aussi Birgitta : en Suède, « du » s'emploie avec tout le monde, personnes âgées comprises, là où le français vouvoie.",
+                  "literal": "merci, quoi gentil de toi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_talk_about_family:ask_family",
+              "key": "ask_family",
+              "intentKey": "ask_about_family",
+              "slotId": "ask_family",
+              "speaker": "learner",
+              "text": "Är det dina barnbarn på bilden?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Är det dina barnbarn på bilden?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Are those your grandchildren in the photo?",
+                  "note": "Barnbarn = child's child. Swedish names grandparents by side: mormor (mother's mother), farfar (father's father).",
+                  "literal": "are it your child-children on picture-the"
+                },
+                "fr": {
+                  "meaning": "Ce sont vos petits-enfants, sur la photo ?",
+                  "note": "« Barnbarn » = enfant d'enfant. Le suédois précise le côté : « mormor » (mère de la mère), « farfar » (père du père). Birgitta est la « mormor » de Linnea.",
+                  "literal": "est ce tes enfant-enfants sur photo-la"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_talk_about_family:and_you",
+              "key": "and_you",
+              "intentKey": "ask_about_family",
+              "slotId": "and_you",
+              "speaker": "character",
+              "text": "Ja, alla fyra! Har du några syskon?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ja, alla fyra! Har du några syskon?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, all four! Do you have any brothers or sisters?",
+                  "note": "Syskon means brothers and sisters together, in one word.",
+                  "literal": "yes, all four! have you any siblings"
+                },
+                "fr": {
+                  "meaning": "Oui, tous les quatre ! Tu as des frères et sœurs ?",
+                  "note": "« Syskon » désigne en un seul mot les frères et sœurs, ce qui manque au français.",
+                  "literal": "oui, tous quatre ! as tu quelques frères-et-sœurs"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_talk_about_family:my_family",
+              "key": "my_family",
+              "intentKey": "describe_family",
+              "slotId": "my_family",
+              "speaker": "learner",
+              "text": "Jag har en bror och en syster.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Jag har en bror och en syster."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have a brother and a sister.",
+                  "note": "Plural: bröder (brothers), systrar (sisters).",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "J'ai un frère et une sœur.",
+                  "note": "Pluriel : « bröder » (frères), « systrar » (sœurs). Le y de « syster » se prononce comme le « u » de « sur ».",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "In syster, the y is an 'ee' said with rounded lips."
+            },
+            {
+              "id": "swedish_ch2:swedish_talk_about_family:parents_visit",
+              "key": "parents_visit",
+              "intentKey": "ask_clarification",
+              "slotId": "parents_visit",
+              "speaker": "character",
+              "text": "Kommer dina föräldrar och hälsar på snart?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Kommer dina föräldrar och hälsar på snart?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Are your parents coming to visit soon?",
+                  "note": "Hälsa på (literally 'greet on') = to visit someone. Föräldrar = parents.",
+                  "literal": "come your parents and greet on soon"
+                },
+                "fr": {
+                  "meaning": "Tes parents viennent bientôt te rendre visite ?",
+                  "note": "« Hälsa på » (mot à mot « saluer sur ») = rendre visite. Le ä de « föräldrar » (parents) se prononce « è ».",
+                  "literal": "viennent tes parents et saluent sur bientôt"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_talk_about_family:dont_know",
+              "key": "dont_know",
+              "intentKey": "say_dont_know",
+              "slotId": "dont_know",
+              "speaker": "learner",
+              "text": "Det vet jag inte än.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Det vet jag inte än."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I don't know yet.",
+                  "note": "Swedish likes to put det first: det vet jag inte (that I don't know). Än = yet.",
+                  "literal": "it know I not yet"
+                },
+                "fr": {
+                  "meaning": "Je ne sais pas encore.",
+                  "note": "Le suédois aime placer « det » en tête : « det vet jag inte » (ça, je ne le sais pas). « Inte » = pas ; « än » = encore.",
+                  "literal": "ça sais je pas encore"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_talk_about_family:only_child",
+              "key": "only_child",
+              "intentKey": "describe_family",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Jag är enda barnet.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Jag är enda barnet."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm an only child.",
+                  "note": "Literally 'I am the only child'. You will also hear ensambarn.",
+                  "literal": "I am only child-the"
+                },
+                "fr": {
+                  "meaning": "Je suis enfant unique.",
+                  "note": "Mot à mot « je suis l'unique enfant ». On dit aussi « ensambarn ».",
+                  "literal": "je suis unique enfant-le"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "swedish_make_weekend_plans",
+          "blueprintKey": "make_weekend_plans",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "swedish_linnea_friend",
+          "titles": {
+            "en": "A weekend in the archipelago",
+            "fr": "Un week-end dans l'archipel"
+          },
+          "sceneNotes": {
+            "en": "Your friend Linnea wants to take the boat out to Vaxholm this weekend, but the day she suggests does not suit you.",
+            "fr": "Votre amie Linnea veut prendre le bateau pour Vaxholm ce week-end, mais le jour qu'elle propose ne vous convient pas."
+          },
+          "slots": [
+            {
+              "slotId": "suggest",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "accept",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "decline",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "other_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "confirm",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "swedish_ch2:swedish_make_weekend_plans:vaxholm_saturday",
+              "key": "vaxholm_saturday",
+              "intentKey": "invite",
+              "slotId": "vaxholm_saturday",
+              "speaker": "character",
+              "text": "Har du lust att följa med till Vaxholm på lördag?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Har du lust att följa med till Vaxholm på lördag?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you fancy coming to Vaxholm with me on Saturday?",
+                  "note": "Har du lust att…? = do you feel like…? Följa med = to come along. Vaxholm, an island town in the archipelago, is about an hour away by boat.",
+                  "literal": "have you desire to follow with to Vaxholm on Saturday"
+                },
+                "fr": {
+                  "meaning": "Ça te dit de venir à Vaxholm avec moi samedi ?",
+                  "note": "« Har du lust att…? » = ça te dit de… ? « Följa med » = venir avec, accompagner. Vaxholm, petite ville sur une île de l'archipel, est à environ une heure de bateau.",
+                  "literal": "as tu envie de suivre avec à Vaxholm sur samedi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_make_weekend_plans:decline",
+              "key": "decline",
+              "intentKey": "decline_invitation",
+              "slotId": "decline",
+              "speaker": "learner",
+              "text": "Det låter trevligt, men på lördag kan jag inte.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Det låter trevligt, men på lördag kan jag inte."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "That sounds nice, but I can't on Saturday.",
+                  "note": "Say something kind before the no: that is the polite Swedish way. På lördag = this coming Saturday.",
+                  "literal": "it sounds nice, but on Saturday can I not"
+                },
+                "fr": {
+                  "meaning": "Ça a l'air sympa, mais samedi je ne peux pas.",
+                  "note": "On adoucit d'abord, puis on refuse : c'est la façon polie de dire non. « På lördag » = samedi qui vient ; « lördag » se dit « LEUR-da », le g est muet.",
+                  "literal": "ça sonne agréable, mais sur samedi peux je pas"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Lördag: LUR-da, the g is silent."
+            },
+            {
+              "id": "swedish_ch2:swedish_make_weekend_plans:other_time",
+              "key": "other_time",
+              "intentKey": "suggest_other_time",
+              "slotId": "other_time",
+              "speaker": "learner",
+              "text": "Funkar söndag istället?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Funkar söndag istället?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Does Sunday work instead?",
+                  "note": "Funka (from fungera) is the casual 'to work, to be OK'. Istället = instead.",
+                  "literal": "works Sunday instead"
+                },
+                "fr": {
+                  "meaning": "Dimanche, ça marche plutôt ?",
+                  "note": "« Funka » (de « fungera », fonctionner) = marcher, aller, en langage familier. « Istället » = à la place. « Söndag » se dit « SEUN-da ».",
+                  "literal": "marche dimanche à-la-place"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_make_weekend_plans:sunday_ok",
+              "key": "sunday_ok",
+              "intentKey": "agree",
+              "slotId": "sunday_ok",
+              "speaker": "character",
+              "text": "Ja, söndag passar perfekt.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ja, söndag passar perfekt."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, Sunday's perfect.",
+                  "note": null,
+                  "literal": "yes, Sunday suits perfectly"
+                },
+                "fr": {
+                  "meaning": "Oui, dimanche, c'est parfait.",
+                  "note": "« Passa » = convenir : « det passar bra » = ça tombe bien.",
+                  "literal": "oui, dimanche convient parfaitement"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_make_weekend_plans:suggest",
+              "key": "suggest",
+              "intentKey": "suggest_activity",
+              "slotId": "suggest",
+              "speaker": "learner",
+              "text": "Vi kan ta ett dopp där!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vi kan ta ett dopp där!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "We can go for a swim there!",
+                  "note": "Ta ett dopp = to take a dip. Swedes swim off the rocks all summer, even when the water is cool.",
+                  "literal": "we can take a dip there"
+                },
+                "fr": {
+                  "meaning": "On peut se baigner là-bas !",
+                  "note": "« Ta ett dopp » = piquer une tête, faire trempette. Tout l'été, les Suédois se baignent depuis les rochers, même quand l'eau est fraîche.",
+                  "literal": "nous pouvons prendre un plongeon là"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_make_weekend_plans:when",
+              "key": "when",
+              "intentKey": "make_plan_time",
+              "slotId": "when",
+              "speaker": "learner",
+              "text": "Ska vi ses vid Strömkajen klockan tio?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ska vi ses vid Strömkajen klockan tio?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we meet at Strömkajen at ten?",
+                  "note": "Ses = to see each other, to meet. The archipelago boats leave from Strömkajen, across the water from the Royal Palace.",
+                  "literal": "shall we see-each-other at Strömkajen the-clock ten"
+                },
+                "fr": {
+                  "meaning": "On se retrouve à Strömkajen à dix heures ?",
+                  "note": "« Ses » = se voir, se retrouver : le -s final joue le rôle de « se ». Les bateaux pour l'archipel partent de Strömkajen, face au Palais royal.",
+                  "literal": "devons nous se-voir près Strömkajen horloge dix"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_make_weekend_plans:dinner_after",
+              "key": "dinner_after",
+              "intentKey": "invite",
+              "slotId": "dinner_after",
+              "speaker": "character",
+              "text": "Toppen! Vill du äta middag hos mig efteråt?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Toppen! Vill du äta middag hos mig efteråt?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Great! Do you want to have dinner at my place afterwards?",
+                  "note": "Toppen (literally 'the top') means great. Hos mig = at my place.",
+                  "literal": "top-the! want you eat dinner at me afterwards"
+                },
+                "fr": {
+                  "meaning": "Super ! Tu veux dîner chez moi après ?",
+                  "note": "« Toppen » (le sommet) = super, génial. « Hos mig » = chez moi : « hos » fonctionne exactement comme « chez ».",
+                  "literal": "sommet-le ! veux tu manger dîner chez moi après"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_make_weekend_plans:accept",
+              "key": "accept",
+              "intentKey": "accept_invitation",
+              "slotId": "accept",
+              "speaker": "learner",
+              "text": "Ja, gärna! Det låter mysigt.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ja, gärna! Det låter mysigt."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, I'd love to! That sounds cosy.",
+                  "note": "Gärna (gladly) makes a warm yes. Mysig (cosy, snug and pleasant) is a favourite Swedish word.",
+                  "literal": "yes, gladly! it sounds cosy"
+                },
+                "fr": {
+                  "meaning": "Oui, avec plaisir ! Ça a l'air sympa.",
+                  "note": "« Gärna » (volontiers) rend le oui chaleureux ; devant ä, le g se dit « y » : « YÈR-na ». « Mysig » (douillet, agréable) est un des mots préférés des Suédois.",
+                  "literal": "oui, volontiers ! ça sonne douillet"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Gärna: YAIR-na; before ä, g sounds like y."
+            },
+            {
+              "id": "swedish_ch2:swedish_make_weekend_plans:confirm",
+              "key": "confirm",
+              "intentKey": "confirm_plan",
+              "slotId": "confirm",
+              "speaker": "learner",
+              "text": "Då säger vi söndag klockan tio!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Då säger vi söndag klockan tio!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "So it's Sunday at ten, then!",
+                  "note": "Då säger vi så (then we say so) is how Swedes seal a plan.",
+                  "literal": "then say we Sunday the-clock ten"
+                },
+                "fr": {
+                  "meaning": "Alors c'est dit : dimanche, dix heures !",
+                  "note": "« Då säger vi så » (alors disons ainsi) est la formule pour sceller un projet. Encore l'inversion : « då säger vi ».",
+                  "literal": "alors disons nous dimanche horloge dix"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_make_weekend_plans:im_in",
+              "key": "im_in",
+              "intentKey": "accept_invitation",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Absolut, jag är med!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Absolut, jag är med!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Absolutely, count me in!",
+                  "note": "Jag är med (I am with) = count me in.",
+                  "literal": "absolutely, I am with"
+                },
+                "fr": {
+                  "meaning": "Carrément, j'en suis !",
+                  "note": "« Jag är med » (je suis avec) = je suis de la partie.",
+                  "literal": "absolument, je suis avec"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "swedish_ch2:swedish_make_weekend_plans:fjaderholmarna",
+              "key": "fjaderholmarna",
+              "intentKey": "suggest_activity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ska vi åka till Fjäderholmarna istället?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ska vi åka till Fjäderholmarna istället?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we go to Fjäderholmarna instead?",
+                  "note": "Fjäderholmarna are small islands about twenty minutes by boat from the centre: ideal for a short trip.",
+                  "literal": "shall we go to Feather-islets-the instead"
+                },
+                "fr": {
+                  "meaning": "Et si on allait plutôt à Fjäderholmarna ?",
+                  "note": "Fjäderholmarna, petites îles à une vingtaine de minutes de bateau du centre, sont parfaites pour une courte sortie. « Åka » = aller en véhicule ; à pied, on dit « gå ».",
+                  "literal": "devons nous aller à plumes-îlots-les à-la-place"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
     }
   ]
 }

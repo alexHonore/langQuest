@@ -149,7 +149,12 @@ describe('buildCurriculumSeedPlan', () => {
     expect(iceCreams.filter((c) => c.character?.ageBand === 'child').length).toBeGreaterThanOrEqual(20);
     const summary = summarisePlan(plan);
     expect(summary.missions_cast! + summary.missions_uncast!).toBe(plan.rows.missions.length);
-    expect(summary.missions_cast!).toBeGreaterThan(plan.rows.missions.length / 2);
+    // Chapter 1's people (neighbours, kids, passers-by) are mostly in the roster; chapter 2's (waiters, ticket clerks)
+    // less so: those missions stay honestly uncast until the roster has someone who carries the scene.
+    const firstChapter = plan.cast.filter((c) => CHAPTER_1_BLUEPRINT_KEYS.includes(c.blueprintKey));
+    expect(firstChapter.filter((c) => c.character).length).toBeGreaterThan(firstChapter.length / 2);
+    // Every host of a family visit is cast (the roster has an adult or elder per variety).
+    expect(plan.cast.filter((c) => c.blueprintKey === 'talk_about_family').every((c) => c.character)).toBe(true);
     expect(plan.chapters.reduce((n, c) => n + c.cast, 0)).toBe(summary.missions_cast!);
   });
 
