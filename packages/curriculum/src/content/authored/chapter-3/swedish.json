@@ -40,7 +40,7 @@
           "en": { "m": "At half past five already, sadly!", "n": "Halv sex (half six) = 5:30, half an hour before six. Redan = already; tyvärr = unfortunately.", "l": "already half six, unfortunately" },
           "fr": { "m": "Dès cinq heures et demie, hélas !", "n": "« Halv sex » (demi six) = 5 h 30, la demi-heure avant six heures. « Redan » = déjà ; « tyvärr » = malheureusement. « Sex » veut simplement dire six.", "l": "déjà demi six, malheureusement" } },
         { "key": "routine", "slot": "routine", "by": "learner", "intent": "describe_routine", "register": "neutral", "text": "Först tränar jag, sen tar jag pendeln hit.", "difficulty": 0.45,
-          "pron": "Pendeln: PEN-deln. Först: 'furst'.",
+          "pron": "Pendeln: PEN-deln. Först: 'fursht'; rs sounds like 'sh'.",
           "en": { "m": "First I work out, then I take the commuter train here.", "n": "Pendeln is the pendeltåg, Stockholm's commuter train. After först and sen, the verb comes before jag.", "l": "first train I, then take I the-commuter here" },
           "fr": { "m": "D'abord je fais du sport, puis je prends le train de banlieue jusqu'ici.", "n": "« Pendeln » = le « pendeltåg », le RER de Stockholm. Après « först » (d'abord) et « sen » (puis), le verbe passe avant « jag ».", "l": "d'abord m'entraîne je, puis prends je le-train-de-banlieue ici" } },
         { "key": "what_job", "slot": "+", "by": "character", "intent": "ask_occupation", "register": "casual", "text": "Oj! Och vad är det du jobbar med egentligen?", "difficulty": 0.45,

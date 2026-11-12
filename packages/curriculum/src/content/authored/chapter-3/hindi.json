@@ -1,0 +1,66 @@
+{
+  "track": "hindi",
+  "titles": {"en": "Finding your voice in Delhi", "fr": "Trouver sa voix à Delhi"},
+  "characters": [
+    {"id": "priya_colleague", "role": "colleague", "name": "Priya", "voice": "female", "personality": "friendly, curious, always has a cup of chai in her hand", "homeRegion": "Delhi"},
+    {"id": "vikram_team_lead", "role": "team lead", "name": "Vikram", "voice": "male", "personality": "direct, busy, mixes Hindi and office English, kind to newcomers", "homeRegion": "Delhi"},
+    {"id": "ananya_friend", "role": "friend", "name": "Ananya", "voice": "female", "personality": "sporty, enthusiastic, loves old Hindi films", "homeRegion": "Delhi"},
+    {"id": "harish_local", "role": "local", "name": "Harish", "voice": "male", "personality": "an old chai-stall owner who knows every corner of central Delhi and loves to give advice", "homeRegion": "Delhi"},
+    {"id": "kabir_friend_c3", "role": "friend", "name": "Kabir", "voice": "male", "personality": "the easy-going cricket fan of chapter 2, now dreaming of a quiet life in the hills", "homeRegion": "Delhi"},
+    {"id": "neha_friend_c3", "role": "friend", "name": "Neha", "voice": "female", "personality": "the calm passer-by of chapter 2, now a friend who wants to hear every story", "homeRegion": "Delhi"}
+  ],
+  "notes": [
+    "Speaker's gender: as in chapters 1–2 the learner is written as a man. Learner lines that change for a woman: describe_your_day/routine (करता हूँ, आता हूँ → करती हूँ, आती हूँ), talk_about_work/job (था → थी), talk_about_hobbies/free_time (खेलता → खेलती), tell_a_story/yesterday (गया था → गई थी), and the variant describe_your_day/data_work (करता → करती). Characters address the learner as a man (उठे, थे, करते हो); every other learner line was worded to be the same for both (नींद आ रही है, बैठ जाऊँ, सहमत नहीं हूँ, मैंने … ख़रीदा).",
+    "आप/तुम: the learner says आप to the colleague Priya, the team lead (addressed as सर, as in most Indian offices) and Harish uncle; तुम with the friends Ananya, Kabir and Neha. Harish says तुम and बेटा-style तुम forms to the younger learner, like Asha Aunty in chapter 2. Please confirm तुम (not तू) between these friends.",
+    "Transliteration follows chapters 1–2 (aa/ee/oo, main, hoon, nahin, kijiye but deejiye; English spelling for loanwords: team, report, email, print, metro, gym, badminton, trekking, data analyst, online; personal names capitalised: Anil, Vikram, Priya; places lowercase: sarojini nagar, india gate, agrasen ki baavli, baaraakhambha road). क़ is written k (shauk) as chapter 2 writes ख़ and फ़ without marks.",
+    "Wordings to check first: ‘जमा करना’ as the office word the learner asks about; बस जाऊँ (settle) so close to बस (bus / just); दाम कम करवाने को हिंदी में क्या कहते हैं as the how-to-say line; बड़ी शांत for 'really quiet'; पाँच-सात मिनट; the infinitive request अगली बार तुम भी मेरे साथ चलना. Facts to confirm: Agrasen ki Baoli open 7 a.m.–6 p.m. with free entry, a short walk from Barakhamba Road metro; a ₹350 bag at Sarojini Nagar; Sholay (1975)."
+  ],
+  "missions": [
+    {
+      "blueprint": "describe_your_day",
+      "character": "priya_colleague",
+      "titles": {"en": "A chai break on day one", "fr": "Une pause chai, premier jour"},
+      "scene": {
+        "en": "A chai break on your first morning at a software company in Nehru Place, Delhi; Priya, who sits next to you, is curious about your mornings.",
+        "fr": "Pause chai lors de votre premier matin dans une société de logiciels de Nehru Place, à Delhi ; Priya, votre voisine de bureau, s'intéresse à vos matinées."
+      },
+      "lines": [
+        { "key": "first_day", "slot": "+", "by": "character", "intent": "ask_how_are_you", "register": "casual", "text": "अरे, आज पहला दिन है न? कैसा लग रहा है?", "forms": {"translit-latn": "are, aaj pahla din hai na? kaisa lag raha hai?"}, "difficulty": 0.4,
+          "en": {"m": "Hey, it's your first day today, isn't it? How's it going?", "n": "न at the end of a sentence asks for agreement, like 'isn't it?'. कैसा लग रहा है? = how does it feel?", "l": "hey, today first day is (isn't-it)? how seeming -ing is"},
+          "fr": {"m": "Alors, c'est votre premier jour aujourd'hui ? Comment ça se passe ?", "n": "« न » en fin de phrase demande confirmation, comme « n'est-ce pas ? ». « कैसा लग रहा है ? » = comment vous sentez-vous, mot à mot « comment ça semble ? ».", "l": "hé, aujourd'hui premier jour est (n'est-ce-pas) ? comment semblant en-train est"} },
+        { "key": "feeling", "slot": "feeling", "by": "learner", "intent": "express_feeling", "register": "casual", "text": "अच्छा है, पर बहुत नींद आ रही है।", "forms": {"translit-latn": "achchha hai, par bahut neend aa rahi hai."}, "difficulty": 0.3,
+          "pron": "neend: a long ee, slightly nasal, then a soft dental d.",
+          "en": {"m": "It's good, but I'm really sleepy.", "n": "Sleep 'comes' in Hindi: नींद आ रही है = sleep is coming (to me). The line is the same for a man or a woman.", "l": "good is, but much sleep come -ing is"},
+          "fr": {"m": "Ça va, mais j'ai très sommeil.", "n": "En hindi, le sommeil « vient » : नींद आ रही है, « le sommeil est en train de venir ». La phrase est la même pour un homme et pour une femme. Le « ee » de « neend » est long et un peu nasal.", "l": "bien est, mais beaucoup sommeil venir en-train est"} },
+        { "key": "bad_night", "slot": "+", "by": "learner", "intent": "narrate_past_event", "register": "neutral", "text": "कल रात ठीक से नींद नहीं आई।", "forms": {"translit-latn": "kal raat theek se neend nahin aayi."}, "difficulty": 0.35,
+          "en": {"m": "I didn't sleep well last night.", "n": "आई is the past of आना (to come), feminine to agree with नींद. Here कल means yesterday: the past tense tells you.", "l": "yesterday night properly sleep not came"},
+          "fr": {"m": "Je n'ai pas bien dormi cette nuit.", "n": "« आई » est le passé de आना (venir), au féminin pour s'accorder avec नींद (le sommeil). Ici « कल » veut dire hier : c'est le passé du verbe qui le montre.", "l": "hier nuit bien sommeil pas est-venu"} },
+        { "key": "what_time", "slot": "+", "by": "character", "intent": "ask_time", "register": "polite", "text": "ओहो! आप सुबह कितने बजे उठे?", "forms": {"translit-latn": "oho! aap subah kitne baje uthe?"}, "difficulty": 0.4,
+          "en": {"m": "Oh dear! What time did you get up this morning?", "n": "उठे is the past of उठना (to get up) with आप, said to a man; to a woman: उठीं.", "l": "oh-dear! you morning how-many o'clock got-up"},
+          "fr": {"m": "Oh là là ! Vous vous êtes levé à quelle heure ce matin ?", "n": "« उठे » est le passé de उठना (se lever) avec आप, adressé à un homme ; à une femme, on dirait « उठीं ».", "l": "oh-là-là ! vous matin combien heures levé"} },
+        { "key": "time", "slot": "time", "by": "learner", "intent": "tell_time", "register": "neutral", "text": "साढ़े छह बजे, रोज़ की तरह।", "forms": {"translit-latn": "saadhe chhah baje, roz ki tarah."}, "difficulty": 0.35,
+          "pron": "saadhe has a breathy flap: curl the tongue back, flick it once, and add a puff of air.",
+          "en": {"m": "At half past six, like every day.", "n": "साढ़े + hour = half past: साढ़े सात, half past seven. But 1:30 is डेढ़ (dedh) and 2:30 is ढाई (dhaai).", "l": "half-past six o'clock, daily of way"},
+          "fr": {"m": "À six heures et demie, comme tous les jours.", "n": "« साढ़े » + heure = « et demie » : साढ़े सात, sept heures et demie. Mais 1 h 30 se dit डेढ़ (dedh) et 2 h 30 ढाई (dhaai). « रोज़ की तरह » = comme chaque jour.", "l": "et-demie six heures, quotidien de manière"} },
+        { "key": "why_early", "slot": "+", "by": "character", "intent": "ask_reason", "register": "polite", "text": "रोज़ इतनी जल्दी? क्यों?", "forms": {"translit-latn": "roz itni jaldi? kyon?"}, "difficulty": 0.35,
+          "en": {"m": "So early every day? Why?", "n": "इतनी जल्दी = so early. क्यों (kyon) = why; the answer often starts with क्योंकि (kyonki), because.", "l": "daily so early? why"},
+          "fr": {"m": "Tous les jours aussi tôt ? Pourquoi ?", "n": "« इतनी जल्दी » = si tôt. « क्यों » (kyon) = pourquoi ; la réponse commence souvent par « क्योंकि » (kyonki), parce que.", "l": "quotidien si tôt ? pourquoi"} },
+        { "key": "routine", "slot": "routine", "by": "learner", "intent": "describe_routine", "register": "neutral", "text": "पहले योग करता हूँ, फिर मेट्रो से ऑफ़िस आता हूँ।", "forms": {"translit-latn": "pahle yog karta hoon, phir metro se office aata hoon."}, "difficulty": 0.45,
+          "en": {"m": "First I do yoga, then I come to the office by metro.", "n": "The present habitual (करता हूँ, आता हूँ) describes a routine. Said by a man; a woman says करती हूँ, आती हूँ. पहले … फिर = first … then.", "l": "first yoga doing I-am, then metro by office coming I-am"},
+          "fr": {"m": "D'abord je fais du yoga, puis je viens au bureau en métro.", "n": "Le présent d'habitude (करता हूँ, आता हूँ) décrit une routine. Dit par un homme ; une femme dit करती हूँ, आती हूँ. « पहले … फिर » = d'abord… ensuite. « से » = en, par (moyen de transport).", "l": "d'abord yoga faisant je-suis, ensuite métro par bureau venant je-suis"} },
+        { "key": "which_team", "slot": "+", "by": "character", "intent": "ask_occupation", "register": "polite", "text": "अच्छा! और आप किस टीम में हैं?", "forms": {"translit-latn": "achchha! aur aap kis team mein hain?"}, "difficulty": 0.35,
+          "en": {"m": "I see! And which team are you in?", "n": "किस is the form of कौन (who, which) before a postposition such as में (in).", "l": "good! and you which team in are"},
+          "fr": {"m": "Je vois ! Et vous êtes dans quelle équipe ?", "n": "« किस » est la forme de कौन (qui, quel) devant une postposition comme में (dans).", "l": "bien ! et vous quelle équipe dans êtes"} },
+        { "key": "job", "slot": "job", "by": "learner", "intent": "describe_occupation", "register": "neutral", "text": "मैं विक्रम जी की टीम में डेटा एनालिस्ट हूँ।", "forms": {"translit-latn": "main Vikram jee ki team mein data analyst hoon."}, "difficulty": 0.4,
+          "en": {"m": "I'm a data analyst in Vikram's team.", "n": "जी after a name shows respect, even for a boss you call by his first name. Job titles are often English: डेटा एनालिस्ट, डिज़ाइनर, इंजीनियर.", "l": "I Vikram (respect) of team in data analyst am"},
+          "fr": {"m": "Je suis analyste de données dans l'équipe de Vikram.", "n": "« जी » après un prénom marque le respect, même pour un chef que l'on appelle par son prénom. Les métiers se disent souvent en anglais : डेटा एनालिस्ट, डिज़ाइनर, इंजीनियर.", "l": "je Vikram (respect) de équipe dans data analyst suis"} },
+        { "key": "tired", "slot": null, "by": "learner", "intent": "express_feeling", "register": "casual", "text": "आज बहुत थकान है।", "forms": {"translit-latn": "aaj bahut thakaan hai."}, "difficulty": 0.35,
+          "en": {"m": "I'm really tired today.", "n": "थकान = tiredness: 'today there is much tiredness'. The same for a man or a woman, unlike थका हुआ / थकी हुई (tired).", "l": "today much tiredness is"},
+          "fr": {"m": "Grosse fatigue aujourd'hui.", "n": "« थकान » = la fatigue : « aujourd'hui, il y a beaucoup de fatigue ». Même phrase pour un homme et une femme, contrairement à थका हुआ / थकी हुई (fatigué / fatiguée).", "l": "aujourd'hui beaucoup fatigue est"} },
+        { "key": "data_work", "slot": null, "by": "learner", "intent": "describe_occupation", "register": "neutral", "text": "मैं डेटा एनालिसिस का काम करता हूँ।", "forms": {"translit-latn": "main data analysis ka kaam karta hoon."}, "difficulty": 0.45,
+          "en": {"m": "I work in data analysis.", "n": "… का काम करता हूँ = I do … work: the everyday way to say what you do. A woman says करती हूँ.", "l": "I data analysis of work doing am"},
+          "fr": {"m": "Je travaille dans l'analyse de données.", "n": "« … का काम करता हूँ » = je fais du travail de… : la façon courante de dire ce que l'on fait. Une femme dit करती हूँ.", "l": "je data analysis de travail faisant suis"} }
+      ]
+    }
+  ]
+}

@@ -11,7 +11,7 @@
   ],
   "notes": [
     "Casablanca Darija with the habits of chapters 1–2 (كن- present, غادي future, past in -t, ما…ش, ديال, واخا, عافاك; arabizi with 3, 7, 9, kh, gh, ch, ou). French words are written in Arabic script where Casablancans really use them (البوانطاج, لاريونيون, البادج, السيرفيس كليان, الريونيونات, الويكاند): please confirm these spellings, and whether لاريونيون or الريونيون is more usual.",
-    "As before the learner is a man and is addressed as one. Feminine counterparts to record: عيان (عيانة), مهلوك (مهلوكة), مهندس (مهندسة), رجاوي (رجاوية); and, said to a woman, باين عليك عيانة, كتفيقي, كديري, كنتي كتخدمي, مسكينة, جاوبتيش → جاوبتيش (same), تفضلي آ بنتي.",
+    "As before the learner is a man and is addressed as one. Feminine counterparts to record: عيان (عيانة), مهلوك (مهلوكة), مهندس (مهندسة), رجاوي (رجاوية); and, said to a woman, باين عليك عيانة, كتفيقي, كديري, كنتي كتخدمي, مسكينة, تفضلي آ بنتي.",
     "Least sure: كنحماق على, ما كيساليوش, آش بان ليك, الجوطية, شيباني (or شرف / الشارف in Casablanca?), واش بعيدة على رجلي, and the opening hours given for Derb Ghallef (kept vague on purpose).",
     "Mehdi, the friend of chapter 2, comes back for the debate (city or countryside)."
   ],
@@ -56,10 +56,7 @@
           "fr": { "m": "Ce samedi, je vais dormir jusqu'à dix heures !", "n": "« ghadi » + verbe = futur proche, comme « je vais » : ghadi n3es, je vais dormir. « 7ta l » = jusqu'à.", "l": "ce le-samedi allant je-dors jusqu'à la-dix" } },
         { "key": "worn_out", "slot": null, "by": "learner", "intent": "express_feeling", "register": "casual", "text": "أنا مهلوك اليوم", "forms": { "arabizi": "ana mhlouk lyoum" }, "difficulty": 0.5,
           "en": { "m": "I'm worn out today.", "n": "Mhlouk = exhausted, worn out: stronger than 3iyyan. A woman says mhlouka.", "l": "I worn-out the-day" },
-          "fr": { "m": "Je suis crevé aujourd'hui.", "n": "« mhlouk » = crevé, épuisé : plus fort que « 3iyyan ». Au féminin : « mhlouka ».", "l": "moi épuisé le-jour" } },
-        { "key": "before_seven", "slot": null, "by": "learner", "intent": "tell_time", "register": "neutral", "text": "ديما كنفيق قبل السبعة", "forms": { "arabizi": "dima kanfi9 9bel sseb3a" }, "difficulty": 0.45,
-          "en": { "m": "I always get up before seven.", "n": "Dima = always. 9bel = before, men be3d = after.", "l": "always I-wake-up before the-seven" },
-          "fr": { "m": "Je me lève toujours avant sept heures.", "n": "« dima » = toujours. « 9bel » = avant ; « men be3d » = après. Le 9 (ق) est un « k » du fond de la gorge.", "l": "toujours je-me-réveille avant la-sept" } }
+          "fr": { "m": "Je suis crevé aujourd'hui.", "n": "« mhlouk » = crevé, épuisé : plus fort que « 3iyyan ». Au féminin : « mhlouka ».", "l": "moi épuisé le-jour" } }
       ]
     },
     {
@@ -103,10 +100,7 @@
           "fr": { "m": "Je peux te poser des questions si je ne comprends pas quelque chose ?", "n": "« wach n9der » + verbe = est-ce que je peux… ? « sewwel » = interroger. « ila » = si. Le chef est tutoyé, comme tout le monde en darija.", "l": "est-ce-que je-peux je-te-demande si ne j'ai-compris-pas quelque chose" } },
         { "key": "honoured", "slot": null, "by": "learner", "intent": "say_nice_to_meet", "register": "neutral", "text": "تشرفنا", "forms": { "arabizi": "tcherrefna" }, "difficulty": 0.35,
           "en": { "m": "Nice to meet you.", "n": "A lighter alternative, understood all over the Arab world.", "l": "we-were-honoured" },
-          "fr": { "m": "Enchanté.", "n": "Variante plus légère, comprise dans tout le monde arabe : mot à mot « nous avons été honorés ».", "l": "nous-avons-été-honorés" } },
-        { "key": "what_do_you_mean", "slot": null, "by": "learner", "intent": "ask_meaning_of_word", "register": "polite", "text": "شنو كتقصد بالبوانطاج؟", "forms": { "arabizi": "chno kat9sed b lpointage?" }, "difficulty": 0.5,
-          "en": { "m": "What do you mean by 'pointage'?", "n": "9sed = to mean, to aim at. A little more direct than chno ma3na.", "l": "what you-mean with-the-pointage" },
-          "fr": { "m": "Qu'est-ce que tu entends par « pointage » ?", "n": "« 9sed » = vouloir dire, viser. Un peu plus direct que « chno ma3na ».", "l": "quoi tu-vises par-le-pointage" } }
+          "fr": { "m": "Enchanté.", "n": "Variante plus légère, comprise dans tout le monde arabe : mot à mot « nous avons été honorés ».", "l": "nous-avons-été-honorés" } }
       ]
     },
     {
@@ -151,10 +145,7 @@
           "fr": { "m": "On regarde le prochain derby dans un café ?", "n": "« tferrej f » = regarder (un match, un film). Au Maroc, les grands matchs se regardent au café, entre amis… et bruyamment. « 9ahwa » = le café, la boisson comme l'endroit.", "l": "nous-regardons dans-le-derby le-venant dans-quelque café" } },
         { "key": "crazy_about_football", "slot": null, "by": "learner", "intent": "express_like", "register": "casual", "text": "كنحماق على الكورة", "forms": { "arabizi": "kan7ma9 3la lkoura" }, "difficulty": 0.5,
           "en": { "m": "I'm crazy about football.", "n": "7ma9 3la = to be mad about: much stronger than kanbghi.", "l": "I-go-mad on the-ball" },
-          "fr": { "m": "Je suis fou de foot.", "n": "« 7ma9 3la » = être fou de : bien plus fort que « kanbghi ». « 7ma9 » veut dire « devenir fou ».", "l": "je-deviens-fou sur le-ballon" } },
-        { "key": "prefer_sea", "slot": null, "by": "learner", "intent": "express_preference_between", "register": "casual", "text": "كنفضل البحر على الكورة", "forms": { "arabizi": "kanfeddel lb7er 3la lkoura" }, "difficulty": 0.5,
-          "en": { "m": "I prefer the beach to football.", "n": "Feddel X 3la Y = to prefer X to Y.", "l": "I-prefer the-sea on the-ball" },
-          "fr": { "m": "Je préfère la plage au foot.", "n": "« feddel X 3la Y » = préférer X à Y : « 3la » (sur) joue le rôle de « à ».", "l": "je-préfère la-mer sur le-ballon" } }
+          "fr": { "m": "Je suis fou de foot.", "n": "« 7ma9 3la » = être fou de : bien plus fort que « kanbghi ». « 7ma9 » veut dire « devenir fou ».", "l": "je-deviens-fou sur le-ballon" } }
       ]
     }
   ]

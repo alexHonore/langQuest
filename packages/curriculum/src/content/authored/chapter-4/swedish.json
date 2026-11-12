@@ -104,7 +104,7 @@
           "en": { "m": "About one to two weeks.", "n": "Ungefär = about, roughly. Vecka (week), plural veckor.", "l": "about one to two weeks" },
           "fr": { "m": "Environ une à deux semaines.", "n": "« Ungefär » = environ. « Vecka » (semaine), au pluriel « veckor ».", "l": "environ une à deux semaines" } },
         { "key": "pay", "slot": "pay", "by": "learner", "intent": "pay", "register": "polite", "text": "Varsågod, här är mitt kort.", "difficulty": 0.3,
-          "pron": "Varsågod: VAR-sho-good.",
+          "pron": "Varsågod: VAR-sho-goo; the final d is usually dropped.",
           "en": { "m": "Here you go, here's my card.", "n": "Varsågod (be so good) is what you say as you hand something over. Most people simply tap their card: blippa.", "l": "be-so-good, here is my card" },
           "fr": { "m": "Tenez, voici ma carte.", "n": "« Varsågod » (sois si bon) se dit en tendant quelque chose, comme « tenez ». On paie presque toujours sans contact : « blippa » (biper) sa carte.", "l": "sois-si-bon, ici est ma carte" } },
         { "key": "when_there", "slot": null, "by": "learner", "intent": "ask_time", "register": "polite", "text": "När är det framme i Montréal?", "difficulty": 0.5,
