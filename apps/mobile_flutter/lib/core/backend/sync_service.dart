@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../content/content_bundle.dart';
@@ -95,6 +96,9 @@ class SyncReport {
 /// Where restored data lands on this device ([AppStateNotifier] in the app).
 abstract class RestoreTarget {
   AppState get current;
+
+  /// Reads a course's chapters unless they are in memory (each course is a file of its own, read on demand).
+  Future<void> loadCourse(String trackId);
   void restoreEnrollment(String trackId, String source);
   void restoreCompletedMissions(String courseId, Iterable<String> missionKeys);
 }
@@ -126,7 +130,6 @@ class SyncService {
   Future<SyncReport> _sync() async {
     final user = auth.currentUser;
     if (user == null) return const SyncReport();
-    final content = target.current.content;
     var coursesSent = 0, missionsSent = 0, coursesRestored = 0, missionsRestored = 0, missionsRefused = 0;
     final notSaved = <String>[];
 
@@ -138,10 +141,12 @@ class SyncService {
       server[courseIdFor('${e['courseTrackId']}', '${e['sourceLanguageCode']}')] = '${e['id']}';
     }
 
-    // 1. Courses of the account this device can teach, added here.
+    // 1. Courses of the account this device can teach, added here once their chapters are read (one that cannot be
+    // read now is added by a later sync).
     for (final courseId in server.keys) {
       final (trackId, source) = _split(courseId);
-      if (!content.isAvailable(trackId, source) || target.current.learner.isEnrolled(trackId, source)) continue;
+      if (!target.current.content.isAvailable(trackId, source) || target.current.learner.isEnrolled(trackId, source)) continue;
+      if (!await _loaded(trackId)) continue;
       target.restoreEnrollment(trackId, source);
       coursesRestored++;
     }
@@ -164,8 +169,9 @@ class SyncService {
 
     for (final MapEntry(key: courseId, value: enrollmentId) in server.entries) {
       final (trackId, source) = _split(courseId);
-      final course = content.course(trackId, source);
-      if (course == null || !target.current.learner.isEnrolled(trackId, source)) continue;
+      if (!target.current.learner.isEnrolled(trackId, source) || !await _loaded(trackId)) continue;
+      final course = target.current.content.course(trackId, source);
+      if (course == null) continue;
       final keyByServerId = {for (final m in course.missions) missionServerId(m.chapterKey, m.key): m.key};
 
       // 3. Missions completed in the account: their stops are done here too (no XP, no review cards).
@@ -209,6 +215,17 @@ class SyncService {
       courses: serverCourses(me),
       keepsRecordings: accountKeepsRecordings(me),
     );
+  }
+
+  /// Whether [trackId]'s chapters are in memory, reading them if needed; a course that cannot be read is skipped.
+  Future<bool> _loaded(String trackId) async {
+    try {
+      await target.loadCourse(trackId);
+      return target.current.content.isLoaded(trackId);
+    } catch (e) {
+      debugPrint('sync: the chapters of $trackId could not be read: $e');
+      return false;
+    }
   }
 
   /// The account's active courses (from `GET /v1/me`) by course id.

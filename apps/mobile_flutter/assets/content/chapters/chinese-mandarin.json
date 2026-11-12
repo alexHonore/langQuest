@@ -1,0 +1,2966 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts",
+  "courseTrackId": "chinese-mandarin",
+  "chapters": [
+    {
+      "key": "chinese_mandarin_ch1",
+      "chapterIndex": 1,
+      "courseTrackId": "chinese-mandarin",
+      "targetVarietyId": "cmn",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "First days in China",
+        "fr": "Premiers jours en Chine"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+      "notes": [
+        "AI draft generated 2026-11-11T22:37:23.302Z with anthropic/claude-sonnet-5.5; validator accepted 71 expressions; native review required before publishing.",
+        "greet_and_introduce: Name 安娜 is only a placeholder; please confirm a natural transliteration choice for learners.",
+        "greet_and_introduce: 你好吗 is a bit textbook-like; confirm it is acceptable here, or whether 你最近好吗 / 你怎么样 is more natural.",
+        "greet_and_introduce: Character name 李明 and Chengdu home region chosen for a mainland baseline; adjust if a different regional voice is preferred.",
+        "cafe_order_drink: I used 您好 and 谢谢你，辛苦了 to avoid repeating the earlier 你好 and 谢谢.",
+        "cafe_order_drink: 买单 is the mainland spoken choice. 结账 is also common, and Taiwan would use 買單/結帳 in Traditional script.",
+        "cafe_order_drink: Please check whether 请给我冰的 sounds natural at a counter, or whether 要冰的 is more typical.",
+        "market_ask_price: Prices use 斤 (half kilo) as is normal in mainland markets, though the scene says per kilo; please confirm or switch to 公斤.",
+        "market_ask_price: Greeting uses 老板 + 您 for politeness; avoids duplicating the earlier 您好！ and 你好！ lines.",
+        "market_ask_price: The vendor's free extra is not a required slot, so it is only mentioned in the scene note.",
+        "ask_directions: Slot 'straight' includes the ten-minute detail; check it is not too long for beginners.",
+        "ask_directions: Used 拐 (colloquial, northern) in the turn line; 转 is an alternative.",
+        "ask_directions: Mainland Simplified with 哪里; 哪儿 is likely for a Beijing speaker.",
+        "meet_neighbour: Used 您 for polite lines and 你 in the casual variants; please check this fits the neighbour's age.",
+        "meet_neighbour: Chapter already has 谢谢你，辛苦了！ and 我叫安娜。; I avoided repeating them and used 太谢谢您了 for thanks.",
+        "meet_neighbour: Slot 'from' uses 美国 as an example; learners will swap in their own country.",
+        "take_taxi: Used 师傅 and 哪儿 for a northern/Beijing feel; the character's homeRegion can change to suit the app's voice.",
+        "take_taxi: 老城区 is a generic placeholder; swap in a real place name if needed.",
+        "take_taxi: Greetings such as 你好 and 谢谢 were drafted earlier; I reused 谢谢 without repeating whole phrases.",
+        "buy_ice_cream: Please check that 球 as the scoop measure word sounds natural; some speakers would say 一勺 or just 两个.",
+        "buy_ice_cream: The child's 谢谢你 could be swapped for 谢谢叔叔/阿姨 depending on the learner's role.",
+        "buy_ice_cream: Taiwan variant would use 冰淇淋 and traditional characters; Hans only is provided here.",
+        "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+      ],
+      "characters": [
+        {
+          "key": "chinese_mandarin_character_friendly_local_acquaintance",
+          "name": "李明",
+          "role": "friendly local acquaintance",
+          "personality": "friendly, kind, always rushing",
+          "homeRegion": "Chengdu, Sichuan",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "chinese_mandarin_character_cafe_server",
+          "name": "李明",
+          "role": "café server",
+          "personality": "quick, cheerful, friendly",
+          "homeRegion": "北京",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "chinese_mandarin_character_market_vendor",
+          "name": "李芳",
+          "role": "market vendor",
+          "personality": "chatty, warm, quick to joke",
+          "homeRegion": "北京",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "chinese_mandarin_character_passer_by",
+          "name": "王磊",
+          "role": "passer-by",
+          "personality": "friendly, helpful, talks fast",
+          "homeRegion": "Beijing",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "chinese_mandarin_character_neighbour",
+          "name": "王芳",
+          "role": "neighbour",
+          "personality": "warm, chatty, long-time resident",
+          "homeRegion": "Chengdu, Sichuan",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "chinese_mandarin_character_taxi_driver",
+          "name": "王师傅",
+          "role": "taxi driver",
+          "personality": "talkative, friendly, a bit pushy",
+          "homeRegion": "Beijing",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "chinese_mandarin_character_child_at_the_ice_cream_stand",
+          "name": "小明",
+          "role": "child at the ice-cream stand",
+          "personality": "cheerful, a bit greedy, polite",
+          "homeRegion": "Beijing",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "chinese_mandarin_greet_and_introduce",
+          "blueprintKey": "greet_and_introduce",
+          "missionType": "standard",
+          "level": "beginner",
+          "situation": "introductions",
+          "characterKey": "chinese_mandarin_character_friendly_local_acquaintance",
+          "titles": {
+            "en": "Meeting a Neighbour Outside",
+            "fr": "Rencontrer un voisin dehors"
+          },
+          "sceneNotes": {
+            "en": "It's morning and you bump into a friendly neighbour on the street who is in a hurry but stops to say hello.",
+            "fr": "C'est le matin et vous croisez dans la rue un voisin sympathique, pressé, qui s'arrête tout de même pour vous saluer."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_are_you",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fine",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "your_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "nice_to_meet",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "goodbye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_greet_and_introduce:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "早上好！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "早上好！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Zǎoshang hǎo!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning!",
+                  "note": "A natural greeting for meeting a neighbour in the morning.",
+                  "literal": "morning good"
+                },
+                "fr": {
+                  "meaning": "Bonjour !",
+                  "note": "Salutation naturelle pour croiser un voisin le matin. Prononcez 早 (zǎo) et 好 (hǎo) avec un troisième ton descendant-montant.",
+                  "literal": "matin bien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say 早 (zǎo) with a dipping third tone, and 好 (hǎo) the same."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_greet_and_introduce:how_are_you",
+              "key": "how_are_you",
+              "intentKey": "ask_how_are_you",
+              "slotId": "how_are_you",
+              "speaker": "learner",
+              "text": "你好吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "你好吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Nǐ hǎo ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How are you?",
+                  "note": "Simple and safe for beginners. Locals often use 最近怎么样 with friends, but this works fine.",
+                  "literal": "you good [question particle]"
+                },
+                "fr": {
+                  "meaning": "Comment allez-vous ?",
+                  "note": "Simple et sans risque pour un débutant. Entre amis, on dit souvent 最近怎么样, mais celle-ci convient très bien. Deux troisièmes tons de suite : 你 se prononce ní, donc ní hǎo.",
+                  "literal": "tu bien [particule interrogative]"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Two third tones in a row: 你 sounds like ní, so it is said ní hǎo."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_greet_and_introduce:fine",
+              "key": "fine",
+              "intentKey": "reply_fine",
+              "slotId": "fine",
+              "speaker": "learner",
+              "text": "我很好，谢谢。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我很好，谢谢。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒ hěn hǎo, xièxie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm fine, thanks.",
+                  "note": "很 here is a light connector, not a strong 'very'.",
+                  "literal": "I very good, thanks"
+                },
+                "fr": {
+                  "meaning": "Je vais bien, merci.",
+                  "note": "Ici, 很 sert de simple liant, il ne veut pas vraiment dire « très ». Le « x » de xièxie ressemble à un « ch » doux, avec la langue derrière les dents du bas.",
+                  "literal": "je très bien, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 'x' in xièxie is like a soft 'sh' with the tongue behind the lower teeth."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_greet_and_introduce:my_name",
+              "key": "my_name",
+              "intentKey": "introduce_name",
+              "slotId": "my_name",
+              "speaker": "learner",
+              "text": "我叫安娜。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我叫安娜。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒ jiào Ānnà."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My name is Anna.",
+                  "note": "Replace 安娜 with your own name, or say it in your own language.",
+                  "literal": "I am called Anna"
+                },
+                "fr": {
+                  "meaning": "Je m'appelle Anna.",
+                  "note": "Remplacez 安娜 par votre prénom, ou dites-le tel quel dans votre langue. 叫 (jiào) se prononce un peu comme « dyiao », avec un ton descendant.",
+                  "literal": "je m'appelle Anna"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "Foreign names are often just said in the original language, or transliterated into Chinese characters.",
+              "pronunciationNote": "叫 (jiào) sounds like 'jyow' with a falling tone."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_greet_and_introduce:your_name",
+              "key": "your_name",
+              "intentKey": "ask_name",
+              "slotId": "your_name",
+              "speaker": "learner",
+              "text": "你叫什么名字？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "你叫什么名字？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Nǐ jiào shénme míngzi?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's your name?",
+                  "note": "Fine for a neighbour of similar age. Use 您贵姓 for someone much older.",
+                  "literal": "you are-called what name"
+                },
+                "fr": {
+                  "meaning": "Comment tu t'appelles ?",
+                  "note": "Convient pour un voisin à peu près du même âge. Avec une personne bien plus âgée, dites plutôt 您贵姓. Le « sh » de shénme est comme en français « ch », avec la langue légèrement recourbée vers l'arrière.",
+                  "literal": "tu t'appelles quoi nom"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 'sh' in shénme is like English 'sh', with the tongue slightly curled back."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_greet_and_introduce:nice_to_meet",
+              "key": "nice_to_meet",
+              "intentKey": "say_nice_to_meet",
+              "slotId": "nice_to_meet",
+              "speaker": "learner",
+              "text": "很高兴认识你。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "很高兴认识你。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Hěn gāoxìng rènshi nǐ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Nice to meet you.",
+                  "note": "Said after you have exchanged names.",
+                  "literal": "very happy to-know you"
+                },
+                "fr": {
+                  "meaning": "Enchanté(e) de faire ta connaissance.",
+                  "note": "À dire après avoir échangé vos noms. Dans 认识 (rènshi), la deuxième syllabe est légère et courte.",
+                  "literal": "très content connaître toi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "In 认识 (rènshi), the second syllable is light and short."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_greet_and_introduce:goodbye",
+              "key": "goodbye",
+              "intentKey": "say_goodbye",
+              "slotId": "goodbye",
+              "speaker": "learner",
+              "text": "再见，祝你今天愉快！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "再见，祝你今天愉快！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Zàijiàn, zhù nǐ jīntiān yúkuài!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Goodbye, have a nice day!",
+                  "note": "Good for a neighbour who is rushing off.",
+                  "literal": "see-again, wish you today pleasant"
+                },
+                "fr": {
+                  "meaning": "Au revoir, bonne journée !",
+                  "note": "Pratique pour un voisin qui est pressé. Le « zh » de zhù ressemble à un « dj » avec la langue recourbée vers l'arrière.",
+                  "literal": "revoir, souhaiter toi aujourd'hui agréable"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The 'zh' in zhù is like 'j' in 'jump' with the tongue curled back."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_greet_and_introduce:greet_hello_variant_8",
+              "key": "greet_hello_variant_8",
+              "intentKey": "greet_hello",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "你好！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "你好！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Nǐ hǎo!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello!",
+                  "note": "The all-purpose greeting, usable any time of day.",
+                  "literal": "you good"
+                },
+                "fr": {
+                  "meaning": "Bonjour !",
+                  "note": "La salutation passe-partout, utilisable à toute heure. Dites ní hǎo : le premier 你 passe à un ton montant.",
+                  "literal": "tu bien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say it as ní hǎo, with the first 你 changing to a rising tone."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_greet_and_introduce:say_goodbye_variant_9",
+              "key": "say_goodbye_variant_9",
+              "intentKey": "say_goodbye",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "回头见！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "回头见！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Huítóu jiàn!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "See you later!",
+                  "note": "A casual, friendly way to part from someone you will see again.",
+                  "literal": "turn-head see"
+                },
+                "fr": {
+                  "meaning": "À tout à l'heure !",
+                  "note": "Une façon décontractée et amicale de quitter quelqu'un qu'on reverra.",
+                  "literal": "tourner-la-tête voir"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "chinese_mandarin_cafe_order_drink",
+          "blueprintKey": "cafe_order_drink",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "cafe",
+          "characterKey": "chinese_mandarin_character_cafe_server",
+          "titles": {
+            "en": "Ordering a Drink at the Café",
+            "fr": "Commander une boisson au café"
+          },
+          "sceneNotes": {
+            "en": "You step up to the counter on a busy café terrace, where a quick, friendly server is ready to take your order.",
+            "fr": "Vous vous approchez du comptoir d'une terrasse de café animée, où un serveur rapide et aimable est prêt à prendre votre commande."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "options",
+              "speaker": "character"
+            },
+            {
+              "slotId": "choice",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_cafe_order_drink:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "您好！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "您好！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Nín hǎo!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello! (polite)",
+                  "note": "A more polite 'hello' than 你好, good for service staff.",
+                  "literal": "you(polite) good"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! (poli)",
+                  "note": "Plus poli que 你好, idéal avec le personnel de service. Nín : 2e ton montant, avec un -n final.",
+                  "literal": "vous (poli) bien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Nín has a rising second tone with an -n ending."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_cafe_order_drink:order",
+              "key": "order",
+              "intentKey": "request_drink",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "我想要一杯拿铁。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我想要一杯拿铁。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒ xiǎng yào yì bēi nátiě."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like a latte.",
+                  "note": "Swap 拿铁 for 咖啡 (coffee) or 红茶 (black tea).",
+                  "literal": "I want-to want one cup latte"
+                },
+                "fr": {
+                  "meaning": "Je voudrais un latte.",
+                  "note": "Remplacez 拿铁 par 咖啡 (café) ou 红茶 (thé noir). Prononcez yì bēi avec « yi » au 4e ton.",
+                  "literal": "je voudrais vouloir une tasse latte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "拿铁 is a loanword from 'latte'.",
+              "pronunciationNote": "Say yì bēi with the 'yi' in the fourth tone."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_cafe_order_drink:options",
+              "key": "options",
+              "intentKey": "offer_options",
+              "slotId": "options",
+              "speaker": "character",
+              "text": "热的还是冰的？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "热的还是冰的？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Rè de háishi bīng de?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hot or iced?",
+                  "note": "还是 is used for 'or' in questions.",
+                  "literal": "hot one or-else iced one"
+                },
+                "fr": {
+                  "meaning": "Chaud ou glacé ?",
+                  "note": "还是 sert à dire « ou » dans les questions.",
+                  "literal": "chaud (celui) ou glacé (celui)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_cafe_order_drink:choice",
+              "key": "choice",
+              "intentKey": "choose_option",
+              "slotId": "choice",
+              "speaker": "learner",
+              "text": "请给我冰的。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "请给我冰的。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Qǐng gěi wǒ bīng de."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Iced, please.",
+                  "note": "Say 热的 (rè de) for hot.",
+                  "literal": "please give me iced one"
+                },
+                "fr": {
+                  "meaning": "Glacé, s'il vous plaît.",
+                  "note": "Dites 热的 (rè de) pour chaud. Qǐng commence par un « q » aspiré, proche de « tch » avec la langue avancée.",
+                  "literal": "s'il vous plaît donner moi glacé (celui)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Qǐng starts with an aspirated 'q', like 'ch' with the tongue forward."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_cafe_order_drink:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "请问，可以买单吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "请问，可以买单吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Qǐngwèn, kěyǐ mǎidān ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, can I pay the bill?",
+                  "note": "买单 is common spoken Mandarin for paying up.",
+                  "literal": "may-I-ask, can pay-bill ma"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, je peux payer l'addition ?",
+                  "note": "买单 est l'expression courante à l'oral pour régler l'addition.",
+                  "literal": "puis-je demander, peut régler-l'addition ma"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_cafe_order_drink:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "谢谢你，辛苦了！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "谢谢你，辛苦了！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Xièxie nǐ, xīnkǔ le!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, you've worked hard!",
+                  "note": "辛苦了 is a warm way to thank service staff.",
+                  "literal": "thank you, hard-work le"
+                },
+                "fr": {
+                  "meaning": "Merci, et bon courage pour votre travail !",
+                  "note": "辛苦了 est une façon chaleureuse de remercier le personnel. Xiè : le son « x », comme un « ch » doux, lèvres étirées.",
+                  "literal": "merci à toi, peine le"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Xiè is the 'x' sound, like a soft 'sh' with the lips spread."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_cafe_order_drink:request_drink_variant_7",
+              "key": "request_drink_variant_7",
+              "intentKey": "request_drink",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "我想点一杯美式咖啡。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我想点一杯美式咖啡。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒ xiǎng diǎn yì bēi měishì kāfēi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like to order an Americano.",
+                  "note": "点 means 'to order' from a menu.",
+                  "literal": "I want order one cup American-style coffee"
+                },
+                "fr": {
+                  "meaning": "Je voudrais commander un café américain.",
+                  "note": "点 signifie « commander » au menu.",
+                  "literal": "je voudrais commander une tasse café américain"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_cafe_order_drink:ask_for_bill_variant_8",
+              "key": "ask_for_bill_variant_8",
+              "intentKey": "ask_for_bill",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "一共多少钱？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "一共多少钱？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Yígòng duōshao qián?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is it altogether?",
+                  "note": "Short and natural when the server is at the counter.",
+                  "literal": "altogether how-much money"
+                },
+                "fr": {
+                  "meaning": "Ça fait combien en tout ?",
+                  "note": "Court et naturel quand le serveur est au comptoir.",
+                  "literal": "en tout combien argent"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "chinese_mandarin_market_ask_price",
+          "blueprintKey": "market_ask_price",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "market",
+          "characterKey": "chinese_mandarin_character_market_vendor",
+          "titles": {
+            "en": "Asking Prices at a Fruit Stall",
+            "fr": "Demander les prix à l'étal de fruits"
+          },
+          "sceneNotes": {
+            "en": "You stop at a busy fruit stall, ask what the apples cost per jin, and the friendly vendor might toss in something extra for free.",
+            "fr": "Vous vous arrêtez devant un étal de fruits très fréquenté, vous demandez le prix des pommes à la livre chinoise (jin), et la vendeuse sympathique pourrait vous offrir un petit extra."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_much",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "character"
+            },
+            {
+              "slotId": "expensive",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "lower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "deal",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "no_thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_market_ask_price:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "老板，您好！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "老板，您好！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "lǎobǎn, nín hǎo!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, boss!",
+                  "note": "老板 is the everyday way to address a stall owner or vendor.",
+                  "literal": "boss, you(polite) good"
+                },
+                "fr": {
+                  "meaning": "Bonjour, patron !",
+                  "note": "老板 est la façon courante d'interpeller le propriétaire d'un étal ou un commerçant. Prononcez nín avec un ton montant, comme une courte question.",
+                  "literal": "patron, vous(poli) bien"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say nín with a rising tone, like a short question."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_market_ask_price:how_much",
+              "key": "how_much",
+              "intentKey": "ask_price",
+              "slotId": "how_much",
+              "speaker": "learner",
+              "text": "请问，苹果多少钱一斤？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "请问，苹果多少钱一斤？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "qǐngwèn, píngguǒ duōshao qián yì jīn?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, how much are the apples per jin?",
+                  "note": "A 斤 (jīn) is half a kilo, the usual unit at markets in mainland China.",
+                  "literal": "may I ask, apple how-much money one jin"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, combien coûtent les pommes la livre (jin) ?",
+                  "note": "Un 斤 (jīn) vaut un demi-kilo, l'unité habituelle sur les marchés de Chine continentale. Dans 多少 (duōshao), shao est généralement léger et bref.",
+                  "literal": "puis-je demander, pomme combien argent un jin"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "In 多少 (duōshao), shao is usually light and short."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_market_ask_price:price",
+              "key": "price",
+              "intentKey": "state_price",
+              "slotId": "price",
+              "speaker": "character",
+              "text": "八块一斤，很甜的！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "八块一斤，很甜的！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "bā kuài yì jīn, hěn tián de!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Eight yuan a jin, and they're very sweet!",
+                  "note": "块 is the spoken word for yuan.",
+                  "literal": "eight yuan one jin, very sweet"
+                },
+                "fr": {
+                  "meaning": "Huit yuans la livre, et elles sont très sucrées !",
+                  "note": "块 est le mot parlé pour « yuan ».",
+                  "literal": "huit yuans un jin, très sucré"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_market_ask_price:expensive",
+              "key": "expensive",
+              "intentKey": "say_too_expensive",
+              "slotId": "expensive",
+              "speaker": "learner",
+              "text": "有点贵啊。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "有点贵啊。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "yǒudiǎn guì a."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "That's a bit expensive.",
+                  "note": "啊 softens the remark so it sounds friendly, not rude.",
+                  "literal": "a little expensive (particle)"
+                },
+                "fr": {
+                  "meaning": "C'est un peu cher.",
+                  "note": "啊 adoucit la remarque pour qu'elle paraisse aimable et non impolie. Guì a un ton descendant avec une glissade arrondie « ui ».",
+                  "literal": "un peu cher (particule)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Guì is a falling tone with a rounded 'ui' glide."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_market_ask_price:lower",
+              "key": "lower",
+              "intentKey": "offer_lower_price",
+              "slotId": "lower",
+              "speaker": "learner",
+              "text": "便宜一点，可以吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "便宜一点，可以吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "piányi yìdiǎn, kěyǐ ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you make it a bit cheaper?",
+                  "note": null,
+                  "literal": "cheap a-little, okay (question)?"
+                },
+                "fr": {
+                  "meaning": "Vous pourriez me faire un petit prix ?",
+                  "note": "Dans 便宜, la deuxième syllabe est légère : piányi.",
+                  "literal": "bon marché un peu, possible (question) ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "In 便宜 the second syllable is light: piányi."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_market_ask_price:deal",
+              "key": "deal",
+              "intentKey": "agree_to_price",
+              "slotId": "deal",
+              "speaker": "learner",
+              "text": "好，我买两斤。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "好，我买两斤。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "hǎo, wǒ mǎi liǎng jīn."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'll take two jin.",
+                  "note": "Use 两 (liǎng), not 二, before a measure word.",
+                  "literal": "good, I buy two jin"
+                },
+                "fr": {
+                  "meaning": "D'accord, j'en prends deux livres.",
+                  "note": "Employez 两 (liǎng), et non 二, devant un classificateur. Hǎo, wǒ et mǎi sont tous au 3e ton ; à l'oral rapide, les deux premiers passent au 2e ton.",
+                  "literal": "bien, je achète deux jin"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Hǎo, wǒ and mǎi are all third tones; the first two shift to rising tones in fast speech."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_market_ask_price:no_thanks",
+              "key": "no_thanks",
+              "intentKey": "decline_purchase",
+              "slotId": "no_thanks",
+              "speaker": "learner",
+              "text": "不用了，谢谢。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "不用了，谢谢。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "bú yòng le, xièxie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, thank you.",
+                  "note": "A polite, common way to turn down an offer without bargaining.",
+                  "literal": "not need (particle), thanks"
+                },
+                "fr": {
+                  "meaning": "Non merci.",
+                  "note": "Façon polie et courante de refuser une offre sans marchander. 不 devient bú devant le 4e ton de yòng.",
+                  "literal": "pas besoin (particule), merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "不 changes to bú before the fourth tone in yòng."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_market_ask_price:ask_price_variant_8",
+              "key": "ask_price_variant_8",
+              "intentKey": "ask_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "这个怎么卖？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "这个怎么卖？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "zhège zěnme mài?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How do you sell this? (How much is this?)",
+                  "note": "Very common casual way to ask the price at a market.",
+                  "literal": "this-one how sell"
+                },
+                "fr": {
+                  "meaning": "Il se vend comment, celui-ci ? (Combien coûte-t-il ?)",
+                  "note": "Façon familière très courante de demander le prix au marché.",
+                  "literal": "celui-ci comment vendre"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_market_ask_price:offer_lower_price_variant_9",
+              "key": "offer_lower_price_variant_9",
+              "intentKey": "offer_lower_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "十五块两斤，行吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "十五块两斤，行吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "shíwǔ kuài liǎng jīn, xíng ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Fifteen yuan for two jin, OK?",
+                  "note": "Light bargaining: you name a price and ask whether it works.",
+                  "literal": "fifteen yuan two jin, fine (question)?"
+                },
+                "fr": {
+                  "meaning": "Quinze yuans les deux livres, ça vous va ?",
+                  "note": "Petit marchandage : vous proposez un prix et demandez si c'est possible.",
+                  "literal": "quinze yuans deux jin, ça va (question) ?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "chinese_mandarin_ask_directions",
+          "blueprintKey": "ask_directions",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "directions",
+          "characterKey": "chinese_mandarin_character_passer_by",
+          "titles": {
+            "en": "Finding the Station",
+            "fr": "Trouver la gare"
+          },
+          "sceneNotes": {
+            "en": "You are visiting a new city and stop a passer-by to ask the way to the station, but they talk fast, so you will need to ask them to slow down.",
+            "fr": "Vous visitez une nouvelle ville et vous arrêtez un passant pour demander le chemin de la gare, mais il parle vite : vous devrez donc lui demander de ralentir."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_is",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "straight",
+              "speaker": "character"
+            },
+            {
+              "slotId": "turn",
+              "speaker": "character"
+            },
+            {
+              "slotId": "far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "near",
+              "speaker": "character"
+            },
+            {
+              "slotId": "repeat",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "slower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_ask_directions:excuse_me",
+              "key": "excuse_me",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "不好意思，请问一下。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "不好意思，请问一下。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "bù hǎoyìsi, qǐngwèn yíxià."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, may I ask something?",
+                  "note": "Use this to get a stranger's attention before asking a question.",
+                  "literal": "not good meaning, please ask a bit"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, puis-je vous poser une question ?",
+                  "note": "Pour attirer l'attention d'un inconnu avant de poser une question. Dans 不好意思, 不 se prononce bù ; 一下 se dit souvent yíxià.",
+                  "literal": "pas bon sens, s'il vous plaît demander un peu"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "In 不好意思, 不 is read as bù; 一下 is often said yíxià."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_ask_directions:where_is",
+              "key": "where_is",
+              "intentKey": "ask_where_is",
+              "slotId": "where_is",
+              "speaker": "learner",
+              "text": "火车站在哪里？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "火车站在哪里？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "huǒchēzhàn zài nǎlǐ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where is the train station?",
+                  "note": "In the north, 哪儿 (nǎr) is also very common in speech.",
+                  "literal": "train station at where"
+                },
+                "fr": {
+                  "meaning": "Où est la gare ?",
+                  "note": "Dans le nord, 哪儿 (nǎr) est aussi très courant à l'oral. 哪 est au 3e ton (nǎ), à ne pas confondre avec 那 (nà, « celui-là »).",
+                  "literal": "gare être situé où"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "哪 is third tone (nǎ), different from 那 (nà, 'that')."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_ask_directions:straight",
+              "key": "straight",
+              "intentKey": "give_direction_straight",
+              "slotId": "straight",
+              "speaker": "character",
+              "text": "一直往前走，大概十分钟就到了。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "一直往前走，大概十分钟就到了。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "yìzhí wǎng qián zǒu, dàgài shí fēnzhōng jiù dào le."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Go straight ahead, and you'll get there in about ten minutes.",
+                  "note": "Said quickly by the passer-by, as in the scene's twist.",
+                  "literal": "straight toward front walk, roughly ten minutes then arrive"
+                },
+                "fr": {
+                  "meaning": "Allez tout droit, vous y serez en dix minutes environ.",
+                  "note": "Dit rapidement par le passant, comme dans la scène.",
+                  "literal": "tout droit vers devant marcher, environ dix minutes alors arriver"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_ask_directions:turn",
+              "key": "turn",
+              "intentKey": "give_direction_turn",
+              "slotId": "turn",
+              "speaker": "character",
+              "text": "到了红绿灯就往右拐，再往左拐。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "到了红绿灯就往右拐，再往左拐。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "dào le hónglǜdēng jiù wǎng yòu guǎi, zài wǎng zuǒ guǎi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "At the traffic light turn right, then turn left.",
+                  "note": "This covers the scene's two turns. 拐 is common in spoken Mandarin; 转 (zhuǎn) also works.",
+                  "literal": "reach traffic light then toward right turn, again toward left turn"
+                },
+                "fr": {
+                  "meaning": "Au feu, tournez à droite, puis à gauche.",
+                  "note": "Couvre les deux virages de la scène. 拐 est courant à l'oral ; 转 (zhuǎn) convient aussi.",
+                  "literal": "arriver feu alors vers droite tourner, puis vers gauche tourner"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_ask_directions:far",
+              "key": "far",
+              "intentKey": "ask_is_it_far",
+              "slotId": "far",
+              "speaker": "learner",
+              "text": "离这里远吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "离这里远吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "lí zhèlǐ yuǎn ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it far from here?",
+                  "note": null,
+                  "literal": "from here far ?"
+                },
+                "fr": {
+                  "meaning": "C'est loin d'ici ?",
+                  "note": null,
+                  "literal": "de ici loin ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_ask_directions:near",
+              "key": "near",
+              "intentKey": "say_it_is_near",
+              "slotId": "near",
+              "speaker": "character",
+              "text": "不远，走路十分钟就到。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "不远，走路十分钟就到。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "bù yuǎn, zǒulù shí fēnzhōng jiù dào."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's not far, ten minutes on foot.",
+                  "note": null,
+                  "literal": "not far, walk ten minutes then arrive"
+                },
+                "fr": {
+                  "meaning": "Ce n'est pas loin, dix minutes à pied.",
+                  "note": "不 devient bú devant un 4e ton, mais devant 远 (3e ton) il reste bù.",
+                  "literal": "pas loin, marcher dix minutes alors arriver"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "不 becomes second tone (bú) before a fourth tone, but before 远 (third tone) it stays bù."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_ask_directions:repeat",
+              "key": "repeat",
+              "intentKey": "ask_repeat",
+              "slotId": "repeat",
+              "speaker": "learner",
+              "text": "可以再说一遍吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "可以再说一遍吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "kěyǐ zài shuō yí biàn ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you say that one more time?",
+                  "note": null,
+                  "literal": "can again say one time ?"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous répéter, s'il vous plaît ?",
+                  "note": "一 devant un 4e ton (遍) se lit yí.",
+                  "literal": "pouvoir encore dire une fois ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "一 before a fourth tone (遍) is read yí."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_ask_directions:slower",
+              "key": "slower",
+              "intentKey": "ask_slow_down",
+              "slotId": "slower",
+              "speaker": "learner",
+              "text": "您说得太快了，可以慢一点吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "您说得太快了，可以慢一点吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "nín shuō de tài kuài le, kěyǐ màn yìdiǎn ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You're speaking too fast, could you go a bit slower?",
+                  "note": "This is the key line for the scene's twist. 您 is respectful toward a stranger.",
+                  "literal": "you speak too fast, can slow a bit ?"
+                },
+                "fr": {
+                  "meaning": "Vous parlez trop vite, pourriez-vous parler un peu plus lentement ?",
+                  "note": "Phrase clé de la scène. 您 est respectueux envers un inconnu. Travaillez les tons et les voyelles de 快 (kuài) et 慢 (màn).",
+                  "literal": "vous parler trop vite, pouvoir lent un peu ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "快 (kuài) and 慢 (màn): practise the different tones and vowels."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_ask_directions:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "我明白了，非常感谢！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我明白了，非常感谢！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "wǒ míngbai le, fēicháng gǎnxiè!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I understand now, thank you very much!",
+                  "note": "Said after the directions are clear.",
+                  "literal": "I understand, extremely thank"
+                },
+                "fr": {
+                  "meaning": "J'ai compris, merci beaucoup !",
+                  "note": "À dire une fois l'itinéraire bien compris.",
+                  "literal": "je comprendre, extrêmement remercier"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_ask_directions:ask_slow_down_variant_10",
+              "key": "ask_slow_down_variant_10",
+              "intentKey": "ask_slow_down",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "请说慢一点，我听不懂。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "请说慢一点，我听不懂。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "qǐng shuō màn yìdiǎn, wǒ tīng bu dǒng."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please speak a bit slower, I can't understand.",
+                  "note": "A simpler alternative that also explains why you ask.",
+                  "literal": "please speak slow a bit, I listen not understand"
+                },
+                "fr": {
+                  "meaning": "Parlez un peu plus lentement, s'il vous plaît, je ne comprends pas.",
+                  "note": "Variante plus simple qui explique aussi pourquoi vous le demandez.",
+                  "literal": "s'il vous plaît parler lent un peu, je écouter pas comprendre"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_ask_directions:ask_where_is_variant_11",
+              "key": "ask_where_is_variant_11",
+              "intentKey": "ask_where_is",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "请问，附近有地铁站吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "请问，附近有地铁站吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "qǐngwèn, fùjìn yǒu dìtiě zhàn ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, is there a subway station nearby?",
+                  "note": "Use this when you want a subway station instead of the train station.",
+                  "literal": "please ask, nearby have subway station ?"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, y a-t-il une station de métro près d'ici ?",
+                  "note": "À utiliser si vous cherchez une station de métro plutôt que la gare.",
+                  "literal": "s'il vous plaît demander, à proximité y avoir station de métro ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_ask_directions:thank_variant_12",
+              "key": "thank_variant_12",
+              "intentKey": "thank",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "谢谢您！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "谢谢您！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "xièxie nín!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you!",
+                  "note": "A short, polite alternative to the longer thanks.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci !",
+                  "note": "Variante courte et polie pour remercier. Le second 谢 est au ton neutre (xie).",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The second 谢 is neutral tone (xie)."
+            }
+          ]
+        },
+        {
+          "key": "chinese_mandarin_meet_neighbour",
+          "blueprintKey": "meet_neighbour",
+          "missionType": "story",
+          "level": "beginner",
+          "situation": "neighbours",
+          "characterKey": "chinese_mandarin_character_neighbour",
+          "titles": {
+            "en": "Meeting Your New Neighbour",
+            "fr": "Rencontrer votre nouvelle voisine"
+          },
+          "sceneNotes": {
+            "en": "You run into your neighbour in the stairwell as they carry shopping bags up, and you introduce yourself.",
+            "fr": "Vous croisez votre voisine dans la cage d'escalier alors qu'elle monte ses sacs de courses, et vous vous présentez."
+          },
+          "slots": [
+            {
+              "slotId": "new_neighbour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "character"
+            },
+            {
+              "slotId": "where_from_q",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "from",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "speak_lang",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "little",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "offer_help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_meet_neighbour:new_neighbour",
+              "key": "new_neighbour",
+              "intentKey": "say_new_neighbour",
+              "slotId": "new_neighbour",
+              "speaker": "learner",
+              "text": "您好，我是新搬来的邻居。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "您好，我是新搬来的邻居。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Nín hǎo, wǒ shì xīn bān lái de línjū."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, I'm your new neighbour.",
+                  "note": "您 is polite; use 你 with someone your age or younger.",
+                  "literal": "hello, I am newly moved-here 's neighbour"
+                },
+                "fr": {
+                  "meaning": "Bonjour, je suis votre nouveau voisin / nouvelle voisine.",
+                  "note": "様 : 您 est poli ; avec quelqu'un de votre âge ou plus jeune, employez 你. Pour 邻居, prononcez lín-jū avec le ü de jū (lèvres arrondies).",
+                  "literal": "bonjour, je suis récemment emménagé(e) de voisin"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say 邻居 as lín-jū with ü sound in jū (lips rounded)."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_meet_neighbour:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "欢迎欢迎！我住了好多年了，有事尽管说。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "欢迎欢迎！我住了好多年了，有事尽管说。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Huānyíng huānyíng! Wǒ zhù le hǎo duō nián le, yǒu shì jìnguǎn shuō."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome, welcome! I've lived here for many years, so just ask if you need anything.",
+                  "note": "Repeating 欢迎 is a warm, friendly way to welcome someone.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Bienvenue, bienvenue ! J'habite ici depuis de nombreuses années, alors n'hésitez pas si vous avez besoin de quoi que ce soit.",
+                  "note": "Répéter 欢迎 est une façon chaleureuse et amicale d'accueillir quelqu'un.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_meet_neighbour:where_from_q",
+              "key": "where_from_q",
+              "intentKey": "ask_where_from",
+              "slotId": "where_from_q",
+              "speaker": "learner",
+              "text": "请问，您是哪里人？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "请问，您是哪里人？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Qǐngwèn, nín shì nǎlǐ rén?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, where are you from?",
+                  "note": "In China 哪里人 usually asks about hometown or region, not just country.",
+                  "literal": "may I ask, you are which-place person"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, vous êtes d'où ?",
+                  "note": "En Chine, 哪里人 demande souvent la ville ou la région d'origine, pas seulement le pays. Dans nǎlǐ, les deux tons 3 se suivent : le premier devient montant à l'oral (ná-lǐ).",
+                  "literal": "puis-je demander, vous êtes quel-endroit personne"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "nǎlǐ: both are third tone, so the first becomes rising in speech (ná-lǐ)."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_meet_neighbour:from",
+              "key": "from",
+              "intentKey": "say_where_from",
+              "slotId": "from",
+              "speaker": "learner",
+              "text": "我是美国人。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我是美国人。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒ shì Měiguó rén."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm from the US. (I'm American.)",
+                  "note": "Swap 美国 for your own country, e.g. 英国 (Yīngguó), 法国 (Fǎguó).",
+                  "literal": "I am America person"
+                },
+                "fr": {
+                  "meaning": "Je suis américain(e).",
+                  "note": "Remplacez 美国 par votre pays, par exemple 英国 (Yīngguó), 法国 (Fǎguó).",
+                  "literal": "je suis Amérique personne"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_meet_neighbour:speak_lang",
+              "key": "speak_lang",
+              "intentKey": "ask_if_speaks_language",
+              "slotId": "speak_lang",
+              "speaker": "learner",
+              "text": "您会说英语吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "您会说英语吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Nín huì shuō Yīngyǔ ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you speak English?",
+                  "note": null,
+                  "literal": "you can speak English ma"
+                },
+                "fr": {
+                  "meaning": "Vous parlez anglais ?",
+                  "note": null,
+                  "literal": "vous savoir parler anglais ma"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_meet_neighbour:little",
+              "key": "little",
+              "intentKey": "say_speak_little",
+              "slotId": "little",
+              "speaker": "learner",
+              "text": "我只会说一点点汉语。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我只会说一点点汉语。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒ zhǐ huì shuō yìdiǎndiǎn Hànyǔ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I only speak a little Chinese.",
+                  "note": null,
+                  "literal": "I only can speak a-little Chinese"
+                },
+                "fr": {
+                  "meaning": "Je ne parle qu'un tout petit peu chinois.",
+                  "note": "Hànyǔ se termine par ü : arrondissez les lèvres comme pour le u français.",
+                  "literal": "je seulement savoir parler un-petit-peu chinois"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Hànyǔ ends with ü; round your lips as in German ü."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_meet_neighbour:offer_help",
+              "key": "offer_help",
+              "intentKey": "offer_help",
+              "slotId": "offer_help",
+              "speaker": "learner",
+              "text": "我帮您拿一下吧？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我帮您拿一下吧？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒ bāng nín ná yíxià ba?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall I help you carry that?",
+                  "note": "Fits the scene since the neighbour carries shopping bags.",
+                  "literal": "I help you carry a-bit ba"
+                },
+                "fr": {
+                  "meaning": "Je peux vous aider à porter ça ?",
+                  "note": "Cela convient bien ici, car la voisine porte des sacs de courses.",
+                  "literal": "je aider vous porter un-peu ba"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_meet_neighbour:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "太谢谢您了！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "太谢谢您了！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Tài xièxie nín le!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you so much!",
+                  "note": "Good for the tea invitation too.",
+                  "literal": "too thank you"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup !",
+                  "note": "Pratique aussi pour répondre à une invitation à prendre le thé. Pour xiè, le x est un « ch » doux, pas un s simple.",
+                  "literal": "trop remercier vous"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "xiè: start with a soft 'sh'-like x, not a plain s."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_meet_neighbour:say_new_neighbour_variant_9",
+              "key": "say_new_neighbour_variant_9",
+              "intentKey": "say_new_neighbour",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "我刚搬到楼上。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我刚搬到楼上。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Wǒ gāng bān dào lóushàng."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I just moved in upstairs.",
+                  "note": "A relaxed, casual way to say you just moved in.",
+                  "literal": "I just moved to upstairs"
+                },
+                "fr": {
+                  "meaning": "Je viens d'emménager à l'étage au-dessus.",
+                  "note": "Une façon décontractée de dire que vous venez d'emménager.",
+                  "literal": "je à-peine déménager arriver à étage-du-dessus"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_meet_neighbour:ask_where_from_variant_10",
+              "key": "ask_where_from_variant_10",
+              "intentKey": "ask_where_from",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "你是本地人吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "你是本地人吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "Nǐ shì běndì rén ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Are you from here?",
+                  "note": "Casual option for someone around your age.",
+                  "literal": "you are local person ma"
+                },
+                "fr": {
+                  "meaning": "Tu es d'ici ?",
+                  "note": "Option décontractée pour quelqu'un de votre âge.",
+                  "literal": "tu es local personne ma"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "chinese_mandarin_take_taxi",
+          "blueprintKey": "take_taxi",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "transport",
+          "characterKey": "chinese_mandarin_character_taxi_driver",
+          "titles": {
+            "en": "Taking a Taxi",
+            "fr": "Prendre un taxi"
+          },
+          "sceneNotes": {
+            "en": "You wave down a taxi in heavy traffic and ask the chatty driver to take you to the old town, but he quotes a price without using the meter.",
+            "fr": "Vous hélez un taxi dans la circulation dense et demandez au chauffeur bavard de vous emmener dans la vieille ville, mais il annonce un prix sans utiliser le compteur."
+          },
+          "slots": [
+            {
+              "slotId": "hail",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_to",
+              "speaker": "character"
+            },
+            {
+              "slotId": "destination",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "meter",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fare",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "change",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_take_taxi:hail",
+              "key": "hail",
+              "intentKey": "hail_taxi",
+              "slotId": "hail",
+              "speaker": "learner",
+              "text": "师傅，您好！有空车吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "师傅，您好！有空车吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "shīfu, nín hǎo! yǒu kōngchē ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, driver! Are you free?",
+                  "note": "师傅 is the everyday way to address a taxi driver. 有空车吗 asks if the cab is available.",
+                  "literal": "driver, hello! have empty-car ma?"
+                },
+                "fr": {
+                  "meaning": "Bonjour, monsieur ! Vous êtes libre ?",
+                  "note": "师傅 est la façon courante de s'adresser à un chauffeur de taxi. 有空车吗 demande si le taxi est disponible. Prononcez shīfu avec la deuxième syllabe légère et courte.",
+                  "literal": "maître, bonjour ! avoir vide-voiture ma ?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say 师傅 as shīfu, with the second syllable light and short."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_take_taxi:where_to",
+              "key": "where_to",
+              "intentKey": "ask_destination",
+              "slotId": "where_to",
+              "speaker": "character",
+              "text": "去哪儿啊？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "去哪儿啊？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "qù nǎr a?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where to?",
+                  "note": "Northern, colloquial: 哪儿 with the 儿 ending. Elsewhere you may hear 去哪里.",
+                  "literal": "go where ah"
+                },
+                "fr": {
+                  "meaning": "Où allez-vous ?",
+                  "note": "Langage familier du Nord : 哪儿 avec la terminaison 儿. Ailleurs, on entend plutôt 去哪里. Prononcez nǎr en une seule syllabe, avec un r final.",
+                  "literal": "aller où ah"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "哪儿 is nǎr, with a single syllable and an r-sound at the end."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_take_taxi:destination",
+              "key": "destination",
+              "intentKey": "state_destination",
+              "slotId": "destination",
+              "speaker": "learner",
+              "text": "请送我去老城区，谢谢。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "请送我去老城区，谢谢。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "qǐng sòng wǒ qù lǎo chéngqū, xièxie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please take me to the old town, thank you.",
+                  "note": "老城区 means the old part of a city. In real life, name the actual place, e.g. 前门 or 古城.",
+                  "literal": "please deliver me go old city-district, thanks"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous m'emmener dans la vieille ville, s'il vous plaît ? Merci.",
+                  "note": "老城区 désigne le quartier ancien d'une ville. En vrai, donnez le lieu précis, par ex. 前门 ou 古城. Pour 区 (qū), arrondissez les lèvres et dites ü.",
+                  "literal": "s'il vous plaît conduire moi aller vieux quartier-de-ville, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "区 is qū: round your lips and say ü."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_take_taxi:meter",
+              "key": "meter",
+              "intentKey": "ask_use_meter",
+              "slotId": "meter",
+              "speaker": "learner",
+              "text": "师傅，可以打表吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "师傅，可以打表吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "shīfu, kěyǐ dǎ biǎo ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Driver, can you use the meter?",
+                  "note": "打表 is the standard phrase for turning on the taxi meter.",
+                  "literal": "driver, can hit meter ma?"
+                },
+                "fr": {
+                  "meaning": "Monsieur, pouvez-vous mettre le compteur ?",
+                  "note": "打表 est l'expression standard pour allumer le compteur du taxi. 表 se dit biǎo, au troisième ton : il descend puis remonte.",
+                  "literal": "maître, pouvoir frapper compteur ma ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "表 is biǎo, a third tone that dips and rises."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_take_taxi:fare",
+              "key": "fare",
+              "intentKey": "ask_fare",
+              "slotId": "fare",
+              "speaker": "learner",
+              "text": "到老城区大概多少钱？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "到老城区大概多少钱？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "dào lǎo chéngqū dàgài duōshao qián?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "About how much is it to the old town?",
+                  "note": "Useful before you get in if the driver names a price without the meter.",
+                  "literal": "to old city-district roughly how-much money"
+                },
+                "fr": {
+                  "meaning": "Ça coûte environ combien jusqu'à la vieille ville ?",
+                  "note": "Utile avant de monter si le chauffeur annonce un prix sans compteur.",
+                  "literal": "jusqu'à vieux quartier-de-ville environ combien argent"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_take_taxi:stop",
+              "key": "stop",
+              "intentKey": "say_stop_here",
+              "slotId": "stop",
+              "speaker": "learner",
+              "text": "师傅，就在这儿停吧，谢谢。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "师傅，就在这儿停吧，谢谢。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "shīfu, jiù zài zhèr tíng ba, xièxie."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Driver, just stop here, please. Thanks.",
+                  "note": "吧 softens the request and makes it polite rather than a bare command.",
+                  "literal": "driver, just at here stop ba, thanks"
+                },
+                "fr": {
+                  "meaning": "Monsieur, arrêtez-vous ici, s'il vous plaît. Merci.",
+                  "note": "吧 adoucit la demande : cela sonne poli et non comme un ordre sec. 这儿 se dit zhèr, en une seule syllabe.",
+                  "literal": "maître, justement à ici arrêter ba, merci"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "这儿 is zhèr, said as one syllable."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_take_taxi:change",
+              "key": "change",
+              "intentKey": "ask_for_change",
+              "slotId": "change",
+              "speaker": "learner",
+              "text": "不好意思，可以找零钱吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "不好意思，可以找零钱吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "bù hǎoyìsi, kěyǐ zhǎo língqián ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, can you give me change?",
+                  "note": "找零钱 means to give change back after paying.",
+                  "literal": "sorry, can give-back small-money ma?"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, pouvez-vous me rendre la monnaie ?",
+                  "note": "找零钱 signifie rendre la monnaie après le paiement. Pour 找 (zhǎo), recourbez la langue vers l'arrière pour le zh.",
+                  "literal": "désolé, pouvoir rendre petite-monnaie ma ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "找 is zhǎo; curl the tongue back for zh."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_take_taxi:bye",
+              "key": "bye",
+              "intentKey": "say_goodbye",
+              "slotId": "bye",
+              "speaker": "learner",
+              "text": "谢谢师傅，再见！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "谢谢师傅，再见！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "xièxie shīfu, zàijiàn!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks, driver. Goodbye!",
+                  "note": null,
+                  "literal": "thanks driver, see-again"
+                },
+                "fr": {
+                  "meaning": "Merci, monsieur. Au revoir !",
+                  "note": null,
+                  "literal": "merci chauffeur, revoir"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_take_taxi:hail_taxi_variant_9",
+              "key": "hail_taxi_variant_9",
+              "intentKey": "hail_taxi",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "师傅，能送我去一个地方吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "师傅，能送我去一个地方吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "shīfu, néng sòng wǒ qù yí ge dìfang ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Driver, can you take me somewhere?",
+                  "note": "A polite alternative if you want to confirm the ride before naming the place.",
+                  "literal": "driver, can deliver me go one place ma?"
+                },
+                "fr": {
+                  "meaning": "Monsieur, pouvez-vous m'emmener quelque part ?",
+                  "note": "Variante polie si vous voulez confirmer la course avant de donner le lieu.",
+                  "literal": "maître, pouvoir conduire moi aller un endroit ma ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_take_taxi:ask_use_meter_variant_10",
+              "key": "ask_use_meter_variant_10",
+              "intentKey": "ask_use_meter",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "麻烦您打表，好吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "麻烦您打表，好吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "máfan nín dǎ biǎo, hǎo ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you please use the meter?",
+                  "note": "A softer, more polite way to ask when the driver quotes a flat price.",
+                  "literal": "trouble you hit meter, okay ma?"
+                },
+                "fr": {
+                  "meaning": "Pourriez-vous mettre le compteur, s'il vous plaît ?",
+                  "note": "Une façon plus douce et plus polie de demander quand le chauffeur annonce un prix fixe.",
+                  "literal": "déranger vous frapper compteur, d'accord ma ?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "chinese_mandarin_buy_ice_cream",
+          "blueprintKey": "buy_ice_cream",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "shopping",
+          "characterKey": "chinese_mandarin_character_child_at_the_ice_cream_stand",
+          "titles": {
+            "en": "Buying Ice Cream Together",
+            "fr": "Acheter une glace ensemble"
+          },
+          "sceneNotes": {
+            "en": "You take a child to an ice-cream cart outside the school, where only two flavours are left, and the child asks for a second scoop.",
+            "fr": "Vous accompagnez un enfant à la charrette de glaces devant l'école : il ne reste que deux parfums, et l'enfant réclame une deuxième boule."
+          },
+          "slots": [
+            {
+              "slotId": "wants",
+              "speaker": "character"
+            },
+            {
+              "slotId": "which_flavour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "picks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "scoop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "asks_two",
+              "speaker": "character"
+            },
+            {
+              "slotId": "just_one",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "okay",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "yummy",
+              "speaker": "character"
+            },
+            {
+              "slotId": "me_too",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_buy_ice_cream:wants",
+              "key": "wants",
+              "intentKey": "request_food",
+              "slotId": "wants",
+              "speaker": "character",
+              "text": "我想吃冰淇淋！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我想吃冰淇淋！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "wǒ xiǎng chī bīngqílín!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want to eat ice cream!",
+                  "note": "A child's excited request. 冰激凌 is an equally common spelling.",
+                  "literal": "I want eat ice-cream"
+                },
+                "fr": {
+                  "meaning": "Je veux manger une glace !",
+                  "note": "Demande enthousiaste d'un enfant. On écrit aussi 冰激凌, tout aussi courant. Dans 冰淇淋, qí et lín sont tous deux au 2e ton.",
+                  "literal": "je veux manger glace"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "In 冰淇淋, qí is second tone and lín is also second tone."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_buy_ice_cream:which_flavour",
+              "key": "which_flavour",
+              "intentKey": "offer_options",
+              "slotId": "which_flavour",
+              "speaker": "learner",
+              "text": "要巧克力的还是香草的？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "要巧克力的还是香草的？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "yào qiǎokèlì de háishi xiāngcǎo de?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you want chocolate or vanilla?",
+                  "note": "还是 is used for 'or' in questions offering a choice.",
+                  "literal": "want chocolate one or vanilla one"
+                },
+                "fr": {
+                  "meaning": "Tu veux chocolat ou vanille ?",
+                  "note": "还是 sert à dire « ou » dans une question qui propose un choix. Ici, il se prononce háishi, et non huánshì.",
+                  "literal": "veux chocolat celui ou vanille celui"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Here 还是 is pronounced háishi, not huánshì."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_buy_ice_cream:picks",
+              "key": "picks",
+              "intentKey": "choose_option",
+              "slotId": "picks",
+              "speaker": "character",
+              "text": "我要巧克力的！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我要巧克力的！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "wǒ yào qiǎokèlì de!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I want the chocolate one!",
+                  "note": null,
+                  "literal": "I want chocolate one"
+                },
+                "fr": {
+                  "meaning": "Je veux celle au chocolat !",
+                  "note": null,
+                  "literal": "je veux chocolat celui"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_buy_ice_cream:scoop",
+              "key": "scoop",
+              "intentKey": "specify_quantity",
+              "slotId": "scoop",
+              "speaker": "learner",
+              "text": "您好，请给我们一个巧克力的。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "您好，请给我们一个巧克力的。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "nín hǎo, qǐng gěi wǒmen yí ge qiǎokèlì de."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, one chocolate one for us, please.",
+                  "note": "Said to the vendor. 一个 means one scoop or one cone here.",
+                  "literal": "hello, please give us one chocolate one"
+                },
+                "fr": {
+                  "meaning": "Bonjour, une glace au chocolat pour nous, s'il vous plaît.",
+                  "note": "À dire au vendeur. 一个 désigne ici une boule ou un cornet. 一 devient yí devant 个, qui est au 4e ton.",
+                  "literal": "bonjour, s'il vous plaît donner nous un chocolat celui"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "一 changes to yí before the fourth-tone 个."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_buy_ice_cream:asks_two",
+              "key": "asks_two",
+              "intentKey": "ask_permission",
+              "slotId": "asks_two",
+              "speaker": "character",
+              "text": "我可以再要一个球吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我可以再要一个球吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "wǒ kěyǐ zài yào yí ge qiú ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I have one more scoop?",
+                  "note": "球 is the measure word and noun for a scoop (like a ball).",
+                  "literal": "I can again want one ball ma"
+                },
+                "fr": {
+                  "meaning": "Je peux avoir une boule en plus ?",
+                  "note": "球 est le nom et le classificateur d'une boule de glace (comme une balle).",
+                  "literal": "je peux encore vouloir une boule ma"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_buy_ice_cream:just_one",
+              "key": "just_one",
+              "intentKey": "refuse_permission",
+              "slotId": "just_one",
+              "speaker": "learner",
+              "text": "不行哦，今天只能吃一个。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "不行哦，今天只能吃一个。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "bù xíng o, jīntiān zhǐ néng chī yí ge."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, sweetie, today you can only have one.",
+                  "note": "哦 softens the refusal so it sounds kind. 不行 on its own is more blunt.",
+                  "literal": "not okay o, today only can eat one"
+                },
+                "fr": {
+                  "meaning": "Non, mon grand, aujourd'hui tu n'as droit qu'à une.",
+                  "note": "哦 adoucit le refus et le rend gentil ; 不行 tout seul est plus sec. 不 reste bù, car 行 est au 2e ton.",
+                  "literal": "pas possible o, aujourd'hui seulement pouvoir manger un"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "不 becomes bú before a fourth tone, but here 行 is second tone so it stays bù."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_buy_ice_cream:okay",
+              "key": "okay",
+              "intentKey": "grant_permission",
+              "slotId": "okay",
+              "speaker": "learner",
+              "text": "好啊，吃吧。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "好啊，吃吧。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "hǎo a, chī ba."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sure, go ahead and eat.",
+                  "note": "吧 makes it a gentle go-ahead.",
+                  "literal": "good a, eat ba"
+                },
+                "fr": {
+                  "meaning": "D'accord, mange.",
+                  "note": "吧 donne un ton d'autorisation tout en douceur.",
+                  "literal": "bien a, manger ba"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_buy_ice_cream:yummy",
+              "key": "yummy",
+              "intentKey": "say_delicious",
+              "slotId": "yummy",
+              "speaker": "character",
+              "text": "真好吃！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "真好吃！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "zhēn hǎochī!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "So yummy!",
+                  "note": null,
+                  "literal": "really good-to-eat"
+                },
+                "fr": {
+                  "meaning": "Trop bon !",
+                  "note": null,
+                  "literal": "vraiment bon-à-manger"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_buy_ice_cream:me_too",
+              "key": "me_too",
+              "intentKey": "express_like",
+              "slotId": "me_too",
+              "speaker": "learner",
+              "text": "我也喜欢巧克力。",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "我也喜欢巧克力。"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "wǒ yě xǐhuan qiǎokèlì."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I like chocolate too.",
+                  "note": null,
+                  "literal": "I also like chocolate"
+                },
+                "fr": {
+                  "meaning": "Moi aussi, j'aime le chocolat.",
+                  "note": "Dans xǐhuan, la deuxième syllabe est au ton neutre.",
+                  "literal": "je aussi aimer chocolat"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "xǐhuan: the second syllable is neutral tone."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_buy_ice_cream:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "character",
+              "text": "谢谢你！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "谢谢你！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "xièxie nǐ!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you!",
+                  "note": "Same thanks formula used earlier in the chapter. A child might also say 谢谢叔叔/阿姨.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Merci !",
+                  "note": "Même formule de remerciement que plus tôt dans le chapitre. Un enfant peut aussi dire 谢谢叔叔 (merci monsieur) ou 谢谢阿姨 (merci madame). Le second xie est au ton neutre.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The second xie is neutral tone."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_buy_ice_cream:welcome",
+              "key": "welcome",
+              "intentKey": "respond_to_thanks",
+              "slotId": "welcome",
+              "speaker": "learner",
+              "text": "不客气！",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "不客气！"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "bú kèqi!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You're welcome!",
+                  "note": null,
+                  "literal": "not polite-formal"
+                },
+                "fr": {
+                  "meaning": "De rien !",
+                  "note": "不 devient bú devant 客, qui est au 4e ton.",
+                  "literal": "pas poli-cérémonieux"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "不 becomes bú before the fourth-tone 客."
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_buy_ice_cream:refuse_permission_variant_12",
+              "key": "refuse_permission_variant_12",
+              "intentKey": "refuse_permission",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "一个就够了，好吗？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "一个就够了，好吗？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "yí ge jiù gòu le, hǎo ma?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One is enough, okay?",
+                  "note": "A gentler, coaxing way to say no to a child.",
+                  "literal": "one then enough le, okay ma"
+                },
+                "fr": {
+                  "meaning": "Une, ça suffit, d'accord ?",
+                  "note": "Une façon plus douce et enjôleuse de dire non à un enfant.",
+                  "literal": "un alors suffisant le, d'accord ma"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "chinese_mandarin_ch1:chinese_mandarin_buy_ice_cream:offer_options_variant_13",
+              "key": "offer_options_variant_13",
+              "intentKey": "offer_options",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "你想要哪个口味的？",
+              "forms": [
+                {
+                  "script": "Hans",
+                  "scheme": null,
+                  "text": "你想要哪个口味的？"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "pinyin",
+                  "text": "nǐ xiǎng yào nǎge kǒuwèi de?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Which flavour do you want?",
+                  "note": "Open question, useful when you don't want to list the options.",
+                  "literal": "you want want which flavour one"
+                },
+                "fr": {
+                  "meaning": "Tu veux quel parfum ?",
+                  "note": "Question ouverte, utile quand on ne veut pas énumérer les choix.",
+                  "literal": "tu veux vouloir quel parfum celui"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -35,13 +35,20 @@ browser's speech synthesis, with the same exact-locale rule as on phones. On the
 the reference voice; the take stays in memory and is never uploaded.
 
 First visit: about 4 MB over the wire (the CanvasKit engine, the app, its fonts and content), then served from the
-service worker's cache. The web engine downloads every font in `assets/FontManifest.json` at start-up, so the image
-build prunes the icon package's unused weight variants (`tool/prune_web_fonts.dart`, about 1.4 MB); run it after a
-local `flutter build web` too: `dart tool/prune_web_fonts.dart build/web`.
+service worker's cache. Of the content, start-up reads only the catalog and what every course shares (277 KB, about
+40 KB compressed) plus the chapters of the learner's own courses: each course's chapters are a file of their own
+(`assets/content/chapters/<trackId>.json`, 7–20 KB compressed), fetched when the learner opens a course and kept by the
+service worker like every other file (`lib/core/content/content_bundle.dart`). Offline, the web app has the courses
+it has fetched; the phone builds have every course on the device. The web engine downloads every font in
+`assets/FontManifest.json` at start-up, so the image build prunes the icon package's unused weight variants
+(`tool/prune_web_fonts.dart`, about 1.4 MB); run it after a local `flutter build web` too:
+`dart tool/prune_web_fonts.dart build/web`.
 
 CI checks the compiled app too: after building and serving the root image, `tool/web_smoke.cjs` drives it in Chromium
-(first run → a lesson → record yourself with a fake microphone → Settings › Display) and fails on any page error —
-the Dart VM tests cannot see what dart2js does (it once broke recording while every VM test passed).
+(first run → a lesson → record yourself with a fake microphone → Settings › Display → reload) and fails on any page
+error — the Dart VM tests cannot see what dart2js does (it once broke recording while every VM test passed). It also
+fails when a first visit fetches a course's chapters, or when opening a course or reloading fetches any course but the
+one opened or the learner's.
 
 The repository's root `Dockerfile` builds it (Flutter 3.47.7, pinned to its release commit) and serves the files with
 Caddy on `$PORT` (default 8080, what the Infra Tayoo hosted app checks); `deploy/Caddyfile` sends `no-cache` so a redeploy shows on the next load. It reads no

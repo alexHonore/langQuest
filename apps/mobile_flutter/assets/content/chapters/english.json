@@ -1,0 +1,1199 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts",
+  "courseTrackId": "english",
+  "chapters": [
+    {
+      "key": "en_ch1_arrival_city",
+      "chapterIndex": 1,
+      "courseTrackId": "english",
+      "targetVarietyId": "en",
+      "sourceLanguages": [
+        "fr",
+        "ru"
+      ],
+      "titles": {
+        "fr": "Premiers jours en ville",
+        "ru": "Первые дни в городе"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "curriculum-seed/english@2026-10",
+      "notes": [
+        "US-neutral phrasing; GB regional option may prefer \"bill\" → \"the bill\" vs US \"check\" — reviewer to add variants.",
+        "French overlays use vouvoiement with strangers; Russian overlays use «вы»."
+      ],
+      "characters": [
+        {
+          "key": "en_maya_acquaintance",
+          "name": "Maya",
+          "role": "friendly local acquaintance",
+          "personality": "easy-going, encouraging",
+          "homeRegion": "US (neutral)",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "en_sam_barista",
+          "name": "Sam",
+          "role": "café server",
+          "personality": "quick, friendly, asks follow-ups",
+          "homeRegion": "US (neutral)",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "en_dana_passerby",
+          "name": "Dana",
+          "role": "passer-by",
+          "personality": "helpful, talks fast",
+          "homeRegion": "US (neutral)",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "en_ray_taxi",
+          "name": "Ray",
+          "role": "taxi driver",
+          "personality": "chatty, practical",
+          "homeRegion": "US (neutral)",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "en_greet_and_introduce",
+          "blueprintKey": "greet_and_introduce",
+          "missionType": "standard",
+          "level": "beginner",
+          "situation": "introductions",
+          "characterKey": "en_maya_acquaintance",
+          "titles": {
+            "fr": "Saluer et se présenter",
+            "ru": "Поздороваться и представиться"
+          },
+          "sceneNotes": {
+            "fr": "Le matin, devant l'immeuble, une voisine vous salue.",
+            "ru": "Утром у подъезда с вами здоровается соседка."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_are_you",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fine",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "your_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "nice_to_meet",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "goodbye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "en_ch1_arrival_city:en_greet_and_introduce:hello",
+              "key": "hello",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Hello!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hello!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Bonjour !",
+                  "note": "« Hi » est plus familier.",
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Здравствуйте!",
+                  "note": "«Hi» — более неформально.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_greet_and_introduce:how_are_you",
+              "key": "how_are_you",
+              "intentKey": "ask_how_are_you",
+              "slotId": "how_are_you",
+              "speaker": "learner",
+              "text": "How are you?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "How are you?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Comment ça va ?",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Как дела?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_greet_and_introduce:fine_thanks",
+              "key": "fine_thanks",
+              "intentKey": "reply_fine",
+              "slotId": "fine",
+              "speaker": "learner",
+              "text": "I'm fine, thanks. And you?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I'm fine, thanks. And you?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Ça va bien, merci. Et vous ?",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Хорошо, спасибо. А у вас?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_greet_and_introduce:my_name_is",
+              "key": "my_name_is",
+              "intentKey": "introduce_name",
+              "slotId": "my_name",
+              "speaker": "learner",
+              "text": "My name is …",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "My name is …"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je m'appelle …",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Меня зовут …",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_greet_and_introduce:whats_your_name",
+              "key": "whats_your_name",
+              "intentKey": "ask_name",
+              "slotId": "your_name",
+              "speaker": "learner",
+              "text": "What's your name?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "What's your name?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Comment vous appelez-vous ?",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Как вас зовут?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_greet_and_introduce:nice_to_meet_you",
+              "key": "nice_to_meet_you",
+              "intentKey": "say_nice_to_meet",
+              "slotId": "nice_to_meet",
+              "speaker": "learner",
+              "text": "Nice to meet you.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nice to meet you."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Enchanté(e).",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Приятно познакомиться.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_greet_and_introduce:goodbye_good_day",
+              "key": "goodbye_good_day",
+              "intentKey": "say_goodbye",
+              "slotId": "goodbye",
+              "speaker": "learner",
+              "text": "Goodbye, have a good day!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Goodbye, have a good day!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Au revoir, bonne journée !",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "До свидания, хорошего дня!",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "en_cafe_order_drink",
+          "blueprintKey": "cafe_order_drink",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "cafe",
+          "characterKey": "en_sam_barista",
+          "titles": {
+            "fr": "Commander au café",
+            "ru": "Заказ в кафе"
+          },
+          "sceneNotes": {
+            "fr": "Un café de quartier, le barista pose une question sur la commande.",
+            "ru": "Районное кафе; бариста уточняет заказ."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "options",
+              "speaker": "character"
+            },
+            {
+              "slotId": "choice",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "en_ch1_arrival_city:en_cafe_order_drink:good_morning",
+              "key": "good_morning",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Good morning.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Good morning."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Bonjour.",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Доброе утро.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_cafe_order_drink:could_i_have_coffee",
+              "key": "could_i_have_coffee",
+              "intentKey": "request_drink",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Could I have a coffee, please?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Could I have a coffee, please?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je voudrais un café, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Можно мне кофе, пожалуйста?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_cafe_order_drink:milk_or_sugar",
+              "key": "milk_or_sugar",
+              "intentKey": "offer_options",
+              "slotId": "options",
+              "speaker": "character",
+              "text": "Would you like milk or sugar?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Would you like milk or sugar?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Vous voulez du lait ou du sucre ?",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Вам с молоком или с сахаром?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_cafe_order_drink:with_milk",
+              "key": "with_milk",
+              "intentKey": "choose_option",
+              "slotId": "choice",
+              "speaker": "learner",
+              "text": "With milk, please.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "With milk, please."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Avec du lait, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "С молоком, пожалуйста.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_cafe_order_drink:the_bill",
+              "key": "the_bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Could I get the bill, please?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Could I get the bill, please?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "L'addition, s'il vous plaît.",
+                  "note": "Aux États-Unis on dit plutôt « the check ».",
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Счёт, пожалуйста.",
+                  "note": "В США чаще говорят «the check».",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_cafe_order_drink:thank_you_very_much",
+              "key": "thank_you_very_much",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Thank you very much.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Thank you very much."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Merci beaucoup.",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Большое спасибо.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "en_ask_directions",
+          "blueprintKey": "ask_directions",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "directions",
+          "characterKey": "en_dana_passerby",
+          "titles": {
+            "fr": "Demander son chemin",
+            "ru": "Спросить дорогу"
+          },
+          "sceneNotes": {
+            "fr": "Vous cherchez la gare ; la passante parle vite.",
+            "ru": "Вы ищете вокзал; прохожая говорит быстро."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_is",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "straight",
+              "speaker": "character"
+            },
+            {
+              "slotId": "turn",
+              "speaker": "character"
+            },
+            {
+              "slotId": "far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "near",
+              "speaker": "character"
+            },
+            {
+              "slotId": "repeat",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "slower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "en_ch1_arrival_city:en_ask_directions:excuse_me",
+              "key": "excuse_me",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "Excuse me,",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Excuse me,"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Excusez-moi,",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Извините,",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_ask_directions:where_is_station",
+              "key": "where_is_station",
+              "intentKey": "ask_where_is",
+              "slotId": "where_is",
+              "speaker": "learner",
+              "text": "where is the train station?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "where is the train station?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "où est la gare ?",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "где вокзал?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_ask_directions:go_straight",
+              "key": "go_straight",
+              "intentKey": "give_direction_straight",
+              "slotId": "straight",
+              "speaker": "character",
+              "text": "Go straight ahead.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Go straight ahead."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Allez tout droit.",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Идите прямо.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_ask_directions:turn_left",
+              "key": "turn_left",
+              "intentKey": "give_direction_turn",
+              "slotId": "turn",
+              "speaker": "character",
+              "text": "Turn left at the lights.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Turn left at the lights."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Tournez à gauche aux feux.",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Поверните налево у светофора.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_ask_directions:is_it_far",
+              "key": "is_it_far",
+              "intentKey": "ask_is_it_far",
+              "slotId": "far",
+              "speaker": "learner",
+              "text": "Is it far?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Is it far?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "C'est loin ?",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Это далеко?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_ask_directions:its_close",
+              "key": "its_close",
+              "intentKey": "say_it_is_near",
+              "slotId": "near",
+              "speaker": "character",
+              "text": "It's close, about five minutes on foot.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "It's close, about five minutes on foot."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "C'est près, environ cinq minutes à pied.",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Это близко, около пяти минут пешком.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_ask_directions:say_again",
+              "key": "say_again",
+              "intentKey": "ask_repeat",
+              "slotId": "repeat",
+              "speaker": "learner",
+              "text": "Could you say that again, please?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Could you say that again, please?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Pouvez-vous répéter, s'il vous plaît ?",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Повторите, пожалуйста.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_ask_directions:more_slowly",
+              "key": "more_slowly",
+              "intentKey": "ask_slow_down",
+              "slotId": "slower",
+              "speaker": "learner",
+              "text": "Could you speak more slowly, please?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Could you speak more slowly, please?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Pouvez-vous parler plus lentement ?",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Говорите, пожалуйста, медленнее.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_ask_directions:dont_understand",
+              "key": "dont_understand",
+              "intentKey": "say_not_understood",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Sorry, I don't understand.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sorry, I don't understand."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Désolé(e), je ne comprends pas.",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Извините, я не понимаю.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_ask_directions:thanks_a_lot",
+              "key": "thanks_a_lot",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Thanks a lot!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Thanks a lot!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Merci beaucoup !",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Спасибо большое!",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "en_take_taxi",
+          "blueprintKey": "take_taxi",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "transport",
+          "characterKey": "en_ray_taxi",
+          "titles": {
+            "fr": "Prendre un taxi",
+            "ru": "Поездка на такси"
+          },
+          "sceneNotes": {
+            "fr": "Un taxi en ville ; vous allez au centre puis à l'aéroport.",
+            "ru": "Городское такси; вы едете в центр, затем в аэропорт."
+          },
+          "slots": [
+            {
+              "slotId": "hail",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_to",
+              "speaker": "character"
+            },
+            {
+              "slotId": "destination",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "meter",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fare",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "change",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "en_ch1_arrival_city:en_take_taxi:taxi",
+              "key": "taxi",
+              "intentKey": "hail_taxi",
+              "slotId": "hail",
+              "speaker": "learner",
+              "text": "Taxi!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Taxi!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Taxi !",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Такси!",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_take_taxi:where_to",
+              "key": "where_to",
+              "intentKey": "ask_destination",
+              "slotId": "where_to",
+              "speaker": "character",
+              "text": "Where to?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Where to?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Où allez-vous ?",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Куда едем?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_take_taxi:city_centre",
+              "key": "city_centre",
+              "intentKey": "state_destination",
+              "slotId": "destination",
+              "speaker": "learner",
+              "text": "To the city centre, please.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "To the city centre, please."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Au centre-ville, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "В центр города, пожалуйста.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_take_taxi:use_meter",
+              "key": "use_meter",
+              "intentKey": "ask_use_meter",
+              "slotId": "meter",
+              "speaker": "learner",
+              "text": "Could you use the meter, please?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Could you use the meter, please?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Pouvez-vous mettre le compteur ?",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Включите счётчик, пожалуйста.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_take_taxi:how_much_airport",
+              "key": "how_much_airport",
+              "intentKey": "ask_fare",
+              "slotId": "fare",
+              "speaker": "learner",
+              "text": "How much is it to the airport?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "How much is it to the airport?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "C'est combien jusqu'à l'aéroport ?",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Сколько стоит до аэропорта?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_take_taxi:stop_here",
+              "key": "stop_here",
+              "intentKey": "say_stop_here",
+              "slotId": "stop",
+              "speaker": "learner",
+              "text": "Could you stop here, please?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Could you stop here, please?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Arrêtez-vous ici, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Остановите здесь, пожалуйста.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_take_taxi:have_change",
+              "key": "have_change",
+              "intentKey": "ask_for_change",
+              "slotId": "change",
+              "speaker": "learner",
+              "text": "Do you have change?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Do you have change?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Vous avez de la monnaie ?",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "У вас есть сдача?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "en_ch1_arrival_city:en_take_taxi:thanks_bye",
+              "key": "thanks_bye",
+              "intentKey": "say_goodbye",
+              "slotId": "bye",
+              "speaker": "learner",
+              "text": "Thanks, bye!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Thanks, bye!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Merci, au revoir !",
+                  "note": null,
+                  "literal": null
+                },
+                "ru": {
+                  "meaning": "Спасибо, до свидания!",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

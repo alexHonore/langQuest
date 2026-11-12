@@ -1,0 +1,2339 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts",
+  "courseTrackId": "french",
+  "chapters": [
+    {
+      "key": "french_ch1",
+      "chapterIndex": 1,
+      "courseTrackId": "french",
+      "targetVarietyId": "fr",
+      "sourceLanguages": [
+        "en"
+      ],
+      "titles": {
+        "en": "First days in Lyon"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "content-factory (anthropic/claude-sonnet-5.5)",
+      "notes": [
+        "AI draft generated 2026-11-11T22:38:50.454Z with anthropic/claude-sonnet-5.5; validator accepted 75 expressions; native review required before publishing.",
+        "greet_and_introduce: Learner lines use \"vous\" for a first meeting with a neighbour; \"tu\" could be fine in some areas or with younger people.",
+        "greet_and_introduce: \"Sam\" is a placeholder name; \"Enchanté/Enchantée\" agrees with the speaker's gender.",
+        "greet_and_introduce: Check that \"Et vous, comment vous appelez-vous ?\" is not too long for a beginner; \"Vous vous appelez comment ?\" is a spoken alternative.",
+        "cafe_order_drink: Chose \"Bonjour, monsieur !\" to extend the earlier plain \"Bonjour !\"; please confirm it feels natural with a server.",
+        "cafe_order_drink: In France, \"un café\" is an espresso, so the \"sucre\" question fits; for Québec learners \"un café\" would be a filter coffee.",
+        "cafe_order_drink: Check that \"Je vous dois combien ?\" is not too formal for a terrace.",
+        "market_ask_price: Greeting reuses 'Bonjour' plus madame; the vendor is female (Martine), so madame is used. Please confirm natural for a market.",
+        "market_ask_price: 'Vous pouvez faire cinq euros ?' is a common light-bargaining phrase; check it sounds natural for a kilo price.",
+        "market_ask_price: Free extra (twist) is not in the required slots; 'Non, merci, ce sera tout' works as a polite decline after the vendor adds a gift or offers more.",
+        "ask_directions: The scene uses \"vous\" throughout because it is a stranger-to-stranger situation. Please check that this is right for a young passer-by.",
+        "ask_directions: The fast-speech twist is only hinted at in context notes. Please confirm that \"Plus doucement ?\" is natural for asking someone to slow down, alongside \"plus lentement\".",
+        "ask_directions: Please confirm that \"au feu\" is natural for \"at the traffic light\", and whether \"aux feux\" or \"au feu rouge\" would be more common.",
+        "meet_neighbour: Learner uses \"vous\" with a neighbour of unknown age, which is the safe default; please confirm.",
+        "meet_neighbour: The country in \"Je viens d’Espagne\" is a placeholder; the preposition changes with the country (d’, du, des).",
+        "meet_neighbour: Masculine/feminine \"voisin/voisine\" is covered by an extra variant; please check that the variant list is enough.",
+        "take_taxi: Dans la vieille ville is used for 'to the old town'; please check whether à or dans sounds more natural for a taxi request.",
+        "take_taxi: Learner lines use vous throughout since this is a service scene. The greeting, thanks and goodbye reuse earlier formulas (Bonjour, merci, bonne journée).",
+        "take_taxi: For Québec, 'la monnaie' and 'compteur' are fine, but 'taxi' could also be 'un taxi' and 'vingt piasses' would be casual slang; none used here.",
+        "buy_ice_cream: Learner speaks to the child with tu and to the seller with vous (the scoop line); please confirm the shift feels natural.",
+        "buy_ice_cream: Boule is standard in France; in Québec 'une boule' is also common, but 'cornet' and 'crème glacée' are used more often than 'glace'.",
+        "buy_ice_cream: 'Je voudrais' for a child is polite; 'Je veux' would also be natural but blunter."
+      ],
+      "characters": [
+        {
+          "key": "french_camille_friendly_local_acquaintance",
+          "name": "Camille",
+          "role": "friendly local acquaintance",
+          "personality": "Warm, cheerful, always in a rush",
+          "homeRegion": "Lyon",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "french_julien_cafe_server",
+          "name": "Julien",
+          "role": "café server",
+          "personality": "rapide, souriant, décontracté",
+          "homeRegion": "Lyon",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "french_martine_market_vendor",
+          "name": "Martine",
+          "role": "market vendor",
+          "personality": "chaleureuse, bavarde, un peu taquine",
+          "homeRegion": "Lyon",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "french_julien_passer_by",
+          "name": "Julien",
+          "role": "passer-by",
+          "personality": "friendly, in a hurry, talkative",
+          "homeRegion": "Lyon",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "french_martine_neighbour",
+          "name": "Martine",
+          "role": "neighbour",
+          "personality": "warm, chatty, a bit curious",
+          "homeRegion": "Lyon",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "french_michel_taxi_driver",
+          "name": "Michel",
+          "role": "taxi driver",
+          "personality": "bavard, sympathique, un peu pressé",
+          "homeRegion": "Lyon",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "french_lea_child_at_the_ice_cream_stand",
+          "name": "Léa",
+          "role": "child at the ice-cream stand",
+          "personality": "cheerful, greedy, polite child",
+          "homeRegion": "Lyon",
+          "ageBand": null,
+          "voice": "female"
+        }
+      ],
+      "missions": [
+        {
+          "key": "french_greet_and_introduce",
+          "blueprintKey": "greet_and_introduce",
+          "missionType": "standard",
+          "level": "beginner",
+          "situation": "introductions",
+          "characterKey": "french_camille_friendly_local_acquaintance",
+          "titles": {
+            "en": "Meeting a Neighbour"
+          },
+          "sceneNotes": {
+            "en": "It's morning and you bump into a friendly neighbour on the street who is in a hurry but stops to say hello."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_are_you",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fine",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "your_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "nice_to_meet",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "goodbye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch1:french_greet_and_introduce:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Bonjour !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bonjour !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello!",
+                  "note": "Works all day until the evening; use \"Bonsoir\" after dark.",
+                  "literal": "good day"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The French r is made at the back of the throat: bon-ZHOOR."
+            },
+            {
+              "id": "french_ch1:french_greet_and_introduce:how_are_you",
+              "key": "how_are_you",
+              "intentKey": "ask_how_are_you",
+              "slotId": "how_are_you",
+              "speaker": "learner",
+              "text": "Comment allez-vous ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Comment allez-vous ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How are you?",
+                  "note": "Polite \"vous\" form, good for someone you don't know yet.",
+                  "literal": "how go you"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Link the sounds: \"allez-vous\" sounds like ah-lay-VOO."
+            },
+            {
+              "id": "french_ch1:french_greet_and_introduce:fine",
+              "key": "fine",
+              "intentKey": "reply_fine",
+              "slotId": "fine",
+              "speaker": "learner",
+              "text": "Je vais bien, merci.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je vais bien, merci."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm fine, thank you.",
+                  "note": null,
+                  "literal": "I go well, thanks"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "\"Bien\" is one nasal sound, like \"byan\" without a clear n."
+            },
+            {
+              "id": "french_ch1:french_greet_and_introduce:my_name",
+              "key": "my_name",
+              "intentKey": "introduce_name",
+              "slotId": "my_name",
+              "speaker": "learner",
+              "text": "Je m’appelle Sam.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je m’appelle Sam."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My name is Sam.",
+                  "note": "Replace \"Sam\" with your own name.",
+                  "literal": "I myself call Sam"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Say zhuh ma-PELL; the \"e\" in \"je\" is very light."
+            },
+            {
+              "id": "french_ch1:french_greet_and_introduce:your_name",
+              "key": "your_name",
+              "intentKey": "ask_name",
+              "slotId": "your_name",
+              "speaker": "learner",
+              "text": "Et vous, comment vous appelez-vous ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Et vous, comment vous appelez-vous ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And you, what's your name?",
+                  "note": "Polite form for a neighbour you don't know yet.",
+                  "literal": "and you, how yourself call-you"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_greet_and_introduce:nice_to_meet",
+              "key": "nice_to_meet",
+              "intentKey": "say_nice_to_meet",
+              "slotId": "nice_to_meet",
+              "speaker": "learner",
+              "text": "Enchanté !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Enchanté !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Nice to meet you!",
+                  "note": "A woman can write \"Enchantée\"; it sounds the same.",
+                  "literal": "enchanted"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The first sound is a nasal vowel: ahn-shahn-TAY."
+            },
+            {
+              "id": "french_ch1:french_greet_and_introduce:goodbye",
+              "key": "goodbye",
+              "intentKey": "say_goodbye",
+              "slotId": "goodbye",
+              "speaker": "learner",
+              "text": "Au revoir, bonne journée !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Au revoir, bonne journée !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Goodbye, have a good day!",
+                  "note": "Very common way to end a short chat.",
+                  "literal": "to the seeing-again, good day"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_greet_and_introduce:ask_how_are_you_variant_8",
+              "key": "ask_how_are_you_variant_8",
+              "intentKey": "ask_how_are_you",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ça va ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ça va ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How's it going?",
+                  "note": "Casual and very common; fine with neighbours once you know them a bit.",
+                  "literal": "it goes?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_greet_and_introduce:reply_fine_variant_9",
+              "key": "reply_fine_variant_9",
+              "intentKey": "reply_fine",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ça va bien, merci. Et vous ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ça va bien, merci. Et vous ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm fine, thanks. And you?",
+                  "note": "Natural reply that hands the question back.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_greet_and_introduce:say_goodbye_variant_10",
+              "key": "say_goodbye_variant_10",
+              "intentKey": "say_goodbye",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "À bientôt !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "À bientôt !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "See you soon!",
+                  "note": null,
+                  "literal": "to soon"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "french_cafe_order_drink",
+          "blueprintKey": "cafe_order_drink",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "cafe",
+          "characterKey": "french_julien_cafe_server",
+          "titles": {
+            "en": "Ordering a Drink at a Café"
+          },
+          "sceneNotes": {
+            "en": "You sit down on a busy café terrace where a quick, friendly server comes over to take your order."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "options",
+              "speaker": "character"
+            },
+            {
+              "slotId": "choice",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch1:french_cafe_order_drink:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Bonjour, monsieur !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bonjour, monsieur !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, sir!",
+                  "note": "Use \"madame\" for a woman. Adding monsieur or madame is polite with staff.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The \"j\" in Bonjour is soft, like the s in \"measure\"."
+            },
+            {
+              "id": "french_ch1:french_cafe_order_drink:order",
+              "key": "order",
+              "intentKey": "request_drink",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Je voudrais un café, s’il vous plaît.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je voudrais un café, s’il vous plaît."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I’d like a coffee, please.",
+                  "note": "In France, \"un café\" means a small, strong espresso.",
+                  "literal": "I would-like a coffee, if it you pleases"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Voudrais ends in a short \"eh\" sound, and the final s is silent."
+            },
+            {
+              "id": "french_ch1:french_cafe_order_drink:options",
+              "key": "options",
+              "intentKey": "offer_options",
+              "slotId": "options",
+              "speaker": "character",
+              "text": "Avec du sucre ou sans sucre ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Avec du sucre ou sans sucre ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "With sugar or without sugar?",
+                  "note": "The server asks this quickly, so listen for \"avec\" and \"sans\".",
+                  "literal": "With some sugar or without sugar?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Sans is a nasal vowel, and you do not pronounce the n."
+            },
+            {
+              "id": "french_ch1:french_cafe_order_drink:choice",
+              "key": "choice",
+              "intentKey": "choose_option",
+              "slotId": "choice",
+              "speaker": "learner",
+              "text": "Sans sucre, s’il vous plaît.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sans sucre, s’il vous plaît."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Without sugar, please.",
+                  "note": "To choose the other option, say \"Avec du sucre, s’il vous plaît.\"",
+                  "literal": "Without sugar, if it you pleases"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_cafe_order_drink:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "L’addition, s’il vous plaît.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "L’addition, s’il vous plaît."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The bill, please.",
+                  "note": "This is very common in cafés. Add a smile and it is not rude.",
+                  "literal": "The addition, if it you pleases"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Addition sounds like \"ah-dee-SYON\"."
+            },
+            {
+              "id": "french_ch1:french_cafe_order_drink:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Merci beaucoup !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Merci beaucoup !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much!",
+                  "note": null,
+                  "literal": "Thanks a lot"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Beaucoup sounds like \"boh-KOO\"."
+            },
+            {
+              "id": "french_ch1:french_cafe_order_drink:request_drink_variant_7",
+              "key": "request_drink_variant_7",
+              "intentKey": "request_drink",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Je peux avoir un café, s’il vous plaît ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je peux avoir un café, s’il vous plaît ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I have a coffee, please?",
+                  "note": "A common alternative to \"Je voudrais\". It is slightly more casual.",
+                  "literal": "I can have a coffee, if it you pleases?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_cafe_order_drink:ask_for_bill_variant_8",
+              "key": "ask_for_bill_variant_8",
+              "intentKey": "ask_for_bill",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Je vous dois combien ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je vous dois combien ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much do I owe you?",
+                  "note": "Natural when paying at the counter or to the server.",
+                  "literal": "I you owe how-much?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "french_market_ask_price",
+          "blueprintKey": "market_ask_price",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "market",
+          "characterKey": "french_martine_market_vendor",
+          "titles": {
+            "en": "Asking Prices at the Market"
+          },
+          "sceneNotes": {
+            "en": "You are at a fruit stall in a French market, asking the vendor about prices per kilo and maybe getting a little surprise."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_much",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "character"
+            },
+            {
+              "slotId": "expensive",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "lower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "deal",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "no_thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch1:french_market_ask_price:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Bonjour, madame !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bonjour, madame !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, madam!",
+                  "note": "Use monsieur for a male vendor. Greeting a vendor first is expected in France.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Bonjour: nasal 'on', soft 'j' like the s in 'measure'."
+            },
+            {
+              "id": "french_ch1:french_market_ask_price:how_much",
+              "key": "how_much",
+              "intentKey": "ask_price",
+              "slotId": "how_much",
+              "speaker": "learner",
+              "text": "Les fraises, c’est combien le kilo ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Les fraises, c’est combien le kilo ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much are the strawberries per kilo?",
+                  "note": "Swap in any fruit: les pommes, les cerises, les abricots.",
+                  "literal": "The strawberries, it's how much the kilo?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Fraises: the French 'r' is made at the back of the throat."
+            },
+            {
+              "id": "french_ch1:french_market_ask_price:price",
+              "key": "price",
+              "intentKey": "state_price",
+              "slotId": "price",
+              "speaker": "character",
+              "text": "Six euros le kilo, ma belle !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Six euros le kilo, ma belle !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Six euros a kilo, my dear!",
+                  "note": "Vendors often use friendly words like ma belle or mon grand. Say it as 'see zeu-RO'.",
+                  "literal": "Six euros the kilo, my beautiful"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_market_ask_price:expensive",
+              "key": "expensive",
+              "intentKey": "say_too_expensive",
+              "slotId": "expensive",
+              "speaker": "learner",
+              "text": "Ah, c’est un peu cher.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ah, c’est un peu cher."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Oh, that's a bit expensive.",
+                  "note": "Softened with 'un peu', which sounds friendly rather than rude.",
+                  "literal": "Ah, it is a little expensive"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Cher: 'ch' as in 'sh', then an open 'è' sound."
+            },
+            {
+              "id": "french_ch1:french_market_ask_price:lower",
+              "key": "lower",
+              "intentKey": "offer_lower_price",
+              "slotId": "lower",
+              "speaker": "learner",
+              "text": "Vous pouvez faire cinq euros ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vous pouvez faire cinq euros ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you do five euros?",
+                  "note": "Bargaining is light at French markets; a polite try is fine.",
+                  "literal": "You can make five euros?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_market_ask_price:deal",
+              "key": "deal",
+              "intentKey": "agree_to_price",
+              "slotId": "deal",
+              "speaker": "learner",
+              "text": "D’accord, je les prends.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "D’accord, je les prends."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Okay, I'll take them.",
+                  "note": "Use 'je le prends' for one masculine item, 'je la prends' for feminine.",
+                  "literal": "Okay, I them take"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Prends: nasal 'an', final 's' is silent."
+            },
+            {
+              "id": "french_ch1:french_market_ask_price:no_thanks",
+              "key": "no_thanks",
+              "intentKey": "decline_purchase",
+              "slotId": "no_thanks",
+              "speaker": "learner",
+              "text": "Non, merci, ce sera tout.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Non, merci, ce sera tout."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, thank you, that will be all.",
+                  "note": "Better for turning down an extra offer. To decline entirely, say 'Non, merci, pas aujourd’hui.'",
+                  "literal": "No, thanks, it will be all"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_market_ask_price:ask_price_variant_8",
+              "key": "ask_price_variant_8",
+              "intentKey": "ask_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ça fait combien, s’il vous plaît ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ça fait combien, s’il vous plaît ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is that, please?",
+                  "note": "Handy when you point at something or want the total.",
+                  "literal": "That makes how much, please"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_market_ask_price:say_too_expensive_variant_9",
+              "key": "say_too_expensive_variant_9",
+              "intentKey": "say_too_expensive",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Oh là là, c’est cher !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Oh là là, c’est cher !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Wow, that's expensive!",
+                  "note": "More casual and expressive; say it with a smile.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_market_ask_price:agree_to_price_variant_10",
+              "key": "agree_to_price_variant_10",
+              "intentKey": "agree_to_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Très bien, je prends un kilo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Très bien, je prends un kilo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Great, I'll take a kilo.",
+                  "note": "Useful for saying how much you want to buy.",
+                  "literal": "Very well, I take one kilo"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "french_ask_directions",
+          "blueprintKey": "ask_directions",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "directions",
+          "characterKey": "french_julien_passer_by",
+          "titles": {
+            "en": "Finding the Station"
+          },
+          "sceneNotes": {
+            "en": "You are a visitor looking for the train station, and a passer-by gives you quick directions, so you need to ask them to repeat and slow down."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_is",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "straight",
+              "speaker": "character"
+            },
+            {
+              "slotId": "turn",
+              "speaker": "character"
+            },
+            {
+              "slotId": "far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "near",
+              "speaker": "character"
+            },
+            {
+              "slotId": "repeat",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "slower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch1:french_ask_directions:excuse_me",
+              "key": "excuse_me",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "Excusez-moi, monsieur.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Excusez-moi, monsieur."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, sir.",
+                  "note": "Use \"madame\" for a woman. Say it before you ask your question.",
+                  "literal": "Excuse me, sir"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Excusez-moi sounds like \"ex-kü-zay mwa\"."
+            },
+            {
+              "id": "french_ch1:french_ask_directions:where_is",
+              "key": "where_is",
+              "intentKey": "ask_where_is",
+              "slotId": "where_is",
+              "speaker": "learner",
+              "text": "Où est la gare, s’il vous plaît ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Où est la gare, s’il vous plaît ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where is the station, please?",
+                  "note": null,
+                  "literal": "Where is the station, if it pleases you"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The French \"r\" in \"gare\" is made at the back of the throat."
+            },
+            {
+              "id": "french_ch1:french_ask_directions:straight",
+              "key": "straight",
+              "intentKey": "give_direction_straight",
+              "slotId": "straight",
+              "speaker": "character",
+              "text": "Vous allez tout droit.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vous allez tout droit."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You go straight ahead.",
+                  "note": "The passer-by says it quickly, so it may sound like one blurred word.",
+                  "literal": "You go all straight"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Link the words: \"vou-za-lay\"."
+            },
+            {
+              "id": "french_ch1:french_ask_directions:turn",
+              "key": "turn",
+              "intentKey": "give_direction_turn",
+              "slotId": "turn",
+              "speaker": "character",
+              "text": "Puis tournez à gauche au feu.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Puis tournez à gauche au feu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Then turn left at the traffic light.",
+                  "note": "\"À droite\" means \"to the right\".",
+                  "literal": "Then turn to left at the light"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_ask_directions:far",
+              "key": "far",
+              "intentKey": "ask_is_it_far",
+              "slotId": "far",
+              "speaker": "learner",
+              "text": "C’est loin d’ici ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "C’est loin d’ici ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it far from here?",
+                  "note": "Said with rising intonation, this is the normal everyday question form.",
+                  "literal": "It's far from here?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "\"Loin\" has a nasal vowel, so do not pronounce a clear \"n\"."
+            },
+            {
+              "id": "french_ch1:french_ask_directions:near",
+              "key": "near",
+              "intentKey": "say_it_is_near",
+              "slotId": "near",
+              "speaker": "character",
+              "text": "Non, c’est à dix minutes à pied.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Non, c’est à dix minutes à pied."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, it's ten minutes on foot.",
+                  "note": null,
+                  "literal": "No, it's at ten minutes on foot"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_ask_directions:repeat",
+              "key": "repeat",
+              "intentKey": "ask_repeat",
+              "slotId": "repeat",
+              "speaker": "learner",
+              "text": "Pardon, vous pouvez répéter ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pardon, vous pouvez répéter ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, can you repeat that?",
+                  "note": null,
+                  "literal": "Pardon, you can repeat?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "\"Répéter\" sounds like \"ray-pay-tay\"."
+            },
+            {
+              "id": "french_ch1:french_ask_directions:slower",
+              "key": "slower",
+              "intentKey": "ask_slow_down",
+              "slotId": "slower",
+              "speaker": "learner",
+              "text": "Plus lentement, s’il vous plaît.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Plus lentement, s’il vous plaît."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "More slowly, please.",
+                  "note": "Use this when the person speaks too fast for you.",
+                  "literal": "More slowly, if it pleases you"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "\"Lentement\" has two nasal vowels: \"lahn-tuh-mahn\"."
+            },
+            {
+              "id": "french_ch1:french_ask_directions:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Merci beaucoup, bonne journée !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Merci beaucoup, bonne journée !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much, have a good day!",
+                  "note": "Matches the \"Merci beaucoup !\" and \"bonne journée\" formulas from earlier in the chapter.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_ask_directions:get_attention_variant_10",
+              "key": "get_attention_variant_10",
+              "intentKey": "get_attention",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Excusez-moi, madame.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Excusez-moi, madame."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, ma'am.",
+                  "note": "Feminine form of address, for speaking to a woman.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_ask_directions:ask_slow_down_variant_11",
+              "key": "ask_slow_down_variant_11",
+              "intentKey": "ask_slow_down",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Vous parlez vite. Plus doucement ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vous parlez vite. Plus doucement ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You speak fast. Slower?",
+                  "note": "A natural, friendly alternative that explains why you are asking.",
+                  "literal": "You speak fast. More gently?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_ask_directions:ask_where_is_variant_12",
+              "key": "ask_where_is_variant_12",
+              "intentKey": "ask_where_is",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Il y a une gare près d’ici ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Il y a une gare près d’ici ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a station near here?",
+                  "note": null,
+                  "literal": "There is a station near from here?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "french_meet_neighbour",
+          "blueprintKey": "meet_neighbour",
+          "missionType": "story",
+          "level": "beginner",
+          "situation": "neighbours",
+          "characterKey": "french_martine_neighbour",
+          "titles": {
+            "en": "Meeting Your New Neighbour"
+          },
+          "sceneNotes": {
+            "en": "You bump into a neighbour carrying shopping bags in the stairwell of your new building, and she turns out to be friendly and chatty."
+          },
+          "slots": [
+            {
+              "slotId": "new_neighbour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "character"
+            },
+            {
+              "slotId": "where_from_q",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "from",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "speak_lang",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "little",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "offer_help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch1:french_meet_neighbour:new_neighbour",
+              "key": "new_neighbour",
+              "intentKey": "say_new_neighbour",
+              "slotId": "new_neighbour",
+              "speaker": "learner",
+              "text": "Je suis votre nouveau voisin.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je suis votre nouveau voisin."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm your new neighbour.",
+                  "note": "A woman would say \"nouvelle voisine\".",
+                  "literal": "I am your new neighbour"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "\"voisin\" sounds like vwah-ZAN, with a nasal ending."
+            },
+            {
+              "id": "french_ch1:french_meet_neighbour:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Bienvenue dans l’immeuble !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bienvenue dans l’immeuble !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome to the building!",
+                  "note": "The neighbour says this warmly and may then invite you for tea later.",
+                  "literal": "welcome in the building"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_meet_neighbour:where_from_q",
+              "key": "where_from_q",
+              "intentKey": "ask_where_from",
+              "slotId": "where_from_q",
+              "speaker": "learner",
+              "text": "Vous venez d’où ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vous venez d’où ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where are you from?",
+                  "note": "Polite and common in everyday speech.",
+                  "literal": "you come from where"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_meet_neighbour:from",
+              "key": "from",
+              "intentKey": "say_where_from",
+              "slotId": "from",
+              "speaker": "learner",
+              "text": "Je viens d’Espagne.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je viens d’Espagne."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm from Spain.",
+                  "note": "Swap in your own country. Use \"du\" for masculine countries (du Canada) and \"des\" for plural ones (des États-Unis).",
+                  "literal": "I come from Spain"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_meet_neighbour:speak_lang",
+              "key": "speak_lang",
+              "intentKey": "ask_if_speaks_language",
+              "slotId": "speak_lang",
+              "speaker": "learner",
+              "text": "Vous parlez anglais ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vous parlez anglais ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you speak English?",
+                  "note": "Rising intonation turns the statement into a question.",
+                  "literal": "you speak English"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_meet_neighbour:little",
+              "key": "little",
+              "intentKey": "say_speak_little",
+              "slotId": "little",
+              "speaker": "learner",
+              "text": "Je parle un peu français.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je parle un peu français."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I speak a little French.",
+                  "note": null,
+                  "literal": "I speak a little French"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "The French \"r\" in \"parle\" is made at the back of the throat."
+            },
+            {
+              "id": "french_ch1:french_meet_neighbour:offer_help",
+              "key": "offer_help",
+              "intentKey": "offer_help",
+              "slotId": "offer_help",
+              "speaker": "learner",
+              "text": "Je peux vous aider avec vos sacs ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je peux vous aider avec vos sacs ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I help you with your bags?",
+                  "note": "A natural thing to say when the neighbour is carrying shopping.",
+                  "literal": "I can you help with your bags"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_meet_neighbour:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Merci, c’est très gentil !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Merci, c’est très gentil !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, that's very kind!",
+                  "note": "Good for answering the tea invitation.",
+                  "literal": "thanks, it is very kind"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_meet_neighbour:say_new_neighbour_variant_9",
+              "key": "say_new_neighbour_variant_9",
+              "intentKey": "say_new_neighbour",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Je suis votre nouvelle voisine.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je suis votre nouvelle voisine."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm your new neighbour. (feminine)",
+                  "note": "Feminine form for a woman speaking.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_meet_neighbour:say_new_neighbour_variant_10",
+              "key": "say_new_neighbour_variant_10",
+              "intentKey": "say_new_neighbour",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Je viens d’emménager.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je viens d’emménager."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I've just moved in.",
+                  "note": "Works for any gender.",
+                  "literal": "I come to move in"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_meet_neighbour:offer_help_variant_11",
+              "key": "offer_help_variant_11",
+              "intentKey": "offer_help",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Vous avez besoin d’un coup de main ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vous avez besoin d’un coup de main ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you need a hand?",
+                  "note": "A more casual, idiomatic way to offer help.",
+                  "literal": "you have need of a blow of hand"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "french_take_taxi",
+          "blueprintKey": "take_taxi",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "transport",
+          "characterKey": "french_michel_taxi_driver",
+          "titles": {
+            "en": "Taking a Taxi"
+          },
+          "sceneNotes": {
+            "en": "You hail a taxi to the old town, the traffic is heavy, and the chatty driver quotes a price without using the meter."
+          },
+          "slots": [
+            {
+              "slotId": "hail",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_to",
+              "speaker": "character"
+            },
+            {
+              "slotId": "destination",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "meter",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fare",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "change",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch1:french_take_taxi:hail",
+              "key": "hail",
+              "intentKey": "hail_taxi",
+              "slotId": "hail",
+              "speaker": "learner",
+              "text": "Bonjour, vous êtes libre ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bonjour, vous êtes libre ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, are you free?",
+                  "note": "Said at the taxi window or when you get in. Vous is used with a driver.",
+                  "literal": "Hello, you are free?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Libre: the French r is made at the back of the throat."
+            },
+            {
+              "id": "french_ch1:french_take_taxi:where_to",
+              "key": "where_to",
+              "intentKey": "ask_destination",
+              "slotId": "where_to",
+              "speaker": "character",
+              "text": "Bonjour ! Où allez-vous ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bonjour ! Où allez-vous ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello! Where are you going?",
+                  "note": null,
+                  "literal": "Hello! Where go you?"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_take_taxi:destination",
+              "key": "destination",
+              "intentKey": "state_destination",
+              "slotId": "destination",
+              "speaker": "learner",
+              "text": "Dans la vieille ville, s’il vous plaît.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Dans la vieille ville, s’il vous plaît."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "To the old town, please.",
+                  "note": "Dans la vieille ville means 'into the old town'. You can also give the name of a street or square.",
+                  "literal": "In the old town, please"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Vieille sounds like 'vyay', with a y sound at the end."
+            },
+            {
+              "id": "french_ch1:french_take_taxi:meter",
+              "key": "meter",
+              "intentKey": "ask_use_meter",
+              "slotId": "meter",
+              "speaker": "learner",
+              "text": "Vous pouvez mettre le compteur, s’il vous plaît ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vous pouvez mettre le compteur, s’il vous plaît ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you put the meter on, please?",
+                  "note": "Use this when the driver quotes a price without the meter.",
+                  "literal": "You can put the meter, please?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Compteur: the p is silent in 'comp-', so it sounds like 'kon-teur'."
+            },
+            {
+              "id": "french_ch1:french_take_taxi:fare",
+              "key": "fare",
+              "intentKey": "ask_fare",
+              "slotId": "fare",
+              "speaker": "learner",
+              "text": "Ça va coûter combien, à peu près ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ça va coûter combien, à peu près ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "About how much will it cost?",
+                  "note": "A natural way to ask for the fare before or during the ride.",
+                  "literal": "It will cost how much, roughly?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Combien: nasal 'on' then 'byan'."
+            },
+            {
+              "id": "french_ch1:french_take_taxi:stop",
+              "key": "stop",
+              "intentKey": "say_stop_here",
+              "slotId": "stop",
+              "speaker": "learner",
+              "text": "Vous pouvez vous arrêter ici, s’il vous plaît ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vous pouvez vous arrêter ici, s’il vous plaît ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you stop here, please?",
+                  "note": null,
+                  "literal": "You can yourself stop here, please?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Arrêter: the first part sounds like 'a-reh-tay'."
+            },
+            {
+              "id": "french_ch1:french_take_taxi:change",
+              "key": "change",
+              "intentKey": "ask_for_change",
+              "slotId": "change",
+              "speaker": "learner",
+              "text": "Vous avez la monnaie sur un billet de vingt euros ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vous avez la monnaie sur un billet de vingt euros ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have change for a twenty-euro note?",
+                  "note": "Avoir la monnaie sur... is the usual way to ask for change on a bill.",
+                  "literal": "You have the change on a note of twenty euros?"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Monnaie sounds like 'mo-neh'."
+            },
+            {
+              "id": "french_ch1:french_take_taxi:bye",
+              "key": "bye",
+              "intentKey": "say_goodbye",
+              "slotId": "bye",
+              "speaker": "learner",
+              "text": "Merci, bonne journée !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Merci, bonne journée !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks, have a good day!",
+                  "note": "A standard polite goodbye when getting out of the taxi.",
+                  "literal": "Thanks, good day!"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_take_taxi:hail_taxi_variant_9",
+              "key": "hail_taxi_variant_9",
+              "intentKey": "hail_taxi",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Vous pouvez m’emmener dans la vieille ville ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vous pouvez m’emmener dans la vieille ville ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you take me to the old town?",
+                  "note": "Combines hailing the taxi and stating where you want to go.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_take_taxi:ask_use_meter_variant_10",
+              "key": "ask_use_meter_variant_10",
+              "intentKey": "ask_use_meter",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Avec le compteur, s’il vous plaît.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Avec le compteur, s’il vous plaît."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "With the meter, please.",
+                  "note": "A shorter, still polite way to ask for the meter.",
+                  "literal": "With the meter, please."
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_take_taxi:say_stop_here_variant_11",
+              "key": "say_stop_here_variant_11",
+              "intentKey": "say_stop_here",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Ici, ça ira très bien, merci.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ici, ça ira très bien, merci."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Here is fine, thank you.",
+                  "note": "A relaxed way to say the spot is fine for dropping you off.",
+                  "literal": "Here, it will go very well, thanks."
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "french_buy_ice_cream",
+          "blueprintKey": "buy_ice_cream",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "shopping",
+          "characterKey": "french_lea_child_at_the_ice_cream_stand",
+          "titles": {
+            "en": "Buying Ice Cream Outside School"
+          },
+          "sceneNotes": {
+            "en": "You are at the ice-cream cart outside the school with a child who wants a treat, but only two flavours are left and one scoop is the limit."
+          },
+          "slots": [
+            {
+              "slotId": "wants",
+              "speaker": "character"
+            },
+            {
+              "slotId": "which_flavour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "picks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "scoop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "asks_two",
+              "speaker": "character"
+            },
+            {
+              "slotId": "just_one",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "okay",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "yummy",
+              "speaker": "character"
+            },
+            {
+              "slotId": "me_too",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch1:french_buy_ice_cream:wants",
+              "key": "wants",
+              "intentKey": "request_food",
+              "slotId": "wants",
+              "speaker": "character",
+              "text": "Je voudrais une glace, s’il te plaît !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je voudrais une glace, s’il te plaît !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'd like an ice cream, please!",
+                  "note": "The child uses tu with the adult.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Glace: the 'a' is open, and the final 'ce' is a soft 's'."
+            },
+            {
+              "id": "french_ch1:french_buy_ice_cream:which_flavour",
+              "key": "which_flavour",
+              "intentKey": "offer_options",
+              "slotId": "which_flavour",
+              "speaker": "learner",
+              "text": "Vanille ou chocolat ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vanille ou chocolat ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Vanilla or chocolate?",
+                  "note": "Only two flavours are left.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Chocolat: the final 't' is silent."
+            },
+            {
+              "id": "french_ch1:french_buy_ice_cream:picks",
+              "key": "picks",
+              "intentKey": "choose_option",
+              "slotId": "picks",
+              "speaker": "character",
+              "text": "Chocolat, s’il te plaît !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chocolat, s’il te plaît !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Chocolate, please!",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_buy_ice_cream:scoop",
+              "key": "scoop",
+              "intentKey": "specify_quantity",
+              "slotId": "scoop",
+              "speaker": "learner",
+              "text": "Une boule de chocolat, s’il vous plaît.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Une boule de chocolat, s’il vous plaît."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One scoop of chocolate, please.",
+                  "note": "Said to the ice-cream seller, so it uses vous.",
+                  "literal": "one ball of chocolate, please"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Boule: the 'ou' is like English 'oo'."
+            },
+            {
+              "id": "french_ch1:french_buy_ice_cream:asks_two",
+              "key": "asks_two",
+              "intentKey": "ask_permission",
+              "slotId": "asks_two",
+              "speaker": "character",
+              "text": "Je peux avoir une deuxième boule ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je peux avoir une deuxième boule ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I have a second scoop?",
+                  "note": "The twist: the child asks for more.",
+                  "literal": "I can have a second ball?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Deuxième: the 'eu' is a rounded 'uh'."
+            },
+            {
+              "id": "french_ch1:french_buy_ice_cream:just_one",
+              "key": "just_one",
+              "intentKey": "refuse_permission",
+              "slotId": "just_one",
+              "speaker": "learner",
+              "text": "Pas aujourd’hui, une seule boule, d’accord ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pas aujourd’hui, une seule boule, d’accord ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Not today, just one scoop, okay?",
+                  "note": "Soft and kind. The 'd’accord ?' at the end invites the child to agree.",
+                  "literal": "not today, one single scoop, okay?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Aujourd’hui: say it as 'oh-zhoor-dwee'."
+            },
+            {
+              "id": "french_ch1:french_buy_ice_cream:okay",
+              "key": "okay",
+              "intentKey": "grant_permission",
+              "slotId": "okay",
+              "speaker": "learner",
+              "text": "Oui, vas-y, mange ta glace !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Oui, vas-y, mange ta glace !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, go ahead, eat your ice cream!",
+                  "note": "Said once the child has accepted one scoop.",
+                  "literal": "yes, go there, eat your ice cream"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_buy_ice_cream:yummy",
+              "key": "yummy",
+              "intentKey": "say_delicious",
+              "slotId": "yummy",
+              "speaker": "character",
+              "text": "Mmm, elle est trop bonne !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mmm, elle est trop bonne !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Mmm, it's so good!",
+                  "note": "'Elle' refers to the glace, which is feminine.",
+                  "literal": "she is too good"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_buy_ice_cream:me_too",
+              "key": "me_too",
+              "intentKey": "express_like",
+              "slotId": "me_too",
+              "speaker": "learner",
+              "text": "Moi aussi, j’adore le chocolat !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Moi aussi, j’adore le chocolat !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Me too, I love chocolate!",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "J’adore: the 'j' sounds like the 's' in 'measure'."
+            },
+            {
+              "id": "french_ch1:french_buy_ice_cream:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "character",
+              "text": "Merci, c’est gentil !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Merci, c’est gentil !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks, that's kind of you!",
+                  "note": null,
+                  "literal": "thanks, it is kind"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "french_ch1:french_buy_ice_cream:welcome",
+              "key": "welcome",
+              "intentKey": "respond_to_thanks",
+              "slotId": "welcome",
+              "speaker": "learner",
+              "text": "De rien !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "De rien !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You're welcome!",
+                  "note": null,
+                  "literal": "of nothing"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Rien: nasal vowel, 'ryan' without the final 'n' sound."
+            },
+            {
+              "id": "french_ch1:french_buy_ice_cream:specify_quantity_variant_12",
+              "key": "specify_quantity_variant_12",
+              "intentKey": "specify_quantity",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Une boule de vanille, s’il vous plaît.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Une boule de vanille, s’il vous plaît."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One scoop of vanilla, please.",
+                  "note": "Alternative if the child picks vanilla.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Vanille: the 'ill' sounds like 'ee-y'."
+            },
+            {
+              "id": "french_ch1:french_buy_ice_cream:refuse_permission_variant_13",
+              "key": "refuse_permission_variant_13",
+              "intentKey": "refuse_permission",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Désolée, une seule boule !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Désolée, une seule boule !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, just one scoop!",
+                  "note": "Feminine form, for a woman speaking. A man writes and says 'désolé' (same sound).",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

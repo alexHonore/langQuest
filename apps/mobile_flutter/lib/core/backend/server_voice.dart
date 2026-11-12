@@ -126,7 +126,8 @@ class BundledVoice {
 
 final bundledVoiceProvider = Provider<BundledVoice?>((ref) {
   final makePlayer = ref.watch(clipPlayerFactoryProvider);
-  final voices = ref.watch(contentBundleProvider).voices;
+  // Not the whole bundle: a course's chapters arriving must not replace the player (and cut a clip).
+  final voices = ref.watch(contentBundleProvider.select((b) => b.voices));
   if (makePlayer == null || voices.isEmpty) return null;
   final player = makePlayer();
   final voice = BundledVoice(voices: voices, player: player);

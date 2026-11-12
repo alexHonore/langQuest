@@ -1,0 +1,2581 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts",
+  "courseTrackId": "vietnamese",
+  "chapters": [
+    {
+      "key": "vietnamese_ch1",
+      "chapterIndex": 1,
+      "courseTrackId": "vietnamese",
+      "targetVarietyId": "vi",
+      "sourceLanguages": [
+        "en",
+        "fr"
+      ],
+      "titles": {
+        "en": "First days in Hanoi",
+        "fr": "Premiers jours à Hanoï"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "content-factory (anthropic/claude-sonnet-5.5); French text: anthropic/claude-sonnet-5.5 (import 2026-11-11.1)",
+      "notes": [
+        "AI draft generated 2026-11-11T22:47:40.947Z with anthropic/claude-sonnet-5.5; validator accepted 70 expressions; native review required before publishing.",
+        "greet_and_introduce: Northern wording with kinship terms: chị/anh/em are chosen by relative age and gender, so a note on this may be needed.",
+        "greet_and_introduce: Southern speakers may prefer \"Chị khỏe không?\" with different tones in speech, and \"con/em\" forms; please check the wording.",
+        "greet_and_introduce: \"Anna\" is a placeholder for the learner's own name; \"Tôi\" is a safe neutral pronoun for a beginner.",
+        "cafe_order_drink: Northern wording and chị as the address term follow earlier lines; Southern speakers may say 'tính tiền' too but often prefer 'ly' and 'cà phê sữa' differently (e.g. bạc xỉu).",
+        "cafe_order_drink: Address term chị assumes a female server; anh/em would be needed otherwise.",
+        "cafe_order_drink: Please check whether 'Cho tôi đá ạ' sounds natural enough for choosing iced; 'Đá ạ' alone may be more common.",
+        "market_ask_price: Northern defaults: 'nghìn' (South 'ngàn'), 'vâng' (South 'dạ'); 'chị'/'em' assume a vendor slightly older than the shopper, so please check the address terms.",
+        "market_ask_price: The vendor's 'free extra' twist is not covered by the required slots, so no line is written for it here.",
+        "market_ask_price: Please check that 'bớt cho tôi' and 'chưa mua' sound natural in a Hanoi market, rather than something like 'Bớt đi chị ơi'.",
+        "ask_directions: Northern wording, using 'nhà ga'. In the South 'ga xe lửa' or 'trạm xe lửa' may sound more natural; please check.",
+        "ask_directions: The learner calls the passer-by 'chị' to match earlier lines, and she calls the learner 'bạn'. Please confirm the pronouns fit the age and gender of both.",
+        "ask_directions: Please check that 'Chị nói nhanh quá ạ!' sounds polite rather than blunt as a hint to slow down.",
+        "meet_neighbour: Pronouns assume a woman a little older than the learner (\"chị\"), matching earlier lines. The character calls the learner \"em\". Please check that this fits.",
+        "meet_neighbour: Northern wording is used by default. In the South, \"nhé\" would often be \"nha\" and \"quê ở đâu\" could be \"người ở đâu\".",
+        "meet_neighbour: The tea invitation is only in the scene note. No required intent covers it, so no line was added.",
+        "take_taxi: Hanoi wording is used, with 'anh' for a male driver; the earlier lines in this chapter use 'chị' for a female speaker, so please check that the pronoun choice stays consistent.",
+        "take_taxi: Please check that 'Cho tôi đến phố cổ ạ' and 'tiền thừa' sound natural to Hanoi speakers; Southerners may prefer 'tiền thối' for change.",
+        "take_taxi: The driver's 'Chị đi đâu đấy?' assumes the passenger is a woman, as in earlier lines.",
+        "buy_ice_cream: The adult-child pronouns are assumed to be cô/cháu (aunt or teacher). A parent would use con/mẹ/bố, and a male adult would use chú/bác. Please check this fits.",
+        "buy_ice_cream: Spelling 'sô-cô-la' (hyphenated) is assumed. 'Xô-cô-la' or 'socola' are also common.",
+        "buy_ice_cream: The Northern wording is the default. Southern speakers might say 'cây kem' or 'kem trái dâu' or use other pronouns such as 'dì'.",
+        "French learner text translated from the target phrases by anthropic/claude-sonnet-5.5 (import 2026-11-11.1); to review with the target text."
+      ],
+      "characters": [
+        {
+          "key": "vietnamese_lan_friendly_local_acquaintance",
+          "name": "Lan",
+          "role": "friendly local acquaintance",
+          "personality": "warm, busy, kind, curious",
+          "homeRegion": "Hà Nội",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "vietnamese_linh_cafe_server",
+          "name": "Linh",
+          "role": "café server",
+          "personality": "quick, cheerful, helpful",
+          "homeRegion": "Hanoi",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "vietnamese_lan_market_vendor",
+          "name": "Lan",
+          "role": "market vendor",
+          "personality": "Friendly, chatty, generous vendor",
+          "homeRegion": "Hà Nội",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "vietnamese_lan_passer_by",
+          "name": "Lan",
+          "role": "passer-by",
+          "personality": "Friendly, busy, talks fast",
+          "homeRegion": "Hà Nội",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "vietnamese_lan_neighbour",
+          "name": "Lan",
+          "role": "neighbour",
+          "personality": "warm, chatty, kind, curious",
+          "homeRegion": "Hà Nội",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "vietnamese_hung_taxi_driver",
+          "name": "Hùng",
+          "role": "taxi driver",
+          "personality": "talkative, friendly, a bit pushy",
+          "homeRegion": "Hà Nội",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "vietnamese_minh_child_at_the_ice_cream_stand",
+          "name": "Minh",
+          "role": "child at the ice-cream stand",
+          "personality": "cheerful, curious, a bit cheeky",
+          "homeRegion": "Hà Nội",
+          "ageBand": null,
+          "voice": "male"
+        }
+      ],
+      "missions": [
+        {
+          "key": "vietnamese_greet_and_introduce",
+          "blueprintKey": "greet_and_introduce",
+          "missionType": "standard",
+          "level": "beginner",
+          "situation": "introductions",
+          "characterKey": "vietnamese_lan_friendly_local_acquaintance",
+          "titles": {
+            "en": "Meeting a Neighbour",
+            "fr": "Rencontrer une voisine"
+          },
+          "sceneNotes": {
+            "en": "It's morning and you bump into a friendly neighbour on the street who is in a hurry but stops to say hello.",
+            "fr": "Il est tôt le matin et vous croisez dans la rue Lan, une voisine aimable qui est pressée mais s'arrête pour vous saluer."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_are_you",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fine",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "your_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "nice_to_meet",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "goodbye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "vietnamese_ch1:vietnamese_greet_and_introduce:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Chào chị ạ!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chào chị ạ!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello! (to an older woman)",
+                  "note": "Use \"chị\" for a woman a bit older than you; use \"anh\" for a man. \"ạ\" adds politeness.",
+                  "literal": "hello older-sister (polite particle)"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! (à une femme plus âgée)",
+                  "note": "Utilisez « chị » pour une femme un peu plus âgée que vous, et « anh » pour un homme. « ạ » ajoute de la politesse. « Chào » a un ton descendant ; « chị » a un ton bas et appuyé.",
+                  "literal": "bonjour grande-sœur (particule de politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "\"Chào\" has a falling tone; \"chị\" has a low, heavy tone."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_greet_and_introduce:how_are_you",
+              "key": "how_are_you",
+              "intentKey": "ask_how_are_you",
+              "slotId": "how_are_you",
+              "speaker": "learner",
+              "text": "Chị khỏe không ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chị khỏe không ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How are you?",
+                  "note": "Literally \"are you well or not?\" It is the standard polite way to ask.",
+                  "literal": "older-sister well not (polite particle)"
+                },
+                "fr": {
+                  "meaning": "Comment allez-vous ?",
+                  "note": "Littéralement : « vous allez bien ou pas ? ». C'est la façon polie habituelle de demander des nouvelles. « khỏe » a un ton descendant-montant ; « kh » est un son guttural, comme le « j » espagnol.",
+                  "literal": "grande-sœur en forme pas (particule de politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "\"khỏe\" has a dipping-rising tone; \"kh\" is a rough throat sound like Scottish \"loch\"."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_greet_and_introduce:fine",
+              "key": "fine",
+              "intentKey": "reply_fine",
+              "slotId": "fine",
+              "speaker": "learner",
+              "text": "Tôi khỏe, cảm ơn chị.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tôi khỏe, cảm ơn chị."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm fine, thank you.",
+                  "note": "\"Tôi\" is a neutral \"I\"; with a neighbour you could also use \"em\" if you are younger.",
+                  "literal": "I well, thank older-sister"
+                },
+                "fr": {
+                  "meaning": "Je vais bien, merci.",
+                  "note": "« Tôi » est un « je » neutre ; avec une voisine, vous pouvez aussi dire « em » si vous êtes plus jeune. Sur « cảm », le ton est descendant-montant.",
+                  "literal": "je en forme, remercier grande-sœur"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "\"cảm ơn\" has a dipping-rising tone on \"cảm\"."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_greet_and_introduce:my_name",
+              "key": "my_name",
+              "intentKey": "introduce_name",
+              "slotId": "my_name",
+              "speaker": "learner",
+              "text": "Tôi tên là Anna.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tôi tên là Anna."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My name is Anna.",
+                  "note": "Replace \"Anna\" with your own name.",
+                  "literal": "I name is Anna"
+                },
+                "fr": {
+                  "meaning": "Je m'appelle Anna.",
+                  "note": "Remplacez « Anna » par votre prénom. « tên » a un ton plat avec un « ê » fermé.",
+                  "literal": "je nom est Anna"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "\"tên\" has a level tone with a closed \"ê\" vowel."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_greet_and_introduce:your_name",
+              "key": "your_name",
+              "intentKey": "ask_name",
+              "slotId": "your_name",
+              "speaker": "learner",
+              "text": "Chị tên là gì ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chị tên là gì ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What is your name?",
+                  "note": "The question word \"gì\" comes at the end of the sentence.",
+                  "literal": "older-sister name is what (polite particle)"
+                },
+                "fr": {
+                  "meaning": "Comment vous appelez-vous ?",
+                  "note": "Le mot interrogatif « gì » se place à la fin de la phrase. Il a un ton bas descendant.",
+                  "literal": "grande-sœur nom est quoi (particule de politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "\"gì\" has a low falling tone."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_greet_and_introduce:nice_to_meet",
+              "key": "nice_to_meet",
+              "intentKey": "say_nice_to_meet",
+              "slotId": "nice_to_meet",
+              "speaker": "learner",
+              "text": "Rất vui được gặp chị.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Rất vui được gặp chị."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Nice to meet you.",
+                  "note": null,
+                  "literal": "very happy get meet older-sister"
+                },
+                "fr": {
+                  "meaning": "Enchanté de faire votre connaissance.",
+                  "note": "« được » a un ton bas et appuyé, et la voyelle « ươ » glisse comme « eu-eu ».",
+                  "literal": "très content pouvoir rencontrer grande-sœur"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "\"được\" has a heavy tone and the vowel \"ươ\" glides like \"uh-uh\"."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_greet_and_introduce:goodbye",
+              "key": "goodbye",
+              "intentKey": "say_goodbye",
+              "slotId": "goodbye",
+              "speaker": "learner",
+              "text": "Tạm biệt chị ạ!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tạm biệt chị ạ!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Goodbye!",
+                  "note": "A friendly, polite way to end the chat.",
+                  "literal": "temporarily-part older-sister (polite particle)"
+                },
+                "fr": {
+                  "meaning": "Au revoir !",
+                  "note": "Une façon aimable et polie de terminer la conversation. « tạm » et « biệt » ont tous deux un ton bas, court et appuyé.",
+                  "literal": "séparation-provisoire grande-sœur (particule de politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "\"tạm\" and \"biệt\" both have a heavy, short tone."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_greet_and_introduce:greet_hello_variant_8",
+              "key": "greet_hello_variant_8",
+              "intentKey": "greet_hello",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Chào buổi sáng chị!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chào buổi sáng chị!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good morning!",
+                  "note": "A time-of-day greeting that suits this morning scene.",
+                  "literal": "hello morning older-sister"
+                },
+                "fr": {
+                  "meaning": "Bonjour ! (le matin)",
+                  "note": "Une salutation selon le moment de la journée, qui convient bien à cette scène du matin.",
+                  "literal": "bonjour matin grande-sœur"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_greet_and_introduce:say_goodbye_variant_9",
+              "key": "say_goodbye_variant_9",
+              "intentKey": "say_goodbye",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Hẹn gặp lại chị nhé!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hẹn gặp lại chị nhé!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "See you again!",
+                  "note": "\"nhé\" makes it sound warm and friendly.",
+                  "literal": "promise meet again older-sister (friendly particle)"
+                },
+                "fr": {
+                  "meaning": "À bientôt !",
+                  "note": "« nhé » donne un ton chaleureux et amical.",
+                  "literal": "rendez-vous se revoir grande-sœur (particule amicale)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "vietnamese_cafe_order_drink",
+          "blueprintKey": "cafe_order_drink",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "cafe",
+          "characterKey": "vietnamese_linh_cafe_server",
+          "titles": {
+            "en": "Ordering a Drink at Café",
+            "fr": "Commander une boisson au café"
+          },
+          "sceneNotes": {
+            "en": "You sit down on a busy café terrace where a quick, friendly server comes over to take your order.",
+            "fr": "Vous vous installez sur une terrasse de café animée, où une serveuse rapide et aimable vient prendre votre commande."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "options",
+              "speaker": "character"
+            },
+            {
+              "slotId": "choice",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "vietnamese_ch1:vietnamese_cafe_order_drink:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Chào chị ạ!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chào chị ạ!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello!",
+                  "note": "Same greeting as earlier in the chapter. Use anh for a male server, em for a younger one.",
+                  "literal": "hello older-sister (polite particle)"
+                },
+                "fr": {
+                  "meaning": "Bonjour !",
+                  "note": "Même salutation que plus tôt dans le chapitre. Dites anh à un serveur, em à une personne plus jeune. Chào a un ton descendant ; ạ a un ton bas et lourd.",
+                  "literal": "bonjour grande sœur (particule de politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Chào has a falling tone; ạ is a low, heavy tone."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_cafe_order_drink:order",
+              "key": "order",
+              "intentKey": "request_drink",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "Cho tôi một cà phê sữa đá.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cho tôi một cà phê sữa đá."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A coffee with milk and ice for me, please.",
+                  "note": "Cà phê sữa đá is a very common iced milk coffee. Cho tôi... is the standard polite way to order.",
+                  "literal": "give me one coffee milk ice"
+                },
+                "fr": {
+                  "meaning": "Un café au lait glacé pour moi, s'il vous plaît.",
+                  "note": "Cà phê sữa đá est un café glacé au lait très courant. Cho tôi... est la façon polie habituelle de commander. Đ se prononce comme un d français ; d sans barre se prononce comme z dans le Nord.",
+                  "literal": "donner moi un café lait glace"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Đ is like an English d; d without the stroke sounds like z in the north."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_cafe_order_drink:options",
+              "key": "options",
+              "intentKey": "offer_options",
+              "slotId": "options",
+              "speaker": "character",
+              "text": "Chị uống nóng hay đá ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chị uống nóng hay đá ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Would you like it hot or iced?",
+                  "note": "Hay means 'or' in questions offering a choice.",
+                  "literal": "you drink hot or ice (polite particle)"
+                },
+                "fr": {
+                  "meaning": "Vous le voulez chaud ou glacé ?",
+                  "note": "Hay signifie « ou » dans une question proposant un choix. Il se prononce à peu près comme « aï », en plus court.",
+                  "literal": "vous boire chaud ou glace (particule de politesse)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Hay rhymes roughly with English 'my' but shorter."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_cafe_order_drink:choice",
+              "key": "choice",
+              "intentKey": "choose_option",
+              "slotId": "choice",
+              "speaker": "learner",
+              "text": "Cho tôi đá ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cho tôi đá ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Iced, please.",
+                  "note": "Replace đá with nóng to ask for hot.",
+                  "literal": "give me ice (polite particle)"
+                },
+                "fr": {
+                  "meaning": "Glacé, s'il vous plaît.",
+                  "note": "Remplacez đá par nóng pour demander chaud.",
+                  "literal": "donner moi glace (particule de politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_cafe_order_drink:bill",
+              "key": "bill",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "Tính tiền giúp tôi ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tính tiền giúp tôi ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The bill, please.",
+                  "note": "Said to get the server's attention when you are ready to pay.",
+                  "literal": "calculate money help me (polite particle)"
+                },
+                "fr": {
+                  "meaning": "L'addition, s'il vous plaît.",
+                  "note": "À dire pour attirer l'attention du serveur quand vous êtes prêt à payer. Tiền a un ton descendant avec une glissade « ié ».",
+                  "literal": "calculer argent aider moi (particule de politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Tiền has a falling tone with an ie glide."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_cafe_order_drink:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Cảm ơn chị ạ!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cảm ơn chị ạ!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you!",
+                  "note": "Matches the cảm ơn chị formula used earlier in the chapter.",
+                  "literal": "thank older-sister (polite particle)"
+                },
+                "fr": {
+                  "meaning": "Merci !",
+                  "note": "Reprend la formule cảm ơn chị vue plus tôt dans le chapitre. Cảm a un ton descendant-montant (hỏi).",
+                  "literal": "remercier grande sœur (particule de politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Cảm has a dipping-rising (hỏi) tone."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_cafe_order_drink:request_drink_variant_7",
+              "key": "request_drink_variant_7",
+              "intentKey": "request_drink",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Cho tôi một ly trà đá.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cho tôi một ly trà đá."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A glass of iced tea for me, please.",
+                  "note": "Another very common drink. Ly means glass or cup.",
+                  "literal": "give me one glass tea ice"
+                },
+                "fr": {
+                  "meaning": "Un verre de thé glacé pour moi, s'il vous plaît.",
+                  "note": "Une autre boisson très courante. Ly signifie « verre » ou « tasse ».",
+                  "literal": "donner moi un verre thé glace"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_cafe_order_drink:ask_for_bill_variant_8",
+              "key": "ask_for_bill_variant_8",
+              "intentKey": "ask_for_bill",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Tất cả bao nhiêu tiền ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tất cả bao nhiêu tiền ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is it altogether?",
+                  "note": "A 'how much do I owe' alternative.",
+                  "literal": "all how much money (polite particle)"
+                },
+                "fr": {
+                  "meaning": "Ça fait combien en tout ?",
+                  "note": "Une autre façon de demander combien vous devez.",
+                  "literal": "tout combien argent (particule de politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "vietnamese_market_ask_price",
+          "blueprintKey": "market_ask_price",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "market",
+          "characterKey": "vietnamese_lan_market_vendor",
+          "titles": {
+            "en": "Asking Prices at the Market",
+            "fr": "Demander les prix au marché"
+          },
+          "sceneNotes": {
+            "en": "You stop at a fruit stall in the market, ask how much the fruit costs per kilo, and the vendor surprises you with a little something extra.",
+            "fr": "Vous vous arrêtez devant un étal de fruits au marché, vous demandez le prix au kilo, et la vendeuse vous réserve une petite surprise."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_much",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "character"
+            },
+            {
+              "slotId": "expensive",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "lower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "deal",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "no_thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "vietnamese_ch1:vietnamese_market_ask_price:greeting",
+              "key": "greeting",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "Chào chị ạ!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chào chị ạ!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, ma'am!",
+                  "note": "Same greeting as earlier in the chapter. Use 'chị' for a woman a bit older than you.",
+                  "literal": "hello + older sister + polite particle"
+                },
+                "fr": {
+                  "meaning": "Bonjour, madame !",
+                  "note": "Même salutation que plus tôt dans le chapitre. On dit « chị » à une femme un peu plus âgée que soi. Prononcez « chị » court, avec un ton bas appuyé et descendant.",
+                  "literal": "bonjour + grande sœur + particule de politesse"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'chị' has a heavy low tone; say it short and falling."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_market_ask_price:how_much",
+              "key": "how_much",
+              "intentKey": "ask_price",
+              "slotId": "how_much",
+              "speaker": "learner",
+              "text": "Xoài này bao nhiêu một cân ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Xoài này bao nhiêu một cân ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much are these mangoes per kilo?",
+                  "note": "In daily speech 'cân' means kilo. Swap 'xoài' for any fruit you point at.",
+                  "literal": "mango + this + how much + one + kilo + polite particle"
+                },
+                "fr": {
+                  "meaning": "Combien coûtent ces mangues le kilo ?",
+                  "note": "Dans la vie courante, « cân » veut dire kilo. Remplacez « xoài » par n'importe quel fruit que vous montrez. « xoài » sonne à peu près comme « souaï », avec un ton descendant.",
+                  "literal": "mangue + ce/cette + combien + un + kilo + particule de politesse"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'xoài' sounds like 'swai' with a falling tone."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_market_ask_price:price",
+              "key": "price",
+              "intentKey": "state_price",
+              "slotId": "price",
+              "speaker": "character",
+              "text": "Sáu mươi nghìn một cân em nhé.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sáu mươi nghìn một cân em nhé."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's 60,000 dong per kilo, dear.",
+                  "note": "The vendor calls the younger shopper 'em'. 'Nghìn' is the Northern word; the South says 'ngàn'.",
+                  "literal": "six ten thousand one kilo younger-sibling okay"
+                },
+                "fr": {
+                  "meaning": "C'est 60 000 dông le kilo, ma petite.",
+                  "note": "La vendeuse appelle la cliente plus jeune « em ». « Nghìn » est le mot du Nord ; dans le Sud, on dit « ngàn ».",
+                  "literal": "six dizaines de mille + un + kilo + cadet(te) + d'accord"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_market_ask_price:expensive",
+              "key": "expensive",
+              "intentKey": "say_too_expensive",
+              "slotId": "expensive",
+              "speaker": "learner",
+              "text": "Đắt quá!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Đắt quá!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "That's too expensive!",
+                  "note": "Say it lightly with a smile so it sounds like friendly bargaining, not a complaint.",
+                  "literal": "expensive + too"
+                },
+                "fr": {
+                  "meaning": "C'est trop cher !",
+                  "note": "Dites-le avec légèreté et un sourire : cela passe pour un marchandage amical, pas pour une plainte. « đ » est un « d » dur ; « đắt » a un ton montant et sec.",
+                  "literal": "cher + trop"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'đ' is a hard 'd' sound; 'đắt' has a rising, sharp tone."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_market_ask_price:lower",
+              "key": "lower",
+              "intentKey": "offer_lower_price",
+              "slotId": "lower",
+              "speaker": "learner",
+              "text": "Chị bớt cho tôi được không ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chị bớt cho tôi được không ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you give me a little discount?",
+                  "note": "A soft, polite way to ask for a lower price.",
+                  "literal": "older sister + reduce + for me + possible + not + polite particle"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous me faire un petit rabais ?",
+                  "note": "Une façon douce et polie de demander un meilleur prix. « bớt » se termine par un « t » bref, non relâché.",
+                  "literal": "grande sœur + baisser + pour moi + possible + non + particule de politesse"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'bớt' ends in a quick, unreleased 't'."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_market_ask_price:deal",
+              "key": "deal",
+              "intentKey": "agree_to_price",
+              "slotId": "deal",
+              "speaker": "learner",
+              "text": "Vâng, tôi lấy hai cân.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vâng, tôi lấy hai cân."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK, I'll take two kilos.",
+                  "note": "'Vâng' is a polite Northern 'yes'; the South uses 'dạ'. Change the number to buy more or less.",
+                  "literal": "yes + I + take + two + kilo"
+                },
+                "fr": {
+                  "meaning": "D'accord, je prends deux kilos.",
+                  "note": "« Vâng » est un « oui » poli du Nord ; le Sud dit « dạ ». Changez le chiffre pour acheter plus ou moins. « lấy » a un ton montant, comme une courte question.",
+                  "literal": "oui + je + prendre + deux + kilo"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'lấy' has a rising tone, like a short question."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_market_ask_price:no_thanks",
+              "key": "no_thanks",
+              "intentKey": "decline_purchase",
+              "slotId": "no_thanks",
+              "speaker": "learner",
+              "text": "Cảm ơn chị, hôm nay tôi chưa mua.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cảm ơn chị, hôm nay tôi chưa mua."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, I'm not buying today.",
+                  "note": "'Chưa mua' means 'not yet', which sounds softer than a flat refusal.",
+                  "literal": "thank + older sister + today + I + not yet + buy"
+                },
+                "fr": {
+                  "meaning": "Merci, je n'achète pas aujourd'hui.",
+                  "note": "« Chưa mua » signifie « pas encore », ce qui sonne plus doux qu'un refus net. « cảm » a un ton descendant-montant ; « chưa » se prononce environ « tchoua ».",
+                  "literal": "merci + grande sœur + aujourd'hui + je + pas encore + acheter"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'cảm' has a dipping-rising tone; 'chưa' is like 'chuh-uh'."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_market_ask_price:ask_price_variant_8",
+              "key": "ask_price_variant_8",
+              "intentKey": "ask_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Cái này bao nhiêu tiền ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cái này bao nhiêu tiền ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is this?",
+                  "note": "Useful when you point at an item and don't know its name.",
+                  "literal": "thing + this + how much + money + polite particle"
+                },
+                "fr": {
+                  "meaning": "Combien ça coûte, s'il vous plaît ?",
+                  "note": "Pratique quand vous montrez un article dont vous ne connaissez pas le nom.",
+                  "literal": "chose + ce/cette + combien + argent + particule de politesse"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_market_ask_price:offer_lower_price_variant_9",
+              "key": "offer_lower_price_variant_9",
+              "intentKey": "offer_lower_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Năm mươi nghìn được không ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Năm mươi nghìn được không ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you do 50,000?",
+                  "note": "A direct counteroffer, still polite thanks to 'ạ'.",
+                  "literal": "five ten thousand + possible + not + polite particle"
+                },
+                "fr": {
+                  "meaning": "Est-ce possible à 50 000 ?",
+                  "note": "Une contre-offre directe, restant polie grâce à « ạ ». Le « ă » de « năm » est bref ; « nghìn » commence par le son « ng ».",
+                  "literal": "cinq dizaines de mille + possible + non + particule de politesse"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'ă' in 'năm' is short; 'nghìn' starts with the 'ng' sound."
+            }
+          ]
+        },
+        {
+          "key": "vietnamese_ask_directions",
+          "blueprintKey": "ask_directions",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "directions",
+          "characterKey": "vietnamese_lan_passer_by",
+          "titles": {
+            "en": "Asking Directions to the Station",
+            "fr": "Demander le chemin de la gare"
+          },
+          "sceneNotes": {
+            "en": "You are a visitor looking for the station, and a passer-by gives you quick directions, so you will need to ask her to slow down.",
+            "fr": "Vous êtes en visite et cherchez la gare ; une passante, Lan, vous explique vite le chemin, donc vous devrez lui demander de parler plus lentement."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_is",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "straight",
+              "speaker": "character"
+            },
+            {
+              "slotId": "turn",
+              "speaker": "character"
+            },
+            {
+              "slotId": "far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "near",
+              "speaker": "character"
+            },
+            {
+              "slotId": "repeat",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "slower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "vietnamese_ch1:vietnamese_ask_directions:excuse_me",
+              "key": "excuse_me",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "Xin lỗi chị, cho tôi hỏi ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Xin lỗi chị, cho tôi hỏi ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, may I ask you something?",
+                  "note": "Use it to stop a stranger politely before asking a question. Ạ adds politeness.",
+                  "literal": "excuse / older sister / let me ask / polite particle"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, madame, puis-je vous poser une question ?",
+                  "note": "Pour aborder poliment un inconnu avant de poser une question. « ạ » ajoute de la politesse. Dans « hỏi », le ton descend puis remonte.",
+                  "literal": "excuse / grande sœur / laissez-moi demander / particule de politesse"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Hỏi has a falling-rising (hỏi) tone: dip down, then rise."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_ask_directions:where_is",
+              "key": "where_is",
+              "intentKey": "ask_where_is",
+              "slotId": "where_is",
+              "speaker": "learner",
+              "text": "Nhà ga ở đâu ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Nhà ga ở đâu ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where is the station, please?",
+                  "note": null,
+                  "literal": "station / at / where / polite particle"
+                },
+                "fr": {
+                  "meaning": "Où est la gare, s'il vous plaît ?",
+                  "note": "Le « nh » de « nhà » se prononce comme le « gn » de « agneau ».",
+                  "literal": "gare / à / où / particule de politesse"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Nh- in nhà is like the 'ny' in 'canyon'."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_ask_directions:straight",
+              "key": "straight",
+              "intentKey": "give_direction_straight",
+              "slotId": "straight",
+              "speaker": "character",
+              "text": "Bạn cứ đi thẳng nhé.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bạn cứ đi thẳng nhé."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Just keep going straight.",
+                  "note": "Cứ means 'just / keep on'. Nhé makes the sentence friendly.",
+                  "literal": "you / just / go / straight / friendly particle"
+                },
+                "fr": {
+                  "meaning": "Continuez tout droit.",
+                  "note": "« Cứ » signifie « simplement / continuer à ». « Nhé » rend la phrase amicale. « Thẳng » a un ton descendant-montant.",
+                  "literal": "tu / simplement / aller / droit / particule amicale"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Thẳng has a falling-rising tone."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_ask_directions:turn",
+              "key": "turn",
+              "intentKey": "give_direction_turn",
+              "slotId": "turn",
+              "speaker": "character",
+              "text": "Đến ngã tư thì rẽ phải nhé.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Đến ngã tư thì rẽ phải nhé."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "When you get to the crossroads, turn right.",
+                  "note": "Swap phải (right) for trái (left) to change direction.",
+                  "literal": "arrive / crossroads / then / turn / right / friendly particle"
+                },
+                "fr": {
+                  "meaning": "Arrivé au carrefour, tournez à droite.",
+                  "note": "Remplacez « phải » (droite) par « trái » (gauche) pour changer de direction.",
+                  "literal": "arriver / carrefour / alors / tourner / droite / particule amicale"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_ask_directions:far",
+              "key": "far",
+              "intentKey": "ask_is_it_far",
+              "slotId": "far",
+              "speaker": "learner",
+              "text": "Đi bộ có xa không ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Đi bộ có xa không ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it far on foot?",
+                  "note": null,
+                  "literal": "go on foot / (question) far / not / polite particle"
+                },
+                "fr": {
+                  "meaning": "C'est loin à pied ?",
+                  "note": null,
+                  "literal": "aller à pied / (question) loin / non / particule de politesse"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_ask_directions:near",
+              "key": "near",
+              "intentKey": "say_it_is_near",
+              "slotId": "near",
+              "speaker": "character",
+              "text": "Không xa đâu, đi bộ mười phút thôi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Không xa đâu, đi bộ mười phút thôi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's not far, only a ten-minute walk.",
+                  "note": "Đâu softens the denial. Thôi means 'only'.",
+                  "literal": "not far (softener) / walk / ten / minutes / only"
+                },
+                "fr": {
+                  "meaning": "Ce n'est pas loin, seulement dix minutes à pied.",
+                  "note": "« Đâu » adoucit la négation. « Thôi » signifie « seulement ».",
+                  "literal": "pas loin (adoucisseur) / marcher / dix / minutes / seulement"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_ask_directions:repeat",
+              "key": "repeat",
+              "intentKey": "ask_repeat",
+              "slotId": "repeat",
+              "speaker": "learner",
+              "text": "Chị nói lại được không ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chị nói lại được không ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you say that again, please?",
+                  "note": null,
+                  "literal": "older sister / say / again / can / not / polite particle"
+                },
+                "fr": {
+                  "meaning": "Pourriez-vous répéter, s'il vous plaît ?",
+                  "note": null,
+                  "literal": "grande sœur / dire / de nouveau / pouvoir / non / particule de politesse"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_ask_directions:slower",
+              "key": "slower",
+              "intentKey": "ask_slow_down",
+              "slotId": "slower",
+              "speaker": "learner",
+              "text": "Chị nói chậm lại được không ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chị nói chậm lại được không ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you speak more slowly, please?",
+                  "note": "Key phrase for this scene, since the passer-by speaks fast.",
+                  "literal": "older sister / speak / slow / back / can / not / polite particle"
+                },
+                "fr": {
+                  "meaning": "Pourriez-vous parler plus lentement, s'il vous plaît ?",
+                  "note": "Phrase clé de cette scène, car la passante parle vite. Dans « chậm », le ton est bas et lourd (nặng) : court et descendant.",
+                  "literal": "grande sœur / parler / lent / en retour / pouvoir / non / particule de politesse"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Chậm has a low, heavy tone (nặng): short and dropping."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_ask_directions:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Cảm ơn chị nhiều ạ!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cảm ơn chị nhiều ạ!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much!",
+                  "note": "Same cảm ơn formula as earlier, with nhiều (a lot) added.",
+                  "literal": "thank / older sister / a lot / polite particle"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup !",
+                  "note": "C'est la même formule « cảm ơn » que précédemment, avec « nhiều » (beaucoup) en plus.",
+                  "literal": "remercier / grande sœur / beaucoup / particule de politesse"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_ask_directions:ask_where_is_variant_10",
+              "key": "ask_where_is_variant_10",
+              "intentKey": "ask_where_is",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Gần đây có nhà ga không ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Gần đây có nhà ga không ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is there a station near here?",
+                  "note": "Useful if you are not sure a station is close.",
+                  "literal": "near / here / have / station / not / polite particle"
+                },
+                "fr": {
+                  "meaning": "Y a-t-il une gare près d'ici ?",
+                  "note": "Utile si vous n'êtes pas sûr qu'une gare soit proche.",
+                  "literal": "près / ici / avoir / gare / non / particule de politesse"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_ask_directions:ask_slow_down_variant_11",
+              "key": "ask_slow_down_variant_11",
+              "intentKey": "ask_slow_down",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Chị nói nhanh quá ạ!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chị nói nhanh quá ạ!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You speak too fast!",
+                  "note": "Said with a smile, it is a soft way to hint that you need slower speech.",
+                  "literal": "older sister / speak / fast / too / polite particle"
+                },
+                "fr": {
+                  "meaning": "Vous parlez trop vite !",
+                  "note": "Dit avec le sourire, c'est une façon douce de faire comprendre qu'on a besoin d'un débit plus lent.",
+                  "literal": "grande sœur / parler / vite / trop / particule de politesse"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "vietnamese_meet_neighbour",
+          "blueprintKey": "meet_neighbour",
+          "missionType": "story",
+          "level": "beginner",
+          "situation": "neighbours",
+          "characterKey": "vietnamese_lan_neighbour",
+          "titles": {
+            "en": "Meeting Your New Neighbour",
+            "fr": "Rencontrer votre nouvelle voisine"
+          },
+          "sceneNotes": {
+            "en": "You meet your neighbour in the stairwell as she carries shopping bags, and she may mention a local custom and invite you for tea later.",
+            "fr": "Vous croisez votre voisine Lan dans la cage d'escalier alors qu'elle porte des sacs de courses, et elle pourrait évoquer une coutume locale et vous inviter à prendre le thé plus tard."
+          },
+          "slots": [
+            {
+              "slotId": "new_neighbour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "character"
+            },
+            {
+              "slotId": "where_from_q",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "from",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "speak_lang",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "little",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "offer_help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "vietnamese_ch1:vietnamese_meet_neighbour:new_neighbour",
+              "key": "new_neighbour",
+              "intentKey": "say_new_neighbour",
+              "slotId": "new_neighbour",
+              "speaker": "learner",
+              "text": "Tôi là hàng xóm mới của chị ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tôi là hàng xóm mới của chị ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm your new neighbour.",
+                  "note": "Use \"chị\" for a woman a bit older than you; \"ạ\" adds politeness.",
+                  "literal": "I am neighbour new of older-sister (polite particle)"
+                },
+                "fr": {
+                  "meaning": "Je suis votre nouvelle voisine / votre nouveau voisin.",
+                  "note": "« Chị » s'emploie pour une femme un peu plus âgée que vous ; « ạ » ajoute de la politesse. « xóm » commence par un son « s » et porte un ton montant.",
+                  "literal": "Je suis voisin nouveau de grande-sœur (particule de politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "\"xóm\" starts with an s sound, like \"som\" with a rising tone."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_meet_neighbour:welcome",
+              "key": "welcome",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Chào mừng em đến nhà mới nhé!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chào mừng em đến nhà mới nhé!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Welcome to your new home!",
+                  "note": "An older neighbour calls a younger person \"em\".",
+                  "literal": "Welcome younger-person arrive home new (friendly particle)"
+                },
+                "fr": {
+                  "meaning": "Bienvenue dans votre nouveau chez-vous !",
+                  "note": "Une voisine plus âgée appelle la personne plus jeune « em ».",
+                  "literal": "Bienvenue jeune-personne arriver maison nouvelle (particule amicale)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_meet_neighbour:where_from_q",
+              "key": "where_from_q",
+              "intentKey": "ask_where_from",
+              "slotId": "where_from_q",
+              "speaker": "learner",
+              "text": "Chị quê ở đâu ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chị quê ở đâu ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where are you from?",
+                  "note": "\"Quê\" means hometown, so this asks where her family is from, a common question.",
+                  "literal": "Older-sister hometown at where (polite particle)"
+                },
+                "fr": {
+                  "meaning": "Vous êtes d'où, vous ?",
+                  "note": "« Quê » désigne le village ou la ville d'origine : on demande donc d'où vient sa famille, question très courante. « quê » se prononce comme « kouê », ton descendant.",
+                  "literal": "Grande-sœur pays-natal à où (particule de politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "\"quê\" sounds like \"kweh\" with a falling tone."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_meet_neighbour:from",
+              "key": "from",
+              "intentKey": "say_where_from",
+              "slotId": "from",
+              "speaker": "learner",
+              "text": "Tôi đến từ Mỹ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tôi đến từ Mỹ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm from the USA.",
+                  "note": "Swap \"Mỹ\" for your own country, e.g. Anh (UK), Pháp (France), Úc (Australia).",
+                  "literal": "I come from America"
+                },
+                "fr": {
+                  "meaning": "Je viens des États-Unis.",
+                  "note": "Remplacez « Mỹ » par votre pays, par ex. Anh (Royaume-Uni), Pháp (France), Úc (Australie).",
+                  "literal": "Je viens de Amérique"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_meet_neighbour:speak_lang",
+              "key": "speak_lang",
+              "intentKey": "ask_if_speaks_language",
+              "slotId": "speak_lang",
+              "speaker": "learner",
+              "text": "Chị nói được tiếng Anh không ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chị nói được tiếng Anh không ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can you speak English?",
+                  "note": null,
+                  "literal": "Older-sister speak able language English not (polite particle)"
+                },
+                "fr": {
+                  "meaning": "Vous parlez anglais ?",
+                  "note": null,
+                  "literal": "Grande-sœur parler pouvoir langue anglaise non (particule de politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_meet_neighbour:little",
+              "key": "little",
+              "intentKey": "say_speak_little",
+              "slotId": "little",
+              "speaker": "learner",
+              "text": "Tôi nói tiếng Việt một chút thôi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tôi nói tiếng Việt một chút thôi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I only speak a little Vietnamese.",
+                  "note": null,
+                  "literal": "I speak Vietnamese a little only"
+                },
+                "fr": {
+                  "meaning": "Je parle seulement un peu vietnamien.",
+                  "note": "« Việt » se termine par un t court et net.",
+                  "literal": "Je parle vietnamien un peu seulement"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "\"Việt\" ends in a short, sharp t."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_meet_neighbour:offer_help",
+              "key": "offer_help",
+              "intentKey": "offer_help",
+              "slotId": "offer_help",
+              "speaker": "learner",
+              "text": "Để tôi xách giúp chị nhé!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Để tôi xách giúp chị nhé!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Let me carry that for you!",
+                  "note": "Use it when she is carrying bags. \"Nhé\" makes it a friendly suggestion.",
+                  "literal": "Let me carry help older-sister (friendly particle)"
+                },
+                "fr": {
+                  "meaning": "Laissez-moi porter ça pour vous !",
+                  "note": "À dire quand elle porte des sacs. « Nhé » en fait une proposition amicale.",
+                  "literal": "Laisser moi porter aider grande-sœur (particule amicale)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_meet_neighbour:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Cảm ơn chị nhiều ạ!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cảm ơn chị nhiều ạ!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much!",
+                  "note": "A warmer version of the earlier \"Cảm ơn chị ạ!\".",
+                  "literal": "Thank older-sister a lot (polite particle)"
+                },
+                "fr": {
+                  "meaning": "Merci beaucoup !",
+                  "note": "Version plus chaleureuse du « Cảm ơn chị ạ ! » précédent. Ton descendant-montant sur « Cảm ».",
+                  "literal": "Remercier grande-sœur beaucoup (particule de politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "\"Cảm ơn\" has a dipping tone on \"Cảm\"."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_meet_neighbour:say_new_neighbour_variant_9",
+              "key": "say_new_neighbour_variant_9",
+              "intentKey": "say_new_neighbour",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Tôi mới chuyển đến ở tầng trên ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tôi mới chuyển đến ở tầng trên ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I just moved in upstairs.",
+                  "note": "Useful if you want to say which floor you live on.",
+                  "literal": "I just move arrive live floor above (polite particle)"
+                },
+                "fr": {
+                  "meaning": "Je viens d'emménager à l'étage au-dessus.",
+                  "note": "Utile pour dire à quel étage vous habitez.",
+                  "literal": "Je venir de déménager arriver habiter étage au-dessus (particule de politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_meet_neighbour:offer_help_variant_10",
+              "key": "offer_help_variant_10",
+              "intentKey": "offer_help",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Chị cần gì cứ nói với tôi nhé!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chị cần gì cứ nói với tôi nhé!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "If you need anything, just tell me!",
+                  "note": "In the South, people often say \"nha\" instead of \"nhé\".",
+                  "literal": "Older-sister need anything just tell to me (friendly particle)"
+                },
+                "fr": {
+                  "meaning": "Si vous avez besoin de quoi que ce soit, dites-le-moi !",
+                  "note": "Dans le Sud, on dit souvent « nha » au lieu de « nhé ».",
+                  "literal": "Grande-sœur avoir besoin de quoi seulement dire à moi (particule amicale)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "vietnamese_take_taxi",
+          "blueprintKey": "take_taxi",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "transport",
+          "characterKey": "vietnamese_hung_taxi_driver",
+          "titles": {
+            "en": "Taking a Taxi",
+            "fr": "Prendre un taxi"
+          },
+          "sceneNotes": {
+            "en": "You wave down a taxi in heavy traffic and ask the talkative driver to take you to the old town, even though he quotes a price without the meter.",
+            "fr": "Vous hélez un taxi dans la circulation dense et demandez au chauffeur bavard de vous emmener dans le vieux quartier, alors qu'il annonce un prix sans compteur."
+          },
+          "slots": [
+            {
+              "slotId": "hail",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_to",
+              "speaker": "character"
+            },
+            {
+              "slotId": "destination",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "meter",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fare",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "change",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "vietnamese_ch1:vietnamese_take_taxi:hail",
+              "key": "hail",
+              "intentKey": "hail_taxi",
+              "slotId": "hail",
+              "speaker": "learner",
+              "text": "Anh ơi, anh đi không ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Anh ơi, anh đi không ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, are you free to go?",
+                  "note": "Use 'anh' for a male driver; for a woman, use 'chị'.",
+                  "literal": "older brother hey, brother go or-not (polite)"
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, vous êtes libre pour une course ?",
+                  "note": "Dites « anh » à un chauffeur homme, « chị » à une femme. « ơi » se prononce comme « eu-i » et sert à appeler quelqu'un.",
+                  "literal": "grand frère hé, grand frère aller ou-non (poli)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'ơi' sounds like 'uh-ee'; it is a calling word."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_take_taxi:where_to",
+              "key": "where_to",
+              "intentKey": "ask_destination",
+              "slotId": "where_to",
+              "speaker": "character",
+              "text": "Chị đi đâu đấy?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chị đi đâu đấy?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where are you going?",
+                  "note": "Casual Northern tone; 'đấy' is a friendly sentence-final particle.",
+                  "literal": "older sister go where (particle)"
+                },
+                "fr": {
+                  "meaning": "Vous allez où ?",
+                  "note": "Ton familier du Nord ; « đấy » est une particule amicale en fin de phrase. Le « đ » se prononce comme un « d » dur.",
+                  "literal": "grande sœur aller où (particule)"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'đ' is a hard 'd', as in 'dog'."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_take_taxi:destination",
+              "key": "destination",
+              "intentKey": "state_destination",
+              "slotId": "destination",
+              "speaker": "learner",
+              "text": "Cho tôi đến phố cổ ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cho tôi đến phố cổ ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "To the old town, please.",
+                  "note": "In Hanoi, 'phố cổ' means the Old Quarter.",
+                  "literal": "give me arrive street old (polite)"
+                },
+                "fr": {
+                  "meaning": "Au vieux quartier, s'il vous plaît.",
+                  "note": "À Hanoï, « phố cổ » désigne le Vieux Quartier. « phố » commence par un « f » ; « cổ » a un ton descendant-montant.",
+                  "literal": "donner moi arriver rue ancienne (poli)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'phố' starts with 'f'; 'cổ' has a dipping-rising tone."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_take_taxi:meter",
+              "key": "meter",
+              "intentKey": "ask_use_meter",
+              "slotId": "meter",
+              "speaker": "learner",
+              "text": "Anh bật đồng hồ giúp tôi nhé.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Anh bật đồng hồ giúp tôi nhé."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please turn the meter on for me.",
+                  "note": "'nhé' softens the request, so it sounds friendly.",
+                  "literal": "brother turn-on meter help me (softener)"
+                },
+                "fr": {
+                  "meaning": "Pouvez-vous mettre le compteur, s'il vous plaît ?",
+                  "note": "« nhé » adoucit la demande et la rend aimable. « đồng hồ » a deux tons descendants.",
+                  "literal": "grand frère allumer compteur aider moi (adoucisseur)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'đồng hồ' has two falling tones; 'đ' is a hard 'd'."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_take_taxi:fare",
+              "key": "fare",
+              "intentKey": "ask_fare",
+              "slotId": "fare",
+              "speaker": "learner",
+              "text": "Đến phố cổ bao nhiêu tiền ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Đến phố cổ bao nhiêu tiền ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is it to the old town?",
+                  "note": null,
+                  "literal": "to street old how-much money (polite)"
+                },
+                "fr": {
+                  "meaning": "Combien coûte la course jusqu'au vieux quartier ?",
+                  "note": "« nhiêu » se prononce à peu près « gnieou ».",
+                  "literal": "jusqu'à rue ancienne combien argent (poli)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'nhiêu' sounds like 'nyew'."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_take_taxi:stop",
+              "key": "stop",
+              "intentKey": "say_stop_here",
+              "slotId": "stop",
+              "speaker": "learner",
+              "text": "Anh dừng ở đây giúp tôi ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Anh dừng ở đây giúp tôi ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please stop here.",
+                  "note": null,
+                  "literal": "brother stop at here help me (polite)"
+                },
+                "fr": {
+                  "meaning": "Arrêtez-vous ici, s'il vous plaît.",
+                  "note": "Dans le Nord, le « d » de « dừng » se prononce comme un « z ».",
+                  "literal": "grand frère arrêter à ici aider moi (poli)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Northern 'd' in 'dừng' sounds like 'z'."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_take_taxi:change",
+              "key": "change",
+              "intentKey": "ask_for_change",
+              "slotId": "change",
+              "speaker": "learner",
+              "text": "Anh có tiền thừa không ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Anh có tiền thừa không ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you have change?",
+                  "note": "Say it after handing over a large note.",
+                  "literal": "brother have money leftover or-not (polite)"
+                },
+                "fr": {
+                  "meaning": "Avez-vous de la monnaie ?",
+                  "note": "À dire après avoir tendu un gros billet. « thừa » commence par un « t » aspiré.",
+                  "literal": "grand frère avoir argent en trop ou-non (poli)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'thừa' starts with an aspirated 't'."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_take_taxi:bye",
+              "key": "bye",
+              "intentKey": "say_goodbye",
+              "slotId": "bye",
+              "speaker": "learner",
+              "text": "Tạm biệt anh ạ!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tạm biệt anh ạ!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Goodbye!",
+                  "note": "Same formula as the earlier 'Tạm biệt chị ạ!', with 'anh' for a male driver.",
+                  "literal": "temporarily part brother (polite)"
+                },
+                "fr": {
+                  "meaning": "Au revoir !",
+                  "note": "Même formule que « Tạm biệt chị ạ ! » vu plus tôt, avec « anh » pour un chauffeur homme. « tạm » a un ton bas et appuyé.",
+                  "literal": "temporairement se quitter grand frère (poli)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'tạm' has a low, heavy tone."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_take_taxi:hail_taxi_variant_9",
+              "key": "hail_taxi_variant_9",
+              "intentKey": "hail_taxi",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Anh ơi, cho tôi đi phố cổ được không ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Anh ơi, cho tôi đi phố cổ được không ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, can you take me to the old town?",
+                  "note": "Hailing and stating the destination in one sentence.",
+                  "literal": null
+                },
+                "fr": {
+                  "meaning": "Excusez-moi, pouvez-vous m'emmener au vieux quartier ?",
+                  "note": "On appelle le chauffeur et on donne la destination dans la même phrase.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_take_taxi:ask_use_meter_variant_10",
+              "key": "ask_use_meter_variant_10",
+              "intentKey": "ask_use_meter",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Anh đi bằng đồng hồ nhé.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Anh đi bằng đồng hồ nhé."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Please go by the meter.",
+                  "note": "Use it when the driver quotes a price without the meter.",
+                  "literal": "brother go by meter (softener)"
+                },
+                "fr": {
+                  "meaning": "Roulez au compteur, s'il vous plaît.",
+                  "note": "À utiliser quand le chauffeur annonce un prix sans compteur.",
+                  "literal": "grand frère aller selon compteur (adoucisseur)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "vietnamese_buy_ice_cream",
+          "blueprintKey": "buy_ice_cream",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "shopping",
+          "characterKey": "vietnamese_minh_child_at_the_ice_cream_stand",
+          "titles": {
+            "en": "Buying Ice Cream Together",
+            "fr": "Acheter une glace ensemble"
+          },
+          "sceneNotes": {
+            "en": "You are taking a child to an ice-cream cart outside the school, where only two flavours are left, and the child will ask for a second scoop.",
+            "fr": "Vous accompagnez un enfant à la charrette de glaces devant l'école, où il ne reste que deux parfums, et l'enfant va bientôt en demander une deuxième boule."
+          },
+          "slots": [
+            {
+              "slotId": "wants",
+              "speaker": "character"
+            },
+            {
+              "slotId": "which_flavour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "picks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "scoop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "asks_two",
+              "speaker": "character"
+            },
+            {
+              "slotId": "just_one",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "okay",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "yummy",
+              "speaker": "character"
+            },
+            {
+              "slotId": "me_too",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "vietnamese_ch1:vietnamese_buy_ice_cream:wants",
+              "key": "wants",
+              "intentKey": "request_food",
+              "slotId": "wants",
+              "speaker": "character",
+              "text": "Cô ơi, cháu muốn ăn kem!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cô ơi, cháu muốn ăn kem!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Auntie, I want some ice cream!",
+                  "note": "A child calls an adult 'cô' and refers to themselves as 'cháu'.",
+                  "literal": "Auntie hey, grandchild/niece want eat ice cream"
+                },
+                "fr": {
+                  "meaning": "Tata, je veux manger une glace !",
+                  "note": "Un enfant appelle une adulte « cô » et se désigne lui-même par « cháu ».",
+                  "literal": "Tata dis, petit-enfant/neveu veux manger glace"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_buy_ice_cream:which_flavour",
+              "key": "which_flavour",
+              "intentKey": "offer_options",
+              "slotId": "which_flavour",
+              "speaker": "learner",
+              "text": "Cháu thích kem dâu hay sô-cô-la?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cháu thích kem dâu hay sô-cô-la?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you like strawberry or chocolate ice cream?",
+                  "note": "The two flavours left are strawberry and chocolate.",
+                  "literal": "You like ice cream strawberry or chocolate?"
+                },
+                "fr": {
+                  "meaning": "Tu préfères la glace à la fraise ou au chocolat ?",
+                  "note": "Il ne reste que la fraise et le chocolat. « hay » (ou) se prononce à peu près comme « haï ».",
+                  "literal": "Toi aimer glace fraise ou chocolat ?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "'sô-cô-la' is a loanword from French 'chocolat'.",
+              "pronunciationNote": "'hay' (or) sounds like 'high'."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_buy_ice_cream:picks",
+              "key": "picks",
+              "intentKey": "choose_option",
+              "slotId": "picks",
+              "speaker": "character",
+              "text": "Cháu lấy kem dâu ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cháu lấy kem dâu ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'll take the strawberry one.",
+                  "note": null,
+                  "literal": "I take ice cream strawberry (polite particle)"
+                },
+                "fr": {
+                  "meaning": "Je prends celle à la fraise.",
+                  "note": null,
+                  "literal": "Je prends glace fraise (particule de politesse)"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_buy_ice_cream:scoop",
+              "key": "scoop",
+              "intentKey": "specify_quantity",
+              "slotId": "scoop",
+              "speaker": "learner",
+              "text": "Cho tôi một viên kem dâu ạ.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cho tôi một viên kem dâu ạ."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "One scoop of strawberry for me, please.",
+                  "note": "Said to the ice-cream seller. 'Viên' is the counter for scoops.",
+                  "literal": "Give me one scoop ice cream strawberry (polite particle)"
+                },
+                "fr": {
+                  "meaning": "Une boule de glace à la fraise, s'il vous plaît.",
+                  "note": "Se dit à la vendeuse de glaces. « viên » est le classificateur des boules ; le « n » final se prononce nettement.",
+                  "literal": "Donnez-moi une boule glace fraise (particule de politesse)"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'viên' ends in a clear 'n'."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_buy_ice_cream:asks_two",
+              "key": "asks_two",
+              "intentKey": "ask_permission",
+              "slotId": "asks_two",
+              "speaker": "character",
+              "text": "Cô ơi, cho cháu hai viên được không ạ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cô ơi, cho cháu hai viên được không ạ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Auntie, can I have two scoops?",
+                  "note": null,
+                  "literal": "Auntie hey, give me two scoops OK or not?"
+                },
+                "fr": {
+                  "meaning": "Tata, je peux en avoir deux boules, s'il te plaît ?",
+                  "note": "Dans « được », le son « ươ » est montant-descendant et le ton est lourd, appuyé.",
+                  "literal": "Tata dis, donne-moi deux boules possible ou non ?"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "'được' has a falling-rising 'ươ' sound and a heavy tone."
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_buy_ice_cream:just_one",
+              "key": "just_one",
+              "intentKey": "refuse_permission",
+              "slotId": "just_one",
+              "speaker": "learner",
+              "text": "Hôm nay một viên thôi nhé, cháu.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hôm nay một viên thôi nhé, cháu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Just one scoop today, okay, sweetie?",
+                  "note": "A kind way to say no. 'Nhé' softens it.",
+                  "literal": "Today one scoop only, okay, child"
+                },
+                "fr": {
+                  "meaning": "Aujourd'hui, une seule boule, d'accord, mon grand ?",
+                  "note": "Une façon douce de dire non : « nhé » adoucit la phrase.",
+                  "literal": "Aujourd'hui une boule seulement, d'accord, enfant"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_buy_ice_cream:okay",
+              "key": "okay",
+              "intentKey": "grant_permission",
+              "slotId": "okay",
+              "speaker": "learner",
+              "text": "Được rồi, cháu cứ ăn nhé.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Được rồi, cháu cứ ăn nhé."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Okay, go ahead and eat.",
+                  "note": null,
+                  "literal": "OK already, you just eat, okay"
+                },
+                "fr": {
+                  "meaning": "D'accord, vas-y, mange.",
+                  "note": null,
+                  "literal": "OK déjà, toi simplement manger, d'accord"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_buy_ice_cream:yummy",
+              "key": "yummy",
+              "intentKey": "say_delicious",
+              "slotId": "yummy",
+              "speaker": "character",
+              "text": "Ngon quá cô ơi!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ngon quá cô ơi!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's so yummy, auntie!",
+                  "note": null,
+                  "literal": "Delicious too-much auntie hey"
+                },
+                "fr": {
+                  "meaning": "C'est trop bon, tata !",
+                  "note": null,
+                  "literal": "Délicieux trop tata dis"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_buy_ice_cream:me_too",
+              "key": "me_too",
+              "intentKey": "express_like",
+              "slotId": "me_too",
+              "speaker": "learner",
+              "text": "Cô cũng thích kem dâu lắm.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cô cũng thích kem dâu lắm."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I like strawberry ice cream a lot too.",
+                  "note": "Here the adult calls herself 'cô', as an aunt or teacher would.",
+                  "literal": "Auntie also like ice cream strawberry a lot"
+                },
+                "fr": {
+                  "meaning": "Moi aussi, j'adore la glace à la fraise.",
+                  "note": "Ici l'adulte se désigne par « cô », comme le ferait une tante ou une maîtresse.",
+                  "literal": "Tata aussi aimer glace fraise beaucoup"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_buy_ice_cream:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "character",
+              "text": "Cháu cảm ơn cô ạ!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cháu cảm ơn cô ạ!"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, auntie!",
+                  "note": null,
+                  "literal": "I thank auntie (polite particle)"
+                },
+                "fr": {
+                  "meaning": "Merci, tata !",
+                  "note": null,
+                  "literal": "Je remercie tata (particule de politesse)"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_buy_ice_cream:welcome",
+              "key": "welcome",
+              "intentKey": "respond_to_thanks",
+              "slotId": "welcome",
+              "speaker": "learner",
+              "text": "Không có gì đâu cháu.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Không có gì đâu cháu."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "You're welcome, sweetie.",
+                  "note": null,
+                  "literal": "Not have anything (softener) child"
+                },
+                "fr": {
+                  "meaning": "De rien, mon grand.",
+                  "note": null,
+                  "literal": "Ne pas avoir rien (adoucisseur) enfant"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_buy_ice_cream:refuse_permission_variant_12",
+              "key": "refuse_permission_variant_12",
+              "intentKey": "refuse_permission",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Không được đâu con, một viên thôi nhé.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Không được đâu con, một viên thôi nhé."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Not this time, dear, just one scoop, okay?",
+                  "note": "A parent's version, using 'con' for their own child.",
+                  "literal": "Not allowed (softener) child, one scoop only, okay"
+                },
+                "fr": {
+                  "meaning": "Pas cette fois, mon chéri, une seule boule, d'accord ?",
+                  "note": "Version d'un parent, qui dit « con » à son propre enfant.",
+                  "literal": "Pas permis (adoucisseur) enfant, une boule seulement, d'accord"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "vietnamese_ch1:vietnamese_buy_ice_cream:offer_options_variant_13",
+              "key": "offer_options_variant_13",
+              "intentKey": "offer_options",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Con thích dâu hay sô-cô-la?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Con thích dâu hay sô-cô-la?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you like strawberry or chocolate, dear?",
+                  "note": "A parent's version, using 'con' for their own child.",
+                  "literal": "Child like strawberry or chocolate"
+                },
+                "fr": {
+                  "meaning": "Tu préfères la fraise ou le chocolat, mon chéri ?",
+                  "note": "Version d'un parent, qui dit « con » à son propre enfant.",
+                  "literal": "Enfant aimer fraise ou chocolat"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "'sô-cô-la' is a loanword from French 'chocolat'.",
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

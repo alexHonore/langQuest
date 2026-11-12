@@ -5,6 +5,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../navigation/nav.dart';
 import '../../core/backend/account.dart';
+import '../../core/content/course_loading.dart';
 import '../../core/content/content_models.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/speech_service.dart';
@@ -16,6 +17,7 @@ import '../learn/learn_widgets.dart';
 
 /// One course before enrolling (CONVENTIONS §8 disclosure): what it includes from the chosen instruction
 /// language, and what it does not have yet — the draft status first. Learners only enroll where content exists.
+/// Opening it reads the course's chapters (each course is a file of its own), so starting it is immediate.
 /// What an account adds (live calls, spoken answers checked) is listed only when the server offers it for this course
 /// (`GET /v1/courses`); offline, those stay under "not yet".
 class CourseDetailScreen extends ConsumerStatefulWidget {
@@ -40,6 +42,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
     final accent = CourseAccent.forTrack(track, isDark: appState.isDark);
     final sources = appState.content.sourcesFor(track.id);
     final source = _source != null && sources.contains(_source) ? _source! : defaultSourceFor(sources, ui);
+    // Null while the course's chapters are being read (shown by CourseLoading below) and for a planned course.
     final course = source == null ? null : appState.content.course(track.id, source);
     final enrolled = source != null && appState.learner.isEnrolled(track.id, source);
     final offer = source == null ? null : ref.watch(serverOffersProvider(source)).asData?.value[track.id];
@@ -128,7 +131,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                     Text(track.teachingFocus, style: TextStyle(fontSize: 14, height: 1.4, color: colors.textSecondary)),
                   ],
                   const SizedBox(height: 18),
-                  if (course == null)
+                  if (source == null)
                     GlassContainer(
                       level: GlassLevel.level1,
                       radius: 18,
@@ -163,62 +166,67 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                       const SizedBox(height: 16),
                     ] else ...[
                       Text(
-                        l10n.courseExplanationsIn(l10n.languageName(source!)),
+                        l10n.courseExplanationsIn(l10n.languageName(source)),
                         style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.w600, color: colors.textSecondary),
                       ),
                       const SizedBox(height: 16),
                     ],
-                    GlassContainer(
-                      level: GlassLevel.level1,
-                      radius: 18,
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            l10n.courseIncludesTitle,
-                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: colors.textPrimary),
-                          ),
-                          const SizedBox(height: 12),
-                          bullet(LucideIcons.check, colors.success, l10n.courseIncludesMissions(course.missions.length)),
-                          bullet(LucideIcons.check, colors.success, l10n.courseIncludesLearn),
-                          bullet(LucideIcons.check, colors.success, l10n.courseIncludesReview),
-                          if (track.voiceLocale != null) bullet(LucideIcons.check, colors.success, l10n.courseIncludesVoice),
-                          if (dialect && aiVoice) bullet(LucideIcons.audioLines, colors.success, l10n.courseIncludesAiVoiceDialect),
-                          if (audioLessons)
-                            bullet(
-                              LucideIcons.headphones,
-                              colors.success,
-                              l10n.courseIncludesAudioLessons(deviceVoice ? l10n.courseVoiceDevice : l10n.courseVoiceAi),
+                    if (course == null)
+                      CourseLoading(trackId: track.id)
+                    else ...[
+                      GlassContainer(
+                        level: GlassLevel.level1,
+                        radius: 18,
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              l10n.courseIncludesTitle,
+                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: colors.textPrimary),
                             ),
-                          if (liveCalls) bullet(LucideIcons.phoneCall, colors.success, l10n.courseIncludesLiveCalls(offer!.characters)),
-                          if (spokenCheck) bullet(LucideIcons.mic, colors.success, l10n.courseIncludesSpokenCheck),
-                          if (attested > 0) bullet(LucideIcons.badgeCheck, colors.success, l10n.courseIncludesRealExamples(attested, phraseIds.length)),
-                        ],
+                            const SizedBox(height: 12),
+                            bullet(LucideIcons.check, colors.success, l10n.courseIncludesMissions(course.missions.length)),
+                            bullet(LucideIcons.check, colors.success, l10n.courseIncludesLearn),
+                            bullet(LucideIcons.check, colors.success, l10n.courseIncludesReview),
+                            if (track.voiceLocale != null) bullet(LucideIcons.check, colors.success, l10n.courseIncludesVoice),
+                            if (dialect && aiVoice) bullet(LucideIcons.audioLines, colors.success, l10n.courseIncludesAiVoiceDialect),
+                            if (audioLessons)
+                              bullet(
+                                LucideIcons.headphones,
+                                colors.success,
+                                l10n.courseIncludesAudioLessons(deviceVoice ? l10n.courseVoiceDevice : l10n.courseVoiceAi),
+                              ),
+                            if (liveCalls) bullet(LucideIcons.phoneCall, colors.success, l10n.courseIncludesLiveCalls(offer!.characters)),
+                            if (spokenCheck) bullet(LucideIcons.mic, colors.success, l10n.courseIncludesSpokenCheck),
+                            if (attested > 0) bullet(LucideIcons.badgeCheck, colors.success, l10n.courseIncludesRealExamples(attested, phraseIds.length)),
+                          ],
+                        ),
                       ),
-                    ),
-                    const SizedBox(height: 12),
-                    GlassContainer(
-                      level: GlassLevel.level1,
-                      radius: 18,
-                      padding: const EdgeInsets.all(16),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            l10n.courseMissingTitle,
-                            style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: colors.textPrimary),
-                          ),
-                          const SizedBox(height: 12),
-                          if (course.isDraft) bullet(LucideIcons.triangleAlert, colors.warning, l10n.courseMissingNativeReview),
-                          if (dialect && (liveCalls || spokenCheck || aiVoice)) bullet(LucideIcons.triangleAlert, colors.warning, l10n.courseLimitedForDialect),
-                          if (dialect && !aiVoice) bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingVoiceDialect),
-                          if (!liveCalls) bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingConversation),
-                          bullet(LucideIcons.minus, colors.textMuted, spokenCheck ? l10n.courseMissingPronunciationScore : l10n.courseMissingPronunciation),
-                          bullet(LucideIcons.minus, colors.textMuted, audioLessons ? l10n.courseMissingAudioRecorded : l10n.courseMissingAudio),
-                        ],
+                      const SizedBox(height: 12),
+                      GlassContainer(
+                        level: GlassLevel.level1,
+                        radius: 18,
+                        padding: const EdgeInsets.all(16),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              l10n.courseMissingTitle,
+                              style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: colors.textPrimary),
+                            ),
+                            const SizedBox(height: 12),
+                            if (course.isDraft) bullet(LucideIcons.triangleAlert, colors.warning, l10n.courseMissingNativeReview),
+                            if (dialect && (liveCalls || spokenCheck || aiVoice))
+                              bullet(LucideIcons.triangleAlert, colors.warning, l10n.courseLimitedForDialect),
+                            if (dialect && !aiVoice) bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingVoiceDialect),
+                            if (!liveCalls) bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingConversation),
+                            bullet(LucideIcons.minus, colors.textMuted, spokenCheck ? l10n.courseMissingPronunciationScore : l10n.courseMissingPronunciation),
+                            bullet(LucideIcons.minus, colors.textMuted, audioLessons ? l10n.courseMissingAudioRecorded : l10n.courseMissingAudio),
+                          ],
+                        ),
                       ),
-                    ),
+                    ],
                   ],
                 ],
               ),
