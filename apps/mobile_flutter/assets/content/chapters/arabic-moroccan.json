@@ -1,0 +1,2563 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts",
+  "courseTrackId": "arabic-moroccan",
+  "chapters": [
+    {
+      "key": "ary_ch1_arrival_casablanca",
+      "chapterIndex": 1,
+      "courseTrackId": "arabic-moroccan",
+      "targetVarietyId": "ary",
+      "sourceLanguages": [
+        "fr",
+        "en"
+      ],
+      "titles": {
+        "fr": "Premiers jours à Casablanca",
+        "en": "First days in Casablanca"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "curriculum-seed/arabic-moroccan@2026-10",
+      "notes": [
+        "Draft authored without a native reviewer: Arabic spelling of Darija is not standardised; reviewer should confirm Casablanca/Rabat forms.",
+        "Gender agreement (m/f) of learner lines must be verified and a feminine variant recorded where marked.",
+        "Arabizi follows common Moroccan chat conventions (3 = ع, 7 = ح, 9 = ق, kh = خ, gh = غ).",
+        "French code-switching is noted where it is natural (café, taxi); it is never a substitute for the Darija form.",
+        "Ice-cream mission: flavour words (chocolat, fraise, boule) are French loans in everyday Darija; reviewer should confirm the spelling of « غلاص » and whether « بول » is written or only spoken."
+      ],
+      "characters": [
+        {
+          "key": "ary_sara_acquaintance",
+          "name": "Sara",
+          "role": "friendly local acquaintance",
+          "personality": "warm, curious, patient with learners",
+          "homeRegion": "Casablanca",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "ary_youssef_cafe",
+          "name": "Youssef",
+          "role": "café server",
+          "personality": "quick, cheerful, likes to joke",
+          "homeRegion": "Casablanca",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "ary_lalla_fatima_souk",
+          "name": "Lalla Fatima",
+          "role": "market vendor",
+          "personality": "sharp bargainer with a soft heart",
+          "homeRegion": "Casablanca",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "ary_omar_passerby",
+          "name": "Omar",
+          "role": "passer-by",
+          "personality": "helpful, speaks fast, slows down when asked",
+          "homeRegion": "Casablanca",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "ary_nadia_neighbour",
+          "name": "Nadia",
+          "role": "neighbour",
+          "personality": "hospitable, chatty, insists on tea",
+          "homeRegion": "Casablanca",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "ary_hamid_taxi",
+          "name": "Hamid",
+          "role": "taxi driver",
+          "personality": "talkative, knows every street",
+          "homeRegion": "Casablanca",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "ary_salma_kid",
+          "name": "Salma",
+          "role": "child at the ice-cream stand",
+          "personality": "nine years old, decisive about flavours, negotiates for a second scoop",
+          "homeRegion": "Casablanca",
+          "ageBand": "child",
+          "voice": "female"
+        }
+      ],
+      "missions": [
+        {
+          "key": "ary_greet_and_introduce",
+          "blueprintKey": "greet_and_introduce",
+          "missionType": "standard",
+          "level": "beginner",
+          "situation": "introductions",
+          "characterKey": "ary_sara_acquaintance",
+          "titles": {
+            "fr": "Saluer et se présenter",
+            "en": "Greet and introduce yourself"
+          },
+          "sceneNotes": {
+            "fr": "Dans la rue, le matin, vous croisez une voisine.",
+            "en": "On the street in the morning you run into a neighbour."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_are_you",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fine",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "my_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "your_name",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "nice_to_meet",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "goodbye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_greet_and_introduce:salam",
+              "key": "salam",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "السلام عليكم",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "السلام عليكم"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "salam 3likom"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Bonjour (litt. « que la paix soit sur vous »).",
+                  "note": "Salutation universelle ; on répond « wa 3likom ssalam ».",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Hello (lit. \"peace be upon you\").",
+                  "note": "Universal greeting; the reply is \"wa 3likom ssalam\".",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_greet_and_introduce:salam_reply",
+              "key": "salam_reply",
+              "intentKey": "greet_hello",
+              "slotId": null,
+              "speaker": "character",
+              "text": "وعليكم السلام",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "وعليكم السلام"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "wa 3likom ssalam"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Bonjour (réponse à « salam 3likom »).",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Hello (reply to \"salam 3likom\").",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_greet_and_introduce:labas_q",
+              "key": "labas_q",
+              "intentKey": "ask_how_are_you",
+              "slotId": "how_are_you",
+              "speaker": "learner",
+              "text": "لاباس؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "لاباس؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "labas?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Ça va ?",
+                  "note": "Litt. « pas de mal ? » ; la même forme sert de réponse.",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "How are you?",
+                  "note": "Lit. \"no harm?\"; the same word is also the answer.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_greet_and_introduce:labas_reply",
+              "key": "labas_reply",
+              "intentKey": "reply_fine",
+              "slotId": "fine",
+              "speaker": "learner",
+              "text": "لاباس، الحمد لله",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "لاباس، الحمد لله"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "labas, l7amdullah"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Ça va, Dieu merci.",
+                  "note": "« l7amdullah » est attendu même dans un contexte non religieux.",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Fine, thank God.",
+                  "note": "\"l7amdullah\" is expected even in non-religious contexts.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_greet_and_introduce:smiti",
+              "key": "smiti",
+              "intentKey": "introduce_name",
+              "slotId": "my_name",
+              "speaker": "learner",
+              "text": "سميتي …",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "سميتي …"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "smiti …"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je m'appelle …",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "My name is …",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_greet_and_introduce:chno_smitek",
+              "key": "chno_smitek",
+              "intentKey": "ask_name",
+              "slotId": "your_name",
+              "speaker": "learner",
+              "text": "شنو سميتك؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "شنو سميتك؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "chno smitek?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Comment tu t'appelles ?",
+                  "note": "Le tutoiement est la norme en darija.",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "What's your name?",
+                  "note": "Darija addresses almost everyone informally.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_greet_and_introduce:metcharfin",
+              "key": "metcharfin",
+              "intentKey": "say_nice_to_meet",
+              "slotId": "nice_to_meet",
+              "speaker": "learner",
+              "text": "متشرفين",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "متشرفين"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "metcharfin"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Enchanté(e).",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Nice to meet you.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_greet_and_introduce:bslama",
+              "key": "bslama",
+              "intentKey": "say_goodbye",
+              "slotId": "goodbye",
+              "speaker": "learner",
+              "text": "بسلامة",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "بسلامة"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "bslama"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Au revoir.",
+                  "note": "Litt. « avec sécurité ».",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Goodbye.",
+                  "note": "Lit. \"with safety\".",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "ary_cafe_order_drink",
+          "blueprintKey": "cafe_order_drink",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "cafe",
+          "characterKey": "ary_youssef_cafe",
+          "titles": {
+            "fr": "Commander au café",
+            "en": "Ordering at the café"
+          },
+          "sceneNotes": {
+            "fr": "Terrasse d'un café de quartier, le serveur est pressé mais souriant.",
+            "en": "Terrace of a neighbourhood café; the server is busy but smiling."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "order",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "options",
+              "speaker": "character"
+            },
+            {
+              "slotId": "choice",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bill",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_cafe_order_drink:salam_short",
+              "key": "salam_short",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "سلام",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "سلام"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "salam"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Salut / Bonjour.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Hi / Hello.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_cafe_order_drink:bghit_qahwa",
+              "key": "bghit_qahwa",
+              "intentKey": "request_drink",
+              "slotId": "order",
+              "speaker": "learner",
+              "text": "عافاك، بغيت واحد القهوة",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "عافاك، بغيت واحد القهوة"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "3afak, bghit wa7ed l9ahwa"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "S'il vous plaît, je voudrais un café.",
+                  "note": "« bghit » (litt. « j'ai voulu ») est la forme polie courante pour commander.",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Please, I'd like a coffee.",
+                  "note": "\"bghit\" (lit. \"I wanted\") is the everyday polite way to order.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "Many speakers say \"un café s'il vous plaît\" in French at cafés; both are natural.",
+              "pronunciationNote": "ق is pronounced as a deep \"q\"; \"9\" in Arabizi."
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_cafe_order_drink:k7la_wla_nessness",
+              "key": "k7la_wla_nessness",
+              "intentKey": "offer_options",
+              "slotId": "options",
+              "speaker": "character",
+              "text": "قهوة كحلة ولا نص نص؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "قهوة كحلة ولا نص نص؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "9ahwa k7la wla ness ness?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Un café noir ou un « noss-noss » (moitié café, moitié lait) ?",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Black coffee or a \"ness-ness\" (half coffee, half milk)?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_cafe_order_drink:nessness_3afak",
+              "key": "nessness_3afak",
+              "intentKey": "choose_option",
+              "slotId": "choice",
+              "speaker": "learner",
+              "text": "نص نص عافاك",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "نص نص عافاك"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "ness ness 3afak"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Un noss-noss, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "A ness-ness, please.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_cafe_order_drink:ch7al_l7sab",
+              "key": "ch7al_l7sab",
+              "intentKey": "ask_for_bill",
+              "slotId": "bill",
+              "speaker": "learner",
+              "text": "شحال الحساب عافاك؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "شحال الحساب عافاك؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "ch7al l7sab 3afak?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "L'addition, s'il vous plaît ? (litt. « combien, le compte ? »)",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "How much is the bill, please?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_cafe_order_drink:llah_y3tik_se77a",
+              "key": "llah_y3tik_se77a",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "الله يعطيك الصحة",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "الله يعطيك الصحة"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "llah y3tik sse77a"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Merci (litt. « que Dieu te donne la santé ») — se dit à quelqu'un qui a travaillé pour vous.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Thank you (lit. \"may God give you health\") — said to someone who served you.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "\"merci\" alone is also completely natural.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_cafe_order_drink:chokran",
+              "key": "chokran",
+              "intentKey": "thank",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "شكرا",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "شكرا"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "chokran"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Merci.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Thank you.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "ary_market_ask_price",
+          "blueprintKey": "market_ask_price",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "market",
+          "characterKey": "ary_lalla_fatima_souk",
+          "titles": {
+            "fr": "Demander le prix au souk",
+            "en": "Asking the price at the souk"
+          },
+          "sceneNotes": {
+            "fr": "Étal de fruits au souk ; on négocie un peu, avec le sourire.",
+            "en": "Fruit stall at the souk; light bargaining, with a smile."
+          },
+          "slots": [
+            {
+              "slotId": "greeting",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_much",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "character"
+            },
+            {
+              "slotId": "expensive",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "lower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "deal",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "no_thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_market_ask_price:salam_souk",
+              "key": "salam_souk",
+              "intentKey": "greet_hello",
+              "slotId": "greeting",
+              "speaker": "learner",
+              "text": "السلام عليكم",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "السلام عليكم"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "salam 3likom"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Bonjour.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Hello.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_market_ask_price:bch7al_hada",
+              "key": "bch7al_hada",
+              "intentKey": "ask_price",
+              "slotId": "how_much",
+              "speaker": "learner",
+              "text": "بشحال هادا؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "بشحال هادا؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "bch7al hada?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "C'est combien, ça ?",
+                  "note": "« hadi » pour un nom féminin.",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "How much is this?",
+                  "note": "\"hadi\" for a feminine noun.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_market_ask_price:b3echrin_derhem",
+              "key": "b3echrin_derhem",
+              "intentKey": "state_price",
+              "slotId": "price",
+              "speaker": "character",
+              "text": "بعشرين درهم",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "بعشرين درهم"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "b 3echrin derhem"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Vingt dirhams.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Twenty dirhams.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_market_ask_price:ghali_bzzaf",
+              "key": "ghali_bzzaf",
+              "intentKey": "say_too_expensive",
+              "slotId": "expensive",
+              "speaker": "learner",
+              "text": "غالي بزاف!",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "غالي بزاف!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "ghali bzzaf!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "C'est trop cher !",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "That's too expensive!",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_market_ask_price:n9es_chwiya",
+              "key": "n9es_chwiya",
+              "intentKey": "offer_lower_price",
+              "slotId": "lower",
+              "speaker": "learner",
+              "text": "نقص شوية عافاك",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "نقص شوية عافاك"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "n9es chwiya 3afak"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Baisse un peu, s'il te plaît.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Lower it a bit, please.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_market_ask_price:wakha_nchri",
+              "key": "wakha_nchri",
+              "intentKey": "agree_to_price",
+              "slotId": "deal",
+              "speaker": "learner",
+              "text": "واخا، نشري",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "واخا، نشري"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "wakha, nchri"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "D'accord, je prends.",
+                  "note": "« wakha » = d'accord, très fréquent.",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "OK, I'll take it.",
+                  "note": "\"wakha\" = OK, extremely common.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_market_ask_price:la_chokran",
+              "key": "la_chokran",
+              "intentKey": "decline_purchase",
+              "slotId": "no_thanks",
+              "speaker": "learner",
+              "text": "لا، شكرا",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "لا، شكرا"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "la, chokran"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Non, merci.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "No, thank you.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_market_ask_price:ghir_kantferrej",
+              "key": "ghir_kantferrej",
+              "intentKey": "say_just_looking",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "غير كنتفرج",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "غير كنتفرج"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "ghir kantferrej"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je regarde seulement.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "I'm just looking.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "ary_ask_directions",
+          "blueprintKey": "ask_directions",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "directions",
+          "characterKey": "ary_omar_passerby",
+          "titles": {
+            "fr": "Demander son chemin",
+            "en": "Asking for directions"
+          },
+          "sceneNotes": {
+            "fr": "Vous cherchez la gare ; le passant parle vite.",
+            "en": "You are looking for the station; the passer-by speaks fast."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_is",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "straight",
+              "speaker": "character"
+            },
+            {
+              "slotId": "turn",
+              "speaker": "character"
+            },
+            {
+              "slotId": "far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "near",
+              "speaker": "character"
+            },
+            {
+              "slotId": "repeat",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "slower",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_ask_directions:sme7_liya",
+              "key": "sme7_liya",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "سمح ليا",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "سمح ليا"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "sme7 liya"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Excusez-moi.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Excuse me.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_ask_directions:fin_lma7atta",
+              "key": "fin_lma7atta",
+              "intentKey": "ask_where_is",
+              "slotId": "where_is",
+              "speaker": "learner",
+              "text": "فين كاينة المحطة؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "فين كاينة المحطة؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "fin kayna lma7atta?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Où est la gare ?",
+                  "note": "« kayna » s'accorde au féminin (la gare).",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Where is the station?",
+                  "note": "\"kayna\" agrees with the feminine noun (station).",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_ask_directions:sir_nichan",
+              "key": "sir_nichan",
+              "intentKey": "give_direction_straight",
+              "slotId": "straight",
+              "speaker": "character",
+              "text": "سير نيشان",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "سير نيشان"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "sir nichan"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Va tout droit.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Go straight.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_ask_directions:dor_3la_limen",
+              "key": "dor_3la_limen",
+              "intentKey": "give_direction_turn",
+              "slotId": "turn",
+              "speaker": "character",
+              "text": "دور عل ليمن",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "دور عل ليمن"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "dor 3la limen"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Tourne à droite.",
+                  "note": "« 3la liser » = à gauche.",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Turn right.",
+                  "note": "\"3la liser\" = to the left.",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_ask_directions:wach_b3ida",
+              "key": "wach_b3ida",
+              "intentKey": "ask_is_it_far",
+              "slotId": "far",
+              "speaker": "learner",
+              "text": "واش بعيدة؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "واش بعيدة؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "wach b3ida?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "C'est loin ?",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Is it far?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_ask_directions:9riba_khams_d9ay9",
+              "key": "9riba_khams_d9ay9",
+              "intentKey": "say_it_is_near",
+              "slotId": "near",
+              "speaker": "character",
+              "text": "قريبة، خمس دقايق على رجليك",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "قريبة، خمس دقايق على رجليك"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "9riba, khams d9ay9 3la rejlik"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "C'est près, cinq minutes à pied.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "It's close, five minutes on foot.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_ask_directions:3awed_3afak",
+              "key": "3awed_3afak",
+              "intentKey": "ask_repeat",
+              "slotId": "repeat",
+              "speaker": "learner",
+              "text": "عاود عافاك",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "عاود عافاك"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "3awed 3afak"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Répète, s'il te plaît.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Say it again, please.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_ask_directions:bchwiya_3afak",
+              "key": "bchwiya_3afak",
+              "intentKey": "ask_slow_down",
+              "slotId": "slower",
+              "speaker": "learner",
+              "text": "بشوية عافاك",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "بشوية عافاك"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "bchwiya 3afak"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Plus lentement, s'il te plaît.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Slower, please.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_ask_directions:ma_fhemtch",
+              "key": "ma_fhemtch",
+              "intentKey": "say_not_understood",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "ما فهمتش",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "ما فهمتش"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "ma fhemtch"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je n'ai pas compris.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "I didn't understand.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_ask_directions:chokran_bzzaf",
+              "key": "chokran_bzzaf",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "شكرا بزاف",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "شكرا بزاف"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "chokran bzzaf"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Merci beaucoup.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Thanks a lot.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "ary_meet_neighbour",
+          "blueprintKey": "meet_neighbour",
+          "missionType": "story",
+          "level": "beginner",
+          "situation": "neighbours",
+          "characterKey": "ary_nadia_neighbour",
+          "titles": {
+            "fr": "Rencontrer une voisine",
+            "en": "Meeting a neighbour"
+          },
+          "sceneNotes": {
+            "fr": "Dans l'escalier de l'immeuble ; la voisine porte des courses.",
+            "en": "In the building stairwell; the neighbour carries shopping bags."
+          },
+          "slots": [
+            {
+              "slotId": "new_neighbour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "character"
+            },
+            {
+              "slotId": "where_from_q",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "from",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "speak_lang",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "little",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "offer_help",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_meet_neighbour:ana_ljar_jdid",
+              "key": "ana_ljar_jdid",
+              "intentKey": "say_new_neighbour",
+              "slotId": "new_neighbour",
+              "speaker": "learner",
+              "text": "أنا الجار الجديد",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "أنا الجار الجديد"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "ana ljar jdid"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je suis le nouveau voisin.",
+                  "note": "Au féminin : « ana ljara jdida ».",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "I'm the new neighbour.",
+                  "note": "Feminine: \"ana ljara jdida\".",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_meet_neighbour:mer7ba_bik",
+              "key": "mer7ba_bik",
+              "intentKey": "welcome_someone",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "مرحبا بيك",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "مرحبا بيك"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "mer7ba bik"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Bienvenue !",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Welcome!",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_meet_neighbour:mnin_nta",
+              "key": "mnin_nta",
+              "intentKey": "ask_where_from",
+              "slotId": "where_from_q",
+              "speaker": "learner",
+              "text": "منين نتا؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "منين نتا؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "mnin nta?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Tu es d'où ? (à un homme)",
+                  "note": "À une femme : « mnin nti ? ».",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Where are you from? (to a man)",
+                  "note": "To a woman: \"mnin nti?\".",
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_meet_neighbour:ana_men_kanada",
+              "key": "ana_men_kanada",
+              "intentKey": "say_where_from",
+              "slotId": "from",
+              "speaker": "learner",
+              "text": "أنا من كندا",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "أنا من كندا"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "ana men kanada"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je viens du Canada.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "I'm from Canada.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_meet_neighbour:wach_kathder_fransawiya",
+              "key": "wach_kathder_fransawiya",
+              "intentKey": "ask_if_speaks_language",
+              "slotId": "speak_lang",
+              "speaker": "learner",
+              "text": "واش كتهضر الفرنساوية؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "واش كتهضر الفرنساوية؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "wach kathder lfransawiya?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Tu parles français ?",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Do you speak French?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": "In Casablanca many conversations switch to French mid-sentence; this question is a natural bridge, not a replacement for Darija.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_meet_neighbour:chwiya",
+              "key": "chwiya",
+              "intentKey": "say_speak_little",
+              "slotId": "little",
+              "speaker": "learner",
+              "text": "شوية",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "شوية"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "chwiya"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Un peu.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "A little.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_meet_neighbour:ila_7tajiti",
+              "key": "ila_7tajiti",
+              "intentKey": "offer_help",
+              "slotId": "offer_help",
+              "speaker": "learner",
+              "text": "إلى حتاجيتي شي حاجة، قول ليا",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "إلى حتاجيتي شي حاجة، قول ليا"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "ila 7tajiti chi 7aja, goul liya"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Si tu as besoin de quelque chose, dis-le-moi.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "If you need anything, tell me.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_meet_neighbour:chokran_llah_ykhellik",
+              "key": "chokran_llah_ykhellik",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "شكرا، الله يخليك",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "شكرا، الله يخليك"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "chokran, llah ykhellik"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Merci, c'est gentil (litt. « que Dieu te garde »).",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Thanks, that's kind (lit. \"may God keep you\").",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "ary_take_taxi",
+          "blueprintKey": "take_taxi",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "transport",
+          "characterKey": "ary_hamid_taxi",
+          "titles": {
+            "fr": "Prendre un petit taxi",
+            "en": "Taking a petit taxi"
+          },
+          "sceneNotes": {
+            "fr": "Petit taxi rouge de Casablanca ; demander le compteur est normal.",
+            "en": "Red Casablanca petit taxi; asking for the meter is normal."
+          },
+          "slots": [
+            {
+              "slotId": "hail",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_to",
+              "speaker": "character"
+            },
+            {
+              "slotId": "destination",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "meter",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "fare",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "stop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "change",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bye",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_take_taxi:taxi",
+              "key": "taxi",
+              "intentKey": "hail_taxi",
+              "slotId": "hail",
+              "speaker": "learner",
+              "text": "الطاكسي!",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "الطاكسي!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "taxi!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Taxi !",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Taxi!",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": "\"taxi\" is the everyday word (French origin).",
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_take_taxi:fin_ghadi",
+              "key": "fin_ghadi",
+              "intentKey": "ask_destination",
+              "slotId": "where_to",
+              "speaker": "character",
+              "text": "فين غادي؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "فين غادي؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "fin ghadi?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Tu vas où ?",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Where are you going?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_take_taxi:l_lmdina_l9dima",
+              "key": "l_lmdina_l9dima",
+              "intentKey": "state_destination",
+              "slotId": "destination",
+              "speaker": "learner",
+              "text": "للمدينة القديمة عافاك",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "للمدينة القديمة عافاك"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "l lmdina l9dima 3afak"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "À la vieille médina, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "To the old medina, please.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_take_taxi:khdem_lkontour",
+              "key": "khdem_lkontour",
+              "intentKey": "ask_use_meter",
+              "slotId": "meter",
+              "speaker": "learner",
+              "text": "خدم الكونطور عافاك",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "خدم الكونطور عافاك"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "khdem lkontour 3afak"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Mettez le compteur, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Please use the meter.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": "\"kontour\" comes from French \"compteur\" and is the only word used.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_take_taxi:bch7al_7ta_lmatar",
+              "key": "bch7al_7ta_lmatar",
+              "intentKey": "ask_fare",
+              "slotId": "fare",
+              "speaker": "learner",
+              "text": "بشحال حتى المطار؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "بشحال حتى المطار؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "bch7al 7ta lmatar?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "C'est combien jusqu'à l'aéroport ?",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "How much to the airport?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_take_taxi:w9ef_hna",
+              "key": "w9ef_hna",
+              "intentKey": "say_stop_here",
+              "slotId": "stop",
+              "speaker": "learner",
+              "text": "وقف هنا عافاك",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "وقف هنا عافاك"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "w9ef hna 3afak"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Arrêtez ici, s'il vous plaît.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Stop here, please.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_take_taxi:3ndek_sserf",
+              "key": "3ndek_sserf",
+              "intentKey": "ask_for_change",
+              "slotId": "change",
+              "speaker": "learner",
+              "text": "عندك الصرف؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "عندك الصرف؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "3ndek sserf?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Vous avez de la monnaie ?",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Do you have change?",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_take_taxi:chokran_bslama",
+              "key": "chokran_bslama",
+              "intentKey": "say_goodbye",
+              "slotId": "bye",
+              "speaker": "learner",
+              "text": "شكرا، بسلامة",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "شكرا، بسلامة"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "chokran, bslama"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Merci, au revoir.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Thanks, goodbye.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "ary_buy_ice_cream",
+          "blueprintKey": "buy_ice_cream",
+          "missionType": "situational",
+          "level": "beginner",
+          "situation": "shopping",
+          "characterKey": "ary_salma_kid",
+          "titles": {
+            "fr": "Une glace avec Salma",
+            "en": "An ice cream with Salma"
+          },
+          "sceneNotes": {
+            "fr": "Devant le marchand de glaces, à la sortie de l'école ; Salma veut deux boules, vous dites non gentiment.",
+            "en": "At the ice-cream cart after school; Salma wants two scoops and you say no kindly."
+          },
+          "slots": [
+            {
+              "slotId": "wants",
+              "speaker": "character"
+            },
+            {
+              "slotId": "which_flavour",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "picks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "scoop",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "asks_two",
+              "speaker": "character"
+            },
+            {
+              "slotId": "just_one",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "okay",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "yummy",
+              "speaker": "character"
+            },
+            {
+              "slotId": "me_too",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "character"
+            },
+            {
+              "slotId": "welcome",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_buy_ice_cream:bghit_glas",
+              "key": "bghit_glas",
+              "intentKey": "request_food",
+              "slotId": "wants",
+              "speaker": "character",
+              "text": "بغيت غلاص!",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "بغيت غلاص!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "bghit glas!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je veux une glace !",
+                  "note": "« glas » vient du français « glace » ; c'est le mot courant.",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "I want an ice cream!",
+                  "note": "\"glas\" is borrowed from French \"glace\" and is the everyday word.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": "Flavour and dessert words are mostly French loans (glace, chocolat, fraise); both pronunciations are natural.",
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_buy_ice_cream:chocolat_wla_fraise",
+              "key": "chocolat_wla_fraise",
+              "intentKey": "offer_options",
+              "slotId": "which_flavour",
+              "speaker": "learner",
+              "text": "شوكولا ولا فريز؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "شوكولا ولا فريز؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "chocolat wla fraise?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Chocolat ou fraise ?",
+                  "note": "« wla » = « ou » ; les parfums gardent leur nom français.",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Chocolate or strawberry?",
+                  "note": "\"wla\" = \"or\"; flavour names keep their French form.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_buy_ice_cream:chocolat",
+              "key": "chocolat",
+              "intentKey": "choose_option",
+              "slotId": "picks",
+              "speaker": "character",
+              "text": "شوكولا!",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "شوكولا!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "chocolat!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Chocolat !",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Chocolate!",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_buy_ice_cream:wa7ed_lboule",
+              "key": "wa7ed_lboule",
+              "intentKey": "specify_quantity",
+              "slotId": "scoop",
+              "speaker": "learner",
+              "text": "واحد البول ديال الشوكولا عافاك",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "واحد البول ديال الشوكولا عافاك"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "wa7ed lboule dyal chocolat 3afak"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Une boule de chocolat, s'il vous plaît.",
+                  "note": "Dit au marchand ; « boule » est un emprunt au français.",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "One scoop of chocolate, please.",
+                  "note": "Said to the vendor; \"boule\" (scoop) is a French loan.",
+                  "literal": null
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "ديال (dyal) marks possession/“of”; the ل is light."
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_buy_ice_cream:wakha_jouj",
+              "key": "wakha_jouj",
+              "intentKey": "ask_permission",
+              "slotId": "asks_two",
+              "speaker": "character",
+              "text": "واخا جوج؟",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "واخا جوج؟"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "wakha jouj?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je peux en avoir deux ?",
+                  "note": "Litt. « d'accord, deux ? » ; « wakha » sert aussi de « oui ».",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Can I have two?",
+                  "note": "Lit. \"okay, two?\"; \"wakha\" also means \"okay / yes\".",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_buy_ice_cream:la_wa7ed_safi",
+              "key": "la_wa7ed_safi",
+              "intentKey": "refuse_permission",
+              "slotId": "just_one",
+              "speaker": "learner",
+              "text": "لا، واحد صافي",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "لا، واحد صافي"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "la, wa7ed safi"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Non, une seule, c'est tout.",
+                  "note": "« safi » clôt la discussion gentiment (« c'est bon, ça suffit »).",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "No, just one, that's it.",
+                  "note": "\"safi\" closes the matter kindly (\"that's enough / done\").",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_buy_ice_cream:wakha",
+              "key": "wakha",
+              "intentKey": "grant_permission",
+              "slotId": "okay",
+              "speaker": "learner",
+              "text": "واخا",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "واخا"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "wakha"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "D'accord.",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Okay.",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_buy_ice_cream:bnin_bzzaf",
+              "key": "bnin_bzzaf",
+              "intentKey": "say_delicious",
+              "slotId": "yummy",
+              "speaker": "character",
+              "text": "بنين بزاف!",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "بنين بزاف!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "bnin bzzaf!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "C'est trop bon !",
+                  "note": "« bnin » = délicieux ; « bzzaf » = beaucoup / très.",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "It's so good!",
+                  "note": "\"bnin\" = tasty; \"bzzaf\" = a lot / very.",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_buy_ice_cream:7ta_ana_chocolat",
+              "key": "7ta_ana_chocolat",
+              "intentKey": "express_like",
+              "slotId": "me_too",
+              "speaker": "learner",
+              "text": "حتى أنا كنبغي الشوكولا",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "حتى أنا كنبغي الشوكولا"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "7ta ana kanbghi chocolat"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Moi aussi j'aime le chocolat.",
+                  "note": "« kanbghi » = j'aime (présent habituel en ka-).",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "I like chocolate too.",
+                  "note": "\"kanbghi\" = I like (habitual present with ka-).",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_buy_ice_cream:chokran_kid",
+              "key": "chokran_kid",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "character",
+              "text": "شكرا!",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "شكرا!"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "chokran!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Merci !",
+                  "note": null,
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "Thanks!",
+                  "note": null,
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "ary_ch1_arrival_casablanca:ary_buy_ice_cream:bla_jmil",
+              "key": "bla_jmil",
+              "intentKey": "respond_to_thanks",
+              "slotId": "welcome",
+              "speaker": "learner",
+              "text": "بلا جميل",
+              "forms": [
+                {
+                  "script": "Arab",
+                  "scheme": null,
+                  "text": "بلا جميل"
+                },
+                {
+                  "script": "Latn",
+                  "scheme": "arabizi",
+                  "text": "bla jmil"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "De rien.",
+                  "note": "Litt. « sans faveur ».",
+                  "literal": null
+                },
+                "en": {
+                  "meaning": "You're welcome.",
+                  "note": "Lit. \"no favour (owed)\".",
+                  "literal": null
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

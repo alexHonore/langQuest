@@ -94,7 +94,7 @@ def strings(value) -> list[str]:
 def needed_by_family(ui_cmap: set[int]) -> dict[str, set[int]]:
     """Characters outside the interface fonts, per family, from the tracks that use each script."""
     catalog = json.loads((ROOT / "assets/content/catalog.json").read_text("utf-8"))
-    chapters = json.loads((ROOT / "assets/content/chapters.json").read_text("utf-8"))["chapters"]
+    chapters = [c for f in sorted((ROOT / "assets/content/chapters").glob("*.json")) for c in json.loads(f.read_text("utf-8"))["chapters"]]
     # Real examples from Tatoeba (examples.json), drawn in the course of the phrase they illustrate.
     examples_path = ROOT / "assets/content/examples.json"
     examples = json.loads(examples_path.read_text("utf-8"))["phrases"] if examples_path.exists() else {}

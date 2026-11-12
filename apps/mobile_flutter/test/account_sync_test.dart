@@ -16,6 +16,7 @@ import 'package:langquest_mobile/core/backend/auth_gateway.dart';
 import 'package:langquest_mobile/core/backend/backend_config.dart';
 import 'package:langquest_mobile/core/backend/curriculum_ids.dart';
 import 'package:langquest_mobile/core/backend/sync_service.dart';
+import 'package:langquest_mobile/core/content/content_bundle.dart';
 import 'package:langquest_mobile/core/content/content_models.dart';
 import 'package:langquest_mobile/core/learning/srs.dart';
 import 'package:langquest_mobile/core/services/app_state.dart';
@@ -124,7 +125,14 @@ class FakeWorker {
     expect(req.headers['Authorization'], startsWith('Bearer token-of-'));
     if (key == 'GET /v1/me') return json(ok({'enrollments': enrollments}));
     if (key == 'GET /v1/me/export') {
-      return json(ok({'exportedAt': '2026-11-10T09:00:00Z', 'profile': {'userId': 'u-1'}, 'enrollments': enrollments, 'notes': <String>[]}));
+      return json(
+        ok({
+          'exportedAt': '2026-11-10T09:00:00Z',
+          'profile': {'userId': 'u-1'},
+          'enrollments': enrollments,
+          'notes': <String>[],
+        }),
+      );
     }
     if (key == 'DELETE /v1/me') return json(ok({'status': 'deleted', 'anonymisedTables': <String>[], 'retainedForLegalReasons': <String>[]}));
     if (key == 'POST /v1/me/enrollments') {
@@ -208,13 +216,19 @@ void main() {
   late SyncService sync;
   late TestClock clock;
 
-  Future<void> setUpSync({AccountUser? user = const AccountUser(id: 'u-1', email: 'learner@example.test')}) async {
+  Future<void> setUpSync({AccountUser? user = const AccountUser(id: 'u-1', email: 'learner@example.test'), ContentBundle? content, AssetBundle? assets}) async {
     worker = FakeWorker();
     auth = FakeAuth(user: user);
     clock = TestClock();
-    container = await testContainer(clock: clock);
+    container = await testContainer(clock: clock, content: content, assets: assets);
     final api = LangQuestApi(baseUrl: 'https://api.test', accessToken: auth.accessToken, client: worker.client);
-    sync = SyncService(api: api, auth: auth, ledger: SyncLedger(await SharedPreferences.getInstance()), target: container.read(appStateProvider.notifier), now: clock.call);
+    sync = SyncService(
+      api: api,
+      auth: auth,
+      ledger: SyncLedger(await SharedPreferences.getInstance()),
+      target: container.read(appStateProvider.notifier),
+      now: clock.call,
+    );
   }
 
   AppStateNotifier app() => container.read(appStateProvider.notifier);
@@ -239,13 +253,24 @@ void main() {
     test('a half-configured build stays offline; a trailing slash is dropped', () {
       expect(BackendConfig.from(supabaseUrl: 'https://sb.test', supabaseAnonKey: 'anon', apiBaseUrl: ''), isNull);
       expect(BackendConfig.fromJson({'supabaseUrl': 'https://sb.test', 'supabaseAnonKey': ' ', 'apiBaseUrl': 'https://api.test'}), isNull);
-      expect(BackendConfig.fromJson({'supabaseUrl': 'https://sb.test', 'supabaseAnonKey': 'anon', 'apiBaseUrl': 'https://api.test//'})!.apiBaseUrl, 'https://api.test');
+      expect(
+        BackendConfig.fromJson({'supabaseUrl': 'https://sb.test', 'supabaseAnonKey': 'anon', 'apiBaseUrl': 'https://api.test//'})!.apiBaseUrl,
+        'https://api.test',
+      );
       // An unfilled server template (served raw by a dev server) is not a backend.
       expect(
-        BackendConfig.fromJson({'supabaseUrl': '{{or (env `LQ_SUPABASE_URL`) (env `NEXT_PUBLIC_SUPABASE_URL`)}}', 'supabaseAnonKey': '{{env `K`}}', 'apiBaseUrl': '{{env `A`}}'}),
+        BackendConfig.fromJson({
+          'supabaseUrl': '{{or (env `LQ_SUPABASE_URL`) (env `NEXT_PUBLIC_SUPABASE_URL`)}}',
+          'supabaseAnonKey': '{{env `K`}}',
+          'apiBaseUrl': '{{env `A`}}',
+        }),
         isNull,
       );
-      expect(BackendConfig.from(supabaseUrl: 'sb.test', supabaseAnonKey: 'anon', apiBaseUrl: 'https://api.test'), isNull, reason: 'no scheme');
+      expect(
+        BackendConfig.from(supabaseUrl: 'sb.test', supabaseAnonKey: 'anon', apiBaseUrl: 'https://api.test'),
+        isNull,
+        reason: 'no scheme',
+      );
     });
   });
 
@@ -327,6 +352,23 @@ void main() {
       expect(worker.requests.where((r) => r.contains('/evaluate')), isEmpty, reason: 'restored missions are not sent back');
     });
 
+    test('on a device that has not read a course yet, the account’s course is read first, then restored with its missions', () async {
+      final assets = DiskAssets();
+      await setUpSync(content: await ContentBundle.load(assets), assets: assets);
+      expect(container.read(appStateProvider).content.hasChaptersOf('arabic-moroccan'), isFalse);
+      final darija = testBundle.course('arabic-moroccan', 'fr')!;
+      worker.enrollments.add({'id': 'enr-9', 'courseTrackId': 'arabic-moroccan', 'sourceLanguageCode': 'fr', 'status': 'active'});
+      auth.completedByEnrollment['enr-9'] = {missionServerId(darija.missions.first.chapterKey, darija.missions.first.key)};
+
+      final report = await sync.sync();
+      expect(report.coursesRestored, 1);
+      expect(report.missionsRestored, 1);
+      expect(assets.reads.where((k) => k.endsWith('chapters/arabic-moroccan.json')), hasLength(1));
+      final state = container.read(appStateProvider);
+      expect(state.activeCourse!.missions, hasLength(darija.missions.length));
+      expect(state.learner.progressOf(darija.id).isMissionCompleted(darija.missions.first.key), isTrue);
+    });
+
     test('a course the account refuses (another source of the track is active) is reported, not retried as an error', () async {
       await setUpSync();
       worker.enrollments.add({'id': 'enr-1', 'courseTrackId': 'arabic-moroccan', 'sourceLanguageCode': 'en', 'status': 'active'});
@@ -389,7 +431,11 @@ void main() {
     });
 
     testWidgets('deleting the account takes the typed word, calls the server, then signs out', (tester) async {
-      await pumpSection(tester, healthy: true, user: const AccountUser(id: 'u-1', email: 'learner@example.test'));
+      await pumpSection(
+        tester,
+        healthy: true,
+        user: const AccountUser(id: 'u-1', email: 'learner@example.test'),
+      );
       expect(find.text('Export my data'), findsNothing, reason: 'no file download outside the browser in this build');
       await tester.tap(find.text('Delete my account'));
       await tester.pumpAndSettle();
@@ -409,7 +455,11 @@ void main() {
     });
 
     testWidgets('a refused deletion keeps the learner signed in and says why', (tester) async {
-      await pumpSection(tester, healthy: true, user: const AccountUser(id: 'u-1', email: 'learner@example.test'));
+      await pumpSection(
+        tester,
+        healthy: true,
+        user: const AccountUser(id: 'u-1', email: 'learner@example.test'),
+      );
       worker.failNext['DELETE /v1/me'] = 1;
       await tester.tap(find.text('Delete my account'));
       await tester.pumpAndSettle();
@@ -476,7 +526,9 @@ void main() {
         ProviderScope(
           overrides: [
             ...await testOverrides(),
-            backendConfigProvider.overrideWithValue(const BackendConfig(supabaseUrl: 'https://sb.test', supabaseAnonKey: 'anon', apiBaseUrl: 'https://api.test')),
+            backendConfigProvider.overrideWithValue(
+              const BackendConfig(supabaseUrl: 'https://sb.test', supabaseAnonKey: 'anon', apiBaseUrl: 'https://api.test'),
+            ),
             authGatewayProvider.overrideWithValue(auth),
             apiProvider.overrideWithValue(LangQuestApi(baseUrl: 'https://api.test', accessToken: auth.accessToken, client: worker.client)),
             startupEmailLinkProvider.overrideWithValue(outcome),
@@ -495,7 +547,11 @@ void main() {
     }
 
     testWidgets('a confirmation link says the learner is signed in', (tester) async {
-      await pumpWithLink(tester, const EmailLinkOutcome(EmailLink.confirmed), user: const AccountUser(id: 'u-1', email: 'learner@example.test'));
+      await pumpWithLink(
+        tester,
+        const EmailLinkOutcome(EmailLink.confirmed),
+        user: const AccountUser(id: 'u-1', email: 'learner@example.test'),
+      );
       expect(find.text('Email confirmed. You\'re signed in.'), findsOneWidget);
       await tester.pump(const Duration(seconds: 10));
     });
@@ -507,7 +563,11 @@ void main() {
     });
 
     testWidgets('a password-reset link asks for the new password and saves it', (tester) async {
-      final auth = await pumpWithLink(tester, const EmailLinkOutcome(EmailLink.passwordRecovery), user: const AccountUser(id: 'u-1', email: 'learner@example.test'));
+      final auth = await pumpWithLink(
+        tester,
+        const EmailLinkOutcome(EmailLink.passwordRecovery),
+        user: const AccountUser(id: 'u-1', email: 'learner@example.test'),
+      );
       expect(find.text('Choose a new password'), findsOneWidget);
       expect(find.text('You opened a password reset link for learner@example.test.'), findsOneWidget);
       final save = find.widgetWithText(TextButton, 'Save password');

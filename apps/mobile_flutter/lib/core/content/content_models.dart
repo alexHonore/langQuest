@@ -293,6 +293,15 @@ class CourseTrackInfo {
   final String teachingFocus;
   final CoverRecipe cover;
 
+  /// Instruction languages the course is taught from (its chapters' overlays), known before its chapters are loaded.
+  final List<String> sources;
+
+  /// Missions per instruction language, for the course list and page before the chapters are loaded.
+  final Map<String, int> missionCounts;
+
+  /// Whether its content is an unreviewed AI draft (disclosed before enrolling).
+  final bool draft;
+
   const CourseTrackInfo({
     required this.id,
     required this.order,
@@ -308,6 +317,9 @@ class CourseTrackInfo {
     required this.tonal,
     required this.teachingFocus,
     required this.cover,
+    this.sources = const [],
+    this.missionCounts = const {},
+    this.draft = false,
   });
 
   factory CourseTrackInfo.fromJson(Map<String, Object?> json) => CourseTrackInfo(
@@ -325,6 +337,12 @@ class CourseTrackInfo {
     tonal: json['tonal'] == true,
     teachingFocus: _str(json['teachingFocus']),
     cover: CoverRecipe.fromJson(((json['cover'] as Map?) ?? const {}).cast<String, Object?>()),
+    sources: _strList(json['sources']),
+    missionCounts: {
+      for (final e in ((json['missionCounts'] as Map?) ?? const {}).entries)
+        if (e.value is num) '${e.key}': (e.value as num).toInt(),
+    },
+    draft: json['draft'] == true,
   );
 
   /// Course name in the interface language (English fallback: the catalog always carries `en`).

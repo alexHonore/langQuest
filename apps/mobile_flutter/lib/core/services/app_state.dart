@@ -90,8 +90,19 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
   static const _scheduler = Scheduler();
 
   @override
-  AppState build() =>
-      AppState(content: ref.watch(contentBundleProvider), learner: ref.read(learnerStoreProvider).load(), deviceLanguage: ref.watch(deviceLanguageProvider));
+  AppState build() {
+    // A course loaded later (opened, enrolled, restored) joins the content without re-reading the learner's state.
+    ref.listen(contentBundleProvider, (_, content) => state = AppState(content: content, learner: state.learner, deviceLanguage: state.deviceLanguage));
+    return AppState(
+      content: ref.read(contentBundleProvider),
+      learner: ref.read(learnerStoreProvider).load(),
+      deviceLanguage: ref.watch(deviceLanguageProvider),
+    );
+  }
+
+  /// Loads [trackId]'s chapters (before enrolling in it, or restoring it from the account).
+  @override
+  Future<void> prepareCourse(String trackId) => ref.read(contentBundleProvider.notifier).ensureTrack(trackId);
 
   DateTime get _now => ref.read(clockProvider)();
 

@@ -34,8 +34,10 @@ Future<void> main() async {
     }
   });
 
-  final content = await ContentBundle.load(rootBundle);
   final prefs = await SharedPreferences.getInstance();
+  final store = LearnerStore(prefs);
+  // Only the learner's own courses are read now; any other course loads when it is opened (ContentLibrary).
+  final content = await ContentBundle.load(rootBundle, tracks: [for (final e in store.load().enrollments) e.trackId]);
 
   // An account is optional: without a backend in this build (or if it cannot start) the app stays offline.
   var backend = await loadBackendConfig();
@@ -63,8 +65,8 @@ Future<void> main() async {
   runApp(
     ProviderScope(
       overrides: [
-        contentBundleProvider.overrideWithValue(content),
-        learnerStoreProvider.overrideWithValue(LearnerStore(prefs)),
+        initialContentProvider.overrideWithValue(content),
+        learnerStoreProvider.overrideWithValue(store),
         backendConfigProvider.overrideWithValue(backend),
         startupEmailLinkProvider.overrideWithValue(emailLink),
       ],

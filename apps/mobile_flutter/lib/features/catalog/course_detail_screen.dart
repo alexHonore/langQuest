@@ -30,6 +30,13 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
   String? _source;
 
   @override
+  void initState() {
+    super.initState();
+    // The course's chapters (its phrases, for the real-examples count) are read when its page opens.
+    Future.microtask(() => ref.read(appStateProvider.notifier).prepareCourse(widget.trackId));
+  }
+
+  @override
   Widget build(BuildContext context) {
     final appState = ref.watch(appStateProvider);
     final colors = appState.colors;
@@ -180,7 +187,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                             style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: colors.textPrimary),
                           ),
                           const SizedBox(height: 12),
-                          bullet(LucideIcons.check, colors.success, l10n.courseIncludesMissions(course.missions.length)),
+                          bullet(LucideIcons.check, colors.success, l10n.courseIncludesMissions(appState.content.missionCountOf(track.id, course.source))),
                           bullet(LucideIcons.check, colors.success, l10n.courseIncludesLearn),
                           bullet(LucideIcons.check, colors.success, l10n.courseIncludesReview),
                           if (track.voiceLocale != null) bullet(LucideIcons.check, colors.success, l10n.courseIncludesVoice),
@@ -210,7 +217,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                             style: TextStyle(fontSize: 15, fontWeight: FontWeight.w800, color: colors.textPrimary),
                           ),
                           const SizedBox(height: 12),
-                          if (course.isDraft) bullet(LucideIcons.triangleAlert, colors.warning, l10n.courseMissingNativeReview),
+                          if (appState.content.isDraftCourse(track.id)) bullet(LucideIcons.triangleAlert, colors.warning, l10n.courseMissingNativeReview),
                           if (dialect && (liveCalls || spokenCheck || aiVoice)) bullet(LucideIcons.triangleAlert, colors.warning, l10n.courseLimitedForDialect),
                           if (dialect && !aiVoice) bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingVoiceDialect),
                           if (!liveCalls) bullet(LucideIcons.minus, colors.textMuted, l10n.courseMissingConversation),
@@ -229,8 +236,11 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                 child: LearnPrimaryButton(
                   label: enrolled ? l10n.courseContinue : l10n.courseStart,
                   icon: LucideIcons.chevronRight,
-                  onPressed: () {
+                  onPressed: () async {
                     final notifier = ref.read(appStateProvider.notifier);
+                    // Its chapters first (read when the page opened; this waits only if that is still going on).
+                    await notifier.prepareCourse(track.id);
+                    if (!context.mounted) return;
                     // The very first course ends the first run with a warm-up phrase; later ones open Home.
                     final firstCourse = !ref.read(appStateProvider).hasEnrollment;
                     if (enrolled) {

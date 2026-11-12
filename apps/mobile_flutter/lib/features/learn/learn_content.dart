@@ -1,7 +1,7 @@
 /// Learn-path plans (approved declination L1 + L3 inside N2, 2026-10-27), built from the real draft curriculum.
 ///
 /// Each mission on the pathway gets a teaching block BEFORE its spoken steps, derived from the mission's own
-/// expressions (`assets/content/chapters.json`, exported from `@langquest/curriculum`):
+/// expressions (`assets/content/chapters/<track>.json`, exported from `@langquest/curriculum`):
 /// - a scene (L1): the mission's dialogue lines in blueprint-slot order; the character's lines are heard (device
 ///   voice when one exists for the variety), the learner's lines are shadowed out loud — no score;
 /// - discovery cards (L3): every phrase the learner will say in this mission, one per card;

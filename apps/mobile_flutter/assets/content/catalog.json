@@ -55,7 +55,16 @@
         "hue2": 44,
         "motif": "arcs",
         "variant": 0
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "arabic-moroccan",
@@ -110,7 +119,16 @@
         "hue2": 190,
         "motif": "lattice",
         "variant": 1
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "arabic-egyptian",
@@ -150,7 +168,16 @@
         "hue2": 210,
         "motif": "bands",
         "variant": 2
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "arabic-msa",
@@ -184,7 +211,16 @@
         "hue2": 36,
         "motif": "rings",
         "variant": 0
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "chinese-cantonese",
@@ -222,7 +258,16 @@
         "hue2": 40,
         "motif": "petals",
         "variant": 1
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "chinese-mandarin",
@@ -265,7 +310,16 @@
         "hue2": 48,
         "motif": "waves",
         "variant": 0
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "chinese-simplified",
@@ -303,7 +357,16 @@
         "hue2": 330,
         "motif": "dots",
         "variant": 3
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "english",
@@ -342,7 +405,16 @@
         "hue2": 8,
         "motif": "steps",
         "variant": 0
-      }
+      },
+      "sources": [
+        "fr",
+        "ru"
+      ],
+      "missionCounts": {
+        "fr": 4,
+        "ru": 4
+      },
+      "draft": true
     },
     {
       "id": "danish",
@@ -372,7 +444,16 @@
         "hue2": 30,
         "motif": "bands",
         "variant": 0
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "french",
@@ -413,7 +494,14 @@
         "hue2": 350,
         "motif": "arcs",
         "variant": 2
-      }
+      },
+      "sources": [
+        "en"
+      ],
+      "missionCounts": {
+        "en": 7
+      },
+      "draft": true
     },
     {
       "id": "german",
@@ -441,7 +529,16 @@
         "hue2": 220,
         "motif": "chevrons",
         "variant": 1
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "greek",
@@ -471,7 +568,16 @@
         "hue2": 50,
         "motif": "waves",
         "variant": 2
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "haitian-creole",
@@ -501,7 +607,16 @@
         "hue2": 20,
         "motif": "petals",
         "variant": 0
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "hebrew",
@@ -532,7 +647,16 @@
         "hue2": 42,
         "motif": "lattice",
         "variant": 3
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "hindi",
@@ -562,7 +686,16 @@
         "hue2": 300,
         "motif": "rings",
         "variant": 2
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "italian",
@@ -590,7 +723,16 @@
         "hue2": 10,
         "motif": "orbits",
         "variant": 1
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "japanese",
@@ -621,7 +763,16 @@
         "hue2": 200,
         "motif": "rings",
         "variant": 3
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 4,
+        "fr": 4
+      },
+      "draft": true
     },
     {
       "id": "korean",
@@ -651,7 +802,16 @@
         "hue2": 350,
         "motif": "orbits",
         "variant": 0
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "portuguese-brazilian",
@@ -681,7 +841,16 @@
         "hue2": 46,
         "motif": "waves",
         "variant": 3
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "portuguese-european",
@@ -711,7 +880,16 @@
         "hue2": 30,
         "motif": "steps",
         "variant": 2
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "romanian",
@@ -739,7 +917,16 @@
         "hue2": 230,
         "motif": "dots",
         "variant": 1
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "russian",
@@ -771,7 +958,16 @@
         "hue2": 20,
         "motif": "chevrons",
         "variant": 3
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "spanish-latin-american",
@@ -827,7 +1023,16 @@
         "hue2": 170,
         "motif": "petals",
         "variant": 2
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "spanish-spain",
@@ -857,7 +1062,16 @@
         "hue2": 44,
         "motif": "bands",
         "variant": 3
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 6,
+        "fr": 6
+      },
+      "draft": true
     },
     {
       "id": "swahili",
@@ -896,7 +1110,16 @@
         "hue2": 32,
         "motif": "steps",
         "variant": 1
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "kinyarwanda",
@@ -924,7 +1147,16 @@
         "hue2": 54,
         "motif": "arcs",
         "variant": 3
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "swedish",
@@ -954,7 +1186,16 @@
         "hue2": 52,
         "motif": "lattice",
         "variant": 0
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "lingala",
@@ -995,7 +1236,16 @@
         "hue2": 200,
         "motif": "chevrons",
         "variant": 0
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "ukrainian",
@@ -1027,7 +1277,16 @@
         "hue2": 50,
         "motif": "orbits",
         "variant": 2
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     },
     {
       "id": "vietnamese",
@@ -1066,7 +1325,16 @@
         "hue2": 16,
         "motif": "dots",
         "variant": 0
-      }
+      },
+      "sources": [
+        "en",
+        "fr"
+      ],
+      "missionCounts": {
+        "en": 7,
+        "fr": 7
+      },
+      "draft": true
     }
   ]
 }

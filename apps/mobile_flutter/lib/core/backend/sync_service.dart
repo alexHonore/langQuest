@@ -95,6 +95,9 @@ class SyncReport {
 /// Where restored data lands on this device ([AppStateNotifier] in the app).
 abstract class RestoreTarget {
   AppState get current;
+
+  /// Makes a course's content available on this device (its chapters loaded) before it is restored.
+  Future<void> prepareCourse(String trackId);
   void restoreEnrollment(String trackId, String source);
   void restoreCompletedMissions(String courseId, Iterable<String> missionKeys);
 }
@@ -126,7 +129,6 @@ class SyncService {
   Future<SyncReport> _sync() async {
     final user = auth.currentUser;
     if (user == null) return const SyncReport();
-    final content = target.current.content;
     var coursesSent = 0, missionsSent = 0, coursesRestored = 0, missionsRestored = 0, missionsRefused = 0;
     final notSaved = <String>[];
 
@@ -138,10 +140,11 @@ class SyncService {
       server[courseIdFor('${e['courseTrackId']}', '${e['sourceLanguageCode']}')] = '${e['id']}';
     }
 
-    // 1. Courses of the account this device can teach, added here.
+    // 1. Courses of the account this device can teach, added here (their chapters loaded first).
     for (final courseId in server.keys) {
       final (trackId, source) = _split(courseId);
-      if (!content.isAvailable(trackId, source) || target.current.learner.isEnrolled(trackId, source)) continue;
+      if (!target.current.content.isAvailable(trackId, source) || target.current.learner.isEnrolled(trackId, source)) continue;
+      await target.prepareCourse(trackId);
       target.restoreEnrollment(trackId, source);
       coursesRestored++;
     }
@@ -164,7 +167,7 @@ class SyncService {
 
     for (final MapEntry(key: courseId, value: enrollmentId) in server.entries) {
       final (trackId, source) = _split(courseId);
-      final course = content.course(trackId, source);
+      final course = target.current.content.course(trackId, source);
       if (course == null || !target.current.learner.isEnrolled(trackId, source)) continue;
       final keyByServerId = {for (final m in course.missions) missionServerId(m.chapterKey, m.key): m.key};
 

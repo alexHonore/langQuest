@@ -1,10 +1,10 @@
-import { readFileSync } from 'node:fs';
 import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
 import { bundleLines, clipName, listenPrompt } from '../synthesize-bundle-audio';
 import { BUNDLE_VOICES, voiceForLine } from './bundle-voices';
+import { readBundleChaptersJson } from './flutter-bundle';
 
-const chapters = readFileSync(resolve(__dirname, '../../../apps/mobile_flutter/assets/content/chapters.json'), 'utf8');
+const chapters = readBundleChaptersJson(resolve(__dirname, '../../..'));
 
 describe('the bundled course voices', () => {
   it('casts the character by their voice and the learner in a voice of their own', () => {
