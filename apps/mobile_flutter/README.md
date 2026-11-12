@@ -35,8 +35,8 @@ browser's speech synthesis, with the same exact-locale rule as on phones. On the
 the reference voice; the take stays in memory and is never uploaded.
 
 First visit: about 4 MB over the wire (the CanvasKit engine, the app, its fonts and content), then served from the
-service worker's cache. Of the content, start-up reads only the catalog and what every course shares (277 KB, about
-40 KB compressed) plus the chapters of the learner's own courses: each course's chapters are a file of their own
+service worker's cache. Of the content, start-up reads only the catalog and what every course shares (470 KB, about
+60 KB compressed, most of it `voices.json`) plus the chapters of the learner's own courses: each course's chapters are a file of their own
 (`assets/content/chapters/<trackId>.json`, 7–20 KB compressed), fetched when the learner opens a course and kept by the
 service worker like every other file (`lib/core/content/content_bundle.dart`). Offline, the web app has the courses
 it has fetched; the phone builds have every course on the device. The web engine downloads every font in
