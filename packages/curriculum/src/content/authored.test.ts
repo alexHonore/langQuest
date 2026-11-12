@@ -1,7 +1,7 @@
 import { describe, expect, it } from 'vitest';
 import { COURSE_TRACKS, getCourseTrack } from '@langquest/contracts';
 import { AUTHORED_LIMITS, CHAPTER_2_BLUEPRINT_KEYS, authoredChapterFor, authoredSources, checkAuthoredChapter, expandAuthoredChapter, type AuthoredChapterInput } from './authored';
-import { AUTHORED_CHAPTERS, AUTHORED_CHAPTER_2_INPUTS } from './authored/chapter-2';
+import { AUTHORED_CHAPTER_2 as AUTHORED_CHAPTERS, AUTHORED_CHAPTER_2_INPUTS } from './authored/chapter-2';
 import { findBlueprint } from '../missions/scenarios';
 
 const spanish = AUTHORED_CHAPTER_2_INPUTS.find((c) => c.track === 'spanish-spain')!;

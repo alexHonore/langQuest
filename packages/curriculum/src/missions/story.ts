@@ -64,9 +64,16 @@ export const DEFAULT_STORY_ARC: StoryArcBlueprint = StoryArcBlueprintSchema.pars
     {
       key: 'arrival_finding_voice',
       titleKey: 'story.arrival.chapter3.title',
-      missionKeys: ['describe_your_day', 'talk_about_work', 'friendly_debate', 'tell_a_story'],
-      characterRoles: ['colleague', 'team lead', 'opinionated friend', 'curious friend'],
+      missionKeys: ['describe_your_day', 'talk_about_work', 'talk_about_hobbies', 'ask_for_advice', 'friendly_debate', 'tell_a_story'],
+      characterRoles: ['colleague', 'team lead', 'friend from a club', 'local', 'opinionated friend', 'curious friend'],
       milestone: { id: 'own_voice', requiresBlueprintKeys: ['friendly_debate', 'tell_a_story'], requiresSkillKeys: ['express_opinion', 'narrate_past_experience'], minMasteryRank: 3, unlockKey: 'city_panorama' },
+    },
+    {
+      key: 'arrival_getting_things_done',
+      titleKey: 'story.arrival.chapter4.title',
+      missionKeys: ['rent_a_flat', 'post_a_parcel', 'return_an_item', 'see_the_doctor', 'join_a_club', 'lost_luggage'],
+      characterRoles: ['landlord', 'post office clerk', 'shop assistant', 'doctor', 'coach', 'airline agent'],
+      milestone: { id: 'at_home', requiresBlueprintKeys: ['rent_a_flat', 'see_the_doctor'], requiresSkillKeys: ['report_problem', 'describe_symptom'], minMasteryRank: 2, unlockKey: 'home_keys' },
     },
   ],
 });

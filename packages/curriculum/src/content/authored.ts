@@ -76,8 +76,18 @@ export const AuthoredChapterSchema = z.object({
 export type AuthoredChapter = z.infer<typeof AuthoredChapterSchema>;
 export type AuthoredChapterInput = z.input<typeof AuthoredChapterSchema>;
 
+/** The blueprints of chapter [chapterIndex] everywhere (the story arc's), in order. */
+export function chapterBlueprintKeys(chapterIndex: number): readonly string[] {
+  const chapter = DEFAULT_STORY_ARC.chapters[chapterIndex - 1];
+  if (!chapter) throw new Error(`the story arc has no chapter ${chapterIndex}`);
+  return chapter.missionKeys;
+}
+
+/** The chapters written in the authored format (chapter 1 came from the content factory and the hand-written drafts). */
+export const AUTHORED_CHAPTER_INDEXES = [2, 3, 4] as const;
+
 /** The blueprints of chapter 2 everywhere (story arc chapter 2), in order. */
-export const CHAPTER_2_BLUEPRINT_KEYS: readonly string[] = DEFAULT_STORY_ARC.chapters[1]!.missionKeys;
+export const CHAPTER_2_BLUEPRINT_KEYS: readonly string[] = chapterBlueprintKeys(2);
 
 /** Mission keys keep the prefix chapter 1 gave each course (`es_…`, `ja_…`; the track's own name elsewhere). */
 const MISSION_PREFIX: Partial<Record<CourseTrackId, string>> = { 'spanish-spain': 'es', japanese: 'ja', 'arabic-moroccan': 'ary', english: 'en' };
@@ -92,6 +102,13 @@ export const authoredSources = (track: CourseTrackId): SourceLanguageCode[] => (
 const schemeScript = (scheme: string, primary: string): string => (scheme === 'furigana' || scheme === 'niqqud' ? primary : 'Latn');
 
 export const AUTHORED_GENERATED_BY = 'authored draft (AI-assisted), chapter 2, 2026-11';
+
+/** The provenance line of an authored chapter. */
+export const authoredGeneratedBy = (chapterIndex: number): string => (chapterIndex === 2 ? AUTHORED_GENERATED_BY : `authored draft (AI-assisted), chapter ${chapterIndex}, 2026-11`);
+
+/** A character's key: chapter 2 kept the course's prefix alone; later chapters add theirs, so a "friend" of chapter 3 is
+ * never chapter 2's friend by accident. */
+const characterKey = (prefix: string, chapterIndex: number, id: string): string => (chapterIndex <= 2 ? `${prefix}_${id}` : `${prefix}_ch${chapterIndex}_${id}`);
 
 /** The slot id a line of the conversation carries: the blueprint's, or its own key when the blueprint has none for it. */
 const slotIdOf = (line: Pick<AuthoredLine, 'slot' | 'key'>): string | null => (line.slot === '+' ? line.key : line.slot);
@@ -111,11 +128,11 @@ export function expandAuthoredChapter(input: AuthoredChapterInput, chapterIndex 
     targetVarietyId: track.targetVarietyId,
     sourceLanguages: sources,
     titles: titlesFor(chapter.titles),
-    characters: chapter.characters.map((c) => ({ characterKey: `${prefix}_${c.id}`, role: c.role, name: c.name, personality: c.personality, homeRegion: c.homeRegion, regionalOption: null, voice: c.voice })),
+    characters: chapter.characters.map((c) => ({ characterKey: characterKey(prefix, chapterIndex, c.id), role: c.role, name: c.name, personality: c.personality, homeRegion: c.homeRegion, regionalOption: null, voice: c.voice })),
     missions: chapter.missions.map((m) => ({
       key: `${prefix}_${m.blueprint}`,
       blueprintKey: m.blueprint,
-      characterKey: `${prefix}_${m.character}`,
+      characterKey: characterKey(prefix, chapterIndex, m.character),
       titles: titlesFor(m.titles),
       sceneNotes: titlesFor(m.scene),
       expressions: m.lines.map(
@@ -148,7 +165,7 @@ export function expandAuthoredChapter(input: AuthoredChapterInput, chapterIndex 
     provenance: 'ai_draft',
     nativeReviewed: false,
     reviewStatus: 'review_needed',
-    generatedBy: AUTHORED_GENERATED_BY,
+    generatedBy: authoredGeneratedBy(chapterIndex),
     notes: [`AI-assisted draft of chapter ${chapterIndex} for ${track.displayName} (${track.targetVarietyId}); native review required before publishing.`, ...chapter.notes],
   };
   return defineSeedChapter(seed);
@@ -197,7 +214,7 @@ export const AUTHORED_LIMITS = { text: 70, meaning: 90, note: 240, literal: 110,
  * as French; no placeholders; a conversation with a character to answer; enough distinct phrases for the practice
  * session, one of them long enough to be rebuilt word by word; and that the chapter realises completely.
  */
-export function checkAuthoredChapter(input: unknown, blueprintKeys: readonly string[] = CHAPTER_2_BLUEPRINT_KEYS): string[] {
+export function checkAuthoredChapter(input: unknown, chapterIndex = 2, blueprintKeys: readonly string[] = chapterBlueprintKeys(chapterIndex)): string[] {
   const parsed = AuthoredChapterSchema.safeParse(input);
   if (!parsed.success) return parsed.error.issues.map((i) => `${i.path.join('.')}: ${i.message}`);
   const chapter = parsed.data;
@@ -317,7 +334,7 @@ export function checkAuthoredChapter(input: unknown, blueprintKeys: readonly str
   // The chapter as the apps get it: valid seed, every slot realised by its own line.
   let seed: SeedChapter;
   try {
-    seed = expandAuthoredChapter(chapter);
+    seed = expandAuthoredChapter(chapter, chapterIndex);
   } catch (e) {
     return [`does not make a valid chapter: ${e instanceof Error ? e.message : String(e)}`];
   }

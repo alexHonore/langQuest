@@ -1,8 +1,7 @@
 /**
- * Chapter 2 ("settling in") of every course: six missions each (a meal, clothes, a train ticket, asking for help,
- * family, weekend plans), written in the compact authored format (`../../authored.ts`) and expanded here. AI-assisted
- * drafts like chapter 1: `review_needed`, never native-reviewed, and labelled as drafts in the app. Each file passes
- * `checkAuthoredChapter` (`pnpm exec tsx packages/curriculum/src/content/authored-check.ts`).
+ * Chapter 2 ("settling in": a meal, clothes, a train ticket, asking for help, family, weekend plans) of every course, written in the compact authored format (`../../authored.ts`) and
+ * expanded here. AI-assisted drafts: `review_needed`, never native-reviewed, and labelled as drafts in the app. Each
+ * file passes `checkAuthoredChapter` (`pnpm exec tsx packages/curriculum/src/content/authored-check.ts`).
  */
 import { authoredChapterFor, expandAuthoredChapter, type AuthoredChapterInput } from '../../authored';
 import type { SeedChapter } from '../../types';
@@ -36,7 +35,7 @@ import swedish from './swedish.json';
 import ukrainian from './ukrainian.json';
 import vietnamese from './vietnamese.json';
 
-/** The authored chapters as written, in course order of their files (Chinese Simplified shares Mandarin's). */
+/** Chapter 2 as written (Chinese Simplified shares Mandarin's). */
 export const AUTHORED_CHAPTER_2_INPUTS: readonly AuthoredChapterInput[] = [
   arabicEastern,
   arabicEgyptian,
@@ -69,8 +68,8 @@ export const AUTHORED_CHAPTER_2_INPUTS: readonly AuthoredChapterInput[] = [
   vietnamese,
 ] as unknown as AuthoredChapterInput[];
 
-/** Chapter 2 of every course, expanded to seed chapters. */
-export const AUTHORED_CHAPTERS: readonly SeedChapter[] = [
+/** Chapter 2 of every course written so far, expanded to seed chapters. */
+export const AUTHORED_CHAPTER_2: readonly SeedChapter[] = [
   ...AUTHORED_CHAPTER_2_INPUTS,
   ...AUTHORED_CHAPTER_2_INPUTS.filter((c) => c.track === 'chinese-mandarin').map((c) => authoredChapterFor('chinese-simplified', c)),
-].map((c) => expandAuthoredChapter(c));
+].map((c) => expandAuthoredChapter(c, 2));

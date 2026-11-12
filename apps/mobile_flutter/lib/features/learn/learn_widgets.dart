@@ -45,9 +45,9 @@ SceneId sceneIdForSituation(String situation) => switch (situation) {
   'directions' => SceneId.station,
   'transport' => SceneId.street,
   'travel' => SceneId.airport,
-  'neighbours' || 'family' || 'daily_life' => SceneId.home,
+  'neighbours' || 'family' || 'daily_life' || 'housing' => SceneId.home,
   'work' => SceneId.office,
-  'emergencies' => SceneId.clinic,
+  'emergencies' || 'health' => SceneId.clinic,
   'plans' || 'debates' || 'story' => SceneId.gathering,
   _ => SceneId.street,
 };
@@ -57,6 +57,12 @@ SceneId sceneIdForSituation(String situation) => switch (situation) {
 SceneId sceneIdForMission(Mission mission) => switch (mission.blueprintKey) {
   'buy_train_ticket' => SceneId.station,
   'emergency_ask_help' => SceneId.street,
+  'describe_your_day' => SceneId.office,
+  'talk_about_hobbies' || 'join_a_club' => SceneId.park,
+  'ask_for_advice' => SceneId.cafe,
+  'post_a_parcel' => SceneId.office,
+  'return_an_item' => SceneId.market,
+  'lost_luggage' => SceneId.airport,
   _ => sceneIdForSituation(mission.situation),
 };
 

@@ -6,7 +6,7 @@
 import { COURSE_TRACKS, SOURCE_LANGUAGES, type CourseTrackId, type CoverageMetrics, type CoverageStatus, type SourceLanguageCode } from '@langquest/contracts';
 import { DEFAULT_STORY_ARC } from '../missions/story';
 import { ARABIC_MOROCCAN_CHAPTER_1 } from './arabic-moroccan';
-import { AUTHORED_CHAPTERS } from './authored/chapter-2';
+import { AUTHORED_CHAPTERS } from './authored/index';
 import { ENGLISH_CHAPTER_1 } from './english';
 import { JAPANESE_CHAPTER_1 } from './japanese';
 import { GENERATED_CHAPTERS } from './generated';
@@ -19,7 +19,7 @@ export const HAND_AUTHORED_CHAPTERS: readonly SeedChapter[] = [ARABIC_MOROCCAN_C
 
 /**
  * Every draft chapter (never published as reviewed: all are `review_needed` AI drafts): chapter 1 of every course
- * (hand-authored, then generated), then chapter 2 (authored). A course's chapters come in story order.
+ * (hand-authored, then generated), then chapters 2, 3 and 4 (authored). A course's chapters come in story order.
  */
 export const DRAFT_CHAPTERS: readonly SeedChapter[] = [...HAND_AUTHORED_CHAPTERS, ...GENERATED_CHAPTERS, ...AUTHORED_CHAPTERS];
 

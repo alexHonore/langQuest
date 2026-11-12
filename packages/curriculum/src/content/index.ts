@@ -5,6 +5,6 @@ export * from './japanese';
 export * from './english';
 export * from './generated';
 export * from './authored';
-export * from './authored/chapter-2';
+export * from './authored/index';
 export * from './skeletons';
 export * from './coverage';
