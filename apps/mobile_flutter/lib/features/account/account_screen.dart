@@ -12,6 +12,7 @@ import '../../core/theme/glass.dart';
 import '../../l10n/l10n.dart';
 import '../audio/audio_screens.dart';
 import '../call/call_history.dart';
+import '../games/game_pool.dart';
 import 'account_section.dart';
 import 'display_settings.dart';
 
@@ -200,6 +201,7 @@ class AccountScreen extends ConsumerWidget {
                   ref.read(speakingStatsProvider.notifier).clear();
                   ref.read(audioListenedProvider.notifier).clear();
                   ref.read(callHistoryProvider.notifier).clear();
+                  ref.read(gameStatsProvider.notifier).clear();
                 }
               },
             ),

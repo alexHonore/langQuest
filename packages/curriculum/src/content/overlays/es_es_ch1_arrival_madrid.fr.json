@@ -10,17 +10,17 @@
     "hola": {
      "meaning": "Bonjour.",
      "contextNote": "« Buenas » tout seul est un salut familier très courant, à n'importe quel moment de la journée.",
-     "literalGloss": null
+     "literalGloss": "Salut, bons jours."
     },
     "buenas_tardes": {
      "meaning": "Bonjour (l'après-midi) / Bonsoir.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "S'emploie après le déjeuner (vers 14 h en Espagne) et jusqu'à la tombée de la nuit ; ensuite, on dit « buenas noches ». Toujours au pluriel. Le d de « tardes » est très doux, la langue contre les dents.",
+     "literalGloss": "Bonnes après-midi."
     },
     "que_tal": {
      "meaning": "Comment ça va ? / Ça va ?",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "Salutation passe-partout qui évite de choisir entre tu et vous. On répond « bien, gracias » ou l'on renvoie simplement « ¿qué tal? ». « Qué » se prononce « ké » ; à l'écrit, la question s'ouvre par « ¿ ».",
+     "literalGloss": "Que tel ?"
     },
     "bien_gracias": {
      "meaning": "Bien, merci. Et toi ?",
@@ -29,7 +29,7 @@
     },
     "me_llamo": {
      "meaning": "Je m'appelle …",
-     "contextNote": null,
+     "contextNote": "Même construction que « je m'appelle » : llamarse = s'appeler. Inutile de dire « yo » : la terminaison -o suffit à indiquer « je ». Le double l se prononce comme le « y » de « yaourt » : mé YA-mo.",
      "literalGloss": null
     },
     "como_te_llamas": {
@@ -45,7 +45,7 @@
     "hasta_luego": {
      "meaning": "À tout à l'heure / Au revoir.",
      "contextNote": "C'est l'au revoir de tous les jours en Espagne ; « adiós » paraît plus définitif.",
-     "literalGloss": null
+     "literalGloss": "Jusqu'à ensuite."
     }
    }
   },
@@ -55,23 +55,23 @@
    "expressions": {
     "buenos_dias": {
      "meaning": "Bonjour.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "Se dit jusqu'au déjeuner, qui est tardif en Espagne (vers 14 h). Piège : « día » est masculin malgré son -a, d'où « buenos ». L'accent écrit marque la syllabe tonique : DI-as, en deux syllabes.",
+     "literalGloss": "Bons jours."
     },
     "cafe_con_leche": {
      "meaning": "Un café au lait, s'il vous plaît.",
      "contextNote": "« Ponme un café » est la façon courante et décontractée de commander dans un bar en Espagne.",
-     "literalGloss": null
+     "literalGloss": "Un café avec lait, s'il vous plaît."
     },
     "solo_o_con_leche": {
      "meaning": "Noir ou au lait ?",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Un café solo » (mot à mot « seul ») est un expresso noir. Autre classique : le « cortado », avec une goutte de lait. Le ch de « leche » se prononce « tch » : LÉ-tché.",
+     "literalGloss": "Seul ou avec lait ?"
     },
     "con_leche": {
      "meaning": "Au lait, s'il vous plaît.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Con » = avec, sans article devant « leche ». Attention au genre : on dit « la leche », féminin, alors que « le lait » est masculin. « Por favor » se place volontiers en fin de phrase, comme « s'il vous plaît ».",
+     "literalGloss": "Avec lait, s'il vous plaît."
     },
     "me_cobras": {
      "meaning": "Je peux payer, s'il vous plaît ?",
@@ -80,12 +80,12 @@
     },
     "la_cuenta": {
      "meaning": "L'addition, s'il vous plaît.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« La cuenta » (mot à mot « le compte ») est l'addition. La formule passe partout, au bar comme au restaurant ; en Espagne, on ne vous l'apporte que si vous la demandez. « Cuenta » se prononce COUÈN-ta.",
+     "literalGloss": "Le compte, s'il vous plaît."
     },
     "gracias": {
      "meaning": "Merci.",
-     "contextNote": null,
+     "contextNote": "En Espagne, le c devant e ou i se prononce la langue entre les dents, comme le « th » anglais de « think » : GRA-thias. Pour insister : « muchas gracias ». On répond « de nada » (de rien).",
      "literalGloss": null
     }
    }
@@ -97,42 +97,42 @@
     "hola_buenas": {
      "meaning": "Bonjour.",
      "contextNote": "Salutation courte et très courante en Espagne, utilisable à toute heure de la journée.",
-     "literalGloss": null
+     "literalGloss": "Salut, bonnes."
     },
     "cuanto_cuesta": {
      "meaning": "Combien ça coûte ?",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Esto » (ceci) désigne sans nommer : idéal quand le mot vous manque. Pour plusieurs articles : « ¿cuánto cuestan? ». « Cuánto » se prononce COUANN-to : le u s'entend, le n aussi, sans voyelle nasale.",
+     "literalGloss": "Combien coûte ceci ?"
     },
     "tres_euros_kilo": {
      "meaning": "C'est trois euros le kilo.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "Un prix s'annonce au pluriel avec « son » (ce sont) ; pour un euro, on dit « es un euro ». « El kilo » = le kilo, comme en français. « Euros » se prononce ÉOU-ros : le e et le u s'entendent tous les deux, jamais « eu ».",
+     "literalGloss": "Ce sont trois euros le kilo."
     },
     "que_caro": {
      "meaning": "Oh là là, c'est cher.",
      "contextNote": "Simple remarque légère ; on ne marchande pas vraiment dans les marchés espagnols.",
-     "literalGloss": null
+     "literalGloss": "Ouh, que cher."
     },
     "mas_barato": {
      "meaning": "Tu peux me le laisser un peu moins cher ?",
      "contextNote": "Tutoiement familier ; à utiliser avec parcimonie, car le marchandage n'est pas d'usage.",
-     "literalGloss": null
+     "literalGloss": "Me le tu laisses un peu plus bon marché ?"
     },
     "me_lo_llevo": {
      "meaning": "D'accord, je le prends.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Vale » est le « d'accord » de tous les instants en Espagne. « Llevarse » = emporter ; « lo » reprend un nom masculin (« la » pour un féminin). Le v se prononce comme un b et ll comme un « y » : BA-lé, YÉ-bo.",
+     "literalGloss": "Ça vaut, me le j'emporte."
     },
     "no_gracias": {
      "meaning": "Non, merci.",
-     "contextNote": null,
+     "contextNote": "Ferme mais courtois ; pour adoucir, ajoutez « muy amable » (c'est très aimable). « No » sert à la fois de « non » et de « ne… pas » : no quiero = je ne veux pas.",
      "literalGloss": null
     },
     "solo_mirando": {
      "meaning": "Je regarde seulement.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Estar » + gérondif (-ando, -iendo) = être en train de : estoy mirando. « Mirar » = regarder (pensez à « miroir »). La phrase idéale quand un vendeur s'approche ; on peut ajouter « gracias ».",
+     "literalGloss": "Seulement je suis regardant."
     }
    }
   },
@@ -147,13 +147,13 @@
     },
     "donde_esta_estacion": {
      "meaning": "où est la gare ?",
-     "contextNote": null,
+     "contextNote": "Pour situer un lieu, on emploie « estar » et jamais « ser » : ¿dónde está…? Changez la fin : el metro, el baño (les toilettes). En Espagne, « estación » se prononce es-ta-THIONE, avec le « th » anglais de « think ».",
      "literalGloss": null
     },
     "todo_recto": {
      "meaning": "Allez tout droit.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Siga » est l'impératif de politesse (usted) de « seguir », suivre, continuer. Ne confondez pas « recto » (droit, tout droit) et « a la derecha » (à droite). Le r initial de « recto » est fortement roulé.",
+     "literalGloss": "Suivez tout droit."
     },
     "gire_derecha": {
      "meaning": "Tournez à droite.",
@@ -162,33 +162,33 @@
     },
     "esta_lejos": {
      "meaning": "C'est loin ?",
-     "contextNote": null,
+     "contextNote": "Encore « estar » pour la localisation. Le j (la jota) se racle au fond de la gorge, comme le « ch » allemand de « Bach » ou un r français sourd et très appuyé : LÉ-rhoss. Contraire : cerca (près).",
      "literalGloss": null
     },
     "esta_cerca": {
      "meaning": "C'est près, à cinq minutes à pied.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Andando » (en marchant) = à pied ; on dit aussi « a pie ». La durée du trajet s'introduit par « a » : a cinco minutos. En Espagne, c devant e ou i se prononce comme le « th » anglais de « think » : THÈR-ca, THINN-co.",
+     "literalGloss": "Est près, à cinq minutes en marchant."
     },
     "puede_repetir": {
      "meaning": "Pouvez-vous répéter, s'il vous plaît ?",
-     "contextNote": null,
+     "contextNote": "« Puede » est la forme de politesse (usted) de « poder » ; à quelqu'un que l'on tutoie : « ¿puedes repetir? ». L'infinitif suit directement, comme en français. Le r initial de « repetir » est fortement roulé.",
      "literalGloss": null
     },
     "mas_despacio": {
      "meaning": "Plus lentement, s'il vous plaît.",
-     "contextNote": null,
+     "contextNote": "« Despacio » = lentement : le mot ne ressemble à rien en français, à retenir tel quel. « Más » (plus) porte un accent écrit, à la différence de « mas » (mais, littéraire). En Espagne, le c se prononce « th » : des-PA-thio.",
      "literalGloss": null
     },
     "no_entiendo": {
      "meaning": "Je ne comprends pas.",
-     "contextNote": null,
+     "contextNote": "Faux ami : « entender » signifie comprendre, pas entendre (qui se dit « oír »). La négation tient en un seul mot, « no », placé devant le verbe. Enchaînez avec « ¿puede repetir? » ou « más despacio, por favor ».",
      "literalGloss": null
     },
     "muchas_gracias": {
      "meaning": "Merci beaucoup.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Muchas » s'accorde avec « gracias », féminin pluriel. Le ch se prononce « tch » : MOU-tchas. On répond « de nada » (de rien) ou « no hay de qué » (il n'y a pas de quoi).",
+     "literalGloss": "Beaucoup mercis."
     }
    }
   },
@@ -208,33 +208,33 @@
     },
     "de_donde_eres": {
      "meaning": "D'où viens-tu ?",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "L'origine se dit avec « ser » : eres = tu es. La préposition reste en tête, comme dans « d'où es-tu ? ». Forme de politesse : « ¿de dónde es usted? ». « Dónde » interrogatif porte toujours un accent écrit.",
+     "literalGloss": "D'où es-tu ?"
     },
     "soy_de_canada": {
      "meaning": "Je viens du Canada.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Ser de » + lieu = être de, venir de. Pas d'article devant la plupart des pays : de Canadá, de Francia, de Bélgica, de Suiza. L'accent écrit marque la syllabe tonique : ca-na-DA.",
+     "literalGloss": "Je suis de Canada."
     },
     "hablas_ingles": {
      "meaning": "Tu parles anglais ?",
-     "contextNote": null,
+     "contextNote": "Le h est toujours muet : A-blas. Le -s final marque le tutoiement ; au vouvoiement : « ¿habla inglés? ». Pour le français : « ¿hablas francés? ». Les noms de langues s'écrivent sans majuscule.",
      "literalGloss": null
     },
     "un_poco": {
      "meaning": "Un peu.",
-     "contextNote": null,
+     "contextNote": "Réponse modeste et bien utile ; plus modeste encore : « un poquito » (un tout petit peu). Avec un nom, on ajoute « de », comme en français : un poco de español.",
      "literalGloss": null
     },
     "si_necesitas_algo": {
      "meaning": "Si tu as besoin de quoi que ce soit, dis-le-moi.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Necesitar » se construit directement, sans « de » : necesitas algo. « Dímelo » soude l'impératif et deux pronoms, di + me + lo, dans l'ordre inverse du français « dis-le-moi ».",
+     "literalGloss": "Si tu nécessites quelque chose, dis-me-le."
     },
     "muy_amable": {
      "meaning": "Merci, c'est très gentil.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "Formule courtoise sans verbe : « (vous êtes) très aimable ». Elle convient au tu comme au vous, à un homme comme à une femme, « amable » ne changeant pas au féminin. « Muy » se prononce « mouï ».",
+     "literalGloss": "Merci, très aimable."
     }
    }
   },
@@ -244,43 +244,43 @@
    "expressions": {
     "taxi": {
      "meaning": "Taxi !",
-     "contextNote": null,
+     "contextNote": "À Madrid, les taxis sont blancs avec une bande rouge en diagonale ; la lumière verte sur le toit indique qu'ils sont libres. À l'écrit, l'exclamation s'ouvre par « ¡ ». Le x se prononce [ks], comme en français.",
      "literalGloss": null
     },
     "adonde_va": {
      "meaning": "Où allez-vous ?",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Adónde » (a + dónde) s'emploie avec un verbe de mouvement : « vers où ». « Va » est la forme de politesse (usted) de « ir » ; à un ami : « ¿adónde vas? ». Le v se prononce comme un b : BA.",
+     "literalGloss": "À où allez-vous ?"
     },
     "al_centro": {
      "meaning": "Au centre-ville, s'il vous plaît.",
-     "contextNote": null,
+     "contextNote": "A + el se contracte en « al », exactement comme « au ». Changez la destination : al aeropuerto, a la estación. En Espagne, le c de « centro » se prononce comme le « th » anglais de « think » : THÈN-tro.",
      "literalGloss": null
     },
     "con_taximetro": {
      "meaning": "Avec le compteur, s'il vous plaît.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "Les taxis madrilènes roulent toujours au compteur : la phrase sert surtout à se rassurer, ou ailleurs. Pas d'article après « con » ici. L'accent écrit indique la syllabe tonique : ta-XI-mé-tro (x = [ks]).",
+     "literalGloss": "Avec taximètre, s'il vous plaît."
     },
     "cuanto_aeropuerto": {
      "meaning": "Combien coûte la course jusqu'à l'aéroport ?",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Hasta » = jusqu'à, pour un lieu comme pour un moment (hasta luego) ; le h est muet : AS-ta. Entre le centre de Madrid et l'aéroport de Barajas, la course est à tarif fixe. « Aeropuerto » : a-é-ro-POUÈR-to.",
+     "literalGloss": "Combien coûte jusqu'à l'aéroport ?"
     },
     "pare_aqui": {
      "meaning": "Arrêtez-vous ici, s'il vous plaît.",
-     "contextNote": null,
+     "contextNote": "« Pare » est l'impératif de politesse (usted) de « parar », s'arrêter : les verbes en -ar y prennent un -e. Avec « por favor », rien de brusque. « Aquí » = ici ; qu se prononce [k] : a-KI.",
      "literalGloss": null
     },
     "tiene_cambio": {
      "meaning": "Avez-vous de la monnaie ?",
-     "contextNote": null,
+     "contextNote": "« Tiene » : forme de politesse (usted) de « tener », avoir. « Cambio » désigne la monnaie à rendre, mais aussi le change. Précisez le billet : « ¿tiene cambio de cincuenta? » (la monnaie sur cinquante).",
      "literalGloss": null
     },
     "gracias_adios": {
      "meaning": "Merci, au revoir.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Adiós » convient pour quitter quelqu'un que l'on ne reverra sans doute pas, comme un chauffeur ; entre connaissances, on préfère « hasta luego ». Accent tonique sur la fin : a-DIOSS.",
+     "literalGloss": "Merci, adieu."
     }
    }
   }

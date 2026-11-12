@@ -189,6 +189,7 @@ class _CourseDetailScreenState extends ConsumerState<CourseDetailScreen> {
                             bullet(LucideIcons.check, colors.success, l10n.courseIncludesMissions(course.missions.length)),
                             bullet(LucideIcons.check, colors.success, l10n.courseIncludesLearn),
                             bullet(LucideIcons.check, colors.success, l10n.courseIncludesReview),
+                            bullet(LucideIcons.gamepad2, colors.success, l10n.courseIncludesGames),
                             if (track.voiceLocale != null) bullet(LucideIcons.check, colors.success, l10n.courseIncludesVoice),
                             if (dialect && aiVoice) bullet(LucideIcons.audioLines, colors.success, l10n.courseIncludesAiVoiceDialect),
                             if (audioLessons)

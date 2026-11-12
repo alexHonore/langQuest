@@ -1,0 +1,306 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "hebrew",
+  "voices": {
+    "hebrew-aoede": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Aoede (Gemini TTS, instructed modern Israeli Hebrew)"
+    },
+    "hebrew-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed modern Israeli Hebrew)"
+    },
+    "hebrew-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed modern Israeli Hebrew)"
+    }
+  },
+  "lines": {
+    "hebrew_ch1:hebrew_ask_directions:ask_slow_down_variant_10": {
+      "file": "assets/audio/lines/hebrew-puck-5fb973e82de2f6ac.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_ask_directions:ask_where_is_variant_11": {
+      "file": "assets/audio/lines/hebrew-puck-ea6c34492cd31444.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_ask_directions:excuse_me": {
+      "file": "assets/audio/lines/hebrew-puck-3654b425b6dd26fa.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_ask_directions:far": {
+      "file": "assets/audio/lines/hebrew-puck-f3ade5682d19e8fc.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_ask_directions:near": {
+      "file": "assets/audio/lines/hebrew-orus-005108ca00ee478a.mp3",
+      "voice": "hebrew-orus"
+    },
+    "hebrew_ch1:hebrew_ask_directions:repeat": {
+      "file": "assets/audio/lines/hebrew-puck-a96f46ca68037d5d.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_ask_directions:slower": {
+      "file": "assets/audio/lines/hebrew-puck-7e92ffce3e72a7ea.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_ask_directions:straight": {
+      "file": "assets/audio/lines/hebrew-orus-108583d946d5809a.mp3",
+      "voice": "hebrew-orus"
+    },
+    "hebrew_ch1:hebrew_ask_directions:thanks": {
+      "file": "assets/audio/lines/hebrew-puck-c6b92669ae667eb6.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_ask_directions:turn": {
+      "file": "assets/audio/lines/hebrew-orus-22fd04c0d5fe56ea.mp3",
+      "voice": "hebrew-orus"
+    },
+    "hebrew_ch1:hebrew_ask_directions:where_is": {
+      "file": "assets/audio/lines/hebrew-puck-5a527e83468f672b.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_buy_ice_cream:asks_two": {
+      "file": "assets/audio/lines/hebrew-aoede-57a81b77be1e8037.mp3",
+      "voice": "hebrew-aoede"
+    },
+    "hebrew_ch1:hebrew_buy_ice_cream:express_like_variant_12": {
+      "file": "assets/audio/lines/hebrew-puck-de2774c71ed05841.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_buy_ice_cream:just_one": {
+      "file": "assets/audio/lines/hebrew-puck-7b5ab9eb297761b9.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_buy_ice_cream:me_too": {
+      "file": "assets/audio/lines/hebrew-puck-dece1ad06fcba5f1.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_buy_ice_cream:okay": {
+      "file": "assets/audio/lines/hebrew-puck-7199d47fc8a33bcf.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_buy_ice_cream:picks": {
+      "file": "assets/audio/lines/hebrew-aoede-5dcb79c690f1c1fd.mp3",
+      "voice": "hebrew-aoede"
+    },
+    "hebrew_ch1:hebrew_buy_ice_cream:refuse_permission_variant_13": {
+      "file": "assets/audio/lines/hebrew-puck-40b9e5e26de9cb1d.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_buy_ice_cream:scoop": {
+      "file": "assets/audio/lines/hebrew-puck-808fa4ecfc219ffc.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_buy_ice_cream:thanks": {
+      "file": "assets/audio/lines/hebrew-aoede-cadf56c4b695c4a5.mp3",
+      "voice": "hebrew-aoede"
+    },
+    "hebrew_ch1:hebrew_buy_ice_cream:wants": {
+      "file": "assets/audio/lines/hebrew-aoede-793e6219f5980687.mp3",
+      "voice": "hebrew-aoede"
+    },
+    "hebrew_ch1:hebrew_buy_ice_cream:welcome": {
+      "file": "assets/audio/lines/hebrew-puck-9db156fe7aa20af8.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_buy_ice_cream:which_flavour": {
+      "file": "assets/audio/lines/hebrew-puck-6b4d7c91d3860f70.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_buy_ice_cream:yummy": {
+      "file": "assets/audio/lines/hebrew-aoede-cf0946469311df99.mp3",
+      "voice": "hebrew-aoede"
+    },
+    "hebrew_ch1:hebrew_cafe_order_drink:ask_for_bill_variant_8": {
+      "file": "assets/audio/lines/hebrew-puck-edc1b6e76d3b5555.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_cafe_order_drink:bill": {
+      "file": "assets/audio/lines/hebrew-puck-2ade7b1134294ee1.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_cafe_order_drink:choice": {
+      "file": "assets/audio/lines/hebrew-puck-abf71e910c06671c.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_cafe_order_drink:greet_hello_variant_7": {
+      "file": "assets/audio/lines/hebrew-puck-71f9e55cc55c97f2.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_cafe_order_drink:greeting": {
+      "file": "assets/audio/lines/hebrew-puck-b27a7e0b8ca0c70d.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_cafe_order_drink:options": {
+      "file": "assets/audio/lines/hebrew-aoede-b0834a13bd498740.mp3",
+      "voice": "hebrew-aoede"
+    },
+    "hebrew_ch1:hebrew_cafe_order_drink:order": {
+      "file": "assets/audio/lines/hebrew-puck-8018d667cc50e643.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_cafe_order_drink:thanks": {
+      "file": "assets/audio/lines/hebrew-puck-8501b0089ac86904.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_greet_and_introduce:ask_how_are_you_variant_9": {
+      "file": "assets/audio/lines/hebrew-puck-5bfcb6051ac01e79.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_greet_and_introduce:fine": {
+      "file": "assets/audio/lines/hebrew-puck-6bbc4f2e87b7d16e.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_greet_and_introduce:goodbye": {
+      "file": "assets/audio/lines/hebrew-puck-5911c0ab36bd0474.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_greet_and_introduce:greet_hello_variant_8": {
+      "file": "assets/audio/lines/hebrew-puck-80b47384677caf70.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_greet_and_introduce:greeting": {
+      "file": "assets/audio/lines/hebrew-puck-147fd92d01cc6281.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_greet_and_introduce:how_are_you": {
+      "file": "assets/audio/lines/hebrew-puck-74747be6eba346ec.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_greet_and_introduce:my_name": {
+      "file": "assets/audio/lines/hebrew-puck-10efd340f2664bb2.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_greet_and_introduce:nice_to_meet": {
+      "file": "assets/audio/lines/hebrew-puck-7ddadf38bfdf1448.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_greet_and_introduce:say_goodbye_variant_10": {
+      "file": "assets/audio/lines/hebrew-puck-d886fe2be111b168.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_greet_and_introduce:your_name": {
+      "file": "assets/audio/lines/hebrew-puck-8876f8bfdade972b.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_market_ask_price:agree_to_price_variant_8": {
+      "file": "assets/audio/lines/hebrew-puck-cd6da9f38a20ce28.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_market_ask_price:deal": {
+      "file": "assets/audio/lines/hebrew-puck-60d9b43d705ee626.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_market_ask_price:expensive": {
+      "file": "assets/audio/lines/hebrew-puck-f1068c9488115e2f.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_market_ask_price:greet_hello_variant_2": {
+      "file": "assets/audio/lines/hebrew-puck-ff96fb53ccd92472.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_market_ask_price:greeting": {
+      "file": "assets/audio/lines/hebrew-puck-0ee4cd7b731ccf58.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_market_ask_price:how_much": {
+      "file": "assets/audio/lines/hebrew-puck-e18e6923d1e6dde2.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_market_ask_price:lower": {
+      "file": "assets/audio/lines/hebrew-puck-ffcdbb4361e6b083.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_market_ask_price:no_thanks": {
+      "file": "assets/audio/lines/hebrew-puck-3b37154090c16a9d.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_market_ask_price:price": {
+      "file": "assets/audio/lines/hebrew-orus-a1f6d2b99d03a14c.mp3",
+      "voice": "hebrew-orus"
+    },
+    "hebrew_ch1:hebrew_meet_neighbour:from": {
+      "file": "assets/audio/lines/hebrew-puck-866231a8dccfe5de.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_meet_neighbour:little": {
+      "file": "assets/audio/lines/hebrew-puck-711c52023bc76ce2.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_meet_neighbour:new_neighbour": {
+      "file": "assets/audio/lines/hebrew-puck-fffd5a2c56c58487.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_meet_neighbour:offer_help": {
+      "file": "assets/audio/lines/hebrew-puck-84cad8745fc2b3d9.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_meet_neighbour:say_new_neighbour_variant_9": {
+      "file": "assets/audio/lines/hebrew-puck-f807aa63f9f7ae67.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_meet_neighbour:say_speak_little_variant_10": {
+      "file": "assets/audio/lines/hebrew-puck-b8cb5d2a63de135c.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_meet_neighbour:speak_lang": {
+      "file": "assets/audio/lines/hebrew-puck-1e94d709d5653100.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_meet_neighbour:thanks": {
+      "file": "assets/audio/lines/hebrew-puck-f65134a6dc4eea91.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_meet_neighbour:welcome": {
+      "file": "assets/audio/lines/hebrew-orus-cc2545c55900a5fb.mp3",
+      "voice": "hebrew-orus"
+    },
+    "hebrew_ch1:hebrew_meet_neighbour:where_from_q": {
+      "file": "assets/audio/lines/hebrew-puck-d4b4de3b91292f24.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_take_taxi:ask_use_meter_variant_9": {
+      "file": "assets/audio/lines/hebrew-puck-4fdb0155234a597e.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_take_taxi:bye": {
+      "file": "assets/audio/lines/hebrew-puck-02223ba77bc33361.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_take_taxi:change": {
+      "file": "assets/audio/lines/hebrew-puck-55f64d92ae6a79f6.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_take_taxi:destination": {
+      "file": "assets/audio/lines/hebrew-puck-31ba851cbeb296a8.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_take_taxi:fare": {
+      "file": "assets/audio/lines/hebrew-puck-5fa274ff286b1691.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_take_taxi:hail": {
+      "file": "assets/audio/lines/hebrew-puck-6793bd99876ecbd6.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_take_taxi:meter": {
+      "file": "assets/audio/lines/hebrew-puck-d245cb7a6428ac10.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_take_taxi:say_stop_here_variant_10": {
+      "file": "assets/audio/lines/hebrew-puck-f18f30df39733965.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_take_taxi:stop": {
+      "file": "assets/audio/lines/hebrew-puck-35e3144009195751.mp3",
+      "voice": "hebrew-puck"
+    },
+    "hebrew_ch1:hebrew_take_taxi:where_to": {
+      "file": "assets/audio/lines/hebrew-orus-c13ce419afa619d3.mp3",
+      "voice": "hebrew-orus"
+    }
+  }
+}

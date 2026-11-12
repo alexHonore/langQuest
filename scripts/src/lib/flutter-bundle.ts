@@ -16,17 +16,27 @@ export const CHAPTERS_SUBDIR = 'chapters';
 /** A course's chapter file, relative to {@link BUNDLE_DIR} (the app reads `assets/content/chapters/<trackId>.json`). */
 export const chaptersFileOf = (trackId: string): string => `${CHAPTERS_SUBDIR}/${trackId}.json`;
 
-/** The chapter files of the checked-in bundle, relative to {@link BUNDLE_DIR}, in file-name order. */
+/** The per-course voice files (each course's lines → clips, split from `voices.json`), relative to {@link BUNDLE_DIR}. */
+export const VOICES_SUBDIR = 'voices';
+
+/** A course's voice file, relative to {@link BUNDLE_DIR} (the app reads `assets/content/voices/<trackId>.json`). */
+export const voicesFileOf = (trackId: string): string => `${VOICES_SUBDIR}/${trackId}.json`;
+
+/** The per-course files of the checked-in bundle (chapters, voices), relative to {@link BUNDLE_DIR}, in file-name order. */
 export function bundleChapterFiles(root: string): string[] {
-  const dir = resolve(root, BUNDLE_DIR, CHAPTERS_SUBDIR);
+  return [...filesIn(root, CHAPTERS_SUBDIR), ...filesIn(root, VOICES_SUBDIR)];
+}
+
+function filesIn(root: string, subdir: string): string[] {
+  const dir = resolve(root, BUNDLE_DIR, subdir);
   if (!existsSync(dir)) return [];
   return readdirSync(dir)
     .filter((f) => f.endsWith('.json'))
     .sort()
-    .map((f) => `${CHAPTERS_SUBDIR}/${f}`);
+    .map((f) => `${subdir}/${f}`);
 }
 
 /** Every chapter of the checked-in bundle, course file by course file (file-name order). */
 export function readBundleChapters<T = unknown>(root: string): T[] {
-  return bundleChapterFiles(root).flatMap((file) => (JSON.parse(readFileSync(resolve(root, BUNDLE_DIR, file), 'utf8')) as { chapters: T[] }).chapters);
+  return filesIn(root, CHAPTERS_SUBDIR).flatMap((file) => (JSON.parse(readFileSync(resolve(root, BUNDLE_DIR, file), 'utf8')) as { chapters: T[] }).chapters);
 }

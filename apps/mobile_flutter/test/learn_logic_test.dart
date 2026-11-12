@@ -29,6 +29,10 @@ void main() {
       expect(stops, [PathStop.learn, PathStop.practise, PathStop.mission]);
       expect(stopsFor(hasLearnPlan: true, canTalk: true), [PathStop.learn, PathStop.practise, PathStop.mission, PathStop.talk]);
       expect(stopsFor(hasLearnPlan: false), [PathStop.mission]);
+      // Play (a round of a game with the mission's phrases) comes between the practice and the mission.
+      expect(stopsFor(hasLearnPlan: true, canPlay: true, canTalk: true), [PathStop.learn, PathStop.practise, PathStop.play, PathStop.mission, PathStop.talk]);
+      expect(stopsFor(hasLearnPlan: false, canPlay: true), [PathStop.mission], reason: 'nothing taught, nothing to play with');
+      expect(nextStop(stopsFor(hasLearnPlan: true, canPlay: true), {PathStop.learn, PathStop.practise}), PathStop.play);
       expect(nextStop(stops, {}), PathStop.learn);
       expect(nextStop(stops, {PathStop.learn}), PathStop.practise);
       expect(nextStop(stops, {PathStop.learn, PathStop.practise, PathStop.mission}), isNull);
@@ -161,8 +165,9 @@ void main() {
         }
       }
       expect(testBundle.tracks, hasLength(30));
-      // Darija 7 + Spanish 6 + Japanese 4 (each from en and fr), English 4 (fr), French 7 (en), 25 more courses × 7 (en, fr).
-      expect(plans.length, (7 + 6 + 4) * 2 + 4 + 7 + 25 * 7 * 2);
+      // Chapter 1: Darija 7 + Spanish 6 + Japanese 4 (each from en and fr), English 4 (fr), French 7 (en), 25 more
+      // courses × 7 (en, fr). Chapters 2–4: 6 missions each in every course, English from fr, French from en, 28 from both.
+      expect(plans.length, (7 + 6 + 4) * 2 + 4 + 7 + 25 * 7 * 2 + 3 * (6 + 6 + 28 * 6 * 2));
     });
 
     test('every plan has a scene with a line to shadow, cards, pairs and exchanges', () {

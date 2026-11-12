@@ -43,9 +43,11 @@ void main() {
   group('the bundled AI voices', () {
     final voices = testBundle.voices;
 
-    test('every course reads (almost) every line with a natural AI voice bundled with the app; every clip is present', () {
+    test('every course reads (almost) every line of chapter 1 with a natural AI voice bundled with the app; every clip is present', () {
       const firstCourses = {'arabic-moroccan', 'spanish-spain', 'japanese', 'english'};
-      for (final c in testBundle.chapters) {
+      // Chapter 2's clips are made by a later run of `synthesize-bundle-audio`; until then its lines are said by the
+      // server's voice or the device's, and its audio lessons are offered only where one of them can say every line.
+      for (final c in testBundle.chapters.where((c) => c.chapterIndex == 1)) {
         final lines = [for (final m in c.missions) ...m.expressions];
         final voiced = lines.where((e) => voices.clips.containsKey(e.id)).length;
         // A line no take passed the listening check for stays unvoiced (the next voice of the chain says it).
@@ -84,7 +86,8 @@ void main() {
       expect(voice.aiFor(line.id), isTrue);
       await voice.say(text: line.text, expressionId: line.id);
       await voice.say(text: line.text, expressionId: line.id, slow: true);
-      expect(player.played, ['assets/${voices.clipOf(line.id)}', 'assets/${voices.clipOf(line.id)}']);
+      // Played from the content location (here the repository's layout; in the app, the content bucket).
+      expect(player.played, [voices.clipOf(line.id), voices.clipOf(line.id)]);
       expect(player.rates, [1, slowPlaybackRate]);
       expect(slowPlaybackRate, lessThan(0.8));
     });

@@ -23,8 +23,9 @@ import 'record_take.dart';
 /// L1 — "watch it happen": the mission's dialogue plays line by line. The character's lines are heard (device
 /// voice when one exists for the variety, labelled synthetic), every line shows in the target script with its
 /// romanization and meaning, and on the learner's own lines the learner shadows it out loud (and, where the device
-/// can record, records it to hear next to the reference). Nothing is scored and nothing is asked yet. Fits the
-/// screen: the scene takes the height left after the line card and button.
+/// can record, records it to hear next to the reference). Nothing is scored and nothing is asked yet. The lines
+/// already heard stay above as the thread of the conversation, under the place where it happens; the thread scrolls,
+/// so the line being taught is never cut at any text size.
 class SceneLessonScreen extends ConsumerStatefulWidget {
   final String missionKey;
   const SceneLessonScreen({super.key, required this.missionKey});
@@ -42,6 +43,9 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
   /// The learner's line has to be said (with a microphone) before moving on.
   final _step = SpeakingStep();
 
+  /// The conversation so far, above the line being taught: it follows the newest line.
+  final _thread = ScrollController();
+
   @override
   void initState() {
     super.initState();
@@ -52,7 +56,21 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
   @override
   void dispose() {
     _speech.stop();
+    _thread.dispose();
     super.dispose();
+  }
+
+  /// Brings the line being taught into view (after the frame that added it).
+  void _followThread() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (!mounted || !_thread.hasClients) return;
+      final end = _thread.position.maxScrollExtent;
+      if (context.reduceMotion) {
+        _thread.jumpTo(end);
+      } else {
+        _thread.animateTo(end, duration: const Duration(milliseconds: 280), curve: Curves.easeOutCubic);
+      }
+    });
   }
 
   Future<void> _speakCurrent({bool slow = false}) async {
@@ -83,6 +101,7 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
     if (_index < plan.sceneLines.length - 1) {
       _step.reset();
       setState(() => _index++);
+      _followThread();
       _speakCurrent();
     } else {
       _utterance++;
@@ -104,7 +123,7 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
     final hasVoice = ref.watch(lineVoiceProvider(plan.voiceLocale)).asData?.value.available ?? false;
     final learnerTurn = line.byLearner;
     final meloState = _speaking ? MeloState.curious : (learnerTurn ? MeloState.welcome : MeloState.companion);
-    final sceneId = sceneIdForSituation(plan.mission.situation);
+    final sceneId = sceneIdForMission(plan.mission);
     final isLast = index == plan.sceneLines.length - 1;
     final note = plan.noteOf(line.expression);
     // The learner's line waits for a take (understood where the server checks), unless speaking is paused.
@@ -121,122 +140,126 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
               total: plan.sceneLines.length,
               onClose: () => context.popOrHome(),
             ),
-            // Flexible zone: the scene, sized to what is left (hidden below 96 dp, never overflowing).
-            Expanded(
-              child: Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 16),
-                child: LayoutBuilder(
-                  builder: (context, box) {
-                    if (box.maxHeight < 96) {
-                      return Align(
-                        alignment: Alignment.centerLeft,
-                        child: MeloWidget(state: meloState, courseTrackId: appState.activeTrackId, size: 44),
-                      );
-                    }
-                    final badge = (box.maxHeight * 0.32).clamp(48.0, 84.0);
-                    return AnimatedSceneWidget(
-                      sceneId: sceneId,
-                      title: sceneTitle(l10n, sceneId),
-                      height: box.maxHeight,
-                      showTimeToggle: false,
-                      child: Stack(
-                        children: [
-                          Center(
-                            child: CharacterBadge(name: learnerTurn ? l10n.you : line.speakerName, speaking: _speaking && !learnerTurn, size: badge),
-                          ),
+            // The place, with who is speaking: the character, or the learner.
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Builder(
+                builder: (context) {
+                  final height = (MediaQuery.sizeOf(context).height * 0.17).clamp(96.0, 150.0);
+                  final badge = (height * 0.42).clamp(40.0, 60.0);
+                  return AnimatedSceneWidget(
+                    sceneId: sceneId,
+                    title: sceneTitle(l10n, sceneId),
+                    height: height,
+                    showTimeToggle: false,
+                    child: Stack(
+                      children: [
+                        Center(
+                          child: CharacterBadge(name: learnerTurn ? l10n.you : line.speakerName, speaking: _speaking && !learnerTurn, size: badge),
+                        ),
+                        Positioned(
+                          left: 8,
+                          bottom: 6,
+                          child: MeloWidget(state: meloState, courseTrackId: appState.activeTrackId, size: (badge * 0.8).clamp(34.0, 52.0)),
+                        ),
+                        if (hasVoice)
                           Positioned(
-                            left: 8,
-                            bottom: 6,
-                            child: MeloWidget(state: meloState, courseTrackId: appState.activeTrackId, size: (badge * 0.7).clamp(36.0, 60.0)),
-                          ),
-                          if (hasVoice)
-                            Positioned(
-                              right: 10,
-                              top: 10,
-                              child: Container(
-                                padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                                decoration: BoxDecoration(color: const Color(0xB30B0913), borderRadius: BorderRadius.circular(10)),
-                                child: Row(
-                                  mainAxisSize: MainAxisSize.min,
-                                  children: [
-                                    const Icon(LucideIcons.audioLines, size: 12, color: Colors.white70),
-                                    const SizedBox(width: 4),
-                                    Text(l10n.syntheticVoice, style: const TextStyle(fontSize: 11, color: Colors.white70)),
-                                  ],
-                                ),
+                            right: 10,
+                            top: 10,
+                            child: Container(
+                              padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                              decoration: BoxDecoration(color: const Color(0xB30B0913), borderRadius: BorderRadius.circular(10)),
+                              child: Row(
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  const Icon(LucideIcons.audioLines, size: 12, color: Colors.white70),
+                                  const SizedBox(width: 4),
+                                  Text(l10n.syntheticVoice, style: const TextStyle(fontSize: 11, color: Colors.white70)),
+                                ],
                               ),
                             ),
+                          ),
+                      ],
+                    ),
+                  );
+                },
+              ),
+            ),
+            // The conversation so far, then the line being taught: who says it, target text (+ romanization),
+            // meaning, and the note when there is one.
+            Expanded(
+              child: SingleChildScrollView(
+                controller: _thread,
+                padding: const EdgeInsets.fromLTRB(16, 12, 16, 4),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    for (final past in plan.sceneLines.take(index))
+                      LineBubble(
+                        expression: past.expression,
+                        track: plan.track,
+                        meaning: plan.meaningOf(past.expression),
+                        byLearner: past.byLearner,
+                        speakerName: past.speakerName,
+                        faded: true,
+                        fontSize: 16,
+                      ),
+                    Container(
+                      key: ValueKey(index),
+                      width: double.infinity,
+                      padding: const EdgeInsets.all(16),
+                      decoration: BoxDecoration(
+                        color: learnerTurn ? accent.primarySoft : colors.surface,
+                        borderRadius: BorderRadius.circular(20),
+                        border: Border.all(color: learnerTurn ? accent.primary.withValues(alpha: 0.7) : colors.border, width: learnerTurn ? 1.5 : 1),
+                      ),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            learnerTurn ? l10n.sceneYourLine : line.speakerName,
+                            style: TextStyle(fontSize: 13, fontWeight: FontWeight.w600, color: learnerTurn ? accent.primaryText : colors.textMuted),
+                          ),
+                          const SizedBox(height: 6),
+                          SizedBox(
+                            width: double.infinity,
+                            child: TargetText(expression: line.expression, track: plan.track, fontSize: 24),
+                          ),
+                          const SizedBox(height: 6),
+                          Text(plan.meaningOf(line.expression), style: TextStyle(fontSize: 15, height: 1.3, color: colors.textSecondary)),
+                          if (note != null) ...[
+                            const SizedBox(height: 4),
+                            Text(
+                              note,
+                              maxLines: 3,
+                              overflow: TextOverflow.ellipsis,
+                              style: TextStyle(fontSize: 12.5, color: colors.textMuted),
+                            ),
+                          ],
+                          const SizedBox(height: 10),
+                          ListenButtons(text: line.expression.text, expressionId: line.expression.id, locale: plan.voiceLocale, compact: true),
+                          if (learnerTurn) ...[
+                            const SizedBox(height: 8),
+                            RecordTake(
+                              key: ValueKey('take-$index'),
+                              voiceLocale: plan.voiceLocale,
+                              check: SpeechTarget(expressionId: line.expression.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
+                              onTake: (outcome) => setState(() => _step.take(outcome)),
+                            ),
+                          ],
                         ],
                       ),
-                    );
-                  },
+                      // Each line arrives from its speaker's side, as in a conversation.
+                    ).withMotion(
+                      context,
+                      (a) => a.fadeIn(duration: 260.ms).slideX(begin: learnerTurn ? 0.1 : -0.1, end: 0, duration: 300.ms, curve: Curves.easeOutCubic),
+                    ),
+                  ],
                 ),
               ),
             ),
-            const SizedBox(height: 12),
-            // The line: who says it, target text (+ romanization), meaning, and the note when there is one.
             Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 16),
-              child:
-                  Container(
-                    key: ValueKey(index),
-                    width: double.infinity,
-                    padding: const EdgeInsets.all(16),
-                    decoration: BoxDecoration(
-                      color: colors.surface,
-                      borderRadius: BorderRadius.circular(18),
-                      border: Border.all(color: learnerTurn ? accent.primary.withValues(alpha: 0.6) : colors.border),
-                    ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          learnerTurn ? l10n.sceneYourLine : line.speakerName,
-                          style: TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w700,
-                            letterSpacing: 0.4,
-                            color: learnerTurn ? accent.primaryText : colors.textMuted,
-                          ),
-                        ),
-                        const SizedBox(height: 6),
-                        SizedBox(
-                          width: double.infinity,
-                          child: TargetText(expression: line.expression, track: plan.track),
-                        ),
-                        const SizedBox(height: 6),
-                        Text(plan.meaningOf(line.expression), style: TextStyle(fontSize: 15, color: colors.textSecondary)),
-                        if (note != null) ...[
-                          const SizedBox(height: 4),
-                          Text(
-                            note,
-                            maxLines: 3,
-                            overflow: TextOverflow.ellipsis,
-                            style: TextStyle(fontSize: 12.5, color: colors.textMuted),
-                          ),
-                        ],
-                        const SizedBox(height: 10),
-                        ListenButtons(text: line.expression.text, expressionId: line.expression.id, locale: plan.voiceLocale, compact: true),
-                        if (learnerTurn) ...[
-                          const SizedBox(height: 8),
-                          RecordTake(
-                            key: ValueKey('take-$index'),
-                            voiceLocale: plan.voiceLocale,
-                            check: SpeechTarget(expressionId: line.expression.id, chapterKey: plan.mission.chapterKey, missionKey: plan.mission.key),
-                            onTake: (outcome) => setState(() => _step.take(outcome)),
-                          ),
-                        ],
-                      ],
-                    ),
-                    // Each line arrives from its speaker's side, as in a conversation.
-                  ).withMotion(
-                    context,
-                    (a) => a.fadeIn(duration: 260.ms).slideX(begin: learnerTurn ? 0.1 : -0.1, end: 0, duration: 300.ms, curve: Curves.easeOutCubic),
-                  ),
-            ),
-            const SizedBox(height: 12),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 16, 12),
+              padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
               child: Column(
                 mainAxisSize: MainAxisSize.min,
                 children: [

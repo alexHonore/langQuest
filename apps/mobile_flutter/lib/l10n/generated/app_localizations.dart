@@ -287,7 +287,7 @@ abstract class AppLocalizations {
   /// No description provided for @courseIncludesLearn.
   ///
   /// In en, this message translates to:
-  /// **'Before each mission: a scene, phrase cards and two mini-games'**
+  /// **'Before each mission: a scene, phrase cards and a practice session'**
   String get courseIncludesLearn;
 
   /// No description provided for @courseIncludesReview.
@@ -440,12 +440,6 @@ abstract class AppLocalizations {
   /// **'Streak paused. Resume whenever you like.'**
   String get streakPaused;
 
-  /// No description provided for @pathwayTitle.
-  ///
-  /// In en, this message translates to:
-  /// **'Your pathway'**
-  String get pathwayTitle;
-
   /// No description provided for @chapterLabel.
   ///
   /// In en, this message translates to:
@@ -509,7 +503,7 @@ abstract class AppLocalizations {
   /// No description provided for @pathPractiseSubtitle.
   ///
   /// In en, this message translates to:
-  /// **'Match the pairs, build a sentence'**
+  /// **'Pairs, listening, sentences to build'**
   String get pathPractiseSubtitle;
 
   /// No description provided for @pathPractisePairsOnly.
@@ -631,12 +625,6 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Next round'**
   String get pairsNextRound;
-
-  /// No description provided for @pairsBuildSentence.
-  ///
-  /// In en, this message translates to:
-  /// **'Build a sentence'**
-  String get pairsBuildSentence;
 
   /// No description provided for @matchedSemantics.
   ///
@@ -2015,7 +2003,7 @@ abstract class AppLocalizations {
   /// No description provided for @audioLibraryBody.
   ///
   /// In en, this message translates to:
-  /// **'One per mission: the conversation, then phrase by phrase with time to say each one, then the conversation again.'**
+  /// **'Each lesson goes four ways: you listen, you repeat, you recall from memory, then you take your part in the conversation.'**
   String get audioLibraryBody;
 
   /// No description provided for @audioReadByAi.
@@ -2060,12 +2048,6 @@ abstract class AppLocalizations {
   /// **'Now phrase by phrase. Listen, then say it out loud.'**
   String get audioPhrasesIntro;
 
-  /// No description provided for @audioAgainIntro.
-  ///
-  /// In en, this message translates to:
-  /// **'Once more, the whole conversation.'**
-  String get audioAgainIntro;
-
   /// No description provided for @audioOutro.
   ///
   /// In en, this message translates to:
@@ -2075,20 +2057,14 @@ abstract class AppLocalizations {
   /// No description provided for @audioSectionConversation.
   ///
   /// In en, this message translates to:
-  /// **'The conversation'**
+  /// **'Listen'**
   String get audioSectionConversation;
 
   /// No description provided for @audioSectionPhrases.
   ///
   /// In en, this message translates to:
-  /// **'Phrase by phrase'**
+  /// **'Repeat'**
   String get audioSectionPhrases;
-
-  /// No description provided for @audioSectionAgain.
-  ///
-  /// In en, this message translates to:
-  /// **'Once more'**
-  String get audioSectionAgain;
 
   /// No description provided for @audioYourTurn.
   ///
@@ -3008,12 +2984,6 @@ abstract class AppLocalizations {
   /// **'Complete the sentence'**
   String get practiceGapPrompt;
 
-  /// No description provided for @practiceTryAgain.
-  ///
-  /// In en, this message translates to:
-  /// **'Not this one. Try another.'**
-  String get practiceTryAgain;
-
   /// No description provided for @practiceRight.
   ///
   /// In en, this message translates to:
@@ -3043,6 +3013,528 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'{option}, right answer'**
   String practiceRightSemantics(String option);
+
+  /// No description provided for @practiceHearPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen. Which one did you hear?'**
+  String get practiceHearPrompt;
+
+  /// No description provided for @practiceTrueFalsePrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Is this what it means?'**
+  String get practiceTrueFalsePrompt;
+
+  /// No description provided for @practiceYes.
+  ///
+  /// In en, this message translates to:
+  /// **'Yes'**
+  String get practiceYes;
+
+  /// No description provided for @practiceNo.
+  ///
+  /// In en, this message translates to:
+  /// **'No'**
+  String get practiceNo;
+
+  /// No description provided for @practiceBuildByEarPrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Listen, then build what you heard'**
+  String get practiceBuildByEarPrompt;
+
+  /// No description provided for @practiceTypePrompt.
+  ///
+  /// In en, this message translates to:
+  /// **'Write this phrase'**
+  String get practiceTypePrompt;
+
+  /// No description provided for @practiceTypeHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Type here'**
+  String get practiceTypeHint;
+
+  /// No description provided for @practiceShowAnswer.
+  ///
+  /// In en, this message translates to:
+  /// **'Show the answer'**
+  String get practiceShowAnswer;
+
+  /// No description provided for @practiceWrong.
+  ///
+  /// In en, this message translates to:
+  /// **'Not quite'**
+  String get practiceWrong;
+
+  /// No description provided for @practiceComesBack.
+  ///
+  /// In en, this message translates to:
+  /// **'It comes back at the end.'**
+  String get practiceComesBack;
+
+  /// No description provided for @practiceEarlier.
+  ///
+  /// In en, this message translates to:
+  /// **'From an earlier mission'**
+  String get practiceEarlier;
+
+  /// No description provided for @practiceOnceMore.
+  ///
+  /// In en, this message translates to:
+  /// **'Once more'**
+  String get practiceOnceMore;
+
+  /// No description provided for @practiceAccents.
+  ///
+  /// In en, this message translates to:
+  /// **'Right. Mind the accents.'**
+  String get practiceAccents;
+
+  /// No description provided for @practiceTypo.
+  ///
+  /// In en, this message translates to:
+  /// **'Right, with one small slip: check the spelling.'**
+  String get practiceTypo;
+
+  /// No description provided for @practiceDoneTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Practice done'**
+  String get practiceDoneTitle;
+
+  /// No description provided for @practiceDoneAllRight.
+  ///
+  /// In en, this message translates to:
+  /// **'Everything right the first time.'**
+  String get practiceDoneAllRight;
+
+  /// No description provided for @practiceDoneScore.
+  ///
+  /// In en, this message translates to:
+  /// **'{right} of {total} right the first time'**
+  String practiceDoneScore(int right, int total);
+
+  /// No description provided for @practiceRevisitTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Worth another look'**
+  String get practiceRevisitTitle;
+
+  /// No description provided for @chapterProgress.
+  ///
+  /// In en, this message translates to:
+  /// **'{done} of {total} missions done'**
+  String chapterProgress(int done, int total);
+
+  /// No description provided for @missionDone.
+  ///
+  /// In en, this message translates to:
+  /// **'Completed'**
+  String get missionDone;
+
+  /// No description provided for @phrasesCount.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 phrase} other{{count} phrases}}'**
+  String phrasesCount(int count);
+
+  /// No description provided for @missionOf.
+  ///
+  /// In en, this message translates to:
+  /// **'Mission {index} of {total}'**
+  String missionOf(int index, int total);
+
+  /// No description provided for @pathMoreWays.
+  ///
+  /// In en, this message translates to:
+  /// **'More ways to practise'**
+  String get pathMoreWays;
+
+  /// No description provided for @pathAudioLesson.
+  ///
+  /// In en, this message translates to:
+  /// **'Audio lesson'**
+  String get pathAudioLesson;
+
+  /// No description provided for @pathPlayGames.
+  ///
+  /// In en, this message translates to:
+  /// **'Play the mini-games'**
+  String get pathPlayGames;
+
+  /// No description provided for @literalLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Word for word'**
+  String get literalLabel;
+
+  /// No description provided for @pronunciationLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Pronunciation'**
+  String get pronunciationLabel;
+
+  /// No description provided for @audioMixesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mixes'**
+  String get audioMixesTitle;
+
+  /// No description provided for @audioMixLabel.
+  ///
+  /// In en, this message translates to:
+  /// **'Mix'**
+  String get audioMixLabel;
+
+  /// No description provided for @audioMixRecallTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Recall workout'**
+  String get audioMixRecallTitle;
+
+  /// No description provided for @audioMixRecallBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 phrase you have learned, asked from memory} other{{count} phrases you have learned, asked from memory}}'**
+  String audioMixRecallBody(int count);
+
+  /// No description provided for @audioMixConversationsTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Every conversation'**
+  String get audioMixConversationsTitle;
+
+  /// No description provided for @audioMixConversationsBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 conversation, just to listen} other{{count} conversations back to back, just to listen}}'**
+  String audioMixConversationsBody(int count);
+
+  /// No description provided for @audioAboutMinutes.
+  ///
+  /// In en, this message translates to:
+  /// **'About {minutes} min'**
+  String audioAboutMinutes(int minutes);
+
+  /// No description provided for @audioTimeLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'about {minutes} min left'**
+  String audioTimeLeft(int minutes);
+
+  /// No description provided for @audioSectionRecall.
+  ///
+  /// In en, this message translates to:
+  /// **'Recall'**
+  String get audioSectionRecall;
+
+  /// No description provided for @audioSectionRolePlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Your part'**
+  String get audioSectionRolePlay;
+
+  /// No description provided for @audioRecallIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Now from memory. You hear a meaning: say the phrase before the voice does.'**
+  String get audioRecallIntro;
+
+  /// No description provided for @audioRolePlayIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Now take your part in the conversation. Say your lines out loud, then listen to check.'**
+  String get audioRolePlayIntro;
+
+  /// No description provided for @audioSayCue.
+  ///
+  /// In en, this message translates to:
+  /// **'Say: {meaning}'**
+  String audioSayCue(String meaning);
+
+  /// No description provided for @audioMixConversationsIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'Every conversation of the course, one after the other. Just listen.'**
+  String get audioMixConversationsIntro;
+
+  /// No description provided for @audioMixRecallIntro.
+  ///
+  /// In en, this message translates to:
+  /// **'From memory, the phrases you have learned. Say each one before the voice does.'**
+  String get audioMixRecallIntro;
+
+  /// No description provided for @audioYourTurnRecall.
+  ///
+  /// In en, this message translates to:
+  /// **'Your turn: say it from memory'**
+  String get audioYourTurnRecall;
+
+  /// No description provided for @gamesTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Mini-games'**
+  String get gamesTitle;
+
+  /// No description provided for @gamesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Another way to meet the phrase you have learned.} other{Another way to meet the {count} phrases you have learned. Every mission adds more.}}'**
+  String gamesBody(int count);
+
+  /// No description provided for @homeGamesBody.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Play with 1 phrase you know} other{Play with the {count} phrases you know}}'**
+  String homeGamesBody(int count);
+
+  /// No description provided for @gamesNeedPhrases.
+  ///
+  /// In en, this message translates to:
+  /// **'The games are played with the phrases you have learned. Learn your first ones and they open.'**
+  String get gamesNeedPhrases;
+
+  /// No description provided for @gameMemoryName.
+  ///
+  /// In en, this message translates to:
+  /// **'Lantern pairs'**
+  String get gameMemoryName;
+
+  /// No description provided for @gameMemoryPitch.
+  ///
+  /// In en, this message translates to:
+  /// **'Each phrase and its meaning hide under the lanterns. Find the pairs.'**
+  String get gameMemoryPitch;
+
+  /// No description provided for @gameMemoryHint.
+  ///
+  /// In en, this message translates to:
+  /// **'Turn two lanterns: a phrase and its meaning stay lit.'**
+  String get gameMemoryHint;
+
+  /// No description provided for @gameMemoryHidden.
+  ///
+  /// In en, this message translates to:
+  /// **'Lantern {index}, not turned'**
+  String gameMemoryHidden(int index);
+
+  /// No description provided for @gameMemoryResult.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{All the pairs in 1 move} other{All the pairs in {count} moves}}'**
+  String gameMemoryResult(int count);
+
+  /// No description provided for @gameMemoryDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 phrase found with its meaning.} other{{count} phrases found with their meaning.}}'**
+  String gameMemoryDetail(int count);
+
+  /// No description provided for @gameMovesSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 move} other{{count} moves}}'**
+  String gameMovesSemantics(int count);
+
+  /// No description provided for @gameQuickName.
+  ///
+  /// In en, this message translates to:
+  /// **'Quick fire'**
+  String get gameQuickName;
+
+  /// No description provided for @gameQuickPitch.
+  ///
+  /// In en, this message translates to:
+  /// **'A phrase, a meaning: yes or no? As many as you can before time runs out.'**
+  String get gameQuickPitch;
+
+  /// No description provided for @gameQuickRules.
+  ///
+  /// In en, this message translates to:
+  /// **'You see a phrase and a meaning. Is it what the phrase means? Answer as many as you can in {seconds} seconds. A wrong answer shows the right meaning.'**
+  String gameQuickRules(int seconds);
+
+  /// No description provided for @gameQuickResult.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =0{No right answer this time} =1{1 right answer} other{{count} right answers}}'**
+  String gameQuickResult(int count);
+
+  /// No description provided for @gameQuickDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Out of {answered} answered. Longest run without a mistake: {streak}.'**
+  String gameQuickDetail(int answered, int streak);
+
+  /// No description provided for @gameQuickMeans.
+  ///
+  /// In en, this message translates to:
+  /// **'It means: {meaning}'**
+  String gameQuickMeans(String meaning);
+
+  /// No description provided for @gameRightSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 right answer} other{{count} right answers}}'**
+  String gameRightSemantics(int count);
+
+  /// No description provided for @gameSecondsLeft.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 second left} other{{count} seconds left}}'**
+  String gameSecondsLeft(int count);
+
+  /// No description provided for @gameStreak.
+  ///
+  /// In en, this message translates to:
+  /// **'{count} in a row'**
+  String gameStreak(int count);
+
+  /// No description provided for @gameEarName.
+  ///
+  /// In en, this message translates to:
+  /// **'By ear'**
+  String get gameEarName;
+
+  /// No description provided for @gameEarPitch.
+  ///
+  /// In en, this message translates to:
+  /// **'A phrase is said. Find it among the written ones.'**
+  String get gameEarPitch;
+
+  /// No description provided for @gameEarResult.
+  ///
+  /// In en, this message translates to:
+  /// **'{right} of {total} caught by ear'**
+  String gameEarResult(int right, int total);
+
+  /// No description provided for @gameDashName.
+  ///
+  /// In en, this message translates to:
+  /// **'Sentence dash'**
+  String get gameDashName;
+
+  /// No description provided for @gameDashPitch.
+  ///
+  /// In en, this message translates to:
+  /// **'Put the words of each sentence back in order, against the clock.'**
+  String get gameDashPitch;
+
+  /// No description provided for @gameDashRules.
+  ///
+  /// In en, this message translates to:
+  /// **'You get a meaning and the words of its sentence, mixed with one that does not belong. Put them in order. The clock runs until the last sentence is right.'**
+  String get gameDashRules;
+
+  /// No description provided for @gameDashResult.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{1 sentence in {time}} other{{count} sentences in {time}}}'**
+  String gameDashResult(int count, String time);
+
+  /// No description provided for @gameTimeSemantics.
+  ///
+  /// In en, this message translates to:
+  /// **'Time: {time}'**
+  String gameTimeSemantics(String time);
+
+  /// No description provided for @gameBestMoves.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Your record: 1 move} other{Your record: {count} moves}}'**
+  String gameBestMoves(int count);
+
+  /// No description provided for @gameBestRight.
+  ///
+  /// In en, this message translates to:
+  /// **'{count, plural, =1{Your record: 1 right answer} other{Your record: {count} right answers}}'**
+  String gameBestRight(int count);
+
+  /// No description provided for @gameBestTime.
+  ///
+  /// In en, this message translates to:
+  /// **'Your record: {time}'**
+  String gameBestTime(String time);
+
+  /// No description provided for @gameStart.
+  ///
+  /// In en, this message translates to:
+  /// **'Start'**
+  String get gameStart;
+
+  /// No description provided for @gamePlayAgain.
+  ///
+  /// In en, this message translates to:
+  /// **'Play again'**
+  String get gamePlayAgain;
+
+  /// No description provided for @gameBackToGames.
+  ///
+  /// In en, this message translates to:
+  /// **'Back to the games'**
+  String get gameBackToGames;
+
+  /// No description provided for @gameNewRecord.
+  ///
+  /// In en, this message translates to:
+  /// **'New record'**
+  String get gameNewRecord;
+
+  /// No description provided for @courseIncludesGames.
+  ///
+  /// In en, this message translates to:
+  /// **'Mini-games with the phrases you have learned'**
+  String get courseIncludesGames;
+
+  /// No description provided for @tabPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get tabPlay;
+
+  /// No description provided for @stopPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get stopPlay;
+
+  /// No description provided for @pathPlaySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{game}, with this mission’s phrases'**
+  String pathPlaySubtitle(String game);
+
+  /// No description provided for @practicePlayNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Play: {game}'**
+  String practicePlayNext(String game);
+
+  /// No description provided for @gameMissionDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Now use these phrases in the mission.'**
+  String get gameMissionDetail;
+
+  /// No description provided for @gamesEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Play with what you learn'**
+  String get gamesEmptyTitle;
+
+  /// No description provided for @gamesLearnFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn my first phrases'**
+  String get gamesLearnFirst;
+
+  /// No description provided for @gamesInMissions.
+  ///
+  /// In en, this message translates to:
+  /// **'Each mission also has a round of its own, at its Play step.'**
+  String get gamesInMissions;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

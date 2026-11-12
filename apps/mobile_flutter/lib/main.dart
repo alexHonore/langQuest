@@ -10,6 +10,9 @@ import 'core/backend/account.dart';
 import 'core/backend/auth_gateway.dart';
 import 'core/backend/backend_config.dart';
 import 'core/content/content_bundle.dart';
+import 'core/content/content_cache.dart';
+import 'core/content/content_source.dart';
+import 'core/content/content_unreachable.dart';
 import 'core/content/course_loading.dart';
 import 'core/layout/display_preferences.dart';
 import 'core/layout/phone_frame.dart';
@@ -37,10 +40,19 @@ Future<void> main() async {
 
   final prefs = await SharedPreferences.getInstance();
   final learnerStore = LearnerStore(prefs);
-  // The catalog, and the chapters of the learner's courses only (each course is a file of its own): any other course
-  // is read when the learner opens it. Not cached by the asset bundle: the parsed chapters are what is kept.
-  Future<String> readContent(String path) => rootBundle.loadString(path, cache: false);
-  final content = await ContentBundle.load(readContent, courses: {for (final e in learnerStore.load().enrollments) e.trackId});
+  // The content lives in the published bucket, not in the app: the catalog, then the chapters and voices of the
+  // learner's courses only (each course is a file of its own); any other course is read when the learner opens it. The
+  // device keeps what was read for the learner's courses, so the app opens offline afterwards.
+  final source = ContentSource(location: ContentLocation.parse(await loadContentBaseUrl()), cache: await openContentCache());
+  final ContentBundle content;
+  try {
+    content = await ContentBundle.load(source.read, courses: {for (final e in learnerStore.load().enrollments) e.trackId});
+  } catch (e) {
+    // A first start without the network (nothing kept yet): say so, and try again.
+    debugPrint('Content not reachable: $e');
+    runApp(ContentUnreachableApp(onRetry: main));
+    return;
+  }
 
   // An account is optional: without a backend in this build (or if it cannot start) the app stays offline.
   var backend = await loadBackendConfig();
@@ -68,7 +80,8 @@ Future<void> main() async {
   runApp(
     ProviderScope(
       overrides: [
-        contentBundleProvider.overrideWith(() => ContentNotifier(content, read: readContent)),
+        contentBundleProvider.overrideWith(() => ContentNotifier(content, read: source.read)),
+        contentSourceProvider.overrideWithValue(source),
         learnerStoreProvider.overrideWithValue(learnerStore),
         backendConfigProvider.overrideWithValue(backend),
         startupEmailLinkProvider.overrideWithValue(emailLink),

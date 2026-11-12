@@ -4,14 +4,16 @@ library;
 
 import '../../core/learning/seeded_random.dart';
 
-/// The four stops of a mission node, in teaching order: learn it, practise it, use it, talk freely.
-enum PathStop { learn, practise, mission, talk }
+/// The stops of a mission node, in teaching order: learn it, practise it, play with it, use it, talk freely.
+enum PathStop { learn, practise, play, mission, talk }
 
-/// Which stops a mission node offers. Learn and Practise exist only when the mission has a teaching block;
-/// Talk only when a live conversation partner backs it (the offline app has none, so the stop is hidden rather
-/// than faked — CONVENTIONS §8: visible means usable).
-List<PathStop> stopsFor({required bool hasLearnPlan, bool canTalk = false}) => [
+/// Which stops a mission node offers. Learn and Practise exist only when the mission has a teaching block; Play
+/// (a round of a mini-game with the mission's own phrases) only when it has enough phrases for one; Talk only when
+/// a live conversation partner backs it (the offline app has none, so the stop is hidden rather than faked —
+/// CONVENTIONS §8: visible means usable).
+List<PathStop> stopsFor({required bool hasLearnPlan, bool canPlay = false, bool canTalk = false}) => [
   if (hasLearnPlan) ...[PathStop.learn, PathStop.practise],
+  if (hasLearnPlan && canPlay) PathStop.play,
   PathStop.mission,
   if (canTalk) PathStop.talk,
 ];

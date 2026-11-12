@@ -4,5 +4,7 @@ export * from './spanish-spain';
 export * from './japanese';
 export * from './english';
 export * from './generated';
+export * from './authored';
+export * from './authored/index';
 export * from './skeletons';
 export * from './coverage';

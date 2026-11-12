@@ -72,13 +72,21 @@ const LEGACY_INSTRUCTIONS: Readonly<Record<string, string>> = {
 const ID_PREFIX: Readonly<Record<string, string>> = { 'spanish-spain': 'es-es', japanese: 'ja', 'arabic-moroccan': 'ary', english: 'en-us' };
 const LEGACY_VOICES: Readonly<Record<string, { female: string; male: string }>> = { japanese: { female: 'Kore', male: 'Charon' }, 'arabic-moroccan': { female: 'Kore', male: 'Charon' } };
 
+/**
+ * Courses whose lines are another course's, word for word (Chinese Simplified is Mandarin's chapters): they are read
+ * by that course's voices, so each line is recorded once and its clip shared.
+ */
+export const SHARED_VOICES: Readonly<Record<string, string>> = { 'chinese-simplified': 'chinese-mandarin' };
+
 /** Per course: the character voices by casting, and the learner's voice. */
 export const BUNDLE_VOICES: Readonly<Record<string, { female: BundleVoice; male: BundleVoice; learner: BundleVoice }>> = Object.fromEntries(
-  Object.entries(VOICE_INSTRUCTIONS).map(([track, variety]) => {
+  Object.entries(VOICE_INSTRUCTIONS).map(([own, ownVariety]) => {
+    const track = SHARED_VOICES[own] ?? own;
+    const variety = VOICE_INSTRUCTIONS[track] ?? ownVariety;
     const prefix = ID_PREFIX[track] ?? track;
     const names = LEGACY_VOICES[track] ?? { female: 'Aoede', male: 'Orus' };
     const voice = (name: string): BundleVoice => gemini(`${prefix}-${name.toLowerCase()}`, name, LEGACY_INSTRUCTIONS[track] ?? say(variety), `${name} (Gemini TTS, instructed ${variety.replace(/^natural /, '').replace(/,.*$/, '')})`);
-    return [track, { female: voice(names.female), male: voice(names.male), learner: voice('Puck') }];
+    return [own, { female: voice(names.female), male: voice(names.male), learner: voice('Puck') }];
   }),
 );
 

@@ -1,1 +1,1 @@
-{"supabaseUrl":"{{or (env `LQ_SUPABASE_URL`) (env `NEXT_PUBLIC_SUPABASE_URL`)}}","supabaseAnonKey":"{{or (env `LQ_SUPABASE_ANON_KEY`) (env `NEXT_PUBLIC_SUPABASE_ANON_KEY`)}}","apiBaseUrl":"{{env `LQ_API_BASE_URL`}}"}
+{"supabaseUrl":"{{or (env `LQ_SUPABASE_URL`) (env `NEXT_PUBLIC_SUPABASE_URL`)}}","supabaseAnonKey":"{{or (env `LQ_SUPABASE_ANON_KEY`) (env `NEXT_PUBLIC_SUPABASE_ANON_KEY`)}}","apiBaseUrl":"{{env `LQ_API_BASE_URL`}}","contentBaseUrl":"{{env `LQ_CONTENT_BASE_URL`}}"}

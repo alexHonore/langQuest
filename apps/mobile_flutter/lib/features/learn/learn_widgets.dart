@@ -45,11 +45,25 @@ SceneId sceneIdForSituation(String situation) => switch (situation) {
   'directions' => SceneId.station,
   'transport' => SceneId.street,
   'travel' => SceneId.airport,
-  'neighbours' || 'family' || 'daily_life' => SceneId.home,
+  'neighbours' || 'family' || 'daily_life' || 'housing' => SceneId.home,
   'work' => SceneId.office,
-  'emergencies' => SceneId.clinic,
+  'emergencies' || 'health' => SceneId.clinic,
   'plans' || 'debates' || 'story' => SceneId.gathering,
   _ => SceneId.street,
+};
+
+/// The painted scene of [mission]: where its conversation happens. A blueprint whose place its situation does not
+/// say (a ticket office is "travel", like an airport; help is asked for in the street, not at the clinic) names it.
+SceneId sceneIdForMission(Mission mission) => switch (mission.blueprintKey) {
+  'buy_train_ticket' => SceneId.station,
+  'emergency_ask_help' => SceneId.street,
+  'describe_your_day' => SceneId.office,
+  'talk_about_hobbies' || 'join_a_club' => SceneId.park,
+  'ask_for_advice' => SceneId.cafe,
+  'post_a_parcel' => SceneId.office,
+  'return_an_item' => SceneId.market,
+  'lost_luggage' => SceneId.airport,
+  _ => sceneIdForSituation(mission.situation),
 };
 
 /// Localized name of a painted scene (the badge in its corner).
@@ -71,6 +85,7 @@ String sceneTitle(AppLocalizations l10n, SceneId id) => switch (id) {
 String stopLabel(AppLocalizations l10n, PathStop stop) => switch (stop) {
   PathStop.learn => l10n.stopLearn,
   PathStop.practise => l10n.stopPractise,
+  PathStop.play => l10n.stopPlay,
   PathStop.mission => l10n.stopMission,
   PathStop.talk => l10n.stopTalk,
 };
@@ -139,20 +154,25 @@ class TargetText extends ConsumerWidget {
   }
 }
 
-/// Top bar of every learn screen: close, title, and one dot per step of the current screen.
+/// Top bar of every learn screen: close, title and progress — one segment per step of a short screen (the lines of
+/// a scene, the cards), or one bar that fills up ([fraction], 0–1) for a long session.
 class LearnTopBar extends ConsumerWidget {
   final String title;
   final int step;
   final int total;
+
+  /// The share of the screen's work done: the bar is then continuous instead of one segment per step.
+  final double? fraction;
   final VoidCallback onClose;
 
-  const LearnTopBar({super.key, required this.title, required this.step, required this.total, required this.onClose});
+  const LearnTopBar({super.key, required this.title, required this.step, required this.total, required this.onClose, this.fraction});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final appState = ref.watch(appStateProvider);
     final colors = appState.colors;
     final accent = appState.accent;
+    final fraction = this.fraction;
     return Padding(
       padding: const EdgeInsets.fromLTRB(8, 4, 16, 4),
       child: Row(
@@ -170,28 +190,56 @@ class LearnTopBar extends ConsumerWidget {
                   title,
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
-                  style: TextStyle(fontSize: 14, fontWeight: FontWeight.w700, color: colors.textPrimary),
+                  style: TextStyle(fontSize: 13.5, fontWeight: FontWeight.w600, color: colors.textSecondary),
                 ),
                 const SizedBox(height: 6),
                 Semantics(
                   label: context.l10n.stepOf(step, total),
-                  child: Row(
-                    children: List.generate(total, (i) {
-                      final done = i < step - 1;
-                      final current = i == step - 1;
-                      return Expanded(
-                        child: AnimatedContainer(
-                          duration: const Duration(milliseconds: 250),
-                          height: 4,
-                          margin: const EdgeInsets.symmetric(horizontal: 2),
-                          decoration: BoxDecoration(
-                            color: done ? colors.success : (current ? accent.primary : colors.border),
-                            borderRadius: BorderRadius.circular(2),
+                  child: fraction != null
+                      ? ClipRRect(
+                          borderRadius: BorderRadius.circular(4),
+                          child: SizedBox(
+                            height: 8,
+                            child: Stack(
+                              fit: StackFit.expand,
+                              children: [
+                                ColoredBox(color: colors.surfaceMuted),
+                                TweenAnimationBuilder<double>(
+                                  tween: Tween(end: fraction.clamp(0.0, 1.0)),
+                                  duration: context.reduceMotion ? Duration.zero : const Duration(milliseconds: 350),
+                                  curve: Curves.easeOutCubic,
+                                  builder: (context, value, _) => FractionallySizedBox(
+                                    alignment: AlignmentDirectional.centerStart,
+                                    widthFactor: value,
+                                    child: DecoratedBox(
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(4),
+                                        gradient: LinearGradient(colors: [accent.primary, accent.lantern[1]]),
+                                      ),
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
+                        )
+                      : Row(
+                          children: List.generate(total, (i) {
+                            final done = i < step - 1;
+                            final current = i == step - 1;
+                            return Expanded(
+                              child: AnimatedContainer(
+                                duration: const Duration(milliseconds: 250),
+                                height: 6,
+                                margin: const EdgeInsets.symmetric(horizontal: 2),
+                                decoration: BoxDecoration(
+                                  color: done ? colors.success : (current ? accent.primary : colors.surfaceMuted),
+                                  borderRadius: BorderRadius.circular(3),
+                                ),
+                              ),
+                            );
+                          }),
                         ),
-                      );
-                    }),
-                  ),
                 ),
               ],
             ),
@@ -212,7 +260,10 @@ class ListenButtons extends ConsumerWidget {
   final String? expressionId;
   final bool compact;
 
-  const ListenButtons({super.key, required this.text, required this.locale, this.expressionId, this.compact = false});
+  /// Also offer the line slowly (off where there is only room for one button).
+  final bool slow;
+
+  const ListenButtons({super.key, required this.text, required this.locale, this.expressionId, this.compact = false, this.slow = true});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -231,14 +282,16 @@ class ListenButtons extends ConsumerWidget {
           compact: compact,
           onTap: () => voice.say(text: text, expressionId: expressionId),
         ),
-        const SizedBox(width: 8),
-        AudioChip(
-          icon: LucideIcons.turtle,
-          label: l10n.listenSlowly,
-          semanticsLabel: ai ? l10n.listenSlowlyAiVoiceSemantics : l10n.listenSlowlySemantics,
-          compact: compact,
-          onTap: () => voice.say(text: text, expressionId: expressionId, slow: true),
-        ),
+        if (slow) ...[
+          const SizedBox(width: 8),
+          AudioChip(
+            icon: LucideIcons.turtle,
+            label: l10n.listenSlowly,
+            semanticsLabel: ai ? l10n.listenSlowlyAiVoiceSemantics : l10n.listenSlowlySemantics,
+            compact: compact,
+            onTap: () => voice.say(text: text, expressionId: expressionId, slow: true),
+          ),
+        ],
       ],
     );
   }
@@ -380,6 +433,98 @@ class CharacterBadge extends ConsumerWidget {
             ),
           ],
         ],
+      ),
+    );
+  }
+}
+
+/// A line of the conversation as a chat bubble: the character's on the left, behind their initial; the learner's on
+/// the right, in the course's colour. [faded]: a line already exchanged, kept above as the thread of the conversation.
+class LineBubble extends ConsumerWidget {
+  const LineBubble({
+    super.key,
+    required this.expression,
+    required this.track,
+    required this.meaning,
+    required this.byLearner,
+    this.speakerName = '',
+    this.faded = false,
+    this.speaking = false,
+    this.fontSize = 18,
+    this.footer,
+  });
+
+  final Expression expression;
+  final CourseTrackInfo track;
+  final String meaning;
+  final bool byLearner;
+
+  /// The character's name, written above their line.
+  final String speakerName;
+  final bool faded;
+
+  /// The character is saying this line now (their initial glows).
+  final bool speaking;
+  final double fontSize;
+
+  /// Under the line: listening to it, recording it.
+  final Widget? footer;
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final appState = ref.watch(appStateProvider);
+    final colors = appState.colors;
+    final accent = appState.accent;
+    const corner = Radius.circular(20);
+    const tail = Radius.circular(6);
+    final bubble = Container(
+      padding: const EdgeInsets.fromLTRB(14, 10, 14, 12),
+      decoration: BoxDecoration(
+        color: byLearner ? accent.primarySoft : colors.surface,
+        borderRadius: BorderRadiusDirectional.only(
+          topStart: corner,
+          topEnd: corner,
+          bottomStart: byLearner ? corner : tail,
+          bottomEnd: byLearner ? tail : corner,
+        ),
+        border: Border.all(color: byLearner ? accent.primary.withValues(alpha: 0.55) : colors.border),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          if (!byLearner && speakerName.isNotEmpty) ...[
+            Text(
+              speakerName,
+              style: TextStyle(fontSize: 12.5, fontWeight: FontWeight.w600, color: accent.primaryText),
+            ),
+            const SizedBox(height: 3),
+          ],
+          TargetText(expression: expression, track: track, fontSize: fontSize),
+          const SizedBox(height: 3),
+          Text(meaning, style: TextStyle(fontSize: 13.5, height: 1.3, color: colors.textSecondary)),
+          if (footer != null) ...[const SizedBox(height: 8), footer!],
+        ],
+      ),
+    );
+    return Opacity(
+      opacity: faded ? 0.62 : 1,
+      child: Padding(
+        padding: const EdgeInsets.only(bottom: 10),
+        child: Row(
+          mainAxisAlignment: byLearner ? MainAxisAlignment.end : MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            if (byLearner)
+              const SizedBox(width: 44)
+            else ...[
+              CharacterBadge(name: speakerName, speaking: speaking, size: 34, showName: false),
+              const SizedBox(width: 8),
+            ],
+            Flexible(child: bubble),
+            if (!byLearner) const SizedBox(width: 24),
+          ],
+        ),
       ),
     );
   }

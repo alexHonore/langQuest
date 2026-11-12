@@ -1,0 +1,322 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "spanish-latin-american",
+  "voices": {
+    "spanish-latin-american-aoede": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Aoede (Gemini TTS, instructed Latin American Spanish as spoken in Mexico City)"
+    },
+    "spanish-latin-american-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed Latin American Spanish as spoken in Mexico City)"
+    },
+    "spanish-latin-american-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed Latin American Spanish as spoken in Mexico City)"
+    }
+  },
+  "lines": {
+    "spanish_latin_american_ch1:spanish_latin_american_ask_directions:ask_slow_down_variant_11": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-fbdab5021fd7261f.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_ask_directions:ask_where_is_variant_12": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-6ab467efaf1da73c.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_ask_directions:excuse_me": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-bbeb69c5c7eb0e2a.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_ask_directions:far": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-82abcd283a8a7a2d.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_ask_directions:get_attention_variant_10": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-dfe80ca4fc93860f.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_ask_directions:near": {
+      "file": "assets/audio/lines/spanish-latin-american-aoede-34f5e466cf174417.mp3",
+      "voice": "spanish-latin-american-aoede"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_ask_directions:repeat": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-8c202ada33c5b2b3.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_ask_directions:slower": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-91e977dbb7f947b3.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_ask_directions:straight": {
+      "file": "assets/audio/lines/spanish-latin-american-aoede-e9b6e73e755ad8f4.mp3",
+      "voice": "spanish-latin-american-aoede"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_ask_directions:thanks": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-628a9d9d7200489b.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_ask_directions:turn": {
+      "file": "assets/audio/lines/spanish-latin-american-aoede-0b56172e45de86d0.mp3",
+      "voice": "spanish-latin-american-aoede"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_ask_directions:where_is": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-1222a3cec0f6eb36.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:asks_two": {
+      "file": "assets/audio/lines/spanish-latin-american-aoede-a5cf323947193457.mp3",
+      "voice": "spanish-latin-american-aoede"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:just_one": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-abe81df0fc16d1fb.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:me_too": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-0274a6e48d730cca.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:offer_options_variant_12": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-7432c8c86c73c867.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:okay": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-5413b356f6e998d2.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:picks": {
+      "file": "assets/audio/lines/spanish-latin-american-aoede-c66ed2b67681b253.mp3",
+      "voice": "spanish-latin-american-aoede"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:refuse_permission_variant_13": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-93cbd1af7d569ab9.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:scoop": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-96514b74b1c7a379.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:thanks": {
+      "file": "assets/audio/lines/spanish-latin-american-aoede-19bbf8e794150f56.mp3",
+      "voice": "spanish-latin-american-aoede"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:wants": {
+      "file": "assets/audio/lines/spanish-latin-american-aoede-880c7af8d9c9068d.mp3",
+      "voice": "spanish-latin-american-aoede"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:welcome": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-0814af106c034825.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:which_flavour": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-8649398f36474261.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_buy_ice_cream:yummy": {
+      "file": "assets/audio/lines/spanish-latin-american-aoede-0d12c27fd838505f.mp3",
+      "voice": "spanish-latin-american-aoede"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_cafe_order_drink:ask_for_bill_variant_9": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-f7e05d3d09c6b0d6.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_cafe_order_drink:bill": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-2b4ca22c0fe49a2d.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_cafe_order_drink:choice": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-7791fdca46bedeca.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_cafe_order_drink:choose_option_variant_8": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-1e78a7af7f26c9c9.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_cafe_order_drink:greeting": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-0402c592966a2a55.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_cafe_order_drink:options": {
+      "file": "assets/audio/lines/spanish-latin-american-aoede-54a04851877b243b.mp3",
+      "voice": "spanish-latin-american-aoede"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_cafe_order_drink:order": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-f7aa8c2396b0cf79.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_cafe_order_drink:request_drink_variant_7": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-54b37f636c3583c4.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_cafe_order_drink:thanks": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-adad25479836bd96.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:ask_how_are_you_variant_9": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-eab87a5ab4349eba.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:fine": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-f053b1e79352a1b9.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:goodbye": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-3152c4eefbc0c62c.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:greet_hello_variant_8": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-66b162e99c5f0744.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:greeting": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-7eeb2af6f0405131.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:how_are_you": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-0da0d2c4abcb2667.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:my_name": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-ae742f12a39056ef.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:nice_to_meet": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-e53c5c60d75c0c15.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:say_goodbye_variant_10": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-3fbdd323e407e346.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_greet_and_introduce:your_name": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-53e51eb7a3cd5621.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_market_ask_price:ask_price_variant_8": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-301c34142eef7dac.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_market_ask_price:deal": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-db07d11da13c5510.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_market_ask_price:expensive": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-2b85fc27c60e0dbe.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_market_ask_price:greeting": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-7a657d241fdc56ab.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_market_ask_price:how_much": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-e270022bf2129605.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_market_ask_price:lower": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-580fb8a5323687bb.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_market_ask_price:no_thanks": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-636f95fe08b23fc8.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_market_ask_price:offer_lower_price_variant_9": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-bd40519359aa3ff6.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_market_ask_price:price": {
+      "file": "assets/audio/lines/spanish-latin-american-aoede-95ada5263e663d51.mp3",
+      "voice": "spanish-latin-american-aoede"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:from": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-9a18473f77934024.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:little": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-c5dadbc0b748b126.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:new_neighbour": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-aed31d613ef14d4f.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:offer_help": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-f52021985038fd66.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:offer_help_variant_11": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-488535572ec9d593.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:say_new_neighbour_variant_10": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-5d08cec09d6dd3f1.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:say_new_neighbour_variant_9": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-03d7c26e60dba1ed.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:speak_lang": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-e3717ce2cb644a93.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:thanks": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-d6b3dc9c720fc169.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:welcome": {
+      "file": "assets/audio/lines/spanish-latin-american-aoede-0aed0d8c124053d8.mp3",
+      "voice": "spanish-latin-american-aoede"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_meet_neighbour:where_from_q": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-a1c9932c787423f0.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_take_taxi:ask_use_meter_variant_10": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-b2bf34b4566e28e4.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_take_taxi:bye": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-8bfc9da2dd5b1938.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_take_taxi:change": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-28fcc85230dbedc6.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_take_taxi:destination": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-49c613ed4f4a10fc.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_take_taxi:fare": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-85a964593689e40e.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_take_taxi:hail": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-d65588324e5512c0.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_take_taxi:hail_taxi_variant_9": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-572fc3e1bff31037.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_take_taxi:meter": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-79c2e246f78ed940.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_take_taxi:say_stop_here_variant_11": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-75751af2cf3a1a66.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_take_taxi:stop": {
+      "file": "assets/audio/lines/spanish-latin-american-puck-8c8845754822e075.mp3",
+      "voice": "spanish-latin-american-puck"
+    },
+    "spanish_latin_american_ch1:spanish_latin_american_take_taxi:where_to": {
+      "file": "assets/audio/lines/spanish-latin-american-orus-9ccdd660407575b4.mp3",
+      "voice": "spanish-latin-american-orus"
+    }
+  }
+}

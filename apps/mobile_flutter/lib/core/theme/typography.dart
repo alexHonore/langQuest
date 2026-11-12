@@ -1,6 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'colors.dart';
+import 'script_fonts.dart';
+
+/// The display face (Outfit) for titles and numbers: the bundled weights only (semi-bold, bold), with the script
+/// fonts behind it for names in other scripts.
+TextStyle displayStyle({required double size, required Color color, bool bold = true, double height = 1.15, double letterSpacing = -0.2}) =>
+    GoogleFonts.outfit(
+      fontSize: size,
+      fontWeight: bold ? FontWeight.w700 : FontWeight.w600,
+      color: color,
+      height: height,
+      letterSpacing: letterSpacing,
+    ).copyWith(fontFamilyFallback: scriptFontFallback);
 
 class LangQuestTypography {
   static TextTheme createTextTheme(LangQuestColors colors) {

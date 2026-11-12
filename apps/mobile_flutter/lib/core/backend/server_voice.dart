@@ -8,6 +8,7 @@ import '../audio/wav.dart';
 import '../audio/clip_player_provider.dart';
 import '../content/bundled_voices.dart';
 import '../content/content_bundle.dart';
+import '../content/content_source.dart';
 import '../services/app_state.dart';
 import '../services/speech_service.dart';
 import 'account.dart';
@@ -104,20 +105,25 @@ const double slowPlaybackRate = 0.72;
 /// The course lines pre-recorded by natural AI voices and bundled with the app (`BundledVoices`): played for every
 /// learner, signed in or not, offline too. Null where clips cannot be played.
 class BundledVoice {
-  BundledVoice({required this.voices, required this.player});
+  BundledVoice({required BundledVoices Function() voices, required this.player, required this.location}) : _voices = voices; // ignore: prefer_initializing_formals
 
-  final BundledVoices voices;
+  /// The voices of the courses in memory, as they are now (a course read later adds its own).
+  final BundledVoices Function() _voices;
   final ClipPlayer player;
+
+  /// Where the clips are (the content bucket): a clip is fetched when it is played, and the browser keeps it.
+  final ContentLocation location;
+
+  BundledVoices get voices => _voices();
 
   bool has(String? expressionId) => voices.clipOf(expressionId) != null;
 
-  /// Says [expressionId]; false when no clip is bundled for it.
+  /// Says [expressionId]; false when no clip is recorded for it.
   Future<bool> speak(String expressionId, {bool slow = false}) async {
-    final asset = voices.clipOf(expressionId);
-    if (asset == null) return false;
+    final clip = voices.clipOf(expressionId);
+    if (clip == null) return false;
     player.stop();
-    // Flutter web serves the app's assets under `assets/`.
-    await player.play('assets/$asset', rate: slow ? slowPlaybackRate : 1);
+    await player.play(location.clip(clip).toString(), rate: slow ? slowPlaybackRate : 1);
     return true;
   }
 
@@ -126,11 +132,11 @@ class BundledVoice {
 
 final bundledVoiceProvider = Provider<BundledVoice?>((ref) {
   final makePlayer = ref.watch(clipPlayerFactoryProvider);
-  // Not the whole bundle: a course's chapters arriving must not replace the player (and cut a clip).
-  final voices = ref.watch(contentBundleProvider.select((b) => b.voices));
-  if (makePlayer == null || voices.isEmpty) return null;
+  // Only whether there are voices: a course's voices arriving must not replace the player (and cut a clip).
+  final hasVoices = ref.watch(contentBundleProvider.select((b) => !b.voices.isEmpty));
+  if (makePlayer == null || !hasVoices) return null;
   final player = makePlayer();
-  final voice = BundledVoice(voices: voices, player: player);
+  final voice = BundledVoice(voices: () => ref.read(contentBundleProvider).voices, player: player, location: ref.watch(contentLocationProvider));
   // Whatever stops the device voice (a new line, a recording starting) stops this one too.
   final speech = ref.read(speechServiceProvider);
   speech.addStopListener(player.stop);
@@ -213,4 +219,14 @@ final lineVoiceProvider = FutureProvider.autoDispose.family<LineVoice, String?>(
   if (device) return LineVoice(source: LineVoiceSource.device, bundled: bundled, locale: locale, speech: speech);
   if (bundled != null) return LineVoice(source: LineVoiceSource.bundled, bundled: bundled, speech: speech);
   return LineVoice(source: LineVoiceSource.none, speech: speech);
+});
+
+/// The voice for lines as far as it is known right now: [lineVoiceProvider]'s once the device has answered about its
+/// own voices (a browser can take a moment), and until then the bundled clips alone, which need nothing from the
+/// device. For what cannot wait: an exercise asked by ear is built, and said, as soon as its screen opens.
+final lineVoiceNowProvider = Provider.autoDispose.family<LineVoice?, String?>((ref, locale) {
+  final resolved = ref.watch(lineVoiceProvider(locale)).asData?.value;
+  if (resolved != null) return resolved;
+  final bundled = ref.watch(bundledVoiceProvider);
+  return bundled == null ? null : LineVoice(source: LineVoiceSource.bundled, bundled: bundled, speech: ref.watch(speechServiceProvider));
 });

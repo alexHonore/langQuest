@@ -1,0 +1,302 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "lingala",
+  "voices": {
+    "lingala-aoede": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Aoede (Gemini TTS, instructed Lingala as spoken in Kinshasa)"
+    },
+    "lingala-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed Lingala as spoken in Kinshasa)"
+    },
+    "lingala-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed Lingala as spoken in Kinshasa)"
+    }
+  },
+  "lines": {
+    "lingala_ch1:lingala_ask_directions:ask_slow_down_variant_11": {
+      "file": "assets/audio/lines/lingala-puck-3471bc63d1876ff2.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_ask_directions:ask_where_is_variant_12": {
+      "file": "assets/audio/lines/lingala-puck-6c50498e35109e3a.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_ask_directions:excuse_me": {
+      "file": "assets/audio/lines/lingala-puck-9ae2e14ee24b98a5.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_ask_directions:far": {
+      "file": "assets/audio/lines/lingala-puck-b60415290d16f82b.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_ask_directions:get_attention_variant_10": {
+      "file": "assets/audio/lines/lingala-puck-1f1e9c4fc6980535.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_ask_directions:near": {
+      "file": "assets/audio/lines/lingala-orus-b5134495bb81a081.mp3",
+      "voice": "lingala-orus"
+    },
+    "lingala_ch1:lingala_ask_directions:repeat": {
+      "file": "assets/audio/lines/lingala-puck-6d27bc8a5f54fa29.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_ask_directions:slower": {
+      "file": "assets/audio/lines/lingala-puck-9801e093e3cc2fea.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_ask_directions:straight": {
+      "file": "assets/audio/lines/lingala-orus-75ff34d0bb161b51.mp3",
+      "voice": "lingala-orus"
+    },
+    "lingala_ch1:lingala_ask_directions:thanks": {
+      "file": "assets/audio/lines/lingala-puck-132730fa7cdcae81.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_ask_directions:turn": {
+      "file": "assets/audio/lines/lingala-orus-5b1dc9346abb3981.mp3",
+      "voice": "lingala-orus"
+    },
+    "lingala_ch1:lingala_ask_directions:where_is": {
+      "file": "assets/audio/lines/lingala-puck-f2703f9819313c4c.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_buy_ice_cream:asks_two": {
+      "file": "assets/audio/lines/lingala-orus-edd91ad9e8a2bc02.mp3",
+      "voice": "lingala-orus"
+    },
+    "lingala_ch1:lingala_buy_ice_cream:just_one": {
+      "file": "assets/audio/lines/lingala-puck-788a56c74526b640.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_buy_ice_cream:me_too": {
+      "file": "assets/audio/lines/lingala-puck-3e5c8b8082669234.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_buy_ice_cream:offer_options_variant_13": {
+      "file": "assets/audio/lines/lingala-puck-6ccd86ecea5721ce.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_buy_ice_cream:okay": {
+      "file": "assets/audio/lines/lingala-puck-f4c8ba0579881a4c.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_buy_ice_cream:picks": {
+      "file": "assets/audio/lines/lingala-orus-f13f20b96f9ccaba.mp3",
+      "voice": "lingala-orus"
+    },
+    "lingala_ch1:lingala_buy_ice_cream:refuse_permission_variant_12": {
+      "file": "assets/audio/lines/lingala-puck-dfdaec71da21404e.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_buy_ice_cream:scoop": {
+      "file": "assets/audio/lines/lingala-puck-4a18859fd6bbc086.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_buy_ice_cream:thanks": {
+      "file": "assets/audio/lines/lingala-orus-6c26e78b0908a9be.mp3",
+      "voice": "lingala-orus"
+    },
+    "lingala_ch1:lingala_buy_ice_cream:wants": {
+      "file": "assets/audio/lines/lingala-orus-84d7b44d1a56052a.mp3",
+      "voice": "lingala-orus"
+    },
+    "lingala_ch1:lingala_buy_ice_cream:welcome": {
+      "file": "assets/audio/lines/lingala-puck-54817e1556200cf9.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_buy_ice_cream:which_flavour": {
+      "file": "assets/audio/lines/lingala-puck-473c954d44654581.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_cafe_order_drink:bill": {
+      "file": "assets/audio/lines/lingala-puck-dd13f221b0fb3267.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_cafe_order_drink:choice": {
+      "file": "assets/audio/lines/lingala-puck-30d7330b1db6f6fa.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_cafe_order_drink:choose_option_variant_8": {
+      "file": "assets/audio/lines/lingala-puck-2af80a5c4e8b23f3.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_cafe_order_drink:greeting": {
+      "file": "assets/audio/lines/lingala-puck-a0cf463a9925d98f.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_cafe_order_drink:options": {
+      "file": "assets/audio/lines/lingala-orus-bce4239206bbf8cc.mp3",
+      "voice": "lingala-orus"
+    },
+    "lingala_ch1:lingala_cafe_order_drink:order": {
+      "file": "assets/audio/lines/lingala-puck-4e1db5f19e07402a.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_cafe_order_drink:request_drink_variant_7": {
+      "file": "assets/audio/lines/lingala-puck-281bd1dd2303ce74.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_cafe_order_drink:thanks": {
+      "file": "assets/audio/lines/lingala-puck-274b78f17e7f368b.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_greet_and_introduce:ask_how_are_you_variant_8": {
+      "file": "assets/audio/lines/lingala-puck-2fb57e2866f4c778.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_greet_and_introduce:goodbye": {
+      "file": "assets/audio/lines/lingala-puck-6a0e47412da43b6d.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_greet_and_introduce:greeting": {
+      "file": "assets/audio/lines/lingala-puck-898c6cd10e5645b9.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_greet_and_introduce:how_are_you": {
+      "file": "assets/audio/lines/lingala-puck-0b44566b61bdee3e.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_greet_and_introduce:introduce_name_variant_10": {
+      "file": "assets/audio/lines/lingala-puck-a44f6e7fe542b648.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_greet_and_introduce:my_name": {
+      "file": "assets/audio/lines/lingala-puck-83cc5886cb56f789.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_greet_and_introduce:nice_to_meet": {
+      "file": "assets/audio/lines/lingala-puck-3f8e9c82377df4f5.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_greet_and_introduce:reply_fine_variant_9": {
+      "file": "assets/audio/lines/lingala-puck-e8f09fb85fed6065.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_greet_and_introduce:say_goodbye_variant_11": {
+      "file": "assets/audio/lines/lingala-puck-fcd883b678488932.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_greet_and_introduce:your_name": {
+      "file": "assets/audio/lines/lingala-puck-688fc110ca9e6162.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_market_ask_price:deal": {
+      "file": "assets/audio/lines/lingala-puck-cd1ce08748e43520.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_market_ask_price:decline_purchase_variant_10": {
+      "file": "assets/audio/lines/lingala-puck-1bf402ef213835d9.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_market_ask_price:expensive": {
+      "file": "assets/audio/lines/lingala-puck-77fe99a6554621e3.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_market_ask_price:greet_hello_variant_8": {
+      "file": "assets/audio/lines/lingala-puck-4fe13e4ac3f5b5e4.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_market_ask_price:greeting": {
+      "file": "assets/audio/lines/lingala-puck-924cd0f379f6e8b4.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_market_ask_price:how_much": {
+      "file": "assets/audio/lines/lingala-puck-9ceae8e7655a3abd.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_market_ask_price:lower": {
+      "file": "assets/audio/lines/lingala-puck-edc35ba25b4a6e0e.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_market_ask_price:no_thanks": {
+      "file": "assets/audio/lines/lingala-puck-2ec29f91b4870431.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_market_ask_price:price": {
+      "file": "assets/audio/lines/lingala-aoede-6c44dd6a5c36558f.mp3",
+      "voice": "lingala-aoede"
+    },
+    "lingala_ch1:lingala_meet_neighbour:ask_where_from_variant_10": {
+      "file": "assets/audio/lines/lingala-puck-123abe56613da8c7.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_meet_neighbour:from": {
+      "file": "assets/audio/lines/lingala-puck-a4dd6c7ca7ab7925.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_meet_neighbour:little": {
+      "file": "assets/audio/lines/lingala-puck-39078a72566af854.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_meet_neighbour:new_neighbour": {
+      "file": "assets/audio/lines/lingala-puck-2ecfadc6547745af.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_meet_neighbour:offer_help": {
+      "file": "assets/audio/lines/lingala-puck-10b073868097ea3f.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_meet_neighbour:speak_lang": {
+      "file": "assets/audio/lines/lingala-puck-70a6f9e44335e3d7.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_meet_neighbour:thank_variant_11": {
+      "file": "assets/audio/lines/lingala-puck-7a472f33fc4a0f72.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_meet_neighbour:thanks": {
+      "file": "assets/audio/lines/lingala-puck-06bd578537cf8a4e.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_meet_neighbour:welcome": {
+      "file": "assets/audio/lines/lingala-orus-e009b6868315c843.mp3",
+      "voice": "lingala-orus"
+    },
+    "lingala_ch1:lingala_meet_neighbour:where_from_q": {
+      "file": "assets/audio/lines/lingala-puck-a18196fb0f1cec45.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_take_taxi:bye": {
+      "file": "assets/audio/lines/lingala-puck-9ee74c76a13fb04b.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_take_taxi:change": {
+      "file": "assets/audio/lines/lingala-puck-79089f083dd166c8.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_take_taxi:destination": {
+      "file": "assets/audio/lines/lingala-puck-133b0b93bb52c24e.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_take_taxi:fare": {
+      "file": "assets/audio/lines/lingala-puck-484635ed2260901c.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_take_taxi:hail_taxi_variant_9": {
+      "file": "assets/audio/lines/lingala-puck-e6eddd52a792b92e.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_take_taxi:meter": {
+      "file": "assets/audio/lines/lingala-puck-1a2d00928d25d464.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_take_taxi:state_destination_variant_10": {
+      "file": "assets/audio/lines/lingala-puck-6a3c56a26900f380.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_take_taxi:stop": {
+      "file": "assets/audio/lines/lingala-puck-8f6b3a567607f4e2.mp3",
+      "voice": "lingala-puck"
+    },
+    "lingala_ch1:lingala_take_taxi:where_to": {
+      "file": "assets/audio/lines/lingala-orus-c8f46bd330b70b7a.mp3",
+      "voice": "lingala-orus"
+    }
+  }
+}

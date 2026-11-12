@@ -81,14 +81,17 @@ jobs:
       - run: docker build -t langquest-web .
       - name: Serves the app
         run: |
-          docker run -d --name web -p 8080:8080 langquest-web
+          # The content is not in the image (the app reads the content bucket): here the repository's own copy is
+          # served next to the app, so the smoke test reads this commit's content and needs no network.
+          docker run -d --name web -p 8080:8080 -e LQ_CONTENT_BASE_URL=data/ -v "$PWD/apps/mobile_flutter/assets:/srv/data:ro" langquest-web
           for i in $(seq 1 30); do curl -fsS -o /dev/null http://localhost:8080/ && break; sleep 1; done
           curl -fsS http://localhost:8080/ | grep -q 'flutter_bootstrap.js'
           curl -fsS -o /dev/null http://localhost:8080/main.dart.js
-          # Each course's chapters are a file of their own, fetched only for the learner's courses (no file holds them all).
-          curl -fsS -o /dev/null http://localhost:8080/assets/assets/content/catalog.json
-          curl -fsS -o /dev/null http://localhost:8080/assets/assets/content/chapters/spanish-spain.json
-          test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/assets/assets/content/chapters.json)" = 404
+          # The app carries no course content or voice clips: they are published to the content bucket.
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/assets/assets/content/catalog.json)" = 404
+          test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/assets/assets/audio/lines/)" = 404
+          curl -fsS -o /dev/null http://localhost:8080/data/content/catalog.json
+          curl -fsS -o /dev/null http://localhost:8080/data/content/chapters/spanish-spain.json
           curl -fsS http://localhost:8080/sw.js | grep -q "langquest-v1"   # the offline service worker
           # Unused icon-weight fonts are pruned from the build (the engine would download them on every first visit).
           ! curl -fsS http://localhost:8080/assets/FontManifest.json | grep -q 'Lucide[1-6]00'
@@ -96,12 +99,12 @@ jobs:
           test "$(curl -s -o /dev/null -w '%{content_type}' http://localhost:8080/canvaskit/canvaskit.wasm)" = application/wasm
           test "$(curl -s -o /dev/null -w '%{http_code}' http://localhost:8080/missing.js)" = 404
           # No backend variables here: the app's config is empty (offline), and nothing else is published.
-          curl -fsS http://localhost:8080/config.json | grep -qx '{"supabaseUrl":"","supabaseAnonKey":"","apiBaseUrl":""}'
+          curl -fsS http://localhost:8080/config.json | grep -qx '{"supabaseUrl":"","supabaseAnonKey":"","apiBaseUrl":"","contentBaseUrl":"data/"}'
       - uses: actions/setup-node@v4
         with: { node-version: 24 }
       # The Flutter tests run on the Dart VM; only the compiled web app shows what dart2js does (it once broke
       # recording while every VM test passed). Playwright as pinned in pnpm-lock.yaml.
-      - name: Browser smoke (first run, a lesson, record yourself with a fake microphone, display settings, course files fetched)
+      - name: Browser smoke (first run, a lesson, record yourself with a fake microphone, practice pairs, games door, display settings, course files fetched)
         run: |
           mkdir -p "$RUNNER_TEMP/smoke" && cp apps/mobile_flutter/tool/web_smoke.cjs "$RUNNER_TEMP/smoke/"
           cd "$RUNNER_TEMP/smoke" && npm init -y > /dev/null && npm install --no-audit --no-fund playwright@1.64.1 > /dev/null

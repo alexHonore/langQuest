@@ -1,0 +1,1102 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "russian",
+  "voices": {
+    "russian-aoede": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Aoede (Gemini TTS, instructed standard Russian as spoken in Moscow)"
+    },
+    "russian-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed standard Russian as spoken in Moscow)"
+    },
+    "russian-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed standard Russian as spoken in Moscow)"
+    }
+  },
+  "lines": {
+    "russian_ch1:russian_ask_directions:ask_is_it_far_variant_8": {
+      "file": "assets/audio/lines/russian-puck-ea95b04d6cfcf056.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_ask_directions:ask_repeat_variant_11": {
+      "file": "assets/audio/lines/russian-puck-26b5c25b40efabb6.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_ask_directions:ask_slow_down_variant_13": {
+      "file": "assets/audio/lines/russian-puck-86cad5d1fea572ff.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_ask_directions:ask_where_is_variant_4": {
+      "file": "assets/audio/lines/russian-puck-a8148a8c2d7bb6c1.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_ask_directions:excuse_me": {
+      "file": "assets/audio/lines/russian-puck-b50b185f83e699bb.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_ask_directions:far": {
+      "file": "assets/audio/lines/russian-puck-0794b65f1035c156.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_ask_directions:get_attention_variant_2": {
+      "file": "assets/audio/lines/russian-puck-07d769287f392117.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_ask_directions:near": {
+      "file": "assets/audio/lines/russian-orus-c46f43db289a25ff.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch1:russian_ask_directions:repeat": {
+      "file": "assets/audio/lines/russian-puck-a08b64e152943275.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_ask_directions:slower": {
+      "file": "assets/audio/lines/russian-puck-8a9bb49c8d944455.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_ask_directions:straight": {
+      "file": "assets/audio/lines/russian-orus-63fc3a6f6d34e861.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch1:russian_ask_directions:thanks": {
+      "file": "assets/audio/lines/russian-puck-b0cca74391e77a53.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_ask_directions:turn": {
+      "file": "assets/audio/lines/russian-orus-49adb4f94deb9544.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch1:russian_ask_directions:where_is": {
+      "file": "assets/audio/lines/russian-puck-f913f871efbfd96c.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_buy_ice_cream:asks_two": {
+      "file": "assets/audio/lines/russian-aoede-1e101fc4788c0e26.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch1:russian_buy_ice_cream:just_one": {
+      "file": "assets/audio/lines/russian-puck-a82e2418385c0bcb.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_buy_ice_cream:me_too": {
+      "file": "assets/audio/lines/russian-puck-8714091ee479d437.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_buy_ice_cream:okay": {
+      "file": "assets/audio/lines/russian-puck-84bb740b060ae7d1.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_buy_ice_cream:picks": {
+      "file": "assets/audio/lines/russian-aoede-c3ffc3cf9a48ab39.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch1:russian_buy_ice_cream:refuse_permission_variant_7": {
+      "file": "assets/audio/lines/russian-puck-ab2bb8a3480d6f26.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_buy_ice_cream:scoop": {
+      "file": "assets/audio/lines/russian-puck-2dd013ddf210afdc.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_buy_ice_cream:specify_quantity_variant_8": {
+      "file": "assets/audio/lines/russian-puck-18cc384639615570.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_buy_ice_cream:thanks": {
+      "file": "assets/audio/lines/russian-aoede-8624a73a28a1d346.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch1:russian_buy_ice_cream:wants": {
+      "file": "assets/audio/lines/russian-aoede-f2b91e4352afa0e0.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch1:russian_buy_ice_cream:welcome": {
+      "file": "assets/audio/lines/russian-puck-0269cc0b975415de.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_buy_ice_cream:which_flavour": {
+      "file": "assets/audio/lines/russian-puck-2bacb78deb90dff4.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_buy_ice_cream:yummy": {
+      "file": "assets/audio/lines/russian-aoede-fc8ecd93b9776254.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch1:russian_cafe_order_drink:bill": {
+      "file": "assets/audio/lines/russian-puck-ee3d4e89256b2b80.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_cafe_order_drink:choice": {
+      "file": "assets/audio/lines/russian-puck-0dd1176451112877.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_cafe_order_drink:choose_option_variant_8": {
+      "file": "assets/audio/lines/russian-puck-632772f5d979679c.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_cafe_order_drink:greeting": {
+      "file": "assets/audio/lines/russian-puck-a4eccb0d1bab6f37.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_cafe_order_drink:options": {
+      "file": "assets/audio/lines/russian-orus-85dcfee64d929d68.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch1:russian_cafe_order_drink:order": {
+      "file": "assets/audio/lines/russian-puck-3ca2206cc27ad0cd.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_cafe_order_drink:request_drink_variant_7": {
+      "file": "assets/audio/lines/russian-puck-889f36014273316b.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_cafe_order_drink:thanks": {
+      "file": "assets/audio/lines/russian-puck-a190fb9a25356be3.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_greet_and_introduce:fine": {
+      "file": "assets/audio/lines/russian-puck-c7013fad83b4e358.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_greet_and_introduce:goodbye": {
+      "file": "assets/audio/lines/russian-puck-4e0c7cda048164a5.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_greet_and_introduce:greet_hello_variant_8": {
+      "file": "assets/audio/lines/russian-puck-43b7a4ff1d14b530.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_greet_and_introduce:greeting": {
+      "file": "assets/audio/lines/russian-puck-a74e87af37db554e.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_greet_and_introduce:how_are_you": {
+      "file": "assets/audio/lines/russian-puck-db9002b4989721ff.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_greet_and_introduce:my_name": {
+      "file": "assets/audio/lines/russian-puck-7df2bc60b3b71a89.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_greet_and_introduce:nice_to_meet": {
+      "file": "assets/audio/lines/russian-puck-4ebca8e103492a70.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_greet_and_introduce:say_goodbye_variant_9": {
+      "file": "assets/audio/lines/russian-puck-c42e25fdd8d06d11.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_greet_and_introduce:your_name": {
+      "file": "assets/audio/lines/russian-puck-f8602e3ba6c3099c.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_market_ask_price:ask_price_variant_8": {
+      "file": "assets/audio/lines/russian-puck-886bdc6927bf5084.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_market_ask_price:deal": {
+      "file": "assets/audio/lines/russian-puck-e577b529c0c1fedb.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_market_ask_price:expensive": {
+      "file": "assets/audio/lines/russian-puck-8b91a1ab3fc855d5.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_market_ask_price:greeting": {
+      "file": "assets/audio/lines/russian-puck-e3387e6b7ac9f59e.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_market_ask_price:how_much": {
+      "file": "assets/audio/lines/russian-puck-899c55968b24210a.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_market_ask_price:lower": {
+      "file": "assets/audio/lines/russian-puck-df4437ed798fb3ba.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_market_ask_price:no_thanks": {
+      "file": "assets/audio/lines/russian-puck-cb77447e682ddd57.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_market_ask_price:offer_lower_price_variant_9": {
+      "file": "assets/audio/lines/russian-puck-8c4a3c8917eb88f5.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_market_ask_price:price": {
+      "file": "assets/audio/lines/russian-aoede-a1a81b1483f79dfb.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch1:russian_meet_neighbour:from": {
+      "file": "assets/audio/lines/russian-puck-35ca90a66ef0bf33.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_meet_neighbour:little": {
+      "file": "assets/audio/lines/russian-puck-74286674ea5802a9.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_meet_neighbour:new_neighbour": {
+      "file": "assets/audio/lines/russian-puck-d9d50892d40ce892.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_meet_neighbour:offer_help": {
+      "file": "assets/audio/lines/russian-puck-6ddf15a0d8bf5838.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_meet_neighbour:offer_help_variant_10": {
+      "file": "assets/audio/lines/russian-puck-45fb08fe4a157245.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_meet_neighbour:say_new_neighbour_variant_9": {
+      "file": "assets/audio/lines/russian-puck-31021c9786fc324f.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_meet_neighbour:speak_lang": {
+      "file": "assets/audio/lines/russian-puck-d024b6905a150d8c.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_meet_neighbour:thanks": {
+      "file": "assets/audio/lines/russian-puck-bfd66d6617a2508d.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_meet_neighbour:welcome": {
+      "file": "assets/audio/lines/russian-aoede-e73e53263916d51f.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch1:russian_meet_neighbour:where_from_q": {
+      "file": "assets/audio/lines/russian-puck-449f470fe896df80.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_take_taxi:bye": {
+      "file": "assets/audio/lines/russian-puck-b442fb998158e48e.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_take_taxi:change": {
+      "file": "assets/audio/lines/russian-puck-5647f7ea1baf0241.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_take_taxi:destination": {
+      "file": "assets/audio/lines/russian-puck-4a36f3ce7b4dab6e.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_take_taxi:fare": {
+      "file": "assets/audio/lines/russian-puck-107ec0ac7f1ab369.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_take_taxi:hail": {
+      "file": "assets/audio/lines/russian-puck-1d40fc35aee8a85b.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_take_taxi:hail_taxi_variant_9": {
+      "file": "assets/audio/lines/russian-puck-a111d20ee44c90ae.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_take_taxi:meter": {
+      "file": "assets/audio/lines/russian-puck-c2617bbed5851ed7.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_take_taxi:say_stop_here_variant_10": {
+      "file": "assets/audio/lines/russian-puck-291f20435b3faaf9.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_take_taxi:stop": {
+      "file": "assets/audio/lines/russian-puck-9ac50885ddda3283.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch1:russian_take_taxi:where_to": {
+      "file": "assets/audio/lines/russian-orus-4bffdecf1c9a3dea.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch2:russian_buy_train_ticket:card": {
+      "file": "assets/audio/lines/russian-puck-d7a806fe6b0c1b49.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_buy_train_ticket:last_stop": {
+      "file": "assets/audio/lines/russian-aoede-4b2292ed0c6be195.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch2:russian_buy_train_ticket:one_way": {
+      "file": "assets/audio/lines/russian-puck-b674784e567ab635.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_buy_train_ticket:single_or_return": {
+      "file": "assets/audio/lines/russian-aoede-5b5df8ccfdd92e78.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch2:russian_buy_train_ticket:ticket": {
+      "file": "assets/audio/lines/russian-puck-32d7fe1c3726e8ad.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_buy_train_ticket:ticket_tomorrow": {
+      "file": "assets/audio/lines/russian-puck-3c4f22452127b20a.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_buy_train_ticket:time": {
+      "file": "assets/audio/lines/russian-aoede-cd613de5ff504694.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch2:russian_buy_train_ticket:total": {
+      "file": "assets/audio/lines/russian-aoede-da3516ea1cc277b3.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch2:russian_buy_train_ticket:two": {
+      "file": "assets/audio/lines/russian-puck-2fbf83ab13519010.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_buy_train_ticket:when": {
+      "file": "assets/audio/lines/russian-puck-6b534b9a8470e347.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_buy_train_ticket:which_stop": {
+      "file": "assets/audio/lines/russian-puck-fccd3aa1224bb06a.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_emergency_ask_help:anything_hurt": {
+      "file": "assets/audio/lines/russian-orus-fd342666be076258.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch2:russian_emergency_ask_help:call_ambulance": {
+      "file": "assets/audio/lines/russian-orus-082481c77acff773.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch2:russian_emergency_ask_help:call_ambulance_please": {
+      "file": "assets/audio/lines/russian-puck-9c1e20e9b4e4361d.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_emergency_ask_help:help": {
+      "file": "assets/audio/lines/russian-puck-61cc9a8aea4e7b97.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_emergency_ask_help:need_doctor": {
+      "file": "assets/audio/lines/russian-puck-4db648da3b7dbe7b.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_emergency_ask_help:not_yet": {
+      "file": "assets/audio/lines/russian-puck-78b0c14738f8d7f9.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_emergency_ask_help:pain": {
+      "file": "assets/audio/lines/russian-puck-9b152c122a12d5b5.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_emergency_ask_help:pharmacy": {
+      "file": "assets/audio/lines/russian-puck-790ce0204c4144e2.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_emergency_ask_help:pharmacy_near": {
+      "file": "assets/audio/lines/russian-orus-3cbf27b7ca9b9b4f.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch2:russian_emergency_ask_help:type": {
+      "file": "assets/audio/lines/russian-puck-c0adfacd7ffbec46.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_emergency_ask_help:understood": {
+      "file": "assets/audio/lines/russian-puck-f149ee2627e294e3.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_emergency_ask_help:what_happened": {
+      "file": "assets/audio/lines/russian-orus-a2275b67da563d98.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch2:russian_make_weekend_plans:accept": {
+      "file": "assets/audio/lines/russian-puck-565ce77b5af88049.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_make_weekend_plans:cafe_after": {
+      "file": "assets/audio/lines/russian-orus-33b18f3f0028396d.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch2:russian_make_weekend_plans:cinema": {
+      "file": "assets/audio/lines/russian-puck-2b251e7ff51b41d5.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_make_weekend_plans:confirm": {
+      "file": "assets/audio/lines/russian-puck-6e2dc05f2ca5e9dc.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_make_weekend_plans:decline": {
+      "file": "assets/audio/lines/russian-puck-f76c69afb7c1beef.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_make_weekend_plans:football_saturday": {
+      "file": "assets/audio/lines/russian-orus-eb74fdfbfcff3464.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch2:russian_make_weekend_plans:other_time": {
+      "file": "assets/audio/lines/russian-puck-05eaf05f4c38377d.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_make_weekend_plans:suggest": {
+      "file": "assets/audio/lines/russian-puck-b488ba71a64bf486.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_make_weekend_plans:sunday_ok": {
+      "file": "assets/audio/lines/russian-orus-8c0f0cd999f2222b.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch2:russian_make_weekend_plans:when": {
+      "file": "assets/audio/lines/russian-puck-a80dc588ac1ff44d.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_restaurant_order_meal:bill": {
+      "file": "assets/audio/lines/russian-puck-d2145b38a21b8cc6.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_restaurant_order_meal:delicious": {
+      "file": "assets/audio/lines/russian-puck-917c6f26843d92d0.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_restaurant_order_meal:fillings": {
+      "file": "assets/audio/lines/russian-orus-269dc14d70f4e2a9.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch2:russian_restaurant_order_meal:ill_have_borscht": {
+      "file": "assets/audio/lines/russian-puck-228a5a8e8ecef98d.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_restaurant_order_meal:ingredients": {
+      "file": "assets/audio/lines/russian-puck-95413874fcd7ef87.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_restaurant_order_meal:one_moment": {
+      "file": "assets/audio/lines/russian-orus-1ae08d74ab9e0523.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch2:russian_restaurant_order_meal:order": {
+      "file": "assets/audio/lines/russian-puck-90b9e0bce5be8aeb.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_restaurant_order_meal:recommend": {
+      "file": "assets/audio/lines/russian-puck-153ce987c90a954f.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_restaurant_order_meal:settle_up": {
+      "file": "assets/audio/lines/russian-puck-bb40d94fbb2c8fc5.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_restaurant_order_meal:table": {
+      "file": "assets/audio/lines/russian-puck-f6363a1d638fd2c1.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_restaurant_order_meal:try_pelmeni": {
+      "file": "assets/audio/lines/russian-orus-07eb3c46c11c94b1.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch2:russian_restaurant_order_meal:welcome": {
+      "file": "assets/audio/lines/russian-orus-64dd27b6f88ea18d.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch2:russian_shop_for_clothes:can_i_help": {
+      "file": "assets/audio/lines/russian-aoede-cd8924f1351bec65.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch2:russian_shop_for_clothes:card": {
+      "file": "assets/audio/lines/russian-puck-e0ba76ac54d53b77.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_shop_for_clothes:just_looking": {
+      "file": "assets/audio/lines/russian-puck-9571e8461a35ba77.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_shop_for_clothes:look_at_this": {
+      "file": "assets/audio/lines/russian-aoede-f05f83381b34a31d.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch2:russian_shop_for_clothes:other_colour": {
+      "file": "assets/audio/lines/russian-puck-e1b574c272e19c44.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_shop_for_clothes:price": {
+      "file": "assets/audio/lines/russian-puck-83fb7345d42f08e7.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_shop_for_clothes:price_is": {
+      "file": "assets/audio/lines/russian-aoede-db1af2d553b5b3c0.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch2:russian_shop_for_clothes:take_it": {
+      "file": "assets/audio/lines/russian-puck-20dbde9c71ab5dc0.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_shop_for_clothes:variant": {
+      "file": "assets/audio/lines/russian-puck-7cf15f2837ddf8aa.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_shop_for_clothes:want": {
+      "file": "assets/audio/lines/russian-puck-3083270abb91b84e.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_shop_for_clothes:will_bring": {
+      "file": "assets/audio/lines/russian-aoede-0aac4c5832854975.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch2:russian_talk_about_family:and_you": {
+      "file": "assets/audio/lines/russian-aoede-c7658dae005e90ce.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch2:russian_talk_about_family:ask_family": {
+      "file": "assets/audio/lines/russian-puck-f8265d5353dd0651.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_talk_about_family:compliment_reply": {
+      "file": "assets/audio/lines/russian-puck-7ef7b70ce6733c84.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_talk_about_family:delicious": {
+      "file": "assets/audio/lines/russian-puck-20b40f73689d9c1b.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_talk_about_family:dont_know": {
+      "file": "assets/audio/lines/russian-puck-19349ea8e96f7758.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_talk_about_family:help_yourself": {
+      "file": "assets/audio/lines/russian-aoede-a46ff37f48d41b15.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch2:russian_talk_about_family:how_long": {
+      "file": "assets/audio/lines/russian-aoede-e28153b00f6cc078.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch2:russian_talk_about_family:my_family": {
+      "file": "assets/audio/lines/russian-puck-8d94ed09e396ebb7.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_talk_about_family:only_child": {
+      "file": "assets/audio/lines/russian-puck-710e31efc60df86b.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch2:russian_talk_about_family:you_speak_well": {
+      "file": "assets/audio/lines/russian-aoede-7e977e96ea23efb9.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch3:russian_ask_for_advice:closed_monday": {
+      "file": "assets/audio/lines/russian-orus-934b2283eee6e775.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch3:russian_ask_for_advice:excuse_me": {
+      "file": "assets/audio/lines/russian-puck-2b7e25f17eb1fb8a.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_ask_for_advice:fairy_tale": {
+      "file": "assets/audio/lines/russian-orus-a130aab5c509c8f9.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch3:russian_ask_for_advice:hours": {
+      "file": "assets/audio/lines/russian-puck-f3ce4a917bf96eb7.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_ask_for_advice:how_to_get": {
+      "file": "assets/audio/lines/russian-puck-e5bb8f08e242ed32.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_ask_for_advice:is_it_far": {
+      "file": "assets/audio/lines/russian-puck-058c835e2e17a161.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_ask_for_advice:near": {
+      "file": "assets/audio/lines/russian-orus-3f0baf19785d0caf.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch3:russian_ask_for_advice:recommend": {
+      "file": "assets/audio/lines/russian-puck-32d0049b770b44a4.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_ask_for_advice:thanks": {
+      "file": "assets/audio/lines/russian-puck-568ea719ca7ba41b.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_ask_for_advice:thanks_for_tip": {
+      "file": "assets/audio/lines/russian-puck-155007f709f5ec7b.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_ask_for_advice:vasnetsov": {
+      "file": "assets/audio/lines/russian-orus-dd11218b264e50d5.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch3:russian_ask_for_advice:why": {
+      "file": "assets/audio/lines/russian-puck-f68d80c9b59519ed.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_describe_your_day:catch_up": {
+      "file": "assets/audio/lines/russian-puck-0dc4dc808d5ee459.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_describe_your_day:far_away": {
+      "file": "assets/audio/lines/russian-puck-b395fc1d58501474.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_describe_your_day:feeling": {
+      "file": "assets/audio/lines/russian-puck-4441377de68e468b.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_describe_your_day:job": {
+      "file": "assets/audio/lines/russian-puck-67ae634cabf3bcea.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_describe_your_day:routine": {
+      "file": "assets/audio/lines/russian-puck-a3f0644532da005c.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_describe_your_day:sleepy_fly": {
+      "file": "assets/audio/lines/russian-puck-ab275ec39dba4be0.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_describe_your_day:sleepy_look": {
+      "file": "assets/audio/lines/russian-aoede-7d437b0725138a11.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch3:russian_describe_your_day:time": {
+      "file": "assets/audio/lines/russian-puck-91979f5785b1dede.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_describe_your_day:when_leave": {
+      "file": "assets/audio/lines/russian-aoede-871d287b178d7154.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch3:russian_describe_your_day:who_are_you": {
+      "file": "assets/audio/lines/russian-aoede-eb23b43c029faf64.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch3:russian_describe_your_day:why_so_early": {
+      "file": "assets/audio/lines/russian-aoede-580d50d906918684.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch3:russian_friendly_debate:agree": {
+      "file": "assets/audio/lines/russian-puck-54f7eddaddec0bd4.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_friendly_debate:because": {
+      "file": "assets/audio/lines/russian-puck-c30eee1e55190ebf.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_friendly_debate:deal": {
+      "file": "assets/audio/lines/russian-orus-6aa89ed1b865ecae.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch3:russian_friendly_debate:disagree": {
+      "file": "assets/audio/lines/russian-puck-19bccc469d4e862c.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_friendly_debate:leave_moscow": {
+      "file": "assets/audio/lines/russian-orus-9b84f9fd534a9be4.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch3:russian_friendly_debate:opinion": {
+      "file": "assets/audio/lines/russian-puck-17ec0a61d8e21e03.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_friendly_debate:quiet": {
+      "file": "assets/audio/lines/russian-orus-ada7ecdcaa2cfce1.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch3:russian_friendly_debate:rent_price": {
+      "file": "assets/audio/lines/russian-orus-d287a614fa6ddc9a.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch3:russian_friendly_debate:seems_to_me": {
+      "file": "assets/audio/lines/russian-puck-ee50ba6edb1e8430.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_friendly_debate:what_do_you_think": {
+      "file": "assets/audio/lines/russian-puck-841aed196221f261.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_talk_about_hobbies:and_you": {
+      "file": "assets/audio/lines/russian-puck-8df3acfc605c7e15.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_talk_about_hobbies:dislike": {
+      "file": "assets/audio/lines/russian-puck-92a20bcc7f40b900.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_talk_about_hobbies:films_or_books": {
+      "file": "assets/audio/lines/russian-aoede-0ee35a052c6b5f46.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch3:russian_talk_about_hobbies:free_time": {
+      "file": "assets/audio/lines/russian-puck-36e08016490001ca.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_talk_about_hobbies:like": {
+      "file": "assets/audio/lines/russian-puck-72bdcafebaf135e1.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_talk_about_hobbies:museums": {
+      "file": "assets/audio/lines/russian-puck-a58898ded85bc380.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_talk_about_hobbies:prefer": {
+      "file": "assets/audio/lines/russian-puck-192257ebe4dadd72.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_talk_about_hobbies:running_q": {
+      "file": "assets/audio/lines/russian-aoede-7bf0297bf6ff7382.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch3:russian_talk_about_hobbies:soviet_comedies": {
+      "file": "assets/audio/lines/russian-aoede-3abf7065dc67ae79.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch3:russian_talk_about_hobbies:together": {
+      "file": "assets/audio/lines/russian-puck-c2915fb7c70c7bed.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_talk_about_hobbies:weekends_q": {
+      "file": "assets/audio/lines/russian-aoede-673d1074379434f8.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch3:russian_talk_about_work:clarify": {
+      "file": "assets/audio/lines/russian-puck-783c12cc14eef543.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_talk_about_work:explain": {
+      "file": "assets/audio/lines/russian-orus-7e7e330449b66672.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch3:russian_talk_about_work:first_task": {
+      "file": "assets/audio/lines/russian-orus-c394e51a684bd7b4.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch3:russian_talk_about_work:intro": {
+      "file": "assets/audio/lines/russian-puck-010d938ba170844a.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_talk_about_work:job": {
+      "file": "assets/audio/lines/russian-puck-58b9a88fc3d8c68c.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_talk_about_work:meaning": {
+      "file": "assets/audio/lines/russian-puck-5c717f78fec1aea6.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_talk_about_work:permission": {
+      "file": "assets/audio/lines/russian-puck-c5433e96e68022be.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_talk_about_work:planyorka": {
+      "file": "assets/audio/lines/russian-orus-67b6f3532919cbd3.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch3:russian_talk_about_work:pleased": {
+      "file": "assets/audio/lines/russian-puck-96c67a1dcc961c9a.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_talk_about_work:welcome": {
+      "file": "assets/audio/lines/russian-orus-a8c1b1818d0343b2.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch3:russian_talk_about_work:what_does_it_mean": {
+      "file": "assets/audio/lines/russian-puck-e2b0fc6d9d1ad228.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_tell_a_story:get_lost": {
+      "file": "assets/audio/lines/russian-aoede-9adf06d13a6292a4.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch3:russian_tell_a_story:helped": {
+      "file": "assets/audio/lines/russian-puck-9431df4845c01e5a.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_tell_a_story:how_to_say": {
+      "file": "assets/audio/lines/russian-puck-92a308302da8aa99.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_tell_a_story:i_mean": {
+      "file": "assets/audio/lines/russian-puck-36adf6d166a9791f.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_tell_a_story:nightmare": {
+      "file": "assets/audio/lines/russian-aoede-7d34adb06d2c8e84.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch3:russian_tell_a_story:phone_died": {
+      "file": "assets/audio/lines/russian-puck-cc967adb3d3d02ac.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_tell_a_story:story": {
+      "file": "assets/audio/lines/russian-puck-eba2aa4b70cd6ed5.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_tell_a_story:story_f": {
+      "file": "assets/audio/lines/russian-puck-dcc52bc60f088913.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch3:russian_tell_a_story:whats_new": {
+      "file": "assets/audio/lines/russian-aoede-5a6df7c4a7efef32.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch3:russian_tell_a_story:which_one": {
+      "file": "assets/audio/lines/russian-aoede-2c04809ea56707b1.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch3:russian_tell_a_story:yesterday": {
+      "file": "assets/audio/lines/russian-puck-46e029075eca3d97.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_join_a_club:beginners": {
+      "file": "assets/audio/lines/russian-puck-64637977634f0539.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_join_a_club:free_month": {
+      "file": "assets/audio/lines/russian-orus-cb8524b029075b84.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch4:russian_join_a_club:hours": {
+      "file": "assets/audio/lines/russian-puck-05e5c5e095971cc4.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_join_a_club:like": {
+      "file": "assets/audio/lines/russian-puck-158de9d1d07b5937.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_join_a_club:of_course": {
+      "file": "assets/audio/lines/russian-orus-b9ebb350a30bd324.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch4:russian_join_a_club:price": {
+      "file": "assets/audio/lines/russian-puck-931c98ca4f688d62.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_join_a_club:schedule": {
+      "file": "assets/audio/lines/russian-orus-07f062732b676df1.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch4:russian_join_a_club:see_you": {
+      "file": "assets/audio/lines/russian-puck-093dde72c53a4c3f.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_join_a_club:see_you_at_seven": {
+      "file": "assets/audio/lines/russian-orus-6566e9c2b15c3ecc.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch4:russian_join_a_club:try": {
+      "file": "assets/audio/lines/russian-puck-b402f9dc6ae0f8fa.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_lost_luggage:cant_find": {
+      "file": "assets/audio/lines/russian-puck-48980675b598eba0.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_lost_luggage:deliver_to": {
+      "file": "assets/audio/lines/russian-puck-14f500a8b5b762a0.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_lost_luggage:excuse_me": {
+      "file": "assets/audio/lines/russian-puck-a77429d839fea7b8.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_lost_luggage:flight": {
+      "file": "assets/audio/lines/russian-puck-087cf020a18ce3e6.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_lost_luggage:lost": {
+      "file": "assets/audio/lines/russian-puck-1fddf0bfc03e6264.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_lost_luggage:still_in_kazan": {
+      "file": "assets/audio/lines/russian-aoede-586e64c5f703af51.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch4:russian_lost_luggage:thanks": {
+      "file": "assets/audio/lines/russian-puck-3b1607e6fcc51b9c.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_lost_luggage:tomorrow": {
+      "file": "assets/audio/lines/russian-aoede-85e7b239e6c23de9.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch4:russian_lost_luggage:what_happened": {
+      "file": "assets/audio/lines/russian-aoede-9d108e697f7d647c.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch4:russian_lost_luggage:when_back": {
+      "file": "assets/audio/lines/russian-puck-4e30a856ca4d3b3e.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_lost_luggage:which_flight": {
+      "file": "assets/audio/lines/russian-aoede-1dcac1efb7774a54.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch4:russian_post_a_parcel:a_week": {
+      "file": "assets/audio/lines/russian-aoede-855bc9cfa889bd9e.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch4:russian_post_a_parcel:destination": {
+      "file": "assets/audio/lines/russian-puck-19366c75713d6fad.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_post_a_parcel:exact_money": {
+      "file": "assets/audio/lines/russian-puck-e665a9eb4983e8f8.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_post_a_parcel:how_long": {
+      "file": "assets/audio/lines/russian-puck-0c102520cdcef82b.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_post_a_parcel:next": {
+      "file": "assets/audio/lines/russian-aoede-636565df11d09fa8.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch4:russian_post_a_parcel:options": {
+      "file": "assets/audio/lines/russian-aoede-4f26fab82eb65d2c.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch4:russian_post_a_parcel:pay": {
+      "file": "assets/audio/lines/russian-puck-58b187071617ffa3.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_post_a_parcel:price": {
+      "file": "assets/audio/lines/russian-puck-278a9db5edf35e71.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_post_a_parcel:send": {
+      "file": "assets/audio/lines/russian-puck-1f81639ec75ed57d.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_post_a_parcel:this_box": {
+      "file": "assets/audio/lines/russian-puck-83258cbbd084c9f8.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_post_a_parcel:where_to": {
+      "file": "assets/audio/lines/russian-aoede-773e614c5926aa83.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch4:russian_rent_a_flat:come_in": {
+      "file": "assets/audio/lines/russian-aoede-80004f15a5936db8.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch4:russian_rent_a_flat:five_minutes": {
+      "file": "assets/audio/lines/russian-aoede-7c3d0c3c2a9d1ca5.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch4:russian_rent_a_flat:is_it_far": {
+      "file": "assets/audio/lines/russian-puck-b999aa9921368d93.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_rent_a_flat:no_lift": {
+      "file": "assets/audio/lines/russian-aoede-ed14bbed16ceed8f.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch4:russian_rent_a_flat:opinion": {
+      "file": "assets/audio/lines/russian-puck-2a3e51c11a3b37e3.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_rent_a_flat:price": {
+      "file": "assets/audio/lines/russian-aoede-d531bee9ae4ae086.mp3",
+      "voice": "russian-aoede"
+    },
+    "russian_ch4:russian_rent_a_flat:rent": {
+      "file": "assets/audio/lines/russian-puck-efa734ff758d4307.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_rent_a_flat:sign_contract": {
+      "file": "assets/audio/lines/russian-puck-e9694c089a675a6d.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_rent_a_flat:take_it": {
+      "file": "assets/audio/lines/russian-puck-4f77abdf4687e1a1.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_rent_a_flat:when_free": {
+      "file": "assets/audio/lines/russian-puck-b518cd0caf72ad17.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_rent_a_flat:where_is": {
+      "file": "assets/audio/lines/russian-puck-b6ffdceb45f0d8b5.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_return_an_item:bought_when": {
+      "file": "assets/audio/lines/russian-puck-93e4b10c7867eb0b.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_return_an_item:broke_after": {
+      "file": "assets/audio/lines/russian-puck-57417ab43a205dcb.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_return_an_item:broken": {
+      "file": "assets/audio/lines/russian-puck-436e9600732664fa.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_return_an_item:exchange": {
+      "file": "assets/audio/lines/russian-puck-1e0e633634559c07.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_return_an_item:no_problem": {
+      "file": "assets/audio/lines/russian-puck-b9fb823dd08cb7f3.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_return_an_item:or_refund": {
+      "file": "assets/audio/lines/russian-orus-5018c00b025d92da.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch4:russian_return_an_item:same_one": {
+      "file": "assets/audio/lines/russian-puck-bd1879b1aa629420.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_return_an_item:sorry": {
+      "file": "assets/audio/lines/russian-orus-34e17ee94a3fb783.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch4:russian_return_an_item:thanks": {
+      "file": "assets/audio/lines/russian-puck-312fb30da86a797b.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_return_an_item:what_issue": {
+      "file": "assets/audio/lines/russian-orus-82db01fa014214a7.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch4:russian_return_an_item:when_bought": {
+      "file": "assets/audio/lines/russian-orus-e36a5be7398eac9d.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch4:russian_see_the_doctor:check": {
+      "file": "assets/audio/lines/russian-orus-9e008917e1586489.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch4:russian_see_the_doctor:complaints": {
+      "file": "assets/audio/lines/russian-orus-819a488571d53ab0.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch4:russian_see_the_doctor:five_days": {
+      "file": "assets/audio/lines/russian-orus-538af699257869c6.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch4:russian_see_the_doctor:hello": {
+      "file": "assets/audio/lines/russian-puck-32b256f9d2bfd071.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_see_the_doctor:pain": {
+      "file": "assets/audio/lines/russian-puck-60d36121775a27e1.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_see_the_doctor:question": {
+      "file": "assets/audio/lines/russian-puck-f061e4bd7af02364.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_see_the_doctor:since": {
+      "file": "assets/audio/lines/russian-puck-00890965f987d307.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_see_the_doctor:since_when": {
+      "file": "assets/audio/lines/russian-orus-67776e1f83cad2da.mp3",
+      "voice": "russian-orus"
+    },
+    "russian_ch4:russian_see_the_doctor:swallow": {
+      "file": "assets/audio/lines/russian-puck-1fa450d69fd0c638.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_see_the_doctor:thanks": {
+      "file": "assets/audio/lines/russian-puck-4bc067a67074e2cd.mp3",
+      "voice": "russian-puck"
+    },
+    "russian_ch4:russian_see_the_doctor:understood": {
+      "file": "assets/audio/lines/russian-puck-33996816926c6b84.mp3",
+      "voice": "russian-puck"
+    }
+  }
+}

@@ -58,7 +58,10 @@ describe('export-flutter-content', () => {
 
   it('writes no monolithic chapters file and leaves no chapter file of a course without chapters', () => {
     expect(Object.keys(files)).not.toContain('chapters.json');
-    expect(bundleChapterFiles(root)).toEqual([...courseFiles].sort());
+    // The per-course files on disk: each course's chapters, and its voices (split from voices.json).
+    const voiceFiles = Object.keys(files).filter((name) => name.startsWith('voices/'));
+    expect(voiceFiles.length).toBeGreaterThan(0);
+    expect(bundleChapterFiles(root)).toEqual([...courseFiles, ...voiceFiles].sort((a, b) => (a.split('/')[0] === b.split('/')[0] ? a.localeCompare(b) : a.startsWith('chapters/') ? -1 : 1)));
     expect(staleChapterFiles(root, files)).toEqual([]);
     const scratch = mkdtempSync(join(tmpdir(), 'flutter-bundle-'));
     mkdirSync(join(scratch, BUNDLE_DIR, 'chapters'), { recursive: true });

@@ -1,0 +1,326 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "italian",
+  "voices": {
+    "italian-aoede": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Aoede (Gemini TTS, instructed standard Italian)"
+    },
+    "italian-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed standard Italian)"
+    },
+    "italian-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed standard Italian)"
+    }
+  },
+  "lines": {
+    "italian_ch1:italian_ask_directions:ask_slow_down_variant_10": {
+      "file": "assets/audio/lines/italian-puck-34fd2958be5f8400.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_ask_directions:ask_where_is_variant_11": {
+      "file": "assets/audio/lines/italian-puck-f0b6ed8d12a6c1d0.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_ask_directions:excuse_me": {
+      "file": "assets/audio/lines/italian-puck-50284bac5c3e113c.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_ask_directions:far": {
+      "file": "assets/audio/lines/italian-puck-0bb7b182f455dd53.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_ask_directions:near": {
+      "file": "assets/audio/lines/italian-orus-b887fb51ecd3b82b.mp3",
+      "voice": "italian-orus"
+    },
+    "italian_ch1:italian_ask_directions:repeat": {
+      "file": "assets/audio/lines/italian-puck-6aab373f49434c88.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_ask_directions:slower": {
+      "file": "assets/audio/lines/italian-puck-9286c1219ef23302.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_ask_directions:straight": {
+      "file": "assets/audio/lines/italian-orus-099f78237ac27410.mp3",
+      "voice": "italian-orus"
+    },
+    "italian_ch1:italian_ask_directions:thanks": {
+      "file": "assets/audio/lines/italian-puck-7bbca74a431c1efa.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_ask_directions:turn": {
+      "file": "assets/audio/lines/italian-orus-eb66197b6101d4aa.mp3",
+      "voice": "italian-orus"
+    },
+    "italian_ch1:italian_ask_directions:where_is": {
+      "file": "assets/audio/lines/italian-puck-106cb5183762310b.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_buy_ice_cream:asks_two": {
+      "file": "assets/audio/lines/italian-aoede-1172aa7500ddf954.mp3",
+      "voice": "italian-aoede"
+    },
+    "italian_ch1:italian_buy_ice_cream:just_one": {
+      "file": "assets/audio/lines/italian-puck-e52ccf40486e269a.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_buy_ice_cream:me_too": {
+      "file": "assets/audio/lines/italian-puck-0284e8497a5ad352.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_buy_ice_cream:offer_options_variant_13": {
+      "file": "assets/audio/lines/italian-puck-61ec0b335a34cdda.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_buy_ice_cream:okay": {
+      "file": "assets/audio/lines/italian-puck-a6d6f5dbb72926bf.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_buy_ice_cream:picks": {
+      "file": "assets/audio/lines/italian-aoede-e74a6b59ed0d86fd.mp3",
+      "voice": "italian-aoede"
+    },
+    "italian_ch1:italian_buy_ice_cream:refuse_permission_variant_12": {
+      "file": "assets/audio/lines/italian-puck-56cea334cf07839c.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_buy_ice_cream:respond_to_thanks_variant_14": {
+      "file": "assets/audio/lines/italian-puck-1f6936e9f8f5accb.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_buy_ice_cream:scoop": {
+      "file": "assets/audio/lines/italian-puck-476f4fa07d1531e2.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_buy_ice_cream:thanks": {
+      "file": "assets/audio/lines/italian-aoede-230f241084ec5b99.mp3",
+      "voice": "italian-aoede"
+    },
+    "italian_ch1:italian_buy_ice_cream:wants": {
+      "file": "assets/audio/lines/italian-aoede-5075c2425645781c.mp3",
+      "voice": "italian-aoede"
+    },
+    "italian_ch1:italian_buy_ice_cream:welcome": {
+      "file": "assets/audio/lines/italian-puck-7dfd24b64dfd215f.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_buy_ice_cream:which_flavour": {
+      "file": "assets/audio/lines/italian-puck-d693dca6e05ffa5d.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_buy_ice_cream:yummy": {
+      "file": "assets/audio/lines/italian-aoede-634bdf727662b1bc.mp3",
+      "voice": "italian-aoede"
+    },
+    "italian_ch1:italian_cafe_order_drink:ask_for_bill_variant_9": {
+      "file": "assets/audio/lines/italian-puck-e122c0a48d36ead5.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_cafe_order_drink:bill": {
+      "file": "assets/audio/lines/italian-puck-757e37a4152e2e24.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_cafe_order_drink:choice": {
+      "file": "assets/audio/lines/italian-puck-efeb6198e9ddd6c4.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_cafe_order_drink:choose_option_variant_8": {
+      "file": "assets/audio/lines/italian-puck-2316609d0510f3aa.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_cafe_order_drink:greeting": {
+      "file": "assets/audio/lines/italian-puck-2125e74f50657a03.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_cafe_order_drink:options": {
+      "file": "assets/audio/lines/italian-aoede-a18818eae0792210.mp3",
+      "voice": "italian-aoede"
+    },
+    "italian_ch1:italian_cafe_order_drink:order": {
+      "file": "assets/audio/lines/italian-puck-f130078c1ef25bf7.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_cafe_order_drink:request_drink_variant_7": {
+      "file": "assets/audio/lines/italian-puck-7fea6d9bc5f372df.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_cafe_order_drink:thanks": {
+      "file": "assets/audio/lines/italian-puck-91b0b51f717344bb.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_greet_and_introduce:ask_how_are_you_variant_9": {
+      "file": "assets/audio/lines/italian-puck-9d7ee0405ee2d083.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_greet_and_introduce:fine": {
+      "file": "assets/audio/lines/italian-puck-a949b41674edac22.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_greet_and_introduce:goodbye": {
+      "file": "assets/audio/lines/italian-puck-22fce0d6428d1c73.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_greet_and_introduce:greet_hello_variant_8": {
+      "file": "assets/audio/lines/italian-puck-7d8e54745b1fee8a.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_greet_and_introduce:greeting": {
+      "file": "assets/audio/lines/italian-puck-db068c0beb3eceed.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_greet_and_introduce:how_are_you": {
+      "file": "assets/audio/lines/italian-puck-42d4e22ebde91a1f.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_greet_and_introduce:my_name": {
+      "file": "assets/audio/lines/italian-puck-50bd3a34d0c0003f.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_greet_and_introduce:nice_to_meet": {
+      "file": "assets/audio/lines/italian-puck-54203d5fc6382c99.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_greet_and_introduce:say_goodbye_variant_10": {
+      "file": "assets/audio/lines/italian-puck-2b262409e065fb95.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_greet_and_introduce:your_name": {
+      "file": "assets/audio/lines/italian-puck-ff92d61723583098.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_market_ask_price:agree_to_price_variant_11": {
+      "file": "assets/audio/lines/italian-puck-c3eb58006518b903.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_market_ask_price:ask_price_variant_8": {
+      "file": "assets/audio/lines/italian-puck-706aecd189c0adc5.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_market_ask_price:deal": {
+      "file": "assets/audio/lines/italian-puck-4ac4424c0be27e8e.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_market_ask_price:expensive": {
+      "file": "assets/audio/lines/italian-puck-c78f29383cde55fd.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_market_ask_price:greeting": {
+      "file": "assets/audio/lines/italian-puck-ce899cbce56ad221.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_market_ask_price:how_much": {
+      "file": "assets/audio/lines/italian-puck-77cc03a7f697e5ed.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_market_ask_price:lower": {
+      "file": "assets/audio/lines/italian-puck-e76a1caf70980bea.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_market_ask_price:no_thanks": {
+      "file": "assets/audio/lines/italian-puck-094852e4050681f9.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_market_ask_price:offer_lower_price_variant_10": {
+      "file": "assets/audio/lines/italian-puck-34d847ba61c4acdf.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_market_ask_price:price": {
+      "file": "assets/audio/lines/italian-aoede-a93e172424e359bb.mp3",
+      "voice": "italian-aoede"
+    },
+    "italian_ch1:italian_market_ask_price:say_too_expensive_variant_9": {
+      "file": "assets/audio/lines/italian-puck-a21d3eb61af3f143.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_meet_neighbour:ask_where_from_variant_10": {
+      "file": "assets/audio/lines/italian-puck-f7e2a44094bf9a24.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_meet_neighbour:from": {
+      "file": "assets/audio/lines/italian-puck-1b091a1730f565e4.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_meet_neighbour:little": {
+      "file": "assets/audio/lines/italian-puck-c76d5f1818a933e1.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_meet_neighbour:new_neighbour": {
+      "file": "assets/audio/lines/italian-puck-ca452554aee93327.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_meet_neighbour:offer_help": {
+      "file": "assets/audio/lines/italian-puck-bdb98783eec40acb.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_meet_neighbour:say_new_neighbour_variant_9": {
+      "file": "assets/audio/lines/italian-puck-afa28ca2f6b44531.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_meet_neighbour:speak_lang": {
+      "file": "assets/audio/lines/italian-puck-03f8f44d09c8b604.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_meet_neighbour:thanks": {
+      "file": "assets/audio/lines/italian-puck-7bbca74a431c1efa.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_meet_neighbour:welcome": {
+      "file": "assets/audio/lines/italian-aoede-37b3bdb6c9e7e097.mp3",
+      "voice": "italian-aoede"
+    },
+    "italian_ch1:italian_meet_neighbour:where_from_q": {
+      "file": "assets/audio/lines/italian-puck-55de73f587600114.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_take_taxi:ask_use_meter_variant_10": {
+      "file": "assets/audio/lines/italian-puck-2b350c2bcbdaeec1.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_take_taxi:bye": {
+      "file": "assets/audio/lines/italian-puck-0c4da0c269542518.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_take_taxi:change": {
+      "file": "assets/audio/lines/italian-puck-29eb50e883fa4b12.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_take_taxi:destination": {
+      "file": "assets/audio/lines/italian-puck-e23f64fcc2dccd5c.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_take_taxi:fare": {
+      "file": "assets/audio/lines/italian-puck-3e6be9059fd352d1.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_take_taxi:hail": {
+      "file": "assets/audio/lines/italian-puck-e21654fa79ecafeb.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_take_taxi:hail_taxi_variant_9": {
+      "file": "assets/audio/lines/italian-puck-4ccda5a5b6b6aa72.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_take_taxi:meter": {
+      "file": "assets/audio/lines/italian-puck-d5bdd2c8036a80a2.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_take_taxi:say_stop_here_variant_11": {
+      "file": "assets/audio/lines/italian-puck-ae53368fa69404d1.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_take_taxi:stop": {
+      "file": "assets/audio/lines/italian-puck-21bc9677edf90d70.mp3",
+      "voice": "italian-puck"
+    },
+    "italian_ch1:italian_take_taxi:where_to": {
+      "file": "assets/audio/lines/italian-orus-87a43d24fef807a5.mp3",
+      "voice": "italian-orus"
+    }
+  }
+}

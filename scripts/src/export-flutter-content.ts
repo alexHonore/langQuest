@@ -30,7 +30,7 @@ import { COURSE_TRACKS, LANGUAGE_VARIETIES, type CourseTrack, type CourseTrackId
 import { ALL_SKILLS, DRAFT_CHAPTERS, SYSTEM_SKILL_KEYS, findBlueprint, seedExpressionId, skillNameKey, type SeedChapter, type SeedExpression, type SeedMission, type Skill } from '@langquest/curriculum';
 import { CHARACTER_ROSTER, COVER_RECIPES } from '@langquest/ui/art/web';
 import { flagBool, isDirectRun, runCli, type CliIo, type CliSpec, type ParsedArgs } from './lib/cli';
-import { BUNDLE_DIR, CHAPTERS_SUBDIR, bundleChapterFiles, chaptersFileOf } from './lib/flutter-bundle';
+import { BUNDLE_DIR, CHAPTERS_SUBDIR, bundleChapterFiles, chaptersFileOf, voicesFileOf } from './lib/flutter-bundle';
 import { fileExists, repoRoot, writeTextFileSync } from './lib/io';
 
 export { BUNDLE_DIR };
@@ -225,6 +225,33 @@ export function castRoles(catalogs: { en: Record<string, unknown>; fr: Record<st
   return out;
 }
 
+/**
+ * Each course's voices, split from the `voices.json` that synthesize-bundle-audio writes, keyed by path relative to
+ * {@link BUNDLE_DIR}: the app reads only the learner's courses' (a course without any clip yet has no file).
+ */
+export function buildVoiceFiles(root: string): Record<string, string> {
+  const files: Record<string, string> = {};
+  const allVoices = readVoices(root);
+  if (!allVoices) return files;
+  for (const track of COURSE_TRACKS) {
+    const ids = new Set(DRAFT_CHAPTERS.filter((c) => c.courseTrackId === track.id).flatMap((c) => c.missions.flatMap((m) => m.expressions.map((e) => seedExpressionId(c, m, e)))));
+    const lines = Object.fromEntries(Object.entries(allVoices.lines).filter(([id]) => ids.has(id)).sort(([a], [b]) => a.localeCompare(b)));
+    if (Object.keys(lines).length === 0) continue;
+    const used = new Set(Object.values(lines).map((l) => l.voice));
+    const voices = Object.fromEntries(Object.entries(allVoices.voices).filter(([id]) => used.has(id)));
+    files[voicesFileOf(track.id)] = `${JSON.stringify({ schemaVersion: 1, generatedBy: 'scripts/src/export-flutter-content.ts (from voices.json)', synthetic: true, courseTrackId: track.id, voices, lines }, null, 2)}\n`;
+  }
+  return files;
+}
+
+/** Every course's clips (`voices.json`, written by synthesize-bundle-audio), or null before any was recorded. */
+function readVoices(root: string): { voices: Record<string, unknown>; lines: Record<string, { file: string; voice: string }> } | null {
+  const path = resolve(root, BUNDLE_DIR, 'voices.json');
+  if (!fileExists(path)) return null;
+  const json = JSON.parse(readFileSync(path, 'utf8')) as { voices?: Record<string, unknown>; lines?: Record<string, { file: string; voice: string }> };
+  return { voices: json.voices ?? {}, lines: json.lines ?? {} };
+}
+
 /** The bundle files, keyed by path relative to {@link BUNDLE_DIR}, as the exact text written to disk. Pure. */
 export function buildFlutterBundle(root: string): Record<string, string> {
   const readCatalog = (lang: 'en' | 'fr') => JSON.parse(readFileSync(resolve(root, `packages/locales/src/catalogs/${lang}.json`), 'utf8')) as Record<string, unknown>;
@@ -246,6 +273,7 @@ export function buildFlutterBundle(root: string): Record<string, string> {
     if (own.length === 0) continue;
     files[chaptersFileOf(track.id)] = `${JSON.stringify({ ...header, courseTrackId: track.id, chapters: own.map(chapterEntry) }, null, 2)}\n`;
   }
+  Object.assign(files, buildVoiceFiles(root));
   return files;
 }
 

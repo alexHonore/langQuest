@@ -1,6 +1,7 @@
 import 'dart:convert';
 
-/// The course lines read by natural AI voices and bundled with the app (`assets/content/voices.json`, made by
+/// The course lines read by natural AI voices (`assets/content/voices/<trackId>.json` for each course, split from the
+/// `voices.json` made by
 /// `scripts/src/synthesize-bundle-audio.ts`): one clip per line, the character and the learner's role in different
 /// voices. They play for every learner, signed in or not, offline too. Synthetic, and said so.
 class BundledVoices {
@@ -17,6 +18,24 @@ class BundledVoices {
   String? clipOf(String? expressionId) => expressionId == null ? null : clips[expressionId];
 
   bool get isEmpty => clips.isEmpty;
+
+  /// These voices and [other]'s (another course's).
+  BundledVoices merge(BundledVoices other) =>
+      other.isEmpty ? this : (isEmpty ? other : BundledVoices(clips: {...clips, ...other.clips}, voiceOf: {...voiceOf, ...other.voiceOf}));
+
+  /// These voices without the lines [expressionIds] (a course the learner left).
+  BundledVoices without(Set<String> expressionIds) => expressionIds.isEmpty
+      ? this
+      : BundledVoices(
+          clips: {
+            for (final e in clips.entries)
+              if (!expressionIds.contains(e.key)) e.key: e.value,
+          },
+          voiceOf: {
+            for (final e in voiceOf.entries)
+              if (!expressionIds.contains(e.key)) e.key: e.value,
+          },
+        );
 
   factory BundledVoices.parse(String source) {
     final json = (jsonDecode(source) as Map).cast<String, Object?>();

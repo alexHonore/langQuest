@@ -125,7 +125,7 @@ Rules:
 - Two roles per conversation: character agent (fast, in-dialect) and evaluator (async, structured observations).
 
 ## 6. Mobile / admin UX conventions
-- Mobile tabs: Home, Missions, Audio, Speak, Progress. Every screen shows active course + its source language with an edit affordance.
+- Mobile tabs: Home, Missions, Play, Speak, Audio, Progress (Speak and Audio only where they can be used; Play always, leading to the first lesson until there is something to play with). Every screen shows active course + its source language with an edit affordance.
 - Mascot (orbit-creature, original) states per spec §10.2A; `reduceMotion` + "mascot off" always respected.
 - No paywalls, credits, tiers, or usage meters anywhere in UI copy or code.
 - i18n via ICU catalogs in `@langquest/locales` (`t(key, vars)`), `en` complete, `fr` complete; RTL aware.

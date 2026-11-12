@@ -13,6 +13,8 @@ import '../features/call/speak_screen.dart';
 import '../features/account/account_screen.dart';
 import '../features/catalog/catalog_screen.dart';
 import '../features/catalog/course_detail_screen.dart';
+import '../features/games/game_screens.dart';
+import '../features/games/games_hub_screen.dart';
 import '../features/home/home_screen.dart';
 import '../features/learn/cards_screen.dart';
 import '../features/learn/mission_path_screen.dart';
@@ -84,6 +86,10 @@ final appRouterProvider = Provider<GoRouter>((ref) {
             pageBuilder: (context, state) => const NoTransitionPage(child: AudioLibraryScreen()),
           ),
           GoRoute(
+            path: '/play',
+            pageBuilder: (context, state) => const NoTransitionPage(child: GamesHubScreen()),
+          ),
+          GoRoute(
             path: '/talk',
             pageBuilder: (context, state) => const NoTransitionPage(child: SpeakScreen()),
           ),
@@ -93,18 +99,27 @@ final appRouterProvider = Provider<GoRouter>((ref) {
       page('/welcome/courses', (_) => const PickCourseScreen()),
       page('/catalog', (_) => const CatalogScreen()),
       page('/course/:trackId', (s) => CourseDetailScreen(trackId: s.pathParameters['trackId']!)),
-      // Learn path (approved L1 + L3 inside N2): a mission node, then its learn, practise and mission stops.
+      // Learn path (approved L1 + L3 inside N2): a mission node, then its learn, practise, play and mission stops.
       page('/path/:id', (s) => MissionPathScreen(missionKey: s.pathParameters['id']!)),
       page('/admin/models', (s) => const AdminModelsScreen()),
       page('/learn/:id/scene', (s) => SceneLessonScreen(missionKey: s.pathParameters['id']!)),
       page('/learn/:id/cards', (s) => CardsScreen(missionKey: s.pathParameters['id']!)),
       page('/learn/:id/practice', (s) => PracticeScreen(missionKey: s.pathParameters['id']!)),
+      // A mission's Play stop: a round of a mini-game with the mission's own phrases.
+      page('/learn/:id/play', (s) => MissionPlayScreen(missionKey: s.pathParameters['id']!)),
       page('/mission/:id', (s) => MissionPlayerScreen(missionKey: s.pathParameters['id']!)),
       page('/speak/:id', (s) => PractiseSayingScreen(missionKey: s.pathParameters['id']!)),
       page('/call/:id', (s) => CallScreen(missionKey: s.pathParameters['id']!)),
       page('/talk/:character', (s) => CallScreen(characterId: s.pathParameters['character']!)),
       page('/calls/:id', (s) => CallRecordScreen(recordId: s.pathParameters['id']!)),
+      // The chapter's mixes (every conversation back to back, a recall of what was learned) before a mission's lesson.
+      page('/audio/mix/:kind', (s) => AudioLessonScreen.mix(kind: s.pathParameters['kind']!)),
       page('/audio/:id', (s) => AudioLessonScreen(missionKey: s.pathParameters['id']!)),
+      // Mini-games (the Play tab opens them): the phrases already taught, another way.
+      page('/play/memory', (_) => const MemoryGameScreen()),
+      page('/play/quick', (_) => const QuickGameScreen()),
+      page('/play/ear', (_) => const EarGameScreen()),
+      page('/play/dash', (_) => const DashGameScreen()),
       page('/warmup', (_) => const WarmupScreen()),
       page('/review', (_) => const ReviewScreen()),
       page('/account', (_) => const AccountScreen()),
@@ -114,9 +129,9 @@ final appRouterProvider = Provider<GoRouter>((ref) {
   return router;
 });
 
-/// The tab shell: Home, Missions, Progress; Speak when live calls back the course (signed in, the server's snapshot);
-/// Audio when the course's lessons can be heard here (a device voice for it, or the server's AI voice). A tab never
-/// opens onto a placeholder (CONVENTIONS §8).
+/// The tab shell: Home, Missions, Play, Progress; Speak when live calls back the course (signed in, the server's
+/// snapshot); Audio when the course's lessons can be heard here (a device voice for it, or the server's AI voice). A
+/// tab never opens onto a placeholder (CONVENTIONS §8): before anything is taught, Play leads to the first lesson.
 class AppScaffold extends ConsumerWidget {
   final Widget child;
 
@@ -139,11 +154,12 @@ class AppScaffold extends ConsumerWidget {
     final audio = ref.watch(audioLessonsAvailableProvider);
     // Signed out on a course with calls, the tab says how to unlock them (a free account) rather than hiding them.
     final speak = ref.watch(liveCallCourseProvider) != null || ref.watch(callsNeedAccountProvider);
-    final tabs = ['/', '/missions', if (speak) '/talk', if (audio) '/audio', '/progress'];
+    final tabs = ['/', '/missions', '/play', if (speak) '/talk', if (audio) '/audio', '/progress'];
     final selected = _selectedIndex(context, tabs);
     final items = [
       (LucideIcons.home, l10n.tabHome),
       (LucideIcons.target, l10n.tabMissions),
+      (LucideIcons.gamepad2, l10n.tabPlay),
       if (speak) (LucideIcons.messagesSquare, l10n.tabSpeak),
       if (audio) (LucideIcons.headphones, l10n.tabAudio),
       (LucideIcons.barChart2, l10n.tabProgress),
@@ -183,7 +199,7 @@ class AppScaffold extends ConsumerWidget {
                                 children: [
                                   Icon(items[i].$1, size: 21, color: i == selected ? accent.primaryText : colors.textMuted),
                                   const SizedBox(height: 4),
-                                  // Up to five tabs: a long label shrinks to fit rather than overflowing.
+                                  // Up to six tabs: a long label shrinks to fit rather than overflowing.
                                   FittedBox(
                                     fit: BoxFit.scaleDown,
                                     child: Padding(

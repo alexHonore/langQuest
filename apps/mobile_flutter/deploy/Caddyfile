@@ -17,7 +17,8 @@
 	}
 	# The account backend's client-safe settings (deploy/config.json), filled from this container's environment on each
 	# request: LQ_SUPABASE_URL / LQ_SUPABASE_ANON_KEY (else the hosted app's NEXT_PUBLIC_SUPABASE_*) and LQ_API_BASE_URL.
-	# Empty values keep the app offline-only. Nothing is written at start-up (the platform may run a read-only image).
+	# Empty values keep the app offline-only. LQ_CONTENT_BASE_URL points the app at another copy of the content bucket
+	# (empty: the published bucket; CI serves the repository's own copy, mounted at /srv/data). Nothing is written at start-up (the platform may run a read-only image).
 	templates /config.json {
 		mime application/json
 	}

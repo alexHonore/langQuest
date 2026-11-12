@@ -10,42 +10,42 @@
     "konnichiwa": {
      "meaning": "Bonjour (en journée).",
      "contextNote": "Le matin, on dit « ohayou gozaimasu » ; le soir, « konbanwa ».",
-     "literalGloss": null
+     "literalGloss": "Aujourd'hui (wa)…"
     },
     "ohayou": {
      "meaning": "Bonjour (le matin).",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "Se dit jusque vers 10 h. Entre amis, « ohayou » tout court ; « gozaimasu » rend la formule polie. Prononcez « o-ha-yô go-zaï-mass » : le u de « -masu » s'entend à peine.",
+     "literalGloss": "Honorable-tôt est."
     },
     "ogenki_desu_ka": {
      "meaning": "Comment allez-vous ?",
      "contextNote": "À réserver aux personnes que l'on connaît déjà ; ce n'est pas une formule d'ouverture habituelle avec des inconnus.",
-     "literalGloss": null
+     "literalGloss": "Honorable-forme est (ka) ?"
     },
     "genki_desu": {
      "meaning": "Je vais bien.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "Pas de « je » : le japonais omet le sujet quand il est évident. Plus poli : « okagesama de, genki desu » (grâce à vous). Le g est toujours dur, « guén-ki », et « desu » se dit « dess ».",
+     "literalGloss": "En-forme suis."
     },
     "watashi_wa_desu": {
      "meaning": "Je suis… / Je m'appelle…",
      "contextNote": "Plus formel : « … to moushimasu ».",
-     "literalGloss": null
+     "literalGloss": "Moi (wa) … suis."
     },
     "onamae_wa": {
      "meaning": "Comment vous appelez-vous ?",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "Le « o- » honorifique ne s'emploie que pour le nom de l'autre, jamais pour le vôtre : répondez simplement « … desu ». À l'oral, « onamae wa ? », avec une intonation montante, suffit souvent.",
+     "literalGloss": "Honorable-nom (wa) quoi est (ka) ?"
     },
     "hajimemashite": {
      "meaning": "Enchanté(e).",
-     "contextNote": null,
-     "literalGloss": "première fois ; je vous prie de bien vouloir m'accueillir favorablement"
+     "contextNote": "Ne se dit qu'à la première rencontre, souvent avec une légère inclinaison. « Yoroshiku onegaishimasu » n'a pas d'équivalent français : on s'en remet à la bienveillance de l'autre. Prononcez « ha-dji-mé-mach'-té ».",
+     "literalGloss": "Première fois ; je vous prie de bien vouloir m'accueillir favorablement."
     },
     "shitsurei_shimasu": {
      "meaning": "Au revoir (poli, en partant).",
      "contextNote": "« sayounara » est plus rare et sonne comme un adieu définitif.",
-     "literalGloss": null
+     "literalGloss": "Impolitesse fais."
     }
    }
   },
@@ -55,33 +55,33 @@
    "expressions": {
     "konnichiwa_cafe": {
      "meaning": "Bonjour.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "En entrant, vous entendrez « irasshaimase » (bienvenue) : nul besoin d'y répondre, un signe de tête ou « konnichiwa » suffit. Le « wa » final s'écrit は, comme la particule de thème.",
+     "literalGloss": "Aujourd'hui (wa)…"
     },
     "koohii_onegaishimasu": {
      "meaning": "Un café, s'il vous plaît.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "Nom + « o onegaishimasu » : le modèle pour commander ; « o » marque l'objet. Remplacez « koohii » par « koucha » (thé noir) ou « kafe ore » (café au lait). Deux voyelles longues : « kô-hî ».",
+     "literalGloss": "Café (o) je-vous-prie."
     },
     "hotto_aisu": {
      "meaning": "Chaud ou glacé, que souhaitez-vous ?",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Hotto » et « aisu » viennent de l'anglais « hot » et « ice » ; « to » relie deux noms, comme « et ». « Dochira » = lequel des deux, et « … ni shimasu » = opter pour.",
+     "literalGloss": "Chaud et glacé, lequel (ni) faites (ka) ?"
     },
     "hotto_de": {
      "meaning": "Chaud, s'il vous plaît.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« De » marque ici l'option choisie : « aisu de onegaishimasu » pour du glacé. Il indique aussi le moyen : « kaado de onegaishimasu », par carte. Le double t se marque d'un bref arrêt : hot-to.",
+     "literalGloss": "Chaud (de) je-vous-prie."
     },
     "okaikei": {
      "meaning": "L'addition, s'il vous plaît.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "On règle souvent à la caisse près de la sortie, avec le ticket laissé sur la table. Pas de pourboire au Japon : il peut même gêner. « Okaikei » se dit « o-kaï-ké », le « ei » sonnant comme un é long.",
+     "literalGloss": "Honorable-addition (o) je-vous-prie."
     },
     "arigatou_gozaimasu": {
      "meaning": "Merci.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Arigatou » seul est familier ; « gozaimasu » le rend poli. Prononcez « a-ri-ga-tô go-zaï-mass » : le r est un battement léger, entre l et d, et le u final s'entend à peine.",
+     "literalGloss": "Reconnaissant suis."
     }
    }
   },
@@ -91,53 +91,53 @@
    "expressions": {
     "sumimasen": {
      "meaning": "Excusez-moi.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "Le mot à tout faire : interpeller un inconnu, s'excuser, et même remercier quand on a dérangé. Le premier u s'entend à peine, « s'mi-ma-sèn », et la fin n'a pas de voyelle nasale.",
+     "literalGloss": "Ça-ne-se-règle-pas."
     },
     "eki_wa_doko": {
      "meaning": "Où est la gare, s'il vous plaît ?",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "Lieu + « wa doko desu ka » : le modèle pour demander où se trouve quelque chose. Remplacez « eki » par « toire » (toilettes) ou « hoteru » (hôtel). Pas d'inversion : le « ka » final suffit à poser la question.",
+     "literalGloss": "Gare (wa) où est (ka) ?"
     },
     "massugu": {
      "meaning": "Allez tout droit.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "Forme en -te du verbe + « kudasai » (donnez-moi) : la demande polie, l'équivalent de notre « allez ». Le petit っ double la consonne suivante, avec un bref arrêt : mas-sou-gou, it-té.",
+     "literalGloss": "Tout-droit en-allant donnez-moi."
     },
     "migi_ni": {
      "meaning": "Tournez à droite.",
      "contextNote": "« hidari » signifie « gauche ».",
-     "literalGloss": null
+     "literalGloss": "Droite (ni) en-tournant donnez-moi."
     },
     "tooi_desu_ka": {
      "meaning": "Est-ce que c'est loin ?",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Tooi » (loin) est un adjectif ; « desu » le rend poli et « ka » en fait une question. Le oo est un o long, sur deux temps : « tô-i ». Contraire : « chikai » (près).",
+     "literalGloss": "Loin est (ka) ?"
     },
     "chikai_desu": {
      "meaning": "C'est tout près. Cinq minutes à pied.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "Le « yo » final signale une information nouvelle pour l'autre, un peu comme « vous savez ». « Aruite » (en marchant) = à pied ; « gofun », cinq minutes. « Chi » se dit « tchi » : tchi-kaï.",
+     "literalGloss": "Près est (yo). En-marchant cinq-minutes est."
     },
     "mou_ichido": {
      "meaning": "Pourriez-vous répéter, s'il vous plaît ?",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "Plus simple que « pourriez-vous répéter » : « mou ichido » = encore une fois. Ajoutez « sumimasen » devant pour adoucir. Prononcez « mô i-tchi-do », avec un o long.",
+     "literalGloss": "Encore une-fois je-vous-prie."
     },
     "yukkuri": {
      "meaning": "Pourriez-vous parler lentement, s'il vous plaît ?",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Hanasu » (parler) devient « hanashite » + « kudasai » : même demande polie que « itte kudasai ». Le double k se marque d'un bref arrêt, « youk-kou-ri » ; « hanashite » se dit « ha-na-ch'-té ».",
+     "literalGloss": "Lentement en-parlant donnez-moi."
     },
     "wakarimasen": {
      "meaning": "Je ne comprends pas.",
-     "contextNote": null,
+     "contextNote": "Négatif poli de « wakaru » (comprendre) : -masu devient -masen. Pour préciser, dites « nihongo ga wakarimasen » (je ne comprends pas le japonais). Prononcez « wa-ka-ri-ma-sèn », sans voyelle nasale finale.",
      "literalGloss": null
     },
     "arigatou_gozaimashita": {
      "meaning": "Merci beaucoup (pour ce que vous venez de faire).",
      "contextNote": "Le passé indique qu'on remercie pour une aide déjà reçue.",
-     "literalGloss": null
+     "literalGloss": "Reconnaissant étais."
     }
    }
   },
@@ -152,28 +152,28 @@
     },
     "dochira_made": {
      "meaning": "Où allez-vous ?",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "Question rituelle du chauffeur : « made » = jusqu'à, et « dochira » est ici la forme polie de « doko » (où). Répondez sur le même modèle : destination + « made onegaishimasu ». « Chi » se dit « tchi ».",
+     "literalGloss": "Où jusqu'à est (ka) ?"
     },
     "toukyou_eki_made": {
      "meaning": "À la gare de Tokyo, s'il vous plaît.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "Le modèle pour toute course : destination + « made onegaishimasu ». Montrer l'adresse écrite aide beaucoup. « Toukyou » compte deux o longs : « tô-kyô », en deux syllabes, et non « to-ki-o ».",
+     "literalGloss": "Tokyo gare jusqu'à je-vous-prie."
     },
     "kuukou_made_ikura": {
      "meaning": "Combien coûte la course jusqu'à l'aéroport ?",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Ikura desu ka » (combien ?) sert pour tout prix ; « made » (jusqu'à) se place après le lieu, à l'inverse du français. « Kuukou » a deux voyelles longues : « kû-kô », le u se disant lèvres peu arrondies.",
+     "literalGloss": "Aéroport jusqu'à combien est (ka) ?"
     },
     "koko_de_tomete": {
      "meaning": "Arrêtez-vous ici, s'il vous plaît.",
-     "contextNote": null,
-     "literalGloss": null
+     "contextNote": "« Koko » = ici ; « soko », là (près de vous) ; « asoko », là-bas. « De » marque le lieu de l'action. Ne touchez pas la portière arrière : le chauffeur l'ouvre et la ferme lui-même.",
+     "literalGloss": "Ici (de) en-arrêtant donnez-moi."
     },
     "arigatou_taxi": {
      "meaning": "Merci (au revoir).",
      "contextNote": "Le remerciement sert ici aussi de formule pour prendre congé.",
-     "literalGloss": null
+     "literalGloss": "Reconnaissant étais."
     }
    }
   }

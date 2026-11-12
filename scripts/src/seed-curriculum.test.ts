@@ -3,7 +3,7 @@
  * the arabic-moroccan seed to the LOCAL Supabase stack and checks the manifest the learner API serves.
  * The stack suite is skipped without a stack unless LANGQUEST_REQUIRE_LOCAL_STACK=1 (then it fails).
  */
-import { CHAPTER_1_BLUEPRINT_KEYS, DRAFT_CHAPTERS, HAND_AUTHORED_CHAPTERS, buildAllPlannedSkeletons, getBlueprint } from '@langquest/curriculum';
+import { CHAPTER_1_BLUEPRINT_KEYS, DRAFT_CHAPTERS, HAND_AUTHORED_CHAPTERS, arcMissionsThrough, buildAllPlannedSkeletons, getBlueprint } from '@langquest/curriculum';
 import { createRepositories } from '@langquest/db';
 import { CAST_ROSTER } from '@langquest/db/seed/cast-roster';
 import { curriculumSeedKeys, curriculumUuid } from '@langquest/db/seed/curriculum-uuid';
@@ -19,10 +19,10 @@ describe('buildCurriculumSeedPlan', () => {
   /** The plan as it was with the four hand-authored drafts only: 26 tracks still planned skeletons. */
   const handAuthored = buildCurriculumSeedPlan({ drafts: HAND_AUTHORED_CHAPTERS });
 
-  it('loads every track’s draft chapter as published; the planned skeletons they supersede are not loaded', () => {
-    expect(plan.chapters).toHaveLength(30);
+  it('loads every track’s draft chapters (1 to 4) as published; the planned skeletons they supersede are not loaded', () => {
+    expect(plan.chapters).toHaveLength(120);
     const published = plan.chapters.filter((c) => c.state === 'published');
-    expect(published).toHaveLength(30);
+    expect(published).toHaveLength(120);
     expect(published.every((c) => c.kind === 'draft')).toBe(true);
     expect(plan.chapters.filter((c) => c.kind === 'skeleton')).toEqual([]);
     expect(plan.supersededSkeletons).toHaveLength(30);
@@ -72,7 +72,10 @@ describe('buildCurriculumSeedPlan', () => {
     expect(objectiveDescriptionKey('cafe_order_drink', 'pay')).toBe('curriculum.objective.cafe_order_drink.pay');
     const byMission = new Map<string, number>();
     for (const s of plan.rows.missionSteps) byMission.set(s.mission_id, (byMission.get(s.mission_id) ?? 0) + 1);
-    expect([...byMission.values()].every((n) => n >= 7)).toBe(true);
+    // A free conversation (your day, hobbies, a debate) is a short arc by design; every other mission has seven steps or more.
+    const free = new Set(plan.rows.missions.filter((m) => m.mission_type === 'free_conversation').map((m) => m.id));
+    expect([...byMission.entries()].every(([id, n]) => n >= (free.has(id) ? 3 : 7))).toBe(true);
+    expect(free.size).toBeGreaterThan(0);
     expect(plan.rows.missionSteps.every((s) => s.hint_scaffold?.length === 0 && typeof s.success_conditions === 'object')).toBe(true);
     const conversation = plan.rows.missionSteps.filter((s) => s.step_type === 'character_conversation');
     expect(conversation.length).toBe(plan.rows.missions.length);
@@ -94,7 +97,8 @@ describe('buildCurriculumSeedPlan', () => {
   });
 
   it('raises coverage to partial from measured overlay counts, only for sources that have overlays', () => {
-    expect(plan.rows.coverage.map((c) => `${c.course_track_id}|${c.source_language_code}`).sort()).toEqual(DRAFT_CHAPTERS.flatMap((c) => c.sourceLanguages.map((s) => `${c.courseTrackId}|${s}`)).sort());
+    // One row per course and instruction language, however many chapters are taught from it.
+    expect(plan.rows.coverage.map((c) => `${c.course_track_id}|${c.source_language_code}`).sort()).toEqual([...new Set(DRAFT_CHAPTERS.flatMap((c) => c.sourceLanguages.map((s) => `${c.courseTrackId}|${s}`)))].sort());
     expect(plan.rows.coverage).toHaveLength(59);
     const fr = plan.rows.coverage.find((c) => c.course_track_id === 'arabic-moroccan' && c.source_language_code === 'fr')!;
     expect(fr.metrics.mission_instructions_pct).toBe(100);
@@ -102,7 +106,11 @@ describe('buildCurriculumSeedPlan', () => {
     expect(fr.metrics.audio_overlays_pct).toBe(0);
     expect(fr.metrics.subtitles_pct).toBe(0);
     const ja = plan.rows.coverage.find((c) => c.course_track_id === 'japanese')!;
-    expect(ja.metrics.mission_instructions_pct).toBeCloseTo((4 / CHAPTER_1_BLUEPRINT_KEYS.length) * 100, 1);
+    // Japanese: 4 of chapter 1's 7 missions and the 6 of each of chapters 2–4, against the 25 the story arc plans.
+    expect(ja.metrics.mission_instructions_pct).toBeCloseTo(((4 + 6 + 6 + 6) / arcMissionsThrough(4)) * 100, 1);
+    // English from Russian has chapter 1 only: measured against chapter 1.
+    const enRu = plan.rows.coverage.find((c) => c.course_track_id === 'english' && c.source_language_code === 'ru')!;
+    expect(enRu.metrics.mission_instructions_pct).toBeCloseTo((4 / CHAPTER_1_BLUEPRINT_KEYS.length) * 100, 1);
   });
 
   it('casts a roster character whose role matches the lesson (café → café staff, directions → elder, ice cream → child) and leaves missions honestly uncast when nobody fits', () => {
@@ -144,7 +152,12 @@ describe('buildCurriculumSeedPlan', () => {
     expect(iceCreams.filter((c) => c.character?.ageBand === 'child').length).toBeGreaterThanOrEqual(20);
     const summary = summarisePlan(plan);
     expect(summary.missions_cast! + summary.missions_uncast!).toBe(plan.rows.missions.length);
-    expect(summary.missions_cast!).toBeGreaterThan(plan.rows.missions.length / 2);
+    // Chapter 1's people (neighbours, kids, passers-by) are mostly in the roster; chapter 2's (waiters, ticket clerks)
+    // less so: those missions stay honestly uncast until the roster has someone who carries the scene.
+    const firstChapter = plan.cast.filter((c) => CHAPTER_1_BLUEPRINT_KEYS.includes(c.blueprintKey));
+    expect(firstChapter.filter((c) => c.character).length).toBeGreaterThan(firstChapter.length / 2);
+    // Every host of a family visit is cast (the roster has an adult or elder per variety).
+    expect(plan.cast.filter((c) => c.blueprintKey === 'talk_about_family').every((c) => c.character)).toBe(true);
     expect(plan.chapters.reduce((n, c) => n + c.cast, 0)).toBe(summary.missions_cast!);
   });
 
@@ -180,9 +193,9 @@ describe('buildCurriculumSeedPlan', () => {
 
   it('filters by track and can drop skeletons', () => {
     const one = buildCurriculumSeedPlan({ tracks: ['arabic-moroccan'] });
-    expect(one.chapters).toHaveLength(1);
+    expect(one.chapters).toHaveLength(4);
     expect(one.rows.lessonCourses).toHaveLength(1);
-    expect(one.rows.missions).toHaveLength(7);
+    expect(one.rows.missions).toHaveLength(7 + 6 + 6 + 6);
     expect(one.rows.coverage).toHaveLength(2);
     const noSkeletons = buildCurriculumSeedPlan({ drafts: HAND_AUTHORED_CHAPTERS, includeSkeletons: false });
     expect(noSkeletons.chapters).toHaveLength(4);
@@ -210,7 +223,7 @@ describe('seed-curriculum CLI', () => {
     expect(await runCli(spec, ['--track', 'arabic-moroccan,japanese', '--dry-run'], main, io)).toBe(0);
     const text = io.lines.join('\n');
     expect(text).toMatch(/draft {4}published {5}arabic-moroccan/);
-    expect(text).toMatch(/chapters_published=2/);
+    expect(text).toMatch(/chapters_published=8/);
     expect(text).toMatch(/missions_cast=\d+ missions_uncast=\d+/);
     expect(text).not.toContain('cast     role');
     expect(text).toContain('expression_audio: 0 rows by design');

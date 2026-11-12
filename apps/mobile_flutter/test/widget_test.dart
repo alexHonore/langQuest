@@ -16,6 +16,7 @@ import 'package:langquest_mobile/core/services/learner_state.dart';
 import 'package:langquest_mobile/core/services/learner_store.dart';
 import 'package:langquest_mobile/features/learn/learn_content.dart';
 import 'package:langquest_mobile/features/learn/learn_logic.dart';
+import 'package:langquest_mobile/features/learn/practice_session.dart';
 import 'package:langquest_mobile/main.dart';
 import 'package:langquest_mobile/navigation/app_router.dart';
 
@@ -75,7 +76,7 @@ void main() {
 
     await tapText(t, 'Spanish (Spain-Castilian)');
     expect(find.text('What this course includes'), findsOneWidget);
-    expect(find.text('Mission pathway (6 missions)'), findsOneWidget);
+    expect(find.text('Mission pathway (24 missions)'), findsOneWidget);
     await t.scrollUntilVisible(find.text('Live conversation with AI characters'), 200, scrollable: find.byType(Scrollable).first);
     expect(find.textContaining('Native-speaker review'), findsOneWidget);
 
@@ -97,7 +98,7 @@ void main() {
   });
 
   for (final textScale in [1.0, 2.0]) {
-    testWidgets('a whole mission node: scene → cards → pairs → tiles → mission → review queue and XP (text ×$textScale)', (t) async {
+    testWidgets('a whole mission node: scene → cards → practice session → mission → review queue and XP (text ×$textScale)', (t) async {
       usePhone(t);
       // Also at the largest text size a device can ask for (Android's 200%): every step still fits or scrolls.
       t.platformDispatcher.textScaleFactorTestValue = textScale;
@@ -130,71 +131,108 @@ void main() {
       }
       expect(container.read(appStateProvider).stopsDone(mission.key), {PathStop.learn});
 
-      // Pairs, round by round.
-      for (var r = 0; r < plan.pairRounds.length; r++) {
-        for (final e in plan.pairRounds[r]) {
-          await tapText(t, e.text);
-          await tapText(t, plan.shortMeaningOf(e));
-        }
-        expect(find.text('All matched!'), findsOneWidget);
-        await tapText(t, r < plan.pairRounds.length - 1 ? 'Next round' : (plan.choices.isEmpty && plan.gap == null ? 'Build a sentence' : 'Continue'));
-      }
-
-      // Choices: hear (or read) a phrase → its meaning; a meaning → its phrase. A wrong pick is marked, then the right one.
-      expect(plan.choices, isNotEmpty);
-      for (var i = 0; i < plan.choices.length; i++) {
-        final q = plan.choices[i];
-        // Listen questions are read instead when no voice can say the phrase (as in this test).
-        expect(find.textContaining(q.kind == ChoiceKind.listen ? 'What does it mean?' : 'Which one says this?'), findsOneWidget);
-        String label(Expression e) => q.kind == ChoiceKind.listen ? plan.shortMeaningOf(e) : e.text;
-        await tapText(t, label(q.options.firstWhere((o) => o != q.expression)));
-        expect(find.text('Not this one. Try another.'), findsOneWidget);
-        await tapText(t, label(q.expression));
-        expect(find.text('That’s it!'), findsOneWidget);
-        final lastChoice = i == plan.choices.length - 1;
-        await tapText(t, lastChoice && plan.gap == null ? 'Build a sentence' : 'Continue');
-      }
-
-      // The gap: the missing word among three.
-      final gap = plan.gap;
-      if (gap != null) {
-        expect(find.text('Complete the sentence'), findsOneWidget);
-        await tapText(t, gap.answer);
-        expect(find.text('That’s it!'), findsOneWidget);
-        await tapText(t, 'Build a sentence');
-      }
-
-      // Tiles: a wrong order is refused, the right one accepted.
-      final tiles = plan.tiles!;
+      // Practice, step by step, as the session lays it out (no voice here: nothing is asked by ear). One question is
+      // answered wrong on purpose: it comes back at the end.
+      final steps = buildPracticeSession(plan);
+      expect(steps.whereType<PairsStep>(), hasLength(plan.pairRounds.length));
+      expect(steps.whereType<ChoiceStep>().map((s) => s.question.kind).toSet(), {ChoiceKind.listen, ChoiceKind.reverse});
+      expect(steps.whereType<TrueFalseStep>(), isNotEmpty);
+      expect(steps.whereType<GapStep>(), isNotEmpty);
+      expect(steps.whereType<BuildStep>(), hasLength(1));
+      expect(steps.whereType<TypeStep>(), hasLength(1), reason: 'Spanish is written with the keyboard’s own letters');
+      final missed = steps.whereType<ChoiceStep>().first;
+      var builds = 0;
       Finder bankTile(String w) => find.descendant(of: find.byType(Wrap).last, matching: find.text(w)).first;
-      for (final w in tiles.answer.reversed) {
-        await t.tap(bankTile(w));
-        await settle(t, 300);
+      Future<void> play(PracticeStep step, {bool wrongly = false}) async {
+        switch (step) {
+          case PairsStep(:final pairs):
+            expect(find.text('Match each phrase with its meaning'), findsOneWidget);
+            for (final e in pairs) {
+              await tapText(t, e.text);
+              await tapText(t, plan.shortMeaningOf(e));
+            }
+            expect(find.text('All matched!'), findsOneWidget);
+            await tapText(t, find.text('Next round').evaluate().isNotEmpty ? 'Next round' : 'Continue');
+            return;
+          case ChoiceStep(:final question):
+            // Listen questions are read instead when no voice can say the phrase (as in this test).
+            expect(find.text(question.kind == ChoiceKind.listen ? 'What does it mean?' : 'Which one says this?'), findsOneWidget);
+            String label(Expression e) => question.kind == ChoiceKind.listen ? plan.shortMeaningOf(e) : e.text;
+            await tapText(t, label(wrongly ? question.options.firstWhere((o) => o != question.expression) : question.expression));
+          case TrueFalseStep(:final isTrue):
+            expect(find.text('Is this what it means?'), findsOneWidget);
+            await tapText(t, isTrue ? 'Yes' : 'No');
+          case GapStep(:final gap):
+            expect(find.text('Complete the sentence'), findsOneWidget);
+            await tapText(t, gap.answer);
+          case BuildStep(:final tiles):
+            expect(find.text('Build the sentence'), findsOneWidget);
+            // The first sentence: a wrong order is refused, the right one accepted.
+            if (builds++ == 0) {
+              for (final w in tiles.answer.reversed) {
+                await t.tap(bankTile(w));
+                await settle(t, 300);
+              }
+              await tapText(t, 'Check');
+              expect(find.text('Not quite — tap a word to take it back.'), findsOneWidget);
+              for (final w in tiles.answer.reversed) {
+                await t.tap(find.descendant(of: find.byType(Wrap).first, matching: find.text(w)).first);
+                await settle(t, 300);
+              }
+            }
+            for (final w in tiles.answer) {
+              await t.tap(bankTile(w));
+              await settle(t, 300);
+            }
+            await tapText(t, 'Check');
+          case TypeStep(:final expression):
+            expect(find.text('Write this phrase'), findsOneWidget);
+            // Typed without capitals or punctuation: only the words count.
+            await t.enterText(find.byType(TextField), normalizeForCompare(expression.text));
+            await settle(t, 300);
+            await tapText(t, 'Check');
+        }
+        expect(find.text(wrongly ? 'Not quite' : 'That’s it!'), findsOneWidget);
+        expect(find.text('It comes back at the end.'), wrongly ? findsOneWidget : findsNothing);
+        await tapText(t, 'Continue');
       }
-      await tapText(t, 'Check');
-      expect(find.text('Not quite — tap a word to take it back.'), findsOneWidget);
-      for (final w in tiles.answer.reversed) {
-        await t.tap(find.descendant(of: find.byType(Wrap).first, matching: find.text(w)).first);
-        await settle(t, 300);
+
+      for (final step in steps) {
+        await play(step, wrongly: step == missed);
       }
-      for (final w in tiles.answer) {
-        await t.tap(bankTile(w));
-        await settle(t, 300);
-      }
-      await tapText(t, 'Check');
-      await tapText(t, 'Start the mission');
+      // The question missed is asked once more, and says so.
+      expect(find.text('Once more'), findsOneWidget);
+      await play(missed);
+
+      final questions = steps.where((s) => s.subject != null).length;
+      expect(find.text('Practice done'), findsOneWidget);
+      // The sentence checked in the wrong order first counts, like the question missed.
+      expect(find.text('${questions - 2} of $questions right the first time'), findsOneWidget);
+      expect(find.text('Worth another look'), findsOneWidget);
       expect(container.read(appStateProvider).stopsDone(mission.key), {PathStop.learn, PathStop.practise});
+      // The way on is the mission's round of play; the mission itself stays one tap away.
+      expect(find.textContaining('Play: '), findsOneWidget);
+      await tapText(t, 'Start the mission');
 
       // Mission: pick a wrong option once on the first exchange, then the right ones; say each out loud.
+      // The replies are reached by their key: the thread above keeps the lines already exchanged.
+      Future<void> reply(Expression e) async {
+        final f = find.descendant(of: find.byKey(const ValueKey('replies')), matching: find.text(e.text));
+        await t.ensureVisible(f.first);
+        await t.tap(f.first);
+        await settle(t);
+      }
+
       for (final (i, x) in plan.exchanges.indexed) {
         if (i == 0) {
-          final wrong = x.options.firstWhere((o) => o != x.answer);
-          await tapText(t, wrong.text);
+          await reply(x.options.firstWhere((o) => o != x.answer));
           expect(find.text('Not quite — think of what you practised.'), findsOneWidget);
         }
-        await tapText(t, x.answer.text);
+        await reply(x.answer);
         expect(find.text('Say it out loud'), findsOneWidget);
         await tapText(t, 'I said it');
+        // The exchange joins the thread of the conversation.
+        if (i < plan.exchanges.length - 1) expect(find.text(x.answer.text), findsWidgets);
       }
       expect(find.text('What you used'), findsOneWidget);
       await tapText(t, 'Complete the mission (+50 XP)');
@@ -238,10 +276,19 @@ void main() {
     containerOf(t).read(appStateProvider.notifier).enroll('japanese', 'en');
     await settle(t);
     await tapText(t, 'Missions');
-    expect(find.textContaining('AI-drafted chapter'), findsOneWidget);
+    // Each chapter says it is a draft.
+    expect(find.textContaining('AI-drafted chapter'), findsWidgets);
+    // The pathway: how far the chapter is, and the next mission with the stop to take.
+    expect(find.text('0 of 4 missions done'), findsOneWidget);
+    expect(find.text('Start: Learn'), findsOneWidget);
     await tapText(t, 'Ordering at a café');
     expect(find.text('Finish “Greet and introduce yourself” first'), findsOneWidget);
-    expect(find.text('Start: Learn'), findsNothing, reason: 'the locked node did not open');
+    expect(containerOf(t).read(appRouterProvider).state.matchedLocation, '/missions', reason: 'the locked node did not open');
+    // The next mission opens its page: its number in the course, and its steps.
+    await t.scrollUntilVisible(find.text('Greet and introduce yourself'), -200, scrollable: find.byType(Scrollable).first);
+    await tapText(t, 'Greet and introduce yourself');
+    expect(find.text('Mission 1 of 22'), findsOneWidget, reason: 'chapter 1 (4 missions) and chapters 2–4 (6 each)');
+    expect(containerOf(t).read(appRouterProvider).state.matchedLocation, '/path/ja_greet_and_introduce');
   });
 
   testWidgets('French interface, Darija from French: right-to-left script with Arabizi, no voice controls', (t) async {
@@ -358,6 +405,11 @@ void main() {
       '/review',
       '/warmup',
     ]) {
+      await visit(route);
+    }
+    // The mini-games, once there is something to play with.
+    container.read(appStateProvider.notifier).completeStop('ja_greet_and_introduce', PathStop.learn);
+    for (final route in ['/', '/path/ja_greet_and_introduce', '/play', '/play/memory', '/play/quick', '/play/dash']) {
       await visit(route);
     }
   });

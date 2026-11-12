@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui' show PlatformDispatcher;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../features/learn/learn_logic.dart';
 import '../backend/account.dart';
 import '../backend/sync_service.dart';
+import '../content/content_source.dart';
 import '../content/content_bundle.dart';
 import '../content/content_models.dart';
 import '../learning/srs.dart';
@@ -176,7 +178,7 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
   void restoreCompletedMissions(String courseId, Iterable<String> missionKeys) {
     var progress = state.learner.progressOf(courseId);
     for (final key in missionKeys) {
-      for (final stop in const [PathStop.learn, PathStop.practise, PathStop.mission]) {
+      for (final stop in const [PathStop.learn, PathStop.practise, PathStop.play, PathStop.mission]) {
         progress = progress.withStop(key, stop);
       }
     }
@@ -206,9 +208,23 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
     final courses = {...learner.courses}..remove(courseId);
     final active = learner.activeCourseId == courseId ? (enrollments.isEmpty ? null : enrollments.first.courseId) : learner.activeCourseId;
     _update(learner.copyWith(enrollments: enrollments, courses: courses, activeCourseId: active));
+    _releaseCoursesLeft();
   }
 
-  /// Mark a Learn or Practise stop of [missionKey] done in the active course (+5 XP the first time).
+  /// Lets go of the courses the learner no longer takes: out of memory, and out of the device's content cache. Only
+  /// what they selected is kept.
+  void _releaseCoursesLeft() {
+    final taken = {for (final e in state.learner.enrollments) e.trackId};
+    final content = ref.read(contentBundleProvider.notifier);
+    final source = ref.read(contentSourceProvider);
+    for (final track in state.content.tracks) {
+      if (taken.contains(track.id) || track.sources.isEmpty || !state.content.isLoaded(track.id)) continue;
+      content.unloadCourse(track.id);
+      unawaited(source?.forgetCourse(track.id));
+    }
+  }
+
+  /// Mark a Learn, Practise or Play stop of [missionKey] done in the active course (+5 XP the first time).
   void completeStop(String missionKey, PathStop stop) {
     final course = state.activeCourse;
     if (course == null || course.indexOfMission(missionKey) < 0) return;
@@ -247,6 +263,10 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
     _update(state.learner.withXp(amount, _now));
   }
 
+  /// A mini-game round played to the end: practice, paid like a step (+5 XP; `GameStats` calls this once a day per
+  /// game).
+  void gameRoundPlayed() => _update(state.learner.withXp(XpAmounts.stepCompleted, _now));
+
   /// Rate one due card (+3 XP).
   void reviewCard(String expressionId, ReviewRating rating) {
     final course = state.activeCourse;
@@ -273,6 +293,7 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
         readAloud: l.readAloud,
       ),
     );
+    _releaseCoursesLeft();
   }
 }
 

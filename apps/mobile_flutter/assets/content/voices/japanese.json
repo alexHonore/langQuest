@@ -1,0 +1,138 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "japanese",
+  "voices": {
+    "ja-kore": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Kore (Gemini TTS, instructed Tokyo Japanese)"
+    },
+    "ja-charon": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Charon (Gemini TTS, instructed Tokyo Japanese)"
+    },
+    "ja-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed Tokyo Japanese)"
+    }
+  },
+  "lines": {
+    "ja_ch1_arrival_tokyo:ja_ask_directions:arigatou_gozaimashita": {
+      "file": "assets/audio/lines/ja-puck-f2078273632126bd.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_ask_directions:chikai_desu": {
+      "file": "assets/audio/lines/ja-kore-18839359ad956643.mp3",
+      "voice": "ja-kore"
+    },
+    "ja_ch1_arrival_tokyo:ja_ask_directions:eki_wa_doko": {
+      "file": "assets/audio/lines/ja-puck-7211756a4f57cd3c.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_ask_directions:massugu": {
+      "file": "assets/audio/lines/ja-kore-ab05d381bcef5b04.mp3",
+      "voice": "ja-kore"
+    },
+    "ja_ch1_arrival_tokyo:ja_ask_directions:migi_ni": {
+      "file": "assets/audio/lines/ja-kore-cbc07bb3d891fbca.mp3",
+      "voice": "ja-kore"
+    },
+    "ja_ch1_arrival_tokyo:ja_ask_directions:mou_ichido": {
+      "file": "assets/audio/lines/ja-puck-5f84c90f153c0320.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_ask_directions:sumimasen": {
+      "file": "assets/audio/lines/ja-puck-2008664d3a90e0ec.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_ask_directions:tooi_desu_ka": {
+      "file": "assets/audio/lines/ja-puck-6fe1ed37a7d85f35.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_ask_directions:wakarimasen": {
+      "file": "assets/audio/lines/ja-puck-84e5a5ac6155ecf2.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_ask_directions:yukkuri": {
+      "file": "assets/audio/lines/ja-puck-620a5970d0ac91f5.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_cafe_order_drink:arigatou_gozaimasu": {
+      "file": "assets/audio/lines/ja-puck-a66790c574b34c88.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_cafe_order_drink:hotto_aisu": {
+      "file": "assets/audio/lines/ja-charon-f283a358164cd8d2.mp3",
+      "voice": "ja-charon"
+    },
+    "ja_ch1_arrival_tokyo:ja_cafe_order_drink:hotto_de": {
+      "file": "assets/audio/lines/ja-puck-8d0aa52419a525ba.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_cafe_order_drink:konnichiwa_cafe": {
+      "file": "assets/audio/lines/ja-puck-a5f0e80fe55a3759.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_cafe_order_drink:koohii_onegaishimasu": {
+      "file": "assets/audio/lines/ja-puck-c648c87c1e728cb3.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_cafe_order_drink:okaikei": {
+      "file": "assets/audio/lines/ja-puck-aba22e2099a8558d.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_greet_and_introduce:genki_desu": {
+      "file": "assets/audio/lines/ja-puck-80a1d717d9aeecd2.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_greet_and_introduce:hajimemashite": {
+      "file": "assets/audio/lines/ja-puck-b4e75931e91431a7.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_greet_and_introduce:konnichiwa": {
+      "file": "assets/audio/lines/ja-puck-a5f0e80fe55a3759.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_greet_and_introduce:ogenki_desu_ka": {
+      "file": "assets/audio/lines/ja-puck-5a59ddb29a22c6db.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_greet_and_introduce:ohayou": {
+      "file": "assets/audio/lines/ja-puck-ef78d98aa05cc26c.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_greet_and_introduce:onamae_wa": {
+      "file": "assets/audio/lines/ja-puck-658326e0d820f1e3.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_greet_and_introduce:shitsurei_shimasu": {
+      "file": "assets/audio/lines/ja-puck-d4b76f00efe68c18.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_take_taxi:arigatou_taxi": {
+      "file": "assets/audio/lines/ja-puck-f2078273632126bd.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_take_taxi:dochira_made": {
+      "file": "assets/audio/lines/ja-charon-3ad56db5eb688fd3.mp3",
+      "voice": "ja-charon"
+    },
+    "ja_ch1_arrival_tokyo:ja_take_taxi:koko_de_tomete": {
+      "file": "assets/audio/lines/ja-puck-cf65d7a13a628843.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_take_taxi:kuukou_made_ikura": {
+      "file": "assets/audio/lines/ja-puck-579ee8d82147c893.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_take_taxi:takushii": {
+      "file": "assets/audio/lines/ja-puck-9dd3b8d4b639b35c.mp3",
+      "voice": "ja-puck"
+    },
+    "ja_ch1_arrival_tokyo:ja_take_taxi:toukyou_eki_made": {
+      "file": "assets/audio/lines/ja-puck-79b0ce30f36cb44d.mp3",
+      "voice": "ja-puck"
+    }
+  }
+}

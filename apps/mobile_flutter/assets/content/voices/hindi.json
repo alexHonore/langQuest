@@ -1,0 +1,326 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "hindi",
+  "voices": {
+    "hindi-aoede": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Aoede (Gemini TTS, instructed standard Hindi as spoken in Delhi)"
+    },
+    "hindi-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed standard Hindi as spoken in Delhi)"
+    },
+    "hindi-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed standard Hindi as spoken in Delhi)"
+    }
+  },
+  "lines": {
+    "hindi_ch1:hindi_ask_directions:ask_slow_down_variant_12": {
+      "file": "assets/audio/lines/hindi-puck-b63a73ab2fb8382d.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_ask_directions:ask_where_is_variant_11": {
+      "file": "assets/audio/lines/hindi-puck-54b16612e4115bf5.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_ask_directions:excuse_me": {
+      "file": "assets/audio/lines/hindi-puck-8814269989c8ac0d.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_ask_directions:far": {
+      "file": "assets/audio/lines/hindi-puck-c27e1f20b51fc095.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_ask_directions:get_attention_variant_10": {
+      "file": "assets/audio/lines/hindi-puck-c2883ecaf57477a0.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_ask_directions:near": {
+      "file": "assets/audio/lines/hindi-orus-90d35034eb0d70f9.mp3",
+      "voice": "hindi-orus"
+    },
+    "hindi_ch1:hindi_ask_directions:repeat": {
+      "file": "assets/audio/lines/hindi-puck-fb8b489712beb698.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_ask_directions:slower": {
+      "file": "assets/audio/lines/hindi-puck-386b56550496fd6f.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_ask_directions:straight": {
+      "file": "assets/audio/lines/hindi-orus-bd508e6106c2b280.mp3",
+      "voice": "hindi-orus"
+    },
+    "hindi_ch1:hindi_ask_directions:thanks": {
+      "file": "assets/audio/lines/hindi-puck-9528ab83d27bb590.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_ask_directions:turn": {
+      "file": "assets/audio/lines/hindi-orus-97b4c0421a56231c.mp3",
+      "voice": "hindi-orus"
+    },
+    "hindi_ch1:hindi_ask_directions:where_is": {
+      "file": "assets/audio/lines/hindi-puck-2ef3ff7f3a0b2d85.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_buy_ice_cream:asks_two": {
+      "file": "assets/audio/lines/hindi-orus-9e6d56b0dee76f15.mp3",
+      "voice": "hindi-orus"
+    },
+    "hindi_ch1:hindi_buy_ice_cream:just_one": {
+      "file": "assets/audio/lines/hindi-puck-7fcf73d10123db5a.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_buy_ice_cream:me_too": {
+      "file": "assets/audio/lines/hindi-puck-0359f820a76776e8.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_buy_ice_cream:offer_options_variant_12": {
+      "file": "assets/audio/lines/hindi-puck-edb2fe154f4ab2c7.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_buy_ice_cream:okay": {
+      "file": "assets/audio/lines/hindi-puck-28a07f76282fba33.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_buy_ice_cream:picks": {
+      "file": "assets/audio/lines/hindi-orus-c07a3d91de06b27f.mp3",
+      "voice": "hindi-orus"
+    },
+    "hindi_ch1:hindi_buy_ice_cream:refuse_permission_variant_13": {
+      "file": "assets/audio/lines/hindi-puck-0a60f4e02ecfa97d.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_buy_ice_cream:scoop": {
+      "file": "assets/audio/lines/hindi-puck-1ca991b57db261ef.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_buy_ice_cream:specify_quantity_variant_14": {
+      "file": "assets/audio/lines/hindi-puck-0dd3b5103c8e56e5.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_buy_ice_cream:thanks": {
+      "file": "assets/audio/lines/hindi-orus-e067f861a1b8bd3c.mp3",
+      "voice": "hindi-orus"
+    },
+    "hindi_ch1:hindi_buy_ice_cream:wants": {
+      "file": "assets/audio/lines/hindi-orus-12a6500480904093.mp3",
+      "voice": "hindi-orus"
+    },
+    "hindi_ch1:hindi_buy_ice_cream:welcome": {
+      "file": "assets/audio/lines/hindi-puck-cb56f7e8a5125c9c.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_buy_ice_cream:which_flavour": {
+      "file": "assets/audio/lines/hindi-puck-6334502f11ea44e1.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_buy_ice_cream:yummy": {
+      "file": "assets/audio/lines/hindi-orus-9d62352c6fb82993.mp3",
+      "voice": "hindi-orus"
+    },
+    "hindi_ch1:hindi_cafe_order_drink:ask_for_bill_variant_9": {
+      "file": "assets/audio/lines/hindi-puck-d723d607c85b9ad7.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_cafe_order_drink:bill": {
+      "file": "assets/audio/lines/hindi-puck-72a61ac3b497c122.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_cafe_order_drink:choice": {
+      "file": "assets/audio/lines/hindi-puck-5079cacce492f013.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_cafe_order_drink:greet_hello_variant_7": {
+      "file": "assets/audio/lines/hindi-puck-1022deabf9a9fa98.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_cafe_order_drink:greeting": {
+      "file": "assets/audio/lines/hindi-puck-c026cf167f5e2f10.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_cafe_order_drink:options": {
+      "file": "assets/audio/lines/hindi-orus-8d66a71f8689302d.mp3",
+      "voice": "hindi-orus"
+    },
+    "hindi_ch1:hindi_cafe_order_drink:order": {
+      "file": "assets/audio/lines/hindi-puck-e993004b27eb16df.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_cafe_order_drink:request_drink_variant_8": {
+      "file": "assets/audio/lines/hindi-puck-35845e347238ad33.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_cafe_order_drink:thank_variant_10": {
+      "file": "assets/audio/lines/hindi-puck-c6657ebe74e84e6a.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_cafe_order_drink:thanks": {
+      "file": "assets/audio/lines/hindi-puck-45629410c8a9700e.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_greet_and_introduce:ask_how_are_you_variant_9": {
+      "file": "assets/audio/lines/hindi-puck-fc754483485368a7.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_greet_and_introduce:fine": {
+      "file": "assets/audio/lines/hindi-puck-723a65b7c54cf044.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_greet_and_introduce:goodbye": {
+      "file": "assets/audio/lines/hindi-puck-4e8a3835d6c6b778.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_greet_and_introduce:greet_hello_variant_8": {
+      "file": "assets/audio/lines/hindi-puck-e9bc9a557da905e2.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_greet_and_introduce:greeting": {
+      "file": "assets/audio/lines/hindi-puck-f0b4b5dc4d504e03.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_greet_and_introduce:how_are_you": {
+      "file": "assets/audio/lines/hindi-puck-3a2bf6a3a905ad44.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_greet_and_introduce:my_name": {
+      "file": "assets/audio/lines/hindi-puck-56d6f7f519596ead.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_greet_and_introduce:nice_to_meet": {
+      "file": "assets/audio/lines/hindi-puck-5bb33a61a9c61863.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_greet_and_introduce:reply_fine_variant_10": {
+      "file": "assets/audio/lines/hindi-puck-22f8c86e31f01001.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_greet_and_introduce:say_goodbye_variant_11": {
+      "file": "assets/audio/lines/hindi-puck-3cb35f4c6fb47b34.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_greet_and_introduce:your_name": {
+      "file": "assets/audio/lines/hindi-puck-6931eff308939b3b.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_market_ask_price:ask_price_variant_8": {
+      "file": "assets/audio/lines/hindi-puck-a3aeb1fb49082969.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_market_ask_price:deal": {
+      "file": "assets/audio/lines/hindi-puck-c762aa52e5459800.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_market_ask_price:expensive": {
+      "file": "assets/audio/lines/hindi-puck-d607b33e90f9b6a7.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_market_ask_price:greeting": {
+      "file": "assets/audio/lines/hindi-puck-4cc6ac57fea1220e.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_market_ask_price:how_much": {
+      "file": "assets/audio/lines/hindi-puck-5a0331727110ca67.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_market_ask_price:lower": {
+      "file": "assets/audio/lines/hindi-puck-1b94f22e050583ba.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_market_ask_price:no_thanks": {
+      "file": "assets/audio/lines/hindi-puck-707fe9c01a2715d0.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_market_ask_price:offer_lower_price_variant_9": {
+      "file": "assets/audio/lines/hindi-puck-c00437066a686f98.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_market_ask_price:price": {
+      "file": "assets/audio/lines/hindi-orus-de02b2ba980c38dc.mp3",
+      "voice": "hindi-orus"
+    },
+    "hindi_ch1:hindi_meet_neighbour:from": {
+      "file": "assets/audio/lines/hindi-puck-b74c85d1c16d2e08.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_meet_neighbour:little": {
+      "file": "assets/audio/lines/hindi-puck-942df366c1120379.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_meet_neighbour:new_neighbour": {
+      "file": "assets/audio/lines/hindi-puck-2130f258f5ad854a.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_meet_neighbour:offer_help": {
+      "file": "assets/audio/lines/hindi-puck-5e698655714f688c.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_meet_neighbour:offer_help_variant_9": {
+      "file": "assets/audio/lines/hindi-puck-42322fd3f770d360.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_meet_neighbour:say_new_neighbour_variant_2": {
+      "file": "assets/audio/lines/hindi-puck-83fa13cddec8f197.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_meet_neighbour:speak_lang": {
+      "file": "assets/audio/lines/hindi-puck-e749de3c1fd5a79d.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_meet_neighbour:thanks": {
+      "file": "assets/audio/lines/hindi-puck-04d716213cc5419e.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_meet_neighbour:welcome": {
+      "file": "assets/audio/lines/hindi-aoede-1f6bf3321359de10.mp3",
+      "voice": "hindi-aoede"
+    },
+    "hindi_ch1:hindi_meet_neighbour:where_from_q": {
+      "file": "assets/audio/lines/hindi-puck-531a490840b5b7f2.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_take_taxi:ask_fare_variant_10": {
+      "file": "assets/audio/lines/hindi-puck-d723d607c85b9ad7.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_take_taxi:change": {
+      "file": "assets/audio/lines/hindi-puck-8acf470ea4843c41.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_take_taxi:destination": {
+      "file": "assets/audio/lines/hindi-puck-c4fa9f0e83a7ee01.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_take_taxi:fare": {
+      "file": "assets/audio/lines/hindi-puck-cc2ccd19281f025d.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_take_taxi:hail": {
+      "file": "assets/audio/lines/hindi-puck-31ac59a5cfda9d73.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_take_taxi:hail_taxi_variant_9": {
+      "file": "assets/audio/lines/hindi-puck-950289b0ad195617.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_take_taxi:meter": {
+      "file": "assets/audio/lines/hindi-puck-1006aca703ffe6e7.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_take_taxi:say_stop_here_variant_11": {
+      "file": "assets/audio/lines/hindi-puck-0b96018f37e13a42.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_take_taxi:stop": {
+      "file": "assets/audio/lines/hindi-puck-6ca2e6bb00609bf7.mp3",
+      "voice": "hindi-puck"
+    },
+    "hindi_ch1:hindi_take_taxi:where_to": {
+      "file": "assets/audio/lines/hindi-orus-0ae911ba4242ed6c.mp3",
+      "voice": "hindi-orus"
+    }
+  }
+}

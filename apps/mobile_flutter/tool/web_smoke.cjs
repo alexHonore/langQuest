@@ -1,7 +1,7 @@
 // Browser smoke test of the release web build, as CI serves it from the root Dockerfile's image. The widget tests run
 // on the Dart VM; this catches what only the compiled web app does (a dart2js miscompile once broke recording there
 // while every VM test passed). First run → the warm-up → a lesson → record yourself with Chromium's fake microphone →
-// Settings › Display → reload. Any page error fails it. It also checks which course files the browser fetches: none on
+// the practice session's pairs → the Play tab → Settings › Display → reload. Any page error fails it. It also checks which course files the browser fetches: none on
 // a first visit (the catalog says what each course offers), the opened course's only, then the learner's only.
 //
 // Usage: node web_smoke.cjs <url>   (needs the `playwright` package and its Chromium)
@@ -29,12 +29,22 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
   page.on('console', (m) => {
     if (m.type() === 'error') errors.push(`console error: ${m.text()}`);
   });
-  // The content bundle files the page fetched (`catalog.json`, `chapters/<track>.json`…), in order.
+  // The repository's own content folder (served here) has no `index.json`: the app asks for it, gets a 404, and reads
+  // the files under their plain names. That 404 is expected; any other is an error.
+  let expected404 = 0;
+  const unexpected404 = [];
+  page.on('response', (r) => {
+    if (r.status() !== 404) return;
+    if (new URL(r.url()).pathname.endsWith('/data/index.json')) expected404 += 1;
+    else unexpected404.push(r.url());
+  });
+  // The content files the page fetched (`catalog.json`, `chapters/<track>.json`…), in order: from the content bucket
+  // (named by content, `chapters/<track>.<hash>.json`) or a plain copy of the repository's (CI), so the hash is dropped.
   const content = [];
   page.on('request', (r) => {
     const path = new URL(r.url()).pathname;
-    const at = path.indexOf('/assets/content/');
-    if (at >= 0) content.push(path.slice(at + '/assets/content/'.length));
+    const at = path.indexOf('/content/');
+    if (at >= 0 && path.endsWith('.json')) content.push(path.slice(at + '/content/'.length).replace(/\.[0-9a-f]{12}\.json$/, '.json'));
   });
   const courseFiles = () => content.filter((f) => f === 'chapters.json' || f.startsWith('chapters/'));
   const expectCourseFiles = (expected, when) => {
@@ -99,6 +109,28 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
   if (mic.streams !== 1 || mic.live !== 0) throw new Error(`the microphone was not released after the take (${JSON.stringify(mic)})`);
   ok('record yourself: a take is recorded, plays back, and the microphone is released');
 
+  // The practice session and the mini-games are built by seeded shuffles (32-bit arithmetic that only the compiled
+  // app runs as JavaScript numbers): the session opens on its pairs, each card a button named by its phrase; the
+  // games wait for a Learn stop to be done, and say so.
+  await page.evaluate(() => {
+    location.hash = '#/learn/es_greet_and_introduce/practice';
+  });
+  await page.waitForTimeout(2000);
+  await expectButton('Hola, buenos días.');
+  await expectButton('Hello, good morning.');
+  await tap('Hola, buenos días.', { wait: 400 });
+  await tap('Hello, good morning.', { wait: 900 });
+  await expectButton('Hola, buenos días., matched');
+  ok('the practice session opens on its pairs, and a pair matches');
+  await page.evaluate(() => {
+    location.hash = '#/play';
+  });
+  await page.waitForTimeout(1500);
+  // The Play tab is always there; before a Learn stop it leads to the first lesson.
+  await expectButton('Play');
+  await expectButton('Learn my first phrases');
+  ok('the Play tab waits for a first Learn stop, and leads to it');
+
   await page.evaluate(() => {
     location.hash = '#/account';
   });
@@ -127,7 +159,11 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
   ok('a reload fetches the learner\'s course only and opens on Home');
 
   await browser.close();
-  if (errors.length) throw new Error(`${errors.length} page error(s):\n  ${errors.join('\n  ')}`);
+  // The browser logs each 404 as a console error, without its address: drop as many as the expected ones.
+  let toDrop = expected404;
+  const real = errors.filter((e) => !(toDrop > 0 && /status of 404/.test(e) && toDrop-- > 0));
+  if (unexpected404.length) real.push(...unexpected404.map((u) => `404: ${u}`));
+  if (real.length) throw new Error(`${real.length} page error(s):\n  ${real.join('\n  ')}`);
   ok('no page errors');
 })().catch((e) => {
   console.error(`not ok - ${e.message}`);

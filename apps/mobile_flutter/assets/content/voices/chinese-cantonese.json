@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "chinese-cantonese",
+  "voices": {
+    "chinese-cantonese-aoede": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Aoede (Gemini TTS, instructed Hong Kong Cantonese)"
+    },
+    "chinese-cantonese-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed Hong Kong Cantonese)"
+    },
+    "chinese-cantonese-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed Hong Kong Cantonese)"
+    }
+  },
+  "lines": {
+    "chinese_cantonese_ch1:chinese_cantonese_ask_directions:ask_slow_down_variant_12": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-d9594a906b6602d3.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_ask_directions:far": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-d7064e848feb1ba3.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_ask_directions:get_attention_variant_10": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-19d8c08098516d48.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_ask_directions:near": {
+      "file": "assets/audio/lines/chinese-cantonese-orus-246026808b74e06e.mp3",
+      "voice": "chinese-cantonese-orus"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_ask_directions:straight": {
+      "file": "assets/audio/lines/chinese-cantonese-orus-d9350fa4a67ce813.mp3",
+      "voice": "chinese-cantonese-orus"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_ask_directions:thanks": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-1a1cd5851a5f2f5a.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_ask_directions:turn": {
+      "file": "assets/audio/lines/chinese-cantonese-orus-eff9e9c452df65fc.mp3",
+      "voice": "chinese-cantonese-orus"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_ask_directions:where_is": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-38425ccbbdfd5b48.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:asks_two": {
+      "file": "assets/audio/lines/chinese-cantonese-aoede-dccb579dab294de1.mp3",
+      "voice": "chinese-cantonese-aoede"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:just_one": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-121b3e06d1951769.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:me_too": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-0a1e98bb1d630661.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:offer_options_variant_14": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-85b9bb794d17e181.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:okay": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-23c888df6502a4c7.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:picks": {
+      "file": "assets/audio/lines/chinese-cantonese-aoede-06e28baa0b2048af.mp3",
+      "voice": "chinese-cantonese-aoede"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:refuse_permission_variant_12": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-cc81f1770ffdcda9.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:scoop": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-552d051b2e343b86.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:specify_quantity_variant_13": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-be3ee990c2ed91b7.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:thanks": {
+      "file": "assets/audio/lines/chinese-cantonese-aoede-353931ea980a933d.mp3",
+      "voice": "chinese-cantonese-aoede"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:wants": {
+      "file": "assets/audio/lines/chinese-cantonese-aoede-344adddb29705699.mp3",
+      "voice": "chinese-cantonese-aoede"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:welcome": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-1e6f873d5aabc556.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:which_flavour": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-6bfd8417b26dcd3b.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_buy_ice_cream:yummy": {
+      "file": "assets/audio/lines/chinese-cantonese-aoede-fc05facb12171472.mp3",
+      "voice": "chinese-cantonese-aoede"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:ask_for_bill_variant_9": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-10a91095b967b529.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:bill": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-3713dad883221a98.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:choice": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-924cfd6d3002ee92.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:choose_option_variant_7": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-17a21b761fc72351.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:greet_hello_variant_2": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-3eef39dd6a7968d3.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:greeting": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-2ba16be3fd93ed62.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:options": {
+      "file": "assets/audio/lines/chinese-cantonese-aoede-2d50b9976548b646.mp3",
+      "voice": "chinese-cantonese-aoede"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:order": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-27ae3609cefd6e4b.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:request_drink_variant_4": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-f2043e57cad0a168.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:thank_variant_11": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-ae30707928a2e729.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_cafe_order_drink:thanks": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-6e162d225c4d59f5.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:fine": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-e04a1f520bedee99.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:goodbye": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-644485b967139318.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:greet_hello_variant_8": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-3c1e30486e6f891b.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:greeting": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-8b3fbffdf06f5d82.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:how_are_you": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-d0050fbed11b6ab3.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:my_name": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-d335cb9ccb1332e5.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:nice_to_meet": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-e48ea1e51e2a3370.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:reply_fine_variant_9": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-b8301978044ba500.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_greet_and_introduce:say_goodbye_variant_10": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-3ac35672b26121fa.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_market_ask_price:ask_price_variant_8": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-f9074bcbc1467e63.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_market_ask_price:expensive": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-9b6f482a25521800.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_market_ask_price:greeting": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-359c91a8e69bd364.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_market_ask_price:no_thanks": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-79f49c267c9ea80e.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_market_ask_price:offer_lower_price_variant_9": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-2e236789e32ae556.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_market_ask_price:price": {
+      "file": "assets/audio/lines/chinese-cantonese-aoede-55910b557ce25b13.mp3",
+      "voice": "chinese-cantonese-aoede"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_meet_neighbour:from": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-bf3c7fbf985d869e.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_meet_neighbour:little": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-3d2c38e88bfa8ae6.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_meet_neighbour:new_neighbour": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-bc1f2e7a83d86bfb.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_meet_neighbour:offer_help_variant_10": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-6ffed93ba191dabd.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_meet_neighbour:say_new_neighbour_variant_9": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-0aefa2b0f5661a3b.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_meet_neighbour:speak_lang": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-d6333d6da5304dd5.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_meet_neighbour:thanks": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-29f5d01fdcfac939.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_meet_neighbour:where_from_q": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-939996861d78503f.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_take_taxi:ask_use_meter_variant_11": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-02da0e729c77026f.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_take_taxi:bye": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-6299b72f95753fae.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_take_taxi:change": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-8273fedb4e670fc0.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_take_taxi:destination": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-97eb647349dc4155.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_take_taxi:fare": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-3a74fb1a93e76ad6.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_take_taxi:hail": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-4098fe4db295796f.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_take_taxi:hail_taxi_variant_9": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-65d11ef1e1a0f781.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_take_taxi:meter": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-306a75499d6d2779.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_take_taxi:state_destination_variant_10": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-1b866a8c505c3c22.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_take_taxi:stop": {
+      "file": "assets/audio/lines/chinese-cantonese-puck-6f605518d0fb0a03.mp3",
+      "voice": "chinese-cantonese-puck"
+    },
+    "chinese_cantonese_ch1:chinese_cantonese_take_taxi:where_to": {
+      "file": "assets/audio/lines/chinese-cantonese-orus-f5ec58704170ea04.mp3",
+      "voice": "chinese-cantonese-orus"
+    }
+  }
+}

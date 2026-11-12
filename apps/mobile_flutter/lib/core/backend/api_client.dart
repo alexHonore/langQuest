@@ -211,14 +211,29 @@ class LangQuestApi {
     }, aiTimeout),
   );
 
-  /// `GET /v1/courses/:trackId/manifest?source=` — the course's published content as the server holds it; the app
-  /// reads its `characters` (id, name, role): who can be called.
-  Future<List<Map<String, Object?>>> courseCharacters(String trackId, String source) async {
-    final data = _object(await _send('GET', '/v1/courses/$trackId/manifest?source=$source'));
-    return [
-      for (final c in (data['characters'] as List? ?? const []))
-        if (c is Map) c.cast<String, Object?>(),
-    ];
+  /// `GET /v1/courses/:trackId/manifest?source=` — the course's published content as the server holds it: its
+  /// `characters` (id, name, role: who can be called) and its chapters' missions (which can be called about).
+  Future<Map<String, Object?>> courseManifest(String trackId, String source) async =>
+      _object(await _send('GET', '/v1/courses/$trackId/manifest?source=$source'));
+
+  /// The course's characters from its manifest ([courseManifest]).
+  Future<List<Map<String, Object?>>> courseCharacters(String trackId, String source) async => manifestCharacters(await courseManifest(trackId, source));
+
+  static List<Map<String, Object?>> manifestCharacters(Map<String, Object?> manifest) => [
+    for (final c in (manifest['characters'] as List? ?? const []))
+      if (c is Map) c.cast<String, Object?>(),
+  ];
+
+  /// The ids of the missions a manifest lists, or null when it lists no chapters (an older server: nothing known).
+  static Set<String>? manifestMissionIds(Map<String, Object?> manifest) {
+    final chapters = manifest['chapters'];
+    if (chapters is! List || chapters.isEmpty) return null;
+    return {
+      for (final c in chapters)
+        if (c is Map)
+          for (final m in (c['missions'] as List? ?? const []))
+            if (m is Map && m['id'] is String) m['id'] as String,
+    };
   }
 
   /// `POST /v1/ai/conversation/:id/turn` — the learner's turn (audio, text or a command) and the character's reply.

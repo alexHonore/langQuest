@@ -127,7 +127,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get courseIncludesLearn => 'Avant chaque mission : une scène, des cartes de phrases et deux mini-jeux';
+  String get courseIncludesLearn => 'Avant chaque mission : une scène, des cartes de phrases et une séance d’entraînement';
 
   @override
   String get courseIncludesReview => 'Révision espacée des phrases que vous utilisez';
@@ -223,9 +223,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get streakPaused => 'Série en pause. Reprenez quand vous voulez.';
 
   @override
-  String get pathwayTitle => 'Votre parcours';
-
-  @override
   String chapterLabel(int index) {
     return 'Chapitre $index';
   }
@@ -267,7 +264,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get pathPractiseSubtitle => 'Associer les paires, construire une phrase';
+  String get pathPractiseSubtitle => 'Paires, écoute, phrases à construire';
 
   @override
   String get pathPractisePairsOnly => 'Associer les paires';
@@ -343,9 +340,6 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get pairsNextRound => 'Manche suivante';
-
-  @override
-  String get pairsBuildSentence => 'Construire une phrase';
 
   @override
   String matchedSemantics(String label) {
@@ -1105,7 +1099,8 @@ class AppLocalizationsFr extends AppLocalizations {
   String get audioLibraryTitle => 'Leçons audio';
 
   @override
-  String get audioLibraryBody => 'Une par mission : la conversation, puis phrase par phrase avec le temps de dire chacune, puis la conversation à nouveau.';
+  String get audioLibraryBody =>
+      'Chaque leçon avance en quatre temps : vous écoutez, vous répétez, vous retrouvez de mémoire, puis vous tenez votre rôle dans la conversation.';
 
   @override
   String get audioReadByAi => 'Lue par une voix IA';
@@ -1134,19 +1129,13 @@ class AppLocalizationsFr extends AppLocalizations {
   String get audioPhrasesIntro => 'Maintenant, phrase par phrase. Écoutez, puis dites-la à voix haute.';
 
   @override
-  String get audioAgainIntro => 'Encore une fois, toute la conversation.';
-
-  @override
   String get audioOutro => 'C’est la fin de la leçon. Bravo !';
 
   @override
-  String get audioSectionConversation => 'La conversation';
+  String get audioSectionConversation => 'Écouter';
 
   @override
-  String get audioSectionPhrases => 'Phrase par phrase';
-
-  @override
-  String get audioSectionAgain => 'Encore une fois';
+  String get audioSectionPhrases => 'Répéter';
 
   @override
   String get audioYourTurn => 'À vous : dites-la';
@@ -1667,9 +1656,6 @@ class AppLocalizationsFr extends AppLocalizations {
   String get practiceGapPrompt => 'Complétez la phrase';
 
   @override
-  String get practiceTryAgain => 'Pas celle-ci. Essayez une autre.';
-
-  @override
   String get practiceRight => 'C’est bien ça !';
 
   @override
@@ -1687,4 +1673,378 @@ class AppLocalizationsFr extends AppLocalizations {
   String practiceRightSemantics(String option) {
     return '$option, bonne réponse';
   }
+
+  @override
+  String get practiceHearPrompt => 'Écoutez. Laquelle avez-vous entendue ?';
+
+  @override
+  String get practiceTrueFalsePrompt => 'Est-ce bien ce que ça veut dire ?';
+
+  @override
+  String get practiceYes => 'Oui';
+
+  @override
+  String get practiceNo => 'Non';
+
+  @override
+  String get practiceBuildByEarPrompt => 'Écoutez, puis reconstituez la phrase';
+
+  @override
+  String get practiceTypePrompt => 'Écrivez cette phrase';
+
+  @override
+  String get practiceTypeHint => 'Écrivez ici';
+
+  @override
+  String get practiceShowAnswer => 'Voir la réponse';
+
+  @override
+  String get practiceWrong => 'Pas tout à fait';
+
+  @override
+  String get practiceComesBack => 'Elle reviendra à la fin.';
+
+  @override
+  String get practiceEarlier => 'D’une mission précédente';
+
+  @override
+  String get practiceOnceMore => 'Encore une fois';
+
+  @override
+  String get practiceAccents => 'C’est ça. Attention aux accents.';
+
+  @override
+  String get practiceTypo => 'C’est ça, à une lettre près : vérifiez l’orthographe.';
+
+  @override
+  String get practiceDoneTitle => 'Entraînement terminé';
+
+  @override
+  String get practiceDoneAllRight => 'Tout juste du premier coup.';
+
+  @override
+  String practiceDoneScore(int right, int total) {
+    return '$right sur $total justes du premier coup';
+  }
+
+  @override
+  String get practiceRevisitTitle => 'À revoir';
+
+  @override
+  String chapterProgress(int done, int total) {
+    String _temp0 = intl.Intl.pluralLogic(
+      done,
+      locale: localeName,
+      other: '$done missions terminées sur $total',
+      one: '1 mission terminée sur $total',
+      zero: 'Aucune mission terminée sur $total',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get missionDone => 'Terminée';
+
+  @override
+  String phrasesCount(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count phrases', one: '1 phrase');
+    return '$_temp0';
+  }
+
+  @override
+  String missionOf(int index, int total) {
+    return 'Mission $index sur $total';
+  }
+
+  @override
+  String get pathMoreWays => 'D’autres façons de s’entraîner';
+
+  @override
+  String get pathAudioLesson => 'Leçon audio';
+
+  @override
+  String get pathPlayGames => 'Jouer aux mini-jeux';
+
+  @override
+  String get literalLabel => 'Mot à mot';
+
+  @override
+  String get pronunciationLabel => 'Prononciation';
+
+  @override
+  String get audioMixesTitle => 'Mélanges';
+
+  @override
+  String get audioMixLabel => 'Mélange';
+
+  @override
+  String get audioMixRecallTitle => 'Rappel de mémoire';
+
+  @override
+  String audioMixRecallBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count phrases déjà apprises, demandées de mémoire',
+      one: '1 phrase déjà apprise, demandée de mémoire',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get audioMixConversationsTitle => 'Toutes les conversations';
+
+  @override
+  String audioMixConversationsBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count conversations à la suite, juste pour écouter',
+      one: '1 conversation, juste pour écouter',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String audioAboutMinutes(int minutes) {
+    return 'Environ $minutes min';
+  }
+
+  @override
+  String audioTimeLeft(int minutes) {
+    return 'encore $minutes min environ';
+  }
+
+  @override
+  String get audioSectionRecall => 'De mémoire';
+
+  @override
+  String get audioSectionRolePlay => 'Votre rôle';
+
+  @override
+  String get audioRecallIntro => 'Maintenant, de mémoire. Vous entendez un sens : dites la phrase avant la voix.';
+
+  @override
+  String get audioRolePlayIntro => 'À présent, tenez votre rôle dans la conversation. Dites vos répliques à voix haute, puis écoutez pour vérifier.';
+
+  @override
+  String audioSayCue(String meaning) {
+    return 'Dites : $meaning';
+  }
+
+  @override
+  String get audioMixConversationsIntro => 'Toutes les conversations du cours, l’une après l’autre. Écoutez simplement.';
+
+  @override
+  String get audioMixRecallIntro => 'De mémoire, les phrases que vous avez apprises. Dites chacune avant la voix.';
+
+  @override
+  String get audioYourTurnRecall => 'À vous : dites-la de mémoire';
+
+  @override
+  String get gamesTitle => 'Mini-jeux';
+
+  @override
+  String gamesBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Une autre façon de retrouver les $count phrases que vous avez apprises. Chaque mission en ajoute.',
+      one: 'Une autre façon de retrouver la phrase que vous avez apprise.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String homeGamesBody(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: 'Jouez avec les $count phrases que vous connaissez',
+      one: 'Jouez avec 1 phrase que vous connaissez',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String get gamesNeedPhrases => 'Les jeux se jouent avec les phrases que vous avez apprises. Apprenez les premières : ils s’ouvrent aussitôt.';
+
+  @override
+  String get gameMemoryName => 'Paires de lanternes';
+
+  @override
+  String get gameMemoryPitch => 'Chaque phrase et son sens se cachent sous les lanternes. Trouvez les paires.';
+
+  @override
+  String get gameMemoryHint => 'Retournez deux lanternes : une phrase et son sens restent allumés.';
+
+  @override
+  String gameMemoryHidden(int index) {
+    return 'Lanterne $index, non retournée';
+  }
+
+  @override
+  String gameMemoryResult(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: 'Toutes les paires en $count coups', one: 'Toutes les paires en 1 coup');
+    return '$_temp0';
+  }
+
+  @override
+  String gameMemoryDetail(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count phrases retrouvées avec leur sens.',
+      one: '1 phrase retrouvée avec son sens.',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String gameMovesSemantics(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count coups', one: '1 coup');
+    return '$_temp0';
+  }
+
+  @override
+  String get gameQuickName => 'Du tac au tac';
+
+  @override
+  String get gameQuickPitch => 'Une phrase, un sens : oui ou non ? Le plus possible avant la fin du temps.';
+
+  @override
+  String gameQuickRules(int seconds) {
+    return 'Vous voyez une phrase et un sens. Est-ce bien ce qu’elle veut dire ? Répondez au plus grand nombre en $seconds secondes. Une erreur montre le bon sens.';
+  }
+
+  @override
+  String gameQuickResult(int count) {
+    String _temp0 = intl.Intl.pluralLogic(
+      count,
+      locale: localeName,
+      other: '$count bonnes réponses',
+      one: '1 bonne réponse',
+      zero: 'Aucune bonne réponse cette fois',
+    );
+    return '$_temp0';
+  }
+
+  @override
+  String gameQuickDetail(int answered, int streak) {
+    return 'Sur $answered réponses. Plus longue série sans erreur : $streak.';
+  }
+
+  @override
+  String gameQuickMeans(String meaning) {
+    return 'Cela veut dire : $meaning';
+  }
+
+  @override
+  String gameRightSemantics(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count bonnes réponses', one: '1 bonne réponse');
+    return '$_temp0';
+  }
+
+  @override
+  String gameSecondsLeft(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count secondes restantes', one: '1 seconde restante');
+    return '$_temp0';
+  }
+
+  @override
+  String gameStreak(int count) {
+    return '$count d’affilée';
+  }
+
+  @override
+  String get gameEarName => 'À l’oreille';
+
+  @override
+  String get gameEarPitch => 'Une phrase est dite. Retrouvez-la parmi celles écrites.';
+
+  @override
+  String gameEarResult(int right, int total) {
+    return '$right sur $total reconnues à l’oreille';
+  }
+
+  @override
+  String get gameDashName => 'Phrases chrono';
+
+  @override
+  String get gameDashPitch => 'Remettez les mots de chaque phrase dans l’ordre, contre la montre.';
+
+  @override
+  String get gameDashRules =>
+      'Vous recevez un sens et les mots de sa phrase, mêlés à un intrus. Remettez-les dans l’ordre. Le chrono tourne jusqu’à la dernière phrase juste.';
+
+  @override
+  String gameDashResult(int count, String time) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: '$count phrases en $time', one: '1 phrase en $time');
+    return '$_temp0';
+  }
+
+  @override
+  String gameTimeSemantics(String time) {
+    return 'Temps : $time';
+  }
+
+  @override
+  String gameBestMoves(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: 'Votre record : $count coups', one: 'Votre record : 1 coup');
+    return '$_temp0';
+  }
+
+  @override
+  String gameBestRight(int count) {
+    String _temp0 = intl.Intl.pluralLogic(count, locale: localeName, other: 'Votre record : $count bonnes réponses', one: 'Votre record : 1 bonne réponse');
+    return '$_temp0';
+  }
+
+  @override
+  String gameBestTime(String time) {
+    return 'Votre record : $time';
+  }
+
+  @override
+  String get gameStart => 'Commencer';
+
+  @override
+  String get gamePlayAgain => 'Rejouer';
+
+  @override
+  String get gameBackToGames => 'Retour aux jeux';
+
+  @override
+  String get gameNewRecord => 'Nouveau record';
+
+  @override
+  String get courseIncludesGames => 'Des mini-jeux avec les phrases que vous avez apprises';
+
+  @override
+  String get tabPlay => 'Jouer';
+
+  @override
+  String get stopPlay => 'Jouer';
+
+  @override
+  String pathPlaySubtitle(String game) {
+    return '$game, avec les phrases de cette mission';
+  }
+
+  @override
+  String practicePlayNext(String game) {
+    return 'Jouer : $game';
+  }
+
+  @override
+  String get gameMissionDetail => 'À présent, utilisez ces phrases dans la mission.';
+
+  @override
+  String get gamesEmptyTitle => 'Jouez avec ce que vous apprenez';
+
+  @override
+  String get gamesLearnFirst => 'Apprendre mes premières phrases';
+
+  @override
+  String get gamesInMissions => 'Chaque mission a aussi sa propre manche, à son étape Jouer.';
 }

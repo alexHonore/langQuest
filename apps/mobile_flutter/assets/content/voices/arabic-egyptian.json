@@ -1,0 +1,318 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "arabic-egyptian",
+  "voices": {
+    "arabic-egyptian-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed Egyptian Arabic as spoken in Cairo)"
+    },
+    "arabic-egyptian-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed Egyptian Arabic as spoken in Cairo)"
+    }
+  },
+  "lines": {
+    "arabic_egyptian_ch1:arabic_egyptian_ask_directions:ask_repeat_variant_10": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-e3ce92a58d8d7f2d.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_ask_directions:ask_where_is_variant_4": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-7c2f49cfe2d76c30.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_ask_directions:excuse_me": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-39cbe26aeb06e9a5.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_ask_directions:far": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-ab806a63bfcce8c3.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_ask_directions:get_attention_variant_2": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-1827432bf38dcaab.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_ask_directions:near": {
+      "file": "assets/audio/lines/arabic-egyptian-orus-e8b6fae5cc038066.mp3",
+      "voice": "arabic-egyptian-orus"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_ask_directions:repeat": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-05643d50d9213c45.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_ask_directions:slower": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-0b4425eb76c5e1f9.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_ask_directions:straight": {
+      "file": "assets/audio/lines/arabic-egyptian-orus-966084d2b21b0528.mp3",
+      "voice": "arabic-egyptian-orus"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_ask_directions:thank_variant_13": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-6aca317c863ac483.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_ask_directions:thanks": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-8ddf38926629b021.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_ask_directions:turn": {
+      "file": "assets/audio/lines/arabic-egyptian-orus-82812f01fe409bec.mp3",
+      "voice": "arabic-egyptian-orus"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_ask_directions:where_is": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-104d0900af114491.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:asks_two": {
+      "file": "assets/audio/lines/arabic-egyptian-orus-f6148cd5c9b69d1e.mp3",
+      "voice": "arabic-egyptian-orus"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:just_one": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-e3abeee49099b29c.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:me_too": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-3ea86315d112004c.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:offer_options_variant_12": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-1ff6d2cbabe5a51c.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:okay": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-097dc0d87f919dc5.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:picks": {
+      "file": "assets/audio/lines/arabic-egyptian-orus-bc7c3be03ec98d52.mp3",
+      "voice": "arabic-egyptian-orus"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:refuse_permission_variant_13": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-1fa3dbe9bc204bad.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:scoop": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-fdd080209a1721c6.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:thanks": {
+      "file": "assets/audio/lines/arabic-egyptian-orus-33c823ffb018f8ea.mp3",
+      "voice": "arabic-egyptian-orus"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:wants": {
+      "file": "assets/audio/lines/arabic-egyptian-orus-f7a05358e660bf4c.mp3",
+      "voice": "arabic-egyptian-orus"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:welcome": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-6ed6a7205e24afee.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:which_flavour": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-e354b46049c1c0a9.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_buy_ice_cream:yummy": {
+      "file": "assets/audio/lines/arabic-egyptian-orus-1a46a41b42f66fb2.mp3",
+      "voice": "arabic-egyptian-orus"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_cafe_order_drink:ask_for_bill_variant_9": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-5801cada231a5429.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_cafe_order_drink:bill": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-f7a7e0442ea1296d.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_cafe_order_drink:choice": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-6683cae262cb4ae7.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_cafe_order_drink:choose_option_variant_8": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-046738cc6e43367d.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_cafe_order_drink:greeting": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-82095adf753814cc.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_cafe_order_drink:options": {
+      "file": "assets/audio/lines/arabic-egyptian-orus-a903d8146108d7c9.mp3",
+      "voice": "arabic-egyptian-orus"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_cafe_order_drink:order": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-8f9a27b3c59e3878.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_cafe_order_drink:request_drink_variant_7": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-aadeab6479c0786d.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_cafe_order_drink:thanks": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-fea259ca251d3d67.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:ask_how_are_you_variant_10": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-286cb59fe0d4477c.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:fine": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-63c3fedc6738f566.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:goodbye": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-4d872e8e325af72d.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:greet_hello_variant_8": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-e06440a97cf28dae.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:greeting": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-d188518fa503fafe.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:how_are_you": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-ab97e963300fcf96.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:my_name": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-a3703b4a79b7d3a4.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:nice_to_meet": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-058d3c095262a2a0.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:reply_fine_variant_9": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-aebbdacf3097d0e4.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:say_goodbye_variant_11": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-849221479d6b4aa4.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_greet_and_introduce:your_name": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-89d067d524f30b2c.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_market_ask_price:ask_price_variant_8": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-91fbd3e91a2dde9a.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_market_ask_price:deal": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-3f994a9c5de7a6f0.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_market_ask_price:expensive": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-8cb0f37a703ae5d3.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_market_ask_price:greeting": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-be439ff4b92216e5.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_market_ask_price:how_much": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-e9a05803b3ce6dcc.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_market_ask_price:lower": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-d57325a98f94c6ad.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_market_ask_price:no_thanks": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-e7bdcfc05b5df7d0.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_market_ask_price:offer_lower_price_variant_9": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-f759b1ec2f101a4c.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_market_ask_price:price": {
+      "file": "assets/audio/lines/arabic-egyptian-orus-79a37ca17e771258.mp3",
+      "voice": "arabic-egyptian-orus"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:from": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-e6a0a4010b890461.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:little": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-9dde4a310ee9e9a5.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:new_neighbour": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-c82a9539611e2210.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:offer_help": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-d61b49168985ec62.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:say_new_neighbour_variant_9": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-2c2230bf26e979a3.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:say_speak_little_variant_10": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-e42697dc7876c6af.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:speak_lang": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-04951750ca2619cb.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:thanks": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-48298fba10b624dc.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:welcome": {
+      "file": "assets/audio/lines/arabic-egyptian-orus-39a440a979ea2139.mp3",
+      "voice": "arabic-egyptian-orus"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_meet_neighbour:where_from_q": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-ff6c3497fa3f3fe3.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_take_taxi:ask_use_meter_variant_10": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-11638ed8d1d9ffd3.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_take_taxi:bye": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-a2a45e6a1169a08a.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_take_taxi:change": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-48c174b9b412f133.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_take_taxi:destination": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-b8777afa0e5cbba5.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_take_taxi:fare": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-5178c935b6e13ace.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_take_taxi:hail": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-4797fbc7fe10641d.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_take_taxi:meter": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-c723ebe91bc35530.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_take_taxi:state_destination_variant_9": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-00893326b73b6e5b.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_take_taxi:stop": {
+      "file": "assets/audio/lines/arabic-egyptian-puck-b1333d822c916c6d.mp3",
+      "voice": "arabic-egyptian-puck"
+    },
+    "arabic_egyptian_ch1:arabic_egyptian_take_taxi:where_to": {
+      "file": "assets/audio/lines/arabic-egyptian-orus-455593025104b092.mp3",
+      "voice": "arabic-egyptian-orus"
+    }
+  }
+}

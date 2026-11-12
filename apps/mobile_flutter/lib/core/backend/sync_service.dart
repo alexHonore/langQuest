@@ -71,6 +71,7 @@ class SyncReport {
     this.missionsRestored = 0,
     this.coursesNotSaved = const [],
     this.missionsRefused = 0,
+    this.missionsWaiting = 0,
     this.courses = const {},
     this.keepsRecordings = false,
   });
@@ -83,8 +84,12 @@ class SyncReport {
   /// Courses the account refused (`409`: another instruction language of the same track is active there).
   final List<String> coursesNotSaved;
 
-  /// Missions the server refused for good (for instance not in the server's curriculum); not retried.
+  /// Missions the server refused for good; not retried.
   final int missionsRefused;
+
+  /// Missions of a chapter the server does not have yet (the app's bundle is ahead of the server's curriculum):
+  /// kept on the device and reported by a later sync, once the server knows them.
+  final int missionsWaiting;
 
   /// The account's active courses by course id, with what the server's AI can do for each.
   final Map<String, ServerCourse> courses;
@@ -130,7 +135,7 @@ class SyncService {
   Future<SyncReport> _sync() async {
     final user = auth.currentUser;
     if (user == null) return const SyncReport();
-    var coursesSent = 0, missionsSent = 0, coursesRestored = 0, missionsRestored = 0, missionsRefused = 0;
+    var coursesSent = 0, missionsSent = 0, coursesRestored = 0, missionsRestored = 0, missionsRefused = 0, missionsWaiting = 0;
     final notSaved = <String>[];
 
     // Server enrollments by course id (track|source), active ones only.
@@ -192,14 +197,27 @@ class SyncService {
 
       // 4. Missions completed here, reported to the account.
       final alreadySent = ledger.sent(user.id);
+      // Chapters the server does not have yet: asked about once per sync, not once per mission.
+      final unknownChapters = <String>{};
       for (final mission in course.missions) {
         final ledgerKey = SyncLedger.missionKey(courseId, mission.key);
         if (alreadySent.contains(ledgerKey) || !target.current.learner.progressOf(courseId).isMissionCompleted(mission.key)) continue;
+        if (unknownChapters.contains(mission.chapterKey)) {
+          missionsWaiting++;
+          continue;
+        }
         try {
           await _reportMission(user, courseId, source, enrollmentId, mission);
           missionsSent++;
         } on ApiException catch (e) {
           if (e.isTransient) rethrow;
+          // Not in the server's curriculum yet (a chapter newer than it): the completion stays on the device and
+          // is reported once the server has the chapter. Anything else is refused for good.
+          if (e.status == 404) {
+            unknownChapters.add(mission.chapterKey);
+            missionsWaiting++;
+            continue;
+          }
           missionsRefused++;
         }
         await ledger.markSent(user.id, [ledgerKey]);
@@ -212,6 +230,7 @@ class SyncService {
       missionsRestored: missionsRestored,
       coursesNotSaved: notSaved,
       missionsRefused: missionsRefused,
+      missionsWaiting: missionsWaiting,
       courses: serverCourses(me),
       keepsRecordings: accountKeepsRecordings(me),
     );
