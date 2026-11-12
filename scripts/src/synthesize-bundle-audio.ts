@@ -15,10 +15,17 @@
  * turns it down too (`--attempts`, 3 by default), since a TTS model occasionally garbles a line.
  * A line no take passes stays without a bundled clip (the app then uses the server's voice or the device's).
  *
- * Needs `OPENROUTER_API_KEY` in the environment (never printed) and `ffmpeg`. Existing clips are kept (a line is
- * synthesized again only when its text or voice changes).
+ * Both the voices and the listening check are Gemini models. They are called on **Google's Gemini API first** (the
+ * owner's own key and budget: `LANG_GEMINI_API_KEY`, or a network secret for generativelanguage.googleapis.com that
+ * the session's proxy adds as `x-goog-api-key`), and on **OpenRouter** (`OPENROUTER_API_KEY`, or its proxy secret)
+ * only when Google fails — an error, a quota or the monthly spending limit. After several Google failures in a row
+ * the run stops asking Google. `--provider google|openrouter` uses one only. Keys are never printed. Behind an HTTPS
+ * proxy, Node's fetch must be told to use it (`NODE_USE_ENV_PROXY=1`, set by the package script).
  *
- * Usage: OPENROUTER_API_KEY=… pnpm --filter @langquest/scripts synthesize-bundle-audio [-- --track spanish-spain] [-- --limit 5] [-- --dry-run]
+ * Needs `ffmpeg`. Existing clips are kept (a line is synthesized again only when its text or voice changes); a clip is
+ * named by its model and voice, so the same line made on either provider is the same clip.
+ *
+ * Usage: pnpm --filter @langquest/scripts synthesize-bundle-audio [-- --track spanish-spain] [-- --limit 5] [-- --dry-run]
  */
 import { execFileSync } from 'node:child_process';
 import { createHash } from 'node:crypto';
@@ -41,6 +48,7 @@ export const spec: CliSpec = {
     { name: 'concurrency', type: 'number', description: 'Parallel requests.', default: 4 },
     { name: 'no-verify', type: 'boolean', description: 'Keep clips without the listening check.', default: false },
     { name: 'attempts', type: 'number', description: 'Takes tried per clip before giving up.', default: 3 },
+    { name: 'provider', type: 'string', description: 'auto (Google, then OpenRouter on failure), google or openrouter.', default: 'auto' },
   ],
   examples: ['synthesize-bundle-audio -- --dry-run', 'synthesize-bundle-audio -- --track spanish-spain --limit 3'],
 };
@@ -79,6 +87,69 @@ export function bundleLines(chapters: readonly BundleChapter[], onlyTrack?: stri
   return lines;
 }
 
+// --- Providers: Google's Gemini API first, OpenRouter when it fails ---------------------------------------------
+
+const GOOGLE_API = 'https://generativelanguage.googleapis.com/v1beta/models';
+const OPENROUTER_API = 'https://openrouter.ai/api/v1';
+
+/** A Gemini model's id on Google's own API (`google/gemini-3.8-flash-tts` → `gemini-3.8-flash-tts`). */
+export const googleModelId = (model: string): string => model.replace(/^google\//, '');
+
+/** What Gemini TTS is asked on Google's API: the delivery instructions, then the line alone (the listening check
+ * catches a take that reads the instructions too). */
+export function speechPrompt(instructions: string | null, text: string): string {
+  return instructions ? `${instructions}\nRead aloud only this line, nothing else:\n${text}` : text;
+}
+
+/** Which provider served what in this run, and whether Google is still asked. */
+export class Providers {
+  constructor(readonly mode: 'auto' | 'google' | 'openrouter' = 'auto') {}
+  googleFailuresInARow = 0;
+  readonly used = { google: 0, openrouter: 0 };
+  readonly googleErrors: string[] = [];
+
+  get askGoogle(): boolean {
+    return this.mode !== 'openrouter' && (this.mode === 'google' || this.googleFailuresInARow < 5);
+  }
+
+  get askOpenRouter(): boolean {
+    return this.mode !== 'google';
+  }
+
+  /** Runs [google] first while Google is asked, else (or when it fails) [openrouter]. */
+  async call<T>(google: () => Promise<T>, openrouter: () => Promise<T>): Promise<T> {
+    if (this.askGoogle) {
+      try {
+        const result = await google();
+        this.googleFailuresInARow = 0;
+        this.used.google += 1;
+        return result;
+      } catch (error) {
+        this.googleFailuresInARow += 1;
+        if (this.googleErrors.length < 5) this.googleErrors.push((error as Error).message);
+        if (!this.askOpenRouter) throw error;
+      }
+    }
+    if (!this.askOpenRouter) throw new Error('no provider left to ask');
+    const result = await openrouter();
+    this.used.openrouter += 1;
+    return result;
+  }
+}
+
+const googleKey = (): string => process.env.LANG_GEMINI_API_KEY || process.env.GEMINI_API_KEY || 'proxy-injected';
+const openRouterKey = (): string => process.env.OPENROUTER_API_KEY || 'proxy-injected';
+
+async function google(model: string, body: unknown): Promise<{ candidates?: { content?: { parts?: { text?: string; inlineData?: { mimeType?: string; data?: string } }[] } }[] }> {
+  const res = await fetch(`${GOOGLE_API}/${googleModelId(model)}:generateContent`, {
+    method: 'POST',
+    headers: { 'x-goog-api-key': googleKey(), 'content-type': 'application/json' },
+    body: JSON.stringify(body),
+  });
+  if (!res.ok) throw new Error(`Google ${googleModelId(model)}: HTTP ${res.status} ${(await res.text()).slice(0, 200)}`);
+  return (await res.json()) as never;
+}
+
 /**
  * The listening check: a light model hears every new clip; a clip it turns down gets a second opinion from a
  * stronger one before it is recorded again (a light model misreads a dialect more often than the voice garbles it).
@@ -95,18 +166,33 @@ export function listenPrompt(text: string): string {
   ].join('\n');
 }
 
-async function listen(file: string, text: string, key: string, model: string = LISTENER_MODEL): Promise<{ ok: boolean; note: string }> {
-  const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
-    method: 'POST',
-    headers: { authorization: `Bearer ${key}`, 'content-type': 'application/json' },
-    body: JSON.stringify({
-      model,
-      temperature: 0,
-      response_format: { type: 'json_object' },
-      messages: [{ role: 'user', content: [{ type: 'text', text: listenPrompt(text) }, { type: 'input_audio', input_audio: { data: readFileSync(file).toString('base64'), format: 'mp3' } }] }],
-    }),
-  });
-  const content = ((await res.json()) as { choices?: { message?: { content?: string } }[] }).choices?.[0]?.message?.content ?? '';
+async function listen(file: string, text: string, providers: Providers, model: string = LISTENER_MODEL): Promise<{ ok: boolean; note: string }> {
+  const audio = readFileSync(file).toString('base64');
+  const content = await providers.call(
+    async () => {
+      const j = await google(model, {
+        contents: [{ role: 'user', parts: [{ text: listenPrompt(text) }, { inlineData: { mimeType: 'audio/mp3', data: audio } }] }],
+        generationConfig: { temperature: 0, responseMimeType: 'application/json' },
+      });
+      const answer = (j.candidates?.[0]?.content?.parts ?? []).map((p) => p.text ?? '').join('');
+      if (!answer.includes('{')) throw new Error(`Google ${googleModelId(model)}: no answer`);
+      return answer;
+    },
+    async () => {
+      const res = await fetch(`${OPENROUTER_API}/chat/completions`, {
+        method: 'POST',
+        headers: { authorization: `Bearer ${openRouterKey()}`, 'content-type': 'application/json' },
+        body: JSON.stringify({
+          model,
+          temperature: 0,
+          response_format: { type: 'json_object' },
+          messages: [{ role: 'user', content: [{ type: 'text', text: listenPrompt(text) }, { type: 'input_audio', input_audio: { data: audio, format: 'mp3' } }] }],
+        }),
+      });
+      if (!res.ok) throw new Error(`OpenRouter ${model}: HTTP ${res.status} ${(await res.text()).slice(0, 200)}`);
+      return ((await res.json()) as { choices?: { message?: { content?: string } }[] }).choices?.[0]?.message?.content ?? '';
+    },
+  );
   try {
     const j = JSON.parse(content.slice(content.indexOf('{'), content.lastIndexOf('}') + 1)) as { heard?: string; matches?: boolean; naturalness?: number; issues?: string };
     return { ok: j.matches === true && (j.naturalness ?? 0) >= 8, note: `heard "${j.heard ?? ''}", natural ${j.naturalness ?? '?'}/10${j.issues && j.issues !== 'none' ? `, ${j.issues}` : ''}` };
@@ -115,18 +201,31 @@ async function listen(file: string, text: string, key: string, model: string = L
   }
 }
 
-async function synthesize(line: Line, out: string, key: string): Promise<void> {
+async function synthesize(line: Line, out: string, providers: Providers): Promise<void> {
   const v = line.voice;
-  const res = await fetch('https://openrouter.ai/api/v1/audio/speech', {
-    method: 'POST',
-    headers: { authorization: `Bearer ${key}`, 'content-type': 'application/json' },
-    body: JSON.stringify({ model: v.model, input: line.text, voice: v.voice, response_format: v.format, ...(v.instructions ? { instructions: v.instructions } : {}) }),
-  });
-  if (!res.ok) throw new Error(`${v.model} ${v.voice}: HTTP ${res.status} ${(await res.text()).slice(0, 200)}`);
-  const bytes = Buffer.from(await res.arrayBuffer());
-  const rate = /rate=(\d+)/.exec(res.headers.get('content-type') ?? '')?.[1] ?? '24000';
+  const viaOpenRouter = async (): Promise<{ bytes: Buffer; rate: string; format: 'pcm' | 'mp3' }> => {
+    const res = await fetch(`${OPENROUTER_API}/audio/speech`, {
+      method: 'POST',
+      headers: { authorization: `Bearer ${openRouterKey()}`, 'content-type': 'application/json' },
+      body: JSON.stringify({ model: v.model, input: line.text, voice: v.voice, response_format: v.format, ...(v.instructions ? { instructions: v.instructions } : {}) }),
+    });
+    if (!res.ok) throw new Error(`OpenRouter ${v.model} ${v.voice}: HTTP ${res.status} ${(await res.text()).slice(0, 200)}`);
+    return { bytes: Buffer.from(await res.arrayBuffer()), rate: /rate=(\d+)/.exec(res.headers.get('content-type') ?? '')?.[1] ?? '24000', format: v.format };
+  };
+  // Google speaks Gemini voices only (raw 16-bit PCM); any other model goes to OpenRouter.
+  const viaGoogle = async (): Promise<{ bytes: Buffer; rate: string; format: 'pcm' | 'mp3' }> => {
+    if (!v.model.startsWith('google/')) throw new Error(`${v.model} is not on Google's API`);
+    const j = await google(v.model, {
+      contents: [{ role: 'user', parts: [{ text: speechPrompt(v.instructions, line.text) }] }],
+      generationConfig: { responseModalities: ['AUDIO'], speechConfig: { voiceConfig: { prebuiltVoiceConfig: { voiceName: v.voice } } } },
+    });
+    const part = (j.candidates?.[0]?.content?.parts ?? []).find((p) => p.inlineData?.data);
+    if (!part?.inlineData?.data) throw new Error(`Google ${googleModelId(v.model)}: no audio in the answer`);
+    return { bytes: Buffer.from(part.inlineData.data, 'base64'), rate: /rate=(\d+)/.exec(part.inlineData.mimeType ?? '')?.[1] ?? '24000', format: 'pcm' };
+  };
+  const { bytes, rate, format } = await providers.call(viaGoogle, viaOpenRouter);
   // Mono MP3 at a speech bitrate, loudness-normalised so every voice plays at the same level.
-  const input = v.format === 'pcm' ? ['-f', 's16le', '-ar', rate, '-ac', '1', '-i', 'pipe:0'] : ['-i', 'pipe:0'];
+  const input = format === 'pcm' ? ['-f', 's16le', '-ar', rate, '-ac', '1', '-i', 'pipe:0'] : ['-i', 'pipe:0'];
   // A short lead-in and tail of silence: browsers can swallow the first syllable of a clip that starts at once.
   execFileSync('ffmpeg', ['-hide_banner', '-loglevel', 'error', '-y', ...input, '-af', 'adelay=120,apad=pad_dur=0.25,loudnorm=I=-18:TP=-2:LRA=11', '-ac', '1', '-ar', '24000', '-b:a', '48k', out], { input: bytes });
 }
@@ -144,11 +243,12 @@ export async function main(args: ParsedArgs, io: CliIo): Promise<number> {
   const chars = [...todo.values()].reduce((n, l) => n + l.text.length, 0);
   io.log(`${lines.length} lines, ${todo.size} clips to synthesize (${chars} characters)`);
   if (args.dryRun) return 0;
-  const key = process.env.OPENROUTER_API_KEY;
-  if (todo.size && !key) {
-    io.error('OPENROUTER_API_KEY is not set');
-    return 1;
+  const mode = flagString(args, 'provider') ?? 'auto';
+  if (mode !== 'auto' && mode !== 'google' && mode !== 'openrouter') {
+    io.error(`--provider must be auto, google or openrouter (got ${mode})`);
+    return 2;
   }
+  const providers = new Providers(mode);
   mkdirSync(dir, { recursive: true });
   const limit = flagNumber(args, 'limit') ?? 0;
   const verify = !flagBool(args, 'no-verify');
@@ -162,11 +262,11 @@ export async function main(args: ParsedArgs, io: CliIo): Promise<number> {
       try {
         let kept = false;
         for (let attempt = 1; attempt <= attempts && !kept; attempt++) {
-          await synthesize(line, out, key!);
+          await synthesize(line, out, providers);
           if (verify) {
-            let heard = await listen(out, line.text, key!);
+            let heard = await listen(out, line.text, providers);
             if (!heard.ok) {
-              const second = await listen(out, line.text, key!, SECOND_LISTENER_MODEL);
+              const second = await listen(out, line.text, providers, SECOND_LISTENER_MODEL);
               heard = { ok: second.ok, note: `${heard.note}; second opinion: ${second.note}` };
             }
             kept = heard.ok;
@@ -187,6 +287,10 @@ export async function main(args: ParsedArgs, io: CliIo): Promise<number> {
     }
   });
   await Promise.all(workers);
+  if (todo.size) {
+    io.log(`requests served: Google ${providers.used.google}, OpenRouter ${providers.used.openrouter}`);
+    for (const e of providers.googleErrors) io.log(`  Google said: ${e}`);
+  }
 
   // The map of every bundle line whose clip exists; clips no line uses any more are removed.
   const all = bundleLines(readBundleChapters<BundleChapter>(root));

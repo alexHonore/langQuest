@@ -19,7 +19,7 @@
     "content-factory": "tsx src/content-factory.ts",
     "export-flutter-content": "tsx src/export-flutter-content.ts",
     "attach-tatoeba-examples": "tsx src/attach-tatoeba-examples.ts",
-    "synthesize-bundle-audio": "tsx src/synthesize-bundle-audio.ts",
+    "synthesize-bundle-audio": "NODE_USE_ENV_PROXY=1 tsx src/synthesize-bundle-audio.ts",
     "import-factory-chapters": "tsx src/import-factory-chapters.ts"
   },
   "dependencies": {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { bundleLines, clipName, listenPrompt, type BundleChapter } from '../synthesize-bundle-audio';
+import { Providers, bundleLines, clipName, googleModelId, listenPrompt, speechPrompt, type BundleChapter } from '../synthesize-bundle-audio';
 import { BUNDLE_VOICES, voiceForLine } from './bundle-voices';
 import { readBundleChapters } from './flutter-bundle';
 import { repoRoot } from './io';
@@ -39,5 +39,35 @@ describe('the bundled course voices', () => {
     expect(clipName(v, 'Hola.')).not.toBe(clipName(v, 'Hola!'));
     const prompt = listenPrompt('Hola.');
     expect(prompt.indexOf('as if you did not know')).toBeLessThan(prompt.indexOf('"Hola."'));
+  });
+});
+
+describe('the providers of the voices', () => {
+  it('asks Google first, OpenRouter when Google fails, and stops asking Google after five failures in a row', async () => {
+    const providers = new Providers('auto');
+    const fail = async (): Promise<string> => {
+      throw new Error('HTTP 429 quota');
+    };
+    expect(await providers.call(async () => 'google', async () => 'openrouter')).toBe('google');
+    expect(await providers.call(fail, async () => 'openrouter')).toBe('openrouter');
+    expect(providers.used).toEqual({ google: 1, openrouter: 1 });
+    for (let i = 0; i < 4; i++) await providers.call(fail, async () => 'openrouter');
+    expect(providers.askGoogle).toBe(false);
+    let asked = false;
+    await providers.call(async () => {
+      asked = true;
+      return 'google';
+    }, async () => 'openrouter');
+    expect(asked).toBe(false);
+    // One provider only: no fallback.
+    await expect(new Providers('google').call(fail, async () => 'openrouter')).rejects.toThrow('quota');
+    expect(await new Providers('openrouter').call(async () => 'google', async () => 'openrouter')).toBe('openrouter');
+  });
+
+  it('names Gemini models as Google does, and asks for the line alone after the delivery instructions', () => {
+    expect(googleModelId('google/gemini-3.8-flash-tts')).toBe('gemini-3.8-flash-tts');
+    const prompt = speechPrompt('Speak in natural Swedish.', 'Hej!');
+    expect(prompt.endsWith('\nHej!')).toBe(true);
+    expect(speechPrompt(null, 'Hej!')).toBe('Hej!');
   });
 });

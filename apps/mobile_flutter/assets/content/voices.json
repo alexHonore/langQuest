@@ -75,18 +75,6 @@
    "model": "google/gemini-3.8-flash-tts",
    "label": "Puck (Gemini TTS, instructed standard Mandarin Chinese (Putonghua) as spoken in Beijing)"
   },
-  "chinese-simplified-aoede": {
-   "model": "google/gemini-3.8-flash-tts",
-   "label": "Aoede (Gemini TTS, instructed standard Mandarin Chinese (Putonghua) as spoken in Beijing)"
-  },
-  "chinese-simplified-orus": {
-   "model": "google/gemini-3.8-flash-tts",
-   "label": "Orus (Gemini TTS, instructed standard Mandarin Chinese (Putonghua) as spoken in Beijing)"
-  },
-  "chinese-simplified-puck": {
-   "model": "google/gemini-3.8-flash-tts",
-   "label": "Puck (Gemini TTS, instructed standard Mandarin Chinese (Putonghua) as spoken in Beijing)"
-  },
   "en-us-aoede": {
    "model": "google/gemini-3.8-flash-tts",
    "label": "Aoede (Gemini TTS, instructed American English)"
@@ -952,6 +940,10 @@
   "arabic_egyptian_ch1:arabic_egyptian_take_taxi:where_to": {
    "file": "assets/audio/lines/arabic-egyptian-orus-455593025104b092.mp3",
    "voice": "arabic-egyptian-orus"
+  },
+  "arabic_moroccan_ch2:ary_restaurant_order_meal:welcome": {
+   "file": "assets/audio/lines/ary-charon-dc463129a49741fd.mp3",
+   "voice": "ary-charon"
   },
   "arabic_msa_ch1:arabic_msa_ask_directions:ask_repeat_variant_9": {
    "file": "assets/audio/lines/arabic-msa-puck-b2251baad0fe097b.mp3",
@@ -2030,276 +2022,272 @@
    "voice": "chinese-mandarin-orus"
   },
   "chinese_simplified_ch1:chinese_simplified_ask_directions:ask_slow_down_variant_10": {
-   "file": "assets/audio/lines/chinese-simplified-puck-1c0fb1e594489f9c.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-1c0fb1e594489f9c.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_ask_directions:ask_where_is_variant_11": {
-   "file": "assets/audio/lines/chinese-simplified-puck-f3145796a75b7e05.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-f3145796a75b7e05.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_ask_directions:excuse_me": {
-   "file": "assets/audio/lines/chinese-simplified-puck-d04e9316221a04d7.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-d04e9316221a04d7.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_ask_directions:far": {
-   "file": "assets/audio/lines/chinese-simplified-puck-160196b36d5fcb7a.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-160196b36d5fcb7a.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_ask_directions:near": {
-   "file": "assets/audio/lines/chinese-simplified-orus-3bf813d765d3d423.mp3",
-   "voice": "chinese-simplified-orus"
+   "file": "assets/audio/lines/chinese-mandarin-orus-3bf813d765d3d423.mp3",
+   "voice": "chinese-mandarin-orus"
   },
   "chinese_simplified_ch1:chinese_simplified_ask_directions:repeat": {
-   "file": "assets/audio/lines/chinese-simplified-puck-dffb2990372804d6.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-dffb2990372804d6.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_ask_directions:slower": {
-   "file": "assets/audio/lines/chinese-simplified-puck-05f808d71ee8d465.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-05f808d71ee8d465.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_ask_directions:straight": {
-   "file": "assets/audio/lines/chinese-simplified-orus-f71e06505a8a3de9.mp3",
-   "voice": "chinese-simplified-orus"
+   "file": "assets/audio/lines/chinese-mandarin-orus-f71e06505a8a3de9.mp3",
+   "voice": "chinese-mandarin-orus"
   },
   "chinese_simplified_ch1:chinese_simplified_ask_directions:thank_variant_12": {
-   "file": "assets/audio/lines/chinese-simplified-puck-540fe8cbf1f85c40.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-540fe8cbf1f85c40.mp3",
+   "voice": "chinese-mandarin-puck"
+  },
+  "chinese_simplified_ch1:chinese_simplified_ask_directions:thanks": {
+   "file": "assets/audio/lines/chinese-mandarin-puck-27291590f67d28c0.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_ask_directions:turn": {
-   "file": "assets/audio/lines/chinese-simplified-orus-d004e7a405ba1076.mp3",
-   "voice": "chinese-simplified-orus"
-  },
-  "chinese_simplified_ch1:chinese_simplified_ask_directions:where_is": {
-   "file": "assets/audio/lines/chinese-simplified-puck-d49fd46d2bef11cc.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-orus-d004e7a405ba1076.mp3",
+   "voice": "chinese-mandarin-orus"
   },
   "chinese_simplified_ch1:chinese_simplified_buy_ice_cream:asks_two": {
-   "file": "assets/audio/lines/chinese-simplified-orus-9e1ad5960cc95c50.mp3",
-   "voice": "chinese-simplified-orus"
+   "file": "assets/audio/lines/chinese-mandarin-orus-9e1ad5960cc95c50.mp3",
+   "voice": "chinese-mandarin-orus"
   },
   "chinese_simplified_ch1:chinese_simplified_buy_ice_cream:just_one": {
-   "file": "assets/audio/lines/chinese-simplified-puck-8f7cc6b8824a35f8.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-8f7cc6b8824a35f8.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_buy_ice_cream:me_too": {
-   "file": "assets/audio/lines/chinese-simplified-puck-505857022ce53e87.mp3",
-   "voice": "chinese-simplified-puck"
-  },
-  "chinese_simplified_ch1:chinese_simplified_buy_ice_cream:offer_options_variant_13": {
-   "file": "assets/audio/lines/chinese-simplified-puck-6d5b0392a094f5ce.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-505857022ce53e87.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_buy_ice_cream:okay": {
-   "file": "assets/audio/lines/chinese-simplified-puck-be8af1dd0689ad80.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-be8af1dd0689ad80.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_buy_ice_cream:picks": {
-   "file": "assets/audio/lines/chinese-simplified-orus-344285aa67bcbc2f.mp3",
-   "voice": "chinese-simplified-orus"
+   "file": "assets/audio/lines/chinese-mandarin-orus-344285aa67bcbc2f.mp3",
+   "voice": "chinese-mandarin-orus"
   },
   "chinese_simplified_ch1:chinese_simplified_buy_ice_cream:refuse_permission_variant_12": {
-   "file": "assets/audio/lines/chinese-simplified-puck-57eb44dd800b2601.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-57eb44dd800b2601.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_buy_ice_cream:scoop": {
-   "file": "assets/audio/lines/chinese-simplified-puck-b3a447d99294e817.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-b3a447d99294e817.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_buy_ice_cream:thanks": {
-   "file": "assets/audio/lines/chinese-simplified-orus-e80d2ec3052a4bbf.mp3",
-   "voice": "chinese-simplified-orus"
+   "file": "assets/audio/lines/chinese-mandarin-orus-e80d2ec3052a4bbf.mp3",
+   "voice": "chinese-mandarin-orus"
   },
   "chinese_simplified_ch1:chinese_simplified_buy_ice_cream:wants": {
-   "file": "assets/audio/lines/chinese-simplified-orus-34a41b680edca23a.mp3",
-   "voice": "chinese-simplified-orus"
+   "file": "assets/audio/lines/chinese-mandarin-orus-34a41b680edca23a.mp3",
+   "voice": "chinese-mandarin-orus"
   },
   "chinese_simplified_ch1:chinese_simplified_buy_ice_cream:welcome": {
-   "file": "assets/audio/lines/chinese-simplified-puck-758ae1a2dacc2b3d.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-758ae1a2dacc2b3d.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_buy_ice_cream:which_flavour": {
-   "file": "assets/audio/lines/chinese-simplified-puck-c7102354c79ff52e.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-c7102354c79ff52e.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_buy_ice_cream:yummy": {
-   "file": "assets/audio/lines/chinese-simplified-orus-9453e18bbfd5f100.mp3",
-   "voice": "chinese-simplified-orus"
+   "file": "assets/audio/lines/chinese-mandarin-orus-9453e18bbfd5f100.mp3",
+   "voice": "chinese-mandarin-orus"
   },
   "chinese_simplified_ch1:chinese_simplified_cafe_order_drink:ask_for_bill_variant_8": {
-   "file": "assets/audio/lines/chinese-simplified-puck-ca29fc610445b696.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-ca29fc610445b696.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_cafe_order_drink:bill": {
-   "file": "assets/audio/lines/chinese-simplified-puck-96760069826c6419.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-96760069826c6419.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_cafe_order_drink:choice": {
-   "file": "assets/audio/lines/chinese-simplified-puck-cdf8b395f93910c3.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-cdf8b395f93910c3.mp3",
+   "voice": "chinese-mandarin-puck"
+  },
+  "chinese_simplified_ch1:chinese_simplified_cafe_order_drink:greeting": {
+   "file": "assets/audio/lines/chinese-mandarin-puck-bd5cd0725d263147.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_cafe_order_drink:options": {
-   "file": "assets/audio/lines/chinese-simplified-orus-d71def3abe7090be.mp3",
-   "voice": "chinese-simplified-orus"
+   "file": "assets/audio/lines/chinese-mandarin-orus-d71def3abe7090be.mp3",
+   "voice": "chinese-mandarin-orus"
   },
   "chinese_simplified_ch1:chinese_simplified_cafe_order_drink:order": {
-   "file": "assets/audio/lines/chinese-simplified-puck-498833fd9886d422.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-498833fd9886d422.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_cafe_order_drink:request_drink_variant_7": {
-   "file": "assets/audio/lines/chinese-simplified-puck-d534fb48c2f03c1b.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-d534fb48c2f03c1b.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_cafe_order_drink:thanks": {
-   "file": "assets/audio/lines/chinese-simplified-puck-f49403b38f709ab0.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-f49403b38f709ab0.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_greet_and_introduce:fine": {
-   "file": "assets/audio/lines/chinese-simplified-puck-4f39a3ff1bbacf48.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-4f39a3ff1bbacf48.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_greet_and_introduce:goodbye": {
-   "file": "assets/audio/lines/chinese-simplified-puck-b849331ba7bc5919.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-b849331ba7bc5919.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_greet_and_introduce:greet_hello_variant_8": {
-   "file": "assets/audio/lines/chinese-simplified-puck-aaf6589f319f16e8.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-aaf6589f319f16e8.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_greet_and_introduce:greeting": {
-   "file": "assets/audio/lines/chinese-simplified-puck-6392a4bec4a6eae4.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-6392a4bec4a6eae4.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_greet_and_introduce:how_are_you": {
-   "file": "assets/audio/lines/chinese-simplified-puck-507670ca331cf92d.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-507670ca331cf92d.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_greet_and_introduce:my_name": {
-   "file": "assets/audio/lines/chinese-simplified-puck-88e3357852b96296.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-88e3357852b96296.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_greet_and_introduce:nice_to_meet": {
-   "file": "assets/audio/lines/chinese-simplified-puck-a51abe2fa8f0dfef.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-a51abe2fa8f0dfef.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_greet_and_introduce:say_goodbye_variant_9": {
-   "file": "assets/audio/lines/chinese-simplified-puck-6a4d5454b917f015.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-6a4d5454b917f015.mp3",
+   "voice": "chinese-mandarin-puck"
+  },
+  "chinese_simplified_ch1:chinese_simplified_greet_and_introduce:your_name": {
+   "file": "assets/audio/lines/chinese-mandarin-puck-8155da28e2ece290.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_market_ask_price:ask_price_variant_8": {
-   "file": "assets/audio/lines/chinese-simplified-puck-90cd0a80a61f157b.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-90cd0a80a61f157b.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_market_ask_price:deal": {
-   "file": "assets/audio/lines/chinese-simplified-puck-ce1618e99452ab9c.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-ce1618e99452ab9c.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_market_ask_price:expensive": {
-   "file": "assets/audio/lines/chinese-simplified-puck-8083246742c0bdf1.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-8083246742c0bdf1.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_market_ask_price:greeting": {
-   "file": "assets/audio/lines/chinese-simplified-puck-5f7f94c3fb8b8bc8.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-5f7f94c3fb8b8bc8.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_market_ask_price:how_much": {
-   "file": "assets/audio/lines/chinese-simplified-puck-a2259c11f5bb27ae.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-a2259c11f5bb27ae.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_market_ask_price:lower": {
-   "file": "assets/audio/lines/chinese-simplified-puck-a648396b6b691ced.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-a648396b6b691ced.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_market_ask_price:no_thanks": {
-   "file": "assets/audio/lines/chinese-simplified-puck-ee1ca57436e05530.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-ee1ca57436e05530.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_market_ask_price:offer_lower_price_variant_9": {
-   "file": "assets/audio/lines/chinese-simplified-puck-f29009590a75c554.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-f29009590a75c554.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_market_ask_price:price": {
-   "file": "assets/audio/lines/chinese-simplified-aoede-3d72f94bda740b43.mp3",
-   "voice": "chinese-simplified-aoede"
+   "file": "assets/audio/lines/chinese-mandarin-aoede-3d72f94bda740b43.mp3",
+   "voice": "chinese-mandarin-aoede"
   },
   "chinese_simplified_ch1:chinese_simplified_meet_neighbour:ask_where_from_variant_10": {
-   "file": "assets/audio/lines/chinese-simplified-puck-65ccd7ed336175b9.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-65ccd7ed336175b9.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_meet_neighbour:from": {
-   "file": "assets/audio/lines/chinese-simplified-puck-9da1d1b6c510b366.mp3",
-   "voice": "chinese-simplified-puck"
-  },
-  "chinese_simplified_ch1:chinese_simplified_meet_neighbour:little": {
-   "file": "assets/audio/lines/chinese-simplified-puck-ea7b8367426b0345.mp3",
-   "voice": "chinese-simplified-puck"
-  },
-  "chinese_simplified_ch1:chinese_simplified_meet_neighbour:new_neighbour": {
-   "file": "assets/audio/lines/chinese-simplified-puck-c4d49ca86e6c5ad7.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-9da1d1b6c510b366.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_meet_neighbour:offer_help": {
-   "file": "assets/audio/lines/chinese-simplified-puck-63704879716de953.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-63704879716de953.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_meet_neighbour:say_new_neighbour_variant_9": {
-   "file": "assets/audio/lines/chinese-simplified-puck-454c2d61aa6ccd7a.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-454c2d61aa6ccd7a.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_meet_neighbour:speak_lang": {
-   "file": "assets/audio/lines/chinese-simplified-puck-f1ae939ac0d493c1.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-f1ae939ac0d493c1.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_meet_neighbour:thanks": {
-   "file": "assets/audio/lines/chinese-simplified-puck-54f2c46512337d99.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-54f2c46512337d99.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_meet_neighbour:welcome": {
-   "file": "assets/audio/lines/chinese-simplified-aoede-7ba2aa6e0d96905b.mp3",
-   "voice": "chinese-simplified-aoede"
+   "file": "assets/audio/lines/chinese-mandarin-aoede-7ba2aa6e0d96905b.mp3",
+   "voice": "chinese-mandarin-aoede"
   },
   "chinese_simplified_ch1:chinese_simplified_meet_neighbour:where_from_q": {
-   "file": "assets/audio/lines/chinese-simplified-puck-25350573a41f44c7.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-25350573a41f44c7.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_take_taxi:ask_use_meter_variant_10": {
-   "file": "assets/audio/lines/chinese-simplified-puck-73549325ef45f204.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-73549325ef45f204.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_take_taxi:bye": {
-   "file": "assets/audio/lines/chinese-simplified-puck-1d70c918cec9d375.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-1d70c918cec9d375.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_take_taxi:change": {
-   "file": "assets/audio/lines/chinese-simplified-puck-7beeda269d08b458.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-7beeda269d08b458.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_take_taxi:destination": {
-   "file": "assets/audio/lines/chinese-simplified-puck-b703a8e81929dba1.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-b703a8e81929dba1.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_take_taxi:fare": {
-   "file": "assets/audio/lines/chinese-simplified-puck-cf560bccb2c83e7d.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-cf560bccb2c83e7d.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_take_taxi:hail": {
-   "file": "assets/audio/lines/chinese-simplified-puck-26d85ac6216bf4c5.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-26d85ac6216bf4c5.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_take_taxi:hail_taxi_variant_9": {
-   "file": "assets/audio/lines/chinese-simplified-puck-23206f09c7365fd2.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-23206f09c7365fd2.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_take_taxi:meter": {
-   "file": "assets/audio/lines/chinese-simplified-puck-892e0daa2ebf3480.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-892e0daa2ebf3480.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_take_taxi:stop": {
-   "file": "assets/audio/lines/chinese-simplified-puck-e955b64162428361.mp3",
-   "voice": "chinese-simplified-puck"
+   "file": "assets/audio/lines/chinese-mandarin-puck-e955b64162428361.mp3",
+   "voice": "chinese-mandarin-puck"
   },
   "chinese_simplified_ch1:chinese_simplified_take_taxi:where_to": {
-   "file": "assets/audio/lines/chinese-simplified-orus-5e9852fae98a58b6.mp3",
-   "voice": "chinese-simplified-orus"
+   "file": "assets/audio/lines/chinese-mandarin-orus-5e9852fae98a58b6.mp3",
+   "voice": "chinese-mandarin-orus"
   },
   "danish_ch1:danish_ask_directions:ask_repeat_variant_11": {
    "file": "assets/audio/lines/danish-puck-4a4b7b70b6c42d4d.mp3",
