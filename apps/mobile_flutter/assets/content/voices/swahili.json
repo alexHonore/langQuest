@@ -1,0 +1,302 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "swahili",
+  "voices": {
+    "swahili-aoede": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Aoede (Gemini TTS, instructed Swahili as spoken in Nairobi)"
+    },
+    "swahili-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed Swahili as spoken in Nairobi)"
+    },
+    "swahili-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed Swahili as spoken in Nairobi)"
+    }
+  },
+  "lines": {
+    "swahili_ch1:swahili_ask_directions:ask_slow_down_variant_10": {
+      "file": "assets/audio/lines/swahili-puck-8f6444af0a28d895.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_ask_directions:ask_where_is_variant_11": {
+      "file": "assets/audio/lines/swahili-puck-ad6f87ea794cfcc1.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_ask_directions:excuse_me": {
+      "file": "assets/audio/lines/swahili-puck-0f92a854f439acc1.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_ask_directions:far": {
+      "file": "assets/audio/lines/swahili-puck-42749913f2064307.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_ask_directions:near": {
+      "file": "assets/audio/lines/swahili-orus-86b58f5139e43d32.mp3",
+      "voice": "swahili-orus"
+    },
+    "swahili_ch1:swahili_ask_directions:repeat": {
+      "file": "assets/audio/lines/swahili-puck-609340f9e4379714.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_ask_directions:slower": {
+      "file": "assets/audio/lines/swahili-puck-a3eb237bb0366fa0.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_ask_directions:straight": {
+      "file": "assets/audio/lines/swahili-orus-b22d3a44e4327f54.mp3",
+      "voice": "swahili-orus"
+    },
+    "swahili_ch1:swahili_ask_directions:thanks": {
+      "file": "assets/audio/lines/swahili-puck-c12ac8dfb1d40345.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_ask_directions:turn": {
+      "file": "assets/audio/lines/swahili-orus-2ff59af811856df9.mp3",
+      "voice": "swahili-orus"
+    },
+    "swahili_ch1:swahili_buy_ice_cream:asks_two": {
+      "file": "assets/audio/lines/swahili-aoede-3fa40624212c4094.mp3",
+      "voice": "swahili-aoede"
+    },
+    "swahili_ch1:swahili_buy_ice_cream:just_one": {
+      "file": "assets/audio/lines/swahili-puck-cc133b37198f153d.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_buy_ice_cream:me_too": {
+      "file": "assets/audio/lines/swahili-puck-1b786c210bb42eda.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_buy_ice_cream:okay": {
+      "file": "assets/audio/lines/swahili-puck-822af0517f290e0f.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_buy_ice_cream:refuse_permission_variant_13": {
+      "file": "assets/audio/lines/swahili-puck-618c0854685ffb14.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_buy_ice_cream:scoop": {
+      "file": "assets/audio/lines/swahili-puck-aa56e954241b79e6.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_buy_ice_cream:specify_quantity_variant_12": {
+      "file": "assets/audio/lines/swahili-puck-d1f06a499974a1b9.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_buy_ice_cream:thanks": {
+      "file": "assets/audio/lines/swahili-aoede-9e397c5d222d5a8a.mp3",
+      "voice": "swahili-aoede"
+    },
+    "swahili_ch1:swahili_buy_ice_cream:wants": {
+      "file": "assets/audio/lines/swahili-aoede-a1e3a772a876536a.mp3",
+      "voice": "swahili-aoede"
+    },
+    "swahili_ch1:swahili_buy_ice_cream:welcome": {
+      "file": "assets/audio/lines/swahili-puck-f30f79c50ec0b878.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_buy_ice_cream:which_flavour": {
+      "file": "assets/audio/lines/swahili-puck-aec5e24006c8001a.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_buy_ice_cream:yummy": {
+      "file": "assets/audio/lines/swahili-aoede-0a4a397dde790cb9.mp3",
+      "voice": "swahili-aoede"
+    },
+    "swahili_ch1:swahili_cafe_order_drink:ask_for_bill_variant_7": {
+      "file": "assets/audio/lines/swahili-puck-3facb95a5e4c156a.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_cafe_order_drink:bill": {
+      "file": "assets/audio/lines/swahili-puck-3433a6ebf0d5a386.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_cafe_order_drink:choice": {
+      "file": "assets/audio/lines/swahili-puck-6a694232733b3e15.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_cafe_order_drink:choose_option_variant_8": {
+      "file": "assets/audio/lines/swahili-puck-e674ca5e4be2dfab.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_cafe_order_drink:greeting": {
+      "file": "assets/audio/lines/swahili-puck-3bcf55f1433a692a.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_cafe_order_drink:options": {
+      "file": "assets/audio/lines/swahili-aoede-8450dafb7fd73107.mp3",
+      "voice": "swahili-aoede"
+    },
+    "swahili_ch1:swahili_cafe_order_drink:order": {
+      "file": "assets/audio/lines/swahili-puck-faa02efa03968e4c.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_cafe_order_drink:thanks": {
+      "file": "assets/audio/lines/swahili-puck-42a4f34f41c20a19.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_greet_and_introduce:fine": {
+      "file": "assets/audio/lines/swahili-puck-88a1905fc894439c.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_greet_and_introduce:goodbye": {
+      "file": "assets/audio/lines/swahili-puck-72e2b50933ab63fe.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_greet_and_introduce:greet_hello_variant_8": {
+      "file": "assets/audio/lines/swahili-puck-4e35db762b025755.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_greet_and_introduce:greet_hello_variant_9": {
+      "file": "assets/audio/lines/swahili-puck-ead1223f0d450a56.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_greet_and_introduce:greeting": {
+      "file": "assets/audio/lines/swahili-puck-2b73258a3110c2c2.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_greet_and_introduce:how_are_you": {
+      "file": "assets/audio/lines/swahili-puck-104199016529413b.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_greet_and_introduce:my_name": {
+      "file": "assets/audio/lines/swahili-puck-e9f68ad626cece86.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_greet_and_introduce:nice_to_meet": {
+      "file": "assets/audio/lines/swahili-puck-46d9a093a280f20e.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_greet_and_introduce:your_name": {
+      "file": "assets/audio/lines/swahili-puck-95abc215ab189eae.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_market_ask_price:ask_price_variant_8": {
+      "file": "assets/audio/lines/swahili-puck-ece2ca35f9b918e3.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_market_ask_price:deal": {
+      "file": "assets/audio/lines/swahili-puck-20a49243728b34c7.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_market_ask_price:expensive": {
+      "file": "assets/audio/lines/swahili-puck-2c24b3ecbe7e9c01.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_market_ask_price:greeting": {
+      "file": "assets/audio/lines/swahili-puck-1665a867c34abb9e.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_market_ask_price:how_much": {
+      "file": "assets/audio/lines/swahili-puck-12b0d21395b17996.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_market_ask_price:lower": {
+      "file": "assets/audio/lines/swahili-puck-be928f865775f9e9.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_market_ask_price:no_thanks": {
+      "file": "assets/audio/lines/swahili-puck-a19a3c8b28a68147.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_market_ask_price:offer_lower_price_variant_9": {
+      "file": "assets/audio/lines/swahili-puck-72180edbbc7afc0f.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_market_ask_price:price": {
+      "file": "assets/audio/lines/swahili-aoede-cda2c0111dc10a14.mp3",
+      "voice": "swahili-aoede"
+    },
+    "swahili_ch1:swahili_market_ask_price:say_too_expensive_variant_10": {
+      "file": "assets/audio/lines/swahili-puck-52f70dcfb6c04f62.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_meet_neighbour:from": {
+      "file": "assets/audio/lines/swahili-puck-c268d04bb376a9b9.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_meet_neighbour:little": {
+      "file": "assets/audio/lines/swahili-puck-73ab6286df1a4111.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_meet_neighbour:new_neighbour": {
+      "file": "assets/audio/lines/swahili-puck-a3f656b518a49421.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_meet_neighbour:offer_help": {
+      "file": "assets/audio/lines/swahili-puck-08fad9aa9004dd65.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_meet_neighbour:offer_help_variant_10": {
+      "file": "assets/audio/lines/swahili-puck-83f5b22849ad7537.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_meet_neighbour:say_new_neighbour_variant_9": {
+      "file": "assets/audio/lines/swahili-puck-975ea335ad731d35.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_meet_neighbour:speak_lang": {
+      "file": "assets/audio/lines/swahili-puck-b9afa1f03f06f936.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_meet_neighbour:thanks": {
+      "file": "assets/audio/lines/swahili-puck-80b2ec7f15730784.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_meet_neighbour:welcome": {
+      "file": "assets/audio/lines/swahili-aoede-26c6268323fffa65.mp3",
+      "voice": "swahili-aoede"
+    },
+    "swahili_ch1:swahili_meet_neighbour:where_from_q": {
+      "file": "assets/audio/lines/swahili-puck-b6ceda3764ccccd7.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_take_taxi:bye": {
+      "file": "assets/audio/lines/swahili-puck-5259f6cf4abad5a2.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_take_taxi:change": {
+      "file": "assets/audio/lines/swahili-puck-400e63108743a045.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_take_taxi:destination": {
+      "file": "assets/audio/lines/swahili-puck-df960fbb28bd4610.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_take_taxi:fare": {
+      "file": "assets/audio/lines/swahili-puck-8703a3a5ccf1bb0f.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_take_taxi:hail": {
+      "file": "assets/audio/lines/swahili-puck-e1c7d370e2f9333b.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_take_taxi:hail_taxi_variant_9": {
+      "file": "assets/audio/lines/swahili-puck-316cf625dcb7a11d.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_take_taxi:meter": {
+      "file": "assets/audio/lines/swahili-puck-e46f9e1bd51fc9ae.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_take_taxi:say_stop_here_variant_11": {
+      "file": "assets/audio/lines/swahili-puck-1d35c8cb96adc814.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_take_taxi:state_destination_variant_10": {
+      "file": "assets/audio/lines/swahili-puck-b34eb8ca14dd766f.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_take_taxi:stop": {
+      "file": "assets/audio/lines/swahili-puck-7e6b562aeccc3687.mp3",
+      "voice": "swahili-puck"
+    },
+    "swahili_ch1:swahili_take_taxi:where_to": {
+      "file": "assets/audio/lines/swahili-orus-d252a6cb49808671.mp3",
+      "voice": "swahili-orus"
+    }
+  }
+}

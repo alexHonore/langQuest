@@ -1,0 +1,318 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "arabic-msa",
+  "voices": {
+    "arabic-msa-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed Modern Standard Arabic with a clear)"
+    },
+    "arabic-msa-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed Modern Standard Arabic with a clear)"
+    }
+  },
+  "lines": {
+    "arabic_msa_ch1:arabic_msa_ask_directions:ask_repeat_variant_9": {
+      "file": "assets/audio/lines/arabic-msa-puck-b2251baad0fe097b.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_ask_directions:ask_slow_down_variant_11": {
+      "file": "assets/audio/lines/arabic-msa-puck-e7e3ae4e0ba90431.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_ask_directions:ask_where_is_variant_3": {
+      "file": "assets/audio/lines/arabic-msa-puck-9eddd91af350db67.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_ask_directions:excuse_me": {
+      "file": "assets/audio/lines/arabic-msa-puck-3d320d0078fb953b.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_ask_directions:far": {
+      "file": "assets/audio/lines/arabic-msa-puck-d2b57fadc083c767.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_ask_directions:near": {
+      "file": "assets/audio/lines/arabic-msa-orus-0edb5482c4cc07e9.mp3",
+      "voice": "arabic-msa-orus"
+    },
+    "arabic_msa_ch1:arabic_msa_ask_directions:repeat": {
+      "file": "assets/audio/lines/arabic-msa-puck-15e062a4062fae76.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_ask_directions:slower": {
+      "file": "assets/audio/lines/arabic-msa-puck-0a9570676d461e76.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_ask_directions:straight": {
+      "file": "assets/audio/lines/arabic-msa-orus-4f28cc6c8a98f108.mp3",
+      "voice": "arabic-msa-orus"
+    },
+    "arabic_msa_ch1:arabic_msa_ask_directions:thanks": {
+      "file": "assets/audio/lines/arabic-msa-puck-f01501abe20ffc18.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_ask_directions:turn": {
+      "file": "assets/audio/lines/arabic-msa-orus-65d48c10d2a8d7bc.mp3",
+      "voice": "arabic-msa-orus"
+    },
+    "arabic_msa_ch1:arabic_msa_ask_directions:where_is": {
+      "file": "assets/audio/lines/arabic-msa-puck-072d6f267ae50008.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_buy_ice_cream:asks_two": {
+      "file": "assets/audio/lines/arabic-msa-orus-54b398d27e4be471.mp3",
+      "voice": "arabic-msa-orus"
+    },
+    "arabic_msa_ch1:arabic_msa_buy_ice_cream:just_one": {
+      "file": "assets/audio/lines/arabic-msa-puck-cf3416e7b8af6dd1.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_buy_ice_cream:me_too": {
+      "file": "assets/audio/lines/arabic-msa-puck-458402b627aeb85e.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_buy_ice_cream:offer_options_variant_12": {
+      "file": "assets/audio/lines/arabic-msa-puck-af62818530eecfe6.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_buy_ice_cream:okay": {
+      "file": "assets/audio/lines/arabic-msa-puck-20a083f47247ec5f.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_buy_ice_cream:picks": {
+      "file": "assets/audio/lines/arabic-msa-orus-107558b3c4530654.mp3",
+      "voice": "arabic-msa-orus"
+    },
+    "arabic_msa_ch1:arabic_msa_buy_ice_cream:refuse_permission_variant_13": {
+      "file": "assets/audio/lines/arabic-msa-puck-ca677d4152a2d8a9.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_buy_ice_cream:scoop": {
+      "file": "assets/audio/lines/arabic-msa-puck-d401bdf65f65c061.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_buy_ice_cream:thanks": {
+      "file": "assets/audio/lines/arabic-msa-orus-b888753c8b245e67.mp3",
+      "voice": "arabic-msa-orus"
+    },
+    "arabic_msa_ch1:arabic_msa_buy_ice_cream:wants": {
+      "file": "assets/audio/lines/arabic-msa-orus-bc9d170e444acc5c.mp3",
+      "voice": "arabic-msa-orus"
+    },
+    "arabic_msa_ch1:arabic_msa_buy_ice_cream:welcome": {
+      "file": "assets/audio/lines/arabic-msa-puck-1b8c450648a84802.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_buy_ice_cream:which_flavour": {
+      "file": "assets/audio/lines/arabic-msa-puck-1fd63c8356eac718.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_buy_ice_cream:yummy": {
+      "file": "assets/audio/lines/arabic-msa-orus-f191f064c799f275.mp3",
+      "voice": "arabic-msa-orus"
+    },
+    "arabic_msa_ch1:arabic_msa_cafe_order_drink:ask_for_bill_variant_9": {
+      "file": "assets/audio/lines/arabic-msa-puck-dd5696cdffe7549a.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_cafe_order_drink:bill": {
+      "file": "assets/audio/lines/arabic-msa-puck-51602e09eb925348.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_cafe_order_drink:choice": {
+      "file": "assets/audio/lines/arabic-msa-puck-9e5882a4265e26f1.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_cafe_order_drink:greet_hello_variant_7": {
+      "file": "assets/audio/lines/arabic-msa-puck-b68d190f8e135ca3.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_cafe_order_drink:greeting": {
+      "file": "assets/audio/lines/arabic-msa-puck-a556f73dfd31ea6d.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_cafe_order_drink:options": {
+      "file": "assets/audio/lines/arabic-msa-orus-af5f7b7e68e487a0.mp3",
+      "voice": "arabic-msa-orus"
+    },
+    "arabic_msa_ch1:arabic_msa_cafe_order_drink:order": {
+      "file": "assets/audio/lines/arabic-msa-puck-9cd48be2d86c5bee.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_cafe_order_drink:request_drink_variant_8": {
+      "file": "assets/audio/lines/arabic-msa-puck-90845b6ea15ea40e.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_cafe_order_drink:thanks": {
+      "file": "assets/audio/lines/arabic-msa-puck-a573f060e1e587b5.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_greet_and_introduce:ask_how_are_you_variant_9": {
+      "file": "assets/audio/lines/arabic-msa-puck-46d038d2699f93dd.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_greet_and_introduce:fine": {
+      "file": "assets/audio/lines/arabic-msa-puck-6edbdcd927f199eb.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_greet_and_introduce:goodbye": {
+      "file": "assets/audio/lines/arabic-msa-puck-8d5a9687146037ee.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_greet_and_introduce:greet_hello_variant_8": {
+      "file": "assets/audio/lines/arabic-msa-puck-0d8767bf65468354.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_greet_and_introduce:greeting": {
+      "file": "assets/audio/lines/arabic-msa-puck-41092adb19a25773.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_greet_and_introduce:how_are_you": {
+      "file": "assets/audio/lines/arabic-msa-puck-8f5ea293db11d924.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_greet_and_introduce:my_name": {
+      "file": "assets/audio/lines/arabic-msa-puck-eb905ae40c71ddfe.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_greet_and_introduce:nice_to_meet": {
+      "file": "assets/audio/lines/arabic-msa-puck-5c93b891cd56dc8c.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_greet_and_introduce:reply_fine_variant_10": {
+      "file": "assets/audio/lines/arabic-msa-puck-9be1ad10bfa38442.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_greet_and_introduce:your_name": {
+      "file": "assets/audio/lines/arabic-msa-puck-71f9b5f9f50d7f62.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_market_ask_price:agree_to_price_variant_10": {
+      "file": "assets/audio/lines/arabic-msa-puck-e62ad9e6484d77ff.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_market_ask_price:ask_price_variant_4": {
+      "file": "assets/audio/lines/arabic-msa-puck-747264fc682c1a60.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_market_ask_price:deal": {
+      "file": "assets/audio/lines/arabic-msa-puck-c1cdd6693889fc42.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_market_ask_price:decline_purchase_variant_12": {
+      "file": "assets/audio/lines/arabic-msa-puck-65bce8a9a367bf57.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_market_ask_price:expensive": {
+      "file": "assets/audio/lines/arabic-msa-puck-ee23fe44cb06ad6c.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_market_ask_price:greet_hello_variant_2": {
+      "file": "assets/audio/lines/arabic-msa-puck-6ac296aaf664eb3c.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_market_ask_price:greeting": {
+      "file": "assets/audio/lines/arabic-msa-puck-a0f2f8e8f28029d6.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_market_ask_price:how_much": {
+      "file": "assets/audio/lines/arabic-msa-puck-5ca57e8976473dc8.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_market_ask_price:lower": {
+      "file": "assets/audio/lines/arabic-msa-puck-02c427f79aae70de.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_market_ask_price:no_thanks": {
+      "file": "assets/audio/lines/arabic-msa-puck-398fbf235958d5a0.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_market_ask_price:offer_lower_price_variant_8": {
+      "file": "assets/audio/lines/arabic-msa-puck-6a8dba9f6ea181b6.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_market_ask_price:price": {
+      "file": "assets/audio/lines/arabic-msa-orus-613597fa57133cad.mp3",
+      "voice": "arabic-msa-orus"
+    },
+    "arabic_msa_ch1:arabic_msa_meet_neighbour:from": {
+      "file": "assets/audio/lines/arabic-msa-puck-35692af44035c697.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_meet_neighbour:little": {
+      "file": "assets/audio/lines/arabic-msa-puck-41e1e5b601c6bd13.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_meet_neighbour:new_neighbour": {
+      "file": "assets/audio/lines/arabic-msa-puck-461a16cb0e17ec76.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_meet_neighbour:offer_help": {
+      "file": "assets/audio/lines/arabic-msa-puck-b732ebb275ac5741.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_meet_neighbour:say_new_neighbour_variant_9": {
+      "file": "assets/audio/lines/arabic-msa-puck-60d0ebbd6313d16f.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_meet_neighbour:speak_lang": {
+      "file": "assets/audio/lines/arabic-msa-puck-4a236ad35f607d58.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_meet_neighbour:thank_variant_10": {
+      "file": "assets/audio/lines/arabic-msa-puck-cd43927c0b58ca61.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_meet_neighbour:thanks": {
+      "file": "assets/audio/lines/arabic-msa-puck-7a2f58001bda9e25.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_meet_neighbour:where_from_q": {
+      "file": "assets/audio/lines/arabic-msa-puck-662bb5bf78b57bd5.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_take_taxi:ask_fare_variant_11": {
+      "file": "assets/audio/lines/arabic-msa-puck-e8407543e2e4f055.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_take_taxi:change": {
+      "file": "assets/audio/lines/arabic-msa-puck-8df661e0a7128405.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_take_taxi:destination": {
+      "file": "assets/audio/lines/arabic-msa-puck-0a64d39238ac82e0.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_take_taxi:fare": {
+      "file": "assets/audio/lines/arabic-msa-puck-0f98e98d52be4ba1.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_take_taxi:hail": {
+      "file": "assets/audio/lines/arabic-msa-puck-a007bc38ee683537.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_take_taxi:hail_taxi_variant_9": {
+      "file": "assets/audio/lines/arabic-msa-puck-c53b183da275f3c6.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_take_taxi:meter": {
+      "file": "assets/audio/lines/arabic-msa-puck-07e2222a9bc03be9.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_take_taxi:state_destination_variant_10": {
+      "file": "assets/audio/lines/arabic-msa-puck-857b0ed5092af16d.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_take_taxi:stop": {
+      "file": "assets/audio/lines/arabic-msa-puck-9f8ba60df1417078.mp3",
+      "voice": "arabic-msa-puck"
+    },
+    "arabic_msa_ch1:arabic_msa_take_taxi:where_to": {
+      "file": "assets/audio/lines/arabic-msa-orus-d786a8f037bc5610.mp3",
+      "voice": "arabic-msa-orus"
+    }
+  }
+}

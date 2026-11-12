@@ -1,0 +1,306 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "portuguese-european",
+  "voices": {
+    "portuguese-european-aoede": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Aoede (Gemini TTS, instructed European Portuguese from Lisbon)"
+    },
+    "portuguese-european-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed European Portuguese from Lisbon)"
+    },
+    "portuguese-european-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed European Portuguese from Lisbon)"
+    }
+  },
+  "lines": {
+    "portuguese_european_ch1:portuguese_european_ask_directions:ask_repeat_variant_11": {
+      "file": "assets/audio/lines/portuguese-european-puck-8aca4d8fb07c9f5c.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_ask_directions:ask_slow_down_variant_12": {
+      "file": "assets/audio/lines/portuguese-european-puck-8efd2db97c0dff73.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_ask_directions:excuse_me": {
+      "file": "assets/audio/lines/portuguese-european-puck-522633d071bdbbcd.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_ask_directions:far": {
+      "file": "assets/audio/lines/portuguese-european-puck-6131dfb35b27eae7.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_ask_directions:near": {
+      "file": "assets/audio/lines/portuguese-european-aoede-00a38dbe5cd8a1ff.mp3",
+      "voice": "portuguese-european-aoede"
+    },
+    "portuguese_european_ch1:portuguese_european_ask_directions:repeat": {
+      "file": "assets/audio/lines/portuguese-european-puck-e22bf26ab37e23ac.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_ask_directions:slower": {
+      "file": "assets/audio/lines/portuguese-european-puck-087627cfa9987f56.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_ask_directions:straight": {
+      "file": "assets/audio/lines/portuguese-european-aoede-f48f827b13db696e.mp3",
+      "voice": "portuguese-european-aoede"
+    },
+    "portuguese_european_ch1:portuguese_european_ask_directions:thank_variant_10": {
+      "file": "assets/audio/lines/portuguese-european-puck-279bbb65f9a300fb.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_ask_directions:thanks": {
+      "file": "assets/audio/lines/portuguese-european-puck-05743ebf1e85bf50.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_ask_directions:where_is": {
+      "file": "assets/audio/lines/portuguese-european-puck-664b22b1ae571f2b.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_buy_ice_cream:asks_two": {
+      "file": "assets/audio/lines/portuguese-european-orus-7d18d54257a1539f.mp3",
+      "voice": "portuguese-european-orus"
+    },
+    "portuguese_european_ch1:portuguese_european_buy_ice_cream:just_one": {
+      "file": "assets/audio/lines/portuguese-european-puck-bfc15b3cbd56a0f0.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_buy_ice_cream:me_too": {
+      "file": "assets/audio/lines/portuguese-european-puck-ed9fb2b98580c9f8.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_buy_ice_cream:offer_options_variant_13": {
+      "file": "assets/audio/lines/portuguese-european-puck-a5161f3cfeb8f9b8.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_buy_ice_cream:okay": {
+      "file": "assets/audio/lines/portuguese-european-puck-37c2dd84c80c9e42.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_buy_ice_cream:picks": {
+      "file": "assets/audio/lines/portuguese-european-orus-dad801ea2fb5670d.mp3",
+      "voice": "portuguese-european-orus"
+    },
+    "portuguese_european_ch1:portuguese_european_buy_ice_cream:refuse_permission_variant_12": {
+      "file": "assets/audio/lines/portuguese-european-puck-3c2c821159c88fb6.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_buy_ice_cream:scoop": {
+      "file": "assets/audio/lines/portuguese-european-puck-d22429e81e57122e.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_buy_ice_cream:thanks": {
+      "file": "assets/audio/lines/portuguese-european-orus-bf76fbec99726e06.mp3",
+      "voice": "portuguese-european-orus"
+    },
+    "portuguese_european_ch1:portuguese_european_buy_ice_cream:wants": {
+      "file": "assets/audio/lines/portuguese-european-orus-ba13a21d19655346.mp3",
+      "voice": "portuguese-european-orus"
+    },
+    "portuguese_european_ch1:portuguese_european_buy_ice_cream:welcome": {
+      "file": "assets/audio/lines/portuguese-european-puck-c835483f6bffbce9.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_buy_ice_cream:which_flavour": {
+      "file": "assets/audio/lines/portuguese-european-puck-89906ed93704620a.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_buy_ice_cream:yummy": {
+      "file": "assets/audio/lines/portuguese-european-orus-1e880fad3879f57c.mp3",
+      "voice": "portuguese-european-orus"
+    },
+    "portuguese_european_ch1:portuguese_european_cafe_order_drink:bill": {
+      "file": "assets/audio/lines/portuguese-european-puck-af65546de1f40f4d.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_cafe_order_drink:choice": {
+      "file": "assets/audio/lines/portuguese-european-puck-1dbee0d6dca52788.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_cafe_order_drink:choose_option_variant_8": {
+      "file": "assets/audio/lines/portuguese-european-puck-ca6b8a3391db1a44.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_cafe_order_drink:greeting": {
+      "file": "assets/audio/lines/portuguese-european-puck-9a7b7e982e6e9966.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_cafe_order_drink:options": {
+      "file": "assets/audio/lines/portuguese-european-aoede-de055a99c89067e6.mp3",
+      "voice": "portuguese-european-aoede"
+    },
+    "portuguese_european_ch1:portuguese_european_cafe_order_drink:order": {
+      "file": "assets/audio/lines/portuguese-european-puck-01a941c58dafb2b4.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_cafe_order_drink:request_drink_variant_7": {
+      "file": "assets/audio/lines/portuguese-european-puck-d224670cb56263d2.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_cafe_order_drink:thanks": {
+      "file": "assets/audio/lines/portuguese-european-puck-bbff544ef68ba184.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_greet_and_introduce:ask_name_variant_10": {
+      "file": "assets/audio/lines/portuguese-european-puck-d021ae6fc22b2918.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_greet_and_introduce:fine": {
+      "file": "assets/audio/lines/portuguese-european-puck-e0b311c6e3196520.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_greet_and_introduce:goodbye": {
+      "file": "assets/audio/lines/portuguese-european-puck-bfff539374f82344.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_greet_and_introduce:greet_hello_variant_8": {
+      "file": "assets/audio/lines/portuguese-european-puck-d6920af8e9bf454f.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_greet_and_introduce:greeting": {
+      "file": "assets/audio/lines/portuguese-european-puck-92deb5ce2b9c27c4.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_greet_and_introduce:how_are_you": {
+      "file": "assets/audio/lines/portuguese-european-puck-d2634a95b612ba27.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_greet_and_introduce:my_name": {
+      "file": "assets/audio/lines/portuguese-european-puck-b6ad79560321debc.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_greet_and_introduce:nice_to_meet": {
+      "file": "assets/audio/lines/portuguese-european-puck-16fc577a1d7297bc.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_greet_and_introduce:reply_fine_variant_9": {
+      "file": "assets/audio/lines/portuguese-european-puck-56e355fb3efb21e1.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_greet_and_introduce:your_name": {
+      "file": "assets/audio/lines/portuguese-european-puck-c9185976bbb46d37.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_market_ask_price:ask_price_variant_8": {
+      "file": "assets/audio/lines/portuguese-european-puck-f6a71fa3ba7971b3.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_market_ask_price:deal": {
+      "file": "assets/audio/lines/portuguese-european-puck-b5b59d3d5e7c152a.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_market_ask_price:decline_purchase_variant_9": {
+      "file": "assets/audio/lines/portuguese-european-puck-4fd0a949102eb011.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_market_ask_price:expensive": {
+      "file": "assets/audio/lines/portuguese-european-puck-6a897ec5f4c2e137.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_market_ask_price:greeting": {
+      "file": "assets/audio/lines/portuguese-european-puck-75b0b6f489782db8.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_market_ask_price:how_much": {
+      "file": "assets/audio/lines/portuguese-european-puck-52288fd67121215c.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_market_ask_price:lower": {
+      "file": "assets/audio/lines/portuguese-european-puck-b7824e7567579c7e.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_market_ask_price:no_thanks": {
+      "file": "assets/audio/lines/portuguese-european-puck-8bdd8322cca2db4c.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_market_ask_price:price": {
+      "file": "assets/audio/lines/portuguese-european-orus-97c4229f83572448.mp3",
+      "voice": "portuguese-european-orus"
+    },
+    "portuguese_european_ch1:portuguese_european_meet_neighbour:ask_where_from_variant_10": {
+      "file": "assets/audio/lines/portuguese-european-puck-df3b4371533e279e.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_meet_neighbour:from": {
+      "file": "assets/audio/lines/portuguese-european-puck-5266fc473daef881.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_meet_neighbour:little": {
+      "file": "assets/audio/lines/portuguese-european-puck-fa556ef56b98c78c.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_meet_neighbour:new_neighbour": {
+      "file": "assets/audio/lines/portuguese-european-puck-aab17b7861c0e4eb.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_meet_neighbour:offer_help": {
+      "file": "assets/audio/lines/portuguese-european-puck-6c54300c410711d4.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_meet_neighbour:say_new_neighbour_variant_9": {
+      "file": "assets/audio/lines/portuguese-european-puck-f8791586e9c2f368.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_meet_neighbour:speak_lang": {
+      "file": "assets/audio/lines/portuguese-european-puck-4356ab2251d610f1.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_meet_neighbour:thanks": {
+      "file": "assets/audio/lines/portuguese-european-puck-6b5a84bae831c649.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_meet_neighbour:welcome": {
+      "file": "assets/audio/lines/portuguese-european-aoede-3343e003d40f223e.mp3",
+      "voice": "portuguese-european-aoede"
+    },
+    "portuguese_european_ch1:portuguese_european_meet_neighbour:where_from_q": {
+      "file": "assets/audio/lines/portuguese-european-puck-0a36c0068c839cbe.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_take_taxi:ask_use_meter_variant_9": {
+      "file": "assets/audio/lines/portuguese-european-puck-313c8852a5268d66.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_take_taxi:bye": {
+      "file": "assets/audio/lines/portuguese-european-puck-50de72522d5907d7.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_take_taxi:change": {
+      "file": "assets/audio/lines/portuguese-european-puck-7f7571938eaa3606.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_take_taxi:fare": {
+      "file": "assets/audio/lines/portuguese-european-puck-7495295671db5bc2.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_take_taxi:hail": {
+      "file": "assets/audio/lines/portuguese-european-puck-b56eb5ce3e807894.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_take_taxi:hail_taxi_variant_11": {
+      "file": "assets/audio/lines/portuguese-european-puck-070d34fa5065eaca.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_take_taxi:meter": {
+      "file": "assets/audio/lines/portuguese-european-puck-5f6b05aa3b2a650e.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_take_taxi:say_stop_here_variant_10": {
+      "file": "assets/audio/lines/portuguese-european-puck-171fe9b20877badf.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_take_taxi:stop": {
+      "file": "assets/audio/lines/portuguese-european-puck-c011470f67db0f1d.mp3",
+      "voice": "portuguese-european-puck"
+    },
+    "portuguese_european_ch1:portuguese_european_take_taxi:where_to": {
+      "file": "assets/audio/lines/portuguese-european-orus-a184ee4de762b635.mp3",
+      "voice": "portuguese-european-orus"
+    }
+  }
+}

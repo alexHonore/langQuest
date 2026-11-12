@@ -1,0 +1,330 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "german",
+  "voices": {
+    "german-aoede": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Aoede (Gemini TTS, instructed standard German from Germany)"
+    },
+    "german-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed standard German from Germany)"
+    },
+    "german-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed standard German from Germany)"
+    }
+  },
+  "lines": {
+    "german_ch1:german_ask_directions:ask_repeat_variant_12": {
+      "file": "assets/audio/lines/german-puck-4416597c074bc882.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_ask_directions:ask_slow_down_variant_11": {
+      "file": "assets/audio/lines/german-puck-469162d51a64abc4.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_ask_directions:excuse_me": {
+      "file": "assets/audio/lines/german-puck-2ad7adf799c0e09d.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_ask_directions:far": {
+      "file": "assets/audio/lines/german-puck-507da051f855da10.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_ask_directions:get_attention_variant_10": {
+      "file": "assets/audio/lines/german-puck-df8d8bf09611013e.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_ask_directions:near": {
+      "file": "assets/audio/lines/german-orus-4c8056c817b363f8.mp3",
+      "voice": "german-orus"
+    },
+    "german_ch1:german_ask_directions:repeat": {
+      "file": "assets/audio/lines/german-puck-d58e12a7fc790d1b.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_ask_directions:slower": {
+      "file": "assets/audio/lines/german-puck-8d9221675112a815.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_ask_directions:straight": {
+      "file": "assets/audio/lines/german-orus-cee0b0a1ee9be323.mp3",
+      "voice": "german-orus"
+    },
+    "german_ch1:german_ask_directions:thanks": {
+      "file": "assets/audio/lines/german-puck-4accb940676020dc.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_ask_directions:turn": {
+      "file": "assets/audio/lines/german-orus-76615f8406d148bf.mp3",
+      "voice": "german-orus"
+    },
+    "german_ch1:german_ask_directions:where_is": {
+      "file": "assets/audio/lines/german-puck-f711a1539a48624f.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_buy_ice_cream:asks_two": {
+      "file": "assets/audio/lines/german-aoede-6c77ffe303300559.mp3",
+      "voice": "german-aoede"
+    },
+    "german_ch1:german_buy_ice_cream:just_one": {
+      "file": "assets/audio/lines/german-puck-70c83da27ed7433d.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_buy_ice_cream:me_too": {
+      "file": "assets/audio/lines/german-puck-e1e5f91cb8651d46.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_buy_ice_cream:okay": {
+      "file": "assets/audio/lines/german-puck-56c1baebe84f4b74.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_buy_ice_cream:picks": {
+      "file": "assets/audio/lines/german-aoede-e658cfc4646d2bfe.mp3",
+      "voice": "german-aoede"
+    },
+    "german_ch1:german_buy_ice_cream:refuse_permission_variant_13": {
+      "file": "assets/audio/lines/german-puck-37a0bd87ec7d99dd.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_buy_ice_cream:scoop": {
+      "file": "assets/audio/lines/german-puck-6c77cf7a87129346.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_buy_ice_cream:specify_quantity_variant_12": {
+      "file": "assets/audio/lines/german-puck-d2b62249686a403c.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_buy_ice_cream:thanks": {
+      "file": "assets/audio/lines/german-aoede-613067737a50b0c5.mp3",
+      "voice": "german-aoede"
+    },
+    "german_ch1:german_buy_ice_cream:wants": {
+      "file": "assets/audio/lines/german-aoede-352afe93e788d333.mp3",
+      "voice": "german-aoede"
+    },
+    "german_ch1:german_buy_ice_cream:welcome": {
+      "file": "assets/audio/lines/german-puck-920064ab5ede8c18.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_buy_ice_cream:which_flavour": {
+      "file": "assets/audio/lines/german-puck-96d99420c836c011.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_buy_ice_cream:yummy": {
+      "file": "assets/audio/lines/german-aoede-e7e5d1774e770a02.mp3",
+      "voice": "german-aoede"
+    },
+    "german_ch1:german_cafe_order_drink:ask_for_bill_variant_9": {
+      "file": "assets/audio/lines/german-puck-6f91ef104817d176.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_cafe_order_drink:bill": {
+      "file": "assets/audio/lines/german-puck-5eb9d988fe591782.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_cafe_order_drink:choice": {
+      "file": "assets/audio/lines/german-puck-375a10e0c85f01a0.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_cafe_order_drink:greet_hello_variant_7": {
+      "file": "assets/audio/lines/german-puck-3c2661f1c497e433.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_cafe_order_drink:greeting": {
+      "file": "assets/audio/lines/german-puck-65a6fb35e949feee.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_cafe_order_drink:options": {
+      "file": "assets/audio/lines/german-aoede-b0f7a85e7453bc62.mp3",
+      "voice": "german-aoede"
+    },
+    "german_ch1:german_cafe_order_drink:order": {
+      "file": "assets/audio/lines/german-puck-d8a8ba38d3985011.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_cafe_order_drink:request_drink_variant_8": {
+      "file": "assets/audio/lines/german-puck-89e115f743a63096.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_cafe_order_drink:thank_variant_10": {
+      "file": "assets/audio/lines/german-puck-0a8a96d13a281659.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_cafe_order_drink:thanks": {
+      "file": "assets/audio/lines/german-puck-118643f3211cff90.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_greet_and_introduce:ask_how_are_you_variant_9": {
+      "file": "assets/audio/lines/german-puck-a0432d83716f1b36.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_greet_and_introduce:fine": {
+      "file": "assets/audio/lines/german-puck-8e30dc0d142fec6b.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_greet_and_introduce:goodbye": {
+      "file": "assets/audio/lines/german-puck-4ca2f99a766bcaff.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_greet_and_introduce:greet_hello_variant_8": {
+      "file": "assets/audio/lines/german-puck-3c2661f1c497e433.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_greet_and_introduce:greeting": {
+      "file": "assets/audio/lines/german-puck-e077afe6ea36ec48.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_greet_and_introduce:how_are_you": {
+      "file": "assets/audio/lines/german-puck-4b6d7f8db38dfad0.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_greet_and_introduce:my_name": {
+      "file": "assets/audio/lines/german-puck-8be312a2eb632f53.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_greet_and_introduce:nice_to_meet": {
+      "file": "assets/audio/lines/german-puck-4318bdbee30c13df.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_greet_and_introduce:say_goodbye_variant_10": {
+      "file": "assets/audio/lines/german-puck-ce7f6147112f85d7.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_greet_and_introduce:your_name": {
+      "file": "assets/audio/lines/german-puck-57408d3093ccb686.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_market_ask_price:ask_price_variant_9": {
+      "file": "assets/audio/lines/german-puck-de3cacdf69e9bce9.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_market_ask_price:deal": {
+      "file": "assets/audio/lines/german-puck-e976bc84e0c35bf5.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_market_ask_price:decline_purchase_variant_11": {
+      "file": "assets/audio/lines/german-puck-ec099abccbf8436d.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_market_ask_price:expensive": {
+      "file": "assets/audio/lines/german-puck-c7a659497632b5fe.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_market_ask_price:greet_hello_variant_8": {
+      "file": "assets/audio/lines/german-puck-1078e2389fa22f48.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_market_ask_price:greeting": {
+      "file": "assets/audio/lines/german-puck-3f4c8194f1df794c.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_market_ask_price:how_much": {
+      "file": "assets/audio/lines/german-puck-54d5df451cdebc22.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_market_ask_price:lower": {
+      "file": "assets/audio/lines/german-puck-6764d5a4ccb73995.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_market_ask_price:no_thanks": {
+      "file": "assets/audio/lines/german-puck-58eed4ebbfcef702.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_market_ask_price:offer_lower_price_variant_10": {
+      "file": "assets/audio/lines/german-puck-6c83e9770a7e08a5.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_market_ask_price:price": {
+      "file": "assets/audio/lines/german-aoede-cab4dc7d7d3c9b3a.mp3",
+      "voice": "german-aoede"
+    },
+    "german_ch1:german_meet_neighbour:from": {
+      "file": "assets/audio/lines/german-puck-4414592af8a31d92.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_meet_neighbour:little": {
+      "file": "assets/audio/lines/german-puck-5bfa5be5c8014b9a.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_meet_neighbour:new_neighbour": {
+      "file": "assets/audio/lines/german-puck-26df05d091e2869e.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_meet_neighbour:offer_help": {
+      "file": "assets/audio/lines/german-puck-05d87790fb2c575d.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_meet_neighbour:offer_help_variant_10": {
+      "file": "assets/audio/lines/german-puck-0d9954e963220d78.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_meet_neighbour:say_new_neighbour_variant_9": {
+      "file": "assets/audio/lines/german-puck-73a766430343f26b.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_meet_neighbour:speak_lang": {
+      "file": "assets/audio/lines/german-puck-9287d1140be72128.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_meet_neighbour:thanks": {
+      "file": "assets/audio/lines/german-puck-a97524b358a6f129.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_meet_neighbour:welcome": {
+      "file": "assets/audio/lines/german-aoede-be8cad6a9fff9757.mp3",
+      "voice": "german-aoede"
+    },
+    "german_ch1:german_meet_neighbour:where_from_q": {
+      "file": "assets/audio/lines/german-puck-7b00b585f99f8c77.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_take_taxi:ask_fare_variant_11": {
+      "file": "assets/audio/lines/german-puck-9ef3348116929118.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_take_taxi:ask_use_meter_variant_10": {
+      "file": "assets/audio/lines/german-puck-5396214b26217edc.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_take_taxi:bye": {
+      "file": "assets/audio/lines/german-puck-00ca0851c32a39d8.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_take_taxi:change": {
+      "file": "assets/audio/lines/german-puck-3762b40dae67e986.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_take_taxi:destination": {
+      "file": "assets/audio/lines/german-puck-b116e9482e015d21.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_take_taxi:fare": {
+      "file": "assets/audio/lines/german-puck-f45940edf1cc669f.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_take_taxi:hail": {
+      "file": "assets/audio/lines/german-puck-2449c23d49469dae.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_take_taxi:hail_taxi_variant_9": {
+      "file": "assets/audio/lines/german-puck-3b637b1cbe57f3be.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_take_taxi:meter": {
+      "file": "assets/audio/lines/german-puck-f529c333785bb5f0.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_take_taxi:stop": {
+      "file": "assets/audio/lines/german-puck-e34d1341da05ecae.mp3",
+      "voice": "german-puck"
+    },
+    "german_ch1:german_take_taxi:where_to": {
+      "file": "assets/audio/lines/german-orus-f95a30e6d73bcc97.mp3",
+      "voice": "german-orus"
+    }
+  }
+}

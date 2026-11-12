@@ -1,0 +1,590 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "kinyarwanda",
+  "voices": {
+    "kinyarwanda-aoede": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Aoede (Gemini TTS, instructed Kinyarwanda as spoken in Kigali)"
+    },
+    "kinyarwanda-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed Kinyarwanda as spoken in Kigali)"
+    },
+    "kinyarwanda-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed Kinyarwanda as spoken in Kigali)"
+    }
+  },
+  "lines": {
+    "kinyarwanda_ch1:kinyarwanda_ask_directions:ask_is_it_far_variant_12": {
+      "file": "assets/audio/lines/kinyarwanda-puck-4687cf3c70a96ac3.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_ask_directions:ask_repeat_variant_11": {
+      "file": "assets/audio/lines/kinyarwanda-puck-8ef2d87159d72c82.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_ask_directions:ask_where_is_variant_10": {
+      "file": "assets/audio/lines/kinyarwanda-puck-a6e50020a2d4a196.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_ask_directions:excuse_me": {
+      "file": "assets/audio/lines/kinyarwanda-puck-7d7a05bc14e0372d.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_ask_directions:far": {
+      "file": "assets/audio/lines/kinyarwanda-puck-2efd898ad1fec12c.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_ask_directions:near": {
+      "file": "assets/audio/lines/kinyarwanda-orus-e18704a449c6adee.mp3",
+      "voice": "kinyarwanda-orus"
+    },
+    "kinyarwanda_ch1:kinyarwanda_ask_directions:repeat": {
+      "file": "assets/audio/lines/kinyarwanda-puck-84b081e12c0ae9cf.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_ask_directions:slower": {
+      "file": "assets/audio/lines/kinyarwanda-puck-d36a2d753eac923d.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_ask_directions:straight": {
+      "file": "assets/audio/lines/kinyarwanda-orus-0e6ad48885bb373f.mp3",
+      "voice": "kinyarwanda-orus"
+    },
+    "kinyarwanda_ch1:kinyarwanda_ask_directions:thanks": {
+      "file": "assets/audio/lines/kinyarwanda-puck-5fc54d2008dcad04.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_ask_directions:turn": {
+      "file": "assets/audio/lines/kinyarwanda-orus-15df398626ce2329.mp3",
+      "voice": "kinyarwanda-orus"
+    },
+    "kinyarwanda_ch1:kinyarwanda_ask_directions:where_is": {
+      "file": "assets/audio/lines/kinyarwanda-puck-495ca44190a5f2e1.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:asks_two": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-8bf76ce6965f907f.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:just_one": {
+      "file": "assets/audio/lines/kinyarwanda-puck-848c22c7792f0f66.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:me_too": {
+      "file": "assets/audio/lines/kinyarwanda-puck-6424ffdb36704089.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:offer_options_variant_12": {
+      "file": "assets/audio/lines/kinyarwanda-puck-7a258155bcc75842.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:okay": {
+      "file": "assets/audio/lines/kinyarwanda-puck-3c80200f70ce2709.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:picks": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-479e66d16847696e.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:refuse_permission_variant_13": {
+      "file": "assets/audio/lines/kinyarwanda-puck-7ff4131270432b1b.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:scoop": {
+      "file": "assets/audio/lines/kinyarwanda-puck-d6f86be2cf9ec030.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:specify_quantity_variant_14": {
+      "file": "assets/audio/lines/kinyarwanda-puck-48264285c8aba658.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:thanks": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-0fb7376137a73b20.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:wants": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-7d3db56bcd63bc2e.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:welcome": {
+      "file": "assets/audio/lines/kinyarwanda-puck-5aa45eff17db7486.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:which_flavour": {
+      "file": "assets/audio/lines/kinyarwanda-puck-f73a7a0595b99e7c.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:yummy": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-08959beb1be28e49.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:ask_for_bill_variant_9": {
+      "file": "assets/audio/lines/kinyarwanda-puck-69c1533684e1f518.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:bill": {
+      "file": "assets/audio/lines/kinyarwanda-puck-1cc68adb0ee7d070.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:choice": {
+      "file": "assets/audio/lines/kinyarwanda-puck-854b712e0f3e6a25.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:choose_option_variant_8": {
+      "file": "assets/audio/lines/kinyarwanda-puck-d205eaab2e4404d0.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:greeting": {
+      "file": "assets/audio/lines/kinyarwanda-puck-f4b66609677bb0d6.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:options": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-8a708e9e739f8937.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:order": {
+      "file": "assets/audio/lines/kinyarwanda-puck-fedeafa5226a09a2.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:request_drink_variant_7": {
+      "file": "assets/audio/lines/kinyarwanda-puck-f1073839900cfe66.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:thank_variant_10": {
+      "file": "assets/audio/lines/kinyarwanda-puck-94ccd6fdc312c304.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:thanks": {
+      "file": "assets/audio/lines/kinyarwanda-puck-3fc0b2b8893c8b24.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:ask_how_are_you_variant_9": {
+      "file": "assets/audio/lines/kinyarwanda-puck-de31c927cc168f36.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:fine": {
+      "file": "assets/audio/lines/kinyarwanda-puck-96b473448af135b4.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:goodbye": {
+      "file": "assets/audio/lines/kinyarwanda-puck-9168d9b5a801a8b6.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:greet_hello_variant_8": {
+      "file": "assets/audio/lines/kinyarwanda-puck-7c3fbb6bd29fb2ec.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:greeting": {
+      "file": "assets/audio/lines/kinyarwanda-puck-eb5bb38e33c62896.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:how_are_you": {
+      "file": "assets/audio/lines/kinyarwanda-puck-1cbad86fbc6ead3f.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:my_name": {
+      "file": "assets/audio/lines/kinyarwanda-puck-9647d846d14a515e.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:nice_to_meet": {
+      "file": "assets/audio/lines/kinyarwanda-puck-216c1a145d63427b.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:say_goodbye_variant_10": {
+      "file": "assets/audio/lines/kinyarwanda-puck-6e5ea4bcf3ca777f.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_greet_and_introduce:your_name": {
+      "file": "assets/audio/lines/kinyarwanda-puck-a669aeb60b9fff9a.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_market_ask_price:deal": {
+      "file": "assets/audio/lines/kinyarwanda-puck-12ec60c050719c02.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_market_ask_price:decline_purchase_variant_9": {
+      "file": "assets/audio/lines/kinyarwanda-puck-bf3313c912ac0720.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_market_ask_price:expensive": {
+      "file": "assets/audio/lines/kinyarwanda-puck-fa220ba90694eaab.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_market_ask_price:greeting": {
+      "file": "assets/audio/lines/kinyarwanda-puck-a679ec839262821a.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_market_ask_price:how_much": {
+      "file": "assets/audio/lines/kinyarwanda-puck-c87c02d58cc9da6e.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_market_ask_price:lower": {
+      "file": "assets/audio/lines/kinyarwanda-puck-e0a2b63c95a93a68.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_market_ask_price:no_thanks": {
+      "file": "assets/audio/lines/kinyarwanda-puck-c55656e851f3a857.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_market_ask_price:offer_lower_price_variant_8": {
+      "file": "assets/audio/lines/kinyarwanda-puck-f26469791bed8f6d.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_market_ask_price:price": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-45f4b2fd7ed80c2c.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch1:kinyarwanda_market_ask_price:state_price_variant_10": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-81ddbbb3a403d944.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch1:kinyarwanda_meet_neighbour:ask_where_from_variant_9": {
+      "file": "assets/audio/lines/kinyarwanda-puck-7aa4ad8ddfb672ba.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_meet_neighbour:from": {
+      "file": "assets/audio/lines/kinyarwanda-puck-bd63044c060f50e0.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_meet_neighbour:little": {
+      "file": "assets/audio/lines/kinyarwanda-puck-5153e2a52f900fc4.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_meet_neighbour:new_neighbour": {
+      "file": "assets/audio/lines/kinyarwanda-puck-3a3bcb9738d4d1ee.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_meet_neighbour:offer_help": {
+      "file": "assets/audio/lines/kinyarwanda-puck-9c6aa42eef00ae3a.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_meet_neighbour:offer_help_variant_10": {
+      "file": "assets/audio/lines/kinyarwanda-puck-cd663edaf4e2307e.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_meet_neighbour:speak_lang": {
+      "file": "assets/audio/lines/kinyarwanda-puck-b09d208ea688161e.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_meet_neighbour:thank_variant_11": {
+      "file": "assets/audio/lines/kinyarwanda-puck-45e4cd879e398614.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_meet_neighbour:thanks": {
+      "file": "assets/audio/lines/kinyarwanda-puck-f1a25e47c6d1dab6.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_meet_neighbour:welcome": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-f0a31a634bcd2044.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch1:kinyarwanda_meet_neighbour:where_from_q": {
+      "file": "assets/audio/lines/kinyarwanda-puck-b90553b77d40322d.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_take_taxi:ask_use_meter_variant_10": {
+      "file": "assets/audio/lines/kinyarwanda-puck-e571c4f440d9d14a.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_take_taxi:bye": {
+      "file": "assets/audio/lines/kinyarwanda-puck-eef892d802d66fa4.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_take_taxi:change": {
+      "file": "assets/audio/lines/kinyarwanda-puck-a22b1549e74d18cd.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_take_taxi:destination": {
+      "file": "assets/audio/lines/kinyarwanda-puck-85cc4214df34cebe.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_take_taxi:fare": {
+      "file": "assets/audio/lines/kinyarwanda-puck-5e90299b7f604936.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_take_taxi:hail": {
+      "file": "assets/audio/lines/kinyarwanda-puck-4ab26ed5b88b5168.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_take_taxi:meter": {
+      "file": "assets/audio/lines/kinyarwanda-puck-844651b0d4fd08a1.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_take_taxi:say_stop_here_variant_11": {
+      "file": "assets/audio/lines/kinyarwanda-puck-a7a0a40753e277e5.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_take_taxi:state_destination_variant_9": {
+      "file": "assets/audio/lines/kinyarwanda-puck-c7673a04be3bf221.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_take_taxi:stop": {
+      "file": "assets/audio/lines/kinyarwanda-puck-983db3d5cc4e1627.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch1:kinyarwanda_take_taxi:where_to": {
+      "file": "assets/audio/lines/kinyarwanda-orus-0d972f465af86f9f.mp3",
+      "voice": "kinyarwanda-orus"
+    },
+    "kinyarwanda_ch2:kinyarwanda_buy_train_ticket:card": {
+      "file": "assets/audio/lines/kinyarwanda-puck-c53d39a3aec2f83a.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_buy_train_ticket:first_bus": {
+      "file": "assets/audio/lines/kinyarwanda-puck-cc9d77682e2e67b0.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_buy_train_ticket:get_off_at": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-4697d960f1c837b2.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch2:kinyarwanda_buy_train_ticket:one_ticket": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-5c5cc8e3623b2845.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch2:kinyarwanda_buy_train_ticket:ticket": {
+      "file": "assets/audio/lines/kinyarwanda-puck-db92c8303e73aaa6.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_buy_train_ticket:time": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-8ba1efc5980ef276.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch2:kinyarwanda_buy_train_ticket:total": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-8a809f3b7334d7c7.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch2:kinyarwanda_buy_train_ticket:two": {
+      "file": "assets/audio/lines/kinyarwanda-puck-87b18da1bcbbdd18.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_buy_train_ticket:when": {
+      "file": "assets/audio/lines/kinyarwanda-puck-ee96430c4c300415.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_buy_train_ticket:which_stop": {
+      "file": "assets/audio/lines/kinyarwanda-puck-8247f510f373c8b0.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_buy_train_ticket:would_like_ticket": {
+      "file": "assets/audio/lines/kinyarwanda-puck-677e9b57af8df79e.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_emergency_ask_help:help": {
+      "file": "assets/audio/lines/kinyarwanda-puck-f2ec86fae4c85eba.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_emergency_ask_help:need_doctor": {
+      "file": "assets/audio/lines/kinyarwanda-puck-15de93a19581acbe.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_emergency_ask_help:pain": {
+      "file": "assets/audio/lines/kinyarwanda-puck-8d3e39ac9089c2aa.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_emergency_ask_help:pharmacy": {
+      "file": "assets/audio/lines/kinyarwanda-puck-2466cdd13675b697.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_emergency_ask_help:pharmacy_near": {
+      "file": "assets/audio/lines/kinyarwanda-orus-f2640008d50e764b.mp3",
+      "voice": "kinyarwanda-orus"
+    },
+    "kinyarwanda_ch2:kinyarwanda_emergency_ask_help:sit_down": {
+      "file": "assets/audio/lines/kinyarwanda-orus-59fbbcd664d8849a.mp3",
+      "voice": "kinyarwanda-orus"
+    },
+    "kinyarwanda_ch2:kinyarwanda_emergency_ask_help:stomach_ache": {
+      "file": "assets/audio/lines/kinyarwanda-puck-9e1cf01eaf924818.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_emergency_ask_help:type": {
+      "file": "assets/audio/lines/kinyarwanda-puck-72daaff328e3295c.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_emergency_ask_help:understood": {
+      "file": "assets/audio/lines/kinyarwanda-puck-bb929be777228150.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_emergency_ask_help:what_happened": {
+      "file": "assets/audio/lines/kinyarwanda-orus-6abc8135a1a040df.mp3",
+      "voice": "kinyarwanda-orus"
+    },
+    "kinyarwanda_ch2:kinyarwanda_make_weekend_plans:accept": {
+      "file": "assets/audio/lines/kinyarwanda-puck-b1a3b828e3ec722c.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_make_weekend_plans:confirm": {
+      "file": "assets/audio/lines/kinyarwanda-puck-b4277dbffd06a3fe.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_make_weekend_plans:decline": {
+      "file": "assets/audio/lines/kinyarwanda-puck-7c8011fd5e2a0614.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_make_weekend_plans:fish_after": {
+      "file": "assets/audio/lines/kinyarwanda-orus-2e80e26af3eb567a.mp3",
+      "voice": "kinyarwanda-orus"
+    },
+    "kinyarwanda_ch2:kinyarwanda_make_weekend_plans:football_saturday": {
+      "file": "assets/audio/lines/kinyarwanda-orus-0405f6956b2bac9f.mp3",
+      "voice": "kinyarwanda-orus"
+    },
+    "kinyarwanda_ch2:kinyarwanda_make_weekend_plans:go_for_coffee": {
+      "file": "assets/audio/lines/kinyarwanda-puck-396eb4fc7e1277ff.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_make_weekend_plans:other_time": {
+      "file": "assets/audio/lines/kinyarwanda-puck-19a06b3f77c0fe6c.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_make_weekend_plans:suggest": {
+      "file": "assets/audio/lines/kinyarwanda-puck-8fecac452a4262ce.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_make_weekend_plans:sunday_ok": {
+      "file": "assets/audio/lines/kinyarwanda-orus-b6054eb875d54c54.mp3",
+      "voice": "kinyarwanda-orus"
+    },
+    "kinyarwanda_ch2:kinyarwanda_make_weekend_plans:umuganda": {
+      "file": "assets/audio/lines/kinyarwanda-puck-de0ab00e2afd171d.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_make_weekend_plans:when": {
+      "file": "assets/audio/lines/kinyarwanda-puck-3950e2f2cf9ca64a.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:bill": {
+      "file": "assets/audio/lines/kinyarwanda-puck-ab418a9fd9e7e723.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:coming": {
+      "file": "assets/audio/lines/kinyarwanda-orus-fae7f70d8322ad7d.mp3",
+      "voice": "kinyarwanda-orus"
+    },
+    "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:delicious": {
+      "file": "assets/audio/lines/kinyarwanda-puck-41075dbb11476ca6.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:dish_of_day": {
+      "file": "assets/audio/lines/kinyarwanda-orus-342101488147f8b8.mp3",
+      "voice": "kinyarwanda-orus"
+    },
+    "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:give_me_rice": {
+      "file": "assets/audio/lines/kinyarwanda-puck-13498a6706bb65a9.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:have_table": {
+      "file": "assets/audio/lines/kinyarwanda-puck-7b89b7bd2a121e4b.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:ingredients": {
+      "file": "assets/audio/lines/kinyarwanda-puck-2d37848b6a7aadaa.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:no_chilli": {
+      "file": "assets/audio/lines/kinyarwanda-orus-7a5d4bc1c0eef67f.mp3",
+      "voice": "kinyarwanda-orus"
+    },
+    "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:order": {
+      "file": "assets/audio/lines/kinyarwanda-puck-95139a69b56dc660.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:recommend": {
+      "file": "assets/audio/lines/kinyarwanda-puck-760c3e0109169ec3.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:table": {
+      "file": "assets/audio/lines/kinyarwanda-puck-306346abe580b9cd.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:welcome": {
+      "file": "assets/audio/lines/kinyarwanda-orus-6c02b5b070d49395.mp3",
+      "voice": "kinyarwanda-orus"
+    },
+    "kinyarwanda_ch2:kinyarwanda_shop_for_clothes:can_i_help": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-8cf265f69fc61c6f.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch2:kinyarwanda_shop_for_clothes:card": {
+      "file": "assets/audio/lines/kinyarwanda-puck-b980c7943658739e.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_shop_for_clothes:here_is_big": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-2bf1fac511b7e0cd.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch2:kinyarwanda_shop_for_clothes:here_is_one": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-542d6ec2a717c626.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch2:kinyarwanda_shop_for_clothes:just_looking": {
+      "file": "assets/audio/lines/kinyarwanda-puck-aa807c57673d34fd.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_shop_for_clothes:other_colour": {
+      "file": "assets/audio/lines/kinyarwanda-puck-82b54fdde4567178.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_shop_for_clothes:price": {
+      "file": "assets/audio/lines/kinyarwanda-puck-3189aa670e6a0ad4.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_shop_for_clothes:price_is": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-50414495c27a2010.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch2:kinyarwanda_shop_for_clothes:take_it": {
+      "file": "assets/audio/lines/kinyarwanda-puck-fd6d6911f516b7c1.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_shop_for_clothes:want": {
+      "file": "assets/audio/lines/kinyarwanda-puck-3b198a725a0ebc24.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_talk_about_family:and_you": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-2eb3bc257fb2934e.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch2:kinyarwanda_talk_about_family:ask_family": {
+      "file": "assets/audio/lines/kinyarwanda-puck-cee94df9c3669a08.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_talk_about_family:come_in": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-acec0c8c28016743.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch2:kinyarwanda_talk_about_family:compliment_reply": {
+      "file": "assets/audio/lines/kinyarwanda-puck-0b6f71c85230333f.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_talk_about_family:delicious": {
+      "file": "assets/audio/lines/kinyarwanda-puck-e7394f505ab0e410.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_talk_about_family:dont_know": {
+      "file": "assets/audio/lines/kinyarwanda-puck-61d6f4226142644d.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_talk_about_family:five_of_us": {
+      "file": "assets/audio/lines/kinyarwanda-puck-0dda626508626314.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_talk_about_family:my_family": {
+      "file": "assets/audio/lines/kinyarwanda-puck-653ea77864665482.mp3",
+      "voice": "kinyarwanda-puck"
+    },
+    "kinyarwanda_ch2:kinyarwanda_talk_about_family:when_back": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-01639b2b0216f4b9.mp3",
+      "voice": "kinyarwanda-aoede"
+    },
+    "kinyarwanda_ch2:kinyarwanda_talk_about_family:you_speak_well": {
+      "file": "assets/audio/lines/kinyarwanda-aoede-77fa460ed50be958.mp3",
+      "voice": "kinyarwanda-aoede"
+    }
+  }
+}

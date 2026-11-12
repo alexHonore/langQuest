@@ -5,6 +5,7 @@ import 'package:lucide_icons_flutter/lucide_icons.dart';
 import '../../core/audio/clip_player.dart';
 import '../../core/audio/clip_player_provider.dart';
 import '../../core/content/content_bundle.dart';
+import '../../core/content/content_source.dart';
 import '../../core/content/content_models.dart';
 import '../../core/content/real_examples.dart';
 import '../../core/services/app_state.dart';
@@ -89,8 +90,8 @@ class _RealExamplesSheetState extends ConsumerState<RealExamplesSheet> {
       ..prime()
       ..stop();
     setState(() => _playing = recording.id);
-    // Flutter web serves the app's assets under `assets/`.
-    await player.play('assets/${recording.asset}');
+    // Fetched from the content bucket when played (the browser keeps it).
+    await player.play(ref.read(contentLocationProvider).clip(recording.asset).toString());
     if (mounted && _playing == recording.id) setState(() => _playing = null);
   }
 

@@ -86,7 +86,8 @@ void main() {
       expect(voice.aiFor(line.id), isTrue);
       await voice.say(text: line.text, expressionId: line.id);
       await voice.say(text: line.text, expressionId: line.id, slow: true);
-      expect(player.played, ['assets/${voices.clipOf(line.id)}', 'assets/${voices.clipOf(line.id)}']);
+      // Played from the content location (here the repository's layout; in the app, the content bucket).
+      expect(player.played, [voices.clipOf(line.id), voices.clipOf(line.id)]);
       expect(player.rates, [1, slowPlaybackRate]);
       expect(slowPlaybackRate, lessThan(0.8));
     });

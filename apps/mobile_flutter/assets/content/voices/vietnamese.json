@@ -1,0 +1,298 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "vietnamese",
+  "voices": {
+    "vietnamese-aoede": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Aoede (Gemini TTS, instructed Vietnamese as spoken in Hanoi)"
+    },
+    "vietnamese-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed Vietnamese as spoken in Hanoi)"
+    },
+    "vietnamese-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed Vietnamese as spoken in Hanoi)"
+    }
+  },
+  "lines": {
+    "vietnamese_ch1:vietnamese_ask_directions:ask_slow_down_variant_11": {
+      "file": "assets/audio/lines/vietnamese-puck-6bbf4dc6203a68b8.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_ask_directions:ask_where_is_variant_10": {
+      "file": "assets/audio/lines/vietnamese-puck-0f60c271411e1f4c.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_ask_directions:excuse_me": {
+      "file": "assets/audio/lines/vietnamese-puck-c71c62071e9e8d38.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_ask_directions:far": {
+      "file": "assets/audio/lines/vietnamese-puck-700e32d0a87a186c.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_ask_directions:near": {
+      "file": "assets/audio/lines/vietnamese-aoede-5f87f08a60dcc493.mp3",
+      "voice": "vietnamese-aoede"
+    },
+    "vietnamese_ch1:vietnamese_ask_directions:repeat": {
+      "file": "assets/audio/lines/vietnamese-puck-2cf9b631abbb856b.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_ask_directions:slower": {
+      "file": "assets/audio/lines/vietnamese-puck-15307787c1d792df.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_ask_directions:straight": {
+      "file": "assets/audio/lines/vietnamese-aoede-804f8f5c00d93c11.mp3",
+      "voice": "vietnamese-aoede"
+    },
+    "vietnamese_ch1:vietnamese_ask_directions:thanks": {
+      "file": "assets/audio/lines/vietnamese-puck-c2e230a699d2984e.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_ask_directions:turn": {
+      "file": "assets/audio/lines/vietnamese-aoede-2df5fbe518bc43ff.mp3",
+      "voice": "vietnamese-aoede"
+    },
+    "vietnamese_ch1:vietnamese_ask_directions:where_is": {
+      "file": "assets/audio/lines/vietnamese-puck-4b89773803376a88.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_buy_ice_cream:asks_two": {
+      "file": "assets/audio/lines/vietnamese-orus-c4787ae8b78e6d54.mp3",
+      "voice": "vietnamese-orus"
+    },
+    "vietnamese_ch1:vietnamese_buy_ice_cream:just_one": {
+      "file": "assets/audio/lines/vietnamese-puck-d1b848a1fc5d163c.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_buy_ice_cream:me_too": {
+      "file": "assets/audio/lines/vietnamese-puck-a1643c28a93822b5.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_buy_ice_cream:offer_options_variant_13": {
+      "file": "assets/audio/lines/vietnamese-puck-45d39b55211dffcc.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_buy_ice_cream:okay": {
+      "file": "assets/audio/lines/vietnamese-puck-879c0c0024992e08.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_buy_ice_cream:picks": {
+      "file": "assets/audio/lines/vietnamese-orus-79acb7231c1ccc6c.mp3",
+      "voice": "vietnamese-orus"
+    },
+    "vietnamese_ch1:vietnamese_buy_ice_cream:refuse_permission_variant_12": {
+      "file": "assets/audio/lines/vietnamese-puck-476e424014d61be2.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_buy_ice_cream:scoop": {
+      "file": "assets/audio/lines/vietnamese-puck-b2da8f7a22710029.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_buy_ice_cream:thanks": {
+      "file": "assets/audio/lines/vietnamese-orus-74afc7613145fcab.mp3",
+      "voice": "vietnamese-orus"
+    },
+    "vietnamese_ch1:vietnamese_buy_ice_cream:wants": {
+      "file": "assets/audio/lines/vietnamese-orus-b506302540c70233.mp3",
+      "voice": "vietnamese-orus"
+    },
+    "vietnamese_ch1:vietnamese_buy_ice_cream:welcome": {
+      "file": "assets/audio/lines/vietnamese-puck-305b24935f57b927.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_buy_ice_cream:which_flavour": {
+      "file": "assets/audio/lines/vietnamese-puck-de8f4d5e9e05c24d.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_buy_ice_cream:yummy": {
+      "file": "assets/audio/lines/vietnamese-orus-5d2d616a0c2a5b98.mp3",
+      "voice": "vietnamese-orus"
+    },
+    "vietnamese_ch1:vietnamese_cafe_order_drink:ask_for_bill_variant_8": {
+      "file": "assets/audio/lines/vietnamese-puck-a27293f1753371f2.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_cafe_order_drink:bill": {
+      "file": "assets/audio/lines/vietnamese-puck-a741b17d5501ba7b.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_cafe_order_drink:choice": {
+      "file": "assets/audio/lines/vietnamese-puck-34c21ac8608e934f.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_cafe_order_drink:greeting": {
+      "file": "assets/audio/lines/vietnamese-puck-d50c6cbd15cbd560.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_cafe_order_drink:order": {
+      "file": "assets/audio/lines/vietnamese-puck-c90dcf7c7c92a5f1.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_cafe_order_drink:request_drink_variant_7": {
+      "file": "assets/audio/lines/vietnamese-puck-43e7dce02cc3803a.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_cafe_order_drink:thanks": {
+      "file": "assets/audio/lines/vietnamese-puck-970ded4bdea28588.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_greet_and_introduce:fine": {
+      "file": "assets/audio/lines/vietnamese-puck-873e5c4180faad48.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_greet_and_introduce:goodbye": {
+      "file": "assets/audio/lines/vietnamese-puck-d466b3a574f5c7e7.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_greet_and_introduce:greet_hello_variant_8": {
+      "file": "assets/audio/lines/vietnamese-puck-b34f261069fbd5ca.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_greet_and_introduce:greeting": {
+      "file": "assets/audio/lines/vietnamese-puck-d50c6cbd15cbd560.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_greet_and_introduce:how_are_you": {
+      "file": "assets/audio/lines/vietnamese-puck-b8be1ab4a4fb00d0.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_greet_and_introduce:my_name": {
+      "file": "assets/audio/lines/vietnamese-puck-c929ad0576c6869e.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_greet_and_introduce:nice_to_meet": {
+      "file": "assets/audio/lines/vietnamese-puck-ddda95d64bdfe403.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_greet_and_introduce:say_goodbye_variant_9": {
+      "file": "assets/audio/lines/vietnamese-puck-163c8d3d806e6c4f.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_greet_and_introduce:your_name": {
+      "file": "assets/audio/lines/vietnamese-puck-612def451785a43c.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_market_ask_price:ask_price_variant_8": {
+      "file": "assets/audio/lines/vietnamese-puck-f29a77a0678df257.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_market_ask_price:deal": {
+      "file": "assets/audio/lines/vietnamese-puck-c0725e3c4ebbedfc.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_market_ask_price:expensive": {
+      "file": "assets/audio/lines/vietnamese-puck-b23459637e9de423.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_market_ask_price:greeting": {
+      "file": "assets/audio/lines/vietnamese-puck-d50c6cbd15cbd560.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_market_ask_price:how_much": {
+      "file": "assets/audio/lines/vietnamese-puck-e0ca12a560a55f28.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_market_ask_price:lower": {
+      "file": "assets/audio/lines/vietnamese-puck-2cab0ca67892e583.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_market_ask_price:no_thanks": {
+      "file": "assets/audio/lines/vietnamese-puck-d9e1581da2fd710b.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_market_ask_price:offer_lower_price_variant_9": {
+      "file": "assets/audio/lines/vietnamese-puck-bd47a28cf60634cd.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_market_ask_price:price": {
+      "file": "assets/audio/lines/vietnamese-aoede-0c75f921efa97493.mp3",
+      "voice": "vietnamese-aoede"
+    },
+    "vietnamese_ch1:vietnamese_meet_neighbour:from": {
+      "file": "assets/audio/lines/vietnamese-puck-65c91743ba2bcfc1.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_meet_neighbour:little": {
+      "file": "assets/audio/lines/vietnamese-puck-a8cc062291a5121d.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_meet_neighbour:new_neighbour": {
+      "file": "assets/audio/lines/vietnamese-puck-0afef9fc69326825.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_meet_neighbour:offer_help": {
+      "file": "assets/audio/lines/vietnamese-puck-1568641a5c691c66.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_meet_neighbour:offer_help_variant_10": {
+      "file": "assets/audio/lines/vietnamese-puck-c474e9f60e8c6928.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_meet_neighbour:say_new_neighbour_variant_9": {
+      "file": "assets/audio/lines/vietnamese-puck-a40dc15096b6ffcc.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_meet_neighbour:speak_lang": {
+      "file": "assets/audio/lines/vietnamese-puck-e227b5515287b248.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_meet_neighbour:thanks": {
+      "file": "assets/audio/lines/vietnamese-puck-c2e230a699d2984e.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_meet_neighbour:welcome": {
+      "file": "assets/audio/lines/vietnamese-aoede-5e065cf81d356c96.mp3",
+      "voice": "vietnamese-aoede"
+    },
+    "vietnamese_ch1:vietnamese_meet_neighbour:where_from_q": {
+      "file": "assets/audio/lines/vietnamese-puck-3b602e44e8f586b2.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_take_taxi:ask_use_meter_variant_10": {
+      "file": "assets/audio/lines/vietnamese-puck-ba6acef562e760d0.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_take_taxi:bye": {
+      "file": "assets/audio/lines/vietnamese-puck-a60d65e951120695.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_take_taxi:change": {
+      "file": "assets/audio/lines/vietnamese-puck-860a573d38ca9c3b.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_take_taxi:destination": {
+      "file": "assets/audio/lines/vietnamese-puck-62314a92230f0556.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_take_taxi:fare": {
+      "file": "assets/audio/lines/vietnamese-puck-e6f3c4f97fb13fdf.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_take_taxi:hail": {
+      "file": "assets/audio/lines/vietnamese-puck-51b08fdfcd312f92.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_take_taxi:hail_taxi_variant_9": {
+      "file": "assets/audio/lines/vietnamese-puck-70417c09450c6188.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_take_taxi:meter": {
+      "file": "assets/audio/lines/vietnamese-puck-f97dedd27a92fdb0.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_take_taxi:stop": {
+      "file": "assets/audio/lines/vietnamese-puck-f62f7a333c6cad42.mp3",
+      "voice": "vietnamese-puck"
+    },
+    "vietnamese_ch1:vietnamese_take_taxi:where_to": {
+      "file": "assets/audio/lines/vietnamese-orus-e7d7433d7f7df49a.mp3",
+      "voice": "vietnamese-orus"
+    }
+  }
+}

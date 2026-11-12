@@ -86,7 +86,6 @@ void main() {
         ContentBundle.skillsAsset,
         ContentBundle.castAsset,
         ContentBundle.examplesAsset,
-        ContentBundle.voicesAsset,
       });
       expect(bundle.chapters, isEmpty);
       expect([for (final t in bundle.availableFrom('en')) t.id], [for (final t in testBundle.availableFrom('en')) t.id]);

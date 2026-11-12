@@ -34,7 +34,8 @@ import { resolve } from 'node:path';
 import { flagBool, flagNumber, flagString, isDirectRun, runCli, type CliIo, type CliSpec, type ParsedArgs } from './lib/cli';
 import { repoRoot, writeTextFileSync } from './lib/io';
 import { BUNDLE_VOICES, voiceForLine, type BundleVoice } from './lib/bundle-voices';
-import { readBundleChapters } from './lib/flutter-bundle';
+import { BUNDLE_DIR, readBundleChapters } from './lib/flutter-bundle';
+import { buildVoiceFiles } from './export-flutter-content';
 
 export const LINES_DIR = 'apps/mobile_flutter/assets/audio/lines';
 export const VOICES_FILE = 'apps/mobile_flutter/assets/content/voices.json';
@@ -343,6 +344,8 @@ export async function main(args: ParsedArgs, io: CliIo): Promise<number> {
     `${JSON.stringify({ schemaVersion: 1, generatedBy: 'scripts/src/synthesize-bundle-audio.ts', synthetic: true, voices, lines: Object.fromEntries(Object.entries(map).sort(([a], [b]) => a.localeCompare(b))) }, null, 1)}\n`,
   );
   io.log(`wrote ${VOICES_FILE}: ${Object.keys(map).length} of ${all.length} lines voiced${failed ? `, ${failed} failed` : ''}`);
+  // And each course's own voices file, which is what the app reads.
+  for (const [name, text] of Object.entries(buildVoiceFiles(root))) writeTextFileSync(resolve(root, BUNDLE_DIR, name), text);
   return failed ? 1 : 0;
 }
 

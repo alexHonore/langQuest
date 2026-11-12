@@ -1,0 +1,310 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "arabic-eastern",
+  "voices": {
+    "arabic-eastern-aoede": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Aoede (Gemini TTS, instructed Levantine Arabic as spoken in Damascus)"
+    },
+    "arabic-eastern-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed Levantine Arabic as spoken in Damascus)"
+    },
+    "arabic-eastern-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed Levantine Arabic as spoken in Damascus)"
+    }
+  },
+  "lines": {
+    "arabic_eastern_ch1:arabic_eastern_ask_directions:ask_slow_down_variant_11": {
+      "file": "assets/audio/lines/arabic-eastern-puck-dc82a7e43f584b08.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_ask_directions:ask_where_is_variant_10": {
+      "file": "assets/audio/lines/arabic-eastern-puck-c790c9aeeda439ab.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_ask_directions:excuse_me": {
+      "file": "assets/audio/lines/arabic-eastern-puck-5b4d9334285fe75c.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_ask_directions:far": {
+      "file": "assets/audio/lines/arabic-eastern-puck-f40a7f8dd4f33de3.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_ask_directions:near": {
+      "file": "assets/audio/lines/arabic-eastern-orus-88b8c2d27e7a10fe.mp3",
+      "voice": "arabic-eastern-orus"
+    },
+    "arabic_eastern_ch1:arabic_eastern_ask_directions:repeat": {
+      "file": "assets/audio/lines/arabic-eastern-puck-a983728758d740c1.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_ask_directions:slower": {
+      "file": "assets/audio/lines/arabic-eastern-puck-c79afd49bbc3fd6d.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_ask_directions:straight": {
+      "file": "assets/audio/lines/arabic-eastern-orus-15d5fd3ba203ccb0.mp3",
+      "voice": "arabic-eastern-orus"
+    },
+    "arabic_eastern_ch1:arabic_eastern_ask_directions:thanks": {
+      "file": "assets/audio/lines/arabic-eastern-puck-b4ac05f632f4ddf8.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_ask_directions:turn": {
+      "file": "assets/audio/lines/arabic-eastern-orus-ef60ae3147bca158.mp3",
+      "voice": "arabic-eastern-orus"
+    },
+    "arabic_eastern_ch1:arabic_eastern_ask_directions:where_is": {
+      "file": "assets/audio/lines/arabic-eastern-puck-831f341cbd879c5b.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_buy_ice_cream:asks_two": {
+      "file": "assets/audio/lines/arabic-eastern-orus-d0f45413e87ed470.mp3",
+      "voice": "arabic-eastern-orus"
+    },
+    "arabic_eastern_ch1:arabic_eastern_buy_ice_cream:just_one": {
+      "file": "assets/audio/lines/arabic-eastern-puck-5cc12d6c2173f0b1.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_buy_ice_cream:me_too": {
+      "file": "assets/audio/lines/arabic-eastern-puck-05aafa960c6608d5.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_buy_ice_cream:okay": {
+      "file": "assets/audio/lines/arabic-eastern-puck-53efded211ab4e7b.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_buy_ice_cream:picks": {
+      "file": "assets/audio/lines/arabic-eastern-orus-37d686d40023d900.mp3",
+      "voice": "arabic-eastern-orus"
+    },
+    "arabic_eastern_ch1:arabic_eastern_buy_ice_cream:refuse_permission_variant_12": {
+      "file": "assets/audio/lines/arabic-eastern-puck-e3d820dcd21038fe.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_buy_ice_cream:scoop": {
+      "file": "assets/audio/lines/arabic-eastern-puck-fd35feddae674fc9.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_buy_ice_cream:thanks": {
+      "file": "assets/audio/lines/arabic-eastern-orus-62b04da2e1cf2a86.mp3",
+      "voice": "arabic-eastern-orus"
+    },
+    "arabic_eastern_ch1:arabic_eastern_buy_ice_cream:wants": {
+      "file": "assets/audio/lines/arabic-eastern-orus-336aea8719daf252.mp3",
+      "voice": "arabic-eastern-orus"
+    },
+    "arabic_eastern_ch1:arabic_eastern_buy_ice_cream:welcome": {
+      "file": "assets/audio/lines/arabic-eastern-puck-b3ce41d277c3541f.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_buy_ice_cream:which_flavour": {
+      "file": "assets/audio/lines/arabic-eastern-puck-5f01664b34ead4de.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_buy_ice_cream:yummy": {
+      "file": "assets/audio/lines/arabic-eastern-orus-524879472b7ee1f7.mp3",
+      "voice": "arabic-eastern-orus"
+    },
+    "arabic_eastern_ch1:arabic_eastern_cafe_order_drink:ask_for_bill_variant_9": {
+      "file": "assets/audio/lines/arabic-eastern-puck-b8c7556cfcec8055.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_cafe_order_drink:bill": {
+      "file": "assets/audio/lines/arabic-eastern-puck-ce6c053854f51093.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_cafe_order_drink:choice": {
+      "file": "assets/audio/lines/arabic-eastern-puck-6065597e1b0fe4d8.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_cafe_order_drink:greet_hello_variant_7": {
+      "file": "assets/audio/lines/arabic-eastern-puck-aed097a8abcdc320.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_cafe_order_drink:greeting": {
+      "file": "assets/audio/lines/arabic-eastern-puck-5a9e85d908cd0b10.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_cafe_order_drink:options": {
+      "file": "assets/audio/lines/arabic-eastern-orus-5c508ac1d6f7b35d.mp3",
+      "voice": "arabic-eastern-orus"
+    },
+    "arabic_eastern_ch1:arabic_eastern_cafe_order_drink:order": {
+      "file": "assets/audio/lines/arabic-eastern-puck-6dfb3031938f2159.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_cafe_order_drink:request_drink_variant_8": {
+      "file": "assets/audio/lines/arabic-eastern-puck-2eaceb448ba0e4ed.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_cafe_order_drink:thank_variant_10": {
+      "file": "assets/audio/lines/arabic-eastern-puck-5b52f0da3ca81720.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_cafe_order_drink:thanks": {
+      "file": "assets/audio/lines/arabic-eastern-puck-4eac0293e3d53817.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_greet_and_introduce:fine": {
+      "file": "assets/audio/lines/arabic-eastern-puck-5876dc0784db53f6.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_greet_and_introduce:goodbye": {
+      "file": "assets/audio/lines/arabic-eastern-puck-27d1c40e2c557554.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_greet_and_introduce:greet_hello_variant_8": {
+      "file": "assets/audio/lines/arabic-eastern-puck-dac5e45dc70b06b8.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_greet_and_introduce:greeting": {
+      "file": "assets/audio/lines/arabic-eastern-puck-e232619e836837fd.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_greet_and_introduce:how_are_you": {
+      "file": "assets/audio/lines/arabic-eastern-puck-7c696d6c7764e147.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_greet_and_introduce:my_name": {
+      "file": "assets/audio/lines/arabic-eastern-puck-11a5ab5d99383154.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_greet_and_introduce:nice_to_meet": {
+      "file": "assets/audio/lines/arabic-eastern-puck-8bdad3de5265ff3a.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_greet_and_introduce:say_goodbye_variant_9": {
+      "file": "assets/audio/lines/arabic-eastern-puck-1f253074444698ce.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_greet_and_introduce:your_name": {
+      "file": "assets/audio/lines/arabic-eastern-puck-ef15c619f5a7c5fa.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_market_ask_price:ask_price_variant_8": {
+      "file": "assets/audio/lines/arabic-eastern-puck-1dad6976c6473ab5.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_market_ask_price:deal": {
+      "file": "assets/audio/lines/arabic-eastern-puck-bbf56159e5b2add0.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_market_ask_price:expensive": {
+      "file": "assets/audio/lines/arabic-eastern-puck-1e4470ed17995287.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_market_ask_price:greet_hello_variant_10": {
+      "file": "assets/audio/lines/arabic-eastern-puck-2802f223a170a1c4.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_market_ask_price:greeting": {
+      "file": "assets/audio/lines/arabic-eastern-puck-5328523eef3deace.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_market_ask_price:how_much": {
+      "file": "assets/audio/lines/arabic-eastern-puck-b1d40a577d2686f6.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_market_ask_price:lower": {
+      "file": "assets/audio/lines/arabic-eastern-puck-5133a5d9bb9613c1.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_market_ask_price:no_thanks": {
+      "file": "assets/audio/lines/arabic-eastern-puck-f0a49180a16de056.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_market_ask_price:offer_lower_price_variant_9": {
+      "file": "assets/audio/lines/arabic-eastern-puck-8c63415e1b5daa54.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_market_ask_price:price": {
+      "file": "assets/audio/lines/arabic-eastern-orus-40579305bec3c683.mp3",
+      "voice": "arabic-eastern-orus"
+    },
+    "arabic_eastern_ch1:arabic_eastern_meet_neighbour:from": {
+      "file": "assets/audio/lines/arabic-eastern-puck-1d38473ac5ab7195.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_meet_neighbour:little": {
+      "file": "assets/audio/lines/arabic-eastern-puck-43aff9b2c7789331.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_meet_neighbour:new_neighbour": {
+      "file": "assets/audio/lines/arabic-eastern-puck-102df1e576b1cf3d.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_meet_neighbour:offer_help": {
+      "file": "assets/audio/lines/arabic-eastern-puck-c11ed1e6ac8a4f5c.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_meet_neighbour:say_new_neighbour_variant_9": {
+      "file": "assets/audio/lines/arabic-eastern-puck-630aef60d2be6d34.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_meet_neighbour:say_speak_little_variant_10": {
+      "file": "assets/audio/lines/arabic-eastern-puck-bfa93db3348a8022.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_meet_neighbour:speak_lang": {
+      "file": "assets/audio/lines/arabic-eastern-puck-451f921153a083aa.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_meet_neighbour:thanks": {
+      "file": "assets/audio/lines/arabic-eastern-puck-558ed9948838ec84.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_meet_neighbour:welcome": {
+      "file": "assets/audio/lines/arabic-eastern-aoede-7cc9d990db8c0e86.mp3",
+      "voice": "arabic-eastern-aoede"
+    },
+    "arabic_eastern_ch1:arabic_eastern_meet_neighbour:where_from_q": {
+      "file": "assets/audio/lines/arabic-eastern-puck-a5ee32837b721c05.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_take_taxi:ask_use_meter_variant_10": {
+      "file": "assets/audio/lines/arabic-eastern-puck-2d1f2b95ee796f93.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_take_taxi:bye": {
+      "file": "assets/audio/lines/arabic-eastern-puck-9ba584986a7279c8.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_take_taxi:change": {
+      "file": "assets/audio/lines/arabic-eastern-puck-7d113094dff30b3d.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_take_taxi:destination": {
+      "file": "assets/audio/lines/arabic-eastern-puck-252fdafbaa69e4ab.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_take_taxi:fare": {
+      "file": "assets/audio/lines/arabic-eastern-puck-84eb1f98722a7ed0.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_take_taxi:hail": {
+      "file": "assets/audio/lines/arabic-eastern-puck-13c4fb0a87f90abc.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_take_taxi:hail_taxi_variant_9": {
+      "file": "assets/audio/lines/arabic-eastern-puck-0597b809bb1b7c9c.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_take_taxi:meter": {
+      "file": "assets/audio/lines/arabic-eastern-puck-384d65b6315bec84.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_take_taxi:stop": {
+      "file": "assets/audio/lines/arabic-eastern-puck-8b23c5f3f7f96c0c.mp3",
+      "voice": "arabic-eastern-puck"
+    },
+    "arabic_eastern_ch1:arabic_eastern_take_taxi:where_to": {
+      "file": "assets/audio/lines/arabic-eastern-orus-3416f215babb029f.mp3",
+      "voice": "arabic-eastern-orus"
+    }
+  }
+}

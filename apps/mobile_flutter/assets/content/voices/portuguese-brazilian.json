@@ -1,0 +1,290 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "portuguese-brazilian",
+  "voices": {
+    "portuguese-brazilian-aoede": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Aoede (Gemini TTS, instructed Brazilian Portuguese)"
+    },
+    "portuguese-brazilian-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed Brazilian Portuguese)"
+    },
+    "portuguese-brazilian-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed Brazilian Portuguese)"
+    }
+  },
+  "lines": {
+    "portuguese_brazilian_ch1:portuguese_brazilian_ask_directions:ask_slow_down_variant_11": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-1915b64a5534620d.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_ask_directions:ask_where_is_variant_12": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-93269a8d7835a7d1.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_ask_directions:excuse_me": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-85c4c39fa8579bc0.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_ask_directions:far": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-ac53b3eb2a360c3d.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_ask_directions:near": {
+      "file": "assets/audio/lines/portuguese-brazilian-orus-a06315dea5924f18.mp3",
+      "voice": "portuguese-brazilian-orus"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_ask_directions:repeat": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-41c7e53d4e8dcc90.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_ask_directions:slower": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-821163f38657bcdf.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_ask_directions:straight": {
+      "file": "assets/audio/lines/portuguese-brazilian-orus-c3d8bc12912fc9b4.mp3",
+      "voice": "portuguese-brazilian-orus"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_ask_directions:thank_variant_10": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-8c541d15d8015685.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_ask_directions:thanks": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-2c48ccf53f239417.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_ask_directions:turn": {
+      "file": "assets/audio/lines/portuguese-brazilian-orus-8cdd7af22765fb78.mp3",
+      "voice": "portuguese-brazilian-orus"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_ask_directions:where_is": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-4eaf1f067954ddb0.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_buy_ice_cream:asks_two": {
+      "file": "assets/audio/lines/portuguese-brazilian-orus-afbeee0296f7da2a.mp3",
+      "voice": "portuguese-brazilian-orus"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_buy_ice_cream:just_one": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-b36f24cc71c59802.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_buy_ice_cream:me_too": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-d1ad1e6daf6988f0.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_buy_ice_cream:offer_options_variant_12": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-7dcc951f49e00aa0.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_buy_ice_cream:okay": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-3e6dc43df6fd7d01.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_buy_ice_cream:picks": {
+      "file": "assets/audio/lines/portuguese-brazilian-orus-e51f4945ebc978dd.mp3",
+      "voice": "portuguese-brazilian-orus"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_buy_ice_cream:refuse_permission_variant_13": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-59e96ccb9c336c57.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_buy_ice_cream:scoop": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-ebe266608e754630.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_buy_ice_cream:thanks": {
+      "file": "assets/audio/lines/portuguese-brazilian-orus-7a4113e677f45c6e.mp3",
+      "voice": "portuguese-brazilian-orus"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_buy_ice_cream:wants": {
+      "file": "assets/audio/lines/portuguese-brazilian-orus-a8e7a9c5ded37d8b.mp3",
+      "voice": "portuguese-brazilian-orus"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_buy_ice_cream:welcome": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-5b3ddc0eddffa21e.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_buy_ice_cream:which_flavour": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-83a378578cdd9c16.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_buy_ice_cream:yummy": {
+      "file": "assets/audio/lines/portuguese-brazilian-orus-26b9fccfd6d63738.mp3",
+      "voice": "portuguese-brazilian-orus"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_cafe_order_drink:ask_for_bill_variant_9": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-7b69e6da2dac29e3.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_cafe_order_drink:bill": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-3c666e24079dfa75.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_cafe_order_drink:choice": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-b613d9e8372f8d51.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_cafe_order_drink:greeting": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-df1663fdec7754c5.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_cafe_order_drink:options": {
+      "file": "assets/audio/lines/portuguese-brazilian-aoede-54dd41bf7a31d3f1.mp3",
+      "voice": "portuguese-brazilian-aoede"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_cafe_order_drink:order": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-2b68df72d65ef819.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_cafe_order_drink:request_drink_variant_8": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-8ab313e3953754a3.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_cafe_order_drink:thank_variant_7": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-d3a695591ebd420e.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_greet_and_introduce:goodbye": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-2c53a6cbefc158af.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_greet_and_introduce:greet_hello_variant_8": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-f3b2990c726168de.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_greet_and_introduce:greeting": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-72e104b80649c09c.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_greet_and_introduce:how_are_you": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-27faa7d6e2757922.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_greet_and_introduce:introduce_name_variant_10": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-4d257914a7c655f2.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_greet_and_introduce:my_name": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-f7cf38317a32d756.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_greet_and_introduce:nice_to_meet": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-000b71abf7567523.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_greet_and_introduce:reply_fine_variant_9": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-b17fb37d9a539b73.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_greet_and_introduce:your_name": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-7c7dc1cdbe4f8f47.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_market_ask_price:ask_price_variant_9": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-5bff3465f276c24f.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_market_ask_price:deal": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-c96e47af4d2538cf.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_market_ask_price:greet_hello_variant_8": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-2a7594c38b0ad1aa.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_market_ask_price:greeting": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-df1663fdec7754c5.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_market_ask_price:how_much": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-dbeb22bedd4179dc.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_market_ask_price:lower": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-b53d8f006cd5ab09.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_market_ask_price:no_thanks": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-80792067e4ad4cac.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_market_ask_price:offer_lower_price_variant_10": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-efe3fd07ca95ceab.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_market_ask_price:price": {
+      "file": "assets/audio/lines/portuguese-brazilian-orus-eed4285373c44684.mp3",
+      "voice": "portuguese-brazilian-orus"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_meet_neighbour:from": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-b73a5af522be989a.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_meet_neighbour:little": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-7f9e7807c2255f80.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_meet_neighbour:new_neighbour": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-2dc6ad2acd1e80ae.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_meet_neighbour:offer_help": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-06dd84e65bb7e25d.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_meet_neighbour:offer_help_variant_10": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-e0a4fdef699ec593.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_meet_neighbour:say_new_neighbour_variant_9": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-de3696bfd3237ec6.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_meet_neighbour:speak_lang": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-c5c432f923a22fc2.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_meet_neighbour:thanks": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-7b6fae2fa04285fe.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_meet_neighbour:welcome": {
+      "file": "assets/audio/lines/portuguese-brazilian-aoede-c9a4d55b6311f8dd.mp3",
+      "voice": "portuguese-brazilian-aoede"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_meet_neighbour:where_from_q": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-91448365105e20f7.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_take_taxi:ask_use_meter_variant_10": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-587a690f901435b2.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_take_taxi:bye": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-7c4fc4baf86e3ebc.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_take_taxi:fare": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-5582f3e3b407d304.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_take_taxi:hail_taxi_variant_9": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-187930e9e404e159.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_take_taxi:meter": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-ecead8e99e4466ae.mp3",
+      "voice": "portuguese-brazilian-puck"
+    },
+    "portuguese_brazilian_ch1:portuguese_brazilian_take_taxi:stop": {
+      "file": "assets/audio/lines/portuguese-brazilian-puck-d1233ef36121b123.mp3",
+      "voice": "portuguese-brazilian-puck"
+    }
+  }
+}

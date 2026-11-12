@@ -1,0 +1,314 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "haitian-creole",
+  "voices": {
+    "haitian-creole-aoede": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Aoede (Gemini TTS, instructed Haitian Creole (Kreyòl ayisyen) as spoken in Port-au-Prince)"
+    },
+    "haitian-creole-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed Haitian Creole (Kreyòl ayisyen) as spoken in Port-au-Prince)"
+    },
+    "haitian-creole-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed Haitian Creole (Kreyòl ayisyen) as spoken in Port-au-Prince)"
+    }
+  },
+  "lines": {
+    "haitian_creole_ch1:haitian_creole_ask_directions:ask_repeat_variant_11": {
+      "file": "assets/audio/lines/haitian-creole-puck-92635f278f33827c.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_ask_directions:ask_slow_down_variant_10": {
+      "file": "assets/audio/lines/haitian-creole-puck-f796c18bace60159.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_ask_directions:excuse_me": {
+      "file": "assets/audio/lines/haitian-creole-puck-adb7128af7259588.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_ask_directions:far": {
+      "file": "assets/audio/lines/haitian-creole-puck-b48100095d41c5e3.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_ask_directions:near": {
+      "file": "assets/audio/lines/haitian-creole-orus-f4959f4618594dff.mp3",
+      "voice": "haitian-creole-orus"
+    },
+    "haitian_creole_ch1:haitian_creole_ask_directions:repeat": {
+      "file": "assets/audio/lines/haitian-creole-puck-01a940d4296ea829.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_ask_directions:slower": {
+      "file": "assets/audio/lines/haitian-creole-puck-7857345e102b0fe2.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_ask_directions:straight": {
+      "file": "assets/audio/lines/haitian-creole-orus-7e57faaf9a551d60.mp3",
+      "voice": "haitian-creole-orus"
+    },
+    "haitian_creole_ch1:haitian_creole_ask_directions:thanks": {
+      "file": "assets/audio/lines/haitian-creole-puck-c9bef8d32100ae81.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_ask_directions:turn": {
+      "file": "assets/audio/lines/haitian-creole-orus-a0c5656405f02653.mp3",
+      "voice": "haitian-creole-orus"
+    },
+    "haitian_creole_ch1:haitian_creole_ask_directions:where_is": {
+      "file": "assets/audio/lines/haitian-creole-puck-13c26ea24f7acd04.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_buy_ice_cream:asks_two": {
+      "file": "assets/audio/lines/haitian-creole-orus-3c1443d41b81081a.mp3",
+      "voice": "haitian-creole-orus"
+    },
+    "haitian_creole_ch1:haitian_creole_buy_ice_cream:just_one": {
+      "file": "assets/audio/lines/haitian-creole-puck-f60a7d5f43b2dde4.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_buy_ice_cream:me_too": {
+      "file": "assets/audio/lines/haitian-creole-puck-18cbfca8f6535a8b.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_buy_ice_cream:okay": {
+      "file": "assets/audio/lines/haitian-creole-puck-6f2ce03551a1795e.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_buy_ice_cream:picks": {
+      "file": "assets/audio/lines/haitian-creole-orus-03617709242b1f41.mp3",
+      "voice": "haitian-creole-orus"
+    },
+    "haitian_creole_ch1:haitian_creole_buy_ice_cream:refuse_permission_variant_7": {
+      "file": "assets/audio/lines/haitian-creole-puck-612c190c9d729601.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_buy_ice_cream:scoop": {
+      "file": "assets/audio/lines/haitian-creole-puck-d87bbb64e389ec37.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_buy_ice_cream:specify_quantity_variant_8": {
+      "file": "assets/audio/lines/haitian-creole-puck-00016f4c280ca615.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_buy_ice_cream:thanks": {
+      "file": "assets/audio/lines/haitian-creole-orus-43d25e5e43cf6c2b.mp3",
+      "voice": "haitian-creole-orus"
+    },
+    "haitian_creole_ch1:haitian_creole_buy_ice_cream:wants": {
+      "file": "assets/audio/lines/haitian-creole-orus-28f952f71a2a38d8.mp3",
+      "voice": "haitian-creole-orus"
+    },
+    "haitian_creole_ch1:haitian_creole_buy_ice_cream:welcome": {
+      "file": "assets/audio/lines/haitian-creole-puck-9d6f78f2a29c21a9.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_buy_ice_cream:which_flavour": {
+      "file": "assets/audio/lines/haitian-creole-puck-b37ac4aa7c844211.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_buy_ice_cream:yummy": {
+      "file": "assets/audio/lines/haitian-creole-orus-a15bca114ab2a14b.mp3",
+      "voice": "haitian-creole-orus"
+    },
+    "haitian_creole_ch1:haitian_creole_cafe_order_drink:ask_for_bill_variant_8": {
+      "file": "assets/audio/lines/haitian-creole-puck-f0fd954076da31b8.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_cafe_order_drink:bill": {
+      "file": "assets/audio/lines/haitian-creole-puck-e75d5e34b61f427f.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_cafe_order_drink:choice": {
+      "file": "assets/audio/lines/haitian-creole-puck-b7239a089aa02992.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_cafe_order_drink:greet_hello_variant_2": {
+      "file": "assets/audio/lines/haitian-creole-puck-a97c7bc8ef934020.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_cafe_order_drink:greeting": {
+      "file": "assets/audio/lines/haitian-creole-puck-fb0d104adb6c37ce.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_cafe_order_drink:options": {
+      "file": "assets/audio/lines/haitian-creole-aoede-5644286723c7c938.mp3",
+      "voice": "haitian-creole-aoede"
+    },
+    "haitian_creole_ch1:haitian_creole_cafe_order_drink:order": {
+      "file": "assets/audio/lines/haitian-creole-puck-f480157bed8f0b57.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_cafe_order_drink:request_drink_variant_4": {
+      "file": "assets/audio/lines/haitian-creole-puck-dc9d16ecaef6dcd8.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_cafe_order_drink:thanks": {
+      "file": "assets/audio/lines/haitian-creole-puck-25dc14a6dbe1551d.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_greet_and_introduce:ask_how_are_you_variant_9": {
+      "file": "assets/audio/lines/haitian-creole-puck-80d20c59f38e204b.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_greet_and_introduce:fine": {
+      "file": "assets/audio/lines/haitian-creole-puck-96e4a46af8eb7496.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_greet_and_introduce:goodbye": {
+      "file": "assets/audio/lines/haitian-creole-puck-417cf88857baa1cf.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_greet_and_introduce:greet_hello_variant_8": {
+      "file": "assets/audio/lines/haitian-creole-puck-bc9bdcca59de66fd.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_greet_and_introduce:how_are_you": {
+      "file": "assets/audio/lines/haitian-creole-puck-28c0f88f29da12cb.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_greet_and_introduce:my_name": {
+      "file": "assets/audio/lines/haitian-creole-puck-5e6545b11007a332.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_greet_and_introduce:nice_to_meet": {
+      "file": "assets/audio/lines/haitian-creole-puck-879d5f8bbb4be3a1.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_greet_and_introduce:say_goodbye_variant_10": {
+      "file": "assets/audio/lines/haitian-creole-puck-559822916f349239.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_greet_and_introduce:your_name": {
+      "file": "assets/audio/lines/haitian-creole-puck-cec3c2d08dbbd040.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_market_ask_price:agree_to_price_variant_9": {
+      "file": "assets/audio/lines/haitian-creole-puck-83d2ff2b753d7c9c.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_market_ask_price:ask_price_variant_3": {
+      "file": "assets/audio/lines/haitian-creole-puck-0e90636a9a2e8d33.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_market_ask_price:deal": {
+      "file": "assets/audio/lines/haitian-creole-puck-9410794f985cdf5f.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_market_ask_price:decline_purchase_variant_11": {
+      "file": "assets/audio/lines/haitian-creole-puck-6326eefaaffdd4a9.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_market_ask_price:expensive": {
+      "file": "assets/audio/lines/haitian-creole-puck-434c3ca958bc6cbe.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_market_ask_price:greeting": {
+      "file": "assets/audio/lines/haitian-creole-puck-3f6e6310bfa6a2f9.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_market_ask_price:how_much": {
+      "file": "assets/audio/lines/haitian-creole-puck-5b80486398ad63df.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_market_ask_price:lower": {
+      "file": "assets/audio/lines/haitian-creole-puck-227bdbd7cfb5602d.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_market_ask_price:no_thanks": {
+      "file": "assets/audio/lines/haitian-creole-puck-92fcfa00227e8bc6.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_market_ask_price:offer_lower_price_variant_7": {
+      "file": "assets/audio/lines/haitian-creole-puck-71483cb6646c0f8b.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_market_ask_price:price": {
+      "file": "assets/audio/lines/haitian-creole-aoede-c20da9fdadc8245a.mp3",
+      "voice": "haitian-creole-aoede"
+    },
+    "haitian_creole_ch1:haitian_creole_meet_neighbour:from": {
+      "file": "assets/audio/lines/haitian-creole-puck-9764e3060f6883b6.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_meet_neighbour:little": {
+      "file": "assets/audio/lines/haitian-creole-puck-e1cf8bc2472e06bb.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_meet_neighbour:new_neighbour": {
+      "file": "assets/audio/lines/haitian-creole-puck-4fdd533e3c5c4d13.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_meet_neighbour:offer_help": {
+      "file": "assets/audio/lines/haitian-creole-puck-f4e0f8699bef67c9.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_meet_neighbour:offer_help_variant_10": {
+      "file": "assets/audio/lines/haitian-creole-puck-d69404aebd6a1a0c.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_meet_neighbour:say_new_neighbour_variant_9": {
+      "file": "assets/audio/lines/haitian-creole-puck-c718ca9454a69bdd.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_meet_neighbour:speak_lang": {
+      "file": "assets/audio/lines/haitian-creole-puck-139e9c37fd9f97b2.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_meet_neighbour:thanks": {
+      "file": "assets/audio/lines/haitian-creole-puck-ea8e5d700f6e0625.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_meet_neighbour:where_from_q": {
+      "file": "assets/audio/lines/haitian-creole-puck-f5d910e2f2302124.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_take_taxi:ask_fare_variant_11": {
+      "file": "assets/audio/lines/haitian-creole-puck-3a2310cee4d21c52.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_take_taxi:bye": {
+      "file": "assets/audio/lines/haitian-creole-puck-e6dca733184f4454.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_take_taxi:change": {
+      "file": "assets/audio/lines/haitian-creole-puck-62962f7ba79156ff.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_take_taxi:destination": {
+      "file": "assets/audio/lines/haitian-creole-puck-c795c3d0cd314104.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_take_taxi:fare": {
+      "file": "assets/audio/lines/haitian-creole-puck-5947f211e97dc793.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_take_taxi:hail": {
+      "file": "assets/audio/lines/haitian-creole-puck-ccc47e86a744de9e.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_take_taxi:hail_taxi_variant_9": {
+      "file": "assets/audio/lines/haitian-creole-puck-0368c103351b6f02.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_take_taxi:meter": {
+      "file": "assets/audio/lines/haitian-creole-puck-dbd714b2ff429f2b.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_take_taxi:say_stop_here_variant_10": {
+      "file": "assets/audio/lines/haitian-creole-puck-a112254217a55f36.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_take_taxi:stop": {
+      "file": "assets/audio/lines/haitian-creole-puck-0de3e8b726418bcc.mp3",
+      "voice": "haitian-creole-puck"
+    },
+    "haitian_creole_ch1:haitian_creole_take_taxi:where_to": {
+      "file": "assets/audio/lines/haitian-creole-orus-ee4c0f787849fcde.mp3",
+      "voice": "haitian-creole-orus"
+    }
+  }
+}

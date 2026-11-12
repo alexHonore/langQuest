@@ -29,12 +29,13 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
   page.on('console', (m) => {
     if (m.type() === 'error') errors.push(`console error: ${m.text()}`);
   });
-  // The content bundle files the page fetched (`catalog.json`, `chapters/<track>.json`…), in order.
+  // The content files the page fetched (`catalog.json`, `chapters/<track>.json`…), in order: from the content bucket
+  // (named by content, `chapters/<track>.<hash>.json`) or a plain copy of the repository's (CI), so the hash is dropped.
   const content = [];
   page.on('request', (r) => {
     const path = new URL(r.url()).pathname;
-    const at = path.indexOf('/assets/content/');
-    if (at >= 0) content.push(path.slice(at + '/assets/content/'.length));
+    const at = path.indexOf('/content/');
+    if (at >= 0 && path.endsWith('.json')) content.push(path.slice(at + '/content/'.length).replace(/\.[0-9a-f]{12}\.json$/, '.json'));
   });
   const courseFiles = () => content.filter((f) => f === 'chapters.json' || f.startsWith('chapters/'));
   const expectCourseFiles = (expected, when) => {

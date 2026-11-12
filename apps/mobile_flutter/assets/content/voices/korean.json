@@ -1,0 +1,334 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "korean",
+  "voices": {
+    "korean-aoede": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Aoede (Gemini TTS, instructed standard Seoul Korean)"
+    },
+    "korean-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed standard Seoul Korean)"
+    },
+    "korean-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed standard Seoul Korean)"
+    }
+  },
+  "lines": {
+    "korean_ch1:korean_ask_directions:ask_repeat_variant_11": {
+      "file": "assets/audio/lines/korean-puck-00faed8080d31c60.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_ask_directions:ask_slow_down_variant_10": {
+      "file": "assets/audio/lines/korean-puck-28fb6819c79747b8.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_ask_directions:ask_where_is_variant_12": {
+      "file": "assets/audio/lines/korean-puck-87c411af70d34a6b.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_ask_directions:excuse_me": {
+      "file": "assets/audio/lines/korean-puck-bbbcbe3b557acfb7.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_ask_directions:far": {
+      "file": "assets/audio/lines/korean-puck-d6ff62bf5faffb6b.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_ask_directions:near": {
+      "file": "assets/audio/lines/korean-orus-0ab094285b4a49ff.mp3",
+      "voice": "korean-orus"
+    },
+    "korean_ch1:korean_ask_directions:repeat": {
+      "file": "assets/audio/lines/korean-puck-1afa933826b04aa9.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_ask_directions:slower": {
+      "file": "assets/audio/lines/korean-puck-bedb65a1535490a6.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_ask_directions:straight": {
+      "file": "assets/audio/lines/korean-orus-dccc851eb2f684da.mp3",
+      "voice": "korean-orus"
+    },
+    "korean_ch1:korean_ask_directions:thanks": {
+      "file": "assets/audio/lines/korean-puck-9212b4d826dfba3a.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_ask_directions:turn": {
+      "file": "assets/audio/lines/korean-orus-5d35d8241fc7191b.mp3",
+      "voice": "korean-orus"
+    },
+    "korean_ch1:korean_ask_directions:where_is": {
+      "file": "assets/audio/lines/korean-puck-5817331289ac163b.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_buy_ice_cream:asks_two": {
+      "file": "assets/audio/lines/korean-aoede-6b023aeedf7864a4.mp3",
+      "voice": "korean-aoede"
+    },
+    "korean_ch1:korean_buy_ice_cream:just_one": {
+      "file": "assets/audio/lines/korean-puck-e69bf07d40b1b53c.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_buy_ice_cream:me_too": {
+      "file": "assets/audio/lines/korean-puck-bef295f03c4017f0.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_buy_ice_cream:offer_options_variant_12": {
+      "file": "assets/audio/lines/korean-puck-3d27fb14222304c8.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_buy_ice_cream:okay": {
+      "file": "assets/audio/lines/korean-puck-ad2b3db2c76caeca.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_buy_ice_cream:picks": {
+      "file": "assets/audio/lines/korean-aoede-29750432aaa7fa08.mp3",
+      "voice": "korean-aoede"
+    },
+    "korean_ch1:korean_buy_ice_cream:refuse_permission_variant_14": {
+      "file": "assets/audio/lines/korean-puck-0e361bb427771871.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_buy_ice_cream:scoop": {
+      "file": "assets/audio/lines/korean-puck-52a4f6018f20c8f3.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_buy_ice_cream:specify_quantity_variant_13": {
+      "file": "assets/audio/lines/korean-puck-5ce0c17069720045.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_buy_ice_cream:thanks": {
+      "file": "assets/audio/lines/korean-aoede-e547dae2af17ead4.mp3",
+      "voice": "korean-aoede"
+    },
+    "korean_ch1:korean_buy_ice_cream:wants": {
+      "file": "assets/audio/lines/korean-aoede-7d30d816dc9b7a42.mp3",
+      "voice": "korean-aoede"
+    },
+    "korean_ch1:korean_buy_ice_cream:welcome": {
+      "file": "assets/audio/lines/korean-puck-ecf95376ddca8397.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_buy_ice_cream:which_flavour": {
+      "file": "assets/audio/lines/korean-puck-ca6e88ef488a4b26.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_buy_ice_cream:yummy": {
+      "file": "assets/audio/lines/korean-aoede-2430016ecce8f910.mp3",
+      "voice": "korean-aoede"
+    },
+    "korean_ch1:korean_cafe_order_drink:ask_for_bill_variant_9": {
+      "file": "assets/audio/lines/korean-puck-4c5cd63c1dfa7123.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_cafe_order_drink:bill": {
+      "file": "assets/audio/lines/korean-puck-bb28eae8c8f56982.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_cafe_order_drink:choice": {
+      "file": "assets/audio/lines/korean-puck-1bc2bd56c5b6e1ed.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_cafe_order_drink:choose_option_variant_8": {
+      "file": "assets/audio/lines/korean-puck-f3dba4bfc5988224.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_cafe_order_drink:greeting": {
+      "file": "assets/audio/lines/korean-puck-f3559af1a2b9446a.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_cafe_order_drink:options": {
+      "file": "assets/audio/lines/korean-aoede-4fcc065281790e93.mp3",
+      "voice": "korean-aoede"
+    },
+    "korean_ch1:korean_cafe_order_drink:order": {
+      "file": "assets/audio/lines/korean-puck-72f22c9fd6b4699c.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_cafe_order_drink:request_drink_variant_7": {
+      "file": "assets/audio/lines/korean-puck-aa371a37a76a3c5a.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_cafe_order_drink:thank_variant_10": {
+      "file": "assets/audio/lines/korean-puck-8d75efb536b79858.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_cafe_order_drink:thanks": {
+      "file": "assets/audio/lines/korean-puck-9212b4d826dfba3a.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_greet_and_introduce:fine": {
+      "file": "assets/audio/lines/korean-puck-0352cdedc9385fb5.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_greet_and_introduce:goodbye": {
+      "file": "assets/audio/lines/korean-puck-8fb2997064020a0c.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_greet_and_introduce:greet_hello_variant_8": {
+      "file": "assets/audio/lines/korean-puck-d7a59e33a0c3550f.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_greet_and_introduce:greeting": {
+      "file": "assets/audio/lines/korean-puck-e397dc4ba736f564.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_greet_and_introduce:how_are_you": {
+      "file": "assets/audio/lines/korean-puck-cb6b7eeef3b91996.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_greet_and_introduce:my_name": {
+      "file": "assets/audio/lines/korean-puck-b233d13c55aabb91.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_greet_and_introduce:nice_to_meet": {
+      "file": "assets/audio/lines/korean-puck-4d9dd2433742c527.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_greet_and_introduce:say_goodbye_variant_9": {
+      "file": "assets/audio/lines/korean-puck-a3ffe8a2f59f6df3.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_greet_and_introduce:your_name": {
+      "file": "assets/audio/lines/korean-puck-a14a82832d349184.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_market_ask_price:agree_to_price_variant_11": {
+      "file": "assets/audio/lines/korean-puck-d052d5a3e1bf16dd.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_market_ask_price:ask_price_variant_9": {
+      "file": "assets/audio/lines/korean-puck-56fd482e6aab0a9e.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_market_ask_price:deal": {
+      "file": "assets/audio/lines/korean-puck-4bcebbd268b0d9aa.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_market_ask_price:decline_purchase_variant_12": {
+      "file": "assets/audio/lines/korean-puck-12c3eb13dc274d56.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_market_ask_price:expensive": {
+      "file": "assets/audio/lines/korean-puck-4f61e1e36eacc184.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_market_ask_price:greet_hello_variant_8": {
+      "file": "assets/audio/lines/korean-puck-2735dce9447aaed8.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_market_ask_price:greeting": {
+      "file": "assets/audio/lines/korean-puck-d81667effcd5fb1d.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_market_ask_price:how_much": {
+      "file": "assets/audio/lines/korean-puck-d598a478e2b3c9d2.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_market_ask_price:lower": {
+      "file": "assets/audio/lines/korean-puck-1e420ce7e6835cca.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_market_ask_price:no_thanks": {
+      "file": "assets/audio/lines/korean-puck-97191de4c216af05.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_market_ask_price:offer_lower_price_variant_10": {
+      "file": "assets/audio/lines/korean-puck-6b40b559b5cd5b56.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_market_ask_price:price": {
+      "file": "assets/audio/lines/korean-aoede-3d7b011fd7200a0e.mp3",
+      "voice": "korean-aoede"
+    },
+    "korean_ch1:korean_meet_neighbour:from": {
+      "file": "assets/audio/lines/korean-puck-df8a13b548577ff1.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_meet_neighbour:little": {
+      "file": "assets/audio/lines/korean-puck-c069a45cf9b14945.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_meet_neighbour:new_neighbour": {
+      "file": "assets/audio/lines/korean-puck-e31febb06017f4a5.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_meet_neighbour:offer_help": {
+      "file": "assets/audio/lines/korean-puck-1d2d34378ab69d81.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_meet_neighbour:say_new_neighbour_variant_9": {
+      "file": "assets/audio/lines/korean-puck-f5d54bfa28765fee.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_meet_neighbour:say_speak_little_variant_10": {
+      "file": "assets/audio/lines/korean-puck-1b468295ca1f8543.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_meet_neighbour:speak_lang": {
+      "file": "assets/audio/lines/korean-puck-fb1a06f81aceaa91.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_meet_neighbour:thanks": {
+      "file": "assets/audio/lines/korean-puck-b9456201120406e6.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_meet_neighbour:welcome": {
+      "file": "assets/audio/lines/korean-aoede-85bfa6a38860b64b.mp3",
+      "voice": "korean-aoede"
+    },
+    "korean_ch1:korean_meet_neighbour:where_from_q": {
+      "file": "assets/audio/lines/korean-puck-d69ab86a9c01eb5a.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_take_taxi:ask_fare_variant_11": {
+      "file": "assets/audio/lines/korean-puck-0652707cc65c272d.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_take_taxi:ask_use_meter_variant_9": {
+      "file": "assets/audio/lines/korean-puck-56002d135e55f358.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_take_taxi:bye": {
+      "file": "assets/audio/lines/korean-puck-62ce0d62c23a72a7.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_take_taxi:change": {
+      "file": "assets/audio/lines/korean-puck-5662ddc35a716361.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_take_taxi:destination": {
+      "file": "assets/audio/lines/korean-puck-89f5d1d6e391706a.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_take_taxi:fare": {
+      "file": "assets/audio/lines/korean-puck-ad7f00adec719c2d.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_take_taxi:hail": {
+      "file": "assets/audio/lines/korean-puck-f09de57895ef252b.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_take_taxi:meter": {
+      "file": "assets/audio/lines/korean-puck-8a6aab0c94b91ffb.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_take_taxi:say_stop_here_variant_10": {
+      "file": "assets/audio/lines/korean-puck-eb0b1299c2778795.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_take_taxi:stop": {
+      "file": "assets/audio/lines/korean-puck-3c360acea0029b7a.mp3",
+      "voice": "korean-puck"
+    },
+    "korean_ch1:korean_take_taxi:where_to": {
+      "file": "assets/audio/lines/korean-orus-a0c64b8a376fbfed.mp3",
+      "voice": "korean-orus"
+    }
+  }
+}

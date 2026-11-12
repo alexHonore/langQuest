@@ -30,6 +30,9 @@ class Course {
 
 String courseIdFor(String trackId, String source) => '$trackId|$source';
 
+/// A course's own files, read ([ContentBundle.readCourseFiles]).
+typedef CourseFiles = ({String trackId, List<Chapter> chapters, BundledVoices voices});
+
 /// Reads a bundle file by its asset path (`rootBundle.loadString` in the app, the package's files in tests).
 typedef ContentReader = Future<String> Function(String assetPath);
 
@@ -81,10 +84,15 @@ class ContentBundle {
   static const skillsAsset = 'assets/content/skills.json';
   static const castAsset = 'assets/content/cast.json';
   static const examplesAsset = 'assets/content/examples.json';
+  /// Every course's voices in one file: what `synthesize-bundle-audio` writes. The app reads each course's own
+  /// ([voicesOf]), split from it by `export-flutter-content`.
   static const voicesAsset = 'assets/content/voices.json';
 
-  /// The asset holding [trackId]'s chapters.
+  /// The file holding [trackId]'s chapters.
   static String chaptersAsset(String trackId) => 'assets/content/chapters/$trackId.json';
+
+  /// The file mapping [trackId]'s lines to their voice clips.
+  static String voicesOf(String trackId) => 'assets/content/voices/$trackId.json';
 
   /// Parse the bundle files ([coursesJson]: course chapter files, any number); throws [FormatException] on an
   /// unsupported schema version.
@@ -140,14 +148,15 @@ class ContentBundle {
     return doc;
   }
 
-  /// The catalog and what every course shares, plus the chapters of [courses] (the learner's, at start-up). A course
-  /// whose file cannot be read is left out (logged), to be read again when it is opened; a malformed file throws.
+  /// The catalog and what every course shares, plus the chapters and voices of [courses] (the learner's, at start-up)
+  /// and of no other course. A course whose file cannot be read is left out (logged), to be read again when it is
+  /// opened; a malformed file throws.
   static Future<ContentBundle> load(ContentReader read, {Iterable<String> courses = const []}) async {
-    final files = await Future.wait([catalogAsset, skillsAsset, castAsset, examplesAsset, voicesAsset].map(read));
-    var bundle = ContentBundle.parse(catalogJson: files[0], skillsJson: files[1], castJson: files[2], examplesJson: files[3], voicesJson: files[4]);
-    Future<String?> readCourse(String trackId) async {
+    final files = await Future.wait([catalogAsset, skillsAsset, castAsset, examplesAsset].map(read));
+    var bundle = ContentBundle.parse(catalogJson: files[0], skillsJson: files[1], castJson: files[2], examplesJson: files[3]);
+    Future<CourseFiles?> readCourse(String trackId) async {
       try {
-        return await read(chaptersAsset(trackId));
+        return await readCourseFiles(read, trackId);
       } catch (e) {
         debugPrint('Course $trackId not loaded at start-up: $e');
         return null;
@@ -158,15 +167,27 @@ class ContentBundle {
       for (final id in courses)
         if (bundle.track(id) != null && !bundle.isLoaded(id)) id,
     };
-    for (final json in (await Future.wait(wanted.map(readCourse))).nonNulls) {
-      final course = parseCourse(json);
-      bundle = bundle.withCourse(course.trackId, course.chapters);
+    for (final course in (await Future.wait(wanted.map(readCourse))).nonNulls) {
+      bundle = bundle.withCourse(course.trackId, course.chapters, voices: course.voices);
     }
     return bundle;
   }
 
-  /// This bundle with [trackId]'s chapters (replacing any read before).
-  ContentBundle withCourse(String trackId, List<Chapter> courseChapters) => ContentBundle(
+  /// [trackId]'s chapters and voices. A course without voices yet (no clip recorded) has none; its chapters must read.
+  static Future<CourseFiles> readCourseFiles(ContentReader read, String trackId) async {
+    final chaptersJson = read(chaptersAsset(trackId));
+    final voicesJson = read(voicesOf(trackId)).then<String?>((v) => v, onError: (Object e) {
+      debugPrint('No voices for $trackId: $e');
+      return null;
+    });
+    final course = parseCourse(await chaptersJson);
+    if (course.trackId != trackId) throw FormatException('${chaptersAsset(trackId)} holds the chapters of ${course.trackId}');
+    final voices = await voicesJson;
+    return (trackId: trackId, chapters: course.chapters, voices: voices == null ? BundledVoices.empty : BundledVoices.parse(voices));
+  }
+
+  /// This bundle with [trackId]'s chapters (replacing any read before), and its [voices].
+  ContentBundle withCourse(String trackId, List<Chapter> courseChapters, {BundledVoices voices = BundledVoices.empty}) => ContentBundle(
     tracks: tracks,
     chapters: [
       for (final c in chapters)
@@ -177,8 +198,31 @@ class ContentBundle {
     skills: skills,
     roles: roles,
     examples: examples,
-    voices: voices,
+    voices: this.voices.merge(voices),
   );
+
+  /// This bundle without [trackId]'s chapters and voices: the learner left the course, and nothing of it stays in
+  /// memory.
+  ContentBundle withoutCourse(String trackId) {
+    final own = {
+      for (final c in chapters)
+        if (c.courseTrackId == trackId)
+          for (final m in c.missions)
+            for (final e in m.expressions) e.id,
+    };
+    return ContentBundle(
+      tracks: tracks,
+      chapters: [
+        for (final c in chapters)
+          if (c.courseTrackId != trackId) c,
+      ],
+      loadedTracks: {..._loadedTracks}..remove(trackId),
+      skills: skills,
+      roles: roles,
+      examples: examples,
+      voices: voices.without(own),
+    );
+  }
 
   /// Whether [trackId]'s chapters are in memory, or it has none to read (a planned course). False for an unknown track.
   bool isLoaded(String trackId) {
@@ -262,9 +306,13 @@ class ContentNotifier extends Notifier<ContentBundle> {
   }
 
   Future<void> _load(ContentReader read, String trackId) async {
-    final course = ContentBundle.parseCourse(await read(ContentBundle.chaptersAsset(trackId)));
-    if (course.trackId != trackId) throw FormatException('${ContentBundle.chaptersAsset(trackId)} holds the chapters of ${course.trackId}');
-    if (ref.mounted && !state.isLoaded(trackId)) state = state.withCourse(trackId, course.chapters);
+    final course = await ContentBundle.readCourseFiles(read, trackId);
+    if (ref.mounted && !state.isLoaded(trackId)) state = state.withCourse(trackId, course.chapters, voices: course.voices);
+  }
+
+  /// Lets go of [trackId]'s chapters and voices (the learner left the course): only what they selected stays in memory.
+  void unloadCourse(String trackId) {
+    if (state.isLoaded(trackId) && state.track(trackId)?.sources.isNotEmpty == true) state = state.withoutCourse(trackId);
   }
 }
 

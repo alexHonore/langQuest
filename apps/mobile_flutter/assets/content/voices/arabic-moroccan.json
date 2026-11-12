@@ -1,0 +1,1050 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "arabic-moroccan",
+  "voices": {
+    "ary-kore": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Kore (Gemini TTS, instructed Moroccan Darija as spoken in Casablanca)"
+    },
+    "ary-charon": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Charon (Gemini TTS, instructed Moroccan Darija as spoken in Casablanca)"
+    },
+    "ary-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed Moroccan Darija as spoken in Casablanca)"
+    }
+  },
+  "lines": {
+    "arabic_moroccan_ch2:ary_buy_train_ticket:card": {
+      "file": "assets/audio/lines/ary-puck-fdcc8e017232ec31.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_buy_train_ticket:cut_a_ticket": {
+      "file": "assets/audio/lines/ary-puck-a0a5f0f9855a6f1d.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_buy_train_ticket:last_stop": {
+      "file": "assets/audio/lines/ary-kore-368838d8465e5d2c.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch2:ary_buy_train_ticket:one_way": {
+      "file": "assets/audio/lines/ary-puck-ea3dbbc26baa4f02.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_buy_train_ticket:single_or_return": {
+      "file": "assets/audio/lines/ary-kore-e44a7e6dc3b4db39.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch2:ary_buy_train_ticket:ticket": {
+      "file": "assets/audio/lines/ary-puck-cb13c927886abb43.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_buy_train_ticket:time": {
+      "file": "assets/audio/lines/ary-kore-f9f261c3ef7d5ae9.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch2:ary_buy_train_ticket:total": {
+      "file": "assets/audio/lines/ary-kore-118e61f84e7b3f91.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch2:ary_buy_train_ticket:two": {
+      "file": "assets/audio/lines/ary-puck-df7d67145f2dd92a.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_buy_train_ticket:when": {
+      "file": "assets/audio/lines/ary-puck-f1971c93c7f1a6ca.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_buy_train_ticket:which_stop": {
+      "file": "assets/audio/lines/ary-puck-7da3d130adaf4cf1.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_emergency_ask_help:calm": {
+      "file": "assets/audio/lines/ary-kore-cd08214a3e9fba78.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch2:ary_emergency_ask_help:give_me_a_hand": {
+      "file": "assets/audio/lines/ary-puck-2e6e1a6623a90f11.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_emergency_ask_help:help": {
+      "file": "assets/audio/lines/ary-puck-3c7833beb4dd3f2b.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_emergency_ask_help:need_doctor": {
+      "file": "assets/audio/lines/ary-puck-1a005236a81f7182.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_emergency_ask_help:pain": {
+      "file": "assets/audio/lines/ary-puck-0889e4c26dc1e0c6.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_emergency_ask_help:pharmacy": {
+      "file": "assets/audio/lines/ary-puck-d9df7605ef279f2a.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_emergency_ask_help:pharmacy_near": {
+      "file": "assets/audio/lines/ary-kore-fac9a0f560902b5d.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch2:ary_emergency_ask_help:type": {
+      "file": "assets/audio/lines/ary-puck-a8cba7e7d60a98f1.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_emergency_ask_help:understood": {
+      "file": "assets/audio/lines/ary-puck-1b923dd35cd5fd88.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_emergency_ask_help:what_happened": {
+      "file": "assets/audio/lines/ary-kore-866d608d86c827aa.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch2:ary_make_weekend_plans:accept": {
+      "file": "assets/audio/lines/ary-puck-1b1b22d45aba1ae0.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_make_weekend_plans:cinema": {
+      "file": "assets/audio/lines/ary-puck-3d5e44d6a686fec3.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_make_weekend_plans:confirm": {
+      "file": "assets/audio/lines/ary-puck-4d918a4dbb489714.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_make_weekend_plans:decline": {
+      "file": "assets/audio/lines/ary-puck-2eeb44946b5ae354.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_make_weekend_plans:fish_after": {
+      "file": "assets/audio/lines/ary-charon-cc9d8a3f56bd934e.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch2:ary_make_weekend_plans:go_out_saturday": {
+      "file": "assets/audio/lines/ary-charon-c0d3edb53df55ab1.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch2:ary_make_weekend_plans:no_time": {
+      "file": "assets/audio/lines/ary-puck-f8331f2e99811403.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_make_weekend_plans:other_time": {
+      "file": "assets/audio/lines/ary-puck-ce4033bcdb10646b.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_make_weekend_plans:suggest": {
+      "file": "assets/audio/lines/ary-puck-8af25139c62cf1e9.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_make_weekend_plans:sunday_ok": {
+      "file": "assets/audio/lines/ary-charon-3d0c9f08581b0e3a.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch2:ary_make_weekend_plans:when": {
+      "file": "assets/audio/lines/ary-puck-e4a82ed12f413987.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_restaurant_order_meal:bill": {
+      "file": "assets/audio/lines/ary-puck-401980711ca0baf0.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_restaurant_order_meal:delicious": {
+      "file": "assets/audio/lines/ary-puck-9aa22f79943dc3d4.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_restaurant_order_meal:dish_of_day": {
+      "file": "assets/audio/lines/ary-charon-d0887d6a2fc089d2.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch2:ary_restaurant_order_meal:enjoy": {
+      "file": "assets/audio/lines/ary-charon-cbd0f2ead3ff339d.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch2:ary_restaurant_order_meal:have_table": {
+      "file": "assets/audio/lines/ary-puck-44fed23376c5f78a.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_restaurant_order_meal:ingredients": {
+      "file": "assets/audio/lines/ary-puck-8555a2b9476e888a.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_restaurant_order_meal:order": {
+      "file": "assets/audio/lines/ary-puck-6a135803b0e2872a.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_restaurant_order_meal:recommend": {
+      "file": "assets/audio/lines/ary-puck-998a8be11088a7be.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_restaurant_order_meal:table": {
+      "file": "assets/audio/lines/ary-puck-36aa3ac46c2c55b2.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_restaurant_order_meal:take_chicken_tagine": {
+      "file": "assets/audio/lines/ary-puck-1426c8d79b3a8c70.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_restaurant_order_meal:welcome": {
+      "file": "assets/audio/lines/ary-charon-dc463129a49741fd.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch2:ary_restaurant_order_meal:with_almonds": {
+      "file": "assets/audio/lines/ary-charon-490020f75ecce251.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch2:ary_shop_for_clothes:can_i_help": {
+      "file": "assets/audio/lines/ary-charon-08ef3f480e6c3220.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch2:ary_shop_for_clothes:card": {
+      "file": "assets/audio/lines/ary-puck-86f86cf0eb9dfc45.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_shop_for_clothes:discount": {
+      "file": "assets/audio/lines/ary-charon-cbb7e8c73f5082bc.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch2:ary_shop_for_clothes:just_looking": {
+      "file": "assets/audio/lines/ary-puck-f54670e98f2ff85e.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_shop_for_clothes:last_price": {
+      "file": "assets/audio/lines/ary-puck-cd9ccafaf547d14b.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_shop_for_clothes:other_colour": {
+      "file": "assets/audio/lines/ary-puck-58bc2cdfd825ee96.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_shop_for_clothes:price": {
+      "file": "assets/audio/lines/ary-puck-8a00800caecd2bc5.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_shop_for_clothes:price_is": {
+      "file": "assets/audio/lines/ary-charon-cbd67fef1721b6cb.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch2:ary_shop_for_clothes:take_it": {
+      "file": "assets/audio/lines/ary-puck-f3b12bd6d5a69f33.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_shop_for_clothes:try_it": {
+      "file": "assets/audio/lines/ary-charon-4f04328d4e08ad0e.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch2:ary_shop_for_clothes:variant": {
+      "file": "assets/audio/lines/ary-puck-47a583e6627d959c.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_shop_for_clothes:want": {
+      "file": "assets/audio/lines/ary-puck-1b1aba2c33c97d8f.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_talk_about_family:and_you": {
+      "file": "assets/audio/lines/ary-kore-f153c0ef49e02322.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch2:ary_talk_about_family:ask_family": {
+      "file": "assets/audio/lines/ary-puck-6f574a9910bb18bb.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_talk_about_family:come_in": {
+      "file": "assets/audio/lines/ary-kore-10f0c602a46b1130.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch2:ary_talk_about_family:compliment_reply": {
+      "file": "assets/audio/lines/ary-puck-12ebdab74af3c24a.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_talk_about_family:delicious": {
+      "file": "assets/audio/lines/ary-puck-1bdd7d327409db9e.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_talk_about_family:dont_know": {
+      "file": "assets/audio/lines/ary-puck-f22d3393c5be7850.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_talk_about_family:five_of_us": {
+      "file": "assets/audio/lines/ary-puck-55c1bdb4fa89739c.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_talk_about_family:my_family": {
+      "file": "assets/audio/lines/ary-puck-6bc4ca73d67a1c1b.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch2:ary_talk_about_family:when_marry": {
+      "file": "assets/audio/lines/ary-kore-784bc7d62ef79219.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch2:ary_talk_about_family:you_speak_well": {
+      "file": "assets/audio/lines/ary-kore-7fe0f4383b19a62c.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch3:ary_ask_for_advice:derb_ghallef": {
+      "file": "assets/audio/lines/ary-charon-60e6ced23bbbde59.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch3:ary_ask_for_advice:excuse_me": {
+      "file": "assets/audio/lines/ary-puck-d15c718ae89f5c78.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_ask_for_advice:flea_market": {
+      "file": "assets/audio/lines/ary-charon-ebaeec67ef8b864a.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch3:ary_ask_for_advice:go_early": {
+      "file": "assets/audio/lines/ary-charon-c95d78eab0dd34f6.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch3:ary_ask_for_advice:hours": {
+      "file": "assets/audio/lines/ary-puck-2e58219bdbdefb50.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_ask_for_advice:how_to_get": {
+      "file": "assets/audio/lines/ary-puck-35eab18ca5fb0e2f.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_ask_for_advice:is_it_far": {
+      "file": "assets/audio/lines/ary-puck-1d4bd9e35cfa5619.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_ask_for_advice:quarter_hour": {
+      "file": "assets/audio/lines/ary-charon-a682942900174d9a.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch3:ary_ask_for_advice:recommend": {
+      "file": "assets/audio/lines/ary-puck-f646c98d417b066c.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_ask_for_advice:thanks": {
+      "file": "assets/audio/lines/ary-puck-b6a5e26fa682b5a8.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_ask_for_advice:what_to_see": {
+      "file": "assets/audio/lines/ary-puck-33582e19c97ee4e1.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_ask_for_advice:why": {
+      "file": "assets/audio/lines/ary-puck-ba16c5d3f9907815.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_describe_your_day:and_then": {
+      "file": "assets/audio/lines/ary-kore-340aa4a408b1bd86.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch3:ary_describe_your_day:feeling": {
+      "file": "assets/audio/lines/ary-puck-e625098285a753d5.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_describe_your_day:job": {
+      "file": "assets/audio/lines/ary-puck-96a6d14e64da70a7.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_describe_your_day:poor_you": {
+      "file": "assets/audio/lines/ary-kore-be4761fe494f0b54.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch3:ary_describe_your_day:routine": {
+      "file": "assets/audio/lines/ary-puck-4febdb254801fe76.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_describe_your_day:saturday_sleep": {
+      "file": "assets/audio/lines/ary-puck-f779f9c04e209216.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_describe_your_day:time": {
+      "file": "assets/audio/lines/ary-puck-0325721c97677fd5.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_describe_your_day:what_time_up": {
+      "file": "assets/audio/lines/ary-kore-a5b1312f26a7e203.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch3:ary_describe_your_day:worn_out": {
+      "file": "assets/audio/lines/ary-puck-ee6a89c85fa64f1c.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_describe_your_day:you_look_tired": {
+      "file": "assets/audio/lines/ary-kore-31afd2c8a02236ac.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch3:ary_friendly_debate:agree": {
+      "file": "assets/audio/lines/ary-puck-9e5942ae140ae278.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_friendly_debate:because": {
+      "file": "assets/audio/lines/ary-puck-592776aca5977b4f.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_friendly_debate:clean_air": {
+      "file": "assets/audio/lines/ary-charon-7c7073818afe12b3.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch3:ary_friendly_debate:disagree": {
+      "file": "assets/audio/lines/ary-puck-16d1a557ab6c0b56.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_friendly_debate:dont_think_so": {
+      "file": "assets/audio/lines/ary-puck-75ee345c17f73f69.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_friendly_debate:fed_up": {
+      "file": "assets/audio/lines/ary-charon-607e44386f4ffcf4.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch3:ary_friendly_debate:opinion": {
+      "file": "assets/audio/lines/ary-puck-1cd9f8778cd4e50d.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_friendly_debate:rent_too_high": {
+      "file": "assets/audio/lines/ary-charon-222e23c5c536b30f.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch3:ary_friendly_debate:still_prefer_city": {
+      "file": "assets/audio/lines/ary-puck-18f0bcc5cb320a40.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_friendly_debate:what_do_you_think": {
+      "file": "assets/audio/lines/ary-puck-6f9a6a7d3cc7a485.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_friendly_debate:why": {
+      "file": "assets/audio/lines/ary-charon-db8f044b136d7546.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_hobbies:and_you": {
+      "file": "assets/audio/lines/ary-puck-eadf655146956069.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_hobbies:crazy_about_football": {
+      "file": "assets/audio/lines/ary-puck-ac9977c9f3479a9f.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_hobbies:dislike": {
+      "file": "assets/audio/lines/ary-puck-d7a613869a2caf76.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_hobbies:free_time": {
+      "file": "assets/audio/lines/ary-puck-9b0e4b0606f2017d.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_hobbies:like": {
+      "file": "assets/audio/lines/ary-puck-178c49c3da7368a9.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_hobbies:me_too": {
+      "file": "assets/audio/lines/ary-kore-51383b080f08dc97.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_hobbies:prefer": {
+      "file": "assets/audio/lines/ary-puck-670f68f75927971a.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_hobbies:together": {
+      "file": "assets/audio/lines/ary-puck-d98c2cb598993932.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_hobbies:weekend_question": {
+      "file": "assets/audio/lines/ary-kore-bdef33211870157c.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_hobbies:which_side": {
+      "file": "assets/audio/lines/ary-kore-136de5d01d285249.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_hobbies:wydad_forever": {
+      "file": "assets/audio/lines/ary-kore-d4d603cbf199c4a3.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_work:before": {
+      "file": "assets/audio/lines/ary-charon-436c591ac9400a7b.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_work:clarify": {
+      "file": "assets/audio/lines/ary-puck-5598c42e0c55f943.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_work:clock_in": {
+      "file": "assets/audio/lines/ary-charon-8a8e7a71741153e8.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_work:honoured": {
+      "file": "assets/audio/lines/ary-puck-a6cc4e2bc45ba444.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_work:intro": {
+      "file": "assets/audio/lines/ary-puck-11a013e4e24f8acd.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_work:it_means": {
+      "file": "assets/audio/lines/ary-charon-cc842a73e5473476.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_work:job": {
+      "file": "assets/audio/lines/ary-puck-6576d05d19191497.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_work:meaning": {
+      "file": "assets/audio/lines/ary-puck-cc6de4294b7c1e4d.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_work:permission": {
+      "file": "assets/audio/lines/ary-puck-e29abfaa931aff59.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_work:pleased": {
+      "file": "assets/audio/lines/ary-puck-978978a6b3d9fb61.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_talk_about_work:welcome": {
+      "file": "assets/audio/lines/ary-charon-3eb2bee00e61d940.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch3:ary_tell_a_story:chibani": {
+      "file": "assets/audio/lines/ary-charon-999024a6f8b3ef4f.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch3:ary_tell_a_story:ended_well": {
+      "file": "assets/audio/lines/ary-puck-a8ba7b9c065aba78.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_tell_a_story:how_in_darija": {
+      "file": "assets/audio/lines/ary-puck-83675ec3e9df2db3.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_tell_a_story:how_out": {
+      "file": "assets/audio/lines/ary-charon-72dc66f959859e9c.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch3:ary_tell_a_story:how_to_say": {
+      "file": "assets/audio/lines/ary-puck-b866d1174ea9ca41.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_tell_a_story:i_mean": {
+      "file": "assets/audio/lines/ary-puck-a280a813053faefe.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_tell_a_story:kind_old_man": {
+      "file": "assets/audio/lines/ary-puck-94da38f8e6719584.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_tell_a_story:story": {
+      "file": "assets/audio/lines/ary-puck-3b46ded8f52a3f7c.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch3:ary_tell_a_story:when_was_it": {
+      "file": "assets/audio/lines/ary-charon-4e6aa7c70a9f83a5.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch3:ary_tell_a_story:where_were_you": {
+      "file": "assets/audio/lines/ary-charon-20eea6e634617d33.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch3:ary_tell_a_story:yesterday": {
+      "file": "assets/audio/lines/ary-puck-fe25e4f39f23ecfd.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_join_a_club:fee": {
+      "file": "assets/audio/lines/ary-charon-c9f2aad873a7316d.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch4:ary_join_a_club:hours": {
+      "file": "assets/audio/lines/ary-puck-59e471aae982acd0.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_join_a_club:like": {
+      "file": "assets/audio/lines/ary-puck-dc0f7b6bd19cf51f.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_join_a_club:of_course": {
+      "file": "assets/audio/lines/ary-charon-6aa20eb6ad03e984.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch4:ary_join_a_club:price": {
+      "file": "assets/audio/lines/ary-puck-aef5eb872b9de786.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_join_a_club:see_you": {
+      "file": "assets/audio/lines/ary-puck-286ce237aead9514.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_join_a_club:try": {
+      "file": "assets/audio/lines/ary-puck-5467702af90a971d.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_join_a_club:tue_thu": {
+      "file": "assets/audio/lines/ary-charon-fb9152d43da60d46.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch4:ary_join_a_club:want_to_play": {
+      "file": "assets/audio/lines/ary-charon-7b638563084dc0df.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch4:ary_join_a_club:which_day": {
+      "file": "assets/audio/lines/ary-puck-fc1db1d2aab93653.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_lost_luggage:deliver_to": {
+      "file": "assets/audio/lines/ary-puck-c71fc1237eb230e3.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_lost_luggage:excuse_me": {
+      "file": "assets/audio/lines/ary-puck-4b3a1107f1bb09cd.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_lost_luggage:flight": {
+      "file": "assets/audio/lines/ary-puck-09b7160b6b40c2cf.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_lost_luggage:how_can_i_help": {
+      "file": "assets/audio/lines/ary-kore-d805ecf7387714ed.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch4:ary_lost_luggage:lost": {
+      "file": "assets/audio/lines/ary-puck-c630325a4118808e.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_lost_luggage:lost_my_suitcase": {
+      "file": "assets/audio/lines/ary-puck-6c93eb6a1f4eed91.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_lost_luggage:still_at_orly": {
+      "file": "assets/audio/lines/ary-kore-ca09bbec71993491.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch4:ary_lost_luggage:thanks": {
+      "file": "assets/audio/lines/ary-puck-6b845df54a0b3d09.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_lost_luggage:tomorrow": {
+      "file": "assets/audio/lines/ary-kore-5daa5c2a085c6372.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch4:ary_lost_luggage:when_back": {
+      "file": "assets/audio/lines/ary-puck-26ee425e28bd2ec8.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_lost_luggage:where_from": {
+      "file": "assets/audio/lines/ary-kore-1e5000406f0eb5db.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch4:ary_post_a_parcel:destination": {
+      "file": "assets/audio/lines/ary-puck-1cb1d9156b647fd3.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_post_a_parcel:how_long": {
+      "file": "assets/audio/lines/ary-puck-75b460fcc87f78b7.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_post_a_parcel:need_a_box": {
+      "file": "assets/audio/lines/ary-puck-540c881a85343048.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_post_a_parcel:not_in_a_hurry": {
+      "file": "assets/audio/lines/ary-puck-8d592e4fdfb5b154.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_post_a_parcel:on_the_scale": {
+      "file": "assets/audio/lines/ary-kore-ec74e9d0ab507e2d.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch4:ary_post_a_parcel:pay": {
+      "file": "assets/audio/lines/ary-puck-6e31bc7df81ff48d.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_post_a_parcel:price": {
+      "file": "assets/audio/lines/ary-puck-0f86cab952e7b875.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_post_a_parcel:send": {
+      "file": "assets/audio/lines/ary-puck-6a184d1f53ee131c.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_post_a_parcel:ten_days": {
+      "file": "assets/audio/lines/ary-kore-6feb7abda769758f.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch4:ary_post_a_parcel:two_options": {
+      "file": "assets/audio/lines/ary-kore-49d44af87cacdf7e.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch4:ary_post_a_parcel:where_to": {
+      "file": "assets/audio/lines/ary-kore-1334d8215d621bc9.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch4:ary_rent_a_flat:first_of_month": {
+      "file": "assets/audio/lines/ary-charon-fbca8db46b455b17.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch4:ary_rent_a_flat:how_much_asking": {
+      "file": "assets/audio/lines/ary-puck-c0938dfc63937a78.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_rent_a_flat:is_it_far": {
+      "file": "assets/audio/lines/ary-puck-8d98ad3c50dce99e.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_rent_a_flat:noisy_neighbour": {
+      "file": "assets/audio/lines/ary-charon-f871385dadc9f20d.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch4:ary_rent_a_flat:on_the_left": {
+      "file": "assets/audio/lines/ary-charon-9d1cd5f0e7283087.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch4:ary_rent_a_flat:opinion": {
+      "file": "assets/audio/lines/ary-puck-9bd2b7cca2f7adf2.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_rent_a_flat:price": {
+      "file": "assets/audio/lines/ary-charon-064721bd47bd0353.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch4:ary_rent_a_flat:rent": {
+      "file": "assets/audio/lines/ary-puck-a2ed3d47c2600a8c.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_rent_a_flat:take_it": {
+      "file": "assets/audio/lines/ary-puck-c72c56711a424eb5.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_rent_a_flat:when_free": {
+      "file": "assets/audio/lines/ary-puck-3125016e5735b46a.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_rent_a_flat:where_is": {
+      "file": "assets/audio/lines/ary-puck-032959af60f90b86.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_return_an_item:bought_when": {
+      "file": "assets/audio/lines/ary-puck-57f032220855e999.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_return_an_item:broken": {
+      "file": "assets/audio/lines/ary-puck-432ac5230e3e084e.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_return_an_item:exchange": {
+      "file": "assets/audio/lines/ary-puck-f323808f24a72a44.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_return_an_item:here_it_is": {
+      "file": "assets/audio/lines/ary-puck-91d65e23b30c2481.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_return_an_item:it_doesnt_work": {
+      "file": "assets/audio/lines/ary-puck-07e10164e626c914.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_return_an_item:no_problem": {
+      "file": "assets/audio/lines/ary-puck-743366e3305b6929.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_return_an_item:or_refund": {
+      "file": "assets/audio/lines/ary-charon-c245ec203a671639.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch4:ary_return_an_item:receipt": {
+      "file": "assets/audio/lines/ary-charon-4e09902d36814ebe.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch4:ary_return_an_item:sorry": {
+      "file": "assets/audio/lines/ary-charon-da0b4f3622b44b72.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch4:ary_return_an_item:thanks": {
+      "file": "assets/audio/lines/ary-puck-5013260a0ae133df.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_return_an_item:when_bought": {
+      "file": "assets/audio/lines/ary-charon-bf6db219045fbe84.mp3",
+      "voice": "ary-charon"
+    },
+    "arabic_moroccan_ch4:ary_see_the_doctor:after_meals": {
+      "file": "assets/audio/lines/ary-kore-ef5ddf44d00a12be.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch4:ary_see_the_doctor:cant_swallow": {
+      "file": "assets/audio/lines/ary-puck-e6f9fa8e4e359f6c.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_see_the_doctor:check": {
+      "file": "assets/audio/lines/ary-kore-a3d0bbfd82c07f7f.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch4:ary_see_the_doctor:hello": {
+      "file": "assets/audio/lines/ary-puck-6671ad1a5d39166a.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_see_the_doctor:pain": {
+      "file": "assets/audio/lines/ary-puck-a17c80d106934e9a.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_see_the_doctor:question": {
+      "file": "assets/audio/lines/ary-puck-9437a4d012676421.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_see_the_doctor:since": {
+      "file": "assets/audio/lines/ary-puck-bdcbaad0159ca37b.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_see_the_doctor:since_when": {
+      "file": "assets/audio/lines/ary-kore-9b871555ba6b868e.mp3",
+      "voice": "ary-kore"
+    },
+    "arabic_moroccan_ch4:ary_see_the_doctor:thanks": {
+      "file": "assets/audio/lines/ary-puck-b1a2887a35483912.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_see_the_doctor:understood": {
+      "file": "assets/audio/lines/ary-puck-c5cbabc8b45a91d9.mp3",
+      "voice": "ary-puck"
+    },
+    "arabic_moroccan_ch4:ary_see_the_doctor:whats_wrong": {
+      "file": "assets/audio/lines/ary-kore-da6f0154b521fdfe.mp3",
+      "voice": "ary-kore"
+    },
+    "ary_ch1_arrival_casablanca:ary_ask_directions:3awed_3afak": {
+      "file": "assets/audio/lines/ary-puck-276ad11b2737e164.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_ask_directions:9riba_khams_d9ay9": {
+      "file": "assets/audio/lines/ary-charon-f421090b4d994f91.mp3",
+      "voice": "ary-charon"
+    },
+    "ary_ch1_arrival_casablanca:ary_ask_directions:bchwiya_3afak": {
+      "file": "assets/audio/lines/ary-puck-d9cc08c8aebe556d.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_ask_directions:chokran_bzzaf": {
+      "file": "assets/audio/lines/ary-puck-2aed726df026f835.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_ask_directions:dor_3la_limen": {
+      "file": "assets/audio/lines/ary-charon-eea32bd3057d4822.mp3",
+      "voice": "ary-charon"
+    },
+    "ary_ch1_arrival_casablanca:ary_ask_directions:fin_lma7atta": {
+      "file": "assets/audio/lines/ary-puck-a251dcb74fe2a2ea.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_ask_directions:ma_fhemtch": {
+      "file": "assets/audio/lines/ary-puck-4b725d06f128f9f1.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_ask_directions:sir_nichan": {
+      "file": "assets/audio/lines/ary-charon-b58093094d0f7fe9.mp3",
+      "voice": "ary-charon"
+    },
+    "ary_ch1_arrival_casablanca:ary_ask_directions:sme7_liya": {
+      "file": "assets/audio/lines/ary-puck-dec33403b0af9080.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_ask_directions:wach_b3ida": {
+      "file": "assets/audio/lines/ary-puck-267d02f2bb591b11.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_buy_ice_cream:7ta_ana_chocolat": {
+      "file": "assets/audio/lines/ary-puck-2bbedd3d3c843b93.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_buy_ice_cream:bghit_glas": {
+      "file": "assets/audio/lines/ary-kore-da38851a0b8ca0a8.mp3",
+      "voice": "ary-kore"
+    },
+    "ary_ch1_arrival_casablanca:ary_buy_ice_cream:bla_jmil": {
+      "file": "assets/audio/lines/ary-puck-5f7668c0442838bd.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_buy_ice_cream:bnin_bzzaf": {
+      "file": "assets/audio/lines/ary-kore-8fb6ac1543bf1b75.mp3",
+      "voice": "ary-kore"
+    },
+    "ary_ch1_arrival_casablanca:ary_buy_ice_cream:chocolat": {
+      "file": "assets/audio/lines/ary-kore-4b626545653f3f8e.mp3",
+      "voice": "ary-kore"
+    },
+    "ary_ch1_arrival_casablanca:ary_buy_ice_cream:chocolat_wla_fraise": {
+      "file": "assets/audio/lines/ary-puck-b057bd761895a7d0.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_buy_ice_cream:chokran_kid": {
+      "file": "assets/audio/lines/ary-kore-e173a0cc7ec25898.mp3",
+      "voice": "ary-kore"
+    },
+    "ary_ch1_arrival_casablanca:ary_buy_ice_cream:la_wa7ed_safi": {
+      "file": "assets/audio/lines/ary-puck-2600ceb032ca420e.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_buy_ice_cream:wa7ed_lboule": {
+      "file": "assets/audio/lines/ary-puck-ff0978fd430b7b6a.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_buy_ice_cream:wakha": {
+      "file": "assets/audio/lines/ary-puck-b5848f4a3dd32e56.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_buy_ice_cream:wakha_jouj": {
+      "file": "assets/audio/lines/ary-kore-03f81869a98b4bf3.mp3",
+      "voice": "ary-kore"
+    },
+    "ary_ch1_arrival_casablanca:ary_cafe_order_drink:bghit_qahwa": {
+      "file": "assets/audio/lines/ary-puck-b5b3e8c83a828709.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_cafe_order_drink:ch7al_l7sab": {
+      "file": "assets/audio/lines/ary-puck-ee72880e2df92480.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_cafe_order_drink:chokran": {
+      "file": "assets/audio/lines/ary-puck-b5fcf1e6ab9eb29a.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_cafe_order_drink:k7la_wla_nessness": {
+      "file": "assets/audio/lines/ary-charon-d0fff5ba77ed9a47.mp3",
+      "voice": "ary-charon"
+    },
+    "ary_ch1_arrival_casablanca:ary_cafe_order_drink:llah_y3tik_se77a": {
+      "file": "assets/audio/lines/ary-puck-034afd6e149a0cc5.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_cafe_order_drink:nessness_3afak": {
+      "file": "assets/audio/lines/ary-puck-86c8a1cf712018c9.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_cafe_order_drink:salam_short": {
+      "file": "assets/audio/lines/ary-puck-cdd090cebe408c9b.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_greet_and_introduce:bslama": {
+      "file": "assets/audio/lines/ary-puck-a3a04d7fe761ad36.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_greet_and_introduce:chno_smitek": {
+      "file": "assets/audio/lines/ary-puck-cdc85382e2035dca.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_greet_and_introduce:labas_q": {
+      "file": "assets/audio/lines/ary-puck-1b209f97848a9f4e.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_greet_and_introduce:labas_reply": {
+      "file": "assets/audio/lines/ary-puck-a1c05a8c974af940.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_greet_and_introduce:metcharfin": {
+      "file": "assets/audio/lines/ary-puck-ab6d936f5ae275a0.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_greet_and_introduce:salam": {
+      "file": "assets/audio/lines/ary-puck-7f0302be33596fa5.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_greet_and_introduce:salam_reply": {
+      "file": "assets/audio/lines/ary-kore-88808d19d7f802c6.mp3",
+      "voice": "ary-kore"
+    },
+    "ary_ch1_arrival_casablanca:ary_greet_and_introduce:smiti": {
+      "file": "assets/audio/lines/ary-puck-b54b4e11baac1f32.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_market_ask_price:b3echrin_derhem": {
+      "file": "assets/audio/lines/ary-kore-e114e20d11a9d313.mp3",
+      "voice": "ary-kore"
+    },
+    "ary_ch1_arrival_casablanca:ary_market_ask_price:bch7al_hada": {
+      "file": "assets/audio/lines/ary-puck-1e9cb3f164b48431.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_market_ask_price:ghali_bzzaf": {
+      "file": "assets/audio/lines/ary-puck-e786a0a1f800dcc4.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_market_ask_price:ghir_kantferrej": {
+      "file": "assets/audio/lines/ary-puck-b5e86f329b20a254.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_market_ask_price:la_chokran": {
+      "file": "assets/audio/lines/ary-puck-962843716b92289a.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_market_ask_price:n9es_chwiya": {
+      "file": "assets/audio/lines/ary-puck-0714582ff4d7e345.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_market_ask_price:salam_souk": {
+      "file": "assets/audio/lines/ary-puck-7f0302be33596fa5.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_market_ask_price:wakha_nchri": {
+      "file": "assets/audio/lines/ary-puck-7ad72157a9763ee0.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_meet_neighbour:ana_ljar_jdid": {
+      "file": "assets/audio/lines/ary-puck-083cd12c509f5484.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_meet_neighbour:ana_men_kanada": {
+      "file": "assets/audio/lines/ary-puck-cc551ff8b4e458b1.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_meet_neighbour:chokran_llah_ykhellik": {
+      "file": "assets/audio/lines/ary-puck-658c959f33209441.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_meet_neighbour:chwiya": {
+      "file": "assets/audio/lines/ary-puck-64eef07a82ca9d84.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_meet_neighbour:ila_7tajiti": {
+      "file": "assets/audio/lines/ary-puck-dd6336be8dac1389.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_meet_neighbour:mer7ba_bik": {
+      "file": "assets/audio/lines/ary-kore-32b07b4b565b56be.mp3",
+      "voice": "ary-kore"
+    },
+    "ary_ch1_arrival_casablanca:ary_meet_neighbour:mnin_nta": {
+      "file": "assets/audio/lines/ary-puck-5cd9235d6890cade.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_meet_neighbour:wach_kathder_fransawiya": {
+      "file": "assets/audio/lines/ary-puck-d6645f30516a0528.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_take_taxi:3ndek_sserf": {
+      "file": "assets/audio/lines/ary-puck-cab42298c92afba0.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_take_taxi:bch7al_7ta_lmatar": {
+      "file": "assets/audio/lines/ary-puck-b9ec6b909152fb2d.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_take_taxi:chokran_bslama": {
+      "file": "assets/audio/lines/ary-puck-e23122bfbcf3e80f.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_take_taxi:fin_ghadi": {
+      "file": "assets/audio/lines/ary-charon-af4330c230806733.mp3",
+      "voice": "ary-charon"
+    },
+    "ary_ch1_arrival_casablanca:ary_take_taxi:khdem_lkontour": {
+      "file": "assets/audio/lines/ary-puck-eac26b4d5e40d877.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_take_taxi:l_lmdina_l9dima": {
+      "file": "assets/audio/lines/ary-puck-95babb054a959cf5.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_take_taxi:taxi": {
+      "file": "assets/audio/lines/ary-puck-8623ce457bede0c0.mp3",
+      "voice": "ary-puck"
+    },
+    "ary_ch1_arrival_casablanca:ary_take_taxi:w9ef_hna": {
+      "file": "assets/audio/lines/ary-puck-d5d0f5a7246b77c7.mp3",
+      "voice": "ary-puck"
+    }
+  }
+}

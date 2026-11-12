@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:ui' show PlatformDispatcher;
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -5,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import '../../features/learn/learn_logic.dart';
 import '../backend/account.dart';
 import '../backend/sync_service.dart';
+import '../content/content_source.dart';
 import '../content/content_bundle.dart';
 import '../content/content_models.dart';
 import '../learning/srs.dart';
@@ -206,6 +208,20 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
     final courses = {...learner.courses}..remove(courseId);
     final active = learner.activeCourseId == courseId ? (enrollments.isEmpty ? null : enrollments.first.courseId) : learner.activeCourseId;
     _update(learner.copyWith(enrollments: enrollments, courses: courses, activeCourseId: active));
+    _releaseCoursesLeft();
+  }
+
+  /// Lets go of the courses the learner no longer takes: out of memory, and out of the device's content cache. Only
+  /// what they selected is kept.
+  void _releaseCoursesLeft() {
+    final taken = {for (final e in state.learner.enrollments) e.trackId};
+    final content = ref.read(contentBundleProvider.notifier);
+    final source = ref.read(contentSourceProvider);
+    for (final track in state.content.tracks) {
+      if (taken.contains(track.id) || track.sources.isEmpty || !state.content.isLoaded(track.id)) continue;
+      content.unloadCourse(track.id);
+      unawaited(source?.forgetCourse(track.id));
+    }
   }
 
   /// Mark a Learn, Practise or Play stop of [missionKey] done in the active course (+5 XP the first time).
@@ -277,6 +293,7 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
         readAloud: l.readAloud,
       ),
     );
+    _releaseCoursesLeft();
   }
 }
 

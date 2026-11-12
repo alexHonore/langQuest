@@ -1,0 +1,310 @@
+{
+  "schemaVersion": 1,
+  "generatedBy": "scripts/src/export-flutter-content.ts (from voices.json)",
+  "synthetic": true,
+  "courseTrackId": "spanish-spain",
+  "voices": {
+    "es-es-aoede": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Aoede (Gemini TTS, instructed Castilian Spanish from Madrid)"
+    },
+    "es-es-orus": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Orus (Gemini TTS, instructed Castilian Spanish from Madrid)"
+    },
+    "es-es-puck": {
+      "model": "google/gemini-3.8-flash-tts",
+      "label": "Puck (Gemini TTS, instructed Castilian Spanish from Madrid)"
+    }
+  },
+  "lines": {
+    "es_es_ch1_arrival_madrid:es_ask_directions:donde_esta_estacion": {
+      "file": "assets/audio/lines/es-es-puck-4aced43b7d3470e7.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_ask_directions:esta_cerca": {
+      "file": "assets/audio/lines/es-es-aoede-284baf280ba96d86.mp3",
+      "voice": "es-es-aoede"
+    },
+    "es_es_ch1_arrival_madrid:es_ask_directions:esta_lejos": {
+      "file": "assets/audio/lines/es-es-puck-66755f88223a9aa9.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_ask_directions:gire_derecha": {
+      "file": "assets/audio/lines/es-es-aoede-97aea3f63375d47c.mp3",
+      "voice": "es-es-aoede"
+    },
+    "es_es_ch1_arrival_madrid:es_ask_directions:mas_despacio": {
+      "file": "assets/audio/lines/es-es-puck-62d99d759a311d1a.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_ask_directions:muchas_gracias": {
+      "file": "assets/audio/lines/es-es-puck-1d11f3f2e1d9e6ee.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_ask_directions:no_entiendo": {
+      "file": "assets/audio/lines/es-es-puck-5bcd309095b29839.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_ask_directions:perdone": {
+      "file": "assets/audio/lines/es-es-puck-1c52eb3c3f2530e1.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_ask_directions:puede_repetir": {
+      "file": "assets/audio/lines/es-es-puck-6fe70c86b37d840b.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_ask_directions:todo_recto": {
+      "file": "assets/audio/lines/es-es-aoede-79a7ddbd1fe4cdfb.mp3",
+      "voice": "es-es-aoede"
+    },
+    "es_es_ch1_arrival_madrid:es_cafe_order_drink:buenos_dias": {
+      "file": "assets/audio/lines/es-es-puck-ae291d2ea2d756dc.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_cafe_order_drink:cafe_con_leche": {
+      "file": "assets/audio/lines/es-es-puck-1807e1346817e902.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_cafe_order_drink:con_leche": {
+      "file": "assets/audio/lines/es-es-puck-c99a38f8ac218e13.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_cafe_order_drink:gracias": {
+      "file": "assets/audio/lines/es-es-puck-e643bc75b1184bd3.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_cafe_order_drink:la_cuenta": {
+      "file": "assets/audio/lines/es-es-puck-0d5cc39d382769f5.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_cafe_order_drink:me_cobras": {
+      "file": "assets/audio/lines/es-es-puck-48d510d2d35bcb0f.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_cafe_order_drink:solo_o_con_leche": {
+      "file": "assets/audio/lines/es-es-orus-b4077d948a7a795b.mp3",
+      "voice": "es-es-orus"
+    },
+    "es_es_ch1_arrival_madrid:es_greet_and_introduce:bien_gracias": {
+      "file": "assets/audio/lines/es-es-puck-ec951cd3d10b5d31.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_greet_and_introduce:buenas_tardes": {
+      "file": "assets/audio/lines/es-es-puck-0671b7fc884ca875.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_greet_and_introduce:como_te_llamas": {
+      "file": "assets/audio/lines/es-es-puck-671f4a9557382c2a.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_greet_and_introduce:encantado": {
+      "file": "assets/audio/lines/es-es-puck-b805c782419e3e24.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_greet_and_introduce:hasta_luego": {
+      "file": "assets/audio/lines/es-es-puck-72e02a05910db002.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_greet_and_introduce:hola": {
+      "file": "assets/audio/lines/es-es-puck-e05b5e8056ffffd1.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_greet_and_introduce:me_llamo": {
+      "file": "assets/audio/lines/es-es-puck-889e7b49375443f1.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_greet_and_introduce:que_tal": {
+      "file": "assets/audio/lines/es-es-puck-091f1f0ba0ad474e.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_market_ask_price:cuanto_cuesta": {
+      "file": "assets/audio/lines/es-es-puck-884567e2f542f9ba.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_market_ask_price:hola_buenas": {
+      "file": "assets/audio/lines/es-es-puck-a31eea93dbb607a8.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_market_ask_price:mas_barato": {
+      "file": "assets/audio/lines/es-es-puck-faba7861946e75c1.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_market_ask_price:me_lo_llevo": {
+      "file": "assets/audio/lines/es-es-puck-de71599eb0c7e3b3.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_market_ask_price:no_gracias": {
+      "file": "assets/audio/lines/es-es-puck-7b7f26686fc2f8f5.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_market_ask_price:que_caro": {
+      "file": "assets/audio/lines/es-es-puck-b73344957dfadac7.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_market_ask_price:solo_mirando": {
+      "file": "assets/audio/lines/es-es-puck-ed469e1ecdb1b70e.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_market_ask_price:tres_euros_kilo": {
+      "file": "assets/audio/lines/es-es-orus-3e07e5c948aa55c1.mp3",
+      "voice": "es-es-orus"
+    },
+    "es_es_ch1_arrival_madrid:es_meet_neighbour:bienvenido": {
+      "file": "assets/audio/lines/es-es-aoede-f1229d5ac3d30cd9.mp3",
+      "voice": "es-es-aoede"
+    },
+    "es_es_ch1_arrival_madrid:es_meet_neighbour:de_donde_eres": {
+      "file": "assets/audio/lines/es-es-puck-fb3013d4b1d80bd9.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_meet_neighbour:hablas_ingles": {
+      "file": "assets/audio/lines/es-es-puck-148d8e7bf3d28472.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_meet_neighbour:muy_amable": {
+      "file": "assets/audio/lines/es-es-puck-2ec27de509c0f9d8.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_meet_neighbour:nuevo_vecino": {
+      "file": "assets/audio/lines/es-es-puck-5d765d2e4f992ef7.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_meet_neighbour:si_necesitas_algo": {
+      "file": "assets/audio/lines/es-es-puck-180c17bbc183a5b7.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_meet_neighbour:soy_de_canada": {
+      "file": "assets/audio/lines/es-es-puck-443dd9740fedebb4.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_meet_neighbour:un_poco": {
+      "file": "assets/audio/lines/es-es-puck-1f9254e113de5d9a.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_take_taxi:adonde_va": {
+      "file": "assets/audio/lines/es-es-orus-5ec0444d75db1630.mp3",
+      "voice": "es-es-orus"
+    },
+    "es_es_ch1_arrival_madrid:es_take_taxi:al_centro": {
+      "file": "assets/audio/lines/es-es-puck-1766b2d3596f7212.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_take_taxi:con_taximetro": {
+      "file": "assets/audio/lines/es-es-puck-22939440ddfc0e39.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_take_taxi:cuanto_aeropuerto": {
+      "file": "assets/audio/lines/es-es-puck-52af9fd095e35954.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_take_taxi:gracias_adios": {
+      "file": "assets/audio/lines/es-es-puck-24ae9f211381b31a.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_take_taxi:pare_aqui": {
+      "file": "assets/audio/lines/es-es-puck-53689437955e0613.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_take_taxi:taxi": {
+      "file": "assets/audio/lines/es-es-puck-b392906ef4df57d9.mp3",
+      "voice": "es-es-puck"
+    },
+    "es_es_ch1_arrival_madrid:es_take_taxi:tiene_cambio": {
+      "file": "assets/audio/lines/es-es-puck-f23878c8e693bf88.mp3",
+      "voice": "es-es-puck"
+    },
+    "spanish_spain_ch2:es_restaurant_order_meal:bill": {
+      "file": "assets/audio/lines/es-es-puck-b1508a08134feff2.mp3",
+      "voice": "es-es-puck"
+    },
+    "spanish_spain_ch2:es_restaurant_order_meal:delicious": {
+      "file": "assets/audio/lines/es-es-puck-65db3b5ed5e1a7df.mp3",
+      "voice": "es-es-puck"
+    },
+    "spanish_spain_ch2:es_restaurant_order_meal:dish_of_day": {
+      "file": "assets/audio/lines/es-es-orus-0d8592cce758f500.mp3",
+      "voice": "es-es-orus"
+    },
+    "spanish_spain_ch2:es_restaurant_order_meal:have_table": {
+      "file": "assets/audio/lines/es-es-puck-abd977f1a58fa53e.mp3",
+      "voice": "es-es-puck"
+    },
+    "spanish_spain_ch2:es_restaurant_order_meal:ingredients": {
+      "file": "assets/audio/lines/es-es-puck-d7c538e07f5533a4.mp3",
+      "voice": "es-es-puck"
+    },
+    "spanish_spain_ch2:es_restaurant_order_meal:no_nuts": {
+      "file": "assets/audio/lines/es-es-orus-f06b773eae782f23.mp3",
+      "voice": "es-es-orus"
+    },
+    "spanish_spain_ch2:es_restaurant_order_meal:order": {
+      "file": "assets/audio/lines/es-es-puck-4545eac6b2423af9.mp3",
+      "voice": "es-es-puck"
+    },
+    "spanish_spain_ch2:es_restaurant_order_meal:recommend": {
+      "file": "assets/audio/lines/es-es-puck-d5221cd47182d905.mp3",
+      "voice": "es-es-puck"
+    },
+    "spanish_spain_ch2:es_restaurant_order_meal:right_away": {
+      "file": "assets/audio/lines/es-es-orus-45d851d5f6fdc034.mp3",
+      "voice": "es-es-orus"
+    },
+    "spanish_spain_ch2:es_restaurant_order_meal:table": {
+      "file": "assets/audio/lines/es-es-puck-7e71077c301c4b0d.mp3",
+      "voice": "es-es-puck"
+    },
+    "spanish_spain_ch2:es_restaurant_order_meal:want_tortilla": {
+      "file": "assets/audio/lines/es-es-puck-86e1da7d4f2411a9.mp3",
+      "voice": "es-es-puck"
+    },
+    "spanish_spain_ch2:es_restaurant_order_meal:welcome": {
+      "file": "assets/audio/lines/es-es-orus-1a38de4aec827e25.mp3",
+      "voice": "es-es-orus"
+    },
+    "spanish_spain_ch2:es_shop_for_clothes:can_i_help": {
+      "file": "assets/audio/lines/es-es-aoede-888a62478f484351.mp3",
+      "voice": "es-es-aoede"
+    },
+    "spanish_spain_ch2:es_shop_for_clothes:card": {
+      "file": "assets/audio/lines/es-es-puck-05957c2ce94229e1.mp3",
+      "voice": "es-es-puck"
+    },
+    "spanish_spain_ch2:es_shop_for_clothes:here_is_large": {
+      "file": "assets/audio/lines/es-es-aoede-d301e0b7d8b47938.mp3",
+      "voice": "es-es-aoede"
+    },
+    "spanish_spain_ch2:es_shop_for_clothes:just_looking": {
+      "file": "assets/audio/lines/es-es-puck-c7cd249cd4a0ea2f.mp3",
+      "voice": "es-es-puck"
+    },
+    "spanish_spain_ch2:es_shop_for_clothes:other_colour": {
+      "file": "assets/audio/lines/es-es-puck-741fb4bb1a372d1d.mp3",
+      "voice": "es-es-puck"
+    },
+    "spanish_spain_ch2:es_shop_for_clothes:price": {
+      "file": "assets/audio/lines/es-es-puck-af14a18cee004825.mp3",
+      "voice": "es-es-puck"
+    },
+    "spanish_spain_ch2:es_shop_for_clothes:price_is": {
+      "file": "assets/audio/lines/es-es-aoede-535627e1b9cc884c.mp3",
+      "voice": "es-es-aoede"
+    },
+    "spanish_spain_ch2:es_shop_for_clothes:take_it": {
+      "file": "assets/audio/lines/es-es-puck-d9746f8b1fca3759.mp3",
+      "voice": "es-es-puck"
+    },
+    "spanish_spain_ch2:es_shop_for_clothes:variant": {
+      "file": "assets/audio/lines/es-es-puck-22f8c13235d75b7b.mp3",
+      "voice": "es-es-puck"
+    },
+    "spanish_spain_ch2:es_shop_for_clothes:want": {
+      "file": "assets/audio/lines/es-es-puck-bf292cd440d9deab.mp3",
+      "voice": "es-es-puck"
+    },
+    "spanish_spain_ch2:es_shop_for_clothes:what_size": {
+      "file": "assets/audio/lines/es-es-aoede-089a6bb04f356741.mp3",
+      "voice": "es-es-aoede"
+    }
+  }
+}
