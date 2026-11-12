@@ -1838,7 +1838,7 @@ class AppLocalizationsEn extends AppLocalizations {
   }
 
   @override
-  String get gamesNeedPhrases => 'The games play with phrases you have learned. Finish the Learn step of a mission to open them.';
+  String get gamesNeedPhrases => 'The games are played with the phrases you have learned. Learn your first ones and they open.';
 
   @override
   String get gameMemoryName => 'Lantern pairs';
@@ -1984,4 +1984,32 @@ class AppLocalizationsEn extends AppLocalizations {
 
   @override
   String get courseIncludesGames => 'Mini-games with the phrases you have learned';
+
+  @override
+  String get tabPlay => 'Play';
+
+  @override
+  String get stopPlay => 'Play';
+
+  @override
+  String pathPlaySubtitle(String game) {
+    return '$game, with this mission’s phrases';
+  }
+
+  @override
+  String practicePlayNext(String game) {
+    return 'Play: $game';
+  }
+
+  @override
+  String get gameMissionDetail => 'Now use these phrases in the mission.';
+
+  @override
+  String get gamesEmptyTitle => 'Play with what you learn';
+
+  @override
+  String get gamesLearnFirst => 'Learn my first phrases';
+
+  @override
+  String get gamesInMissions => 'Each mission also has a round of its own, at its Play step.';
 }

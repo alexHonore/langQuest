@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '../../core/backend/server_voice.dart';
 import '../../core/content/content_models.dart';
 import '../../core/services/app_state.dart';
 import '../../core/services/learner_state.dart';
@@ -24,6 +25,58 @@ class GamePhrase {
 /// Games open once this many phrases have been taught: enough for a board and for wrong answers to choose among.
 const minGamePhrases = 4;
 
+/// What the games need of [plan]'s phrases: one per meaning (the pairs' phrases), in teaching order.
+List<GamePhrase> gamePhrasesOf(MissionLearnPlan plan) => [
+  for (final e in plan.pairPhrases)
+    GamePhrase(
+      expression: e,
+      item: GameItem(
+        id: e.id,
+        text: e.text,
+        meaning: plan.shortMeaningOf(e),
+        intent: e.intentKey,
+        tileSource: hasPlaceholder(e, plan.tileSourceOf(e)) ? '' : plan.tileSourceOf(e),
+      ),
+    ),
+];
+
+/// Whether [plan]'s mission has a Play stop: enough phrases of its own for a board of Lantern pairs (the game every
+/// mission can fall back on).
+bool planHasGame(MissionLearnPlan plan) => plan.pairPhrases.length >= minMemoryPhrases;
+
+/// The phrases a mission's Play stop is played with: the mission's own, whatever else was learned.
+final missionGamePoolProvider = Provider.family<List<GamePhrase>, String>((ref, missionKey) {
+  final plan = ref.watch(learnPlanProvider(missionKey));
+  return plan == null ? const [] : gamePhrasesOf(plan);
+});
+
+/// The phrases a round is played with: a mission's own for its Play stop, everything learned on the Play tab (null).
+final roundPoolProvider = Provider.autoDispose.family<List<GamePhrase>, String?>(
+  (ref, missionKey) => missionKey == null ? ref.watch(gamePoolProvider) : ref.watch(missionGamePoolProvider(missionKey)),
+);
+
+/// Those of a round's phrases that can be said here (their bundled clip, or a voice for the course).
+final audibleRoundPoolProvider = Provider.autoDispose.family<List<GamePhrase>, String?>((ref, missionKey) {
+  final pool = ref.watch(roundPoolProvider(missionKey));
+  final locale = ref.watch(appStateProvider.select((s) => s.activeCourse?.track.voiceLocale));
+  final voice = ref.watch(lineVoiceNowProvider(locale));
+  if (voice == null) return const [];
+  return [
+    for (final p in pool)
+      if (voice.canSay(expressionId: p.expression.id)) p,
+  ];
+});
+
+/// The game of [missionKey]'s Play stop: the games take turns from mission to mission, each with the mission's own
+/// phrases. Null when the mission has too few phrases for any (no Play stop then).
+final missionGameProvider = Provider.autoDispose.family<GameKind?, String>((ref, missionKey) {
+  final course = ref.watch(appStateProvider.select((s) => s.activeCourse));
+  final index = course?.indexOfMission(missionKey) ?? -1;
+  if (index < 0) return null;
+  final pool = ref.watch(missionGamePoolProvider(missionKey));
+  return missionGameFor(index, gamesPlayableWith([for (final p in pool) p.item], audible: ref.watch(audibleRoundPoolProvider(missionKey)).length));
+});
+
 /// The phrases the games play with: those of the missions whose Learn stop is done in the active course, in course
 /// order — nothing the learner has not been taught (teach before test). One phrase per text and per meaning, so a
 /// card or an answer never has a twin.
@@ -40,16 +93,9 @@ final gamePoolProvider = Provider<List<GamePhrase>>((ref) {
     if (!(stops[mission.key]?.contains(PathStop.learn) ?? false)) continue;
     final plan = ref.watch(learnPlanProvider(mission.key));
     if (plan == null) continue;
-    for (final e in plan.pairPhrases) {
-      final meaning = plan.shortMeaningOf(e);
-      if (!texts.add(normalizeForCompare(e.text)) || !meanings.add(normalizeForCompare(meaning))) continue;
-      final source = plan.tileSourceOf(e);
-      pool.add(
-        GamePhrase(
-          expression: e,
-          item: GameItem(id: e.id, text: e.text, meaning: meaning, intent: e.intentKey, tileSource: hasPlaceholder(e, source) ? '' : source),
-        ),
-      );
+    for (final phrase in gamePhrasesOf(plan)) {
+      if (!texts.add(normalizeForCompare(phrase.item.text)) || !meanings.add(normalizeForCompare(phrase.item.meaning))) continue;
+      pool.add(phrase);
     }
   }
   return pool;

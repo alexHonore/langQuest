@@ -1231,7 +1231,7 @@
       }
     }
   },
-  "gamesNeedPhrases": "The games play with phrases you have learned. Finish the Learn step of a mission to open them.",
+  "gamesNeedPhrases": "The games are played with the phrases you have learned. Learn your first ones and they open.",
   "gameMemoryName": "Lantern pairs",
   "gameMemoryPitch": "Each phrase and its meaning hide under the lanterns. Find the pairs.",
   "gameMemoryHint": "Turn two lanterns: a phrase and its meaning stay lit.",
@@ -1391,5 +1391,27 @@
   "gamePlayAgain": "Play again",
   "gameBackToGames": "Back to the games",
   "gameNewRecord": "New record",
-  "courseIncludesGames": "Mini-games with the phrases you have learned"
+  "courseIncludesGames": "Mini-games with the phrases you have learned",
+  "tabPlay": "Play",
+  "stopPlay": "Play",
+  "pathPlaySubtitle": "{game}, with this mission’s phrases",
+  "@pathPlaySubtitle": {
+    "placeholders": {
+      "game": {
+        "type": "String"
+      }
+    }
+  },
+  "practicePlayNext": "Play: {game}",
+  "@practicePlayNext": {
+    "placeholders": {
+      "game": {
+        "type": "String"
+      }
+    }
+  },
+  "gameMissionDetail": "Now use these phrases in the mission.",
+  "gamesEmptyTitle": "Play with what you learn",
+  "gamesLearnFirst": "Learn my first phrases",
+  "gamesInMissions": "Each mission also has a round of its own, at its Play step."
 }

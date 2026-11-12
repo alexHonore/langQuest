@@ -448,7 +448,7 @@ void main() {
         ..enroll('spanish-spain', 'en');
       container.read(appRouterProvider).go('/path/$missionKey');
       await settle(t, 1200);
-      final locked = find.bySemanticsLabel('4. Talk. A live call with Lucía: with a free account');
+      final locked = find.bySemanticsLabel('5. Talk. A live call with Lucía: with a free account');
       expect(locked, findsOneWidget);
       await t.tap(locked);
       await settle(t, 1200);

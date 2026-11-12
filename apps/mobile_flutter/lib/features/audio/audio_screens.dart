@@ -27,6 +27,7 @@ import '../learn/learn_providers.dart';
 import '../learn/learn_widgets.dart';
 import '../learn/record_take.dart';
 import '../scenes/animated_scene.dart';
+import '../scenes/scene_models.dart';
 import 'audio_lesson.dart';
 import 'audio_lesson_player.dart';
 
@@ -90,14 +91,32 @@ AudioNarration narrationOf(AppLocalizations l10n) => AudioNarration(
 /// How a provider is read: `ref.watch` while building, `ref.read` anywhere else.
 typedef ProviderReader = T Function<T>(ProviderListenable<T> provider);
 
-/// The learn plans of [course]'s missions, in order ([learnedOnly]: those whose Learn stop is done).
+/// Whether [plan]'s lesson can be heard with [voice]: every line of it can be said here. A chapter whose lines have
+/// no recorded clip yet is heard only where the device (or the server) has a voice for the course; elsewhere its
+/// lessons are not offered (visible means usable).
+bool planAudible(MissionLearnPlan plan, LineVoice? voice) =>
+    voice != null &&
+    voice.available &&
+    plan.sceneLines.every((l) => voice.canSay(expressionId: l.expression.id)) &&
+    plan.phrases.every((e) => voice.canSay(expressionId: e.id));
+
+/// The learn plans of [course]'s missions whose lesson can be heard here, in order ([learnedOnly]: those whose Learn
+/// stop is done).
 List<MissionLearnPlan> coursePlans(ProviderReader read, Course course, {bool learnedOnly = false}) {
   final stops = read(appStateProvider.select((s) => s.progress.stops));
+  final voice = read(lineVoiceNowProvider(course.track.voiceLocale));
   return [
     for (final mission in course.missions)
-      if (!learnedOnly || (stops[mission.key]?.contains(PathStop.learn) ?? false)) ?read(learnPlanProvider(mission.key)),
+      if (!learnedOnly || (stops[mission.key]?.contains(PathStop.learn) ?? false))
+        if (read(learnPlanProvider(mission.key)) case final plan? when planAudible(plan, voice)) plan,
   ];
 }
+
+/// Whether [missionKey]'s audio lesson can be heard here.
+final audioLessonAudibleProvider = Provider.autoDispose.family<bool, String>((ref, missionKey) {
+  final plan = ref.watch(learnPlanProvider(missionKey));
+  return plan != null && planAudible(plan, ref.watch(lineVoiceNowProvider(plan.voiceLocale)));
+});
 
 /// A mix of [course], narrated with [words]; null when there is nothing to make it from (a recall before anything
 /// was learned).
@@ -184,24 +203,28 @@ class AudioLibraryScreen extends ConsumerWidget {
                 icon: LucideIcons.messagesSquare,
                 tint: colors.cyanText,
                 title: conversations.title,
-                body: l10n.audioMixConversationsBody(course.missions.length),
+                body: l10n.audioMixConversationsBody(coursePlans(ref.watch, course).length),
                 minutes: _minutes(conversations.estimatedLength),
                 onTap: () => context.push('/audio/mix/${AudioMix.conversations.kind}'),
               ),
           ],
           const SizedBox(height: 14),
-          for (final chapter in course.chapters) ...[
-            Padding(
-              padding: const EdgeInsets.fromLTRB(0, 6, 0, 10),
-              child: Text(
-                (chapter.titleIn(course.source) ?? '').isEmpty ? l10n.chapterLabel(chapter.chapterIndex) : chapter.titleIn(course.source)!,
-                style: displayStyle(size: 18, color: colors.textPrimary, bold: false),
+          // A chapter is listed with the lessons that can be heard here (all of them where the course has a voice).
+          for (final chapter in course.chapters)
+            if ([
+                  for (final mission in chapter.missions)
+                    if (ref.watch(audioLessonAudibleProvider(mission.key))) ?ref.watch(learnPlanProvider(mission.key)),
+                ]
+                case final plans when plans.isNotEmpty) ...[
+              Padding(
+                padding: const EdgeInsets.fromLTRB(0, 6, 0, 10),
+                child: Text(
+                  (chapter.titleIn(course.source) ?? '').isEmpty ? l10n.chapterLabel(chapter.chapterIndex) : chapter.titleIn(course.source)!,
+                  style: displayStyle(size: 18, color: colors.textPrimary, bold: false),
+                ),
               ),
-            ),
-            for (final mission in chapter.missions)
-              if (ref.watch(learnPlanProvider(mission.key)) case final plan?)
-                _LessonTile(plan: plan, lesson: buildAudioLesson(plan, narration), listened: listened.contains(mission.key)),
-          ],
+              for (final plan in plans) _LessonTile(plan: plan, lesson: buildAudioLesson(plan, narration), listened: listened.contains(plan.mission.key)),
+            ],
         ],
       ),
     );
@@ -292,7 +315,7 @@ class _LessonTile extends ConsumerWidget {
     final accent = appState.accent;
     final l10n = context.l10n;
     final minutes = _minutes(lesson.estimatedLength);
-    final sceneId = sceneIdForSituation(plan.mission.situation);
+    final sceneId = sceneIdForMission(plan.mission);
     return Padding(
       padding: const EdgeInsets.only(bottom: 10),
       child: Material(
@@ -419,7 +442,7 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
     final key = widget.missionKey;
     if (key != null) {
       final plan = read(learnPlanProvider(key));
-      return plan == null ? null : buildAudioLesson(plan, narrationOf(words));
+      return plan == null || !read(audioLessonAudibleProvider(key)) ? null : buildAudioLesson(plan, narrationOf(words));
     }
     final course = read(appStateProvider.select((s) => s.activeCourse));
     final mix = AudioMix.of(widget.mix ?? '');
@@ -486,7 +509,7 @@ class _AudioLessonScreenState extends ConsumerState<AudioLessonScreen> {
     final playing = player?.playing ?? false;
     final finished = player?.finished ?? false;
     final origin = _originAt(lesson, index);
-    final sceneId = sceneIdForSituation(origin?.mission.situation ?? '');
+    final sceneId = origin == null ? SceneId.street : sceneIdForMission(origin.mission);
     final sections = lesson.sections;
     final left = finished ? Duration.zero : lesson.lengthFrom(index);
 

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lucide_icons_flutter/lucide_icons.dart';
 
 import '../../core/backend/server_voice.dart';
@@ -22,12 +23,50 @@ import '../mascot/melo_model.dart';
 import 'game_logic.dart';
 import 'game_pool.dart';
 import 'game_widgets.dart';
-import 'games_hub_screen.dart';
+
+/// A game, played one of two ways: on the Play tab with every phrase learned (records, XP once a day per game), or
+/// as the Play stop of a mission ([missionKey]) with that mission's phrases only — the round that warms up for its
+/// conversation; finishing it completes the stop.
+abstract class GameScreen extends ConsumerStatefulWidget {
+  const GameScreen({super.key, this.missionKey});
+
+  final String? missionKey;
+}
+
+/// A mission's Play stop: a round of the game whose turn it is, with the mission's own phrases. The game is chosen
+/// as the screen opens and kept (a voice that becomes available must not swap the game under the learner).
+class MissionPlayScreen extends ConsumerStatefulWidget {
+  const MissionPlayScreen({super.key, required this.missionKey});
+
+  final String missionKey;
+
+  @override
+  ConsumerState<MissionPlayScreen> createState() => _MissionPlayScreenState();
+}
+
+class _MissionPlayScreenState extends ConsumerState<MissionPlayScreen> {
+  GameKind? _kind;
+
+  @override
+  Widget build(BuildContext context) {
+    final key = widget.missionKey;
+    return switch (_kind ??= ref.watch(missionGameProvider(key))) {
+      GameKind.memory => MemoryGameScreen(missionKey: key),
+      GameKind.quick => QuickGameScreen(missionKey: key),
+      GameKind.ear => EarGameScreen(missionKey: key),
+      GameKind.dash => DashGameScreen(missionKey: key),
+      null => const MissionUnavailable(),
+    };
+  }
+}
 
 /// What every game screen needs of the app: the course, its phrases in play, and its voice. A round keeps the pool it
 /// started with, so nothing changes under the learner's fingers.
-mixin _GameHost<T extends ConsumerStatefulWidget> on ConsumerState<T> {
+mixin _GameHost<T extends GameScreen> on ConsumerState<T> {
   late final SpeechService speech;
+
+  /// Rounds finished on this screen (a mission's round is seeded by it: its first is the same for everyone).
+  int _rounds = 0;
 
   @override
   void initState() {
@@ -36,6 +75,37 @@ mixin _GameHost<T extends ConsumerStatefulWidget> on ConsumerState<T> {
   }
 
   Course? get course => ref.read(appStateProvider).activeCourse;
+
+  String? get missionKey => widget.missionKey;
+
+  /// The phrases of this round's pool, as they are now.
+  List<GamePhrase> readPool() => ref.read(roundPoolProvider(missionKey));
+
+  /// The learner's record in [kind], as a number. A mission's round keeps none (its phrases are its own).
+  int? bestOf(GameKind kind, {String variant = ''}) {
+    final id = course?.id;
+    if (missionKey != null || id == null) return null;
+    return ref.read(gameStatsProvider.notifier).recordOf(id, kind, variant: variant).best;
+  }
+
+  /// A round played to the end. On the Play tab it counts for the record and the day's XP; in a mission it completes
+  /// the Play stop (XP the first time, like every stop).
+  GameOutcome? finishRound(GameKind kind, int score, {String variant = ''}) {
+    final id = course?.id;
+    if (id == null) return null;
+    final mission = missionKey;
+    if (mission == null) return ref.read(gameStatsProvider.notifier).finished(id, kind, score, variant: variant);
+    _rounds++;
+    final first = !ref.read(appStateProvider).stopsDone(mission).contains(PathStop.play);
+    ref.read(appStateProvider.notifier).completeStop(mission, PathStop.play);
+    return (record: false, xp: first);
+  }
+
+  /// After a mission's round: on to the mission itself.
+  VoidCallback? get onStartMission {
+    final mission = missionKey;
+    return mission == null ? null : () => context.pushReplacement('/mission/$mission');
+  }
 
   /// Says a phrase with the course's voice (its bundled clip first), when one can.
   Future<void> say(Expression e) async {
@@ -46,6 +116,8 @@ mixin _GameHost<T extends ConsumerStatefulWidget> on ConsumerState<T> {
   /// A new seed for each round of [kind]: the number of rounds played so far.
   String roundSeed(GameKind kind, {String variant = ''}) {
     final id = course?.id ?? '';
+    final mission = missionKey;
+    if (mission != null) return '$mission/${kind.id}/$_rounds';
     return '$id/${kind.id}/${ref.read(gameStatsProvider.notifier).recordOf(id, kind, variant: variant).plays}';
   }
 
@@ -60,8 +132,8 @@ mixin _GameHost<T extends ConsumerStatefulWidget> on ConsumerState<T> {
 
 /// Lantern pairs: every phrase and its meaning are hidden under the lanterns; turn two at a time to find the pairs.
 /// A phrase is said when it is turned. What counts is the number of moves.
-class MemoryGameScreen extends ConsumerStatefulWidget {
-  const MemoryGameScreen({super.key});
+class MemoryGameScreen extends GameScreen {
+  const MemoryGameScreen({super.key, super.missionKey});
 
   @override
   ConsumerState<MemoryGameScreen> createState() => _MemoryGameScreenState();
@@ -88,8 +160,8 @@ class _MemoryGameScreenState extends ConsumerState<MemoryGameScreen> with _GameH
   String get _variant => '${_phrases.length}';
 
   void _deal() {
-    final pool = ref.read(gamePoolProvider);
-    if (pool.length < minGamePhrases) return;
+    final pool = readPool();
+    if (pool.length < (missionKey == null ? minGamePhrases : minMemoryPhrases)) return;
     final size = pool.length < memoryPairs ? pool.length : memoryPairs;
     final seed = roundSeed(GameKind.memory, variant: '$size');
     final pairs = seededShuffle(pool, seed).take(size).toList();
@@ -114,8 +186,8 @@ class _MemoryGameScreenState extends ConsumerState<MemoryGameScreen> with _GameH
         if (mounted) setState(() => _board = _board?.closeOpen());
       });
     } else if (next.finished) {
-      final id = course?.id;
-      if (id != null) setState(() => _outcome = ref.read(gameStatsProvider.notifier).finished(id, GameKind.memory, next.moves, variant: _variant));
+      final outcome = finishRound(GameKind.memory, next.moves, variant: _variant);
+      if (outcome != null) setState(() => _outcome = outcome);
     }
   }
 
@@ -129,7 +201,7 @@ class _MemoryGameScreenState extends ConsumerState<MemoryGameScreen> with _GameH
     final track = appState.activeCourse?.track;
     if (board == null || track == null) return const MissionUnavailable();
     final outcome = _outcome;
-    final best = ref.read(gameStatsProvider.notifier).recordOf(appState.activeCourse!.id, GameKind.memory, variant: _variant).best;
+    final best = bestOf(GameKind.memory, variant: _variant);
 
     if (outcome != null) {
       return GameScaffold(
@@ -141,6 +213,7 @@ class _MemoryGameScreenState extends ConsumerState<MemoryGameScreen> with _GameH
           record: outcome.record,
           xp: outcome.xp,
           onAgain: _deal,
+          onStartMission: onStartMission,
         ),
       );
     }
@@ -262,13 +335,14 @@ class _MemoryGameScreenState extends ConsumerState<MemoryGameScreen> with _GameH
 
 // --- Quick fire -----------------------------------------------------------------------------------------------------
 
-/// How long a round of Quick fire lasts.
+/// How long a round of Quick fire lasts: on the Play tab, and (shorter, with fewer phrases) as a mission's Play stop.
 const quickRoundLength = Duration(seconds: 45);
+const missionQuickRoundLength = Duration(seconds: 30);
 
 /// Quick fire: a phrase and a meaning — is it what it means? As many as possible before the time runs out. A wrong
 /// answer stops the clock for a moment and shows what the phrase means.
-class QuickGameScreen extends ConsumerStatefulWidget {
-  const QuickGameScreen({super.key});
+class QuickGameScreen extends GameScreen {
+  const QuickGameScreen({super.key, super.missionKey});
 
   @override
   ConsumerState<QuickGameScreen> createState() => _QuickGameScreenState();
@@ -290,6 +364,8 @@ class _QuickGameScreenState extends ConsumerState<QuickGameScreen> with _GameHos
   /// The phrases answered wrong in this round, each once.
   final _missed = <String>[];
 
+  Duration get _length => missionKey == null ? quickRoundLength : missionQuickRoundLength;
+
   @override
   void dispose() {
     _clock?.cancel();
@@ -298,8 +374,8 @@ class _QuickGameScreenState extends ConsumerState<QuickGameScreen> with _GameHos
   }
 
   void _start() {
-    final pool = ref.read(gamePoolProvider);
-    if (pool.length < minGamePhrases) return;
+    final pool = readPool();
+    if (pool.length < minQuickPhrases) return;
     _clock?.cancel();
     _moveOn?.cancel();
     setState(() {
@@ -307,7 +383,7 @@ class _QuickGameScreenState extends ConsumerState<QuickGameScreen> with _GameHos
       _round = QuickRound([for (final p in pool) p.item], roundSeed(GameKind.quick));
       _index = 0;
       _score = const QuickScore();
-      _remaining = quickRoundLength.inMilliseconds;
+      _remaining = _length.inMilliseconds;
       _answered = null;
       _outcome = null;
       _missed.clear();
@@ -322,9 +398,8 @@ class _QuickGameScreenState extends ConsumerState<QuickGameScreen> with _GameHos
   void _finish() {
     _clock?.cancel();
     _moveOn?.cancel();
-    final id = course?.id;
-    if (id == null) return;
-    setState(() => _outcome = ref.read(gameStatsProvider.notifier).finished(id, GameKind.quick, _score.right));
+    final outcome = finishRound(GameKind.quick, _score.right);
+    if (outcome != null) setState(() => _outcome = outcome);
   }
 
   void _answer(bool yes) {
@@ -355,8 +430,8 @@ class _QuickGameScreenState extends ConsumerState<QuickGameScreen> with _GameHos
     final l10n = context.l10n;
     final track = appState.activeCourse?.track;
     final courseId = appState.activeCourse?.id;
-    if (track == null || courseId == null || ref.watch(gamePoolProvider).length < minGamePhrases) return const MissionUnavailable();
-    final best = ref.read(gameStatsProvider.notifier).recordOf(courseId, GameKind.quick).best;
+    if (track == null || courseId == null || ref.watch(roundPoolProvider(missionKey)).length < minQuickPhrases) return const MissionUnavailable();
+    final best = bestOf(GameKind.quick);
     final round = _round;
     final outcome = _outcome;
 
@@ -365,7 +440,7 @@ class _QuickGameScreenState extends ConsumerState<QuickGameScreen> with _GameHos
         kind: GameKind.quick,
         child: GameIntro(
           kind: GameKind.quick,
-          rules: l10n.gameQuickRules(quickRoundLength.inSeconds),
+          rules: l10n.gameQuickRules(_length.inSeconds),
           best: best == null ? null : l10n.gameBestRight(best),
           onStart: _start,
         ),
@@ -381,6 +456,7 @@ class _QuickGameScreenState extends ConsumerState<QuickGameScreen> with _GameHos
           record: outcome.record,
           xp: outcome.xp,
           onAgain: _start,
+          onStartMission: onStartMission,
           children: [
             for (final id in _missed.take(4))
               if (_phrases[id] case final phrase?)
@@ -408,7 +484,7 @@ class _QuickGameScreenState extends ConsumerState<QuickGameScreen> with _GameHos
       false => colors.error,
       null => colors.border,
     };
-    final seconds = (_remaining / 1000).ceil().clamp(0, quickRoundLength.inSeconds);
+    final seconds = (_remaining / 1000).ceil().clamp(0, _length.inSeconds);
 
     Widget choice({required bool yes, required String label, required IconData icon}) => Expanded(
       child: Semantics(
@@ -465,7 +541,7 @@ class _QuickGameScreenState extends ConsumerState<QuickGameScreen> with _GameHos
                             ColoredBox(color: colors.surfaceMuted),
                             FractionallySizedBox(
                               alignment: AlignmentDirectional.centerStart,
-                              widthFactor: (_remaining / quickRoundLength.inMilliseconds).clamp(0.0, 1.0),
+                              widthFactor: (_remaining / _length.inMilliseconds).clamp(0.0, 1.0),
                               child: ColoredBox(color: seconds <= 10 ? colors.error : colors.amber),
                             ),
                           ],
@@ -559,8 +635,8 @@ class _QuickGameScreenState extends ConsumerState<QuickGameScreen> with _GameHos
 // --- By ear -------------------------------------------------------------------------------------------------------
 
 /// By ear: a phrase is said; find it among the written ones. Each answer shows what the phrase means.
-class EarGameScreen extends ConsumerStatefulWidget {
-  const EarGameScreen({super.key});
+class EarGameScreen extends GameScreen {
+  const EarGameScreen({super.key, super.missionKey});
 
   @override
   ConsumerState<EarGameScreen> createState() => _EarGameScreenState();
@@ -611,8 +687,8 @@ class _EarGameScreenState extends ConsumerState<EarGameScreen> with _GameHost {
     final questions = _questions!;
     speech.stop();
     if (_index >= questions.length - 1) {
-      final id = course?.id;
-      if (id != null) setState(() => _outcome = ref.read(gameStatsProvider.notifier).finished(id, GameKind.ear, _right));
+      final outcome = finishRound(GameKind.ear, _right);
+      if (outcome != null) setState(() => _outcome = outcome);
       return;
     }
     setState(() {
@@ -628,14 +704,14 @@ class _EarGameScreenState extends ConsumerState<EarGameScreen> with _GameHost {
     final l10n = context.l10n;
     final track = appState.activeCourse?.track;
     final courseId = appState.activeCourse?.id;
-    final pool = ref.watch(gamePoolProvider);
-    final audible = ref.watch(audiblePoolProvider);
+    final pool = ref.watch(roundPoolProvider(missionKey));
+    final audible = ref.watch(audibleRoundPoolProvider(missionKey));
     if (track == null || courseId == null) return const MissionUnavailable();
     // The round starts once it is known what can be said here.
     if (_questions == null && audible.length >= minEarPhrases) _start(pool, audible);
     final questions = _questions;
     if (questions == null || questions.isEmpty) return const MissionUnavailable();
-    final best = ref.read(gameStatsProvider.notifier).recordOf(courseId, GameKind.ear).best;
+    final best = bestOf(GameKind.ear);
     final outcome = _outcome;
 
     if (outcome != null) {
@@ -647,6 +723,7 @@ class _EarGameScreenState extends ConsumerState<EarGameScreen> with _GameHost {
           record: outcome.record,
           xp: outcome.xp,
           onAgain: () => setState(() => _start(pool, audible)),
+          onStartMission: onStartMission,
           children: [
             for (final id in _missed.take(4))
               if (_phrases[id] case final phrase?)
@@ -719,8 +796,8 @@ class _EarGameScreenState extends ConsumerState<EarGameScreen> with _GameHost {
 // --- Sentence dash ----------------------------------------------------------------------------------------------------
 
 /// Sentence dash: put the words of each sentence back in order, against the clock. What counts is the time.
-class DashGameScreen extends ConsumerStatefulWidget {
-  const DashGameScreen({super.key});
+class DashGameScreen extends GameScreen {
+  const DashGameScreen({super.key, super.missionKey});
 
   @override
   ConsumerState<DashGameScreen> createState() => _DashGameScreenState();
@@ -745,7 +822,7 @@ class _DashGameScreenState extends ConsumerState<DashGameScreen> with _GameHost 
   }
 
   void _start() {
-    final pool = ref.read(gamePoolProvider);
+    final pool = readPool();
     _clock?.cancel();
     _moveOn?.cancel();
     final seed = roundSeed(GameKind.dash);
@@ -774,10 +851,11 @@ class _DashGameScreenState extends ConsumerState<DashGameScreen> with _GameHost 
     if (phrase != null) say(phrase.expression);
     if (_index >= sentences.length - 1) {
       _clock?.cancel();
-      final id = course?.id;
       // The sentence stays in view a moment before the result.
       _moveOn = Timer(const Duration(milliseconds: 900), () {
-        if (mounted && id != null) setState(() => _outcome = ref.read(gameStatsProvider.notifier).finished(id, GameKind.dash, _seconds));
+        if (!mounted) return;
+        final outcome = finishRound(GameKind.dash, _seconds);
+        if (outcome != null) setState(() => _outcome = outcome);
       });
       return;
     }
@@ -797,9 +875,9 @@ class _DashGameScreenState extends ConsumerState<DashGameScreen> with _GameHost 
     final l10n = context.l10n;
     final track = appState.activeCourse?.track;
     final courseId = appState.activeCourse?.id;
-    final pool = ref.watch(gamePoolProvider);
+    final pool = ref.watch(roundPoolProvider(missionKey));
     if (track == null || courseId == null || pool.where((p) => canDash(p.item)).length < minDashSentences) return const MissionUnavailable();
-    final best = ref.read(gameStatsProvider.notifier).recordOf(courseId, GameKind.dash).best;
+    final best = bestOf(GameKind.dash);
     final sentences = _sentences;
     final outcome = _outcome;
 
@@ -818,6 +896,7 @@ class _DashGameScreenState extends ConsumerState<DashGameScreen> with _GameHost 
           record: outcome.record,
           xp: outcome.xp,
           onAgain: _start,
+          onStartMission: onStartMission,
         ),
       );
     }

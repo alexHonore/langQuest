@@ -242,5 +242,42 @@ enum GameKind {
   final bool lowerIsBetter;
 }
 
+// --- What a round needs, and the game of a mission's Play stop ----------------------------------------------------
+
+/// Pairs on a Lantern pairs board (fewer while there are fewer phrases).
+const memoryPairs = 6;
+
+/// A board of Lantern pairs needs at least this many phrases.
+const minMemoryPhrases = 3;
+
+/// Quick fire needs enough phrases for a wrong meaning not to give itself away.
+const minQuickPhrases = 4;
+
+/// By ear needs this many phrases that can be said here; Sentence dash this many sentences that can be rebuilt.
+const minEarPhrases = 4;
+const minDashSentences = 3;
+
+/// The games [items] are enough for, [audible] of them being phrases that can be said here.
+Set<GameKind> gamesPlayableWith(List<GameItem> items, {required int audible}) => {
+  if (items.length >= minMemoryPhrases) GameKind.memory,
+  if (items.length >= minQuickPhrases) GameKind.quick,
+  if (audible >= minEarPhrases) GameKind.ear,
+  if (items.where(canDash).length >= minDashSentences) GameKind.dash,
+};
+
+/// The games take turns along the missions of a course, so each mission's Play stop is a different game from the
+/// one before.
+const missionGameRotation = [GameKind.memory, GameKind.quick, GameKind.dash, GameKind.ear];
+
+/// The game of the Play stop of the mission at [index] in its course: its turn in the rotation, or the next game its
+/// phrases are enough for ([playable]). Null when they are enough for none.
+GameKind? missionGameFor(int index, Set<GameKind> playable) {
+  for (var turn = 0; turn < missionGameRotation.length; turn++) {
+    final kind = missionGameRotation[(index + turn) % missionGameRotation.length];
+    if (playable.contains(kind)) return kind;
+  }
+  return null;
+}
+
 /// Whether [score] beats [best] in [kind] (anything beats no record).
 bool beats(GameKind kind, int score, int? best) => best == null || (kind.lowerIsBetter ? score < best : score > best);

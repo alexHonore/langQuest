@@ -29,6 +29,10 @@ void main() {
       expect(stops, [PathStop.learn, PathStop.practise, PathStop.mission]);
       expect(stopsFor(hasLearnPlan: true, canTalk: true), [PathStop.learn, PathStop.practise, PathStop.mission, PathStop.talk]);
       expect(stopsFor(hasLearnPlan: false), [PathStop.mission]);
+      // Play (a round of a game with the mission's phrases) comes between the practice and the mission.
+      expect(stopsFor(hasLearnPlan: true, canPlay: true, canTalk: true), [PathStop.learn, PathStop.practise, PathStop.play, PathStop.mission, PathStop.talk]);
+      expect(stopsFor(hasLearnPlan: false, canPlay: true), [PathStop.mission], reason: 'nothing taught, nothing to play with');
+      expect(nextStop(stopsFor(hasLearnPlan: true, canPlay: true), {PathStop.learn, PathStop.practise}), PathStop.play);
       expect(nextStop(stops, {}), PathStop.learn);
       expect(nextStop(stops, {PathStop.learn}), PathStop.practise);
       expect(nextStop(stops, {PathStop.learn, PathStop.practise, PathStop.mission}), isNull);

@@ -176,7 +176,7 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
   void restoreCompletedMissions(String courseId, Iterable<String> missionKeys) {
     var progress = state.learner.progressOf(courseId);
     for (final key in missionKeys) {
-      for (final stop in const [PathStop.learn, PathStop.practise, PathStop.mission]) {
+      for (final stop in const [PathStop.learn, PathStop.practise, PathStop.play, PathStop.mission]) {
         progress = progress.withStop(key, stop);
       }
     }
@@ -208,7 +208,7 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
     _update(learner.copyWith(enrollments: enrollments, courses: courses, activeCourseId: active));
   }
 
-  /// Mark a Learn or Practise stop of [missionKey] done in the active course (+5 XP the first time).
+  /// Mark a Learn, Practise or Play stop of [missionKey] done in the active course (+5 XP the first time).
   void completeStop(String missionKey, PathStop stop) {
     final course = state.activeCourse;
     if (course == null || course.indexOfMission(missionKey) < 0) return;

@@ -19,6 +19,8 @@ import '../mascot/melo_model.dart';
 import '../mascot/melo_widget.dart';
 import 'exercise_widgets.dart';
 import 'learn_content.dart';
+import '../games/game_pool.dart';
+import '../games/game_widgets.dart';
 import 'learn_logic.dart';
 import 'learn_providers.dart';
 import 'learn_widgets.dart';
@@ -205,9 +207,34 @@ class _PracticeScreenState extends ConsumerState<PracticeScreen> {
     final Widget bottom;
     if (_summary) {
       view = _summaryView(plan, progress);
+      // On to the mission's round of play when one is still to do (the mission itself stays one tap away), else to
+      // the mission.
+      final game = planHasGame(plan) && !ref.watch(appStateProvider.select((s) => s.stopsDone(widget.missionKey).contains(PathStop.play)))
+          ? ref.watch(missionGameProvider(widget.missionKey))
+          : null;
+      void startMission() => context.pushReplacement('/mission/${widget.missionKey}');
       bottom = Padding(
         padding: const EdgeInsets.fromLTRB(16, 8, 16, 12),
-        child: LearnPrimaryButton(label: l10n.startMission, icon: LucideIcons.flag, onPressed: () => context.pushReplacement('/mission/${widget.missionKey}')),
+        child: game == null
+            ? LearnPrimaryButton(label: l10n.startMission, icon: LucideIcons.flag, onPressed: startMission)
+            : Column(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  LearnPrimaryButton(
+                    label: l10n.practicePlayNext(gameName(l10n, game)),
+                    icon: LucideIcons.gamepad2,
+                    onPressed: () => context.pushReplacement('/learn/${widget.missionKey}/play'),
+                  ),
+                  TextButton(
+                    style: TextButton.styleFrom(minimumSize: const Size(48, 48)),
+                    onPressed: startMission,
+                    child: Text(
+                      l10n.startMission,
+                      style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: ref.watch(appStateProvider.select((s) => s.accent.primaryText))),
+                    ),
+                  ),
+                ],
+              ),
       );
     } else {
       view = switch (step) {

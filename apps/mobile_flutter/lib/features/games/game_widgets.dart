@@ -200,10 +200,14 @@ class GameResult extends ConsumerWidget {
     this.record = false,
     this.xp = false,
     this.children = const [],
+    this.onStartMission,
   });
 
   final String headline;
   final String? detail;
+
+  /// The round was a mission's Play stop: the way on is the mission itself (another round stays possible).
+  final VoidCallback? onStartMission;
 
   /// The learner's record in this game.
   final String? best;
@@ -299,15 +303,35 @@ class GameResult extends ConsumerWidget {
                   ),
                 ),
               ),
-              LearnPrimaryButton(label: l10n.gamePlayAgain, icon: LucideIcons.rotateCcw, onPressed: onAgain),
-              TextButton(
-                style: TextButton.styleFrom(minimumSize: const Size(48, 48)),
-                onPressed: () => context.canPop() ? context.pop() : context.go('/play'),
-                child: Text(
-                  l10n.gameBackToGames,
-                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: accent.primaryText),
+              if (onStartMission case final start?) ...[
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 10),
+                  child: Text(
+                    l10n.gameMissionDetail,
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 14.5, height: 1.35, color: colors.textSecondary),
+                  ),
                 ),
-              ),
+                LearnPrimaryButton(label: l10n.startMission, icon: LucideIcons.flag, onPressed: start),
+                TextButton(
+                  style: TextButton.styleFrom(minimumSize: const Size(48, 48)),
+                  onPressed: onAgain,
+                  child: Text(
+                    l10n.gamePlayAgain,
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: accent.primaryText),
+                  ),
+                ),
+              ] else ...[
+                LearnPrimaryButton(label: l10n.gamePlayAgain, icon: LucideIcons.rotateCcw, onPressed: onAgain),
+                TextButton(
+                  style: TextButton.styleFrom(minimumSize: const Size(48, 48)),
+                  onPressed: () => context.canPop() ? context.pop() : context.go('/play'),
+                  child: Text(
+                    l10n.gameBackToGames,
+                    style: TextStyle(fontSize: 15, fontWeight: FontWeight.w700, color: accent.primaryText),
+                  ),
+                ),
+              ],
             ],
           ),
         ),

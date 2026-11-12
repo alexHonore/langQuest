@@ -123,7 +123,7 @@ class _SceneLessonScreenState extends ConsumerState<SceneLessonScreen> {
     final hasVoice = ref.watch(lineVoiceProvider(plan.voiceLocale)).asData?.value.available ?? false;
     final learnerTurn = line.byLearner;
     final meloState = _speaking ? MeloState.curious : (learnerTurn ? MeloState.welcome : MeloState.companion);
-    final sceneId = sceneIdForSituation(plan.mission.situation);
+    final sceneId = sceneIdForMission(plan.mission);
     final isLast = index == plan.sceneLines.length - 1;
     final note = plan.noteOf(line.expression);
     // The learner's line waits for a take (understood where the server checks), unless speaking is paused.

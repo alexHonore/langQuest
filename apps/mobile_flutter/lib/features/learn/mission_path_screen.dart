@@ -9,6 +9,7 @@ import '../../core/theme/typography.dart';
 import '../audio/audio_screens.dart';
 import '../call/call_screen.dart';
 import '../games/game_pool.dart';
+import '../games/game_widgets.dart';
 import '../../l10n/l10n.dart';
 import '../scenes/animated_scene.dart';
 import 'learn_content.dart';
@@ -17,10 +18,11 @@ import 'learn_providers.dart';
 import 'learn_widgets.dart';
 import 'record_take.dart';
 
-/// N2 — one mission node: learn → practise → mission → talk, as numbered steps under the mission's place. The learner
-/// can open any stop, but the primary action is always the next one, so the curve is the default path. Talk (a live
+/// N2 — one mission node: learn → practise → play → mission → talk, as numbered steps under the mission's place. The
+/// learner can open any stop, but the primary action is always the next one, so the curve is the default path. Play is
+/// a round of a mini-game with the mission's own phrases (the games take turns from mission to mission). Talk (a live
 /// call with a character of the mission) appears only when a signed-in learner's course has live conversation on the
-/// server. Under the steps, the other ways to work on the same phrases: saying them, their audio lesson, the games.
+/// server. Under the steps, the other ways to work on the same phrases: saying them, their audio lesson.
 class MissionPathScreen extends ConsumerWidget {
   final String missionKey;
   const MissionPathScreen({super.key, required this.missionKey});
@@ -28,6 +30,7 @@ class MissionPathScreen extends ConsumerWidget {
   static String routeFor(String missionKey, PathStop stop) => switch (stop) {
     PathStop.learn => '/learn/$missionKey/scene',
     PathStop.practise => '/learn/$missionKey/practice',
+    PathStop.play => '/learn/$missionKey/play',
     PathStop.mission => '/mission/$missionKey',
     PathStop.talk => '/call/$missionKey',
   };
@@ -40,12 +43,13 @@ class MissionPathScreen extends ConsumerWidget {
     final colors = appState.colors;
     final l10n = context.l10n;
     final call = ref.watch(liveCallCourseProvider);
-    final stops = stopsFor(hasLearnPlan: planHasLearnStops(plan), canTalk: call != null);
+    final stops = stopsOfPlan(plan, canTalk: call != null);
+    final game = ref.watch(missionGameProvider(missionKey));
     final done = appState.stopsDone(missionKey);
     final canPractiseSaying = ref.watch(takeRecorderFactoryProvider) != null;
     final next = nextStop(stops, done);
     final title = plan.mission.titleIn(plan.source) ?? '';
-    final sceneId = sceneIdForSituation(plan.mission.situation);
+    final sceneId = sceneIdForMission(plan.mission);
     final course = appState.activeCourse;
     final number = course == null ? 0 : course.indexOfMission(missionKey) + 1;
     final lockedTalk = call == null && ref.watch(callsNeedAccountProvider);
@@ -58,6 +62,7 @@ class MissionPathScreen extends ConsumerWidget {
         subtitle: plan.pairPhrases.length < 3 ? l10n.pathPractisePairsOnly : l10n.pathPractiseSubtitle,
         icon: LucideIcons.dumbbell,
       ),
+      PathStop.play => (title: l10n.stopPlay, subtitle: game == null ? '' : l10n.pathPlaySubtitle(gameName(l10n, game)), icon: LucideIcons.gamepad2),
       PathStop.mission => (title: l10n.stopMission, subtitle: l10n.pathMissionSubtitle(plan.exchanges.length, plan.characterName), icon: LucideIcons.flag),
       PathStop.talk => (
         title: l10n.stopTalk,
@@ -69,8 +74,7 @@ class MissionPathScreen extends ConsumerWidget {
     // The other ways to work on this mission's phrases, each only where it can be used.
     final extras = <({IconData icon, String label, String route})>[
       if (canPractiseSaying && learned) (icon: LucideIcons.mic, label: l10n.practiseSayingEntry, route: '/speak/$missionKey'),
-      if (learned && ref.watch(audioLessonsAvailableProvider)) (icon: LucideIcons.headphones, label: l10n.pathAudioLesson, route: '/audio/$missionKey'),
-      if (learned && ref.watch(gamesAvailableProvider)) (icon: LucideIcons.gamepad2, label: l10n.pathPlayGames, route: '/play'),
+      if (learned && ref.watch(audioLessonAudibleProvider(missionKey))) (icon: LucideIcons.headphones, label: l10n.pathAudioLesson, route: '/audio/$missionKey'),
     ];
 
     return Scaffold(
@@ -310,7 +314,7 @@ class _StopTile extends ConsumerWidget {
   }
 }
 
-/// Another way to work on the mission's phrases (say them, hear them, play with them).
+/// Another way to work on the mission's phrases (say them, hear them).
 class _ExtraChip extends ConsumerWidget {
   const _ExtraChip({required this.icon, required this.label, required this.onTap});
 
@@ -359,3 +363,8 @@ class _ExtraChip extends ConsumerWidget {
 
 /// Exposed for tests: whether a plan has the teaching block that makes Learn/Practise stops appear.
 bool planHasLearnStops(MissionLearnPlan plan) => plan.sceneLines.isNotEmpty && plan.phrases.isNotEmpty;
+
+/// The stops of [plan]'s mission, in order: Learn and Practise when it has a teaching block, Play when it has
+/// enough phrases for a round, the mission itself, and Talk when a live partner backs it ([canTalk]).
+List<PathStop> stopsOfPlan(MissionLearnPlan plan, {bool canTalk = false}) =>
+    stopsFor(hasLearnPlan: planHasLearnStops(plan), canPlay: planHasGame(plan), canTalk: canTalk);

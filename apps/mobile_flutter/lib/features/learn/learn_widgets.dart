@@ -52,6 +52,14 @@ SceneId sceneIdForSituation(String situation) => switch (situation) {
   _ => SceneId.street,
 };
 
+/// The painted scene of [mission]: where its conversation happens. A blueprint whose place its situation does not
+/// say (a ticket office is "travel", like an airport; help is asked for in the street, not at the clinic) names it.
+SceneId sceneIdForMission(Mission mission) => switch (mission.blueprintKey) {
+  'buy_train_ticket' => SceneId.station,
+  'emergency_ask_help' => SceneId.street,
+  _ => sceneIdForSituation(mission.situation),
+};
+
 /// Localized name of a painted scene (the badge in its corner).
 String sceneTitle(AppLocalizations l10n, SceneId id) => switch (id) {
   SceneId.cafe => l10n.sceneCafe,
@@ -71,6 +79,7 @@ String sceneTitle(AppLocalizations l10n, SceneId id) => switch (id) {
 String stopLabel(AppLocalizations l10n, PathStop stop) => switch (stop) {
   PathStop.learn => l10n.stopLearn,
   PathStop.practise => l10n.stopPractise,
+  PathStop.play => l10n.stopPlay,
   PathStop.mission => l10n.stopMission,
   PathStop.talk => l10n.stopTalk,
 };

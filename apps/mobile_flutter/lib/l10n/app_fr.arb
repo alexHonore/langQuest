@@ -533,7 +533,7 @@
   "gamesTitle": "Mini-jeux",
   "gamesBody": "{count, plural, =1{Une autre façon de retrouver la phrase que vous avez apprise.} other{Une autre façon de retrouver les {count} phrases que vous avez apprises. Chaque mission en ajoute.}}",
   "homeGamesBody": "{count, plural, =1{Jouez avec 1 phrase que vous connaissez} other{Jouez avec les {count} phrases que vous connaissez}}",
-  "gamesNeedPhrases": "Les jeux utilisent les phrases que vous avez apprises. Terminez l’étape Apprendre d’une mission pour les ouvrir.",
+  "gamesNeedPhrases": "Les jeux se jouent avec les phrases que vous avez apprises. Apprenez les premières : ils s’ouvrent aussitôt.",
   "gameMemoryName": "Paires de lanternes",
   "gameMemoryPitch": "Chaque phrase et son sens se cachent sous les lanternes. Trouvez les paires.",
   "gameMemoryHint": "Retournez deux lanternes : une phrase et son sens restent allumés.",
@@ -565,5 +565,13 @@
   "gamePlayAgain": "Rejouer",
   "gameBackToGames": "Retour aux jeux",
   "gameNewRecord": "Nouveau record",
-  "courseIncludesGames": "Des mini-jeux avec les phrases que vous avez apprises"
+  "courseIncludesGames": "Des mini-jeux avec les phrases que vous avez apprises",
+  "tabPlay": "Jouer",
+  "stopPlay": "Jouer",
+  "pathPlaySubtitle": "{game}, avec les phrases de cette mission",
+  "practicePlayNext": "Jouer : {game}",
+  "gameMissionDetail": "À présent, utilisez ces phrases dans la mission.",
+  "gamesEmptyTitle": "Jouez avec ce que vous apprenez",
+  "gamesLearnFirst": "Apprendre mes premières phrases",
+  "gamesInMissions": "Chaque mission a aussi sa propre manche, à son étape Jouer."
 }

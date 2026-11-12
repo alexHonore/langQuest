@@ -210,6 +210,8 @@ void main() {
       expect(find.text('${questions - 2} of $questions right the first time'), findsOneWidget);
       expect(find.text('Worth another look'), findsOneWidget);
       expect(container.read(appStateProvider).stopsDone(mission.key), {PathStop.learn, PathStop.practise});
+      // The way on is the mission's round of play; the mission itself stays one tap away.
+      expect(find.textContaining('Play: '), findsOneWidget);
       await tapText(t, 'Start the mission');
 
       // Mission: pick a wrong option once on the first exchange, then the right ones; say each out loud.

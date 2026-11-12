@@ -3293,7 +3293,7 @@ abstract class AppLocalizations {
   /// No description provided for @gamesNeedPhrases.
   ///
   /// In en, this message translates to:
-  /// **'The games play with phrases you have learned. Finish the Learn step of a mission to open them.'**
+  /// **'The games are played with the phrases you have learned. Learn your first ones and they open.'**
   String get gamesNeedPhrases;
 
   /// No description provided for @gameMemoryName.
@@ -3487,6 +3487,54 @@ abstract class AppLocalizations {
   /// In en, this message translates to:
   /// **'Mini-games with the phrases you have learned'**
   String get courseIncludesGames;
+
+  /// No description provided for @tabPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get tabPlay;
+
+  /// No description provided for @stopPlay.
+  ///
+  /// In en, this message translates to:
+  /// **'Play'**
+  String get stopPlay;
+
+  /// No description provided for @pathPlaySubtitle.
+  ///
+  /// In en, this message translates to:
+  /// **'{game}, with this mission’s phrases'**
+  String pathPlaySubtitle(String game);
+
+  /// No description provided for @practicePlayNext.
+  ///
+  /// In en, this message translates to:
+  /// **'Play: {game}'**
+  String practicePlayNext(String game);
+
+  /// No description provided for @gameMissionDetail.
+  ///
+  /// In en, this message translates to:
+  /// **'Now use these phrases in the mission.'**
+  String get gameMissionDetail;
+
+  /// No description provided for @gamesEmptyTitle.
+  ///
+  /// In en, this message translates to:
+  /// **'Play with what you learn'**
+  String get gamesEmptyTitle;
+
+  /// No description provided for @gamesLearnFirst.
+  ///
+  /// In en, this message translates to:
+  /// **'Learn my first phrases'**
+  String get gamesLearnFirst;
+
+  /// No description provided for @gamesInMissions.
+  ///
+  /// In en, this message translates to:
+  /// **'Each mission also has a round of its own, at its Play step.'**
+  String get gamesInMissions;
 }
 
 class _AppLocalizationsDelegate extends LocalizationsDelegate<AppLocalizations> {

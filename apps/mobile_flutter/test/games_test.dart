@@ -103,6 +103,23 @@ void main() {
       expect(list, List.generate(12, (i) => i), reason: 'the list given is left as it is');
     });
 
+    test('the games take turns along a course\'s missions, each only where the mission has enough for it', () {
+      const all = {GameKind.memory, GameKind.quick, GameKind.ear, GameKind.dash};
+      expect([for (var i = 0; i < 5; i++) missionGameFor(i, all)], [GameKind.memory, GameKind.quick, GameKind.dash, GameKind.ear, GameKind.memory]);
+      // Not enough for the game whose turn it is: the next one that can be played.
+      expect(missionGameFor(1, {GameKind.memory, GameKind.dash}), GameKind.dash);
+      expect(missionGameFor(3, {GameKind.memory, GameKind.quick}), GameKind.memory, reason: 'nothing can say the phrases: no By ear');
+      expect(missionGameFor(2, const {}), isNull);
+
+      expect(gamesPlayableWith(items(2), audible: 2), isEmpty);
+      expect(gamesPlayableWith(items(3), audible: 0), {GameKind.memory, GameKind.dash}, reason: 'three sentences to rebuild, too few for Quick fire');
+      expect(gamesPlayableWith(items(4), audible: 4), all);
+      expect(gamesPlayableWith([for (final i in items(5)) GameItem(id: i.id, text: i.text, meaning: i.meaning)], audible: 3), {
+        GameKind.memory,
+        GameKind.quick,
+      }, reason: 'nothing to rebuild, too few phrases that can be said');
+    });
+
     test('Lantern pairs: a phrase and its meaning stay lit; two cards that do not go together turn back', () {
       var board = MemoryState.start(items(3), 'seed');
       expect(board.cards, hasLength(6));
@@ -312,19 +329,27 @@ void main() {
   });
 
   group('on screen', () {
-    testWidgets('no games before anything is taught; then Home leads to them, each with what it can be played with', (t) async {
+    testWidgets('the Play tab leads to the first lesson before anything is taught; then it holds the games, and Home leads to them', (t) async {
       final container = await openApp(t, learned: const []);
-      expect(find.text('Mini-games'), findsNothing, reason: 'visible means usable');
-      container.read(appRouterProvider).go('/play');
+      String location() => container.read(appRouterProvider).state.matchedLocation;
+      expect(find.text('Mini-games'), findsNothing, reason: 'no card on Home before there is something to play with');
+      // The tab is always there, and never a dead end: it says what the games are played with and where to start.
+      // (Home's next mission lists its steps, Play among them: the tab is the last "Play" on screen.)
+      await t.tap(find.text('Play').last);
       await settle(t);
-      expect(find.textContaining('Finish the Learn step of a mission'), findsOneWidget);
-      await tapText(t, 'Back home');
+      expect(location(), '/play');
+      expect(find.text('Play with what you learn'), findsOneWidget);
+      expect(find.text('Lantern pairs'), findsNothing, reason: 'a game that cannot be played is not shown');
+      await tapText(t, 'Learn my first phrases');
+      expect(location(), '/path/$firstMission');
 
       container.read(appStateProvider.notifier).completeStop(firstMission, PathStop.learn);
+      container.read(appRouterProvider).go('/');
       await settle(t);
       await t.scrollUntilVisible(find.text('Mini-games'), 200, scrollable: find.byType(Scrollable).first);
       await tapText(t, 'Mini-games');
-      expect(container.read(appRouterProvider).state.matchedLocation, '/play');
+      expect(location(), '/play');
+      expect(find.text('Each mission also has a round of its own, at its Play step.'), findsOneWidget);
       expect(find.text('Lantern pairs'), findsOneWidget);
       expect(find.text('Quick fire'), findsOneWidget);
       expect(find.text('Sentence dash'), findsOneWidget);
@@ -335,16 +360,84 @@ void main() {
       expect(find.text('This mission is not part of your current course.'), findsOneWidget);
     });
 
-    testWidgets('a voice adds By ear; the mission page links to the games', (t) async {
-      final container = await openApp(t, learned: const [firstMission, secondMission], route: '/play', device: SpeakingDevice());
+    testWidgets('a voice adds By ear', (t) async {
+      await openApp(t, learned: const [firstMission, secondMission], route: '/play', device: SpeakingDevice());
       for (final game in ['Lantern pairs', 'Quick fire', 'By ear', 'Sentence dash']) {
         expect(find.text(game), findsOneWidget, reason: game);
       }
-      container.read(appRouterProvider).go('/path/$secondMission');
+    });
+
+    testWidgets('a mission has a Play step: its own phrases, its game, and the mission next', (t) async {
+      final semantics = t.ensureSemantics();
+      final container = await openApp(t, learned: const [firstMission], route: '/path/$firstMission');
+      String location() => container.read(appRouterProvider).state.matchedLocation;
+      final own = container.read(missionGamePoolProvider(firstMission));
+      expect(container.read(missionGameProvider(firstMission)), GameKind.memory, reason: 'the first mission of a course plays Lantern pairs');
+      expect(find.bySemanticsLabel(RegExp(r'^3\. Play\. Lantern pairs, with this mission’s phrases')), findsOneWidget);
+      expect(find.text('Play the mini-games'), findsNothing, reason: 'the games are a tab and a step, not a link');
+      await tapText(t, 'Play');
+      expect(location(), '/learn/$firstMission/play');
+
+      // The board holds this mission's phrases only, laid out the same for everyone the first time.
+      const seed = '$firstMission/memory/0';
+      final size = own.length < memoryPairs ? own.length : memoryPairs;
+      final board = MemoryState.start([for (final p in seededShuffle(own, seed).take(size)) p.item], seed);
+      Future<void> turn(int index) async {
+        final card = find.bySemanticsLabel('Lantern ${index + 1}, not turned');
+        await t.ensureVisible(card);
+        await t.tap(card);
+        await t.pump(const Duration(milliseconds: 100));
+      }
+
+      for (final id in {for (final c in board.cards) c.pairId}) {
+        await turn(board.cards.indexWhere((c) => c.pairId == id && c.side == MemorySide.phrase));
+        await turn(board.cards.indexWhere((c) => c.pairId == id && c.side == MemorySide.meaning));
+      }
       await settle(t);
-      expect(find.text('More ways to practise'), findsOneWidget);
-      await tapText(t, 'Play the mini-games');
-      expect(container.read(appRouterProvider).state.matchedLocation, '/play');
+      expect(find.text('All the pairs in $size moves'), findsOneWidget);
+      expect(find.text('+5 XP'), findsOneWidget);
+      expect(find.text('Now use these phrases in the mission.'), findsOneWidget);
+      expect(container.read(appStateProvider).stopsDone(firstMission), {PathStop.learn, PathStop.play});
+      expect(container.read(appStateProvider).learner.xpTotal, 2 * XpAmounts.stepCompleted, reason: 'the Learn stop and the Play stop');
+      expect(container.read(gameStatsProvider), isEmpty, reason: 'a mission\'s round keeps no record: its phrases are its own');
+
+      // Another round is another board, without more XP; then on to the mission.
+      await tapText(t, 'Play again');
+      expect(find.text('Turn two lanterns: a phrase and its meaning stay lit.'), findsOneWidget);
+      const again = '$firstMission/memory/1';
+      final next = MemoryState.start([for (final p in seededShuffle(own, again).take(size)) p.item], again);
+      for (final id in {for (final c in next.cards) c.pairId}) {
+        await turn(next.cards.indexWhere((c) => c.pairId == id && c.side == MemorySide.phrase));
+        await turn(next.cards.indexWhere((c) => c.pairId == id && c.side == MemorySide.meaning));
+      }
+      await settle(t);
+      expect(find.text('+5 XP'), findsNothing);
+      await tapText(t, 'Start the mission');
+      expect(location(), '/mission/$firstMission');
+      semantics.dispose();
+    });
+
+    testWidgets('the games take turns from mission to mission: the second plays Quick fire, shorter, with its own phrases', (t) async {
+      final container = await openApp(t, learned: const [firstMission, secondMission], route: '/path/$secondMission');
+      final own = container.read(missionGamePoolProvider(secondMission));
+      expect(container.read(missionGameProvider(secondMission)), GameKind.quick);
+      expect(find.text('Quick fire, with this mission’s phrases'), findsOneWidget);
+      container.read(appRouterProvider).go('/learn/$secondMission/play');
+      await settle(t);
+      expect(find.textContaining('Answer as many as you can in 30 seconds'), findsOneWidget);
+      await tapText(t, 'Start');
+      final round = QuickRound([for (final p in own) p.item], '$secondMission/quick/0');
+      for (var i = 0; i < 3; i++) {
+        final statement = round.statementAt(i);
+        expect(find.text(statement.item.text), findsOneWidget, reason: 'statement $i is one of the mission\'s own phrases');
+        await t.tap(find.text(statement.isTrue ? 'Yes' : 'No'));
+        await t.pump(const Duration(milliseconds: 500));
+      }
+      await t.pump(missionQuickRoundLength);
+      await settle(t);
+      expect(find.text('3 right answers'), findsOneWidget);
+      expect(find.text('Start the mission'), findsOneWidget);
+      expect(container.read(appStateProvider).stopsDone(secondMission), contains(PathStop.play));
     });
 
     testWidgets('Lantern pairs: cards that do not go together turn back; every pair found ends the round with its record and XP', (t) async {

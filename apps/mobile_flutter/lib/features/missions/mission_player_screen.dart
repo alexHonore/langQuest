@@ -231,7 +231,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
     final appState = ref.watch(appStateProvider);
     final colors = appState.colors;
     final l10n = context.l10n;
-    final sceneId = sceneIdForSituation(plan.mission.situation);
+    final sceneId = sceneIdForMission(plan.mission);
     final segments = plan.exchanges.length + 1;
     final current = switch (_phase) {
       _Phase.exchange => _exchange,
@@ -717,7 +717,7 @@ class _MissionPlayerScreenState extends ConsumerState<MissionPlayerScreen> {
             if (ref.watch(gamesAvailableProvider))
               TextButton.icon(
                 style: TextButton.styleFrom(minimumSize: const Size(48, 48), foregroundColor: accent.primaryText),
-                onPressed: () => context.pushReplacement('/play'),
+                onPressed: () => context.go('/play'),
                 icon: const Icon(LucideIcons.gamepad2, size: 18),
                 label: Text(l10n.pathPlayGames, style: const TextStyle(fontSize: 15, fontWeight: FontWeight.w700)),
               ),

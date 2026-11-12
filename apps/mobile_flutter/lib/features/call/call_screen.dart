@@ -69,7 +69,7 @@ class CallTopic {
   /// A mission's call: the server gives it the mission's character, goals and scene.
   factory CallTopic.mission(MissionLearnPlan plan) => CallTopic(
     title: plan.mission.titleIn(plan.source) ?? '',
-    sceneId: sceneIdForSituation(plan.mission.situation),
+    sceneId: sceneIdForMission(plan.mission),
     track: plan.track,
     missionKey: plan.mission.key,
     missionId: missionServerId(plan.mission.chapterKey, plan.mission.key),

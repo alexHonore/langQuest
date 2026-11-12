@@ -101,6 +101,9 @@ class FakeWorker {
   final failNext = <String, int>{};
   var healthy = true;
 
+  /// Chapters the server's curriculum does not have (yet): their missions answer 404.
+  final unknownChapters = <String>{};
+
   http.Client get client => MockClient((req) async {
     final key = '${req.method} ${req.url.path}';
     requests.add(key);
@@ -154,6 +157,12 @@ class FakeWorker {
     if (req.method == 'GET' && req.url.path.startsWith('/v1/missions/')) {
       final missionId = req.url.pathSegments[2];
       final mission = testBundle.chapters.expand((c) => c.missions).firstWhere((m) => missionServerId(m.chapterKey, m.key) == missionId);
+      if (unknownChapters.contains(mission.chapterKey)) {
+        return json({
+          'ok': false,
+          'error': {'code': 'not_found', 'message': 'mission not found'},
+        }, 404);
+      }
       // Two steps built on the learner's lines, one listening step on the character's.
       final learner = mission.expressions.where((e) => e.byLearner).toList();
       final character = mission.expressions.where((e) => !e.byLearner).toList();
@@ -305,6 +314,27 @@ void main() {
       expect(evaluations[0]['clientEventId'], evaluations[1]['clientEventId']);
     });
 
+    test('a mission of a chapter the server does not have yet waits on the device and is sent once it does', () async {
+      await setUpSync();
+      app().enroll(spanish, 'en');
+      final missions = testBundle.course(spanish, 'en')!.missions;
+      for (final m in missions.take(2)) {
+        app().completeMission(m.key, {for (final e in m.expressions.where((e) => e.byLearner)) e.id: ReviewRating.good});
+      }
+      worker.unknownChapters.add(missions.first.chapterKey);
+
+      final report = await sync.sync();
+      expect((report.missionsSent, report.missionsWaiting, report.missionsRefused), (0, 2, 0));
+      expect(worker.requests.where((r) => r.startsWith('GET /v1/missions/')), hasLength(1), reason: 'the chapter is asked about once, not once per mission');
+      expect(container.read(appStateProvider).progress.isMissionCompleted(missions.first.key), isTrue, reason: 'nothing is lost on the device');
+
+      // The server's curriculum catches up: the next sync reports both.
+      worker.unknownChapters.clear();
+      final later = await sync.sync();
+      expect((later.missionsSent, later.missionsWaiting), (2, 0));
+      expect((await sync.sync()).missionsSent, 0, reason: 'sent once');
+    });
+
     test('courses and completed missions of the account come back on a new device, without XP or review cards', () async {
       await setUpSync();
       final darija = testBundle.course('arabic-moroccan', 'fr')!;
@@ -321,7 +351,7 @@ void main() {
       expect(state.activeCourse!.id, darija.id);
       final progress = state.learner.progressOf(darija.id);
       expect(progress.isMissionCompleted(darija.missions[0].key) && progress.isMissionCompleted(darija.missions[1].key), isTrue);
-      expect(progress.stopsDone(darija.missions[0].key), {PathStop.learn, PathStop.practise, PathStop.mission});
+      expect(progress.stopsDone(darija.missions[0].key), {PathStop.learn, PathStop.practise, PathStop.play, PathStop.mission});
       expect(state.isUnlocked(darija, darija.missions[2].key), isTrue, reason: 'the path continues where the account left off');
       expect(progress.cards, isEmpty);
       expect(state.learner.xpByDay, isEmpty);

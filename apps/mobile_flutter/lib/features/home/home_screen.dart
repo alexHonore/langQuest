@@ -183,11 +183,11 @@ class _NextMissionCard extends ConsumerWidget {
     final l10n = context.l10n;
     final plan = ref.watch(learnPlanProvider(mission.key));
     if (plan == null) return const SizedBox.shrink();
-    final stops = stopsFor(hasLearnPlan: planHasLearnStops(plan));
+    final stops = stopsOfPlan(plan);
     final done = appState.stopsDone(mission.key);
     final nextStopValue = nextStop(stops, done) ?? PathStop.mission;
     final index = course.indexOfMission(mission.key);
-    final sceneId = sceneIdForSituation(mission.situation);
+    final sceneId = sceneIdForMission(mission);
     final title = mission.titleIn(course.source) ?? '';
     void open() => context.push('/path/${mission.key}');
 
@@ -380,7 +380,7 @@ class _PlayCard extends ConsumerWidget {
         level: GlassLevel.level2,
         radius: 18,
         padding: const EdgeInsets.all(14),
-        onTap: () => context.push('/play'),
+        onTap: () => context.go('/play'),
         child: Row(
           children: [
             Container(

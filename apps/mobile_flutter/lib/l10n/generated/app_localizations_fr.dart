@@ -1867,7 +1867,7 @@ class AppLocalizationsFr extends AppLocalizations {
   }
 
   @override
-  String get gamesNeedPhrases => 'Les jeux utilisent les phrases que vous avez apprises. Terminez l’étape Apprendre d’une mission pour les ouvrir.';
+  String get gamesNeedPhrases => 'Les jeux se jouent avec les phrases que vous avez apprises. Apprenez les premières : ils s’ouvrent aussitôt.';
 
   @override
   String get gameMemoryName => 'Paires de lanternes';
@@ -2019,4 +2019,32 @@ class AppLocalizationsFr extends AppLocalizations {
 
   @override
   String get courseIncludesGames => 'Des mini-jeux avec les phrases que vous avez apprises';
+
+  @override
+  String get tabPlay => 'Jouer';
+
+  @override
+  String get stopPlay => 'Jouer';
+
+  @override
+  String pathPlaySubtitle(String game) {
+    return '$game, avec les phrases de cette mission';
+  }
+
+  @override
+  String practicePlayNext(String game) {
+    return 'Jouer : $game';
+  }
+
+  @override
+  String get gameMissionDetail => 'À présent, utilisez ces phrases dans la mission.';
+
+  @override
+  String get gamesEmptyTitle => 'Jouez avec ce que vous apprenez';
+
+  @override
+  String get gamesLearnFirst => 'Apprendre mes premières phrases';
+
+  @override
+  String get gamesInMissions => 'Chaque mission a aussi sa propre manche, à son étape Jouer.';
 }

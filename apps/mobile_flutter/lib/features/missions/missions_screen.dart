@@ -179,10 +179,10 @@ class _MissionRow extends ConsumerWidget {
     final colors = appState.colors;
     final l10n = context.l10n;
     final plan = ref.watch(learnPlanProvider(mission.key));
-    final stops = plan == null ? const <PathStop>[] : stopsFor(hasLearnPlan: planHasLearnStops(plan));
+    final stops = plan == null ? const <PathStop>[] : stopsOfPlan(plan);
     final done = appState.stopsDone(mission.key);
     final title = mission.titleIn(source) ?? '';
-    final sceneId = sceneIdForSituation(mission.situation);
+    final sceneId = sceneIdForMission(mission);
     // The lantern hangs level with the middle of a small card, and with the picture of the next mission's.
     final lanternTop = isNext ? 34.0 : 18.0;
 
@@ -374,7 +374,7 @@ class _MissionRow extends ConsumerWidget {
   }
 }
 
-/// The stops of a mission, in order (learn · practise · mission): checked when done; the next one stands out.
+/// The stops of a mission, in order (learn · practise · play · mission): checked when done; the next one stands out.
 class StopDots extends ConsumerWidget {
   final List<PathStop> stops;
   final Set<PathStop> done;
