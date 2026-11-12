@@ -29,6 +29,15 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
   page.on('console', (m) => {
     if (m.type() === 'error') errors.push(`console error: ${m.text()}`);
   });
+  // The repository's own content folder (served here) has no `index.json`: the app asks for it, gets a 404, and reads
+  // the files under their plain names. That 404 is expected; any other is an error.
+  let expected404 = 0;
+  const unexpected404 = [];
+  page.on('response', (r) => {
+    if (r.status() !== 404) return;
+    if (new URL(r.url()).pathname.endsWith('/data/index.json')) expected404 += 1;
+    else unexpected404.push(r.url());
+  });
   // The content files the page fetched (`catalog.json`, `chapters/<track>.json`…), in order: from the content bucket
   // (named by content, `chapters/<track>.<hash>.json`) or a plain copy of the repository's (CI), so the hash is dropped.
   const content = [];
@@ -150,7 +159,11 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
   ok('a reload fetches the learner\'s course only and opens on Home');
 
   await browser.close();
-  if (errors.length) throw new Error(`${errors.length} page error(s):\n  ${errors.join('\n  ')}`);
+  // The browser logs each 404 as a console error, without its address: drop as many as the expected ones.
+  let toDrop = expected404;
+  const real = errors.filter((e) => !(toDrop > 0 && /status of 404/.test(e) && toDrop-- > 0));
+  if (unexpected404.length) real.push(...unexpected404.map((u) => `404: ${u}`));
+  if (real.length) throw new Error(`${real.length} page error(s):\n  ${real.join('\n  ')}`);
   ok('no page errors');
 })().catch((e) => {
   console.error(`not ok - ${e.message}`);
