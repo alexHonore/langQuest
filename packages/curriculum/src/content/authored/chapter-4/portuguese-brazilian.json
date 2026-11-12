@@ -24,9 +24,9 @@
         "fr": "Dona Célia vous fait visiter un petit appartement lumineux au troisième étage d'un vieil immeuble de Santa Efigênia : pas d'ascenseur, mais il est libre le mois prochain."
       },
       "lines": [
-        { "key": "opinion", "slot": "opinion", "by": "learner", "intent": "state_opinion", "register": "neutral", "text": "Que claro! Gostei muito da sala.", "difficulty": 0.35,
-          "en": { "m": "It's so bright! I really like the living room.", "n": "Que + adjective = how bright! Claro means bright here, not 'of course'. Gostei (I liked) is the natural first reaction.", "l": "how bright! I-liked much of-the living-room" },
-          "fr": { "m": "Qu'il est lumineux ! Le séjour me plaît beaucoup.", "n": "« Que » + adjectif = comme c'est… ! Ici, « claro » veut dire clair, lumineux, et non « bien sûr ». « Sala » = le séjour.", "l": "que clair ! aimai beaucoup de-la salle" } },
+        { "key": "opinion", "slot": "opinion", "by": "learner", "intent": "state_opinion", "register": "neutral", "text": "Como é claro aqui! Gostei muito da sala.", "difficulty": 0.35,
+          "en": { "m": "It's so bright in here! I really like the living room.", "n": "Como é + adjective! = how bright it is! Claro means bright here, not 'of course'. Gostei (I liked) is the natural first reaction.", "l": "how is bright here! I-liked much of-the living-room" },
+          "fr": { "m": "Qu'est-ce que c'est lumineux ! Le séjour me plaît beaucoup.", "n": "« Como é » + adjectif = comme c'est… ! Ici, « claro » veut dire clair, lumineux, et non « bien sûr ». « Sala » = le séjour.", "l": "comme est clair ici ! aimai beaucoup de-la salle" } },
         { "key": "rent", "slot": "rent", "by": "learner", "intent": "ask_price", "register": "polite", "text": "Quanto é o aluguel por mês?", "difficulty": 0.3,
           "pron": "The final l of aluguel sounds like w: ah-loo-GEW.",
           "en": { "m": "How much is the rent per month?", "n": "Aluguel = rent; alugar = to rent.", "l": "how-much is the rent per month" },
