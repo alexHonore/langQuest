@@ -246,7 +246,7 @@
       "titles": { "en": "A bargain at the flea market", "fr": "Une affaire au marché aux puces" },
       "scene": {
         "en": "Camila, the neighbour who greeted you on your first morning and is now a friend, admires the ruana you bought yesterday at the Usaquén flea market.",
-        "fr": "Camila, la voisine qui vous a salué le premier matin et qui est devenue une amie, admire la ruana achetée hier au marché aux puces d'Usaquén."
+        "fr": "Camila, la voisine croisée le premier matin et devenue une amie, admire la ruana achetée hier au marché aux puces d'Usaquén."
       },
       "lines": [
         { "key": "nice_ruana", "slot": "+", "by": "character", "intent": "compliment", "register": "casual", "text": "¡Qué ruana tan bonita! ¿Dónde la compraste?", "difficulty": 0.4,
