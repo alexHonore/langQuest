@@ -10,9 +10,16 @@
  * overwritten), and its `audio_lessons` revision carries the restorable snapshot of the lesson as written, so
  * `POST /v1/admin/content/:id/rollback` undoes it. Suggestions themselves are not versioned.
  *
+ * A single decision is ONE conditional UPDATE (`assetSuggestions.decide`, pending status in the filter) that also carries
+ * the editor's payload override, so the payload of record is always the one the deciding editor saw, and the lesson is
+ * written only after that decision landed (decide, then apply). Of two editors deciding at the same moment exactly one
+ * decision lands; the other is a replay when it asked for the same outcome (same status and, for an approval, the payload
+ * now stored is the one it approved) and a 409 with the stored status otherwise.
+ *
  * `expectedRevision` on the single decide route holds the apply to THAT lesson revision (`guardedEdit`: revision
- * `expectedRevision + 1` is claimed before the conditional write). A lesson edited in between is a 412 with nothing
- * decided and no override stored; there is no re-read, since the editor approved against the revision they saw.
+ * `expectedRevision + 1` is claimed before the conditional write). A lesson already past it is a 412 with nothing
+ * decided; a lesson edited in the moment between that check and the apply leaves the decision recorded and nothing
+ * applied (`applied: false`), never written over a revision the editor did not see. There is no re-read.
  */
 import {
   AssetSuggestionDecideRequestSchema,
@@ -31,11 +38,11 @@ import {
   type ContentRevisionRef,
   type LearnerLevel,
 } from '@langquest/contracts';
-import type { AssetSuggestionRow } from '@langquest/db/repositories/asset-suggestions';
+import { SuggestionAlreadyDecidedError, type AssetSuggestionRow } from '@langquest/db/repositories/asset-suggestions';
 import type { Row, Update } from '@langquest/db/types';
 import { z } from 'zod';
 import type { DefineRoute } from '../../app';
-import { problem, respondOk } from '../../http/envelope';
+import { ApiProblem, problem, respondOk } from '../../http/envelope';
 import { parseBody, parseParams, parseQuery } from '../../http/validate';
 import { currentRevision } from '../../lib/content';
 import type { RequestServices } from '../../services/context';
@@ -48,6 +55,24 @@ const LEVELS = new Set(['beginner', 'elementary', 'intermediate', 'upper_interme
 type Json = Record<string, unknown>;
 const obj = (v: unknown): Json => (v && typeof v === 'object' && !Array.isArray(v) ? (v as Json) : {});
 const strings = (v: unknown): string[] => (Array.isArray(v) ? v.filter((x): x is string => typeof x === 'string') : []);
+
+/** Structural JSON equality, key order ignored (jsonb stores object keys in its own order). */
+function jsonEqual(a: unknown, b: unknown): boolean {
+  if (a === b) return true;
+  if (Array.isArray(a) || Array.isArray(b)) return Array.isArray(a) && Array.isArray(b) && a.length === b.length && a.every((v, i) => jsonEqual(v, b[i]));
+  if (!a || !b || typeof a !== 'object' || typeof b !== 'object') return false;
+  const [ka, kb] = [Object.keys(a), Object.keys(b)];
+  return ka.length === kb.length && ka.every((k) => Object.prototype.hasOwnProperty.call(b, k) && jsonEqual((a as Json)[k], (b as Json)[k]));
+}
+
+/**
+ * A decision on a suggestion that is no longer pending is a replay when it asks for what is stored: the same status and,
+ * for an approval, the same payload (`approvedPayload`: the editor's override, else the payload as their request read it).
+ * Anything else is a different decision (409). So an approval that lost to an approval of ANOTHER payload (an override on
+ * either side) is not a replay: the payload of record is not the one it approved.
+ */
+const isReplayOf = (stored: AssetSuggestionRow, status: 'approved' | 'rejected', approvedPayload: AssetSuggestionRow['suggestion'] | undefined): boolean =>
+  stored.review_status === status && (status !== 'approved' || jsonEqual(approvedPayload, stored.suggestion));
 
 /** Current value of the lesson field(s) a suggestion targets (null when unknown / no lesson). */
 function currentValueFor(row: AssetSuggestionRow, lesson: Row<'audio_lessons'> | null): unknown {
@@ -160,7 +185,8 @@ const APPLY_ATTEMPTS = 3;
  * - Without `expectedRevision`: a concurrent edit makes it re-read the lesson and recompute (tags merge into the
  *   CURRENT tags), up to `APPLY_ATTEMPTS` reads.
  * - With `expectedRevision`: `guardedEdit` claims revision `expectedRevision + 1` before the conditional write, so a
- *   revision recorded or a row written in between is a 412 (the claim is voided); no re-read, no retry.
+ *   revision recorded or a row written in between is a 412 (the claim is voided); no re-read, no retry. The caller has
+ *   already recorded the decision, so it turns that 412 into `applied: false`.
  */
 async function applyApproved(s: RequestServices, row: AssetSuggestionRow, expectedRevision?: number): Promise<ContentRevisionRef | null> {
   if (!row.lesson_id) return null;
@@ -299,14 +325,22 @@ export function registerSuggestionRoutes(define: DefineRoute): void {
     const body = await parseBody(c, AssetSuggestionDecideRequestSchema);
     const s = c.get('services')!;
     const { principal } = s.requireUser();
-    let row = await s.repos.assetSuggestions.getById(id);
+    const row = await s.repos.assetSuggestions.getById(id);
     if (!row) throw problem.notFound('Asset suggestion');
-    const status = body.decision === 'approve' ? 'approved' : 'rejected';
+    const approve = body.decision === 'approve';
+    const status = approve ? 'approved' : 'rejected';
+    // An override only means something on an approval (it is the payload being approved).
+    const override = approve && body.overrideSuggestion ? (body.overrideSuggestion as AssetSuggestionRow['suggestion']) : undefined;
+    // What this editor approves: their override, else the payload as this request read it.
+    const approvedPayload = approve ? (override ?? row.suggestion) : undefined;
+    const replay = async (stored: AssetSuggestionRow) => {
+      const lessons = await lessonsById(s, [stored]);
+      return respondOk(c, AssetSuggestionDecideResponseSchema.parse({ suggestion: toDto(stored, stored.lesson_id ? (lessons.get(stored.lesson_id) ?? null) : null), applied: false, revision: null, replayed: true }));
+    };
     if (!PENDING.has(row.review_status)) {
       // Already decided: a matching decision replays the stored outcome, a different one is a conflict.
-      if (row.review_status !== status) throw problem.conflict(`Suggestion was already ${row.review_status}`, { reviewStatus: row.review_status });
-      const lessons = await lessonsById(s, [row]);
-      return respondOk(c, AssetSuggestionDecideResponseSchema.parse({ suggestion: toDto(row, row.lesson_id ? (lessons.get(row.lesson_id) ?? null) : null), applied: false, revision: null, replayed: true }));
+      if (!isReplayOf(row, status, approvedPayload)) throw problem.conflict(`Suggestion was already ${row.review_status}`, { reviewStatus: row.review_status });
+      return replay(row);
     }
     if (body.expectedRevision !== undefined) {
       // Suggestions are not versioned in content_revisions; `expectedRevision` guards the TARGET lesson's revision.
@@ -314,18 +348,31 @@ export function registerSuggestionRoutes(define: DefineRoute): void {
       const current = await currentRevision(s, 'audio_lessons', row.lesson_id);
       if (current !== body.expectedRevision) throw problem.precondition(`Lesson revision is ${current}, expected ${body.expectedRevision}`, { currentRevision: current });
     }
-    const approve = body.decision === 'approve';
-    // With `expectedRevision` the lesson write is held to that revision and runs BEFORE anything is recorded: a lesson
-    // edited in between is a 412 with the suggestion still pending and no override stored, so the editor reloads and
-    // decides again. Without it the decision is recorded first and the apply re-reads a lesson that keeps changing.
-    const guarded = approve && body.expectedRevision !== undefined ? await applyApproved(s, body.overrideSuggestion ? { ...row, suggestion: body.overrideSuggestion as AssetSuggestionRow['suggestion'] } : row, body.expectedRevision) : undefined;
-    if (body.overrideSuggestion && approve) {
-      row = await s.repos.assetSuggestions.update(id, { suggestion: body.overrideSuggestion as never });
+    // Decide first, in one conditional UPDATE that also stores the override; only a decision that landed is applied.
+    let decided: AssetSuggestionRow;
+    try {
+      decided = await s.repos.assetSuggestions.decide(id, { reviewStatus: status, reviewerId: principal.userId, note: body.note ?? null, ...(override !== undefined ? { suggestion: override } : {}) });
+    } catch (error) {
+      if (!(error instanceof SuggestionAlreadyDecidedError)) throw error;
+      // Another decision landed between our read and our write. The same outcome is a replay (e.g. two editors who
+      // approved the same payload at the same moment); a different one keeps the 409 with the stored status.
+      const stored = error.currentStatus === status ? await s.repos.assetSuggestions.getById(id) : null;
+      if (stored && isReplayOf(stored, status, approvedPayload)) return replay(stored);
+      throw error;
     }
-    const decided = await s.repos.assetSuggestions.decide(id, { reviewStatus: status, reviewerId: principal.userId, note: body.note ?? null });
-    const revision = !approve ? null : guarded !== undefined ? guarded : await applyApproved(s, decided);
+    let revision: ContentRevisionRef | null = null;
+    if (approve) {
+      try {
+        revision = await applyApproved(s, decided, body.expectedRevision);
+      } catch (error) {
+        // `expectedRevision` only: the lesson moved past the revision the editor saw after the check above. The decision
+        // is the editor's and stands; nothing was written over a revision they did not see, and `applied` says so.
+        if (!(body.expectedRevision !== undefined && error instanceof ApiProblem && error.code === 'precondition_failed')) throw error;
+        s.log.warn('asset_suggestion.apply_stale', { suggestionId: id, lessonId: decided.lesson_id, expectedRevision: body.expectedRevision });
+      }
+    }
     const lessons = await lessonsById(s, [decided]);
-    s.audit({ action: 'asset_suggestion.decide', entityTable: 'asset_suggestions', entityId: id, before: { reviewStatus: row.review_status }, after: { idempotencyKey: body.idempotencyKey, decision: body.decision, overridden: Boolean(body.overrideSuggestion), applied: revision !== null, revision } });
+    s.audit({ action: 'asset_suggestion.decide', entityTable: 'asset_suggestions', entityId: id, before: { reviewStatus: row.review_status }, after: { idempotencyKey: body.idempotencyKey, decision: body.decision, overridden: override !== undefined, applied: revision !== null, revision } });
     return respondOk(c, AssetSuggestionDecideResponseSchema.parse({ suggestion: toDto(decided, decided.lesson_id ? (lessons.get(decided.lesson_id) ?? null) : null), applied: revision !== null, revision, replayed: false }));
   });
 }

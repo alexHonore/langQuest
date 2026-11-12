@@ -370,6 +370,34 @@ describeStack('migration 100: account lifecycle, blobs, manifests, suggestions (
     await service.from('asset_suggestions').delete().eq('id', row.id);
   });
 
+  it('two editors deciding one suggestion at the same moment on real Postgres: exactly one decision lands, with its own payload', async () => {
+    const editor2 = await createTestUser(service, 'gaps-editor2', { role: 'content_editor' });
+    createdUserIds.push(editor2.id);
+    const asFirst = createRepositories(editor.client).assetSuggestions;
+    const asSecond = createRepositories(editor2.client).assetSuggestions;
+    // Both requests are in flight together; Postgres serialises the two UPDATEs on the row lock and re-checks the pending
+    // filter for the second one, whichever it is. Several rounds, alternating the second editor's decision.
+    for (let round = 0; round < 8; round += 1) {
+      const row = await svc.assetSuggestions.insert({ media_asset_id: assetId, kind: 'level', suggestion: { value: 'beginner' }, confidence: 0.5, provenance: { task: 'infer_metadata', model: 'test', round } });
+      const secondStatus = round % 2 === 0 ? 'approved' : 'rejected';
+      const settled = await Promise.allSettled([asFirst.decide(row.id, { reviewStatus: 'approved', suggestion: { value: 'advanced' } }), asSecond.decide(row.id, { reviewStatus: secondStatus })]);
+      const landed = settled.flatMap((r) => (r.status === 'fulfilled' ? [r.value] : []));
+      const refused = settled.flatMap((r) => (r.status === 'rejected' ? [r.reason as unknown] : []));
+      expect(landed, `round ${round}`).toHaveLength(1);
+      expect(refused, `round ${round}`).toHaveLength(1);
+      const winner = landed[0]!;
+      expect(refused[0]).toBeInstanceOf(SuggestionAlreadyDecidedError);
+      expect(refused[0]).toMatchObject({ suggestionId: row.id, currentStatus: winner.review_status });
+      // The stored row is the winner's decision, stamped to the winner, with the winner's payload: the first editor's
+      // override exists only if the first editor's decision is the one that landed.
+      const stored = await svc.assetSuggestions.getById(row.id);
+      const firstWon = winner.reviewer_id === editor.id;
+      expect(stored).toMatchObject({ review_status: firstWon ? 'approved' : secondStatus, reviewer_id: firstWon ? editor.id : editor2.id, suggestion: firstWon ? { value: 'advanced' } : { value: 'beginner' } });
+      expect(stored!.decided_at).not.toBeNull();
+      await service.from('asset_suggestions').delete().eq('id', row.id);
+    }
+  });
+
   // -------------------------------------------------------------------------
   // 5. processing_job_type domain + staff helpers
   // -------------------------------------------------------------------------

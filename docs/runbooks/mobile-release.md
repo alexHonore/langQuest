@@ -16,8 +16,8 @@ review, account/*). Free for every learner — no paywalls, tiers or meters anyw
 
 | Variable | Meaning |
 |---|---|
-| `EXPO_PUBLIC_SUPABASE_URL` | hosted Supabase project URL (auth only; RLS protects learner rows) |
-| `EXPO_PUBLIC_SUPABASE_ANON_KEY` | anon/publishable key |
+| `EXPO_PUBLIC_SUPABASE_URL` | `https://sb-languest.tayoo.app` (self-hosted Supabase on Infra Tayoo; already in the `preview`/`production` profiles of `eas.json`; auth only, RLS protects learner rows) |
+| `EXPO_PUBLIC_SUPABASE_ANON_KEY` | anon/publishable key (`infra-tayoo keys` prints it as `SUPABASE_ANON_KEY`) |
 | `EXPO_PUBLIC_API_BASE_URL` | deployed Worker base URL (`https://langquest-api.<subdomain>.workers.dev` or custom domain); routes under `/v1` |
 | `EXPO_PUBLIC_OAUTH_PROVIDERS` | optional, e.g. `google,apple`; OAuth buttons appear only when set **and** the providers are enabled in Supabase Auth |
 | `EXPO_PUBLIC_APP_VERSION` | optional; shown in telemetry/About (defaults to `1.0.0`) |
@@ -26,8 +26,9 @@ Read in `apps/mobile/src/config/env.ts`. Server secrets (OpenRouter, service rol
 renders an explicit "not configured" state. For EAS, put these in `eas.json` build profiles (`env`) or EAS project secrets —
 they are public by design, so `eas.json` is fine.
 
-**Blocker:** there is no hosted Supabase project or deployed API yet (`provisioning.md`), so a production build would point at
-nothing. Build against a staging deployment first.
+**Blocker:** the hosted database (Infra Tayoo `languest`) has the schema and the 4 published flagship draft chapters, but
+the API is not deployed with secrets yet (`provisioning.md`), so a production build would have no backend. Build against a
+staging deployment first.
 
 ## 3. Native configuration already in `app.json`
 

@@ -2,7 +2,7 @@ name: CI
 
 on:
   push:
-    branches: [main]
+    branches: [master]
   pull_request:
 
 concurrency:
@@ -43,6 +43,10 @@ jobs:
       - uses: actions/setup-node@v4
         with: { node-version: 24, cache: pnpm }
       - run: pnpm install --frozen-lockfile
+      # Supabase's local ports (54320-54329) sit inside Linux's ephemeral range (32768-60999): an outbound connection (the
+      # parallel image pulls) can hold one just as Docker publishes it, and `supabase start` fails with "address already in
+      # use". Reserved ports are never handed out as ephemeral ones but can still be bound explicitly.
+      - run: sudo sysctl -w net.ipv4.ip_local_reserved_ports=54320-54329
       - run: pnpm --filter @langquest/db local:start   # same containers as local development
       - run: pnpm supabase db reset --local
       - run: pnpm --filter @langquest/db test
@@ -114,4 +118,4 @@ jobs:
         with: { fetch-depth: 0 }
       - name: Fail if a known secret pattern is committed
         run: |
-          ! git grep -nE "(sk-or-v1-[A-Za-z0-9]{20,}|sbp_[a-f0-9]{30,}|AKIA[0-9A-Z]{16}|re_[A-Za-z0-9]{20,})" -- ':!docs/runbooks/provisioning.md' ':!.github/workflows/ci.yml' || (echo "secret-like token found" && exit 1)
+          ! git grep -nE "(sk-or-v1-[A-Za-z0-9]{20,}|sbp_[a-f0-9]{30,}|(infra_tayoo|tops)_[0-9a-f]{12}_[0-9a-f]{64}|AKIA[0-9A-Z]{16}|re_[A-Za-z0-9]{20,})" -- ':!docs/runbooks/provisioning.md' ':!.github/workflows/ci.yml' || (echo "secret-like token found" && exit 1)

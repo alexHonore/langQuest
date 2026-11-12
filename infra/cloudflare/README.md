@@ -40,7 +40,7 @@ migration **120** (`reorder_audio_chapters` / `reorder_audio_lessons` / `revoke_
 `visual_assets.alt_text_translations`, `conversation_sessions.scope`) on the hosted project **before** `wrangler deploy`:
 
 ```sh
-pnpm --filter @langquest/db migrate            # supabase db push (hosted) — then re-run gen-types --linked and cross-check
+pnpm --filter @langquest/db migrate            # infra-tayoo db push (Infra Tayoo `languest`) — then pnpm db:types and cross-check
 pnpm --filter @langquest/api typecheck && pnpm --filter @langquest/api test
 pnpm --filter @langquest/api deploy
 ```
