@@ -12,6 +12,8 @@ describe('the bundled course voices', () => {
     expect(voiceForLine('spanish-spain', 'character', 'male')?.id).toBe('es-es-orus');
     expect(voiceForLine('spanish-spain', 'learner', 'male')?.id).toBe('es-es-puck');
     expect(voiceForLine('klingon', 'learner', null)).toBeNull();
+    // Chinese Simplified is Mandarin's lines: the same voices, so each line is recorded once.
+    expect(BUNDLE_VOICES['chinese-simplified']).toEqual(BUNDLE_VOICES['chinese-mandarin']);
     for (const course of Object.values(BUNDLE_VOICES)) {
       expect(new Set([course.female.id, course.male.id, course.learner.id]).size).toBe(3);
     }

@@ -9,9 +9,10 @@
  * maps each expression id to its clip and voice. Slow playback is done by the app (a slower playback rate), so one
  * clip serves both speeds. The clips are synthetic and the app says so.
  *
- * Every new clip is checked before it is kept: a listening model writes down what it hears without being told the
+ * Every new clip is checked before it is kept: a light listening model writes down what it hears without being told the
  * line, then compares it with the line and rates how natural the voice sounds; a clip that does not say the line or
- * sounds below 8/10 is synthesized again (`--attempts`, 3 by default), since a TTS model occasionally garbles a line.
+ * sounds below 8/10 is heard again by a stronger model (a second opinion), and synthesized again only if that one
+ * turns it down too (`--attempts`, 3 by default), since a TTS model occasionally garbles a line.
  * A line no take passes stays without a bundled clip (the app then uses the server's voice or the device's).
  *
  * Needs `OPENROUTER_API_KEY` in the environment (never printed) and `ffmpeg`. Existing clips are kept (a line is
@@ -78,7 +79,12 @@ export function bundleLines(chapters: readonly BundleChapter[], onlyTrack?: stri
   return lines;
 }
 
-export const LISTENER_MODEL = 'google/gemini-3.8-flash';
+/**
+ * The listening check: a light model hears every new clip; a clip it turns down gets a second opinion from a
+ * stronger one before it is recorded again (a light model misreads a dialect more often than the voice garbles it).
+ */
+export const LISTENER_MODEL = 'google/gemini-3.5-flash-lite';
+export const SECOND_LISTENER_MODEL = 'google/gemini-3.8-flash';
 
 /** The listening check of a clip: what is heard (written before comparing), whether it is the line, how natural. */
 export function listenPrompt(text: string): string {
@@ -89,12 +95,12 @@ export function listenPrompt(text: string): string {
   ].join('\n');
 }
 
-async function listen(file: string, text: string, key: string): Promise<{ ok: boolean; note: string }> {
+async function listen(file: string, text: string, key: string, model: string = LISTENER_MODEL): Promise<{ ok: boolean; note: string }> {
   const res = await fetch('https://openrouter.ai/api/v1/chat/completions', {
     method: 'POST',
     headers: { authorization: `Bearer ${key}`, 'content-type': 'application/json' },
     body: JSON.stringify({
-      model: LISTENER_MODEL,
+      model,
       temperature: 0,
       response_format: { type: 'json_object' },
       messages: [{ role: 'user', content: [{ type: 'text', text: listenPrompt(text) }, { type: 'input_audio', input_audio: { data: readFileSync(file).toString('base64'), format: 'mp3' } }] }],
@@ -158,7 +164,11 @@ export async function main(args: ParsedArgs, io: CliIo): Promise<number> {
         for (let attempt = 1; attempt <= attempts && !kept; attempt++) {
           await synthesize(line, out, key!);
           if (verify) {
-            const heard = await listen(out, line.text, key!);
+            let heard = await listen(out, line.text, key!);
+            if (!heard.ok) {
+              const second = await listen(out, line.text, key!, SECOND_LISTENER_MODEL);
+              heard = { ok: second.ok, note: `${heard.note}; second opinion: ${second.note}` };
+            }
             kept = heard.ok;
             io.log(`  ${kept ? 'kept' : 'retry'} ${name}  ${line.text}  (${heard.note})`);
           } else {
