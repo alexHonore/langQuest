@@ -43,21 +43,18 @@ void main() {
   group('the bundled AI voices', () {
     final voices = testBundle.voices;
 
-    test('the first four courses read almost every line with a natural AI voice bundled with the app; every clip is present', () {
+    test('every course reads (almost) every line with a natural AI voice bundled with the app; every clip is present', () {
       const firstCourses = {'arabic-moroccan', 'spanish-spain', 'japanese', 'english'};
-      final lines = [
-        for (final c in testBundle.chapters)
-          if (firstCourses.contains(c.courseTrackId))
-            for (final m in c.missions) ...m.expressions,
-      ];
-      expect(
-        lines.where((e) => voices.clips.containsKey(e.id)).length,
-        greaterThanOrEqualTo(lines.length - 3),
-        reason: 'a line no take passed the listening check may stay unvoiced',
-      );
-      // The other courses' clips are still being generated (paused when the AI account ran out of credit): a line
-      // without one is said by the next voice of the chain (the server's, then the device's).
-      expect(voices.clips.length, greaterThanOrEqualTo(890));
+      for (final c in testBundle.chapters) {
+        final lines = [for (final m in c.missions) ...m.expressions];
+        final voiced = lines.where((e) => voices.clips.containsKey(e.id)).length;
+        // A line no take passed the listening check for stays unvoiced (the next voice of the chain says it).
+        if (firstCourses.contains(c.courseTrackId)) {
+          expect(voiced, greaterThanOrEqualTo(lines.length - 3), reason: c.courseTrackId);
+        } else {
+          expect(voiced, greaterThanOrEqualTo((lines.length * 0.85).ceil()), reason: '${c.courseTrackId}: $voiced of ${lines.length} voiced');
+        }
+      }
       for (final file in voices.clips.values) {
         expect(File(file).existsSync(), isTrue, reason: '$file is missing');
       }
