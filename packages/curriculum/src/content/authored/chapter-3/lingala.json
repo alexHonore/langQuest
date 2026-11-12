@@ -29,7 +29,7 @@
           "en": { "m": "Hi! What time do you usually get up?", "n": "Kolamuka = to wake up, to get up. The ending -aka marks a habit: olamukaka, you usually get up.", "l": "hello! you-usually-wake-up at hour what" },
           "fr": { "m": "Salut ! Tu te lèves à quelle heure, d'habitude ?", "n": "« Kolamuka » = se réveiller, se lever. La finale « -aka » marque l'habitude : olamukaka, tu te lèves (d'ordinaire).", "l": "salut ! tu-te-lèves-d'habitude à heure quelle" } },
         { "key": "time", "slot": "time", "by": "learner", "intent": "tell_time", "register": "neutral", "text": "Nalamukaka na six heures ya tongo.", "difficulty": 0.4,
-          "pron": "Give every syllable the same weight: nah-lah-moo-KAH-kah.",
+          "pron": "Sound every vowel fully and evenly: nah-lah-moo-kah-kah.",
           "en": { "m": "I get up at six in the morning.", "n": "Swap the hour: cinq heures, sept heures. Many Kinois get up early to beat the traffic.", "l": "I-usually-wake-up at six hours of morning" },
           "fr": { "m": "Je me lève à six heures du matin.", "n": "Changez l'heure : cinq heures, sept heures. Beaucoup de Kinois se lèvent tôt pour échapper aux embouteillages. Chaque syllabe se prononce : na-la-mou-ka-ka.", "l": "je-me-lève-d'habitude à six heures de matin" } },
         { "key": "and_then", "slot": "+", "by": "character", "intent": "ask_clarification", "register": "casual", "text": "Na nsima, osalaka nini?", "difficulty": 0.35,
