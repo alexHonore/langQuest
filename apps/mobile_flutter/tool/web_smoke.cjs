@@ -1,7 +1,7 @@
 // Browser smoke test of the release web build, as CI serves it from the root Dockerfile's image. The widget tests run
 // on the Dart VM; this catches what only the compiled web app does (a dart2js miscompile once broke recording there
 // while every VM test passed). First run → the warm-up → a lesson → record yourself with Chromium's fake microphone →
-// the practice session's pairs → the mini-games' door → Settings › Display → reload. Any page error fails it. It also checks which course files the browser fetches: none on
+// the practice session's pairs → the Play tab → Settings › Display → reload. Any page error fails it. It also checks which course files the browser fetches: none on
 // a first visit (the catalog says what each course offers), the opened course's only, then the learner's only.
 //
 // Usage: node web_smoke.cjs <url>   (needs the `playwright` package and its Chromium)
@@ -116,8 +116,10 @@ const BASE = process.argv[2] || 'http://localhost:8080/';
     location.hash = '#/play';
   });
   await page.waitForTimeout(1500);
-  await expectButton('Back home');
-  ok('the mini-games wait for a first Learn stop');
+  // The Play tab is always there; before a Learn stop it leads to the first lesson.
+  await expectButton('Play');
+  await expectButton('Learn my first phrases');
+  ok('the Play tab waits for a first Learn stop, and leads to it');
 
   await page.evaluate(() => {
     location.hash = '#/account';
