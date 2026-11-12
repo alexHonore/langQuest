@@ -55,10 +55,7 @@
           "fr": { "m": "Oui, mais lundi je commence dans l'équipe web.", "n": "Comme en français, le présent exprime un futur prévu : el lunes empiezo = lundi je commence. « Empezar » diphtongue sous l'accent : empiezo.", "l": "oui, mais le lundi je-commence en l'équipe web" } },
         { "key": "slept_badly", "slot": null, "by": "learner", "intent": "express_feeling", "register": "casual", "text": "No he dormido nada.", "difficulty": 0.4,
           "en": { "m": "I haven't slept at all.", "n": "Spain uses the present perfect (he dormido) for something that happened today or last night.", "l": "not I-have slept nothing" },
-          "fr": { "m": "Je n'ai pas dormi du tout.", "n": "En Espagne, le passé composé (he dormido) s'emploie pour ce qui touche à aujourd'hui, nuit comprise. « No… nada » = pas du tout : la double négation est obligatoire.", "l": "ne j'ai dormi rien" } },
-        { "key": "around_seven", "slot": null, "by": "learner", "intent": "tell_time", "register": "casual", "text": "Sobre las siete, más o menos.", "difficulty": 0.35,
-          "en": { "m": "Around seven, more or less.", "n": "Sobre las + hour = at about. You will also hear a eso de las siete.", "l": "about the seven, more or less" },
-          "fr": { "m": "Vers sept heures, à peu près.", "n": "« Sobre las » + heure = vers. On entend aussi « a eso de las siete ». « Más o menos » = à peu près.", "l": "sur les sept, plus ou moins" } }
+          "fr": { "m": "Je n'ai pas dormi du tout.", "n": "En Espagne, le passé composé (he dormido) s'emploie pour ce qui touche à aujourd'hui, nuit comprise. « No… nada » = pas du tout : la double négation est obligatoire.", "l": "ne j'ai dormi rien" } }
       ]
     },
     {
@@ -147,10 +144,7 @@
           "fr": { "m": "On fait une partie de padel samedi ?", "n": "Le présent à la 1re personne du pluriel (¿jugamos…?) sert à proposer, comme « on joue ? ». « Partido » = match, partie.", "l": "jouons-nous un match de padel le samedi" } },
         { "key": "big_fan", "slot": null, "by": "learner", "intent": "express_like", "register": "casual", "text": "Soy muy fan del pádel.", "difficulty": 0.45,
           "en": { "m": "I'm a big fan of padel.", "n": "Fan never changes for gender: soy muy fan de… is a very common, casual way to say you love something.", "l": "I-am very fan of-the padel" },
-          "fr": { "m": "Je suis super fan de padel.", "n": "« Fan » ne change pas au féminin ; « ser muy fan de » est très courant à l'oral. De + el = del, comme « du ».", "l": "je-suis très fan du padel" } },
-        { "key": "rather_read", "slot": null, "by": "learner", "intent": "express_preference_between", "register": "casual", "text": "Me gusta más leer que ver la tele.", "difficulty": 0.5,
-          "en": { "m": "I like reading more than watching TV.", "n": "Me gusta más A que B = I like A more than B. La tele = the TV.", "l": "to-me pleases more to-read than to-see the telly" },
-          "fr": { "m": "J'aime mieux lire que regarder la télé.", "n": "« Me gusta más… que… » = j'aime mieux… que… L'infinitif sert de nom : leer (lire), ver la tele (regarder la télé).", "l": "me plaît plus lire que voir la télé" } }
+          "fr": { "m": "Je suis super fan de padel.", "n": "« Fan » ne change pas au féminin ; « ser muy fan de » est très courant à l'oral. De + el = del, comme « du ».", "l": "je-suis très fan du padel" } }
       ]
     },
     {
@@ -206,7 +200,7 @@
       "titles": { "en": "Madrid or the village?", "fr": "Madrid ou le village ?" },
       "scene": {
         "en": "Álvaro, your friend from chapter 2, is back from a weekend in his family's village near Segovia and wants to leave Madrid; you are not convinced.",
-        "fr": "Álvaro, votre ami du chapitre 2, rentre d'un week-end dans le village de sa famille près de Ségovie et veut quitter Madrid ; vous n'êtes pas convaincu."
+        "fr": "Álvaro, votre ami du chapitre 2, rentre d'un week-end dans le village de sa famille près de Ségovie et veut quitter Madrid ; l'idée ne vous convainc pas."
       },
       "lines": [
         { "key": "village", "slot": "+", "by": "character", "intent": "state_future_plan", "register": "casual", "text": "Me quiero ir a vivir al pueblo, como mis abuelos.", "difficulty": 0.5,
@@ -239,9 +233,6 @@
         { "key": "invite_me", "slot": "+", "by": "learner", "intent": "ask_small_favour", "register": "casual", "text": "¡Vale, pero me invitas a tu pueblo!", "difficulty": 0.35,
           "en": { "m": "OK, but you're inviting me to your village!", "n": "The present can make a cheeky request: me invitas = you'll invite me.", "l": "okay, but me you-invite to your village" },
           "fr": { "m": "D'accord, mais tu m'invites dans ton village !", "n": "Le présent sert à formuler une demande amicale, comme en français : me invitas = tu m'invites. « Vale » = d'accord.", "l": "d'accord, mais tu m'invites à ton village" } },
-        { "key": "fair_point", "slot": null, "by": "learner", "intent": "agree", "register": "casual", "text": "Vale, ahí te doy la razón.", "difficulty": 0.45,
-          "en": { "m": "OK, I'll give you that.", "n": "Dar la razón a alguien = to admit someone is right.", "l": "okay, there to-you I-give the reason" },
-          "fr": { "m": "D'accord, là je te donne raison.", "n": "« Dar la razón » = donner raison, tournure identique au français. « Ahí » = là, sur ce point.", "l": "d'accord, là te donne la raison" } },
         { "key": "not_agree", "slot": null, "by": "learner", "intent": "disagree_politely", "register": "neutral", "text": "No estoy de acuerdo contigo.", "difficulty": 0.35,
           "en": { "m": "I don't agree with you.", "n": "More direct than no lo veo así. Contigo = with you.", "l": "not I-am of agreement with-you" },
           "fr": { "m": "Je ne suis pas d'accord avec toi.", "n": "Plus direct que « no lo veo así ». « Contigo » = avec toi, en un seul mot (conmigo = avec moi).", "l": "ne je-suis de accord avec-toi" } }
@@ -250,7 +241,7 @@
     {
       "blueprint": "tell_a_story",
       "character": "lucia_friend_c3",
-      "titles": { "en": "Lost on the 27 bus", "fr": "Perdu dans le bus 27" },
+      "titles": { "en": "Lost on the 27 bus", "fr": "Le 27 dans le mauvais sens" },
       "scene": {
         "en": "Over coffee with Lucía, the neighbour you met on your first day and now a friend, you explain why you turned up so late to Álvaro's dinner yesterday.",
         "fr": "Autour d'un café avec Lucía, la voisine rencontrée le premier jour et devenue une amie, vous expliquez votre grand retard au dîner d'Álvaro hier soir."
@@ -288,10 +279,7 @@
           "fr": { "m": "Voilà pourquoi je n'étais là qu'à dix heures et demie.", "n": "« Por eso » = c'est pour ça que. Dans « llegué », le u garde au g le son dur de « gué ».", "l": "pour cela j'arrivai à les dix et demie" } },
         { "key": "say_this", "slot": null, "by": "learner", "intent": "ask_how_to_say", "register": "neutral", "text": "¿Cómo se dice esto en español?", "difficulty": 0.4,
           "en": { "m": "How do you say this in Spanish?", "n": "Point at the thing as you ask. Esto = this (thing).", "l": "how itself says this in Spanish" },
-          "fr": { "m": "Comment on dit ça en espagnol ?", "n": "Montrez l'objet en posant la question. « Esto » = ceci, neutre : pour une chose qu'on ne sait pas nommer. « Se dice » = on dit.", "l": "comment se dit ceci en espagnol" } },
-        { "key": "the_other_day", "slot": null, "by": "learner", "intent": "say_when_happened", "register": "casual", "text": "El otro día me pasó una cosa rarísima.", "difficulty": 0.5,
-          "en": { "m": "The other day something really weird happened to me.", "n": "A classic way to start a story. Me pasó = it happened to me.", "l": "the other day to-me happened a thing very-strange" },
-          "fr": { "m": "L'autre jour, il m'est arrivé un truc trop bizarre.", "n": "Une entrée en matière classique. « Me pasó » = il m'est arrivé. Faux ami : « raro » = bizarre, pas « rare », d'où « rarísima ».", "l": "l'autre jour me passa une chose très-bizarre" } }
+          "fr": { "m": "Comment on dit ça en espagnol ?", "n": "Montrez l'objet en posant la question. « Esto » = ceci, neutre : pour une chose qu'on ne sait pas nommer. « Se dice » = on dit.", "l": "comment se dit ceci en espagnol" } }
       ]
     }
   ]
