@@ -13,7 +13,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), 'authored');
 const args = process.argv.slice(2);
 const chapterFlag = args.indexOf('--chapter');
 const onlyChapter = chapterFlag >= 0 ? Number(args[chapterFlag + 1]) : null;
-const wanted = args.filter((a, i) => a !== '--chapter' && i !== chapterFlag + 1);
+const wanted = args.filter((a, i) => a !== '--chapter' && (chapterFlag < 0 || i !== chapterFlag + 1));
 const chapters = AUTHORED_CHAPTER_INDEXES.filter((n) => onlyChapter === null || n === onlyChapter).filter((n) => existsSync(join(root, `chapter-${n}`)));
 let failed = 0;
 let checked = 0;
