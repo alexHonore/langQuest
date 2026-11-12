@@ -1,7 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/foundation.dart' show FlutterError;
-import 'package:flutter/services.dart' show AssetBundle, rootBundle;
+import 'package:flutter/foundation.dart' show debugPrint;
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'bundled_voices.dart';
@@ -31,12 +30,20 @@ class Course {
 
 String courseIdFor(String trackId, String source) => '$trackId|$source';
 
-/// The offline content bundle: the 30-track catalog, the names of the skills the server tracks, and the draft chapters
-/// of the courses loaded so far. Each course's chapters are a file of their own (`chapters/<track>.json`), loaded at
-/// startup for the courses the learner is enrolled in and when another course is opened ([ContentLibrary.ensureTrack]);
-/// what a course offers before that (its instruction languages, its mission count, draft or not) is in the catalog.
+/// Reads a bundle file by its asset path (`rootBundle.loadString` in the app, the package's files in tests).
+typedef ContentReader = Future<String> Function(String assetPath);
+
+/// The offline content bundle: the 30-track catalog (with the instruction languages each course is taught from), the
+/// names of the skills the server tracks, the cast's roles, the real examples and bundled voices, and the draft
+/// chapters of the courses loaded so far.
+///
+/// Each course's chapters are a file of their own (`assets/content/chapters/<trackId>.json`): start-up reads only the
+/// learner's courses ([load]), and a course is read when the learner opens or takes it ([ContentNotifier.loadCourse]).
+/// What a course offers before that (instruction languages, mission count) is in the catalog.
 class ContentBundle {
   final List<CourseTrackInfo> tracks;
+
+  /// The chapters of the courses read so far ([isLoaded]), each course's whole.
   final List<Chapter> chapters;
   final Map<String, SkillInfo> skills;
 
@@ -49,17 +56,21 @@ class ContentBundle {
   /// The lines read by natural AI voices, bundled (`voices.json`).
   final BundledVoices voices;
   final Map<String, CourseTrackInfo> _tracksById;
+  final Set<String> _loadedTracks;
   final Map<String, Mission> _missionsByKey;
   final Map<String, Chapter> _chaptersByKey;
 
+  /// [loadedTracks]: courses whose chapter file has been read, besides those [chapters] belong to.
   ContentBundle({
     required this.tracks,
-    required this.chapters,
+    this.chapters = const [],
+    Iterable<String> loadedTracks = const [],
     this.skills = const {},
     this.roles = const {},
     this.examples = RealExamples.empty,
     this.voices = BundledVoices.empty,
   }) : _tracksById = {for (final t in tracks) t.id: t},
+       _loadedTracks = {...loadedTracks, for (final c in chapters) c.courseTrackId},
        _missionsByKey = {
          for (final c in chapters)
            for (final m in c.missions) m.key: m,
@@ -72,37 +83,29 @@ class ContentBundle {
   static const examplesAsset = 'assets/content/examples.json';
   static const voicesAsset = 'assets/content/voices.json';
 
-  /// One course's chapters file.
-  static String chaptersAssetOf(String trackId) => 'assets/content/chapters/$trackId.json';
+  /// The asset holding [trackId]'s chapters.
+  static String chaptersAsset(String trackId) => 'assets/content/chapters/$trackId.json';
 
-  /// The chapters of a course's chapters file ([chaptersAssetOf]); throws [FormatException] on an unsupported schema.
-  static List<Chapter> parseChapters(String json) {
-    final doc = (jsonDecode(json) as Map).cast<String, Object?>();
-    if (doc['schemaVersion'] != 1) throw FormatException('Unsupported content bundle schemaVersion ${doc['schemaVersion']}');
-    return [for (final c in (doc['chapters'] as List? ?? const [])) Chapter.fromJson((c as Map).cast<String, Object?>())];
-  }
-
-  /// Parse the bundle files (the chapters of the courses in [chapterFiles] only); throws [FormatException] on an
+  /// Parse the bundle files ([coursesJson]: course chapter files, any number); throws [FormatException] on an
   /// unsupported schema version.
   factory ContentBundle.parse({
     required String catalogJson,
-    List<String> chapterFiles = const [],
+    Iterable<String> coursesJson = const [],
     String? skillsJson,
     String? castJson,
     String? examplesJson,
     String? voicesJson,
   }) {
-    final catalog = (jsonDecode(catalogJson) as Map).cast<String, Object?>();
-    final skills = skillsJson == null ? null : (jsonDecode(skillsJson) as Map).cast<String, Object?>();
-    final cast = castJson == null ? null : (jsonDecode(castJson) as Map).cast<String, Object?>();
-    for (final doc in [catalog, ?skills, ?cast]) {
-      if (doc['schemaVersion'] != 1) throw FormatException('Unsupported content bundle schemaVersion ${doc['schemaVersion']}');
-    }
+    final catalog = _document(catalogJson);
+    final skills = skillsJson == null ? null : _document(skillsJson);
+    final cast = castJson == null ? null : _document(castJson);
     final tracks = [for (final t in (catalog['tracks'] as List? ?? const [])) CourseTrackInfo.fromJson((t as Map).cast<String, Object?>())]
       ..sort((a, b) => a.order.compareTo(b.order));
+    final courses = [for (final json in coursesJson) parseCourse(json)];
     return ContentBundle(
       tracks: tracks,
-      chapters: [for (final f in chapterFiles) ...parseChapters(f)],
+      chapters: [for (final c in courses) ...c.chapters],
+      loadedTracks: [for (final c in courses) c.trackId],
       skills: {
         for (final s in [
           for (final e in (skills?['skills'] as List? ?? const []))
@@ -119,53 +122,69 @@ class ContentBundle {
     );
   }
 
-  /// The bundle with the chapters of [tracks] (the learner's courses); the other courses load when opened.
-  static Future<ContentBundle> load(AssetBundle assets, {Iterable<String> tracks = const []}) async {
-    final files = await Future.wait([
-      for (final t in {...tracks}) _loadOrNull(assets, chaptersAssetOf(t)),
-    ]);
-    return ContentBundle.parse(
-      catalogJson: await assets.loadString(catalogAsset),
-      chapterFiles: [for (final f in files) ?f],
-      skillsJson: await assets.loadString(skillsAsset),
-      castJson: await assets.loadString(castAsset),
-      examplesJson: await assets.loadString(examplesAsset),
-      voicesJson: await assets.loadString(voicesAsset),
-    );
-  }
-
-  /// A course's chapters from the app's assets (none when the course has no chapters file).
-  static Future<List<Chapter>> loadChapters(AssetBundle assets, String trackId) async {
-    final json = await _loadOrNull(assets, chaptersAssetOf(trackId));
-    return json == null ? const [] : parseChapters(json);
-  }
-
-  static Future<String?> _loadOrNull(AssetBundle assets, String key) async {
-    try {
-      return await assets.loadString(key);
-    } on FlutterError {
-      return null;
+  /// One course's chapter file (`chapters/<trackId>.json`); throws [FormatException] on an unsupported schema version
+  /// or a chapter of another course.
+  static ({String trackId, List<Chapter> chapters}) parseCourse(String json) {
+    final doc = _document(json);
+    final trackId = '${doc['courseTrackId']}';
+    final chapters = [for (final c in (doc['chapters'] as List? ?? const [])) Chapter.fromJson((c as Map).cast<String, Object?>())];
+    for (final c in chapters) {
+      if (c.courseTrackId != trackId) throw FormatException('Chapter ${c.key} of ${c.courseTrackId} in the $trackId chapter file');
     }
+    return (trackId: trackId, chapters: chapters);
   }
 
-  /// This bundle with [more] chapters (a chapter already here is kept).
-  ContentBundle withChapters(Iterable<Chapter> more) {
-    final added = [
-      for (final c in more)
-        if (!_chaptersByKey.containsKey(c.key)) c,
-    ];
-    if (added.isEmpty) return this;
-    return ContentBundle(tracks: tracks, chapters: [...chapters, ...added], skills: skills, roles: roles, examples: examples, voices: voices);
+  static Map<String, Object?> _document(String json) {
+    final doc = (jsonDecode(json) as Map).cast<String, Object?>();
+    if (doc['schemaVersion'] != 1) throw FormatException('Unsupported content bundle schemaVersion ${doc['schemaVersion']}');
+    return doc;
   }
 
-  /// Whether [trackId]'s chapters are in this bundle.
-  bool hasChaptersOf(String trackId) => chapters.any((c) => c.courseTrackId == trackId);
+  /// The catalog and what every course shares, plus the chapters of [courses] (the learner's, at start-up). A course
+  /// whose file cannot be read is left out (logged), to be read again when it is opened; a malformed file throws.
+  static Future<ContentBundle> load(ContentReader read, {Iterable<String> courses = const []}) async {
+    final files = await Future.wait([catalogAsset, skillsAsset, castAsset, examplesAsset, voicesAsset].map(read));
+    var bundle = ContentBundle.parse(catalogJson: files[0], skillsJson: files[1], castJson: files[2], examplesJson: files[3], voicesJson: files[4]);
+    Future<String?> readCourse(String trackId) async {
+      try {
+        return await read(chaptersAsset(trackId));
+      } catch (e) {
+        debugPrint('Course $trackId not loaded at start-up: $e');
+        return null;
+      }
+    }
 
-  /// The course's mission count from [source], before its chapters are loaded (the catalog's), or from its chapters.
-  int missionCountOf(String trackId, String source) => _tracksById[trackId]?.missionCounts[source] ?? course(trackId, source)?.missions.length ?? 0;
+    final wanted = {
+      for (final id in courses)
+        if (bundle.track(id) != null && !bundle.isLoaded(id)) id,
+    };
+    for (final json in (await Future.wait(wanted.map(readCourse))).nonNulls) {
+      final course = parseCourse(json);
+      bundle = bundle.withCourse(course.trackId, course.chapters);
+    }
+    return bundle;
+  }
 
-  /// Whether the course is an unreviewed AI draft, before its chapters are loaded (the catalog's), or from its chapters.
-  bool isDraftCourse(String trackId) => (_tracksById[trackId]?.draft ?? false) || chapters.any((c) => c.courseTrackId == trackId && !c.nativeReviewed);
+  /// This bundle with [trackId]'s chapters (replacing any read before).
+  ContentBundle withCourse(String trackId, List<Chapter> courseChapters) => ContentBundle(
+    tracks: tracks,
+    chapters: [
+      for (final c in chapters)
+        if (c.courseTrackId != trackId) c,
+      ...courseChapters,
+    ],
+    loadedTracks: {..._loadedTracks, trackId},
+    skills: skills,
+    roles: roles,
+    examples: examples,
+    voices: voices,
+  );
+
+  /// Whether [trackId]'s chapters are in memory, or it has none to read (a planned course). False for an unknown track.
+  bool isLoaded(String trackId) {
+    final t = _tracksById[trackId];
+    return t != null && (t.sources.isEmpty || _loadedTracks.contains(trackId));
+  }
 
   /// A roster character's role in [language], when the bundle translates it.
   String? roleOf(String rosterId, String language) => roles[rosterId]?[language];
@@ -174,16 +193,19 @@ class ContentBundle {
   SkillInfo? skill(String key) => skills[key];
 
   CourseTrackInfo? track(String id) => _tracksById[id];
+
+  /// A mission of a loaded course ([isLoaded]).
   Mission? mission(String key) => _missionsByKey[key];
   Chapter? chapter(String key) => _chaptersByKey[key];
   Chapter? chapterOf(Mission mission) => _chaptersByKey[mission.chapterKey];
 
   StoryCharacter? characterOf(Mission mission) => chapterOf(mission)?.character(mission.characterKey);
 
-  /// The course for (track, source), or null when the track is unknown. Its chapters may be empty (planned course).
+  /// The course for (track, source), or null when the track is unknown or its chapters are not loaded yet
+  /// ([ContentNotifier.loadCourse]). Its chapters may be empty (planned course).
   Course? course(String trackId, String source) {
     final t = _tracksById[trackId];
-    if (t == null) return null;
+    if (t == null || !isLoaded(trackId)) return null;
     return Course(
       track: t,
       source: source,
@@ -194,15 +216,12 @@ class ContentBundle {
     );
   }
 
-  /// Instruction languages (among the interface's) a track can be learned from today: the catalog's (whether or not the
-  /// course's chapters are loaded), or its loaded chapters'.
+  /// Instruction languages (among the interface's) a track can be learned from today (the catalog's, no chapters read).
   List<String> sourcesFor(String trackId) {
-    final track = _tracksById[trackId];
+    final sources = _tracksById[trackId]?.sources ?? const [];
     return [
       for (final s in supportedInstructionLanguages)
-        if ((track != null && track.sources.contains(s) && (track.missionCounts[s] ?? 0) > 0) ||
-            chapters.any((c) => c.courseTrackId == trackId && c.sourceLanguages.contains(s) && c.missions.isNotEmpty))
-          s,
+        if (sources.contains(s)) s,
     ];
   }
 
@@ -215,35 +234,46 @@ class ContentBundle {
   ];
 }
 
-/// The bundle the app starts with: overridden in `main()` with the one loaded from the app's assets (the learner's
-/// courses' chapters), and in tests with a parsed one.
-final initialContentProvider = Provider<ContentBundle>((ref) => throw UnimplementedError('initialContentProvider must be overridden'));
+/// The bundle as loaded so far. [loadCourse] adds a course's chapters; everything that watches the bundle then sees
+/// them (the learn plans, missions, review, calls…).
+class ContentNotifier extends Notifier<ContentBundle> {
+  ContentNotifier(this._initial, {this.read});
 
-/// Where the courses' chapters files are read from (the app's assets).
-final assetBundleProvider = Provider<AssetBundle>((ref) => rootBundle);
+  final ContentBundle _initial;
 
-/// The content bundle: the startup one, plus each course loaded since ([ContentLibrary.ensureTrack]).
-final contentBundleProvider = NotifierProvider<ContentLibrary, ContentBundle>(ContentLibrary.new);
-
-/// Loads a course's chapters into the bundle the first time it is needed (opened, enrolled, restored from the account).
-class ContentLibrary extends Notifier<ContentBundle> {
-  final _loading = <String, Future<void>>{};
-  final _tried = <String>{};
+  /// Reads a course's chapter file (none: only the courses of the initial bundle exist).
+  final ContentReader? read;
+  final _pending = <String, Future<void>>{};
 
   @override
-  ContentBundle build() => ref.watch(initialContentProvider);
+  ContentBundle build() => _initial;
 
-  /// Makes sure [trackId]'s chapters are in the bundle (one read of its file, however many callers wait for it).
-  Future<void> ensureTrack(String trackId) {
-    if (state.hasChaptersOf(trackId) || state.track(trackId) == null || _tried.contains(trackId)) return Future.value();
-    return _loading[trackId] ??= () async {
-      try {
-        final chapters = await ContentBundle.loadChapters(ref.read(assetBundleProvider), trackId);
-        _tried.add(trackId);
-        state = state.withChapters(chapters);
-      } finally {
-        _loading.remove(trackId);
-      }
-    }();
+  /// Reads [trackId]'s chapters unless they are in memory; concurrent calls share one read, and a failed read is tried
+  /// again on the next call.
+  Future<void> loadCourse(String trackId) {
+    if (state.isLoaded(trackId)) return Future.value();
+    if (state.track(trackId) == null) return Future.error(ArgumentError.value(trackId, 'trackId', 'unknown course'));
+    final read = this.read;
+    if (read == null) return Future.error(StateError('No reader for the chapters of $trackId'));
+    // A block body: `remove` returns this very future, which `whenComplete` would then wait on.
+    return _pending[trackId] ??= _load(read, trackId).whenComplete(() {
+      _pending.remove(trackId);
+    });
+  }
+
+  Future<void> _load(ContentReader read, String trackId) async {
+    final course = ContentBundle.parseCourse(await read(ContentBundle.chaptersAsset(trackId)));
+    if (course.trackId != trackId) throw FormatException('${ContentBundle.chaptersAsset(trackId)} holds the chapters of ${course.trackId}');
+    if (ref.mounted && !state.isLoaded(trackId)) state = state.withCourse(trackId, course.chapters);
   }
 }
+
+/// Overridden in `main()` with the bundle loaded from the app's assets (and in tests with a parsed one).
+final contentBundleProvider = NotifierProvider<ContentNotifier, ContentBundle>(() => throw UnimplementedError('contentBundleProvider must be overridden'));
+
+/// [trackId]'s chapters, read when a screen starts watching (see [ContentNotifier.loadCourse]); for screens that show a
+/// course while it loads. A failed read is tried again when the course is shown again, or on invalidation.
+final courseContentProvider = FutureProvider.autoDispose.family<void, String>(
+  (ref, trackId) => ref.read(contentBundleProvider.notifier).loadCourse(trackId),
+  retry: (_, _) => null,
+);

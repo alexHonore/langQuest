@@ -1,19 +1,32 @@
 /**
- * Reads the Flutter app's offline content bundle (`apps/mobile_flutter/assets/content/`) for the scripts that work on
- * every course's phrases at once (bundle voices, Tatoeba examples). The bundle keeps one chapters file per course
- * (`chapters/<track>.json`); this joins them, in file-name order, into the `{ chapters: [...] }` shape those scripts read.
+ * Where the Flutter learner app's offline content bundle lives, and how the scripts read its chapters back.
+ *
+ * `catalog.json` lists every course with the instruction languages it is taught from; each course's chapters are a
+ * file of their own, `chapters/<trackId>.json`, so the app loads only the courses the learner takes
+ * (written by `export-flutter-content`).
  */
-import { readdirSync, readFileSync } from 'node:fs';
-import { join, resolve } from 'node:path';
+import { existsSync, readFileSync, readdirSync } from 'node:fs';
+import { resolve } from 'node:path';
 
-export const BUNDLE_CHAPTERS_DIR = 'apps/mobile_flutter/assets/content/chapters';
+export const BUNDLE_DIR = 'apps/mobile_flutter/assets/content';
 
-/** Every course's chapters as one `{ "chapters": [...] }` JSON document. */
-export function readBundleChaptersJson(root: string): string {
-  const dir = resolve(root, BUNDLE_CHAPTERS_DIR);
-  const chapters = readdirSync(dir)
+/** The per-course chapter files, relative to {@link BUNDLE_DIR}. */
+export const CHAPTERS_SUBDIR = 'chapters';
+
+/** A course's chapter file, relative to {@link BUNDLE_DIR} (the app reads `assets/content/chapters/<trackId>.json`). */
+export const chaptersFileOf = (trackId: string): string => `${CHAPTERS_SUBDIR}/${trackId}.json`;
+
+/** The chapter files of the checked-in bundle, relative to {@link BUNDLE_DIR}, in file-name order. */
+export function bundleChapterFiles(root: string): string[] {
+  const dir = resolve(root, BUNDLE_DIR, CHAPTERS_SUBDIR);
+  if (!existsSync(dir)) return [];
+  return readdirSync(dir)
     .filter((f) => f.endsWith('.json'))
     .sort()
-    .flatMap((f) => (JSON.parse(readFileSync(join(dir, f), 'utf8')) as { chapters: unknown[] }).chapters);
-  return JSON.stringify({ chapters });
+    .map((f) => `${CHAPTERS_SUBDIR}/${f}`);
+}
+
+/** Every chapter of the checked-in bundle, course file by course file (file-name order). */
+export function readBundleChapters<T = unknown>(root: string): T[] {
+  return bundleChapterFiles(root).flatMap((file) => (JSON.parse(readFileSync(resolve(root, BUNDLE_DIR, file), 'utf8')) as { chapters: T[] }).chapters);
 }

@@ -1,4 +1,4 @@
-/// Content model of the offline bundle (`assets/content/*.json`).
+/// Content model of the offline bundle (`assets/content/*.json`, each course's chapters in `chapters/<trackId>.json`).
 ///
 /// The bundle is generated from the shared TypeScript packages by
 /// `pnpm --filter @langquest/scripts export-flutter-content` — never edit the JSON by hand. The shapes mirror the
@@ -293,14 +293,11 @@ class CourseTrackInfo {
   final String teachingFocus;
   final CoverRecipe cover;
 
-  /// Instruction languages the course is taught from (its chapters' overlays), known before its chapters are loaded.
+  /// Every instruction language the track has missions in (the catalog's; the app offers the interface's ones).
   final List<String> sources;
 
-  /// Missions per instruction language, for the course list and page before the chapters are loaded.
+  /// The track's mission count from each of [sources], known without reading its chapters.
   final Map<String, int> missionCounts;
-
-  /// Whether its content is an unreviewed AI draft (disclosed before enrolling).
-  final bool draft;
 
   const CourseTrackInfo({
     required this.id,
@@ -319,7 +316,6 @@ class CourseTrackInfo {
     required this.cover,
     this.sources = const [],
     this.missionCounts = const {},
-    this.draft = false,
   });
 
   factory CourseTrackInfo.fromJson(Map<String, Object?> json) => CourseTrackInfo(
@@ -342,8 +338,10 @@ class CourseTrackInfo {
       for (final e in ((json['missionCounts'] as Map?) ?? const {}).entries)
         if (e.value is num) '${e.key}': (e.value as num).toInt(),
     },
-    draft: json['draft'] == true,
   );
+
+  /// How many missions the course from [source] has (0 when it is not taught from it).
+  int missionsFrom(String source) => missionCounts[source] ?? 0;
 
   /// Course name in the interface language (English fallback: the catalog always carries `en`).
   String name(String uiLanguage) => names[uiLanguage] ?? names['en'] ?? id;

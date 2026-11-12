@@ -3,7 +3,7 @@
  * synthesize-bundle-audio — natural AI voices for every line of the Flutter app's courses, bundled with the app.
  *
  * Without them, a learner who is not signed in (or offline) hears the device's own synthesizer, often robotic. Each
- * line of the bundle's chapters (`apps/mobile_flutter/assets/content/chapters/<track>.json`) is read once by the voice `lib/bundle-voices.ts` casts
+ * line of the bundled courses (`apps/mobile_flutter/assets/content/chapters/<trackId>.json`) is read once by the voice `lib/bundle-voices.ts` casts
  * for it (the mission's character, or the learner's role, so the two sides of a dialogue sound different), loudness
  * normalised and saved as `apps/mobile_flutter/assets/audio/lines/<voice>-<sha>.mp3`; `assets/content/voices.json`
  * maps each expression id to its clip and voice. Slow playback is done by the app (a slower playback rate), so one
@@ -26,7 +26,7 @@ import { resolve } from 'node:path';
 import { flagBool, flagNumber, flagString, isDirectRun, runCli, type CliIo, type CliSpec, type ParsedArgs } from './lib/cli';
 import { repoRoot, writeTextFileSync } from './lib/io';
 import { BUNDLE_VOICES, voiceForLine, type BundleVoice } from './lib/bundle-voices';
-import { readBundleChaptersJson } from './lib/flutter-bundle';
+import { readBundleChapters } from './lib/flutter-bundle';
 
 export const LINES_DIR = 'apps/mobile_flutter/assets/audio/lines';
 export const VOICES_FILE = 'apps/mobile_flutter/assets/content/voices.json';
@@ -55,9 +55,15 @@ interface Line {
 export const clipName = (voice: BundleVoice, text: string): string =>
   `${voice.id}-${createHash('sha256').update(`${voice.model}|${voice.voice}|${voice.instructions ?? ''}|${text}`).digest('hex').slice(0, 16)}.mp3`;
 
-/** Every line of the bundle with the voice cast for it. */
-export function bundleLines(chaptersJson: string, onlyTrack?: string): Line[] {
-  const chapters = (JSON.parse(chaptersJson) as { chapters: { courseTrackId: string; characters: { key: string; voice?: 'female' | 'male' | null }[]; missions: { characterKey: string; expressions: { id: string; text: string; speaker: string }[] }[] }[] }).chapters;
+/** A chapter of the Flutter bundle, as far as the voices need it. */
+export type BundleChapter = {
+  courseTrackId: string;
+  characters: { key: string; voice?: 'female' | 'male' | null }[];
+  missions: { characterKey: string; expressions: { id: string; text: string; speaker: string }[] }[];
+};
+
+/** Every line of the bundle's chapters ({@link readBundleChapters}) with the voice cast for it. */
+export function bundleLines(chapters: readonly BundleChapter[], onlyTrack?: string): Line[] {
   const lines: Line[] = [];
   for (const ch of chapters) {
     if (onlyTrack && ch.courseTrackId !== onlyTrack) continue;
@@ -122,7 +128,7 @@ async function synthesize(line: Line, out: string, key: string): Promise<void> {
 export async function main(args: ParsedArgs, io: CliIo): Promise<number> {
   const root = repoRoot();
   const only = flagString(args, 'track');
-  const lines = bundleLines(readBundleChaptersJson(root), only);
+  const lines = bundleLines(readBundleChapters<BundleChapter>(root), only);
   const dir = resolve(root, LINES_DIR);
   const todo = new Map<string, Line>();
   for (const l of lines) {
@@ -173,7 +179,7 @@ export async function main(args: ParsedArgs, io: CliIo): Promise<number> {
   await Promise.all(workers);
 
   // The map of every bundle line whose clip exists; clips no line uses any more are removed.
-  const all = bundleLines(readBundleChaptersJson(root));
+  const all = bundleLines(readBundleChapters<BundleChapter>(root));
   const used = new Set<string>();
   const map: Record<string, { file: string; voice: string }> = {};
   for (const l of all) {

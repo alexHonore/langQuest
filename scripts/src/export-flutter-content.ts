@@ -17,9 +17,10 @@
  *   French (the server's characters carry an English role only).
  *
  * Output is deterministic (no timestamps): `catalog.json` (30 tracks, each with the instruction languages it is taught
- * from, its mission count per language and whether it is a draft), `chapters/<track>.json` (each course's draft chapters,
- * loaded by the app only when that course is opened), `skills.json` (skill names) and `cast.json` (character roles). Expression ids are `seedExpressionId()` (`<chapter>:<mission>:<expression>`), the same
- * keys the database seed derives from.
+ * from and its mission count in each), `chapters/<trackId>.json` (the draft chapters of one course: the app loads only
+ * the courses the learner takes, not every course at start-up), `skills.json` (skill names) and `cast.json` (character
+ * roles). Expression ids are `seedExpressionId()` (`<chapter>:<mission>:<expression>`), the same keys the database
+ * seed derives from. A chapter file no course needs any more is removed (`--check` reports it).
  *
  * Usage: pnpm --filter @langquest/scripts export-flutter-content [-- --check] [-- --dry-run]
  */
@@ -29,22 +30,10 @@ import { COURSE_TRACKS, LANGUAGE_VARIETIES, type CourseTrack, type CourseTrackId
 import { ALL_SKILLS, DRAFT_CHAPTERS, SYSTEM_SKILL_KEYS, findBlueprint, seedExpressionId, skillNameKey, type SeedChapter, type SeedExpression, type SeedMission, type Skill } from '@langquest/curriculum';
 import { CHARACTER_ROSTER, COVER_RECIPES } from '@langquest/ui/art/web';
 import { flagBool, isDirectRun, runCli, type CliIo, type CliSpec, type ParsedArgs } from './lib/cli';
+import { BUNDLE_DIR, CHAPTERS_SUBDIR, bundleChapterFiles, chaptersFileOf } from './lib/flutter-bundle';
 import { fileExists, repoRoot, writeTextFileSync } from './lib/io';
 
-export const BUNDLE_DIR = 'apps/mobile_flutter/assets/content';
-
-/** One course's chapters, relative to the bundle directory: the app loads it when the course is opened or enrolled. */
-export const chaptersFileOf = (trackId: string): string => `chapters/${trackId}.json`;
-
-/** The bundle's single chapters file before courses were split (removed on export; `--check` reports it). */
-export const LEGACY_CHAPTERS_FILE = 'chapters.json';
-
-/** What the course picker shows before a course's chapters are loaded: who it is taught to, how many missions, draft or not. */
-export function courseOffer(chapters: readonly SeedChapter[]): { sources: string[]; missionCounts: Record<string, number>; draft: boolean } {
-  const sources = [...new Set(chapters.flatMap((c) => c.sourceLanguages))].sort();
-  const missionCounts = Object.fromEntries(sources.map((s) => [s, chapters.filter((c) => c.sourceLanguages.includes(s as never)).reduce((n, c) => n + c.missions.length, 0)]));
-  return { sources, missionCounts, draft: chapters.some((c) => !c.nativeReviewed) };
-}
+export { BUNDLE_DIR };
 export const BUNDLE_SCHEMA_VERSION = 1;
 
 /**
@@ -98,6 +87,20 @@ export function frenchTrackName(frCatalog: { catalog?: { cover?: Record<string, 
   return match[1].charAt(0).toLocaleUpperCase('fr') + match[1].slice(1);
 }
 
+/**
+ * The instruction languages a track is taught from (those with at least one mission, sorted) and its mission count in
+ * each: what the app's course picker shows without loading the course's chapters.
+ */
+export function courseSources(chapters: readonly SeedChapter[], trackId: CourseTrackId): { sources: string[]; missionCounts: Record<string, number> } {
+  const counts = new Map<string, number>();
+  for (const chapter of chapters) {
+    if (chapter.courseTrackId !== trackId) continue;
+    for (const source of chapter.sourceLanguages) counts.set(source, (counts.get(source) ?? 0) + chapter.missions.length);
+  }
+  const sources = [...counts.entries()].filter(([, n]) => n > 0).map(([source]) => source).sort();
+  return { sources, missionCounts: Object.fromEntries(sources.map((source) => [source, counts.get(source)!])) };
+}
+
 function trackEntry(track: CourseTrack, frCatalog: Parameters<typeof frenchTrackName>[0]) {
   const recipe = COVER_RECIPES.find((r) => r.trackId === track.id);
   if (!recipe) throw new Error(`no cover recipe for ${track.id}`);
@@ -123,6 +126,7 @@ function trackEntry(track: CourseTrack, frCatalog: Parameters<typeof frenchTrack
     regionalOptions: track.regionalOptions,
     automatedScoringSupport: track.automatedScoringSupport,
     cover: { hue: recipe.hue, hue2: recipe.hue2, motif: recipe.motif, variant: recipe.variant },
+    ...courseSources(DRAFT_CHAPTERS, track.id),
   };
 }
 
@@ -221,15 +225,14 @@ export function castRoles(catalogs: { en: Record<string, unknown>; fr: Record<st
   return out;
 }
 
-/** The bundle files, keyed by file name, as the exact text written to disk. Pure. */
+/** The bundle files, keyed by path relative to {@link BUNDLE_DIR}, as the exact text written to disk. Pure. */
 export function buildFlutterBundle(root: string): Record<string, string> {
   const readCatalog = (lang: 'en' | 'fr') => JSON.parse(readFileSync(resolve(root, `packages/locales/src/catalogs/${lang}.json`), 'utf8')) as Record<string, unknown>;
   const enCatalog = readCatalog('en');
   const frCatalog = readCatalog('fr');
   const header = { schemaVersion: BUNDLE_SCHEMA_VERSION, generatedBy: 'scripts/src/export-flutter-content.ts' };
   const tracks = [...COURSE_TRACKS].sort((a, b) => a.order - b.order);
-  const chaptersOf = (id: CourseTrackId): SeedChapter[] => DRAFT_CHAPTERS.filter((c) => c.courseTrackId === id);
-  const catalog = { ...header, tracks: tracks.map((t) => ({ ...trackEntry(t, frCatalog as Parameters<typeof frenchTrackName>[0]), ...courseOffer(chaptersOf(t.id)) })) };
+  const catalog = { ...header, tracks: tracks.map((t) => trackEntry(t, frCatalog as Parameters<typeof frenchTrackName>[0])) };
   const skills = { ...header, skills: ALL_SKILLS.map((sk) => skillEntry(sk, { en: enCatalog, fr: frCatalog })) };
   const cast = { ...header, roles: castRoles({ en: enCatalog, fr: frCatalog }) };
   const files: Record<string, string> = {
@@ -237,16 +240,23 @@ export function buildFlutterBundle(root: string): Record<string, string> {
     'skills.json': `${JSON.stringify(skills, null, 2)}\n`,
     'cast.json': `${JSON.stringify(cast, null, 2)}\n`,
   };
-  for (const t of tracks) {
-    const chapters = chaptersOf(t.id);
-    if (chapters.length) files[chaptersFileOf(t.id)] = `${JSON.stringify({ ...header, courseTrackId: t.id, chapters: chapters.map(chapterEntry) }, null, 2)}\n`;
+  // One file per course with chapters, in catalog order; its chapters in curriculum order.
+  for (const track of tracks) {
+    const own = DRAFT_CHAPTERS.filter((c) => c.courseTrackId === track.id);
+    if (own.length === 0) continue;
+    files[chaptersFileOf(track.id)] = `${JSON.stringify({ ...header, courseTrackId: track.id, chapters: own.map(chapterEntry) }, null, 2)}\n`;
   }
   return files;
 }
 
+/** Chapter files on disk that the bundle no longer has (a course without chapters any more), relative to BUNDLE_DIR. */
+export function staleChapterFiles(root: string, files: Record<string, string>): string[] {
+  return bundleChapterFiles(root).filter((file) => !(file in files));
+}
+
 export const spec: CliSpec = {
   name: 'export-flutter-content',
-  summary: 'Writes the Flutter app content bundle (catalog, draft chapters, skill names, cast roles) from contracts, ui, curriculum and locales.',
+  summary: 'Writes the Flutter app content bundle (catalog, one draft-chapter file per course, skill names, cast roles) from contracts, ui, curriculum and locales.',
   flags: [{ name: 'check', type: 'boolean', description: 'Do not write; exit 1 when a bundle file differs from a fresh export.' }],
   examples: ['export-flutter-content', 'export-flutter-content -- --check'],
 };
@@ -254,22 +264,23 @@ export const spec: CliSpec = {
 export async function main(args: ParsedArgs, io: CliIo): Promise<number> {
   const root = repoRoot();
   const files = buildFlutterBundle(root);
-  const chapters = Object.entries(files)
-    .filter(([name]) => name.startsWith('chapters/'))
-    .flatMap(([, text]) => (JSON.parse(text) as { chapters: { missions: { expressions: unknown[] }[] }[] }).chapters);
+  const courseFiles = Object.keys(files).filter((name) => name.startsWith(`${CHAPTERS_SUBDIR}/`));
+  const chapters = courseFiles.flatMap((name) => (JSON.parse(files[name]!) as { chapters: { missions: { expressions: unknown[] }[] }[] }).chapters);
   const missions = chapters.flatMap((c) => c.missions);
-  io.log(`flutter bundle: ${COURSE_TRACKS.length} tracks, ${chapters.length} draft chapters in one file per course, ${missions.length} missions, ${missions.reduce((n, m) => n + m.expressions.length, 0)} expressions, ${ALL_SKILLS.length} skills`);
+  io.log(
+    `flutter bundle: ${COURSE_TRACKS.length} tracks, ${courseFiles.length} course files, ${chapters.length} draft chapters, ${missions.length} missions, ${missions.reduce((n, m) => n + m.expressions.length, 0)} expressions, ${ALL_SKILLS.length} skills`,
+  );
   let stale = 0;
-  const legacy = resolve(root, BUNDLE_DIR, LEGACY_CHAPTERS_FILE);
-  if (fileExists(legacy)) {
+  for (const name of staleChapterFiles(root, files)) {
+    const out = resolve(root, BUNDLE_DIR, name);
     if (flagBool(args, 'check')) {
-      io.error(`${relative(root, legacy)} is left over (courses are one file each now); regenerate with: pnpm --filter @langquest/scripts export-flutter-content`);
+      io.error(`${relative(root, out)} is no longer part of the bundle; regenerate with: pnpm --filter @langquest/scripts export-flutter-content`);
       stale += 1;
     } else if (args.dryRun) {
-      io.log(`dry-run: would remove ${relative(root, legacy)}`);
+      io.log(`dry-run: would remove ${relative(root, out)}`);
     } else {
-      rmSync(legacy);
-      io.log(`removed ${relative(root, legacy)}`);
+      rmSync(out);
+      io.log(`removed ${relative(root, out)}`);
     }
   }
   for (const [name, text] of Object.entries(files)) {

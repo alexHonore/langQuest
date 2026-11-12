@@ -362,6 +362,24 @@ abstract class AppLocalizations {
   /// **'Continue this course'**
   String get courseContinue;
 
+  /// No description provided for @courseLoading.
+  ///
+  /// In en, this message translates to:
+  /// **'Loading the course…'**
+  String get courseLoading;
+
+  /// No description provided for @courseLoadFailed.
+  ///
+  /// In en, this message translates to:
+  /// **'This course could not be loaded. Check your connection and try again.'**
+  String get courseLoadFailed;
+
+  /// No description provided for @courseLoadRetry.
+  ///
+  /// In en, this message translates to:
+  /// **'Try again'**
+  String get courseLoadRetry;
+
   /// No description provided for @courseExplanationsIn.
   ///
   /// In en, this message translates to:

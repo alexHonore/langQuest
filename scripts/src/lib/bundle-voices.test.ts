@@ -1,10 +1,10 @@
-import { resolve } from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { bundleLines, clipName, listenPrompt } from '../synthesize-bundle-audio';
+import { bundleLines, clipName, listenPrompt, type BundleChapter } from '../synthesize-bundle-audio';
 import { BUNDLE_VOICES, voiceForLine } from './bundle-voices';
-import { readBundleChaptersJson } from './flutter-bundle';
+import { readBundleChapters } from './flutter-bundle';
+import { repoRoot } from './io';
 
-const chapters = readBundleChaptersJson(resolve(__dirname, '../../..'));
+const chapters = readBundleChapters<BundleChapter>(repoRoot());
 
 describe('the bundled course voices', () => {
   it('casts the character by their voice and the learner in a voice of their own', () => {

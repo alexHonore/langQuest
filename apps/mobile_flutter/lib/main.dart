@@ -10,6 +10,7 @@ import 'core/backend/account.dart';
 import 'core/backend/auth_gateway.dart';
 import 'core/backend/backend_config.dart';
 import 'core/content/content_bundle.dart';
+import 'core/content/course_loading.dart';
 import 'core/layout/display_preferences.dart';
 import 'core/layout/phone_frame.dart';
 import 'core/platform/browser_url.dart';
@@ -35,9 +36,11 @@ Future<void> main() async {
   });
 
   final prefs = await SharedPreferences.getInstance();
-  final store = LearnerStore(prefs);
-  // Only the learner's own courses are read now; any other course loads when it is opened (ContentLibrary).
-  final content = await ContentBundle.load(rootBundle, tracks: [for (final e in store.load().enrollments) e.trackId]);
+  final learnerStore = LearnerStore(prefs);
+  // The catalog, and the chapters of the learner's courses only (each course is a file of its own): any other course
+  // is read when the learner opens it. Not cached by the asset bundle: the parsed chapters are what is kept.
+  Future<String> readContent(String path) => rootBundle.loadString(path, cache: false);
+  final content = await ContentBundle.load(readContent, courses: {for (final e in learnerStore.load().enrollments) e.trackId});
 
   // An account is optional: without a backend in this build (or if it cannot start) the app stays offline.
   var backend = await loadBackendConfig();
@@ -65,8 +68,8 @@ Future<void> main() async {
   runApp(
     ProviderScope(
       overrides: [
-        initialContentProvider.overrideWithValue(content),
-        learnerStoreProvider.overrideWithValue(store),
+        contentBundleProvider.overrideWith(() => ContentNotifier(content, read: readContent)),
+        learnerStoreProvider.overrideWithValue(learnerStore),
         backendConfigProvider.overrideWithValue(backend),
         startupEmailLinkProvider.overrideWithValue(emailLink),
       ],
@@ -103,7 +106,7 @@ class LangQuestApp extends ConsumerWidget {
           child: PhoneFrame(
             backdrop: Color.alphaBlend(Colors.black.withValues(alpha: appState.isDark ? 0.5 : 0.07), colors.background),
             outline: colors.border,
-            child: EmailLinkPrompt(child: child ?? const SizedBox.shrink()),
+            child: ActiveCourseGate(child: EmailLinkPrompt(child: child ?? const SizedBox.shrink())),
           ),
         ),
       ),

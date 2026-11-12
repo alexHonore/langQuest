@@ -91,7 +91,7 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
 
   @override
   AppState build() {
-    // A course loaded later (opened, enrolled, restored) joins the content without re-reading the learner's state.
+    // A course's chapters arriving (opened, taken or restored) changes the content only; the learner stays as is.
     ref.listen(contentBundleProvider, (_, content) => state = AppState(content: content, learner: state.learner, deviceLanguage: state.deviceLanguage));
     return AppState(
       content: ref.read(contentBundleProvider),
@@ -99,10 +99,6 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
       deviceLanguage: ref.watch(deviceLanguageProvider),
     );
   }
-
-  /// Loads [trackId]'s chapters (before enrolling in it, or restoring it from the account).
-  @override
-  Future<void> prepareCourse(String trackId) => ref.read(contentBundleProvider.notifier).ensureTrack(trackId);
 
   DateTime get _now => ref.read(clockProvider)();
 
@@ -133,7 +129,9 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
   void setMascot(bool shown) => _update(state.learner.copyWith(mascot: shown));
   void setReadAloud(bool on) => _update(state.learner.copyWith(readAloud: on));
 
-  /// Enroll in (track, source) — only when the bundle has content for that pair — and make it the active course.
+  /// Enroll in (track, source) — only when the bundle has content for that pair — and make it the active course. Its
+  /// chapters are read now if they were not yet (the course screen reads them before offering to start); until then
+  /// [AppState.activeCourse] is null, and a failed read is shown and tried again by `ActiveCourseGate`.
   bool enroll(String trackId, String source) {
     if (!state.content.isAvailable(trackId, source)) return false;
     final learner = state.learner;
@@ -142,9 +140,14 @@ class AppStateNotifier extends Notifier<AppState> implements RestoreTarget {
         ? learner.enrollments
         : [...learner.enrollments, Enrollment(trackId: trackId, source: source, enrolledAt: _now.toUtc())];
     _update(learner.copyWith(enrollments: enrollments, activeCourseId: id));
+    loadCourse(trackId).ignore();
     _accountChanged();
     return true;
   }
+
+  /// Reads [trackId]'s chapters unless they are in memory ([ContentNotifier.loadCourse]).
+  @override
+  Future<void> loadCourse(String trackId) => ref.read(contentBundleProvider.notifier).loadCourse(trackId);
 
   // ── Account sync (RestoreTarget) ─────────────────────────────────────────────────────────────────────────────
 
