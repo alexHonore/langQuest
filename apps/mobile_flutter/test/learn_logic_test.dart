@@ -166,8 +166,8 @@ void main() {
       }
       expect(testBundle.tracks, hasLength(30));
       // Chapter 1: Darija 7 + Spanish 6 + Japanese 4 (each from en and fr), English 4 (fr), French 7 (en), 25 more
-      // courses × 7 (en, fr). Chapter 2: 6 missions in every course, English from fr, French from en, 28 from both.
-      expect(plans.length, (7 + 6 + 4) * 2 + 4 + 7 + 25 * 7 * 2 + 6 + 6 + 28 * 6 * 2);
+      // courses × 7 (en, fr). Chapters 2–4: 6 missions each in every course, English from fr, French from en, 28 from both.
+      expect(plans.length, (7 + 6 + 4) * 2 + 4 + 7 + 25 * 7 * 2 + 3 * (6 + 6 + 28 * 6 * 2));
     });
 
     test('every plan has a scene with a line to shadow, cards, pairs and exchanges', () {

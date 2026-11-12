@@ -19,10 +19,10 @@ describe('buildCurriculumSeedPlan', () => {
   /** The plan as it was with the four hand-authored drafts only: 26 tracks still planned skeletons. */
   const handAuthored = buildCurriculumSeedPlan({ drafts: HAND_AUTHORED_CHAPTERS });
 
-  it('loads every track’s draft chapters (1 and 2) as published; the planned skeletons they supersede are not loaded', () => {
-    expect(plan.chapters).toHaveLength(60);
+  it('loads every track’s draft chapters (1 to 4) as published; the planned skeletons they supersede are not loaded', () => {
+    expect(plan.chapters).toHaveLength(120);
     const published = plan.chapters.filter((c) => c.state === 'published');
-    expect(published).toHaveLength(60);
+    expect(published).toHaveLength(120);
     expect(published.every((c) => c.kind === 'draft')).toBe(true);
     expect(plan.chapters.filter((c) => c.kind === 'skeleton')).toEqual([]);
     expect(plan.supersededSkeletons).toHaveLength(30);
@@ -72,7 +72,10 @@ describe('buildCurriculumSeedPlan', () => {
     expect(objectiveDescriptionKey('cafe_order_drink', 'pay')).toBe('curriculum.objective.cafe_order_drink.pay');
     const byMission = new Map<string, number>();
     for (const s of plan.rows.missionSteps) byMission.set(s.mission_id, (byMission.get(s.mission_id) ?? 0) + 1);
-    expect([...byMission.values()].every((n) => n >= 7)).toBe(true);
+    // A free conversation (your day, hobbies, a debate) is a short arc by design; every other mission has seven steps or more.
+    const free = new Set(plan.rows.missions.filter((m) => m.mission_type === 'free_conversation').map((m) => m.id));
+    expect([...byMission.entries()].every(([id, n]) => n >= (free.has(id) ? 3 : 7))).toBe(true);
+    expect(free.size).toBeGreaterThan(0);
     expect(plan.rows.missionSteps.every((s) => s.hint_scaffold?.length === 0 && typeof s.success_conditions === 'object')).toBe(true);
     const conversation = plan.rows.missionSteps.filter((s) => s.step_type === 'character_conversation');
     expect(conversation.length).toBe(plan.rows.missions.length);
@@ -103,8 +106,8 @@ describe('buildCurriculumSeedPlan', () => {
     expect(fr.metrics.audio_overlays_pct).toBe(0);
     expect(fr.metrics.subtitles_pct).toBe(0);
     const ja = plan.rows.coverage.find((c) => c.course_track_id === 'japanese')!;
-    // Japanese: 4 of chapter 1's 7 missions and the 6 of chapter 2, against the 13 the story arc plans.
-    expect(ja.metrics.mission_instructions_pct).toBeCloseTo(((4 + 6) / arcMissionsThrough(2)) * 100, 1);
+    // Japanese: 4 of chapter 1's 7 missions and the 6 of each of chapters 2–4, against the 25 the story arc plans.
+    expect(ja.metrics.mission_instructions_pct).toBeCloseTo(((4 + 6 + 6 + 6) / arcMissionsThrough(4)) * 100, 1);
     // English from Russian has chapter 1 only: measured against chapter 1.
     const enRu = plan.rows.coverage.find((c) => c.course_track_id === 'english' && c.source_language_code === 'ru')!;
     expect(enRu.metrics.mission_instructions_pct).toBeCloseTo((4 / CHAPTER_1_BLUEPRINT_KEYS.length) * 100, 1);
@@ -190,9 +193,9 @@ describe('buildCurriculumSeedPlan', () => {
 
   it('filters by track and can drop skeletons', () => {
     const one = buildCurriculumSeedPlan({ tracks: ['arabic-moroccan'] });
-    expect(one.chapters).toHaveLength(2);
+    expect(one.chapters).toHaveLength(4);
     expect(one.rows.lessonCourses).toHaveLength(1);
-    expect(one.rows.missions).toHaveLength(7 + 6);
+    expect(one.rows.missions).toHaveLength(7 + 6 + 6 + 6);
     expect(one.rows.coverage).toHaveLength(2);
     const noSkeletons = buildCurriculumSeedPlan({ drafts: HAND_AUTHORED_CHAPTERS, includeSkeletons: false });
     expect(noSkeletons.chapters).toHaveLength(4);
@@ -220,7 +223,7 @@ describe('seed-curriculum CLI', () => {
     expect(await runCli(spec, ['--track', 'arabic-moroccan,japanese', '--dry-run'], main, io)).toBe(0);
     const text = io.lines.join('\n');
     expect(text).toMatch(/draft {4}published {5}arabic-moroccan/);
-    expect(text).toMatch(/chapters_published=4/);
+    expect(text).toMatch(/chapters_published=8/);
     expect(text).toMatch(/missions_cast=\d+ missions_uncast=\d+/);
     expect(text).not.toContain('cast     role');
     expect(text).toContain('expression_audio: 0 rows by design');

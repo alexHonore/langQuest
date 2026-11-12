@@ -1,7 +1,9 @@
 import { describe, expect, it } from 'vitest';
 import { COURSE_TRACKS, getCourseTrack } from '@langquest/contracts';
-import { AUTHORED_LIMITS, CHAPTER_2_BLUEPRINT_KEYS, authoredChapterFor, authoredSources, checkAuthoredChapter, expandAuthoredChapter, type AuthoredChapterInput } from './authored';
-import { AUTHORED_CHAPTER_2 as AUTHORED_CHAPTERS, AUTHORED_CHAPTER_2_INPUTS } from './authored/chapter-2';
+import { AUTHORED_LIMITS, authoredChapterFor, chapterBlueprintKeys, authoredSources, checkAuthoredChapter, expandAuthoredChapter, type AuthoredChapterInput } from './authored';
+import { AUTHORED_CHAPTER_2, AUTHORED_CHAPTER_2_INPUTS } from './authored/chapter-2';
+import { AUTHORED_CHAPTER_3, AUTHORED_CHAPTER_3_INPUTS } from './authored/chapter-3';
+import { AUTHORED_CHAPTER_4, AUTHORED_CHAPTER_4_INPUTS } from './authored/chapter-4';
 import { findBlueprint } from '../missions/scenarios';
 
 const spanish = AUTHORED_CHAPTER_2_INPUTS.find((c) => c.track === 'spanish-spain')!;
@@ -14,28 +16,34 @@ function changed(blueprint: string, change: (mission: AuthoredChapterInput['miss
   return copy;
 }
 
-describe('chapter 2 of every course', () => {
+const CHAPTERS = [
+  { index: 2, inputs: AUTHORED_CHAPTER_2_INPUTS, chapters: AUTHORED_CHAPTER_2, first: 'restaurant_order_meal' },
+  { index: 3, inputs: AUTHORED_CHAPTER_3_INPUTS, chapters: AUTHORED_CHAPTER_3, first: 'describe_your_day' },
+  { index: 4, inputs: AUTHORED_CHAPTER_4_INPUTS, chapters: AUTHORED_CHAPTER_4, first: 'rent_a_flat' },
+] as const;
+
+describe.each(CHAPTERS)('chapter $index of every course', ({ index, inputs, chapters, first }) => {
   it('is written for every course but Chinese Simplified, which shares Mandarin’s', () => {
-    expect(AUTHORED_CHAPTER_2_INPUTS.map((c) => c.track).sort()).toEqual(
+    expect(inputs.map((c) => c.track).sort()).toEqual(
       COURSE_TRACKS.map((t) => t.id)
         .filter((id) => id !== 'chinese-simplified')
         .sort(),
     );
-    expect(AUTHORED_CHAPTERS.map((c) => c.courseTrackId).sort()).toEqual(COURSE_TRACKS.map((t) => t.id).sort());
-    const mandarin = AUTHORED_CHAPTERS.find((c) => c.courseTrackId === 'chinese-mandarin')!;
-    const simplified = AUTHORED_CHAPTERS.find((c) => c.courseTrackId === 'chinese-simplified')!;
-    expect(simplified.key).toBe('chinese_simplified_ch2');
+    expect(chapters.map((c) => c.courseTrackId).sort()).toEqual(COURSE_TRACKS.map((t) => t.id).sort());
+    const mandarin = chapters.find((c) => c.courseTrackId === 'chinese-mandarin')!;
+    const simplified = chapters.find((c) => c.courseTrackId === 'chinese-simplified')!;
+    expect(simplified.key).toBe(`chinese_simplified_ch${index}`);
     expect(simplified.missions.map((m) => m.expressions.map((e) => e.targetText))).toEqual(mandarin.missions.map((m) => m.expressions.map((e) => e.targetText)));
-    expect(simplified.missions[0]!.key).toBe('chinese_simplified_restaurant_order_meal');
+    expect(simplified.missions[0]!.key).toBe(`chinese_simplified_${first}`);
   });
 
-  it.each(AUTHORED_CHAPTER_2_INPUTS.map((c) => [c.track, c] as const))('%s passes every check of the format', (_track, chapter) => {
-    expect(checkAuthoredChapter(chapter)).toEqual([]);
+  it.each(inputs.map((c) => [c.track, c] as const))('%s passes every check of the format', (_track, chapter) => {
+    expect(checkAuthoredChapter(chapter, index)).toEqual([]);
   });
 
-  it.each(AUTHORED_CHAPTERS.map((c) => [c.courseTrackId, c] as const))('%s: six missions in story order, taught from the course’s instruction languages, as an unreviewed draft', (_track, chapter) => {
-    expect(chapter.chapterIndex).toBe(2);
-    expect(chapter.missions.map((m) => m.blueprintKey)).toEqual(CHAPTER_2_BLUEPRINT_KEYS);
+  it.each(chapters.map((c) => [c.courseTrackId, c] as const))('%s: six missions in story order, taught from the course’s instruction languages, as an unreviewed draft', (_track, chapter) => {
+    expect(chapter.chapterIndex).toBe(index);
+    expect(chapter.missions.map((m) => m.blueprintKey)).toEqual(chapterBlueprintKeys(index));
     expect(chapter.sourceLanguages).toEqual(authoredSources(chapter.courseTrackId));
     expect(chapter.reviewStatus).toBe('review_needed');
     expect(chapter.nativeReviewed).toBe(false);
@@ -53,12 +61,31 @@ describe('chapter 2 of every course', () => {
   });
 
   it('gives French-speaking learners notes of their own, on most lines', () => {
-    for (const chapter of AUTHORED_CHAPTER_2_INPUTS.filter((c) => authoredSources(c.track).includes('fr'))) {
+    for (const chapter of inputs.filter((c) => authoredSources(c.track).includes('fr'))) {
       const lines = chapter.missions.flatMap((m) => m.lines);
       const noted = lines.filter((l) => l.fr?.n).length;
       expect(noted / lines.length, `${chapter.track}: ${noted}/${lines.length} lines with a French note`).toBeGreaterThanOrEqual(0.5);
       // Written for French speakers, not copied from the English: no note is the same in both languages.
       expect(lines.filter((l) => l.fr?.n && l.en?.n && l.fr.n === l.en.n).map((l) => l.key), chapter.track).toEqual([]);
+    }
+  });
+});
+
+describe('the chapters of a course, together', () => {
+  it('never repeat a line of another chapter word for word, and keep each chapter\'s characters apart', () => {
+    for (const track of COURSE_TRACKS.map((t) => t.id).filter((id) => id !== 'chinese-simplified')) {
+      const seen = new Map<string, number>();
+      const repeats: string[] = [];
+      for (const { index, inputs } of CHAPTERS) {
+        const chapter = inputs.find((c) => c.track === track)!;
+        for (const text of new Set(chapter.missions.flatMap((m) => m.lines.map((l) => l.text)))) {
+          const before = seen.get(text);
+          if (before !== undefined && before !== index) repeats.push(`"${text}" (chapters ${before} and ${index})`);
+          seen.set(text, index);
+        }
+      }
+      // A short shared reply ("Thank you.") may come back; a whole sentence should not.
+      expect(repeats.filter((r) => r.split(' ').length > 6), track).toEqual([]);
     }
   });
 });

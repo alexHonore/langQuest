@@ -3173,6 +3173,3943 @@
           ]
         }
       ]
+    },
+    {
+      "key": "english_ch3",
+      "chapterIndex": 3,
+      "courseTrackId": "english",
+      "targetVarietyId": "en",
+      "sourceLanguages": [
+        "fr"
+      ],
+      "titles": {
+        "fr": "Trouver sa voix en anglais"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 3, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 3 for English (en); native review required before publishing.",
+        "American usage throughout (downtown, the suburbs, the commute, cab, sleep in, touch base, front end); a US reviewer should confirm nothing reads as British. The city stays unnamed as in chapters 1 and 2: the Red Door jazz club, Fifth Street and the number six bus are invented.",
+        "The learner's English lines are gender-neutral; the French meanings mark gender as before (« fatigué(e) », « perdu(e) »). The learner is named Alex Martin, a name that works in both languages. French meanings say tu to Jordan, Emily, Marcus and Maya, vous to Priya and Frank.",
+        "Wordings to check first: « I'm beat, but it's all good. », « So, are you more front end or back end? », « Let's touch base at three », « It was midnight. Well, eleven, I mean. », « She knew a 'raccourci.' How do you say that in English? ».",
+        "Sounds are described with French approximations (« ouitch », « un z zozoté »), as in chapter 2; a phonetics-minded reviewer should check them."
+      ],
+      "characters": [
+        {
+          "key": "en_ch3_jordan_colleague",
+          "name": "Jordan",
+          "role": "colleague",
+          "personality": "laid-back, always first at the coffee machine, curious about how you're settling in",
+          "homeRegion": "US (neutral)",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "en_ch3_priya_team_lead",
+          "name": "Priya",
+          "role": "team lead",
+          "personality": "friendly and direct, talks fast and loves office jargon",
+          "homeRegion": "US (neutral)",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "en_ch3_emily_friend",
+          "name": "Emily",
+          "role": "friend",
+          "personality": "outdoorsy, enthusiastic; a classmate from your Tuesday pottery class",
+          "homeRegion": "US (neutral)",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "en_ch3_frank_local",
+          "name": "Frank",
+          "role": "local",
+          "personality": "owner of a neighborhood diner, has lived in the city all his life",
+          "homeRegion": "US (neutral)",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "en_ch3_marcus_friend",
+          "name": "Marcus",
+          "role": "friend",
+          "personality": "good-humored, loves a friendly argument, lives in the suburbs",
+          "homeRegion": "US (neutral)",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "en_ch3_maya_friend_c3",
+          "name": "Maya",
+          "role": "friend",
+          "personality": "easy-going, encouraging; the neighbor from chapter 1 and friend from chapter 2, eager to hear your news",
+          "homeRegion": "US (neutral)",
+          "ageBand": null,
+          "voice": "female"
+        }
+      ],
+      "missions": [
+        {
+          "key": "en_describe_your_day",
+          "blueprintKey": "describe_your_day",
+          "missionType": "free_conversation",
+          "level": "elementary",
+          "situation": "daily_life",
+          "characterKey": "en_ch3_jordan_colleague",
+          "titles": {
+            "fr": "La pause café avec un collègue"
+          },
+          "sceneNotes": {
+            "fr": "La pause café au bureau, pendant votre première semaine ; Jordan, un collègue, veut savoir comment se passent vos journées."
+          },
+          "slots": [
+            {
+              "slotId": "routine",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "feeling",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "job",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "english_ch3:en_describe_your_day:first_week",
+              "key": "first_week",
+              "intentKey": "ask_how_are_you",
+              "slotId": "first_week",
+              "speaker": "character",
+              "text": "Hey! So, how's your first week going?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hey! So, how's your first week going?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Salut ! Alors, ta première semaine, ça se passe bien ?",
+                  "note": "« How's… going? » = comment ça se passe ? « How's » = how is. « Hey! » est un salut très familier, courant entre collègues. Soufflez le h, comme pour faire de la buée sur une vitre.",
+                  "literal": "salut ! alors, comment-est ta première semaine allant"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_describe_your_day:feeling",
+              "key": "feeling",
+              "intentKey": "express_feeling",
+              "slotId": "feeling",
+              "speaker": "learner",
+              "text": "Pretty good, but I'm a little tired.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pretty good, but I'm a little tired."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Plutôt bien, mais je suis un peu fatigué(e).",
+                  "note": "Devant un adjectif, « pretty » veut dire « assez, plutôt », et non « joli » : pretty good, pretty busy. « Tired » se dit « taïeurd », presque en une syllabe.",
+                  "literal": "plutôt bien, mais je-suis un peu fatigué"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_describe_your_day:get_up",
+              "key": "get_up",
+              "intentKey": "ask_time",
+              "slotId": "get_up",
+              "speaker": "character",
+              "text": "Oh yeah? What time do you get up?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Oh yeah? What time do you get up?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Ah bon ? Tu te lèves à quelle heure ?",
+                  "note": "« Get up » = se lever ; « wake up » = se réveiller. Pas de préposition devant « what time », contrairement à « à quelle heure ».",
+                  "literal": "oh ouais ? quelle heure est-ce-que tu te-lèves"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_describe_your_day:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "learner",
+              "text": "I get up at six fifteen.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I get up at six fifteen."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je me lève à six heures et quart.",
+                  "note": "On lit l'heure comme sur un écran : six fifteen (6 h 15), seven thirty (7 h 30). On dit aussi « a quarter after six ». L'heure s'introduit par « at ».",
+                  "literal": "je me-lève à six quinze"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_describe_your_day:routine",
+              "key": "routine",
+              "intentKey": "describe_routine",
+              "slotId": "routine",
+              "speaker": "learner",
+              "text": "I have breakfast and catch the bus.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I have breakfast and catch the bus."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je prends mon petit-déjeuner et j'attrape le bus.",
+                  "note": "« Have » sert pour les repas : have breakfast, have lunch, have dinner. « Catch the bus » = prendre le bus. Le présent simple décrit les habitudes.",
+                  "literal": "j'ai petit-déjeuner et attrape le bus"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_describe_your_day:what_job",
+              "key": "what_job",
+              "intentKey": "ask_occupation",
+              "slotId": "what_job",
+              "speaker": "character",
+              "text": "And what do you do here, exactly?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "And what do you do here, exactly?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Et tu fais quoi ici, exactement ?",
+                  "note": "Le premier « do » est l'auxiliaire de la question, le second le verbe « faire ». « Exactly » : accent sur la 2e syllabe, ig-ZAKT-li.",
+                  "literal": "et quoi est-ce-que tu fais ici, exactement"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_describe_your_day:job",
+              "key": "job",
+              "intentKey": "describe_occupation",
+              "slotId": "job",
+              "speaker": "learner",
+              "text": "I'm a web developer on Priya's team.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I'm a web developer on Priya's team."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je suis développeur web, dans l'équipe de Priya.",
+                  "note": "Devant un métier, l'article « a » est obligatoire : I'm a developer (« je suis développeur »). « Priya's team » = l'équipe de Priya. Accent : di-VÈ-leu-peur.",
+                  "literal": "je-suis un web développeur sur Priya-de équipe"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_describe_your_day:weekend",
+              "key": "weekend",
+              "intentKey": "ask_availability",
+              "slotId": "weekend",
+              "speaker": "character",
+              "text": "Cool. Any plans for the weekend?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Cool. Any plans for the weekend?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Cool. Tu as des projets pour le week-end ?",
+                  "note": "Forme courte de « Do you have any plans…? » : à l'oral, on supprime souvent le début de la question. Faux ami : « plans » = projets ; un plan de ville = « a map ».",
+                  "literal": "cool. des projets pour le week-end"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_describe_your_day:sleep_in",
+              "key": "sleep_in",
+              "intentKey": "state_future_plan",
+              "slotId": "sleep_in",
+              "speaker": "learner",
+              "text": "I'm going to sleep in on Saturday!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I'm going to sleep in on Saturday!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Samedi, je vais faire la grasse matinée !",
+                  "note": "« Be going to » + verbe = futur proche, comme « aller » + infinitif. « Sleep in » = faire la grasse matinée. À l'oral, « going to » devient souvent « gonna ».",
+                  "literal": "je-suis allant à dormir dedans sur samedi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_describe_your_day:beat",
+              "key": "beat",
+              "intentKey": "express_feeling",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "I'm beat, but it's all good.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I'm beat, but it's all good."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je suis crevé(e), mais tout va bien.",
+                  "note": "« I'm beat » (« je suis battu ») = je suis crevé(e) : très familier, entre collègues ou amis. « It's all good » = pas de souci, tout va bien.",
+                  "literal": "je-suis battu, mais c'est tout bon"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "en_talk_about_work",
+          "blueprintKey": "talk_about_work",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "work",
+          "characterKey": "en_ch3_priya_team_lead",
+          "titles": {
+            "fr": "Rencontrer sa responsable"
+          },
+          "sceneNotes": {
+            "fr": "Votre premier rendez-vous avec Priya, la responsable de votre équipe, absente la semaine dernière ; elle est sympathique, mais parle vite et adore le jargon."
+          },
+          "slots": [
+            {
+              "slotId": "intro",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pleased",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "job",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "clarify",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "meaning",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "permission",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "english_ch3:en_talk_about_work:welcome",
+              "key": "welcome",
+              "intentKey": "introduce_name",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Good morning! I'm Priya Shah, the team lead.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Good morning! I'm Priya Shah, the team lead."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Bonjour ! Je suis Priya Shah, la responsable de l'équipe.",
+                  "note": "« Team lead » = chef d'équipe, responsable. Aux États-Unis, on se présente par son prénom et son nom, puis sa fonction ; ensuite, tout le monde s'appelle par son prénom.",
+                  "literal": "bon matin ! je-suis Priya Shah, la équipe responsable"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_work:intro",
+              "key": "intro",
+              "intentKey": "introduce_name",
+              "slotId": "intro",
+              "speaker": "learner",
+              "text": "Good morning. My name is Alex Martin.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Good morning. My name is Alex Martin."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Bonjour. Je m'appelle Alex Martin.",
+                  "note": "« My name is » est la formule soignée, idéale pour une première rencontre au travail ; entre collègues, « I'm Alex » suffit. Le prénom vient en premier, comme en français.",
+                  "literal": "bon matin. mon nom est Alex Martin"
+                }
+              },
+              "register": "formal",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_work:pleased",
+              "key": "pleased",
+              "intentKey": "say_nice_to_meet",
+              "slotId": "pleased",
+              "speaker": "learner",
+              "text": "It's a pleasure to meet you.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "It's a pleasure to meet you."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "C'est un plaisir de faire votre connaissance.",
+                  "note": "Plus soutenu que « Nice to meet you ». « Pleasure » se dit « plè-jeur », avec le son « j » de « jour ». On vous répondra peut-être « Likewise » (de même).",
+                  "literal": "c'est un plaisir de rencontrer vous"
+                }
+              },
+              "register": "formal",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_work:front_or_back",
+              "key": "front_or_back",
+              "intentKey": "ask_occupation",
+              "slotId": "front_or_back",
+              "speaker": "character",
+              "text": "So, are you more front end or back end?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "So, are you more front end or back end?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Alors, vous êtes plutôt front-end ou back-end ?",
+                  "note": "Jargon de développeurs : « front end » = la partie visible d'un site, « back end » = les serveurs. Le français emprunte les mêmes mots. « More… or… ? » = plutôt… ou… ?",
+                  "literal": "alors, êtes vous plus avant fin ou arrière fin"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_work:job",
+              "key": "job",
+              "intentKey": "describe_occupation",
+              "slotId": "job",
+              "speaker": "learner",
+              "text": "I mostly work on the front end.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I mostly work on the front end."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je travaille surtout sur le front-end.",
+                  "note": "« Mostly » = surtout, la plupart du temps ; il se place avant le verbe. « Work » se dit « weurk » : ne le confondez pas avec « walk » (« wôk »), marcher.",
+                  "literal": "je surtout travaille sur le avant fin"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_work:touch_base",
+              "key": "touch_base",
+              "intentKey": "make_plan_time",
+              "slotId": "touch_base",
+              "speaker": "character",
+              "text": "Great. Let's touch base at three, okay?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Great. Let's touch base at three, okay?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Très bien. On fait un point à quinze heures, d'accord ?",
+                  "note": "« Touch base » (toucher la base, au baseball) = faire un point rapide : jargon de bureau très américain. « At three » = à 15 h : le contexte suffit, sans « p.m. ».",
+                  "literal": "super. faisons toucher base à trois, OK"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_work:meaning",
+              "key": "meaning",
+              "intentKey": "ask_meaning_of_word",
+              "slotId": "meaning",
+              "speaker": "learner",
+              "text": "Sorry, what does 'touch base' mean?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sorry, what does 'touch base' mean?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Pardon, que veut dire « touch base » ?",
+                  "note": "« What does … mean? » = que veut dire… ? : l'auxiliaire « does » se place avant le sujet et « mean » reste à la forme de base, sans s. « Mean » a un i long : « miin ».",
+                  "literal": "pardon, quoi est-ce-que « touch base » signifier"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_work:explain",
+              "key": "explain",
+              "intentKey": "explain_meaning",
+              "slotId": "explain",
+              "speaker": "character",
+              "text": "It just means a quick meeting to check in.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "It just means a quick meeting to check in."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Ça veut juste dire une petite réunion pour faire le point.",
+                  "note": "« Check in » = faire le point, prendre des nouvelles (à l'hôtel : s'enregistrer). Faux ami : « a meeting » est une réunion, pas un meeting politique (« a rally »).",
+                  "literal": "ça juste signifie une rapide réunion pour vérifier dedans"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_work:clarify",
+              "key": "clarify",
+              "intentKey": "ask_clarification",
+              "slotId": "clarify",
+              "speaker": "learner",
+              "text": "I see. Do I need to prepare anything?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I see. Do I need to prepare anything?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je vois. Je dois préparer quelque chose ?",
+                  "note": "« I see » = je vois, je comprends. « Need to » + verbe = devoir, avoir besoin de. « Anything » dans une question, « something » dans une affirmation.",
+                  "literal": "je vois. est-ce-que je ai-besoin de préparer quelque-chose"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_work:permission",
+              "key": "permission",
+              "intentKey": "ask_permission",
+              "slotId": "permission",
+              "speaker": "learner",
+              "text": "May I use this desk in the meantime?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "May I use this desk in the meantime?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je peux m'installer à ce bureau en attendant ?",
+                  "note": "« May I…? » = puis-je… ? : la demande la plus polie, idéale avec une responsable ; « Can I…? » est plus courant. Faux ami : « desk » = le bureau (meuble) ; la pièce = « office ».",
+                  "literal": "puis je utiliser ce bureau dans le entre-temps"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_work:new_developer",
+              "key": "new_developer",
+              "intentKey": "introduce_name",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Hi, I'm Alex, the new developer.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hi, I'm Alex, the new developer."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Bonjour, je suis Alex, le nouveau développeur (la nouvelle développeuse).",
+                  "note": "Moins formel, et très courant aux États-Unis, même au travail. « New » se dit « nou » à l'américaine. Ni masculin ni féminin en anglais : « the new developer ».",
+                  "literal": "salut, je-suis Alex, le nouveau développeur"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "en_talk_about_hobbies",
+          "blueprintKey": "talk_about_hobbies",
+          "missionType": "free_conversation",
+          "level": "elementary",
+          "situation": "small_talk",
+          "characterKey": "en_ch3_emily_friend",
+          "titles": {
+            "fr": "Parler de ses loisirs"
+          },
+          "sceneNotes": {
+            "fr": "Après votre cours de poterie du mardi soir au centre culturel du quartier, Emily, une camarade, vous demande ce que vous faites le week-end."
+          },
+          "slots": [
+            {
+              "slotId": "free_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "like",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dislike",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "prefer",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "and_you",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "together",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "english_ch3:en_talk_about_hobbies:weekends",
+              "key": "weekends",
+              "intentKey": "ask_occupation",
+              "slotId": "weekends",
+              "speaker": "character",
+              "text": "So, what do you usually do on weekends?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "So, what do you usually do on weekends?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Alors, qu'est-ce que tu fais le week-end, d'habitude ?",
+                  "note": "« On weekends » (américain) = le week-end, chaque semaine ; en Grande-Bretagne, « at weekends ». « Usually » (« YOU-jou-eu-li ») se place avant le verbe.",
+                  "literal": "alors, quoi est-ce-que tu d'habitude fais sur week-ends"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_hobbies:free_time",
+              "key": "free_time",
+              "intentKey": "describe_routine",
+              "slotId": "free_time",
+              "speaker": "learner",
+              "text": "On weekends, I usually go hiking.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "On weekends, I usually go hiking."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Le week-end, je fais souvent de la randonnée.",
+                  "note": "« Go » + verbe en -ing pour les activités de loisir : go hiking (faire de la randonnée), go swimming, go shopping.",
+                  "literal": "sur week-ends, je d'habitude vais randonnant"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_hobbies:me_too",
+              "key": "me_too",
+              "intentKey": "express_like",
+              "slotId": "me_too",
+              "speaker": "character",
+              "text": "No way! I love hiking too!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "No way! I love hiking too!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Sans blague ! Moi aussi, j'adore la randonnée !",
+                  "note": "« No way! » = sans blague !, ou « pas question ! » selon le ton. « Too » en fin de phrase = aussi ; « me too » = moi aussi.",
+                  "literal": "pas moyen ! je adore randonner aussi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_hobbies:like",
+              "key": "like",
+              "intentKey": "express_like",
+              "slotId": "like",
+              "speaker": "learner",
+              "text": "I love being out in nature.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I love being out in nature."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "J'adore être dans la nature.",
+                  "note": "« Love » + verbe en -ing = adorer faire : I love being, I love cooking. « Nature » (« NÉÏ-tcheur ») s'emploie sans article, contrairement au français.",
+                  "literal": "je adore étant dehors dans nature"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_hobbies:dislike",
+              "key": "dislike",
+              "intentKey": "express_dislike",
+              "slotId": "dislike",
+              "speaker": "learner",
+              "text": "But I hate getting up early!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "But I hate getting up early!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Mais je déteste me lever tôt !",
+                  "note": "« Hate » + -ing = détester faire. « Early » (« EUR-li ») = tôt ; « late » = tard. Soufflez le h de « hate » : sans lui, on entend « eight » (huit).",
+                  "literal": "mais je déteste me-levant tôt"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_hobbies:movies_or_books",
+              "key": "movies_or_books",
+              "intentKey": "ask_opinion",
+              "slotId": "movies_or_books",
+              "speaker": "character",
+              "text": "Ha, same! And in the evening, movies or books?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ha, same! And in the evening, movies or books?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Ha, pareil ! Et le soir, plutôt films ou livres ?",
+                  "note": "« Same! » = pareil !, moi aussi. Une question peut se réduire à deux noms : movies or books? « Movies » (« mou-viz ») est le mot américain pour les films.",
+                  "literal": "ha, pareil ! et dans le soir, films ou livres"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_hobbies:prefer",
+              "key": "prefer",
+              "intentKey": "express_preference_between",
+              "slotId": "prefer",
+              "speaker": "learner",
+              "text": "I prefer movies, especially comedies.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I prefer movies, especially comedies."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je préfère les films, surtout les comédies.",
+                  "note": "Pas d'article pour une généralité : « I prefer movies » = je préfère les films. « Especially » (« is-PÈ-cheu-li ») = surtout, en particulier.",
+                  "literal": "je préfère films, spécialement comédies"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_hobbies:and_you",
+              "key": "and_you",
+              "intentKey": "ask_opinion",
+              "slotId": "and_you",
+              "speaker": "learner",
+              "text": "What about you? Which do you prefer?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "What about you? Which do you prefer?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Et toi ? Tu préfères quoi ?",
+                  "note": "« What about you? » = et toi ? « Which » sert pour un choix entre quelques options ; « what » pour une question ouverte. « Which » se dit « ouitch ».",
+                  "literal": "quoi à-propos toi ? lequel est-ce-que tu préfères"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_hobbies:books",
+              "key": "books",
+              "intentKey": "express_preference_between",
+              "slotId": "books",
+              "speaker": "character",
+              "text": "Books, definitely! I read every night.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Books, definitely! I read every night."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Les livres, sans hésiter ! Je lis tous les soirs.",
+                  "note": "« Definitely » = sans hésiter, absolument. « Read » au présent se dit « riid » ; au passé, il s'écrit pareil mais se dit « rèd ».",
+                  "literal": "livres, définitivement ! je lis chaque nuit"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_hobbies:together",
+              "key": "together",
+              "intentKey": "suggest_activity",
+              "slotId": "together",
+              "speaker": "learner",
+              "text": "We should go hiking together sometime!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "We should go hiking together sometime!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "On devrait faire une randonnée ensemble, un de ces jours !",
+                  "note": "« We should… » (on devrait…) est une façon amicale de proposer. « Sometime » = un de ces jours ; attention, « sometimes » avec un s = parfois.",
+                  "literal": "nous devrions aller randonnant ensemble un-jour"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_talk_about_hobbies:better_than",
+              "key": "better_than",
+              "intentKey": "express_preference_between",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "I like movies better than books.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I like movies better than books."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "J'aime mieux les films que les livres.",
+                  "note": "« Like … better than … » = aimer mieux… que… : plus naturel à l'oral que « prefer … to … ». « Than » : « th » sonore, langue entre les dents, comme un « z » zozoté.",
+                  "literal": "je aime films mieux que livres"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "en_ask_for_advice",
+          "blueprintKey": "ask_for_advice",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "small_talk",
+          "characterKey": "en_ch3_frank_local",
+          "titles": {
+            "fr": "Demander conseil à un habitant"
+          },
+          "sceneNotes": {
+            "fr": "Un petit diner du quartier, un après-midi tranquille ; Frank, le patron, a toujours vécu ici et connaît les adresses que les touristes ignorent."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "why",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_to_get",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "is_it_far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "hours",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "english_ch3:en_ask_for_advice:excuse_me",
+              "key": "excuse_me",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "Excuse me, could I ask you something?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Excuse me, could I ask you something?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Excusez-moi, je peux vous poser une question ?",
+                  "note": "« Could I…? » = pourrais-je… ?, plus poli que « can I ». Le l de « could » est muet : « koud ». À l'américaine, le a de « ask » est très ouvert, presque « èsk ».",
+                  "literal": "excusez moi, pourrais je demander vous quelque-chose"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_ask_for_advice:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "What would you recommend for a Saturday night?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "What would you recommend for a Saturday night?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Qu'est-ce que vous me conseilleriez pour un samedi soir ?",
+                  "note": "Le conditionnel « would » adoucit la question, comme « conseilleriez ». « Saturday night » = samedi soir ; « tonight » = ce soir.",
+                  "literal": "quoi recommanderiez vous pour un samedi nuit"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_ask_for_advice:jazz_club",
+              "key": "jazz_club",
+              "intentKey": "state_opinion",
+              "slotId": "jazz_club",
+              "speaker": "character",
+              "text": "Try the Red Door. It's a little jazz club on Fifth Street.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Try the Red Door. It's a little jazz club on Fifth Street."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Essayez le Red Door. C'est un petit club de jazz sur la Cinquième Rue.",
+                  "note": "« Try… » = essayez… : un impératif amical pour recommander. Les rues numérotées sont typiques des villes américaines ; on dit « on Fifth Street », jamais « in ».",
+                  "literal": "essayez la Rouge Porte. c'est un petit jazz club sur Cinquième Rue"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_ask_for_advice:why",
+              "key": "why",
+              "intentKey": "ask_reason",
+              "slotId": "why",
+              "speaker": "learner",
+              "text": "Really? Why that one?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Really? Why that one?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Ah bon ? Pourquoi celui-là ?",
+                  "note": "« Really? » = ah bon ?, vraiment ? « That one » = celui-là ; « this one » = celui-ci. « Why » se dit « ouaï ».",
+                  "literal": "vraiment ? pourquoi ce un"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_ask_for_advice:locals",
+              "key": "locals",
+              "intentKey": "give_reason",
+              "slotId": "locals",
+              "speaker": "character",
+              "text": "The music's great, and it's mostly locals, not tourists.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "The music's great, and it's mostly locals, not tourists."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "La musique est super, et ce sont surtout des gens du coin, pas des touristes.",
+                  "note": "« Locals » = les gens du coin, les habitants. « The music's » = the music is. « Great » se prononce « gréït » : il rime avec « late ».",
+                  "literal": "la musique-est super, et c'est surtout locaux, pas touristes"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_ask_for_advice:hours",
+              "key": "hours",
+              "intentKey": "ask_opening_hours",
+              "slotId": "hours",
+              "speaker": "learner",
+              "text": "Is it open every night?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Is it open every night?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "C'est ouvert tous les soirs ?",
+                  "note": "« Open » (« ô-peun ») est ici un adjectif ; « closed » = fermé. « Every » est suivi du singulier : every night, every day.",
+                  "literal": "est ça ouvert chaque nuit"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_ask_for_advice:not_mondays",
+              "key": "not_mondays",
+              "intentKey": "tell_time",
+              "slotId": "not_mondays",
+              "speaker": "character",
+              "text": "Every night from eight, except Mondays.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Every night from eight, except Mondays."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Tous les soirs à partir de vingt heures, sauf le lundi.",
+                  "note": "« From eight » = à partir de 8 h (du soir, ici). « Except » = sauf. Le jour au pluriel, « Mondays », veut dire « le lundi », chaque semaine.",
+                  "literal": "chaque nuit de huit, sauf lundis"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_ask_for_advice:how_to_get",
+              "key": "how_to_get",
+              "intentKey": "ask_how_to_get",
+              "slotId": "how_to_get",
+              "speaker": "learner",
+              "text": "And how do I get there from here?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "And how do I get there from here?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Et comment j'y vais, d'ici ?",
+                  "note": "« Get there » = y aller, s'y rendre : le verbe passe-partout des trajets. « There » : « th » sonore ; « here » : soufflez bien le h, sinon on entend « ear » (oreille).",
+                  "literal": "et comment est-ce-que je arrive là de ici"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_ask_for_advice:is_it_far",
+              "key": "is_it_far",
+              "intentKey": "ask_is_it_far",
+              "slotId": "is_it_far",
+              "speaker": "learner",
+              "text": "Can I walk there?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Can I walk there?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je peux y aller à pied ?",
+                  "note": "« Walk there » = y aller à pied : le verbe suffit, pas besoin de « on foot ». Le l de « walk » est muet : « wôk ».",
+                  "literal": "puis je marcher là"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_ask_for_advice:bus",
+              "key": "bus",
+              "intentKey": "give_direction_straight",
+              "slotId": "bus",
+              "speaker": "character",
+              "text": "It's a bit far. Take the number six bus, four stops.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "It's a bit far. Take the number six bus, four stops."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "C'est un peu loin. Prenez le bus numéro six, c'est à quatre arrêts.",
+                  "note": "« The number six bus » = le bus numéro six : le numéro se place avant « bus ». « Stops » = arrêts. Dans beaucoup de bus américains, on paie à bord, avec l'appoint (« exact change »).",
+                  "literal": "c'est un peu loin. prenez le numéro six bus, quatre arrêts"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_ask_for_advice:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Thanks so much for the tip!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Thanks so much for the tip!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Merci beaucoup pour le tuyau !",
+                  "note": "« Tip » = un conseil, un tuyau, et aussi le pourboire ! « Thanks for » + nom. Au diner, laissez un « tip » de 18 à 20 %, comme au restaurant.",
+                  "literal": "merci tellement pour le conseil"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_ask_for_advice:weekend_tips",
+              "key": "weekend_tips",
+              "intentKey": "ask_recommendation",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Do you have any tips for this weekend?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Do you have any tips for this weekend?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Vous avez des idées pour ce week-end ?",
+                  "note": "Moins formel que « What would you recommend? ». « Any » dans une question : any tips, any ideas.",
+                  "literal": "est-ce-que vous avez des conseils pour ce week-end"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "en_friendly_debate",
+          "blueprintKey": "friendly_debate",
+          "missionType": "free_conversation",
+          "level": "intermediate",
+          "situation": "debates",
+          "characterKey": "en_ch3_marcus_friend",
+          "titles": {
+            "fr": "En ville ou en banlieue ?"
+          },
+          "sceneNotes": {
+            "fr": "Autour d'un barbecue chez Marcus, un ami qui habite en banlieue ; selon lui, la vie y est bien meilleure qu'en centre-ville."
+          },
+          "slots": [
+            {
+              "slotId": "opinion",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "because",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "disagree",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "agree",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_do_you_think",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "english_ch3:en_friendly_debate:suburbs",
+              "key": "suburbs",
+              "intentKey": "state_opinion",
+              "slotId": "suburbs",
+              "speaker": "character",
+              "text": "Honestly, living in the suburbs is way better.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Honestly, living in the suburbs is way better."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Franchement, vivre en banlieue, c'est bien mieux.",
+                  "note": "Aux États-Unis, « the suburbs » évoque des maisons avec jardin, plutôt aisées, loin des connotations de « la banlieue ». « Way better » = bien mieux, familier. Le h de « honestly » est muet.",
+                  "literal": "honnêtement, vivant dans les banlieues est chemin mieux"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_friendly_debate:disagree",
+              "key": "disagree",
+              "intentKey": "disagree_politely",
+              "slotId": "disagree",
+              "speaker": "learner",
+              "text": "Hmm, I'm not so sure about that.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hmm, I'm not so sure about that."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Hum, je n'en suis pas si sûr(e).",
+                  "note": "Une façon douce d'exprimer son désaccord, plus polie que « I don't agree ». « Sure » se dit « chour », avec le « ch » de « chat ».",
+                  "literal": "hum, je-suis pas si sûr à-propos-de ça"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_friendly_debate:opinion",
+              "key": "opinion",
+              "intentKey": "state_opinion",
+              "slotId": "opinion",
+              "speaker": "learner",
+              "text": "I think downtown is more fun.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I think downtown is more fun."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Moi, je trouve que le centre-ville, c'est plus sympa.",
+                  "note": "« I think » = je pense, je trouve : le plus simple pour donner son avis. « Downtown » = le centre-ville, aux États-Unis. On dit « more fun », jamais « funner ».",
+                  "literal": "je pense centre-ville est plus amusant"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_friendly_debate:why",
+              "key": "why",
+              "intentKey": "ask_reason",
+              "slotId": "why",
+              "speaker": "character",
+              "text": "Really? Why's that?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Really? Why's that?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Ah bon ? Pourquoi ?",
+                  "note": "« Why's that? » (why is that?) = pourquoi donc ? : on demande une raison sans contester. L'intonation descend à la fin, comme pour toute question avec un mot interrogatif.",
+                  "literal": "vraiment ? pourquoi est ça"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_friendly_debate:because",
+              "key": "because",
+              "intentKey": "give_reason",
+              "slotId": "because",
+              "speaker": "learner",
+              "text": "Because you can walk everywhere. You don't need a car.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Because you can walk everywhere. You don't need a car."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Parce qu'on peut aller partout à pied. On n'a pas besoin de voiture.",
+                  "note": "Ici, « you » est impersonnel : il vaut « on ». « Because » se dit « bi-KOZ » ; à l'oral, on entend souvent « 'cause ».",
+                  "literal": "parce-que tu peux marcher partout. tu ne-pas as-besoin une voiture"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_friendly_debate:rent",
+              "key": "rent",
+              "intentKey": "give_reason",
+              "slotId": "rent",
+              "speaker": "character",
+              "text": "Sure, but the rent downtown is crazy!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sure, but the rent downtown is crazy!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "D'accord, mais les loyers en centre-ville sont délirants !",
+                  "note": "« Rent » = le loyer (to rent = louer). « Crazy » (fou) sert souvent à dire « exorbitant ». « Sure, but… » concède avant de contredire.",
+                  "literal": "sûr, mais le loyer centre-ville est fou"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_friendly_debate:agree",
+              "key": "agree",
+              "intentKey": "agree",
+              "slotId": "agree",
+              "speaker": "learner",
+              "text": "Okay, you've got a point there.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Okay, you've got a point there."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "D'accord, là, tu marques un point.",
+                  "note": "« You've got a point » = tu as raison sur ce point. « You've got » = you have, très courant à l'oral. On dit aussi « Fair enough ».",
+                  "literal": "OK, tu-as eu un point là"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_friendly_debate:what_do_you_think",
+              "key": "what_do_you_think",
+              "intentKey": "ask_opinion",
+              "slotId": "what_do_you_think",
+              "speaker": "learner",
+              "text": "But what do you think about the commute?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "But what do you think about the commute?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Mais les trajets pour aller au travail, tu en penses quoi ?",
+                  "note": "« The commute » = le trajet quotidien domicile-travail, souvent long en voiture depuis la banlieue. « Think about » = penser de, à propos de.",
+                  "literal": "mais quoi est-ce-que tu penses à-propos-de le trajet"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_friendly_debate:you_win",
+              "key": "you_win",
+              "intentKey": "agree",
+              "slotId": "you_win",
+              "speaker": "character",
+              "text": "Yeah, the commute is the worst. Fine, you win!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Yeah, the commute is the worst. Fine, you win!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Ouais, les trajets, c'est l'horreur. Bon, tu as gagné !",
+                  "note": "« The worst » = le pire. « Fine, you win! » = bon, tu as gagné ! : la façon amusante de céder dans un débat entre amis.",
+                  "literal": "ouais, le trajet est le pire. bien, tu gagnes"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_friendly_debate:in_my_opinion",
+              "key": "in_my_opinion",
+              "intentKey": "state_opinion",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "In my opinion, the city is better.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "In my opinion, the city is better."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "À mon avis, la ville, c'est mieux.",
+                  "note": "« In my opinion » = à mon avis, un peu plus soutenu que « I think ». « Better » est le comparatif irrégulier de « good » : jamais « more good ».",
+                  "literal": "dans mon opinion, la ville est meilleure"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "en_tell_a_story",
+          "blueprintKey": "tell_a_story",
+          "missionType": "story",
+          "level": "intermediate",
+          "situation": "story",
+          "characterKey": "en_ch3_maya_friend_c3",
+          "titles": {
+            "fr": "Perdu(e) à l'autre bout de la ville"
+          },
+          "sceneNotes": {
+            "fr": "Maya, votre voisine devenue une amie, vous retrouve pour un café ; vous lui racontez comment vous vous êtes perdu(e) hier soir."
+          },
+          "slots": [
+            {
+              "slotId": "yesterday",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "story",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_to_say",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "i_mean",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "english_ch3:en_tell_a_story:yesterday",
+              "key": "yesterday",
+              "intentKey": "say_when_happened",
+              "slotId": "yesterday",
+              "speaker": "learner",
+              "text": "Guess what? I got lost last night!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Guess what? I got lost last night!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Tu sais quoi ? Je me suis perdu(e) hier soir !",
+                  "note": "« Guess what? » (devine quoi) = tu sais quoi ? « Get lost » = se perdre ; au prétérit : « got lost ». « Last night » = hier soir, pas seulement « la nuit dernière ».",
+                  "literal": "devine quoi ? je devins perdu dernière nuit"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_tell_a_story:what_happened",
+              "key": "what_happened",
+              "intentKey": "ask_clarification",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "Lost? What happened?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Lost? What happened?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Perdu(e) ? Qu'est-ce qui s'est passé ?",
+                  "note": "Répéter un mot avec une intonation montante invite à en dire plus. « What happened? » : pas de « did », car « what » est le sujet du verbe.",
+                  "literal": "perdu ? quoi arriva"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_tell_a_story:story",
+              "key": "story",
+              "intentKey": "narrate_past_event",
+              "slotId": "story",
+              "speaker": "learner",
+              "text": "I took the wrong bus and ended up across town.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I took the wrong bus and ended up across town."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "J'ai pris le mauvais bus et je me suis retrouvé(e) à l'autre bout de la ville.",
+                  "note": "« The wrong bus » = le mauvais bus (wrong = qui n'est pas le bon). « End up » = finir par se retrouver. Prétérits : take → took (irrégulier), end → ended.",
+                  "literal": "je pris le mauvais bus et finis en-haut à-travers ville"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_tell_a_story:what_time",
+              "key": "what_time",
+              "intentKey": "ask_time",
+              "slotId": "what_time",
+              "speaker": "character",
+              "text": "Oh no! What time was it?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Oh no! What time was it?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Oh non ! Il était quelle heure ?",
+                  "note": "« Was » est le prétérit de « be » avec I, he, she, it ; « were » avec you, we, they.",
+                  "literal": "oh non ! quelle heure était ça"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_tell_a_story:i_mean",
+              "key": "i_mean",
+              "intentKey": "correct_self",
+              "slotId": "i_mean",
+              "speaker": "learner",
+              "text": "It was midnight. Well, eleven, I mean.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "It was midnight. Well, eleven, I mean."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Il était minuit. Enfin, onze heures, je veux dire.",
+                  "note": "« Well… I mean » = enfin… je veux dire : pour se corriger en parlant. « Midnight » = minuit ; « noon » = midi. « Eleven » : accent au milieu, i-LÈ-veun.",
+                  "literal": "c'était minuit. bien, onze, je signifie"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_tell_a_story:kind_lady",
+              "key": "kind_lady",
+              "intentKey": "narrate_past_event",
+              "slotId": "kind_lady",
+              "speaker": "learner",
+              "text": "Luckily, a nice lady helped me.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Luckily, a nice lady helped me."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Heureusement, une dame très gentille m'a aidé(e).",
+                  "note": "« Luckily » = heureusement, par chance. Faux ami : « nice » = gentil, sympa, pas « niais ». « Helped » se dit en une seule syllabe : « hèlpt ».",
+                  "literal": "chanceusement, une gentille dame aida moi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_tell_a_story:what_did_she_say",
+              "key": "what_did_she_say",
+              "intentKey": "ask_clarification",
+              "slotId": "what_did_she_say",
+              "speaker": "character",
+              "text": "Aw, that's nice! What did she say?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Aw, that's nice! What did she say?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Oh, c'est gentil ! Qu'est-ce qu'elle t'a dit ?",
+                  "note": "« What did she say? » : « did » porte le passé, et « say » reste à la forme de base. « Aw » exprime l'attendrissement, comme « oh, c'est mignon ! ».",
+                  "literal": "oh, c'est gentil ! quoi est-ce-que elle dire"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_tell_a_story:how_to_say",
+              "key": "how_to_say",
+              "intentKey": "ask_how_to_say",
+              "slotId": "how_to_say",
+              "speaker": "learner",
+              "text": "She knew a 'raccourci.' How do you say that in English?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "She knew a 'raccourci.' How do you say that in English?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Elle connaissait un raccourci. Comment on dit ça en anglais ?",
+                  "note": "« How do you say … in English? » : LA question à poser sans hésiter. Ici, « you » vaut « on ». « Knew » (prétérit de « know ») se dit « nou » : le k est muet.",
+                  "literal": "elle connaissait un 'raccourci.' comment est-ce-que tu dis ça en anglais"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_tell_a_story:shortcut",
+              "key": "shortcut",
+              "intentKey": "explain_meaning",
+              "slotId": "shortcut",
+              "speaker": "character",
+              "text": "A shortcut! You were lucky.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "A shortcut! You were lucky."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Un raccourci ! Tu as eu de la chance.",
+                  "note": "« A shortcut » = un raccourci (short = court, cut = coupe). « Be lucky » = avoir de la chance : l'anglais emploie « be », pas « have ».",
+                  "literal": "un court-coupe ! tu étais chanceux"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_tell_a_story:next_time",
+              "key": "next_time",
+              "intentKey": "state_future_plan",
+              "slotId": "next_time",
+              "speaker": "learner",
+              "text": "Next time, I'll just take a cab!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Next time, I'll just take a cab!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "La prochaine fois, je prendrai un taxi, c'est tout !",
+                  "note": "« I'll » (I will) + verbe = futur, pour une décision prise sur le moment. « Cab » = taxi, très américain. « Next time » s'emploie sans article.",
+                  "literal": "prochaine fois, je-vais juste prendre un taxi"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch3:en_tell_a_story:whats_the_word",
+              "key": "whats_the_word",
+              "intentKey": "ask_how_to_say",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "What's the word for 'raccourci'?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "What's the word for 'raccourci'?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "C'est quoi, le mot pour « raccourci » ?",
+                  "note": "« What's the word for…? » = quel est le mot pour… ? : plus court et plus familier, parfait entre amis.",
+                  "literal": "quoi-est le mot pour 'raccourci'"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "english_ch4",
+      "chapterIndex": 4,
+      "courseTrackId": "english",
+      "targetVarietyId": "en",
+      "sourceLanguages": [
+        "fr"
+      ],
+      "titles": {
+        "fr": "Se débrouiller au quotidien"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 4, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 4 for English (en); native review required before publishing.",
+        "American usage throughout (apartment, laundry room, utilities, package, mail, soccer, practice, carousel, cab); a US reviewer should confirm nothing reads as British. The city stays unnamed; Oak Street and the brick building are invented. The learner, a French speaker, mails a package to Lyon and flies back from Paris.",
+        "French meanings use vous with every character; only the soccer coach says tu to the learner, as in French sports clubs, while the newcomer keeps vous. The learner's English lines are gender-neutral, the French meanings mark gender where needed (« Je suis un(e) grand(e) fan »).",
+        "Wordings to check first: « No problem, I love music. Where do I sign? », « Does that make sense? » / « Yes, it does. », « You're all set. », « Could I come to a practice first? ».",
+        "Facts to verify in the French notes: $1,400 a month plus utilities, USPS prices and delays to France ($62, $95 express, ten days or three to five), the 30-day return window, the insurance card and copay, an $80 soccer season, US floor numbering."
+      ],
+      "characters": [
+        {
+          "key": "en_ch4_gary_landlord",
+          "name": "Gary",
+          "role": "landlord",
+          "personality": "talkative, practical, proud of his old brick building",
+          "homeRegion": "US (neutral)",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "en_ch4_denise_post_office_clerk",
+          "name": "Denise",
+          "role": "post office clerk",
+          "personality": "efficient, friendly, has seen every kind of package",
+          "homeRegion": "US (neutral)",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "en_ch4_brandon_shop_assistant",
+          "name": "Brandon",
+          "role": "shop assistant",
+          "personality": "patient, apologetic, eager to fix things",
+          "homeRegion": "US (neutral)",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "en_ch4_nguyen_doctor",
+          "name": "Dr. Nguyen",
+          "role": "doctor",
+          "personality": "calm, thorough, explains things simply",
+          "homeRegion": "US (neutral)",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "en_ch4_tony_coach",
+          "name": "Tony",
+          "role": "coach",
+          "personality": "energetic, encouraging, coaches an adult soccer team",
+          "homeRegion": "US (neutral)",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "en_ch4_jasmine_airline_agent",
+          "name": "Jasmine",
+          "role": "airline agent",
+          "personality": "calm, apologetic, efficient",
+          "homeRegion": "US (neutral)",
+          "ageBand": null,
+          "voice": "female"
+        }
+      ],
+      "missions": [
+        {
+          "key": "en_rent_a_flat",
+          "blueprintKey": "rent_a_flat",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "housing",
+          "characterKey": "en_ch4_gary_landlord",
+          "titles": {
+            "fr": "Visiter un appartement"
+          },
+          "sceneNotes": {
+            "fr": "Un petit appartement lumineux dans un vieil immeuble en brique, au troisième étage et sans ascenseur ; Gary, le propriétaire, vous le fait visiter."
+          },
+          "slots": [
+            {
+              "slotId": "rent",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "character"
+            },
+            {
+              "slotId": "where_is",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "is_it_far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when_free",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "opinion",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "english_ch4:en_rent_a_flat:come_in",
+              "key": "come_in",
+              "intentKey": "welcome_someone",
+              "slotId": "come_in",
+              "speaker": "character",
+              "text": "Come on in. This is the living room.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Come on in. This is the living room."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Entrez donc. Voici le salon.",
+                  "note": "« Living room » = le salon. Attention aux étages : aux États-Unis, le rez-de-chaussée est le « first floor », donc leur « third floor » est notre deuxième étage.",
+                  "literal": "venez donc dedans. ceci est la vivante pièce"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_rent_a_flat:opinion",
+              "key": "opinion",
+              "intentKey": "state_opinion",
+              "slotId": "opinion",
+              "speaker": "learner",
+              "text": "Wow, it's really bright in here!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Wow, it's really bright in here!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Oh, c'est vraiment lumineux, ici !",
+                  "note": "« Bright » = lumineux (une pièce), vif (une couleur) ou brillant (une personne). Le gh est muet : « braït ». « In here » = ici, dans cette pièce.",
+                  "literal": "waouh, c'est vraiment lumineux dans ici"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_rent_a_flat:rent",
+              "key": "rent",
+              "intentKey": "ask_price",
+              "slotId": "rent",
+              "speaker": "learner",
+              "text": "How much is the rent per month?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "How much is the rent per month?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Le loyer est de combien par mois ?",
+                  "note": "« Rent » = le loyer ; « to rent » = louer. « Per month » = par mois ; on dit aussi « a month ». « Month » finit par un « th » soufflé : « meunth ».",
+                  "literal": "combien est le loyer par mois"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_rent_a_flat:price",
+              "key": "price",
+              "intentKey": "state_price",
+              "slotId": "price",
+              "speaker": "character",
+              "text": "It's fourteen hundred a month, plus utilities.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "It's fourteen hundred a month, plus utilities."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "C'est mille quatre cents dollars par mois, plus les charges.",
+                  "note": "Les Américains disent souvent « fourteen hundred » (quatorze cents) pour 1 400. « Utilities » = les charges (électricité, gaz, eau), rarement comprises dans le loyer.",
+                  "literal": "c'est quatorze cents un mois, plus utilités"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_rent_a_flat:where_is",
+              "key": "where_is",
+              "intentKey": "ask_where_is",
+              "slotId": "where_is",
+              "speaker": "learner",
+              "text": "Where's the laundry room?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Where's the laundry room?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Où est la buanderie ?",
+                  "note": "Dans beaucoup d'immeubles américains, les machines à laver sont partagées, dans une « laundry room » au sous-sol. « Where's » = where is. « Laundry » : « LÔN-dri ».",
+                  "literal": "où-est la lessive pièce"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_rent_a_flat:is_it_far",
+              "key": "is_it_far",
+              "intentKey": "ask_is_it_far",
+              "slotId": "is_it_far",
+              "speaker": "learner",
+              "text": "And is the bus stop far?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "And is the bus stop far?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Et l'arrêt de bus, il est loin ?",
+                  "note": "Avec « be », on inverse simplement le verbe et le sujet : the bus stop is far → is the bus stop far? « Bus stop » : le premier nom sert d'adjectif, comme dans « bus ticket ».",
+                  "literal": "et est le bus arrêt loin"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_rent_a_flat:near",
+              "key": "near",
+              "intentKey": "say_it_is_near",
+              "slotId": "near",
+              "speaker": "character",
+              "text": "The laundry's in the basement, and the bus stop is right outside.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "The laundry's in the basement, and the bus stop is right outside."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "La buanderie est au sous-sol, et l'arrêt de bus est juste devant.",
+                  "note": "« Basement » = le sous-sol. « Right outside » = juste devant l'immeuble ; « right » renforce : right here, right now. « Laundry's » = laundry is.",
+                  "literal": "la lessive-est dans le sous-sol, et le bus arrêt est juste dehors"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_rent_a_flat:when_free",
+              "key": "when_free",
+              "intentKey": "ask_availability",
+              "slotId": "when_free",
+              "speaker": "learner",
+              "text": "When is it available?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "When is it available?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Il est libre à partir de quand ?",
+                  "note": "« Available » (« eu-VÉÏ-leu-beul ») = disponible, libre, pour un appartement, une table ou une personne. L'accent tombe sur la 2e syllabe.",
+                  "literal": "quand est il disponible"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_rent_a_flat:drums",
+              "key": "drums",
+              "intentKey": "tell_time",
+              "slotId": "drums",
+              "speaker": "character",
+              "text": "On the first of next month. Oh, and the guy upstairs plays drums!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "On the first of next month. Oh, and the guy upstairs plays drums!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Le premier du mois prochain. Ah, et le voisin du dessus joue de la batterie !",
+                  "note": "« The first of next month » = le premier du mois prochain. « The guy upstairs » = le gars du dessus. « Play drums » = jouer de la batterie : pas de préposition en anglais.",
+                  "literal": "sur le premier de prochain mois. oh, et le gars en-haut joue batterie"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_rent_a_flat:take_it",
+              "key": "take_it",
+              "intentKey": "accept_offer",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "No problem, I love music. Where do I sign?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "No problem, I love music. Where do I sign?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Pas de problème, j'adore la musique. Je signe où ?",
+                  "note": "« Where do I sign? » = je signe où ? : une façon enthousiaste d'accepter. Le g de « sign » est muet : « saïn ». Le bail se dit « the lease », souvent pour un an.",
+                  "literal": "pas problème, je adore musique. où est-ce-que je signe"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_rent_a_flat:deposit",
+              "key": "deposit",
+              "intentKey": "ask_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Is there a security deposit?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Is there a security deposit?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Il y a une caution ?",
+                  "note": "« Security deposit » = le dépôt de garantie, souvent un mois de loyer. « Is there…? » = y a-t-il… ? ; réponses : « Yes, there is » ou « No, there isn't ».",
+                  "literal": "est là un sécurité dépôt"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "en_post_a_parcel",
+          "blueprintKey": "post_a_parcel",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "daily_life",
+          "characterKey": "en_ch4_denise_post_office_clerk",
+          "titles": {
+            "fr": "Envoyer un colis en France"
+          },
+          "sceneNotes": {
+            "fr": "Au bureau de poste, un samedi matin ; vous envoyez un petit carton de cadeaux à votre famille à Lyon, et la guichetière vous propose un envoi express."
+          },
+          "slots": [
+            {
+              "slotId": "send",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_to",
+              "speaker": "character"
+            },
+            {
+              "slotId": "destination",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_long",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pay",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "english_ch4:en_post_a_parcel:send",
+              "key": "send",
+              "intentKey": "request_item",
+              "slotId": "send",
+              "speaker": "learner",
+              "text": "Hi, I'd like to mail this package.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hi, I'd like to mail this package."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Bonjour, je voudrais envoyer ce colis.",
+                  "note": "« Mail » = envoyer par la poste (britannique : « post ») ; « package » = colis (britannique : « parcel »). « I'd like to » + verbe = je voudrais.",
+                  "literal": "salut, je-voudrais à poster ce colis"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_post_a_parcel:where_to",
+              "key": "where_to",
+              "intentKey": "ask_destination",
+              "slotId": "where_to",
+              "speaker": "character",
+              "text": "Sure. Where's it going?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sure. Where's it going?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Bien sûr. Il part où ?",
+                  "note": "« Where's it going? » = où va-t-il ? : le présent en -ing pour un trajet prévu. « Sure » (« chour ») est le « bien sûr » américain.",
+                  "literal": "sûr. où-est il allant"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_post_a_parcel:destination",
+              "key": "destination",
+              "intentKey": "state_destination",
+              "slotId": "destination",
+              "speaker": "learner",
+              "text": "It's going to Lyon, in France.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "It's going to Lyon, in France."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Il part pour Lyon, en France.",
+                  "note": "« To » pour la destination, « in » pour le pays où se trouve la ville. Pas d'article devant la plupart des pays : France, Canada ; mais « the United States ».",
+                  "literal": "il-est allant à Lyon, dans France"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_post_a_parcel:scale",
+              "key": "scale",
+              "intentKey": "ask_small_favour",
+              "slotId": "scale",
+              "speaker": "character",
+              "text": "Okay, can you put it on the scale for me?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Okay, can you put it on the scale for me?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "D'accord, vous pouvez le poser sur la balance ?",
+                  "note": "« Scale » = la balance. Aux États-Unis, on pèse en livres (pounds, lb) : une livre vaut environ 450 grammes. « For me » rend la demande plus aimable.",
+                  "literal": "OK, pouvez vous mettre le sur la balance pour moi"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_post_a_parcel:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "How much will it cost?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "How much will it cost?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Ça va coûter combien ?",
+                  "note": "« Will » + verbe = futur : how much will it cost? « Cost » ne change pas au passé : cost, cost, cost. À l'américaine, le o est très ouvert : presque « kâst ».",
+                  "literal": "combien va-t-il coûter"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_post_a_parcel:options",
+              "key": "options",
+              "intentKey": "state_price",
+              "slotId": "options",
+              "speaker": "character",
+              "text": "That's sixty-two dollars, or ninety-five for express.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "That's sixty-two dollars, or ninety-five for express."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Ça fait soixante-deux dollars, ou quatre-vingt-quinze en express.",
+                  "note": "« Sixty » (60) et « ninety » (90) : accent sur la 1re syllabe, SIX-ti, NAÏN-ti. Les nombres composés prennent un trait d'union : sixty-two, ninety-five.",
+                  "literal": "cela-est soixante-deux dollars, ou nonante-cinq pour express"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_post_a_parcel:how_long",
+              "key": "how_long",
+              "intentKey": "ask_time",
+              "slotId": "how_long",
+              "speaker": "learner",
+              "text": "And how long will it take?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "And how long will it take?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Et ça va mettre combien de temps ?",
+                  "note": "« How long » = combien de temps (et non « comment long »). « It takes » = ça prend, ça met : it takes ten days.",
+                  "literal": "et combien long va-t-il prendre"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_post_a_parcel:delay",
+              "key": "delay",
+              "intentKey": "tell_time",
+              "slotId": "delay",
+              "speaker": "character",
+              "text": "About ten days, or three to five with express.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "About ten days, or three to five with express."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Environ dix jours, ou trois à cinq en express.",
+                  "note": "« About » = environ. « Three to five » = de trois à cinq. Pour l'étranger, on vous fera aussi remplir une déclaration de douane, « a customs form ».",
+                  "literal": "environ dix jours, ou trois à cinq avec express"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_post_a_parcel:cheaper",
+              "key": "cheaper",
+              "intentKey": "choose_option",
+              "slotId": "cheaper",
+              "speaker": "learner",
+              "text": "The cheaper one is fine. It's not urgent.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "The cheaper one is fine. It's not urgent."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Le moins cher, ça ira. Ce n'est pas urgent.",
+                  "note": "Entre deux options, on emploie le comparatif : « the cheaper one », le moins cher des deux. « One » évite de répéter le nom. « Urgent » : « EUR-djeunt ».",
+                  "literal": "le moins-cher un est bien. c'est pas urgent"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_post_a_parcel:pay",
+              "key": "pay",
+              "intentKey": "pay",
+              "slotId": "pay",
+              "speaker": "learner",
+              "text": "Here you go. I'll pay by card.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Here you go. I'll pay by card."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Tenez. Je vais payer par carte.",
+                  "note": "« Here you go » = tenez, voilà : ce qu'on dit en tendant quelque chose. « I'll pay » : décision prise sur le moment. « By card » = par carte ; « in cash » = en espèces.",
+                  "literal": "ici tu vas. je-vais payer par carte"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_post_a_parcel:send_to_france",
+              "key": "send_to_france",
+              "intentKey": "request_item",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "I need to send this to France.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I need to send this to France."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "J'ai besoin d'envoyer ceci en France.",
+                  "note": "Plus direct, très courant au guichet. « Need to » + verbe = avoir besoin de, devoir. « This » a un i bref et un « th » sonore, comme un « z » zozoté.",
+                  "literal": "je ai-besoin à envoyer ceci à France"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "en_return_an_item",
+          "blueprintKey": "return_an_item",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "en_ch4_brandon_shop_assistant",
+          "titles": {
+            "fr": "Rapporter des écouteurs"
+          },
+          "sceneNotes": {
+            "fr": "Au comptoir du service client d'un grand magasin d'électronique ; les écouteurs que vous avez achetés samedi n'ont plus de son d'un côté."
+          },
+          "slots": [
+            {
+              "slotId": "broken",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bought_when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "sorry",
+              "speaker": "character"
+            },
+            {
+              "slotId": "no_problem",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "exchange",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "english_ch4:en_return_an_item:can_i_help",
+              "key": "can_i_help",
+              "intentKey": "offer_help",
+              "slotId": "can_i_help",
+              "speaker": "character",
+              "text": "Hi there, how can I help you today?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hi there, how can I help you today?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Bonjour, qu'est-ce que je peux faire pour vous ?",
+                  "note": "La formule d'accueil habituelle d'un service client américain. « Today » y est presque automatique et ne veut pas dire grand-chose. Soufflez le h de « help ».",
+                  "literal": "salut là, comment puis je aider vous aujourd'hui"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_return_an_item:broken",
+              "key": "broken",
+              "intentKey": "report_broken",
+              "slotId": "broken",
+              "speaker": "learner",
+              "text": "Hi, these headphones aren't working.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hi, these headphones aren't working."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Bonjour, ces écouteurs ne marchent pas.",
+                  "note": "« Work » = marcher, fonctionner, pour un appareil. « Aren't working » : be + -ing pour un problème en cours. « Headphones » est toujours au pluriel, d'où « these ».",
+                  "literal": "salut, ces écouteurs ne-sont-pas fonctionnant"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_return_an_item:bought_when",
+              "key": "bought_when",
+              "intentKey": "say_when_happened",
+              "slotId": "bought_when",
+              "speaker": "learner",
+              "text": "I bought them here on Saturday.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I bought them here on Saturday."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je les ai achetés ici samedi.",
+                  "note": "« Buy » → « bought » (« bôt ») : prétérit irrégulier, gh muet. Les jours prennent « on » et une majuscule : on Saturday. « Them » = les (les écouteurs).",
+                  "literal": "je achetai les ici sur samedi"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_return_an_item:sorry",
+              "key": "sorry",
+              "intentKey": "apologise",
+              "slotId": "sorry",
+              "speaker": "character",
+              "text": "Oh, I'm sorry about that. Do you have the receipt?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Oh, I'm sorry about that. Do you have the receipt?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Oh, je suis désolé. Vous avez le ticket de caisse ?",
+                  "note": "« Receipt » = le ticket de caisse : le p est muet, « ri-SIIT ». Beaucoup de magasins américains acceptent les retours pendant 30 jours, ticket à l'appui.",
+                  "literal": "oh, je-suis désolé à-propos-de ça. est-ce-que vous avez le reçu"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_return_an_item:no_problem",
+              "key": "no_problem",
+              "intentKey": "accept_apology",
+              "slotId": "no_problem",
+              "speaker": "learner",
+              "text": "That's all right. Yes, here it is.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "That's all right. Yes, here it is."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Ce n'est pas grave. Oui, le voici.",
+                  "note": "« That's all right » = ce n'est pas grave, pas de souci. « Here it is » = le voici ; pour plusieurs objets : « here they are ».",
+                  "literal": "cela-est tout bien. oui, ici il est"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_return_an_item:refund",
+              "key": "refund",
+              "intentKey": "offer_options",
+              "slotId": "refund",
+              "speaker": "character",
+              "text": "Thanks. Would you like a refund or another pair?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Thanks. Would you like a refund or another pair?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Merci. Vous voulez un remboursement ou une autre paire ?",
+                  "note": "« Refund » = remboursement. « A pair » s'emploie pour les objets doubles : a pair of headphones, of shoes, of jeans, et même « a pair of glasses ».",
+                  "literal": "merci. voudriez vous un remboursement ou une autre paire"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_return_an_item:exchange",
+              "key": "exchange",
+              "intentKey": "ask_alternative",
+              "slotId": "exchange",
+              "speaker": "learner",
+              "text": "Could I get a different pair instead?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Could I get a different pair instead?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je pourrais plutôt avoir une autre paire ?",
+                  "note": "« Instead » = à la place, plutôt : il se place en fin de phrase. « Could I get…? » = est-ce que je pourrais avoir… ? « Different » : accent au début, DI-freunt.",
+                  "literal": "pourrais je obtenir une différente paire à-la-place"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_return_an_item:new_pair",
+              "key": "new_pair",
+              "intentKey": "offer_options",
+              "slotId": "new_pair",
+              "speaker": "character",
+              "text": "Of course. Here, these are brand-new.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Of course. Here, these are brand-new."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Bien sûr. Tenez, ceux-ci sont neufs.",
+                  "note": "« Brand-new » = tout neuf, jamais utilisé. « These » (ceux-ci) a un i long et finit par un son « z » : ne le confondez pas avec « this ».",
+                  "literal": "de course. ici, ceux-ci sont marque-neufs"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_return_an_item:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Thanks, I really appreciate it.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Thanks, I really appreciate it."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Merci, c'est vraiment gentil.",
+                  "note": "« I appreciate it » = je vous en suis reconnaissant(e) : un merci très courant aux États-Unis. Ici, « appreciate » veut dire « être reconnaissant de », pas « aimer bien ».",
+                  "literal": "merci, je vraiment apprécie ça"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_return_an_item:left_side",
+              "key": "left_side",
+              "intentKey": "report_broken",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "The left side doesn't make any sound.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "The left side doesn't make any sound."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Le côté gauche ne fait aucun son.",
+                  "note": "« Left » = gauche, « right » = droit. Négation à la 3e personne : « doesn't » + verbe. « Any » dans une phrase négative : not any sound = aucun son.",
+                  "literal": "le gauche côté ne-pas fait aucun son"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_return_an_item:just_exchange",
+              "key": "just_exchange",
+              "intentKey": "ask_alternative",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Can I just exchange them?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Can I just exchange them?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je peux simplement les échanger ?",
+                  "note": "« Just » = simplement, juste. « Exchange » : accent sur la 2e syllabe, iks-TCHÉÏNDJ. « Them » reprend les écouteurs.",
+                  "literal": "puis je juste échanger les"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "en_see_the_doctor",
+          "blueprintKey": "see_the_doctor",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "health",
+          "characterKey": "en_ch4_nguyen_doctor",
+          "titles": {
+            "fr": "Chez le médecin"
+          },
+          "sceneNotes": {
+            "fr": "Un cabinet médical du quartier ; vous avez mal à la gorge et un peu de fièvre depuis deux jours, et la docteure Nguyen peut vous recevoir cet après-midi."
+          },
+          "slots": [
+            {
+              "slotId": "hello",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "since",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "check",
+              "speaker": "character"
+            },
+            {
+              "slotId": "question",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "english_ch4:en_see_the_doctor:hello",
+              "key": "hello",
+              "intentKey": "greet_time_of_day",
+              "slotId": "hello",
+              "speaker": "learner",
+              "text": "Good afternoon, Doctor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Good afternoon, Doctor."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Bonjour, docteur.",
+                  "note": "« Good afternoon » s'emploie de midi à 18 h environ. On s'adresse au médecin par « Doctor », ou « Doctor » + son nom : Doctor Nguyen, abrégé « Dr. » à l'écrit.",
+                  "literal": "bon après-midi, docteur"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_see_the_doctor:what_brings_you",
+              "key": "what_brings_you",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_brings_you",
+              "speaker": "character",
+              "text": "Good afternoon. So, what brings you in today?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Good afternoon. So, what brings you in today?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Bonjour. Alors, qu'est-ce qui vous amène aujourd'hui ?",
+                  "note": "« What brings you in? » = qu'est-ce qui vous amène ? : la première question de tout médecin américain. « Brings » : le r américain, sans rouler ni racler.",
+                  "literal": "bon après-midi. alors, quoi amène vous dedans aujourd'hui"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_see_the_doctor:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "I have a sore throat and a slight fever.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I have a sore throat and a slight fever."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "J'ai mal à la gorge et un peu de fièvre.",
+                  "note": "« A sore throat » = un mal de gorge, avec l'article « a » ; de même « a headache », mal de tête. « Throat » : « th » soufflé, langue entre les dents, « thrôout ».",
+                  "literal": "je ai une douloureuse gorge et une légère fièvre"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_see_the_doctor:since_when",
+              "key": "since_when",
+              "intentKey": "ask_time",
+              "slotId": "since_when",
+              "speaker": "character",
+              "text": "How long have you had it?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "How long have you had it?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Depuis combien de temps ?",
+                  "note": "Pour une situation qui dure encore, l'anglais emploie le present perfect (have had) là où le français met le présent avec « depuis ».",
+                  "literal": "combien long avez vous eu le"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_see_the_doctor:since",
+              "key": "since",
+              "intentKey": "say_when_happened",
+              "slotId": "since",
+              "speaker": "learner",
+              "text": "For about two days now.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "For about two days now."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Depuis deux jours environ.",
+                  "note": "« For » + durée = depuis : for two days, for a week. « Since » + point de départ : since Monday. « Now » souligne que ça continue.",
+                  "literal": "pour environ deux jours maintenant"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_see_the_doctor:diagnosis",
+              "key": "diagnosis",
+              "intentKey": "state_opinion",
+              "slotId": "diagnosis",
+              "speaker": "character",
+              "text": "It looks like a throat infection. I'll write you a prescription.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "It looks like a throat infection. I'll write you a prescription."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "On dirait une infection de la gorge. Je vais vous faire une ordonnance.",
+                  "note": "« It looks like » = on dirait. Faux ami : « prescription » = l'ordonnance. On l'apporte à une « pharmacy », souvent au fond d'un « drugstore ».",
+                  "literal": "ça regarde comme une gorge infection. je-vais écrire vous une prescription"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_see_the_doctor:question",
+              "key": "question",
+              "intentKey": "ask_clarification",
+              "slotId": "question",
+              "speaker": "learner",
+              "text": "How many times a day should I take it?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "How many times a day should I take it?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je dois le prendre combien de fois par jour ?",
+                  "note": "« How many times » = combien de fois. « A day » = par jour ; de même « twice a week », deux fois par semaine. « Should I…? » = est-ce que je dois… ?",
+                  "literal": "combien beaucoup fois un jour devrais je prendre le"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_see_the_doctor:check",
+              "key": "check",
+              "intentKey": "check_comprehension",
+              "slotId": "check",
+              "speaker": "character",
+              "text": "Three times a day, with food. Does that make sense?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Three times a day, with food. Does that make sense?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Trois fois par jour, pendant les repas. C'est clair ?",
+                  "note": "« Does that make sense? » (« est-ce que ça fait sens ? ») = c'est clair ? : la façon très courante, aux États-Unis, de vérifier qu'on a compris. « With food » = en mangeant.",
+                  "literal": "trois fois un jour, avec nourriture. est-ce-que cela fait sens"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_see_the_doctor:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "Yes, it does. Three times a day, with food.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Yes, it does. Three times a day, with food."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Oui, c'est clair. Trois fois par jour, pendant les repas.",
+                  "note": "À une question en « does », on répond court en reprenant l'auxiliaire : « Yes, it does ». Répéter la consigne permet de vérifier qu'on a bien compris.",
+                  "literal": "oui, ça fait. trois fois un jour, avec nourriture"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_see_the_doctor:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Thank you, Doctor. I already feel better!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Thank you, Doctor. I already feel better!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Merci, docteur. Je me sens déjà mieux !",
+                  "note": "« Feel better » = se sentir mieux ; « already » se place avant le verbe. À l'accueil, on vous demande votre carte d'assurance (« insurance card ») et une participation, le « copay ».",
+                  "literal": "merci vous, docteur. je déjà sens mieux"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_see_the_doctor:swallow",
+              "key": "swallow",
+              "intentKey": "describe_pain",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "It hurts when I swallow.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "It hurts when I swallow."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "J'ai mal quand j'avale.",
+                  "note": "« It hurts » = ça fait mal : très utile chez le médecin. « Swallow » = avaler ; le w final ne se prononce pas : « SWÂ-lôou ».",
+                  "literal": "ça fait-mal quand je avale"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "en_join_a_club",
+          "blueprintKey": "join_a_club",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "en_ch4_tony_coach",
+          "titles": {
+            "fr": "Rejoindre une équipe de foot"
+          },
+          "sceneNotes": {
+            "fr": "Au bord du terrain d'un parc, un soir d'entraînement ; Tony entraîne une équipe amateur de « soccer », le football tel qu'on l'appelle aux États-Unis."
+          },
+          "slots": [
+            {
+              "slotId": "hours",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "try",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "of_course",
+              "speaker": "character"
+            },
+            {
+              "slotId": "like",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "see_you",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "english_ch4:en_join_a_club:hours",
+              "key": "hours",
+              "intentKey": "ask_opening_hours",
+              "slotId": "hours",
+              "speaker": "learner",
+              "text": "Hi! What days do you practice?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Hi! What days do you practice?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Bonjour ! Vous vous entraînez quels jours ?",
+                  "note": "« Practice » = s'entraîner ; « a practice » = un entraînement. Aux États-Unis, « football » désigne le football américain : notre football se dit « soccer ».",
+                  "literal": "salut ! quels jours est-ce-que vous entraînez"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_join_a_club:days",
+              "key": "days",
+              "intentKey": "tell_time",
+              "slotId": "days",
+              "speaker": "character",
+              "text": "Tuesdays and Thursdays, at six thirty.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tuesdays and Thursdays, at six thirty."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Le mardi et le jeudi, à dix-huit heures trente.",
+                  "note": "Un jour au pluriel indique une habitude : on Tuesdays = le mardi. « Tuesday » se dit « TOUZ-déï », « Thursday » « THEURZ-déï » : ne les confondez pas !",
+                  "literal": "mardis et jeudis, à six trente"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_join_a_club:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "And how much does it cost to join?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "And how much does it cost to join?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Et l'inscription, c'est combien ?",
+                  "note": "« Join » = rejoindre, s'inscrire à : join a club, join a team. « Does » sert à poser la question au présent avec « it ».",
+                  "literal": "et combien est-ce-que ça coûte pour rejoindre"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_join_a_club:season",
+              "key": "season",
+              "intentKey": "state_price",
+              "slotId": "season",
+              "speaker": "character",
+              "text": "It's eighty dollars a season. Your first practice is free.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "It's eighty dollars a season. Your first practice is free."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "C'est quatre-vingts dollars la saison. Ton premier entraînement est gratuit.",
+                  "note": "« Free » = gratuit, et aussi libre. « A season » = par saison. « Eighty » (80) : accent au début, « ÉÏ-ti ».",
+                  "literal": "c'est quatre-vingts dollars une saison. ton premier entraînement est gratuit"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_join_a_club:try",
+              "key": "try",
+              "intentKey": "ask_permission",
+              "slotId": "try",
+              "speaker": "learner",
+              "text": "Could I come to a practice first?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Could I come to a practice first?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je pourrais d'abord venir à un entraînement ?",
+                  "note": "« Could I…? » = est-ce que je pourrais… ? : une demande polie. « First » = d'abord. « Come to » + événement : come to a practice, come to a party.",
+                  "literal": "pourrais je venir à un entraînement d'abord"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_join_a_club:of_course",
+              "key": "of_course",
+              "intentKey": "grant_permission",
+              "slotId": "of_course",
+              "speaker": "character",
+              "text": "Sure, no problem! Have you played much before?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Sure, no problem! Have you played much before?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Bien sûr, pas de problème ! Tu as déjà beaucoup joué ?",
+                  "note": "« Have you played…? » (present perfect) interroge sur l'expérience, jusqu'à aujourd'hui. Dans un club de sport, l'ambiance est décontractée : d'où le tutoiement de la traduction.",
+                  "literal": "sûr, pas problème ! as tu joué beaucoup avant"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_join_a_club:like",
+              "key": "like",
+              "intentKey": "express_like",
+              "slotId": "like",
+              "speaker": "learner",
+              "text": "A little. I really love playing soccer!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "A little. I really love playing soccer!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Un peu. J'adore jouer au foot !",
+                  "note": "« Play » + sport, sans article ni préposition : play soccer, play tennis. « Love » + -ing = adorer faire. « Soccer » se dit « SÂ-keur ».",
+                  "literal": "un peu. je vraiment adore jouant soccer"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_join_a_club:saturday_game",
+              "key": "saturday_game",
+              "intentKey": "invite",
+              "slotId": "saturday_game",
+              "speaker": "character",
+              "text": "Awesome! Come Tuesday, and you can play in our game on Saturday.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Awesome! Come Tuesday, and you can play in our game on Saturday."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Génial ! Viens mardi, et tu pourras jouer notre match de samedi.",
+                  "note": "« Awesome! » = génial !, très américain. « A game » = un match ; « a match » se dit plutôt en Grande-Bretagne. À l'oral, « on » disparaît souvent devant le jour : « come Tuesday ».",
+                  "literal": "génial ! viens mardi, et tu peux jouer dans notre match sur samedi"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_join_a_club:see_you",
+              "key": "see_you",
+              "intentKey": "confirm_plan",
+              "slotId": "see_you",
+              "speaker": "learner",
+              "text": "Perfect, see you Tuesday at six thirty!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Perfect, see you Tuesday at six thirty!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Parfait, à mardi, dix-huit heures trente !",
+                  "note": "« See you » + jour + heure = à… : la façon la plus naturelle de confirmer un rendez-vous. « Perfect » : accent au début, PEUR-fikt.",
+                  "literal": "parfait, vois toi mardi à six trente"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_join_a_club:just_watch",
+              "key": "just_watch",
+              "intentKey": "ask_permission",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Is it okay if I just watch first?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Is it okay if I just watch first?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Ça ne vous dérange pas si je regarde seulement, la première fois ?",
+                  "note": "« Is it okay if…? » = ça ne vous dérange pas si… ? : une demande de permission courante et polie. « Watch » = regarder quelque chose qui bouge (un match, un film).",
+                  "literal": "est ça OK si je juste regarde d'abord"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_join_a_club:big_fan",
+              "key": "big_fan",
+              "intentKey": "express_like",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "I'm a big soccer fan.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I'm a big soccer fan."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je suis un(e) grand(e) fan de foot.",
+                  "note": "« A big fan » = un(e) grand(e) fan : le nom « soccer » se place devant « fan », comme un adjectif. L'adjectif anglais ne s'accorde jamais.",
+                  "literal": "je-suis un grand soccer fan"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        },
+        {
+          "key": "en_lost_luggage",
+          "blueprintKey": "lost_luggage",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "en_ch4_jasmine_airline_agent",
+          "titles": {
+            "fr": "Une valise perdue à l'aéroport"
+          },
+          "sceneNotes": {
+            "fr": "Au comptoir des bagages de l'aéroport ; votre vol de Paris a atterri il y a une heure, mais votre grande valise bleue n'est jamais arrivée sur le tapis."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "lost",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "flight",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "deliver_to",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when_back",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "tomorrow",
+              "speaker": "character"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "english_ch4:en_lost_luggage:excuse_me",
+              "key": "excuse_me",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "Excuse me, is this the lost baggage desk?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Excuse me, is this the lost baggage desk?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Excusez-moi, c'est bien ici, le comptoir des bagages perdus ?",
+                  "note": "« Baggage » est indénombrable : jamais de s, jamais « a baggage » ; pour un seul, on dit « a bag ». Le comptoir se trouve près du « baggage claim », la zone des tapis à bagages.",
+                  "literal": "excusez moi, est ceci le perdu bagages comptoir"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_lost_luggage:what_can_i_do",
+              "key": "what_can_i_do",
+              "intentKey": "offer_help",
+              "slotId": "what_can_i_do",
+              "speaker": "character",
+              "text": "Yes, it is. What can I do for you?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Yes, it is. What can I do for you?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Oui, c'est ici. Qu'est-ce que je peux faire pour vous ?",
+                  "note": "« Yes, it is » : la réponse courte reprend le verbe de la question (is this…? → it is). Ne répondez jamais par un simple « Yes, it » : le verbe est indispensable.",
+                  "literal": "oui, ce est. quoi puis je faire pour vous"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_lost_luggage:lost",
+              "key": "lost",
+              "intentKey": "report_lost_item",
+              "slotId": "lost",
+              "speaker": "learner",
+              "text": "My suitcase didn't arrive.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "My suitcase didn't arrive."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Ma valise n'est pas arrivée.",
+                  "note": "Au prétérit, la négation se fait avec « didn't » + verbe de base : didn't arrive, jamais « didn't arrived ». « Suitcase » se dit « SOUT-kéïss ».",
+                  "literal": "ma valise ne-fit-pas arriver"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_lost_luggage:flight",
+              "key": "flight",
+              "intentKey": "say_when_happened",
+              "slotId": "flight",
+              "speaker": "learner",
+              "text": "I was on the flight from Paris. It landed an hour ago.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I was on the flight from Paris. It landed an hour ago."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "J'étais sur le vol de Paris. Il a atterri il y a une heure.",
+                  "note": "« Ago » = il y a, placé après la durée : an hour ago, two days ago. Le h de « hour » est muet, d'où « an hour ». « Land » = atterrir.",
+                  "literal": "je étais sur le vol de Paris. il atterrit une heure passé"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_lost_luggage:still_in_paris",
+              "key": "still_in_paris",
+              "intentKey": "apologise",
+              "slotId": "still_in_paris",
+              "speaker": "character",
+              "text": "I'm so sorry. It looks like it's still in Paris.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "I'm so sorry. It looks like it's still in Paris."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Je suis vraiment désolée. On dirait qu'elle est encore à Paris.",
+                  "note": "« Still » = encore, toujours, pour une situation qui dure. « It looks like » = on dirait que. À l'américaine, le o de « sorry » est très ouvert : « SÂ-ri ».",
+                  "literal": "je-suis tellement désolée. ça regarde comme il-est encore dans Paris"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_lost_luggage:when_back",
+              "key": "when_back",
+              "intentKey": "ask_time",
+              "slotId": "when_back",
+              "speaker": "learner",
+              "text": "When will I get it back?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "When will I get it back?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Quand est-ce que je vais la récupérer ?",
+                  "note": "« Get back » = récupérer : le pronom se glisse au milieu, get it back. La valise est « it » : en anglais, les objets sont neutres.",
+                  "literal": "quand vais je obtenir la en-retour"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_lost_luggage:tomorrow",
+              "key": "tomorrow",
+              "intentKey": "tell_time",
+              "slotId": "tomorrow",
+              "speaker": "character",
+              "text": "It'll be here tomorrow morning. Where should we deliver it?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "It'll be here tomorrow morning. Where should we deliver it?"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Elle sera là demain matin. On vous la livre où ?",
+                  "note": "« It'll » = it will. « Tomorrow morning » = demain matin, sans article ni préposition. « Deliver » = livrer : accent sur la 2e syllabe, di-LI-veur.",
+                  "literal": "elle-va être ici demain matin. où devrions nous livrer la"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_lost_luggage:deliver_to",
+              "key": "deliver_to",
+              "intentKey": "state_destination",
+              "slotId": "deliver_to",
+              "speaker": "learner",
+              "text": "To my apartment, please: 214 Oak Street.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "To my apartment, please: 214 Oak Street."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Chez moi, s'il vous plaît : 214, Oak Street.",
+                  "note": "Une adresse américaine commence par le numéro, souvent à trois chiffres et lu en deux temps : « two fourteen ». En anglais, pas d'espace avant les deux-points.",
+                  "literal": "à mon appartement, s'il-vous-plaît : 214 Chêne Rue"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_lost_luggage:all_set",
+              "key": "all_set",
+              "intentKey": "confirm_order",
+              "slotId": "all_set",
+              "speaker": "character",
+              "text": "You're all set. Here's your claim number.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "You're all set. Here's your claim number."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "C'est tout bon. Voici votre numéro de dossier.",
+                  "note": "« You're all set » = c'est tout bon, tout est réglé : très courant au guichet. « Claim number » = numéro de réclamation, à garder pour suivre votre valise.",
+                  "literal": "vous-êtes tout prêt. ici-est votre réclamation numéro"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_lost_luggage:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Thank you for your help. Have a nice evening!",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Thank you for your help. Have a nice evening!"
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Merci pour votre aide. Bonne soirée !",
+                  "note": "« Thank you for » + nom : thank you for your help. « Have a nice evening! » = bonne soirée ! ; en journée : « Have a nice day! ».",
+                  "literal": "merci vous pour votre aide. ayez une bonne soirée"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            },
+            {
+              "id": "english_ch4:en_lost_luggage:carousel",
+              "key": "carousel",
+              "intentKey": "report_lost_item",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "My bag isn't on the carousel.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "My bag isn't on the carousel."
+                }
+              ],
+              "meanings": {
+                "fr": {
+                  "meaning": "Mon sac n'est pas sur le tapis à bagages.",
+                  "note": "« Carousel » = le tapis à bagages (« KÈ-reu-sèl »). « Isn't » = is not : la négation de « be » se passe de « do ».",
+                  "literal": "mon sac n'est-pas sur le carrousel"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": null
+            }
+          ]
+        }
+      ]
     }
   ]
 }

@@ -481,7 +481,7 @@ void main() {
     await t.pumpWidget(const SizedBox());
 
     final container = await pump(t, player: FakeClipPlayer(), route: '/path/es_restaurant_order_meal', manifest: manifest);
-    expect(container.read(appStateProvider).activeCourse!.chapters.last.missions.first.key, 'es_restaurant_order_meal');
+    expect(container.read(appStateProvider).activeCourse!.chapters[1].missions.first.key, 'es_restaurant_order_meal');
     expect(find.text('Talk'), findsNothing, reason: 'chapter 2 is not published on the server yet');
     expect(find.text('Mission'), findsOneWidget, reason: 'everything else of the mission is there');
   });

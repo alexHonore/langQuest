@@ -4313,6 +4313,3943 @@
           ]
         }
       ]
+    },
+    {
+      "key": "french_ch3",
+      "chapterIndex": 3,
+      "courseTrackId": "french",
+      "targetVarietyId": "fr",
+      "sourceLanguages": [
+        "en"
+      ],
+      "titles": {
+        "en": "Finding your voice in Lyon"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 3, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 3 for French (fr); native review required before publishing.",
+        "Tu between colleagues of the same level (Mathieu) and with friends (Léa, Hugo, and Camille, who returns from chapters 1 and 2); vous with the team lead Hélène at the first meeting and with Gérard, the café owner. Please confirm tu with a colleague in the first week feels natural.",
+        "The learner keeps the chapter-1 name Sam and the masculine default (fatigué, crevé, ravi, perdu, sorti); feminine forms are given in the notes. Sam's job, graphiste, is the same word for a man or a woman.",
+        "Wordings to check first: « dans la boîte », « Vous faites plutôt du print ou du web ? », « faire un point », « je suis fan de vélo », « Il était minuit. Enfin, onze heures, je veux dire. ».",
+        "Facts to verify: the Croix-Rousse market open every morning except Monday, metro C two stops from Hôtel de Ville to Croix-Rousse, the traboules of Vieux-Lyon."
+      ],
+      "characters": [
+        {
+          "key": "french_ch3_mathieu_colleague",
+          "name": "Mathieu",
+          "role": "colleague",
+          "personality": "chatty, always first at the coffee machine, curious about how you are settling in",
+          "homeRegion": "Lyon",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "french_ch3_helene_team_lead",
+          "name": "Hélène",
+          "role": "team lead",
+          "personality": "friendly and direct, talks fast and loves office jargon",
+          "homeRegion": "Lyon",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "french_ch3_lea_friend",
+          "name": "Léa",
+          "role": "friend",
+          "personality": "sporty, enthusiastic; a classmate from your Wednesday drawing class",
+          "homeRegion": "Lyon",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "french_ch3_gerard_local",
+          "name": "Gérard",
+          "role": "local",
+          "personality": "café owner, born in Lyon, proud of the places tourists never find",
+          "homeRegion": "Lyon",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "french_ch3_hugo_friend",
+          "name": "Hugo",
+          "role": "friend",
+          "personality": "good-humoured, loves a friendly argument, grew up in a Beaujolais village",
+          "homeRegion": "Beaujolais",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "french_ch3_camille_friend_c3",
+          "name": "Camille",
+          "role": "friend",
+          "personality": "warm, cheerful, always in a rush; your friend from chapters 1 and 2, eager to hear your news",
+          "homeRegion": "Lyon",
+          "ageBand": null,
+          "voice": "female"
+        }
+      ],
+      "missions": [
+        {
+          "key": "french_describe_your_day",
+          "blueprintKey": "describe_your_day",
+          "missionType": "free_conversation",
+          "level": "elementary",
+          "situation": "daily_life",
+          "characterKey": "french_ch3_mathieu_colleague",
+          "titles": {
+            "en": "A coffee break with a colleague"
+          },
+          "sceneNotes": {
+            "en": "The coffee machine at the design agency near Part-Dieu where you have just started; your colleague Mathieu wants to know how your days go."
+          },
+          "slots": [
+            {
+              "slotId": "routine",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "feeling",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "job",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch3:french_describe_your_day:first_week",
+              "key": "first_week",
+              "intentKey": "ask_how_are_you",
+              "slotId": "first_week",
+              "speaker": "character",
+              "text": "Salut ! Alors, cette première semaine, ça se passe bien ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Salut ! Alors, cette première semaine, ça se passe bien ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hi! So, is your first week going well?",
+                  "note": "Colleagues of the same level usually say tu to each other in French offices. Ça se passe bien ? (is it going well?) works for a job, a trip or a meal.",
+                  "literal": "hi! so, this first week, that itself passes well"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Semaine: suh-MEN. Ça se passe: sah suh PASS."
+            },
+            {
+              "id": "french_ch3:french_describe_your_day:feeling",
+              "key": "feeling",
+              "intentKey": "express_feeling",
+              "slotId": "feeling",
+              "speaker": "learner",
+              "text": "Ça va, mais je suis un peu fatigué.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ça va, mais je suis un peu fatigué."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's OK, but I'm a bit tired.",
+                  "note": "A woman writes fatiguée; it sounds the same. Un peu (a little) softens a complaint: un peu stressé, un peu perdu.",
+                  "literal": "that goes, but I am a little tired"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Fatigué: fah-tee-GAY. Un peu: uhn PUH."
+            },
+            {
+              "id": "french_ch3:french_describe_your_day:get_up",
+              "key": "get_up",
+              "intentKey": "ask_time",
+              "slotId": "get_up",
+              "speaker": "character",
+              "text": "Ah bon ? Tu te lèves à quelle heure ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ah bon ? Tu te lèves à quelle heure ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Really? What time do you get up?",
+                  "note": "Se lever (to get up) is reflexive: je me lève, tu te lèves. Ah bon ? is the all-purpose 'really?' that keeps a chat going.",
+                  "literal": "ah good? you yourself raise at what hour"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Lèves: lev. Quelle heure runs together: keh-LUHR."
+            },
+            {
+              "id": "french_ch3:french_describe_your_day:time",
+              "key": "time",
+              "intentKey": "tell_time",
+              "slotId": "time",
+              "speaker": "learner",
+              "text": "Je me lève à six heures et quart.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je me lève à six heures et quart."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I get up at a quarter past six.",
+                  "note": "Et quart = quarter past, et demie = half past, moins le quart = quarter to. In everyday talk people use the 12-hour clock: six heures du matin.",
+                  "literal": "I myself raise at six hours and quarter"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Six heures links: see-ZUHR. Quart: kar, with a silent t."
+            },
+            {
+              "id": "french_ch3:french_describe_your_day:routine",
+              "key": "routine",
+              "intentKey": "describe_routine",
+              "slotId": "routine",
+              "speaker": "learner",
+              "text": "Je prends mon petit-déjeuner, puis le métro.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je prends mon petit-déjeuner, puis le métro."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have breakfast, then I take the metro.",
+                  "note": "In France le déjeuner is lunch and le petit-déjeuner is breakfast (in Belgium, Switzerland and Quebec, déjeuner is breakfast). Prendre works for meals and transport alike.",
+                  "literal": "I take my little-lunch, then the metro"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Petit-déjeuner: puh-tee day-zhuh-NAY. Puis: pwee."
+            },
+            {
+              "id": "french_ch3:french_describe_your_day:what_job",
+              "key": "what_job",
+              "intentKey": "ask_occupation",
+              "slotId": "what_job",
+              "speaker": "character",
+              "text": "Et tu fais quoi, exactement, dans la boîte ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Et tu fais quoi, exactement, dans la boîte ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And what exactly do you do at the company?",
+                  "note": "Une boîte (a box) is everyday slang for a company: elle travaille dans une grosse boîte. Tu fais quoi ? is the casual 'what do you do?'.",
+                  "literal": "and you do what, exactly, in the box"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Boîte: bwaht. Exactement: eg-zak-tuh-MAHN."
+            },
+            {
+              "id": "french_ch3:french_describe_your_day:job",
+              "key": "job",
+              "intentKey": "describe_occupation",
+              "slotId": "job",
+              "speaker": "learner",
+              "text": "Je suis graphiste, dans l’équipe d’Hélène.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je suis graphiste, dans l’équipe d’Hélène."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm a graphic designer, on Hélène's team.",
+                  "note": "No article before a job after je suis: je suis graphiste, never un graphiste. De becomes d’ before a vowel or a silent h: l’équipe d’Hélène.",
+                  "literal": "I am graphic-designer, in the team of Hélène"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Graphiste: grah-FEEST. D’Hélène: day-LEN, the h is silent."
+            },
+            {
+              "id": "french_ch3:french_describe_your_day:weekend",
+              "key": "weekend",
+              "intentKey": "ask_availability",
+              "slotId": "weekend",
+              "speaker": "character",
+              "text": "Et ce week-end, tu fais quelque chose ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Et ce week-end, tu fais quelque chose ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And are you doing anything this weekend?",
+                  "note": "French borrowed week-end from English; Quebec says la fin de semaine. Ce week-end = this coming weekend.",
+                  "literal": "and this weekend, you do something"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Week-end is said the French way, stressed at the end: wee-KEND."
+            },
+            {
+              "id": "french_ch3:french_describe_your_day:sleep_in",
+              "key": "sleep_in",
+              "intentKey": "state_future_plan",
+              "slotId": "sleep_in",
+              "speaker": "learner",
+              "text": "Samedi, je vais faire la grasse matinée !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Samedi, je vais faire la grasse matinée !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "On Saturday, I'm going to sleep in!",
+                  "note": "Faire la grasse matinée (to do the fat morning) = to sleep in. Aller + infinitive is the near future: je vais faire, on va voir.",
+                  "literal": "Saturday, I go to-do the fat morning"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Grasse matinée: grahss mah-tee-NAY."
+            },
+            {
+              "id": "french_ch3:french_describe_your_day:exhausted",
+              "key": "exhausted",
+              "intentKey": "express_feeling",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Je suis crevé, mais ça va !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je suis crevé, mais ça va !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm exhausted, but I'm OK!",
+                  "note": "Crevé (literally 'punctured', like a tyre) is the casual word for exhausted; a woman writes crevée. Keep it for friends and colleagues.",
+                  "literal": "I am punctured, but that goes"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Crevé: kruh-VAY."
+            }
+          ]
+        },
+        {
+          "key": "french_talk_about_work",
+          "blueprintKey": "talk_about_work",
+          "missionType": "standard",
+          "level": "elementary",
+          "situation": "work",
+          "characterKey": "french_ch3_helene_team_lead",
+          "titles": {
+            "en": "Meeting the team lead"
+          },
+          "sceneNotes": {
+            "en": "Your first meeting with Hélène, who leads your team at the agency and was away last week; she is friendly but talks fast and loves jargon."
+          },
+          "slots": [
+            {
+              "slotId": "intro",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pleased",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "job",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "clarify",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "meaning",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "permission",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch3:french_talk_about_work:welcome",
+              "key": "welcome",
+              "intentKey": "introduce_name",
+              "slotId": "welcome",
+              "speaker": "character",
+              "text": "Bonjour ! Hélène Garnier, je dirige l’équipe.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bonjour ! Hélène Garnier, je dirige l’équipe."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello! Hélène Garnier, I lead the team.",
+                  "note": "At work people often introduce themselves with first name and surname, then their role. Diriger une équipe = to lead a team.",
+                  "literal": "good-day! Hélène Garnier, I direct the team"
+                }
+              },
+              "register": "formal",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Dirige: dee-REEZH. L’équipe: lay-KEEP."
+            },
+            {
+              "id": "french_ch3:french_talk_about_work:intro",
+              "key": "intro",
+              "intentKey": "introduce_name",
+              "slotId": "intro",
+              "speaker": "learner",
+              "text": "Bonjour, je me présente : Sam Taylor.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bonjour, je me présente : Sam Taylor."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, let me introduce myself: Sam Taylor.",
+                  "note": "Je me présente (I present myself) is the formal way to give your name at work or in a meeting. In writing, French puts a space before a colon.",
+                  "literal": "good-day, I myself present: Sam Taylor"
+                }
+              },
+              "register": "formal",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Présente: pray-ZAHNT; an s between two vowels sounds like z."
+            },
+            {
+              "id": "french_ch3:french_talk_about_work:pleased",
+              "key": "pleased",
+              "intentKey": "say_nice_to_meet",
+              "slotId": "pleased",
+              "speaker": "learner",
+              "text": "Ravi de faire votre connaissance.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ravi de faire votre connaissance."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Pleased to meet you.",
+                  "note": "The formal 'pleased to meet you'. A woman writes ravie; it sounds the same. Lighter and very common: enchanté.",
+                  "literal": "delighted to make your acquaintance"
+                }
+              },
+              "register": "formal",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Connaissance: koh-neh-SAHNSS."
+            },
+            {
+              "id": "french_ch3:french_talk_about_work:print_or_web",
+              "key": "print_or_web",
+              "intentKey": "ask_occupation",
+              "slotId": "print_or_web",
+              "speaker": "character",
+              "text": "Vous faites plutôt du print ou du web ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vous faites plutôt du print ou du web ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Do you mostly do print or web?",
+                  "note": "Office French borrows many English words: le print (printed work), le web, un mail, une deadline. Plutôt = rather, mostly.",
+                  "literal": "you do rather some print or some web"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Print is said almost as in English, with a French r: preent."
+            },
+            {
+              "id": "french_ch3:french_talk_about_work:job",
+              "key": "job",
+              "intentKey": "describe_occupation",
+              "slotId": "job",
+              "speaker": "learner",
+              "text": "Je fais surtout du web, mais aussi des affiches.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je fais surtout du web, mais aussi des affiches."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I mostly do web work, but posters too.",
+                  "note": "Faire du + field = to work in it: faire du web, faire du marketing. Surtout means 'mostly, above all', never 'surely'.",
+                  "literal": "I do above-all some web, but also some posters"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Surtout: sür-TOO. Affiches: ah-FEESH."
+            },
+            {
+              "id": "french_ch3:french_talk_about_work:catch_up",
+              "key": "catch_up",
+              "intentKey": "make_plan_time",
+              "slotId": "catch_up",
+              "speaker": "character",
+              "text": "Très bien. On fait un point à quinze heures ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Très bien. On fait un point à quinze heures ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Very good. Shall we have a catch-up at 3 p.m.?",
+                  "note": "Faire un point is office French for a short catch-up meeting. Work times use the 24-hour clock: quinze heures = 3 p.m.",
+                  "literal": "very well. one makes a point at fifteen hours"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Point: pwan, a nasal vowel with no n or t sound. Quinze: kanz."
+            },
+            {
+              "id": "french_ch3:french_talk_about_work:meaning",
+              "key": "meaning",
+              "intentKey": "ask_meaning_of_word",
+              "slotId": "meaning",
+              "speaker": "learner",
+              "text": "Pardon, que veut dire « faire un point » ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pardon, que veut dire « faire un point » ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Sorry, what does « faire un point » mean?",
+                  "note": "Que veut dire… ? or qu’est-ce que ça veut dire ? = what does … mean? Vouloir dire (to want to say) is how French says 'to mean'.",
+                  "literal": "sorry, what wants to-say « to-make a point »"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Veut dire: vuh DEER."
+            },
+            {
+              "id": "french_ch3:french_talk_about_work:explain",
+              "key": "explain",
+              "intentKey": "explain_meaning",
+              "slotId": "explain",
+              "speaker": "character",
+              "text": "C’est une courte réunion, pour voir où on en est.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "C’est une courte réunion, pour voir où on en est."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's a short meeting to see where we're at.",
+                  "note": "False friend: une réunion is a meeting, not a reunion. Où on en est (where one of-it is) = how things stand.",
+                  "literal": "it is a short meeting, for to-see where one of-it is"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Réunion: ray-ü-NYON. Où on en est: oo on-nahn-NAY."
+            },
+            {
+              "id": "french_ch3:french_talk_about_work:clarify",
+              "key": "clarify",
+              "intentKey": "ask_clarification",
+              "slotId": "clarify",
+              "speaker": "learner",
+              "text": "D’accord. Je dois préparer quelque chose ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "D’accord. Je dois préparer quelque chose ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "OK. Do I need to prepare anything?",
+                  "note": "Devoir + infinitive = to have to: je dois préparer. A statement said with a rising voice is the simplest polite question.",
+                  "literal": "of agreement. I must to-prepare some thing"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Préparer: pray-pah-RAY. Quelque chose: kel-kuh SHOHZ."
+            },
+            {
+              "id": "french_ch3:french_talk_about_work:permission",
+              "key": "permission",
+              "intentKey": "ask_permission",
+              "slotId": "permission",
+              "speaker": "learner",
+              "text": "En attendant, je peux m’installer ici ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "En attendant, je peux m’installer ici ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "In the meantime, can I set up here?",
+                  "note": "S’installer = to settle in, to take a seat or a desk. Je peux… ? is the everyday way to ask permission; more formal: est-ce que je pourrais… ?",
+                  "literal": "in waiting, I can myself install here"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "En attendant: ahn-nah-tahn-DAHN. Installer: an-stah-LAY."
+            },
+            {
+              "id": "french_ch3:french_talk_about_work:new_designer",
+              "key": "new_designer",
+              "intentKey": "introduce_name",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Bonjour, je suis Sam, le nouveau graphiste.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bonjour, je suis Sam, le nouveau graphiste."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, I'm Sam, the new graphic designer.",
+                  "note": "Less formal and just as common. A woman says la nouvelle graphiste: the article and the adjective change, the job title does not.",
+                  "literal": "good-day, I am Sam, the new graphic-designer"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Nouveau: noo-VOH."
+            }
+          ]
+        },
+        {
+          "key": "french_talk_about_hobbies",
+          "blueprintKey": "talk_about_hobbies",
+          "missionType": "free_conversation",
+          "level": "elementary",
+          "situation": "small_talk",
+          "characterKey": "french_ch3_lea_friend",
+          "titles": {
+            "en": "What do you do for fun?"
+          },
+          "sceneNotes": {
+            "en": "After your Wednesday evening drawing class at the local community centre, your classmate Léa asks what you do at weekends; it turns out you share a passion."
+          },
+          "slots": [
+            {
+              "slotId": "free_time",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "like",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "dislike",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "prefer",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "and_you",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "together",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch3:french_talk_about_hobbies:weekends",
+              "key": "weekends",
+              "intentKey": "ask_occupation",
+              "slotId": "weekends",
+              "speaker": "character",
+              "text": "Et le week-end, tu fais quoi, en général ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Et le week-end, tu fais quoi, en général ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And what do you usually do at weekends?",
+                  "note": "In casual French the question word often comes last: tu fais quoi ? En général = usually.",
+                  "literal": "and the weekend, you do what, in general"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "En général: ahn zhay-nay-RAL."
+            },
+            {
+              "id": "french_ch3:french_talk_about_hobbies:free_time",
+              "key": "free_time",
+              "intentKey": "describe_routine",
+              "slotId": "free_time",
+              "speaker": "learner",
+              "text": "Le samedi, je fais souvent du vélo.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Le samedi, je fais souvent du vélo."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "On Saturdays, I often go cycling.",
+                  "note": "Le samedi (with le) = on Saturdays, every week; samedi alone = this Saturday. Faire du + sport: faire du vélo, du tennis, de la natation.",
+                  "literal": "the Saturday, I do often some bike"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Souvent: soo-VAHN. Vélo: vay-LOH."
+            },
+            {
+              "id": "french_ch3:french_talk_about_hobbies:me_too",
+              "key": "me_too",
+              "intentKey": "express_like",
+              "slotId": "me_too",
+              "speaker": "character",
+              "text": "C’est vrai ? Moi aussi, je suis fan de vélo !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "C’est vrai ? Moi aussi, je suis fan de vélo !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Really? Me too, I'm a big cycling fan!",
+                  "note": "Être fan de = to be a big fan of, very common among younger French speakers. Moi aussi = me too; moi non plus = me neither.",
+                  "literal": "it is true? me also, I am fan of bike"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Fan is said as in English. Vrai: vreh."
+            },
+            {
+              "id": "french_ch3:french_talk_about_hobbies:like",
+              "key": "like",
+              "intentKey": "express_like",
+              "slotId": "like",
+              "speaker": "learner",
+              "text": "J’adore rouler sur les quais du Rhône.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "J’adore rouler sur les quais du Rhône."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I love riding along the banks of the Rhône.",
+                  "note": "Adorer + infinitive = to love doing. Cyclists and drivers say rouler (to roll) for riding. Lyon's riverbanks, les quais, have long car-free paths.",
+                  "literal": "I adore to-roll on the quays of-the Rhône"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Rouler: roo-LAY. Quais: kay. Rhône: rohn."
+            },
+            {
+              "id": "french_ch3:french_talk_about_hobbies:dislike",
+              "key": "dislike",
+              "intentKey": "express_dislike",
+              "slotId": "dislike",
+              "speaker": "learner",
+              "text": "Par contre, je déteste monter à la Croix-Rousse !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Par contre, je déteste monter à la Croix-Rousse !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "On the other hand, I hate riding up to the Croix-Rousse!",
+                  "note": "Par contre = on the other hand. The Croix-Rousse is the steep hill just north of the city centre, dreaded by Lyon's cyclists. Détester + infinitive = to hate doing.",
+                  "literal": "by against, I detest to-climb to the Cross-Red"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Croix-Rousse: krwah ROOSS. Déteste: day-TEST."
+            },
+            {
+              "id": "french_ch3:french_talk_about_hobbies:films_or_books",
+              "key": "films_or_books",
+              "intentKey": "ask_opinion",
+              "slotId": "films_or_books",
+              "speaker": "character",
+              "text": "Ha ha, moi aussi ! Et le soir, plutôt films ou livres ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ha ha, moi aussi ! Et le soir, plutôt films ou livres ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Ha ha, me too! And in the evening, films or books?",
+                  "note": "Plutôt X ou Y ? (rather X or Y?) is the quick way to ask about someone's tastes, with no verb at all.",
+                  "literal": "ha ha, me also! and the evening, rather films or books"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Films: feelm. Livres: leevr."
+            },
+            {
+              "id": "french_ch3:french_talk_about_hobbies:prefer",
+              "key": "prefer",
+              "intentKey": "express_preference_between",
+              "slotId": "prefer",
+              "speaker": "learner",
+              "text": "Je préfère les films, surtout en VO.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je préfère les films, surtout en VO."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I prefer films, especially in the original language.",
+                  "note": "En VO (version originale) = in the original language with subtitles; en VF = dubbed into French. Préférer takes the article: je préfère les films.",
+                  "literal": "I prefer the films, above-all in OV"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Préfère: pray-FAIR. VO: vay-OH."
+            },
+            {
+              "id": "french_ch3:french_talk_about_hobbies:and_you",
+              "key": "and_you",
+              "intentKey": "ask_opinion",
+              "slotId": "and_you",
+              "speaker": "learner",
+              "text": "Et toi, tu préfères quoi ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Et toi, tu préfères quoi ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What about you, which do you prefer?",
+                  "note": "Et toi ? hands the question back; to someone you say vous to: et vous ?",
+                  "literal": "and you, you prefer what"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Toi: twah."
+            },
+            {
+              "id": "french_ch3:french_talk_about_hobbies:books",
+              "key": "books",
+              "intentKey": "express_preference_between",
+              "slotId": "books",
+              "speaker": "character",
+              "text": "Moi, les livres ! Je lis tous les soirs dans le tram.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Moi, les livres ! Je lis tous les soirs dans le tram."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Books, for me! I read every evening on the tram.",
+                  "note": "Starting with moi puts the stress on 'me', the way English does with the voice. Tous les soirs = every evening.",
+                  "literal": "me, the books! I read all the evenings in the tram"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Lis: lee. Tous les soirs: too lay SWAHR."
+            },
+            {
+              "id": "french_ch3:french_talk_about_hobbies:together",
+              "key": "together",
+              "intentKey": "suggest_activity",
+              "slotId": "together",
+              "speaker": "learner",
+              "text": "On fait une balade à vélo dimanche ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "On fait une balade à vélo dimanche ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Shall we go for a bike ride on Sunday?",
+                  "note": "Une balade = a ride or a walk for pleasure: une balade à pied, à vélo, en bateau. On fait… ? is how friends suggest a plan.",
+                  "literal": "one does a ride at bike Sunday"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Balade: bah-LAD. Dimanche: dee-MAHNSH."
+            },
+            {
+              "id": "french_ch3:french_talk_about_hobbies:rather_films",
+              "key": "rather_films",
+              "intentKey": "express_preference_between",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "J’aime mieux les films que les livres.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "J’aime mieux les films que les livres."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I like films better than books.",
+                  "note": "Aimer mieux X que Y = to like X better than Y, a little more relaxed than préférer.",
+                  "literal": "I love better the films than the books"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Mieux: myuh."
+            }
+          ]
+        },
+        {
+          "key": "french_ask_for_advice",
+          "blueprintKey": "ask_for_advice",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "small_talk",
+          "characterKey": "french_ch3_gerard_local",
+          "titles": {
+            "en": "Asking a local for tips"
+          },
+          "sceneNotes": {
+            "en": "A small café near Place des Terreaux; Gérard, the owner, was born in Lyon and knows the places tourists never find."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "recommend",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "why",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_to_get",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "is_it_far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "hours",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch3:french_ask_for_advice:excuse_me",
+              "key": "excuse_me",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "Pardon, monsieur, je peux vous demander un conseil ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pardon, monsieur, je peux vous demander un conseil ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, sir, can I ask you for some advice?",
+                  "note": "Pardon works like 'excuse me' to get someone's attention. Un conseil = a piece of advice; the plural des conseils is common.",
+                  "literal": "pardon, sir, I can you ask an advice"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Monsieur: muh-SYUH. Conseil: kon-SAY, ending in a light y."
+            },
+            {
+              "id": "french_ch3:french_ask_for_advice:recommend",
+              "key": "recommend",
+              "intentKey": "ask_recommendation",
+              "slotId": "recommend",
+              "speaker": "learner",
+              "text": "Qu’est-ce qu’il faut voir à Lyon, d’après vous ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Qu’est-ce qu’il faut voir à Lyon, d’après vous ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What should I see in Lyon, in your opinion?",
+                  "note": "Il faut + infinitive = one must, you have to: il faut voir, il faut goûter. D’après vous = in your opinion.",
+                  "literal": "what is-it that it is-needed to-see at Lyon, from-after you"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Il faut: eel FOH. D’après: dah-PREH."
+            },
+            {
+              "id": "french_ch3:french_ask_for_advice:market",
+              "key": "market",
+              "intentKey": "state_opinion",
+              "slotId": "market",
+              "speaker": "character",
+              "text": "Allez au marché de la Croix-Rousse, un dimanche matin.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Allez au marché de la Croix-Rousse, un dimanche matin."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Go to the Croix-Rousse market on a Sunday morning.",
+                  "note": "The Croix-Rousse market stretches along the boulevard every morning except Monday; Sunday is its liveliest day.",
+                  "literal": "go to-the market of the Cross-Red, a Sunday morning"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Marché: mar-SHAY. Allez: ah-LAY."
+            },
+            {
+              "id": "french_ch3:french_ask_for_advice:why",
+              "key": "why",
+              "intentKey": "ask_reason",
+              "slotId": "why",
+              "speaker": "learner",
+              "text": "Ah bon ? Pourquoi celui-là ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ah bon ? Pourquoi celui-là ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Really? Why that one?",
+                  "note": "Celui-là = that one, for a masculine noun (le marché); celle-là for a feminine one.",
+                  "literal": "ah good? why that-one-there"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Pourquoi: poor-KWAH. Celui-là: suh-lwee-LAH."
+            },
+            {
+              "id": "french_ch3:french_ask_for_advice:locals",
+              "key": "locals",
+              "intentKey": "give_reason",
+              "slotId": "locals",
+              "speaker": "character",
+              "text": "C’est le marché des Lyonnais, pas des touristes !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "C’est le marché des Lyonnais, pas des touristes !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's where the people of Lyon shop, not the tourists!",
+                  "note": "Les Lyonnais = the people of Lyon. In quick speech pas alone can negate a single word: pas des touristes.",
+                  "literal": "it is the market of-the Lyonnais, not of-the tourists"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Lyonnais: lee-oh-NEH. Touristes: too-REEST."
+            },
+            {
+              "id": "french_ch3:french_ask_for_advice:hours",
+              "key": "hours",
+              "intentKey": "ask_opening_hours",
+              "slotId": "hours",
+              "speaker": "learner",
+              "text": "Il est ouvert tous les jours ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Il est ouvert tous les jours ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it open every day?",
+                  "note": "Ouvert / fermé = open / closed. Many French shops and markets close on Sunday afternoon or on Monday, so it is always worth asking.",
+                  "literal": "it is open all the days"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Ouvert: oo-VAIR, silent t. Tous les jours: too lay ZHOOR."
+            },
+            {
+              "id": "french_ch3:french_ask_for_advice:not_monday",
+              "key": "not_monday",
+              "intentKey": "tell_time",
+              "slotId": "not_monday",
+              "speaker": "character",
+              "text": "Tous les matins, sauf le lundi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tous les matins, sauf le lundi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Every morning, except Mondays.",
+                  "note": "Sauf = except. Le lundi with le = on Mondays, every week.",
+                  "literal": "all the mornings, except the Monday"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Sauf: sohf. Lundi: lan-DEE."
+            },
+            {
+              "id": "french_ch3:french_ask_for_advice:how_to_get",
+              "key": "how_to_get",
+              "intentKey": "ask_how_to_get",
+              "slotId": "how_to_get",
+              "speaker": "learner",
+              "text": "Et comment est-ce qu’on y va, d’ici ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Et comment est-ce qu’on y va, d’ici ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And how do you get there from here?",
+                  "note": "Y = there: on y va = one goes there. Est-ce que turns a statement into a question without changing the word order.",
+                  "literal": "and how is-it that one there goes, from-here"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Comment est-ce qu’on y va: ko-mahn ess-kon-nee VAH."
+            },
+            {
+              "id": "french_ch3:french_ask_for_advice:is_it_far",
+              "key": "is_it_far",
+              "intentKey": "ask_is_it_far",
+              "slotId": "is_it_far",
+              "speaker": "learner",
+              "text": "C’est loin, à pied ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "C’est loin, à pied ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Is it far on foot?",
+                  "note": "À pied = on foot; en métro = by metro, en bus = by bus.",
+                  "literal": "it is far, at foot"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Loin: lwan, nasal. Pied: pyay."
+            },
+            {
+              "id": "french_ch3:french_ask_for_advice:take_metro",
+              "key": "take_metro",
+              "intentKey": "give_direction_straight",
+              "slotId": "take_metro",
+              "speaker": "character",
+              "text": "Non, mais ça monte ! Prenez le métro C, c’est deux arrêts.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Non, mais ça monte ! Prenez le métro C, c’est deux arrêts."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No, but it's uphill! Take metro line C, it's two stops.",
+                  "note": "Ça monte = it's uphill. Metro line C climbs from Hôtel de Ville up to Croix-Rousse; it is a rack railway, built for the steep slope.",
+                  "literal": "no, but that climbs! take the metro C, it is two stops"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Prenez: pruh-NAY. Arrêts: ah-REH."
+            },
+            {
+              "id": "french_ch3:french_ask_for_advice:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Merci beaucoup pour vos conseils !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Merci beaucoup pour vos conseils !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thanks a lot for your advice!",
+                  "note": "Merci pour + noun: merci pour vos conseils, merci pour tout. Advice is countable in French, so it is plural here.",
+                  "literal": "thanks much for your advices"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Vos conseils: voh kon-SAY."
+            },
+            {
+              "id": "french_ch3:french_ask_for_advice:weekend_tip",
+              "key": "weekend_tip",
+              "intentKey": "ask_recommendation",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Vous me conseillez quoi, pour ce week-end ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vous me conseillez quoi, pour ce week-end ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What would you recommend for this weekend?",
+                  "note": "Conseiller quelque chose à quelqu’un = to recommend something to someone. Quoi at the end sounds relaxed but stays polite with vous.",
+                  "literal": "you to-me advise what, for this weekend"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Conseillez: kon-say-YAY."
+            }
+          ]
+        },
+        {
+          "key": "french_friendly_debate",
+          "blueprintKey": "friendly_debate",
+          "missionType": "free_conversation",
+          "level": "intermediate",
+          "situation": "debates",
+          "characterKey": "french_ch3_hugo_friend",
+          "titles": {
+            "en": "City or countryside?"
+          },
+          "sceneNotes": {
+            "en": "Over a drink on a terrace by the Saône, your friend Hugo, who grew up in a Beaujolais village, insists the countryside beats the city."
+          },
+          "slots": [
+            {
+              "slotId": "opinion",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "because",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "disagree",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "agree",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "what_do_you_think",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch3:french_friendly_debate:countryside",
+              "key": "countryside",
+              "intentKey": "state_opinion",
+              "slotId": "countryside",
+              "speaker": "character",
+              "text": "Franchement, la campagne, c’est mieux que la ville !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Franchement, la campagne, c’est mieux que la ville !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Honestly, the countryside is better than the city!",
+                  "note": "Franchement (frankly) opens many opinions among friends. Mieux (better) is the everyday comparative of bien: c’est mieux que…",
+                  "literal": "frankly, the countryside, it is better than the town"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Franchement: frahnsh-MAHN. Campagne: kahn-PAN-y."
+            },
+            {
+              "id": "french_ch3:french_friendly_debate:disagree",
+              "key": "disagree",
+              "intentKey": "disagree_politely",
+              "slotId": "disagree",
+              "speaker": "learner",
+              "text": "Je ne suis pas tout à fait d’accord.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je ne suis pas tout à fait d’accord."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I don't quite agree.",
+                  "note": "Pas tout à fait = not quite: a soft way to disagree. Plain je ne suis pas d’accord is fine too, just blunter.",
+                  "literal": "I not am not all at made of agreement"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Tout à fait: too-tah-FEH; the t of tout links to à."
+            },
+            {
+              "id": "french_ch3:french_friendly_debate:opinion",
+              "key": "opinion",
+              "intentKey": "state_opinion",
+              "slotId": "opinion",
+              "speaker": "learner",
+              "text": "Moi, je trouve la ville plus pratique.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Moi, je trouve la ville plus pratique."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Personally, I find the city more convenient.",
+                  "note": "Je trouve (I find) is the most common way to give an opinion: je trouve ça cher. False friend: pratique means convenient, handy, not only 'practical'.",
+                  "literal": "me, I find the town more practical"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Trouve: troov. Pratique: prah-TEEK."
+            },
+            {
+              "id": "french_ch3:french_friendly_debate:why",
+              "key": "why",
+              "intentKey": "ask_reason",
+              "slotId": "why",
+              "speaker": "character",
+              "text": "Ah bon ? Et pourquoi ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ah bon ? Et pourquoi ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Oh really? Why's that?",
+                  "note": "Ah bon ? shows surprise, like 'oh, really?', and invites a reason.",
+                  "literal": "ah good? and why"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Pourquoi: poor-KWAH."
+            },
+            {
+              "id": "french_ch3:french_friendly_debate:because",
+              "key": "because",
+              "intentKey": "give_reason",
+              "slotId": "because",
+              "speaker": "learner",
+              "text": "Parce qu’on peut tout faire à pied ou en métro.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Parce qu’on peut tout faire à pied ou en métro."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Because you can do everything on foot or by metro.",
+                  "note": "Parce que (because) becomes parce qu’ before a vowel. On is the general 'you' here. Tout goes before the infinitive: tout faire.",
+                  "literal": "because that one can all to-do at foot or in metro"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Parce qu’on: pahrs-KON."
+            },
+            {
+              "id": "french_ch3:french_friendly_debate:rent",
+              "key": "rent",
+              "intentKey": "give_reason",
+              "slotId": "rent",
+              "speaker": "character",
+              "text": "Oui, mais en ville, les loyers sont beaucoup trop chers !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Oui, mais en ville, les loyers sont beaucoup trop chers !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, but in the city, rents are far too high!",
+                  "note": "Le loyer = the rent. Trop = too; beaucoup trop = far too. Rents in Lyon are among the highest in France outside Paris.",
+                  "literal": "yes, but in town, the rents are much too expensive"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Loyers: lwah-YAY. Trop: troh."
+            },
+            {
+              "id": "french_ch3:french_friendly_debate:agree",
+              "key": "agree",
+              "intentKey": "agree",
+              "slotId": "agree",
+              "speaker": "learner",
+              "text": "Là, je suis d’accord avec toi.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Là, je suis d’accord avec toi."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "On that, I agree with you.",
+                  "note": "Là (there) = on that point. Être d’accord avec quelqu’un = to agree with someone; d’accord on its own means OK.",
+                  "literal": "there, I am of agreement with you"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "D’accord: dah-KOR. Avec toi: ah-vek TWAH."
+            },
+            {
+              "id": "french_ch3:french_friendly_debate:what_do_you_think",
+              "key": "what_do_you_think",
+              "intentKey": "ask_opinion",
+              "slotId": "what_do_you_think",
+              "speaker": "learner",
+              "text": "Mais pour le travail, tu en penses quoi ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mais pour le travail, tu en penses quoi ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "But what about work, what do you think?",
+                  "note": "Penser de = to think of (an opinion). En stands for 'of it': tu en penses quoi ? = what do you think of it?",
+                  "literal": "but for the work, you of-it think what"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Penses: pahns."
+            },
+            {
+              "id": "french_ch3:french_friendly_debate:point_for_you",
+              "key": "point_for_you",
+              "intentKey": "agree",
+              "slotId": "point_for_you",
+              "speaker": "character",
+              "text": "C’est vrai, c’est plus facile en ville. Un point pour toi !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "C’est vrai, c’est plus facile en ville. Un point pour toi !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "True, it's easier in the city. A point to you!",
+                  "note": "Un point pour toi ! = one point to you: a playful way to give in during a friendly argument.",
+                  "literal": "it is true, it is more easy in town. a point for you"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Facile: fah-SEEL."
+            },
+            {
+              "id": "french_ch3:french_friendly_debate:in_my_view",
+              "key": "in_my_view",
+              "intentKey": "state_opinion",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "À mon avis, la ville, c’est mieux.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "À mon avis, la ville, c’est mieux."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "In my opinion, the city is better.",
+                  "note": "À mon avis = in my opinion. False friend: un avis is an opinion; a piece of advice is un conseil.",
+                  "literal": "at my opinion, the town, it is better"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Avis: ah-VEE."
+            }
+          ]
+        },
+        {
+          "key": "french_tell_a_story",
+          "blueprintKey": "tell_a_story",
+          "missionType": "story",
+          "level": "intermediate",
+          "situation": "story",
+          "characterKey": "french_ch3_camille_friend_c3",
+          "titles": {
+            "en": "Lost in Vieux-Lyon"
+          },
+          "sceneNotes": {
+            "en": "Camille, your friend since your first days in Lyon, meets you for a coffee; you tell her how you got lost in the old town last night."
+          },
+          "slots": [
+            {
+              "slotId": "yesterday",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "story",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_to_say",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "i_mean",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch3:french_tell_a_story:yesterday",
+              "key": "yesterday",
+              "intentKey": "say_when_happened",
+              "slotId": "yesterday",
+              "speaker": "learner",
+              "text": "Tu sais quoi ? Hier soir, je me suis perdu !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Tu sais quoi ? Hier soir, je me suis perdu !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Guess what? I got lost last night!",
+                  "note": "Se perdre (to get lost) takes être in the passé composé: je me suis perdu. A woman writes perdue; it sounds the same. Tu sais quoi ? = guess what?",
+                  "literal": "you know what? yesterday evening, I myself am lost"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Hier: yair, one syllable. Perdu: pair-DÜ."
+            },
+            {
+              "id": "french_ch3:french_tell_a_story:how_come",
+              "key": "how_come",
+              "intentKey": "ask_clarification",
+              "slotId": "how_come",
+              "speaker": "character",
+              "text": "Perdu ? Comment ça ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Perdu ? Comment ça ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Lost? What do you mean?",
+                  "note": "Comment ça ? = what do you mean? how so? Repeating a word with a rising voice asks for more.",
+                  "literal": "lost? how that"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Comment ça: ko-mahn SAH."
+            },
+            {
+              "id": "french_ch3:french_tell_a_story:story",
+              "key": "story",
+              "intentKey": "narrate_past_event",
+              "slotId": "story",
+              "speaker": "learner",
+              "text": "J’ai pris une traboule dans le Vieux-Lyon, et je suis sorti ailleurs.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "J’ai pris une traboule dans le Vieux-Lyon, et je suis sorti ailleurs."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I took a traboule in the old town and came out somewhere else.",
+                  "note": "Traboules are passages through buildings and courtyards, a Lyon speciality. Prendre → j’ai pris (with avoir); sortir → je suis sorti (with être; a woman writes sortie).",
+                  "literal": "I have taken a traboule in the Old-Lyon, and I am gone-out elsewhere"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Traboule: trah-BOOL. Ailleurs: ah-YUHR."
+            },
+            {
+              "id": "french_ch3:french_tell_a_story:what_time",
+              "key": "what_time",
+              "intentKey": "ask_time",
+              "slotId": "what_time",
+              "speaker": "character",
+              "text": "Oh non ! Il était quelle heure ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Oh non ! Il était quelle heure ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Oh no! What time was it?",
+                  "note": "Il était (it was) is the imperfect: it sets the scene in a story, while the passé composé tells what happened.",
+                  "literal": "oh no! it was what hour"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Était: ay-TEH."
+            },
+            {
+              "id": "french_ch3:french_tell_a_story:i_mean",
+              "key": "i_mean",
+              "intentKey": "correct_self",
+              "slotId": "i_mean",
+              "speaker": "learner",
+              "text": "Il était minuit. Enfin, onze heures, je veux dire.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Il était minuit. Enfin, onze heures, je veux dire."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It was midnight. Well, eleven, I mean.",
+                  "note": "Enfin (literally 'finally') also corrects what you have just said, like 'well'. Je veux dire = I mean.",
+                  "literal": "it was midnight. finally, eleven hours, I want to-say"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Minuit: mee-NWEE. Onze heures: on-ZUHR."
+            },
+            {
+              "id": "french_ch3:french_tell_a_story:kind_man",
+              "key": "kind_man",
+              "intentKey": "narrate_past_event",
+              "slotId": "kind_man",
+              "speaker": "learner",
+              "text": "Heureusement, un monsieur m’a aidé.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Heureusement, un monsieur m’a aidé."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Luckily, a man helped me.",
+                  "note": "Heureusement = luckily. M’a aidé = helped me: the object pronoun comes before avoir. Un monsieur is a polite way to say 'a man'.",
+                  "literal": "happily, a sir me has helped"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Heureusement: uh-ruhz-MAHN. Aidé: eh-DAY."
+            },
+            {
+              "id": "french_ch3:french_tell_a_story:what_did_he_say",
+              "key": "what_did_he_say",
+              "intentKey": "ask_clarification",
+              "slotId": "what_did_he_say",
+              "speaker": "character",
+              "text": "Ah, sympa ! Et qu’est-ce qu’il t’a dit ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ah, sympa ! Et qu’est-ce qu’il t’a dit ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Oh, nice! And what did he say?",
+                  "note": "Sympa (short for sympathique) = nice, friendly. False friend: sympathique never means 'sympathetic'.",
+                  "literal": "ah, nice! and what is-it that he to-you has said"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Sympa: san-PAH. Il t’a dit: eel tah DEE."
+            },
+            {
+              "id": "french_ch3:french_tell_a_story:how_to_say",
+              "key": "how_to_say",
+              "intentKey": "ask_how_to_say",
+              "slotId": "how_to_say",
+              "speaker": "learner",
+              "text": "Il connaissait un « shortcut ». Comment on dit ça en français ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Il connaissait un « shortcut ». Comment on dit ça en français ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "He knew a shortcut. How do you say that in French?",
+                  "note": "Comment on dit… en français ? is the question to keep asking. Connaître (to know a person or a place) → il connaissait, the imperfect.",
+                  "literal": "he knew a « shortcut ». how one says that in French"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Connaissait: koh-neh-SEH. On dit: on DEE."
+            },
+            {
+              "id": "french_ch3:french_tell_a_story:shortcut",
+              "key": "shortcut",
+              "intentKey": "explain_meaning",
+              "slotId": "shortcut",
+              "speaker": "character",
+              "text": "Un raccourci ! Tu as eu de la chance.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Un raccourci ! Tu as eu de la chance."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "A shortcut! You were lucky.",
+                  "note": "Un raccourci comes from court (short). False friend: avoir de la chance = to be lucky; 'a chance' is une occasion.",
+                  "literal": "a shortcut! you have had of the luck"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Raccourci: rah-koor-SEE. Chance: shahnss."
+            },
+            {
+              "id": "french_ch3:french_tell_a_story:next_time",
+              "key": "next_time",
+              "intentKey": "state_future_plan",
+              "slotId": "next_time",
+              "speaker": "learner",
+              "text": "La prochaine fois, je prendrai le métro !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "La prochaine fois, je prendrai le métro !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Next time, I'll take the metro!",
+                  "note": "Prendrai is the future of prendre: drop the final e of the infinitive and add -ai. La prochaine fois = next time.",
+                  "literal": "the next time, I will-take the metro"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Prendrai: prahn-DRAY."
+            },
+            {
+              "id": "french_ch3:french_tell_a_story:what_is_it_called",
+              "key": "what_is_it_called",
+              "intentKey": "ask_how_to_say",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Comment ça s’appelle, en français ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Comment ça s’appelle, en français ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "What's it called in French?",
+                  "note": "Ça s’appelle (it calls itself) = it's called: the same verb as je m’appelle. Point at the thing as you ask.",
+                  "literal": "how that itself calls, in French"
+                }
+              },
+              "register": "casual",
+              "codeSwitchNote": null,
+              "pronunciationNote": "S’appelle: sah-PELL."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "key": "french_ch4",
+      "chapterIndex": 4,
+      "courseTrackId": "french",
+      "targetVarietyId": "fr",
+      "sourceLanguages": [
+        "en"
+      ],
+      "titles": {
+        "en": "Getting things done in Lyon"
+      },
+      "provenance": "ai_draft",
+      "nativeReviewed": false,
+      "reviewStatus": "review_needed",
+      "generatedBy": "authored draft (AI-assisted), chapter 4, 2026-11",
+      "notes": [
+        "AI-assisted draft of chapter 4 for French (fr); native review required before publishing.",
+        "Vous with the landlord, the post office clerk, the shop assistant, the doctor and the airline agent; the running coach says tu, as is normal in French sports clubs, and the learner's lines to him avoid both tu and vous. Please confirm.",
+        "The learner's lines keep the masculine default of chapters 1–3 (arrivé); feminine forms are in the notes. The learner now lives on the slopes of the Croix-Rousse (rue Burdeau), where the flat of mission 1 is.",
+        "Wordings to check first: « Dès le premier du mois », « Je vous règle par carte. », « Je vous la rembourse ? », « C’est clair pour vous ? », « Que se passe-t-il ? » from an airline agent.",
+        "Facts to verify: 800 euros a month charges comprises for a flat in the Croix-Rousse, Colissimo prices and delays to Canada (42 euros, 65 euros express, for 2 kg), the 30-euro GP visit, a running club at 100 euros a year, the London–Lyon flight."
+      ],
+      "characters": [
+        {
+          "key": "french_ch4_bernard_landlord",
+          "name": "Bernard",
+          "role": "landlord",
+          "personality": "precise, a little talkative, proud of his old silk-weavers' building",
+          "homeRegion": "Lyon",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "french_ch4_sylvie_post_office_clerk",
+          "name": "Sylvie",
+          "role": "post office clerk",
+          "personality": "quick, friendly, has seen every kind of parcel",
+          "homeRegion": "Lyon",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "french_ch4_ines_shop_assistant",
+          "name": "Inès",
+          "role": "shop assistant",
+          "personality": "patient, apologetic, keen to fix things",
+          "homeRegion": "Lyon",
+          "ageBand": null,
+          "voice": "female"
+        },
+        {
+          "key": "french_ch4_moreau_doctor",
+          "name": "Dr Moreau",
+          "role": "doctor",
+          "personality": "calm, thorough, explains things simply",
+          "homeRegion": "Lyon",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "french_ch4_romain_coach",
+          "name": "Romain",
+          "role": "coach",
+          "personality": "energetic, encouraging, says tu to everyone from the first minute",
+          "homeRegion": "Lyon",
+          "ageBand": null,
+          "voice": "male"
+        },
+        {
+          "key": "french_ch4_claire_airline_agent",
+          "name": "Claire",
+          "role": "airline agent",
+          "personality": "calm, apologetic, efficient",
+          "homeRegion": "Lyon",
+          "ageBand": null,
+          "voice": "female"
+        }
+      ],
+      "missions": [
+        {
+          "key": "french_rent_a_flat",
+          "blueprintKey": "rent_a_flat",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "housing",
+          "characterKey": "french_ch4_bernard_landlord",
+          "titles": {
+            "en": "Visiting a flat in the Croix-Rousse"
+          },
+          "sceneNotes": {
+            "en": "A bright flat on the third floor of an old silk-weavers' building in the Croix-Rousse, with no lift; Bernard, the owner, shows you round."
+          },
+          "slots": [
+            {
+              "slotId": "rent",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "character"
+            },
+            {
+              "slotId": "where_is",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "is_it_far",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when_free",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "opinion",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "take_it",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch4:french_rent_a_flat:come_in",
+              "key": "come_in",
+              "intentKey": "welcome_someone",
+              "slotId": "come_in",
+              "speaker": "character",
+              "text": "Entrez, je vous en prie. Voilà le salon.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Entrez, je vous en prie. Voilà le salon."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Come in, please. Here's the living room.",
+                  "note": "Je vous en prie = please, go ahead (it also means 'you're welcome'). French counts floors from le rez-de-chaussée, so le troisième étage is the US fourth floor.",
+                  "literal": "enter, I you of-it pray. there-is the living-room"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Je vous en prie: zhuh voo-zahn PREE. Salon: sah-LON."
+            },
+            {
+              "id": "french_ch4:french_rent_a_flat:opinion",
+              "key": "opinion",
+              "intentKey": "state_opinion",
+              "slotId": "opinion",
+              "speaker": "learner",
+              "text": "Il est vraiment lumineux, ce salon !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Il est vraiment lumineux, ce salon !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "This living room is really bright!",
+                  "note": "Lumineux (full of light) is the word every flat advert uses. The old canut flats of the Croix-Rousse are known for high ceilings and tall windows.",
+                  "literal": "it is really luminous, this living-room"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Lumineux: lü-mee-NUH."
+            },
+            {
+              "id": "french_ch4:french_rent_a_flat:rent",
+              "key": "rent",
+              "intentKey": "ask_price",
+              "slotId": "rent",
+              "speaker": "learner",
+              "text": "Et le loyer, c’est combien par mois ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Et le loyer, c’est combien par mois ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And how much is the rent a month?",
+                  "note": "Le loyer = the rent. Naming the topic first, then asking c’est combien ?, is the natural spoken order.",
+                  "literal": "and the rent, it is how-much by month"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Loyer: lwah-YAY. Mois: mwah."
+            },
+            {
+              "id": "french_ch4:french_rent_a_flat:price",
+              "key": "price",
+              "intentKey": "state_price",
+              "slotId": "price",
+              "speaker": "character",
+              "text": "Huit cents euros, charges comprises.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Huit cents euros, charges comprises."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Eight hundred euros, including service charges.",
+                  "note": "Charges comprises = service charges included (building upkeep, often water and heating); charges en plus = on top of the rent.",
+                  "literal": "eight hundreds euros, charges included"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Huit cents euros: wee sahn-zuh-ROH. Comprises: kon-PREEZ."
+            },
+            {
+              "id": "french_ch4:french_rent_a_flat:where_is",
+              "key": "where_is",
+              "intentKey": "ask_where_is",
+              "slotId": "where_is",
+              "speaker": "learner",
+              "text": "Où est la machine à laver ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Où est la machine à laver ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Where's the washing machine?",
+                  "note": "Une machine à laver (a machine to wash). À + infinitive says what a thing is for: une salle à manger, a dining room.",
+                  "literal": "where is the machine to wash"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Machine à laver: mah-SHEEN ah lah-VAY."
+            },
+            {
+              "id": "french_ch4:french_rent_a_flat:is_it_far",
+              "key": "is_it_far",
+              "intentKey": "ask_is_it_far",
+              "slotId": "is_it_far",
+              "speaker": "learner",
+              "text": "Et le métro, c’est loin ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Et le métro, c’est loin ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And is the metro far?",
+                  "note": "Answers you may hear: c’est tout près (it's very close), c’est à deux pas (it's two steps away).",
+                  "literal": "and the metro, it is far"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Loin: lwan, nasal, no n sound."
+            },
+            {
+              "id": "french_ch4:french_rent_a_flat:near",
+              "key": "near",
+              "intentKey": "say_it_is_near",
+              "slotId": "near",
+              "speaker": "character",
+              "text": "La machine est dans la cuisine, et le métro à cinq minutes.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "La machine est dans la cuisine, et le métro à cinq minutes."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The machine's in the kitchen, and the metro's five minutes away.",
+                  "note": "French drops a repeated verb just as English can: le métro (est) à cinq minutes. À + time = away: c’est à dix minutes à pied.",
+                  "literal": "the machine is in the kitchen, and the metro at five minutes"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Cuisine: kwee-ZEEN. Minutes: mee-NÜT."
+            },
+            {
+              "id": "french_ch4:french_rent_a_flat:when_free",
+              "key": "when_free",
+              "intentKey": "ask_availability",
+              "slotId": "when_free",
+              "speaker": "learner",
+              "text": "Il est libre à partir de quand ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Il est libre à partir de quand ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "When is it available from?",
+                  "note": "Libre = free, available, for a flat, a table or a person. À partir de = from, starting from.",
+                  "literal": "it is free at to-leave from when"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Libre: leebr. À partir de: ah par-TEER duh."
+            },
+            {
+              "id": "french_ch4:french_rent_a_flat:piano",
+              "key": "piano",
+              "intentKey": "tell_time",
+              "slotId": "piano",
+              "speaker": "character",
+              "text": "Dès le premier du mois. Mais attention, le voisin joue du piano !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Dès le premier du mois. Mais attention, le voisin joue du piano !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "From the first of the month. But be warned, the neighbour plays the piano!",
+                  "note": "Dès = from, as early as. Jouer du + instrument: jouer du piano, de la guitare; but jouer au + sport: jouer au foot.",
+                  "literal": "from the first of-the month. but attention, the neighbour plays some piano"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Dès: deh. Voisin: vwah-ZAN."
+            },
+            {
+              "id": "french_ch4:french_rent_a_flat:take_it",
+              "key": "take_it",
+              "intentKey": "accept_offer",
+              "slotId": "take_it",
+              "speaker": "learner",
+              "text": "Pas de problème, j’aime la musique. Je le prends !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pas de problème, j’aime la musique. Je le prends !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "No problem, I like music. I'll take it!",
+                  "note": "Le stands for l’appartement. Next step: you sign le bail, the lease, and make l’état des lieux, the check-in inventory.",
+                  "literal": "not of problem, I love the music. I it take"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Musique: mü-ZEEK. Prends: prahn."
+            },
+            {
+              "id": "french_ch4:french_rent_a_flat:deposit",
+              "key": "deposit",
+              "intentKey": "ask_price",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Le dépôt de garantie, c’est combien ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Le dépôt de garantie, c’est combien ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is the deposit?",
+                  "note": "Le dépôt de garantie, often called la caution, is the security deposit: by law at most one month's rent for an unfurnished flat.",
+                  "literal": "the deposit of guarantee, it is how-much"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Dépôt: day-POH. Garantie: gah-rahn-TEE."
+            }
+          ]
+        },
+        {
+          "key": "french_post_a_parcel",
+          "blueprintKey": "post_a_parcel",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "daily_life",
+          "characterKey": "french_ch4_sylvie_post_office_clerk",
+          "titles": {
+            "en": "Sending a parcel home"
+          },
+          "sceneNotes": {
+            "en": "The post office on a busy Saturday morning; you are sending a small box of presents to your family in Toronto, and the clerk offers a faster option."
+          },
+          "slots": [
+            {
+              "slotId": "send",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "where_to",
+              "speaker": "character"
+            },
+            {
+              "slotId": "destination",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "how_long",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pay",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch4:french_post_a_parcel:send",
+              "key": "send",
+              "intentKey": "request_item",
+              "slotId": "send",
+              "speaker": "learner",
+              "text": "Bonjour, je voudrais envoyer ce colis.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bonjour, je voudrais envoyer ce colis."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, I'd like to send this parcel.",
+                  "note": "Je voudrais + infinitive = I'd like to. Un colis = a parcel; une lettre = a letter. La Poste also sells ready-made boxes.",
+                  "literal": "good-day, I would-like to-send this parcel"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Envoyer: ahn-vwah-YAY. Colis: koh-LEE, silent s."
+            },
+            {
+              "id": "french_ch4:french_post_a_parcel:where_to",
+              "key": "where_to",
+              "intentKey": "ask_destination",
+              "slotId": "where_to",
+              "speaker": "character",
+              "text": "Très bien. C’est pour quel pays ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Très bien. C’est pour quel pays ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Fine. Which country is it going to?",
+                  "note": "Quel agrees with its noun: quel pays, quelle ville, quels jours.",
+                  "literal": "very well. it is for which country"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Pays: pay-EE, two syllables."
+            },
+            {
+              "id": "french_ch4:french_post_a_parcel:destination",
+              "key": "destination",
+              "intentKey": "state_destination",
+              "slotId": "destination",
+              "speaker": "learner",
+              "text": "Pour le Canada, à Toronto.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Pour le Canada, à Toronto."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "To Canada, to Toronto.",
+                  "note": "Countries take an article: le Canada, la France, les États-Unis. Going there: au Canada, en France, aux États-Unis; but à before a city: à Toronto.",
+                  "literal": "for the Canada, at Toronto"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Canada: kah-nah-DAH, stressed at the end."
+            },
+            {
+              "id": "french_ch4:french_post_a_parcel:scale",
+              "key": "scale",
+              "intentKey": "ask_small_favour",
+              "slotId": "scale",
+              "speaker": "character",
+              "text": "Posez-le sur la balance, s’il vous plaît.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Posez-le sur la balance, s’il vous plaît."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Put it on the scales, please.",
+                  "note": "In a command, le comes after the verb with a hyphen: posez-le. Une balance = a pair of scales.",
+                  "literal": "put-it on the scales, if it you pleases"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Posez-le: poh-zay-LUH. Balance: bah-LAHNSS."
+            },
+            {
+              "id": "french_ch4:french_post_a_parcel:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "Deux kilos, ça fait combien ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Deux kilos, ça fait combien ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How much is it for two kilos?",
+                  "note": "Ça fait combien ? = how much does that come to? France weighs in kilos and grams: un kilo, cinq cents grammes.",
+                  "literal": "two kilos, that makes how-much"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Kilos: kee-LOH, silent s."
+            },
+            {
+              "id": "french_ch4:french_post_a_parcel:options",
+              "key": "options",
+              "intentKey": "state_price",
+              "slotId": "options",
+              "speaker": "character",
+              "text": "Quarante-deux euros, ou soixante-cinq en express.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Quarante-deux euros, ou soixante-cinq en express."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Forty-two euros, or sixty-five by express.",
+                  "note": "Soixante (60) is the last regular ten: seventy is soixante-dix, 'sixty-ten'. Express costs more but arrives sooner.",
+                  "literal": "forty-two euros, or sixty-five in express"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Soixante: swah-SAHNT. Express: ek-SPRESS."
+            },
+            {
+              "id": "french_ch4:french_post_a_parcel:how_long",
+              "key": "how_long",
+              "intentKey": "ask_time",
+              "slotId": "how_long",
+              "speaker": "learner",
+              "text": "Et ça met combien de temps ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Et ça met combien de temps ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And how long does it take?",
+                  "note": "Mettre du temps (to put time) = to take time: ça met une semaine. Combien de + noun = how much, how many.",
+                  "literal": "and that puts how-much of time"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Met: meh. Temps: tahn, silent p and s."
+            },
+            {
+              "id": "french_ch4:french_post_a_parcel:delay",
+              "key": "delay",
+              "intentKey": "tell_time",
+              "slotId": "delay",
+              "speaker": "character",
+              "text": "Une semaine environ, ou trois jours en express.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Une semaine environ, ou trois jours en express."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "About a week, or three days by express.",
+                  "note": "Environ (about) can come before or after the amount: environ une semaine, une semaine environ.",
+                  "literal": "a week about, or three days in express"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Environ: ahn-vee-RON."
+            },
+            {
+              "id": "french_ch4:french_post_a_parcel:cheaper",
+              "key": "cheaper",
+              "intentKey": "choose_option",
+              "slotId": "cheaper",
+              "speaker": "learner",
+              "text": "Le moins cher, s’il vous plaît. Ce n’est pas urgent.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Le moins cher, s’il vous plaît. Ce n’est pas urgent."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The cheaper one, please. It's not urgent.",
+                  "note": "Le moins cher = the least expensive; le plus rapide = the fastest.",
+                  "literal": "the less expensive, if it you pleases. it not is not urgent"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Cher: shair. Urgent: ür-ZHAHN."
+            },
+            {
+              "id": "french_ch4:french_post_a_parcel:pay",
+              "key": "pay",
+              "intentKey": "pay",
+              "slotId": "pay",
+              "speaker": "learner",
+              "text": "Je vous règle par carte.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je vous règle par carte."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'll pay you by card.",
+                  "note": "Régler (to settle) is a polite verb for paying at a counter: je vous règle par carte, en espèces. Payer works too.",
+                  "literal": "I you settle by card"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Règle: REG-luh."
+            },
+            {
+              "id": "french_ch4:french_post_a_parcel:for_canada",
+              "key": "for_canada",
+              "intentKey": "request_item",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "C’est pour envoyer un colis au Canada.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "C’est pour envoyer un colis au Canada."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm here to send a parcel to Canada.",
+                  "note": "C’est pour + infinitive = I'm here to: the usual way to state your business at a counter. To collect a parcel: c’est pour retirer un colis.",
+                  "literal": "it is for to-send a parcel to-the Canada"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Au Canada: oh kah-nah-DAH."
+            }
+          ]
+        },
+        {
+          "key": "french_return_an_item",
+          "blueprintKey": "return_an_item",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "shopping",
+          "characterKey": "french_ch4_ines_shop_assistant",
+          "titles": {
+            "en": "Returning a kettle"
+          },
+          "sceneNotes": {
+            "en": "The customer service desk of a home appliance shop on the rue de la République; the kettle you bought there last week doesn't heat."
+          },
+          "slots": [
+            {
+              "slotId": "broken",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "bought_when",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "sorry",
+              "speaker": "character"
+            },
+            {
+              "slotId": "no_problem",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "exchange",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch4:french_return_an_item:can_i_help",
+              "key": "can_i_help",
+              "intentKey": "offer_help",
+              "slotId": "can_i_help",
+              "speaker": "character",
+              "text": "Bonjour, qu’est-ce que je peux faire pour vous ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bonjour, qu’est-ce que je peux faire pour vous ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, what can I do for you?",
+                  "note": "The standard opening at a service desk. Answer with bonjour first: in a French shop, the greeting always comes before the problem.",
+                  "literal": "good-day, what is-it that I can to-do for you"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Qu’est-ce que: KESS-kuh."
+            },
+            {
+              "id": "french_ch4:french_return_an_item:broken",
+              "key": "broken",
+              "intentKey": "report_broken",
+              "slotId": "broken",
+              "speaker": "learner",
+              "text": "Bonjour, cette bouilloire ne chauffe pas.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bonjour, cette bouilloire ne chauffe pas."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, this kettle doesn't heat up.",
+                  "note": "Une bouilloire = a kettle (from bouillir, to boil). Chauffer = to heat. For anything that doesn't work at all: ça ne marche pas.",
+                  "literal": "good-day, this kettle not heats not"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Bouilloire: boo-YWAHR. Chauffe: shohf."
+            },
+            {
+              "id": "french_ch4:french_return_an_item:bought_when",
+              "key": "bought_when",
+              "intentKey": "say_when_happened",
+              "slotId": "bought_when",
+              "speaker": "learner",
+              "text": "Je l’ai achetée ici la semaine dernière.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je l’ai achetée ici la semaine dernière."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I bought it here last week.",
+                  "note": "With l’ (the kettle, feminine) placed before avoir, the participle takes an e in writing: je l’ai achetée. It sounds just like acheté.",
+                  "literal": "I it-have bought here the week last"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Achetée: ahsh-TAY. Dernière: dair-NYAIR."
+            },
+            {
+              "id": "french_ch4:french_return_an_item:sorry",
+              "key": "sorry",
+              "intentKey": "apologise",
+              "slotId": "sorry",
+              "speaker": "character",
+              "text": "Je suis désolée. Vous avez le ticket de caisse ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je suis désolée. Vous avez le ticket de caisse ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm sorry. Do you have the receipt?",
+                  "note": "Le ticket de caisse = the till receipt; un reçu is more formal. Shops usually ask for it before any refund or exchange.",
+                  "literal": "I am sorry. you have the ticket of till"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Ticket de caisse: tee-KAY duh KESS."
+            },
+            {
+              "id": "french_ch4:french_return_an_item:no_problem",
+              "key": "no_problem",
+              "intentKey": "accept_apology",
+              "slotId": "no_problem",
+              "speaker": "learner",
+              "text": "Ce n’est pas grave. Oui, le voici.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ce n’est pas grave. Oui, le voici."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "That's all right. Yes, here it is.",
+                  "note": "Ce n’est pas grave (it's not serious) = no problem, that's all right. Le voici = here it is; la voici for a feminine noun.",
+                  "literal": "it not is not serious. yes, it here-is"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Grave: grahv. Voici: vwah-SEE."
+            },
+            {
+              "id": "french_ch4:french_return_an_item:refund",
+              "key": "refund",
+              "intentKey": "offer_options",
+              "slotId": "refund",
+              "speaker": "character",
+              "text": "Merci. Je vous la rembourse ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Merci. Je vous la rembourse ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you. Shall I refund it?",
+                  "note": "Rembourser = to refund. A present-tense statement with a rising voice works as an offer: je vous la rembourse ? = shall I refund it for you?",
+                  "literal": "thanks. I to-you it refund"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Rembourse: rahn-BOORSS."
+            },
+            {
+              "id": "french_ch4:french_return_an_item:exchange",
+              "key": "exchange",
+              "intentKey": "ask_alternative",
+              "slotId": "exchange",
+              "speaker": "learner",
+              "text": "Vous pouvez plutôt me l’échanger ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Vous pouvez plutôt me l’échanger ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Could you exchange it for me instead?",
+                  "note": "Plutôt = instead, rather. Two pronouns go in this order: me l’échanger = exchange it for me.",
+                  "literal": "you can rather to-me it-exchange"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Échanger: ay-shahn-ZHAY."
+            },
+            {
+              "id": "french_ch4:french_return_an_item:new_one",
+              "key": "new_one",
+              "intentKey": "offer_options",
+              "slotId": "new_one",
+              "speaker": "character",
+              "text": "Bien sûr. Tenez, celle-ci est neuve.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bien sûr. Tenez, celle-ci est neuve."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Of course. Here you are, this one is brand new.",
+                  "note": "Tenez = here you are, as you hand something over. Neuf, neuve = brand new; nouveau, nouvelle = new, another one.",
+                  "literal": "well sure. hold, this-one-here is new"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Tenez: tuh-NAY. Neuve: nuhv."
+            },
+            {
+              "id": "french_ch4:french_return_an_item:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Merci, vous êtes très aimable.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Merci, vous êtes très aimable."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you, that's very kind of you.",
+                  "note": "Vous êtes très aimable is a warm, polite thank-you for good service.",
+                  "literal": "thanks, you are very kind"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Vous êtes: voo-ZET. Aimable: eh-MAHBL."
+            },
+            {
+              "id": "french_ch4:french_return_an_item:doesnt_work",
+              "key": "doesnt_work",
+              "intentKey": "report_broken",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Elle ne marche pas du tout.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Elle ne marche pas du tout."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It doesn't work at all.",
+                  "note": "Marcher (to walk) also means 'to work' for machines: ça marche ! = it works! Pas du tout = not at all. Elle because une bouilloire is feminine.",
+                  "literal": "she not walks not at-all"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Du tout: dü TOO."
+            },
+            {
+              "id": "french_ch4:french_return_an_item:another_one",
+              "key": "another_one",
+              "intentKey": "ask_alternative",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Je peux en avoir une autre ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je peux en avoir une autre ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I have another one?",
+                  "note": "En = of them: je peux en avoir une autre ? = can I have another (of them)? Say un autre for a masculine noun.",
+                  "literal": "I can of-them to-have an other"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "En avoir: ahn-nah-VWAHR."
+            }
+          ]
+        },
+        {
+          "key": "french_see_the_doctor",
+          "blueprintKey": "see_the_doctor",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "health",
+          "characterKey": "french_ch4_moreau_doctor",
+          "titles": {
+            "en": "At the doctor's"
+          },
+          "sceneNotes": {
+            "en": "A GP's surgery in your neighbourhood; you have had a sore throat and a slight fever for two days, and Dr Moreau has a slot at 5 p.m."
+          },
+          "slots": [
+            {
+              "slotId": "hello",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "pain",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "since",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "check",
+              "speaker": "character"
+            },
+            {
+              "slotId": "question",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "understood",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch4:french_see_the_doctor:hello",
+              "key": "hello",
+              "intentKey": "greet_time_of_day",
+              "slotId": "hello",
+              "speaker": "learner",
+              "text": "Bonjour, docteur.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bonjour, docteur."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Good afternoon, doctor.",
+                  "note": "Docteur is how you address a doctor; when you talk about one, say un médecin. From about 6 p.m., say bonsoir instead.",
+                  "literal": "good-day, doctor"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Docteur: dok-TUHR."
+            },
+            {
+              "id": "french_ch4:french_see_the_doctor:what_brings_you",
+              "key": "what_brings_you",
+              "intentKey": "ask_emergency_type",
+              "slotId": "what_brings_you",
+              "speaker": "character",
+              "text": "Bonjour, asseyez-vous. Qu’est-ce qui vous amène ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bonjour, asseyez-vous. Qu’est-ce qui vous amène ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello, have a seat. What brings you here?",
+                  "note": "Qu’est-ce qui vous amène ? (what brings you?) is the doctor's usual first question. Asseyez-vous = sit down.",
+                  "literal": "good-day, sit-yourself. what is-it that you brings"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Asseyez-vous: ah-seh-yay VOO. Amène: ah-MEN."
+            },
+            {
+              "id": "french_ch4:french_see_the_doctor:pain",
+              "key": "pain",
+              "intentKey": "describe_pain",
+              "slotId": "pain",
+              "speaker": "learner",
+              "text": "J’ai mal à la gorge, et un peu de fièvre.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "J’ai mal à la gorge, et un peu de fièvre."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I have a sore throat and a slight fever.",
+                  "note": "Avoir mal à + body part: mal à la gorge (throat), mal à la tête (head), mal au ventre (stomach). Fever is measured in Celsius: 38 °C counts as fever.",
+                  "literal": "I have bad at the throat, and a little of fever"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Gorge: gorzh. Fièvre: FYEHVR."
+            },
+            {
+              "id": "french_ch4:french_see_the_doctor:since_when",
+              "key": "since_when",
+              "intentKey": "ask_time",
+              "slotId": "since_when",
+              "speaker": "character",
+              "text": "Depuis combien de temps ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Depuis combien de temps ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "For how long?",
+                  "note": "Depuis = since, for. French uses the present with depuis where English needs 'have had': j’ai mal depuis deux jours.",
+                  "literal": "since how-much of time"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Depuis: duh-PWEE."
+            },
+            {
+              "id": "french_ch4:french_see_the_doctor:since",
+              "key": "since",
+              "intentKey": "say_when_happened",
+              "slotId": "since",
+              "speaker": "learner",
+              "text": "Depuis deux jours, à peu près.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Depuis deux jours, à peu près."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "For about two days.",
+                  "note": "À peu près = about, roughly. You can also give a starting point: depuis samedi, depuis hier soir.",
+                  "literal": "since two days, at little near"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "À peu près: ah puh PREH."
+            },
+            {
+              "id": "french_ch4:french_see_the_doctor:diagnosis",
+              "key": "diagnosis",
+              "intentKey": "state_opinion",
+              "slotId": "diagnosis",
+              "speaker": "character",
+              "text": "C’est une petite angine. Je vous prescris un sirop.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "C’est une petite angine. Je vous prescris un sirop."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It's a mild throat infection. I'm prescribing you a syrup.",
+                  "note": "False friend: une angine is a throat infection, not angina. Take the prescription, l’ordonnance, to any pharmacy.",
+                  "literal": "it is a little throat-infection. I you prescribe a syrup"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Angine: ahn-ZHEEN. Sirop: see-ROH, silent p."
+            },
+            {
+              "id": "french_ch4:french_see_the_doctor:question",
+              "key": "question",
+              "intentKey": "ask_clarification",
+              "slotId": "question",
+              "speaker": "learner",
+              "text": "Je le prends combien de fois par jour ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je le prends combien de fois par jour ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "How many times a day do I take it?",
+                  "note": "Combien de fois = how many times. Une fois, deux fois counts occasions; une heure is the time on the clock.",
+                  "literal": "I it take how-much of times by day"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Fois: fwah. Par jour: par ZHOOR."
+            },
+            {
+              "id": "french_ch4:french_see_the_doctor:check",
+              "key": "check",
+              "intentKey": "check_comprehension",
+              "slotId": "check",
+              "speaker": "character",
+              "text": "Trois fois par jour, après les repas. C’est clair pour vous ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Trois fois par jour, après les repas. C’est clair pour vous ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Three times a day, after meals. Is that clear for you?",
+                  "note": "C’est clair pour vous ? = is that clear? Doctors and pharmacists check that you have understood a dosage; don't be shy to ask again.",
+                  "literal": "three times by day, after the meals. it is clear for you"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Repas: ruh-PAH. Clair: klair."
+            },
+            {
+              "id": "french_ch4:french_see_the_doctor:understood",
+              "key": "understood",
+              "intentKey": "confirm_understood",
+              "slotId": "understood",
+              "speaker": "learner",
+              "text": "Oui, c’est clair. Trois fois par jour.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Oui, c’est clair. Trois fois par jour."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, that's clear. Three times a day.",
+                  "note": "Repeating the key information back is the best way to show, and to check, that you have understood.",
+                  "literal": "yes, it is clear. three times by day"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "C’est clair: seh KLAIR."
+            },
+            {
+              "id": "french_ch4:french_see_the_doctor:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Merci beaucoup, docteur. Au revoir !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Merci beaucoup, docteur. Au revoir !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much, doctor. Goodbye!",
+                  "note": "A GP visit costs 30 euros; with a carte Vitale, the French health card, most of it is paid back by the Sécurité sociale.",
+                  "literal": "thanks much, doctor. to-the seeing-again"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Au revoir: oh ruh-VWAHR."
+            },
+            {
+              "id": "french_ch4:french_see_the_doctor:swallow",
+              "key": "swallow",
+              "intentKey": "describe_pain",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "J’ai très mal quand j’avale.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "J’ai très mal quand j’avale."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "It really hurts when I swallow.",
+                  "note": "Avaler = to swallow. Quand + present = when: j’ai mal quand je parle, quand je mange.",
+                  "literal": "I have very bad when I swallow"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Avale: ah-VAL."
+            }
+          ]
+        },
+        {
+          "key": "french_join_a_club",
+          "blueprintKey": "join_a_club",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "plans",
+          "characterKey": "french_ch4_romain_coach",
+          "titles": {
+            "en": "Joining a running club"
+          },
+          "sceneNotes": {
+            "en": "A running club that meets on the banks of the Rhône; Romain, the coach, says tu to everyone, and the first month is free."
+          },
+          "slots": [
+            {
+              "slotId": "hours",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "price",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "try",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "of_course",
+              "speaker": "character"
+            },
+            {
+              "slotId": "like",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "see_you",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch4:french_join_a_club:hours",
+              "key": "hours",
+              "intentKey": "ask_opening_hours",
+              "slotId": "hours",
+              "speaker": "learner",
+              "text": "Bonjour ! Les entraînements, c’est quels jours ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bonjour ! Les entraînements, c’est quels jours ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Hello! Which days are the training sessions?",
+                  "note": "Un entraînement = a training session. Quels jours ? = which days? Topic first, then the question: very common in spoken French.",
+                  "literal": "good-day! the trainings, it is which days"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Entraînements: ahn-tren-MAHN."
+            },
+            {
+              "id": "french_ch4:french_join_a_club:days",
+              "key": "days",
+              "intentKey": "tell_time",
+              "slotId": "days",
+              "speaker": "character",
+              "text": "Le mardi et le jeudi, à dix-neuf heures.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Le mardi et le jeudi, à dix-neuf heures."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Tuesdays and Thursdays, at 7 p.m.",
+                  "note": "Le mardi = on Tuesdays, every week. Dix-neuf heures = 7 p.m.: clubs and timetables use the 24-hour clock.",
+                  "literal": "the Tuesday and the Thursday, at nineteen hours"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Dix-neuf heures: deez-nuh-VUHR; the f of neuf sounds like v before heures."
+            },
+            {
+              "id": "french_ch4:french_join_a_club:price",
+              "key": "price",
+              "intentKey": "ask_price",
+              "slotId": "price",
+              "speaker": "learner",
+              "text": "Et l’inscription, c’est combien ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Et l’inscription, c’est combien ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "And how much is it to join?",
+                  "note": "L’inscription = signing up, and the fee for it. Most French clubs charge a yearly fee, la cotisation, often paid in September.",
+                  "literal": "and the inscription, it is how-much"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Inscription: an-skreep-SYON."
+            },
+            {
+              "id": "french_ch4:french_join_a_club:free_month",
+              "key": "free_month",
+              "intentKey": "state_price",
+              "slotId": "free_month",
+              "speaker": "character",
+              "text": "Le premier mois est gratuit, puis c’est cent euros par an.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Le premier mois est gratuit, puis c’est cent euros par an."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "The first month is free, then it's a hundred euros a year.",
+                  "note": "Gratuit = free of charge; libre = free as in available. Cent links to euros with a t sound.",
+                  "literal": "the first month is free, then it is hundred euros by year"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Gratuit: grah-TWEE. Cent euros: sahn-tuh-ROH."
+            },
+            {
+              "id": "french_ch4:french_join_a_club:try",
+              "key": "try",
+              "intentKey": "ask_permission",
+              "slotId": "try",
+              "speaker": "learner",
+              "text": "Je peux venir faire un essai jeudi ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je peux venir faire un essai jeudi ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I come and try it out on Thursday?",
+                  "note": "Faire un essai = to have a trial session. Jeudi without le = this Thursday.",
+                  "literal": "I can to-come to-do a try Thursday"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Essai: eh-SEH. Jeudi: zhuh-DEE."
+            },
+            {
+              "id": "french_ch4:french_join_a_club:of_course",
+              "key": "of_course",
+              "intentKey": "grant_permission",
+              "slotId": "of_course",
+              "speaker": "character",
+              "text": "Bien sûr ! Tu cours combien de kilomètres, en général ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Bien sûr ! Tu cours combien de kilomètres, en général ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Of course! How many kilometres do you usually run?",
+                  "note": "In sports clubs everyone says tu, the coach included. Courir: je cours, tu cours, il court; the final letters are silent.",
+                  "literal": "well sure! you run how-many of kilometres, in general"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Cours: koor. Kilomètres: kee-loh-METR."
+            },
+            {
+              "id": "french_ch4:french_join_a_club:like",
+              "key": "like",
+              "intentKey": "express_like",
+              "slotId": "like",
+              "speaker": "learner",
+              "text": "Environ cinq. J’adore courir au bord de l’eau !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Environ cinq. J’adore courir au bord de l’eau !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "About five. I love running by the water!",
+                  "note": "Au bord de = at the edge of, by: au bord de l’eau, au bord de la mer. Cinq stands alone: kilomètres is understood.",
+                  "literal": "about five. I adore to-run at-the edge of the water"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Courir: koo-REER. Au bord de l’eau: oh BOR duh LOH."
+            },
+            {
+              "id": "french_ch4:french_join_a_club:meet_point",
+              "key": "meet_point",
+              "intentKey": "make_plan_time",
+              "slotId": "meet_point",
+              "speaker": "character",
+              "text": "Super ! Rendez-vous jeudi au pont de la Guillotière.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Super ! Rendez-vous jeudi au pont de la Guillotière."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Great! See you Thursday at the Guillotière bridge.",
+                  "note": "Rendez-vous ! = let's meet; un rendez-vous is also an appointment. The Pont de la Guillotière is one of the bridges over the Rhône.",
+                  "literal": "super! meeting Thursday at-the bridge of the Guillotière"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Rendez-vous: rahn-day-VOO. Guillotière: ghee-yoh-TYAIR."
+            },
+            {
+              "id": "french_ch4:french_join_a_club:see_you",
+              "key": "see_you",
+              "intentKey": "confirm_plan",
+              "slotId": "see_you",
+              "speaker": "learner",
+              "text": "Parfait, à jeudi, dix-neuf heures !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Parfait, à jeudi, dix-neuf heures !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Perfect, see you Thursday at seven!",
+                  "note": "À + day = see you then: à jeudi, à lundi. Repeating the time is a simple way to confirm a plan.",
+                  "literal": "perfect, to Thursday, nineteen hours"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "À jeudi: ah zhuh-DEE."
+            },
+            {
+              "id": "french_ch4:french_join_a_club:watch_first",
+              "key": "watch_first",
+              "intentKey": "ask_permission",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Est-ce que je peux juste regarder, la première fois ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Est-ce que je peux juste regarder, la première fois ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Can I just watch the first time?",
+                  "note": "Est-ce que je peux… ? is a little more careful than je peux… ?. Juste = just, only, in everyday speech.",
+                  "literal": "is-it that I can just to-watch, the first time"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Juste: zhüst. Regarder: ruh-gar-DAY."
+            },
+            {
+              "id": "french_ch4:french_join_a_club:does_me_good",
+              "key": "does_me_good",
+              "intentKey": "express_like",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Courir, ça me fait du bien.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Courir, ça me fait du bien."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Running does me good.",
+                  "note": "Ça me fait du bien = it does me good. Naming the activity first, then picking it up with ça, is typical of spoken French.",
+                  "literal": "to-run, that to-me does some good"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Du bien: dü BYAN."
+            }
+          ]
+        },
+        {
+          "key": "french_lost_luggage",
+          "blueprintKey": "lost_luggage",
+          "missionType": "situational",
+          "level": "elementary",
+          "situation": "travel",
+          "characterKey": "french_ch4_claire_airline_agent",
+          "titles": {
+            "en": "Lost luggage at the airport"
+          },
+          "sceneNotes": {
+            "en": "The baggage desk at Lyon Saint-Exupéry airport; your flight from London landed an hour ago, but your big blue suitcase never came out."
+          },
+          "slots": [
+            {
+              "slotId": "excuse_me",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "lost",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "flight",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "deliver_to",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "when_back",
+              "speaker": "learner"
+            },
+            {
+              "slotId": "tomorrow",
+              "speaker": "character"
+            },
+            {
+              "slotId": "thanks",
+              "speaker": "learner"
+            }
+          ],
+          "expressions": [
+            {
+              "id": "french_ch4:french_lost_luggage:excuse_me",
+              "key": "excuse_me",
+              "intentKey": "get_attention",
+              "slotId": "excuse_me",
+              "speaker": "learner",
+              "text": "Excusez-moi, c’est ici pour les bagages perdus ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Excusez-moi, c’est ici pour les bagages perdus ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Excuse me, is this the place for lost luggage?",
+                  "note": "Les bagages is plural in French where English says 'luggage': mes bagages = my luggage, un bagage = one bag.",
+                  "literal": "excuse-me, it is here for the luggages lost"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Bagages: bah-GAHZH. Perdus: pair-DÜ."
+            },
+            {
+              "id": "french_ch4:french_lost_luggage:what_happened",
+              "key": "what_happened",
+              "intentKey": "offer_help",
+              "slotId": "what_happened",
+              "speaker": "character",
+              "text": "Oui, c’est bien ici. Que se passe-t-il ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Oui, c’est bien ici. Que se passe-t-il ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Yes, this is the right place. What's the problem?",
+                  "note": "Que se passe-t-il ? is the formal form of qu’est-ce qui se passe ?: verb and subject swap, and -t- is added between two vowels.",
+                  "literal": "yes, it is well here. what itself passes-t-it"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Que se passe-t-il: kuh suh pahss-TEEL."
+            },
+            {
+              "id": "french_ch4:french_lost_luggage:lost",
+              "key": "lost",
+              "intentKey": "report_lost_item",
+              "slotId": "lost",
+              "speaker": "learner",
+              "text": "Ma valise n’est pas arrivée.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Ma valise n’est pas arrivée."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My suitcase didn't arrive.",
+                  "note": "Arriver takes être in the passé composé, so the participle agrees with the subject: ma valise n’est pas arrivée. It sounds the same as arrivé.",
+                  "literal": "my suitcase not is not arrived"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Valise: vah-LEEZ. Arrivée: ah-ree-VAY."
+            },
+            {
+              "id": "french_ch4:french_lost_luggage:flight",
+              "key": "flight",
+              "intentKey": "say_when_happened",
+              "slotId": "flight",
+              "speaker": "learner",
+              "text": "Je suis arrivé de Londres il y a une heure.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je suis arrivé de Londres il y a une heure."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I arrived from London an hour ago.",
+                  "note": "Il y a + time = ago: il y a une heure, il y a deux jours. A woman writes arrivée; it sounds the same.",
+                  "literal": "I am arrived from London there-has an hour"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Londres: LONDR. Il y a une heure: eel-yah ün UHR."
+            },
+            {
+              "id": "french_ch4:french_lost_luggage:still_in_london",
+              "key": "still_in_london",
+              "intentKey": "apologise",
+              "slotId": "still_in_london",
+              "speaker": "character",
+              "text": "Je suis désolée, elle est restée à Londres.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Je suis désolée, elle est restée à Londres."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "I'm sorry, it stayed behind in London.",
+                  "note": "False friend: rester means to stay, to remain, not 'to rest'. Elle est restée: rester takes être too.",
+                  "literal": "I am sorry, she is stayed at London"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Désolée: day-zoh-LAY. Restée: ress-TAY."
+            },
+            {
+              "id": "french_ch4:french_lost_luggage:when_back",
+              "key": "when_back",
+              "intentKey": "ask_time",
+              "slotId": "when_back",
+              "speaker": "learner",
+              "text": "Quand est-ce que je vais la récupérer ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Quand est-ce que je vais la récupérer ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "When will I get it back?",
+                  "note": "Récupérer = to get back, to collect. La stands for la valise and goes before the infinitive: je vais la récupérer.",
+                  "literal": "when is-it that I go it to-recover"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Quand est-ce que: kahn-TESS-kuh; the d sounds like t. Récupérer: ray-kü-pay-RAY."
+            },
+            {
+              "id": "french_ch4:french_lost_luggage:tomorrow",
+              "key": "tomorrow",
+              "intentKey": "tell_time",
+              "slotId": "tomorrow",
+              "speaker": "character",
+              "text": "Demain matin. On vous la livre à quelle adresse ?",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Demain matin. On vous la livre à quelle adresse ?"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Tomorrow morning. Which address shall we deliver it to?",
+                  "note": "Livrer = to deliver. Spelling trap: adresse has one d and two s in French, the reverse of English 'address'.",
+                  "literal": "tomorrow morning. one to-you it delivers at which address"
+                }
+              },
+              "register": "neutral",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Livre: leevr. Adresse: ah-DRESS."
+            },
+            {
+              "id": "french_ch4:french_lost_luggage:deliver_to",
+              "key": "deliver_to",
+              "intentKey": "state_destination",
+              "slotId": "deliver_to",
+              "speaker": "learner",
+              "text": "Chez moi, s’il vous plaît : 12, rue Burdeau.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Chez moi, s’il vous plaît : 12, rue Burdeau."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "To my home, please: 12 rue Burdeau.",
+                  "note": "Chez moi = at my place, to my home. A French address starts with the number, then the street: 12, rue Burdeau, 69001 Lyon.",
+                  "literal": "at-home-of me, if it you pleases: 12, street Burdeau"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Chez moi: shay MWAH. Douze: dooz."
+            },
+            {
+              "id": "french_ch4:french_lost_luggage:file_number",
+              "key": "file_number",
+              "intentKey": "confirm_order",
+              "slotId": "file_number",
+              "speaker": "character",
+              "text": "C’est noté. Voici votre numéro de dossier.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "C’est noté. Voici votre numéro de dossier."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "That's noted. Here's your file number.",
+                  "note": "C’est noté = noted, that's done. Keep le numéro de dossier (the file reference) to track your suitcase online.",
+                  "literal": "it is noted. here-is your number of file"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Noté: noh-TAY. Dossier: doh-SYAY."
+            },
+            {
+              "id": "french_ch4:french_lost_luggage:thanks",
+              "key": "thanks",
+              "intentKey": "thank",
+              "slotId": "thanks",
+              "speaker": "learner",
+              "text": "Merci beaucoup, madame. Bonne soirée !",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Merci beaucoup, madame. Bonne soirée !"
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "Thank you very much. Have a good evening!",
+                  "note": "Bonne soirée = have a nice evening; bonne journée during the day. Adding madame or monsieur makes a thank-you warmer.",
+                  "literal": "thanks much, madam. good evening"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Soirée: swah-RAY."
+            },
+            {
+              "id": "french_ch4:french_lost_luggage:not_on_belt",
+              "key": "not_on_belt",
+              "intentKey": "report_lost_item",
+              "slotId": null,
+              "speaker": "learner",
+              "text": "Mon sac à dos n’est pas sur le tapis.",
+              "forms": [
+                {
+                  "script": "Latn",
+                  "scheme": null,
+                  "text": "Mon sac à dos n’est pas sur le tapis."
+                }
+              ],
+              "meanings": {
+                "en": {
+                  "meaning": "My backpack isn't on the carousel.",
+                  "note": "Le tapis (à bagages) = the baggage carousel; un tapis is also a rug. Un sac à dos (a bag on the back) = a backpack.",
+                  "literal": "my bag at back not is not on the carpet"
+                }
+              },
+              "register": "polite",
+              "codeSwitchNote": null,
+              "pronunciationNote": "Sac à dos: sah-kah-DOH. Tapis: tah-PEE."
+            }
+          ]
+        }
+      ]
     }
   ]
 }

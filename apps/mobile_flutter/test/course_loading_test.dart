@@ -93,7 +93,7 @@ void main() {
       expect([for (final t in bundle.availableFrom('fr')) t.id], [for (final t in testBundle.availableFrom('fr')) t.id]);
       expect(bundle.isAvailable('spanish-spain', 'en'), isTrue);
       expect(bundle.isAvailable('french', 'fr'), isFalse, reason: 'French is taught from English only');
-      expect(bundle.track('spanish-spain')!.missionsFrom('en'), 6 + 6, reason: 'chapters 1 and 2');
+      expect(bundle.track('spanish-spain')!.missionsFrom('en'), 6 + 6 + 6 + 6, reason: 'chapters 1 to 4');
       expect(bundle.isLoaded('spanish-spain'), isFalse);
       expect(bundle.course('spanish-spain', 'en'), isNull, reason: 'its chapters are not read yet');
       expect(bundle.isLoaded('klingon'), isFalse);
@@ -104,7 +104,7 @@ void main() {
       final bundle = await ContentBundle.load(reader.call, courses: ['spanish-spain', 'arabic-moroccan', 'klingon']);
       expect(reader.chapterReads.toSet(), {chapters('spanish-spain'), chapters('arabic-moroccan')});
       expect({for (final c in bundle.chapters) c.courseTrackId}, {'spanish-spain', 'arabic-moroccan'});
-      expect(bundle.course('spanish-spain', 'en')!.missions.length, 6 + 6);
+      expect(bundle.course('spanish-spain', 'en')!.missions.length, 6 + 6 + 6 + 6);
       expect(bundle.course('arabic-moroccan', 'fr')!.hasContent, isTrue);
       expect(bundle.mission('es_greet_and_introduce'), isNotNull);
       expect(bundle.mission('ja_greet_and_introduce'), isNull, reason: 'Japanese was not read');
@@ -197,11 +197,11 @@ void main() {
       await t.pumpWidget(await testApp(content: await ContentBundle.load(reader.call), read: reader.call));
       await settle(t);
       await tapText(t, 'Choose a course');
-      // The mission counts come from the catalog (chapters 1 and 2: 7 + 6).
-      expect(find.textContaining('13 missions'), findsWidgets);
+      // The mission counts come from the catalog (chapters 1 to 4: 7 + 6 + 6 + 6).
+      expect(find.textContaining('25 missions'), findsWidgets);
       final courses = find.byType(Scrollable).first;
       await t.scrollUntilVisible(find.text('Spanish (Spain-Castilian)'), 300, scrollable: courses);
-      expect(find.textContaining('12 missions'), findsWidgets);
+      expect(find.textContaining('24 missions'), findsWidgets);
       expect(reader.chapterReads, isEmpty);
 
       reader.hold = Completer();
@@ -211,7 +211,7 @@ void main() {
       expect(find.text('Start this course'), findsNothing);
       reader.hold!.complete();
       await settle(t);
-      expect(find.text('Mission pathway (12 missions)'), findsOneWidget);
+      expect(find.text('Mission pathway (24 missions)'), findsOneWidget);
       expect(reader.chapterReads, [chapters('spanish-spain')]);
 
       await tapText(t, 'Start this course');
@@ -233,7 +233,7 @@ void main() {
       reader.failing.clear();
       await tapText(t, 'Try again');
       expect(find.text('Start this course'), findsOneWidget);
-      expect(find.text('Mission pathway (10 missions)'), findsOneWidget);
+      expect(find.text('Mission pathway (22 missions)'), findsOneWidget);
     });
 
     testWidgets('a learner whose course was read at start-up opens on Home', (t) async {
