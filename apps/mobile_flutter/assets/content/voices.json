@@ -5417,9 +5417,17 @@
    "file": "assets/audio/lines/kinyarwanda-puck-5fc54d2008dcad04.mp3",
    "voice": "kinyarwanda-puck"
   },
+  "kinyarwanda_ch1:kinyarwanda_ask_directions:turn": {
+   "file": "assets/audio/lines/kinyarwanda-orus-15df398626ce2329.mp3",
+   "voice": "kinyarwanda-orus"
+  },
   "kinyarwanda_ch1:kinyarwanda_ask_directions:where_is": {
    "file": "assets/audio/lines/kinyarwanda-puck-495ca44190a5f2e1.mp3",
    "voice": "kinyarwanda-puck"
+  },
+  "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:asks_two": {
+   "file": "assets/audio/lines/kinyarwanda-aoede-8bf76ce6965f907f.mp3",
+   "voice": "kinyarwanda-aoede"
   },
   "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:just_one": {
    "file": "assets/audio/lines/kinyarwanda-puck-848c22c7792f0f66.mp3",
@@ -5437,6 +5445,10 @@
    "file": "assets/audio/lines/kinyarwanda-puck-3c80200f70ce2709.mp3",
    "voice": "kinyarwanda-puck"
   },
+  "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:picks": {
+   "file": "assets/audio/lines/kinyarwanda-aoede-479e66d16847696e.mp3",
+   "voice": "kinyarwanda-aoede"
+  },
   "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:refuse_permission_variant_13": {
    "file": "assets/audio/lines/kinyarwanda-puck-7ff4131270432b1b.mp3",
    "voice": "kinyarwanda-puck"
@@ -5449,6 +5461,14 @@
    "file": "assets/audio/lines/kinyarwanda-puck-48264285c8aba658.mp3",
    "voice": "kinyarwanda-puck"
   },
+  "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:thanks": {
+   "file": "assets/audio/lines/kinyarwanda-aoede-0fb7376137a73b20.mp3",
+   "voice": "kinyarwanda-aoede"
+  },
+  "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:wants": {
+   "file": "assets/audio/lines/kinyarwanda-aoede-7d3db56bcd63bc2e.mp3",
+   "voice": "kinyarwanda-aoede"
+  },
   "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:welcome": {
    "file": "assets/audio/lines/kinyarwanda-puck-5aa45eff17db7486.mp3",
    "voice": "kinyarwanda-puck"
@@ -5456,6 +5476,10 @@
   "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:which_flavour": {
    "file": "assets/audio/lines/kinyarwanda-puck-f73a7a0595b99e7c.mp3",
    "voice": "kinyarwanda-puck"
+  },
+  "kinyarwanda_ch1:kinyarwanda_buy_ice_cream:yummy": {
+   "file": "assets/audio/lines/kinyarwanda-aoede-08959beb1be28e49.mp3",
+   "voice": "kinyarwanda-aoede"
   },
   "kinyarwanda_ch1:kinyarwanda_cafe_order_drink:ask_for_bill_variant_9": {
    "file": "assets/audio/lines/kinyarwanda-puck-69c1533684e1f518.mp3",
@@ -5663,6 +5687,42 @@
   },
   "kinyarwanda_ch1:kinyarwanda_take_taxi:where_to": {
    "file": "assets/audio/lines/kinyarwanda-orus-0d972f465af86f9f.mp3",
+   "voice": "kinyarwanda-orus"
+  },
+  "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:bill": {
+   "file": "assets/audio/lines/kinyarwanda-puck-ab418a9fd9e7e723.mp3",
+   "voice": "kinyarwanda-puck"
+  },
+  "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:delicious": {
+   "file": "assets/audio/lines/kinyarwanda-puck-41075dbb11476ca6.mp3",
+   "voice": "kinyarwanda-puck"
+  },
+  "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:dish_of_day": {
+   "file": "assets/audio/lines/kinyarwanda-orus-342101488147f8b8.mp3",
+   "voice": "kinyarwanda-orus"
+  },
+  "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:ingredients": {
+   "file": "assets/audio/lines/kinyarwanda-puck-2d37848b6a7aadaa.mp3",
+   "voice": "kinyarwanda-puck"
+  },
+  "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:no_chilli": {
+   "file": "assets/audio/lines/kinyarwanda-orus-7a5d4bc1c0eef67f.mp3",
+   "voice": "kinyarwanda-orus"
+  },
+  "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:order": {
+   "file": "assets/audio/lines/kinyarwanda-puck-95139a69b56dc660.mp3",
+   "voice": "kinyarwanda-puck"
+  },
+  "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:recommend": {
+   "file": "assets/audio/lines/kinyarwanda-puck-760c3e0109169ec3.mp3",
+   "voice": "kinyarwanda-puck"
+  },
+  "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:table": {
+   "file": "assets/audio/lines/kinyarwanda-puck-306346abe580b9cd.mp3",
+   "voice": "kinyarwanda-puck"
+  },
+  "kinyarwanda_ch2:kinyarwanda_restaurant_order_meal:welcome": {
+   "file": "assets/audio/lines/kinyarwanda-orus-6c02b5b070d49395.mp3",
    "voice": "kinyarwanda-orus"
   },
   "korean_ch1:korean_ask_directions:ask_repeat_variant_11": {
